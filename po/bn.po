@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-21 06:41+0000\n"
+"PO-Revision-Date: 2020-08-01 11:13+0000\n"
 "Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
 "Language-Team: Bengali <https://hosted.weblate.org/projects/planner/"
 "translations/bn/>\n"
@@ -29,12 +29,10 @@ msgid "Adding task from clipboard…"
 msgstr "ক্লিপবোর্ড থেকে কাজ যোগ করা হচ্ছে…"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
-msgstr "আজ"
+msgstr "আজকে"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
 msgstr "আগামীকাল"
 
@@ -381,9 +379,8 @@ msgid "Upcoming"
 msgstr "আসন্ন"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
-#, fuzzy
 msgid "Add Project"
-msgstr "প্রকল্প যুক্ত করুন"
+msgstr "প্রকল্প যুক্ত করো"
 
 #: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
 msgid "Quick Find"
@@ -417,9 +414,8 @@ msgid "Name:"
 msgstr "নাম:"
 
 #: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "অধ্যায় বিলোপ করুন"
+msgstr "বিস্তারিত:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
@@ -468,9 +464,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "গ্রুপে আপনার প্রকল্প সংগঠিত করুন এবং আপনার প্যানেলকে পরিষ্কার রাখুন ।"
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "নোট যোগ করুন"
+msgstr "ফোল্ডার যোগ করো"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:79
@@ -547,9 +542,8 @@ msgid "Task name"
 msgstr "টাস্ক নাম"
 
 #: src/Widgets/ItemRow.vala:184
-#, fuzzy
 msgid "Hide Details"
-msgstr "বিস্তারিত দেখুন"
+msgstr "বিস্তারিত লুকাও"
 
 #: src/Widgets/ItemRow.vala:502
 msgid "Add Checklist"
@@ -564,9 +558,8 @@ msgid "Task Menu"
 msgstr "টাস্ক মেনু"
 
 #: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1512
-#, fuzzy
 msgid "Task deleted"
-msgstr "টাস্ক সম্পন্ন"
+msgstr "কাজ সম্পন্ন"
 
 #: src/Widgets/ItemRow.vala:1012
 #, c-format
@@ -574,9 +567,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "সম্পন্ন। পরবর্তী সংঘটন: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "টাস্ক সম্পন্ন"
+msgstr "১টি কাজ সম্পন্ন"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -652,37 +644,33 @@ msgid "Save"
 msgstr "সংরক্ষণ"
 
 #: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
-#, fuzzy
 msgid "Add a description"
-msgstr "অধ্যায় জুড়ুন"
+msgstr "বিস্তারিত যোগ করো"
 
 #: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
-#, fuzzy
 msgid "Description"
-msgstr "অধ্যায় বিলোপ করুন"
+msgstr "বিস্তারিত"
 
 #: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
-#, fuzzy, c-format
+#, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "কাজ সরানো হয়েছে <b> %s </b>"
+msgstr "বিভাগ সরানো হয়েছে <b>%s</b>তে"
 
 #: src/Widgets/SectionRow.vala:809
 msgid "Rename"
 msgstr "নামান্তর"
 
 #: src/Widgets/SectionRow.vala:810
-#, fuzzy
 msgid "Add Note"
-msgstr "নোট যোগ করুন"
+msgstr "নোট যোগ করো"
 
 #: src/Widgets/SectionRow.vala:865
 msgid "Delete section"
 msgstr "অধ্যায় বিলোপ করুন"
 
 #: src/Widgets/SectionRow.vala:883
-#, fuzzy
 msgid "Section deleted"
-msgstr "অংশের নাম"
+msgstr "বিভাগ মুছা হয়েছে"
 
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
@@ -720,15 +708,16 @@ msgid "labels"
 msgstr "লেবেল"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
-msgstr "লেবেল"
+msgstr "লেবেল ব্যবহার হচ্ছে"
 
 #: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"তোমার করণীয়গুলোকে লেবেল দিয়ে শ্রেণীবদ্ধ করো, তারপরে তোমার তালিকা বাছাই করতে "
+"এবং মনোনিবেশ করতে সেগুলি ব্যবহার করো।"
 
 #: src/Widgets/LabelButton.vala:123
 msgid "Type a label"
@@ -740,41 +729,37 @@ msgid "Edit labels"
 msgstr "লেবেল সম্পাদন করো"
 
 #: src/Widgets/LabelButton.vala:233
-#, fuzzy
 msgid "Add label"
-msgstr "লেবেল জুড়ুন"
+msgstr "লেবেল যোগ করো"
 
 #: src/Widgets/LabelButton.vala:236
 msgid "Label not found"
 msgstr "লেবেল পাওয়া যায়নি"
 
 #: src/Widgets/LabelButton.vala:237
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "তৈরি করুন"
+msgstr "'%s' তৈরি করো"
 
 #: src/Widgets/Toast.vala:68
 msgid "Undo"
 msgstr "পূর্বাবস্থায় ফিরুন"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
-#, fuzzy
 msgid "Task duplicate"
-msgstr "ডুপ্লিকেট"
+msgstr "কাজের ডুপ্লিকেট"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "টাস্কটি ক্লিপবোর্ডে অনুলিপি করা হয়েছিল।"
+msgstr "কাজটি ক্লিপবোর্ড থেকে অনুলিপি করা হয়েছে।"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
 msgstr "প্রকল্প যুক্ত করুন"
 
 #: src/Widgets/AreaRow.vala:679
-#, fuzzy
 msgid "Delete folder"
-msgstr "প্রকল্প মুছুন"
+msgstr "ফোল্ডার মুছো"
 
 #: src/Widgets/AreaRow.vala:687
 msgid "Delete projects"
@@ -911,7 +896,7 @@ msgstr "তোমার মাথায় কী কী কাজ আছে?"
 
 #: src/Views/Today.vala:139
 msgid "Tap + to add a task for today."
-msgstr ""
+msgstr "আজকের জন্য একটি কাজ যোগ করতে + টিপো।"
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:832
 #, c-format
@@ -935,9 +920,8 @@ msgid "Progress:"
 msgstr "অগ্রগতি:"
 
 #: src/Views/Project.vala:1272
-#, fuzzy
 msgid "Duedate:"
-msgstr "নির্ধারিত তারিখ"
+msgstr "নির্ধারিত তারিখ:"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
@@ -1066,24 +1050,22 @@ msgid "Night"
 msgstr "রাত"
 
 #: src/Dialogs/Preferences/Preferences.vala:413
-#, fuzzy
 msgid "Dark Blue"
-msgstr "আকাশী নীল"
+msgstr "গাঢ় নীল"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
-msgstr ""
+msgstr "আর্ক অন্ধকার"
 
 #: src/Dialogs/Preferences/Preferences.vala:467
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
-"আপনি কোন অ্যাপ ব্যবহার করছেন তা নিয়ে চিন্তা করবেন না । আপনি দ্রুত যোগ উইন্ডো খুলতে "
-"একটি কীবোর্ড শর্টকাট ব্যবহার করতে পারেন, যেখানে আপনি একটি অমীমাংসিত কাজ সন্নিবেশ "
-"করাতে পারেন এবং দ্রুত কাজ ফিরে পাবেন ।"
+"তুমি কোন অ্যাপ ব্যবহার করছো তা নিয়ে চিন্তা করবে না । তুমি দ্রুত যোগ করার "
+"উইন্ডো খুলতে একটি কীবোর্ড শর্টকাট ব্যবহার করতে পারো, যেখানে তুমি একটি "
+"প্রক্রিয়ারত কাজ সন্নিবেশ করে দ্রুত কাজে ফিরতে পারবে ।"
 
 #: src/Dialogs/Preferences/Preferences.vala:477
 #: src/Dialogs/Preferences/Preferences.vala:1047
@@ -1097,9 +1079,8 @@ msgid "Change"
 msgstr "পরিবর্তন"
 
 #: src/Dialogs/Preferences/Preferences.vala:517
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "কীবোর্ড শর্টকাট"
+msgstr "কীবোর্ড শর্টকাট পাল্টাও"
 
 #: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
@@ -1137,7 +1118,7 @@ msgstr "সিস্টেমের সাথে Planner সূচনা কর�
 
 #: src/Dialogs/Preferences/Preferences.vala:671
 msgid "Button layout"
-msgstr ""
+msgstr "বোতামের বিন্যাস"
 
 #: src/Dialogs/Preferences/Preferences.vala:680
 msgid "Help"
@@ -1235,22 +1216,24 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"যদি আপনি Planner পছন্দ করেন এবং আপনি তার উন্নয়নকে সমর্থন করতে চান, তবে দান করুন:"
+"পরিকল্পনাকারী বিকশিত হচ্ছে  ❤️  সঙ্গে এবং ওপেন সোর্সের আবেগের জন্য। যদিও, যদি"
+" তুমি চাও, পরিকল্পক, এবং তার উন্নয়ন সমর্থন করতে, দান বিবেচনা করার মাধ্যমে:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1140
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"যারা প্যাট্রিয়ন বা পেপালের মাধ্যমে অনুদান দিয়েছিলো তাদের ধন্যবাদ (তুমি যদি "
+"এখানে উপস্থিত হতে চাও তবে আমাদের প্যাট্রিয়ন অ্যাকাউন্ট দেখো 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1219
 msgid "Website"
-msgstr ""
+msgstr "ওয়েবসাইট"
 
 #: src/Dialogs/Preferences/Preferences.vala:1220
-#, fuzzy
 msgid "Follow"
-msgstr "হলুদ"
+msgstr "অনুসরণ"
 
 #: src/Dialogs/Preferences/Preferences.vala:1221
 msgid "Report a Problem"
@@ -1269,92 +1252,88 @@ msgid "Back"
 msgstr "পিছনে"
 
 #: src/Dialogs/QuickFind.vala:91
-#, fuzzy
 msgid "Completed"
 msgstr "সম্পূর্ণ"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
-msgstr ""
+msgstr "অগ্রাধিকার ১"
 
 #: src/Dialogs/QuickFind.vala:108
 msgid "Priority 2"
-msgstr ""
+msgstr "অগ্রাধিকার ২"
 
 #: src/Dialogs/QuickFind.vala:116
 msgid "Priority 3"
-msgstr ""
+msgstr "অগ্রাধিকার ৩"
 
 #: src/Dialogs/QuickFind.vala:124
 msgid "Priority 4"
-msgstr ""
+msgstr "অগ্রাধিকার ৪"
 
 #: src/Dialogs/QuickFind.vala:129
-#, fuzzy
 msgid "Search"
-msgstr "অনুসন্ধান খুলুন"
+msgstr "অনুসন্ধান"
 
 #: src/Dialogs/QuickFind.vala:157
 msgid "Quickly switch projects and views, find tasks, search by labels."
-msgstr ""
+msgstr "প্রকল্প ও দর্শনে দ্রুত পাল্টাও, কাজ খুঁজো, লেবেল দ্বারা অনুসন্ধান করো।"
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "উপরে"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "নিচে"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "এন্টার"
 
 #: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
-msgstr ""
+msgstr "এস্কেপ"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "ব্যবহার"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr ""
+msgstr "খুঁজে বের করতে এবং"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "নির্বাচন করতে,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "বন্ধ করতে।"
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "প্রবেশ করো"
 
 #: src/Dialogs/QuickFind.vala:507
-#, fuzzy
 msgid "Tasks"
-msgstr "কার্য"
+msgstr "কাজ"
 
 #: src/Dialogs/QuickFind.vala:603
 msgid "Views"
-msgstr ""
+msgstr "দৃষ্ট"
 
 #: src/Dialogs/QuickFind.vala:701
 msgid "Priorities"
-msgstr ""
+msgstr "অগ্রাধিকার"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
 msgstr "প্রকল্পটি ক্লিপবোর্ডে অনুলিপি করা হয়েছিল ।"
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "ডুপ্লিকেট"
+msgstr "ডুপ্লিকেট কাজ…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
