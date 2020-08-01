@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-18 22:44+0000\n"
+"PO-Revision-Date: 2020-08-02 18:42+0000\n"
 "Last-Translator: Yannick A. <yannick.armand@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
@@ -388,7 +388,7 @@ msgstr "À venir"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
 msgid "Add Project"
-msgstr "Ajouter un Projet"
+msgstr "Ajouter un projet"
 
 #: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
 msgid "Quick Find"
@@ -766,7 +766,7 @@ msgstr "Tâche ajoutée depuis le presse-papier"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
-msgstr "Ajouter un Projet"
+msgstr "Ajouter un projet"
 
 #: src/Widgets/AreaRow.vala:679
 msgid "Delete folder"
@@ -893,7 +893,7 @@ msgstr "On dirait que tout est organisé."
 
 #: src/Views/Inbox.vala:767 src/Views/Project.vala:1053
 msgid "Show Completed"
-msgstr "Afficher les Tâches complétées"
+msgstr "Afficher les tâches complétées"
 
 #: src/Views/Today.vala:93
 msgid "Overdue"
@@ -1353,7 +1353,7 @@ msgstr "Priorités"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
-msgstr "Le Projet a été copié dans le Presse-Papier."
+msgstr "Le projet a été copié dans le presse-papier."
 
 #: src/Objects/Item.vala:125
 msgid "Duplicating task…"
@@ -1361,11 +1361,11 @@ msgstr "Duplication de la tâche…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
-msgstr "La Tâche a été copiée dans le Presse-Papier."
+msgstr "La tâche a été copiée dans le presse-papier."
 
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
-msgstr "La Section a été copiée dans le Presse-Papier."
+msgstr "La section a été copiée dans le presse-papier."
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "
