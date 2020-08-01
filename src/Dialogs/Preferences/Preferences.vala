@@ -36,7 +36,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: true
+            modal: true,
+            title: _("Preferences")
         );
     }
 

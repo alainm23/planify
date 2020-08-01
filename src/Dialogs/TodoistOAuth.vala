@@ -33,7 +33,8 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true,
-            view: view
+            view: view,
+            title: _("Todoist")
         );
     }
 

@@ -37,7 +37,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             // modal: true,
-            use_header_bar: 1
+            use_header_bar: 1,
+            title: _("Quick Find")
         );
     }
 
