@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-30 01:41+0000\n"
+"PO-Revision-Date: 2020-08-01 11:13+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -948,7 +948,7 @@ msgstr "Синхронізація... Будь ласка, зачекайте х
 
 #: src/Dialogs/TodoistOAuth.vala:115
 msgid "Please enter your credentials…"
-msgstr "Будь ласка, введіть ваші облікові дані…"
+msgstr "Введіть ваші облікові дані…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1088,7 +1088,7 @@ msgstr "Змінити"
 
 #: src/Dialogs/Preferences/Preferences.vala:517
 msgid "Change Keyboard Shortcut"
-msgstr "Змінити комбінації клавіш"
+msgstr "Змінити комбінацію клавіш"
 
 #: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
@@ -1174,7 +1174,7 @@ msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
-"Заощадьте час, згрупувавши подібні завдання мітками. Ви зможете переглянути "
+"Заощадьте час, позначивши подібні завдання мітками. Ви зможете переглянути "
 "перелік всіх завдань з однаковою міткою за лічені секунди."
 
 #: src/Dialogs/Preferences/Preferences.vala:918
