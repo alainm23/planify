@@ -1677,10 +1677,13 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
-            FROM Projects WHERE name LIKE '%s';
-        """.printf ("%" + search_text + "%");
+            FROM Projects WHERE name LIKE ?;
+        """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, "%" + search_text + "%");
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Project?> ();
@@ -2011,10 +2014,13 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, name, color, item_order, is_deleted, is_favorite, is_todoist
-            FROM Labels WHERE name LIKE '%s';
-        """.printf ("%" + search_text + "%");
+            FROM Labels WHERE name LIKE ?;
+        """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, "%" + search_text + "%");
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Label?> ();
@@ -4093,10 +4099,13 @@ public class Services.Database : GLib.Object {
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order
-            FROM Items WHERE checked = 0 AND content LIKE '%s';
-        """.printf ("%" + search_text + "%");
+            FROM Items WHERE checked = 0 AND content LIKE ?;
+        """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, "%" + search_text + "%");
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Item?> ();
