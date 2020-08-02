@@ -489,7 +489,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var accels = new ShortcutLabel (shortcut_hint.split ("+"));
         accels.halign = Gtk.Align.END;
 
-        var keybinding_toggle_recording_button = new Gtk.ToggleButton.with_label (_ ("Change"));
+        var keybinding_toggle_recording_button = new Gtk.ToggleButton.with_label (_ ("Press keys…"));
+        keybinding_toggle_recording_button.get_style_context ().add_class ("flat");
         keybinding_toggle_recording_button.valign = Gtk.Align.CENTER;
 
         var shortcut_stack = new Gtk.Stack ();
@@ -576,22 +577,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         change_button.clicked.connect (() => {
             keybinding_toggle_recording_button.active = true;
             shortcut_stack.visible_child_name = "button";
-
-            if (keybinding_toggle_recording_button.active) {
-                keybinding_toggle_recording_button.label = _ ("Press keys…");
-            } else {
-                keybinding_toggle_recording_button.label = _ ("Change");
-            }
         });
-
-        keybinding_toggle_recording_button.toggled.connect (() => {
-            if (keybinding_toggle_recording_button.active) {
-                keybinding_toggle_recording_button.label = _ ("Press keys…");
-            } else {
-                keybinding_toggle_recording_button.label = _ ("Change");
-            }
-        });
-
+        
          // Listen to key events on the window for setting keyboard shortcuts
         this.key_release_event.connect ((event) => {
             if (keybinding_toggle_recording_button.active) {
@@ -611,7 +598,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             }
 
             shortcut_stack.visible_child_name = "accels";
-
             return false;
         });
 

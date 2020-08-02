@@ -1437,12 +1437,15 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         today_menu = new Widgets.ImageMenuItem (_("Today"), "help-about-symbolic");
         today_menu.item_image.get_style_context ().add_class ("today-icon");
+        // today_menu.item_image.pixel_size = 14;
 
         tomorrow_menu = new Widgets.ImageMenuItem (_("Tomorrow"), "x-office-calendar-symbolic");
         tomorrow_menu.item_image.get_style_context ().add_class ("upcoming-icon");
+        // tomorrow_menu.item_image.pixel_size = 14;
 
         undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
         undated_menu.item_image.get_style_context ().add_class ("due-clear");
+        // undated_menu.item_image.pixel_size = 14;
 
         date_separator = new Gtk.SeparatorMenuItem ();
 

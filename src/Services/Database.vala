@@ -4147,7 +4147,7 @@ public class Services.Database : GLib.Object {
                 Items.due_date, Items.due_timezone, Items.due_string, Items.due_lang, Items.due_is_recurring, Items.date_added,
                 Items.date_completed, Items.date_updated, Items.is_todoist, Items.day_order
             FROM Items_Labels
-            INNER JOIN Items ON Items.id = Items_Labels.item_id WHERE Items_Labels.label_id = ?;
+            INNER JOIN Items ON Items.id = Items_Labels.item_id WHERE Items_Labels.label_id = ? AND Items.checked = 0;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

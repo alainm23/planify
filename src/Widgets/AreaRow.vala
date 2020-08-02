@@ -414,7 +414,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
     private void toggle_hidden () {
         if (toggle_timeout != 0) {
-            Source.remove (timeout_id);
+            Source.remove (toggle_timeout);
             top_eventbox.get_style_context ().remove_class ("active");
         }
 

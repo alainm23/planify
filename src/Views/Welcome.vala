@@ -25,11 +25,15 @@ public class Views.Welcome : Gtk.EventBox {
     construct {
         var welcome = new Granite.Widgets.Welcome ("Planner", _("Never worry about forgetting things again"));
         welcome.margin_bottom = 48;
-        welcome.append ("help-about", _("Startup"), _("Start working locally."));
-        welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist account and start working."));
+        welcome.append ("help-about", _("Startup"), _("Start Working Locally."));
+        welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist Account."));
         welcome.get_style_context ().remove_class (Gtk.STYLE_CLASS_VIEW);
-        
-        add (welcome);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.expand = true;
+        scrolled.add (welcome);
+
+        add (scrolled);
 
         welcome.activated.connect ((index) => {
             activated (index);

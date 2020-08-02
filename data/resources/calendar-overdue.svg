@@ -7,13 +7,13 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="calendar-overdue.svg"
-   id="svg30"
-   version="1.1"
-   viewBox="0 0 16 16"
+   width="16"
    height="16"
-   width="16">
+   viewBox="0 0 16 16"
+   version="1.1"
+   id="svg30"
+   sodipodi:docname="calendar-overdue.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
   <metadata
      id="metadata36">
     <rdf:RDF>
@@ -29,107 +29,33 @@
   <defs
      id="defs34" />
   <sodipodi:namedview
-     inkscape:current-layer="svg30"
-     inkscape:window-maximized="1"
-     inkscape:window-y="30"
-     inkscape:window-x="0"
-     inkscape:cy="8"
-     inkscape:cx="7.9240987"
-     inkscape:zoom="32.9375"
-     showgrid="false"
-     id="namedview32"
-     inkscape:window-height="705"
-     inkscape:window-width="1366"
-     inkscape:pageshadow="2"
-     inkscape:pageopacity="0"
-     guidetolerance="10"
-     gridtolerance="10"
-     objecttolerance="10"
-     borderopacity="1"
-     bordercolor="#666666"
+     inkscape:document-rotation="0"
      pagecolor="#ffffff"
-     inkscape:document-rotation="0" />
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview32"
+     showgrid="false"
+     inkscape:zoom="11.645165"
+     inkscape:cx="3.3752345"
+     inkscape:cy="9.6284658"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg30" />
   <title
      id="title2">ionicons-v5-e</title>
-  <rect
-     id="rect4"
-     style="fill:none;stroke:#fa1955;stroke-width:1px;stroke-linejoin:round;stroke-opacity:1"
-     ry="1.5"
-     rx="1.5"
-     height="12"
-     width="13"
-     y="2.5"
-     x="1.5" />
   <path
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="path6"
-     d="M 12.431875,2.5 H 3.568125 C 2.427813,2.5 1.5,3.442188 1.5,4.6 V 6.5 H 2 C 2,6 2.5,5.5 3,5.5 h 10 c 0.5,0 1,0.5 1,1 h 0.5 V 4.6 c 0,-1.157812 -0.927813,-2.1 -2.068125,-2.1 z" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle8"
-     r="0.75"
-     cy="7.25"
-     cx="9.25" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle10"
-     r="0.75"
-     cy="7.25"
-     cx="11.75" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle12"
-     r="0.75"
-     cy="9.75"
-     cx="9.25" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle14"
-     r="0.75"
-     cy="9.75"
-     cx="11.75" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle16"
-     r="0.75"
-     cy="9.75"
-     cx="4.25" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle18"
-     r="0.75"
-     cy="9.75"
-     cx="6.75" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle20"
-     r="0.75"
-     cy="12.25"
-     cx="4.25" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle22"
-     r="0.75"
-     cy="12.25"
-     cx="6.75" />
-  <circle
-     style="fill:#fa1955;fill-opacity:1;stroke-width:0.03125"
-     id="circle24"
-     r="0.75"
-     cy="12.25"
-     cx="9.25" />
-  <line
-     id="line26"
-     style="fill:none;stroke:#fa1955;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-     y2="2.5"
-     x2="4"
-     y1="1.5"
-     x1="4" />
-  <line
-     id="line28"
-     style="fill:none;fill-opacity:1;stroke:#fa1955;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
-     y2="2.5"
-     x2="12"
-     y1="1.5"
-     x1="12" />
+     id="path843"
+     style="isolation:auto;mix-blend-mode:normal;fill:#fa1955;fill-opacity:1;marker:none"
+     overflow="visible"
+     fill="#666666"
+     d="m 5.5,1.5003163 c -0.277,0 -0.5,0.227 -0.5,0.5 v 0.5 h 1 v -0.5 c 0,-0.277 -0.223,-0.5 -0.5,-0.5 z m 0.5,1 v 0.5 a 0.5,0.50000002 0 1 1 -1,0 v -0.5 H 3.5 c -0.831,0 -1.5,0.6690001 -1.5,1.5000001 v 8.9999996 c 0,0.831 0.669,1.500001 1.5,1.500001 h 9 c 0.831,0 1.5,-0.669001 1.5,-1.500001 V 4.0003164 c 0,-0.831 -0.669,-1.5000001 -1.5,-1.5000001 H 11 v 0.5 a 0.5000001,0.50000012 0 1 1 -1,0 v -0.5 z m 4,0 h 1 v -0.5 a 0.5000001,0.50000012 0 1 0 -1,0 z M 3.5,6.5003164 h 9 c 0.277,0 0.5,0.223 0.5,0.5 v 5.9999996 c 0,0.277 -0.223,0.5 -0.5,0.5 h -9 a 0.49899998,0.499 0 0 1 -0.5,-0.5 V 7.0003164 c 0,-0.277 0.223,-0.5 0.5,-0.5 z"
+     color="#bebebe" />
 </svg>
