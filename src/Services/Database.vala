@@ -2713,30 +2713,7 @@ public class Services.Database : GLib.Object {
         var i = new Objects.Item ();
 
         if (stmt.step () == Sqlite.ROW) {
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            i = create_item_from_stmt (stmt);
         }
 
         stmt.reset ();
@@ -3216,32 +3193,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3272,32 +3224,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3328,32 +3255,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3381,32 +3283,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3437,32 +3314,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3493,32 +3345,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3549,32 +3376,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3605,32 +3407,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3661,32 +3438,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3717,32 +3469,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3773,32 +3500,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3829,32 +3531,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -3882,32 +3559,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
             if (Planner.utils.is_today (due)) {
@@ -3938,32 +3590,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
             if (Planner.utils.is_overdue (due)) {
@@ -3994,32 +3621,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             if (i.due_date != "") {
                 var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
@@ -4055,32 +3657,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -4111,32 +3688,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -4168,32 +3720,7 @@ public class Services.Database : GLib.Object {
         var all = new Gee.ArrayList<Objects.Item?> ();
 
         while ((res = stmt.step ()) == Sqlite.ROW) {
-            var i = new Objects.Item ();
-
-            i.id = stmt.column_int64 (0);
-            i.project_id = stmt.column_int64 (1);
-            i.section_id = stmt.column_int64 (2);
-            i.user_id = stmt.column_int64 (3);
-            i.assigned_by_uid = stmt.column_int64 (4);
-            i.responsible_uid = stmt.column_int64 (5);
-            i.sync_id = stmt.column_int64 (6);
-            i.parent_id = stmt.column_int64 (7);
-            i.priority = stmt.column_int (8);
-            i.item_order = stmt.column_int (9);
-            i.checked = stmt.column_int (10);
-            i.is_deleted = stmt.column_int (11);
-            i.content = stmt.column_text (12);
-            i.note = stmt.column_text (13);
-            i.due_date = stmt.column_text (14);
-            i.due_timezone = stmt.column_text (15);
-            i.due_string = stmt.column_text (16);
-            i.due_lang = stmt.column_text (17);
-            i.due_is_recurring = stmt.column_int (18);
-            i.date_added = stmt.column_text (19);
-            i.date_completed = stmt.column_text (20);
-            i.date_updated = stmt.column_text (21);
-            i.is_todoist = stmt.column_int (22);
-            i.day_order = stmt.column_int (23);
+            var i = create_item_from_stmt (stmt);
 
             all.add (i);
         }
@@ -4472,5 +3999,36 @@ public class Services.Database : GLib.Object {
             stmt.reset ();
             return true;
         }
+    }
+
+    private Objects.Item create_item_from_stmt (Sqlite.Statement stmt) {
+        var i = new Objects.Item ();
+
+        i.id = stmt.column_int64 (0);
+        i.project_id = stmt.column_int64 (1);
+        i.section_id = stmt.column_int64 (2);
+        i.user_id = stmt.column_int64 (3);
+        i.assigned_by_uid = stmt.column_int64 (4);
+        i.responsible_uid = stmt.column_int64 (5);
+        i.sync_id = stmt.column_int64 (6);
+        i.parent_id = stmt.column_int64 (7);
+        i.priority = stmt.column_int (8);
+        i.item_order = stmt.column_int (9);
+        i.checked = stmt.column_int (10);
+        i.is_deleted = stmt.column_int (11);
+        i.content = stmt.column_text (12);
+        i.note = stmt.column_text (13);
+        i.due_date = stmt.column_text (14);
+        i.due_timezone = stmt.column_text (15);
+        i.due_string = stmt.column_text (16);
+        i.due_lang = stmt.column_text (17);
+        i.due_is_recurring = stmt.column_int (18);
+        i.date_added = stmt.column_text (19);
+        i.date_completed = stmt.column_text (20);
+        i.date_updated = stmt.column_text (21);
+        i.is_todoist = stmt.column_int (22);
+        i.day_order = stmt.column_int (23);
+
+        return i;
     }
 }
