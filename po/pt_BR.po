@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-04 22:41+0000\n"
-"Last-Translator: Augusto Camargos <augustocamargos@outlook.com>\n"
+"PO-Revision-Date: 2020-07-30 01:41+0000\n"
+"Last-Translator: Lucas Faria <lucasljf@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -26,7 +26,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Adicionando tarefa da área de transferência…"
 
 #: src/Utils.vala:28
 msgid "today"
@@ -469,9 +469,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organize seus projetos em grupos e mantenha seu painel limpo."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Pasta"
+msgstr "Adicionar Pasta"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:79
@@ -753,14 +752,12 @@ msgid "Undo"
 msgstr "Desfazer"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Duplicar"
+msgstr "Tarefa duplicada"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "A tarefa foi copiada para a área de transferência."
+msgstr "A tarefa foi copiada para a área de transferência"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -1348,9 +1345,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "O projeto foi copiado para a área de transferência."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Duplicar tarefa"
+msgstr "Duplicando tarefa…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."

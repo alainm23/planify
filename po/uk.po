@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-18 22:44+0000\n"
+"PO-Revision-Date: 2020-08-01 11:13+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -171,7 +171,7 @@ msgid ""
 "you need to do."
 msgstr ""
 "Цей проєкт допоможе вам дізнатися основні функції Planner та почати роботу з "
-"простою системою керування завданнями, щоби завжди бути організованим та "
+"простою системою керування завданнями, щоб завжди бути організованим та "
 "памʼятати про всі ваші завдання."
 
 #: src/Utils.vala:861
@@ -192,7 +192,7 @@ msgstr ""
 "дієво, коли у вас 30+ завдань, які одночасно потребують вашої уваги. Ось "
 "чому першим кроком до організації вашої роботи й життя є переміщення всього "
 "з вашої голови до вашого переліку завдань. Звідси, ви можете почати "
-"організовувати та визначати пріоритети, щоби напевно знати, на чому і коли "
+"організовувати та визначати пріоритети, щоб напевно знати, на чому і коли "
 "зосередитися."
 
 #: src/Utils.vala:867
@@ -205,8 +205,8 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
-"- Щоби додати нове завдання до Planner, просто натисніть + та натисніть "
-"Enter.\n"
+"- Щоб додати нове завдання до Planner, просто натисніть + та натисніть Enter."
+"\n"
 "- Коли ваше завдання створено, натисніть на завдання, щоб отримати "
 "можливість його редагувати, додати примітку або інші деталі."
 
@@ -250,7 +250,7 @@ msgstr ""
 "проєкту.\n"
 "- Виберіть джерело з розкривного меню.\n"
 "- (Додатково) Виберіть інший колір проєкту з переліку кольорів.\n"
-"- Натисніть кнопку Додати, щоби створити проєкт."
+"- Натисніть кнопку Додати, щоб створити проєкт."
 
 #: src/Utils.vala:892
 msgid "Sections"
@@ -274,7 +274,7 @@ msgid ""
 msgstr ""
 "- Завжди простіше братися за великий проєкт, якщо ви розділите його на легко "
 "керовані частини, скориставшись розділами Planner.\n"
-"- Впорядкуйте свої проєкти за допомогою розділів, щоби згрупувати ваші "
+"- Впорядкуйте свої проєкти за допомогою розділів, щоб згрупувати ваші "
 "завдання разом та отримати зручніший огляд необхідних завдань. Додайте "
 "розділи до вашого проєкту, перетягніть завдання до відповідного розділу і ви "
 "зрозумієте наскільки це полегшує досягнення успіху (у порівнянні з довгими, "
@@ -902,7 +902,7 @@ msgstr "Які завдання у вас на думці?"
 
 #: src/Views/Today.vala:139
 msgid "Tap + to add a task for today."
-msgstr "Натисніть +, щоби додати завдання на сьогодні."
+msgstr "Натисніть +, щоб додати завдання на сьогодні."
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:832
 #, c-format
@@ -915,7 +915,7 @@ msgstr "Що ви будете виконувати?"
 
 #: src/Views/Project.vala:393
 msgid "Tap + to add a task to this project."
-msgstr "Натисніть +, щоби додати завдання до цього проєкту."
+msgstr "Натисніть +, щоб додати завдання до цього проєкту."
 
 #: src/Views/Project.vala:1256
 msgid "Your Productivity"
@@ -940,7 +940,7 @@ msgstr "Мережа недоступна"
 
 #: src/Dialogs/TodoistOAuth.vala:70
 msgid "Connect to the Internet to connect with Todoist"
-msgstr "Підʼєднайтеся до Інтернету, щоби з'єднатися з Todoist"
+msgstr "Підʼєднайтеся до Інтернету, щоб з'єднатися з Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:103
 msgid "Synchronizing… Wait a moment please."
@@ -948,7 +948,7 @@ msgstr "Синхронізація... Будь ласка, зачекайте х
 
 #: src/Dialogs/TodoistOAuth.vala:115
 msgid "Please enter your credentials…"
-msgstr "Будь ласка, введіть ваші облікові дані…"
+msgstr "Введіть ваші облікові дані…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1088,7 +1088,7 @@ msgstr "Змінити"
 
 #: src/Dialogs/Preferences/Preferences.vala:517
 msgid "Change Keyboard Shortcut"
-msgstr "Змінити комбінації клавіш"
+msgstr "Змінити комбінацію клавіш"
 
 #: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
@@ -1113,8 +1113,8 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
-"Увімкніть цей параметр, щоби Planner працював у фоновому режимі, коли ви "
-"його закриваєте. Це дозволить Planner продовжувати оновлення та надсилання "
+"Увімкніть цей параметр, щоб Planner працював у фоновому режимі, коли ви його "
+"закриваєте. Це дозволить Planner продовжувати оновлення та надсилання "
 "сповіщень."
 
 #: src/Dialogs/Preferences/Preferences.vala:650
@@ -1124,7 +1124,7 @@ msgstr "Автозапуск"
 #: src/Dialogs/Preferences/Preferences.vala:654
 msgid "Enable this setting to make Planner startup with the system."
 msgstr ""
-"Увімкніть цей параметр, щоби Planner запускався під час завантаження системи."
+"Увімкніть цей параметр, щоб Planner запускався під час завантаження системи."
 
 #: src/Dialogs/Preferences/Preferences.vala:671
 msgid "Button layout"
@@ -1174,7 +1174,7 @@ msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
-"Заощадьте час, згрупувавши подібні завдання мітками. Ви зможете переглянути "
+"Заощадьте час, позначивши подібні завдання мітками. Ви зможете переглянути "
 "перелік всіх завдань з однаковою міткою за лічені секунди."
 
 #: src/Dialogs/Preferences/Preferences.vala:918
@@ -1191,7 +1191,7 @@ msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
-"Увімкніть цей параметр, щоби Planner автоматично синхронізувався з вашим "
+"Увімкніть цей параметр, щоб Planner автоматично синхронізувався з вашим "
 "обліковим записом Todoist що 15 хвилин."
 
 #: src/Dialogs/Preferences/Preferences.vala:944
@@ -1311,15 +1311,15 @@ msgstr "Натисніть"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr "щоби виділити та"
+msgstr "щоб виділити та"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr "щоби вибрати,"
+msgstr "щоб вибрати,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr "щоби закрити."
+msgstr "щоб закрити."
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
