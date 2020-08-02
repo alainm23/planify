@@ -25,7 +25,8 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
             transient_for: Planner.instance.main_window,
             deletable: true,
             resizable: true,
-            modal: false
+            modal: false,
+            title: _("Keyboard Shortcuts")
         );
     }
 

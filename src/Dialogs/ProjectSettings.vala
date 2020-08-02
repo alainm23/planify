@@ -37,7 +37,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: false
+            modal: false,
+            title: _("Project Settings")
         );
     }
 
