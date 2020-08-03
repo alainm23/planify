@@ -3676,13 +3676,16 @@ public class Services.Database : GLib.Object {
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order
-            FROM Items WHERE checked = 0 AND content LIKE ?;
+            FROM Items WHERE checked = 0 AND (content LIKE ? OR note LIKE ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_text (1, "%" + search_text + "%");
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, "%" + search_text + "%");
         assert (res == Sqlite.OK);
 
         var all = new Gee.ArrayList<Objects.Item?> ();
