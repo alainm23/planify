@@ -150,6 +150,18 @@ public class Services.Database : GLib.Object {
         if (!Planner.database.column_exists ("Items", "day_order")) {
             Planner.database.add_int_column ("Items", "day_order", -1);
         }
+
+        /*
+        * Release 2.5
+        * - Add sort_order to Projects
+        * 0 -> Default
+        * 1 -> Date
+        * 2 -> Priority
+        * 3 -> Name
+        */
+        if (!Planner.database.column_exists ("Projects", "sort_order")) {
+            Planner.database.add_int_column ("Projects", "sort_order", 0);
+        }
     }
 
     public void reset_all () {
@@ -250,7 +262,8 @@ public class Services.Database : GLib.Object {
                 is_sync          INTEGER,
                 shared           INTEGER,
                 is_kanban        INTEGER,
-                show_completed   INTEGER
+                show_completed   INTEGER,
+                sort_order       INTEGER
             );
         """;
 
@@ -1137,8 +1150,8 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, area_id, name, note, due_date, color,
                 is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived,
-                is_favorite, is_sync, shared, show_completed)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                is_favorite, is_sync, shared, show_completed, sort_order)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1190,6 +1203,9 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (16, project.show_completed);
+        assert (res == Sqlite.OK);
+        
+        res = stmt.bind_int (16, project.sort_order);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1262,6 +1278,31 @@ public class Services.Database : GLib.Object {
             project_updated (project);
         }
 
+        stmt.reset ();
+    }
+
+    public void update_sort_order_project (int64 project_id, int orden) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            UPDATE Projects SET sort_order = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int (1, orden);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, project_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.DONE) {
+            Planner.event_bus.sort_items_project (project_id, orden);
+        }
+        
         stmt.reset ();
     }
 
@@ -1523,7 +1564,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects WHERE area_id = ? ORDER BY item_order;
         """;
 
@@ -1555,6 +1597,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
 
             all.add (p);
         }
@@ -1570,7 +1613,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects WHERE is_todoist = 1;
         """;
 
@@ -1599,6 +1643,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
 
             all.add (p);
         }
@@ -1632,7 +1677,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects ORDER BY item_order;
         """;
 
@@ -1661,6 +1707,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
 
             all.add (p);
         }
@@ -1676,7 +1723,8 @@ public class Services.Database : GLib.Object {
         
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects WHERE name LIKE ?;
         """;
 
@@ -1708,6 +1756,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
 
             all.add (p);
         }
@@ -1723,7 +1772,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
         """;
 
@@ -1752,6 +1802,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
 
             all.add (p);
         }
@@ -1767,7 +1818,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
-            item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed
+                item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
+                sort_order
             FROM Projects WHERE id = ?;
         """;
 
@@ -1797,6 +1849,7 @@ public class Services.Database : GLib.Object {
             p.shared = stmt.column_int (14);
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
+            p.sort_order = stmt.column_int (17);
         }
 
         stmt.reset ();

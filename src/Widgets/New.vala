@@ -164,16 +164,12 @@ public class Widgets.New : Gtk.Revealer {
 
         submit_button.add (submit_stack);
 
-        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("planner-button");
-
         var action_grid = new Gtk.Grid ();
         action_grid.margin = 3;
         action_grid.column_spacing = 3;
         action_grid.hexpand = true;
         action_grid.valign = Gtk.Align.END;
         action_grid.column_homogeneous = true;
-        action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
         var action_bar = new Gtk.ActionBar ();
@@ -193,6 +189,17 @@ public class Widgets.New : Gtk.Revealer {
         box.pack_start (area_revealer, false, false, 0);
         box.pack_end (action_bar, false, false, 0);
 
+        var close_image = new Gtk.Image ();
+        close_image.gicon = new ThemedIcon ("close-symbolic");
+        close_image.pixel_size = 12;
+
+        var close_button = new Gtk.Button ();
+        close_button.tooltip_markup = Granite.markup_accel_tooltip ({"Escape"}, _("Close"));
+        close_button.image = close_image;
+        close_button.valign = Gtk.Align.START;
+        close_button.halign = Gtk.Align.START;
+        close_button.get_style_context ().add_class ("close-button");
+
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -206,10 +213,13 @@ public class Widgets.New : Gtk.Revealer {
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-
         main_grid.add (stack);
 
-        add (main_grid);
+        var overlay = new Gtk.Overlay ();
+        overlay.add_overlay (close_button);
+        overlay.add (main_grid);
+
+        add (overlay);
 
         submit_button.clicked.connect (() => {
             create_project ();
@@ -227,8 +237,7 @@ public class Widgets.New : Gtk.Revealer {
             }
         });
 
-        cancel_button.clicked.connect (cancel);
-
+        close_button.clicked.connect (cancel);
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 cancel ();
@@ -515,21 +524,9 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("flat");
         area_button.get_style_context ().add_class ("menuitem");
 
-        var cancel_button = new Gtk.Button.with_label (_("Close"));
-        cancel_button.get_style_context ().add_class ("planner-button");
-        cancel_button.margin = 3;
-        cancel_button.hexpand = true;
-
-        var action_bar = new Gtk.ActionBar ();
-        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (cancel_button);
-
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.pack_start (project_button, false, false, 0);
         box.pack_start (area_button, false, false, 0);
-        box.pack_end (action_bar, false, false, 0);
-
-        cancel_button.clicked.connect (cancel);
 
         project_button.clicked.connect (() => {
             stack.visible_child_name = "box";

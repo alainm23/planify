@@ -989,7 +989,7 @@ public class Utils : GLib.Object {
 
     public string get_markup_format (string text) {
         Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
-        Regex link_regex = /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/;
+        // Regex link_regex = /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/;
         Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
         Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
         Regex bold_regex = /\*\*(.*?)\*\*/;

@@ -42,7 +42,10 @@ public class Services.EventBus : Object {
     public bool ctrl_pressed { get; set; default = false; }
     public signal void select_item (Widgets.ItemRow row);
     public signal void unselect_all ();
-    
+
+    // Sort Project
+    public signal void sort_items_project (int64 project_id, int orden);
+
     public void test (string caller_id) {
         debug (@"Test from EventBus called by $(caller_id)");
     }

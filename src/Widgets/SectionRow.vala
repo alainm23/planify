@@ -720,6 +720,50 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 item_row_removed (row);
             }
         });
+
+        Planner.event_bus.sort_items_project.connect ((project_id, order) => {
+            if (section.project_id == project_id) {
+                set_sort_func (order);
+            }
+        });
+    }
+
+    private void set_sort_func (int order) {
+        listbox.set_sort_func ((row1, row2) => {
+            var item1 = ((Widgets.ItemRow) row1).item;
+            var item2 = ((Widgets.ItemRow) row2).item;
+
+            if (order == 0) {
+                return 0;
+            } else if (order == 1) {
+                if (item1.due_date != "" && item2.due_date != "") {
+                    var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
+                    var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
+
+                    return date1.compare (date2);
+                }
+
+                if (item1.due_date == "" && item2.due_date != "") {
+                    return 1;
+                }
+
+                return 0;
+            } else if (order == 2) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            } else {
+                return item1.content.collate (item2.content);
+            }
+        });
+
+        listbox.set_sort_func (null);
     }
 
     private void build_defaul_drag_and_drop () {

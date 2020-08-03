@@ -285,10 +285,6 @@ public class Views.Project : Gtk.EventBox {
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        // listbox.margin_bottom = 3;
-        // listbox.margin_top = 6;
-        // listbox.set_filter_func (filter_function);
-        // listbox.set_sort_func (sort_function);
         listbox.hexpand = true;
 
         completed_listbox = new Gtk.ListBox ();
@@ -853,6 +849,50 @@ public class Views.Project : Gtk.EventBox {
                 item_row_removed (row);
             }
         });
+
+        Planner.event_bus.sort_items_project.connect ((project_id, order) => {
+            if (project.id == project_id) {
+                set_sort_func (order);
+            }
+        });
+    }
+
+    private void set_sort_func (int order) {
+        listbox.set_sort_func ((row1, row2) => {
+            var item1 = ((Widgets.ItemRow) row1).item;
+            var item2 = ((Widgets.ItemRow) row2).item;
+
+            if (order == 0) {
+                return 0;
+            } else if (order == 1) {
+                if (item1.due_date != "" && item2.due_date != "") {
+                    var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
+                    var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
+
+                    return date1.compare (date2);
+                }
+
+                if (item1.due_date == "" && item2.due_date != "") {
+                    return 1;
+                }
+
+                return 0;
+            } else if (order == 2) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            } else {
+                return item1.content.collate (item2.content);
+            }
+        });
+
+        listbox.set_sort_func (null);
     }
 
     private void update_note_label (string text) {
@@ -1043,7 +1083,10 @@ public class Views.Project : Gtk.EventBox {
         popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var edit_menu = new Widgets.ModelButton (_("Edit"), "edit-symbolic", "");
+        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
+        var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
+        var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
+        var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 
         var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
@@ -1087,12 +1130,15 @@ public class Views.Project : Gtk.EventBox {
         separator_02.margin_bottom = 3;
 
         var popover_grid = new Gtk.Grid ();
-        popover_grid.width_request = 250;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 3;
         popover_grid.margin_bottom = 3;
         popover_grid.add (edit_menu);
         popover_grid.add (separator_01);
+        popover_grid.add (sort_date_menu);
+        popover_grid.add (sort_priority_menu);
+        popover_grid.add (sort_name_menu);
+        popover_grid.add (separator_02);
         popover_grid.add (show_completed_button);
         popover_grid.add (delete_menu);
 
@@ -1152,6 +1198,21 @@ public class Views.Project : Gtk.EventBox {
             save (false);
             
             return Gdk.EVENT_STOP;
+        });
+
+        sort_date_menu.clicked.connect (() => {
+            Planner.database.update_sort_order_project (project.id, 1);
+            popover.popdown ();
+        });
+
+        sort_priority_menu.clicked.connect (() => {
+            Planner.database.update_sort_order_project (project.id, 2);
+            popover.popdown ();
+        });
+
+        sort_name_menu.clicked.connect (() => {
+            Planner.database.update_sort_order_project (project.id, 3);
+            popover.popdown ();
         });
     }
 
