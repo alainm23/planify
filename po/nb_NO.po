@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-06-02 08:41+0000\n"
+"PO-Revision-Date: 2020-08-06 10:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "translations/nb_NO/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1-dev\n"
+"X-Generator: Weblate 4.2-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -26,7 +26,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Legger til gjøremål fra utklippstavle…"
 
 #: src/Utils.vala:28
 #, fuzzy
@@ -979,7 +979,7 @@ msgstr "Skriv inn dine identitetsdetaljer…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Tidsfrist:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1330,39 +1330,40 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "OPPOVER"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "NEDOVER"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:200
+#, fuzzy
 msgid "ESC"
-msgstr ""
+msgstr "Esc"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "Bruk"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr ""
+msgstr "for å navigere, og"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "for å velge,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "for å lukke,"
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
