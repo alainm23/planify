@@ -38,12 +38,12 @@
     ],
     "modules": [
         {
-            "name" : "libical",
-            "cleanup" : [
+            "name": "libical",
+            "cleanup": [
                 "/lib/cmake"
             ],
-            "buildsystem" : "cmake-ninja",
-            "config-opts" : [
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
                 "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
                 "-DBUILD_SHARED_LIBS=On",
                 "-DGOBJECT_INTROSPECTION=true",
@@ -52,28 +52,34 @@
                 "-DICAL_BUILD_DOCS=False",
                 "-DWITH_CXX_BINDINGS=False"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "archive",
-                    "url" : "https://github.com/libical/libical/releases/download/v3.0.8/libical-3.0.8.tar.gz",
-                    "sha256" : "09fecacaf75ba5a242159e3a9758a5446b5ce4d0ab684f98a7040864e1d1286f"
+                    "type": "archive",
+                    "url": "https://github.com/libical/libical/releases/download/v3.0.8/libical-3.0.8.tar.gz",
+                    "sha256": "09fecacaf75ba5a242159e3a9758a5446b5ce4d0ab684f98a7040864e1d1286f"
                 }
             ]
         },
         {
             "name": "intltool",
-            "cleanup": [ "*" ],
-            "sources": [{
-                "type": "archive",
-                "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-                "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
-            }]
+            "cleanup": [
+                "*"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
         },
         {
-            "name" : "evolution-data-server",
-            "buildsystem" : "cmake-ninja",
-            "cleanup" : [ "/share/GConf" ],
-            "config-opts" : [
+            "name": "evolution-data-server",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/share/GConf"
+            ],
+            "config-opts": [
                 "-DENABLE_FILE_LOCKING=fcntl",
                 "-DENABLE_DOT_LOCKING=OFF",
                 "-DENABLE_OAUTH2=ON",
@@ -93,12 +99,12 @@
                 "-DWITH_OPENLDAP=OFF",
                 "-DENABLE_WEATHER=OFF"
             ],
-            "sources" : [
-               {
+            "sources": [
+                {
                     "type": "archive",
                     "url": "https://download.gnome.org/sources/evolution-data-server/3.36/evolution-data-server-3.36.0.tar.xz",
                     "sha256": "d4d70e6658fb9e1f85639dcff315bbdddd3aa2de2ad069b1776af3fb9e9598ec"
-               }
+                }
             ]
         },
         {
@@ -108,19 +114,23 @@
                 "install -D data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml",
                 "sed -i -e 's/@GETTEXT_PACKAGE@/gnome-settings-daemon/g' /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml"
             ],
-            "sources" : [{
-                "type" : "archive",
-                "url" : "https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz",
-                "sha256" : "e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748"
-            }]
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz",
+                    "sha256": "e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748"
+                }
+            ]
         },
         {
             "name": "planner",
             "buildsystem": "meson",
-            "sources": [{
-              "type": "dir",
-              "path": "../.."
-            }]
+            "sources": [
+                {
+                    "type": "dir",
+                    "path": "../.."
+                }
+            ]
         }
     ]
-  }
+}
