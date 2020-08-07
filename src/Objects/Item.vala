@@ -178,6 +178,9 @@ public class Objects.Item : GLib.Object {
         builder.set_member_name ("content");
         builder.add_string_value (this.content);
 
+        builder.set_member_name ("note");
+        builder.add_string_value (this.note);
+
         builder.set_member_name ("checked");
         builder.add_int_value (this.checked);
 
