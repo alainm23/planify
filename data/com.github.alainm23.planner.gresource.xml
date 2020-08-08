@@ -19,6 +19,7 @@
     <file alias="folder-outline.svg">resources/folder-outline.svg</file>
     <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
     <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
+    <file alias="github.svg">resources/github.svg</file>
 
     <file alias="notifications-outline-light.svg">resources/notifications-outline-light.svg</file>
     <file alias="notifications-outline-dark.svg">resources/notifications-outline-dark.svg</file>
