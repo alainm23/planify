@@ -48,6 +48,7 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ToggleButton section_button;
     private Gtk.Popover new_section_popover = null;
     private Gtk.Popover popover = null;
+    private Gtk.Menu share_menu = null;
     private Gtk.ToggleButton settings_button;
 
     private Gtk.Popover progress_popover = null;
@@ -424,6 +425,7 @@ public class Views.Project : Gtk.EventBox {
             note_textview.visible = true;
 
             check_placeholder_view ();
+            set_sort_func (project.sort_order);
 
             return false;
         });
@@ -1059,6 +1061,8 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void update_item_order () {
+        Planner.settings.set_int ("today-sort-order", 0);
+
         if (timeout != 0) {
             Source.remove (timeout);
         }
@@ -1088,6 +1092,7 @@ public class Views.Project : Gtk.EventBox {
         var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
         var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+        var share_item = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", "", true);
 
         var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
         delete_menu.get_style_context ().add_class ("menu-danger");
@@ -1129,6 +1134,10 @@ public class Views.Project : Gtk.EventBox {
         separator_02.margin_top = 3;
         separator_02.margin_bottom = 3;
 
+        var separator_03 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator_03.margin_top = 3;
+        separator_03.margin_bottom = 3;
+
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 3;
@@ -1139,6 +1148,8 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.add (sort_priority_menu);
         popover_grid.add (sort_name_menu);
         popover_grid.add (separator_02);
+        popover_grid.add (share_item);
+        popover_grid.add (separator_03);
         popover_grid.add (show_completed_button);
         popover_grid.add (delete_menu);
 
@@ -1213,6 +1224,29 @@ public class Views.Project : Gtk.EventBox {
         sort_name_menu.clicked.connect (() => {
             Planner.database.update_sort_order_project (project.id, 3);
             popover.popdown ();
+        });
+
+        share_item.clicked.connect (() => {
+            if (share_menu == null) {
+                share_menu = new Gtk.Menu ();
+
+                var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
+                var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+
+                share_menu.add (share_mail);
+                share_menu.add (share_markdown_menu);
+                share_menu.show_all ();
+
+                share_mail.activate.connect (() => {
+                    project.share_mail ();
+                });
+        
+                share_markdown_menu.activate.connect (() => {
+                    project.share_markdown ();
+                });
+            }
+
+            share_menu.popup_at_pointer (null);
         });
     }
 
@@ -1303,15 +1337,6 @@ public class Views.Project : Gtk.EventBox {
         // due_bar.value = get_due_progress ();
 
         progress_popover.show_all ();
-    }
-    
-    private double get_due_progress () {
-        var date1 = new DateTime.now_local ();
-        var date2 = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
-
-        var d = (date2.to_unix () - date1.to_unix ()) / (60 * 60 * 24);
-        print ("Days: %s\n".printf (d.to_string ()));
-        return 1 - (1 / d);
     }
 
     public void build_progress_popover () {

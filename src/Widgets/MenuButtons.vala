@@ -99,6 +99,7 @@ public class Widgets.ModelButton : Gtk.Button {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.margin_start = 3;
+        box.margin_end = 3;
         box.pack_start (item_image, false, false, 0);
         box.pack_start (item_label, false, true, 0);
         if (arrow) {
@@ -226,7 +227,6 @@ public class Widgets.ToggleButton : Gtk.ToggleButton {
 
         var label = new Gtk.Label (title);
         label.use_markup = true;
-
 
         var grid = new Gtk.Grid ();
         grid.halign = Gtk.Align.CENTER;

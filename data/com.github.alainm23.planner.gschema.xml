@@ -85,6 +85,12 @@
             <summary>Most recent pane position</summary>
             <description>Most recent pane position</description>
         </key>
+
+        <key name="today-sort-order" type="i">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
+        </key>
         
         <key name="calendar-enabled" type="b">
             <default>true</default>

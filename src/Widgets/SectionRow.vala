@@ -316,6 +316,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         build_defaul_drag_and_drop ();
 
+        
+        Timeout.add (125, () => {
+            set_sort_func (Planner.database.get_project_by_id (section.project_id).sort_order);
+            return false;
+        });
+
         Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
             if (section.project_id == project_id && section.id == section_id) {
                 add_new_item (index);
