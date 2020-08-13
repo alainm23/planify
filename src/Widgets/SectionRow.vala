@@ -246,6 +246,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        listbox.set_placeholder (get_placeholder ());
 
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
@@ -957,6 +958,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             items_list.add (row);
         }
 
+        if (items_uncompleted_added.size <= 0) {
+            listbox_revealer.reveal_child = true;
+        }
+
         listbox.show_all ();
     }
 
@@ -1228,5 +1233,32 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         items_list.remove (row);
         items_uncompleted_added.unset (row.item.id.to_string ());
         items_completed_added.unset (row.item.id.to_string ());
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        button.valign = Gtk.Align.CENTER;
+        button.always_show_image = true;
+        button.can_focus = false;
+        button.label = _("Add Task");
+        button.get_style_context ().add_class ("flat");
+        button.get_style_context ().add_class ("font-bold");
+        button.get_style_context ().add_class ("add-button");
+        button.get_style_context ().add_class ("background-transparent");
+        button.show ();
+
+        var grid = new Gtk.Grid ();
+        grid.margin = 12;
+        grid.halign = Gtk.Align.CENTER;
+        grid.get_style_context ().add_class ("card");
+        grid.get_style_context ().add_class ("border-radius-4");
+        grid.add (button);
+        grid.show ();
+
+        button.clicked.connect (() => {
+            add_new_item (0);
+        });
+
+        return grid;
     }
 }

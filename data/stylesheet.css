@@ -1223,3 +1223,7 @@ paned.horizontal > separator {
 .app-notification spinner {
     color: @bg_color;
 }
+
+.background-transparent {
+    background-color: transparent;
+}

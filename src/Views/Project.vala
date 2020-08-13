@@ -287,6 +287,7 @@ public class Views.Project : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        // listbox.set_placeholder (get_placeholder ());
 
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_start = 30;
@@ -1593,5 +1594,32 @@ public class Views.Project : Gtk.EventBox {
 
         listbox.show_all ();
         main_stack.visible_child_name = "project";
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        button.valign = Gtk.Align.CENTER;
+        button.always_show_image = true;
+        button.can_focus = false;
+        button.label = _("Add Task");
+        button.get_style_context ().add_class ("flat");
+        button.get_style_context ().add_class ("font-bold");
+        button.get_style_context ().add_class ("add-button");
+        button.get_style_context ().add_class ("background-transparent");
+        button.show ();
+
+        var grid = new Gtk.Grid ();
+        grid.margin = 12;
+        grid.halign = Gtk.Align.CENTER;
+        grid.get_style_context ().add_class ("card");
+        grid.get_style_context ().add_class ("border-radius-4");
+        grid.add (button);
+        grid.show ();
+
+        button.clicked.connect (() => {
+            add_new_item (0);
+        });
+
+        return grid;
     }
 }
