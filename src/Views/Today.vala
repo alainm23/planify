@@ -23,6 +23,8 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox event_listbox;
     private Gtk.ListBox listbox;
     private Gtk.ListBox overdue_listbox;
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
     private Gtk.Stack view_stack;
     private Gtk.Revealer overdue_revealer;
     private Gtk.ToggleButton reschedule_button;
@@ -30,11 +32,14 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.Popover popover = null;
     private Gtk.Menu share_menu = null;
     private Gtk.ToggleButton settings_button;
+    private Gtk.ModelButton show_completed_button;
+    private Gtk.Switch show_completed_switch;
 
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
-    
     private Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gee.HashMap <string, Widgets.ItemRow> overdues_loaded;
+    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    
     private Gee.ArrayList<Widgets.ItemRow?> items_list;
     private Gee.ArrayList<Widgets.ItemRow?> overdue_list;
 
@@ -52,6 +57,7 @@ public class Views.Today : Gtk.EventBox {
         
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
         overdues_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -105,6 +111,20 @@ public class Views.Today : Gtk.EventBox {
         listbox.hexpand = true;
         listbox.margin_top = 6;
 
+        completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 30;
+        completed_listbox.margin_end = 32;
+        completed_listbox.valign = Gtk.Align.START;
+        completed_listbox.get_style_context ().add_class ("listbox");
+        completed_listbox.activate_on_single_click = true;
+        completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        completed_listbox.hexpand = true;
+
+        completed_revealer = new Gtk.Revealer ();
+        completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        completed_revealer.add (completed_listbox);
+        completed_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
+
         var overdue_label = new Gtk.Label (_("Overdue"));
         overdue_label.get_style_context ().add_class ("font-bold");
         overdue_label.halign = Gtk.Align.START;
@@ -148,6 +168,7 @@ public class Views.Today : Gtk.EventBox {
         var listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         listbox_box.expand = true;
         listbox_box.add (listbox);
+        listbox_box.add (completed_revealer);
         listbox_box.add (overdue_revealer);
 
         var placeholder_view = new Widgets.Placeholder (
@@ -197,6 +218,7 @@ public class Views.Today : Gtk.EventBox {
 
         add (main_box);
         add_all_items ();
+        add_completed_items ();
         show_all ();
         build_drag_and_drop ();
 
@@ -209,6 +231,7 @@ public class Views.Today : Gtk.EventBox {
 
         Planner.event_bus.day_changed.connect (() => {
             add_all_items ();
+            add_completed_items ();
         });
 
         reschedule_button.toggled.connect (() => {
@@ -341,6 +364,14 @@ public class Views.Today : Gtk.EventBox {
                     check_placeholder_view ();
                 }
 
+                if (items_completed_added.has_key (item.id.to_string ()) == false) {
+                    var row = new Widgets.ItemCompletedRow (item);
+
+                    items_completed_added.set (item.id.to_string (), row);
+                    completed_listbox.insert (row, 0);
+                    completed_listbox.show_all ();
+                }
+
                 return false;
             });
         });
@@ -375,6 +406,8 @@ public class Views.Today : Gtk.EventBox {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
             } else if (key == "today-sort-order") {
                 set_sort_func (Planner.settings.get_int ("today-sort-order"));
+            } else if (key == "show-today-completed") {
+                completed_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
             }
         });
 
@@ -413,9 +446,32 @@ public class Views.Today : Gtk.EventBox {
         var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
         var share_item = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", "", true);
 
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 3;
-        separator.margin_bottom = 3;
+        // Show Complete
+        var show_completed_image = new Gtk.Image ();
+        show_completed_image.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_image.valign = Gtk.Align.START;
+        show_completed_image.pixel_size = 16;
+
+        var show_completed_label = new Gtk.Label (_("Show Completed"));
+        show_completed_label.hexpand = true;
+        show_completed_label.valign = Gtk.Align.START;
+        show_completed_label.xalign = 0;
+        show_completed_label.margin_start = 9;
+
+        show_completed_switch = new Gtk.Switch ();
+        show_completed_switch.margin_start = 12;
+        show_completed_switch.get_style_context ().add_class ("planner-switch");
+        show_completed_switch.active = Planner.settings.get_boolean ("show-today-completed");
+
+        var show_completed_grid = new Gtk.Grid ();
+        show_completed_grid.add (show_completed_image);
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_switch);
+
+        show_completed_button = new Gtk.ModelButton ();
+        show_completed_button.get_style_context ().add_class ("popover-model-button");
+        show_completed_button.get_child ().destroy ();
+        show_completed_button.add (show_completed_grid);
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -424,8 +480,16 @@ public class Views.Today : Gtk.EventBox {
         popover_grid.add (sort_project_menu);
         popover_grid.add (sort_priority_menu);
         popover_grid.add (sort_name_menu);
-        popover_grid.add (separator);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
         popover_grid.add (share_item);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+        popover_grid.add (show_completed_button);
 
         popover.add (popover_grid);
 
@@ -469,6 +533,13 @@ public class Views.Today : Gtk.EventBox {
             }
 
             share_menu.popup_at_pointer (null);
+        });
+
+        show_completed_button.button_release_event.connect (() => {
+            show_completed_switch.activate ();
+            Planner.settings.set_boolean ("show-today-completed", !show_completed_switch.active);
+            check_placeholder_view ();
+            return Gdk.EVENT_STOP;
         });
     }
 
@@ -743,10 +814,26 @@ public class Views.Today : Gtk.EventBox {
             overdue_list.add (row);
 
             overdue_listbox.add (row);
-            overdue_listbox.show_all ();
+            overdue_listbox.show_all ();   
         }
 
         check_placeholder_view ();
+    }
+
+    private void add_completed_items () {
+        items_completed_added.clear ();
+        completed_listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
+
+        foreach (var item in Planner.database.get_all_today_completed_items ()) {
+            var row = new Widgets.ItemCompletedRow (item);
+
+            items_completed_added.set (item.id.to_string (), row);
+            
+            completed_listbox.add (row);
+            completed_listbox.show_all ();
+        }
     }
 
     private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
@@ -816,6 +903,12 @@ public class Views.Today : Gtk.EventBox {
         tomorrow_button.color = 1;
         tomorrow_button.due_label = true;
 
+        var undated_button = new Widgets.ModelButton (_("Undated"), "window-close-symbolic", "");
+        undated_button.get_style_context ().add_class ("due-menuitem");
+        undated_button.item_image.pixel_size = 14;
+        undated_button.color = 2;
+        undated_button.due_label = true;
+
         var calendar = new Widgets.Calendar.Calendar ();
         calendar.hexpand = true;
 
@@ -823,6 +916,7 @@ public class Views.Today : Gtk.EventBox {
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (today_button);
         grid.add (tomorrow_button);
+        grid.add (undated_button);
         grid.add (calendar);
         grid.show_all ();
 
@@ -832,6 +926,10 @@ public class Views.Today : Gtk.EventBox {
 
         tomorrow_button.clicked.connect (() => {
             set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
+        });
+
+        undated_button.clicked.connect (() => {
+            set_due ("");
         });
 
         calendar.selection_changed.connect ((date) => {

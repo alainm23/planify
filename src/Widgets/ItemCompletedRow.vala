@@ -24,7 +24,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
     private Gtk.Menu menu = null;
     private Gtk.Box main_box;
     public string view { get; construct; }
-
+    private uint timeout_id = 0;
     private Gtk.Revealer main_revealer;
 
     public ItemCompletedRow (Objects.Item item, string view="project") {
@@ -127,11 +127,17 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         handle.add (main_box);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.reveal_child = true;
+        main_revealer.reveal_child = false;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (handle);
 
         add (main_revealer);
+
+        timeout_id = Timeout.add (150, () => {
+            timeout_id = 0;
+            main_revealer.reveal_child = true;
+            return false;
+        });
 
         checked_button.toggled.connect (() => {
             if (checked_button.active == false) {

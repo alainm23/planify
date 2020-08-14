@@ -263,9 +263,12 @@ public class MainWindow : Gtk.Window {
                 // Init Progress Server
                 init_badge_count ();
                 init_progress_controller ();
-            } else {
+            } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
+            } else {
+                var s = new Services.ExportImport ();
+                s.import_backup ();
             }
         });
 

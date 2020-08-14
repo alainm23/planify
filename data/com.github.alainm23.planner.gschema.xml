@@ -170,6 +170,12 @@
             <description>User name</description>
         </key>
 
+        <key name="show-today-completed" type="b">
+            <default>false</default>
+            <summary>show-today-completed</summary>
+            <description>show-today-completed</description>
+        </key>
+
         <key name="todoist-sync-server" type="b">
             <default>true</default>
             <summary>todoist-sync-server</summary>

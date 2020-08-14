@@ -118,6 +118,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var labels_item = new Dialogs.Preferences.Item ("tag", _("Labels"));
         var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
 
+        var share_b = new Gtk.Button.with_label (_("Share"));
+        share_b.clicked.connect (() => {
+            var s = new Services.ExportImport ();
+            s.save_file_as ();
+        });
+
         var addons_grid = new Gtk.Grid ();
         addons_grid.margin_top = 18;
         addons_grid.valign = Gtk.Align.START;
@@ -702,7 +708,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_startup_label, false, false, 0);
         box.pack_start (button_layout, false, false, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        box.pack_start (database_settings, false, false, 0);
+        // box.pack_start (database_settings, false, false, 0);/
         box.pack_start (help_header, false, false, 0);
         box.pack_start (tutorial_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);

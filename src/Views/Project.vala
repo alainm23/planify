@@ -300,7 +300,6 @@ public class Views.Project : Gtk.EventBox {
         completed_revealer = new Gtk.Revealer ();
         completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         completed_revealer.add (completed_listbox);
-        // completed_revealer.margin_bottom = 32;
         if (project.show_completed == 1) {
             completed_revealer.reveal_child = true;
         }
@@ -958,9 +957,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_completed_items () {
-        var all = Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id);
-
-        foreach (var item in all) {
+        foreach (var item in Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id)) {
             var row = new Widgets.ItemCompletedRow (item);
 
             completed_listbox.add (row);
@@ -1125,31 +1122,28 @@ public class Views.Project : Gtk.EventBox {
         show_completed_button.get_style_context ().add_class ("popover-model-button");
         show_completed_button.get_child ().destroy ();
         show_completed_button.add (show_completed_grid);
-
-        var separator_01 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator_01.margin_top = 3;
-        separator_01.margin_bottom = 3;
-
-        var separator_02 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator_02.margin_top = 3;
-        separator_02.margin_bottom = 3;
-
-        var separator_03 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator_03.margin_top = 3;
-        separator_03.margin_bottom = 3;
-
+        
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 3;
         popover_grid.margin_bottom = 3;
         popover_grid.add (edit_menu);
-        popover_grid.add (separator_01);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
         popover_grid.add (sort_date_menu);
         popover_grid.add (sort_priority_menu);
         popover_grid.add (sort_name_menu);
-        popover_grid.add (separator_02);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
         popover_grid.add (share_item);
-        popover_grid.add (separator_03);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
         popover_grid.add (show_completed_button);
         popover_grid.add (delete_menu);
 

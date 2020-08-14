@@ -2352,6 +2352,45 @@ public class Services.Database : GLib.Object {
         return s;
     }
 
+    public Gee.ArrayList<Objects.Section?> get_all_sections () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, name, project_id, item_order, collapsed, sync_id, is_deleted, is_archived,
+                date_archived, date_added, is_todoist, note
+            FROM Sections ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Section?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var s = new Objects.Section ();
+
+            s.id = stmt.column_int64 (0);
+            s.name = stmt.column_text (1);
+            s.project_id = stmt.column_int64 (2);
+            s.item_order = stmt.column_int (3);
+            s.collapsed = stmt.column_int (4);
+            s.sync_id = stmt.column_int64 (5);
+            s.is_deleted = stmt.column_int (6);
+            s.is_archived = stmt.column_int (7);
+            s.date_archived = stmt.column_text (8);
+            s.date_added = stmt.column_text (9);
+            s.is_todoist = stmt.column_int (10);
+            s.note = stmt.column_text (11);
+
+            all.add (s);
+        }
+
+        stmt.reset ();
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Section?> get_all_sections_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -3286,6 +3325,34 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Gee.ArrayList<Objects.Item?> get_all_items () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist, day_order
+            FROM Items ORDER BY item_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = create_item_from_stmt (stmt);
+
+            all.add (i);
+        }
+
+        stmt.reset ();
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;
@@ -3604,6 +3671,37 @@ public class Services.Database : GLib.Object {
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order
             FROM Items WHERE checked = 0 AND due_date != '' ORDER BY day_order;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = create_item_from_stmt (stmt);
+
+            var due = new GLib.DateTime.from_iso8601 (i.due_date, new GLib.TimeZone.local ());
+            if (Planner.utils.is_today (due)) {
+                  all.add (i);
+            }
+        }
+
+        stmt.reset ();
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Item?> get_all_today_completed_items () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist, day_order
+            FROM Items WHERE checked = 1 AND due_date != '' ORDER BY day_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
