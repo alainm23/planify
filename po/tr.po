@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-18 22:44+0000\n"
-"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
+"PO-Revision-Date: 2020-08-14 18:59+0000\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -1269,19 +1269,19 @@ msgstr "Tamamlandı"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
-msgstr ""
+msgstr "Öncelik 1"
 
 #: src/Dialogs/QuickFind.vala:108
 msgid "Priority 2"
-msgstr ""
+msgstr "Öncelik 2"
 
 #: src/Dialogs/QuickFind.vala:116
 msgid "Priority 3"
-msgstr ""
+msgstr "Öncelik 3"
 
 #: src/Dialogs/QuickFind.vala:124
 msgid "Priority 4"
-msgstr ""
+msgstr "Öncelik 4"
 
 #: src/Dialogs/QuickFind.vala:129
 msgid "Search"
@@ -1293,19 +1293,19 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "Yukarı"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "Aşağı"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
@@ -1325,7 +1325,7 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "Enter"
 
 #: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
@@ -1337,7 +1337,7 @@ msgstr "Görünümler"
 
 #: src/Dialogs/QuickFind.vala:701
 msgid "Priorities"
-msgstr ""
+msgstr "Öncelikler"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
