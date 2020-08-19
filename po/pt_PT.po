@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-08-14 18:59+0000\n"
-"Last-Translator: André Barata <andretiagob@protonmail.com>\n"
+"PO-Revision-Date: 2020-08-20 21:36+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -157,7 +157,7 @@ msgstr "Adição Rápida Ativada!"
 #: src/Utils.vala:816
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr "Experimente %s para ativá-lo. Você pode alterá-lo nas preferências"
+msgstr "Experimente %s para ativá-lo. Pode alterá-lo nas preferências"
 
 #: src/Utils.vala:855
 msgid "🚀️ Getting Started"
@@ -191,7 +191,7 @@ msgstr ""
 "coisa em que precisa de trabalhar. Não é tão bom quando tem mais de 30 "
 "tarefas a disputir a sua atenção de uma vez só. É por isso que o primeiro "
 "passo para organizar o seu trabalho e a sua vida é tirar tudo da sua cabeça "
-"e colocar numa lista de tarefas. A partir daí pode começar a organizar e a "
+"e pôr numa lista de tarefas. A partir daí pode começar a organizar e a "
 "priorizar para saber exatamente em que se deve focar e quando."
 
 #: src/Utils.vala:867
@@ -221,7 +221,7 @@ msgid ""
 msgstr ""
 "- Se sabe que precisa executar a tarefa num determinado dia, clique no ícone "
 "do calendário e selecione uma data.\n"
-"- Se deseja excluir a data de vencimento, repita o processo e selecione a "
+"- Se deseja apagar a data de vencimento, repita o processo e selecione a "
 "opção \"sem data\"."
 
 #: src/Utils.vala:881
@@ -271,14 +271,14 @@ msgid ""
 "- Type the name of your section and click Add."
 msgstr ""
 "- É sempre mais fácil assumir um grande projeto quando o divide em várias "
-"partes de fácil gerenciamento usando as secções do Planner.\n"
+"partes de fácil gestão usando as secções do Planner.\n"
 "- Organize os seu projetos com seções para agrupar as suas tarefas e obter "
 "uma melhor visão geral do que precisa de ser feito. Adicione seções ao seu "
-"projeto, arraste as tarefas relevantes para a seção em que pertencem e "
+"projeto, arraste as tarefas relevantes para a secção em que pertencem e "
 "achará muito mais fácil progredir (em vez de ficar sobrecarregado por uma "
 "única lista longa).\n"
 "- No canto superior direito de um projeto, clique no ícone +.\n"
-"- Digite o nome da sua seção e clique em Adicionar."
+"- Digite o nome da sua secção e clique em Adicionar."
 
 #: src/Utils.vala:918
 msgid "Create a new task"
@@ -299,7 +299,7 @@ msgstr "Criar novo projeto"
 
 #: src/Utils.vala:922
 msgid "Create a new section"
-msgstr "Criar nova seção"
+msgstr "Criar nova secção"
 
 #: src/Utils.vala:923
 msgid "Open the Inbox"
@@ -669,7 +669,7 @@ msgstr "Adicionar Nota"
 
 #: src/Widgets/SectionRow.vala:865
 msgid "Delete section"
-msgstr "Apagar seção"
+msgstr "Apagar secção"
 
 #: src/Widgets/SectionRow.vala:883
 msgid "Section deleted"
@@ -1068,10 +1068,10 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
-"Não se preocupe com que aplicação está a usar. Você pode usar o atalho do "
-"seu teclado para abrir a janela do Adicionar Rápido, onde é possível inserir "
-"uma tarefa pendente e retomar rapidamente ao trabalho. Você pode alterar o "
-"atalho do teclado quando quiser."
+"Não se preocupe com que app está a usar. Pode usar o atalho do seu teclado "
+"para abrir a janela do Adicionar Rápido, onde é possível inserir uma tarefa "
+"pendente e retomar rapidamente ao trabalho. Pode alterar o atalho do teclado "
+"quando quiser."
 
 #: src/Dialogs/Preferences/Preferences.vala:477
 #: src/Dialogs/Preferences/Preferences.vala:1047
@@ -1173,8 +1173,8 @@ msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
-"Poupe tempo agrupando tarefas semelhantes usando etiquetas. Você poderá ver "
-"uma lista de todas as tarefas com uma etiqueta específica em segundos."
+"Poupe tempo agrupando tarefas semelhantes usando etiquetas. Poderá ver uma "
+"lista de todas as tarefas com uma etiqueta específica em segundos."
 
 #: src/Dialogs/Preferences/Preferences.vala:918
 #, c-format
@@ -1204,7 +1204,7 @@ msgstr "Tem a certeza que quer sair?"
 
 #: src/Dialogs/Preferences/Preferences.vala:995
 msgid "This process will close your Todoist session on this device."
-msgstr "Este processo vai fechar a sua sessão Todoist neste dispositivo."
+msgstr "Este processo vai fechar a sua sessão Todoist neste aparelho."
 
 #: src/Dialogs/Preferences/Preferences.vala:1036
 msgid ""
@@ -1213,10 +1213,10 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
-"Você pode conectar a sua aplicação de <b>Calendário</b> ao Planner para ver "
-"os seus eventos e tarefas num único sítio. Irá ver eventos de calendários "
-"pessoais e partilhados em <b>Hoje</b> e <b>Próximos</b>. Isto é útil "
-"enquanto organiza o seu dia e vai planeando a sua semana."
+"Pode conectar a sua app de <b>Calendário</b> ao Planner para ver os seus "
+"eventos e tarefas num único sítio. Irá ver eventos de calendários pessoais e "
+"partilhados em <b>Hoje</b> e <b>Próximos</b>. Isto é útil enquanto organiza "
+"o seu dia e vai planeando a sua semana."
 
 #: src/Dialogs/Preferences/Preferences.vala:1114
 msgid ""
