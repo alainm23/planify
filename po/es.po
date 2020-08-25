@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-10 21:41+0000\n"
-"Last-Translator: Daniel <riesp@pm.me>\n"
+"PO-Revision-Date: 2020-08-30 20:54+0000\n"
+"Last-Translator: Scoopity Whoop <Scoo0p@yandex.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -27,7 +27,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Añadiendo tarea desde el portapapeles…"
 
 #: src/Utils.vala:28
 msgid "today"
@@ -577,9 +577,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Completada. Próximo evento: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Tareas completada"
+msgstr "1 tarea completada"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -757,14 +756,12 @@ msgid "Undo"
 msgstr "Deshacer"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Duplicar"
+msgstr "Duplicar tarea"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "Se ha copiado la tarea en el portapapeles."
+msgstr "Tarea añadida desde el portapapeles"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -1353,9 +1350,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Se ha copiado el proyecto en el portapapeles."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Duplicar tarea"
+msgstr "Duplicando tarea…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
