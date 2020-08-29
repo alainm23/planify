@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-03-05 03:43+0000\n"
-"Last-Translator: Joe <jovial7joe@hotmail.com>\n"
+"PO-Revision-Date: 2020-08-30 20:54+0000\n"
+"Last-Translator: oo nth <oonth@mail.com>\n"
 "Language-Team: Hindi <https://hosted.weblate.org/projects/planner/"
 "translations/hi/>\n"
 "Language: hi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.2.1-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -26,15 +26,13 @@ msgstr "योजनाकर्ता"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "प्रतिलिपि कीए हुए कार्य जोङे …"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
 msgstr "आज"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
 msgstr "कल"
 
@@ -303,11 +301,11 @@ msgstr "इनबॉक्स खोलें"
 
 #: src/Utils.vala:924
 msgid "Open Today"
-msgstr ""
+msgstr "आज खुल्ले"
 
 #: src/Utils.vala:925
 msgid "Open Upcoming"
-msgstr ""
+msgstr "आना वाले खोलें"
 
 #: src/Utils.vala:926
 msgid "Open Search"
@@ -319,11 +317,11 @@ msgstr ""
 
 #: src/Utils.vala:928
 msgid "Quit"
-msgstr ""
+msgstr "छोङें"
 
 #: src/Utils.vala:936
 msgid "The request was incorrect."
-msgstr ""
+msgstr "अनुरोध में त्रुटि(यां) थी।"
 
 #: src/Utils.vala:937
 msgid ""
@@ -378,9 +376,8 @@ msgid "Upcoming"
 msgstr ""
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
-#, fuzzy
 msgid "Add Project"
-msgstr "अनुभाग जोड़ें"
+msgstr "परियोजना जोड़ें"
 
 #: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
 msgid "Quick Find"
@@ -411,9 +408,8 @@ msgid "Name:"
 msgstr ""
 
 #: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "अनुभाग"
+msgstr "वर्णन -"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
@@ -642,14 +638,12 @@ msgid "Save"
 msgstr ""
 
 #: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
-#, fuzzy
 msgid "Add a description"
-msgstr "अनुभाग जोड़ें"
+msgstr "वर्णन जोड़ें"
 
 #: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
-#, fuzzy
 msgid "Description"
-msgstr "अनुभाग"
+msgstr "वर्णन"
 
 #: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
 #, c-format
@@ -918,9 +912,8 @@ msgid "Progress:"
 msgstr ""
 
 #: src/Views/Project.vala:1272
-#, fuzzy
 msgid "Duedate:"
-msgstr "नियत तारीक"
+msgstr "नियत तिथि :"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
 msgid "Loading…"
@@ -1044,9 +1037,8 @@ msgid "Night"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:413
-#, fuzzy
 msgid "Dark Blue"
-msgstr "आसमानी नीला"
+msgstr "गहरा नीला"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
@@ -1209,73 +1201,73 @@ msgid "Website"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1220
-#, fuzzy
 msgid "Follow"
-msgstr "पीला"
+msgstr "पीछा करें"
 
 #: src/Dialogs/Preferences/Preferences.vala:1221
 msgid "Report a Problem"
-msgstr ""
+msgstr "समस्या विवरणी भरें"
 
 #: src/Dialogs/Preferences/Preferences.vala:1222
 msgid "Suggest Translations"
-msgstr ""
+msgstr "अनुवाद सुझाव"
 
 #: src/Dialogs/Preferences/Preferences.vala:1341
 msgid "Disabled"
-msgstr ""
+msgstr "अक्षम"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "पीछे"
 
 #: src/Dialogs/QuickFind.vala:91
 msgid "Completed"
-msgstr ""
+msgstr "पूर्ण"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
-msgstr ""
+msgstr "प्राथमिकता १"
 
 #: src/Dialogs/QuickFind.vala:108
 msgid "Priority 2"
-msgstr ""
+msgstr "प्राथमिकता २"
 
 #: src/Dialogs/QuickFind.vala:116
 msgid "Priority 3"
-msgstr ""
+msgstr "प्राथमिकता ३"
 
 #: src/Dialogs/QuickFind.vala:124
 msgid "Priority 4"
-msgstr ""
+msgstr "प्राथमिकता ४"
 
 #: src/Dialogs/QuickFind.vala:129
 msgid "Search"
-msgstr ""
+msgstr "खोजें"
 
 #: src/Dialogs/QuickFind.vala:157
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
+"जल्दी से परियोजना एवं दृष्टिकोण बदलें, कार्य ढूंडे, और वर्गीकरण से ढूंडे।"
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
-msgstr ""
+msgstr "ऊपर"
 
 #: src/Dialogs/QuickFind.vala:190
 msgid "DOWN"
-msgstr ""
+msgstr "नीचे"
 
 #: src/Dialogs/QuickFind.vala:195
 msgid "ENTER"
-msgstr ""
+msgstr "भरें"
 
 #: src/Dialogs/QuickFind.vala:200
 msgid "ESC"
-msgstr ""
+msgstr "छोङें"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "उपयोग"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
@@ -1283,43 +1275,43 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "चुनने के लिए,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "बंद करने के लिए।"
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
-msgstr ""
+msgstr "भरें"
 
 #: src/Dialogs/QuickFind.vala:507
 msgid "Tasks"
-msgstr ""
+msgstr "कार्य"
 
 #: src/Dialogs/QuickFind.vala:603
 msgid "Views"
-msgstr ""
+msgstr "दृष्टियां"
 
 #: src/Dialogs/QuickFind.vala:701
 msgid "Priorities"
-msgstr ""
+msgstr "प्राथमिकताएं"
 
 #: src/Objects/Project.vala:104
 msgid "The Project was copied to the Clipboard."
-msgstr ""
+msgstr "परियोजना की प्रतिलिपि ली गया।"
 
 #: src/Objects/Item.vala:125
 msgid "Duplicating task…"
-msgstr ""
+msgstr "कार्य की प्रतिलिपि बन रही है…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "कार्य की प्रतिलिपि ली गयी।"
 
 #: src/Objects/Section.vala:98
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "भाग की प्रतिलिपि ली गयी।"
 
 #~ msgid "New area"
 #~ msgstr "नया क्षेत्र"
