@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-08-30 20:54+0000\n"
+"PO-Revision-Date: 2020-09-11 22:29+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/planner/"
 "translations/pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -294,11 +294,11 @@ msgstr "Criar uma nova área"
 
 #: src/Utils.vala:921
 msgid "Create a new project"
-msgstr "Criar um novo projeto"
+msgstr "Criar um projeto"
 
 #: src/Utils.vala:922
 msgid "Create a new section"
-msgstr "Criar uma nova secção"
+msgstr "Criar uma secção"
 
 #: src/Utils.vala:923
 msgid "Open the Inbox"
