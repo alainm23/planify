@@ -32,13 +32,23 @@ public class Planner : Gtk.Application {
 
     public signal void go_view (string type, int64 id, int64 id_2);
 
-    private bool silence = false;
+    private static bool silent = false;
+    private static int64 load_project = 0;
+    private static bool version = false;
 
-    public Planner () {
-        Object (
-            application_id: "com.github.alainm23.planner",
-            flags: ApplicationFlags.HANDLES_COMMAND_LINE
-        );
+    public const OptionEntry[] PLANNER_OPTIONS = {
+        { "version", 'v', 0, OptionArg.NONE, ref version,
+        "Display version number", null },
+        { "silent", 's', 0, OptionArg.NONE, out silent,
+        "Run the Application in background", null },
+        { "load-project", 'l', 0, OptionArg.INT64, ref load_project,
+        "Open a project when Planner starts", "PROJECT_ID" },
+        { null }
+    };
+
+    construct {
+        application_id = "com.github.alainm23.planner";
+        flags |= ApplicationFlags.HANDLES_OPEN;
 
         // Init internationalization support
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -59,6 +69,8 @@ public class Planner : Gtk.Application {
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
         event_bus = new Services.EventBus ();
+
+        add_main_option_entries (PLANNER_OPTIONS);
     }
 
     public static Planner _instance = null;
@@ -85,6 +97,11 @@ public class Planner : Gtk.Application {
             return;
         }
 
+        if (version) {
+            print ("%s\n".printf (Constants.VERSION));
+            return;
+        }
+
         main_window = new MainWindow (this);
 
         int window_x, window_y;
@@ -103,7 +120,16 @@ public class Planner : Gtk.Application {
             main_window.maximize ();
         }
 
-        if (silence == false) {
+        // Open database
+        database.open_database ();
+
+        if (load_project != 0) {
+            var dialog = new Dialogs.Project (database.get_project_by_id (load_project), true);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        }
+
+        if (silent == false && load_project == 0) {
             main_window.show_all ();
             main_window.present ();
         }
@@ -155,7 +181,6 @@ public class Planner : Gtk.Application {
         }
 
         utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
-        database.open_database ();
 
         if (settings.get_string ("version") != Constants.VERSION) {
             var dialog = new Dialogs.ReleaseDialog ();
@@ -167,36 +192,36 @@ public class Planner : Gtk.Application {
         }
     }
 
-    public override int command_line (ApplicationCommandLine command_line) {
-        bool silence_mode = false;
-        OptionEntry[] options = new OptionEntry [1];
-        options[0] = {
-            "s", 0, 0, OptionArg.NONE,
-            ref silence_mode, "Run without window", null
-        };
+    //  public override int command_line (ApplicationCommandLine command_line) {
+    //      bool silent_mode = false;
+    //      OptionEntry[] options = new OptionEntry [1];
+    //      options[0] = {
+    //          "s", 0, 0, OptionArg.NONE,
+    //          ref silent_mode, "Run without window", null
+    //      };
 
-        string[] args = command_line.get_arguments ();
-        string[] _args = new string[args.length];
-        for (int i = 0; i < args.length; i++) {
-            _args[i] = args[i];
-        }
+    //      string[] args = command_line.get_arguments ();
+    //      string[] _args = new string[args.length];
+    //      for (int i = 0; i < args.length; i++) {
+    //          _args[i] = args[i];
+    //      }
 
-        try {
-            var ctx = new OptionContext ();
-            ctx.set_help_enabled (true);
-            ctx.add_main_entries (options, null);
-            unowned string[] tmp = _args;
-            ctx.parse (ref tmp);
-        } catch (OptionError e) {
-            command_line.print ("error: %s\n", e.message);
-            return 0;
-        }
+    //      try {
+    //          var ctx = new OptionContext ();
+    //          ctx.set_help_enabled (true);
+    //          ctx.add_main_entries (options, null);
+    //          unowned string[] tmp = _args;
+    //          ctx.parse (ref tmp);
+    //      } catch (OptionError e) {
+    //          command_line.print ("error: %s\n", e.message);
+    //          return 0;
+    //      }
 
-        silence = silence_mode;
-        activate ();
+    //      silent = silent_mode;
+    //      activate ();
 
-        return 0;
-    }
+    //      return 0;
+    //  }
 
     private void build_shortcuts () {
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
@@ -209,9 +234,14 @@ public class Planner : Gtk.Application {
     public static int main (string[] args) {
         Planner app = Planner.instance;
 
-        if (args.length > 1 && args[1] == "--s") {
-            app.silence = true;
-        }
+        //  if (args.length > 1 && args[1] == "--s") {
+        //      app.silent = true;
+        //  }
+
+        //  if (version) {
+		//  	print ("Test 0.1\n");
+		//  	return 0;
+		//  }
 
         return app.run (args);
     }

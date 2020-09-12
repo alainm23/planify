@@ -51,7 +51,6 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         tooltip_markup = tooltip_string;
 
         var checked_button = new Gtk.CheckButton ();
-        // checked_button.margin_start = 1;
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.START;
@@ -68,18 +67,21 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         content_label.wrap = true;
         content_label.use_markup = true;
 
-        var completed_label = new Gtk.Label ("<small>%s</small>".printf (Planner.utils.get_relative_date_from_string (item.date_completed)));
-        completed_label.halign = Gtk.Align.START;
-        completed_label.valign = Gtk.Align.CENTER;
-        completed_label.use_markup = true;
-        completed_label.get_style_context ().add_class ("completed-label");
-        completed_label.get_style_context ().add_class ("font-bold");
-
         var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9);
         bottom_box.hexpand = true;
         bottom_box.margin_start = 28;
         bottom_box.margin_bottom = 3;
-        bottom_box.pack_start (completed_label, false, false, 0);
+
+        if (view != "completed") {
+            var completed_label = new Gtk.Label ("<small>%s</small>".printf (Planner.utils.get_relative_date_from_string (item.date_completed)));
+            completed_label.halign = Gtk.Align.START;
+            completed_label.valign = Gtk.Align.CENTER;
+            completed_label.use_markup = true;
+            completed_label.get_style_context ().add_class ("completed-label");
+            completed_label.get_style_context ().add_class ("font-bold");
+
+            bottom_box.pack_start (completed_label, false, false, 0);
+        }
 
         if (view == "completed") {
             var project = Planner.database.get_project_by_id (item.project_id);

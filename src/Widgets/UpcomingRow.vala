@@ -82,9 +82,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
-        separator.margin_top = 3;
+        separator.margin_top = 6;
         separator.margin_start = 42;
         separator.margin_end = 40;
+        separator.margin_bottom = 1;
 
         top_box = new Gtk.Grid ();
         top_box.margin_start = 42;

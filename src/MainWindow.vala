@@ -34,7 +34,6 @@ public class MainWindow : Gtk.Window {
     private Views.Label label_view = null;
     private Views.Priority priority_view = null;
 
-    private Widgets.MagicButton magic_button;
     // private Widgets.Toast notification_toast;
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
@@ -107,8 +106,6 @@ public class MainWindow : Gtk.Window {
         notifications_grid.halign = Gtk.Align.CENTER;
         notifications_grid.valign = Gtk.Align.END;
 
-        magic_button = new Widgets.MagicButton ();
-
         var slim_mode_icon = new Gtk.Image ();
         slim_mode_icon.gicon = new ThemedIcon ("pane-show-symbolic");
         slim_mode_icon.pixel_size = 13;
@@ -139,7 +136,6 @@ public class MainWindow : Gtk.Window {
 
         var projectview_overlay = new Gtk.Overlay ();
         projectview_overlay.expand = true;
-        projectview_overlay.add_overlay (magic_button);
         projectview_overlay.add_overlay (notifications_grid);
         projectview_overlay.add_overlay (multiselect_toolbar);
         projectview_overlay.add (stack);
@@ -178,7 +174,6 @@ public class MainWindow : Gtk.Window {
             if (Planner.database.is_database_empty ()) {
                 stack.visible_child_name = "welcome-view";
                 pane.sensitive_ui = false;
-                magic_button.reveal_child = false;
             } else {
                 // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
@@ -211,7 +206,6 @@ public class MainWindow : Gtk.Window {
                 init_progress_controller ();
 
                 pane.sensitive_ui = true;
-                magic_button.reveal_child = true;
             }
         });
 
@@ -256,8 +250,6 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "inbox-view";
 
                 pane.sensitive_ui = true;
-                magic_button.reveal_child = true;
-
                 stack.transition_type = Gtk.StackTransitionType.NONE;
 
                 // Init Progress Server
@@ -291,7 +283,6 @@ public class MainWindow : Gtk.Window {
 
             // Enable UI
             pane.sensitive_ui = true;
-            magic_button.reveal_child = true;
             stack.transition_type = Gtk.StackTransitionType.NONE;
 
             // Init Progress Server
@@ -305,19 +296,6 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child_name = "inbox-view";
 
                 pane.select_item (0);
-            }
-        });
-
-        magic_button.clicked.connect (() => {
-            if (stack.visible_child_name == "inbox-view") {
-                inbox_view.add_new_item (-1);
-            } else if (stack.visible_child_name == "today-view") {
-                today_view.add_new_item (-1);
-            } else if (stack.visible_child_name == "upcoming-view") {
-                Planner.utils.magic_button_clicked ("upcoming");
-            } else {
-                var project = ((Views.Project) stack.get_child_by_name (stack.visible_child_name));
-                project.add_new_item (-1);
             }
         });
 
@@ -343,9 +321,9 @@ public class MainWindow : Gtk.Window {
         delete_event.connect (() => {
             if (Planner.settings.get_boolean ("run-in-background")) {
                 return hide_on_delete ();
-            } else {
-                return false;
             }
+
+            return false;
         });
 
         Planner.instance.go_view.connect ((type, id, id2) => {
@@ -402,17 +380,20 @@ public class MainWindow : Gtk.Window {
             
             return false;
         });
+
+        Planner.event_bus.hide_new_window_project.connect ((project_id) => {
+            var project = ((Views.Project) stack.visible_child).project;
+            if (project.id == project_id) {
+                go_view (0);
+            }
+        });
     }
 
     public void init_progress_controller () {
         Planner.database.item_added.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
-
-        //  Planner.database.item_added_with_index.connect ((item, index) => {
-        //      Planner.database.check_project_count (item.project_id);
-        //  });
-
+        
         Planner.database.item_updated.connect ((item) => {
             Planner.database.check_project_count (item.project_id);
         });
@@ -495,7 +476,6 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (inbox_view, "inbox-view");
             }
 
-            magic_button.reveal_child = true;
             stack.visible_child_name = "inbox-view";
         } else if (id == 1) {
             if (today_view == null) {
@@ -503,7 +483,6 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (today_view, "today-view");
             }
 
-            magic_button.reveal_child = true;
             stack.visible_child_name = "today-view";
         } else if (id == 2) {
             if (upcoming_view == null) {
@@ -511,7 +490,6 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (upcoming_view, "upcoming-view");
             }
 
-            magic_button.reveal_child = true;
             stack.visible_child_name = "upcoming-view";
         } else if (id == 3) {
             if (completed_view == null) {
@@ -520,7 +498,6 @@ public class MainWindow : Gtk.Window {
             }
 
             completed_view.add_all_items ();
-            magic_button.reveal_child = true;
             stack.visible_child_name = "completed-view";
         }
 
@@ -541,8 +518,6 @@ public class MainWindow : Gtk.Window {
 
         // Planner.utils.pane_project_selected (project.id, project.area_id);
         // Planner.utils.select_pane_project (project.id);
-
-        magic_button.reveal_child = true;
     }
 
     public void go_item (int64 item_id) {
@@ -557,7 +532,6 @@ public class MainWindow : Gtk.Window {
             stack.add_named (label_view, "label-view");
         }
 
-        magic_button.reveal_child = false;
         label_view.label = Planner.database.get_label_by_id (label_id);
         stack.visible_child_name = "label-view";
     }
@@ -568,7 +542,6 @@ public class MainWindow : Gtk.Window {
             stack.add_named (priority_view, "priority-view");
         }
 
-        magic_button.reveal_child = false;
         priority_view.priority = priority;
         stack.visible_child_name = "priority-view";
     }

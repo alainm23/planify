@@ -52,4 +52,8 @@ public class Services.EventBus : Object {
 
     // DateTime Events
     public signal void day_changed ();
+
+    // Items DnD
+    public signal void hide_new_window_project (int64 project_id);
+    public signal void show_new_window_project (int64 project_id);
 }

@@ -84,6 +84,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         response.connect ((response_id) => {
             destroy ();
         });
+
+        key_press_event.connect ((event) => {
+            return true;
+        });
     }
 
     private Gtk.Widget get_home_widget () {

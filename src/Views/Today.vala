@@ -211,17 +211,29 @@ public class Views.Today : Gtk.EventBox {
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
+        var magic_button = new Widgets.MagicButton ();
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (box_scrolled, false, true, 0);
 
-        add (main_box);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add (main_box);
+
+        add (overlay);
+
         add_all_items ();
         add_completed_items ();
         show_all ();
         build_drag_and_drop ();
 
+        magic_button.clicked.connect (() => {
+            add_new_item (-1);
+        });
+        
         // Check Placeholder view
         Timeout.add (125, () => {
             check_placeholder_view ();

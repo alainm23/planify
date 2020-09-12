@@ -80,6 +80,18 @@
           <description>Most recent window size (width, height)</description>
         </key>
 
+        <key name="project-dialog-size" type="(ii)">
+          <default>(583, 725)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
+        <key name="project-dialog-position" type="(ii)">
+          <default>(699, 47)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
         <key name="pane-position" type="i">
             <default>255</default>
             <summary>Most recent pane position</summary>

@@ -188,6 +188,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
                 destroy ();
             }
         });
+        
 
         due_switch.notify["active"].connect (() => {
             due_revealer.reveal_child = due_switch.active;

@@ -434,7 +434,7 @@ public class Utils : GLib.Object {
         try {
             keyfile.load_from_file (dest_path, KeyFileFlags.NONE);
             keyfile.set_boolean ("Desktop Entry", "X-GNOME-Autostart-enabled", active);
-            keyfile.set_string ("Desktop Entry", "Exec", "com.github.alainm23.planner --s");
+            keyfile.set_string ("Desktop Entry", "Exec", "com.github.alainm23.planner -s");
             keyfile.save_to_file (dest_path);
         } catch (Error e) {
             warning ("Error enabling autostart: %s", e.message);
@@ -988,7 +988,7 @@ public class Utils : GLib.Object {
     }
 
     public string get_markup_format (string text) {
-        Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+        // Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
         // Regex link_regex = /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/;
         Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
         Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
@@ -997,13 +997,13 @@ public class Utils : GLib.Object {
 
         MatchInfo info;
         try {
-            List<string> urls = new List<string>();
-            if (url_regex.match (text, 0, out info)) {
-                do {
-                    var url = info.fetch_named ("url");
-                    urls.append (url);
-                } while (info.next ());
-            }
+            //  List<string> urls = new List<string>();
+            //  if (url_regex.match (text, 0, out info)) {
+            //      do {
+            //          var url = info.fetch_named ("url");
+            //          urls.append (url);
+            //      } while (info.next ());
+            //  }
             List<string> emails = new List<string>();
             if (mailto_regex.match (text, 0, out info)) {
                 do {
@@ -1043,11 +1043,11 @@ public class Utils : GLib.Object {
             //      var urlAsLink = @"<a href=\"$url\">$name</a>";
             //      converted = converted.replace (m.match, urlAsLink);
             //  }
-            urls.foreach ((url) => {
-                var urlEncoded = url.replace ("&", "&amp;");
-                var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
-                converted = converted.replace (url, urlAsLink);
-            });
+            //  urls.foreach ((url) => {
+            //      var urlEncoded = url.replace ("&", "&amp;");
+            //      var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
+            //      converted = converted.replace (url, urlAsLink);
+            //  });
             emails.foreach ((email) => {
                 var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
                 converted = converted.replace (email, emailAsLink);

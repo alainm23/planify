@@ -10,6 +10,7 @@
     <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
     <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
     <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
+    <file alias="chevron-forward-symbolic.svg">resources/chevron-forward-symbolic.svg</file>
     <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
     <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
     <file alias="online-account-twitter.svg">resources/online-account-twitter.svg</file>

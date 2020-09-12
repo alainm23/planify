@@ -1241,6 +1241,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         button.always_show_image = true;
         button.can_focus = false;
         button.label = _("Add Task");
+        button.margin_top = 3;
+        button.margin_bottom = 3;
         button.get_style_context ().add_class ("flat");
         button.get_style_context ().add_class ("font-bold");
         button.get_style_context ().add_class ("add-button");

@@ -1,5 +1,5 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+/*/
+*- Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,9 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.Project : Gtk.EventBox {
-    public Objects.Project project { get; construct; }
-
+public class Dialogs.Project : Gtk.Dialog {
     private Gtk.Label name_label;
     private Widgets.Entry name_entry;
     private Gtk.Revealer action_revealer;
@@ -60,6 +58,8 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.Label due_label;
 
     private uint timeout = 0;
+    private uint configure_id = 0;
+
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
@@ -75,13 +75,34 @@ public class Views.Project : Gtk.EventBox {
         {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    public Project (Objects.Project project) {
+    public Objects.Project project { get; construct; }
+    public bool only_window { get; construct; }
+
+    public Project (Objects.Project project, bool only_window=false) {
         Object (
-            project: project
+            project: project,
+            only_window: only_window
+            // transient_for: Planner.instance.main_window,
+            // deletable: true,
+            // resizable: true
+            // destroy_with_parent: false,
+            // window_position: Gtk.WindowPosition.NONE,
+            // modal: false
         );
     }
 
     construct {
+        Planner.event_bus.hide_new_window_project (project.id);
+
+        get_style_context ().add_class ("project-dialog");
+        int window_x, window_y;
+        int width, height;
+
+        Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+        Planner.settings.get ("project-dialog-size", "(ii)", out width, out height);
+        
+        set_size_request (width, height);
+
         items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
@@ -210,9 +231,8 @@ public class Views.Project : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_end = 36;
+        top_box.margin_end = 32;
         top_box.margin_start = 42;
-        // top_box.margin_top = 6;
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -400,8 +420,6 @@ public class Views.Project : Gtk.EventBox {
         main_stack.add_named (main_scrolled, "project");
         main_stack.add_named (placeholder_view, "placeholder");
 
-        var magic_button = new Widgets.MagicButton ();
-
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
@@ -409,12 +427,15 @@ public class Views.Project : Gtk.EventBox {
         main_box.pack_start (note_stack, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
+        var magic_button = new Widgets.MagicButton ();
+
         var overlay = new Gtk.Overlay ();
         overlay.expand = true;
         overlay.add_overlay (magic_button);
         overlay.add (main_box);
 
-        add (overlay);
+        var content_area = get_content_area ();
+        content_area.add (overlay);
 
         build_drag_and_drop ();
         add_all_items ();
@@ -423,6 +444,24 @@ public class Views.Project : Gtk.EventBox {
         show_all ();
         check_listbox_margin ();
         check_due_date ();
+
+        delete_event.connect (() => {
+            if (only_window) {
+                Planner.instance.main_window.destroy ();
+                return false;
+            }
+
+            Planner.event_bus.show_new_window_project (project.id);
+            return false;
+        });
+
+        key_press_event.connect ((event) => {
+            if (event.keyval == 65307) {
+                return true;
+            }
+
+            return false;
+        });
 
         magic_button.clicked.connect (() => {
             add_new_item (-1);
@@ -438,6 +477,7 @@ public class Views.Project : Gtk.EventBox {
             check_placeholder_view ();
             set_sort_func (project.sort_order);
 
+            set_size_request (-1, -1);           
             return false;
         });
 
@@ -868,27 +908,6 @@ public class Views.Project : Gtk.EventBox {
                 set_sort_func (order);
             }
         });
-
-        Planner.event_bus.show_new_window_project.connect ((project_id) => {
-            if (project.id == project_id) {
-                add_all_items ();
-                add_completed_items ();
-                add_all_sections ();
-                show_all ();
-                check_listbox_margin ();
-                check_due_date ();
-            }
-        });
-
-        Planner.database.project_show_completed.connect ((p) => {
-            if (project.id == p.id) {
-                if (p.show_completed == 1) {
-                    completed_revealer.reveal_child = true;
-                } else {
-                    completed_revealer.reveal_child = false;
-                }
-            }
-        });
     }
 
     private void set_sort_func (int order) {
@@ -975,13 +994,6 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_items () {
-        items_uncompleted_added.clear ();
-        items_list.clear ();
-
-        foreach (unowned Gtk.Widget child in listbox.get_children ()) {
-            child.destroy ();
-        }
-
         foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project.id)) {
             var row = new Widgets.ItemRow (item);
             row.destroy.connect (() => {
@@ -997,11 +1009,6 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_completed_items () {
-        items_completed_added.clear ();
-        foreach (unowned Gtk.Widget child in completed_listbox.get_children ()) {
-            child.destroy ();
-        }
-
         foreach (var item in Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id)) {
             var row = new Widgets.ItemCompletedRow (item);
 
@@ -1012,14 +1019,14 @@ public class Views.Project : Gtk.EventBox {
     }
 
     private void add_all_sections () {
-        foreach (unowned Gtk.Widget child in section_listbox.get_children ()) {
-            child.destroy ();
-        }
-
         foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
             var row = new Widgets.SectionRow (section);
             section_listbox.add (row);
             section_listbox.show_all ();
+
+            if (row.get_index () == 0) {
+                // row.margin_top = 0;
+            }
         }
     }
 
@@ -1129,7 +1136,6 @@ public class Views.Project : Gtk.EventBox {
         popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var open_menu = new Widgets.ModelButton (_("Open New Window"), "window-new-symbolic", "");
         var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
         var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
         var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
@@ -1173,11 +1179,6 @@ public class Views.Project : Gtk.EventBox {
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 3;
         popover_grid.margin_bottom = 3;
-        popover_grid.add (open_menu);
-        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 3,
-            margin_bottom = 3
-        });
         popover_grid.add (edit_menu);
         popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
@@ -1206,14 +1207,6 @@ public class Views.Project : Gtk.EventBox {
 
         edit_menu.clicked.connect (() => {
             var dialog = new Dialogs.ProjectSettings (project);
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
-
-            popover.popdown ();
-        });
-
-        open_menu.clicked.connect (() => {
-            var dialog = new Dialogs.Project (project);
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
 
@@ -1250,8 +1243,10 @@ public class Views.Project : Gtk.EventBox {
 
             if (show_completed_switch.active) {
                 project.show_completed = 0;
+                completed_revealer.reveal_child = false;
             } else {
                 project.show_completed = 1;
+                completed_revealer.reveal_child = true;
             }
 
             check_placeholder_view ();
@@ -1650,5 +1645,27 @@ public class Views.Project : Gtk.EventBox {
 
         listbox.show_all ();
         main_stack.visible_child_name = "project";
+    }
+
+    public override bool configure_event (Gdk.EventConfigure event) {
+        if (configure_id != 0) {
+            GLib.Source.remove (configure_id);
+        }
+
+        configure_id = Timeout.add (100, () => {
+            configure_id = 0;
+
+            Gdk.Rectangle rect;
+            get_allocation (out rect);
+            Planner.settings.set ("project-dialog-size", "(ii)", rect.width, rect.height);
+
+            int root_x, root_y;
+            get_position (out root_x, out root_y);
+            Planner.settings.set ("project-dialog-position", "(ii)", root_x, root_y);
+
+            return false;
+        });
+
+        return base.configure_event (event);
     }
 }

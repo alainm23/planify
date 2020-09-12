@@ -292,12 +292,23 @@ public class Views.Inbox : Gtk.EventBox {
         main_stack.add_named (main_scrolled, "project");
         main_stack.add_named (placeholder_view, "placeholder");
 
+        var magic_button = new Widgets.MagicButton ();
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
-        add (main_box);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add (main_box);
+
+        add (overlay);
+
+        magic_button.clicked.connect (() => {
+            add_new_item (-1);
+        });
 
         build_drag_and_drop ();
         add_all_items ();

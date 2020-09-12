@@ -50,7 +50,7 @@ public class Views.Upcoming : Gtk.EventBox {
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("listbox");
-        listbox.margin_top = 6;
+        listbox.margin_top = 12;
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
@@ -65,12 +65,23 @@ public class Views.Upcoming : Gtk.EventBox {
         listbox_scrolled.expand = true;
         listbox_scrolled.add (listbox_grid);
 
+        var magic_button = new Widgets.MagicButton ();
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (listbox_scrolled, false, true, 0);
 
-        add (main_box);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add (main_box);
+
+        add (overlay);
+        
+        magic_button.clicked.connect (() => {
+            Planner.utils.magic_button_clicked ("upcoming");
+        });
 
         Planner.calendar_model.month_start = Util.get_start_of_month ();
 

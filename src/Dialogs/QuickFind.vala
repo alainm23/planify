@@ -383,7 +383,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         });
 
-        this.key_release_event.connect ((key) => {
+        key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 popdown ();
             }
@@ -391,13 +391,13 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             return false;
         });
 
-        this.focus_out_event.connect (() => {
+        focus_out_event.connect (() => {
             popdown ();
 
             return false;
         });
 
-        this.key_press_event.connect ((event) => {
+        key_press_event.connect ((event) => {
             var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {

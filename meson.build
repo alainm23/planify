@@ -85,6 +85,7 @@ executable(
     'src/Widgets/Entry.vala',
     'src/Widgets/TextView.vala',
     'src/Widgets/MultiSelectToolbar.vala',
+    'src/Widgets/ShortcutEntry.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -106,6 +107,7 @@ executable(
     'src/Dialogs/QuickFind.vala',
     'src/Dialogs/ShortcutsDialog.vala',
     'src/Dialogs/ReleaseDialog.vala',
+    'src/Dialogs/Project.vala',
 
     'src/Dialogs/Preferences/Preferences.vala',
     'src/Dialogs/Preferences/ItemSelect.vala',

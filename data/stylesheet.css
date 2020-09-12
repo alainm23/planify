@@ -324,6 +324,14 @@ paned.horizontal > separator {
     background-color: @base_color;
 }
 
+.project-dialog {
+    background-color: @projectview_color;
+}
+
+.project-dialog headerbar {
+    background-color: @projectview_color;
+}
+
 .text-color {
     color: @text_color;
 }
