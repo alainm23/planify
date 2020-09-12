@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-01 08:41+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"PO-Revision-Date: 2020-08-18 10:32+0000\n"
+"Last-Translator: Marco Bottacin <westdam@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -25,15 +25,13 @@ msgstr "Planner"
 #: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
 #: src/MainWindow.vala:776
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Aggiungi attività dagli appunti…"
 
 #: src/Utils.vala:28
-#, fuzzy
 msgid "today"
 msgstr "Oggi"
 
 #: src/Utils.vala:29
-#, fuzzy
 msgid "tomorrow"
 msgstr "Domani"
 
@@ -388,7 +386,6 @@ msgid "Upcoming"
 msgstr "Imminente"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
-#, fuzzy
 msgid "Add Project"
 msgstr "Aggiungi Progetto"
 
@@ -476,9 +473,8 @@ msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organizza i tuoi progetti in gruppo e mantieni pulito il pannello."
 
 #: src/Widgets/New.vala:512
-#, fuzzy
 msgid "Add Folder"
-msgstr "Cartella"
+msgstr "Aggiungi Cartella"
 
 #: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:79
@@ -555,9 +551,8 @@ msgid "Task name"
 msgstr "Nome compito"
 
 #: src/Widgets/ItemRow.vala:184
-#, fuzzy
 msgid "Hide Details"
-msgstr "Mostra Dettagli"
+msgstr "Nascondi Dettagli"
 
 #: src/Widgets/ItemRow.vala:502
 msgid "Add Checklist"
@@ -581,9 +576,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Completato. Prossima occorrenza: %s"
 
 #: src/Widgets/ItemRow.vala:1025
-#, fuzzy
 msgid "1 task completed"
-msgstr "Task completato"
+msgstr "1 Attività completata"
 
 #: src/Widgets/ItemRow.vala:1366
 msgid "No Section"
@@ -723,9 +717,8 @@ msgid "labels"
 msgstr "etichette"
 
 #: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
-#, fuzzy
 msgid "Using Labels"
-msgstr "Etichette"
+msgstr "Usa Etichette"
 
 #: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
 msgid ""
@@ -745,7 +738,6 @@ msgid "Edit labels"
 msgstr "Modifica etichette"
 
 #: src/Widgets/LabelButton.vala:233
-#, fuzzy
 msgid "Add label"
 msgstr "Aggiungi Etichetta"
 
@@ -754,23 +746,21 @@ msgid "Label not found"
 msgstr "Etichetta non trovata"
 
 #: src/Widgets/LabelButton.vala:237
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Crea"
+msgstr "Crea  '%s'"
 
 #: src/Widgets/Toast.vala:68
 msgid "Undo"
 msgstr "Annulla"
 
 #: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
-#, fuzzy
 msgid "Task duplicate"
-msgstr "Duplica"
+msgstr "Duplica attività"
 
 #: src/Widgets/Toast.vala:103
-#, fuzzy
 msgid "Task added from clipboard"
-msgstr "Il Compito è stata copiata negli Appunti."
+msgstr "L'attività è stata aggiunta dagli appunti"
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -920,9 +910,9 @@ msgid "Tap + to add a task for today."
 msgstr "Tocca + per aggiungere un'attività per oggi."
 
 #: src/Views/Project.vala:143 src/Views/Project.vala:832
-#, fuzzy, c-format
+#, c-format
 msgid "Progress: %s"
-msgstr "Progresso:"
+msgstr "Progresso:  %s"
 
 #: src/Views/Project.vala:392
 msgid "What will you accomplish?"
@@ -933,16 +923,14 @@ msgid "Tap + to add a task to this project."
 msgstr "Tocca + per aggiungere un'attività a questo progetto."
 
 #: src/Views/Project.vala:1256
-#, fuzzy
 msgid "Your Productivity"
-msgstr "Produttività"
+msgstr "La tua Produttività"
 
 #: src/Views/Project.vala:1261
 msgid "Progress:"
 msgstr "Progresso:"
 
 #: src/Views/Project.vala:1272
-#, fuzzy
 msgid "Duedate:"
 msgstr "Data di scadenza:"
 
@@ -1074,24 +1062,23 @@ msgid "Night"
 msgstr "Scuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:413
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Blu Cielo"
+msgstr "Blu Scuro"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
 msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:467
-#, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
 "Non preoccuparti per quale app stai usando. Puoi usare una scorciatoia da "
-"tastiera perapri la finestra Aggiunta rapida, dove puoi inserire un'attività "
-"in sospeso e rapidamenteritornare al lavoro."
+"tastiera per aprire la finestra Aggiunta rapida, dove puoi inserire "
+"un'attività in sospeso rapidamente e ritornare al lavoro. Puoi cambiare la "
+"scorciatoia da tastiera quando vuoi."
 
 #: src/Dialogs/Preferences/Preferences.vala:477
 #: src/Dialogs/Preferences/Preferences.vala:1047
@@ -1105,9 +1092,8 @@ msgid "Change"
 msgstr "Cambia"
 
 #: src/Dialogs/Preferences/Preferences.vala:517
-#, fuzzy
 msgid "Change Keyboard Shortcut"
-msgstr "Scorciatoie da tastiera"
+msgstr "Cambia la Scorciatoia da tastiera"
 
 #: src/Dialogs/Preferences/Preferences.vala:526
 msgid "Save Last Selected Project"
@@ -1284,9 +1270,8 @@ msgid "Back"
 msgstr "Indietro"
 
 #: src/Dialogs/QuickFind.vala:91
-#, fuzzy
 msgid "Completed"
-msgstr "Completa"
+msgstr "Completata"
 
 #: src/Dialogs/QuickFind.vala:100
 msgid "Priority 1"
@@ -1309,10 +1294,9 @@ msgid "Search"
 msgstr "Cerca"
 
 #: src/Dialogs/QuickFind.vala:157
-#, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
-"Passa rapidamente a progetti e viste, trova attività, cerca per etichette,..."
+"Passa rapidamente a progetti e viste, trova attività, cerca per etichette."
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
@@ -1332,7 +1316,7 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "Usa"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
@@ -1367,9 +1351,8 @@ msgid "The Project was copied to the Clipboard."
 msgstr "Il Progetto è stato copiato negli Appunti."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Duplica"
+msgstr "Duplicazione attività…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."

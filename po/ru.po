@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-07-18 22:44+0000\n"
+"PO-Revision-Date: 2020-09-11 22:29+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -171,13 +171,13 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
-"Этот проект поможет вам в основах Planner и начнётся с простого управления "
-"задачами, что поможет вам организовать и запомнить всё, что вам нужно будет "
-"сделать."
+"Этот проект поможет вам разобраться в основах Planner и начать пользоваться "
+"простой системой управления задачами, что поможет вам оставаться "
+"организованным и запомнить всё, что вам нужно будет сделать."
 
 #: src/Utils.vala:861
 msgid "Keeping track of your tasks"
-msgstr "Отслеживайте ваши задачи"
+msgstr "Отслеживание ваших задач"
 
 #: src/Utils.vala:862
 msgid ""
@@ -198,7 +198,7 @@ msgstr ""
 
 #: src/Utils.vala:867
 msgid "Adding new tasks"
-msgstr "Добавьте новую задачу"
+msgstr "Добавление новой задачи"
 
 #: src/Utils.vala:868
 msgid ""
@@ -206,14 +206,14 @@ msgid ""
 "- When your task is created, click on the task to be able to edit it, add a "
 "note or some other options."
 msgstr ""
-"- Чтобы добавить новую задачу в Planner, просто зажмите Ctrl и нажмите на "
-"n.\n"
+"- Чтобы добавить новую задачу в Planner, просто нажмите Ctrl+N (нажмите + и "
+"нажмите Enter).\n"
 "- Когда ваша задача создана, нажмите на задачу, чтобы получить возможность к "
 "редактированию, добавьте примечание или несколько другие настройки."
 
 #: src/Utils.vala:874
 msgid "Due dates"
-msgstr "Точная дата"
+msgstr "Срок выполнения"
 
 #: src/Utils.vala:875
 msgid ""
@@ -224,8 +224,7 @@ msgid ""
 msgstr ""
 "- Если вам нужно сделать задачу в определённый день, нажмите на иконку "
 "календаря и выберите дату.\n"
-"- Если вы хотите удалить точную дату, повторите процесс и выберите \"Убрать "
-"дату\"."
+"- Если вы хотите удалить дату, повторите процесс и выберите \"Убрать дату\"."
 
 #: src/Utils.vala:881
 msgid "How to use projects"
@@ -258,7 +257,7 @@ msgstr "Разделы"
 
 #: src/Utils.vala:898
 msgid "Add sections"
-msgstr "Добавить разделы"
+msgstr "Добавление разделов"
 
 #: src/Utils.vala:899
 msgid ""
