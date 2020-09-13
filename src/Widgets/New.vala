@@ -27,6 +27,7 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.ToggleButton source_button;
     private Gtk.Image source_image;
     private Gtk.Popover source_popover = null;
+    private Gtk.Popover help_popover = null;
 
     public Gtk.Stack stack;
 
@@ -478,7 +479,7 @@ public class Widgets.New : Gtk.Revealer {
         project_detail_label.xalign = 0;
 
         var project_grid = new Gtk.Grid ();
-        project_grid.margin_start = 6;
+        project_grid.margin_start = 3;
         project_grid.column_spacing = 3;
         project_grid.attach (project_image, 0, 0, 1, 1);
         project_grid.attach (project_label, 1, 0, 1, 1);
@@ -510,7 +511,7 @@ public class Widgets.New : Gtk.Revealer {
         area_detail_label.xalign = 0;
 
         var area_grid = new Gtk.Grid ();
-        area_grid.margin_start = 6;
+        area_grid.margin_start = 3;
         area_grid.column_spacing = 3;
         area_grid.attach (area_image, 0, 0, 1, 1);
         area_grid.attach (source_label, 1, 0, 1, 1);
@@ -524,9 +525,22 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("flat");
         area_button.get_style_context ().add_class ("menuitem");
 
+        var help_button = new Gtk.ToggleButton ();
+        help_button.margin = 6;
+        help_button.can_focus = false;
+        help_button.valign = Gtk.Align.CENTER;
+        help_button.halign = Gtk.Align.START;
+        help_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var help_image = new Gtk.Image ();
+        help_image.gicon = new ThemedIcon ("help-contents-symbolic");
+        help_image.pixel_size = 14;
+        help_button.image = help_image;
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.pack_start (project_button, false, false, 0);
         box.pack_start (area_button, false, false, 0);
+        box.pack_end (help_button, false, false, 0);
 
         project_button.clicked.connect (() => {
             stack.visible_child_name = "box";
@@ -534,6 +548,45 @@ public class Widgets.New : Gtk.Revealer {
         });
 
         area_button.clicked.connect (create_area);
+
+        help_button.toggled.connect (() => {
+            if (help_button.active) {
+                if (help_popover == null) {
+                    help_popover = new Gtk.Popover (help_button);
+                    help_popover.position = Gtk.PositionType.TOP;
+                    help_popover.get_style_context ().add_class ("popover-background");
+
+                    var create_menu = new Widgets.ModelButton (_("Create tutorial project"), "planner-project-symbolic", "");
+
+                    var popover_grid = new Gtk.Grid ();
+                    popover_grid.margin_top = 3;
+                    popover_grid.margin_bottom = 3;
+                    popover_grid.orientation = Gtk.Orientation.VERTICAL;
+                    popover_grid.add (create_menu);
+                    popover_grid.show_all ();
+
+                    help_popover.add (popover_grid);
+
+                    help_popover.closed.connect (() => {
+                        help_button.active = false;
+                    });
+
+                    create_menu.clicked.connect (() => {
+                        int64 id = Planner.utils.create_tutorial_project ().id;
+
+                        Planner.utils.pane_project_selected (id, 0);
+                        Planner.notifications.send_notification (_("Your tutorial project was created"));
+
+                        Planner.utils.select_pane_project (id);
+            
+                        help_popover.popdown ();
+                        reveal = false;
+                    });
+                }
+            }
+
+            help_popover.popup ();
+        });
 
         return box;
     }

@@ -50,6 +50,9 @@ public class Services.ExportImport : Object {
 
                 builder.set_member_name ("todoist-sync-token");
                 builder.add_string_value (Planner.settings.get_string ("todoist-sync-token"));
+
+                builder.set_member_name ("todoist-user-email");
+                builder.add_string_value (Planner.settings.get_string ("todoist-user-email"));
             builder.end_object ();
 
             // Labels

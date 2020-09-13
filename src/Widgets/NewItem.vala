@@ -66,22 +66,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
-        checked_button.get_style_context ().add_class ("checklist-border");
+        checked_button.get_style_context ().add_class ("priority-1");
         checked_button.valign = Gtk.Align.CENTER;
 
         content_entry = new Widgets.Entry ();
         content_entry.hexpand = true;
         content_entry.margin_start = 4;
-        content_entry.margin_bottom = 1;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
 
         var content_grid = new Gtk.Grid ();
-        content_grid.margin_start = 6;
-        content_grid.get_style_context ().add_class ("check-eventbox");
-        content_grid.get_style_context ().add_class ("check-eventbox-border");
+        content_grid.margin_end = 12;
+        content_grid.margin_top = 3;
         content_grid.add (checked_button);
         content_grid.add (content_entry);
 
@@ -107,6 +105,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var buttons_grid = new Gtk.Grid ();
         buttons_grid.halign = Gtk.Align.START;
         buttons_grid.column_spacing = 6;
+        buttons_grid.margin_start = 6;
         buttons_grid.column_homogeneous = true;
         buttons_grid.add (cancel_button);
         buttons_grid.add (submit_button);
@@ -140,10 +139,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         project_button.add (project_grid);
 
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        tools_box.margin_bottom = 3;
         tools_box.margin_start = 6;
         tools_box.margin_top = 6;
         tools_box.hexpand = true;
-        tools_box.pack_start (buttons_grid);
         tools_box.pack_end (project_button, false, false, 0);
         tools_box.pack_end (reschedule_button, false, false, 0);
         
@@ -153,12 +152,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.expand = false;
         main_grid.margin_top = 6;
         main_grid.margin_bottom= 6;
+        main_grid.margin_start = 6;
+        main_grid.get_style_context ().add_class ("check-eventbox");
+        main_grid.get_style_context ().add_class ("check-eventbox-border");
         main_grid.add (content_grid);
         main_grid.add (tools_box);
 
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (main_grid);
+        grid.add (buttons_grid);
+
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (main_grid);
+        main_revealer.add (grid);
         main_revealer.reveal_child = false;
 
         add (main_revealer);
@@ -527,12 +534,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
     public void update_date_text () {
         reschedule_button.item_label.label = _("Schedule");
-        if (Planner.settings.get_enum ("appearance") == 0) {
-            reschedule_button.item_image.gicon = new ThemedIcon ("calendar-outline-light");
-        } else {
-            reschedule_button.item_image.gicon = new ThemedIcon ("calendar-outline-dark");
-        }
-
         reschedule_button.item_image.get_style_context ().remove_class ("overdue-label");
         reschedule_button.item_image.get_style_context ().remove_class ("today");
         reschedule_button.item_image.get_style_context ().remove_class ("upcoming");
@@ -545,15 +546,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 reschedule_button.item_image.gicon = new ThemedIcon ("help-about-symbolic");
                 reschedule_button.item_image.get_style_context ().add_class ("today");
             } else if (Planner.utils.is_overdue (date)) {
-                reschedule_button.item_image.gicon = new ThemedIcon ("calendar-overdue");
-                reschedule_button.item_image.get_style_context ().add_class ("overdue-label");
+                reschedule_button.item_image.gicon = new ThemedIcon ("office-calendar-symbolic");
             } else {
-                if (Planner.settings.get_enum ("appearance") == 0) {
-                    reschedule_button.item_image.gicon = new ThemedIcon ("calendar-outline-light");
-                } else {
-                    reschedule_button.item_image.gicon = new ThemedIcon ("calendar-outline-dark");
-                }
-
+                reschedule_button.item_image.gicon = new ThemedIcon ("office-calendar-symbolic");
                 reschedule_button.item_image.get_style_context ().add_class ("upcoming");
             }
         }

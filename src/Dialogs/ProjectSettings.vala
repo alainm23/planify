@@ -47,14 +47,9 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         width_request = 480;
         get_style_context ().add_class ("planner-dialog");
 
-        var name_header = new Granite.HeaderLabel (_("Name:"));
-
         name_entry = new Widgets.Entry ();
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("border-radius-4");
-
-        var description_header = new Granite.HeaderLabel (_("Description:"));
-        description_header.margin_top = 6;
 
         description_textview = new Widgets.TextView ();
         description_textview.get_style_context ().add_class ("description-dialog");
@@ -96,9 +91,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             due_datepicker.date = Planner.utils.get_format_date_from_string (project.due_date);
         }
 
-        var color_label = new Granite.HeaderLabel (_("Color:"));
-        color_label.margin_top = 6;
-
         color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
         color_combobox = new Gtk.ComboBox.with_model (color_liststore);
 
@@ -139,19 +131,40 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         loading_revealer.add (loading_box);
 
+        var code = "com.github.alainm23.planner --load-project=%s".printf (project.id.to_string ());
+        if (Planner.utils.is_flatpak ()) {
+            code = "flatpak run com.github.alainm23.planner --load-project=%s".printf (project.id.to_string ());
+        }
+        var access_label = new Gtk.Label (code);
+        access_label.get_style_context ().add_class ("terminal");
+        access_label.selectable = true;
+
+        var access_scrolled = new Gtk.ScrolledWindow (null, null);
+        access_scrolled.valign = Gtk.Align.START;
+        access_scrolled.expand = true;
+        access_scrolled.add (access_label);
+
         var grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         grid.margin = 12;
         grid.margin_top = 0;
         grid.expand = true;
-        grid.add (name_header);
+        grid.add (new Granite.HeaderLabel (_("Name:")));
         grid.add (name_entry);
-        grid.add (description_header);
+        grid.add (new Granite.HeaderLabel (_("Description:")) {
+            margin_top = 6
+        });
         grid.add (description_frame);
-        grid.add (color_label);
+        grid.add (new Granite.HeaderLabel (_("Color:")) {
+            margin_top = 6
+        });
         grid.add (color_combobox);
-        grid.add (loading_revealer);
         grid.add (due_box);
         grid.add (due_revealer);
+        grid.add (new Granite.HeaderLabel (_("Direct access:")) {
+            margin_top = 6
+        });
+        grid.add (access_scrolled);
+        grid.add (loading_revealer);
         grid.show_all ();
 
         get_content_area ().add (grid);
