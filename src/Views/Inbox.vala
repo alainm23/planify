@@ -64,6 +64,9 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     construct {
+        // print ("Project: %s\n".printf (project.name));
+        // print ("Project ID: %s\n".printf (project.id.to_string ()));
+
         items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();

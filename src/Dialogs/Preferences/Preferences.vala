@@ -701,8 +701,13 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         dz_header.margin_start = 12;
         dz_header.margin_top = 6;
 
+        var database_header = new Granite.HeaderLabel (_("Database"));
+        database_header.margin_start = 12;
+        database_header.margin_top = 6;
+
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
-        
+        var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (de_header, false, false, 0);
@@ -713,8 +718,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (button_layout, false, false, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
         // box.pack_start (database_settings, false, false, 0);/
-        // box.pack_start (help_header, false, false, 0);
-        // box.pack_start (tutorial_item, false, false, 0);
+        box.pack_start (database_header, false, false, 0);
+        box.pack_start (export_db_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
 
@@ -754,6 +759,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             Planner.utils.select_pane_project (id);
 
             destroy ();
+        });
+
+        export_db_item.activated.connect (() => {
+            var s = new Services.ExportImport ();
+            s.save_file_as ();
         });
 
         clear_db_item.activated.connect (() => {

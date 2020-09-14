@@ -96,9 +96,9 @@ public class Services.Database : GLib.Object {
 
         items_to_delete = new Gee.ArrayList<Objects.Item?> ();
         
-        this.patch_database ();
+        patch_database ();
         // fire signal to tell that the database is ready
-        this.opened ();
+        opened ();
     }
 
     public string get_database_path () {
@@ -193,7 +193,7 @@ public class Services.Database : GLib.Object {
         }
 
         directory.dispose ();
-        this.opened ();
+        opened ();
     }
 
     public bool add_item_to_delete (Objects.Item item) {

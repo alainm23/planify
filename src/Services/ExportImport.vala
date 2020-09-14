@@ -36,6 +36,9 @@ public class Services.ExportImport : Object {
             builder.set_member_name ("version");
             builder.add_string_value (Constants.VERSION);
 
+            builder.set_member_name ("date");
+            builder.add_string_value (new GLib.DateTime.now_local ().to_string ());
+
             // Preferences
             builder.set_member_name ("settings");
             builder.begin_object ();
@@ -407,6 +410,7 @@ public class Services.ExportImport : Object {
     public void import_backup () {
         string file = choose_file ();
         if (file != null) {
+            Planner.todoist.first_sync_started ();
             var parser = new Json.Parser ();
             
             try {
@@ -565,6 +569,7 @@ public class Services.ExportImport : Object {
 
                 Planner.todoist.first_sync_finished ();
             } catch (Error e) {
+                Planner.todoist.first_sync_finished ();
                 debug (e.message);
             }
         }

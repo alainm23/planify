@@ -314,7 +314,7 @@ public class Widgets.Pane : Gtk.EventBox {
         });
 
         listbox.row_selected.connect ((row) => {
-            if (row != null) {
+            if (row != null && Planner.database.is_database_empty () != true) {
                 Planner.event_bus.unselect_all ();
 
                 activated (row.get_index ());

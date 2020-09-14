@@ -905,13 +905,13 @@ public class Utils : GLib.Object {
 //  - At the top right of a project, click the + icon.
 //  - Type the name of your section and click Add.""");
 
-//          Planner.database.insert_project (project);
-//          Planner.database.insert_item (item_01);
-//          Planner.database.insert_item (item_02);
-//          Planner.database.insert_item (item_03);
-//          Planner.database.insert_item (item_04);
-//          Planner.database.insert_section (section);
-//          Planner.database.insert_item (item_05);
+        Planner.database.insert_project (project);
+        Planner.database.insert_item (item_01);
+        // Planner.database.insert_item (item_02);
+        // Planner.database.insert_item (item_03);
+        // Planner.database.insert_item (item_04);
+        // Planner.database.insert_section (section);
+        // Planner.database.insert_item (item_05);
 
         return project;
     }

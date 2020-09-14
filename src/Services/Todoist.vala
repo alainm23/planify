@@ -26,6 +26,7 @@ public class Services.Todoist : GLib.Object {
     public signal void sync_started ();
     public signal void sync_finished ();
 
+    public signal void first_sync_started ();
     public signal void first_sync_finished ();
 
     /*
@@ -196,7 +197,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void first_sync (string token, string view) {
-        sync_started ();
+        first_sync_started ();
 
         new Thread<void*> ("first_sync", () => {
             string url = TODOIST_SYNC_URL;
@@ -227,11 +228,9 @@ public class Services.Todoist : GLib.Object {
 
                         // User
                         Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-
                         Planner.settings.set_string ("todoist-user-image-id",
                             user_object.get_string_member ("image_id")
                         );
-
                         Planner.settings.set_boolean ("todoist-account", true);
 
                         if (view == "preferences") {

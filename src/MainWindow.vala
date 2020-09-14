@@ -94,12 +94,21 @@ public class MainWindow : Gtk.Window {
 
         var welcome_view = new Views.Welcome ();
 
+        var spinner_loading = new Gtk.Spinner ();
+        spinner_loading.valign = Gtk.Align.CENTER;
+        spinner_loading.halign = Gtk.Align.CENTER;
+        spinner_loading.width_request = 50;
+        spinner_loading.height_request = 50;
+        spinner_loading.active = true;
+        spinner_loading.start ();
+
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
 
         stack.add_named (welcome_view, "welcome-view");
-
+        stack.add_named (spinner_loading, "loading-view");
+        
         var notifications_grid = new Gtk.Grid ();
         notifications_grid.orientation = Gtk.Orientation.VERTICAL;
         notifications_grid.margin_bottom = 12;
@@ -172,8 +181,11 @@ public class MainWindow : Gtk.Window {
 
         Planner.database.opened.connect (() => {
             if (Planner.database.is_database_empty ()) {
-                stack.visible_child_name = "welcome-view";
-                pane.sensitive_ui = false;
+                Timeout.add (250, () => {
+                    stack.visible_child_name = "welcome-view";
+                    pane.sensitive_ui = false;
+                    return false;
+                });
             } else {
                 // Set the homepage view
                 if (Planner.settings.get_boolean ("homepage-project")) {
@@ -210,6 +222,9 @@ public class MainWindow : Gtk.Window {
         });
 
         Planner.database.reset.connect (() => {
+            inbox_view.destroy ();
+            inbox_view = null;
+
             stack.visible_child_name = "welcome-view";
         });
 
@@ -247,7 +262,6 @@ public class MainWindow : Gtk.Window {
                 Planner.settings.set_int64 ("inbox-project", inbox_project.id);
 
                 stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-                stack.visible_child_name = "inbox-view";
 
                 pane.sensitive_ui = true;
                 stack.transition_type = Gtk.StackTransitionType.NONE;
@@ -255,6 +269,9 @@ public class MainWindow : Gtk.Window {
                 // Init Progress Server
                 init_badge_count ();
                 init_progress_controller ();
+
+                // Init Inbox Project
+                go_view (0);
             } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -272,6 +289,10 @@ public class MainWindow : Gtk.Window {
 
         Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
             go_project (project_id);
+        });
+
+        Planner.todoist.first_sync_started.connect (() => {
+            stack.visible_child_name = "loading-view";
         });
 
         Planner.todoist.first_sync_finished.connect (() => {
@@ -469,6 +490,7 @@ public class MainWindow : Gtk.Window {
 
     public void go_view (int id) {
         if (id == 0) {
+            // print ("Inbox: %s\n".printf (Planner.settings.get_int64 ("inbox-project").to_string ()));
             if (inbox_view == null) {
                 inbox_view = new Views.Inbox (
                     Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
