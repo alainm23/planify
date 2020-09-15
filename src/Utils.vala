@@ -569,6 +569,24 @@ public class Utils : GLib.Object {
         return date.format (Granite.DateTime.get_default_time_format (is_clock_format_12h (), false));
     }
 
+    public bool has_time (GLib.DateTime datetime) {
+        bool returned = true;
+        if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
+            returned = false;
+        }
+
+        return returned;
+    }
+
+    public bool has_time_from_string (string date) {
+        return has_time (new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ()));
+    }
+
+    public string get_default_time_format () {
+        var settings = new Settings ("org.gnome.desktop.interface");
+        return Granite.DateTime.get_default_time_format (settings.get_enum ("clock-format") == 1, false);
+    }
+
     public string get_relative_date_from_date (GLib.DateTime date) {
         if (Planner.utils.is_today (date)) {
             return _("Today");
@@ -581,11 +599,17 @@ public class Utils : GLib.Object {
         }
     }
 
-    public GLib.DateTime get_todoist_datetime (string date) {
-        if (is_full_day_date (date)) {
+    public string get_todoist_datetime_format (string date) {
+        var datetime = new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
+        return datetime.format ("%F") + "T" + datetime.format ("%T");
+    }
+
+    public GLib.DateTime? get_todoist_datetime (string date) {
+        GLib.DateTime datetime = null;
+        if (date.length == 10) { // YYYY-MM-DD 
             var _date = date.split ("-");
 
-            return new GLib.DateTime.local (
+            datetime = new GLib.DateTime.local (
                 int.parse (_date [0]),
                 int.parse (_date [1]),
                 int.parse (_date [2]),
@@ -593,11 +617,11 @@ public class Utils : GLib.Object {
                 0,
                 0
             );
-        } else {
+        } else if (date.length == 19) { // YYYY-MM-DDTHH:MM:SS
             var _date = date.split ("T") [0].split ("-");
             var _time = date.split ("T") [1].split (":");
 
-            return new GLib.DateTime.local (
+            datetime = new GLib.DateTime.local (
                 int.parse (_date [0]),
                 int.parse (_date [1]),
                 int.parse (_date [2]),
@@ -605,11 +629,24 @@ public class Utils : GLib.Object {
                 int.parse (_time [1]),
                 int.parse (_time [2])
             );
-        }
-    }
+        } else { // YYYY-MM-DDTHH:MM:SSZ
+            var _date = date.split ("T") [0].split ("-");
+            var _time = date.split ("T") [1].split (":");
 
-    public bool is_full_day_date (string datetime) {
-        return datetime.length <= 10;
+            datetime = new GLib.DateTime.local (
+                int.parse (_date [0]),
+                int.parse (_date [1]),
+                int.parse (_date [2]),
+                0,
+                0,
+                0
+                // int.parse (_time [0]),
+                // int.parse (_time [1]),
+                // int.parse (_time [2].substring (0, 2))
+            );
+        }
+
+        return datetime;
     }
 
     public GLib.DateTime? get_next_recurring_due_date (Objects.Item item, int value=1) {
@@ -986,23 +1023,23 @@ public class Utils : GLib.Object {
         return avatars [GLib.Random.int_range (0, avatars.size)];
     }
 
-    public string get_markup_format (string text) {
-        // Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
-        // Regex link_regex = /\[(.+)\]\((https?:\/\/[^\s]+)(?: "(.+)")?\)|(https?:\/\/[^\s]+)/;
+    public string get_markup_format (string text, int is_todoist=0) {
         Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
+        Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+                
         Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
         Regex bold_regex = /\*\*(.*?)\*\*/;
         Regex italic_regex = /\*(.*?)\*/;
 
         MatchInfo info;
         try {
-            //  List<string> urls = new List<string>();
-            //  if (url_regex.match (text, 0, out info)) {
-            //      do {
-            //          var url = info.fetch_named ("url");
-            //          urls.append (url);
-            //      } while (info.next ());
-            //  }
+            List<string> urls = new List<string>();
+            if (url_regex.match (text, 0, out info)) {
+                do {
+                    var url = info.fetch_named ("url");
+                    urls.append (url);
+                } while (info.next ());
+            }
             List<string> emails = new List<string>();
             if (mailto_regex.match (text, 0, out info)) {
                 do {
@@ -1010,12 +1047,6 @@ public class Utils : GLib.Object {
                     emails.append (email);
                 } while (info.next ());
             }
-            //  Gee.ArrayList<RegexMarkdown> links = new Gee.ArrayList<RegexMarkdown>();
-            //  if (link_regex.match (text, 0, out info)) {
-            //      do {
-            //          links.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
-            //      } while (info.next ());
-            //  }
             Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
             if (bold_regex.match (text, 0, out info)) {
                 do {
@@ -1036,17 +1067,11 @@ public class Utils : GLib.Object {
             }
 
             var converted = text;
-            //  foreach (RegexMarkdown m in links) {
-            //      string name = m.text;
-            //      string url = m.extra.replace ("&", "&amp;");
-            //      var urlAsLink = @"<a href=\"$url\">$name</a>";
-            //      converted = converted.replace (m.match, urlAsLink);
-            //  }
-            //  urls.foreach ((url) => {
-            //      var urlEncoded = url.replace ("&", "&amp;");
-            //      var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
-            //      converted = converted.replace (url, urlAsLink);
-            //  });
+            urls.foreach ((url) => {
+                var urlEncoded = url.replace ("&", "&amp;");
+                var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
+                converted = converted.replace (url, urlAsLink);
+            });
             emails.foreach ((email) => {
                 var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
                 converted = converted.replace (email, emailAsLink);
@@ -1094,22 +1119,49 @@ public class Utils : GLib.Object {
         return newtext;
     }
 
+    private string get_datetime (GLib.DateTime date) {
+        GLib.DateTime datetime;
+        //  if (time_switch.active) {
+        //      datetime = new GLib.DateTime.local (
+        //          date.get_year (),
+        //          date.get_month (),
+        //          date.get_day_of_month (),
+        //          time_picker.time.get_hour (),
+        //          time_picker.time.get_minute (),
+        //          time_picker.time.get_second ()
+        //      );
+        //  } else {
+            datetime = new GLib.DateTime.local (
+                date.get_year (),
+                date.get_month (),
+                date.get_day_of_month (),
+                0,
+                0,
+                0
+            );
+        // }
+
+        return datetime.to_string ();
+    }
+
     public void parse_item_tags (Objects.Item item, string text) {
         var clean_text = "";
         Regex word_regex = /\S+\s*/;
         MatchInfo match_info;
         
-        var match_text = text. strip ();
+        var match_text = text.strip ();
         for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
             var word = match_info.fetch (0);
-            var stripped =    word.strip ().down ();
+            var stripped = word.strip ().down ();
 
             switch (stripped) {
                 case TODAY:
-                    item.due_date = new GLib.DateTime.now_local ().to_string ();
+                    item.due_date = get_datetime (new GLib.DateTime.now_local ());
+                    clean_text+= word;
                     break;
                 case TOMORROW:
-                    item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+                    item.due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
+                    clean_text+= word;
                     break;
                 case "p1":
                     item.priority = 4;

@@ -47,6 +47,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Label project_preview_label;
     private Gtk.Image duedate_repeat_image;
     private Gtk.Label checklist_preview_label;
+    private Gtk.Label time_preview_label;
+    private Gtk.Revealer time_preview_revealer;
     private Gtk.Revealer duedate_repeat_revealer;
     private Gtk.Revealer project_preview_revealer;
     private Gtk.Revealer preview_revealer;
@@ -157,7 +159,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
                 if (Planner.utils.is_overdue (datetime)) {
                     duedate_preview_revealer.reveal_child = true;
-                    check_duedate_style ();
+                    update_duedate_text ();
                 }
 
                 check_preview_box ();
@@ -200,7 +202,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         check_priority_style ();
 
-        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
+        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content, item.is_todoist));
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
@@ -275,6 +277,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_repeat_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         duedate_repeat_revealer.add (duedate_repeat_image);
 
+        time_preview_label = new Gtk.Label (null);
+        time_preview_label.use_markup = true;
+
+        time_preview_revealer = new Gtk.Revealer ();
+        time_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        time_preview_revealer.add (time_preview_label);
+        time_preview_revealer.reveal_child = false;
+
         duedate_preview_grid = new Gtk.Grid ();
         duedate_preview_grid.column_spacing = 3;
         duedate_preview_grid.margin_end = 6;
@@ -282,6 +292,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_grid.valign = Gtk.Align.START;
         //  duedate_preview_grid.add (duedate_preview_image);
         duedate_preview_grid.add (duedate_preview_label);
+        duedate_preview_grid.add (time_preview_revealer);
         duedate_preview_grid.add (duedate_repeat_revealer);
 
         if (item.due_is_recurring == 1) {
@@ -297,7 +308,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_revealer.add (duedate_preview_grid);
         duedate_preview_revealer.reveal_child = false;
 
-        check_duedate_style ();
+        update_duedate_text ();
 
         // Reminder
         reminder = Planner.database.get_first_reminders_by_item (item.id);
@@ -378,13 +389,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         preview_revealer.add (preview_box);
 
         // Preview Box Validator
-        if (item.due_date != "") {
-            duedate_preview_label.label = "<small>%s</small>".printf (
-                Planner.utils.get_relative_date_from_string (item.due_date)
-            );
-            duedate_preview_revealer.reveal_child = true;
-            check_preview_box ();
-        }
+        check_preview_box ();
 
         check_reminder_preview_label (reminder);
         Planner.utils.clock_format_changed.connect (() => {
@@ -674,6 +679,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 labels_edit_revealer.reveal_child = true;
                 labels_hashmap.set (label.id.to_string (), true);
                 check_preview_box ();
+
+                content_entry_focus ();
             }
         });
 
@@ -773,14 +780,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item.due_string = i.due_string;
                 item.due_lang = i.due_lang;
 
-                var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-                duedate_preview_label.label = "<small>%s</small>".printf (
-                    Planner.utils.get_relative_date_from_date (datetime)
-                );
-                duedate_preview_revealer.reveal_child = true;
                 check_preview_box ();
-
-                check_duedate_style ();
+                update_duedate_text ();
                 due_button.update_date_text (item);
             }
         });
@@ -792,15 +793,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item.due_string = i.due_string;
                 item.due_lang = i.due_lang;
 
-                duedate_preview_label.label = "<small>%s</small>".printf (
-                    Planner.utils.get_relative_date_from_date (
-                        new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ())
-                    )
-                );
-
-                duedate_preview_revealer.reveal_child = true;
                 check_preview_box ();
-                check_duedate_style ();
+                update_duedate_text ();
                 due_button.update_date_text (i);
             }
         });
@@ -811,12 +805,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 item.due_is_recurring = 0;
                 item.due_string = "";
                 item.due_lang = "";
-
-                duedate_preview_label.label = "";
-
-                duedate_preview_revealer.reveal_child = false;
+                
                 check_preview_box ();
-                check_duedate_style ();
+                update_duedate_text ();
                 due_button.update_date_text (i);
             }
         });
@@ -831,7 +822,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     item.priority = i.priority;
 
                     content_entry.text = item.content;
-                    content_label.label = Planner.utils.get_markup_format (item.content);
+                    content_label.label = Planner.utils.get_markup_format (item.content, item.is_todoist);
                     note_textview.buffer.text = item.note;
 
                     check_priority_style ();
@@ -991,12 +982,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         Planner.event_bus.day_changed.connect (() => {
-            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            duedate_preview_label.label = "<small>%s</small>".printf (
-                Planner.utils.get_relative_date_from_date (datetime)
-            );
-            
-            check_duedate_style ();
+            update_duedate_text ();
             due_button.update_date_text (item);
         });
     }
@@ -1071,7 +1057,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.get_style_context ().remove_class ("popover");
 
         entry_revealer.reveal_child = false;
-        content_label.label = Planner.utils.get_markup_format (content_entry.text);
+        content_label.label = Planner.utils.get_markup_format (content_entry.text, item.is_todoist);
         label_revealer.reveal_child = true;
         hidden_revealer.reveal_child = false;
 
@@ -1233,30 +1219,51 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    private void check_duedate_style () {
+    private void update_duedate_text () {
+        duedate_preview_label.label = "";
+        time_preview_revealer.reveal_child = false;
+        duedate_preview_revealer.reveal_child = false;
+
         duedate_preview_label.get_style_context ().remove_class ("today-label-button");
         duedate_preview_label.get_style_context ().remove_class ("overdue");
         duedate_preview_label.get_style_context ().remove_class ("upcoming-label-button");
+
+        time_preview_label.get_style_context ().remove_class ("today-label-button");
+        time_preview_label.get_style_context ().remove_class ("overdue");
+        time_preview_label.get_style_context ().remove_class ("upcoming-label-button");
 
         duedate_repeat_image.get_style_context ().remove_class ("today-label-button");
         duedate_repeat_image.get_style_context ().remove_class ("overdue");
         duedate_repeat_image.get_style_context ().remove_class ("upcoming-label-button");
 
         if (item.due_date != "") {
-            var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
-            if (Planner.utils.is_today (date)) {
+            var datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+            duedate_preview_label.label = "<small>%s</small>".printf (
+                Planner.utils.get_relative_date_from_date (datetime)
+            );
+            duedate_preview_revealer.reveal_child = true;
+
+            if (Planner.utils.has_time (datetime)) {
+                time_preview_label.label = "<small>%s</small>".printf (datetime.format (Planner.utils.get_default_time_format ()));
+                time_preview_revealer.reveal_child = true;
+            }
+
+            if (Planner.utils.is_today (datetime)) {
                 duedate_preview_grid.margin_start = 0;
 
                 duedate_preview_label.get_style_context ().add_class ("today-label-button");
+                time_preview_label.get_style_context ().add_class ("today-label-button");
                 duedate_repeat_image.get_style_context ().add_class ("today-label-button");
-            } else if (Planner.utils.is_overdue (date)) {
+            } else if (Planner.utils.is_overdue (datetime)) {
                 duedate_preview_grid.margin_start = 3;
 
                 duedate_preview_label.get_style_context ().add_class ("overdue");
+                time_preview_label.get_style_context ().add_class ("overdue");
                 duedate_repeat_image.get_style_context ().add_class ("overdue");
             } else {
                 duedate_preview_grid.margin_start = 3;
                 duedate_preview_label.get_style_context ().add_class ("upcoming-label-button");
+                time_preview_label.get_style_context ().add_class ("upcoming-label-button");
                 duedate_repeat_image.get_style_context ().add_class ("upcoming-label-button");
             }
 
@@ -1268,7 +1275,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             }
         }
     }
-
+        
     private void check_checklist_separator () {
         if (check_listbox.get_children ().length () > 0) {
             checklist_preview_revealer.reveal_child = true;
@@ -1599,7 +1606,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
             note_preview_revealer.reveal_child = false;
         } else {
-            note_label.label = Planner.utils.get_markup_format (text);
+            note_label.label = Planner.utils.get_markup_format (text, item.is_todoist);
             note_label.opacity = 1.0;
 
             note_preview_revealer.reveal_child = true;

@@ -385,13 +385,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         grid.show_all ();
 
         today_button.clicked.connect (() => {
-            due_date = new GLib.DateTime.now_local ().to_string ();
+            due_date = get_datetime (new GLib.DateTime.now_local ());
             update_date_text ();
             reschedule_popover.popdown ();
         });
 
         tomorrow_button.clicked.connect (() => {
-            due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+            due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
             update_date_text ();
             reschedule_popover.popdown ();
         });
@@ -403,12 +403,37 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         calendar.selection_changed.connect ((date) => {
-            due_date = date.to_string ();
+            due_date = get_datetime (date);
             update_date_text ();
             reschedule_popover.popdown ();
         });
 
         return grid;
+    }
+
+    private string get_datetime (GLib.DateTime date) {
+        GLib.DateTime datetime;
+        //  if (time_switch.active) {
+        //      datetime = new GLib.DateTime.local (
+        //          date.get_year (),
+        //          date.get_month (),
+        //          date.get_day_of_month (),
+        //          time_picker.time.get_hour (),
+        //          time_picker.time.get_minute (),
+        //          time_picker.time.get_second ()
+        //      );
+        //  } else {
+            datetime = new GLib.DateTime.local (
+                date.get_year (),
+                date.get_month (),
+                date.get_day_of_month (),
+                0,
+                0,
+                0
+            );
+        // }
+
+        return datetime.to_string ();
     }
 
     public void entry_grab_focus () {
@@ -436,7 +461,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.due_date = due_date;
             Planner.utils.parse_item_tags (item, content_entry.text);
             temp_id_mapping = Planner.utils.generate_id ();
-
+            
             if (is_todoist == 1) {
                 Planner.todoist.add_item (item, index, temp_id_mapping);
             } else {

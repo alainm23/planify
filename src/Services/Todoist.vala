@@ -2094,10 +2094,16 @@ public class Services.Todoist : GLib.Object {
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (new GLib.DateTime.from_iso8601 (
-                    item.due_date,
-                    new GLib.TimeZone.local ()).format ("%F")
-                );
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
 
                 builder.end_object ();
             }
@@ -2296,12 +2302,16 @@ public class Services.Todoist : GLib.Object {
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (
-                    new GLib.DateTime.from_iso8601 (
-                        item.due_date,
-                        new GLib.TimeZone.local ()
-                    ).format ("%F")
-                );
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
 
                 builder.set_member_name ("is_recurring");
                 if (item.due_is_recurring == 0) {
