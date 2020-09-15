@@ -221,7 +221,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete task"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (item.content)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (item.content))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 

@@ -1089,7 +1089,7 @@ public class Utils : GLib.Object {
                 converted = converted.replace (m.match, format);
             }
 
-            return converted;
+            return get_dialog_text (converted);
         } catch (GLib.RegexError ex) {
             return text;
         }
