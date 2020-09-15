@@ -677,7 +677,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete folder"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (area.name)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (area.name))),
                 "user-trash-full",
                 Gtk.ButtonsType.CLOSE
             );

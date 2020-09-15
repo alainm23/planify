@@ -917,7 +917,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete section"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (section.name)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (section.name))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 

@@ -207,7 +207,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
         content_label.margin_top = 5;
-        content_label.use_markup = true;
         content_label.wrap = true;
 
         label_revealer = new Gtk.Revealer ();

@@ -23,11 +23,7 @@ public class Objects.Section : GLib.Object {
     public int64 id { get; set; default = 0; }
     public int64 project_id { get; set; default = 0; }
     public int64 sync_id { get; set; default = 0; }
-    public string _name = "";
-    public string name {
-        get { return _name; }
-        set { _name = value.replace ("&", " "); }
-    }
+    public string name { get; set; default = ""; }
     public string note { get; set; default = ""; }
     public int item_order { get; set; default = 0; }
     public int collapsed { get; set; default = 1; }

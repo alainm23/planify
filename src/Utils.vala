@@ -1227,6 +1227,10 @@ public class Utils : GLib.Object {
     
         return false;
     }
+
+    public string get_dialog_text (string text) {
+        return text.replace ("&", "&amp;").replace ("<", "&lt;").replace (">", "&gt;");
+    }
 }
 
 public class RegexMarkdown {
