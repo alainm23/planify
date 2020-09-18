@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-08-14 18:59+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"PO-Revision-Date: 2020-09-20 00:39+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -682,7 +682,7 @@ msgstr "Bölüm silindi"
 #: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
 #: src/Widgets/DueButton.vala:134
 msgid "Schedule"
-msgstr "Zamanlama"
+msgstr "Zamanla"
 
 #: src/Widgets/DueButton.vala:217
 msgid "Repeat"
@@ -893,11 +893,11 @@ msgstr "Tamamlananları Göster"
 
 #: src/Views/Today.vala:93
 msgid "Overdue"
-msgstr ""
+msgstr "Süresi doldu"
 
 #: src/Views/Today.vala:109
 msgid "Reschedule"
-msgstr ""
+msgstr "Yeniden zamanla"
 
 #: src/Views/Today.vala:138
 msgid "What tasks are on your mind?"
@@ -922,7 +922,7 @@ msgstr "Bu plana bir görev eklemek için + işaretine dokunun."
 
 #: src/Views/Project.vala:1256
 msgid "Your Productivity"
-msgstr ""
+msgstr "Verimliliğiniz"
 
 #: src/Views/Project.vala:1261
 msgid "Progress:"
@@ -955,7 +955,7 @@ msgstr "Lütfen kimlik bilgilerinizi girin…"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Son tarih:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1064,7 +1064,7 @@ msgstr "Koyu Mavi"
 
 #: src/Dialogs/Preferences/Preferences.vala:416
 msgid "Arc Dark"
-msgstr ""
+msgstr "Arc Dark"
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid ""
@@ -1290,6 +1290,8 @@ msgstr "Ara"
 #: src/Dialogs/QuickFind.vala:157
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
+"Hızlı bir şekilde projeleri ve görünümleri değiştirin, görevleri bulun, "
+"etiketlere göre arama yapın."
 
 #: src/Dialogs/QuickFind.vala:185
 msgid "UP"
@@ -1309,19 +1311,19 @@ msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:210
 msgid "Use"
-msgstr ""
+msgstr "Kullan"
 
 #: src/Dialogs/QuickFind.vala:213
 msgid "to navigate and"
-msgstr ""
+msgstr "gezinmek için ve"
 
 #: src/Dialogs/QuickFind.vala:215
 msgid "to select,"
-msgstr ""
+msgstr "seçmek için,"
 
 #: src/Dialogs/QuickFind.vala:217
 msgid "to close."
-msgstr ""
+msgstr "kapatmak için."
 
 #: src/Dialogs/QuickFind.vala:493
 msgid "Enter"
