@@ -38,9 +38,9 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("item-row");
 
-        string tooltip_string = "<b>%s</b>:\n%s".printf (_("Content"), item.content);
+        string tooltip_string = "<b>%s</b>:\n%s".printf (_("Content"), Planner.utils.get_markup_format (item.content));
         if (item.note != "") {
-            tooltip_string += "\n\n" + "<b>%s</b>:\n%s".printf (_("Note"), item.note);
+            tooltip_string += "\n\n" + "<b>%s</b>:\n%s".printf (_("Note"), Planner.utils.get_markup_format (item.note));
         }
 
         if (item.due_date != "") {
@@ -58,7 +58,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         checked_button.active = true;
         checked_button.margin_top = 2;
 
-        var content_label = new Gtk.Label (item.content);
+        var content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.margin_start = 8;
         content_label.margin_end = 5;
         content_label.halign = Gtk.Align.START;
