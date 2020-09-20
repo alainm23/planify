@@ -285,7 +285,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            date.to_string (),
+            Planner.utils.get_format_date (date).to_string (),
             index,
             listbox
         );

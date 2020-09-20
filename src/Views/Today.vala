@@ -687,7 +687,7 @@ public class Views.Today : Gtk.EventBox {
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            new GLib.DateTime.now_local ().to_string (),
+            Planner.utils.get_format_date (new GLib.DateTime.now_local ()).to_string (),
             index,
             listbox
         );
@@ -925,7 +925,7 @@ public class Views.Today : Gtk.EventBox {
         undated_button.color = 2;
         undated_button.due_label = true;
 
-        var calendar = new Widgets.Calendar.Calendar ();
+        var calendar = new Widgets.Calendar.Calendar (true);
         calendar.hexpand = true;
 
         var grid = new Gtk.Grid ();

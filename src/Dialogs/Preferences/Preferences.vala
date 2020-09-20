@@ -86,7 +86,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         });
 
         key_press_event.connect ((event) => {
-            return true;
+            if (event.keyval == 65307) {
+                return true;
+            }
+
+            return false;
         });
     }
 
@@ -497,7 +501,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Gtk.accelerator_parse (keys, out accelerator_key, out accelerator_mods);
         var shortcut_hint = Gtk.accelerator_get_label (accelerator_key, accelerator_mods);
 
-        var accels = new ShortcutLabel (shortcut_hint.split ("+"));
+        var accels = new Widgets.ShortcutLabel (shortcut_hint.split ("+"));
         accels.halign = Gtk.Align.END;
 
         var keybinding_toggle_recording_button = new Gtk.ToggleButton.with_label (_ ("Press keys…"));
@@ -688,7 +692,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         );
         button_layout.margin_top = 12;
 
-        var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+        // var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 
         var help_header = new Granite.HeaderLabel (_("Help"));
         help_header.margin_start = 12;
@@ -1331,77 +1335,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 public class PreferenceItemRadio : Gtk.RadioButton {
     public PreferenceItemRadio () {
         get_style_context ().add_class ("preferences-view");
-    }
-}
-
-public class ShortcutLabel : Gtk.Grid {
-    public string[] accels { get; construct; }
-
-    public ShortcutLabel (string[] accels) {
-        Object (accels: accels);
-    }
-
-    construct {
-        valign = Gtk.Align.CENTER;
-        column_spacing = 6;
-
-        update_accels (accels);
-    }
-
-    public void update_accels (string[] accels) {
-        int index = 0;
-        foreach (var child in this.get_children ()) {
-            child.destroy ();
-        }
-
-        if (accels[0] != "") {
-            foreach (unowned string accel in accels) {
-                index += 1;
-                if (accel == "") {
-                    continue;
-                }
-                var label = new Gtk.Label (accel);
-                label.get_style_context ().add_class ("keyboardkey");
-                add (label);
-
-                if (index < accels.length) {
-                    label = new Gtk.Label ("+");
-                    label.get_style_context ().add_class ("font-bold"); 
-                    add (label);
-                }
-            }
-        } else {
-            var label = new Gtk.Label (_("Disabled"));
-            label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-            add (label);
-        }
-
-        show_all ();
-    }
-}
-
-public class ShortcutRow : Gtk.ListBoxRow {
-    public ShortcutRow (string name, string[] accels) {
-        var name_label = new Gtk.Label (name);
-        name_label.wrap = true;
-        name_label.xalign = 0;
-        name_label.get_style_context ().add_class ("font-weight-600");
-
-        var shortcuts_labels = new ShortcutLabel (accels);
-
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.margin_start = 12;
-        box.margin_top = 3;
-        box.margin_bottom = 3;
-        box.margin_end = 6;
-        box.pack_start (name_label, false, true, 0);
-        box.pack_end (shortcuts_labels, false, false, 0);
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.pack_start (box);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-
-        add (main_box);
     }
 }
 

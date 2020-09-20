@@ -2080,6 +2080,9 @@ public class Services.Todoist : GLib.Object {
             builder.set_member_name ("project_id");
             builder.add_int_value (item.project_id);
 
+            builder.set_member_name ("priority");
+            builder.add_int_value (item.priority);
+
             if (item.parent_id != 0) {
                 builder.set_member_name ("parent_id");
                 builder.add_int_value (item.parent_id);
@@ -2116,6 +2119,8 @@ public class Services.Todoist : GLib.Object {
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
+
+        print ("%s\n".printf (generator.to_data (null)));
 
         return generator.to_data (null);
     }

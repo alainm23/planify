@@ -85,7 +85,7 @@ executable(
     'src/Widgets/Entry.vala',
     'src/Widgets/TextView.vala',
     'src/Widgets/MultiSelectToolbar.vala',
-    'src/Widgets/ShortcutEntry.vala',
+    'src/Widgets/ShortcutLabel.vala',
     'src/Widgets/WhatsNew.vala',
 
     'src/Widgets/Calendar/Calendar.vala',

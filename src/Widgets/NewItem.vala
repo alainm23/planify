@@ -26,13 +26,19 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int index { get; construct; }
     public bool has_index { get; set; default = false; }
     public string due_date { get; set; default = ""; }
+    public int priority { get; set; default = 1; }
     public Gtk.ListBox? listbox { get; construct; }
+    private Gtk.CheckButton checked_button;
     private Gtk.ToggleButton project_button;
     private Gtk.ToggleButton reschedule_button;
+    private Gtk.ToggleButton priority_button;
+    private Gtk.Image priority_image;
     private Gtk.Image project_icon;
     private Gtk.Label project_label;
     private Gtk.Popover projects_popover = null;
     private Gtk.Popover reschedule_popover = null;
+    private Gtk.Popover priority_popover = null;
+    private Widgets.ModelButton priority_4_menu;
     private Widgets.ModelButton undated_button;
     private Gtk.ListBox projects_listbox;
     private Gtk.SearchEntry search_entry;
@@ -45,6 +51,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Revealer time_revealer;
 
     public int64 temp_id_mapping {get; set; default = 0; }
+    private const string TODAY = _("today");
+    private const string TOMORROW = _("tomorrow");
 
     private uint timeout_id = 0;
     private uint focus_timeout = 0;
@@ -71,7 +79,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         get_style_context ().add_class ("item-row");
         margin_end = 6;
 
-        var checked_button = new Gtk.CheckButton ();
+        checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
         checked_button.get_style_context ().add_class ("priority-1");
         checked_button.valign = Gtk.Align.CENTER;
@@ -101,7 +109,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         submit_stack.expand = true;
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        submit_stack.add_named (new Gtk.Label (_("Add")), "label");
+        submit_stack.add_named (new Gtk.Label (_("Add Task")), "label");
         submit_stack.add_named (submit_spinner, "spinner");
 
         submit_button.add (submit_stack);
@@ -121,7 +129,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         reschedule_button.get_style_context ().add_class ("flat");
         reschedule_button.halign = Gtk.Align.START;
         reschedule_button.add (get_schedule_grid ());
-        update_date_text ();
+        update_due_date ();
 
         var project = Planner.database.get_project_by_id (project_id);
 
@@ -146,6 +154,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         project_button.valign = Gtk.Align.CENTER;
         project_button.add (project_grid);
 
+        priority_image = new Gtk.Image ();
+        priority_image.pixel_size = 16;
+        priority_image.gicon = new ThemedIcon ("edit-flag-symbolic");
+
+        priority_button = new Gtk.ToggleButton ();
+        priority_button.margin_end = 6;
+        priority_button.get_style_context ().add_class ("flat");
+        priority_button.add (priority_image);
+
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
         tools_box.margin_start = 6;
@@ -153,7 +170,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.hexpand = true;
         tools_box.pack_end (project_button, false, false, 0);
         tools_box.pack_end (reschedule_button, false, false, 0);
-        
+        tools_box.pack_end (priority_button, false, false, 0);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.row_spacing = 0;
@@ -232,11 +250,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         content_entry.changed.connect (() => {
-            if (content_entry.text != "") {
+            if (content_entry.text.strip () != "") {
                 submit_button.sensitive = true;
             } else {
                 submit_button.sensitive = false;
             }
+
+            parse_item_tags (content_entry.text);
         });
 
         cancel_button.clicked.connect (() => {
@@ -332,6 +352,162 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 reschedule_popover.popup ();
             }
         });
+
+        priority_button.toggled.connect (() => {
+            if (priority_button.active) {
+                if (priority_popover == null) {
+                    create_priority_popover ();
+                }
+            }
+
+            if (Planner.settings.get_enum ("appearance") == 0) {
+                priority_4_menu.item_image.gicon = new ThemedIcon ("flag-outline-light");
+            } else {
+                priority_4_menu.item_image.gicon = new ThemedIcon ("flag-outline-dark");
+            }
+
+            priority_popover.show_all ();
+            priority_popover.popup ();
+        });
+
+        notify["priority"].connect (() => {
+            update_priority (priority);
+        });
+
+        notify["due_date"].connect (() => {
+            update_due_date ();
+        });
+    }
+
+    public void parse_item_tags (string text) {
+        Regex word_regex = /\S+\s*/;
+        MatchInfo match_info;
+        
+        try {
+            var match_text = text.strip ();
+            for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
+                var word = match_info.fetch (0);
+                var stripped = word.strip ().down ();
+
+                print ("stripped: %s\n".printf (stripped));
+
+                switch (stripped) {
+                    case TODAY:
+                        due_date = get_datetime (new GLib.DateTime.now_local ()).to_string ();
+                        update_due_date ();
+                        break;
+                    case TOMORROW:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1)).to_string ();
+                        update_due_date ();
+                        break;
+                    case "p1":
+                        priority = 4;
+                        break;
+                    case "p2":
+                        priority = 3;
+                        break;
+                    case "p3":
+                        priority = 2;
+                        break;
+                    case "p4":
+                        priority = 1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        } catch (GLib.RegexError ex) {
+            
+        }
+    }
+
+    private void create_priority_popover () {
+        priority_popover = new Gtk.Popover (priority_button);
+        priority_popover.position = Gtk.PositionType.BOTTOM;
+
+        var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-4", "");
+        var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-3", "");
+        var priority_3_menu = new Widgets.ModelButton (_("Priority 3"), "priority-2", "");
+        priority_4_menu = new Widgets.ModelButton (_("Priority 4"), "flag-outline-light", "");
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.margin_top = 3;
+        popover_grid.margin_bottom = 3;
+        popover_grid.width_request = 150;
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.add (priority_1_menu);
+        popover_grid.add (priority_2_menu);
+        popover_grid.add (priority_3_menu);
+        popover_grid.add (priority_4_menu);
+        popover_grid.show_all ();
+
+        priority_popover.add (popover_grid);
+
+        priority_popover.closed.connect (() => {
+            priority_button.active = false;
+            entry_menu_opened = false;
+
+            content_entry.grab_focus_without_selecting ();
+            if (content_entry.cursor_position < content_entry.text_length) {
+            content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);
+            }
+        });
+
+        priority_popover.show.connect (() => {
+            entry_menu_opened = true;
+        });
+
+        priority_1_menu.clicked.connect (() => {
+            update_priority (4);
+            priority_popover.popdown ();
+        });
+
+        priority_2_menu.clicked.connect (() => {
+            update_priority (3);
+            priority_popover.popdown ();
+        });
+
+        priority_3_menu.clicked.connect (() => {
+            update_priority (2);
+            priority_popover.popdown ();
+        });
+
+        priority_4_menu.clicked.connect (() => {
+            update_priority (1);
+            priority_popover.popdown ();
+        });
+    }
+
+    private void update_priority (int p) {
+        priority = p;
+
+        checked_button.get_style_context ().remove_class ("priority-4");
+        checked_button.get_style_context ().remove_class ("priority-3");
+        checked_button.get_style_context ().remove_class ("priority-2");
+        checked_button.get_style_context ().remove_class ("priority-1");
+
+        if (p == 1 || p == 0) {
+            if (Planner.settings.get_enum ("appearance") == 0) {
+                priority_image.gicon = new ThemedIcon ("flag-outline-light");
+            } else {
+                priority_image.gicon = new ThemedIcon ("flag-outline-dark");
+            }
+        } else {
+            priority_image.gicon = new ThemedIcon ("priority-%i".printf (p));
+        }
+
+        if (priority == 0 || priority == 1) {
+            checked_button.get_style_context ().add_class ("priority-1");
+        } else if (priority == 2) {
+            checked_button.get_style_context ().add_class ("priority-2");
+        } else if (priority == 3) {
+            checked_button.get_style_context ().add_class ("priority-3");
+        } else if (priority == 4) {
+            checked_button.get_style_context ().add_class ("priority-4");
+            priority_image.get_style_context ().add_class ("priority-4-icon");
+        } else {
+            checked_button.get_style_context ().add_class ("priority-1");
+        }
     }
 
     private void create_reschedule_popover () {
@@ -382,7 +558,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         undated_button.color = 2;
         undated_button.due_label = true;
 
-        var calendar = new Widgets.Calendar.Calendar ();
+        var calendar = new Widgets.Calendar.Calendar (true);
         calendar.hexpand = true;
 
         var time_header = new Gtk.Label (_("Time"));
@@ -419,43 +595,32 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         grid.show_all ();
 
         today_button.clicked.connect (() => {
-            due_date = get_datetime (new GLib.DateTime.now_local ());
-            update_date_text ();
+            due_date = new GLib.DateTime.now_local ().to_string ();
+            update_due_date ();
         });
 
         tomorrow_button.clicked.connect (() => {
-            due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
-            update_date_text ();
+            due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
+            update_due_date ();
         });
 
         undated_button.clicked.connect (() => {
             due_date = "";
-            update_date_text ();
+            update_due_date ();
         });
 
         calendar.selection_changed.connect ((date) => {
-            due_date = get_datetime (date);
-            update_date_text ();
+            due_date = date.to_string ();
+            update_due_date ();
         });
         
         time_switch.notify["active"].connect (() => {
             time_picker_revealer.reveal_child = time_switch.active;
-            time_revealer.reveal_child = time_switch.active;
-
-            if (due_date == "") {
-                due_date = get_datetime (time_picker.time);
-            } else {
-                due_date = get_datetime (new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ()));
-            }
-
-            update_date_text ();
+            update_due_date ();
         });
 
         time_picker.changed.connect (() => {
-            if (time_switch.active) {
-                due_date = get_datetime (new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ()));
-                update_date_text ();
-            }
+            update_due_date ();
         });
 
         return grid;
@@ -531,11 +696,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         }
 
         if (content_entry.text.strip () != "") {
-            var item = new Objects.Item ();            
+            var item = new Objects.Item ();
+            item.priority = priority;         
             item.project_id = project_id;
             item.section_id = section_id;
             item.is_todoist = is_todoist;
             item.due_date = due_date;
+            item.content = content_entry.text;
             // Planner.utils.parse_item_tags (item, content_entry.text);
             temp_id_mapping = Planner.utils.generate_id ();
             
@@ -634,7 +801,17 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
     }
 
-    public void update_date_text () {
+    private string get_datetime_from_string (string date) {
+        if (date != "") {
+            return get_datetime (new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ()));
+        }
+
+        return date;
+    }
+
+    public void update_due_date () {
+        due_date = get_datetime_from_string (due_date);
+
         due_label.label = _("Schedule");
         due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
 
@@ -643,7 +820,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         due_image.get_style_context ().remove_class ("upcoming");
 
         time_revealer.reveal_child = false;
-        time_picker_revealer.reveal_child = false;
         if (due_date != "") {
             var datetime = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
             due_label.label = Planner.utils.get_relative_date_from_date (datetime);
@@ -651,7 +827,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             if (Planner.utils.has_time (datetime)) {
                 time_label.label = datetime.format (Planner.utils.get_default_time_format ());
                 time_revealer.reveal_child = true;
-                time_picker_revealer.reveal_child = true;
             }
 
             if (Planner.utils.is_today (datetime)) {
@@ -659,12 +834,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 due_image.get_style_context ().add_class ("today");
             } else if (Planner.utils.is_overdue (datetime)) {
                 due_image.gicon = new ThemedIcon ("calendar-overdue");
+                due_image.get_style_context ().add_class ("overdue-label");
             } else {
                 due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
                 due_image.get_style_context ().add_class ("upcoming");
             }
-        } else {
-            time_switch.active = false;
         }
     }
 }

@@ -417,7 +417,7 @@ public class Services.ExportImport : Object {
                 parser.load_from_file (file);
 
                 var node = parser.get_root ().get_object ();
-                var version = node.get_string_member ("version");
+                // var version = node.get_string_member ("version");
 
                 // Set Settings
                 var settings = node.get_object_member ("settings");

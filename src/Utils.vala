@@ -503,7 +503,7 @@ public class Utils : GLib.Object {
         return false;
     }
 
-    private GLib.DateTime get_format_date (GLib.DateTime date) {
+    public GLib.DateTime get_format_date (GLib.DateTime date) {
         return new DateTime.local (
             date.get_year (),
             date.get_month (),
@@ -631,7 +631,7 @@ public class Utils : GLib.Object {
             );
         } else { // YYYY-MM-DDTHH:MM:SSZ
             var _date = date.split ("T") [0].split ("-");
-            var _time = date.split ("T") [1].split (":");
+            // var _time = date.split ("T") [1].split (":");
 
             datetime = new GLib.DateTime.local (
                 int.parse (_date [0]),
@@ -1146,45 +1146,49 @@ public class Utils : GLib.Object {
         return datetime.to_string ();
     }
 
-    public void parse_item_tags (Objects.Item item, string text) {
-        var clean_text = "";
-        Regex word_regex = /\S+\s*/;
-        MatchInfo match_info;
+    //  public void parse_item_tags (Objects.Item item, string text) {
+    //      var clean_text = "";
+    //      Regex word_regex = /\S+\s*/;
+    //      MatchInfo match_info;
         
-        var match_text = text.strip ();
-        for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
-            var word = match_info.fetch (0);
-            var stripped = word.strip ().down ();
+    //      try {
+    //          var match_text = text.strip ();
+    //      for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
+    //          var word = match_info.fetch (0);
+    //          var stripped = word.strip ().down ();
 
-            switch (stripped) {
-                case TODAY:
-                    item.due_date = get_datetime (new GLib.DateTime.now_local ());
-                    clean_text+= word;
-                    break;
-                case TOMORROW:
-                    item.due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
-                    clean_text+= word;
-                    break;
-                case "p1":
-                    item.priority = 4;
-                    break;
-                case "p2":
-                    item.priority = 3;
-                    break;
-                case "p3":
-                    item.priority = 2;
-                    break;
-                case "p4":
-                    item.priority = 1;
-                    break;
-                default:
-                    clean_text+= word;
-                    break;
-            }
-        }
+    //          switch (stripped) {
+    //              case TODAY:
+    //                  item.due_date = get_datetime (new GLib.DateTime.now_local ());
+    //                  clean_text+= word;
+    //                  break;
+    //              case TOMORROW:
+    //                  item.due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
+    //                  clean_text+= word;
+    //                  break;
+    //              case "p1":
+    //                  item.priority = 4;
+    //                  break;
+    //              case "p2":
+    //                  item.priority = 3;
+    //                  break;
+    //              case "p3":
+    //                  item.priority = 2;
+    //                  break;
+    //              case "p4":
+    //                  item.priority = 1;
+    //                  break;
+    //              default:
+    //                  clean_text+= word;
+    //                  break;
+    //          }
+    //          }
+    //      } catch (GLib.RegexError ex) {
+    //          return text;
+    //      }
 
-        item.content = clean_text;
-    }
+    //      item.content = clean_text;
+    //  }
 
     public string build_undo_object (string type, string object_type, int64 object_id, string undo_type, string undo_value) {
         var builder = new Json.Builder ();
