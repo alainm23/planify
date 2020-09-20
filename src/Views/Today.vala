@@ -34,7 +34,7 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
     private Gtk.ModelButton show_completed_button;
     private Gtk.Switch show_completed_switch;
-
+    private Gtk.Label date_label;
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     private Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gee.HashMap <string, Widgets.ItemRow> overdues_loaded;
@@ -69,14 +69,11 @@ public class Views.Today : Gtk.EventBox {
         title_label.get_style_context ().add_class ("title-label");
         title_label.use_markup = true;
 
-        var date_label = new Gtk.Label (
-            new GLib.DateTime.now_local ().format (
-                Granite.DateTime.get_default_date_format (false, true, false)
-            )
-        );
+        date_label = new Gtk.Label (null);
         date_label.valign = Gtk.Align.CENTER;
         date_label.margin_top = 6;
         date_label.use_markup = true;
+        update_today_label ();
 
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
@@ -242,6 +239,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         Planner.event_bus.day_changed.connect (() => {
+            update_today_label ();
             add_all_items ();
             add_completed_items ();
         });
@@ -446,6 +444,12 @@ public class Views.Today : Gtk.EventBox {
                 popover.show_all ();
             }
         });
+    }
+
+    private void update_today_label () {
+        date_label.label = new GLib.DateTime.now_local ().format (
+            Granite.DateTime.get_default_date_format (false, true, false)
+        );
     }
 
     private void create_popover () {

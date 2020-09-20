@@ -155,10 +155,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                 Planner.event_bus.unselect_all ();
             }
         });
-
-        Planner.event_bus.day_changed.connect (() => {
-            add_all_items ();
-        });
         
         Planner.database.item_added.connect ((item, index) => {
             if (item.due_date != "") {

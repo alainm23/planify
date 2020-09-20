@@ -1023,7 +1023,9 @@ public class Utils : GLib.Object {
         return avatars [GLib.Random.int_range (0, avatars.size)];
     }
 
-    public string get_markup_format (string text, int is_todoist=0) {
+    public string get_markup_format (string _text, int is_todoist=0) {
+        var text = get_dialog_text (_text);
+
         Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
         Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
                 
@@ -1089,7 +1091,7 @@ public class Utils : GLib.Object {
                 converted = converted.replace (m.match, format);
             }
 
-            return get_dialog_text (converted);
+            return converted;
         } catch (GLib.RegexError ex) {
             return text;
         }
@@ -1230,6 +1232,10 @@ public class Utils : GLib.Object {
 
     public string get_dialog_text (string text) {
         return text.replace ("&", "&amp;").replace ("<", "&lt;").replace (">", "&gt;");
+    }
+
+    public string get_encode_text (string text) {
+        return text.replace ("&", "%26").replace ("#", "%23");
     }
 }
 

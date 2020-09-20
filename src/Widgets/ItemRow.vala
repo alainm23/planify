@@ -202,12 +202,13 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         check_priority_style ();
 
-        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content, item.is_todoist));
+        content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
         content_label.xalign = 0;
         content_label.margin_top = 5;
         content_label.wrap = true;
+        content_label.use_markup = true;
 
         label_revealer = new Gtk.Revealer ();
         label_revealer.valign = Gtk.Align.START;
@@ -821,7 +822,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     item.priority = i.priority;
 
                     content_entry.text = item.content;
-                    content_label.label = Planner.utils.get_markup_format (item.content, item.is_todoist);
+                    content_label.label = Planner.utils.get_markup_format (item.content);
                     note_textview.buffer.text = item.note;
 
                     check_priority_style ();
@@ -1056,7 +1057,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         main_grid.get_style_context ().remove_class ("popover");
 
         entry_revealer.reveal_child = false;
-        content_label.label = Planner.utils.get_markup_format (content_entry.text, item.is_todoist);
+        content_label.label = Planner.utils.get_markup_format (content_entry.text);
         label_revealer.reveal_child = true;
         hidden_revealer.reveal_child = false;
 
@@ -1166,7 +1167,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
     private void save (bool online=true) {
         if (save_off == false) {
-            content_label.label = content_entry.text;
+            content_label.label = Planner.utils.get_markup_format (content_entry.text);
             content_label.tooltip_text = content_entry.text;
             item.content = content_entry.text;
             item.note = note_textview.buffer.text;

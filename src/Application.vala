@@ -183,7 +183,12 @@ public class Planner : Gtk.Application {
         utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
 
         if (settings.get_string ("version") != Constants.VERSION) {
-            var dialog = new Dialogs.ReleaseDialog ();
+            var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner");
+
+            dialog.append ("help-about", _("Startup"), _("Start Working Locally."));
+            dialog.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist Account."));
+            dialog.append ("folder-download", _("Import Backup"), _("Import Previously Exported Planner Backup."));
+
             dialog.show_all ();
             dialog.present ();
 

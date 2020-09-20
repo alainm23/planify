@@ -1239,7 +1239,6 @@ public class Services.Todoist : GLib.Object {
             );
             
             var message = new Soup.Message ("POST", url);
-            message.request_headers.append ("Content-Type", "application/json");
 
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
@@ -1324,7 +1323,7 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("name");
-            builder.add_string_value (project.name.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (project.name));
 
             builder.set_member_name ("color");
             builder.add_int_value (project.color);
@@ -1437,7 +1436,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (project.id);
 
             builder.set_member_name ("name");
-            builder.add_string_value (project.name.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (project.name));
 
             builder.set_member_name ("color");
             builder.add_int_value (project.color);
@@ -1634,7 +1633,7 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("name");
-            builder.add_string_value (section.name.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
 
             builder.set_member_name ("project_id");
             builder.add_int_value (section.project_id);
@@ -1746,7 +1745,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (section.id);
 
             builder.set_member_name ("name");
-            builder.add_string_value (section.name.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
 
             builder.end_object ();
 
@@ -2076,7 +2075,7 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("content");
-            builder.add_string_value (item.content.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
 
             builder.set_member_name ("project_id");
             builder.add_int_value (item.project_id);
@@ -2290,7 +2289,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (item.id);
 
             builder.set_member_name ("content");
-            builder.add_string_value (item.content.replace ("&", "%26"));
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
 
             builder.set_member_name ("priority");
             if (item.priority == 0) {

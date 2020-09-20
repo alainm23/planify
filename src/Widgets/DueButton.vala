@@ -24,7 +24,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     private Gtk.Label due_label;
     private Gtk.Image due_image;
-    private Gtk.Revealer label_revealer;
     private Gtk.Label time_label;
     private Gtk.Revealer time_revealer;
 
@@ -68,11 +67,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         due_label = new Gtk.Label (_("Schedule"));
         due_label.use_markup = true;
 
-        label_revealer = new Gtk.Revealer ();
-        label_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        label_revealer.add (due_label);
-        label_revealer.reveal_child = true;
-
         time_label = new Gtk.Label (null);
         time_label.use_markup = true;
 
@@ -95,7 +89,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (due_image);
-        main_grid.add (label_revealer);
+        main_grid.add (due_label);
         main_grid.add (time_revealer);
         main_grid.add (repeat_revealer);
 

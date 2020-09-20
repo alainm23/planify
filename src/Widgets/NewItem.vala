@@ -28,7 +28,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public string due_date { get; set; default = ""; }
     public Gtk.ListBox? listbox { get; construct; }
     private Gtk.ToggleButton project_button;
-    private Widgets.ToggleButton reschedule_button;
+    private Gtk.ToggleButton reschedule_button;
     private Gtk.Image project_icon;
     private Gtk.Label project_label;
     private Gtk.Popover projects_popover = null;
@@ -36,6 +36,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Widgets.ModelButton undated_button;
     private Gtk.ListBox projects_listbox;
     private Gtk.SearchEntry search_entry;
+    private Gtk.Switch time_switch;
+    private Granite.Widgets.TimePicker time_picker;
+    private Gtk.Revealer time_picker_revealer;
+    private Gtk.Image due_image;
+    private Gtk.Label due_label;
+    private Gtk.Label time_label;
+    private Gtk.Revealer time_revealer;
 
     public int64 temp_id_mapping {get; set; default = 0; }
 
@@ -110,9 +117,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         buttons_grid.add (cancel_button);
         buttons_grid.add (submit_button);
 
-        reschedule_button = new Widgets.ToggleButton (_("Schedule"), "office-calendar-symbolic");
+        reschedule_button = new Gtk.ToggleButton ();
         reschedule_button.get_style_context ().add_class ("flat");
         reschedule_button.halign = Gtk.Align.START;
+        reschedule_button.add (get_schedule_grid ());
         update_date_text ();
 
         var project = Planner.database.get_project_by_id (project_id);
@@ -333,6 +341,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;
         popover_grid.width_request = 235;
+        popover_grid.margin_bottom = 12;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.add (get_calendar_widget ());
         popover_grid.show_all ();
@@ -376,53 +385,121 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var calendar = new Widgets.Calendar.Calendar ();
         calendar.hexpand = true;
 
+        var time_header = new Gtk.Label (_("Time"));
+        time_header.get_style_context ().add_class ("font-bold");
+
+        time_switch = new Gtk.Switch ();
+        time_switch.get_style_context ().add_class ("active-switch");
+
+        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        time_box.hexpand = true;
+        time_box.margin_start = 16;
+        time_box.margin_end = 16;
+        time_box.pack_start (time_header, false, false, 0);
+        time_box.pack_end (time_switch, false, false, 0);
+        
+        time_picker = new Granite.Widgets.TimePicker ();
+        time_picker.margin_start = 16;
+        time_picker.margin_end = 16;
+        time_picker.margin_top = 6;
+
+        time_picker_revealer = new Gtk.Revealer ();
+        time_picker_revealer.reveal_child = false;
+        time_picker_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        time_picker_revealer.add (time_picker);
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (today_button);
         grid.add (tomorrow_button);
         grid.add (undated_button);
         grid.add (calendar);
+        grid.add (time_box);
+        grid.add (time_picker_revealer);
         grid.show_all ();
 
         today_button.clicked.connect (() => {
             due_date = get_datetime (new GLib.DateTime.now_local ());
             update_date_text ();
-            reschedule_popover.popdown ();
         });
 
         tomorrow_button.clicked.connect (() => {
             due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
             update_date_text ();
-            reschedule_popover.popdown ();
         });
 
         undated_button.clicked.connect (() => {
             due_date = "";
             update_date_text ();
-            reschedule_popover.popdown ();
         });
 
         calendar.selection_changed.connect ((date) => {
             due_date = get_datetime (date);
             update_date_text ();
-            reschedule_popover.popdown ();
+        });
+        
+        time_switch.notify["active"].connect (() => {
+            time_picker_revealer.reveal_child = time_switch.active;
+            time_revealer.reveal_child = time_switch.active;
+
+            if (due_date == "") {
+                due_date = get_datetime (time_picker.time);
+            } else {
+                due_date = get_datetime (new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ()));
+            }
+
+            update_date_text ();
+        });
+
+        time_picker.changed.connect (() => {
+            if (time_switch.active) {
+                due_date = get_datetime (new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ()));
+                update_date_text ();
+            }
         });
 
         return grid;
     }
 
+    private Gtk.Widget get_schedule_grid () {
+        due_image = new Gtk.Image ();
+        due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
+        due_image.valign = Gtk.Align.CENTER;
+        due_image.pixel_size = 16;
+
+        due_label = new Gtk.Label (_("Schedule"));
+        due_label.use_markup = true;
+
+        time_label = new Gtk.Label (null);
+        time_label.use_markup = true;
+
+        time_revealer = new Gtk.Revealer ();
+        time_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        time_revealer.add (time_label);
+        time_revealer.reveal_child = false;
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.halign = Gtk.Align.CENTER;
+        main_grid.valign = Gtk.Align.CENTER;
+        main_grid.add (due_image);
+        main_grid.add (due_label);
+        main_grid.add (time_revealer);
+
+        return main_grid;
+    }
+
     private string get_datetime (GLib.DateTime date) {
         GLib.DateTime datetime;
-        //  if (time_switch.active) {
-        //      datetime = new GLib.DateTime.local (
-        //          date.get_year (),
-        //          date.get_month (),
-        //          date.get_day_of_month (),
-        //          time_picker.time.get_hour (),
-        //          time_picker.time.get_minute (),
-        //          time_picker.time.get_second ()
-        //      );
-        //  } else {
+        if (time_switch.active) {
+            datetime = new GLib.DateTime.local (
+                date.get_year (),
+                date.get_month (),
+                date.get_day_of_month (),
+                time_picker.time.get_hour (),
+                time_picker.time.get_minute (),
+                time_picker.time.get_second ()
+            );
+        } else {
             datetime = new GLib.DateTime.local (
                 date.get_year (),
                 date.get_month (),
@@ -431,7 +508,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 0,
                 0
             );
-        // }
+        }
 
         return datetime.to_string ();
     }
@@ -459,7 +536,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.section_id = section_id;
             item.is_todoist = is_todoist;
             item.due_date = due_date;
-            Planner.utils.parse_item_tags (item, content_entry.text);
+            // Planner.utils.parse_item_tags (item, content_entry.text);
             temp_id_mapping = Planner.utils.generate_id ();
             
             if (is_todoist == 1) {
@@ -558,24 +635,36 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     }
 
     public void update_date_text () {
-        reschedule_button.item_label.label = _("Schedule");
-        reschedule_button.item_image.get_style_context ().remove_class ("overdue-label");
-        reschedule_button.item_image.get_style_context ().remove_class ("today");
-        reschedule_button.item_image.get_style_context ().remove_class ("upcoming");
+        due_label.label = _("Schedule");
+        due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
 
+        due_image.get_style_context ().remove_class ("overdue-label");
+        due_image.get_style_context ().remove_class ("today");
+        due_image.get_style_context ().remove_class ("upcoming");
+
+        time_revealer.reveal_child = false;
+        time_picker_revealer.reveal_child = false;
         if (due_date != "") {
-            var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
-            reschedule_button.item_label.label = Planner.utils.get_relative_date_from_date (date);
+            var datetime = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+            due_label.label = Planner.utils.get_relative_date_from_date (datetime);
 
-            if (Planner.utils.is_today (date)) {
-                reschedule_button.item_image.gicon = new ThemedIcon ("help-about-symbolic");
-                reschedule_button.item_image.get_style_context ().add_class ("today");
-            } else if (Planner.utils.is_overdue (date)) {
-                reschedule_button.item_image.gicon = new ThemedIcon ("office-calendar-symbolic");
-            } else {
-                reschedule_button.item_image.gicon = new ThemedIcon ("office-calendar-symbolic");
-                reschedule_button.item_image.get_style_context ().add_class ("upcoming");
+            if (Planner.utils.has_time (datetime)) {
+                time_label.label = datetime.format (Planner.utils.get_default_time_format ());
+                time_revealer.reveal_child = true;
+                time_picker_revealer.reveal_child = true;
             }
+
+            if (Planner.utils.is_today (datetime)) {
+                due_image.gicon = new ThemedIcon ("help-about-symbolic");
+                due_image.get_style_context ().add_class ("today");
+            } else if (Planner.utils.is_overdue (datetime)) {
+                due_image.gicon = new ThemedIcon ("calendar-overdue");
+            } else {
+                due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
+                due_image.get_style_context ().add_class ("upcoming");
+            }
+        } else {
+            time_switch.active = false;
         }
     }
 }

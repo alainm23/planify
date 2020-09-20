@@ -106,6 +106,16 @@ public class Views.Upcoming : Gtk.EventBox {
                 remove_item_show_queue (row);
             }
         });
+
+        Planner.event_bus.day_changed.connect (() => {
+            listbox.foreach ((widget) => {
+                widget.destroy ();
+            });
+
+            date = new GLib.DateTime.now_local ();
+
+            add_upcomings ();
+        });
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
@@ -125,17 +135,17 @@ public class Views.Upcoming : Gtk.EventBox {
         }
     }
 
-    public void hide_last_item () {
-        if (items_opened.size > 0) {
-            var last = items_opened [items_opened.size - 1];
-            remove_item_show_queue (last);
-            last.hide_item ();
+    //  public void hide_last_item () {
+    //      if (items_opened.size > 0) {
+    //          var last = items_opened [items_opened.size - 1];
+    //          remove_item_show_queue (last);
+    //          last.hide_item ();
 
-            if (items_opened.size > 0) {
-                var focus = items_opened [items_opened.size - 1];
-                focus.grab_focus ();
-                focus.content_entry_focus ();
-            }
-        }
-    }
+    //          if (items_opened.size > 0) {
+    //              var focus = items_opened [items_opened.size - 1];
+    //              focus.grab_focus ();
+    //              focus.content_entry_focus ();
+    //          }
+    //      }
+    //  }
 }
