@@ -49,6 +49,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = false;
+        activatable = false;
+        selectable = false;
         get_style_context ().add_class ("area-row");
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_loaded = new Gee.HashMap<string, Widgets.ItemRow> ();

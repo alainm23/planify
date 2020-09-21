@@ -616,6 +616,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         
         time_switch.notify["active"].connect (() => {
             time_picker_revealer.reveal_child = time_switch.active;
+
+            if (time_switch.active && due_date == "") {
+                due_date = new GLib.DateTime.now_local ().to_string ();
+            }
+
             update_due_date ();
         });
 

@@ -84,7 +84,7 @@ public class MainWindow : Gtk.Window {
         var submit_stack = new Gtk.Stack ();
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        submit_stack.add_named (new Gtk.Label (_("Save")), "label");
+        submit_stack.add_named (new Gtk.Label (_("Add Task")), "label");
         submit_stack.add_named (submit_spinner, "spinner");
 
         submit_button.add (submit_stack);
