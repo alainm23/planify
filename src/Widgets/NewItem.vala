@@ -53,6 +53,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     public int64 temp_id_mapping {get; set; default = 0; }
     private const string TODAY = _("today");
     private const string TOMORROW = _("tomorrow");
+    private const string DATE_1D = _("1d");
+    private const string DATE_1W = _("1w");
+    private const string DATE_1M = _("1m");
 
     private uint timeout_id = 0;
     private uint focus_timeout = 0;
@@ -396,6 +399,18 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                         break;
                     case TOMORROW:
                         due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1D:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1W:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_days (7)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1M:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_months (1)).to_string ();
                         update_due_date ();
                         break;
                     case "p1":

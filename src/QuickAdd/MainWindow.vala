@@ -22,6 +22,9 @@
 public class MainWindow : Gtk.Window {
     private const string TODAY = _("today");
     private const string TOMORROW = _("tomorrow");
+    private const string DATE_1D = _("1d");
+    private const string DATE_1W = _("1w");
+    private const string DATE_1M = _("1m");
 
     private Gtk.CheckButton checked_button;
     private Gtk.Stack stack;
@@ -734,6 +737,18 @@ public class MainWindow : Gtk.Window {
                         break;
                     case TOMORROW:
                         due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1D:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1W:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_days (7)).to_string ();
+                        update_due_date ();
+                        break;
+                    case DATE_1M:
+                        due_date = get_datetime (new GLib.DateTime.now_local ().add_months (1)).to_string ();
                         update_due_date ();
                         break;
                     case "p1":
