@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-07-16 20:49-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-22 13:39-0500\n"
 "PO-Revision-Date: 2020-07-22 13:41+0000\n"
 "Last-Translator: Heart & Soul <shenzhe100@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -19,20 +19,49 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.2-dev\n"
 
-#: src/MainWindow.vala:51
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+msgid "Startup"
+msgstr "开始"
+
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+#, fuzzy
+msgid "Start Working Locally."
+msgstr "在本地开始工作."
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#: src/Dialogs/TodoistOAuth.vala:37
+#: src/Dialogs/Preferences/Preferences.vala:921
+msgid "Todoist"
+msgstr "待办清单"
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#, fuzzy
+msgid "Synchronize with your Todoist Account."
+msgstr "同步你的待办清单账号并且开始工作."
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+#, fuzzy
+msgid "Import Backup"
+msgstr "重要"
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+msgid "Import Previously Exported Planner Backup."
+msgstr ""
+
+#: src/MainWindow.vala:50
 msgid "Planner"
 msgstr "Planner"
 
-#: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:802 src/MainWindow.vala:818 src/MainWindow.vala:834
+#: src/MainWindow.vala:850
 msgid "Adding task from clipboard…"
 msgstr "从剪贴板中添加任务...…"
 
-#: src/Utils.vala:28
+#: src/Utils.vala:28 src/Widgets/NewItem.vala:54
 msgid "today"
 msgstr "今日"
 
-#: src/Utils.vala:29
+#: src/Utils.vala:29 src/Widgets/NewItem.vala:55
 msgid "tomorrow"
 msgstr "明日"
 
@@ -137,209 +166,129 @@ msgid "Taupe"
 msgstr "灰褐色"
 
 #. vala-lint=line-length
-#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1428
-#: src/Widgets/DueButton.vala:196 src/Views/Today.vala:59
-#: src/Views/Today.vala:625 src/Dialogs/Preferences/Preferences.vala:234
-#: src/Dialogs/Preferences/Preferences.vala:340 src/Dialogs/QuickFind.vala:77
+#: src/Utils.vala:592 src/Widgets/Pane.vala:73 src/Widgets/NewItem.vala:556
+#: src/Widgets/ItemRow.vala:1457 src/Widgets/DueButton.vala:218
+#: src/Views/Today.vala:68 src/Views/Today.vala:564 src/Views/Today.vala:581
+#: src/Views/Today.vala:910 src/Dialogs/Preferences/Preferences.vala:249
+#: src/Dialogs/Preferences/Preferences.vala:355 src/Dialogs/QuickFind.vala:78
 msgid "Today"
 msgstr "今天"
 
-#: src/Utils.vala:576 src/Widgets/Pane.vala:413 src/Widgets/ItemRow.vala:1431
-#: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
-#: src/Views/Today.vala:631
+#. today_menu.item_image.pixel_size = 14;
+#: src/Utils.vala:594 src/Widgets/Pane.vala:413 src/Widgets/NewItem.vala:562
+#: src/Widgets/ItemRow.vala:1461 src/Widgets/DueButton.vala:224
+#: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:916
 msgid "Tomorrow"
 msgstr "明天"
 
-#: src/Utils.vala:815
+#: src/Utils.vala:857
 msgid "Quick Add Activated!"
 msgstr "快速添加活动!"
 
-#: src/Utils.vala:816
+#: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "你可以从参数中将%s设为活动状态"
 
-#: src/Utils.vala:855
+#: src/Utils.vala:897
 msgid "🚀️ Getting Started"
 msgstr "🚀️ 让我们开始"
 
-#: src/Utils.vala:856
+#: src/Utils.vala:898
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
-msgstr "这个项目将帮助你学习关于Planner的基本操作并且开始使用一个简单的任务管理系统来组织你所需要去做的任何事情."
-
-#: src/Utils.vala:861
-msgid "Keeping track of your tasks"
-msgstr "留下任务的痕迹"
-
-#: src/Utils.vala:862
-msgid ""
-"It turns out, our brains are actually wired to keep us thinking about our "
-"unfinished tasks. Handy when you have one thing you need to work on. Not so "
-"good when you have 30+ tasks vying for your attention at once. That’s why "
-"the first step to organizing your work and life is getting everything out of "
-"your head and onto your to-do list. From there you can begin to organize and "
-"prioritize so you know exactly what to focus on and when."
 msgstr ""
-"实际上我们的大脑会继续保持对未完成事件的关注，当你需要集中注意力去做一件事情的时候，30多件事情会分散掉你对事件的专注，这就是为什么第一步应该用任务清单来"
-"组织你自己的工作和生活。这样你就能开始去组织生活和将精力放在一些重要的事情上。"
+"这个项目将帮助你学习关于Planner的基本操作并且开始使用一个简单的任务管理系统来"
+"组织你所需要去做的任何事情."
 
-#: src/Utils.vala:867
+#: src/Utils.vala:903
 msgid "Adding new tasks"
 msgstr "添加新的任务"
 
-#: src/Utils.vala:868
-msgid ""
-"- To add a new task to Planner, just click + and press Enter.\n"
-"- When your task is created, click on the task to be able to edit it, add a "
-"note or some other options."
+#: src/Utils.vala:904
+msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
-"-要在Planner中添加新的任务,请点击+并且按下回车.\n"
-"-当你的任务创建后,单击该任务就能编辑,添加笔记或进行其他的一些操作。"
 
-#: src/Utils.vala:874
-msgid "Due dates"
-msgstr "截至日期"
-
-#: src/Utils.vala:875
-msgid ""
-"- If you know you need to have the task done on a certain day, click on the "
-"calendar icon and select a date.\n"
-"- If you want to delete the due date, repeat the process and select the "
-"\"undate\" option."
-msgstr ""
-"-如果你需要在某一天完成这个任务,点击日历图表并且选择这一天.\n"
-"-如果你需要删除这一天的任务,重复上述操作并且选择\"休息一天\"."
-
-#: src/Utils.vala:881
-msgid "How to use projects"
-msgstr "如何使用项目"
-
-#: src/Utils.vala:882
-msgid ""
-"- Whether you’re planning a presentation, preparing for an event or creating "
-"a website, create a project so all the important details are saved in one "
-"central place.\n"
-"- In the navigation menu on the left, at the bottom, click on the + symbol.\n"
-"- In the options menu select 'Project' and type out the name of your new "
-"project.\n"
-"- Select a source from the drop-down menu.\n"
-"- (Optional) Select a different project color from the color list.\n"
-"- Click Add to create the project."
-msgstr ""
-"-准备一件事情或创建一个网站，创建一个项目所有重要的细节都保存在一个地方\n"
-"-在左侧的导航菜单底部，点击 + 这个符号\n"
-"-在选项菜单中选择'项目'并且输入新项目的名称\n"
-"-在下拉菜单中选择数据来源\n"
-"-(可选)在颜色列表中选择你喜欢的颜色\n"
-"-点击添加来创建项目"
-
-#: src/Utils.vala:892
-msgid "Sections"
-msgstr "分区"
-
-#: src/Utils.vala:898
-msgid "Add sections"
-msgstr "添加分区"
-
-#: src/Utils.vala:899
-msgid ""
-"- It’s always easier to take on a big project when you split it into easily "
-"manageable parts using Planner’s sections.\n"
-"- Organize your projects with sections to group your tasks together and get "
-"a better overview of what needs to be done. Add sections to your project, "
-"drag the relevant tasks to the section they belong in, and you’ll find it a "
-"lot easier to make progress (instead of getting overwhelmed by a single long "
-"list).\n"
-"- At the top right of a project, click the + icon.\n"
-"- Type the name of your section and click Add."
-msgstr ""
-"-当你把一个大项目分割成易于管理的小任务时，用Planner的分区功能是很有用的.\n"
-"-用分区功能组织你的项目，将任务组合在一起，这样就能更好的了解需要去做的事情，将分区添加到你的项目中，选择相关的任务将其拖到合适的分区中，这样你就更容易的"
-"掌握项目的进展（而不是被一个长长的列表所淹没).\n"
-"-在项目的右上方，点击+按钮.\n"
-"-输入分区的名称并且点击添加."
-
-#: src/Utils.vala:918
+#: src/Utils.vala:959
 msgid "Create a new task"
 msgstr "新建一个任务"
 
-#: src/Utils.vala:919
+#: src/Utils.vala:960
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr "在列表顶部创建一个任务(只工作在项目中)"
 
-#: src/Utils.vala:920
+#: src/Utils.vala:961
 msgid "Create a new area"
 msgstr "创建一个新区域"
 
-#: src/Utils.vala:921
+#: src/Utils.vala:962
 msgid "Create a new project"
 msgstr "创建一个新项目"
 
-#: src/Utils.vala:922
+#: src/Utils.vala:963
 msgid "Create a new section"
 msgstr "创建一个新分区"
 
-#: src/Utils.vala:923
+#: src/Utils.vala:964
 msgid "Open the Inbox"
 msgstr "打开待办事项"
 
-#: src/Utils.vala:924
+#: src/Utils.vala:965
 msgid "Open Today"
 msgstr "打开今天"
 
-#: src/Utils.vala:925
+#: src/Utils.vala:966
 msgid "Open Upcoming"
 msgstr "打开将要发生的事情"
 
-#: src/Utils.vala:926
+#: src/Utils.vala:967
 msgid "Open Search"
 msgstr "打开搜索"
 
-#: src/Utils.vala:927
+#: src/Utils.vala:968
 msgid "Manually sync"
 msgstr "手动同步"
 
-#: src/Utils.vala:928
+#: src/Utils.vala:969
 msgid "Quit"
 msgstr "退出"
 
-#: src/Utils.vala:936
+#: src/Utils.vala:977
 msgid "The request was incorrect."
 msgstr "请求错误."
 
-#: src/Utils.vala:937
+#: src/Utils.vala:978
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "必要的身份验证失败或未通过请求."
 
-#: src/Utils.vala:938
+#: src/Utils.vala:979
 msgid "The request was valid, but for something that is forbidden."
 msgstr "请求有效，但无权限访问."
 
-#: src/Utils.vala:939
+#: src/Utils.vala:980
 msgid "The requested resource could not be found."
 msgstr "找不到请求的资源."
 
-#: src/Utils.vala:940
+#: src/Utils.vala:981
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "用户在同一时间发送了太多的请求."
 
-#: src/Utils.vala:941
+#: src/Utils.vala:982
 msgid "The request failed due to a server error."
 msgstr "由于服务器错误，请求失败."
 
-#: src/Utils.vala:942
+#: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
 msgstr "服务器当前无法相应请求."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:1035 src/Widgets/Pane.vala:72
-#: src/Widgets/ItemRow.vala:1324 src/Widgets/SectionRow.vala:750
-#: src/Views/Inbox.vala:80 src/Dialogs/Preferences/Preferences.vala:230
-#: src/Dialogs/Preferences/Preferences.vala:337 src/Dialogs/QuickFind.vala:70
+#: src/Services/Database.vala:1048 src/Widgets/Pane.vala:72
+#: src/Widgets/ItemRow.vala:1353 src/Widgets/SectionRow.vala:804
+#: src/Views/Inbox.vala:81 src/Dialogs/Preferences/Preferences.vala:245
+#: src/Dialogs/Preferences/Preferences.vala:352 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
 msgstr "待办事项"
 
@@ -351,26 +300,28 @@ msgstr "在这台计算机上"
 msgid "Todoist Project"
 msgstr "待办清单项目"
 
-#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
+#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 msgid "Unable to move task"
 msgstr "无法移动任务"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
-#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:237
-#: src/Dialogs/QuickFind.vala:84
+#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:252
+#: src/Dialogs/QuickFind.vala:85
 msgid "Upcoming"
 msgstr "将要发生"
 
-#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
+#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:491
 msgid "Add Project"
 msgstr "添加项目"
 
-#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
+#. modal: true,
+#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:41
+#: src/Dialogs/QuickFind.vala:145
 msgid "Quick Find"
 msgstr "快速查找"
 
-#: src/Widgets/Pane.vala:216
+#: src/Widgets/Pane.vala:216 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
 msgstr "设置"
 
@@ -392,76 +343,76 @@ msgstr ""
 "当你重新连接后切换离线模式\n"
 "来完成同步"
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:894 src/Views/Project.vala:1316
-#: src/Dialogs/ProjectSettings.vala:49
+#: src/Widgets/New.vala:65 src/Views/Inbox.vala:911 src/Views/Project.vala:1458
+#: src/Dialogs/ProjectSettings.vala:151
 msgid "Name:"
 msgstr "名称:"
 
-#: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
+#: src/Widgets/New.vala:90 src/Dialogs/ProjectSettings.vala:153
 msgid "Description:"
 msgstr "描述:"
 
-#: src/Widgets/New.vala:107
+#: src/Widgets/New.vala:108
 msgid "Folder:"
 msgstr "文件夹:"
 
-#: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
+#: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:157
 msgid "Color:"
 msgstr "颜色:"
 
-#: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
-#: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
-#: src/Views/Inbox.vala:910 src/Views/Project.vala:1332
+#: src/Widgets/New.vala:163 src/Widgets/ReminderButton.vala:250
+#: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:927
+#: src/Views/Project.vala:1474
 msgid "Add"
 msgstr "添加"
 
-#: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:96
-#: src/Widgets/SectionRow.vala:166 src/Widgets/AreaRow.vala:148
-#: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:915
-#: src/Views/Project.vala:220 src/Views/Project.vala:1337
-msgid "Cancel"
-msgstr "取消"
-
-#: src/Widgets/New.vala:314
-msgid "Local"
-msgstr "本地"
-
-#: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:491
-msgid "No Folder"
-msgstr "无文件夹"
-
-#: src/Widgets/New.vala:462
-msgid "Project"
-msgstr "项目"
-
-#: src/Widgets/New.vala:467
-msgid "Start a new project, create a to do list, organize your notes."
-msgstr "开始一个项目，创建一个任务清单，组织你的笔记."
-
-#: src/Widgets/New.vala:494
-msgid "Folder"
-msgstr "文件夹"
-
-#: src/Widgets/New.vala:499
-msgid "Organize your projects in groups and keep your panel clean."
-msgstr "在群体中组织你的项目并且让你的面板保持干净."
-
-#: src/Widgets/New.vala:512
-msgid "Add Folder"
-msgstr "添加文件夹"
-
-#: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
-#: src/Dialogs/Preferences/Preferences.vala:79
+#: src/Widgets/New.vala:198 src/Dialogs/ProjectSettings.vala:171
+#: src/Dialogs/Preferences/Preferences.vala:80
 msgid "Close"
 msgstr "关闭"
 
-#: src/Widgets/New.vala:582
+#: src/Widgets/New.vala:324
+msgid "Local"
+msgstr "本地"
+
+#: src/Widgets/New.vala:399 src/Widgets/ProjectRow.vala:503
+msgid "No Folder"
+msgstr "无文件夹"
+
+#: src/Widgets/New.vala:472
+msgid "Project"
+msgstr "项目"
+
+#: src/Widgets/New.vala:477
+msgid "Start a new project, create a to do list, organize your notes."
+msgstr "开始一个项目，创建一个任务清单，组织你的笔记."
+
+#: src/Widgets/New.vala:504
+msgid "Folder"
+msgstr "文件夹"
+
+#: src/Widgets/New.vala:509
+msgid "Organize your projects in groups and keep your panel clean."
+msgstr "在群体中组织你的项目并且让你的面板保持干净."
+
+#: src/Widgets/New.vala:522
+msgid "Add Folder"
+msgstr "添加文件夹"
+
+#: src/Widgets/New.vala:559 src/Dialogs/Preferences/Preferences.vala:701
+msgid "Create tutorial project"
+msgstr "创建入门手册"
+
+#: src/Widgets/New.vala:578 src/Dialogs/Preferences/Preferences.vala:761
+msgid "Your tutorial project was created"
+msgstr "你的入门手册已被创建"
+
+#: src/Widgets/New.vala:632
 msgid "New folder"
 msgstr "新的文件夹"
 
-#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:127
-#: src/Views/Project.vala:205
+#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:128
+#: src/Views/Project.vala:206
 msgid "Project Menu"
 msgstr "项目菜单"
 
@@ -469,148 +420,222 @@ msgstr "项目菜单"
 msgid "Local Project"
 msgstr "本地项目"
 
-#: src/Widgets/ProjectRow.vala:389 src/Widgets/ItemRow.vala:1333
-#: src/Widgets/ItemRow.vala:1353 src/Widgets/ItemRow.vala:1387
-#: src/Widgets/SectionRow.vala:1007 src/Widgets/SectionRow.vala:1064
+#: src/Widgets/ProjectRow.vala:401 src/Widgets/ItemRow.vala:1362
+#: src/Widgets/ItemRow.vala:1382 src/Widgets/ItemRow.vala:1416
+#: src/Widgets/SectionRow.vala:1065 src/Widgets/SectionRow.vala:1124
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "将项目移动到 <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1426
-#: src/Widgets/AreaRow.vala:653 src/Views/Project.vala:1041
-msgid "Edit"
-msgstr "编辑"
+#: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
+#, fuzzy
+msgid "Open New Window"
+msgstr "打开待办事项"
 
-#: src/Widgets/ProjectRow.vala:548
+#: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
+#, fuzzy
+msgid "Edit project"
+msgstr "添加项目"
+
+#: src/Widgets/ProjectRow.vala:561
 msgid "Move"
 msgstr "移动"
 
-#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1447
-#: src/Widgets/SectionRow.vala:816
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:565 src/Widgets/ItemRow.vala:1479
+#: src/Widgets/SectionRow.vala:870 src/Views/Today.vala:463
+#: src/Views/Project.vala:1138 src/Dialogs/Preferences/Preferences.vala:129
 msgid "Share"
 msgstr "分享"
 
-#: src/Widgets/ProjectRow.vala:556
+#: src/Widgets/ProjectRow.vala:569 src/Views/Today.vala:535
+#: src/Views/Project.vala:1284
 msgid "Send by e-mail"
 msgstr "通过电子邮件发送"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1452
-#: src/Widgets/SectionRow.vala:821
+#: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1484
+#: src/Widgets/SectionRow.vala:875 src/Views/Today.vala:536
+#: src/Views/Project.vala:1285
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
-#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:565 src/Widgets/ProjectRow.vala:592
-#: src/Widgets/ItemRow.vala:1459 src/Widgets/SectionRow.vala:827
-#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:654
+#: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
+#: src/Widgets/ItemRow.vala:1491 src/Widgets/ItemCompletedRow.vala:204
+#: src/Widgets/ItemCompletedRow.vala:228 src/Widgets/SectionRow.vala:881
+#: src/Widgets/SectionRow.vala:924 src/Widgets/AreaRow.vala:654
 #: src/Widgets/AreaRow.vala:692 src/Widgets/CheckRow.vala:81
-#: src/Views/Project.vala:1044 src/Views/Project.vala:1117
+#: src/Views/Project.vala:1140 src/Views/Project.vala:1232
 msgid "Delete"
 msgstr "删除"
 
-#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1112
+#: src/Widgets/ProjectRow.vala:607 src/Views/Project.vala:1227
 msgid "Delete project"
 msgstr "删除项目"
 
-#: src/Widgets/ProjectRow.vala:588 src/Widgets/SectionRow.vala:866
-#: src/Widgets/AreaRow.vala:680 src/Views/Project.vala:1113
+#: src/Widgets/ProjectRow.vala:608 src/Widgets/ItemCompletedRow.vala:224
+#: src/Widgets/SectionRow.vala:920 src/Widgets/AreaRow.vala:680
+#: src/Views/Project.vala:1228
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "确定删除 <b>%s</b>?"
 
-#: src/Widgets/NewItem.vala:69 src/Widgets/ItemRow.vala:220
+#: src/Widgets/NewItem.vala:56
+msgid "1d"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:57
+msgid "1w"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:58
+msgid "1m"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
 msgid "Task name"
 msgstr "任务名称"
 
-#: src/Widgets/ItemRow.vala:184
+#: src/Widgets/NewItem.vala:115 src/Widgets/SectionRow.vala:102
+#: src/Widgets/SectionRow.vala:860 src/Widgets/SectionRow.vala:1243
+#: src/Widgets/MagicButton.vala:32
+msgid "Add Task"
+msgstr "添加任务"
+
+#: src/Widgets/NewItem.vala:120 src/Widgets/SectionRow.vala:166
+#: src/Widgets/AreaRow.vala:148 src/Widgets/ReminderButton.vala:248
+#: src/Widgets/NewSection.vala:85 src/Widgets/NewLabel.vala:77
+#: src/Views/Inbox.vala:932 src/Views/Project.vala:221
+#: src/Views/Project.vala:1479
+msgid "Cancel"
+msgstr "取消"
+
+#: src/Widgets/NewItem.vala:441 src/Dialogs/QuickFind.vala:101
+msgid "Priority 1"
+msgstr "优先级 1"
+
+#: src/Widgets/NewItem.vala:442 src/Dialogs/QuickFind.vala:109
+msgid "Priority 2"
+msgstr "优先级 2"
+
+#: src/Widgets/NewItem.vala:443 src/Dialogs/QuickFind.vala:117
+msgid "Priority 3"
+msgstr "优先级 3"
+
+#: src/Widgets/NewItem.vala:444 src/Dialogs/QuickFind.vala:125
+msgid "Priority 4"
+msgstr "优先级 4"
+
+#. tomorrow_menu.item_image.pixel_size = 14;
+#: src/Widgets/NewItem.vala:568 src/Widgets/ItemRow.vala:1465
+#: src/Widgets/DueButton.vala:230 src/Views/Today.vala:922
+msgid "Undated"
+msgstr "无期限"
+
+#: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
+#, fuzzy
+msgid "Time"
+msgstr "时间:"
+
+#: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
+#: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
+#: src/Widgets/DueButton.vala:148
+msgid "Schedule"
+msgstr "计划表"
+
+#: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
 msgstr "隐藏细节"
 
-#: src/Widgets/ItemRow.vala:502
+#: src/Widgets/ItemRow.vala:519
 msgid "Add Checklist"
 msgstr "添加检查列表"
 
-#: src/Widgets/ItemRow.vala:509
+#: src/Widgets/ItemRow.vala:526
 msgid "Delete Task"
 msgstr "删除任务"
 
-#: src/Widgets/ItemRow.vala:523
+#: src/Widgets/ItemRow.vala:540
 msgid "Task Menu"
 msgstr "任务菜单"
 
-#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1512
+#: src/Widgets/ItemRow.vala:710 src/Widgets/ItemRow.vala:1544
 msgid "Task deleted"
 msgstr "清除任务"
 
-#: src/Widgets/ItemRow.vala:1012
+#: src/Widgets/ItemRow.vala:1020
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已完成,下一个事件: %s"
 
-#: src/Widgets/ItemRow.vala:1025
+#: src/Widgets/ItemRow.vala:1033
 msgid "1 task completed"
 msgstr "1 个任务完成"
 
-#: src/Widgets/ItemRow.vala:1366
+#: src/Widgets/ItemRow.vala:1395
 msgid "No Section"
 msgstr "无分区"
 
-#: src/Widgets/ItemRow.vala:1425
+#: src/Widgets/ItemRow.vala:1454
 msgid "Complete"
 msgstr "完成"
 
-#: src/Widgets/ItemRow.vala:1434 src/Widgets/DueButton.vala:208
-msgid "Undated"
-msgstr "无期限"
+#: src/Widgets/ItemRow.vala:1455 src/Widgets/AreaRow.vala:653
+msgid "Edit"
+msgstr "编辑"
 
-#: src/Widgets/ItemRow.vala:1439 src/Widgets/SectionRow.vala:812
+#: src/Widgets/ItemRow.vala:1471 src/Widgets/SectionRow.vala:866
 msgid "Move to Project"
 msgstr "移动到项目"
 
-#: src/Widgets/ItemRow.vala:1443
+#: src/Widgets/ItemRow.vala:1475
 msgid "Move to Section"
 msgstr "移动到分区"
 
-#: src/Widgets/ItemRow.vala:1451
+#: src/Widgets/ItemRow.vala:1483
 msgid "Text"
 msgstr "文本"
 
-#: src/Widgets/ItemRow.vala:1458
+#: src/Widgets/ItemRow.vala:1490
 msgid "Duplicate"
 msgstr "复制"
 
-#: src/Widgets/ItemRow.vala:1584 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:1616 src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
 msgstr "备注"
 
-#: src/Widgets/ItemCompletedRow.vala:39
+#: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
 msgstr "内容"
 
-#: src/Widgets/ItemCompletedRow.vala:45
+#: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
 msgstr "截至日期"
 
-#: src/Widgets/ItemCompletedRow.vala:48
+#: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
 msgstr "今日完成"
 
+#: src/Widgets/ItemCompletedRow.vala:203
+#, fuzzy
+msgid "Mark Incomplete"
+msgstr "1 个任务完成"
+
+#: src/Widgets/ItemCompletedRow.vala:223
+#, fuzzy
+msgid "Delete task"
+msgstr "删除任务"
+
 #. hidden_button.margin_end = 6;
-#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:936
+#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:994
 msgid "Display Tasks"
 msgstr "显示任务"
 
-#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:941
+#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:999
 msgid "Hiding Tasks"
 msgstr "隐藏任务"
-
-#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:806
-#: src/Widgets/MagicButton.vala:32
-msgid "Add Task"
-msgstr "添加任务"
 
 #: src/Widgets/SectionRow.vala:125 src/Widgets/NewSection.vala:69
 msgid "Section name"
@@ -623,102 +648,97 @@ msgstr "选择菜单"
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #. top_box.margin_top = 6;
 #: src/Widgets/SectionRow.vala:162 src/Widgets/AreaRow.vala:144
-#: src/Views/Project.vala:216 src/Dialogs/ProjectSettings.vala:159
+#: src/Views/Project.vala:217 src/Dialogs/ProjectSettings.vala:173
 msgid "Save"
 msgstr "保存"
 
-#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
+#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:249
 msgid "Add a description"
 msgstr "添加注释"
 
-#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
+#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:934
 msgid "Description"
 msgstr "描述"
 
-#: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
+#: src/Widgets/SectionRow.vala:811 src/Widgets/SectionRow.vala:832
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "将选择移动到 <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:809
+#: src/Widgets/SectionRow.vala:863
 msgid "Rename"
 msgstr "重命名"
 
-#: src/Widgets/SectionRow.vala:810
+#: src/Widgets/SectionRow.vala:864
 msgid "Add Note"
 msgstr "添加注释"
 
-#: src/Widgets/SectionRow.vala:865
+#: src/Widgets/SectionRow.vala:919
 msgid "Delete section"
 msgstr "删除选择"
 
-#: src/Widgets/SectionRow.vala:883
+#: src/Widgets/SectionRow.vala:937
 msgid "Section deleted"
 msgstr "清除选择"
 
-#: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
-#: src/Widgets/DueButton.vala:134
-msgid "Schedule"
-msgstr "计划表"
-
-#: src/Widgets/DueButton.vala:217
+#: src/Widgets/DueButton.vala:262
 msgid "Repeat"
 msgstr "重复"
 
-#: src/Widgets/DueButton.vala:240
+#: src/Widgets/DueButton.vala:285
 msgid "Every day"
 msgstr "每天"
 
-#: src/Widgets/DueButton.vala:246
+#: src/Widgets/DueButton.vala:291
 msgid "Every week"
 msgstr "每周"
 
-#: src/Widgets/DueButton.vala:252
+#: src/Widgets/DueButton.vala:297
 msgid "Every month"
 msgstr "每月"
 
-#: src/Widgets/DueButton.vala:258
+#: src/Widgets/DueButton.vala:303
 msgid "Every year"
 msgstr "每年"
 
-#: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:117
-#: src/Dialogs/Preferences/Preferences.vala:771 src/Dialogs/QuickFind.vala:280
-#: src/Dialogs/QuickFind.vala:656
+#: src/Widgets/LabelButton.vala:42 src/Dialogs/Preferences/Preferences.vala:126
+#: src/Dialogs/Preferences/Preferences.vala:798 src/Dialogs/QuickFind.vala:281
+#: src/Dialogs/QuickFind.vala:674
 msgid "Labels"
 msgstr "标签"
 
-#: src/Widgets/LabelButton.vala:50
+#: src/Widgets/LabelButton.vala:52
 msgid "labels"
 msgstr "标签"
 
-#: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
+#: src/Widgets/LabelButton.vala:92 src/Widgets/LabelButton.vala:248
 msgid "Using Labels"
 msgstr "使用标签"
 
-#: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
+#: src/Widgets/LabelButton.vala:93 src/Widgets/LabelButton.vala:249
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr "使用标签来将你的待办事项分类，用这些来过滤你的列表以便获得专注."
 
-#: src/Widgets/LabelButton.vala:123
+#: src/Widgets/LabelButton.vala:125
 msgid "Type a label"
 msgstr "标签类型"
 
-#: src/Widgets/LabelButton.vala:133 src/Widgets/LabelButton.vala:223
-#: src/Widgets/LabelButton.vala:241
+#: src/Widgets/LabelButton.vala:135 src/Widgets/LabelButton.vala:228
+#: src/Widgets/LabelButton.vala:246
 msgid "Edit labels"
 msgstr "编辑标签"
 
-#: src/Widgets/LabelButton.vala:233
+#: src/Widgets/LabelButton.vala:238
 msgid "Add label"
 msgstr "添加标签"
 
-#: src/Widgets/LabelButton.vala:236
+#: src/Widgets/LabelButton.vala:241
 msgid "Label not found"
 msgstr "找不到标签"
 
-#: src/Widgets/LabelButton.vala:237
+#: src/Widgets/LabelButton.vala:242
 #, c-format
 msgid "Create '%s'"
 msgstr "创建 '%s'"
@@ -727,7 +747,7 @@ msgstr "创建 '%s'"
 msgid "Undo"
 msgstr "撤销"
 
-#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
+#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:125
 msgid "Task duplicate"
 msgstr "复制任务"
 
@@ -755,7 +775,7 @@ msgstr "子任务名称"
 msgid "Remove"
 msgstr "移动"
 
-#: src/Widgets/UpcomingRow.vala:76
+#: src/Widgets/UpcomingRow.vala:78
 msgid "Add task"
 msgstr "添加任务"
 
@@ -819,353 +839,380 @@ msgstr "周日"
 msgid "Never worry about forgetting things again"
 msgstr "不要担心再次忘记事情"
 
-#: src/Views/Welcome.vala:28
-msgid "Startup"
-msgstr "开始"
-
-#: src/Views/Welcome.vala:28
-msgid "Start working locally."
-msgstr "在本地开始工作."
-
-#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:894
-msgid "Todoist"
-msgstr "待办清单"
-
-#: src/Views/Welcome.vala:29
-msgid "Synchronize with your Todoist account and start working."
-msgstr "同步你的待办清单账号并且开始工作."
-
-#: src/Views/Inbox.vala:91 src/Views/Project.vala:161
-#: src/Views/Project.vala:169
+#: src/Views/Inbox.vala:92 src/Views/Project.vala:162
+#: src/Views/Project.vala:170
 msgid "Add Section"
 msgstr "添加选择"
 
-#: src/Views/Inbox.vala:99 src/Views/Project.vala:177
+#: src/Views/Inbox.vala:100 src/Views/Project.vala:178
 msgid "Invite person"
 msgstr "邀请人"
 
-#: src/Views/Inbox.vala:108 src/Views/Project.vala:186
+#: src/Views/Inbox.vala:109 src/Views/Project.vala:187
 msgid "Project comments"
 msgstr "项目备注"
 
-#: src/Views/Inbox.vala:116 src/Views/Project.vala:194
+#: src/Views/Inbox.vala:117 src/Views/Project.vala:195
 msgid "Search task"
 msgstr "搜索任务"
 
-#: src/Views/Inbox.vala:283
+#: src/Views/Inbox.vala:285
 msgid "All clear"
 msgstr "全部清除"
 
-#: src/Views/Inbox.vala:284
+#: src/Views/Inbox.vala:286
 msgid "Looks like everything's organized in the right place."
 msgstr "看起来所有的事情都已经组织到正确的地方."
 
-#: src/Views/Inbox.vala:767 src/Views/Project.vala:1053
+#: src/Views/Inbox.vala:782 src/Views/Today.vala:471
+#: src/Views/Project.vala:1149
 msgid "Show Completed"
 msgstr "显示已完成"
 
-#: src/Views/Today.vala:93
+#: src/Views/Today.vala:85
+#, fuzzy
+msgid "Menu"
+msgstr "任务菜单"
+
+#: src/Views/Today.vala:125
 msgid "Overdue"
 msgstr "过期的"
 
-#: src/Views/Today.vala:109
+#: src/Views/Today.vala:142
 msgid "Reschedule"
 msgstr "重新计划"
 
-#: src/Views/Today.vala:138
+#: src/Views/Today.vala:172
 msgid "What tasks are on your mind?"
 msgstr "你想做些什么?"
 
-#: src/Views/Today.vala:139
+#: src/Views/Today.vala:173
 msgid "Tap + to add a task for today."
 msgstr "点击 + 以添加今天的任务."
 
-#: src/Views/Project.vala:143 src/Views/Project.vala:832
+#: src/Views/Today.vala:460
+#, fuzzy
+msgid "Sort by project"
+msgstr "如何使用项目"
+
+#: src/Views/Today.vala:461 src/Views/Project.vala:1135
+msgid "Sort by priority"
+msgstr ""
+
+#: src/Views/Today.vala:462 src/Views/Project.vala:1136
+msgid "Sort by name"
+msgstr ""
+
+#: src/Views/Today.vala:575
+#, fuzzy
+msgid "Today was copied to the Clipboard."
+msgstr "任务已复制到剪贴板."
+
+#: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
 msgid "Progress: %s"
 msgstr "进度: %s"
 
-#: src/Views/Project.vala:392
+#: src/Views/Project.vala:390
 msgid "What will you accomplish?"
 msgstr "将要完成什么?"
 
-#: src/Views/Project.vala:393
+#: src/Views/Project.vala:391
 msgid "Tap + to add a task to this project."
 msgstr "点击 + 以添加任务到项目."
 
-#: src/Views/Project.vala:1256
+#: src/Views/Project.vala:1134
+msgid "Sort by date"
+msgstr ""
+
+#: src/Views/Project.vala:1398
 msgid "Your Productivity"
 msgstr "你的工作效率"
 
-#: src/Views/Project.vala:1261
+#: src/Views/Project.vala:1403
 msgid "Progress:"
 msgstr "进度:"
 
-#: src/Views/Project.vala:1272
+#: src/Views/Project.vala:1414
 msgid "Duedate:"
 msgstr "截至日期:"
 
-#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:114
 msgid "Loading…"
 msgstr "加载中…"
 
 #. Alert
-#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:137
+#: src/Dialogs/TodoistOAuth.vala:70 src/Dialogs/TodoistOAuth.vala:128
 msgid "Network Is Not Available"
 msgstr "网络未激活"
 
-#: src/Dialogs/TodoistOAuth.vala:70
+#: src/Dialogs/TodoistOAuth.vala:71
 msgid "Connect to the Internet to connect with Todoist"
 msgstr "连接到网络以获取在线的待办事项"
 
-#: src/Dialogs/TodoistOAuth.vala:103
+#: src/Dialogs/TodoistOAuth.vala:94
 msgid "Synchronizing… Wait a moment please."
 msgstr "同步中...请稍候."
 
-#: src/Dialogs/TodoistOAuth.vala:115
+#: src/Dialogs/TodoistOAuth.vala:106
 msgid "Please enter your credentials…"
 msgstr "请输入你的凭据…"
 
-#: src/Dialogs/ProjectSettings.vala:74
+#: src/Dialogs/ProjectSettings.vala:41
+#, fuzzy
+msgid "Project Settings"
+msgstr "项目菜单"
+
+#: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
 msgstr "最后期限:"
 
-#: src/Dialogs/ProjectSettings.vala:129
+#: src/Dialogs/ProjectSettings.vala:122
 msgid "Uploading changes…"
 msgstr "上传更改…"
 
+#: src/Dialogs/ProjectSettings.vala:163
+msgid "Direct access:"
+msgstr ""
+
 #. General
-#: src/Dialogs/Preferences/Preferences.vala:90
-#: src/Dialogs/Preferences/Preferences.vala:97
-#: src/Dialogs/Preferences/Preferences.vala:631
+#: src/Dialogs/Preferences/Preferences.vala:99
+#: src/Dialogs/Preferences/Preferences.vala:106
+#: src/Dialogs/Preferences/Preferences.vala:648
 msgid "General"
 msgstr "总览"
 
-#: src/Dialogs/Preferences/Preferences.vala:93
-#: src/Dialogs/Preferences/Preferences.vala:216
+#: src/Dialogs/Preferences/Preferences.vala:102
+#: src/Dialogs/Preferences/Preferences.vala:231
 msgid "Homepage"
 msgstr "主页"
 
-#: src/Dialogs/Preferences/Preferences.vala:94
-#: src/Dialogs/Preferences/Preferences.vala:320
+#: src/Dialogs/Preferences/Preferences.vala:103
+#: src/Dialogs/Preferences/Preferences.vala:335
 msgid "Badge Count"
 msgstr "角标"
 
-#: src/Dialogs/Preferences/Preferences.vala:95
-#: src/Dialogs/Preferences/Preferences.vala:393
+#: src/Dialogs/Preferences/Preferences.vala:104
+#: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Theme"
 msgstr "主题"
 
-#: src/Dialogs/Preferences/Preferences.vala:96
-#: src/Dialogs/Preferences/Preferences.vala:464
+#: src/Dialogs/Preferences/Preferences.vala:105
+#: src/Dialogs/Preferences/Preferences.vala:479
 msgid "Quick Add"
 msgstr "快速添加"
 
 #. Addons
-#: src/Dialogs/Preferences/Preferences.vala:112
+#: src/Dialogs/Preferences/Preferences.vala:121
 msgid "Add-ons"
 msgstr "插件"
 
-#: src/Dialogs/Preferences/Preferences.vala:116
-#: src/Dialogs/Preferences/Preferences.vala:1033
+#: src/Dialogs/Preferences/Preferences.vala:125
+#: src/Dialogs/Preferences/Preferences.vala:1060
 msgid "Calendar Events"
 msgstr "日历事件"
 
-#: src/Dialogs/Preferences/Preferences.vala:118
-#: src/Dialogs/Preferences/Preferences.vala:479
+#: src/Dialogs/Preferences/Preferences.vala:127
+#: src/Dialogs/Preferences/Preferences.vala:495
 msgid "Keyboard Shortcuts"
 msgstr "键盘快捷键"
 
 #. Others
-#: src/Dialogs/Preferences/Preferences.vala:133
-#: src/Dialogs/Preferences/Preferences.vala:1205
+#: src/Dialogs/Preferences/Preferences.vala:148
+#: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "About"
 msgstr "关于"
 
-#: src/Dialogs/Preferences/Preferences.vala:134
-#: src/Dialogs/Preferences/Preferences.vala:1111
+#: src/Dialogs/Preferences/Preferences.vala:149
+#: src/Dialogs/Preferences/Preferences.vala:1138
 msgid "Support & Credits"
 msgstr "支持和赞助"
 
-#: src/Dialogs/Preferences/Preferences.vala:219
+#: src/Dialogs/Preferences/Preferences.vala:234
 msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
-msgstr "当你打开Planner,确保你看到的任务是最重要的.<b>Inbox</b>是你默认的主页,但你可以根据自己的喜好修改它."
+msgstr ""
+"当你打开Planner,确保你看到的任务是最重要的.<b>Inbox</b>是你默认的主页,但你可"
+"以根据自己的喜好修改它."
 
-#: src/Dialogs/Preferences/Preferences.vala:251 src/Dialogs/QuickFind.vala:293
-#: src/Dialogs/QuickFind.vala:546
+#: src/Dialogs/Preferences/Preferences.vala:266 src/Dialogs/QuickFind.vala:294
+#: src/Dialogs/QuickFind.vala:564
 msgid "Projects"
 msgstr "项目"
 
-#: src/Dialogs/Preferences/Preferences.vala:323
+#: src/Dialogs/Preferences/Preferences.vala:338
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr "修改在应用程序的角标上要显示的条目."
 
-#: src/Dialogs/Preferences/Preferences.vala:333
+#: src/Dialogs/Preferences/Preferences.vala:348
 msgid "None"
 msgstr "无"
 
-#: src/Dialogs/Preferences/Preferences.vala:343
+#: src/Dialogs/Preferences/Preferences.vala:358
 msgid "Today + Inbox"
 msgstr "今天+待办事项"
 
-#: src/Dialogs/Preferences/Preferences.vala:396
+#: src/Dialogs/Preferences/Preferences.vala:411
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr "选择你喜欢的主题来个性化Planner."
 
-#: src/Dialogs/Preferences/Preferences.vala:406
+#: src/Dialogs/Preferences/Preferences.vala:421
 msgid "Light"
 msgstr "亮"
 
-#: src/Dialogs/Preferences/Preferences.vala:410
+#: src/Dialogs/Preferences/Preferences.vala:425
 msgid "Night"
 msgstr "暗"
 
-#: src/Dialogs/Preferences/Preferences.vala:413
+#: src/Dialogs/Preferences/Preferences.vala:428
 msgid "Dark Blue"
 msgstr "Dark Blue"
 
-#: src/Dialogs/Preferences/Preferences.vala:416
+#: src/Dialogs/Preferences/Preferences.vala:431
 msgid "Arc Dark"
 msgstr "Arc Dark"
 
-#: src/Dialogs/Preferences/Preferences.vala:467
+#: src/Dialogs/Preferences/Preferences.vala:482
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
-msgstr "不要担心你在其他应用程序上工作.你可以使用键盘快捷键来打开快速添加窗口,编辑任务后快速返回工作.你也可以根据自己的需要改变键盘快捷键."
+msgstr ""
+"不要担心你在其他应用程序上工作.你可以使用键盘快捷键来打开快速添加窗口,编辑任"
+"务后快速返回工作.你也可以根据自己的需要改变键盘快捷键."
 
-#: src/Dialogs/Preferences/Preferences.vala:477
-#: src/Dialogs/Preferences/Preferences.vala:1047
+#: src/Dialogs/Preferences/Preferences.vala:492
+#: src/Dialogs/Preferences/Preferences.vala:1074
 msgid "Enabled"
 msgstr "打开"
 
-#: src/Dialogs/Preferences/Preferences.vala:491
-#: src/Dialogs/Preferences/Preferences.vala:573
-#: src/Dialogs/Preferences/Preferences.vala:581
-msgid "Change"
-msgstr "修改"
-
-#: src/Dialogs/Preferences/Preferences.vala:517
-msgid "Change Keyboard Shortcut"
-msgstr "修改键盘快捷键"
-
-#: src/Dialogs/Preferences/Preferences.vala:526
-msgid "Save Last Selected Project"
-msgstr "保存最近选择的项目"
-
-#: src/Dialogs/Preferences/Preferences.vala:571
-#: src/Dialogs/Preferences/Preferences.vala:579
+#: src/Dialogs/Preferences/Preferences.vala:507
 msgid "Press keys…"
 msgstr "按下快捷键…"
 
-#: src/Dialogs/Preferences/Preferences.vala:634
+#: src/Dialogs/Preferences/Preferences.vala:534
+msgid "Change Keyboard Shortcut"
+msgstr "修改键盘快捷键"
+
+#: src/Dialogs/Preferences/Preferences.vala:543
+msgid "Save Last Selected Project"
+msgstr "保存最近选择的项目"
+
+#: src/Dialogs/Preferences/Preferences.vala:651
 msgid "DE Integration"
 msgstr "桌面环境集成"
 
-#: src/Dialogs/Preferences/Preferences.vala:638
+#: src/Dialogs/Preferences/Preferences.vala:655
 msgid "Run in background"
 msgstr "后台运行"
 
-#: src/Dialogs/Preferences/Preferences.vala:642
+#: src/Dialogs/Preferences/Preferences.vala:659
 msgid ""
 "Enable this setting to keep Planner running in the background when it "
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
-msgstr "打开该选项在Planner窗口关闭时依然在系统后台运行.这将允许Planner更新数据和发送通知."
+msgstr ""
+"打开该选项在Planner窗口关闭时依然在系统后台运行.这将允许Planner更新数据和发送"
+"通知."
 
-#: src/Dialogs/Preferences/Preferences.vala:650
+#: src/Dialogs/Preferences/Preferences.vala:667
 msgid "Run on startup"
 msgstr "开机运行"
 
-#: src/Dialogs/Preferences/Preferences.vala:654
+#: src/Dialogs/Preferences/Preferences.vala:671
 msgid "Enable this setting to make Planner startup with the system."
 msgstr "打开该选项让Planner跟随系统启动."
 
-#: src/Dialogs/Preferences/Preferences.vala:671
+#: src/Dialogs/Preferences/Preferences.vala:688
 msgid "Button layout"
 msgstr "按钮样式"
 
-#: src/Dialogs/Preferences/Preferences.vala:680
+#. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+#: src/Dialogs/Preferences/Preferences.vala:697
 msgid "Help"
 msgstr "帮助"
 
-#: src/Dialogs/Preferences/Preferences.vala:684
-msgid "Create tutorial project"
-msgstr "创建入门手册"
-
-#: src/Dialogs/Preferences/Preferences.vala:684
+#: src/Dialogs/Preferences/Preferences.vala:701
 msgid "Create"
 msgstr "创建"
 
-#: src/Dialogs/Preferences/Preferences.vala:686
+#: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Danger zone"
 msgstr "危险的选项"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
-#: src/Dialogs/Preferences/Preferences.vala:753
+#: src/Dialogs/Preferences/Preferences.vala:708
+msgid "Database"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:712
+#: src/Dialogs/Preferences/Preferences.vala:780
 msgid "Reset all"
 msgstr "重置所有数据"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
+#: src/Dialogs/Preferences/Preferences.vala:712
 msgid "Reset"
 msgstr "重置"
 
-#: src/Dialogs/Preferences/Preferences.vala:739
-msgid "Your tutorial project was created"
-msgstr "你的入门手册已被创建"
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export Database"
+msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:748
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
 msgstr "你确定要清除所有数据?"
 
-#: src/Dialogs/Preferences/Preferences.vala:749
+#: src/Dialogs/Preferences/Preferences.vala:776
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr "这个操作将移除所有的数据并且不可恢复."
 
-#: src/Dialogs/Preferences/Preferences.vala:774
+#: src/Dialogs/Preferences/Preferences.vala:801
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
-msgstr "节约为所有任务设置相同标签的时间.你将在几秒钟内为列表中所有的任务分配任何标签."
+msgstr ""
+"节约为所有任务设置相同标签的时间.你将在几秒钟内为列表中所有的任务分配任何标"
+"签."
 
-#: src/Dialogs/Preferences/Preferences.vala:918
+#: src/Dialogs/Preferences/Preferences.vala:945
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "最后一次成功同步的时间: %s"
 
-#: src/Dialogs/Preferences/Preferences.vala:927
+#: src/Dialogs/Preferences/Preferences.vala:954
 msgid "Sync server"
 msgstr "同步服务器"
 
-#: src/Dialogs/Preferences/Preferences.vala:932
+#: src/Dialogs/Preferences/Preferences.vala:959
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr "激活后Planner将每隔15分钟自动同步你的待办事项账户."
 
-#: src/Dialogs/Preferences/Preferences.vala:944
-#: src/Dialogs/Preferences/Preferences.vala:999
+#: src/Dialogs/Preferences/Preferences.vala:971
+#: src/Dialogs/Preferences/Preferences.vala:1026
 msgid "Log out"
 msgstr "注销"
 
-#: src/Dialogs/Preferences/Preferences.vala:994
+#: src/Dialogs/Preferences/Preferences.vala:1021
 msgid "Are you sure you want to log out?"
 msgstr "你确定要注销账户?"
 
-#: src/Dialogs/Preferences/Preferences.vala:995
+#: src/Dialogs/Preferences/Preferences.vala:1022
 msgid "This process will close your Todoist session on this device."
 msgstr "这个操作将会在这个设备上关闭你的待办事项会话."
 
-#: src/Dialogs/Preferences/Preferences.vala:1036
+#: src/Dialogs/Preferences/Preferences.vala:1063
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -1173,135 +1220,208 @@ msgid ""
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
 "你可以连接到你的<b>Calendar</b>应用在同一个地方一起查看所有的事件和待办事项."
-"你可以查看从<b>Today</b>到<b>Upcoming</b>中的个人和公共日历.这对你管理自己的一天是很有帮助的,并且你可以提前计划这一周."
+"你可以查看从<b>Today</b>到<b>Upcoming</b>中的个人和公共日历.这对你管理自己的"
+"一天是很有帮助的,并且你可以提前计划这一周."
 
-#: src/Dialogs/Preferences/Preferences.vala:1114
+#: src/Dialogs/Preferences/Preferences.vala:1141
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
-msgstr "Planner 正在不断的发展并且是开源的 ❤️.无论如何，如果你喜欢Planner并且支持我们的开发工作,请考虑捐助我们:"
+msgstr ""
+"Planner 正在不断的发展并且是开源的 ❤️.无论如何，如果你喜欢Planner并且支持我们"
+"的开发工作,请考虑捐助我们:"
 
-#: src/Dialogs/Preferences/Preferences.vala:1140
+#: src/Dialogs/Preferences/Preferences.vala:1167
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
-"非常感谢你们使用 Patreon or PayPal来捐助. (If you want to appear here visit our Patreon "
-"account 😉️)"
+"非常感谢你们使用 Patreon or PayPal来捐助. (If you want to appear here visit "
+"our Patreon account 😉️)"
 
-#: src/Dialogs/Preferences/Preferences.vala:1219
+#: src/Dialogs/Preferences/Preferences.vala:1246
 msgid "Website"
 msgstr "网站"
 
-#: src/Dialogs/Preferences/Preferences.vala:1220
+#: src/Dialogs/Preferences/Preferences.vala:1247
+msgid "Github"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
 msgstr "找到我们"
 
-#: src/Dialogs/Preferences/Preferences.vala:1221
+#: src/Dialogs/Preferences/Preferences.vala:1249
 msgid "Report a Problem"
 msgstr "漏洞报告"
 
-#: src/Dialogs/Preferences/Preferences.vala:1222
+#: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Suggest Translations"
 msgstr "贡献翻译"
-
-#: src/Dialogs/Preferences/Preferences.vala:1341
-msgid "Disabled"
-msgstr "关闭"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
 msgstr "返回"
 
-#: src/Dialogs/QuickFind.vala:91
+#: src/Dialogs/QuickFind.vala:92
 msgid "Completed"
 msgstr "完成"
 
-#: src/Dialogs/QuickFind.vala:100
-msgid "Priority 1"
-msgstr "优先级 1"
-
-#: src/Dialogs/QuickFind.vala:108
-msgid "Priority 2"
-msgstr "优先级 2"
-
-#: src/Dialogs/QuickFind.vala:116
-msgid "Priority 3"
-msgstr "优先级 3"
-
-#: src/Dialogs/QuickFind.vala:124
-msgid "Priority 4"
-msgstr "优先级 4"
-
-#: src/Dialogs/QuickFind.vala:129
+#: src/Dialogs/QuickFind.vala:130
 msgid "Search"
 msgstr "搜索"
 
-#: src/Dialogs/QuickFind.vala:157
+#: src/Dialogs/QuickFind.vala:158
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr "快速选择项目和查看方式,查找任务,搜索标签."
 
-#: src/Dialogs/QuickFind.vala:185
+#: src/Dialogs/QuickFind.vala:186
 msgid "UP"
 msgstr "UP"
 
-#: src/Dialogs/QuickFind.vala:190
+#: src/Dialogs/QuickFind.vala:191
 msgid "DOWN"
 msgstr "DOWN"
 
-#: src/Dialogs/QuickFind.vala:195
+#: src/Dialogs/QuickFind.vala:196
 msgid "ENTER"
 msgstr "ENTER"
 
-#: src/Dialogs/QuickFind.vala:200
+#: src/Dialogs/QuickFind.vala:201
 msgid "ESC"
 msgstr "ESC"
 
-#: src/Dialogs/QuickFind.vala:210
+#: src/Dialogs/QuickFind.vala:211
 msgid "Use"
 msgstr "使用"
 
-#: src/Dialogs/QuickFind.vala:213
+#: src/Dialogs/QuickFind.vala:214
 msgid "to navigate and"
 msgstr "游览并且"
 
-#: src/Dialogs/QuickFind.vala:215
+#: src/Dialogs/QuickFind.vala:216
 msgid "to select,"
 msgstr "选择,"
 
-#: src/Dialogs/QuickFind.vala:217
+#: src/Dialogs/QuickFind.vala:218
 msgid "to close."
 msgstr "关闭."
 
-#: src/Dialogs/QuickFind.vala:493
+#: src/Dialogs/QuickFind.vala:494
 msgid "Enter"
 msgstr "进入"
 
-#: src/Dialogs/QuickFind.vala:507
+#: src/Dialogs/QuickFind.vala:508
 msgid "Tasks"
 msgstr "任务"
 
-#: src/Dialogs/QuickFind.vala:603
+#: src/Dialogs/QuickFind.vala:621
 msgid "Views"
 msgstr "查看"
 
-#: src/Dialogs/QuickFind.vala:701
+#: src/Dialogs/QuickFind.vala:719
 msgid "Priorities"
 msgstr "优先级"
 
-#: src/Objects/Project.vala:104
+#: src/Objects/Project.vala:101
 msgid "The Project was copied to the Clipboard."
 msgstr "项目已复制到剪贴板."
 
-#: src/Objects/Item.vala:125
+#: src/Objects/Item.vala:118
 msgid "Duplicating task…"
 msgstr "复制任务…"
 
-#: src/Objects/Item.vala:212 src/Objects/Item.vala:229
+#: src/Objects/Item.vala:208 src/Objects/Item.vala:225
 msgid "The Task was copied to the Clipboard."
 msgstr "任务已复制到剪贴板."
 
-#: src/Objects/Section.vala:98
+#: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "选择的内容已复制到剪贴板."
+
+#~ msgid "Keeping track of your tasks"
+#~ msgstr "留下任务的痕迹"
+
+#~ msgid ""
+#~ "It turns out, our brains are actually wired to keep us thinking about our "
+#~ "unfinished tasks. Handy when you have one thing you need to work on. Not "
+#~ "so good when you have 30+ tasks vying for your attention at once. That’s "
+#~ "why the first step to organizing your work and life is getting everything "
+#~ "out of your head and onto your to-do list. From there you can begin to "
+#~ "organize and prioritize so you know exactly what to focus on and when."
+#~ msgstr ""
+#~ "实际上我们的大脑会继续保持对未完成事件的关注，当你需要集中注意力去做一件事"
+#~ "情的时候，30多件事情会分散掉你对事件的专注，这就是为什么第一步应该用任务清"
+#~ "单来组织你自己的工作和生活。这样你就能开始去组织生活和将精力放在一些重要的"
+#~ "事情上。"
+
+#~ msgid ""
+#~ "- To add a new task to Planner, just click + and press Enter.\n"
+#~ "- When your task is created, click on the task to be able to edit it, add "
+#~ "a note or some other options."
+#~ msgstr ""
+#~ "-要在Planner中添加新的任务,请点击+并且按下回车.\n"
+#~ "-当你的任务创建后,单击该任务就能编辑,添加笔记或进行其他的一些操作。"
+
+#~ msgid "Due dates"
+#~ msgstr "截至日期"
+
+#~ msgid ""
+#~ "- If you know you need to have the task done on a certain day, click on "
+#~ "the calendar icon and select a date.\n"
+#~ "- If you want to delete the due date, repeat the process and select the "
+#~ "\"undate\" option."
+#~ msgstr ""
+#~ "-如果你需要在某一天完成这个任务,点击日历图表并且选择这一天.\n"
+#~ "-如果你需要删除这一天的任务,重复上述操作并且选择\"休息一天\"."
+
+#~ msgid ""
+#~ "- Whether you’re planning a presentation, preparing for an event or "
+#~ "creating a website, create a project so all the important details are "
+#~ "saved in one central place.\n"
+#~ "- In the navigation menu on the left, at the bottom, click on the + "
+#~ "symbol.\n"
+#~ "- In the options menu select 'Project' and type out the name of your new "
+#~ "project.\n"
+#~ "- Select a source from the drop-down menu.\n"
+#~ "- (Optional) Select a different project color from the color list.\n"
+#~ "- Click Add to create the project."
+#~ msgstr ""
+#~ "-准备一件事情或创建一个网站，创建一个项目所有重要的细节都保存在一个地方\n"
+#~ "-在左侧的导航菜单底部，点击 + 这个符号\n"
+#~ "-在选项菜单中选择'项目'并且输入新项目的名称\n"
+#~ "-在下拉菜单中选择数据来源\n"
+#~ "-(可选)在颜色列表中选择你喜欢的颜色\n"
+#~ "-点击添加来创建项目"
+
+#~ msgid "Sections"
+#~ msgstr "分区"
+
+#~ msgid "Add sections"
+#~ msgstr "添加分区"
+
+#~ msgid ""
+#~ "- It’s always easier to take on a big project when you split it into "
+#~ "easily manageable parts using Planner’s sections.\n"
+#~ "- Organize your projects with sections to group your tasks together and "
+#~ "get a better overview of what needs to be done. Add sections to your "
+#~ "project, drag the relevant tasks to the section they belong in, and "
+#~ "you’ll find it a lot easier to make progress (instead of getting "
+#~ "overwhelmed by a single long list).\n"
+#~ "- At the top right of a project, click the + icon.\n"
+#~ "- Type the name of your section and click Add."
+#~ msgstr ""
+#~ "-当你把一个大项目分割成易于管理的小任务时，用Planner的分区功能是很有用"
+#~ "的.\n"
+#~ "-用分区功能组织你的项目，将任务组合在一起，这样就能更好的了解需要去做的事"
+#~ "情，将分区添加到你的项目中，选择相关的任务将其拖到合适的分区中，这样你就更"
+#~ "容易的掌握项目的进展（而不是被一个长长的列表所淹没).\n"
+#~ "-在项目的右上方，点击+按钮.\n"
+#~ "-输入分区的名称并且点击添加."
+
+#~ msgid "Change"
+#~ msgstr "修改"
+
+#~ msgid "Disabled"
+#~ msgstr "关闭"

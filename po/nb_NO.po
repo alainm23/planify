@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-07-16 20:49-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-22 13:39-0500\n"
 "PO-Revision-Date: 2020-08-06 10:32+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
@@ -19,21 +19,50 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.2-dev\n"
 
-#: src/MainWindow.vala:51
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+msgid "Startup"
+msgstr "Oppstart"
+
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+#, fuzzy
+msgid "Start Working Locally."
+msgstr "Begynn å jobbe lokalt."
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#: src/Dialogs/TodoistOAuth.vala:37
+#: src/Dialogs/Preferences/Preferences.vala:921
+msgid "Todoist"
+msgstr "Todoist"
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#, fuzzy
+msgid "Synchronize with your Todoist Account."
+msgstr "Synkroniser med din Todoist-konto og start å jobbe."
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+#, fuzzy
+msgid "Import Backup"
+msgstr "Viktig"
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+msgid "Import Previously Exported Planner Backup."
+msgstr ""
+
+#: src/MainWindow.vala:50
 msgid "Planner"
 msgstr "Planner"
 
-#: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:802 src/MainWindow.vala:818 src/MainWindow.vala:834
+#: src/MainWindow.vala:850
 msgid "Adding task from clipboard…"
 msgstr "Legger til gjøremål fra utklippstavle…"
 
-#: src/Utils.vala:28
+#: src/Utils.vala:28 src/Widgets/NewItem.vala:54
 #, fuzzy
 msgid "today"
 msgstr "I dag"
 
-#: src/Utils.vala:29
+#: src/Utils.vala:29 src/Widgets/NewItem.vala:55
 #, fuzzy
 msgid "tomorrow"
 msgstr "I morgen"
@@ -139,33 +168,35 @@ msgid "Taupe"
 msgstr "Gråbrun"
 
 #. vala-lint=line-length
-#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1428
-#: src/Widgets/DueButton.vala:196 src/Views/Today.vala:59
-#: src/Views/Today.vala:625 src/Dialogs/Preferences/Preferences.vala:234
-#: src/Dialogs/Preferences/Preferences.vala:340 src/Dialogs/QuickFind.vala:77
+#: src/Utils.vala:592 src/Widgets/Pane.vala:73 src/Widgets/NewItem.vala:556
+#: src/Widgets/ItemRow.vala:1457 src/Widgets/DueButton.vala:218
+#: src/Views/Today.vala:68 src/Views/Today.vala:564 src/Views/Today.vala:581
+#: src/Views/Today.vala:910 src/Dialogs/Preferences/Preferences.vala:249
+#: src/Dialogs/Preferences/Preferences.vala:355 src/Dialogs/QuickFind.vala:78
 msgid "Today"
 msgstr "I dag"
 
-#: src/Utils.vala:576 src/Widgets/Pane.vala:413 src/Widgets/ItemRow.vala:1431
-#: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
-#: src/Views/Today.vala:631
+#. today_menu.item_image.pixel_size = 14;
+#: src/Utils.vala:594 src/Widgets/Pane.vala:413 src/Widgets/NewItem.vala:562
+#: src/Widgets/ItemRow.vala:1461 src/Widgets/DueButton.vala:224
+#: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:916
 msgid "Tomorrow"
 msgstr "I morgen"
 
-#: src/Utils.vala:815
+#: src/Utils.vala:857
 msgid "Quick Add Activated!"
 msgstr "Hurtigtilføyelse aktivert."
 
-#: src/Utils.vala:816
+#: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "Prøv %s for å aktivere det. Du kan endre det fra innstillingene"
 
-#: src/Utils.vala:855
+#: src/Utils.vala:897
 msgid "🚀️ Getting Started"
 msgstr "🚀️ Begynn"
 
-#: src/Utils.vala:856
+#: src/Utils.vala:898
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -174,199 +205,98 @@ msgstr ""
 "Dette prosjektet hjelper deg med det grunnleggende i Planner, og et enkelt "
 "gjøremålssystem for å organisere deg og det du driver på med."
 
-#: src/Utils.vala:861
-msgid "Keeping track of your tasks"
-msgstr "Hold oppsyn med gjøremålene dine"
-
-#: src/Utils.vala:862
-msgid ""
-"It turns out, our brains are actually wired to keep us thinking about our "
-"unfinished tasks. Handy when you have one thing you need to work on. Not so "
-"good when you have 30+ tasks vying for your attention at once. That’s why "
-"the first step to organizing your work and life is getting everything out of "
-"your head and onto your to-do list. From there you can begin to organize and "
-"prioritize so you know exactly what to focus on and when."
-msgstr ""
-"Det viser seg at hjernens beskaffenhet retter seg inn mot å tenke på "
-"ufullførte oppgaver. Nyttig når du har én oppgave å arbeide med. Ikke "
-"beleilig når du har over 30 gjøremål som krever oppmerksomhet samtidig. Det "
-"er derfor første steg mot organisering av ditt arbeide og liv er å få alt ut "
-"av hodet og ned på en gjøremålsliste. Herfra kan du begynne organiseringen "
-"og prioriteringen, slik at du vet akkurat hva du skal fokusere på og når."
-
-#: src/Utils.vala:867
+#: src/Utils.vala:903
 msgid "Adding new tasks"
 msgstr "Tilføy nye oppgaver"
 
-#: src/Utils.vala:868
-#, fuzzy
-msgid ""
-"- To add a new task to Planner, just click + and press Enter.\n"
-"- When your task is created, click on the task to be able to edit it, add a "
-"note or some other options."
+#: src/Utils.vala:904
+msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
-"- For å legge til et nytt gjøremål i Planner, klikk \"+\" og trykk \"Enter"
-"\".\n"
-"- Når gjøremålet er opprettet, klikk på gjøremålet for å redigere det, legge "
-"til et notat, eller andre valg."
 
-#: src/Utils.vala:874
-msgid "Due dates"
-msgstr "Frister"
-
-#: src/Utils.vala:875
-msgid ""
-"- If you know you need to have the task done on a certain day, click on the "
-"calendar icon and select a date.\n"
-"- If you want to delete the due date, repeat the process and select the "
-"\"undate\" option."
-msgstr ""
-"- Hvis du vet at du trenger å få et gjøremål gjort en gitt dag, klikk på "
-"kalenderikonet og velg en dato.\n"
-"- Hvis du ønsker å slette fristdatoen, gjenta prosessen og velg \"opphev dato"
-"\"."
-
-#: src/Utils.vala:881
-msgid "How to use projects"
-msgstr "Hvordan brukes prosjekter"
-
-#: src/Utils.vala:882
-#, fuzzy
-msgid ""
-"- Whether you’re planning a presentation, preparing for an event or creating "
-"a website, create a project so all the important details are saved in one "
-"central place.\n"
-"- In the navigation menu on the left, at the bottom, click on the + symbol.\n"
-"- In the options menu select 'Project' and type out the name of your new "
-"project.\n"
-"- Select a source from the drop-down menu.\n"
-"- (Optional) Select a different project color from the color list.\n"
-"- Click Add to create the project."
-msgstr ""
-"- Om du forbereder en presentasjon, et tiltak eller nettside, opprett et "
-"prosjekt slik at de viktige detaljene er lagret på ett sted.\n"
-"- I bunnen av navigasjonsmenyen på venstre side, klikk på \"+\"-symbolet.\n"
-"- I innstillingsmenyen, velg \"Prosjekt\" og skriv navnet på prosjektet "
-"ditt.\n"
-"- Velg en kilde fra rullegardinsmenyen.\n"
-"- (Valgfritt) velg en annen prosjektfarge fra fargelisten.\n"
-"- Klikk «Legg til» for å opprette prosjektet."
-
-#: src/Utils.vala:892
-msgid "Sections"
-msgstr "Avsnitt"
-
-#: src/Utils.vala:898
-msgid "Add sections"
-msgstr "Legg til avsnitt"
-
-#: src/Utils.vala:899
-#, fuzzy
-msgid ""
-"- It’s always easier to take on a big project when you split it into easily "
-"manageable parts using Planner’s sections.\n"
-"- Organize your projects with sections to group your tasks together and get "
-"a better overview of what needs to be done. Add sections to your project, "
-"drag the relevant tasks to the section they belong in, and you’ll find it a "
-"lot easier to make progress (instead of getting overwhelmed by a single long "
-"list).\n"
-"- At the top right of a project, click the + icon.\n"
-"- Type the name of your section and click Add."
-msgstr ""
-"Det er alltid enklere å ta på seg et stort prosjekt når du kan dele det inn "
-"i håndterlige biter ved bruk av Planner sine avsnitt.\n"
-"- Organiser dine prosjekter med avsnitt for å gruppere gjøremålene dine og "
-"for å få bedre oversikt over hva som må gjøres. Legg til avsnitt i "
-"prosjektet ditt, dra relevante gjøremål til avsnittene de hører til, og du "
-"vil oppleve det meget enklere å komme noen vei (istedenfor å bli overveldet "
-"av én liste).\n"
-"- Øverst til høyre i prosjektet, klikk \"+\"-ikonet.\n"
-"- Skriv navnet på avsnittet og klikk «Legg til»."
-
-#: src/Utils.vala:918
+#: src/Utils.vala:959
 msgid "Create a new task"
 msgstr "Opprett et nytt gjøremål"
 
-#: src/Utils.vala:919
+#: src/Utils.vala:960
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
 "Opprett et nytt gjøremål på toppen av listen (fungerer kun inne i prosjekter)"
 
-#: src/Utils.vala:920
+#: src/Utils.vala:961
 msgid "Create a new area"
 msgstr "Opprett nytt område"
 
-#: src/Utils.vala:921
+#: src/Utils.vala:962
 msgid "Create a new project"
 msgstr "Opprett nytt prosjekt"
 
-#: src/Utils.vala:922
+#: src/Utils.vala:963
 msgid "Create a new section"
 msgstr "Opprett ny del"
 
-#: src/Utils.vala:923
+#: src/Utils.vala:964
 msgid "Open the Inbox"
 msgstr "Åpne innboksen"
 
-#: src/Utils.vala:924
+#: src/Utils.vala:965
 msgid "Open Today"
 msgstr "Åpne dagens"
 
-#: src/Utils.vala:925
+#: src/Utils.vala:966
 msgid "Open Upcoming"
 msgstr "Åpne kommende"
 
-#: src/Utils.vala:926
+#: src/Utils.vala:967
 msgid "Open Search"
 msgstr "Åpne søk"
 
-#: src/Utils.vala:927
+#: src/Utils.vala:968
 msgid "Manually sync"
 msgstr "Manuell synkronisering"
 
-#: src/Utils.vala:928
+#: src/Utils.vala:969
 msgid "Quit"
 msgstr "Avslutt"
 
-#: src/Utils.vala:936
+#: src/Utils.vala:977
 msgid "The request was incorrect."
 msgstr "Forespørselen var feilaktig."
 
-#: src/Utils.vala:937
+#: src/Utils.vala:978
 #, fuzzy
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 "Identitetsbekreftelse kreves, og har mislyktes, eller ikke blitt angitt."
 
-#: src/Utils.vala:938
+#: src/Utils.vala:979
 #, fuzzy
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Forespørselen var gyldig, men for noe som var forbudt."
 
-#: src/Utils.vala:939
+#: src/Utils.vala:980
 #, fuzzy
 msgid "The requested resource could not be found."
 msgstr "Kunne ikke finne forespurt ressurs."
 
-#: src/Utils.vala:940
+#: src/Utils.vala:981
 #, fuzzy
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "For mange forespørsler på kort tid."
 
-#: src/Utils.vala:941
+#: src/Utils.vala:982
 msgid "The request failed due to a server error."
 msgstr "Forespørselen mislyktes som følge av tjenerfeil."
 
-#: src/Utils.vala:942
+#: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
 msgstr "Tjeneren kan ikke håndtere forespørselen nå."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:1035 src/Widgets/Pane.vala:72
-#: src/Widgets/ItemRow.vala:1324 src/Widgets/SectionRow.vala:750
-#: src/Views/Inbox.vala:80 src/Dialogs/Preferences/Preferences.vala:230
-#: src/Dialogs/Preferences/Preferences.vala:337 src/Dialogs/QuickFind.vala:70
+#: src/Services/Database.vala:1048 src/Widgets/Pane.vala:72
+#: src/Widgets/ItemRow.vala:1353 src/Widgets/SectionRow.vala:804
+#: src/Views/Inbox.vala:81 src/Dialogs/Preferences/Preferences.vala:245
+#: src/Dialogs/Preferences/Preferences.vala:352 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
 msgstr "Innboks"
 
@@ -379,27 +309,29 @@ msgstr "På denne datamaskinen"
 msgid "Todoist Project"
 msgstr "Todoist-prosjekt"
 
-#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
+#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 msgid "Unable to move task"
 msgstr "Klarte ikke å flytte gjøremål"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
-#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:237
-#: src/Dialogs/QuickFind.vala:84
+#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:252
+#: src/Dialogs/QuickFind.vala:85
 msgid "Upcoming"
 msgstr "Kommende"
 
-#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
+#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:491
 #, fuzzy
 msgid "Add Project"
 msgstr "Prosjekt"
 
-#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
+#. modal: true,
+#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:41
+#: src/Dialogs/QuickFind.vala:145
 msgid "Quick Find"
 msgstr "Hurtigsøk"
 
-#: src/Widgets/Pane.vala:216
+#: src/Widgets/Pane.vala:216 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
 msgstr "Innstillinger"
 
@@ -422,78 +354,79 @@ msgstr ""
 "Internett. Endringer du gjør i frakoblet\n"
 "modus vil synkroniseres når du kobler til igjen."
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:894 src/Views/Project.vala:1316
-#: src/Dialogs/ProjectSettings.vala:49
+#: src/Widgets/New.vala:65 src/Views/Inbox.vala:911 src/Views/Project.vala:1458
+#: src/Dialogs/ProjectSettings.vala:151
 msgid "Name:"
 msgstr "Navn:"
 
-#: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
+#: src/Widgets/New.vala:90 src/Dialogs/ProjectSettings.vala:153
 msgid "Description:"
 msgstr "Beskrivelse:"
 
-#: src/Widgets/New.vala:107
+#: src/Widgets/New.vala:108
 msgid "Folder:"
 msgstr "Mappe:"
 
-#: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
+#: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:157
 msgid "Color:"
 msgstr "Farge:"
 
-#: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
-#: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
-#: src/Views/Inbox.vala:910 src/Views/Project.vala:1332
+#: src/Widgets/New.vala:163 src/Widgets/ReminderButton.vala:250
+#: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:927
+#: src/Views/Project.vala:1474
 msgid "Add"
 msgstr "Legg til"
 
-#: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:96
-#: src/Widgets/SectionRow.vala:166 src/Widgets/AreaRow.vala:148
-#: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:915
-#: src/Views/Project.vala:220 src/Views/Project.vala:1337
-msgid "Cancel"
-msgstr "Avbryt"
+#: src/Widgets/New.vala:198 src/Dialogs/ProjectSettings.vala:171
+#: src/Dialogs/Preferences/Preferences.vala:80
+msgid "Close"
+msgstr "Lukk"
 
-#: src/Widgets/New.vala:314
+#: src/Widgets/New.vala:324
 msgid "Local"
 msgstr "Lokal"
 
-#: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:491
+#: src/Widgets/New.vala:399 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
 msgstr "Ingen mappe"
 
-#: src/Widgets/New.vala:462
+#: src/Widgets/New.vala:472
 msgid "Project"
 msgstr "Prosjekt"
 
-#: src/Widgets/New.vala:467
+#: src/Widgets/New.vala:477
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
 "Start et nytt prosjekt, opprett en gjøremålsliste, organiser notatene dine."
 
-#: src/Widgets/New.vala:494
+#: src/Widgets/New.vala:504
 msgid "Folder"
 msgstr "Mappe"
 
-#: src/Widgets/New.vala:499
+#: src/Widgets/New.vala:509
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr "Organiser prosjekter i grupper og behold panelet rent."
 
-#: src/Widgets/New.vala:512
+#: src/Widgets/New.vala:522
 #, fuzzy
 msgid "Add Folder"
 msgstr "Mappe"
 
-#: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
-#: src/Dialogs/Preferences/Preferences.vala:79
-msgid "Close"
-msgstr "Lukk"
+#: src/Widgets/New.vala:559 src/Dialogs/Preferences/Preferences.vala:701
+msgid "Create tutorial project"
+msgstr "Opprett veiledningsprosjekt"
 
-#: src/Widgets/New.vala:582
+#: src/Widgets/New.vala:578 src/Dialogs/Preferences/Preferences.vala:761
+#, fuzzy
+msgid "Your tutorial project was created"
+msgstr "Veiledningsprosjekt oppretet"
+
+#: src/Widgets/New.vala:632
 msgid "New folder"
 msgstr "Ny mappe"
 
-#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:127
-#: src/Views/Project.vala:205
+#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:128
+#: src/Views/Project.vala:206
 msgid "Project Menu"
 msgstr "Prosjektmeny"
 
@@ -501,150 +434,224 @@ msgstr "Prosjektmeny"
 msgid "Local Project"
 msgstr "Lokalt prosjekt"
 
-#: src/Widgets/ProjectRow.vala:389 src/Widgets/ItemRow.vala:1333
-#: src/Widgets/ItemRow.vala:1353 src/Widgets/ItemRow.vala:1387
-#: src/Widgets/SectionRow.vala:1007 src/Widgets/SectionRow.vala:1064
+#: src/Widgets/ProjectRow.vala:401 src/Widgets/ItemRow.vala:1362
+#: src/Widgets/ItemRow.vala:1382 src/Widgets/ItemRow.vala:1416
+#: src/Widgets/SectionRow.vala:1065 src/Widgets/SectionRow.vala:1124
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "Gjøremål flyttet til <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1426
-#: src/Widgets/AreaRow.vala:653 src/Views/Project.vala:1041
-msgid "Edit"
-msgstr "Rediger"
+#: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
+#, fuzzy
+msgid "Open New Window"
+msgstr "Åpne innboksen"
 
-#: src/Widgets/ProjectRow.vala:548
+#: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
+#, fuzzy
+msgid "Edit project"
+msgstr "Legg til prosjekt"
+
+#: src/Widgets/ProjectRow.vala:561
 msgid "Move"
 msgstr "Flytt"
 
-#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1447
-#: src/Widgets/SectionRow.vala:816
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:565 src/Widgets/ItemRow.vala:1479
+#: src/Widgets/SectionRow.vala:870 src/Views/Today.vala:463
+#: src/Views/Project.vala:1138 src/Dialogs/Preferences/Preferences.vala:129
 msgid "Share"
 msgstr "Del"
 
-#: src/Widgets/ProjectRow.vala:556
+#: src/Widgets/ProjectRow.vala:569 src/Views/Today.vala:535
+#: src/Views/Project.vala:1284
 msgid "Send by e-mail"
 msgstr "Send per e-post"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1452
-#: src/Widgets/SectionRow.vala:821
+#: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1484
+#: src/Widgets/SectionRow.vala:875 src/Views/Today.vala:536
+#: src/Views/Project.vala:1285
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
-#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:565 src/Widgets/ProjectRow.vala:592
-#: src/Widgets/ItemRow.vala:1459 src/Widgets/SectionRow.vala:827
-#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:654
+#: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
+#: src/Widgets/ItemRow.vala:1491 src/Widgets/ItemCompletedRow.vala:204
+#: src/Widgets/ItemCompletedRow.vala:228 src/Widgets/SectionRow.vala:881
+#: src/Widgets/SectionRow.vala:924 src/Widgets/AreaRow.vala:654
 #: src/Widgets/AreaRow.vala:692 src/Widgets/CheckRow.vala:81
-#: src/Views/Project.vala:1044 src/Views/Project.vala:1117
+#: src/Views/Project.vala:1140 src/Views/Project.vala:1232
 msgid "Delete"
 msgstr "Slett"
 
-#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1112
+#: src/Widgets/ProjectRow.vala:607 src/Views/Project.vala:1227
 msgid "Delete project"
 msgstr "Slett prosjekt"
 
-#: src/Widgets/ProjectRow.vala:588 src/Widgets/SectionRow.vala:866
-#: src/Widgets/AreaRow.vala:680 src/Views/Project.vala:1113
+#: src/Widgets/ProjectRow.vala:608 src/Widgets/ItemCompletedRow.vala:224
+#: src/Widgets/SectionRow.vala:920 src/Widgets/AreaRow.vala:680
+#: src/Views/Project.vala:1228
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Er du sikker på at du ønsker å slette <b>%s</b>?"
 
-#: src/Widgets/NewItem.vala:69 src/Widgets/ItemRow.vala:220
+#: src/Widgets/NewItem.vala:56
+msgid "1d"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:57
+msgid "1w"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:58
+msgid "1m"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
 msgid "Task name"
 msgstr "Gjøremålsnavn"
 
-#: src/Widgets/ItemRow.vala:184
+#: src/Widgets/NewItem.vala:115 src/Widgets/SectionRow.vala:102
+#: src/Widgets/SectionRow.vala:860 src/Widgets/SectionRow.vala:1243
+#: src/Widgets/MagicButton.vala:32
+msgid "Add Task"
+msgstr "Legg til gjøremål"
+
+#: src/Widgets/NewItem.vala:120 src/Widgets/SectionRow.vala:166
+#: src/Widgets/AreaRow.vala:148 src/Widgets/ReminderButton.vala:248
+#: src/Widgets/NewSection.vala:85 src/Widgets/NewLabel.vala:77
+#: src/Views/Inbox.vala:932 src/Views/Project.vala:221
+#: src/Views/Project.vala:1479
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: src/Widgets/NewItem.vala:441 src/Dialogs/QuickFind.vala:101
+msgid "Priority 1"
+msgstr "Førsteprioritet"
+
+#: src/Widgets/NewItem.vala:442 src/Dialogs/QuickFind.vala:109
+msgid "Priority 2"
+msgstr "Andreprioritet"
+
+#: src/Widgets/NewItem.vala:443 src/Dialogs/QuickFind.vala:117
+msgid "Priority 3"
+msgstr "Tredjeprioritet"
+
+#: src/Widgets/NewItem.vala:444 src/Dialogs/QuickFind.vala:125
+msgid "Priority 4"
+msgstr "Fjerdeprioritet"
+
+#. tomorrow_menu.item_image.pixel_size = 14;
+#: src/Widgets/NewItem.vala:568 src/Widgets/ItemRow.vala:1465
+#: src/Widgets/DueButton.vala:230 src/Views/Today.vala:922
+msgid "Undated"
+msgstr "Uten dato"
+
+#: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
+#, fuzzy
+msgid "Time"
+msgstr "Tid:"
+
+#: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
+#: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
+#: src/Widgets/DueButton.vala:148
+msgid "Schedule"
+msgstr "Planlegg"
+
+#: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
 msgstr "Skjul detaljer"
 
-#: src/Widgets/ItemRow.vala:502
+#: src/Widgets/ItemRow.vala:519
 msgid "Add Checklist"
 msgstr "Legg til sjekkliste"
 
-#: src/Widgets/ItemRow.vala:509
+#: src/Widgets/ItemRow.vala:526
 msgid "Delete Task"
 msgstr "Slett gjøremål"
 
-#: src/Widgets/ItemRow.vala:523
+#: src/Widgets/ItemRow.vala:540
 msgid "Task Menu"
 msgstr "Gjøremålsmeny"
 
-#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1512
+#: src/Widgets/ItemRow.vala:710 src/Widgets/ItemRow.vala:1544
 msgid "Task deleted"
 msgstr "Gjøremål slettet"
 
-#: src/Widgets/ItemRow.vala:1012
+#: src/Widgets/ItemRow.vala:1020
 #, fuzzy, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Fullført. Inntreffer neste gang: %s"
 
-#: src/Widgets/ItemRow.vala:1025
+#: src/Widgets/ItemRow.vala:1033
 #, fuzzy
 msgid "1 task completed"
 msgstr "Gjøremål fullført"
 
-#: src/Widgets/ItemRow.vala:1366
+#: src/Widgets/ItemRow.vala:1395
 msgid "No Section"
 msgstr "Inget avsnitt"
 
-#: src/Widgets/ItemRow.vala:1425
+#: src/Widgets/ItemRow.vala:1454
 #, fuzzy
 msgid "Complete"
 msgstr "Fullført"
 
-#: src/Widgets/ItemRow.vala:1434 src/Widgets/DueButton.vala:208
-msgid "Undated"
-msgstr "Uten dato"
+#: src/Widgets/ItemRow.vala:1455 src/Widgets/AreaRow.vala:653
+msgid "Edit"
+msgstr "Rediger"
 
-#: src/Widgets/ItemRow.vala:1439 src/Widgets/SectionRow.vala:812
+#: src/Widgets/ItemRow.vala:1471 src/Widgets/SectionRow.vala:866
 msgid "Move to Project"
 msgstr "Flytt til prosjekt"
 
-#: src/Widgets/ItemRow.vala:1443
+#: src/Widgets/ItemRow.vala:1475
 msgid "Move to Section"
 msgstr "Flytt til avsnitt"
 
-#: src/Widgets/ItemRow.vala:1451
+#: src/Widgets/ItemRow.vala:1483
 msgid "Text"
 msgstr "Tekst"
 
-#: src/Widgets/ItemRow.vala:1458
+#: src/Widgets/ItemRow.vala:1490
 msgid "Duplicate"
 msgstr "Dupliser"
 
-#: src/Widgets/ItemRow.vala:1584 src/Widgets/ItemCompletedRow.vala:41
+#: src/Widgets/ItemRow.vala:1616 src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
 msgstr "Notat"
 
-#: src/Widgets/ItemCompletedRow.vala:39
+#: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
 msgstr "Innhold"
 
-#: src/Widgets/ItemCompletedRow.vala:45
+#: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
 msgstr "Frist"
 
-#: src/Widgets/ItemCompletedRow.vala:48
+#: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
 msgstr "Dato fullført"
 
+#: src/Widgets/ItemCompletedRow.vala:203
+#, fuzzy
+msgid "Mark Incomplete"
+msgstr "Gjøremål fullført"
+
+#: src/Widgets/ItemCompletedRow.vala:223
+#, fuzzy
+msgid "Delete task"
+msgstr "Slett gjøremål"
+
 #. hidden_button.margin_end = 6;
-#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:936
+#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:994
 msgid "Display Tasks"
 msgstr "Vis gjøremål"
 
-#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:941
+#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:999
 msgid "Hiding Tasks"
 msgstr "Skjul gjøremål"
-
-#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:806
-#: src/Widgets/MagicButton.vala:32
-msgid "Add Task"
-msgstr "Legg til gjøremål"
 
 #: src/Widgets/SectionRow.vala:125 src/Widgets/NewSection.vala:69
 msgid "Section name"
@@ -657,84 +664,79 @@ msgstr "Avsnittsmeny"
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #. top_box.margin_top = 6;
 #: src/Widgets/SectionRow.vala:162 src/Widgets/AreaRow.vala:144
-#: src/Views/Project.vala:216 src/Dialogs/ProjectSettings.vala:159
+#: src/Views/Project.vala:217 src/Dialogs/ProjectSettings.vala:173
 msgid "Save"
 msgstr "Lagre"
 
-#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
+#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:249
 msgid "Add a description"
 msgstr "Legg til en beskrivelse"
 
-#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
+#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:934
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
+#: src/Widgets/SectionRow.vala:811 src/Widgets/SectionRow.vala:832
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "Avsnitt flyttet til <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:809
+#: src/Widgets/SectionRow.vala:863
 msgid "Rename"
 msgstr "Gi nytt navn"
 
-#: src/Widgets/SectionRow.vala:810
+#: src/Widgets/SectionRow.vala:864
 msgid "Add Note"
 msgstr "Legg til notat"
 
-#: src/Widgets/SectionRow.vala:865
+#: src/Widgets/SectionRow.vala:919
 msgid "Delete section"
 msgstr "Slett avsnitt"
 
-#: src/Widgets/SectionRow.vala:883
+#: src/Widgets/SectionRow.vala:937
 msgid "Section deleted"
 msgstr "Avsnitt slettet"
 
-#: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
-#: src/Widgets/DueButton.vala:134
-msgid "Schedule"
-msgstr "Planlegg"
-
-#: src/Widgets/DueButton.vala:217
+#: src/Widgets/DueButton.vala:262
 msgid "Repeat"
 msgstr "Gjenta"
 
-#: src/Widgets/DueButton.vala:240
+#: src/Widgets/DueButton.vala:285
 #, fuzzy
 msgid "Every day"
 msgstr "Daglig"
 
-#: src/Widgets/DueButton.vala:246
+#: src/Widgets/DueButton.vala:291
 #, fuzzy
 msgid "Every week"
 msgstr "Ukentlig"
 
-#: src/Widgets/DueButton.vala:252
+#: src/Widgets/DueButton.vala:297
 #, fuzzy
 msgid "Every month"
 msgstr "Månedlig"
 
-#: src/Widgets/DueButton.vala:258
+#: src/Widgets/DueButton.vala:303
 #, fuzzy
 msgid "Every year"
 msgstr "Årlig"
 
-#: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:117
-#: src/Dialogs/Preferences/Preferences.vala:771 src/Dialogs/QuickFind.vala:280
-#: src/Dialogs/QuickFind.vala:656
+#: src/Widgets/LabelButton.vala:42 src/Dialogs/Preferences/Preferences.vala:126
+#: src/Dialogs/Preferences/Preferences.vala:798 src/Dialogs/QuickFind.vala:281
+#: src/Dialogs/QuickFind.vala:674
 msgid "Labels"
 msgstr "Etiketter"
 
-#: src/Widgets/LabelButton.vala:50
+#: src/Widgets/LabelButton.vala:52
 msgid "labels"
 msgstr "etiketter"
 
-#: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
+#: src/Widgets/LabelButton.vala:92 src/Widgets/LabelButton.vala:248
 #, fuzzy
 msgid "Using Labels"
 msgstr "Bruk av etiketter"
 
-#: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
+#: src/Widgets/LabelButton.vala:93 src/Widgets/LabelButton.vala:249
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
@@ -742,24 +744,24 @@ msgstr ""
 "Kategoriser dine gjøremål med etiketter, for så å bruke dem til å filtrere "
 "listene dine og fokusere."
 
-#: src/Widgets/LabelButton.vala:123
+#: src/Widgets/LabelButton.vala:125
 msgid "Type a label"
 msgstr "Skriv etikettnavn"
 
-#: src/Widgets/LabelButton.vala:133 src/Widgets/LabelButton.vala:223
-#: src/Widgets/LabelButton.vala:241
+#: src/Widgets/LabelButton.vala:135 src/Widgets/LabelButton.vala:228
+#: src/Widgets/LabelButton.vala:246
 msgid "Edit labels"
 msgstr "Rediger etiketter"
 
-#: src/Widgets/LabelButton.vala:233
+#: src/Widgets/LabelButton.vala:238
 msgid "Add label"
 msgstr "Legg til etikett"
 
-#: src/Widgets/LabelButton.vala:236
+#: src/Widgets/LabelButton.vala:241
 msgid "Label not found"
 msgstr "Kunne ikke finne etikett"
 
-#: src/Widgets/LabelButton.vala:237
+#: src/Widgets/LabelButton.vala:242
 #, c-format
 msgid "Create '%s'"
 msgstr "Opprett «%s»"
@@ -768,7 +770,7 @@ msgstr "Opprett «%s»"
 msgid "Undo"
 msgstr "Angre"
 
-#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
+#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:125
 #, fuzzy
 msgid "Task duplicate"
 msgstr "Dupliser"
@@ -798,7 +800,7 @@ msgstr "Undergjøremålsnavn"
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/Widgets/UpcomingRow.vala:76
+#: src/Widgets/UpcomingRow.vala:78
 msgid "Add task"
 msgstr "Legg til gjøremål"
 
@@ -863,184 +865,204 @@ msgstr "Søn"
 msgid "Never worry about forgetting things again"
 msgstr "Aldri uroe deg over å glemme noe igjen"
 
-#: src/Views/Welcome.vala:28
-msgid "Startup"
-msgstr "Oppstart"
-
-#: src/Views/Welcome.vala:28
-#, fuzzy
-msgid "Start working locally."
-msgstr "Begynn å jobbe lokalt."
-
-#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:894
-msgid "Todoist"
-msgstr "Todoist"
-
-#: src/Views/Welcome.vala:29
-msgid "Synchronize with your Todoist account and start working."
-msgstr "Synkroniser med din Todoist-konto og start å jobbe."
-
-#: src/Views/Inbox.vala:91 src/Views/Project.vala:161
-#: src/Views/Project.vala:169
+#: src/Views/Inbox.vala:92 src/Views/Project.vala:162
+#: src/Views/Project.vala:170
 msgid "Add Section"
 msgstr "Legg til avsnitt"
 
-#: src/Views/Inbox.vala:99 src/Views/Project.vala:177
+#: src/Views/Inbox.vala:100 src/Views/Project.vala:178
 msgid "Invite person"
 msgstr "Inviter person"
 
-#: src/Views/Inbox.vala:108 src/Views/Project.vala:186
+#: src/Views/Inbox.vala:109 src/Views/Project.vala:187
 msgid "Project comments"
 msgstr "Prosjektkommentarer"
 
-#: src/Views/Inbox.vala:116 src/Views/Project.vala:194
+#: src/Views/Inbox.vala:117 src/Views/Project.vala:195
 msgid "Search task"
 msgstr "Søk etter gjøremål"
 
-#: src/Views/Inbox.vala:283
+#: src/Views/Inbox.vala:285
 msgid "All clear"
 msgstr "Tøm alle"
 
-#: src/Views/Inbox.vala:284
+#: src/Views/Inbox.vala:286
 msgid "Looks like everything's organized in the right place."
 msgstr "Ser ut til at alt er organiser på rett sted."
 
-#: src/Views/Inbox.vala:767 src/Views/Project.vala:1053
+#: src/Views/Inbox.vala:782 src/Views/Today.vala:471
+#: src/Views/Project.vala:1149
 msgid "Show Completed"
 msgstr "Vis fullført"
 
-#: src/Views/Today.vala:93
+#: src/Views/Today.vala:85
+#, fuzzy
+msgid "Menu"
+msgstr "Gjøremålsmeny"
+
+#: src/Views/Today.vala:125
 #, fuzzy
 msgid "Overdue"
 msgstr "Utgått frist"
 
-#: src/Views/Today.vala:109
+#: src/Views/Today.vala:142
 #, fuzzy
 msgid "Reschedule"
 msgstr "Planlegg"
 
-#: src/Views/Today.vala:138
+#: src/Views/Today.vala:172
 msgid "What tasks are on your mind?"
 msgstr "Hvilke gjøremål har du for øye?"
 
-#: src/Views/Today.vala:139
+#: src/Views/Today.vala:173
 msgid "Tap + to add a task for today."
 msgstr "Trykk \"+\" for å legge til et gjøremål for i dag."
 
-#: src/Views/Project.vala:143 src/Views/Project.vala:832
+#: src/Views/Today.vala:460
+#, fuzzy
+msgid "Sort by project"
+msgstr "Hvordan brukes prosjekter"
+
+#: src/Views/Today.vala:461 src/Views/Project.vala:1135
+msgid "Sort by priority"
+msgstr ""
+
+#: src/Views/Today.vala:462 src/Views/Project.vala:1136
+msgid "Sort by name"
+msgstr ""
+
+#: src/Views/Today.vala:575
+#, fuzzy
+msgid "Today was copied to the Clipboard."
+msgstr "Gjøremål kopiert til utklippstavle."
+
+#: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, fuzzy, c-format
 msgid "Progress: %s"
 msgstr "Framdrift: %s"
 
-#: src/Views/Project.vala:392
+#: src/Views/Project.vala:390
 msgid "What will you accomplish?"
 msgstr "Hva ønsker du å utføre?"
 
-#: src/Views/Project.vala:393
+#: src/Views/Project.vala:391
 #, fuzzy
 msgid "Tap + to add a task to this project."
 msgstr "Trykk \"+\" for å legge til et gjøremål i dette prosjektet."
 
-#: src/Views/Project.vala:1256
+#: src/Views/Project.vala:1134
+msgid "Sort by date"
+msgstr ""
+
+#: src/Views/Project.vala:1398
 #, fuzzy
 msgid "Your Productivity"
 msgstr "Produktivitet"
 
-#: src/Views/Project.vala:1261
+#: src/Views/Project.vala:1403
 msgid "Progress:"
 msgstr "Framdrift:"
 
-#: src/Views/Project.vala:1272
+#: src/Views/Project.vala:1414
 #, fuzzy
 msgid "Duedate:"
 msgstr "Fristdato:"
 
-#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:114
 msgid "Loading…"
 msgstr "Laster…"
 
 #. Alert
-#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:137
+#: src/Dialogs/TodoistOAuth.vala:70 src/Dialogs/TodoistOAuth.vala:128
 #, fuzzy
 msgid "Network Is Not Available"
 msgstr "Nettverk utilgjengelig"
 
-#: src/Dialogs/TodoistOAuth.vala:70
+#: src/Dialogs/TodoistOAuth.vala:71
 msgid "Connect to the Internet to connect with Todoist"
 msgstr "Koble til Internett for å koble til med Todoist"
 
-#: src/Dialogs/TodoistOAuth.vala:103
+#: src/Dialogs/TodoistOAuth.vala:94
 msgid "Synchronizing… Wait a moment please."
 msgstr "Synkroniserer…"
 
-#: src/Dialogs/TodoistOAuth.vala:115
+#: src/Dialogs/TodoistOAuth.vala:106
 msgid "Please enter your credentials…"
 msgstr "Skriv inn dine identitetsdetaljer…"
 
-#: src/Dialogs/ProjectSettings.vala:74
+#: src/Dialogs/ProjectSettings.vala:41
+#, fuzzy
+msgid "Project Settings"
+msgstr "Prosjektmeny"
+
+#: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
 msgstr "Tidsfrist:"
 
-#: src/Dialogs/ProjectSettings.vala:129
+#: src/Dialogs/ProjectSettings.vala:122
 msgid "Uploading changes…"
 msgstr "Later opp endringer…"
 
+#: src/Dialogs/ProjectSettings.vala:163
+msgid "Direct access:"
+msgstr ""
+
 #. General
-#: src/Dialogs/Preferences/Preferences.vala:90
-#: src/Dialogs/Preferences/Preferences.vala:97
-#: src/Dialogs/Preferences/Preferences.vala:631
+#: src/Dialogs/Preferences/Preferences.vala:99
+#: src/Dialogs/Preferences/Preferences.vala:106
+#: src/Dialogs/Preferences/Preferences.vala:648
 msgid "General"
 msgstr "Generelt"
 
-#: src/Dialogs/Preferences/Preferences.vala:93
-#: src/Dialogs/Preferences/Preferences.vala:216
+#: src/Dialogs/Preferences/Preferences.vala:102
+#: src/Dialogs/Preferences/Preferences.vala:231
 msgid "Homepage"
 msgstr "Hjemmeside"
 
-#: src/Dialogs/Preferences/Preferences.vala:94
-#: src/Dialogs/Preferences/Preferences.vala:320
+#: src/Dialogs/Preferences/Preferences.vala:103
+#: src/Dialogs/Preferences/Preferences.vala:335
 #, fuzzy
 msgid "Badge Count"
 msgstr "Insignia-antall"
 
-#: src/Dialogs/Preferences/Preferences.vala:95
-#: src/Dialogs/Preferences/Preferences.vala:393
+#: src/Dialogs/Preferences/Preferences.vala:104
+#: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Theme"
 msgstr "Drakt"
 
-#: src/Dialogs/Preferences/Preferences.vala:96
-#: src/Dialogs/Preferences/Preferences.vala:464
+#: src/Dialogs/Preferences/Preferences.vala:105
+#: src/Dialogs/Preferences/Preferences.vala:479
 msgid "Quick Add"
 msgstr "Hurtigtilføyelse"
 
 #. Addons
-#: src/Dialogs/Preferences/Preferences.vala:112
+#: src/Dialogs/Preferences/Preferences.vala:121
 msgid "Add-ons"
 msgstr "Tillegg"
 
-#: src/Dialogs/Preferences/Preferences.vala:116
-#: src/Dialogs/Preferences/Preferences.vala:1033
+#: src/Dialogs/Preferences/Preferences.vala:125
+#: src/Dialogs/Preferences/Preferences.vala:1060
 #, fuzzy
 msgid "Calendar Events"
 msgstr "Kalenderhendelser"
 
-#: src/Dialogs/Preferences/Preferences.vala:118
-#: src/Dialogs/Preferences/Preferences.vala:479
+#: src/Dialogs/Preferences/Preferences.vala:127
+#: src/Dialogs/Preferences/Preferences.vala:495
 msgid "Keyboard Shortcuts"
 msgstr "Tastatursnarveier"
 
 #. Others
-#: src/Dialogs/Preferences/Preferences.vala:133
-#: src/Dialogs/Preferences/Preferences.vala:1205
+#: src/Dialogs/Preferences/Preferences.vala:148
+#: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "About"
 msgstr "Om"
 
-#: src/Dialogs/Preferences/Preferences.vala:134
-#: src/Dialogs/Preferences/Preferences.vala:1111
+#: src/Dialogs/Preferences/Preferences.vala:149
+#: src/Dialogs/Preferences/Preferences.vala:1138
 msgid "Support & Credits"
 msgstr "Støtte og bidragsytere"
 
-#: src/Dialogs/Preferences/Preferences.vala:219
+#: src/Dialogs/Preferences/Preferences.vala:234
 #, fuzzy
 msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
@@ -1051,25 +1073,25 @@ msgstr ""
 "Forvalgt hjemmeside er visning av din <b>Innboks</b>, og du kan endre det "
 "når du vil."
 
-#: src/Dialogs/Preferences/Preferences.vala:251 src/Dialogs/QuickFind.vala:293
-#: src/Dialogs/QuickFind.vala:546
+#: src/Dialogs/Preferences/Preferences.vala:266 src/Dialogs/QuickFind.vala:294
+#: src/Dialogs/QuickFind.vala:564
 msgid "Projects"
 msgstr "Prosjekter"
 
-#: src/Dialogs/Preferences/Preferences.vala:323
+#: src/Dialogs/Preferences/Preferences.vala:338
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr "Velg hvilke elementer som skal telles for insignia på programikonet."
 
-#: src/Dialogs/Preferences/Preferences.vala:333
+#: src/Dialogs/Preferences/Preferences.vala:348
 msgid "None"
 msgstr "Ingen"
 
-#: src/Dialogs/Preferences/Preferences.vala:343
+#: src/Dialogs/Preferences/Preferences.vala:358
 msgid "Today + Inbox"
 msgstr "I dag + innboks"
 
-#: src/Dialogs/Preferences/Preferences.vala:396
+#: src/Dialogs/Preferences/Preferences.vala:411
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
@@ -1077,24 +1099,24 @@ msgstr ""
 "Personaliser utseende og oppførsel for din Planner ved å velge en drakt som "
 "passer deg."
 
-#: src/Dialogs/Preferences/Preferences.vala:406
+#: src/Dialogs/Preferences/Preferences.vala:421
 msgid "Light"
 msgstr "Lys"
 
-#: src/Dialogs/Preferences/Preferences.vala:410
+#: src/Dialogs/Preferences/Preferences.vala:425
 msgid "Night"
 msgstr "Natt"
 
-#: src/Dialogs/Preferences/Preferences.vala:413
+#: src/Dialogs/Preferences/Preferences.vala:428
 #, fuzzy
 msgid "Dark Blue"
 msgstr "Blå"
 
-#: src/Dialogs/Preferences/Preferences.vala:416
+#: src/Dialogs/Preferences/Preferences.vala:431
 msgid "Arc Dark"
 msgstr "Mørk hvelving"
 
-#: src/Dialogs/Preferences/Preferences.vala:467
+#: src/Dialogs/Preferences/Preferences.vala:482
 #, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
@@ -1105,41 +1127,34 @@ msgstr ""
 "tastatursnarvei for å åpne hurtigtilføyingsvinduet, der du kan skrive inn et "
 "ventende gjøremål og raskt komme deg tilbake i arbeid."
 
-#: src/Dialogs/Preferences/Preferences.vala:477
-#: src/Dialogs/Preferences/Preferences.vala:1047
+#: src/Dialogs/Preferences/Preferences.vala:492
+#: src/Dialogs/Preferences/Preferences.vala:1074
 #, fuzzy
 msgid "Enabled"
 msgstr "Påskrudd"
 
-#: src/Dialogs/Preferences/Preferences.vala:491
-#: src/Dialogs/Preferences/Preferences.vala:573
-#: src/Dialogs/Preferences/Preferences.vala:581
-msgid "Change"
-msgstr "Endre"
+#: src/Dialogs/Preferences/Preferences.vala:507
+msgid "Press keys…"
+msgstr "Trykk taster…"
 
-#: src/Dialogs/Preferences/Preferences.vala:517
+#: src/Dialogs/Preferences/Preferences.vala:534
 #, fuzzy
 msgid "Change Keyboard Shortcut"
 msgstr "Tastatursnarveier"
 
-#: src/Dialogs/Preferences/Preferences.vala:526
+#: src/Dialogs/Preferences/Preferences.vala:543
 msgid "Save Last Selected Project"
 msgstr "Lagre sist valgte prosjekt"
 
-#: src/Dialogs/Preferences/Preferences.vala:571
-#: src/Dialogs/Preferences/Preferences.vala:579
-msgid "Press keys…"
-msgstr "Trykk taster…"
-
-#: src/Dialogs/Preferences/Preferences.vala:634
+#: src/Dialogs/Preferences/Preferences.vala:651
 msgid "DE Integration"
 msgstr "Skrivebordsmiljø-integrasjon"
 
-#: src/Dialogs/Preferences/Preferences.vala:638
+#: src/Dialogs/Preferences/Preferences.vala:655
 msgid "Run in background"
 msgstr "Kjør i bakgrunnen"
 
-#: src/Dialogs/Preferences/Preferences.vala:642
+#: src/Dialogs/Preferences/Preferences.vala:659
 msgid ""
 "Enable this setting to keep Planner running in the background when it "
 "closes. This will allow Planner to continue updating and sending reminder "
@@ -1149,62 +1164,66 @@ msgstr ""
 "det lukkes. Dette tillater kontinuerlig oppdatering og forsendelse av "
 "påminnelsesmerknader."
 
-#: src/Dialogs/Preferences/Preferences.vala:650
+#: src/Dialogs/Preferences/Preferences.vala:667
 #, fuzzy
 msgid "Run on startup"
 msgstr "Kjør ved oppstart"
 
-#: src/Dialogs/Preferences/Preferences.vala:654
+#: src/Dialogs/Preferences/Preferences.vala:671
 #, fuzzy
 msgid "Enable this setting to make Planner startup with the system."
 msgstr "Skru på denne innstillingen for starte Planner sammen med systemet."
 
-#: src/Dialogs/Preferences/Preferences.vala:671
+#: src/Dialogs/Preferences/Preferences.vala:688
 msgid "Button layout"
 msgstr "Knappeoppsett"
 
-#: src/Dialogs/Preferences/Preferences.vala:680
+#. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+#: src/Dialogs/Preferences/Preferences.vala:697
 msgid "Help"
 msgstr "Hjelp"
 
-#: src/Dialogs/Preferences/Preferences.vala:684
-msgid "Create tutorial project"
-msgstr "Opprett veiledningsprosjekt"
-
-#: src/Dialogs/Preferences/Preferences.vala:684
+#: src/Dialogs/Preferences/Preferences.vala:701
 msgid "Create"
 msgstr "Opprett"
 
-#: src/Dialogs/Preferences/Preferences.vala:686
+#: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Danger zone"
 msgstr "Faresone"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
-#: src/Dialogs/Preferences/Preferences.vala:753
+#: src/Dialogs/Preferences/Preferences.vala:708
+msgid "Database"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:712
+#: src/Dialogs/Preferences/Preferences.vala:780
 msgid "Reset all"
 msgstr "Tilbakestill alle"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
+#: src/Dialogs/Preferences/Preferences.vala:712
 msgid "Reset"
 msgstr "Tilbakestill"
 
-#: src/Dialogs/Preferences/Preferences.vala:739
-#, fuzzy
-msgid "Your tutorial project was created"
-msgstr "Veiledningsprosjekt oppretet"
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export Database"
+msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:748
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
 msgstr "Er du sikker på at du ønsker å tilbakestille alt?"
 
-#: src/Dialogs/Preferences/Preferences.vala:749
+#: src/Dialogs/Preferences/Preferences.vala:776
 #, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr "Prosessen fjerner all lagret info permanent."
 
-#: src/Dialogs/Preferences/Preferences.vala:774
+#: src/Dialogs/Preferences/Preferences.vala:801
 #, fuzzy
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
@@ -1213,16 +1232,16 @@ msgstr ""
 "Spar tid ved å knytte lignende gjøremål sammen med etiketter. Du kan dra opp "
 "en liste over gjøremål med en gitt etikett på få sekunder."
 
-#: src/Dialogs/Preferences/Preferences.vala:918
+#: src/Dialogs/Preferences/Preferences.vala:945
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "Siste synkronisering: %s"
 
-#: src/Dialogs/Preferences/Preferences.vala:927
+#: src/Dialogs/Preferences/Preferences.vala:954
 msgid "Sync server"
 msgstr "Synkroniseringstjener"
 
-#: src/Dialogs/Preferences/Preferences.vala:932
+#: src/Dialogs/Preferences/Preferences.vala:959
 #, fuzzy
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
@@ -1231,21 +1250,21 @@ msgstr ""
 "Aktiver denne innstillingen slik at Planner automatisk synkroniserer med din "
 "Todoist-konto hvert kvarter."
 
-#: src/Dialogs/Preferences/Preferences.vala:944
-#: src/Dialogs/Preferences/Preferences.vala:999
+#: src/Dialogs/Preferences/Preferences.vala:971
+#: src/Dialogs/Preferences/Preferences.vala:1026
 msgid "Log out"
 msgstr "Logg ut"
 
-#: src/Dialogs/Preferences/Preferences.vala:994
+#: src/Dialogs/Preferences/Preferences.vala:1021
 msgid "Are you sure you want to log out?"
 msgstr "Er du sikker på at du ønsker å logge ut?"
 
-#: src/Dialogs/Preferences/Preferences.vala:995
+#: src/Dialogs/Preferences/Preferences.vala:1022
 #, fuzzy
 msgid "This process will close your Todoist session on this device."
 msgstr "Denne prosessen vil lukke din Todoist-økt på denne enheten."
 
-#: src/Dialogs/Preferences/Preferences.vala:1036
+#: src/Dialogs/Preferences/Preferences.vala:1063
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -1257,7 +1276,7 @@ msgstr ""
 "delte kalendre i <b>I dag</b> og <b>Kommende</b>. Dette er nyttig når du "
 "håndterer dagen din, og når du planlegger for helgen."
 
-#: src/Dialogs/Preferences/Preferences.vala:1114
+#: src/Dialogs/Preferences/Preferences.vala:1141
 #, fuzzy
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
@@ -1265,7 +1284,7 @@ msgid ""
 "via:"
 msgstr "Planner lages med ❤️ og hode for fri programvare. Send noen kroner via:"
 
-#: src/Dialogs/Preferences/Preferences.vala:1140
+#: src/Dialogs/Preferences/Preferences.vala:1167
 #, fuzzy
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
@@ -1274,128 +1293,213 @@ msgstr ""
 "Takk til de som sender penger via Patreon eller PayPal. (Hvis du ønsker å "
 "vises her, besøk vår Patreon-konto 😉️)"
 
-#: src/Dialogs/Preferences/Preferences.vala:1219
+#: src/Dialogs/Preferences/Preferences.vala:1246
 msgid "Website"
 msgstr "Nettside"
 
-#: src/Dialogs/Preferences/Preferences.vala:1220
+#: src/Dialogs/Preferences/Preferences.vala:1247
+msgid "Github"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
 msgstr "Følg"
 
-#: src/Dialogs/Preferences/Preferences.vala:1221
+#: src/Dialogs/Preferences/Preferences.vala:1249
 msgid "Report a Problem"
 msgstr "Innrapporter et problem"
 
-#: src/Dialogs/Preferences/Preferences.vala:1222
+#: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Suggest Translations"
 msgstr "Foreslå oversettelser"
-
-#: src/Dialogs/Preferences/Preferences.vala:1341
-msgid "Disabled"
-msgstr "Avskrudd"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
 msgstr "Tilbake"
 
-#: src/Dialogs/QuickFind.vala:91
+#: src/Dialogs/QuickFind.vala:92
 msgid "Completed"
 msgstr "Fullført"
 
-#: src/Dialogs/QuickFind.vala:100
-msgid "Priority 1"
-msgstr "Førsteprioritet"
-
-#: src/Dialogs/QuickFind.vala:108
-msgid "Priority 2"
-msgstr "Andreprioritet"
-
-#: src/Dialogs/QuickFind.vala:116
-msgid "Priority 3"
-msgstr "Tredjeprioritet"
-
-#: src/Dialogs/QuickFind.vala:124
-msgid "Priority 4"
-msgstr "Fjerdeprioritet"
-
-#: src/Dialogs/QuickFind.vala:129
+#: src/Dialogs/QuickFind.vala:130
 msgid "Search"
 msgstr "Søk"
 
-#: src/Dialogs/QuickFind.vala:157
+#: src/Dialogs/QuickFind.vala:158
 #, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
 "Hurtig søk etter prosjekter og visninger, -oppgavefinning og -etikettsøk."
 
-#: src/Dialogs/QuickFind.vala:185
+#: src/Dialogs/QuickFind.vala:186
 msgid "UP"
 msgstr "OPPOVER"
 
-#: src/Dialogs/QuickFind.vala:190
+#: src/Dialogs/QuickFind.vala:191
 msgid "DOWN"
 msgstr "NEDOVER"
 
-#: src/Dialogs/QuickFind.vala:195
+#: src/Dialogs/QuickFind.vala:196
 msgid "ENTER"
 msgstr "Enter"
 
-#: src/Dialogs/QuickFind.vala:200
+#: src/Dialogs/QuickFind.vala:201
 #, fuzzy
 msgid "ESC"
 msgstr "Esc"
 
-#: src/Dialogs/QuickFind.vala:210
+#: src/Dialogs/QuickFind.vala:211
 msgid "Use"
 msgstr "Bruk"
 
-#: src/Dialogs/QuickFind.vala:213
+#: src/Dialogs/QuickFind.vala:214
 msgid "to navigate and"
 msgstr "for å navigere, og"
 
-#: src/Dialogs/QuickFind.vala:215
+#: src/Dialogs/QuickFind.vala:216
 msgid "to select,"
 msgstr "for å velge,"
 
-#: src/Dialogs/QuickFind.vala:217
+#: src/Dialogs/QuickFind.vala:218
 msgid "to close."
 msgstr "for å lukke,"
 
-#: src/Dialogs/QuickFind.vala:493
+#: src/Dialogs/QuickFind.vala:494
 msgid "Enter"
 msgstr "Enter"
 
-#: src/Dialogs/QuickFind.vala:507
+#: src/Dialogs/QuickFind.vala:508
 msgid "Tasks"
 msgstr "Gjøremål"
 
-#: src/Dialogs/QuickFind.vala:603
+#: src/Dialogs/QuickFind.vala:621
 msgid "Views"
 msgstr "Visninger"
 
-#: src/Dialogs/QuickFind.vala:701
+#: src/Dialogs/QuickFind.vala:719
 msgid "Priorities"
 msgstr "Prioriteringer"
 
-#: src/Objects/Project.vala:104
+#: src/Objects/Project.vala:101
 #, fuzzy
 msgid "The Project was copied to the Clipboard."
 msgstr "Prosjektet ble kopiert til utklippstavlen."
 
-#: src/Objects/Item.vala:125
+#: src/Objects/Item.vala:118
 #, fuzzy
 msgid "Duplicating task…"
 msgstr "Dupliser gjøremål"
 
-#: src/Objects/Item.vala:212 src/Objects/Item.vala:229
+#: src/Objects/Item.vala:208 src/Objects/Item.vala:225
 #, fuzzy
 msgid "The Task was copied to the Clipboard."
 msgstr "Gjøremål kopiert til utklippstavle."
 
-#: src/Objects/Section.vala:98
+#: src/Objects/Section.vala:94
 #, fuzzy
 msgid "The Section was copied to the Clipboard."
 msgstr "Avsnitt kopiert til utklippstavle."
+
+#~ msgid "Keeping track of your tasks"
+#~ msgstr "Hold oppsyn med gjøremålene dine"
+
+#~ msgid ""
+#~ "It turns out, our brains are actually wired to keep us thinking about our "
+#~ "unfinished tasks. Handy when you have one thing you need to work on. Not "
+#~ "so good when you have 30+ tasks vying for your attention at once. That’s "
+#~ "why the first step to organizing your work and life is getting everything "
+#~ "out of your head and onto your to-do list. From there you can begin to "
+#~ "organize and prioritize so you know exactly what to focus on and when."
+#~ msgstr ""
+#~ "Det viser seg at hjernens beskaffenhet retter seg inn mot å tenke på "
+#~ "ufullførte oppgaver. Nyttig når du har én oppgave å arbeide med. Ikke "
+#~ "beleilig når du har over 30 gjøremål som krever oppmerksomhet samtidig. "
+#~ "Det er derfor første steg mot organisering av ditt arbeide og liv er å få "
+#~ "alt ut av hodet og ned på en gjøremålsliste. Herfra kan du begynne "
+#~ "organiseringen og prioriteringen, slik at du vet akkurat hva du skal "
+#~ "fokusere på og når."
+
+#, fuzzy
+#~ msgid ""
+#~ "- To add a new task to Planner, just click + and press Enter.\n"
+#~ "- When your task is created, click on the task to be able to edit it, add "
+#~ "a note or some other options."
+#~ msgstr ""
+#~ "- For å legge til et nytt gjøremål i Planner, klikk \"+\" og trykk \"Enter"
+#~ "\".\n"
+#~ "- Når gjøremålet er opprettet, klikk på gjøremålet for å redigere det, "
+#~ "legge til et notat, eller andre valg."
+
+#~ msgid "Due dates"
+#~ msgstr "Frister"
+
+#~ msgid ""
+#~ "- If you know you need to have the task done on a certain day, click on "
+#~ "the calendar icon and select a date.\n"
+#~ "- If you want to delete the due date, repeat the process and select the "
+#~ "\"undate\" option."
+#~ msgstr ""
+#~ "- Hvis du vet at du trenger å få et gjøremål gjort en gitt dag, klikk på "
+#~ "kalenderikonet og velg en dato.\n"
+#~ "- Hvis du ønsker å slette fristdatoen, gjenta prosessen og velg \"opphev "
+#~ "dato\"."
+
+#, fuzzy
+#~ msgid ""
+#~ "- Whether you’re planning a presentation, preparing for an event or "
+#~ "creating a website, create a project so all the important details are "
+#~ "saved in one central place.\n"
+#~ "- In the navigation menu on the left, at the bottom, click on the + "
+#~ "symbol.\n"
+#~ "- In the options menu select 'Project' and type out the name of your new "
+#~ "project.\n"
+#~ "- Select a source from the drop-down menu.\n"
+#~ "- (Optional) Select a different project color from the color list.\n"
+#~ "- Click Add to create the project."
+#~ msgstr ""
+#~ "- Om du forbereder en presentasjon, et tiltak eller nettside, opprett et "
+#~ "prosjekt slik at de viktige detaljene er lagret på ett sted.\n"
+#~ "- I bunnen av navigasjonsmenyen på venstre side, klikk på \"+\"-"
+#~ "symbolet.\n"
+#~ "- I innstillingsmenyen, velg \"Prosjekt\" og skriv navnet på prosjektet "
+#~ "ditt.\n"
+#~ "- Velg en kilde fra rullegardinsmenyen.\n"
+#~ "- (Valgfritt) velg en annen prosjektfarge fra fargelisten.\n"
+#~ "- Klikk «Legg til» for å opprette prosjektet."
+
+#~ msgid "Sections"
+#~ msgstr "Avsnitt"
+
+#~ msgid "Add sections"
+#~ msgstr "Legg til avsnitt"
+
+#, fuzzy
+#~ msgid ""
+#~ "- It’s always easier to take on a big project when you split it into "
+#~ "easily manageable parts using Planner’s sections.\n"
+#~ "- Organize your projects with sections to group your tasks together and "
+#~ "get a better overview of what needs to be done. Add sections to your "
+#~ "project, drag the relevant tasks to the section they belong in, and "
+#~ "you’ll find it a lot easier to make progress (instead of getting "
+#~ "overwhelmed by a single long list).\n"
+#~ "- At the top right of a project, click the + icon.\n"
+#~ "- Type the name of your section and click Add."
+#~ msgstr ""
+#~ "Det er alltid enklere å ta på seg et stort prosjekt når du kan dele det "
+#~ "inn i håndterlige biter ved bruk av Planner sine avsnitt.\n"
+#~ "- Organiser dine prosjekter med avsnitt for å gruppere gjøremålene dine "
+#~ "og for å få bedre oversikt over hva som må gjøres. Legg til avsnitt i "
+#~ "prosjektet ditt, dra relevante gjøremål til avsnittene de hører til, og "
+#~ "du vil oppleve det meget enklere å komme noen vei (istedenfor å bli "
+#~ "overveldet av én liste).\n"
+#~ "- Øverst til høyre i prosjektet, klikk \"+\"-ikonet.\n"
+#~ "- Skriv navnet på avsnittet og klikk «Legg til»."
+
+#~ msgid "Change"
+#~ msgstr "Endre"
+
+#~ msgid "Disabled"
+#~ msgstr "Avskrudd"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "
