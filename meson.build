@@ -52,6 +52,9 @@ executable(
     'src/Services/ActionManager.vala',
     'src/Services/EventBus.vala',
     'src/Services/ExportImport.vala',
+
+    # 'src/Services/Tasks/Store.vala',
+    # 'src/Services/Tasks/Utils.vala',
     
     'src/Widgets/ActionRow.vala',
     'src/Widgets/Pane.vala',

@@ -408,6 +408,82 @@ public class MainWindow : Gtk.Window {
                 go_view (0);
             }
         });
+
+        // Planner.task_store.get_registry.begin ((obj, res) => {
+            // E.SourceRegistry registry;
+            //  try {
+            //      registry = Planner.task_store.get_registry.end (res);
+            //  } catch (Error e) {
+            //      critical (e.message);
+            //      return;
+            //  }
+
+            //  listbox.set_header_func (header_update_func);
+
+            //  var last_selected_list = Application.settings.get_string ("selected-list");
+            //  var default_task_list = registry.default_task_list;
+            // var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
+
+            // task_lists.foreach ((source) => {
+                // E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+                
+                // print ("Source: %s\n".printf (source.display_name));
+                //  if (list.selected == true && source.enabled == true) {
+                //      add_source (source);
+
+                //      if (last_selected_list == "" && default_task_list == source) {
+                //          listbox.select_row (source_rows[source]);
+
+                //      } else if (last_selected_list == source.uid) {
+                //          listbox.select_row (source_rows[source]);
+                //      }
+                //  }
+            // });
+
+            //  if (last_selected_list == "scheduled") {
+            //      listbox.select_row (scheduled_row);
+            //  }
+
+            //  listbox.row_selected.connect ((row) => {
+            //      if (row != null) {
+            //          if (row is Tasks.SourceRow) {
+            //              var source = ((Tasks.SourceRow) row).source;
+            //              listview.source = source;
+            //              Tasks.Application.settings.set_string ("selected-list", source.uid);
+
+            //              listview.add_view (source, "(contains? 'any' '')");
+
+            //              ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (source.removable);
+
+            //          } else if (row is Tasks.ScheduledRow) {
+            //              listview.source = null;
+            //              Tasks.Application.settings.set_string ("selected-list", "scheduled");
+
+            //              var sources = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
+            //              var query = "AND (NOT is-completed?) (OR (has-start?) (has-alarms?))";
+
+            //              sources.foreach ((source) => {
+            //                  E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+            //                  if (list.selected == true && source.enabled == true) {
+            //                      listview.add_view (source, query);
+            //                  }
+            //              });
+
+            //              ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (false);
+            //          }
+
+            //      } else {
+            //          ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (false);
+            //          var first_row = listbox.get_row_at_index (0);
+            //          if (first_row != null) {
+            //              listbox.select_row (first_row);
+            //          } else {
+            //              listview.source = null;
+            //          }
+            //      }
+            //  });
+        // });
     }
 
     public void init_progress_controller () {
