@@ -389,8 +389,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 var word = match_info.fetch (0);
                 var stripped = word.strip ().down ();
 
-                print ("stripped: %s\n".printf (stripped));
-
                 switch (stripped) {
                     case TODAY:
                         due_date = get_datetime (new GLib.DateTime.now_local ()).to_string ();
@@ -708,7 +706,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             item.is_todoist = is_todoist;
             item.due_date = due_date;
             item.content = content_entry.text;
-            // Planner.utils.parse_item_tags (item, content_entry.text);
             temp_id_mapping = Planner.utils.generate_id ();
             
             if (is_todoist == 1) {
