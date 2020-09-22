@@ -6,20 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-07-16 20:49-0500\n"
-"PO-Revision-Date: 2020-04-03 19:16+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2020-09-22 18:37+0000\n"
+"Last-Translator: Kornelijus Tvarijanavičius <kornelitvari@protonmail.com>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/planner/"
 "translations/lt/>\n"
 "Language: lt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && (n % 100 < 11 || n % 100 > "
-"19)) ? 0 : ((n % 10 >= 2 && n % 10 <= 9 && (n % 100 < 11 || n % 100 > 19)) ? "
-"1 : 2);\n"
-"X-Generator: Weblate 4.0-dev\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -160,9 +159,8 @@ msgid "Tomorrow"
 msgstr "Rytoj"
 
 #: src/Utils.vala:815
-#, fuzzy
 msgid "Quick Add Activated!"
-msgstr "Sparti paieška"
+msgstr "Sparti paieška aktyvuota!"
 
 #: src/Utils.vala:816
 #, c-format
@@ -397,23 +395,20 @@ msgstr ""
 
 #: src/Widgets/New.vala:64 src/Views/Inbox.vala:894 src/Views/Project.vala:1316
 #: src/Dialogs/ProjectSettings.vala:49
-#, fuzzy
 msgid "Name:"
-msgstr "Pavadinimas"
+msgstr "Pavadinimas:"
 
 #: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
-#, fuzzy
 msgid "Description:"
-msgstr "Ištrinti paskyrą"
+msgstr "Aprašymas:"
 
 #: src/Widgets/New.vala:107
 msgid "Folder:"
 msgstr ""
 
 #: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
-#, fuzzy
 msgid "Color:"
-msgstr "Spalva"
+msgstr "Spalva:"
 
 #: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
 #: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
@@ -755,9 +750,9 @@ msgid "Label not found"
 msgstr ""
 
 #: src/Widgets/LabelButton.vala:237
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "Sukurti"
+msgstr "Sukurti '%s'"
 
 #: src/Widgets/Toast.vala:68
 msgid "Undo"
@@ -978,9 +973,8 @@ msgid "Please enter your credentials…"
 msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:74
-#, fuzzy
 msgid "Deadline:"
-msgstr "Galutinis terminas"
+msgstr "Galutinis terminas:"
 
 #: src/Dialogs/ProjectSettings.vala:129
 msgid "Uploading changes…"
@@ -1364,14 +1358,12 @@ msgid "Priorities"
 msgstr "Pirmenybė: Žema"
 
 #: src/Objects/Project.vala:104
-#, fuzzy
 msgid "The Project was copied to the Clipboard."
-msgstr "Jūsų projektas yra paruoštas bendrinimui"
+msgstr "Projektas buvo nukopijuotas į iškarpinę."
 
 #: src/Objects/Item.vala:125
-#, fuzzy
 msgid "Duplicating task…"
-msgstr "Dubliuoti užduotį"
+msgstr "Dubliuojama užduotis…"
 
 #: src/Objects/Item.vala:212 src/Objects/Item.vala:229
 msgid "The Task was copied to the Clipboard."
