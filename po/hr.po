@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-07-18 22:44+0000\n"
+"PO-Revision-Date: 2020-09-27 19:41+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -18,14 +18,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
 msgid "Startup"
 msgstr "Pokretanje"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
 msgstr "Počni raditi lokalno."
 
@@ -36,18 +35,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Sinkroniziraj sa svojim Todoist računom i počni raditi."
+msgstr "Sinkroniziraj s tvojim Todoist računom."
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Važno"
+msgstr "Uvezi sigurnosnu kopiju"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Uvezi prethodno izvezenu sigurnosnu kopiju planera."
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -211,7 +208,7 @@ msgstr "Dodavanje novih zadataka"
 
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "Za dodavanje novog zadatka u Planer, pritisni + i Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -430,14 +427,12 @@ msgid "Task moved to <b>%s</b>"
 msgstr "Zadatak premješten u <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
-#, fuzzy
 msgid "Open New Window"
-msgstr "Otvori ulazni sandučić"
+msgstr "Otvori novi prozor"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
-#, fuzzy
 msgid "Edit project"
-msgstr "Dodaj projekt"
+msgstr "Uredi projekt"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -485,15 +480,15 @@ msgstr "Stvarno želiš izbrisati <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1d"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1t"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1m"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -537,9 +532,8 @@ msgid "Undated"
 msgstr "Nedatirano"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Vrijeme:"
+msgstr "Vrijeme"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -621,12 +615,10 @@ msgid "Date completed"
 msgstr "Datum obavljanja"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 zadatak obavljen"
+msgstr "Označi kao obavljeno"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Izbriši zadatak"
 
@@ -876,9 +868,8 @@ msgid "Show Completed"
 msgstr "Prikaži obavljene"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "Izbornik zadataka"
+msgstr "Izbornik"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -897,22 +888,20 @@ msgid "Tap + to add a task for today."
 msgstr "Dodirni + za dodavanje zadatka na današnji dan."
 
 #: src/Views/Today.vala:460
-#, fuzzy
 msgid "Sort by project"
-msgstr "Kako koristiti projekte"
+msgstr "Razvrstaj prema projektima"
 
 #: src/Views/Today.vala:461 src/Views/Project.vala:1135
 msgid "Sort by priority"
-msgstr ""
+msgstr "Razvrstaj prema prioritetu"
 
 #: src/Views/Today.vala:462 src/Views/Project.vala:1136
 msgid "Sort by name"
-msgstr ""
+msgstr "Razvrstaj prema imenu"
 
 #: src/Views/Today.vala:575
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Zadatak je kopiran u međuspremnik."
+msgstr "Danas je kopiran u međuspremnik."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -929,7 +918,7 @@ msgstr "Dodirni + za dodavanje zadatka ovom projektu."
 
 #: src/Views/Project.vala:1134
 msgid "Sort by date"
-msgstr ""
+msgstr "Razvrstaj prema datumu"
 
 #: src/Views/Project.vala:1398
 msgid "Your Productivity"
@@ -965,9 +954,8 @@ msgid "Please enter your credentials…"
 msgstr "Upiši svoje vjerodajnice …"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Izbornik projekta"
+msgstr "Postavke projekta"
 
 #: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
@@ -979,7 +967,7 @@ msgstr "Promjene se prenose …"
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Direct access:"
-msgstr ""
+msgstr "Izravni pristup:"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:99
@@ -1157,7 +1145,7 @@ msgstr "Opasno područje"
 
 #: src/Dialogs/Preferences/Preferences.vala:708
 msgid "Database"
-msgstr ""
+msgstr "Baza podataka"
 
 #: src/Dialogs/Preferences/Preferences.vala:712
 #: src/Dialogs/Preferences/Preferences.vala:780
@@ -1170,11 +1158,11 @@ msgstr "Vrati na izvorno"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export Database"
-msgstr ""
+msgstr "Izvoz baze podataka"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export"
-msgstr ""
+msgstr "Izvoz"
 
 #: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
@@ -1259,7 +1247,7 @@ msgstr "Web-stranica"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
