@@ -246,9 +246,9 @@ public class Planner : Gtk.Application {
         //  }
 
         //  if (version) {
-		//  	print ("Test 0.1\n");
-		//  	return 0;
-		//  }
+        //      print ("Test 0.1\n");
+        //      return 0;
+        //  }
 
         return app.run (args);
     }

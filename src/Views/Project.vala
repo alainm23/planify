@@ -901,8 +901,8 @@ public class Views.Project : Gtk.EventBox {
 
         hidden_button.clicked.connect (() => {
             listbox.foreach ((widget) => {
-                var listBoxRow = (Widgets.ItemRow)widget;
-                if (listBoxRow.reveal_child) listBoxRow.hide_item();
+                var list_box_row = (Widgets.ItemRow)widget;
+                if (list_box_row.reveal_child) list_box_row.hide_item ();
             });
         });
     }

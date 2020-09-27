@@ -127,10 +127,10 @@ public class Views.Upcoming : Gtk.EventBox {
 
         hidden_button.clicked.connect (() => {
             listbox.foreach ((widget) => {
-                var listBoxRow = (Widgets.UpcomingRow)widget;
+                //var list_box_row = (Widgets.UpcomingRow)widget;
                 //listBoxRow.hide_item();
                 //if (listBoxRow.reveal_child) listBoxRow.hide_item();
-                ((Widgets.UpcomingRow)widget).hide_items();
+                ((Widgets.UpcomingRow)widget).hide_items ();
             });
         });
     }
