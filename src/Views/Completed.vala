@@ -36,6 +36,13 @@ public class Views.Completed : Gtk.EventBox {
         title_label.get_style_context ().add_class ("title-label");
         title_label.use_markup = true;
 
+        var hidden_button = new Gtk.Button.from_icon_name ("view-restore-symbolic", Gtk.IconSize.MENU);
+        hidden_button.can_focus = false;
+        hidden_button.margin_top = 1;
+        hidden_button.margin_end = 3;
+        hidden_button.tooltip_text = _("Hide Details");
+        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
@@ -46,6 +53,7 @@ public class Views.Completed : Gtk.EventBox {
 
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
+        top_box.pack_start (hidden_button, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.margin_bottom = 32;
@@ -87,6 +95,13 @@ public class Views.Completed : Gtk.EventBox {
 
         add (main_box);
         show_all ();
+
+        hidden_button.clicked.connect (() => {
+            listbox.foreach ((widget) => {
+                var listBoxRow = (Widgets.ItemRow)widget;
+                if (listBoxRow.reveal_child) listBoxRow.hide_item();
+            });
+        });
     }
 
     public void add_all_items () {

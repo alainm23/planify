@@ -89,13 +89,14 @@ public class Views.Project : Gtk.EventBox {
 
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
+        name_label.hexpand = false;
         name_label.get_style_context ().add_class ("title-label");
         name_label.get_style_context ().add_class ("font-bold");
 
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.valign = Gtk.Align.START;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        name_eventbox.hexpand = true;
+        name_eventbox.hexpand = false;
         name_eventbox.add (name_label);
 
         name_entry = new Widgets.Entry ();
@@ -104,13 +105,20 @@ public class Views.Project : Gtk.EventBox {
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("title-label");
         name_entry.get_style_context ().add_class ("project-name-entry");
-        name_entry.hexpand = true;
+        name_entry.hexpand = false;
 
         name_stack = new Gtk.Stack ();
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
+
+        var hidden_button = new Gtk.Button.from_icon_name ("view-restore-symbolic", Gtk.IconSize.MENU);
+        hidden_button.can_focus = false;
+        hidden_button.margin_top = 1;
+        hidden_button.margin_end = 3;
+        hidden_button.tooltip_text = _("Hide Details");
+        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var project_progress = new Widgets.ProjectProgress (9);
         project_progress.margin = 2;
@@ -235,6 +243,7 @@ public class Views.Project : Gtk.EventBox {
         action_revealer.add (action_grid);
 
         top_box.pack_start (name_stack, false, true, 0);
+        top_box.pack_start (hidden_button, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
         // top_box.pack_end (search_button, false, false, 0);
         if (project.is_todoist == 1) {
@@ -888,6 +897,13 @@ public class Views.Project : Gtk.EventBox {
                     completed_revealer.reveal_child = false;
                 }
             }
+        });
+
+        hidden_button.clicked.connect (() => {
+            listbox.foreach ((widget) => {
+                var listBoxRow = (Widgets.ItemRow)widget;
+                if (listBoxRow.reveal_child) listBoxRow.hide_item();
+            });
         });
     }
 

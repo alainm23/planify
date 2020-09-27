@@ -75,6 +75,13 @@ public class Views.Today : Gtk.EventBox {
         date_label.use_markup = true;
         update_today_label ();
 
+        var hidden_button = new Gtk.Button.from_icon_name ("view-restore-symbolic", Gtk.IconSize.MENU);
+        hidden_button.can_focus = false;
+        hidden_button.margin_top = 1;
+        hidden_button.margin_end = 3;
+        hidden_button.tooltip_text = _("Hide Details");
+        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
         settings_image.pixel_size = 14;
@@ -97,6 +104,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
         top_box.pack_start (date_label, false, false, 0);
+        top_box.pack_start (hidden_button, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
 
         listbox = new Gtk.ListBox ();
@@ -443,6 +451,13 @@ public class Views.Today : Gtk.EventBox {
 
                 popover.show_all ();
             }
+        });
+
+        hidden_button.clicked.connect (() => {
+            listbox.foreach ((widget) => {
+                var listBoxRow = (Widgets.ItemRow)widget;
+                if (listBoxRow.reveal_child) listBoxRow.hide_item();
+            });
         });
     }
 
