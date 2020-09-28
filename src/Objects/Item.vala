@@ -77,7 +77,7 @@ public class Objects.Item : GLib.Object {
             Source.remove (timeout_id_2);
         }
 
-        timeout_id_2 = Timeout.add (2500, () => {
+        timeout_id_2 = Timeout.add (250, () => {
             timeout_id_2 = 0;
             this.date_updated = new GLib.DateTime.now_local ().to_string ();
 

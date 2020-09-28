@@ -74,6 +74,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = false;
+        activatable = false;
+        selectable = false;
         get_style_context ().add_class ("area-row");
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();

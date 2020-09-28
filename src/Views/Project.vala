@@ -1130,7 +1130,7 @@ public class Views.Project : Gtk.EventBox {
         popover.position = Gtk.PositionType.BOTTOM;
 
         var open_menu = new Widgets.ModelButton (_("Open New Window"), "window-new-symbolic", "");
-        var edit_menu = new Widgets.ModelButton (_("Edit project"), "edit-symbolic", "");
+        var edit_menu = new Widgets.ModelButton (_("Edit Project"), "edit-symbolic", "");
         var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
         var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
         var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");

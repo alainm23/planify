@@ -835,7 +835,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                     content_entry.text = item.content;
                     content_label.label = Planner.utils.get_markup_format (item.content);
-                    note_textview.buffer.text = item.note;
+                    
+                    if (note_stack.visible_child_name == "label") {
+                        note_textview.buffer.text = item.note;
+                        update_note_label (item.note);
+                    }
 
                     check_priority_style ();
                     priority_button.update_icon (item);
@@ -1516,11 +1520,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         today_menu.activate.connect (() => {
-            due_button.set_due (new GLib.DateTime.now_local ().to_string ());
+            due_button.set_due (
+                Planner.utils.get_format_date (
+                    new GLib.DateTime.now_local ()
+                ).to_string ()
+            );
         });
 
         tomorrow_menu.activate.connect (() => {
-            due_button.set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
+            due_button.set_due (
+                Planner.utils.get_format_date (
+                    new GLib.DateTime.now_local ().add_days (1)
+                ).to_string ()
+            );
         });
 
         undated_menu.activate.connect (() => {

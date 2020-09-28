@@ -557,7 +557,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         var open_menu = new Widgets.ImageMenuItem (_("Open New Window"), "window-new-symbolic");
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit project"), "edit-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit Project"), "edit-symbolic");
         move_area_menu = new Widgets.ImageMenuItem (_("Move"), "move-project-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);

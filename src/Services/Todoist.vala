@@ -2113,6 +2113,7 @@ public class Services.Todoist : GLib.Object {
             }
 
             builder.end_object ();
+
         builder.end_object ();
         builder.end_array ();
 
@@ -2855,6 +2856,314 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void convert_to_todoist (Objects.Project project) {
+        //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+        //      "This is a primary text",
+        //      "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
+        //      "applications-development",
+        //      Gtk.ButtonsType.CLOSE
+        //  );
+
+        //  message_dialog.show_error_details (get_convert_project_json (project));
+
+        //  message_dialog.run ();
+        //  message_dialog.destroy ();
+        
+        new Thread<void*> ("convert_to_todoist", () => {
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL,
+                Planner.settings.get_string ("todoist-access-token"),
+                get_convert_project_json (project)
+            );
+            
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    try {
+                        var parser = new Json.Parser ();
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        //  var node = parser.get_root ().get_object ();
+
+                        //  var sync_status = node.get_object_member ("sync_status");
+                        //  var uuid_member = sync_status.get_member (uuid);
+
+                        //  if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                        //      string sync_token = node.get_string_member ("sync_token");
+                        //      Planner.settings.set_string ("todoist-sync-token", sync_token);
+                        //      item_uncompleted_completed (item);
+                        //  } else {
+                        //      item_uncompleted_error (
+                        //          item,
+                        //          (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                        //          sync_status.get_object_member (uuid).get_string_member ("error")
+                        //      );
+                        //  }
+                    } catch (Error e) {
+                        //  item_uncompleted_error (
+                        //      item,
+                        //      (int32) mess.status_code,
+                        //      e.message
+                        //  );
+                    }
+                } else {
+                    //  if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                    //      (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                    //      (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                    //      (int32) mess.status_code == 503) {
+                    //      item_uncompleted_error (
+                    //          item,
+                    //          (int32) mess.status_code,
+                    //          Planner.utils.get_todoist_error ((int32) mess.status_code)
+                    //      );
+                    //  } else {
+                    //      var queue = new Objects.Queue ();
+                    //      queue.uuid = uuid;
+                    //      queue.object_id = item.id;
+                    //      queue.query = "item_uncomplete";
+                    //      queue.args = item.to_json ();
+
+                    //      if (Planner.database.insert_queue (queue)) {
+                    //          item_uncompleted_completed (item);
+                    //      }
+                    //  }
+                }
+            });
+
+            return null;
+        });
+    }
+
+    public string get_convert_project_json (Objects.Project project) {
+        string project_temp_id = Planner.utils.generate_string ();
+        string project_uuid = Planner.utils.generate_string ();
+
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        // Project JSON
+        builder.begin_object ();
+        builder.set_member_name ("type");
+        builder.add_string_value ("project_add");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (project_temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (project_uuid);
+
+        builder.set_member_name ("args");
+        builder.begin_object ();
+
+        builder.set_member_name ("name");
+        builder.add_string_value (Planner.utils.get_encode_text (project.name));
+
+        builder.set_member_name ("color");
+        builder.add_int_value (project.color);
+
+        builder.end_object ();
+        builder.end_object ();
+
+        // Items JSON
+        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project.id)) {
+            builder.begin_object ();
+
+            builder.set_member_name ("type");
+            builder.add_string_value ("item_add");
+
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (Planner.utils.generate_string ());
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (Planner.utils.generate_string ());
+
+            builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("content");
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
+
+            builder.set_member_name ("project_id");
+            builder.add_string_value (project_temp_id);
+
+            builder.set_member_name ("priority");
+            builder.add_int_value (item.priority);
+
+            if (item.parent_id != 0) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (item.parent_id);
+            }
+
+            if (item.section_id != 0) {
+                builder.set_member_name ("section_id");
+                builder.add_int_value (item.section_id);
+            }
+
+            if (item.due_date != "") {
+                builder.set_member_name ("due");
+                builder.begin_object ();
+
+                builder.set_member_name ("date");
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
+
+                builder.end_object ();
+            }
+
+            builder.end_object ();
+            builder.end_object ();
+        }
+
+        // Sections
+        foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
+            string section_temp_id = Planner.utils.generate_string ();
+            string section_uuid = Planner.utils.generate_string ();
+
+            builder.begin_object ();
+            builder.set_member_name ("type");
+            builder.add_string_value ("section_add");
+
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (section_temp_id);
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (section_uuid);
+
+            builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("name");
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
+
+            builder.set_member_name ("project_id");
+            builder.add_string_value (project_temp_id);
+
+            builder.end_object ();
+            builder.end_object ();
+
+            foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
+                string item_temp_id = Planner.utils.generate_string ();
+                string item_uuid = Planner.utils.generate_string ();
+
+                builder.begin_object ();
+
+                builder.set_member_name ("type");
+                builder.add_string_value ("item_add");
+
+                builder.set_member_name ("temp_id");
+                builder.add_string_value (item_temp_id);
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (item_uuid);
+
+                builder.set_member_name ("args");
+                builder.begin_object ();
+
+                builder.set_member_name ("content");
+                builder.add_string_value (Planner.utils.get_encode_text (item.content));
+
+                builder.set_member_name ("project_id");
+                builder.add_string_value (project_temp_id);
+
+                builder.set_member_name ("priority");
+                builder.add_int_value (item.priority);
+
+                builder.set_member_name ("section_id");
+                builder.add_string_value (section_temp_id);
+
+                if (item.due_date != "") {
+                    builder.set_member_name ("due");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("date");
+                    if (Planner.utils.has_time_from_string (item.due_date)) {
+                        builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                    } else {
+                        builder.add_string_value (
+                            new GLib.DateTime.from_iso8601 (
+                                item.due_date,
+                                new GLib.TimeZone.local ()
+                            ).format ("%F")
+                        );
+                    }
+
+                    builder.end_object ();
+                }
+
+                builder.end_object ();
+                builder.end_object ();
+
+                foreach (Objects.Item i in Planner.database.get_all_cheks_by_item (item.id)) {
+                    string temp_id = Planner.utils.generate_string ();
+                    string uuid = Planner.utils.generate_string ();
+
+                    builder.begin_object ();
+
+                    builder.set_member_name ("type");
+                    builder.add_string_value ("item_add");
+
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+
+                    builder.set_member_name ("uuid");
+                    builder.add_string_value (uuid);
+
+                    builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("content");
+                    builder.add_string_value (Planner.utils.get_encode_text (i.content));
+
+                    builder.set_member_name ("parent_id");
+                    builder.add_string_value (temp_id);
+
+                    builder.set_member_name ("priority");
+                    builder.add_int_value (i.priority);
+
+                    if (i.due_date != "") {
+                        builder.set_member_name ("due");
+                        builder.begin_object ();
+
+                        builder.set_member_name ("date");
+                        if (Planner.utils.has_time_from_string (i.due_date)) {
+                            builder.add_string_value (Planner.utils.get_todoist_datetime_format (i.due_date));
+                        } else {
+                            builder.add_string_value (
+                                new GLib.DateTime.from_iso8601 (
+                                    i.due_date,
+                                    new GLib.TimeZone.local ()
+                                ).format ("%F")
+                            );
+                        }
+
+                        builder.end_object ();
+                    }
+
+                    builder.end_object ();
+                    builder.end_object ();
+                }
+            }
+        }
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+    
     private void show_message (string txt_primary, string txt_secondary, string icon) {
         var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
             txt_primary,

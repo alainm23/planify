@@ -376,15 +376,15 @@ public class Utils : GLib.Object {
 
                 file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => { // vala-lint=line-length
                     // Report copy-status:
-                    print ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes); // vala-lint=line-length
+                    debug ("%" + int64.FORMAT + " bytes of %" + int64.FORMAT + " bytes copied.\n", current_num_bytes, total_num_bytes); // vala-lint=line-length
                 }, (obj, res) => {
                     try {
                         if (file_from_uri.copy_async.end (res)) {
-                            print ("Avatar Profile Downloaded\n");
+                            debug ("Avatar Profile Downloaded\n");
                             Planner.todoist.avatar_downloaded (id);
                         }
                     } catch (Error e) {
-                        print ("Error: %s\n", e.message);
+                        debug ("Error: %s\n", e.message);
                     }
 
                     loop.quit ();
