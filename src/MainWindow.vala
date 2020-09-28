@@ -784,6 +784,23 @@ public class MainWindow : Gtk.Window {
         }
     }
 
+    public void hide_all () {
+        if (stack.visible_child_name == "inbox-view") {
+            Planner.event_bus.hide_items_project (Planner.settings.get_int64 ("inbox-project"));
+        } else if (stack.visible_child_name == "today-view") {
+            today_view.hide_items ();
+        } else if (stack.visible_child_name == "upcoming-view") {
+            upcoming_view.hide_items ();
+        } else if (stack.visible_child_name == "label-view") {
+            label_view.hide_items ();
+        } else if (stack.visible_child_name == "priority-view") {
+            priority_view.hide_items ();
+        } else {
+            var project = ((Views.Project) stack.visible_child).project;
+            Planner.event_bus.hide_items_project (project.id);
+        }
+    }
+
     public void add_task_clipboard_action (string text) {
         var item = new Objects.Item ();
         item.content = text;       

@@ -135,17 +135,9 @@ public class Views.Upcoming : Gtk.EventBox {
         }
     }
 
-    //  public void hide_last_item () {
-    //      if (items_opened.size > 0) {
-    //          var last = items_opened [items_opened.size - 1];
-    //          remove_item_show_queue (last);
-    //          last.hide_item ();
-
-    //          if (items_opened.size > 0) {
-    //              var focus = items_opened [items_opened.size - 1];
-    //              focus.grab_focus ();
-    //              focus.content_entry_focus ();
-    //          }
-    //      }
-    //  }
+    public void hide_items () {
+        listbox.foreach ((widget) => {
+            ((Widgets.UpcomingRow)widget).hide_items ();
+        });
+    }
 }

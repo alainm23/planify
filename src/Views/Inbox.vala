@@ -609,6 +609,12 @@ public class Views.Inbox : Gtk.EventBox {
                 item_row_removed (row);
             }
         });
+
+        Planner.event_bus.hide_items_project.connect ((id) => {
+            if (project.id == id) {
+                hide_items ();
+            }
+        });
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
@@ -625,6 +631,14 @@ public class Views.Inbox : Gtk.EventBox {
                 var focus = items_opened [items_opened.size - 1];
                 focus.grab_focus ();
                 focus.content_entry_focus ();
+            }
+        }
+    }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            if (items_list [index].reveal_child) {
+                items_list [index].hide_item ();
             }
         }
     }

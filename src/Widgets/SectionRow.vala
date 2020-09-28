@@ -735,6 +735,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 set_sort_func (order);
             }
         });
+
+        Planner.event_bus.hide_items_project.connect ((id) => {
+            if (section.project_id == id) {
+                hide_items ();
+            }
+        });
     }
 
     private void set_sort_func (int order) {
@@ -1264,5 +1270,11 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         return grid;
+    }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            items_list [index].hide_item ();
+        }
     }
 }

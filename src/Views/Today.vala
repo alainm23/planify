@@ -964,4 +964,18 @@ public class Views.Today : Gtk.EventBox {
             }
         }
     }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            if (items_list [index].reveal_child) {
+                items_list [index].hide_item ();
+            }
+        }
+
+        for (int index = 0; index < overdue_list.size; index++) {
+            if (overdue_list [index].reveal_child) {
+                overdue_list [index].hide_item ();
+            }
+        }
+    }
 }

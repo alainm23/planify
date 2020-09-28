@@ -240,16 +240,6 @@ public class Planner : Gtk.Application {
 
     public static int main (string[] args) {
         Planner app = Planner.instance;
-
-        //  if (args.length > 1 && args[1] == "--s") {
-        //      app.silent = true;
-        //  }
-
-        //  if (version) {
-		//  	print ("Test 0.1\n");
-		//  	return 0;
-		//  }
-
         return app.run (args);
     }
 }

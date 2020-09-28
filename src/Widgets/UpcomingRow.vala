@@ -497,4 +497,12 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             listbox.show_all ();
         }
     }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            if (items_list [index].reveal_child) {
+                items_list [index].hide_item ();
+            }
+        }
+    }
 }

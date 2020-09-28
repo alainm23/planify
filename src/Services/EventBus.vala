@@ -56,4 +56,7 @@ public class Services.EventBus : Object {
     // Items DnD
     public signal void hide_new_window_project (int64 project_id);
     public signal void show_new_window_project (int64 project_id);
+
+    // Hide all items
+    public signal void hide_items_project (int64 project_id);
 }

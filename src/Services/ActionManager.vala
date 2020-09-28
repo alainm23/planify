@@ -40,6 +40,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_UPCOMING = "action_view_upcoming";
+    public const string HIDE_ALL = "hide_all";
     public const string ACTION_ESC = "action_esc";
     
     
@@ -62,6 +63,7 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_UPCOMING, action_view_upcoming },
+        { HIDE_ALL, hide_all },
         { ACTION_ESC, action_esc },
     };
 
@@ -81,6 +83,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
         action_accelerators.set (ACTION_VIEW_UPCOMING, "<Control>3");
+        action_accelerators.set (HIDE_ALL, "<Shift>h");
         action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
@@ -198,5 +201,9 @@ public class Services.ActionManager : Object {
 
     private void action_esc () {
         window.hide_item ();
+    }
+
+    private void hide_all () {
+        window.hide_all ();
     }
 }

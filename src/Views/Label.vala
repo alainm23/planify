@@ -138,4 +138,13 @@ public class Views.Label : Gtk.EventBox {
             }
         });
     }
+
+    public void hide_items () {
+        listbox.foreach ((widget) => {
+            var row = (Widgets.ItemRow) widget;
+            if (row.reveal_child) {
+                row.hide_item ();
+            }
+        });
+    }
 }
