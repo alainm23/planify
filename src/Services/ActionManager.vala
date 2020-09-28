@@ -128,6 +128,8 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
+        Planner.event_bus.ctrl_pressed = false;
+
         var dialog = new Dialogs.Preferences.Preferences ();
         dialog.destroy.connect (Gtk.main_quit);
         dialog.show_all ();
@@ -148,10 +150,12 @@ public class Services.ActionManager : Object {
     }
 
     private void action_open_search () {
+        Planner.event_bus.ctrl_pressed = false;
         window.show_quick_find ();
     }
 
     private void action_sync_manually () {
+        Planner.event_bus.ctrl_pressed = false;
         Planner.todoist.sync ();
     }
 
@@ -174,18 +178,23 @@ public class Services.ActionManager : Object {
     }
 
     private void action_view_inbox () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (0);
     }
 
     private void action_view_today () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (1);
     }
 
     private void action_view_upcoming () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (2);
     }
 
     private void action_add_task_paste () {
+        Planner.event_bus.ctrl_pressed = false;
+        
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
         string text = clipboard.wait_for_text ();
