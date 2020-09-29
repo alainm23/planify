@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-09-20 00:39+0000\n"
+"PO-Revision-Date: 2020-09-24 07:40+0000\n"
 "Last-Translator: ihor_ck <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -25,7 +25,6 @@ msgid "Startup"
 msgstr "Запуск"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
 msgstr "Почніть працювати локально."
 
@@ -36,18 +35,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Синхронізуйте з вашим обліковим записом Todoist і починайте працювати."
+msgstr "Синхронізуйте з вашим обліковим записом Todoist."
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Важливе"
+msgstr "Імпортувати резервну копію"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Імпортувати раніше експортовану резервну копію Planner."
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -212,6 +209,7 @@ msgstr "Додавайте нові завдання"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Щоб додати нове завдання до Planner просто натисніть + і натисніть Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -431,14 +429,12 @@ msgid "Task moved to <b>%s</b>"
 msgstr "Завдання переміщено до <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
-#, fuzzy
 msgid "Open New Window"
-msgstr "Відкрити Вхідні"
+msgstr "Відкрити нове вікно"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
-#, fuzzy
 msgid "Edit project"
-msgstr "Додати проєкт"
+msgstr "Змінити проєкт"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -486,15 +482,15 @@ msgstr "Ви дійсно бажаєте видалити <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1д"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1т"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1м"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -538,9 +534,8 @@ msgid "Undated"
 msgstr "Без дати"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Час:"
+msgstr "Час"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -622,12 +617,10 @@ msgid "Date completed"
 msgstr "Час вичерпано"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 завдання виконано"
+msgstr "Позначити незавершеним"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Видалити завдання"
 
@@ -876,9 +869,8 @@ msgid "Show Completed"
 msgstr "Показати виконані"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "Меню завдань"
+msgstr "Меню"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -897,22 +889,20 @@ msgid "Tap + to add a task for today."
 msgstr "Натисніть +, щоб додати завдання на сьогодні."
 
 #: src/Views/Today.vala:460
-#, fuzzy
 msgid "Sort by project"
-msgstr "Як користуватися проєктами"
+msgstr "Впорядкувати за проєктом"
 
 #: src/Views/Today.vala:461 src/Views/Project.vala:1135
 msgid "Sort by priority"
-msgstr ""
+msgstr "Впорядкувати за важливістю"
 
 #: src/Views/Today.vala:462 src/Views/Project.vala:1136
 msgid "Sort by name"
-msgstr ""
+msgstr "Впорядкувати за назвою"
 
 #: src/Views/Today.vala:575
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Завдання скопійовано до буфера обміну."
+msgstr "Розділ «Сьогодні» копійовано до буфера обміну."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -929,7 +919,7 @@ msgstr "Натисніть +, щоб додати завдання до цьог
 
 #: src/Views/Project.vala:1134
 msgid "Sort by date"
-msgstr ""
+msgstr "Впорядкувати за датою"
 
 #: src/Views/Project.vala:1398
 msgid "Your Productivity"
@@ -965,9 +955,8 @@ msgid "Please enter your credentials…"
 msgstr "Введіть ваші облікові дані…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Меню проєкту"
+msgstr "Параметри проєкту"
 
 #: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
@@ -979,7 +968,7 @@ msgstr "Завантаження змін…"
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Direct access:"
-msgstr ""
+msgstr "Безпосередній доступ:"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:99
@@ -1161,7 +1150,7 @@ msgstr "Небезпечна зона"
 
 #: src/Dialogs/Preferences/Preferences.vala:708
 msgid "Database"
-msgstr ""
+msgstr "База даних"
 
 #: src/Dialogs/Preferences/Preferences.vala:712
 #: src/Dialogs/Preferences/Preferences.vala:780
@@ -1174,11 +1163,11 @@ msgstr "Скинути"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export Database"
-msgstr ""
+msgstr "Експорт бази даних"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export"
-msgstr ""
+msgstr "Експорт"
 
 #: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
@@ -1264,7 +1253,7 @@ msgstr "Вебсайт"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
