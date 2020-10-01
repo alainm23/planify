@@ -110,7 +110,6 @@ executable(
     'src/Dialogs/ProjectSettings.vala',
     'src/Dialogs/QuickFind.vala',
     'src/Dialogs/ShortcutsDialog.vala',
-    'src/Dialogs/ReleaseDialog.vala',
     'src/Dialogs/Project.vala',
 
     'src/Dialogs/Preferences/Preferences.vala',

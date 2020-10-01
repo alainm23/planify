@@ -32,7 +32,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Object (
             view: view,
             transient_for: Planner.instance.main_window,
-            deletable: false,
+            deletable: true,
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -45,6 +45,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Planner.event_bus.unselect_all ();
         width_request = 525;
         height_request = 600;
+
+        use_header_bar = 1;
+        var header_bar = (Gtk.HeaderBar) get_header_bar ();
+        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header_bar.get_style_context ().add_class ("oauth-dialog");
+        header_bar.get_style_context ().add_class ("default-decoration");
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -77,7 +83,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         content_area.border_width = 0;
         content_area.add (stack_scrolled);
 
-        add_button (_("Close"), Gtk.ResponseType.CLOSE);
+        // add_button (_("Close"), Gtk.ResponseType.CLOSE);
         
         Planner.utils.init_labels_color ();
 

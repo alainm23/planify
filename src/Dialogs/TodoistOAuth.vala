@@ -22,9 +22,7 @@
 public class Dialogs.TodoistOAuth : Gtk.Dialog {
     public string view { get; construct; }
     private WebKit.WebView webview;
-
     private const string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read_write,data:delete,project:delete&state=XE3K-4BBL-4XLG-UDS8"; // vala-lint=line-length
-
     public TodoistOAuth (string view="welcome") {
         Object (
             transient_for: Planner.instance.main_window,

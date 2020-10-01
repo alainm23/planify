@@ -98,6 +98,12 @@ public class Dialogs.Project : Gtk.Dialog {
         int window_x, window_y;
         int width, height;
 
+        use_header_bar = 1;
+        var header_bar = (Gtk.HeaderBar) get_header_bar ();
+        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header_bar.get_style_context ().add_class ("oauth-dialog");
+        header_bar.get_style_context ().add_class ("default-decoration");
+        
         Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
         Planner.settings.get ("project-dialog-size", "(ii)", out width, out height);
         

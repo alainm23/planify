@@ -36,6 +36,12 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
         width_request = 525;
         height_request = 600;
 
+        use_header_bar = 1;
+        var header_bar = (Gtk.HeaderBar) get_header_bar ();
+        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header_bar.get_style_context ().add_class ("oauth-dialog");
+        header_bar.get_style_context ().add_class ("default-decoration");
+        
         string keys = Planner.settings.get_string ("quick-add-shortcut");
         uint accelerator_key;
         Gdk.ModifierType accelerator_mods;
