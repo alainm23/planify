@@ -242,6 +242,10 @@ public class PlannerQuickAdd : Gtk.Application {
 }
 
 public static int main (string[] args) {
+    GLib.Environment.set_variable ("GTK_CSD", "1", true);
+
+    Gtk.init (ref args);
+    
     var application = new PlannerQuickAdd ();
     return application.run (args);
 }
