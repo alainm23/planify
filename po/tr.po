@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-09-20 00:39+0000\n"
+"PO-Revision-Date: 2020-09-24 07:40+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -24,9 +24,8 @@ msgid "Startup"
 msgstr "Başlamak"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
-msgstr "Yerel olarak çalışmaya başlayın."
+msgstr "Yerel Olarak Çalışmaya Başlayın."
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
 #: src/Dialogs/TodoistOAuth.vala:37
@@ -35,18 +34,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Todoist hesabınızla senkronize edin ve çalışmaya başlayın."
+msgstr "Todoist Hesabınızla Eşzamanlayın."
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Önemli"
+msgstr "Yedeklemeyi İçe Aktarın"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Önceden Dışa Aktarılan Planner Yedeklemesini İçe Aktarın."
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -212,6 +209,7 @@ msgstr "Yeni görevler ekleme"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Planner'a yeni bir görev eklemek için +'ya tıklayın ve Enter tuşuna basın."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -434,14 +432,12 @@ msgid "Task moved to <b>%s</b>"
 msgstr "Görev şu konuma taşındı <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
-#, fuzzy
 msgid "Open New Window"
-msgstr "Gelen Kutusunu açın"
+msgstr "Yeni Pencere Aç"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
-#, fuzzy
 msgid "Edit project"
-msgstr "Plan Ekle"
+msgstr "Projeyi düzenle"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -489,15 +485,15 @@ msgstr "Silmek istediğine emin misin <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1g"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1h"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1a"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -541,9 +537,8 @@ msgid "Undated"
 msgstr "Tarihsiz"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Zaman:"
+msgstr "Zaman"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -625,14 +620,12 @@ msgid "Date completed"
 msgstr "Tamamlanma tarihi"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 görev tamamlandı"
+msgstr "Tamamlanmadı Olarak İşaretle"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
-msgstr "Görevi Sil"
+msgstr "Görevi sil"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:994
@@ -880,9 +873,8 @@ msgid "Show Completed"
 msgstr "Tamamlananları Göster"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "Görev Menüsü"
+msgstr "Menü"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -901,22 +893,20 @@ msgid "Tap + to add a task for today."
 msgstr "Bugün için bir görev eklemek için + işaretine dokunun."
 
 #: src/Views/Today.vala:460
-#, fuzzy
 msgid "Sort by project"
-msgstr "Planlar nasıl kullanılır"
+msgstr "Projeye göre sırala"
 
 #: src/Views/Today.vala:461 src/Views/Project.vala:1135
 msgid "Sort by priority"
-msgstr ""
+msgstr "Önceliğe göre sırala"
 
 #: src/Views/Today.vala:462 src/Views/Project.vala:1136
 msgid "Sort by name"
-msgstr ""
+msgstr "Ada göre sırala"
 
 #: src/Views/Today.vala:575
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Görev Panoya kopyalandı."
+msgstr "Bugün Panoya kopyalandı."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -933,7 +923,7 @@ msgstr "Bu plana bir görev eklemek için + işaretine dokunun."
 
 #: src/Views/Project.vala:1134
 msgid "Sort by date"
-msgstr ""
+msgstr "Tarihe göre sırala"
 
 #: src/Views/Project.vala:1398
 msgid "Your Productivity"
@@ -969,9 +959,8 @@ msgid "Please enter your credentials…"
 msgstr "Lütfen kimlik bilgilerinizi girin…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Plan Menüsü"
+msgstr "Proje Ayarları"
 
 #: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
@@ -983,7 +972,7 @@ msgstr "Değişiklikler yükleniyor…"
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Direct access:"
-msgstr ""
+msgstr "Doğrudan erişim:"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:99
@@ -1163,7 +1152,7 @@ msgstr "Tehlikeli bölge"
 
 #: src/Dialogs/Preferences/Preferences.vala:708
 msgid "Database"
-msgstr ""
+msgstr "Veri tabanı"
 
 #: src/Dialogs/Preferences/Preferences.vala:712
 #: src/Dialogs/Preferences/Preferences.vala:780
@@ -1176,11 +1165,11 @@ msgstr "Sıfırla"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export Database"
-msgstr ""
+msgstr "Veri Tabanını Dışa Aktar"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export"
-msgstr ""
+msgstr "Dışa aktar"
 
 #: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
@@ -1267,7 +1256,7 @@ msgstr "İnternet Sitesi"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"

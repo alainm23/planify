@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-03-23 03:48+0000\n"
-"Last-Translator: CHAIWIT PHONKHEN <5911110222@mutacth.com>\n"
+"PO-Revision-Date: 2020-09-29 12:40+0000\n"
+"Last-Translator: Passachol Tassanakul <ptassanakul@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/planner/"
 "translations/th/>\n"
 "Language: th\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
 msgid "Startup"
@@ -47,7 +47,7 @@ msgstr "สำคัญ"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "นำเข้าสมุดบันทึกที่แบ็กอัปไว้ก่อนหน้า"
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -56,7 +56,7 @@ msgstr "สมุดบันทึก"
 #: src/MainWindow.vala:802 src/MainWindow.vala:818 src/MainWindow.vala:834
 #: src/MainWindow.vala:850
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "กำลังเพิ่มรายการจากคลิปบอร์ด"
 
 #: src/Utils.vala:28 src/Widgets/NewItem.vala:54
 #, fuzzy
@@ -212,7 +212,7 @@ msgstr "เพิ่มงานใหม่"
 
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "คลิก + และกด Enter เพื่อเพิ่มรายการในสมุดบันทึกด้วยการ"
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -305,7 +305,7 @@ msgstr "โปรเจคที่ต้องทำ"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 msgid "Unable to move task"
-msgstr ""
+msgstr "ไม่สามารถย้ายรายการได้"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
@@ -359,7 +359,7 @@ msgstr "คำอธิบาย"
 
 #: src/Widgets/New.vala:108
 msgid "Folder:"
-msgstr ""
+msgstr "โฟลเดอร์:"
 
 #: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:157
 msgid "Color:"
@@ -382,7 +382,7 @@ msgstr "โลคอล"
 
 #: src/Widgets/New.vala:399 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
-msgstr ""
+msgstr "ไม่พบแฟ้ม"
 
 #: src/Widgets/New.vala:472
 msgid "Project"
@@ -394,7 +394,7 @@ msgstr "เริ่มโปรเจคใหม่, สร้างสิ่�
 
 #: src/Widgets/New.vala:504
 msgid "Folder"
-msgstr ""
+msgstr "โฟลเดอร์"
 
 #: src/Widgets/New.vala:509
 msgid "Organize your projects in groups and keep your panel clean."
