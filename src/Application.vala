@@ -163,24 +163,24 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
-        // if (utils.is_flatpak ()) {
-        if (true) {
-            string CSS = """
-                window decoration {
-                    box-shadow: none;
-                    border: 1px solid @decoration_border_color;
-                    border-radius: 4px;
-                }
-            """;
+        //  if (utils.is_flatpak ()) {
+        //      string CSS = """
+        //          window decoration {
+        //              box-shadow: none;
+        //              border: 1px solid @decoration_border_color;
+        //              border-radius: 4px;
+        //              margin: 0px;
+        //          }
+        //      """;
 
-            var _provider = new Gtk.CssProvider ();
-            _provider.load_from_data (CSS, CSS.length);
+        //      var _provider = new Gtk.CssProvider ();
+        //      _provider.load_from_data (CSS, CSS.length);
 
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), _provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        }
+        //      Gtk.StyleContext.add_provider_for_screen (
+        //          Gdk.Screen.get_default (), _provider,
+        //          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        //      );
+        //  }
 
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
