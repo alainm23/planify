@@ -1232,6 +1232,14 @@ paned.horizontal > separator {
     color: @bg_color;
 }
 
+.app-notification.error {
+    background-color: #ff8c82;
+}
+
+.app-notification.error label {
+    color: #7a0000;
+}
+
 .background-transparent {
     background-color: transparent;
 }

@@ -265,19 +265,24 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         convert_todoist.activated.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                _("Delete project"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (project.name))),
-                "user-trash-full",
+                _("Convert Project"),
+                _("Are you sure you want to convert <b>%s</b> to Todoist?".printf (Planner.utils.get_dialog_text (project.name))),
+                "emblem-synchronized",
             Gtk.ButtonsType.CANCEL);
 
-            var remove_button = new Gtk.Button.with_label (_("Delete"));
-            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            var remove_button = new Gtk.Button.with_label (_("Convert"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
             message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
             message_dialog.show_all ();
 
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                Planner.notifications.send_undo_notification (
+                    _("Converting project…"),
+                    Planner.utils.build_undo_object ("convert_project", "project", project.id, "", "")
+                );
                 Planner.todoist.convert_to_todoist (project);
+                destroy ();
             }
 
             message_dialog.destroy ();
@@ -297,7 +302,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             }
 
             project.save ();
-
             destroy ();
         }
     }

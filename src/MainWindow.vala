@@ -34,7 +34,6 @@ public class MainWindow : Gtk.Window {
     private Views.Label label_view = null;
     private Views.Priority priority_view = null;
 
-    // private Widgets.Toast notification_toast;
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
     public Services.ActionManager action_manager;
@@ -131,16 +130,7 @@ public class MainWindow : Gtk.Window {
         slim_mode_revealer.reveal_child = false;
 
         sidebar_header.pack_end (slim_mode_revealer);
-
-        //  var slim_mode_handle = new Gtk.EventBox ();
-        //  slim_mode_handle.margin_bottom = 32;
-        //  slim_mode_handle.height_request = 164;
-        //  slim_mode_handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        //  slim_mode_handle.halign = Gtk.Align.START;
-        //  slim_mode_handle.valign = Gtk.Align.CENTER;
-        //  slim_mode_handle.above_child = false;
-        //  slim_mode_handle.add (slim_mode_revealer);
-
+        
         multiselect_toolbar = new Widgets.MultiSelectToolbar ();
 
         var projectview_overlay = new Gtk.Overlay ();
@@ -163,8 +153,8 @@ public class MainWindow : Gtk.Window {
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
-        Planner.notifications.send_notification.connect ((message) => {
-            var notification = new Widgets.Toast (message);
+        Planner.notifications.send_notification.connect ((message, style) => {
+            var notification = new Widgets.Toast (message, "", style);
             notifications_grid.add (notification);
             notifications_grid.show_all ();
 
@@ -172,7 +162,7 @@ public class MainWindow : Gtk.Window {
         });
 
         Planner.notifications.send_undo_notification.connect ((message, query) => {
-            var notification = new Widgets.Toast (message, query);
+            var notification = new Widgets.Toast (message, query, NotificationStyle.NORMAL);
             notifications_grid.add (notification);
             notifications_grid.show_all ();
 

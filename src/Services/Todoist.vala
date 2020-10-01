@@ -29,6 +29,9 @@ public class Services.Todoist : GLib.Object {
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
 
+    public signal void convert_finished (int64 id);
+    public signal void convert_error (int64 id);
+
     /*
         Project Signals
     */
@@ -686,13 +689,6 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     sync_finished ();
-
-                    string msg = """
-                        Request todoist fail
-                        status code: %i
-                    """;
-
-                    print (msg.printf (mess.status_code));
                 }
             });
 
@@ -2121,8 +2117,6 @@ public class Services.Todoist : GLib.Object {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
-        print ("%s\n".printf (generator.to_data (null)));
-
         return generator.to_data (null);
     }
 
@@ -2802,9 +2796,7 @@ public class Services.Todoist : GLib.Object {
                     try {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
+                        
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -2857,18 +2849,6 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void convert_to_todoist (Objects.Project project) {
-        //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-        //      "This is a primary text",
-        //      "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
-        //      "applications-development",
-        //      Gtk.ButtonsType.CLOSE
-        //  );
-
-        //  message_dialog.show_error_details (get_convert_project_json (project));
-
-        //  message_dialog.run ();
-        //  message_dialog.destroy ();
-        
         new Thread<void*> ("convert_to_todoist", () => {
             string url = "%s?token=%s&commands=%s".printf (
                 TODOIST_SYNC_URL,
@@ -2880,55 +2860,9 @@ public class Services.Todoist : GLib.Object {
 
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
-                    try {
-                        var parser = new Json.Parser ();
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-                        //  var node = parser.get_root ().get_object ();
-
-                        //  var sync_status = node.get_object_member ("sync_status");
-                        //  var uuid_member = sync_status.get_member (uuid);
-
-                        //  if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                        //      string sync_token = node.get_string_member ("sync_token");
-                        //      Planner.settings.set_string ("todoist-sync-token", sync_token);
-                        //      item_uncompleted_completed (item);
-                        //  } else {
-                        //      item_uncompleted_error (
-                        //          item,
-                        //          (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                        //          sync_status.get_object_member (uuid).get_string_member ("error")
-                        //      );
-                        //  }
-                    } catch (Error e) {
-                        //  item_uncompleted_error (
-                        //      item,
-                        //      (int32) mess.status_code,
-                        //      e.message
-                        //  );
-                    }
+                    convert_finished (project.id);
                 } else {
-                    //  if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
-                    //      (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
-                    //      (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
-                    //      (int32) mess.status_code == 503) {
-                    //      item_uncompleted_error (
-                    //          item,
-                    //          (int32) mess.status_code,
-                    //          Planner.utils.get_todoist_error ((int32) mess.status_code)
-                    //      );
-                    //  } else {
-                    //      var queue = new Objects.Queue ();
-                    //      queue.uuid = uuid;
-                    //      queue.object_id = item.id;
-                    //      queue.query = "item_uncomplete";
-                    //      queue.args = item.to_json ();
-
-                    //      if (Planner.database.insert_queue (queue)) {
-                    //          item_uncompleted_completed (item);
-                    //      }
-                    //  }
+                    convert_error (project.id);
                 }
             });
 

@@ -19,6 +19,11 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+public enum NotificationStyle {
+    NORMAL,
+    ERROR
+}
+
 public class Planner : Gtk.Application {
     public MainWindow? main_window = null;
 
@@ -158,22 +163,23 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
-        //  if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
-        //      string CSS = """
-        //          window decoration {
-        //              box-shadow: none;
-        //              margin: 1px;
-        //          }
-        //      """;
+        if (utils.is_flatpak ()) {
+            string CSS = """
+                window decoration {
+                    box-shadow: none;
+                    border: 1px solid @decoration_border_color;
+                    border-radius: 4px;
+                }
+            """;
 
-        //      var _provider = new Gtk.CssProvider ();
-        //      _provider.load_from_data (CSS, CSS.length);
+            var _provider = new Gtk.CssProvider ();
+            _provider.load_from_data (CSS, CSS.length);
 
-        //      Gtk.StyleContext.add_provider_for_screen (
-        //          Gdk.Screen.get_default (), _provider,
-        //          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        //      );
-        //  }
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), _provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        }
 
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
@@ -185,11 +191,11 @@ public class Planner : Gtk.Application {
         utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
 
         if (settings.get_string ("version") != Constants.VERSION) {
-            var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner");
+            var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner 2.5 is here, with many design improvements, new features, and more."));
 
-            dialog.append ("help-about", _("Startup"), _("Start Working Locally."));
-            dialog.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist Account."));
-            dialog.append ("folder-download", _("Import Backup"), _("Import Previously Exported Planner Backup."));
+            dialog.append ("planner-quick-add", _("Quick Add Improvements"), _("Quick Add comes with a new design and new features."));
+            dialog.append ("preferences-system-windows", _("Multiple Windows Support"), _("Open your projects in separate windows and drag your tasks from one side to the other."));
+            dialog.append ("applications-utilities", _("Multiple Selection Support"), _("Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key and selecting the tasks."));
 
             dialog.show_all ();
             dialog.present ();
@@ -198,38 +204,7 @@ public class Planner : Gtk.Application {
             settings.set_string ("version", Constants.VERSION);
         }
     }
-
-    //  public override int command_line (ApplicationCommandLine command_line) {
-    //      bool silent_mode = false;
-    //      OptionEntry[] options = new OptionEntry [1];
-    //      options[0] = {
-    //          "s", 0, 0, OptionArg.NONE,
-    //          ref silent_mode, "Run without window", null
-    //      };
-
-    //      string[] args = command_line.get_arguments ();
-    //      string[] _args = new string[args.length];
-    //      for (int i = 0; i < args.length; i++) {
-    //          _args[i] = args[i];
-    //      }
-
-    //      try {
-    //          var ctx = new OptionContext ();
-    //          ctx.set_help_enabled (true);
-    //          ctx.add_main_entries (options, null);
-    //          unowned string[] tmp = _args;
-    //          ctx.parse (ref tmp);
-    //      } catch (OptionError e) {
-    //          command_line.print ("error: %s\n", e.message);
-    //          return 0;
-    //      }
-
-    //      silent = silent_mode;
-    //      activate ();
-
-    //      return 0;
-    //  }
-
+    
     private void build_shortcuts () {
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {

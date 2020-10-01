@@ -1260,8 +1260,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var grid = new Gtk.Grid ();
         grid.margin = 12;
         grid.halign = Gtk.Align.CENTER;
-        grid.get_style_context ().add_class ("card");
-        grid.get_style_context ().add_class ("border-radius-4");
         grid.add (button);
         grid.show ();
 
