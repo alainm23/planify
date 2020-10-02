@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-09-22 18:37+0000\n"
+"PO-Revision-Date: 2020-09-24 07:40+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -24,9 +24,8 @@ msgid "Startup"
 msgstr "Opstarten"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
-msgstr "Lokaal werken."
+msgstr "Ga lokaal aan de slag."
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
 #: src/Dialogs/TodoistOAuth.vala:37
@@ -35,18 +34,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Synchroniseer je Todoist-account en ga daarmee aan de slag."
+msgstr "Synchroniseer je Todoist-account."
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Belangrijk"
+msgstr "Back-up importeren"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importeer een eerder gemaakte Planner-back-up."
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -212,6 +209,7 @@ msgstr "Taken toevoegen"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Voeg een nieuwe taak toe door op '+' te klikken en dan op Enter te drukken."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -346,7 +344,7 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 "Het lijkt erop dat je niet verbonden bent met\n"
-"internet. De aanpassingen die je nu doet, worden\n"
+"internet. De aanpassingen die je nu doet worden\n"
 "gesynchroniseerd zodra je verbonden bent."
 
 #: src/Widgets/New.vala:65 src/Views/Inbox.vala:911 src/Views/Project.vala:1458
@@ -435,14 +433,12 @@ msgid "Task moved to <b>%s</b>"
 msgstr "De taak is verplaatst naar <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
-#, fuzzy
 msgid "Open New Window"
-msgstr "Postvak IN openen"
+msgstr "Nieuw venster openen"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
-#, fuzzy
 msgid "Edit project"
-msgstr "Project toevoegen"
+msgstr "Project aanpassen"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -490,15 +486,15 @@ msgstr "Weet je zeker dat je <b>%s</b> wilt verwijderen?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1d"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1w"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1m"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -542,9 +538,8 @@ msgid "Undated"
 msgstr "Geen einddatum"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Tijd:"
+msgstr "Tijd"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -626,12 +621,10 @@ msgid "Date completed"
 msgstr "Afgerond op"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "Markeren als afgerond"
+msgstr "Markeren als onvolledig"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Taak verwijderen"
 
@@ -799,7 +792,8 @@ msgstr "Herinnering toevoegen"
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
-"Laat Planner je een herinnering sturen en vergeet zo nooit meer een taak!"
+"Planner kan je een herinnering sturen zodat je nooit meer een taak kunt "
+"vergeten."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
@@ -900,22 +894,20 @@ msgid "Tap + to add a task for today."
 msgstr "Klik op + om een taak toe te voegen voor vandaag."
 
 #: src/Views/Today.vala:460
-#, fuzzy
 msgid "Sort by project"
-msgstr "Project importeren"
+msgstr "Sorteren op project"
 
 #: src/Views/Today.vala:461 src/Views/Project.vala:1135
 msgid "Sort by priority"
-msgstr ""
+msgstr "Sorteren op prioriteit"
 
 #: src/Views/Today.vala:462 src/Views/Project.vala:1136
 msgid "Sort by name"
-msgstr ""
+msgstr "Sorteren op naam"
 
 #: src/Views/Today.vala:575
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "De taak is gekopieerd naar het klembord."
+msgstr "'Vandaag' is gekopieerd naar het klembord."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -932,7 +924,7 @@ msgstr "Klik op + om een taak toe te voegen aan dit project."
 
 #: src/Views/Project.vala:1134
 msgid "Sort by date"
-msgstr ""
+msgstr "Sorteren op datum"
 
 #: src/Views/Project.vala:1398
 msgid "Your Productivity"
@@ -968,9 +960,8 @@ msgid "Please enter your credentials…"
 msgstr "Voer je inloggegevens in…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Projectmenu"
+msgstr "Projectinstellingen"
 
 #: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
@@ -982,7 +973,7 @@ msgstr "Bezig met uploaden van aanpassingen…"
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Direct access:"
-msgstr ""
+msgstr "Directe toegang:"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:99
@@ -1162,7 +1153,7 @@ msgstr "Gevarenzone"
 
 #: src/Dialogs/Preferences/Preferences.vala:708
 msgid "Database"
-msgstr ""
+msgstr "Databank"
 
 #: src/Dialogs/Preferences/Preferences.vala:712
 #: src/Dialogs/Preferences/Preferences.vala:780
@@ -1175,7 +1166,7 @@ msgstr "Standaardwaarden"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export Database"
-msgstr ""
+msgstr "Databank exporteren"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export"

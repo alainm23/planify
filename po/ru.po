@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-09-22 13:54-0500\n"
-"PO-Revision-Date: 2020-09-11 22:29+0000\n"
+"PO-Revision-Date: 2020-09-24 07:40+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -25,7 +25,6 @@ msgid "Startup"
 msgstr "Автозагрузка"
 
 #: src/Application.vala:190 src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
 msgstr "Начните работать локально."
 
@@ -36,18 +35,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Application.vala:191 src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Синхронизируйте с вашим аккаунтом Todoist и начните работу."
+msgstr "Синхронизируйте с вашим аккаунтом Todoist."
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Важное"
+msgstr "Импортировать резервную копию"
 
 #: src/Application.vala:192 src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Импортировать последнюю экспортированную резервную копию Planner."
 
 #: src/MainWindow.vala:50
 msgid "Planner"
@@ -213,6 +210,7 @@ msgstr "Добавление новой задачи"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Чтобы добавить новую задачу в Planner, нажмите на \"+\", а затем на Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -240,15 +238,15 @@ msgstr "Открыть почту"
 
 #: src/Utils.vala:965
 msgid "Open Today"
-msgstr "Открыть Сегодня"
+msgstr "Открыть \"Сегодня\""
 
 #: src/Utils.vala:966
 msgid "Open Upcoming"
-msgstr "Открыть Предстоящие"
+msgstr "Открыть \"Предстоящие\""
 
 #: src/Utils.vala:967
 msgid "Open Search"
-msgstr "Открыть Поиск"
+msgstr "Открыть поиск"
 
 #: src/Utils.vala:968
 msgid "Manually sync"
@@ -433,14 +431,12 @@ msgid "Task moved to <b>%s</b>"
 msgstr "Задача перенесена в <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
-#, fuzzy
 msgid "Open New Window"
-msgstr "Открыть почту"
+msgstr "Открыть новое окно"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
-#, fuzzy
 msgid "Edit project"
-msgstr "Добавить проект"
+msgstr "Изменить проект"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -488,15 +484,15 @@ msgstr "Вы уверены, что хотите удалить <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1д"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1н"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1м"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -540,9 +536,8 @@ msgid "Undated"
 msgstr "Убрать дату"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Время:"
+msgstr "Время"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -624,14 +619,12 @@ msgid "Date completed"
 msgstr "Время вышло"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 задача выполнена"
+msgstr "Пометить как незавершенное"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
-msgstr "Удалить Задачу"
+msgstr "Удалить задачу"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:994
@@ -640,7 +633,7 @@ msgstr "Показать задачи"
 
 #: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:999
 msgid "Hiding Tasks"
-msgstr "Спрятать Задачи"
+msgstr "Спрятать задачи"
 
 #: src/Widgets/SectionRow.vala:125 src/Widgets/NewSection.vala:69
 msgid "Section name"
@@ -878,9 +871,8 @@ msgid "Show Completed"
 msgstr "Показать выполненные задачи"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "Меню задачи"
+msgstr "Меню"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -899,22 +891,20 @@ msgid "Tap + to add a task for today."
 msgstr "Нажмите \"+\", чтобы добавить задачу на сегодня."
 
 #: src/Views/Today.vala:460
-#, fuzzy
 msgid "Sort by project"
-msgstr "Как использовать проекты"
+msgstr "Сортировать по проекту"
 
 #: src/Views/Today.vala:461 src/Views/Project.vala:1135
 msgid "Sort by priority"
-msgstr ""
+msgstr "Сортировать по приоритету"
 
 #: src/Views/Today.vala:462 src/Views/Project.vala:1136
 msgid "Sort by name"
-msgstr ""
+msgstr "Сортировать по имени"
 
 #: src/Views/Today.vala:575
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Задача была скопирована в буфер обмена."
+msgstr "\"Сегодня\" было скопировано в буфер обмена."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -931,7 +921,7 @@ msgstr "Нажмите \"+\", чтобы добавить задачу в это
 
 #: src/Views/Project.vala:1134
 msgid "Sort by date"
-msgstr ""
+msgstr "Сортировать по дате"
 
 #: src/Views/Project.vala:1398
 msgid "Your Productivity"
@@ -967,9 +957,8 @@ msgid "Please enter your credentials…"
 msgstr "Пожалуйста, введите ваши данные…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Меню проекта"
+msgstr "Настройки проекта"
 
 #: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
@@ -981,7 +970,7 @@ msgstr "Загрузка изменений…"
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Direct access:"
-msgstr ""
+msgstr "Прямой доступ:"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:99
@@ -1161,7 +1150,7 @@ msgstr "Опасная зона"
 
 #: src/Dialogs/Preferences/Preferences.vala:708
 msgid "Database"
-msgstr ""
+msgstr "База данных"
 
 #: src/Dialogs/Preferences/Preferences.vala:712
 #: src/Dialogs/Preferences/Preferences.vala:780
@@ -1174,11 +1163,11 @@ msgstr "Сбросить"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export Database"
-msgstr ""
+msgstr "Экспортировать базу данных"
 
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
@@ -1239,9 +1228,9 @@ msgid ""
 msgstr ""
 "Вы можете подключить ваше приложение <b>календаря</b> к Planner, чтобы "
 "увидеть ваши события и задачи вместе в одном месте. Вы увидите события как "
-"из личных, так и из общих календарей в <b>\"Отложенных\"</b> и <b>"
-"\"Предстоящих\"</b>. Это полезно, когда вы управляете своим днем, и когда вы "
-"планируете на неделю вперед."
+"из личных, так и из общих календарей в <b>\"Сегодня\"</b> и <b>\"Предстоящих"
+"\"</b>. Это полезно, когда вы управляете своим днем, и когда вы планируете "
+"на неделю вперед."
 
 #: src/Dialogs/Preferences/Preferences.vala:1141
 msgid ""
@@ -1267,7 +1256,7 @@ msgstr "Веб-сайт"
 
 #: src/Dialogs/Preferences/Preferences.vala:1247
 msgid "Github"
-msgstr ""
+msgstr "Страница Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
