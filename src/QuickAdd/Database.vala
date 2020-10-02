@@ -38,7 +38,7 @@ public class Database : GLib.Object {
 
         int rc = 0;
 
-        db_path = get_database_path();
+        db_path = get_database_path ();
         rc = Sqlite.Database.open (db_path, out db);
 
         if (rc != Sqlite.OK) {
