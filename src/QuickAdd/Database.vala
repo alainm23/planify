@@ -37,13 +37,22 @@ public class Database : GLib.Object {
         session = new Soup.Session ();
 
         int rc = 0;
-        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
 
+        db_path = get_database_path ();
         rc = Sqlite.Database.open (db_path, out db);
 
         if (rc != Sqlite.OK) {
             stderr.printf ("Can't open database: %d, %s\n", rc, db.errmsg ());
             Gtk.main_quit ();
+        }
+    }
+
+    public string get_database_path () {
+        var database_location_use_default = PlannerQuickAdd.settings.get_boolean ("database-location-use-default");
+        if (database_location_use_default) {
+            return Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        } else {
+            return PlannerQuickAdd.settings.get_string ("database-location-path");
         }
     }
 
