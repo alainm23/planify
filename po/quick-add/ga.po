@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: quick-add\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-29 09:42-0500\n"
+"POT-Creation-Date: 2020-09-22 13:39-0500\n"
 "PO-Revision-Date: 2020-02-03 06:04-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,28 +17,84 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n==2 ? 1 : 2;\n"
 
-#: src/QuickAdd/MainWindow.vala:60
-msgid "Task name"
+#: src/QuickAdd/MainWindow.vala:23
+msgid "today"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:24
+msgid "tomorrow"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:25
+msgid "1d"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:26
+msgid "1w"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:27
+msgid "1m"
 msgstr ""
 
 #: src/QuickAdd/MainWindow.vala:83
-msgid "Save"
+msgid "Task name"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:88
+#: src/QuickAdd/MainWindow.vala:105
+msgid "Add Task"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:110
 msgid "Cancel"
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:169
+#: src/QuickAdd/MainWindow.vala:200
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planner."
 msgstr ""
 
-#: src/QuickAdd/MainWindow.vala:240
+#: src/QuickAdd/MainWindow.vala:293
 msgid "The task was correctly added."
 msgstr ""
 
-#: src/QuickAdd/Database.vala:387
+#: src/QuickAdd/MainWindow.vala:503
+msgid "Priority 1"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:504
+msgid "Priority 2"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:505
+msgid "Priority 3"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:506
+msgid "Priority 4"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:557 src/QuickAdd/MainWindow.vala:878
+msgid "Today"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:563 src/QuickAdd/MainWindow.vala:880
+msgid "Tomorrow"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:569
+msgid "Undated"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:579
+msgid "Time"
+msgstr ""
+
+#: src/QuickAdd/MainWindow.vala:803 src/QuickAdd/MainWindow.vala:904
+msgid "Schedule"
+msgstr ""
+
+#: src/QuickAdd/Database.vala:427
 msgid "Connection error"
 msgstr ""

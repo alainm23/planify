@@ -383,7 +383,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         });
 
-        this.key_release_event.connect ((key) => {
+        key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 popdown ();
             }
@@ -391,13 +391,13 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             return false;
         });
 
-        this.focus_out_event.connect (() => {
+        focus_out_event.connect (() => {
             popdown ();
 
             return false;
         });
 
-        this.key_press_event.connect ((event) => {
+        key_press_event.connect ((event) => {
             var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
 
             if (key == "Up" || key == "Down") {
@@ -533,9 +533,26 @@ public class SearchItem : Gtk.ListBoxRow {
             grid.margin_start = 6;
             grid.margin_end = 6;
             grid.column_spacing = 6;
-            grid.add (checked_button);
-            grid.add (content_label);
-            grid.add (shortcut_revealer);
+            if (Planner.todoist.get_string_member_by_object (object, "note") != "") {
+                var note_label = new Gtk.Label (
+                    markup_string_with_search (
+                        Planner.todoist.get_string_member_by_object (object, "note"),
+                        search_term
+                    )
+                );
+                note_label.ellipsize = Pango.EllipsizeMode.END;
+                note_label.xalign = 0;
+                note_label.use_markup = true;
+    
+                grid.attach (checked_button, 0, 0, 1, 1);
+                grid.attach (content_label, 1, 0, 1, 1);
+                grid.attach (shortcut_revealer, 2, 0, 1, 1);
+                grid.attach (note_label, 1, 1, 1, 1);
+            } else {
+                grid.add (checked_button);
+                grid.add (content_label);
+                grid.add (shortcut_revealer);
+            }
 
             var main_grid = new Gtk.Grid ();
             main_grid.attach (header_label, 0, 0, 1, 1);

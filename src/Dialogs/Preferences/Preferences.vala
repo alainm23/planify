@@ -32,7 +32,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Object (
             view: view,
             transient_for: Planner.instance.main_window,
-            deletable: false,
+            deletable: true,
             resizable: true,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -45,6 +45,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Planner.event_bus.unselect_all ();
         width_request = 525;
         height_request = 600;
+
+        use_header_bar = 1;
+        var header_bar = (Gtk.HeaderBar) get_header_bar ();
+        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header_bar.get_style_context ().add_class ("oauth-dialog");
+        header_bar.get_style_context ().add_class ("default-decoration");
 
         stack = new Gtk.Stack ();
         stack.expand = true;
@@ -77,12 +83,20 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         content_area.border_width = 0;
         content_area.add (stack_scrolled);
 
-        add_button (_("Close"), Gtk.ResponseType.CLOSE);
+        // add_button (_("Close"), Gtk.ResponseType.CLOSE);
         
         Planner.utils.init_labels_color ();
 
         response.connect ((response_id) => {
             destroy ();
+        });
+
+        key_press_event.connect ((event) => {
+            if (event.keyval == 65307) {
+                return true;
+            }
+
+            return false;
         });
     }
 
@@ -117,6 +131,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var calendar_item = new Dialogs.Preferences.Item ("x-office-calendar", _("Calendar Events"));
         var labels_item = new Dialogs.Preferences.Item ("tag", _("Labels"));
         var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
+
+        var share_b = new Gtk.Button.with_label (_("Share"));
+        share_b.clicked.connect (() => {
+            var s = new Services.ExportImport ();
+            s.save_file_as ();
+        });
 
         var addons_grid = new Gtk.Grid ();
         addons_grid.margin_top = 18;
@@ -487,7 +507,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         Gtk.accelerator_parse (keys, out accelerator_key, out accelerator_mods);
         var shortcut_hint = Gtk.accelerator_get_label (accelerator_key, accelerator_mods);
 
-        var accels = new ShortcutLabel (shortcut_hint.split ("+"));
+        var accels = new Widgets.ShortcutLabel (shortcut_hint.split ("+"));
         accels.halign = Gtk.Align.END;
 
         var keybinding_toggle_recording_button = new Gtk.ToggleButton.with_label (_ ("Press keys…"));
@@ -678,7 +698,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         );
         button_layout.margin_top = 12;
 
-        var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+        // var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 
         var help_header = new Granite.HeaderLabel (_("Help"));
         help_header.margin_start = 12;
@@ -691,8 +711,13 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         dz_header.margin_start = 12;
         dz_header.margin_top = 6;
 
+        var database_header = new Granite.HeaderLabel (_("Database"));
+        database_header.margin_start = 12;
+        database_header.margin_top = 6;
+
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
-        
+        var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
+
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (de_header, false, false, 0);
@@ -702,9 +727,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_startup_label, false, false, 0);
         box.pack_start (button_layout, false, false, 0);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        box.pack_start (database_settings, false, false, 0);
-        box.pack_start (help_header, false, false, 0);
-        box.pack_start (tutorial_item, false, false, 0);
+        // box.pack_start (database_settings, false, false, 0);/
+        box.pack_start (database_header, false, false, 0);
+        box.pack_start (export_db_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
 
@@ -744,6 +769,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             Planner.utils.select_pane_project (id);
 
             destroy ();
+        });
+
+        export_db_item.activated.connect (() => {
+            var s = new Services.ExportImport ();
+            s.save_file_as ();
         });
 
         clear_db_item.activated.connect (() => {
@@ -1220,6 +1250,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         version_label.get_style_context ().add_class ("dim-label");
 
         var web_item = new Dialogs.Preferences.Item ("web-browser", _("Website"));
+        var github_item = new Dialogs.Preferences.Item ("github", _("Github"));
         var twitter_item = new Dialogs.Preferences.Item ("online-account-twitter", _("Follow"));
         var issue_item = new Dialogs.Preferences.Item ("bug", _("Report a Problem"));
         var translation_item = new Dialogs.Preferences.Item ("config-language", _("Suggest Translations"), true);
@@ -1231,6 +1262,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         grid.add (web_item);
+        grid.add (github_item);
         grid.add (twitter_item);
         grid.add (issue_item);
         grid.add (translation_item);
@@ -1252,6 +1284,14 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         web_item.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://planner-todo.web.app", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        github_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://github.com/alainm23/planner", null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
@@ -1301,77 +1341,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 public class PreferenceItemRadio : Gtk.RadioButton {
     public PreferenceItemRadio () {
         get_style_context ().add_class ("preferences-view");
-    }
-}
-
-public class ShortcutLabel : Gtk.Grid {
-    public string[] accels { get; construct; }
-
-    public ShortcutLabel (string[] accels) {
-        Object (accels: accels);
-    }
-
-    construct {
-        valign = Gtk.Align.CENTER;
-        column_spacing = 6;
-
-        update_accels (accels);
-    }
-
-    public void update_accels (string[] accels) {
-        int index = 0;
-        foreach (var child in this.get_children ()) {
-            child.destroy ();
-        }
-
-        if (accels[0] != "") {
-            foreach (unowned string accel in accels) {
-                index += 1;
-                if (accel == "") {
-                    continue;
-                }
-                var label = new Gtk.Label (accel);
-                label.get_style_context ().add_class ("keyboardkey");
-                add (label);
-
-                if (index < accels.length) {
-                    label = new Gtk.Label ("+");
-                    label.get_style_context ().add_class ("font-bold"); 
-                    add (label);
-                }
-            }
-        } else {
-            var label = new Gtk.Label (_("Disabled"));
-            label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-            add (label);
-        }
-
-        show_all ();
-    }
-}
-
-public class ShortcutRow : Gtk.ListBoxRow {
-    public ShortcutRow (string name, string[] accels) {
-        var name_label = new Gtk.Label (name);
-        name_label.wrap = true;
-        name_label.xalign = 0;
-        name_label.get_style_context ().add_class ("font-weight-600");
-
-        var shortcuts_labels = new ShortcutLabel (accels);
-
-        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.margin_start = 12;
-        box.margin_top = 3;
-        box.margin_bottom = 3;
-        box.margin_end = 6;
-        box.pack_start (name_label, false, true, 0);
-        box.pack_end (shortcuts_labels, false, false, 0);
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.pack_start (box);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
-
-        add (main_box);
     }
 }
 

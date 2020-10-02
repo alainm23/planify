@@ -27,6 +27,7 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.ToggleButton source_button;
     private Gtk.Image source_image;
     private Gtk.Popover source_popover = null;
+    private Gtk.Popover help_popover = null;
 
     public Gtk.Stack stack;
 
@@ -164,16 +165,12 @@ public class Widgets.New : Gtk.Revealer {
 
         submit_button.add (submit_stack);
 
-        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("planner-button");
-
         var action_grid = new Gtk.Grid ();
         action_grid.margin = 3;
         action_grid.column_spacing = 3;
         action_grid.hexpand = true;
         action_grid.valign = Gtk.Align.END;
         action_grid.column_homogeneous = true;
-        action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
         var action_bar = new Gtk.ActionBar ();
@@ -193,6 +190,17 @@ public class Widgets.New : Gtk.Revealer {
         box.pack_start (area_revealer, false, false, 0);
         box.pack_end (action_bar, false, false, 0);
 
+        var close_image = new Gtk.Image ();
+        close_image.gicon = new ThemedIcon ("close-symbolic");
+        close_image.pixel_size = 12;
+
+        var close_button = new Gtk.Button ();
+        close_button.tooltip_markup = Granite.markup_accel_tooltip ({"Escape"}, _("Close"));
+        close_button.image = close_image;
+        close_button.valign = Gtk.Align.START;
+        close_button.halign = Gtk.Align.START;
+        close_button.get_style_context ().add_class ("close-button");
+
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -206,10 +214,13 @@ public class Widgets.New : Gtk.Revealer {
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-
         main_grid.add (stack);
 
-        add (main_grid);
+        var overlay = new Gtk.Overlay ();
+        overlay.add_overlay (close_button);
+        overlay.add (main_grid);
+
+        add (overlay);
 
         submit_button.clicked.connect (() => {
             create_project ();
@@ -227,8 +238,7 @@ public class Widgets.New : Gtk.Revealer {
             }
         });
 
-        cancel_button.clicked.connect (cancel);
-
+        close_button.clicked.connect (cancel);
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 cancel ();
@@ -469,7 +479,7 @@ public class Widgets.New : Gtk.Revealer {
         project_detail_label.xalign = 0;
 
         var project_grid = new Gtk.Grid ();
-        project_grid.margin_start = 6;
+        project_grid.margin_start = 3;
         project_grid.column_spacing = 3;
         project_grid.attach (project_image, 0, 0, 1, 1);
         project_grid.attach (project_label, 1, 0, 1, 1);
@@ -501,7 +511,7 @@ public class Widgets.New : Gtk.Revealer {
         area_detail_label.xalign = 0;
 
         var area_grid = new Gtk.Grid ();
-        area_grid.margin_start = 6;
+        area_grid.margin_start = 3;
         area_grid.column_spacing = 3;
         area_grid.attach (area_image, 0, 0, 1, 1);
         area_grid.attach (source_label, 1, 0, 1, 1);
@@ -515,21 +525,22 @@ public class Widgets.New : Gtk.Revealer {
         area_button.get_style_context ().add_class ("flat");
         area_button.get_style_context ().add_class ("menuitem");
 
-        var cancel_button = new Gtk.Button.with_label (_("Close"));
-        cancel_button.get_style_context ().add_class ("planner-button");
-        cancel_button.margin = 3;
-        cancel_button.hexpand = true;
+        var help_button = new Gtk.ToggleButton ();
+        help_button.margin = 6;
+        help_button.can_focus = false;
+        help_button.valign = Gtk.Align.CENTER;
+        help_button.halign = Gtk.Align.START;
+        help_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var action_bar = new Gtk.ActionBar ();
-        action_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_INLINE_TOOLBAR);
-        action_bar.pack_start (cancel_button);
+        var help_image = new Gtk.Image ();
+        help_image.gicon = new ThemedIcon ("help-contents-symbolic");
+        help_image.pixel_size = 14;
+        help_button.image = help_image;
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.pack_start (project_button, false, false, 0);
         box.pack_start (area_button, false, false, 0);
-        box.pack_end (action_bar, false, false, 0);
-
-        cancel_button.clicked.connect (cancel);
+        box.pack_end (help_button, false, false, 0);
 
         project_button.clicked.connect (() => {
             stack.visible_child_name = "box";
@@ -537,6 +548,45 @@ public class Widgets.New : Gtk.Revealer {
         });
 
         area_button.clicked.connect (create_area);
+
+        help_button.toggled.connect (() => {
+            if (help_button.active) {
+                if (help_popover == null) {
+                    help_popover = new Gtk.Popover (help_button);
+                    help_popover.position = Gtk.PositionType.TOP;
+                    help_popover.get_style_context ().add_class ("popover-background");
+
+                    var create_menu = new Widgets.ModelButton (_("Create tutorial project"), "planner-project-symbolic", "");
+
+                    var popover_grid = new Gtk.Grid ();
+                    popover_grid.margin_top = 3;
+                    popover_grid.margin_bottom = 3;
+                    popover_grid.orientation = Gtk.Orientation.VERTICAL;
+                    popover_grid.add (create_menu);
+                    popover_grid.show_all ();
+
+                    help_popover.add (popover_grid);
+
+                    help_popover.closed.connect (() => {
+                        help_button.active = false;
+                    });
+
+                    create_menu.clicked.connect (() => {
+                        int64 id = Planner.utils.create_tutorial_project ().id;
+
+                        Planner.utils.pane_project_selected (id, 0);
+                        Planner.notifications.send_notification (_("Your tutorial project was created"));
+
+                        Planner.utils.select_pane_project (id);
+            
+                        help_popover.popdown ();
+                        reveal = false;
+                    });
+                }
+            }
+
+            help_popover.popup ();
+        });
 
         return box;
     }

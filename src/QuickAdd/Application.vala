@@ -22,7 +22,28 @@
 public class PlannerQuickAdd : Gtk.Application {
     private const string CSS = """
         @define-color base_color %s;    
-    
+
+        decoration {
+            box-shadow:
+                0 0 0 1px alpha(@theme_bg_color, 0),
+                0 14px 28px alpha(@theme_bg_color, 0),
+                0 10px 10px alpha(@theme_bg_color, 0);
+        }
+
+        .quick-add {
+            background: alpha(@theme_bg_color, 0);
+        }
+
+        .titlebar {
+            background: alpha(@theme_bg_color, 0);
+            border: none;
+            color: alpha(@theme_bg_color, 0);
+            font-size: 0.001px;
+            margin: 0;
+            opacity: 0;
+            padding: 0;
+        }
+
         entry {
             caret-color: #3689e6;
         }
@@ -38,6 +59,11 @@ public class PlannerQuickAdd : Gtk.Application {
 
         .checklist-button check {
             border-radius: 4px;
+        }
+
+        .active-switch slider {
+            min-height: 16px;
+            min-width: 16px;
         }
 
         .content-entry {
@@ -68,6 +94,72 @@ public class PlannerQuickAdd : Gtk.Application {
             background-color: alpha (#3689e6, 0.25);
             border-radius: 4px;
             border: 1px solid alpha (#3689e6, 0.45);
+        }
+
+        .fake-window {
+            background: @theme_bg_color;
+            border-radius: 4px;
+            box-shadow:
+              0 0 0 1px @decoration_border_color,
+              0 14px 28px alpha(black, 0.35),
+              0 10px 10px alpha(black, 0.22);
+        }
+
+        .priority-4 check {
+            border-radius: 4px;
+            border-color: #ff7066;
+            background: rgba (255, 112, 102, 0.1);
+        }
+        
+        .priority-3 check {
+            border-radius: 4px;
+            border-color: #ff9a14;
+            background: rgba (255, 154, 20, 0.1);
+        }
+        
+        .priority-2 check {
+            border-radius: 4px;
+            border-color: #5297ff;
+            background: rgba (82, 151, 255, 0.1);
+        }
+        
+        .priority-1 check {
+            border-radius: 4px;
+            border-color: @border_color;
+            background: transparent;
+        }
+
+        .overdue-label {
+            color: #fa1955;
+        }
+
+        .today {
+            color: #ffaa00;
+        }
+
+        .upcoming {
+            color: #692fc2;
+        }
+
+        .today-icon {
+            background-color: #ffaa00;
+            color: #ffffff;
+            border-radius: 4px;
+            padding: 2px;
+        }
+
+        .upcoming-icon {
+            background-color: #692fc2;
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px;
+        }
+
+        .due-clear {
+            background-color: #333333;
+            color: #fff;
+            border-radius: 4px;
+            padding: 2px;
         }
     """;
 
@@ -150,6 +242,10 @@ public class PlannerQuickAdd : Gtk.Application {
 }
 
 public static int main (string[] args) {
+    GLib.Environment.set_variable ("GTK_CSD", "1", true);
+
+    Gtk.init (ref args);
+    
     var application = new PlannerQuickAdd ();
     return application.run (args);
 }

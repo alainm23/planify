@@ -23,15 +23,23 @@ public class Views.Today : Gtk.EventBox {
     private Gtk.ListBox event_listbox;
     private Gtk.ListBox listbox;
     private Gtk.ListBox overdue_listbox;
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
     private Gtk.Stack view_stack;
     private Gtk.Revealer overdue_revealer;
     private Gtk.ToggleButton reschedule_button;
     private Gtk.Popover reschedule_popover = null;
-
+    private Gtk.Popover popover = null;
+    private Gtk.Menu share_menu = null;
+    private Gtk.ToggleButton settings_button;
+    private Gtk.ModelButton show_completed_button;
+    private Gtk.Switch show_completed_switch;
+    private Gtk.Label date_label;
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
-    
     private Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gee.HashMap <string, Widgets.ItemRow> overdues_loaded;
+    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    
     private Gee.ArrayList<Widgets.ItemRow?> items_list;
     private Gee.ArrayList<Widgets.ItemRow?> overdue_list;
 
@@ -49,6 +57,7 @@ public class Views.Today : Gtk.EventBox {
         
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
         overdues_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -60,14 +69,22 @@ public class Views.Today : Gtk.EventBox {
         title_label.get_style_context ().add_class ("title-label");
         title_label.use_markup = true;
 
-        var date_label = new Gtk.Label (
-            new GLib.DateTime.now_local ().format (
-                Granite.DateTime.get_default_date_format (false, true, false)
-            )
-        );
+        date_label = new Gtk.Label (null);
         date_label.valign = Gtk.Align.CENTER;
         date_label.margin_top = 6;
         date_label.use_markup = true;
+        update_today_label ();
+
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 14;
+
+        settings_button = new Gtk.ToggleButton ();
+        settings_button.valign = Gtk.Align.CENTER;
+        settings_button.can_focus = false;
+        settings_button.tooltip_text = _("Menu");
+        settings_button.image = settings_image;
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
@@ -80,6 +97,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
         top_box.pack_start (date_label, false, false, 0);
+        top_box.pack_end (settings_button, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
@@ -89,6 +107,20 @@ public class Views.Today : Gtk.EventBox {
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
         listbox.margin_top = 6;
+
+        completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 30;
+        completed_listbox.margin_end = 32;
+        completed_listbox.valign = Gtk.Align.START;
+        completed_listbox.get_style_context ().add_class ("listbox");
+        completed_listbox.activate_on_single_click = true;
+        completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        completed_listbox.hexpand = true;
+
+        completed_revealer = new Gtk.Revealer ();
+        completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        completed_revealer.add (completed_listbox);
+        completed_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
 
         var overdue_label = new Gtk.Label (_("Overdue"));
         overdue_label.get_style_context ().add_class ("font-bold");
@@ -133,6 +165,7 @@ public class Views.Today : Gtk.EventBox {
         var listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         listbox_box.expand = true;
         listbox_box.add (listbox);
+        listbox_box.add (completed_revealer);
         listbox_box.add (overdue_revealer);
 
         var placeholder_view = new Widgets.Placeholder (
@@ -175,25 +208,40 @@ public class Views.Today : Gtk.EventBox {
         box_scrolled.expand = true;
         box_scrolled.add (box);
 
+        var magic_button = new Widgets.MagicButton ();
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (box_scrolled, false, true, 0);
 
-        add (main_box);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add (main_box);
+
+        add (overlay);
+
         add_all_items ();
+        add_completed_items ();
         show_all ();
         build_drag_and_drop ();
 
+        magic_button.clicked.connect (() => {
+            add_new_item (-1);
+        });
+        
         // Check Placeholder view
         Timeout.add (125, () => {
             check_placeholder_view ();
-
+            set_sort_func (Planner.settings.get_int ("today-sort-order"));
             return false;
         });
 
         Planner.event_bus.day_changed.connect (() => {
+            update_today_label ();
             add_all_items ();
+            add_completed_items ();
         });
 
         reschedule_button.toggled.connect (() => {
@@ -326,6 +374,14 @@ public class Views.Today : Gtk.EventBox {
                     check_placeholder_view ();
                 }
 
+                if (items_completed_added.has_key (item.id.to_string ()) == false) {
+                    var row = new Widgets.ItemCompletedRow (item);
+
+                    items_completed_added.set (item.id.to_string (), row);
+                    completed_listbox.insert (row, 0);
+                    completed_listbox.show_all ();
+                }
+
                 return false;
             });
         });
@@ -358,6 +414,10 @@ public class Views.Today : Gtk.EventBox {
         Planner.settings.changed.connect ((key) => {
             if (key == "calendar-enabled") {
                 event_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
+            } else if (key == "today-sort-order") {
+                set_sort_func (Planner.settings.get_int ("today-sort-order"));
+            } else if (key == "show-today-completed") {
+                completed_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
             }
         });
 
@@ -372,6 +432,194 @@ public class Views.Today : Gtk.EventBox {
                 remove_item_show_queue (row);
             }
         });
+
+        settings_button.toggled.connect (() => {
+            Planner.event_bus.unselect_all ();
+            
+            if (settings_button.active) {
+                if (popover == null) {
+                    create_popover ();
+                }
+
+                popover.show_all ();
+            }
+        });
+    }
+
+    private void update_today_label () {
+        date_label.label = new GLib.DateTime.now_local ().format (
+            Granite.DateTime.get_default_date_format (false, true, false)
+        );
+    }
+
+    private void create_popover () {
+        popover = new Gtk.Popover (settings_button);
+        popover.get_style_context ().add_class ("popover-background");
+        popover.position = Gtk.PositionType.BOTTOM;
+
+        var sort_project_menu = new Widgets.ModelButton (_("Sort by project"), "planner-project-symbolic", "");
+        var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
+        var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
+        var share_item = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", "", true);
+
+        // Show Complete
+        var show_completed_image = new Gtk.Image ();
+        show_completed_image.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_image.valign = Gtk.Align.START;
+        show_completed_image.pixel_size = 16;
+
+        var show_completed_label = new Gtk.Label (_("Show Completed"));
+        show_completed_label.hexpand = true;
+        show_completed_label.valign = Gtk.Align.START;
+        show_completed_label.xalign = 0;
+        show_completed_label.margin_start = 9;
+
+        show_completed_switch = new Gtk.Switch ();
+        show_completed_switch.margin_start = 12;
+        show_completed_switch.get_style_context ().add_class ("planner-switch");
+        show_completed_switch.active = Planner.settings.get_boolean ("show-today-completed");
+
+        var show_completed_grid = new Gtk.Grid ();
+        show_completed_grid.add (show_completed_image);
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_switch);
+
+        show_completed_button = new Gtk.ModelButton ();
+        show_completed_button.get_style_context ().add_class ("popover-model-button");
+        show_completed_button.get_child ().destroy ();
+        show_completed_button.add (show_completed_grid);
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.margin_top = 3;
+        popover_grid.margin_bottom = 3;
+        popover_grid.add (sort_project_menu);
+        popover_grid.add (sort_priority_menu);
+        popover_grid.add (sort_name_menu);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+        popover_grid.add (share_item);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+        popover_grid.add (show_completed_button);
+
+        popover.add (popover_grid);
+
+        popover.closed.connect (() => {
+            settings_button.active = false;
+        });
+
+        sort_project_menu.clicked.connect (() => {
+            Planner.settings.set_int ("today-sort-order", 1);
+            popover.popdown ();
+        });
+
+        sort_priority_menu.clicked.connect (() => {
+            Planner.settings.set_int ("today-sort-order", 2);
+            popover.popdown ();
+        });
+
+        sort_name_menu.clicked.connect (() => {
+            Planner.settings.set_int ("today-sort-order", 3);
+            popover.popdown ();
+        });
+
+        share_item.clicked.connect (() => {
+            if (share_menu == null) {
+                share_menu = new Gtk.Menu ();
+
+                var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
+                var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+
+                share_menu.add (share_mail);
+                share_menu.add (share_markdown_menu);
+                share_menu.show_all ();
+
+                share_mail.activate.connect (() => {
+                    share_today_mail ();
+                });
+        
+                share_markdown_menu.activate.connect (() => {
+                    share_markdown ();
+                });
+            }
+
+            share_menu.popup_at_pointer (null);
+        });
+
+        show_completed_button.button_release_event.connect (() => {
+            show_completed_switch.activate ();
+            Planner.settings.set_boolean ("show-today-completed", !show_completed_switch.active);
+            check_placeholder_view ();
+            return Gdk.EVENT_STOP;
+        });
+    }
+
+    public void share_today_mail () {
+        string uri = "";
+        uri += "mailto:?subject=%s&body=%s".printf (_("Today"), to_markdown ());
+        try {
+            AppInfo.launch_default_for_uri (uri, null);
+        } catch (Error e) {
+            warning ("%s\n", e.message);
+        }
+    }
+
+    public void share_markdown () {
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
+        Planner.notifications.send_notification (
+            _("Today was copied to the Clipboard.")
+        );
+    }
+
+    private string to_markdown () {
+        string text = "";
+        text += "# %s\n".printf (_("Today"));
+
+        foreach (var item in Planner.database.get_all_today_items ()) {
+            text += "- [ ] %s\n".printf (item.content);
+        }
+
+        return text;
+    }
+
+    private void set_sort_func (int order) {
+        listbox.set_sort_func ((row1, row2) => {
+            var item1 = ((Widgets.ItemRow) row1).item;
+            var item2 = ((Widgets.ItemRow) row2).item;
+
+            if (order == 0) {
+                return 0;
+            } else if (order == 1) {
+                if (item1.project_id == item2.project_id) {
+                    return 1;
+                }
+
+                if (item1.project_id != item2.project_id) {
+                    return -1;
+                }
+
+                return 0;
+            } else if (order == 2) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            } else {
+                return item1.content.collate (item2.content);
+            }
+        });
+
+        listbox.set_sort_func (null);
     }
 
     private void build_drag_and_drop () {
@@ -415,6 +663,8 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void update_item_order () {
+        Planner.settings.set_int ("today-sort-order", 0);
+
         if (timeout != 0) {
             Source.remove (timeout);
         }
@@ -437,7 +687,7 @@ public class Views.Today : Gtk.EventBox {
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            new GLib.DateTime.now_local ().to_string (),
+            Planner.utils.get_format_date (new GLib.DateTime.now_local ()).to_string (),
             index,
             listbox
         );
@@ -580,10 +830,26 @@ public class Views.Today : Gtk.EventBox {
             overdue_list.add (row);
 
             overdue_listbox.add (row);
-            overdue_listbox.show_all ();
+            overdue_listbox.show_all ();   
         }
 
         check_placeholder_view ();
+    }
+
+    private void add_completed_items () {
+        items_completed_added.clear ();
+        completed_listbox.foreach ((widget) => {
+            widget.destroy ();
+        });
+
+        foreach (var item in Planner.database.get_all_today_completed_items ()) {
+            var row = new Widgets.ItemCompletedRow (item);
+
+            items_completed_added.set (item.id.to_string (), row);
+            
+            completed_listbox.add (row);
+            completed_listbox.show_all ();
+        }
     }
 
     private int sort_event_function (Gtk.ListBoxRow child1, Gtk.ListBoxRow child2) {
@@ -653,13 +919,20 @@ public class Views.Today : Gtk.EventBox {
         tomorrow_button.color = 1;
         tomorrow_button.due_label = true;
 
-        var calendar = new Widgets.Calendar.Calendar ();
+        var undated_button = new Widgets.ModelButton (_("Undated"), "window-close-symbolic", "");
+        undated_button.get_style_context ().add_class ("due-menuitem");
+        undated_button.item_image.pixel_size = 14;
+        undated_button.color = 2;
+        undated_button.due_label = true;
+
+        var calendar = new Widgets.Calendar.Calendar (true);
         calendar.hexpand = true;
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (today_button);
         grid.add (tomorrow_button);
+        grid.add (undated_button);
         grid.add (calendar);
         grid.show_all ();
 
@@ -669,6 +942,10 @@ public class Views.Today : Gtk.EventBox {
 
         tomorrow_button.clicked.connect (() => {
             set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
+        });
+
+        undated_button.clicked.connect (() => {
+            set_due ("");
         });
 
         calendar.selection_changed.connect ((date) => {
@@ -684,6 +961,20 @@ public class Views.Today : Gtk.EventBox {
             Planner.database.set_due_item (item, false);
             if (item.is_todoist == 1) {
                 Planner.todoist.update_item (item);
+            }
+        }
+    }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            if (items_list [index].reveal_child) {
+                items_list [index].hide_item ();
+            }
+        }
+
+        for (int index = 0; index < overdue_list.size; index++) {
+            if (overdue_list [index].reveal_child) {
+                overdue_list [index].hide_item ();
             }
         }
     }

@@ -22,9 +22,7 @@
 public class Dialogs.TodoistOAuth : Gtk.Dialog {
     public string view { get; construct; }
     private WebKit.WebView webview;
-
     private const string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read_write,data:delete,project:delete&state=XE3K-4BBL-4XLG-UDS8"; // vala-lint=line-length
-
     public TodoistOAuth (string view="welcome") {
         Object (
             transient_for: Planner.instance.main_window,
@@ -71,23 +69,13 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             _("Connect to the Internet to connect with Todoist"),
             "network-error"
         );
-
-        // Spinner
-        var spinner_loading = new Gtk.Spinner ();
-        spinner_loading.valign = Gtk.Align.CENTER;
-        spinner_loading.halign = Gtk.Align.CENTER;
-        spinner_loading.width_request = 50;
-        spinner_loading.height_request = 50;
-        spinner_loading.active = true;
-        spinner_loading.start ();
-
+        
         var stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         stack.add_named (scrolled, "web_view");
         stack.add_named (alert_view, "error_view");
-        stack.add_named (spinner_loading, "spinner_loading");
 
         get_content_area ().pack_start (stack, true, true, 0);
 
@@ -102,9 +90,9 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=XE3K-4BBL-4XLG-UDS8" in redirect_uri)) {
                 info_label.label = _("Synchronizing… Wait a moment please.");
-                stack.visible_child_name = "spinner_loading";
                 webview.stop_loading ();
                 Planner.todoist.get_todoist_token (redirect_uri, view);
+                destroy ();
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
@@ -140,10 +128,6 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             }
 
             return true;
-        });
-
-        Planner.todoist.first_sync_finished.connect (() => {
-            destroy ();
         });
     }
 }

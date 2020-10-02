@@ -40,6 +40,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_UPCOMING = "action_view_upcoming";
+    public const string HIDE_ALL = "hide_all";
     public const string ACTION_ESC = "action_esc";
     
     
@@ -62,6 +63,7 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_UPCOMING, action_view_upcoming },
+        { HIDE_ALL, hide_all },
         { ACTION_ESC, action_esc },
     };
 
@@ -81,6 +83,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
         action_accelerators.set (ACTION_VIEW_UPCOMING, "<Control>3");
+        action_accelerators.set (HIDE_ALL, "<Shift>h");
         action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
@@ -125,6 +128,8 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
+        Planner.event_bus.ctrl_pressed = false;
+
         var dialog = new Dialogs.Preferences.Preferences ();
         dialog.destroy.connect (Gtk.main_quit);
         dialog.show_all ();
@@ -145,10 +150,12 @@ public class Services.ActionManager : Object {
     }
 
     private void action_open_search () {
+        Planner.event_bus.ctrl_pressed = false;
         window.show_quick_find ();
     }
 
     private void action_sync_manually () {
+        Planner.event_bus.ctrl_pressed = false;
         Planner.todoist.sync ();
     }
 
@@ -171,18 +178,23 @@ public class Services.ActionManager : Object {
     }
 
     private void action_view_inbox () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (0);
     }
 
     private void action_view_today () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (1);
     }
 
     private void action_view_upcoming () {
+        Planner.event_bus.ctrl_pressed = false;
         window.go_view (2);
     }
 
     private void action_add_task_paste () {
+        Planner.event_bus.ctrl_pressed = false;
+        
         Gdk.Display display = Gdk.Display.get_default ();
         Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
         string text = clipboard.wait_for_text ();
@@ -198,5 +210,9 @@ public class Services.ActionManager : Object {
 
     private void action_esc () {
         window.hide_item ();
+    }
+
+    private void hide_all () {
+        window.hide_all ();
     }
 }

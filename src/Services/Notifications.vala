@@ -20,7 +20,7 @@
 */
 
 public class Services.Notifications : GLib.Object {
-    public signal void send_notification (string message);
+    public signal void send_notification (string message, NotificationStyle style=NotificationStyle.NORMAL);
     public signal void send_undo_notification (string message, string query);
 
     private uint server_timeout = 0;

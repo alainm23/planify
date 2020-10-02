@@ -74,6 +74,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = false;
+        activatable = false;
+        selectable = false;
         get_style_context ().add_class ("area-row");
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
@@ -246,6 +248,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        listbox.set_placeholder (get_placeholder ());
 
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
@@ -315,6 +318,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         add_completed_items ();
 
         build_defaul_drag_and_drop ();
+
+        
+        Timeout.add (125, () => {
+            set_sort_func (Planner.database.get_project_by_id (section.project_id).sort_order);
+            return false;
+        });
 
         Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
             if (section.project_id == project_id && section.id == section_id) {
@@ -720,6 +729,56 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 item_row_removed (row);
             }
         });
+
+        Planner.event_bus.sort_items_project.connect ((project_id, order) => {
+            if (section.project_id == project_id) {
+                set_sort_func (order);
+            }
+        });
+
+        Planner.event_bus.hide_items_project.connect ((id) => {
+            if (section.project_id == id) {
+                hide_items ();
+            }
+        });
+    }
+
+    private void set_sort_func (int order) {
+        listbox.set_sort_func ((row1, row2) => {
+            var item1 = ((Widgets.ItemRow) row1).item;
+            var item2 = ((Widgets.ItemRow) row2).item;
+
+            if (order == 0) {
+                return 0;
+            } else if (order == 1) {
+                if (item1.due_date != "" && item2.due_date != "") {
+                    var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
+                    var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
+
+                    return date1.compare (date2);
+                }
+
+                if (item1.due_date == "" && item2.due_date != "") {
+                    return 1;
+                }
+
+                return 0;
+            } else if (order == 2) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            } else {
+                return item1.content.collate (item2.content);
+            }
+        });
+
+        listbox.set_sort_func (null);
     }
 
     private void build_defaul_drag_and_drop () {
@@ -866,7 +925,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete section"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (section.name)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (section.name))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 
@@ -905,6 +964,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             items_uncompleted_added.set (item.id.to_string (), row);
             listbox.add (row);
             items_list.add (row);
+        }
+
+        if (items_uncompleted_added.size <= 0) {
+            listbox_revealer.reveal_child = true;
         }
 
         listbox.show_all ();
@@ -1178,5 +1241,38 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         items_list.remove (row);
         items_uncompleted_added.unset (row.item.id.to_string ());
         items_completed_added.unset (row.item.id.to_string ());
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        button.valign = Gtk.Align.CENTER;
+        button.always_show_image = true;
+        button.can_focus = false;
+        button.label = _("Add Task");
+        button.margin_top = 3;
+        button.margin_bottom = 3;
+        button.get_style_context ().add_class ("flat");
+        button.get_style_context ().add_class ("font-bold");
+        button.get_style_context ().add_class ("add-button");
+        button.get_style_context ().add_class ("background-transparent");
+        button.show ();
+
+        var grid = new Gtk.Grid ();
+        grid.margin = 12;
+        grid.halign = Gtk.Align.CENTER;
+        grid.add (button);
+        grid.show ();
+
+        button.clicked.connect (() => {
+            add_new_item (0);
+        });
+
+        return grid;
+    }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            items_list [index].hide_item ();
+        }
     }
 }

@@ -324,6 +324,14 @@ paned.horizontal > separator {
     background-color: @base_color;
 }
 
+.project-dialog {
+    background-color: @projectview_color;
+}
+
+.project-dialog headerbar {
+    background-color: @projectview_color;
+}
+
 .text-color {
     color: @text_color;
 }
@@ -1222,4 +1230,16 @@ paned.horizontal > separator {
 
 .app-notification spinner {
     color: @bg_color;
+}
+
+.app-notification.error {
+    background-color: #ff8c82;
+}
+
+.app-notification.error label {
+    color: #7a0000;
+}
+
+.background-transparent {
+    background-color: transparent;
 }

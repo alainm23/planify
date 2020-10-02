@@ -49,6 +49,8 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
     construct {
         can_focus = false;
+        activatable = false;
+        selectable = false;
         get_style_context ().add_class ("area-row");
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_loaded = new Gee.HashMap<string, Widgets.ItemRow> ();
@@ -82,9 +84,10 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.hexpand = true;
-        separator.margin_top = 3;
+        separator.margin_top = 6;
         separator.margin_start = 42;
         separator.margin_end = 40;
+        separator.margin_bottom = 1;
 
         top_box = new Gtk.Grid ();
         top_box.margin_start = 42;
@@ -153,10 +156,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                 row.reveal_child = true;
                 Planner.event_bus.unselect_all ();
             }
-        });
-
-        Planner.event_bus.day_changed.connect (() => {
-            add_all_items ();
         });
         
         Planner.database.item_added.connect ((item, index) => {
@@ -288,7 +287,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             Planner.settings.get_int64 ("inbox-project"),
             0,
             Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project")).is_todoist,
-            date.to_string (),
+            Planner.utils.get_format_date (date).to_string (),
             index,
             listbox
         );
@@ -496,6 +495,14 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
 
             listbox.add (row);
             listbox.show_all ();
+        }
+    }
+
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            if (items_list [index].reveal_child) {
+                items_list [index].hide_item ();
+            }
         }
     }
 }

@@ -56,6 +56,7 @@ public class Views.Completed : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        listbox.set_header_func (header_function);
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.hexpand = true;
@@ -104,5 +105,37 @@ public class Views.Completed : Gtk.EventBox {
 
         //listbox.set_sort_func (sort_function);
         //listbox.set_header_func (update_headers);
+    }
+
+    private void header_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+        var row = (Widgets.ItemCompletedRow) lbrow;
+        if (row.item.date_completed == "") {
+            return;
+        }
+
+        if (lbbefore != null) {
+            var before = (Widgets.ItemCompletedRow) lbbefore;
+            var comp_before = Planner.utils.get_format_date_from_string (before.item.date_completed);
+            if (comp_before.compare (Planner.utils.get_format_date_from_string (row.item.date_completed)) == 0) {
+                return;
+            }
+        }
+
+        var header_label = new Gtk.Label (Planner.utils.get_relative_date_from_string (row.item.date_completed));
+        header_label.get_style_context ().add_class ("font-bold");
+        header_label.halign = Gtk.Align.START;
+
+        var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        header_separator.hexpand = true;
+
+        var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+        header_box.margin_start = 12;
+        header_box.margin_end = 12;
+        header_box.margin_top = 12;
+        header_box.add (header_label);
+        header_box.add (header_separator);
+        header_box.show_all ();
+
+        row.set_header (header_box);
     }
 }

@@ -19,6 +19,11 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+public enum NotificationStyle {
+    NORMAL,
+    ERROR
+}
+
 public class Planner : Gtk.Application {
     public MainWindow? main_window = null;
 
@@ -29,16 +34,27 @@ public class Planner : Gtk.Application {
     public static Services.Notifications notifications;
     public static Services.EventBus event_bus;
     public static Services.Calendar.CalendarModel calendar_model;
+    // public static Services.Tasks.Store task_store;
 
     public signal void go_view (string type, int64 id, int64 id_2);
 
-    private bool silence = false;
+    private static bool silent = false;
+    private static int64 load_project = 0;
+    private static bool version = false;
 
-    public Planner () {
-        Object (
-            application_id: "com.github.alainm23.planner",
-            flags: ApplicationFlags.HANDLES_COMMAND_LINE
-        );
+    public const OptionEntry[] PLANNER_OPTIONS = {
+        { "version", 'v', 0, OptionArg.NONE, ref version,
+        "Display version number", null },
+        { "silent", 's', 0, OptionArg.NONE, out silent,
+        "Run the Application in background", null },
+        { "load-project", 'l', 0, OptionArg.INT64, ref load_project,
+        "Open a project when Planner starts", "PROJECT_ID" },
+        { null }
+    };
+
+    construct {
+        application_id = "com.github.alainm23.planner";
+        flags |= ApplicationFlags.HANDLES_OPEN;
 
         // Init internationalization support
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -59,6 +75,9 @@ public class Planner : Gtk.Application {
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
         event_bus = new Services.EventBus ();
+        // task_store = new Services.Tasks.Store ();
+
+        add_main_option_entries (PLANNER_OPTIONS);
     }
 
     public static Planner _instance = null;
@@ -85,6 +104,11 @@ public class Planner : Gtk.Application {
             return;
         }
 
+        if (version) {
+            print ("%s\n".printf (Constants.VERSION));
+            return;
+        }
+
         main_window = new MainWindow (this);
 
         int window_x, window_y;
@@ -103,7 +127,16 @@ public class Planner : Gtk.Application {
             main_window.maximize ();
         }
 
-        if (silence == false) {
+        // Open database
+        database.open_database ();
+
+        if (load_project != 0) {
+            var dialog = new Dialogs.Project (database.get_project_by_id (load_project), true);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        }
+
+        if (silent == false && load_project == 0) {
             main_window.show_all ();
             main_window.present ();
         }
@@ -130,11 +163,13 @@ public class Planner : Gtk.Application {
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
 
         // Path Theme
-        //  if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
+        //  if (utils.is_flatpak ()) {
         //      string CSS = """
         //          window decoration {
         //              box-shadow: none;
-        //              margin: 1px;
+        //              border: 1px solid @decoration_border_color;
+        //              border-radius: 4px;
+        //              margin: 0px;
         //          }
         //      """;
 
@@ -150,15 +185,19 @@ public class Planner : Gtk.Application {
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
         if (quick_add_shortcut == "") {
-            quick_add_shortcut = "<Alt>space";
+            quick_add_shortcut = "<Super>n";
             settings.set_string ("quick-add-shortcut", quick_add_shortcut);
         }
 
         utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
-        database.open_database ();
 
         if (settings.get_string ("version") != Constants.VERSION) {
-            var dialog = new Dialogs.ReleaseDialog ();
+            var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner 2.5 is here, with many design improvements, new features, and more."));
+
+            dialog.append ("planner-quick-add", _("Quick Add Improvements"), _("Quick Add comes with a new design and new features."));
+            dialog.append ("preferences-system-windows", _("Multiple Windows Support"), _("Open your projects in separate windows and drag your tasks from one side to the other."));
+            dialog.append ("applications-utilities", _("Multiple Selection Support"), _("Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key and selecting the tasks."));
+
             dialog.show_all ();
             dialog.present ();
 
@@ -166,38 +205,7 @@ public class Planner : Gtk.Application {
             settings.set_string ("version", Constants.VERSION);
         }
     }
-
-    public override int command_line (ApplicationCommandLine command_line) {
-        bool silence_mode = false;
-        OptionEntry[] options = new OptionEntry [1];
-        options[0] = {
-            "s", 0, 0, OptionArg.NONE,
-            ref silence_mode, "Run without window", null
-        };
-
-        string[] args = command_line.get_arguments ();
-        string[] _args = new string[args.length];
-        for (int i = 0; i < args.length; i++) {
-            _args[i] = args[i];
-        }
-
-        try {
-            var ctx = new OptionContext ();
-            ctx.set_help_enabled (true);
-            ctx.add_main_entries (options, null);
-            unowned string[] tmp = _args;
-            ctx.parse (ref tmp);
-        } catch (OptionError e) {
-            command_line.print ("error: %s\n", e.message);
-            return 0;
-        }
-
-        silence = silence_mode;
-        activate ();
-
-        return 0;
-    }
-
+    
     private void build_shortcuts () {
         var show_item = new SimpleAction ("show-item", VariantType.INT64);
         show_item.activate.connect ((parameter) => {
@@ -208,11 +216,6 @@ public class Planner : Gtk.Application {
 
     public static int main (string[] args) {
         Planner app = Planner.instance;
-
-        if (args.length > 1 && args[1] == "--s") {
-            app.silence = true;
-        }
-
         return app.run (args);
     }
 }

@@ -46,15 +46,12 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         height_request = 550;
         width_request = 480;
         get_style_context ().add_class ("planner-dialog");
-
-        var name_header = new Granite.HeaderLabel (_("Name:"));
-
+        
         name_entry = new Widgets.Entry ();
+        name_entry.margin_start = 12;
+        name_entry.margin_end = 12;
         name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("border-radius-4");
-
-        var description_header = new Granite.HeaderLabel (_("Description:"));
-        description_header.margin_top = 6;
 
         description_textview = new Widgets.TextView ();
         description_textview.get_style_context ().add_class ("description-dialog");
@@ -69,6 +66,8 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         description_scrolled.add (description_textview);
 
         var description_frame = new Gtk.Frame (null);
+        description_frame.margin_start = 12;
+        description_frame.margin_end = 12;
         description_frame.get_style_context ().add_class ("border-radius-4");
         description_frame.add (description_scrolled);
 
@@ -80,11 +79,15 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
 
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         due_box.margin_top = 6;
+        due_box.margin_start = 12;
+        due_box.margin_end = 12;
         due_box.hexpand = true;
         due_box.pack_start (due_label, false, false, 0);
         due_box.pack_end (due_switch, false, false, 0);
 
         due_datepicker = new Granite.Widgets.DatePicker ();
+        due_datepicker.margin_start = 12;
+        due_datepicker.margin_end = 12;
 
         due_revealer = new Gtk.Revealer ();
         due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -96,11 +99,10 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             due_datepicker.date = Planner.utils.get_format_date_from_string (project.due_date);
         }
 
-        var color_label = new Granite.HeaderLabel (_("Color:"));
-        color_label.margin_top = 6;
-
         color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
         color_combobox = new Gtk.ComboBox.with_model (color_liststore);
+        color_combobox.margin_start = 12;
+        color_combobox.margin_end = 12;
 
         Gtk.TreeIter iter;
         foreach (var color in Planner.utils.get_color_list ()) {
@@ -139,19 +141,68 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         loading_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
         loading_revealer.add (loading_box);
 
-        var grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        grid.margin = 12;
-        grid.margin_top = 0;
+        var code = "com.github.alainm23.planner --load-project=%s".printf (project.id.to_string ());
+        if (Planner.utils.is_flatpak ()) {
+            code = "flatpak run com.github.alainm23.planner --load-project=%s".printf (project.id.to_string ());
+        }
+        var access_label = new Gtk.Label (code);
+        access_label.get_style_context ().add_class ("terminal");
+        access_label.selectable = true;
+
+        var access_scrolled = new Gtk.ScrolledWindow (null, null);
+        access_scrolled.margin_start = 12;
+        access_scrolled.margin_end = 12;
+        access_scrolled.valign = Gtk.Align.START;
+        access_scrolled.expand = true;
+        access_scrolled.add (access_label);
+
+        var convert_header = new Granite.HeaderLabel (_("Options:")) {
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 12
+        };
+        var convert_todoist = new Dialogs.Preferences.ItemButton (_("Convert to Todoist"), _("Convert"));
+
+        var convert_grid = new Gtk.Grid ();
+        convert_grid.orientation = Gtk.Orientation.VERTICAL;
+        convert_grid.add (convert_header);
+        convert_grid.add (convert_todoist);
+        if (project.is_todoist == 1) {
+            convert_grid.visible = false;
+            convert_grid.no_show_all = true;
+        }
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.valign = Gtk.Align.START;
         grid.expand = true;
-        grid.add (name_header);
+        grid.add (new Granite.HeaderLabel (_("Name:")) {
+            margin_start = 12,
+            margin_end = 12
+        });
         grid.add (name_entry);
-        grid.add (description_header);
-        grid.add (description_frame);
-        grid.add (color_label);
+        //  grid.add (new Granite.HeaderLabel (_("Description:")) {
+        //      margin_top = 6,
+        //      margin_start = 12,
+        //      margin_end = 12
+        //  });
+        // grid.add (description_frame);
+        grid.add (new Granite.HeaderLabel (_("Color:")) {
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 12
+        });
         grid.add (color_combobox);
-        grid.add (loading_revealer);
         grid.add (due_box);
         grid.add (due_revealer);
+        grid.add (new Granite.HeaderLabel (_("Direct access:")) {
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 12
+        });
+        grid.add (access_scrolled);
+        grid.add (convert_grid);
+        grid.add (loading_revealer);
         grid.show_all ();
 
         get_content_area ().add (grid);
@@ -188,6 +239,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
                 destroy ();
             }
         });
+        
 
         due_switch.notify["active"].connect (() => {
             due_revealer.reveal_child = due_switch.active;
@@ -210,6 +262,31 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
                 print ("Error: %s\n".printf (error_message));
             }
         });
+
+        convert_todoist.activated.connect (() => {
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Convert Project"),
+                _("Are you sure you want to convert <b>%s</b> to Todoist?".printf (Planner.utils.get_dialog_text (project.name))),
+                "emblem-synchronized",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Convert"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                Planner.notifications.send_undo_notification (
+                    _("Converting project…"),
+                    Planner.utils.build_undo_object ("convert_project", "project", project.id, "", "")
+                );
+                Planner.todoist.convert_to_todoist (project);
+                destroy ();
+            }
+
+            message_dialog.destroy ();
+        });
     }
 
     private void save_and_exit () {
@@ -225,7 +302,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             }
 
             project.save ();
-
             destroy ();
         }
     }

@@ -24,7 +24,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
     private Gtk.Menu menu = null;
     private Gtk.Box main_box;
     public string view { get; construct; }
-
+    private uint timeout_id = 0;
     private Gtk.Revealer main_revealer;
 
     public ItemCompletedRow (Objects.Item item, string view="project") {
@@ -38,9 +38,9 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("item-row");
 
-        string tooltip_string = "<b>%s</b>:\n%s".printf (_("Content"), item.content);
+        string tooltip_string = "<b>%s</b>:\n%s".printf (_("Content"), Planner.utils.get_markup_format (item.content));
         if (item.note != "") {
-            tooltip_string += "\n\n" + "<b>%s</b>:\n%s".printf (_("Note"), item.note);
+            tooltip_string += "\n\n" + "<b>%s</b>:\n%s".printf (_("Note"), Planner.utils.get_markup_format (item.note));
         }
 
         if (item.due_date != "") {
@@ -51,7 +51,6 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         tooltip_markup = tooltip_string;
 
         var checked_button = new Gtk.CheckButton ();
-        // checked_button.margin_start = 1;
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.START;
         checked_button.halign = Gtk.Align.START;
@@ -59,7 +58,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         checked_button.active = true;
         checked_button.margin_top = 2;
 
-        var content_label = new Gtk.Label (item.content);
+        var content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.margin_start = 8;
         content_label.margin_end = 5;
         content_label.halign = Gtk.Align.START;
@@ -68,18 +67,21 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         content_label.wrap = true;
         content_label.use_markup = true;
 
-        var completed_label = new Gtk.Label ("<small>%s</small>".printf (Planner.utils.get_relative_date_from_string (item.date_completed)));
-        completed_label.halign = Gtk.Align.START;
-        completed_label.valign = Gtk.Align.CENTER;
-        completed_label.use_markup = true;
-        completed_label.get_style_context ().add_class ("completed-label");
-        completed_label.get_style_context ().add_class ("font-bold");
-
         var bottom_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9);
         bottom_box.hexpand = true;
         bottom_box.margin_start = 28;
         bottom_box.margin_bottom = 3;
-        bottom_box.pack_start (completed_label, false, false, 0);
+
+        if (view != "completed") {
+            var completed_label = new Gtk.Label ("<small>%s</small>".printf (Planner.utils.get_relative_date_from_string (item.date_completed)));
+            completed_label.halign = Gtk.Align.START;
+            completed_label.valign = Gtk.Align.CENTER;
+            completed_label.use_markup = true;
+            completed_label.get_style_context ().add_class ("completed-label");
+            completed_label.get_style_context ().add_class ("font-bold");
+
+            bottom_box.pack_start (completed_label, false, false, 0);
+        }
 
         if (view == "completed") {
             var project = Planner.database.get_project_by_id (item.project_id);
@@ -127,11 +129,17 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         handle.add (main_box);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.reveal_child = true;
+        main_revealer.reveal_child = false;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (handle);
 
         add (main_revealer);
+
+        timeout_id = Timeout.add (150, () => {
+            timeout_id = 0;
+            main_revealer.reveal_child = true;
+            return false;
+        });
 
         checked_button.toggled.connect (() => {
             if (checked_button.active == false) {
@@ -213,7 +221,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete task"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (item.content)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (item.content))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 

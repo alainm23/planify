@@ -80,10 +80,28 @@
           <description>Most recent window size (width, height)</description>
         </key>
 
+        <key name="project-dialog-size" type="(ii)">
+          <default>(583, 725)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
+        <key name="project-dialog-position" type="(ii)">
+          <default>(699, 47)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
         <key name="pane-position" type="i">
             <default>255</default>
             <summary>Most recent pane position</summary>
             <description>Most recent pane position</description>
+        </key>
+
+        <key name="today-sort-order" type="i">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
         </key>
         
         <key name="calendar-enabled" type="b">
@@ -162,6 +180,12 @@
             <default>false</default>
             <summary>User name</summary>
             <description>User name</description>
+        </key>
+
+        <key name="show-today-completed" type="b">
+            <default>false</default>
+            <summary>show-today-completed</summary>
+            <description>show-today-completed</description>
         </key>
 
         <key name="todoist-sync-server" type="b">

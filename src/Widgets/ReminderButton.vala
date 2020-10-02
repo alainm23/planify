@@ -234,7 +234,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
     }
 
     private Gtk.Widget get_reminder_new_widget () {
-        calendar = new Widgets.Calendar.Calendar ();
+        calendar = new Widgets.Calendar.Calendar (true);
         calendar.margin = 3;
         calendar.hexpand = true;
 

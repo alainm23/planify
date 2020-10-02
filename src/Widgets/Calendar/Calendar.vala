@@ -50,7 +50,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     construct {
         orientation = Gtk.Orientation.VERTICAL;
-        margin = 6;
         margin_start = 9;
         margin_end = 6;
         height_request = 200;

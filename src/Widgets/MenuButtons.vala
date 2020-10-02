@@ -99,6 +99,7 @@ public class Widgets.ModelButton : Gtk.Button {
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.margin_start = 3;
+        box.margin_end = 3;
         box.pack_start (item_image, false, false, 0);
         box.pack_start (item_label, false, true, 0);
         if (arrow) {
@@ -218,21 +219,23 @@ public class Widgets.PopoverButton : Gtk.Button {
 }
 
 public class Widgets.ToggleButton : Gtk.ToggleButton {
+    public Gtk.Label item_label;
+    public Gtk.Image item_image;
+
     public ToggleButton (string title, string icon) {
-        var image = new Gtk.Image ();
-        image.valign = Gtk.Align.CENTER;
-        image.pixel_size = 16;
-        image.gicon = new ThemedIcon (icon);
+        item_image = new Gtk.Image ();
+        item_image.valign = Gtk.Align.CENTER;
+        item_image.pixel_size = 16;
+        item_image.gicon = new ThemedIcon (icon);
 
-        var label = new Gtk.Label (title);
-        label.use_markup = true;
-
+        item_label = new Gtk.Label (title);
+        item_label.use_markup = true;
 
         var grid = new Gtk.Grid ();
         grid.halign = Gtk.Align.CENTER;
         grid.valign = Gtk.Align.CENTER;
-        grid.add (image);
-        grid.add (label);
+        grid.add (item_image);
+        grid.add (item_label);
 
         add (grid);
     }

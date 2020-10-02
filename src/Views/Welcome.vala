@@ -27,6 +27,7 @@ public class Views.Welcome : Gtk.EventBox {
         welcome.margin_bottom = 48;
         welcome.append ("help-about", _("Startup"), _("Start Working Locally."));
         welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist Account."));
+        welcome.append ("folder-download", _("Import Backup"), _("Import Previously Exported Planner Backup."));
         welcome.get_style_context ().remove_class (Gtk.STYLE_CLASS_VIEW);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);

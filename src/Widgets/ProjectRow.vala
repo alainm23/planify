@@ -289,6 +289,18 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Planner.database.update_all_bage.connect (() => {
             update_count ();
         });
+
+        Planner.event_bus.hide_new_window_project.connect ((project_id) => {
+            if (project.id == project_id) {
+                main_revealer.reveal_child = false;
+            }
+        });
+
+        Planner.event_bus.show_new_window_project.connect ((project_id) => {
+            if (project.id == project_id) {
+                main_revealer.reveal_child = true;
+            }
+        });
     }
 
     private void apply_color (string color) {
@@ -544,7 +556,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             get_style_context ().remove_class ("highlight");
         });
 
-        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
+        var open_menu = new Widgets.ImageMenuItem (_("Open New Window"), "window-new-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit Project"), "edit-symbolic");
         move_area_menu = new Widgets.ImageMenuItem (_("Move"), "move-project-symbolic");
         areas_menu = new Gtk.Menu ();
         move_area_menu.set_submenu (areas_menu);
@@ -565,6 +578,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
         delete_menu.get_style_context ().add_class ("menu-danger");
 
+        menu.add (open_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (edit_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
         menu.add (move_area_menu);
@@ -575,6 +590,11 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu.show_all ();
 
+        open_menu.activate.connect (() => {
+            var dialog = new Dialogs.Project (project);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        });
 
         edit_menu.activate.connect (() => {
             var dialog = new Dialogs.ProjectSettings (project);
@@ -585,7 +605,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete project"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (project.name))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 

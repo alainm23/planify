@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-16 20:49-0500\n"
+"POT-Creation-Date: 2020-09-22 13:54-0500\n"
 "PO-Revision-Date: 2020-04-29 14:25+0000\n"
 "Last-Translator: KSDT-SubFil <ecgpua@gmail.com>\n"
 "Language-Team: Filipino <https://hosted.weblate.org/projects/planner/"
@@ -20,21 +20,50 @@ msgstr ""
 "|| n % 10 == 6 || n % 10 == 9);\n"
 "X-Generator: Weblate 4.0.2\n"
 
-#: src/MainWindow.vala:51
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+msgid "Startup"
+msgstr "Startup"
+
+#: src/Application.vala:190 src/Views/Welcome.vala:28
+#, fuzzy
+msgid "Start Working Locally."
+msgstr "Magsimulang magtrabaho nang lokal."
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#: src/Dialogs/TodoistOAuth.vala:37
+#: src/Dialogs/Preferences/Preferences.vala:921
+msgid "Todoist"
+msgstr "Todoist"
+
+#: src/Application.vala:191 src/Views/Welcome.vala:29
+#, fuzzy
+msgid "Synchronize with your Todoist Account."
+msgstr "Isabay sa iyong Todoist account at simulang maggawa."
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+#, fuzzy
+msgid "Import Backup"
+msgstr "Mahalaga"
+
+#: src/Application.vala:192 src/Views/Welcome.vala:30
+msgid "Import Previously Exported Planner Backup."
+msgstr ""
+
+#: src/MainWindow.vala:50
 msgid "Planner"
 msgstr "Planner"
 
-#: src/MainWindow.vala:728 src/MainWindow.vala:744 src/MainWindow.vala:760
-#: src/MainWindow.vala:776
+#: src/MainWindow.vala:802 src/MainWindow.vala:818 src/MainWindow.vala:834
+#: src/MainWindow.vala:850
 msgid "Adding task from clipboard…"
 msgstr ""
 
-#: src/Utils.vala:28
+#: src/Utils.vala:28 src/Widgets/NewItem.vala:54
 #, fuzzy
 msgid "today"
 msgstr "Ngayon"
 
-#: src/Utils.vala:29
+#: src/Utils.vala:29 src/Widgets/NewItem.vala:55
 #, fuzzy
 msgid "tomorrow"
 msgstr "Búkas"
@@ -143,33 +172,35 @@ msgid "Taupe"
 msgstr "Taupe"
 
 #. vala-lint=line-length
-#: src/Utils.vala:574 src/Widgets/Pane.vala:73 src/Widgets/ItemRow.vala:1428
-#: src/Widgets/DueButton.vala:196 src/Views/Today.vala:59
-#: src/Views/Today.vala:625 src/Dialogs/Preferences/Preferences.vala:234
-#: src/Dialogs/Preferences/Preferences.vala:340 src/Dialogs/QuickFind.vala:77
+#: src/Utils.vala:592 src/Widgets/Pane.vala:73 src/Widgets/NewItem.vala:556
+#: src/Widgets/ItemRow.vala:1457 src/Widgets/DueButton.vala:218
+#: src/Views/Today.vala:68 src/Views/Today.vala:564 src/Views/Today.vala:581
+#: src/Views/Today.vala:910 src/Dialogs/Preferences/Preferences.vala:249
+#: src/Dialogs/Preferences/Preferences.vala:355 src/Dialogs/QuickFind.vala:78
 msgid "Today"
 msgstr "Ngayon"
 
-#: src/Utils.vala:576 src/Widgets/Pane.vala:413 src/Widgets/ItemRow.vala:1431
-#: src/Widgets/DueButton.vala:202 src/Widgets/UpcomingRow.vala:64
-#: src/Views/Today.vala:631
+#. today_menu.item_image.pixel_size = 14;
+#: src/Utils.vala:594 src/Widgets/Pane.vala:413 src/Widgets/NewItem.vala:562
+#: src/Widgets/ItemRow.vala:1461 src/Widgets/DueButton.vala:224
+#: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:916
 msgid "Tomorrow"
 msgstr "Búkas"
 
-#: src/Utils.vala:815
+#: src/Utils.vala:857
 msgid "Quick Add Activated!"
 msgstr "Na-activate ang Dagdag Agad!"
 
-#: src/Utils.vala:816
+#: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr "Subukan ang %s upang i-activate. Mababago ito sa preperensiya"
 
-#: src/Utils.vala:855
+#: src/Utils.vala:897
 msgid "🚀️ Getting Started"
 msgstr "🚀️ Pagsisimula"
 
-#: src/Utils.vala:856
+#: src/Utils.vala:898
 msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
@@ -179,194 +210,94 @@ msgstr ""
 "simulan ang simpleng sistema ng pamamahala ng gawain para manatiling tutók "
 "sa lahat ng kailangan mo gawin."
 
-#: src/Utils.vala:861
-msgid "Keeping track of your tasks"
-msgstr "Pagsubaybay sa iyong mga gawain"
-
-#: src/Utils.vala:862
-msgid ""
-"It turns out, our brains are actually wired to keep us thinking about our "
-"unfinished tasks. Handy when you have one thing you need to work on. Not so "
-"good when you have 30+ tasks vying for your attention at once. That’s why "
-"the first step to organizing your work and life is getting everything out of "
-"your head and onto your to-do list. From there you can begin to organize and "
-"prioritize so you know exactly what to focus on and when."
-msgstr ""
-"Ang totoo, nakaprograma ang utak natin para lagi nating isipin ang hindi pa "
-"tapós nating mga gawain. Madiskarte kung may isang bagay na dapat kang "
-"gawin. Hindi masyado kung ikaw ay may 30+ na gawain na sabay-sabay nag-"
-"aagawan sa iyong pansin. Kayâ ang unang hakbang sa pag-oorganisa ng iyong "
-"trabaho at búhay ay pagtanggal ng lahat sa iyong isip patúngo sa to-do list "
-"mo. Mula rito mauumpisahan mo nang mag-organisa at mag-priyoridad kayâ alam "
-"mo ang dapat mong tutukan at kailan."
-
-#: src/Utils.vala:867
+#: src/Utils.vala:903
 msgid "Adding new tasks"
 msgstr "Magdagdag ng bagong gawain"
 
-#: src/Utils.vala:868
-msgid ""
-"- To add a new task to Planner, just click + and press Enter.\n"
-"- When your task is created, click on the task to be able to edit it, add a "
-"note or some other options."
+#: src/Utils.vala:904
+msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
-"- Para magdagdag ng bagong gawain sa Planner, iklik ang + at pindutin ang "
-"Enter.\n"
-"- Kapag nalikha na ang gawain mo, iklik ang gawain upang maedit ito, "
-"magdagdag ng talâ o ibá pang opsiyon."
 
-#: src/Utils.vala:874
-msgid "Due dates"
-msgstr "Takdang petsa"
-
-#: src/Utils.vala:875
-msgid ""
-"- If you know you need to have the task done on a certain day, click on the "
-"calendar icon and select a date.\n"
-"- If you want to delete the due date, repeat the process and select the "
-"\"undate\" option."
-msgstr ""
-"- Kung alam mong may gawain kang dapat tapusin sa tiyak na araw, iklik ang "
-"kalendaryong icon at pumili ng petsa.\n"
-"- Kung gusto mo burahin ang takdang petsa, ulitin ang proseso at piliin ang "
-"opsiyong \"tanggal petsa\"."
-
-#: src/Utils.vala:881
-msgid "How to use projects"
-msgstr "Paggamit ng proyekto"
-
-#: src/Utils.vala:882
-msgid ""
-"- Whether you’re planning a presentation, preparing for an event or creating "
-"a website, create a project so all the important details are saved in one "
-"central place.\n"
-"- In the navigation menu on the left, at the bottom, click on the + symbol.\n"
-"- In the options menu select 'Project' and type out the name of your new "
-"project.\n"
-"- Select a source from the drop-down menu.\n"
-"- (Optional) Select a different project color from the color list.\n"
-"- Click Add to create the project."
-msgstr ""
-"- Nagpaplano ka man ng presentasyon, naghahanda para sa isang event o "
-"gumagawa ng websayt, lumikha ng proyekto upang lahat ng importanteng detalye "
-"ay naka-save sa sentrong lugar.\n"
-"- Sa menu ng nabigasyon sa kaliwa, sa babâ, iklik ang simbolong +.\n"
-"- Sa menu ng opsiyon piliin ang 'Proyekto' at ilagay ang pangalan ng bagong "
-"proyekto.\n"
-"- Pumili ng mulàan sa drop-down menu.\n"
-"- (Opsiyonal) Pumili ng ibáng kulay ng proyekto mula sa lista ng kulay.\n"
-"- Iklik ang Dagdag para lumikha ng proyekto."
-
-#: src/Utils.vala:892
-msgid "Sections"
-msgstr "Mga Seksiyon"
-
-#: src/Utils.vala:898
-msgid "Add sections"
-msgstr "Magdagdag ng seksiyon"
-
-#: src/Utils.vala:899
-msgid ""
-"- It’s always easier to take on a big project when you split it into easily "
-"manageable parts using Planner’s sections.\n"
-"- Organize your projects with sections to group your tasks together and get "
-"a better overview of what needs to be done. Add sections to your project, "
-"drag the relevant tasks to the section they belong in, and you’ll find it a "
-"lot easier to make progress (instead of getting overwhelmed by a single long "
-"list).\n"
-"- At the top right of a project, click the + icon.\n"
-"- Type the name of your section and click Add."
-msgstr ""
-"- Mas madalîng mag-asikaso ng malaking proyekto kapag hinatì mo ito sa mga "
-"madalîng pangasiwaang parte gámit ang seksiyon ng Planner.\n"
-"- Organisahin ang iyong mga proyekto sa mga seksiyon para igrupo ang mga "
-"gawain at makakita ng mas mabuting pananaw sa mga dapat tapusin. Magdagdag "
-"ng seksiyon sa proyekto mo, dalhin ang mga gawaing kaugnay sa seksiyong "
-"kinabibilangan nitó, at malaláman mong higit na madalîng umusad (kaysa naman "
-"matabunan ka ng isang mahabàng lista).\n"
-"- Sa kanang itaas ng proyekto, iklik ang icon na +.\n"
-"- Ilagay ang pangalan ng seksiyon at iklik ang Idagdag."
-
-#: src/Utils.vala:918
+#: src/Utils.vala:959
 msgid "Create a new task"
 msgstr "Lumikha ng bagong gawain"
 
-#: src/Utils.vala:919
+#: src/Utils.vala:960
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
 "Lumikha ng bagong gawain sa ibabaw ng lista (gumagana lámang sa loob ng "
 "proyekto)"
 
-#: src/Utils.vala:920
+#: src/Utils.vala:961
 msgid "Create a new area"
 msgstr "Lumikha ng bagong erya"
 
-#: src/Utils.vala:921
+#: src/Utils.vala:962
 msgid "Create a new project"
 msgstr "Lumikha ng bagong proyekto"
 
-#: src/Utils.vala:922
+#: src/Utils.vala:963
 msgid "Create a new section"
 msgstr "Lumikha ng bagong seksiyon"
 
-#: src/Utils.vala:923
+#: src/Utils.vala:964
 msgid "Open the Inbox"
 msgstr "Buksan ang Inbox"
 
-#: src/Utils.vala:924
+#: src/Utils.vala:965
 msgid "Open Today"
 msgstr "Buksan ang Ngayon"
 
-#: src/Utils.vala:925
+#: src/Utils.vala:966
 msgid "Open Upcoming"
 msgstr "Buksan ang Paratíng"
 
-#: src/Utils.vala:926
+#: src/Utils.vala:967
 msgid "Open Search"
 msgstr "Buksan ang Maghanap"
 
-#: src/Utils.vala:927
+#: src/Utils.vala:968
 msgid "Manually sync"
 msgstr "Mano-manong pagsabayin"
 
-#: src/Utils.vala:928
+#: src/Utils.vala:969
 msgid "Quit"
 msgstr "Tigil"
 
-#: src/Utils.vala:936
+#: src/Utils.vala:977
 msgid "The request was incorrect."
 msgstr "Mali ang hiling."
 
-#: src/Utils.vala:937
+#: src/Utils.vala:978
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Kailangan ang pagpapatunay, at nabigo ito, o hindi pa naibibigay."
 
-#: src/Utils.vala:938
+#: src/Utils.vala:979
 msgid "The request was valid, but for something that is forbidden."
 msgstr "Balido ang hiling, ngunit para sa walang pahintulot."
 
-#: src/Utils.vala:939
+#: src/Utils.vala:980
 msgid "The requested resource could not be found."
 msgstr "Ang hiniling na resource ay hindi mahanap."
 
-#: src/Utils.vala:940
+#: src/Utils.vala:981
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "Ang user ay nagpadalá ng labis na hiling sa isang takdang panahon."
 
-#: src/Utils.vala:941
+#: src/Utils.vala:982
 msgid "The request failed due to a server error."
 msgstr "Nabigo ang hiling dahil may mali sa server."
 
-#: src/Utils.vala:942
+#: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
 msgstr "Kasalukuyang hindi káya tanggapin ng server ang hiling."
 
 #. search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", _("Your Inbox is the default place to add new tasks so you can get them out of your head quickly, then come back and make a plan to take care of them later. It’s a great way to declutter your mind so you can focus on whatever you’re doing right now."));
-#: src/Services/Database.vala:1035 src/Widgets/Pane.vala:72
-#: src/Widgets/ItemRow.vala:1324 src/Widgets/SectionRow.vala:750
-#: src/Views/Inbox.vala:80 src/Dialogs/Preferences/Preferences.vala:230
-#: src/Dialogs/Preferences/Preferences.vala:337 src/Dialogs/QuickFind.vala:70
+#: src/Services/Database.vala:1048 src/Widgets/Pane.vala:72
+#: src/Widgets/ItemRow.vala:1353 src/Widgets/SectionRow.vala:804
+#: src/Views/Inbox.vala:81 src/Dialogs/Preferences/Preferences.vala:245
+#: src/Dialogs/Preferences/Preferences.vala:352 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
 msgstr "Inbox"
 
@@ -378,27 +309,29 @@ msgstr "Sa kompiyuter na ito"
 msgid "Todoist Project"
 msgstr "Proyektong Todoist"
 
-#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:397
+#: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 msgid "Unable to move task"
 msgstr ""
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:74 src/Widgets/Pane.vala:415
-#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:237
-#: src/Dialogs/QuickFind.vala:84
+#: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:252
+#: src/Dialogs/QuickFind.vala:85
 msgid "Upcoming"
 msgstr "Paratíng"
 
-#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:481
+#: src/Widgets/Pane.vala:82 src/Widgets/New.vala:491
 #, fuzzy
 msgid "Add Project"
 msgstr "Magdagdag ng proyekto"
 
-#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:144
+#. modal: true,
+#: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:41
+#: src/Dialogs/QuickFind.vala:145
 msgid "Quick Find"
 msgstr "Mabilísang Hanap"
 
-#: src/Widgets/Pane.vala:216
+#: src/Widgets/Pane.vala:216 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
 msgstr "Preperensiya"
 
@@ -420,78 +353,78 @@ msgstr ""
 "internet. Ang mga pagbabagong gagawin\n"
 "mo hábang offline mode ay isasabay kapag kumonekta muli"
 
-#: src/Widgets/New.vala:64 src/Views/Inbox.vala:894 src/Views/Project.vala:1316
-#: src/Dialogs/ProjectSettings.vala:49
+#: src/Widgets/New.vala:65 src/Views/Inbox.vala:911 src/Views/Project.vala:1458
+#: src/Dialogs/ProjectSettings.vala:151
 msgid "Name:"
 msgstr "Pangalan:"
 
-#: src/Widgets/New.vala:89 src/Dialogs/ProjectSettings.vala:55
+#: src/Widgets/New.vala:90 src/Dialogs/ProjectSettings.vala:153
 msgid "Description:"
 msgstr "Deskripsiyon:"
 
-#: src/Widgets/New.vala:107
+#: src/Widgets/New.vala:108
 msgid "Folder:"
 msgstr "Folder:"
 
-#: src/Widgets/New.vala:122 src/Dialogs/ProjectSettings.vala:98
+#: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:157
 msgid "Color:"
 msgstr "Kulay:"
 
-#: src/Widgets/New.vala:162 src/Widgets/NewItem.vala:91
-#: src/Widgets/ReminderButton.vala:250 src/Widgets/NewSection.vala:81
-#: src/Views/Inbox.vala:910 src/Views/Project.vala:1332
+#: src/Widgets/New.vala:163 src/Widgets/ReminderButton.vala:250
+#: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:927
+#: src/Views/Project.vala:1474
 msgid "Add"
 msgstr "Magdagdag"
 
-#: src/Widgets/New.vala:167 src/Widgets/NewItem.vala:96
-#: src/Widgets/SectionRow.vala:166 src/Widgets/AreaRow.vala:148
-#: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Views/Inbox.vala:915
-#: src/Views/Project.vala:220 src/Views/Project.vala:1337
-msgid "Cancel"
-msgstr "Kanselahin"
+#: src/Widgets/New.vala:198 src/Dialogs/ProjectSettings.vala:171
+#: src/Dialogs/Preferences/Preferences.vala:80
+msgid "Close"
+msgstr "Isara"
 
-#: src/Widgets/New.vala:314
+#: src/Widgets/New.vala:324
 msgid "Local"
 msgstr "Lokal"
 
-#: src/Widgets/New.vala:389 src/Widgets/ProjectRow.vala:491
+#: src/Widgets/New.vala:399 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
 msgstr "Walang Folder"
 
-#: src/Widgets/New.vala:462
+#: src/Widgets/New.vala:472
 msgid "Project"
 msgstr "Proyekto"
 
-#: src/Widgets/New.vala:467
+#: src/Widgets/New.vala:477
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr "Lumikha ng bagong proyekto, gumawa ng to-do list, ayusin ang mga talâ."
 
-#: src/Widgets/New.vala:494
+#: src/Widgets/New.vala:504
 msgid "Folder"
 msgstr "Folder"
 
-#: src/Widgets/New.vala:499
+#: src/Widgets/New.vala:509
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr ""
 "Organisahin ang mga proyekto mo kada grupo at panatilihing malinis ang panel."
 
-#: src/Widgets/New.vala:512
+#: src/Widgets/New.vala:522
 #, fuzzy
 msgid "Add Folder"
 msgstr "Folder"
 
-#: src/Widgets/New.vala:518 src/Dialogs/ProjectSettings.vala:157
-#: src/Dialogs/Preferences/Preferences.vala:79
-msgid "Close"
-msgstr "Isara"
+#: src/Widgets/New.vala:559 src/Dialogs/Preferences/Preferences.vala:701
+msgid "Create tutorial project"
+msgstr "Gumawa ng proyektong tutorial"
 
-#: src/Widgets/New.vala:582
+#: src/Widgets/New.vala:578 src/Dialogs/Preferences/Preferences.vala:761
+msgid "Your tutorial project was created"
+msgstr "Nilikha na ang iyong proyektong tutorial"
+
+#: src/Widgets/New.vala:632
 msgid "New folder"
 msgstr "Bagong Folder"
 
-#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:127
-#: src/Views/Project.vala:205
+#: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:128
+#: src/Views/Project.vala:206
 msgid "Project Menu"
 msgstr "Menu sa Proyekto"
 
@@ -499,151 +432,225 @@ msgstr "Menu sa Proyekto"
 msgid "Local Project"
 msgstr "Proyektong Lokal"
 
-#: src/Widgets/ProjectRow.vala:389 src/Widgets/ItemRow.vala:1333
-#: src/Widgets/ItemRow.vala:1353 src/Widgets/ItemRow.vala:1387
-#: src/Widgets/SectionRow.vala:1007 src/Widgets/SectionRow.vala:1064
+#: src/Widgets/ProjectRow.vala:401 src/Widgets/ItemRow.vala:1362
+#: src/Widgets/ItemRow.vala:1382 src/Widgets/ItemRow.vala:1416
+#: src/Widgets/SectionRow.vala:1065 src/Widgets/SectionRow.vala:1124
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "Nilipat ang gawain sa <b>%s</b>"
 
-#: src/Widgets/ProjectRow.vala:547 src/Widgets/ItemRow.vala:1426
-#: src/Widgets/AreaRow.vala:653 src/Views/Project.vala:1041
-msgid "Edit"
-msgstr "Iedit"
+#: src/Widgets/ProjectRow.vala:559 src/Views/Project.vala:1132
+#, fuzzy
+msgid "Open New Window"
+msgstr "Buksan ang Inbox"
 
-#: src/Widgets/ProjectRow.vala:548
+#: src/Widgets/ProjectRow.vala:560 src/Views/Project.vala:1133
+#, fuzzy
+msgid "Edit project"
+msgstr "Magdagdag ng proyekto"
+
+#: src/Widgets/ProjectRow.vala:561
 msgid "Move"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:552 src/Widgets/ItemRow.vala:1447
-#: src/Widgets/SectionRow.vala:816
+#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+#: src/Widgets/ProjectRow.vala:565 src/Widgets/ItemRow.vala:1479
+#: src/Widgets/SectionRow.vala:870 src/Views/Today.vala:463
+#: src/Views/Project.vala:1138 src/Dialogs/Preferences/Preferences.vala:129
 msgid "Share"
 msgstr "Ibahagi"
 
-#: src/Widgets/ProjectRow.vala:556
+#: src/Widgets/ProjectRow.vala:569 src/Views/Today.vala:535
+#: src/Views/Project.vala:1284
 msgid "Send by e-mail"
 msgstr "Ipadalá sa e-mail"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:557 src/Widgets/ItemRow.vala:1452
-#: src/Widgets/SectionRow.vala:821
+#: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1484
+#: src/Widgets/SectionRow.vala:875 src/Views/Today.vala:536
+#: src/Views/Project.vala:1285
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
-#. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Widgets/ProjectRow.vala:565 src/Widgets/ProjectRow.vala:592
-#: src/Widgets/ItemRow.vala:1459 src/Widgets/SectionRow.vala:827
-#: src/Widgets/SectionRow.vala:870 src/Widgets/AreaRow.vala:654
+#: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
+#: src/Widgets/ItemRow.vala:1491 src/Widgets/ItemCompletedRow.vala:204
+#: src/Widgets/ItemCompletedRow.vala:228 src/Widgets/SectionRow.vala:881
+#: src/Widgets/SectionRow.vala:924 src/Widgets/AreaRow.vala:654
 #: src/Widgets/AreaRow.vala:692 src/Widgets/CheckRow.vala:81
-#: src/Views/Project.vala:1044 src/Views/Project.vala:1117
+#: src/Views/Project.vala:1140 src/Views/Project.vala:1232
 msgid "Delete"
 msgstr "Burahin"
 
-#: src/Widgets/ProjectRow.vala:587 src/Views/Project.vala:1112
+#: src/Widgets/ProjectRow.vala:607 src/Views/Project.vala:1227
 msgid "Delete project"
 msgstr "Burahin ang proyekto"
 
-#: src/Widgets/ProjectRow.vala:588 src/Widgets/SectionRow.vala:866
-#: src/Widgets/AreaRow.vala:680 src/Views/Project.vala:1113
+#: src/Widgets/ProjectRow.vala:608 src/Widgets/ItemCompletedRow.vala:224
+#: src/Widgets/SectionRow.vala:920 src/Widgets/AreaRow.vala:680
+#: src/Views/Project.vala:1228
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Sigurado kang gusto mo burahin ang <b>%s</b>?"
 
-#: src/Widgets/NewItem.vala:69 src/Widgets/ItemRow.vala:220
+#: src/Widgets/NewItem.vala:56
+msgid "1d"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:57
+msgid "1w"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:58
+msgid "1m"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
 msgid "Task name"
 msgstr "Pangalan ng Gawain"
 
-#: src/Widgets/ItemRow.vala:184
-#, fuzzy
-msgid "Hide Details"
-msgstr "Tingnan ang Detalye"
-
-#: src/Widgets/ItemRow.vala:502
-msgid "Add Checklist"
-msgstr "Magdagdag ng Tseklist"
-
-#: src/Widgets/ItemRow.vala:509
-msgid "Delete Task"
-msgstr "Burahin ang Gawain"
-
-#: src/Widgets/ItemRow.vala:523
-msgid "Task Menu"
-msgstr "Menu ng Gawain"
-
-#: src/Widgets/ItemRow.vala:690 src/Widgets/ItemRow.vala:1512
-msgid "Task deleted"
-msgstr "Binura ang Gawain"
-
-#: src/Widgets/ItemRow.vala:1012
-#, c-format
-msgid "Completed. Next occurrence: %s"
-msgstr "Kompleto na. Sunod na pangyayari: %s"
-
-#: src/Widgets/ItemRow.vala:1025
-#, fuzzy
-msgid "1 task completed"
-msgstr "Nakompleto ang Gawain"
-
-#: src/Widgets/ItemRow.vala:1366
-msgid "No Section"
-msgstr "Walang Seksiyon"
-
-#: src/Widgets/ItemRow.vala:1425
-msgid "Complete"
-msgstr "Kompleto"
-
-#: src/Widgets/ItemRow.vala:1434 src/Widgets/DueButton.vala:208
-msgid "Undated"
-msgstr "Tinanggal-petsa"
-
-#: src/Widgets/ItemRow.vala:1439 src/Widgets/SectionRow.vala:812
-msgid "Move to Project"
-msgstr "Ilipat sa Proyekto"
-
-#: src/Widgets/ItemRow.vala:1443
-msgid "Move to Section"
-msgstr "Ilipat sa Seksiyon"
-
-#: src/Widgets/ItemRow.vala:1451
-msgid "Text"
-msgstr "Teksto"
-
-#: src/Widgets/ItemRow.vala:1458
-msgid "Duplicate"
-msgstr "Duplikahin"
-
-#: src/Widgets/ItemRow.vala:1584 src/Widgets/ItemCompletedRow.vala:41
-msgid "Note"
-msgstr "Talâ"
-
-#: src/Widgets/ItemCompletedRow.vala:39
-msgid "Content"
-msgstr "Nilalaman"
-
-#: src/Widgets/ItemCompletedRow.vala:45
-msgid "Due date"
-msgstr "Takdang petsa"
-
-#: src/Widgets/ItemCompletedRow.vala:48
-msgid "Date completed"
-msgstr "Petsa nakompleto"
-
-#. hidden_button.margin_end = 6;
-#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:936
-msgid "Display Tasks"
-msgstr "Idispley ang mga Gawain"
-
-#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:941
-msgid "Hiding Tasks"
-msgstr ""
-
-#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:806
+#: src/Widgets/NewItem.vala:115 src/Widgets/SectionRow.vala:102
+#: src/Widgets/SectionRow.vala:860 src/Widgets/SectionRow.vala:1243
 #: src/Widgets/MagicButton.vala:32
 #, fuzzy
 msgid "Add Task"
 msgstr "Magdagdag ng Gawain"
+
+#: src/Widgets/NewItem.vala:120 src/Widgets/SectionRow.vala:166
+#: src/Widgets/AreaRow.vala:148 src/Widgets/ReminderButton.vala:248
+#: src/Widgets/NewSection.vala:85 src/Widgets/NewLabel.vala:77
+#: src/Views/Inbox.vala:932 src/Views/Project.vala:221
+#: src/Views/Project.vala:1479
+msgid "Cancel"
+msgstr "Kanselahin"
+
+#: src/Widgets/NewItem.vala:441 src/Dialogs/QuickFind.vala:101
+msgid "Priority 1"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:442 src/Dialogs/QuickFind.vala:109
+msgid "Priority 2"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:443 src/Dialogs/QuickFind.vala:117
+msgid "Priority 3"
+msgstr ""
+
+#: src/Widgets/NewItem.vala:444 src/Dialogs/QuickFind.vala:125
+msgid "Priority 4"
+msgstr ""
+
+#. tomorrow_menu.item_image.pixel_size = 14;
+#: src/Widgets/NewItem.vala:568 src/Widgets/ItemRow.vala:1465
+#: src/Widgets/DueButton.vala:230 src/Views/Today.vala:922
+msgid "Undated"
+msgstr "Tinanggal-petsa"
+
+#: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
+#, fuzzy
+msgid "Time"
+msgstr "Oras:"
+
+#: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
+#: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
+#: src/Widgets/DueButton.vala:148
+msgid "Schedule"
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:196
+#, fuzzy
+msgid "Hide Details"
+msgstr "Tingnan ang Detalye"
+
+#: src/Widgets/ItemRow.vala:519
+msgid "Add Checklist"
+msgstr "Magdagdag ng Tseklist"
+
+#: src/Widgets/ItemRow.vala:526
+msgid "Delete Task"
+msgstr "Burahin ang Gawain"
+
+#: src/Widgets/ItemRow.vala:540
+msgid "Task Menu"
+msgstr "Menu ng Gawain"
+
+#: src/Widgets/ItemRow.vala:710 src/Widgets/ItemRow.vala:1544
+msgid "Task deleted"
+msgstr "Binura ang Gawain"
+
+#: src/Widgets/ItemRow.vala:1020
+#, c-format
+msgid "Completed. Next occurrence: %s"
+msgstr "Kompleto na. Sunod na pangyayari: %s"
+
+#: src/Widgets/ItemRow.vala:1033
+#, fuzzy
+msgid "1 task completed"
+msgstr "Nakompleto ang Gawain"
+
+#: src/Widgets/ItemRow.vala:1395
+msgid "No Section"
+msgstr "Walang Seksiyon"
+
+#: src/Widgets/ItemRow.vala:1454
+msgid "Complete"
+msgstr "Kompleto"
+
+#: src/Widgets/ItemRow.vala:1455 src/Widgets/AreaRow.vala:653
+msgid "Edit"
+msgstr "Iedit"
+
+#: src/Widgets/ItemRow.vala:1471 src/Widgets/SectionRow.vala:866
+msgid "Move to Project"
+msgstr "Ilipat sa Proyekto"
+
+#: src/Widgets/ItemRow.vala:1475
+msgid "Move to Section"
+msgstr "Ilipat sa Seksiyon"
+
+#: src/Widgets/ItemRow.vala:1483
+msgid "Text"
+msgstr "Teksto"
+
+#: src/Widgets/ItemRow.vala:1490
+msgid "Duplicate"
+msgstr "Duplikahin"
+
+#: src/Widgets/ItemRow.vala:1616 src/Widgets/ItemCompletedRow.vala:43
+msgid "Note"
+msgstr "Talâ"
+
+#: src/Widgets/ItemCompletedRow.vala:41
+msgid "Content"
+msgstr "Nilalaman"
+
+#: src/Widgets/ItemCompletedRow.vala:47
+msgid "Due date"
+msgstr "Takdang petsa"
+
+#: src/Widgets/ItemCompletedRow.vala:50
+msgid "Date completed"
+msgstr "Petsa nakompleto"
+
+#: src/Widgets/ItemCompletedRow.vala:203
+#, fuzzy
+msgid "Mark Incomplete"
+msgstr "Nakompleto ang Gawain"
+
+#: src/Widgets/ItemCompletedRow.vala:223
+#, fuzzy
+msgid "Delete task"
+msgstr "Burahin ang Gawain"
+
+#. hidden_button.margin_end = 6;
+#: src/Widgets/SectionRow.vala:85 src/Widgets/SectionRow.vala:994
+msgid "Display Tasks"
+msgstr "Idispley ang mga Gawain"
+
+#: src/Widgets/SectionRow.vala:97 src/Widgets/SectionRow.vala:999
+msgid "Hiding Tasks"
+msgstr ""
 
 #: src/Widgets/SectionRow.vala:125 src/Widgets/NewSection.vala:69
 msgid "Section name"
@@ -656,105 +663,100 @@ msgstr "Menu ng Seksiyon"
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #. top_box.margin_top = 6;
 #: src/Widgets/SectionRow.vala:162 src/Widgets/AreaRow.vala:144
-#: src/Views/Project.vala:216 src/Dialogs/ProjectSettings.vala:159
+#: src/Views/Project.vala:217 src/Dialogs/ProjectSettings.vala:173
 msgid "Save"
 msgstr "I-save"
 
-#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:248
+#: src/Widgets/SectionRow.vala:199 src/Views/Project.vala:249
 msgid "Add a description"
 msgstr "Magdagdag ng deskripsiyon"
 
-#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:855
+#: src/Widgets/SectionRow.vala:208 src/Views/Project.vala:934
 msgid "Description"
 msgstr "Deskripsiyon"
 
-#: src/Widgets/SectionRow.vala:757 src/Widgets/SectionRow.vala:778
+#: src/Widgets/SectionRow.vala:811 src/Widgets/SectionRow.vala:832
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "Nilipat ang Seksiyon sa <b>%s</b>"
 
-#: src/Widgets/SectionRow.vala:809
+#: src/Widgets/SectionRow.vala:863
 msgid "Rename"
 msgstr "Palitán pangalan"
 
-#: src/Widgets/SectionRow.vala:810
+#: src/Widgets/SectionRow.vala:864
 #, fuzzy
 msgid "Add Note"
 msgstr "Magdagdag ng Talâ"
 
-#: src/Widgets/SectionRow.vala:865
+#: src/Widgets/SectionRow.vala:919
 msgid "Delete section"
 msgstr "Burahin ang seksiyon"
 
-#: src/Widgets/SectionRow.vala:883
+#: src/Widgets/SectionRow.vala:937
 msgid "Section deleted"
 msgstr "Binura ang seksiyon"
 
-#: src/Widgets/DueButton.vala:54 src/Widgets/DueButton.vala:63
-#: src/Widgets/DueButton.vala:134
-msgid "Schedule"
-msgstr ""
-
-#: src/Widgets/DueButton.vala:217
+#: src/Widgets/DueButton.vala:262
 msgid "Repeat"
 msgstr "Ulitin"
 
-#: src/Widgets/DueButton.vala:240
+#: src/Widgets/DueButton.vala:285
 msgid "Every day"
 msgstr "Araw-araw"
 
-#: src/Widgets/DueButton.vala:246
+#: src/Widgets/DueButton.vala:291
 msgid "Every week"
 msgstr "Linggo-linggo"
 
-#: src/Widgets/DueButton.vala:252
+#: src/Widgets/DueButton.vala:297
 msgid "Every month"
 msgstr "Buwan-buwan"
 
-#: src/Widgets/DueButton.vala:258
+#: src/Widgets/DueButton.vala:303
 msgid "Every year"
 msgstr "Taon-taon"
 
-#: src/Widgets/LabelButton.vala:40 src/Dialogs/Preferences/Preferences.vala:117
-#: src/Dialogs/Preferences/Preferences.vala:771 src/Dialogs/QuickFind.vala:280
-#: src/Dialogs/QuickFind.vala:656
+#: src/Widgets/LabelButton.vala:42 src/Dialogs/Preferences/Preferences.vala:126
+#: src/Dialogs/Preferences/Preferences.vala:798 src/Dialogs/QuickFind.vala:281
+#: src/Dialogs/QuickFind.vala:674
 msgid "Labels"
 msgstr "Mga Label"
 
-#: src/Widgets/LabelButton.vala:50
+#: src/Widgets/LabelButton.vala:52
 msgid "labels"
 msgstr "Mga label"
 
-#: src/Widgets/LabelButton.vala:90 src/Widgets/LabelButton.vala:243
+#: src/Widgets/LabelButton.vala:92 src/Widgets/LabelButton.vala:248
 #, fuzzy
 msgid "Using Labels"
 msgstr "Mga Label"
 
-#: src/Widgets/LabelButton.vala:91 src/Widgets/LabelButton.vala:244
+#: src/Widgets/LabelButton.vala:93 src/Widgets/LabelButton.vala:249
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
 
-#: src/Widgets/LabelButton.vala:123
+#: src/Widgets/LabelButton.vala:125
 msgid "Type a label"
 msgstr "Maglagay ng label"
 
-#: src/Widgets/LabelButton.vala:133 src/Widgets/LabelButton.vala:223
-#: src/Widgets/LabelButton.vala:241
+#: src/Widgets/LabelButton.vala:135 src/Widgets/LabelButton.vala:228
+#: src/Widgets/LabelButton.vala:246
 msgid "Edit labels"
 msgstr "Iedit ang mga label"
 
-#: src/Widgets/LabelButton.vala:233
+#: src/Widgets/LabelButton.vala:238
 #, fuzzy
 msgid "Add label"
 msgstr "Magdagdag ng Label"
 
-#: src/Widgets/LabelButton.vala:236
+#: src/Widgets/LabelButton.vala:241
 msgid "Label not found"
 msgstr ""
 
-#: src/Widgets/LabelButton.vala:237
+#: src/Widgets/LabelButton.vala:242
 #, fuzzy, c-format
 msgid "Create '%s'"
 msgstr "Lumikha"
@@ -763,7 +765,7 @@ msgstr "Lumikha"
 msgid "Undo"
 msgstr "I-undo"
 
-#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:132
+#: src/Widgets/Toast.vala:101 src/Objects/Item.vala:125
 #, fuzzy
 msgid "Task duplicate"
 msgstr "Duplikahin"
@@ -793,7 +795,7 @@ msgstr "Pangalan ng Sub-gawain"
 msgid "Remove"
 msgstr ""
 
-#: src/Widgets/UpcomingRow.vala:76
+#: src/Widgets/UpcomingRow.vala:78
 msgid "Add task"
 msgstr "Magdagdag ng gawain"
 
@@ -857,177 +859,198 @@ msgstr "Lin"
 msgid "Never worry about forgetting things again"
 msgstr "Huwag na muling mag-alala na malimutan ang iyong mga gagawin"
 
-#: src/Views/Welcome.vala:28
-msgid "Startup"
-msgstr "Startup"
-
-#: src/Views/Welcome.vala:28
-msgid "Start working locally."
-msgstr "Magsimulang magtrabaho nang lokal."
-
-#: src/Views/Welcome.vala:29 src/Dialogs/Preferences/Preferences.vala:894
-msgid "Todoist"
-msgstr "Todoist"
-
-#: src/Views/Welcome.vala:29
-msgid "Synchronize with your Todoist account and start working."
-msgstr "Isabay sa iyong Todoist account at simulang maggawa."
-
-#: src/Views/Inbox.vala:91 src/Views/Project.vala:161
-#: src/Views/Project.vala:169
+#: src/Views/Inbox.vala:92 src/Views/Project.vala:162
+#: src/Views/Project.vala:170
 msgid "Add Section"
 msgstr "Magdagdag ng Seksiyon"
 
-#: src/Views/Inbox.vala:99 src/Views/Project.vala:177
+#: src/Views/Inbox.vala:100 src/Views/Project.vala:178
 msgid "Invite person"
 msgstr "Mag-imbita ng tao"
 
-#: src/Views/Inbox.vala:108 src/Views/Project.vala:186
+#: src/Views/Inbox.vala:109 src/Views/Project.vala:187
 msgid "Project comments"
 msgstr "Mga koment sa proyekto"
 
-#: src/Views/Inbox.vala:116 src/Views/Project.vala:194
+#: src/Views/Inbox.vala:117 src/Views/Project.vala:195
 msgid "Search task"
 msgstr "Hanapin ang gawain"
 
-#: src/Views/Inbox.vala:283
+#: src/Views/Inbox.vala:285
 msgid "All clear"
 msgstr "Hawán lahat"
 
-#: src/Views/Inbox.vala:284
+#: src/Views/Inbox.vala:286
 msgid "Looks like everything's organized in the right place."
 msgstr "Mukha namang nakaorganisa ang lahat sa tamang puwesto."
 
-#: src/Views/Inbox.vala:767 src/Views/Project.vala:1053
+#: src/Views/Inbox.vala:782 src/Views/Today.vala:471
+#: src/Views/Project.vala:1149
 msgid "Show Completed"
 msgstr "Ipakita ang Nakompleto"
 
-#: src/Views/Today.vala:93
+#: src/Views/Today.vala:85
+#, fuzzy
+msgid "Menu"
+msgstr "Menu ng Gawain"
+
+#: src/Views/Today.vala:125
 msgid "Overdue"
 msgstr ""
 
-#: src/Views/Today.vala:109
+#: src/Views/Today.vala:142
 msgid "Reschedule"
 msgstr ""
 
-#: src/Views/Today.vala:138
+#: src/Views/Today.vala:172
 msgid "What tasks are on your mind?"
 msgstr "Ano-anong gawain ang nása isip mo?"
 
-#: src/Views/Today.vala:139
+#: src/Views/Today.vala:173
 msgid "Tap + to add a task for today."
 msgstr "Pindutin ang + upang magdagdag ng gawain ngayong araw."
 
-#: src/Views/Project.vala:143 src/Views/Project.vala:832
+#: src/Views/Today.vala:460
+#, fuzzy
+msgid "Sort by project"
+msgstr "Paggamit ng proyekto"
+
+#: src/Views/Today.vala:461 src/Views/Project.vala:1135
+msgid "Sort by priority"
+msgstr ""
+
+#: src/Views/Today.vala:462 src/Views/Project.vala:1136
+msgid "Sort by name"
+msgstr ""
+
+#: src/Views/Today.vala:575
+#, fuzzy
+msgid "Today was copied to the Clipboard."
+msgstr "Kinopya ang Gawain sa Klipbord."
+
+#: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, fuzzy, c-format
 msgid "Progress: %s"
 msgstr "Progreso:"
 
-#: src/Views/Project.vala:392
+#: src/Views/Project.vala:390
 msgid "What will you accomplish?"
 msgstr "Ano ang tatapusin mo?"
 
-#: src/Views/Project.vala:393
+#: src/Views/Project.vala:391
 msgid "Tap + to add a task to this project."
 msgstr "Pindutin ang + upang magdagdag ng gawain sa proyektong ito."
 
-#: src/Views/Project.vala:1256
+#: src/Views/Project.vala:1134
+msgid "Sort by date"
+msgstr ""
+
+#: src/Views/Project.vala:1398
 #, fuzzy
 msgid "Your Productivity"
 msgstr "Pagkamabunga"
 
-#: src/Views/Project.vala:1261
+#: src/Views/Project.vala:1403
 msgid "Progress:"
 msgstr "Progreso:"
 
-#: src/Views/Project.vala:1272
+#: src/Views/Project.vala:1414
 #, fuzzy
 msgid "Duedate:"
 msgstr "Takdang petsa:"
 
-#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:123
+#: src/Dialogs/TodoistOAuth.vala:46 src/Dialogs/TodoistOAuth.vala:114
 msgid "Loading…"
 msgstr "Nagkakarga…"
 
 #. Alert
-#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:137
+#: src/Dialogs/TodoistOAuth.vala:70 src/Dialogs/TodoistOAuth.vala:128
 msgid "Network Is Not Available"
 msgstr "Walang Network"
 
-#: src/Dialogs/TodoistOAuth.vala:70
+#: src/Dialogs/TodoistOAuth.vala:71
 msgid "Connect to the Internet to connect with Todoist"
 msgstr "Kumonekta sa Internet para kumonekta sa Todoist"
 
-#: src/Dialogs/TodoistOAuth.vala:103
+#: src/Dialogs/TodoistOAuth.vala:94
 msgid "Synchronizing… Wait a moment please."
 msgstr "Pinagsasabay… Sandali lang po."
 
-#: src/Dialogs/TodoistOAuth.vala:115
+#: src/Dialogs/TodoistOAuth.vala:106
 msgid "Please enter your credentials…"
 msgstr "Ipasok ang iyong mga kredensiyal…"
 
-#: src/Dialogs/ProjectSettings.vala:74
+#: src/Dialogs/ProjectSettings.vala:41
+#, fuzzy
+msgid "Project Settings"
+msgstr "Menu sa Proyekto"
+
+#: src/Dialogs/ProjectSettings.vala:70
 msgid "Deadline:"
 msgstr ""
 
-#: src/Dialogs/ProjectSettings.vala:129
+#: src/Dialogs/ProjectSettings.vala:122
 msgid "Uploading changes…"
 msgstr "Ina-upload mga pagbabago…"
 
+#: src/Dialogs/ProjectSettings.vala:163
+msgid "Direct access:"
+msgstr ""
+
 #. General
-#: src/Dialogs/Preferences/Preferences.vala:90
-#: src/Dialogs/Preferences/Preferences.vala:97
-#: src/Dialogs/Preferences/Preferences.vala:631
+#: src/Dialogs/Preferences/Preferences.vala:99
+#: src/Dialogs/Preferences/Preferences.vala:106
+#: src/Dialogs/Preferences/Preferences.vala:648
 msgid "General"
 msgstr "Kalahatan"
 
-#: src/Dialogs/Preferences/Preferences.vala:93
-#: src/Dialogs/Preferences/Preferences.vala:216
+#: src/Dialogs/Preferences/Preferences.vala:102
+#: src/Dialogs/Preferences/Preferences.vala:231
 msgid "Homepage"
 msgstr "Homepage"
 
-#: src/Dialogs/Preferences/Preferences.vala:94
-#: src/Dialogs/Preferences/Preferences.vala:320
+#: src/Dialogs/Preferences/Preferences.vala:103
+#: src/Dialogs/Preferences/Preferences.vala:335
 msgid "Badge Count"
 msgstr "Bílang ng Tsápa"
 
-#: src/Dialogs/Preferences/Preferences.vala:95
-#: src/Dialogs/Preferences/Preferences.vala:393
+#: src/Dialogs/Preferences/Preferences.vala:104
+#: src/Dialogs/Preferences/Preferences.vala:408
 msgid "Theme"
 msgstr "Tema"
 
-#: src/Dialogs/Preferences/Preferences.vala:96
-#: src/Dialogs/Preferences/Preferences.vala:464
+#: src/Dialogs/Preferences/Preferences.vala:105
+#: src/Dialogs/Preferences/Preferences.vala:479
 msgid "Quick Add"
 msgstr "Mabilisang Dagdag"
 
 #. Addons
-#: src/Dialogs/Preferences/Preferences.vala:112
+#: src/Dialogs/Preferences/Preferences.vala:121
 msgid "Add-ons"
 msgstr "Mga Add-on"
 
-#: src/Dialogs/Preferences/Preferences.vala:116
-#: src/Dialogs/Preferences/Preferences.vala:1033
+#: src/Dialogs/Preferences/Preferences.vala:125
+#: src/Dialogs/Preferences/Preferences.vala:1060
 msgid "Calendar Events"
 msgstr "Event sa Kalendaryo"
 
-#: src/Dialogs/Preferences/Preferences.vala:118
-#: src/Dialogs/Preferences/Preferences.vala:479
+#: src/Dialogs/Preferences/Preferences.vala:127
+#: src/Dialogs/Preferences/Preferences.vala:495
 msgid "Keyboard Shortcuts"
 msgstr "Keyboard Shortcut"
 
 #. Others
-#: src/Dialogs/Preferences/Preferences.vala:133
-#: src/Dialogs/Preferences/Preferences.vala:1205
+#: src/Dialogs/Preferences/Preferences.vala:148
+#: src/Dialogs/Preferences/Preferences.vala:1232
 msgid "About"
 msgstr "Tungkol dito"
 
-#: src/Dialogs/Preferences/Preferences.vala:134
-#: src/Dialogs/Preferences/Preferences.vala:1111
+#: src/Dialogs/Preferences/Preferences.vala:149
+#: src/Dialogs/Preferences/Preferences.vala:1138
 msgid "Support & Credits"
 msgstr "Suporta at Pagkilála"
 
-#: src/Dialogs/Preferences/Preferences.vala:219
+#: src/Dialogs/Preferences/Preferences.vala:234
 msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
@@ -1037,26 +1060,26 @@ msgstr ""
 "pinakamahalaga. Ang default homepage ay iyong view ng <b>Inbox</b>, ngunit "
 "mababago mo ito sa kung alin ang nais mo."
 
-#: src/Dialogs/Preferences/Preferences.vala:251 src/Dialogs/QuickFind.vala:293
-#: src/Dialogs/QuickFind.vala:546
+#: src/Dialogs/Preferences/Preferences.vala:266 src/Dialogs/QuickFind.vala:294
+#: src/Dialogs/QuickFind.vala:564
 msgid "Projects"
 msgstr "Mga Proyekto"
 
-#: src/Dialogs/Preferences/Preferences.vala:323
+#: src/Dialogs/Preferences/Preferences.vala:338
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
 "Piliin kung aling mga aytem ang ibibílang para sa tsápa sa icon aplikasyon."
 
-#: src/Dialogs/Preferences/Preferences.vala:333
+#: src/Dialogs/Preferences/Preferences.vala:348
 msgid "None"
 msgstr "Wala"
 
-#: src/Dialogs/Preferences/Preferences.vala:343
+#: src/Dialogs/Preferences/Preferences.vala:358
 msgid "Today + Inbox"
 msgstr "Ngayon + Inbox"
 
-#: src/Dialogs/Preferences/Preferences.vala:396
+#: src/Dialogs/Preferences/Preferences.vala:411
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
@@ -1064,24 +1087,24 @@ msgstr ""
 "Isapersonal ang itsura at damá ng Planner mo sa pagpili ng tema na pinakakma "
 "sa iyo."
 
-#: src/Dialogs/Preferences/Preferences.vala:406
+#: src/Dialogs/Preferences/Preferences.vala:421
 msgid "Light"
 msgstr "Maliwanag"
 
-#: src/Dialogs/Preferences/Preferences.vala:410
+#: src/Dialogs/Preferences/Preferences.vala:425
 msgid "Night"
 msgstr "Panggabí"
 
-#: src/Dialogs/Preferences/Preferences.vala:413
+#: src/Dialogs/Preferences/Preferences.vala:428
 #, fuzzy
 msgid "Dark Blue"
 msgstr "Sky Blue"
 
-#: src/Dialogs/Preferences/Preferences.vala:416
+#: src/Dialogs/Preferences/Preferences.vala:431
 msgid "Arc Dark"
 msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:467
+#: src/Dialogs/Preferences/Preferences.vala:482
 #, fuzzy
 msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
@@ -1092,41 +1115,34 @@ msgstr ""
 "keyboard shortcut upang buksan ang window ng Mabilisang Dagdag, kung saan "
 "puwede magpasok ng nakabinbing gawain at bumalik agad sa paggawa."
 
-#: src/Dialogs/Preferences/Preferences.vala:477
-#: src/Dialogs/Preferences/Preferences.vala:1047
+#: src/Dialogs/Preferences/Preferences.vala:492
+#: src/Dialogs/Preferences/Preferences.vala:1074
 msgid "Enabled"
 msgstr "Naka-enable"
 
-#: src/Dialogs/Preferences/Preferences.vala:491
-#: src/Dialogs/Preferences/Preferences.vala:573
-#: src/Dialogs/Preferences/Preferences.vala:581
-msgid "Change"
-msgstr "Palitán"
-
-#: src/Dialogs/Preferences/Preferences.vala:517
-#, fuzzy
-msgid "Change Keyboard Shortcut"
-msgstr "Keyboard Shortcut"
-
-#: src/Dialogs/Preferences/Preferences.vala:526
-msgid "Save Last Selected Project"
-msgstr "I-save Hulíng Piniling Proyekto"
-
-#: src/Dialogs/Preferences/Preferences.vala:571
-#: src/Dialogs/Preferences/Preferences.vala:579
+#: src/Dialogs/Preferences/Preferences.vala:507
 #, fuzzy
 msgid "Press keys…"
 msgstr "Pindutin sa keyboard…"
 
-#: src/Dialogs/Preferences/Preferences.vala:634
+#: src/Dialogs/Preferences/Preferences.vala:534
+#, fuzzy
+msgid "Change Keyboard Shortcut"
+msgstr "Keyboard Shortcut"
+
+#: src/Dialogs/Preferences/Preferences.vala:543
+msgid "Save Last Selected Project"
+msgstr "I-save Hulíng Piniling Proyekto"
+
+#: src/Dialogs/Preferences/Preferences.vala:651
 msgid "DE Integration"
 msgstr "Integrasyon sa Desktop"
 
-#: src/Dialogs/Preferences/Preferences.vala:638
+#: src/Dialogs/Preferences/Preferences.vala:655
 msgid "Run in background"
 msgstr "Patakbuhin sa background"
 
-#: src/Dialogs/Preferences/Preferences.vala:642
+#: src/Dialogs/Preferences/Preferences.vala:659
 msgid ""
 "Enable this setting to keep Planner running in the background when it "
 "closes. This will allow Planner to continue updating and sending reminder "
@@ -1136,54 +1152,59 @@ msgstr ""
 "background kapag sinara. Hahayaan nitóng magpatuloy ang Planner na "
 "magsapanahon at magpadalá ng mga abisong paalala."
 
-#: src/Dialogs/Preferences/Preferences.vala:650
+#: src/Dialogs/Preferences/Preferences.vala:667
 #, fuzzy
 msgid "Run on startup"
 msgstr "Patakbuhin sa startup"
 
-#: src/Dialogs/Preferences/Preferences.vala:654
+#: src/Dialogs/Preferences/Preferences.vala:671
 msgid "Enable this setting to make Planner startup with the system."
 msgstr ""
 "I-enable ang setting na ito upang mag-startup ang Planner kasáma ng sistema."
 
-#: src/Dialogs/Preferences/Preferences.vala:671
+#: src/Dialogs/Preferences/Preferences.vala:688
 msgid "Button layout"
 msgstr "Leyawt ng botón"
 
-#: src/Dialogs/Preferences/Preferences.vala:680
+#. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
+#: src/Dialogs/Preferences/Preferences.vala:697
 msgid "Help"
 msgstr "Tulong"
 
-#: src/Dialogs/Preferences/Preferences.vala:684
-msgid "Create tutorial project"
-msgstr "Gumawa ng proyektong tutorial"
-
-#: src/Dialogs/Preferences/Preferences.vala:684
+#: src/Dialogs/Preferences/Preferences.vala:701
 msgid "Create"
 msgstr "Lumikha"
 
-#: src/Dialogs/Preferences/Preferences.vala:686
+#: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Danger zone"
 msgstr "Sona ng Panganib"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
-#: src/Dialogs/Preferences/Preferences.vala:753
+#: src/Dialogs/Preferences/Preferences.vala:708
+msgid "Database"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:712
+#: src/Dialogs/Preferences/Preferences.vala:780
 msgid "Reset all"
 msgstr "I-reset lahat"
 
-#: src/Dialogs/Preferences/Preferences.vala:691
+#: src/Dialogs/Preferences/Preferences.vala:712
 msgid "Reset"
 msgstr "I-reset"
 
-#: src/Dialogs/Preferences/Preferences.vala:739
-msgid "Your tutorial project was created"
-msgstr "Nilikha na ang iyong proyektong tutorial"
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export Database"
+msgstr ""
 
-#: src/Dialogs/Preferences/Preferences.vala:748
+#: src/Dialogs/Preferences/Preferences.vala:713
+msgid "Export"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:775
 msgid "Are you sure you want to reset all?"
 msgstr "Sigurado kang nais mo i-reset lahat?"
 
-#: src/Dialogs/Preferences/Preferences.vala:749
+#: src/Dialogs/Preferences/Preferences.vala:776
 #, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
@@ -1192,7 +1213,7 @@ msgstr ""
 "Tinatanggal-proseso nitó lahat ng naimbak na impormasyon nang walang "
 "posibilidad na mabawi ito."
 
-#: src/Dialogs/Preferences/Preferences.vala:774
+#: src/Dialogs/Preferences/Preferences.vala:801
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
@@ -1201,16 +1222,16 @@ msgstr ""
 "label. Makahuhugot ka ng lista ng lahat ng gawain sa isang label ilang "
 "segundo lang."
 
-#: src/Dialogs/Preferences/Preferences.vala:918
+#: src/Dialogs/Preferences/Preferences.vala:945
 #, c-format
 msgid "Last successful sync: %s"
 msgstr "Hulíng tagumpay na pagsasabay: %s"
 
-#: src/Dialogs/Preferences/Preferences.vala:927
+#: src/Dialogs/Preferences/Preferences.vala:954
 msgid "Sync server"
 msgstr "Server ng Pagsasabay"
 
-#: src/Dialogs/Preferences/Preferences.vala:932
+#: src/Dialogs/Preferences/Preferences.vala:959
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
@@ -1218,20 +1239,20 @@ msgstr ""
 "I-activate ang setting na ito upang awtomatikong sumabay ang Planner sa "
 "iyong Todoist account kada 15 minuto."
 
-#: src/Dialogs/Preferences/Preferences.vala:944
-#: src/Dialogs/Preferences/Preferences.vala:999
+#: src/Dialogs/Preferences/Preferences.vala:971
+#: src/Dialogs/Preferences/Preferences.vala:1026
 msgid "Log out"
 msgstr "Log out"
 
-#: src/Dialogs/Preferences/Preferences.vala:994
+#: src/Dialogs/Preferences/Preferences.vala:1021
 msgid "Are you sure you want to log out?"
 msgstr "Sigurado kang nais mo mag-log out?"
 
-#: src/Dialogs/Preferences/Preferences.vala:995
+#: src/Dialogs/Preferences/Preferences.vala:1022
 msgid "This process will close your Todoist session on this device."
 msgstr "Isasara ng prosesong ito ang iyong sesyong Todoist sa device na ito."
 
-#: src/Dialogs/Preferences/Preferences.vala:1036
+#: src/Dialogs/Preferences/Preferences.vala:1063
 msgid ""
 "You can connect your <b>Calendar</b> app to Planner to see your events and "
 "to-dos together in one place. You’ll see events from both personal and "
@@ -1244,7 +1265,7 @@ msgstr ""
 "<b>Paratíng</b>. Nakatutulong ito kapag namamahala ka ng araw mo, at hábang "
 "maaga mo pinaplano ang linggo."
 
-#: src/Dialogs/Preferences/Preferences.vala:1114
+#: src/Dialogs/Preferences/Preferences.vala:1141
 msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
@@ -1254,7 +1275,7 @@ msgstr ""
 "Subalit, kung gusto mo ang Planner at nais suportahan ang pagdevelop nitó, "
 "bakâ puwede kayó mag-donate sa:"
 
-#: src/Dialogs/Preferences/Preferences.vala:1140
+#: src/Dialogs/Preferences/Preferences.vala:1167
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
@@ -1262,126 +1283,208 @@ msgstr ""
 "Salamat sa kaniláng nagkaloob ng donasyon sa Patreon o PayPal. (Kung gusto "
 "mo lumabas dito bisitahin ang aming Patreon account 😉️)"
 
-#: src/Dialogs/Preferences/Preferences.vala:1219
+#: src/Dialogs/Preferences/Preferences.vala:1246
 msgid "Website"
 msgstr "Websayt"
 
-#: src/Dialogs/Preferences/Preferences.vala:1220
+#: src/Dialogs/Preferences/Preferences.vala:1247
+msgid "Github"
+msgstr ""
+
+#: src/Dialogs/Preferences/Preferences.vala:1248
 msgid "Follow"
 msgstr "Sundan"
 
-#: src/Dialogs/Preferences/Preferences.vala:1221
+#: src/Dialogs/Preferences/Preferences.vala:1249
 msgid "Report a Problem"
 msgstr "Mag-ulat ng Problema"
 
-#: src/Dialogs/Preferences/Preferences.vala:1222
+#: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Suggest Translations"
 msgstr "Magmungkahi ng Salin"
-
-#: src/Dialogs/Preferences/Preferences.vala:1341
-msgid "Disabled"
-msgstr "Naka-disable"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
 msgstr "Balik"
 
-#: src/Dialogs/QuickFind.vala:91
+#: src/Dialogs/QuickFind.vala:92
 #, fuzzy
 msgid "Completed"
 msgstr "Kompleto"
 
-#: src/Dialogs/QuickFind.vala:100
-msgid "Priority 1"
-msgstr ""
-
-#: src/Dialogs/QuickFind.vala:108
-msgid "Priority 2"
-msgstr ""
-
-#: src/Dialogs/QuickFind.vala:116
-msgid "Priority 3"
-msgstr ""
-
-#: src/Dialogs/QuickFind.vala:124
-msgid "Priority 4"
-msgstr ""
-
-#: src/Dialogs/QuickFind.vala:129
+#: src/Dialogs/QuickFind.vala:130
 msgid "Search"
 msgstr "Hanap"
 
-#: src/Dialogs/QuickFind.vala:157
+#: src/Dialogs/QuickFind.vala:158
 #, fuzzy
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
 "Agad magpalit ng mga proyekto, view, maghanap ng gawain, maghanap gamit ang "
 "label, ..."
 
-#: src/Dialogs/QuickFind.vala:185
+#: src/Dialogs/QuickFind.vala:186
 msgid "UP"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:190
+#: src/Dialogs/QuickFind.vala:191
 msgid "DOWN"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:195
+#: src/Dialogs/QuickFind.vala:196
 msgid "ENTER"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:200
+#: src/Dialogs/QuickFind.vala:201
 msgid "ESC"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:210
+#: src/Dialogs/QuickFind.vala:211
 msgid "Use"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:213
+#: src/Dialogs/QuickFind.vala:214
 msgid "to navigate and"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:215
+#: src/Dialogs/QuickFind.vala:216
 msgid "to select,"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:217
+#: src/Dialogs/QuickFind.vala:218
 msgid "to close."
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:493
+#: src/Dialogs/QuickFind.vala:494
 msgid "Enter"
 msgstr ""
 
-#: src/Dialogs/QuickFind.vala:507
+#: src/Dialogs/QuickFind.vala:508
 msgid "Tasks"
 msgstr "Gawain"
 
-#: src/Dialogs/QuickFind.vala:603
+#: src/Dialogs/QuickFind.vala:621
 msgid "Views"
 msgstr "View"
 
-#: src/Dialogs/QuickFind.vala:701
+#: src/Dialogs/QuickFind.vala:719
 msgid "Priorities"
 msgstr ""
 
-#: src/Objects/Project.vala:104
+#: src/Objects/Project.vala:101
 msgid "The Project was copied to the Clipboard."
 msgstr "Kinopya ang Proyekto sa Klipbord."
 
-#: src/Objects/Item.vala:125
+#: src/Objects/Item.vala:118
 #, fuzzy
 msgid "Duplicating task…"
 msgstr "Duplikahin"
 
-#: src/Objects/Item.vala:212 src/Objects/Item.vala:229
+#: src/Objects/Item.vala:208 src/Objects/Item.vala:225
 msgid "The Task was copied to the Clipboard."
 msgstr "Kinopya ang Gawain sa Klipbord."
 
-#: src/Objects/Section.vala:98
+#: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "Kinopya ang Seksiyon sa Klipbord."
+
+#~ msgid "Keeping track of your tasks"
+#~ msgstr "Pagsubaybay sa iyong mga gawain"
+
+#~ msgid ""
+#~ "It turns out, our brains are actually wired to keep us thinking about our "
+#~ "unfinished tasks. Handy when you have one thing you need to work on. Not "
+#~ "so good when you have 30+ tasks vying for your attention at once. That’s "
+#~ "why the first step to organizing your work and life is getting everything "
+#~ "out of your head and onto your to-do list. From there you can begin to "
+#~ "organize and prioritize so you know exactly what to focus on and when."
+#~ msgstr ""
+#~ "Ang totoo, nakaprograma ang utak natin para lagi nating isipin ang hindi "
+#~ "pa tapós nating mga gawain. Madiskarte kung may isang bagay na dapat kang "
+#~ "gawin. Hindi masyado kung ikaw ay may 30+ na gawain na sabay-sabay nag-"
+#~ "aagawan sa iyong pansin. Kayâ ang unang hakbang sa pag-oorganisa ng iyong "
+#~ "trabaho at búhay ay pagtanggal ng lahat sa iyong isip patúngo sa to-do "
+#~ "list mo. Mula rito mauumpisahan mo nang mag-organisa at mag-priyoridad "
+#~ "kayâ alam mo ang dapat mong tutukan at kailan."
+
+#~ msgid ""
+#~ "- To add a new task to Planner, just click + and press Enter.\n"
+#~ "- When your task is created, click on the task to be able to edit it, add "
+#~ "a note or some other options."
+#~ msgstr ""
+#~ "- Para magdagdag ng bagong gawain sa Planner, iklik ang + at pindutin ang "
+#~ "Enter.\n"
+#~ "- Kapag nalikha na ang gawain mo, iklik ang gawain upang maedit ito, "
+#~ "magdagdag ng talâ o ibá pang opsiyon."
+
+#~ msgid "Due dates"
+#~ msgstr "Takdang petsa"
+
+#~ msgid ""
+#~ "- If you know you need to have the task done on a certain day, click on "
+#~ "the calendar icon and select a date.\n"
+#~ "- If you want to delete the due date, repeat the process and select the "
+#~ "\"undate\" option."
+#~ msgstr ""
+#~ "- Kung alam mong may gawain kang dapat tapusin sa tiyak na araw, iklik "
+#~ "ang kalendaryong icon at pumili ng petsa.\n"
+#~ "- Kung gusto mo burahin ang takdang petsa, ulitin ang proseso at piliin "
+#~ "ang opsiyong \"tanggal petsa\"."
+
+#~ msgid ""
+#~ "- Whether you’re planning a presentation, preparing for an event or "
+#~ "creating a website, create a project so all the important details are "
+#~ "saved in one central place.\n"
+#~ "- In the navigation menu on the left, at the bottom, click on the + "
+#~ "symbol.\n"
+#~ "- In the options menu select 'Project' and type out the name of your new "
+#~ "project.\n"
+#~ "- Select a source from the drop-down menu.\n"
+#~ "- (Optional) Select a different project color from the color list.\n"
+#~ "- Click Add to create the project."
+#~ msgstr ""
+#~ "- Nagpaplano ka man ng presentasyon, naghahanda para sa isang event o "
+#~ "gumagawa ng websayt, lumikha ng proyekto upang lahat ng importanteng "
+#~ "detalye ay naka-save sa sentrong lugar.\n"
+#~ "- Sa menu ng nabigasyon sa kaliwa, sa babâ, iklik ang simbolong +.\n"
+#~ "- Sa menu ng opsiyon piliin ang 'Proyekto' at ilagay ang pangalan ng "
+#~ "bagong proyekto.\n"
+#~ "- Pumili ng mulàan sa drop-down menu.\n"
+#~ "- (Opsiyonal) Pumili ng ibáng kulay ng proyekto mula sa lista ng kulay.\n"
+#~ "- Iklik ang Dagdag para lumikha ng proyekto."
+
+#~ msgid "Sections"
+#~ msgstr "Mga Seksiyon"
+
+#~ msgid "Add sections"
+#~ msgstr "Magdagdag ng seksiyon"
+
+#~ msgid ""
+#~ "- It’s always easier to take on a big project when you split it into "
+#~ "easily manageable parts using Planner’s sections.\n"
+#~ "- Organize your projects with sections to group your tasks together and "
+#~ "get a better overview of what needs to be done. Add sections to your "
+#~ "project, drag the relevant tasks to the section they belong in, and "
+#~ "you’ll find it a lot easier to make progress (instead of getting "
+#~ "overwhelmed by a single long list).\n"
+#~ "- At the top right of a project, click the + icon.\n"
+#~ "- Type the name of your section and click Add."
+#~ msgstr ""
+#~ "- Mas madalîng mag-asikaso ng malaking proyekto kapag hinatì mo ito sa "
+#~ "mga madalîng pangasiwaang parte gámit ang seksiyon ng Planner.\n"
+#~ "- Organisahin ang iyong mga proyekto sa mga seksiyon para igrupo ang mga "
+#~ "gawain at makakita ng mas mabuting pananaw sa mga dapat tapusin. "
+#~ "Magdagdag ng seksiyon sa proyekto mo, dalhin ang mga gawaing kaugnay sa "
+#~ "seksiyong kinabibilangan nitó, at malaláman mong higit na madalîng umusad "
+#~ "(kaysa naman matabunan ka ng isang mahabàng lista).\n"
+#~ "- Sa kanang itaas ng proyekto, iklik ang icon na +.\n"
+#~ "- Ilagay ang pangalan ng seksiyon at iklik ang Idagdag."
+
+#~ msgid "Change"
+#~ msgstr "Palitán"
+
+#~ msgid "Disabled"
+#~ msgstr "Naka-disable"
 
 #~ msgid ""
 #~ "Your Inbox is the default place to add new tasks so you can get them out "

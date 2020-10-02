@@ -26,7 +26,11 @@ public class Services.Todoist : GLib.Object {
     public signal void sync_started ();
     public signal void sync_finished ();
 
+    public signal void first_sync_started ();
     public signal void first_sync_finished ();
+
+    public signal void convert_finished (int64 id);
+    public signal void convert_error (int64 id);
 
     /*
         Project Signals
@@ -196,7 +200,7 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void first_sync (string token, string view) {
-        sync_started ();
+        first_sync_started ();
 
         new Thread<void*> ("first_sync", () => {
             string url = TODOIST_SYNC_URL;
@@ -227,11 +231,9 @@ public class Services.Todoist : GLib.Object {
 
                         // User
                         Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-
                         Planner.settings.set_string ("todoist-user-image-id",
                             user_object.get_string_member ("image_id")
                         );
-
                         Planner.settings.set_boolean ("todoist-account", true);
 
                         if (view == "preferences") {
@@ -687,13 +689,6 @@ public class Services.Todoist : GLib.Object {
                     }
                 } else {
                     sync_finished ();
-
-                    string msg = """
-                        Request todoist fail
-                        status code: %i
-                    """;
-
-                    print (msg.printf (mess.status_code));
                 }
             });
 
@@ -1238,8 +1233,9 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.get_string ("todoist-access-token"),
                 get_add_project_json (project, temp_id, uuid)
             );
-
+            
             var message = new Soup.Message ("POST", url);
+
             session.queue_message (message, (sess, mess) => {
                 if (mess.status_code == 200) {
                     var parser = new Json.Parser ();
@@ -1323,7 +1319,7 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("name");
-            builder.add_string_value (project.name);
+            builder.add_string_value (Planner.utils.get_encode_text (project.name));
 
             builder.set_member_name ("color");
             builder.add_int_value (project.color);
@@ -1436,7 +1432,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (project.id);
 
             builder.set_member_name ("name");
-            builder.add_string_value (project.name);
+            builder.add_string_value (Planner.utils.get_encode_text (project.name));
 
             builder.set_member_name ("color");
             builder.add_int_value (project.color);
@@ -1633,7 +1629,7 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("name");
-            builder.add_string_value (section.name);
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
 
             builder.set_member_name ("project_id");
             builder.add_int_value (section.project_id);
@@ -1745,7 +1741,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (section.id);
 
             builder.set_member_name ("name");
-            builder.add_string_value (section.name);
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
 
             builder.end_object ();
 
@@ -2075,10 +2071,13 @@ public class Services.Todoist : GLib.Object {
             builder.begin_object ();
 
             builder.set_member_name ("content");
-            builder.add_string_value (item.content);
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
 
             builder.set_member_name ("project_id");
             builder.add_int_value (item.project_id);
+
+            builder.set_member_name ("priority");
+            builder.add_int_value (item.priority);
 
             if (item.parent_id != 0) {
                 builder.set_member_name ("parent_id");
@@ -2095,15 +2094,22 @@ public class Services.Todoist : GLib.Object {
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (new GLib.DateTime.from_iso8601 (
-                    item.due_date,
-                    new GLib.TimeZone.local ()).format ("%F")
-                );
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
 
                 builder.end_object ();
             }
 
             builder.end_object ();
+
         builder.end_object ();
         builder.end_array ();
 
@@ -2283,7 +2289,7 @@ public class Services.Todoist : GLib.Object {
             builder.add_int_value (item.id);
 
             builder.set_member_name ("content");
-            builder.add_string_value (item.content);
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
 
             builder.set_member_name ("priority");
             if (item.priority == 0) {
@@ -2297,12 +2303,16 @@ public class Services.Todoist : GLib.Object {
                 builder.begin_object ();
 
                 builder.set_member_name ("date");
-                builder.add_string_value (
-                    new GLib.DateTime.from_iso8601 (
-                        item.due_date,
-                        new GLib.TimeZone.local ()
-                    ).format ("%F")
-                );
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
 
                 builder.set_member_name ("is_recurring");
                 if (item.due_is_recurring == 0) {
@@ -2786,9 +2796,7 @@ public class Services.Todoist : GLib.Object {
                     try {
                         var parser = new Json.Parser ();
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-
-                        print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-
+                        
                         var node = parser.get_root ().get_object ();
 
                         var sync_status = node.get_object_member ("sync_status");
@@ -2840,6 +2848,256 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public void convert_to_todoist (Objects.Project project) {
+        new Thread<void*> ("convert_to_todoist", () => {
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL,
+                Planner.settings.get_string ("todoist-access-token"),
+                get_convert_project_json (project)
+            );
+            
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    convert_finished (project.id);
+                } else {
+                    convert_error (project.id);
+                }
+            });
+
+            return null;
+        });
+    }
+
+    public string get_convert_project_json (Objects.Project project) {
+        string project_temp_id = Planner.utils.generate_string ();
+        string project_uuid = Planner.utils.generate_string ();
+
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        // Project JSON
+        builder.begin_object ();
+        builder.set_member_name ("type");
+        builder.add_string_value ("project_add");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (project_temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (project_uuid);
+
+        builder.set_member_name ("args");
+        builder.begin_object ();
+
+        builder.set_member_name ("name");
+        builder.add_string_value (Planner.utils.get_encode_text (project.name));
+
+        builder.set_member_name ("color");
+        builder.add_int_value (project.color);
+
+        builder.end_object ();
+        builder.end_object ();
+
+        // Items JSON
+        foreach (var item in Planner.database.get_all_items_by_project_no_section_no_parent (project.id)) {
+            builder.begin_object ();
+
+            builder.set_member_name ("type");
+            builder.add_string_value ("item_add");
+
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (Planner.utils.generate_string ());
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (Planner.utils.generate_string ());
+
+            builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("content");
+            builder.add_string_value (Planner.utils.get_encode_text (item.content));
+
+            builder.set_member_name ("project_id");
+            builder.add_string_value (project_temp_id);
+
+            builder.set_member_name ("priority");
+            builder.add_int_value (item.priority);
+
+            if (item.parent_id != 0) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (item.parent_id);
+            }
+
+            if (item.section_id != 0) {
+                builder.set_member_name ("section_id");
+                builder.add_int_value (item.section_id);
+            }
+
+            if (item.due_date != "") {
+                builder.set_member_name ("due");
+                builder.begin_object ();
+
+                builder.set_member_name ("date");
+                if (Planner.utils.has_time_from_string (item.due_date)) {
+                    builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            item.due_date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
+
+                builder.end_object ();
+            }
+
+            builder.end_object ();
+            builder.end_object ();
+        }
+
+        // Sections
+        foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
+            string section_temp_id = Planner.utils.generate_string ();
+            string section_uuid = Planner.utils.generate_string ();
+
+            builder.begin_object ();
+            builder.set_member_name ("type");
+            builder.add_string_value ("section_add");
+
+            builder.set_member_name ("temp_id");
+            builder.add_string_value (section_temp_id);
+
+            builder.set_member_name ("uuid");
+            builder.add_string_value (section_uuid);
+
+            builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("name");
+            builder.add_string_value (Planner.utils.get_encode_text (section.name));
+
+            builder.set_member_name ("project_id");
+            builder.add_string_value (project_temp_id);
+
+            builder.end_object ();
+            builder.end_object ();
+
+            foreach (Objects.Item item in Planner.database.get_all_items_by_section_no_parent (section)) {
+                string item_temp_id = Planner.utils.generate_string ();
+                string item_uuid = Planner.utils.generate_string ();
+
+                builder.begin_object ();
+
+                builder.set_member_name ("type");
+                builder.add_string_value ("item_add");
+
+                builder.set_member_name ("temp_id");
+                builder.add_string_value (item_temp_id);
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (item_uuid);
+
+                builder.set_member_name ("args");
+                builder.begin_object ();
+
+                builder.set_member_name ("content");
+                builder.add_string_value (Planner.utils.get_encode_text (item.content));
+
+                builder.set_member_name ("project_id");
+                builder.add_string_value (project_temp_id);
+
+                builder.set_member_name ("priority");
+                builder.add_int_value (item.priority);
+
+                builder.set_member_name ("section_id");
+                builder.add_string_value (section_temp_id);
+
+                if (item.due_date != "") {
+                    builder.set_member_name ("due");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("date");
+                    if (Planner.utils.has_time_from_string (item.due_date)) {
+                        builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
+                    } else {
+                        builder.add_string_value (
+                            new GLib.DateTime.from_iso8601 (
+                                item.due_date,
+                                new GLib.TimeZone.local ()
+                            ).format ("%F")
+                        );
+                    }
+
+                    builder.end_object ();
+                }
+
+                builder.end_object ();
+                builder.end_object ();
+
+                foreach (Objects.Item i in Planner.database.get_all_cheks_by_item (item.id)) {
+                    string temp_id = Planner.utils.generate_string ();
+                    string uuid = Planner.utils.generate_string ();
+
+                    builder.begin_object ();
+
+                    builder.set_member_name ("type");
+                    builder.add_string_value ("item_add");
+
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+
+                    builder.set_member_name ("uuid");
+                    builder.add_string_value (uuid);
+
+                    builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("content");
+                    builder.add_string_value (Planner.utils.get_encode_text (i.content));
+
+                    builder.set_member_name ("parent_id");
+                    builder.add_string_value (temp_id);
+
+                    builder.set_member_name ("priority");
+                    builder.add_int_value (i.priority);
+
+                    if (i.due_date != "") {
+                        builder.set_member_name ("due");
+                        builder.begin_object ();
+
+                        builder.set_member_name ("date");
+                        if (Planner.utils.has_time_from_string (i.due_date)) {
+                            builder.add_string_value (Planner.utils.get_todoist_datetime_format (i.due_date));
+                        } else {
+                            builder.add_string_value (
+                                new GLib.DateTime.from_iso8601 (
+                                    i.due_date,
+                                    new GLib.TimeZone.local ()
+                                ).format ("%F")
+                            );
+                        }
+
+                        builder.end_object ();
+                    }
+
+                    builder.end_object ();
+                    builder.end_object ();
+                }
+            }
+        }
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+    
     private void show_message (string txt_primary, string txt_secondary, string icon) {
         var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
             txt_primary,
