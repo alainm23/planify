@@ -46,12 +46,12 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.5" date="2020-10-02">
+    <release version="2.5.1" date="2020-10-02">
       <description>
         <p>Planner 2.5 is here, with many design improvements, new features, and more.</p>
         <ul>
           <li>Quick Add comes with a new design and new features.</li>
-          <li> Multiple Windows Support.</li>
+          <li>Multiple Windows Support.</li>
           <li>Multiple Selection Support.</li>
           <li>Text Formatting.</li>
           <li>Sort Your Tasks.</li>
