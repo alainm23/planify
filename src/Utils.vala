@@ -989,19 +989,16 @@ public class Utils : GLib.Object {
         var patrons = new Gee.ArrayList<string> ();
 
         patrons.add ("Cassidy James");
-        patrons.add ("Wout");
-        patrons.add ("The Linux Experiment");
-        patrons.add ("William Tumeo");
-        patrons.add ("Cal");
-        patrons.add ("Coryn");
-        patrons.add ("Marco Bluethgen");
         patrons.add ("Luke Gaudreau");
-        patrons.add ("I Sutter");
-        patrons.add ("M");
+        patrons.add ("Marco Bluethgen");
+        patrons.add ("William Tumeo");
         patrons.add ("James");
-        patrons.add ("Sampath Rajapakse");
         patrons.add ("Kyle Riedemann");
         patrons.add ("Richard Prammer");
+        patrons.add ("Robert Zelník");
+        patrons.add ("Jonathan Klimt");
+        patrons.add ("Jeremiah C. Foster");
+        patrons.add ("Mateusz Pogrzebski");
 
         return patrons;
     }

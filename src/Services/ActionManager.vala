@@ -40,8 +40,13 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_UPCOMING = "action_view_upcoming";
+    public const string ACTION_VIEW_HOME = "action_view_home";
     public const string HIDE_ALL = "hide_all";
     public const string ACTION_ESC = "action_esc";
+    public const string ACTION_SORT_DATE = "action_sort_date";
+    public const string ACTION_SORT_PRIORITY = "action_sort_priority";
+    public const string ACTION_SORT_NAME = "action_sort_name";
+    public const string ACTION_OPEN_NEW_PROJECT_WINDOW = "action_open_new_project_window";
     
     
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -63,8 +68,14 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_UPCOMING, action_view_upcoming },
+        { ACTION_VIEW_HOME, action_view_home },
         { HIDE_ALL, hide_all },
         { ACTION_ESC, action_esc },
+        { ACTION_ESC, action_esc },
+        { ACTION_SORT_DATE, action_sort_date },
+        { ACTION_SORT_PRIORITY, action_sort_priority },
+        { ACTION_SORT_NAME, action_sort_name },
+        { ACTION_OPEN_NEW_PROJECT_WINDOW, action_open_new_project_window },
     };
 
     public ActionManager (Planner planner_app, MainWindow window) {
@@ -83,8 +94,9 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
         action_accelerators.set (ACTION_VIEW_UPCOMING, "<Control>3");
-        action_accelerators.set (HIDE_ALL, "<Shift>h");
+        action_accelerators.set (HIDE_ALL, "<Control>h");
         action_accelerators.set (ACTION_ESC, "Escape");
+        action_accelerators.set (ACTION_OPEN_NEW_PROJECT_WINDOW, "<Control>w");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_TOP, "q");
@@ -92,6 +104,10 @@ public class Services.ActionManager : Object {
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
         typing_accelerators.set (ACTION_NEW_FOLDER, "f");
+        typing_accelerators.set (ACTION_SORT_DATE, "d");
+        typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
+        typing_accelerators.set (ACTION_SORT_NAME, "n");
+        typing_accelerators.set (ACTION_VIEW_HOME, "h");
     }
 
     construct {
@@ -192,6 +208,10 @@ public class Services.ActionManager : Object {
         window.go_view (2);
     }
 
+    private void action_view_home () {
+        window.go_home ();
+    }
+
     private void action_add_task_paste () {
         Planner.event_bus.ctrl_pressed = false;
         
@@ -213,6 +233,23 @@ public class Services.ActionManager : Object {
     }
 
     private void hide_all () {
+        Planner.event_bus.ctrl_pressed = false;
         window.hide_all ();
+    }
+    private void action_sort_date () {
+        window.sort (1);
+    }
+
+    private void action_sort_priority () {
+        window.sort (2);
+    }
+
+    private void action_sort_name () {
+        window.sort (3);
+    }
+
+    private void action_open_new_project_window () {
+        Planner.event_bus.ctrl_pressed = false;
+        window.open_new_project_window ();
     }
 }

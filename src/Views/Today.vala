@@ -457,10 +457,11 @@ public class Views.Today : Gtk.EventBox {
         popover.get_style_context ().add_class ("popover-background");
         popover.position = Gtk.PositionType.BOTTOM;
 
-        var sort_project_menu = new Widgets.ModelButton (_("Sort by project"), "planner-project-symbolic", "");
+        // var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
         var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
         var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
-        var share_item = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", "", true);
+        var sort_project_menu = new Widgets.ModelButton (_("Sort by project"), "planner-project-symbolic", "");
+        var share_item = new Widgets.ModelButton (_("Utilities"), "applications-utilities-symbolic", "", true);
 
         // Show Complete
         var show_completed_image = new Gtk.Image ();
@@ -533,10 +534,12 @@ public class Views.Today : Gtk.EventBox {
                 share_menu = new Gtk.Menu ();
 
                 var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
-                var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+                var share_markdown_menu = new Widgets.ImageMenuItem (_("Share on Markdown"), "planner-markdown-symbolic");
+                var hide_items_menu = new Widgets.ImageMenuItem (_("Hide all tasks details"), "view-restore-symbolic");
 
                 share_menu.add (share_mail);
                 share_menu.add (share_markdown_menu);
+                share_menu.add (hide_items_menu);
                 share_menu.show_all ();
 
                 share_mail.activate.connect (() => {
@@ -545,6 +548,11 @@ public class Views.Today : Gtk.EventBox {
         
                 share_markdown_menu.activate.connect (() => {
                     share_markdown ();
+                });
+
+                hide_items_menu.activate.connect (() => {
+                    hide_items ();
+                    popover.popdown ();
                 });
             }
 

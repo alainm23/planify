@@ -212,7 +212,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 36;
         top_box.margin_start = 42;
-        // top_box.margin_top = 6;
+        top_box.margin_top = 6;
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -1149,7 +1149,7 @@ public class Views.Project : Gtk.EventBox {
         var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
         var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
         //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-        var share_item = new Widgets.ModelButton (_("Share"), "emblem-shared-symbolic", "", true);
+        var share_item = new Widgets.ModelButton (_("Utilities"), "applications-utilities-symbolic", "", true);
 
         var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
         delete_menu.get_style_context ().add_class ("menu-danger");
@@ -1296,10 +1296,12 @@ public class Views.Project : Gtk.EventBox {
                 share_menu = new Gtk.Menu ();
 
                 var share_mail = new Widgets.ImageMenuItem (_("Send by e-mail"), "internet-mail-symbolic");
-                var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+                var share_markdown_menu = new Widgets.ImageMenuItem (_("Share on Markdown"), "planner-markdown-symbolic");
+                var hide_items_menu = new Widgets.ImageMenuItem (_("Hide all tasks details"), "view-restore-symbolic");
 
                 share_menu.add (share_mail);
                 share_menu.add (share_markdown_menu);
+                share_menu.add (hide_items_menu);
                 share_menu.show_all ();
 
                 share_mail.activate.connect (() => {
@@ -1308,6 +1310,11 @@ public class Views.Project : Gtk.EventBox {
         
                 share_markdown_menu.activate.connect (() => {
                     project.share_markdown ();
+                });
+
+                hide_items_menu.activate.connect (() => {
+                    Planner.event_bus.hide_items_project (project.id);
+                    popover.popdown ();
                 });
             }
 

@@ -791,6 +791,41 @@ public class MainWindow : Gtk.Window {
         }
     }
 
+    public void open_new_project_window () {
+        if (stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) stack.visible_child).project;
+
+            var dialog = new Dialogs.Project (project, false);
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        }
+    }
+
+    public void sort (int sort) {
+        if (stack.visible_child_name == "inbox-view") {
+            Planner.database.update_sort_order_project (Planner.settings.get_int64 ("inbox-project"), sort);
+        } else if (stack.visible_child_name == "today-view") {
+            Planner.settings.set_int ("today-sort-order", sort);
+        } else if (stack.visible_child_name == "upcoming-view") {
+            
+        } else if (stack.visible_child_name == "label-view") {
+            
+        } else if (stack.visible_child_name == "priority-view") {
+            
+        } else {
+            var project = ((Views.Project) stack.visible_child).project;
+            Planner.database.update_sort_order_project (project.id, sort);
+        }
+    }
+
+    public void go_home () {
+        if (Planner.settings.get_boolean ("homepage-project")) {
+            go_project (Planner.settings.get_int64 ("homepage-project-id"));
+        } else {
+            go_view (Planner.settings.get_int ("homepage-item"));
+        }
+    }
+
     public void add_task_clipboard_action (string text) {
         var item = new Objects.Item ();
         item.content = text;       
