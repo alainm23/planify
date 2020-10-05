@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-09-24 07:40+0000\n"
+"PO-Revision-Date: 2020-10-07 21:26+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -23,35 +23,40 @@ msgstr ""
 msgid ""
 "Planner 2.5 is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner 2.5 tot uw dienst! 2.5 bevat vele ontwerpverbeteringen, nieuwe "
+"functies en nog veel meer."
 
 #: src/Application.vala:197
-#, fuzzy
 msgid "Quick Add Improvements"
-msgstr "Bugs en verbeteringen:"
+msgstr "Verbeteringen aan 'Snel toevoegen'"
 
 #: src/Application.vala:197
 msgid "Quick Add comes with a new design and new features."
-msgstr ""
+msgstr "'Snel toevoegen' heeft een nieuw ontwerp en nieuwe functies."
 
 #: src/Application.vala:198
 msgid "Multiple Windows Support"
-msgstr ""
+msgstr "Ondersteuning voor meerdere vensters"
 
 #: src/Application.vala:198
 msgid ""
 "Open your projects in separate windows and drag your tasks from one side to "
 "the other."
 msgstr ""
+"Open je projecten in afzonderlijke vensters en versleep taken van het ene "
+"naar het andere venster."
 
 #: src/Application.vala:199
 msgid "Multiple Selection Support"
-msgstr ""
+msgstr "Ondersteuning voor meerdere selecties"
 
 #: src/Application.vala:199
 msgid ""
 "Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key "
 "and selecting the tasks."
 msgstr ""
+"Beheer meerdere taken tegelijk door <b>Ctrl</b> ingedrukt te houden en "
+"meerdere taken te selecteren."
 
 #: src/MainWindow.vala:49
 msgid "Planner"
@@ -451,7 +456,6 @@ msgstr "Nieuw venster openen"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:799
 #: src/Views/Project.vala:1147
-#, fuzzy
 msgid "Edit Project"
 msgstr "Project aanpassen"
 
@@ -771,20 +775,19 @@ msgstr "De taak is toegevoegd van het klembord"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "De taak kan niet worden gekloond. Probeer het opnieuw."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "De taak kan niet worden toegevoegd. Probeer het opnieuw."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Project delen"
+msgstr "Het project is geconverteerd"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Het project kan niet worden geconverteerd. Probeer het opnieuw."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -940,9 +943,8 @@ msgstr "Sorteren op naam"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:804 src/Views/Today.vala:464
 #: src/Views/Project.vala:1152
-#, fuzzy
 msgid "Utilities"
-msgstr "Prioriteiten"
+msgstr "Hulpmiddelen"
 
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:472
 #: src/Views/Project.vala:1163
@@ -951,15 +953,13 @@ msgstr "Afgeronde taken tonen"
 
 #: src/Views/Inbox.vala:951 src/Views/Today.vala:537
 #: src/Views/Project.vala:1299
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Delen met markdown"
 
 #: src/Views/Inbox.vala:952 src/Views/Today.vala:538
 #: src/Views/Project.vala:1300
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Details tonen"
+msgstr "Alle taakdetails verbergen"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -1048,13 +1048,12 @@ msgid "Uploading changes…"
 msgstr "Bezig met uploaden van aanpassingen…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Opties"
+msgstr "Opties:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Converteren naar Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
@@ -1065,19 +1064,17 @@ msgid "Direct access:"
 msgstr "Directe toegang:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Verplaatsen naar project"
+msgstr "Project converteren"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Weet je zeker dat je <b>%s</b> wilt verwijderen?"
+msgstr "Weet je zeker dat je <b>%s</b> wilt converteren naar Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Project delen"
+msgstr "Bezig met converteren…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
