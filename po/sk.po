@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-04-07 16:18+0000\n"
-"Last-Translator: Marek Stojkovič <marek.stojkovic@msti.sk>\n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
+"POT-Creation-Date: 2020-09-22 13:54-0500\n"
+"PO-Revision-Date: 2020-10-05 12:12+0000\n"
+"Last-Translator: Michal Čihař <michal@cihar.com>\n"
 "Language-Team: Slovak <https://hosted.weblate.org/projects/planner/"
 "translations/sk/>\n"
 "Language: sk\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/Application.vala:195
 msgid ""
@@ -193,7 +193,7 @@ msgstr "Rýchle pridanie aktivované!"
 #: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr "Vyskúšaj to aktivovať. Zmeniť to môžeš v nastaveniach"
+msgstr "Vyskúšaj %s pro aktivaci. Zmeniť to môžeš v nastaveniach"
 
 #: src/Utils.vala:897
 msgid "🚀️ Getting Started"
