@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-09-24 07:40+0000\n"
+"PO-Revision-Date: 2020-10-07 21:26+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -23,34 +23,40 @@ msgstr ""
 msgid ""
 "Planner 2.5 is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner 2.5, birçok tasarım iyileştirmesi, yeni özellikler ve daha "
+"fazlasıyla burada."
 
 #: src/Application.vala:197
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Hızlı Ekleme İyileştirmeleri"
 
 #: src/Application.vala:197
 msgid "Quick Add comes with a new design and new features."
-msgstr ""
+msgstr "Hızlı Ekleme, yeni bir tasarım ve yeni özelliklerle birlikte geliyor."
 
 #: src/Application.vala:198
 msgid "Multiple Windows Support"
-msgstr ""
+msgstr "Çoklu Pencere Desteği"
 
 #: src/Application.vala:198
 msgid ""
 "Open your projects in separate windows and drag your tasks from one side to "
 "the other."
 msgstr ""
+"Planlarınızı ayrı pencerelerde açın ve görevlerinizi bir taraftan diğerine "
+"sürükleyin."
 
 #: src/Application.vala:199
 msgid "Multiple Selection Support"
-msgstr ""
+msgstr "Çoklu Seçim Desteği"
 
 #: src/Application.vala:199
 msgid ""
 "Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key "
 "and selecting the tasks."
 msgstr ""
+"<b>Ctrl</b> tuşuna basılı tutarak ve görevleri seçerek birden fazla görevi "
+"aynı anda yönetin."
 
 #: src/MainWindow.vala:49
 msgid "Planner"
@@ -204,9 +210,9 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
-"Bu proje, Planner'ın temellerini öğrenmenize ve düzenli kalmak ve yapmanız "
-"gereken her şeyin üstünde basit bir görev yönetim sistemine başlamanıza "
-"yardımcı olacaktır."
+"Bu plan, Planner'ın temellerini öğrenmenize ve düzenli kalmanız ve yapmanız "
+"gereken her şeyin üstesinden gelmeniz için basit bir görev yönetimi sistemi "
+"ile başlamanıza yardımcı olacaktır."
 
 #: src/Utils.vala:903
 msgid "Adding new tasks"
@@ -449,9 +455,8 @@ msgstr "Yeni Pencere Aç"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:799
 #: src/Views/Project.vala:1147
-#, fuzzy
 msgid "Edit Project"
-msgstr "Projeyi düzenle"
+msgstr "Planı Düzenle"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -613,7 +618,7 @@ msgstr "Metin"
 
 #: src/Widgets/ItemRow.vala:1499
 msgid "Duplicate"
-msgstr "Çoğaltmak"
+msgstr "Kopyala"
 
 #: src/Widgets/ItemRow.vala:1633 src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
@@ -769,20 +774,19 @@ msgstr "Görev panodan eklendi"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Görev kopyalanamadı. Tekrar deneyin."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Panodan görev eklenemedi. Tekrar deneyin."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Planı Sil"
+msgstr "Plan dönüştürüldü"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Plan dönüştürülemedi. Tekrar deneyin."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -938,9 +942,8 @@ msgstr "Ada göre sırala"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:804 src/Views/Today.vala:464
 #: src/Views/Project.vala:1152
-#, fuzzy
 msgid "Utilities"
-msgstr "Öncelikler"
+msgstr "Araçlar"
 
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:472
 #: src/Views/Project.vala:1163
@@ -949,15 +952,13 @@ msgstr "Tamamlananları Göster"
 
 #: src/Views/Inbox.vala:951 src/Views/Today.vala:537
 #: src/Views/Project.vala:1299
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "İndirim"
+msgstr "Markdown olarak paylaş"
 
 #: src/Views/Inbox.vala:952 src/Views/Today.vala:538
 #: src/Views/Project.vala:1300
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Ayrıntıları Gizle"
+msgstr "Tüm görev ayrıntılarını gizle"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -981,7 +982,7 @@ msgstr "Bugün için bir görev eklemek için + işaretine dokunun."
 
 #: src/Views/Today.vala:463
 msgid "Sort by project"
-msgstr "Projeye göre sırala"
+msgstr "Plana göre sırala"
 
 #: src/Views/Today.vala:583
 msgid "Today was copied to the Clipboard."
@@ -1035,7 +1036,7 @@ msgstr "Lütfen kimlik bilgilerinizi girin…"
 
 #: src/Dialogs/ProjectSettings.vala:41
 msgid "Project Settings"
-msgstr "Proje Ayarları"
+msgstr "Plan Ayarları"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1046,36 +1047,33 @@ msgid "Uploading changes…"
 msgstr "Değişiklikler yükleniyor…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Bölümler"
+msgstr "Seçenekler:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Todoist'e dönüştür"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Dönüştür"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
 msgstr "Doğrudan erişim:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Planı Taşı"
+msgstr "Planı Dönüştür"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Silmek istediğine emin misin <b>%s</b>?"
+msgstr "<b>%s</b> planını Todoist'e dönüştürmek istediğinizden emin misiniz?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Projeye göre sırala"
+msgstr "Plan dönüştürülüyor…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
@@ -1388,7 +1386,7 @@ msgstr "Ara"
 #: src/Dialogs/QuickFind.vala:158
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
-"Hızlı bir şekilde projeleri ve görünümleri değiştirin, görevleri bulun, "
+"Hızlı bir şekilde planları ve görünümleri değiştirin, görevleri bulun, "
 "etiketlere göre arama yapın."
 
 #: src/Dialogs/QuickFind.vala:186
