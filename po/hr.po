@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-09-27 19:41+0000\n"
+"PO-Revision-Date: 2020-10-07 21:26+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -1041,9 +1041,8 @@ msgid "Uploading changes…"
 msgstr "Promjene se prenose …"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Odjeljci"
+msgstr "Opcije:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"

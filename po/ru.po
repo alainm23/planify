@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-09-24 07:40+0000\n"
+"PO-Revision-Date: 2020-10-07 21:26+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -24,34 +24,40 @@ msgstr ""
 msgid ""
 "Planner 2.5 is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner 2.5 уже здесь, со многими улучшениями дизайна, новыми функциями и "
+"многим другим."
 
 #: src/Application.vala:197
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Улучшения быстрого добавления"
 
 #: src/Application.vala:197
 msgid "Quick Add comes with a new design and new features."
-msgstr ""
+msgstr "Быстрое добавление получило новый дизайн и новые функции."
 
 #: src/Application.vala:198
 msgid "Multiple Windows Support"
-msgstr ""
+msgstr "Поддержка нескольких окон"
 
 #: src/Application.vala:198
 msgid ""
 "Open your projects in separate windows and drag your tasks from one side to "
 "the other."
 msgstr ""
+"Открывайте ваши проекты в отдельных окнах и переносите ваши задачи с одной "
+"стороны на другую."
 
 #: src/Application.vala:199
 msgid "Multiple Selection Support"
-msgstr ""
+msgstr "Поддержка нескольких разделов"
 
 #: src/Application.vala:199
 msgid ""
 "Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key "
 "and selecting the tasks."
 msgstr ""
+"Управляйте несколькими задачами одновременно зажимая <b>\"Ctrl\"</b> и "
+"выбирая задачи."
 
 #: src/MainWindow.vala:49
 msgid "Planner"
@@ -244,11 +250,11 @@ msgstr "Открыть почту"
 
 #: src/Utils.vala:965
 msgid "Open Today"
-msgstr "Открыть \"Сегодня\""
+msgstr "Открыть Сегодня"
 
 #: src/Utils.vala:966
 msgid "Open Upcoming"
-msgstr "Открыть \"Предстоящие\""
+msgstr "Открыть Предстоящие"
 
 #: src/Utils.vala:967
 msgid "Open Search"
@@ -448,7 +454,6 @@ msgstr "Открыть новое окно"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:799
 #: src/Views/Project.vala:1147
-#, fuzzy
 msgid "Edit Project"
 msgstr "Изменить проект"
 
@@ -768,20 +773,19 @@ msgstr "Задача добавлена из буфера обмена"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Не удалось продублирвать задачу. Попробуйте снова."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Не удалось добавить задачу в буфер обмена. Попробуйте снова."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Удалить проект"
+msgstr "Конвертированный проект"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Не удалось конвертировать проект. Попробуйте снова."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -936,26 +940,23 @@ msgstr "Сортировать по имени"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:804 src/Views/Today.vala:464
 #: src/Views/Project.vala:1152
-#, fuzzy
 msgid "Utilities"
-msgstr "Приоритеты"
+msgstr "Утилиты"
 
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:472
 #: src/Views/Project.vala:1163
 msgid "Show Completed"
-msgstr "Показать выполненные задачи"
+msgstr "Показать выполненное"
 
 #: src/Views/Inbox.vala:951 src/Views/Today.vala:537
 #: src/Views/Project.vala:1299
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Поделиться Markdown"
 
 #: src/Views/Inbox.vala:952 src/Views/Today.vala:538
 #: src/Views/Project.vala:1300
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Скрыть детали"
+msgstr "Скрыть детали всех задач"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -983,7 +984,7 @@ msgstr "Сортировать по проекту"
 
 #: src/Views/Today.vala:583
 msgid "Today was copied to the Clipboard."
-msgstr "\"Сегодня\" было скопировано в буфер обмена."
+msgstr "Сегодня скопировано в буфер обмена."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -1044,36 +1045,33 @@ msgid "Uploading changes…"
 msgstr "Загрузка изменений…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Разделы"
+msgstr "Опции:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Конвертировать в Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Конвертировать"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
 msgstr "Прямой доступ:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Переместить в проект"
+msgstr "Конвертировать проект"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Вы уверены, что хотите удалить <b>%s</b>?"
+msgstr "Вы уверены, что хотите конвертировать <b>%s</b> в Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Сортировать по проекту"
+msgstr "Сортировка проекта…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
@@ -1136,7 +1134,7 @@ msgid ""
 msgstr ""
 "Когда вы открываете Planner, убедитесь, что вы видите задачи, которые "
 "являются для вас наиболее важными. По умолчанию главной страницей является "
-"вкладка <b>\"Отложенные\"</b>, но вы можете сменить ее на нужную вам."
+"вкладка <b>Отложенные</b>, но вы можете сменить ее на нужную вам."
 
 #: src/Dialogs/Preferences/Preferences.vala:272 src/Dialogs/QuickFind.vala:294
 #: src/Dialogs/QuickFind.vala:564
@@ -1155,7 +1153,7 @@ msgstr "Без счетчика"
 
 #: src/Dialogs/Preferences/Preferences.vala:364
 msgid "Today + Inbox"
-msgstr "\"Сегодня\" + \"Отложенные\""
+msgstr "Сегодня + Отложенные"
 
 #: src/Dialogs/Preferences/Preferences.vala:417
 msgid ""
@@ -1331,9 +1329,9 @@ msgid ""
 msgstr ""
 "Вы можете подключить ваше приложение <b>календаря</b> к Planner, чтобы "
 "увидеть ваши события и задачи вместе в одном месте. Вы увидите события как "
-"из личных, так и из общих календарей в <b>\"Сегодня\"</b> и <b>\"Предстоящих"
-"\"</b>. Это полезно, когда вы управляете своим днем, и когда вы планируете "
-"на неделю вперед."
+"из личных, так и из общих календарей в <b>Сегодня</b> и <b>Предстоящих</b>. "
+"Это полезно, когда вы управляете своим днем, и когда вы планируете на неделю "
+"вперед."
 
 #: src/Dialogs/Preferences/Preferences.vala:1147
 msgid ""
