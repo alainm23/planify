@@ -2,7 +2,7 @@
     "app-id": "com.github.alainm23.planner",
     "sdk": "org.gnome.Sdk",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.34",
+    "runtime-version": "3.36",
     "base": "io.elementary.BaseApp",
     "base-version": "juno-19.08",
     "command": "com.github.alainm23.planner",

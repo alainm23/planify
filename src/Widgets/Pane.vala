@@ -176,7 +176,7 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;
 
-        // var caldav_widget = new Widgets.CalDavList ();
+        //  var caldav_widget = new Widgets.CalDavList ();
         //  caldav_widget.tasklist_selected.connect ((source) => {
         //      tasklist_selected (source);
         //  });

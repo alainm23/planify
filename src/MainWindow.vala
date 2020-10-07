@@ -277,7 +277,7 @@ public class MainWindow : Gtk.Window {
         });
 
         pane.tasklist_selected.connect ((source) => {
-            go_tasklist (source);
+            // go_tasklist (source);
         });
 
         pane.show_quick_find.connect (show_quick_find);
@@ -560,15 +560,15 @@ public class MainWindow : Gtk.Window {
         stack.visible_child_name = "priority-view";
     }
 
-    public void go_tasklist (E.Source source) {
-        //  if (tasklist_view == null) {
-        //      tasklist_view = new Views.TaskList ();
-        //      stack.add_named (tasklist_view, "tasklist-view");
-        //  }
+    //  public void go_tasklist (E.Source source) {
+    //      if (tasklist_view == null) {
+    //          tasklist_view = new Views.TaskList ();
+    //          stack.add_named (tasklist_view, "tasklist-view");
+    //      }
 
-        //  tasklist_view.source = source;
-        //  stack.visible_child_name = "tasklist-view";
-    }
+    //      tasklist_view.source = source;
+    //      stack.visible_child_name = "tasklist-view";
+    //  }
 
     private void init_badge_count () {
         set_badge_visible ();

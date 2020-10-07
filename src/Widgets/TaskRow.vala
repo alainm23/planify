@@ -282,7 +282,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         // Clear the old description
         int count = ical_task.count_properties (ICal.PropertyKind.DESCRIPTION_PROPERTY);
         for (int i = 0; i < count; i++) {
-            unowned ICal.Property remove_prop;
+            ICal.Property remove_prop;
             remove_prop = ical_task.get_first_property (ICal.PropertyKind.DESCRIPTION_PROPERTY);
             ical_task.remove_property (remove_prop);
         }
@@ -366,10 +366,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     public void update_request () {
         if (receive_updates) {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
-
-            int priority;
-            task.get_priority (out priority);
-            print ("%s\n".printf (priority.to_string ()));
 
             completed = ical_task.get_status () == ICal.PropertyStatus.COMPLETED;
             checked_button.active = completed;
