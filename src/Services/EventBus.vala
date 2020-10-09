@@ -59,4 +59,7 @@ public class Services.EventBus : Object {
 
     // Hide all items
     public signal void hide_items_project (int64 project_id);
+
+    // Show Task Deleted
+    public signal void show_undo_task (string uid, string type="");
 }

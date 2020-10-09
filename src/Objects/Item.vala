@@ -116,7 +116,7 @@ public class Objects.Item : GLib.Object {
             Planner.todoist.add_item (item, -1, temp_id_mapping);
             Planner.notifications.send_undo_notification (
                 _("Duplicating task…"),
-                Planner.utils.build_undo_object ("item_duplicate", "item", temp_id_mapping, "", "")
+                Planner.utils.build_undo_object ("item_duplicate", "item", temp_id_mapping.to_string (), "", "")
             );
         } else {
             item.id = Planner.utils.generate_id ();

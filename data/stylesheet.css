@@ -1243,3 +1243,11 @@ paned.horizontal > separator {
 .background-transparent {
     background-color: transparent;
 }
+
+.note-textview {
+    background-color: @projectview_color;
+}
+
+.note-textview text {
+    background: alpha (#3689e6, 0.25);
+}

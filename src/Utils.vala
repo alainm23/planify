@@ -1187,7 +1187,7 @@ public class Utils : GLib.Object {
     //      item.content = clean_text;
     //  }
 
-    public string build_undo_object (string type, string object_type, int64 object_id, string undo_type, string undo_value) {
+    public string build_undo_object (string type, string object_type, string object_id, string undo_type, string undo_value) {
         var builder = new Json.Builder ();
         builder.begin_object ();
 
@@ -1198,7 +1198,7 @@ public class Utils : GLib.Object {
         builder.add_string_value (object_type);
 
         builder.set_member_name ("object_id");
-        builder.add_int_value (object_id);
+        builder.add_string_value (object_id);
 
         if (undo_type != "") {
             builder.set_member_name ("undo_type");

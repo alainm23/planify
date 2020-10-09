@@ -96,7 +96,7 @@ public class Widgets.Toast : Gtk.Revealer {
             duration = -1;
 
             Planner.todoist.item_added_completed.connect ((_temp_id_mapping) => {
-                if (Planner.todoist.get_int_member_by_object (query, "object_id") == _temp_id_mapping) {
+                if (Planner.todoist.get_string_member_by_object (query, "object_id") == _temp_id_mapping.to_string ()) {
                     reveal_child = false;
 
                     if (Planner.todoist.get_string_member_by_object (query, "type") == "item_duplicate") {
@@ -113,7 +113,7 @@ public class Widgets.Toast : Gtk.Revealer {
             });
 
             Planner.todoist.item_added_error.connect ((_temp_id_mapping) => {
-                if (Planner.todoist.get_int_member_by_object (query, "object_id") == _temp_id_mapping) {
+                if (Planner.todoist.get_string_member_by_object (query, "object_id") == _temp_id_mapping.to_string ()) {
                     reveal_child = false;
 
                     if (Planner.todoist.get_string_member_by_object (query, "type") == "item_duplicate") {
@@ -142,7 +142,7 @@ public class Widgets.Toast : Gtk.Revealer {
             duration = -1;
 
             Planner.todoist.convert_finished.connect ((id) => {
-                if (Planner.todoist.get_int_member_by_object (query, "object_id") == id) {
+                if (Planner.todoist.get_string_member_by_object (query, "object_id") == id.to_string ()) {
                     reveal_child = false;
 
                     Planner.notifications.send_notification (_("Converted project"));
@@ -157,7 +157,7 @@ public class Widgets.Toast : Gtk.Revealer {
             });
 
             Planner.todoist.convert_error.connect ((id) => {
-                if (Planner.todoist.get_int_member_by_object (query, "object_id") == id) {
+                if (Planner.todoist.get_string_member_by_object (query, "object_id") == id.to_string ()) {
                     reveal_child = false;
 
                     debug ("Error converting project to todoist");
@@ -209,7 +209,7 @@ public class Widgets.Toast : Gtk.Revealer {
             
             if (Planner.todoist.get_string_member_by_object (query, "object_type") == "item") {
                 var item = Planner.database.get_item_by_id (
-                    Planner.todoist.get_int_member_by_object (query, "object_id")
+                    int64.parse (Planner.todoist.get_string_member_by_object (query, "object_id"))
                 );
                 
                 if (item.id != 0) {
@@ -228,6 +228,13 @@ public class Widgets.Toast : Gtk.Revealer {
                     } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule") {
                         Planner.database.update_item_recurring_due_date (item, -1);
                     }
+                }
+            } else if (Planner.todoist.get_string_member_by_object (query, "object_type") == "task") {
+                if (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete") {
+                    Planner.event_bus.show_undo_task (
+                        Planner.todoist.get_string_member_by_object (query, "object_id"),
+                        "item_delete"
+                    );
                 }
             }
 
@@ -285,7 +292,7 @@ public class Widgets.Toast : Gtk.Revealer {
         if (query != "") {
             if (Planner.todoist.get_string_member_by_object (query, "object_type") == "item") {
                 var item = Planner.database.get_item_by_id (
-                    Planner.todoist.get_int_member_by_object (query, "object_id")
+                    int.parse (Planner.todoist.get_string_member_by_object (query, "object_id"))
                 );
 
                 if (item.id != 0) {
@@ -298,6 +305,8 @@ public class Widgets.Toast : Gtk.Revealer {
                         Planner.database.item_completed (item);
                     }
                 }
+            } else if (Planner.todoist.get_string_member_by_object (query, "object_type") == "task") {
+                
             }
         }
 

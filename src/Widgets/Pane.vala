@@ -176,10 +176,13 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;
 
-        //  var caldav_widget = new Widgets.CalDavList ();
-        //  caldav_widget.tasklist_selected.connect ((source) => {
-        //      tasklist_selected (source);
-        //  });
+        var caldav_widget = new Widgets.CalDavList ();
+        caldav_widget.tasklist_selected.connect ((source) => {
+            tasklist_selected (source);
+
+            project_listbox.unselect_all ();
+            listbox.unselect_all ();
+        });
 
         var listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
@@ -193,7 +196,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (drop_area_grid);
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
-        // listbox_grid.add (caldav_widget);
+        listbox_grid.add (caldav_widget);
         
         listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
@@ -326,6 +329,8 @@ public class Widgets.Pane : Gtk.EventBox {
                 activated (row.get_index ());
                 Planner.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
+                
+                caldav_widget.unselect_all ();
             }
         });
 
@@ -335,6 +340,8 @@ public class Widgets.Pane : Gtk.EventBox {
                 
                 var project = ((Widgets.ProjectRow) row).project;
                 Planner.utils.pane_project_selected (project.id, 0);
+
+                caldav_widget.unselect_all ();
             }
         });
 

@@ -21,19 +21,23 @@
 
 public class Widgets.NewItem : Gtk.ListBoxRow {
     public int64 project_id { get; set; }
-    public int64 section_id { get; construct; }
-    public int is_todoist { get; construct; }
-    public int index { get; construct; }
-    public bool has_index { get; set; default = false; }
+    public int64 section_id { get; set; }
+    public int is_todoist { get; set; }
+    public int index { get; set; }
     public string due_date { get; set; default = ""; }
     public int priority { get; set; default = 1; }
-    public Gtk.ListBox? listbox { get; construct; }
+    public Gtk.ListBox? listbox { get; set; default = null; }
+
+    public E.Source source { get; set; default = null; }
+
     private Gtk.CheckButton checked_button;
     private Gtk.ToggleButton project_button;
     private Gtk.ToggleButton reschedule_button;
     private Gtk.ToggleButton priority_button;
+    private Gtk.Stack submit_stack;
     private Gtk.Image priority_image;
     private Gtk.Image project_icon;
+    private Gtk.Grid source_color;
     private Gtk.Label project_label;
     private Gtk.Popover projects_popover = null;
     private Gtk.Popover reschedule_popover = null;
@@ -50,7 +54,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Label time_label;
     private Gtk.Revealer time_revealer;
 
-    public int64 temp_id_mapping {get; set; default = 0; }
+    public int64 temp_id_mapping { get; set; default = 0; }
     private const string TODAY = _("today");
     private const string TOMORROW = _("tomorrow");
     private const string DATE_1D = _("1d");
@@ -64,18 +68,42 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private bool entry_menu_opened = false;
 
-    public NewItem (int64 project_id, int64 section_id, 
-                    int is_todoist, string due_date="", 
-                    int index, Gtk.ListBox? listbox=null) {
-        Object (
-            project_id: project_id,
-            section_id: section_id,
-            is_todoist: is_todoist,
-            due_date: due_date,
-            index: index,
-            listbox: listbox
-        );
+    public bool loading {
+        set {
+            if (value) {
+                submit_stack.visible_child_name = "spinner";
+                sensitive = false;
+            } else {
+                submit_stack.visible_child_name = "label";
+                sensitive = true;
+            }
+        }
+    }
 
+    public NewItem (int64 project_id,
+                    int64 section_id,
+                    int is_todoist,
+                    string due_date="",
+                    int index=-1,
+                    Gtk.ListBox? listbox=null) {
+        this.project_id = project_id;
+        this.section_id = section_id;
+        this.is_todoist = is_todoist;
+        this.due_date = due_date;
+        this.index = index;
+        this.listbox = listbox;
+
+        build_ui ();
+    }
+
+    public NewItem.for_source (E.Source source, Gtk.ListBox? listbox=null) {
+        this.source = source;
+        this.listbox = listbox;
+        
+        build_ui ();
+    }
+
+    private void build_ui () {
         can_focus = false;
         activatable = false;
         selectable = false;
@@ -108,7 +136,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var submit_spinner = new Gtk.Spinner ();
         submit_spinner.start ();
 
-        var submit_stack = new Gtk.Stack ();
+        submit_stack = new Gtk.Stack ();
         submit_stack.expand = true;
         submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
@@ -134,21 +162,42 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         reschedule_button.add (get_schedule_grid ());
         update_due_date ();
 
-        var project = Planner.database.get_project_by_id (project_id);
+        if (source == null) {
+            var project = Planner.database.get_project_by_id (project_id);
 
-        project_icon = new Gtk.Image ();
-        project_icon.valign = Gtk.Align.CENTER;
-        project_icon.halign = Gtk.Align.CENTER;
-        project_icon.pixel_size = 14;
-        project_icon.gicon = new ThemedIcon ("color-%i".printf (project.color));
-        if (project.inbox_project == 1) {
-            project_icon.gicon = new ThemedIcon ("planner-inbox");
+            project_icon = new Gtk.Image ();
+            project_icon.valign = Gtk.Align.CENTER;
+            project_icon.halign = Gtk.Align.CENTER;
+            project_icon.pixel_size = 14;
+            project_icon.gicon = new ThemedIcon ("color-%i".printf (project.color));
+            if (project.inbox_project == 1) {
+                project_icon.gicon = new ThemedIcon ("planner-inbox");
+            }
+        } else {
+            var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+            source_color = new Gtk.Grid ();
+            source_color.valign = Gtk.Align.CENTER;
+            source_color.halign = Gtk.Align.CENTER;
+            source_color.width_request = 12;
+            source_color.height_request = 12;
+            source_color.get_style_context ().add_class ("source-color");
+            apply_color (task_list.dup_color ());
         }
 
-        project_label = new Gtk.Label (project.name);
+        project_label = new Gtk.Label (null);
+        if (source == null) {
+            project_label.label = Planner.database.get_project_by_id (project_id).name;
+        } else {
+            project_label.label = source.display_name;
+        }
 
         var project_grid = new Gtk.Grid ();
-        project_grid.add (project_icon);
+        if (source == null) {
+            project_grid.add (project_icon);
+        } else {
+            project_grid.add (source_color);
+        }
         project_grid.add (project_label);
 
         project_button = new Gtk.ToggleButton ();
@@ -175,6 +224,21 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.pack_end (reschedule_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
 
+        var note_textview = new Widgets.TextView ();
+        note_textview.margin_top = 6;
+        note_textview.margin_end = 12;
+        note_textview.margin_start = 27;
+        note_textview.hexpand = true;
+        note_textview.valign = Gtk.Align.START;
+        note_textview.wrap_mode = Gtk.WrapMode.CHAR;
+        note_textview.get_style_context ().add_class ("textview");
+        note_textview.get_style_context ().add_class ("note-textview");
+
+        var note_revealer = new Gtk.Revealer ();
+        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        note_revealer.add (note_textview);
+        note_revealer.reveal_child = false;
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.row_spacing = 0;
@@ -185,6 +249,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.get_style_context ().add_class ("check-eventbox");
         main_grid.get_style_context ().add_class ("check-eventbox-border");
         main_grid.add (content_grid);
+        main_grid.add (note_revealer);
         main_grid.add (tools_box);
 
         var grid = new Gtk.Grid ();
@@ -700,7 +765,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.grab_focus ();
     }
 
-    private void hide_destroy () {
+    public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (500, () => {
             destroy ();
@@ -714,43 +779,55 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         }
 
         if (content_entry.text.strip () != "") {
-            var item = new Objects.Item ();
-            item.priority = priority;         
-            item.project_id = project_id;
-            item.section_id = section_id;
-            item.is_todoist = is_todoist;
-            item.due_date = due_date;
-            item.content = content_entry.text;
-            temp_id_mapping = Planner.utils.generate_id ();
-            
-            if (is_todoist == 1) {
-                Planner.todoist.add_item (item, index, temp_id_mapping);
-            } else {
-                item.id = Planner.utils.generate_id ();
-                if (Planner.database.insert_item (item, index)) {
-                    var i = index;
-                    if (i != -1) {
-                        i++;
+            if (source == null) {
+                var item = new Objects.Item ();
+                item.priority = priority;         
+                item.project_id = project_id;
+                item.section_id = section_id;
+                item.is_todoist = is_todoist;
+                item.due_date = due_date;
+                item.content = content_entry.text;
+                temp_id_mapping = Planner.utils.generate_id ();
+                
+                if (is_todoist == 1) {
+                    Planner.todoist.add_item (item, index, temp_id_mapping);
+                } else {
+                    item.id = Planner.utils.generate_id ();
+                    if (Planner.database.insert_item (item, index)) {
+                        var i = index;
+                        if (i != -1) {
+                            i++;
+                        }
+
+                        var new_item = new Widgets.NewItem (
+                            project_id,
+                            section_id,
+                            is_todoist,
+                            due_date,
+                            i,
+                            listbox
+                        );
+
+                        if (index == -1) {
+                            listbox.add (new_item);
+                        } else {
+                            listbox.insert (new_item, i);
+                        }
+
+                        listbox.show_all ();
+                        hide_destroy ();
                     }
-
-                    var new_item = new Widgets.NewItem (
-                        project_id,
-                        section_id,
-                        is_todoist,
-                        due_date,
-                        i,
-                        listbox
-                    );
-
-                    if (index == -1) {
-                        listbox.add (new_item);
-                    } else {
-                        listbox.insert (new_item, i);
-                    }
-
-                    listbox.show_all ();
-                    hide_destroy ();
                 }
+            } else {
+                loading = true;
+
+                var task = new ECal.Component ();
+                task.set_new_vtype (ECal.ComponentVType.TODO);
+
+                // unowned ICal.Component ical_task = task.get_icalcomponent ();
+                
+                task.get_icalcomponent ().set_summary (content_entry.text);
+                Planner.task_store.add_task (source, task, this);
             }
         }
     }
@@ -856,6 +933,37 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 due_image.gicon = new ThemedIcon ("office-calendar-symbolic");
                 due_image.get_style_context ().add_class ("upcoming");
             }
+        }
+    }
+
+    private void apply_color (string color) {
+        string _css = """
+            .source-color {
+                background: alpha (%s, 0.85);
+                border: 1px solid %s;
+                border-radius: 50%;
+                box-shadow:
+                    inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+                    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+                    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var css = _css.printf (
+                color,
+                color
+            );
+
+            provider.load_from_data (css, css.length);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (GLib.Error e) {
+            return;
         }
     }
 }

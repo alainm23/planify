@@ -39,10 +39,11 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Grid handle_grid;
+    private Gtk.Menu menu = null;
 
     private uint timeout_id = 0;
     private bool receive_updates = true;
-
+    
     public bool reveal_child {
         set {
             if (value) {
@@ -60,10 +61,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             source: source
         );
     }
-
-    public signal void task_changed (ECal.Component task);
-    public signal void task_completed (ECal.Component task);
-
+    
     construct {
         can_focus = false;
         get_style_context ().add_class ("item-row");
@@ -252,7 +250,147 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             if (task == null) {
                 return;
             }
-            task_completed (task);
+            Planner.task_store.complete_task (source, task);
+        });
+
+        button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                if (bottom_revealer.reveal_child == false) {
+                    activate_menu ();
+                }
+
+                return true;
+            }
+
+            return false;
+        });
+
+        Planner.event_bus.show_undo_task.connect ((uid, type) => {
+            if (task.get_icalcomponent ().get_uid () == uid) {
+                main_revealer.reveal_child = true;
+            }
+        });
+    }
+
+    private void activate_menu (bool visible=true) {
+        if (menu == null) {
+            build_context_menu ();
+        }
+
+        handle_grid.get_style_context ().add_class ("highlight");
+        menu.popup_at_pointer (null);
+    }
+
+    private void build_context_menu () {
+        menu = new Gtk.Menu ();
+        menu.width_request = 235;
+
+        menu.hide.connect (() => {
+            handle_grid.get_style_context ().remove_class ("highlight");
+        });
+
+        var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");
+        var edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
+
+        var today_menu = new Widgets.ImageMenuItem (_("Today"), "help-about-symbolic");
+        today_menu.item_image.get_style_context ().add_class ("today-icon");
+        today_menu.item_image.pixel_size = 14;
+
+        var tomorrow_menu = new Widgets.ImageMenuItem (_("Tomorrow"), "x-office-calendar-symbolic");
+        tomorrow_menu.item_image.get_style_context ().add_class ("upcoming-icon");
+        tomorrow_menu.item_image.pixel_size = 14;
+
+        var undated_menu = new Widgets.ImageMenuItem (_("Undated"), "window-close-symbolic");
+        undated_menu.item_image.get_style_context ().add_class ("due-clear");
+        undated_menu.item_image.pixel_size = 14;
+
+        var date_separator = new Gtk.SeparatorMenuItem ();
+
+        var share_menu = new Widgets.ImageMenuItem (_("Share"), "emblem-shared-symbolic");
+        var share_list_menu = new Gtk.Menu ();
+        share_menu.set_submenu (share_list_menu);
+
+        var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
+        var share_markdown_menu = new Widgets.ImageMenuItem (_("Markdown"), "planner-markdown-symbolic");
+
+        share_list_menu.add (share_text_menu);
+        share_list_menu.add (share_markdown_menu);
+        share_list_menu.show_all ();
+
+        var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
+        var delete_menu = new Widgets.ImageMenuItem (_("Delete"), "user-trash-symbolic");
+        delete_menu.get_style_context ().add_class ("menu-danger");
+
+        menu.add (complete_menu);
+        menu.add (edit_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (today_menu);
+        menu.add (tomorrow_menu);
+        menu.add (undated_menu);
+        menu.add (date_separator);
+        menu.add (share_menu);
+        menu.add (duplicate_menu);
+        menu.add (new Gtk.SeparatorMenuItem ());
+        menu.add (delete_menu);
+
+        menu.show_all ();
+
+        complete_menu.activate.connect (() => {
+            // checked_button.active = !checked_button.active;
+        });
+
+        edit_menu.activate.connect (() => {
+            // show_item ();
+        });
+
+        today_menu.activate.connect (() => {
+            //  due_button.set_due (
+            //      Planner.utils.get_format_date (
+            //          new GLib.DateTime.now_local ()
+            //      ).to_string ()
+            //  );
+        });
+
+        tomorrow_menu.activate.connect (() => {
+            //  due_button.set_due (
+            //      Planner.utils.get_format_date (
+            //          new GLib.DateTime.now_local ().add_days (1)
+            //      ).to_string ()
+            //  );
+        });
+
+        undated_menu.activate.connect (() => {
+            // due_button.set_due ("");
+        });
+
+        share_text_menu.activate.connect (() => {
+            // item.share_text ();
+        });
+
+        share_markdown_menu.activate.connect (() => {
+            // item.share_markdown ();
+        });
+
+        duplicate_menu.activate.connect (() => {
+            // item.get_duplicate ();
+        });
+
+        delete_menu.activate.connect (() => {
+            Planner.task_store.remove_task (source, task, ECal.ObjModType.ALL);
+            hide_destroy ();
+            //  Planner.notifications.send_undo_notification (
+            //      _("Task deleted"),
+            //      Planner.utils.build_undo_object ("item_delete", "task", task.get_icalcomponent ().get_uid (), "", "")
+            //  );
+            //  main_revealer.reveal_child = false;
+        });
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -282,7 +420,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         // Clear the old description
         int count = ical_task.count_properties (ICal.PropertyKind.DESCRIPTION_PROPERTY);
         for (int i = 0; i < count; i++) {
-            ICal.Property remove_prop;
+            unowned ICal.Property remove_prop;
             remove_prop = ical_task.get_first_property (ICal.PropertyKind.DESCRIPTION_PROPERTY);
             ical_task.remove_property (remove_prop);
         }
@@ -296,7 +434,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         task.get_icalcomponent ().set_summary (content_entry.text);
-        task_changed (task);
+        Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
     }
 
     public void hide_item () {
@@ -367,9 +505,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         if (receive_updates) {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
 
+            checked_button.get_style_context ().remove_class ("checklist-completed");
             completed = ical_task.get_status () == ICal.PropertyStatus.COMPLETED;
             checked_button.active = completed;
-
+            if (completed) {
+                checked_button.get_style_context ().add_class ("checklist-completed");
+            }
+            
             content_label.label = Planner.utils.get_markup_format (
                 ical_task.get_summary () == null ? "" : ical_task.get_summary ()
             );

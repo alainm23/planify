@@ -3,20 +3,55 @@ public class Widgets.CalDavList : Gtk.EventBox {
     private Gtk.ListBox listbox;
 
     public signal void tasklist_selected (E.Source source);
+    
     construct {
-        var caldav_header = new Granite.HeaderLabel (_("CalDav"));
-        caldav_header.margin_start = 12;
+        var area_image = new Gtk.Image ();
+        area_image.halign = Gtk.Align.CENTER;
+        area_image.valign = Gtk.Align.CENTER;
+        area_image.gicon = new ThemedIcon ("folder-outline");
+        area_image.pixel_size = 18;
+        //  if (area.collapsed == 1) {
+        //      area_image.gicon = new ThemedIcon ("folder-open-outline");
+        //  }
+
+        var name_label = new Gtk.Label (_("CalDav"));
+        name_label.margin_start = 9;
+        name_label.halign = Gtk.Align.START;
+        name_label.get_style_context ().add_class ("pane-area");
+        name_label.valign = Gtk.Align.CENTER;
+        name_label.set_ellipsize (Pango.EllipsizeMode.END);
+
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.margin_start = 5;
+        top_box.margin_top = 1;
+        top_box.margin_bottom = 1;
+        top_box.pack_start (area_image, false, false, 0);
+        top_box.pack_start (name_label, false, true, 0);
+        // top_box.pack_end (menu_stack, false, false, 0);
+
+        var top_eventbox = new Gtk.EventBox ();
+        top_eventbox.margin_start = 5;
+        top_eventbox.margin_end = 5;
+        top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        top_eventbox.add (top_box);
+        top_eventbox.get_style_context ().add_class ("toogle-box");
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
+        listbox.margin_top = 3;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
+        var listbox_revealer = new Gtk.Revealer ();
+        listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        listbox_revealer.add (listbox);
+        listbox_revealer.reveal_child = true;
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        // grid.add (caldav_header);
-        grid.add (listbox);
+        grid.add (top_eventbox);
+        grid.add (listbox_revealer);
 
         add (grid);
 
@@ -32,7 +67,7 @@ public class Widgets.CalDavList : Gtk.EventBox {
                 return;
             }
 
-            listbox.set_header_func (header_update_func);
+            // listbox.set_header_func (header_update_func);
             
             var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
             task_lists.foreach ((source) => {
@@ -73,10 +108,11 @@ public class Widgets.CalDavList : Gtk.EventBox {
 
         } else if (!source_rows.has_key (source)) {
             add_source (source);
-
-        } else {
-            source_rows[source].update_request ();
         }
+    }
+
+    public void unselect_all () {
+        listbox.unselect_all ();
     }
 
     private void remove_source (E.Source source) {

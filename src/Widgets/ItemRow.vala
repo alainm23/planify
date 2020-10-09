@@ -706,7 +706,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_button.clicked.connect (() => {
             Planner.notifications.send_undo_notification (
                 _("Task deleted"),
-                Planner.utils.build_undo_object ("item_delete", "item", item.id, "", "")
+                Planner.utils.build_undo_object ("item_delete", "item", item.id.to_string (), "", "")
             );
             main_revealer.reveal_child = false;
         });
@@ -1023,7 +1023,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 Planner.database.update_item_recurring_due_date (item, +1);
                 Planner.notifications.send_undo_notification (
                     _("Completed. Next occurrence: %s".printf (Planner.utils.get_default_date_format_from_date (next_due))),
-                    Planner.utils.build_undo_object ("item_reschedule", "item", item.id, "", "")
+                    Planner.utils.build_undo_object ("item_reschedule", "item", item.id.to_string (), "", "")
                 );
             } else {
                 item.checked = 1;
@@ -1036,7 +1036,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 Planner.notifications.send_undo_notification (
                     _("1 task completed"),
-                    Planner.utils.build_undo_object ("item_complete", "item", item.id, "", "")
+                    Planner.utils.build_undo_object ("item_complete", "item", item.id.to_string (), "", "")
                 );
                 main_revealer.reveal_child = false;
             }
@@ -1558,7 +1558,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         delete_menu.activate.connect (() => {
             Planner.notifications.send_undo_notification (
                 _("Task deleted"),
-                Planner.utils.build_undo_object ("item_delete", "item", item.id, "", "")
+                Planner.utils.build_undo_object ("item_delete", "item", item.id.to_string (), "", "")
             );
             main_revealer.reveal_child = false;
         });

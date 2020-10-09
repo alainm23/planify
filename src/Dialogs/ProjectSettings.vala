@@ -279,7 +279,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
                 Planner.notifications.send_undo_notification (
                     _("Converting project…"),
-                    Planner.utils.build_undo_object ("convert_project", "project", project.id, "", "")
+                    Planner.utils.build_undo_object ("convert_project", "project", project.id.to_string (), "", "")
                 );
                 Planner.todoist.convert_to_todoist (project);
                 destroy ();

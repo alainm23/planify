@@ -165,15 +165,18 @@ public class Services.Tasks.Store : Object {
         destroy_task_list_client (task_list, client);
     }
 
-    public void add_task (E.Source list, ECal.Component task) {
-        add_task_async.begin (list, task);
+    public void add_task (E.Source list, ECal.Component task, Widgets.NewItem new_task) {
+        add_task_async.begin (list, task, new_task);
     }
 
-    private async void add_task_async (E.Source list, ECal.Component task) {
+    private async void add_task_async (E.Source list, ECal.Component task, Widgets.NewItem new_task) {
         ECal.Client client;
         try {
             client = get_client (list);
         } catch (Error e) {
+            new_task.loading = false;
+
+            // Send Notification Error
             critical (e.message);
             return;
         }
@@ -191,7 +194,16 @@ public class Services.Tasks.Store : Object {
             if (uid != null) {
                 comp.set_uid (uid);
             }
+            
+            //  var row = new Widgets.NewItem.for_source (new_task.source, new_task.listbox);
+            //  new_task.listbox.add (row);
+            //  new_task.listbox.show_all ();
+
+            new_task.hide_destroy ();
         } catch (GLib.Error error) {
+            new_task.loading = false;
+
+            // Send Notification Error
             critical (error.message);
         }
     }

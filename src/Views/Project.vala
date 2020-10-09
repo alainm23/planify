@@ -63,7 +63,7 @@ public class Views.Project : Gtk.EventBox {
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
-    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    public Gee.HashMap <string, Widgets.ItemCompletedRow> items_completed_added;
     private int64 temp_id_mapping { get; set; default = 0; }
     private bool entry_menu_opened = false;
 

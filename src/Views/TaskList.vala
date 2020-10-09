@@ -20,7 +20,7 @@
 */
 
 public class Views.TaskList : Gtk.EventBox {
-    public E.Source? source { get; set; }
+    public E.Source source { get; construct; }
     private ECal.ClientView view;
     
     private Gtk.Label name_label;
@@ -28,11 +28,25 @@ public class Views.TaskList : Gtk.EventBox {
     private Gtk.Stack name_stack;
     private Gtk.Revealer action_revealer;
     private Gtk.ListBox listbox;
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
     private Gtk.ToggleButton settings_button;
 
+    public Gee.HashMap <string, Widgets.TaskRow> items_uncompleted_added;
+    public Gee.HashMap <string, Widgets.TaskRow> items_completed_added;
+    
     private bool entry_menu_opened = false;
 
+    public TaskList (E.Source source) {
+        Object (
+            source: source
+        );
+    }
+
     construct {
+        items_uncompleted_added = new Gee.HashMap <string, Widgets.TaskRow> ();
+        items_completed_added = new Gee.HashMap <string, Widgets.TaskRow> ();
+
         name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
@@ -98,15 +112,46 @@ public class Views.TaskList : Gtk.EventBox {
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
 
+        var placeholder_view = new Widgets.Placeholder (
+            _("What will you accomplish?"),
+            _("Tap + to add a task to this project."),
+            "planner-project-symbolic"
+        );
+        placeholder_view.reveal_child = true;
+        placeholder_view.show_all ();
+
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
         listbox.margin_top = 12;
         listbox.margin_end = 32;
-        listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
+        // listbox.set_placeholder (placeholder_view);
+
+        completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 30;
+        completed_listbox.margin_end = 32;
+        completed_listbox.valign = Gtk.Align.START;
+        completed_listbox.get_style_context ().add_class ("listbox");
+        completed_listbox.activate_on_single_click = true;
+        completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        completed_listbox.hexpand = true;
+
+        completed_revealer = new Gtk.Revealer ();
+        completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        completed_revealer.add (completed_listbox);
+        completed_revealer.reveal_child = true;
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.expand = true;
+        box.pack_start (listbox, false, false, 0);
+        box.pack_start (completed_revealer, false, false, 0);
+
+        var listbox_scrolled = new Gtk.ScrolledWindow (null, null);
+        listbox_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        listbox_scrolled.add (box);
 
         var magic_button = new Widgets.MagicButton ();
 
@@ -114,7 +159,7 @@ public class Views.TaskList : Gtk.EventBox {
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (listbox, false, false, 0);
+        main_box.pack_start (listbox_scrolled, true, true, 0);
 
         var overlay = new Gtk.Overlay ();
         overlay.expand = true;
@@ -122,40 +167,30 @@ public class Views.TaskList : Gtk.EventBox {
         overlay.add (main_box);
 
         add (overlay);
+        update_request ();
+        
+        try {
+            view = Planner.task_store.create_task_list_view (
+                source,
+                "(contains? 'any' '')",
+                on_tasks_added,
+                on_tasks_modified,
+                on_tasks_removed
+            );
 
-        notify["source"].connect (() => {
-            if (view != null) {
-                Planner.task_store.destroy_task_list_view (view);
-            }
-            foreach (unowned Gtk.Widget child in listbox.get_children ()) {
-                child.destroy ();
-            }
+        } catch (Error e) {
+            print (e.message);
+            critical (e.message);
+        }
 
-            if (source != null) {
-                update_request ();
-
-                try {
-                    view = Planner.task_store.create_task_list_view (
-                        source,
-                        "(contains? 'any' '')",
-                        on_tasks_added,
-                        on_tasks_modified,
-                        on_tasks_removed
-                    );
-
-                } catch (Error e) {
-                    print (e.message);
-                    critical (e.message);
-                }
-
-            } else {
-                
-            }
-
-            show_all ();
-        });
+        show_all ();
 
         listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.TaskRow) r);
+            row.reveal_child = true;
+        });
+
+        completed_listbox.row_activated.connect ((r) => {
             var row = ((Widgets.TaskRow) r);
             row.reveal_child = true;
         });
@@ -218,6 +253,22 @@ public class Views.TaskList : Gtk.EventBox {
         name_entry.activate.connect (() => {
             save ();
         });
+
+        magic_button.clicked.connect (() => {
+            add_new_task (-1);
+        });
+
+        Planner.task_store.task_list_modified.connect ((s) => {
+            if (source.uid == s.uid) {
+                update_request ();
+            }
+        });
+    }
+
+    public void add_new_task (int index=-1) {
+        var new_task = new Widgets.NewItem.for_source (source, listbox);
+        listbox.add (new_task);
+        listbox.show_all ();
     }
 
     private void save () {
@@ -233,61 +284,85 @@ public class Views.TaskList : Gtk.EventBox {
     }
 
     private void on_tasks_added (Gee.Collection<ECal.Component> tasks) {
-        tasks.foreach ((task) => {
-            var row = new Widgets.TaskRow (task, source);
-            //  var task_row = new Tasks.TaskRow.for_component (task, source);
-            row.task_completed.connect ((task) => {
-                Planner.task_store.complete_task (source, task);
-            });
-            row.task_changed.connect ((task) => {
-                Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
-            });
-            //  task_row.task_removed.connect ((task) => {
-            //      Tasks.Application.model.remove_task (source, task, ECal.ObjModType.ALL);
-            //  });
-            listbox.add (row);
-            return true;
-        });
+        foreach (ECal.Component task in tasks) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                if (!items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    var row = new Widgets.TaskRow (task, source);
+                    completed_listbox.add (row);
+
+                    items_completed_added.set (task.get_icalcomponent ().get_uid (), row);
+                }
+            } else {
+                if (!items_uncompleted_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    var row = new Widgets.TaskRow (task, source);
+                    listbox.add (row);
+
+                    items_uncompleted_added.set (task.get_icalcomponent ().get_uid (), row);
+                }
+            }
+        }
+
         listbox.show_all ();
+        completed_listbox.show_all ();
     }
 
     private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
-        Widgets.TaskRow task_row = null;
-        var row_index = 0;
+        foreach (ECal.Component task in tasks) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                if (items_uncompleted_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    items_uncompleted_added.get (task.get_icalcomponent ().get_uid ()).hide_destroy ();
+                    items_uncompleted_added.unset (task.get_icalcomponent ().get_uid ());   
+                }
 
+                if (!items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    var row = new Widgets.TaskRow (task, source);
+                    completed_listbox.insert (row, 0);
+
+                    items_completed_added.set (task.get_icalcomponent ().get_uid (), row);
+                } else {
+                    items_completed_added.get (task.get_icalcomponent ().get_uid ()).task = task;
+                }
+            } else {
+                if (items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    items_completed_added.get (task.get_icalcomponent ().get_uid ()).hide_destroy ();
+                    items_completed_added.unset (task.get_icalcomponent ().get_uid ());
+                }
+
+                if (!items_uncompleted_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                    var row = new Widgets.TaskRow (task, source);
+                    listbox.add (row);
+
+                    items_uncompleted_added.set (task.get_icalcomponent ().get_uid (), row);
+                } else {
+                    items_uncompleted_added.get (task.get_icalcomponent ().get_uid ()).task = task;
+                }
+            }
+        }
+
+        listbox.show_all ();
+        completed_listbox.show_all ();
+    }
+
+    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
+        unowned Widgets.TaskRow? task_row = null;
+        var row_index = 0;
         do {
             task_row = (Widgets.TaskRow) listbox.get_row_at_index (row_index);
 
             if (task_row != null) {
-                foreach (ECal.Component task in tasks) {
-                    if (Util.calcomponent_equal_func (task_row.task, task)) {
-                        task_row.task = task;
+                foreach (unowned ECal.ComponentId cid in cids) {
+                    if (cid == null) {
+                        continue;
+                    } else if (cid.get_uid () == task_row.task.get_icalcomponent ().get_uid ()) {
+                        listbox.remove (task_row);
                         break;
                     }
                 }
             }
             row_index++;
         } while (task_row != null);
-    }
-
-    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
-        //  unowned Tasks.TaskRow? task_row = null;
-        //  var row_index = 0;
-        //  do {
-        //      task_row = (Tasks.TaskRow) task_list.get_row_at_index (row_index);
-
-        //      if (task_row != null) {
-        //          foreach (unowned ECal.ComponentId cid in cids) {
-        //              if (cid == null) {
-        //                  continue;
-        //              } else if (cid.get_uid () == task_row.task.get_icalcomponent ().get_uid ()) {
-        //                  task_list.remove (task_row);
-        //                  break;
-        //              }
-        //          }
-        //      }
-        //      row_index++;
-        //  } while (task_row != null);
     }
 
     public void update_request () {
