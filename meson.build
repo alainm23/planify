@@ -1,4 +1,4 @@
-project ('com.github.alainm23.planner', 'vala', 'c', version: '2.5')
+project ('com.github.alainm23.planner', 'vala', 'c', version: '2.5.2')
 
 gnome = import('gnome')
 i18n = import('i18n')
