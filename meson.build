@@ -53,6 +53,7 @@ executable(
     'src/Services/EventBus.vala',
     'src/Services/ExportImport.vala',
 
+    # CalDav Support
     # 'src/Services/Tasks/Store.vala',
     # 'src/Services/Tasks/Utils.vala',
     
@@ -91,6 +92,11 @@ executable(
     'src/Widgets/ShortcutLabel.vala',
     'src/Widgets/WhatsNew.vala',
 
+    # CalDav Support
+    # 'src/Widgets/SourceRow.vala',
+    # 'src/Widgets/CalDavList.vala',
+    # 'src/Widgets/TaskRow.vala',
+
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -105,6 +111,9 @@ executable(
     'src/Views/Label.vala',
     'src/Views/Completed.vala',
     'src/Views/Priority.vala',
+
+    # CalDav Support
+    # 'src/Views/TaskList.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/ProjectSettings.vala',

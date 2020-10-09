@@ -7,6 +7,7 @@ Exec=com.github.alainm23.planner
 Icon=com.github.alainm23.planner
 Terminal=false
 Type=Application
+StartupNotify=true
 X-GNOME-Gettext-Domain=planner
 Keywords=development;task;tasks;project;todo;event;events;calendar;todoist;
 X-GNOME-UsesNotifications=true

@@ -57,7 +57,7 @@ public class Services.Database : GLib.Object {
     public signal void item_completed (Objects.Item item);
     public signal void item_uncompleted (Objects.Item item);
     public signal void delete_undo_item (Objects.Item item);
-    public signal void item_moved (Objects.Item item, int64 project_id, int64 old_project_id);
+    public signal void item_moved (Objects.Item item, int64 project_id, int64 old_project_id, int index);
     public signal void item_section_moved (Objects.Item item, int64 section_id, int64 old_section_id);
     public signal void item_id_updated (int64 current_id, int64 new_id);
 
@@ -163,7 +163,6 @@ public class Services.Database : GLib.Object {
             Planner.database.add_int_column ("Projects", "sort_order", 0);
         }
     }
-
     public void reset_all () {
         File db_path = File.new_for_path (db_path);
         try {
@@ -2932,12 +2931,12 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public bool move_item (Objects.Item item, int64 project_id) {
+    public bool move_item (Objects.Item item, int64 project_id, int section_id=0, int index=-1) {
         Sqlite.Statement stmt;
         string sql;
         int res;
         int64 old_project_id = item.project_id;
-        item.section_id = 0;
+        item.section_id = section_id;
 
         subtract_task_counter (old_project_id);
 
@@ -2951,7 +2950,7 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, project_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, 0);
+        res = stmt.bind_int64 (2, section_id);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int64 (3, item.id);
@@ -2962,7 +2961,7 @@ public class Services.Database : GLib.Object {
             stmt.reset ();
             return false;
         } else {
-            item_moved (item, project_id, old_project_id);
+            item_moved (item, project_id, old_project_id, index);
 
             stmt.reset ();
 

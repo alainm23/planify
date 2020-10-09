@@ -131,42 +131,42 @@ namespace ECal {
 		public string get_as_string ();
 		public void get_attachment_list (out GLib.SList<string> attachment_list);
 		public void get_attendee_list (out GLib.SList<ECal.ComponentAttendee?> attendee_list);
-		public void get_categories (out string? categories);
+		public void get_categories (out string categories);
 		public void get_categories_list (out GLib.SList<string> categ_list);
-		public void get_classification (out ECal.ComponentClassification? classif);
+		public void get_classification (out ECal.ComponentClassification classif);
 		public void get_comment_list (out GLib.SList<ECal.ComponentText> text_list);
-		public void get_completed (out ICal.Time? t);
+		public void get_completed (out ICal.Time t);
 		public void get_contact_list (out GLib.SList<ECal.ComponentText> text_list);
-		public void get_created (out ICal.Time? t);
+		public void get_created (out ICal.Time t);
 		public void get_description_list (out GLib.SList<ECal.ComponentText> text_list);
-		public void get_dtend (out ECal.ComponentDateTime? dt);
-		public void get_dtstamp (out ICal.Time? t);
-		public void get_dtstart (out ECal.ComponentDateTime? dt);
-		public void get_due (out ECal.ComponentDateTime? dt);
+		public void get_dtend (out ECal.ComponentDateTime dt);
+		public void get_dtstamp (out ICal.Time t);
+		public void get_dtstart (out ECal.ComponentDateTime dt);
+		public void get_due (out ECal.ComponentDateTime dt);
 		public void get_exdate_list (out GLib.SList<ECal.ComponentDateTime> exdate_list);
 		public void get_exrule_list (out GLib.SList<ICal.Recurrence> recur_list);
 		public void get_exrule_property_list (out GLib.SList<ECal.ComponentRange> recur_list);
-		public void get_geo (out ICal.Geo? geo);
+		public void get_geo (out ICal.Geo geo);
 		public unowned ICal.Component get_icalcomponent ();
 		public ECal.ComponentId get_id ();
-		public void get_last_modified (out ICal.Time? t);
-		public void get_location (out string? location);
+		public void get_last_modified (out ICal.Time t);
+		public void get_location (out string location);
 		public int get_num_attachments ();
-		public void get_organizer (out ECal.ComponentOrganizer? organizer);
-		public void get_percent (out int? percent);
+		public void get_organizer (out ECal.ComponentOrganizer organizer);
+		public void get_percent (out int percent);
 		public int get_percent_as_int ();
-		public void get_priority (out int? priority);
+		public void get_priority (out int priority);
 		public void get_rdate_list (out GLib.SList<ECal.ComponentPeriod> period_list);
-		public void get_recurid (out ECal.ComponentRange? recur_id);
+		public void get_recurid (out ECal.ComponentRange recur_id);
 		public string get_recurid_as_string ();
 		public void get_rrule_list (out GLib.SList<ICal.Recurrence> recur_list);
 		public void get_rrule_property_list (out GLib.SList<ECal.ComponentRange> recur_list);
-		public void get_sequence (out int? sequence);
-		public void get_status (out ICal.PropertyStatus? status);
+		public void get_sequence (out int sequence);
+		public void get_status (out ICal.PropertyStatus status);
 		public ECal.ComponentText get_summary ();
-		public void get_transparency (out ECal.ComponentTransparency? transp);
+		public void get_transparency (out ECal.ComponentTransparency transp);
 		public void get_uid (out string uid);
-		public void get_url (out string? url);
+		public void get_url (out string url);
 		public ECal.ComponentVType get_vtype ();
 		public bool has_alarms ();
 		public bool has_attachments ();
@@ -189,7 +189,7 @@ namespace ECal {
 		public void set_categories_list (GLib.SList<string> categ_list);
 		public void set_classification (ECal.ComponentClassification classif);
 		public void set_comment_list (GLib.SList<ECal.ComponentText> text_list);
-		public void set_completed (ICal.Time t);
+		public void set_completed (ref ICal.Time t);
 		public void set_contact_list (GLib.SList<ECal.ComponentText> text_list);
 		public void set_created (ICal.Time t);
 		public void set_description_list (GLib.SList<ECal.ComponentText> text_list);
@@ -206,7 +206,8 @@ namespace ECal {
 		public void set_new_vtype (ECal.ComponentVType type);
 		public void set_organizer (ECal.ComponentOrganizer organizer);
 		public void set_percent (int percent);
-		public void set_percent_as_int (int percent);
+		[CCode (cname = "e_cal_component_set_percent_as_int")]
+		public void set_percent_complete (int percent);
 		public void set_priority (int priority);
 		public void set_rdate_list (GLib.SList<ECal.ComponentPeriod> period_list);
 		public void set_recurid (ECal.ComponentRange recur_id);
@@ -309,12 +310,8 @@ namespace ECal {
 	}
 	[CCode (cheader_filename = "libecal/libecal.h", free_function = "e_cal_component_free_datetime")]
 	public struct ComponentDateTime {
-		public ICal.Time? value;
+		public ICal.Time* value;
 		public weak string tzid;
-		[CCode (cname = "_vala_e_cal_component_get_value")]
-		public unowned ICal.Time? get_value () {
-			return value;
-		}
 	}
 	[CCode (cheader_filename = "libecal/libecal.h", copy_function = "g_boxed_copy", free_function = "g_boxed_free", type_id = "e_cal_component_id_get_type ()")]
 	[Compact]

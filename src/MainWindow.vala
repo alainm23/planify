@@ -33,6 +33,7 @@ public class MainWindow : Gtk.Window {
     private Views.Completed completed_view = null;
     private Views.Label label_view = null;
     private Views.Priority priority_view = null;
+    // private Views.TaskList tasklist_view = null;
 
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
@@ -275,6 +276,10 @@ public class MainWindow : Gtk.Window {
             go_view (id);
         });
 
+        pane.tasklist_selected.connect ((source) => {
+            go_tasklist (source);
+        });
+
         pane.show_quick_find.connect (show_quick_find);
 
         Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
@@ -398,82 +403,6 @@ public class MainWindow : Gtk.Window {
                 go_view (0);
             }
         });
-
-        // Planner.task_store.get_registry.begin ((obj, res) => {
-            // E.SourceRegistry registry;
-            //  try {
-            //      registry = Planner.task_store.get_registry.end (res);
-            //  } catch (Error e) {
-            //      critical (e.message);
-            //      return;
-            //  }
-
-            //  listbox.set_header_func (header_update_func);
-
-            //  var last_selected_list = Application.settings.get_string ("selected-list");
-            //  var default_task_list = registry.default_task_list;
-            // var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
-
-            // task_lists.foreach ((source) => {
-                // E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
-                
-                // print ("Source: %s\n".printf (source.display_name));
-                //  if (list.selected == true && source.enabled == true) {
-                //      add_source (source);
-
-                //      if (last_selected_list == "" && default_task_list == source) {
-                //          listbox.select_row (source_rows[source]);
-
-                //      } else if (last_selected_list == source.uid) {
-                //          listbox.select_row (source_rows[source]);
-                //      }
-                //  }
-            // });
-
-            //  if (last_selected_list == "scheduled") {
-            //      listbox.select_row (scheduled_row);
-            //  }
-
-            //  listbox.row_selected.connect ((row) => {
-            //      if (row != null) {
-            //          if (row is Tasks.SourceRow) {
-            //              var source = ((Tasks.SourceRow) row).source;
-            //              listview.source = source;
-            //              Tasks.Application.settings.set_string ("selected-list", source.uid);
-
-            //              listview.add_view (source, "(contains? 'any' '')");
-
-            //              ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (source.removable);
-
-            //          } else if (row is Tasks.ScheduledRow) {
-            //              listview.source = null;
-            //              Tasks.Application.settings.set_string ("selected-list", "scheduled");
-
-            //              var sources = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
-            //              var query = "AND (NOT is-completed?) (OR (has-start?) (has-alarms?))";
-
-            //              sources.foreach ((source) => {
-            //                  E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
-
-            //                  if (list.selected == true && source.enabled == true) {
-            //                      listview.add_view (source, query);
-            //                  }
-            //              });
-
-            //              ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (false);
-            //          }
-
-            //      } else {
-            //          ((SimpleAction) lookup_action (ACTION_DELETE_SELECTED_LIST)).set_enabled (false);
-            //          var first_row = listbox.get_row_at_index (0);
-            //          if (first_row != null) {
-            //              listbox.select_row (first_row);
-            //          } else {
-            //              listview.source = null;
-            //          }
-            //      }
-            //  });
-        // });
     }
 
     public void init_progress_controller () {
@@ -603,9 +532,6 @@ public class MainWindow : Gtk.Window {
             stack.add_named (project_view, "project-view-%s".printf (project.id.to_string ()));
             stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
         }
-
-        // Planner.utils.pane_project_selected (project.id, project.area_id);
-        // Planner.utils.select_pane_project (project.id);
     }
 
     public void go_item (int64 item_id) {
@@ -632,6 +558,16 @@ public class MainWindow : Gtk.Window {
 
         priority_view.priority = priority;
         stack.visible_child_name = "priority-view";
+    }
+
+    public void go_tasklist (E.Source source) {
+        //  if (tasklist_view == null) {
+        //      tasklist_view = new Views.TaskList ();
+        //      stack.add_named (tasklist_view, "tasklist-view");
+        //  }
+
+        //  tasklist_view.source = source;
+        //  stack.visible_child_name = "tasklist-view";
     }
 
     private void init_badge_count () {

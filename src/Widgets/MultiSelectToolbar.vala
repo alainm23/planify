@@ -439,7 +439,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Revealer {
         });
 
         calendar.selection_changed.connect ((date) => {
-            set_due (date.to_string ());
+            set_due (Planner.utils.get_format_date (date).to_string ());
         });
 
         return grid;

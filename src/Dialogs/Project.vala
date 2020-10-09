@@ -1059,24 +1059,34 @@ public class Dialogs.Project : Gtk.Dialog {
         source = (Widgets.ItemRow) row;
 
         if (target != null) {
-            if (source.item.section_id != 0) {
-                source.item.section_id = 0;
-
-                if (source.item.is_todoist == 1) {
-                    Planner.todoist.move_item_to_section (source.item, 0);
+            if (source.item.is_todoist == project.is_todoist) {
+                if (source.item.project_id != project.is_todoist) {
+                    Planner.database.move_item (source.item, project.id, 0, target.get_index () + 1);
                 }
+
+                if (source.item.section_id != 0) {
+                    source.item.section_id = 0;
+    
+                    if (source.item.is_todoist == 1) {
+                        Planner.todoist.move_item_to_section (source.item, 0);
+                    }
+                }   
+    
+                source.get_parent ().remove (source);
+                items_list.remove (source);
+                items_uncompleted_added.set (source.item.id.to_string (), source);
+    
+                listbox.insert (source, target.get_index () + 1);
+                items_list.insert (target.get_index () + 1, source);
+                items_uncompleted_added.set (source.item.id.to_string (), source);
+    
+                listbox.show_all ();
+                update_item_order ();
+            } else {
+                Planner.notifications.send_notification (
+                    _("Unable to move task")
+                );
             }
-
-            source.get_parent ().remove (source);
-            items_list.remove (source);
-            items_uncompleted_added.set (source.item.id.to_string (), source);
-
-            listbox.insert (source, target.get_index () + 1);
-            items_list.insert (target.get_index () + 1, source);
-            items_uncompleted_added.set (source.item.id.to_string (), source);
-
-            listbox.show_all ();
-            update_item_order ();
         }
     }
 
@@ -1086,24 +1096,34 @@ public class Dialogs.Project : Gtk.Dialog {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (source.item.section_id != 0) {
-            source.item.section_id = 0;
-            if (source.item.is_todoist == 1) {
-                Planner.todoist.move_item_to_section (source.item, 0);
+        if (source.item.is_todoist == project.is_todoist) {
+            if (source.item.project_id != project.is_todoist) {
+                Planner.database.move_item (source.item, project.id, 0, 0);
             }
+
+            if (source.item.section_id != 0) {
+                source.item.section_id = 0;
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.move_item_to_section (source.item, 0);
+                }
+            }
+    
+            source.get_parent ().remove (source);
+            items_list.remove (source);
+            items_uncompleted_added.set (source.item.id.to_string (), source);
+    
+            listbox.insert (source, 0);
+            items_list.insert (0, source);
+            items_uncompleted_added.set (source.item.id.to_string (), source);
+    
+            listbox.show_all ();
+            update_item_order ();
+            check_listbox_margin ();
+        } else {
+            Planner.notifications.send_notification (
+                _("Unable to move task")
+            );
         }
-
-        source.get_parent ().remove (source);
-        items_list.remove (source);
-        items_uncompleted_added.set (source.item.id.to_string (), source);
-
-        listbox.insert (source, 0);
-        items_list.insert (0, source);
-        items_uncompleted_added.set (source.item.id.to_string (), source);
-
-        listbox.show_all ();
-        update_item_order ();
-        check_listbox_margin ();
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {

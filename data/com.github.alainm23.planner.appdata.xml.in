@@ -46,6 +46,15 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.5.2" date="2020-10-09">
+      <description>
+        <p>Bug fixes and performance improvement</p>
+        <ul>
+          <li>Github #554 - Reschedule tasks correctly.</li>
+          <li>Fixed bug when dragging and dropping tasks between projects.</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.5.1" date="2020-10-02">
       <description>
         <p>Planner 2.5 is here, with many design improvements, new features, and more.</p>

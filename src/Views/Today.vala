@@ -945,11 +945,11 @@ public class Views.Today : Gtk.EventBox {
         grid.show_all ();
 
         today_button.clicked.connect (() => {
-            set_due (new GLib.DateTime.now_local ().to_string ());
+            set_due (Planner.utils.get_format_date (new GLib.DateTime.now_local ()).to_string ());
         });
 
         tomorrow_button.clicked.connect (() => {
-            set_due (new GLib.DateTime.now_local ().add_days (1).to_string ());
+            set_due (Planner.utils.get_format_date (new GLib.DateTime.now_local ().add_days (1)).to_string ());
         });
 
         undated_button.clicked.connect (() => {
@@ -957,7 +957,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         calendar.selection_changed.connect ((date) => {
-            set_due (date.to_string ());
+            set_due (Planner.utils.get_format_date (date).to_string ());
         });
 
         return grid;

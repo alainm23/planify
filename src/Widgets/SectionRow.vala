@@ -1063,29 +1063,35 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (target != null) {
-            if (source.item.section_id != section.id) {
-                Planner.database.on_drag_item_deleted (source, source.item.section_id);
-                source.item.section_id = section.id;
-                if (source.item.is_todoist == 1) {
-                    Planner.todoist.move_item_to_section (source.item, section.id);
+            if (source.item.is_todoist == section.is_todoist) {
+                if (source.item.section_id != section.id) {
+                    Planner.database.on_drag_item_deleted (source, source.item.section_id);
+                    source.item.section_id = section.id;
+                    if (source.item.is_todoist == 1) {
+                        Planner.todoist.move_item_to_section (source.item, section.id);
+                    }
+    
+                    string move_template = _("Task moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        move_template.printf (
+                            section.name
+                        )
+                    );
                 }
-
-                string move_template = _("Task moved to <b>%s</b>");
+    
+                source.get_parent ().remove (source);
+                items_list.remove (source);
+    
+                listbox.insert (source, target.get_index () + 1);
+                items_list.insert (target.get_index () + 1, source);
+    
+                listbox.show_all ();
+                update_item_order ();
+            } else {
                 Planner.notifications.send_notification (
-                    move_template.printf (
-                        section.name
-                    )
+                    _("Unable to move task")
                 );
             }
-
-            source.get_parent ().remove (source);
-            items_list.remove (source);
-
-            listbox.insert (source, target.get_index () + 1);
-            items_list.insert (target.get_index () + 1, source);
-
-            listbox.show_all ();
-            update_item_order ();
         }
     }
 
@@ -1122,35 +1128,41 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
         source = (Widgets.ItemRow) row;
 
-        if (source.item.section_id != section.id) {
-            Planner.database.on_drag_item_deleted (source, source.item.section_id);
-            source.item.section_id = section.id;
-            if (source.item.is_todoist == 1) {
-                Planner.todoist.move_item_to_section (source.item, section.id);
+        if (source.item.is_todoist == section.is_todoist) {
+            if (source.item.section_id != section.id) {
+                Planner.database.on_drag_item_deleted (source, source.item.section_id);
+                source.item.section_id = section.id;
+                if (source.item.is_todoist == 1) {
+                    Planner.todoist.move_item_to_section (source.item, section.id);
+                }
+    
+                string move_template = _("Task moved to <b>%s</b>");
+                Planner.notifications.send_notification (
+                    move_template.printf (
+                        section.name
+                    )
+                );
             }
-
-            string move_template = _("Task moved to <b>%s</b>");
+    
+            source.get_parent ().remove (source);
+            items_list.remove (source);
+            items_uncompleted_added.set (source.item.id.to_string (), source);
+            
+            listbox.insert (source, 0);
+            items_list.insert (0, source);
+    
+            listbox.show_all ();
+            update_item_order ();
+    
+            listbox_revealer.reveal_child = true;
+            section.collapsed = 1;
+    
+            save (false);
+        } else {
             Planner.notifications.send_notification (
-                move_template.printf (
-                    section.name
-                )
+                _("Unable to move task")
             );
         }
-
-        source.get_parent ().remove (source);
-        items_list.remove (source);
-        items_uncompleted_added.set (source.item.id.to_string (), source);
-        
-        listbox.insert (source, 0);
-        items_list.insert (0, source);
-
-        listbox.show_all ();
-        update_item_order ();
-
-        listbox_revealer.reveal_child = true;
-        section.collapsed = 1;
-
-        save (false);
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {

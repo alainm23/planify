@@ -41,6 +41,7 @@ public class Widgets.Pane : Gtk.EventBox {
 
     public signal void activated (int id);
     public signal void show_quick_find ();
+    public signal void tasklist_selected (E.Source source);
 
     private uint timeout;
     public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
@@ -174,7 +175,11 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.activate_on_single_click = true;
         area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         area_listbox.hexpand = true;
-        area_listbox.vexpand = true;
+
+        // var caldav_widget = new Widgets.CalDavList ();
+        //  caldav_widget.tasklist_selected.connect ((source) => {
+        //      tasklist_selected (source);
+        //  });
 
         var listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
@@ -188,7 +193,8 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (drop_area_grid);
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
-
+        // listbox_grid.add (caldav_widget);
+        
         listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
         listbox_scrolled.hexpand = true;
@@ -469,7 +475,7 @@ public class Widgets.Pane : Gtk.EventBox {
             }
         });
     }
-
+    
     private void check_network () {
         var available = GLib.NetworkMonitor.get_default ().get_network_available ();
 

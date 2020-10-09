@@ -121,6 +121,7 @@ public class Widgets.New : Gtk.Revealer {
         area_revealer.reveal_child = true;
 
         var color_header = new Granite.HeaderLabel (_("Color:"));
+        color_header.margin_top = 6;
         color_header.margin_start = 6;
 
         color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
@@ -183,8 +184,8 @@ public class Widgets.New : Gtk.Revealer {
         box.expand = true;
         box.pack_start (name_header, false, false, 0);
         box.pack_start (top_grid, false, false, 0);
-        box.pack_start (description_header, false, false, 0);
-        box.pack_start (description_frame, false, false, 0);
+        // box.pack_start (description_header, false, false, 0);
+        // box.pack_start (description_frame, false, false, 0);
         box.pack_start (color_header, false, false, 0);
         box.pack_start (color_combobox, false, false, 0);
         box.pack_start (area_revealer, false, false, 0);

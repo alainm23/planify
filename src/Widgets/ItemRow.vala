@@ -634,7 +634,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         content_entry.key_release_event.connect ((key) => {
-            // print ("keyval: %i\n".printf ((int32) key.keyval));
             if (key.keyval == 65307) {
                 hide_item ();
             }

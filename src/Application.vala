@@ -41,14 +41,17 @@ public class Planner : Gtk.Application {
     private static bool silent = false;
     private static int64 load_project = 0;
     private static bool version = false;
+    private static bool clear_database = false;
 
     public const OptionEntry[] PLANNER_OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref version,
         "Display version number", null },
+        { "reset-database", 'r', 0, OptionArg.NONE, ref clear_database,
+        "Reset Planner database", null },
         { "silent", 's', 0, OptionArg.NONE, out silent,
         "Run the Application in background", null },
         { "load-project", 'l', 0, OptionArg.INT64, ref load_project,
-        "Open a project when Planner starts", "PROJECT_ID" },
+        "Open project in separate window", "PROJECT_ID" },
         { null }
     };
 
@@ -106,6 +109,41 @@ public class Planner : Gtk.Application {
 
         if (version) {
             print ("%s\n".printf (Constants.VERSION));
+            return;
+        }
+
+        if (clear_database) {
+            print ("%s\n".printf (_("Are you sure you want to reset all?")));
+            print (_("It process removes all stored information without the possibility of undoing it. (y/n): "));
+            string input = stdin.read_line ();
+            
+            if (input == _("y") || input == _("yes") ) {
+                var db_path = Planner.settings.get_string ("database-location-path");
+                if (settings.get_boolean ("database-location-use-default")) {
+                    db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+                }
+
+                File db_file = File.new_for_path (db_path);
+                try {
+                    db_file.delete ();
+                } catch (Error err) {
+                    warning (err.message);
+                }
+
+                // Log out Todoist
+                settings.set_string ("todoist-sync-token", "");
+                settings.set_string ("todoist-access-token", "");
+                settings.set_string ("todoist-last-sync", "");
+                settings.set_string ("todoist-user-email", "");
+                settings.set_string ("todoist-user-join-date", "");
+                settings.set_string ("todoist-user-avatar", "");
+                settings.set_string ("todoist-user-image-id", "");
+                settings.set_boolean ("todoist-sync-server", false);
+                settings.set_boolean ("todoist-account", false);
+                settings.set_boolean ("todoist-user-is-premium", false);
+                settings.set_int ("todoist-user-id", 0);
+            }
+
             return;
         }
 
@@ -212,6 +250,8 @@ public class Planner : Gtk.Application {
             Planner.instance.main_window.go_item (parameter.get_int64 ());
             activate ();
         });
+
+        add_action (show_item);
     }
 
     public static int main (string[] args) {
