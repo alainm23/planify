@@ -212,9 +212,9 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             }
         }
 
-        project_progress.percentage = get_percentage (task_completed, tasks.size);
-        count_label.label = "%i".printf (tasks.size - task_completed);
-        count_revealer.reveal_child = (tasks.size - task_completed) > 0;
+        project_progress.percentage = get_percentage (task_completed, items_added.size);
+        count_label.label = "%i".printf (items_added.size - task_completed);
+        count_revealer.reveal_child = (items_added.size - task_completed) > 0;
     }
 
     private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
