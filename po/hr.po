@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-09-27 19:41+0000\n"
+"PO-Revision-Date: 2020-10-10 06:26+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -24,34 +24,40 @@ msgstr ""
 msgid ""
 "Planner 2.5 is here, with many design improvements, new features, and more."
 msgstr ""
+"Dostupan je Planer 2.5, s mnogim poboljšanjima u dizajnu, novim funkcijama i "
+"drugo."
 
 #: src/Application.vala:197
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Poboljšanja za brzo dodavanje"
 
 #: src/Application.vala:197
 msgid "Quick Add comes with a new design and new features."
-msgstr ""
+msgstr "Brzo dodavanje sadrži novi dizajn i nove funkcije."
 
 #: src/Application.vala:198
 msgid "Multiple Windows Support"
-msgstr ""
+msgstr "Podrška za višestruke prozore"
 
 #: src/Application.vala:198
 msgid ""
 "Open your projects in separate windows and drag your tasks from one side to "
 "the other."
 msgstr ""
+"Otvori projekte u zasebnim prozorima i povuci zadatke s jedne strane na "
+"drugu."
 
 #: src/Application.vala:199
 msgid "Multiple Selection Support"
-msgstr ""
+msgstr "Podrška za višestruki odabir"
 
 #: src/Application.vala:199
 msgid ""
 "Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key "
 "and selecting the tasks."
 msgstr ""
+"Upravljaj višestrukim zadacima istovremeno. Pritisni i drži tipku <b>Ctrl</"
+"b> pritisnutom te odaberi zadatke."
 
 #: src/MainWindow.vala:49
 msgid "Planner"
@@ -124,7 +130,7 @@ msgstr "Zelena metvica"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr "Modro zelena"
+msgstr "Modrozelena"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
@@ -444,7 +450,6 @@ msgstr "Otvori novi prozor"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:799
 #: src/Views/Project.vala:1147
-#, fuzzy
 msgid "Edit Project"
 msgstr "Uredi projekt"
 
@@ -764,20 +769,19 @@ msgstr "Zadatak je dodan iz međuspremnika"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Neuspjelo dupliciranje zadatka. Pokušaj ponovo."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Neuspjelo dodavanje zadatka iz međuspremnika. Pokušaj ponovo."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Izbriši projekt"
+msgstr "Konvertirani projekt"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Neuspjela konverzija projekta. Pokušaj ponovo."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -888,7 +892,7 @@ msgstr "Uvezi sigurnosnu kopiju"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr "Uvezi prethodno izvezenu sigurnosnu kopiju planera."
+msgstr "Uvezi prethodno izvezenu sigurnosnu kopiju Planera."
 
 #: src/Views/Inbox.vala:93 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
@@ -933,9 +937,8 @@ msgstr "Razvrstaj prema imenu"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:804 src/Views/Today.vala:464
 #: src/Views/Project.vala:1152
-#, fuzzy
 msgid "Utilities"
-msgstr "Prioriteti"
+msgstr "Uslužni programi"
 
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:472
 #: src/Views/Project.vala:1163
@@ -944,15 +947,13 @@ msgstr "Prikaži obavljene"
 
 #: src/Views/Inbox.vala:951 src/Views/Today.vala:537
 #: src/Views/Project.vala:1299
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Dijeli na Markdownu"
 
 #: src/Views/Inbox.vala:952 src/Views/Today.vala:538
 #: src/Views/Project.vala:1300
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Sakrij detalje"
+msgstr "Sakrij sve detalje zadatka"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -1041,36 +1042,33 @@ msgid "Uploading changes…"
 msgstr "Promjene se prenose …"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Odjeljci"
+msgstr "Opcije:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Konvertiraj u Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Konvertiraj"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
 msgstr "Izravni pristup:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Premjesti u projekt"
+msgstr "Konvertiraj projekt"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Stvarno želiš izbrisati <b>%s</b>?"
+msgstr "Stvarno želiš konvertirati <b>%s</b> u Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Razvrstaj prema projektima"
+msgstr "Konvertiranje projekta …"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105

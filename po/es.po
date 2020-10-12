@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-02 19:31-0500\n"
-"PO-Revision-Date: 2020-08-30 20:54+0000\n"
-"Last-Translator: Scoopity Whoop <Scoo0p@yandex.com>\n"
+"PO-Revision-Date: 2020-10-10 06:26+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,40 +18,46 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.1-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: src/Application.vala:195
 msgid ""
 "Planner 2.5 is here, with many design improvements, new features, and more."
 msgstr ""
+"Ya llegó Planner 2.5, que incluye muchas mejoras de diseño y funciones "
+"nuevas."
 
 #: src/Application.vala:197
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Mejoras de adición rápida"
 
 #: src/Application.vala:197
 msgid "Quick Add comes with a new design and new features."
 msgstr ""
+"Se renovó el diseño de Adición rápida y se le añadieron funciones nuevas."
 
 #: src/Application.vala:198
 msgid "Multiple Windows Support"
-msgstr ""
+msgstr "Se admiten varias ventanas"
 
 #: src/Application.vala:198
 msgid ""
 "Open your projects in separate windows and drag your tasks from one side to "
 "the other."
 msgstr ""
+"Abra sus proyectos en ventanas aparte y arrastre tareas de un lado a otro."
 
 #: src/Application.vala:199
 msgid "Multiple Selection Support"
-msgstr ""
+msgstr "Se permite la selección múltiple"
 
 #: src/Application.vala:199
 msgid ""
 "Manage multiple tasks at the same time by holding down the <b>Ctrl</b> key "
 "and selecting the tasks."
 msgstr ""
+"Gestione varias tareas a la vez manteniendo oprimida la tecla <b>Ctrl</b> y "
+"seleccionando las tareas."
 
 #: src/MainWindow.vala:49
 msgid "Planner"
@@ -210,15 +216,15 @@ msgstr ""
 
 #: src/Utils.vala:903
 msgid "Adding new tasks"
-msgstr "Añadiendo nuevas tareas"
+msgstr "Añadir tareas nuevas"
 
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "Para añadir una tarea nueva a Planner, pulse en el + y oprima Intro."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
-msgstr "Crear una nueva tarea"
+msgstr "Crear una tarea nueva"
 
 #: src/Utils.vala:960
 msgid "Create a new task at the top of the list (only works inside projects)"
@@ -303,7 +309,7 @@ msgstr "Entrada"
 
 #: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
-msgstr "En este ordenador"
+msgstr "En este equipo"
 
 #: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:150
 msgid "Todoist Project"
@@ -322,7 +328,7 @@ msgstr "Próximos"
 
 #: src/Widgets/Pane.vala:82 src/Widgets/New.vala:491
 msgid "Add Project"
-msgstr "Añadir Proyecto"
+msgstr "Añadir proyecto"
 
 #. modal: true,
 #: src/Widgets/Pane.vala:203 src/Dialogs/QuickFind.vala:41
@@ -340,7 +346,7 @@ msgstr "Sincronizar"
 
 #: src/Widgets/Pane.vala:481
 msgid "Offline mode is on"
-msgstr "Modo sin conexión está activado"
+msgstr "El modo sin conexión está activado"
 
 #: src/Widgets/Pane.vala:481
 msgid ""
@@ -348,8 +354,8 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
-"Parece que no está conectado a\n"
-"Internet. Los cambios que hace sin conexión\n"
+"Parece que no se ha conectado a\n"
+"Internet. Los cambios que haga sin conexión\n"
 "se sincronizarán cuando se vuelva a conectar"
 
 #: src/Widgets/New.vala:65 src/Views/Inbox.vala:1050
@@ -391,7 +397,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:399 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
-msgstr "Ningún folder"
+msgstr "Ninguna carpeta"
 
 #: src/Widgets/New.vala:472
 msgid "Project"
@@ -408,7 +414,7 @@ msgstr "Carpeta"
 
 #: src/Widgets/New.vala:509
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr "Organice sus proyectos en grupos y mantenga limpio su panel."
+msgstr "Organice sus proyectos en grupos y mantenga despejado su panel."
 
 #: src/Widgets/New.vala:522
 msgid "Add Folder"
@@ -416,15 +422,15 @@ msgstr "Añadir carpeta"
 
 #: src/Widgets/New.vala:559 src/Dialogs/Preferences/Preferences.vala:707
 msgid "Create tutorial project"
-msgstr "Crear Proyecto Tutorial"
+msgstr "Crear proyecto tutorial"
 
 #: src/Widgets/New.vala:578 src/Dialogs/Preferences/Preferences.vala:767
 msgid "Your tutorial project was created"
-msgstr "Su proyecto tutorial ha sido creado"
+msgstr "Se ha creado su proyecto tutorial"
 
 #: src/Widgets/New.vala:632
 msgid "New folder"
-msgstr "Nuevo folder"
+msgstr "Carpeta nueva"
 
 #: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:129
 #: src/Views/Project.vala:206
@@ -444,15 +450,13 @@ msgstr "Se movió a <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:798
 #: src/Views/Project.vala:1146
-#, fuzzy
 msgid "Open New Window"
-msgstr "Abrir Entrada"
+msgstr "Abrir ventana nueva"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:799
 #: src/Views/Project.vala:1147
-#, fuzzy
 msgid "Edit Project"
-msgstr "Añadir proyecto"
+msgstr "Editar proyecto"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -495,19 +499,19 @@ msgstr "Eliminar proyecto"
 #: src/Views/Inbox.vala:894 src/Views/Project.vala:1242
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr "¿Está seguro de que quiere eliminar <b>%s</b>?"
+msgstr "¿Confirma que quiere eliminar <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:56
 msgid "1d"
-msgstr ""
+msgstr "1 d"
 
 #: src/Widgets/NewItem.vala:57
 msgid "1w"
-msgstr ""
+msgstr "1 s"
 
 #: src/Widgets/NewItem.vala:58
 msgid "1m"
-msgstr ""
+msgstr "1 m"
 
 #: src/Widgets/NewItem.vala:93 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:66
@@ -550,9 +554,8 @@ msgid "Undated"
 msgstr "Sin fecha"
 
 #: src/Widgets/NewItem.vala:577 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Hora:"
+msgstr "Hora"
 
 #: src/Widgets/NewItem.vala:653 src/Widgets/NewItem.vala:832
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -634,12 +637,10 @@ msgid "Date completed"
 msgstr "Fecha completada"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "Marcar como completado"
+msgstr "Marcar como incompleto"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Eliminar tarea"
 
@@ -773,20 +774,19 @@ msgstr "Tarea añadida desde el portapapeles"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "No se pudo duplicar la tarea. Inténtelo de nuevo."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "No se pudo añadir la tarea desde el portapapeles. Inténtelo de nuevo."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Compartir proyecto"
+msgstr "Proyecto convertido"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "No se pudo convertir el proyecto. Inténtelo de nuevo."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -878,9 +878,8 @@ msgid "Startup"
 msgstr "Puesta en marcha"
 
 #: src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
-msgstr "Empezar a trabajar localmente."
+msgstr "Empiece a trabajar localmente."
 
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:927
@@ -888,18 +887,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Sincronice su cuenta de Todoist y empiece a trabajar."
+msgstr "Sincronice con su cuenta de Todoist."
 
 #: src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Importante"
+msgstr "Importar copia de respaldo"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importe un respaldo previamente exportado de Planner."
 
 #: src/Views/Inbox.vala:93 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
@@ -920,7 +917,7 @@ msgstr "Buscar tarea"
 
 #: src/Views/Inbox.vala:286
 msgid "All clear"
-msgstr "Todo claro"
+msgstr "Todo despejado"
 
 #: src/Views/Inbox.vala:287
 msgid "Looks like everything's organized in the right place."
@@ -928,25 +925,24 @@ msgstr "Parece que todo está organizado en el lugar correcto."
 
 #: src/Views/Inbox.vala:800 src/Views/Project.vala:1148
 msgid "Sort by date"
-msgstr ""
+msgstr "Ordenar por fecha"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:801 src/Views/Today.vala:461
 #: src/Views/Project.vala:1149
 msgid "Sort by priority"
-msgstr ""
+msgstr "Ordenar por prioridad"
 
 #: src/Views/Inbox.vala:802 src/Views/Today.vala:462
 #: src/Views/Project.vala:1150
 msgid "Sort by name"
-msgstr ""
+msgstr "Ordenar por nombre"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:804 src/Views/Today.vala:464
 #: src/Views/Project.vala:1152
-#, fuzzy
 msgid "Utilities"
-msgstr "Prioridades"
+msgstr "Utilidades"
 
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:472
 #: src/Views/Project.vala:1163
@@ -955,15 +951,13 @@ msgstr "Mostrar completadas"
 
 #: src/Views/Inbox.vala:951 src/Views/Today.vala:537
 #: src/Views/Project.vala:1299
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Compartir en Markdown"
 
 #: src/Views/Inbox.vala:952 src/Views/Today.vala:538
 #: src/Views/Project.vala:1300
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Ocultar detalles"
+msgstr "Ocultar detalles de todas las tareas"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -986,14 +980,12 @@ msgid "Tap + to add a task for today."
 msgstr "Toque + para añadir una tarea para hoy."
 
 #: src/Views/Today.vala:463
-#, fuzzy
 msgid "Sort by project"
-msgstr "Exportar Proyecto"
+msgstr "Ordenar por proyecto"
 
 #: src/Views/Today.vala:583
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Se ha copiado la tarea en el portapapeles."
+msgstr "Se ha copiado Hoy en el portapapeles."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:846
 #, c-format
@@ -1042,9 +1034,8 @@ msgid "Please enter your credentials…"
 msgstr "Proporcione sus datos de acceso…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Menú de proyecto"
+msgstr "Configuración del proyecto"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1055,13 +1046,12 @@ msgid "Uploading changes…"
 msgstr "Cargando cambios…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Secciones"
+msgstr "Opciones:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Convertir en Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
@@ -1069,22 +1059,20 @@ msgstr "Convertir"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
-msgstr ""
+msgstr "Acceso directo:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Mover a proyecto"
+msgstr "Convertir proyecto"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "¿Está seguro de que quiere eliminar <b>%s</b>?"
+msgstr "¿Confirma que quiere convertir <b>%s</b> a Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Compartir proyecto"
+msgstr "Convirtiendo el proyecto…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
@@ -1111,7 +1099,7 @@ msgstr "Tema"
 #: src/Dialogs/Preferences/Preferences.vala:111
 #: src/Dialogs/Preferences/Preferences.vala:485
 msgid "Quick Add"
-msgstr "Añadir rápido"
+msgstr "Adición rápida"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:127
@@ -1137,7 +1125,7 @@ msgstr "Acerca de"
 #: src/Dialogs/Preferences/Preferences.vala:155
 #: src/Dialogs/Preferences/Preferences.vala:1144
 msgid "Support & Credits"
-msgstr "Apoyo y créditos"
+msgstr "Asistencia y créditos"
 
 #: src/Dialogs/Preferences/Preferences.vala:240
 msgid ""
@@ -1174,7 +1162,7 @@ msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
-"Personalice la apariencia de Planner eligiendo el tema que más le convenga."
+"Personalice la apariencia de Planner eligiendo el tema que más le agrade."
 
 #: src/Dialogs/Preferences/Preferences.vala:427
 msgid "Light"
@@ -1206,11 +1194,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:498
 #: src/Dialogs/Preferences/Preferences.vala:1080
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Activado"
 
 #: src/Dialogs/Preferences/Preferences.vala:513
 msgid "Press keys…"
-msgstr "Pulse las teclas…"
+msgstr "Oprima las teclas…"
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Change Keyboard Shortcut"
@@ -1234,8 +1222,8 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
-"Habilite esta configuración para mantener a Planner ejecutándose en segundo "
-"plano cuando se cierre. Esto permitirá que Planner continúe actualizando y "
+"Active esta opción para mantener a Planner ejecutándose en segundo plano "
+"cuando se cierre. Esto permitirá que Planner continúe actualizando y "
 "enviando notificaciones de recordatorios."
 
 #: src/Dialogs/Preferences/Preferences.vala:673
@@ -1244,12 +1232,11 @@ msgstr "Ejecutar al iniciar"
 
 #: src/Dialogs/Preferences/Preferences.vala:677
 msgid "Enable this setting to make Planner startup with the system."
-msgstr ""
-"Habilite esta configuración para hacer que Planner se inicie con el sistema."
+msgstr "Active esta opción para hacer que Planner se inicie con el sistema."
 
 #: src/Dialogs/Preferences/Preferences.vala:694
 msgid "Button layout"
-msgstr "Diseño de botones"
+msgstr "Disposición de botones"
 
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:703
@@ -1266,7 +1253,7 @@ msgstr "Zona peligrosa"
 
 #: src/Dialogs/Preferences/Preferences.vala:714
 msgid "Database"
-msgstr ""
+msgstr "Base de datos"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 #: src/Dialogs/Preferences/Preferences.vala:786
@@ -1279,7 +1266,7 @@ msgstr "Restablecer"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export Database"
-msgstr ""
+msgstr "Exportar base de datos"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export"
@@ -1287,7 +1274,7 @@ msgstr "Exportar"
 
 #: src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
-msgstr "¿Está seguro de que quiere restablecer todo?"
+msgstr "¿Confirma que quiere restablecerlo todo?"
 
 #: src/Dialogs/Preferences/Preferences.vala:782
 msgid ""
@@ -1329,7 +1316,7 @@ msgstr "Cerrar sesión"
 
 #: src/Dialogs/Preferences/Preferences.vala:1027
 msgid "Are you sure you want to log out?"
-msgstr "¿Está seguro de que quiere cerrar sesión?"
+msgstr "¿Confirma que quiere finalizar la sesión?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1028
 msgid "This process will close your Todoist session on this device."
@@ -1366,11 +1353,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1252
 msgid "Website"
-msgstr "Página web"
+msgstr "Sitio web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr "Github"
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"
@@ -1386,7 +1373,7 @@ msgstr "Sugerir traducciones"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr "Atrás"
+msgstr "Volver"
 
 #: src/Dialogs/QuickFind.vala:92
 msgid "Completed"
