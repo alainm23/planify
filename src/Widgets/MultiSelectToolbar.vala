@@ -524,7 +524,7 @@ public class SearchProject : Gtk.ListBoxRow {
             icon.gicon = new ThemedIcon ("planner-inbox");
         }
 
-        var content_label = new Gtk.Label (project.name);
+        var content_label = new Gtk.Label (Planner.utils.get_dialog_text (project.name));
         content_label.ellipsize = Pango.EllipsizeMode.END;
         content_label.xalign = 0;
         content_label.use_markup = true;

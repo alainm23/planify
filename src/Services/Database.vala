@@ -2721,6 +2721,36 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void update_item_project_id (Objects.Item item, int64 project_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int64 old_project_id = item.project_id;
+        item.project_id = project_id;
+
+        sql = """
+            UPDATE Items SET project_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item.project_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            check_project_count (old_project_id);
+            check_project_count (item.project_id);
+        }
+
+        stmt.reset ();
+    }
+
     public bool update_item (Objects.Item item) {
         Sqlite.Statement stmt;
         string sql;

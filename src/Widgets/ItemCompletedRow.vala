@@ -96,7 +96,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
             }
 
             var project_preview_label = new Gtk.Label (
-                "<small>%s</small>".printf (project.name)
+                "<small>%s</small>".printf (Planner.utils.get_dialog_text (project.name))
             );
             project_preview_label.get_style_context ().add_class ("pane-item");
             project_preview_label.use_markup = true;

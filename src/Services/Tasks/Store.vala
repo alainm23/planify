@@ -337,37 +337,44 @@ public class Services.Tasks.Store : Object {
     }
 
     private void update_icalcomponent (ECal.Client client, ICal.Component comp, ECal.ObjModType mod_type) {
-        try {
-#if E_CAL_2_0
-            client.modify_object_sync (comp, mod_type, ECal.OperationFlags.NONE, null);
-#else
-            client.modify_object_sync (comp, mod_type, null);
-#endif
-        } catch (Error e) {
-            warning (e.message);
-            return;
-        }
-
-        if (comp.get_uid () == null) {
-            return;
-        }
-
-        try {
-            SList<ECal.Component> ecal_tasks;
-            client.get_objects_for_uid_sync (comp.get_uid (), out ecal_tasks, null);
-
-#if E_CAL_2_0
-            var ical_tasks = new SList<ICal.Component> ();
-#else
-            var ical_tasks = new SList<unowned ICal.Component> ();
-#endif
-            foreach (unowned ECal.Component ecal_task in ecal_tasks) {
-                ical_tasks.append (ecal_task.get_icalcomponent ());
+        client.modify_object.begin (comp, mod_type, null, (obj, res) => {
+            try {
+                client.modify_object.end (res);
+            } catch (Error e) {
+                warning (e.message);
             }
+        });
+//          try {
+//  #if E_CAL_2_0
+//              client.modify_object_sync (comp, mod_type, ECal.OperationFlags.NONE, null);
+//  #else
+//              client.modify_object_sync (comp, mod_type, null);
+//  #endif
+//          } catch (Error e) {
+//              warning (e.message);
+//              return;
+//          }
 
-        } catch (Error e) {
-            warning (e.message);
-        }
+//          if (comp.get_uid () == null) {
+//              return;
+//          }
+
+//          try {
+//              SList<ECal.Component> ecal_tasks;
+//              client.get_objects_for_uid_sync (comp.get_uid (), out ecal_tasks, null);
+
+//  #if E_CAL_2_0
+//              var ical_tasks = new SList<ICal.Component> ();
+//  #else
+//              var ical_tasks = new SList<unowned ICal.Component> ();
+//  #endif
+//              foreach (unowned ECal.Component ecal_task in ecal_tasks) {
+//                  ical_tasks.append (ecal_task.get_icalcomponent ());
+//              }
+
+//          } catch (Error e) {
+//              warning (e.message);
+//          }
     }
 
     public void remove_task (E.Source list, ECal.Component task, ECal.ObjModType mod_type) {

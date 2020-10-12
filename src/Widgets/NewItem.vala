@@ -827,7 +827,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 // unowned ICal.Component ical_task = task.get_icalcomponent ();
                 
                 task.get_icalcomponent ().set_summary (content_entry.text);
-                Planner.task_store.add_task (source, task, this);
+                // Planner.task_store.add_task (source, task, this);
             }
         }
     }

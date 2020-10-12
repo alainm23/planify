@@ -38,7 +38,7 @@ public class Views.Today : Gtk.EventBox {
     private Gee.HashMap<string, Widgets.EventRow> event_hashmap;
     private Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gee.HashMap <string, Widgets.ItemRow> overdues_loaded;
-    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
     
     private Gee.ArrayList<Widgets.ItemRow?> items_list;
     private Gee.ArrayList<Widgets.ItemRow?> overdue_list;
@@ -57,7 +57,7 @@ public class Views.Today : Gtk.EventBox {
         
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
         overdues_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
-        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -265,6 +265,13 @@ public class Views.Today : Gtk.EventBox {
             }
         });
 
+        completed_listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            row.reveal_child = true;
+            Planner.event_bus.unselect_all ();
+        });
+
         overdue_listbox.row_activated.connect ((r) => {
             var row = ((Widgets.ItemRow) r);
 
@@ -375,7 +382,7 @@ public class Views.Today : Gtk.EventBox {
                 }
 
                 if (items_completed_added.has_key (item.id.to_string ()) == false) {
-                    var row = new Widgets.ItemCompletedRow (item);
+                    var row = new Widgets.ItemRow (item);
 
                     items_completed_added.set (item.id.to_string (), row);
                     completed_listbox.insert (row, 0);
@@ -851,7 +858,7 @@ public class Views.Today : Gtk.EventBox {
         });
 
         foreach (var item in Planner.database.get_all_today_completed_items ()) {
-            var row = new Widgets.ItemCompletedRow (item);
+            var row = new Widgets.ItemRow (item);
 
             items_completed_added.set (item.id.to_string (), row);
             

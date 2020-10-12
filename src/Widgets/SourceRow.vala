@@ -385,7 +385,8 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
         name_label.label = source.display_name;
         apply_color (task_list.dup_color ());
-
+        project_progress.progress_fill_color = task_list.dup_color ();
+        
         if (source.connection_status == E.SourceConnectionStatus.CONNECTING) {
             status_stack.visible_child_name = "spinner";
         } else {

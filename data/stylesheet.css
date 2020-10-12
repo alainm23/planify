@@ -482,6 +482,10 @@ paned.horizontal > separator {
     background-color: @base_color;
 }
 
+.entry-no-border {
+    border-width: 0px 0px 0px 0px;
+}
+
 .content-entry:focus {
     border-color: transparent;
     box-shadow: none;
@@ -567,7 +571,7 @@ paned.horizontal > separator {
 }
 
 .search-icon {
-    background-color: #333333;
+    background-color: #fa1955;
     color: #fff;
     border-radius: 4px;
     padding: 2px;
@@ -771,7 +775,7 @@ paned.horizontal > separator {
 }
 
 .badge-expired {
-    background-color: #ed5353;
+    background-color: #fa1955;
     color: #ffffff;
     border-radius: 50px;
 }

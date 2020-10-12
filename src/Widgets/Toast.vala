@@ -288,11 +288,11 @@ public class Widgets.Toast : Gtk.Revealer {
         }
     }
 
-    private void run_query () {
+    public void run_query () {
         if (query != "") {
             if (Planner.todoist.get_string_member_by_object (query, "object_type") == "item") {
                 var item = Planner.database.get_item_by_id (
-                    int.parse (Planner.todoist.get_string_member_by_object (query, "object_id"))
+                    int64.parse (Planner.todoist.get_string_member_by_object (query, "object_id"))
                 );
 
                 if (item.id != 0) {
@@ -302,7 +302,13 @@ public class Widgets.Toast : Gtk.Revealer {
                             Planner.todoist.add_delete_item (item);
                         }
                     } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_complete") {
-                        Planner.database.item_completed (item);
+                        item.checked = 1;
+                        item.date_completed = new GLib.DateTime.now_local ().to_string ();
+
+                        Planner.database.update_item_completed (item);
+                        if (item.is_todoist == 1) {
+                            Planner.todoist.item_complete (item);
+                        }
                     }
                 }
             } else if (Planner.todoist.get_string_member_by_object (query, "object_type") == "task") {

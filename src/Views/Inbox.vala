@@ -47,7 +47,7 @@ public class Views.Inbox : Gtk.EventBox {
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
-    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
     private int64 temp_id_mapping { get; set; default = 0; }
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
@@ -65,10 +65,7 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     construct {
-        // print ("Project: %s\n".printf (project.name));
-        // print ("Project ID: %s\n".printf (project.id.to_string ()));
-
-        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
@@ -342,6 +339,13 @@ public class Views.Inbox : Gtk.EventBox {
             }
         });
 
+        completed_listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            row.reveal_child = true;
+            Planner.event_bus.unselect_all ();
+        });
+
         listbox.remove.connect ((row) => {
             check_placeholder_view ();
         });
@@ -456,7 +460,7 @@ public class Views.Inbox : Gtk.EventBox {
                         }
 
                         if (items_completed_added.has_key (item.id.to_string ()) == false) {
-                            var row = new Widgets.ItemCompletedRow (item);
+                            var row = new Widgets.ItemRow (item);
 
                             items_completed_added.set (item.id.to_string (), row);
                             completed_listbox.insert (row, 0);
@@ -623,6 +627,16 @@ public class Views.Inbox : Gtk.EventBox {
                 set_sort_func (order);
             }
         });
+
+        Planner.database.project_show_completed.connect ((p) => {
+            if (project.id == p.id) {
+                if (p.show_completed == 1) {
+                    completed_revealer.reveal_child = true;
+                } else {
+                    completed_revealer.reveal_child = false;
+                }
+            }
+        });
     }
 
     private void remove_item_show_queue (Widgets.ItemRow row) {
@@ -676,7 +690,7 @@ public class Views.Inbox : Gtk.EventBox {
         var all = Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id);
 
         foreach (var item in all) {
-            var row = new Widgets.ItemCompletedRow (item);
+            var row = new Widgets.ItemRow (item);
 
             completed_listbox.add (row);
             items_completed_added.set (item.id.to_string (), row);

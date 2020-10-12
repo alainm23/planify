@@ -63,7 +63,7 @@ public class Dialogs.Project : Gtk.Dialog {
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.ArrayList<Widgets.ItemRow?> items_opened;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
-    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
     private int64 temp_id_mapping { get; set; default = 0; }
     private bool entry_menu_opened = false;
 
@@ -109,7 +109,7 @@ public class Dialogs.Project : Gtk.Dialog {
         
         set_size_request (width, height);
 
-        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_opened = new Gee.ArrayList<Widgets.ItemRow?> ();
@@ -733,7 +733,7 @@ public class Dialogs.Project : Gtk.Dialog {
                         }
 
                         if (items_completed_added.has_key (item.id.to_string ()) == false) {
-                            var row = new Widgets.ItemCompletedRow (item);
+                            var row = new Widgets.ItemRow (item);
 
                             items_completed_added.set (item.id.to_string (), row);
                             completed_listbox.insert (row, 0);
@@ -1016,7 +1016,7 @@ public class Dialogs.Project : Gtk.Dialog {
 
     private void add_completed_items () {
         foreach (var item in Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id)) {
-            var row = new Widgets.ItemCompletedRow (item);
+            var row = new Widgets.ItemRow (item);
 
             completed_listbox.add (row);
             items_completed_added.set (item.id.to_string (), row);
@@ -1060,8 +1060,8 @@ public class Dialogs.Project : Gtk.Dialog {
 
         if (target != null) {
             if (source.item.is_todoist == project.is_todoist) {
-                if (source.item.project_id != project.is_todoist) {
-                    Planner.database.move_item (source.item, project.id, 0, target.get_index () + 1);
+                if (source.item.project_id != project.id) {
+                    Planner.database.update_item_project_id (source.item, project.id);
                 }
 
                 if (source.item.section_id != 0) {
@@ -1097,8 +1097,8 @@ public class Dialogs.Project : Gtk.Dialog {
         source = (Widgets.ItemRow) row;
 
         if (source.item.is_todoist == project.is_todoist) {
-            if (source.item.project_id != project.is_todoist) {
-                Planner.database.move_item (source.item, project.id, 0, 0);
+            if (source.item.project_id != project.id) {
+                Planner.database.update_item_project_id (source.item, project.id);
             }
 
             if (source.item.section_id != 0) {
@@ -1244,7 +1244,7 @@ public class Dialogs.Project : Gtk.Dialog {
 
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Delete project"),
-                _("Are you sure you want to delete <b>%s</b>?".printf (project.name)),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (project.name))),
                 "user-trash-full",
             Gtk.ButtonsType.CANCEL);
 

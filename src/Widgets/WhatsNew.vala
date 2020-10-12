@@ -24,11 +24,6 @@ public class Widgets.WhatsNew : Gtk.Dialog {
     private Gtk.Label description_label;
 
     /**
-     * List of buttons for action items
-     */
-    protected new GLib.List<Widgets.Feature> children = new GLib.List<Widgets.Feature> ();
-
-    /**
      * Grid for action items
      */
     protected Gtk.Grid options;
@@ -83,13 +78,19 @@ public class Widgets.WhatsNew : Gtk.Dialog {
         options.row_spacing = 12;
         options.halign = Gtk.Align.CENTER;
         options.margin_top = 24;
+        options.expand = true;
+
+        var scrolled = new Gtk.ScrolledWindow (null, null);
+        scrolled.height_request = 325;
+        scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        scrolled.expand = true;
+        scrolled.add (options);
 
         var continue_button = new Gtk.Button.with_label (_("Continue"));
         continue_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         continue_button.expand = true;
-        continue_button.margin_bottom = 24;
-        // continue_button.margin_end = 32;
-        // continue_button.margin_start = 32;
+        continue_button.margin_top = 6;
+        continue_button.margin_bottom = 6;
         continue_button.valign = Gtk.Align.END;
 
         var content = new Gtk.Grid ();
@@ -99,35 +100,66 @@ public class Widgets.WhatsNew : Gtk.Dialog {
         content.margin_start = 32;
         content.add (title_label);
         content.add (description_label);        
-        content.add (options);
+        content.add (scrolled);
         content.add (continue_button);
 
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        scrolled.width_request = 246;
-        scrolled.expand = true;
-        scrolled.add (content);
+        var main_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.vscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.expand = true;
+        main_scrolled.add (content);
 
-        get_content_area ().add (scrolled);
+        get_content_area ().add (main_scrolled);
 
         continue_button.clicked.connect (() => {
             destroy ();
         });
     }
 
-    public int append (string icon_name, string option_text, string description_text) {
+    public void append (string icon_name, string option_text, string description_text) {
         var image = new Gtk.Image.from_icon_name (icon_name, Gtk.IconSize.DIALOG);
         image.use_fallback = true;
-        return append_with_image (image, option_text, description_text);
+        append_with_image (image, option_text, description_text);
     }
 
-    public int append_with_image (Gtk.Image? image, string option_text, string description_text) {
+    public void append_notes (string title, List<string> list, int margin_start) {
+        var title_label = new Gtk.Label (title);
+        title_label.get_style_context ().add_class ("font-bold");
+        title_label.halign = Gtk.Align.START;
+        title_label.valign = Gtk.Align.END;
+
+        var notes_grid = new Gtk.Grid ();
+        notes_grid.halign = Gtk.Align.START;
+        notes_grid.margin_top = 3;
+        notes_grid.orientation = Gtk.Orientation.VERTICAL;
+        list.foreach ((item) => {
+            notes_grid.add (get_note (item));
+        });
+
+        var grid = new Gtk.Grid ();
+        grid.margin_start = margin_start;
+        grid.halign = Gtk.Align.START;
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (title_label);
+        grid.add (notes_grid);
+
+        options.add (grid);
+    }
+
+    public Gtk.Label get_note (string title) {
+        var label = new Gtk.Label ("- %s".printf (title));
+        label.wrap = true;
+        label.xalign = 0;
+        label.halign = Gtk.Align.START;
+        label.valign = Gtk.Align.END;
+
+        return label;
+    }
+
+    public void append_with_image (Gtk.Image? image, string option_text, string description_text) {
         // Option label
         var button = new Widgets.Feature (image, option_text, description_text);
-        children.append (button);
         options.add (button);
-        
-        return this.children.index (button);
     }
 }
 

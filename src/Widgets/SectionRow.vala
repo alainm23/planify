@@ -51,7 +51,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private uint toggle_timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
-    public Gee.HashMap<string, Widgets.ItemCompletedRow> items_completed_added;
+    public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
     private bool entry_menu_opened = false;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
@@ -78,7 +78,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         selectable = false;
         get_style_context ().add_class ("area-row");
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
-        items_completed_added = new Gee.HashMap<string, Widgets.ItemCompletedRow> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
@@ -342,6 +342,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
+        completed_listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            row.reveal_child = true;
+            Planner.event_bus.unselect_all ();
+        });
+
         Planner.database.item_added.connect ((item, index) => {
             if (section.id == item.section_id && item.parent_id == 0) {
                 var row = new Widgets.ItemRow (item);
@@ -399,7 +406,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                     }
 
                     if (items_completed_added.has_key (item.id.to_string ()) == false) {
-                        var row = new Widgets.ItemCompletedRow (item);
+                        var row = new Widgets.ItemRow (item);
 
                         items_completed_added.set (item.id.to_string (), row);
                         completed_listbox.insert (row, 0);
@@ -490,7 +497,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         add_button.clicked.connect (() => {
-            add_new_item (0);
+            add_new_item (-1);
         });
 
         name_entry.changed.connect (() => {
@@ -901,7 +908,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.show_all ();
 
         add_menu.activate.connect (() => {
-            add_new_item (0);
+            add_new_item (-1);
         });
 
         note_menu.activate.connect (() => {
@@ -975,7 +982,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
     private void add_completed_items () {
         foreach (var item in Planner.database.get_all_completed_items_by_section_no_parent (section)) {
-            var row = new Widgets.ItemCompletedRow (item);
+            var row = new Widgets.ItemRow (item);
 
             completed_listbox.add (row);
             items_completed_added.set (item.id.to_string (), row);
@@ -1064,6 +1071,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         if (target != null) {
             if (source.item.is_todoist == section.is_todoist) {
+                if (source.item.project_id != section.project_id) {
+                    Planner.database.update_item_project_id (source.item, section.project_id);
+                }
+
                 if (source.item.section_id != section.id) {
                     Planner.database.on_drag_item_deleted (source, source.item.section_id);
                     source.item.section_id = section.id;
@@ -1129,12 +1140,16 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (source.item.is_todoist == section.is_todoist) {
+            if (source.item.project_id != section.project_id) {
+                Planner.database.update_item_project_id (source.item, section.project_id);
+            }
+            
             if (source.item.section_id != section.id) {
                 Planner.database.on_drag_item_deleted (source, source.item.section_id);
                 source.item.section_id = section.id;
                 if (source.item.is_todoist == 1) {
                     Planner.todoist.move_item_to_section (source.item, section.id);
-                }
+                } 
     
                 string move_template = _("Task moved to <b>%s</b>");
                 Planner.notifications.send_notification (
@@ -1276,7 +1291,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         grid.show ();
 
         button.clicked.connect (() => {
-            add_new_item (0);
+            add_new_item (-1);
         });
 
         return grid;

@@ -53,8 +53,6 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         checked_button.can_focus = false;
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.halign = Gtk.Align.CENTER;
-        checked_button.get_style_context ().add_class ("checklist-border");
-        checked_button.get_style_context ().add_class ("checklist-check");
 
         content_label = new Gtk.Label (item.content);
         content_label.halign = Gtk.Align.START;
@@ -132,9 +130,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         build_drag_and_drop ();
 
         if (item.checked == 1) {
+            checked_button.get_style_context ().add_class ("checklist-completed");
             checked_button.active = true;
         } else {
             checked_button.active = false;
+            checked_button.get_style_context ().add_class ("checklist-border");
+            checked_button.get_style_context ().add_class ("checklist-check");
         }
 
         handle.enter_notify_event.connect ((event) => {
@@ -246,16 +247,25 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
                 return false;
             });
         });
-
+        
+        
         Planner.database.item_completed.connect ((i) => {
             if (item.id == i.id) {
+                checked_button.get_style_context ().remove_class ("checklist-border");
+                checked_button.get_style_context ().remove_class ("checklist-check");
+
                 checked_button.active = true;
+                checked_button.get_style_context ().add_class ("checklist-completed");
             }
         });
 
         Planner.database.item_uncompleted.connect ((i) => {
             if (item.id == i.id) {
+                checked_button.get_style_context ().remove_class ("checklist-completed");
+
                 checked_button.active = false;
+                checked_button.get_style_context ().add_class ("checklist-border");
+                checked_button.get_style_context ().add_class ("checklist-check");
             }
         });
     }

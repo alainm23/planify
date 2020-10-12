@@ -66,28 +66,28 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         views.add ("""
             {
                 "name": "%s",
-                "id": 0
+                "id": 1
             }
         """.printf (_("Inbox")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 1
+                "id": 2
             }
         """.printf (_("Today")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 2
+                "id": 3
             }
         """.printf (_("Upcoming")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 3
+                "id": 4
             }
         """.printf (_("Completed")));
 
@@ -631,17 +631,17 @@ public class SearchItem : Gtk.ListBoxRow {
             icon.valign = Gtk.Align.CENTER;
             icon.pixel_size = 12;
 
-            if (Planner.todoist.get_int_member_by_object (object, "id") == 0) {
+            if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
                 icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
                 icon.get_style_context ().add_class ("inbox-icon");
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
                 icon.gicon = new ThemedIcon ("help-about-symbolic");
                 icon.get_style_context ().add_class ("today-icon");
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
                 icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 icon.get_style_context ().add_class ("upcoming-icon");
                 icon.margin_start = 1;
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 4) {
                 icon.gicon = new ThemedIcon ("emblem-default-symbolic");
                 icon.get_style_context ().add_class ("completed-icon");
             }

@@ -272,14 +272,22 @@ public class Views.TaskList : Gtk.EventBox {
     }
 
     private void save () {
-        if (source != null) {
+        if (source != null && source.writable) {
             source.display_name = name_entry.text;
             
             name_label.label = name_entry.text;
             action_revealer.reveal_child = false;
             name_stack.visible_child_name = "name_label";
 
-            source.write.begin (null);
+            source.write.begin (null, (obj, res) => {
+                try {
+                    source.write.end (res);
+                } catch (Error e) {
+                    warning (e.message);
+                }
+            });
+        } else {
+            warning (@"Source is not writable: $(source.display_name)");
         }
     }
 

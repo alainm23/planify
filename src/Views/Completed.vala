@@ -20,11 +20,11 @@
 */
 
 public class Views.Completed : Gtk.EventBox {
-    public Gee.HashMap <string, Widgets.ItemCompletedRow> items_loaded;
+    public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gtk.ListBox listbox;
 
     construct {
-        items_loaded = new Gee.HashMap <string, Widgets.ItemCompletedRow> ();
+        items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         var icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
@@ -87,6 +87,13 @@ public class Views.Completed : Gtk.EventBox {
 
         add (main_box);
         show_all ();
+
+        listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            row.reveal_child = true;
+            Planner.event_bus.unselect_all ();
+        });
     }
 
     public void add_all_items () {
@@ -95,7 +102,7 @@ public class Views.Completed : Gtk.EventBox {
         }
 
         foreach (var item in Planner.database.get_all_completed_items ()) {
-            var row = new Widgets.ItemCompletedRow (item, "completed");
+            var row = new Widgets.ItemRow (item, "upcoming");
 
             items_loaded.set (item.id.to_string (), row);
 
@@ -108,13 +115,13 @@ public class Views.Completed : Gtk.EventBox {
     }
 
     private void header_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
-        var row = (Widgets.ItemCompletedRow) lbrow;
+        var row = (Widgets.ItemRow) lbrow;
         if (row.item.date_completed == "") {
             return;
         }
 
         if (lbbefore != null) {
-            var before = (Widgets.ItemCompletedRow) lbbefore;
+            var before = (Widgets.ItemRow) lbbefore;
             var comp_before = Planner.utils.get_format_date_from_string (before.item.date_completed);
             if (comp_before.compare (Planner.utils.get_format_date_from_string (row.item.date_completed)) == 0) {
                 return;
