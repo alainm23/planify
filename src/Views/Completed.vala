@@ -22,6 +22,7 @@
 public class Views.Completed : Gtk.EventBox {
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gtk.ListBox listbox;
+    private Gtk.Stack view_stack;
 
     construct {
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
@@ -70,11 +71,11 @@ public class Views.Completed : Gtk.EventBox {
         var placeholder_view = new Widgets.Placeholder (
             _("All clear"),
             _("No tasks in this filter at the moment."),
-            "tag-symbolic"
+            "emblem-default-symbolic"
         );
         placeholder_view.reveal_child = true;
 
-        var view_stack = new Gtk.Stack ();
+        view_stack = new Gtk.Stack ();
         view_stack.expand = true;
         view_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         view_stack.add_named (box_scrolled, "listbox");
@@ -110,8 +111,11 @@ public class Views.Completed : Gtk.EventBox {
             listbox.show_all ();
         }
 
-        //listbox.set_sort_func (sort_function);
-        //listbox.set_header_func (update_headers);
+        if (items_loaded.size > 0) {
+            view_stack.visible_child_name = "listbox";
+        } else {
+            view_stack.visible_child_name = "placeholder";
+        }
     }
 
     private void header_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
