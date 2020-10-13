@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-07 21:26+0000\n"
+"PO-Revision-Date: 2020-10-15 05:26+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -24,53 +24,55 @@ msgid "Are you sure you want to reset all?"
 msgstr "Tümünü sıfırlamak istediğinizden emin misiniz?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
-msgstr "İşlem, saklanan tüm bilgileri geri alma olasılığı olmadan kaldırır."
+msgstr ""
+"İşlem, saklanan tüm bilgileri geri alma olasılığı olmadan kaldırır. (e/h): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "e"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "evet"
 
 #: src/Application.vala:233
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
-"Planner 2.5, birçok tasarım iyileştirmesi, yeni özellikler ve daha "
-"fazlasıyla burada."
+"Planner %s birçok tasarım iyileştirmesi, yeni özellikler ve daha fazlasıyla "
+"burada."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Hızlı Arama düğmesinin konumu değiştirildi."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Proje adını görüntülerken oluşan hata düzeltildi."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"Github #563 - Bir görevi listenin sonuna taşırken oluşan hata düzeltildi."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Tamamlanmış bir görevin tüm ayrıntılarını görmek için "
+"tıklama etkinleştirildi."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Çeviri Öner"
+msgstr "Çeviriler güncellendi."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Hata düzeltmeleri ve performans iyileştirmeleri"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
