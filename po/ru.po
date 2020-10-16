@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-15 05:26+0000\n"
-"Last-Translator: Nikita Epifanov <nikgreens@protonmail.com>\n"
+"PO-Revision-Date: 2020-10-17 11:26+0000\n"
+"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -18,24 +18,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Вы уверены, что хотите сбросить всё?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
 "Этот процесс удаляет всю сохраненную информацию без возможности ее "
-"восстановления."
+"восстановления. (да/нет): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "да"
 
 #: src/Application.vala:120
 msgid "yes"
@@ -69,9 +68,8 @@ msgstr ""
 "выполненной задаче."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Предложить перевод"
+msgstr "Обновленные переводы."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
