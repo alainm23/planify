@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-08-02 18:42+0000\n"
-"Last-Translator: Yannick A. <yannick.armand@protonmail.com>\n"
+"PO-Revision-Date: 2020-10-19 11:39+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
@@ -1393,7 +1393,7 @@ msgstr "Site web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr "Github"
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"
