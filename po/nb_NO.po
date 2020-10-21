@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-08-06 10:32+0000\n"
+"PO-Revision-Date: 2020-10-19 11:39+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/planner/"
 "translations/nb_NO/>\n"
@@ -17,49 +17,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Er du sikker på at du ønsker å tilbakestille alt?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
-msgstr "Prosessen fjerner all lagret info permanent."
+msgstr ""
+"Prosessen fjerner all lagret info for godt, altså uten mulighet til å angre. "
+"(j/n) "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "j"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner %s er her, med mange designforbedringer, nye funksjoner, med mer."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Ny posisjon for hurtigsøksknapp."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "GitHub #565 - Fikset feil ved visning av prosjektnavnet."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"GitHub #563 - Fikset feil ved flytting av gjøremål til slutten av listen."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"GitHub #559 #415 - Mulig å klikke for å se alle detaljer om fullført "
+"gjøremål."
 
 #: src/Application.vala:244
 #, fuzzy
@@ -68,7 +73,7 @@ msgstr "Foreslå oversettelser"
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Feilrettinger og ytelsesforbedring"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -231,8 +236,9 @@ msgid "Adding new tasks"
 msgstr "Tilføy nye oppgaver"
 
 #: src/Utils.vala:904
+#, fuzzy
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "For å legge til et nytt gjøremål i Planner, klikk «+» og trykk Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -525,15 +531,15 @@ msgstr "Er du sikker på at du ønsker å slette <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:60
 msgid "1d"
-msgstr ""
+msgstr "1 d"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1w"
-msgstr ""
+msgstr "1 u"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1m"
-msgstr ""
+msgstr "1 m"
 
 #: src/Widgets/NewItem.vala:121 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:64
@@ -808,11 +814,11 @@ msgstr "Gjøremål kopiert til utklippstavle."
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Klarte ikke å duplisere gjøremål. Prøv igjen."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Klarte ikke å legge til gjøremål fra utklippstavle. Prøv igjen."
 
 #: src/Widgets/Toast.vala:148
 #, fuzzy
@@ -821,7 +827,7 @@ msgstr "Slett prosjekt"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Klarte ikke å konvertere prosjekt. Prøv igjen."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -933,8 +939,9 @@ msgid "Import Backup"
 msgstr "Viktig"
 
 #: src/Views/Welcome.vala:30
+#, fuzzy
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importer tidligere eksporter Planner-sikkerhetskopi."
 
 #: src/Views/Inbox.vala:90 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
@@ -963,18 +970,18 @@ msgstr "Ser ut til at alt er organiser på rett sted."
 
 #: src/Views/Inbox.vala:814 src/Views/Project.vala:1189
 msgid "Sort by date"
-msgstr ""
+msgstr "Sorter etter dato"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:468
 #: src/Views/Project.vala:1190
 msgid "Sort by priority"
-msgstr ""
+msgstr "Sorter etter prioritet"
 
 #: src/Views/Inbox.vala:816 src/Views/Today.vala:469
 #: src/Views/Project.vala:1191
 msgid "Sort by name"
-msgstr ""
+msgstr "Sorter etter navn"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:818 src/Views/Today.vala:471
@@ -1103,15 +1110,15 @@ msgstr "Avsnitt"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Konverter til Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Konverter"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
-msgstr ""
+msgstr "Direktetilgang:"
 
 #: src/Dialogs/ProjectSettings.vala:268
 #, fuzzy
@@ -1314,7 +1321,7 @@ msgstr "Faresone"
 
 #: src/Dialogs/Preferences/Preferences.vala:714
 msgid "Database"
-msgstr ""
+msgstr "Database"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 #: src/Dialogs/Preferences/Preferences.vala:786
@@ -1327,11 +1334,11 @@ msgstr "Tilbakestill"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export Database"
-msgstr ""
+msgstr "Eksporter database"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export"
-msgstr ""
+msgstr "Eksporter"
 
 #: src/Dialogs/Preferences/Preferences.vala:782
 #, fuzzy
@@ -1416,7 +1423,7 @@ msgstr "Nettside"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr ""
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"

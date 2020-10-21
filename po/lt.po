@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-09-22 18:37+0000\n"
-"Last-Translator: Kornelijus Tvarijanavičius <kornelitvari@protonmail.com>\n"
+"PO-Revision-Date: 2020-10-19 11:39+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Lithuanian <https://hosted.weblate.org/projects/planner/"
 "translations/lt/>\n"
 "Language: lt\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 #, fuzzy
@@ -1417,7 +1417,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr "Github"
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"

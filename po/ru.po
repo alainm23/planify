@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-07 21:26+0000\n"
-"Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
+"PO-Revision-Date: 2020-10-19 11:39+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
 "Language: ru\n"
@@ -18,62 +18,62 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.3.1-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Вы уверены, что хотите сбросить всё?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
 "Этот процесс удаляет всю сохраненную информацию без возможности ее "
-"восстановления."
+"восстановления. (да/нет): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "да"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "да"
 
 #: src/Application.vala:233
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
-"Planner 2.5 уже здесь, со многими улучшениями дизайна, новыми функциями и "
+"Planner %s уже здесь, со многими улучшениями дизайна, новыми функциями и "
 "многим другим."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Новое положение кнопки быстрого поиска."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Исправление ошибки при отображении названия проекта."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
-msgstr ""
+msgstr "Github #563 - Исправление ошибки при перемещении задачи в конец списка."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Включён клик, чтобы увидеть полную информацию о "
+"выполненной задаче."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Предложить перевод"
+msgstr "Обновленные переводы."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Исправления ошибок и улучшение производительности"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -1370,7 +1370,7 @@ msgstr "Веб-сайт"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr "Страница Github"
+msgstr "Страница GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"

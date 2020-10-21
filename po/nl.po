@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-07 21:26+0000\n"
+"PO-Revision-Date: 2020-10-15 05:26+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -24,56 +24,57 @@ msgid "Are you sure you want to reset all?"
 msgstr "Weet je zeker dat je alle standaardwaarden wilt herstellen?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
-"Alle informatie wordt hierdoor verwijderd, en kan niet ongedaan worden "
-"gemaakt."
+"Hierdoor wordt alle opgeslagen informatie verwijderd. Dit kan niet ongedaan "
+"worden gemaakt. (j/n) "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "j"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: src/Application.vala:233
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
-"Planner 2.5 tot uw dienst! 2.5 bevat vele ontwerpverbeteringen, nieuwe "
-"functies en nog veel meer."
+"Planner %s tot uw dienst! Deze versie bevat vele ontwerpverbeteringen, "
+"nieuwe functies en nog veel meer."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Nieuwe locatie van de snelzoekknop."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Fout opgelost omtrent het tonen van de projectnaam."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"Github #563 - Fout opgelost omtrent het verplaatsen van een taak naar het "
+"einde van de lijst."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Mogelijkheid toegevoegd om de volledige details van een "
+"afgeronde taak te bekijken."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Spaanse vertaling bijgewerkt"
+msgstr "Vertalingen bijgewerkt."
 
 #: src/Application.vala:246
-#, fuzzy
 msgid "Bug fixes and performance improvement"
-msgstr "Prestatieverbeteringen"
+msgstr "Foutoplossingen en prestatieverbeteringen"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
