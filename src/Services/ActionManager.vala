@@ -195,17 +195,17 @@ public class Services.ActionManager : Object {
 
     private void action_view_inbox () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (0);
+        window.go_view (1);
     }
 
     private void action_view_today () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (1);
+        window.go_view (2);
     }
 
     private void action_view_upcoming () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (2);
+        window.go_view (3);
     }
 
     private void action_view_home () {

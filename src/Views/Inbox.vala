@@ -1250,36 +1250,40 @@ public class Views.Inbox : Gtk.EventBox {
 
     private void set_sort_func (int order) {
         listbox.set_sort_func ((row1, row2) => {
-            var item1 = ((Widgets.ItemRow) row1).item;
-            var item2 = ((Widgets.ItemRow) row2).item;
+            if (row1 is Widgets.ItemRow && row2 is Widgets.ItemRow) {
+                var item1 = ((Widgets.ItemRow) row1).item;
+                var item2 = ((Widgets.ItemRow) row2).item;
 
-            if (order == 0) {
-                return 0;
-            } else if (order == 1) {
-                if (item1.due_date != "" && item2.due_date != "") {
-                    var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
-                    var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
+                if (order == 0) {
+                    return 0;
+                } else if (order == 1) {
+                    if (item1.due_date != "" && item2.due_date != "") {
+                        var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
+                        var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
 
-                    return date1.compare (date2);
-                }
+                        return date1.compare (date2);
+                    }
 
-                if (item1.due_date == "" && item2.due_date != "") {
-                    return 1;
-                }
+                    if (item1.due_date == "" && item2.due_date != "") {
+                        return 1;
+                    }
 
-                return 0;
-            } else if (order == 2) {
-                if (item1.priority < item2.priority) {
-                    return 1;
-                }
-    
-                if (item1.priority < item2.priority) {
-                    return -1;
-                }
-    
-                return 0;
+                    return 0;
+                } else if (order == 2) {
+                    if (item1.priority < item2.priority) {
+                        return 1;
+                    }
+        
+                    if (item1.priority < item2.priority) {
+                        return -1;
+                    }
+        
+                    return 0;
+                } else {
+                    return item1.content.collate (item2.content);
+                }    
             } else {
-                return item1.content.collate (item2.content);
+                return 0;
             }
         });
 

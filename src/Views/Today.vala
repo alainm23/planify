@@ -604,33 +604,37 @@ public class Views.Today : Gtk.EventBox {
 
     private void set_sort_func (int order) {
         listbox.set_sort_func ((row1, row2) => {
-            var item1 = ((Widgets.ItemRow) row1).item;
-            var item2 = ((Widgets.ItemRow) row2).item;
+            if (row1 is Widgets.ItemRow && row2 is Widgets.ItemRow) {
+                var item1 = ((Widgets.ItemRow) row1).item;
+                var item2 = ((Widgets.ItemRow) row2).item;
 
-            if (order == 0) {
-                return 0;
-            } else if (order == 1) {
-                if (item1.project_id == item2.project_id) {
-                    return 1;
-                }
+                if (order == 0) {
+                    return 0;
+                } else if (order == 1) {
+                    if (item1.project_id == item2.project_id) {
+                        return 1;
+                    }
 
-                if (item1.project_id != item2.project_id) {
-                    return -1;
-                }
+                    if (item1.project_id != item2.project_id) {
+                        return -1;
+                    }
 
-                return 0;
-            } else if (order == 2) {
-                if (item1.priority < item2.priority) {
-                    return 1;
+                    return 0;
+                } else if (order == 2) {
+                    if (item1.priority < item2.priority) {
+                        return 1;
+                    }
+        
+                    if (item1.priority < item2.priority) {
+                        return -1;
+                    }
+        
+                    return 0;
+                } else {
+                    return item1.content.collate (item2.content);
                 }
-    
-                if (item1.priority < item2.priority) {
-                    return -1;
-                }
-    
-                return 0;
             } else {
-                return item1.content.collate (item2.content);
+                return 0;
             }
         });
 

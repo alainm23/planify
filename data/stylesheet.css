@@ -324,6 +324,10 @@ paned.horizontal > separator {
     background-color: @base_color;
 }
 
+.preferences-dialog {
+    background-color: @bg_color;
+}
+
 .project-dialog {
     background-color: @projectview_color;
 }
@@ -586,6 +590,13 @@ paned.horizontal > separator {
 
 .completed-icon {
     background-color: #25b84c;
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.all-tasks-icon {
+    background-color: #28bca3;
     color: #fff;
     border-radius: 4px;
     padding: 2px;

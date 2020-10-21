@@ -240,6 +240,7 @@ public class Widgets.New : Gtk.Revealer {
         });
 
         close_button.clicked.connect (cancel);
+        
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 cancel ();

@@ -332,7 +332,7 @@ public class Widgets.Pane : Gtk.EventBox {
                     activated (row.get_index ());
                     Planner.utils.pane_action_selected ();
                     project_listbox.unselect_all ();
-                    
+                        
                     // caldav_widget.unselect_all ();
                 }
             }
@@ -628,7 +628,8 @@ public class Widgets.Pane : Gtk.EventBox {
 
     public void select_item (int id) {
         if (id == 0) {
-            listbox.select_row (search_row);
+            // listbox.select_row (search_row);
+            listbox.unselect_all ();
         } else if (id == 1) {
             listbox.select_row (inbox_row);
         } else if (id == 2) {

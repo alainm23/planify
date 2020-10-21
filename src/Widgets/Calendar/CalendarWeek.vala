@@ -23,6 +23,7 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Grid {
     public CalendarWeek () {
         margin_end = 3;
         column_homogeneous = true;
+        valign = Gtk.Align.CENTER;
 
         var label_monday = new Gtk.Label (_("Mon"));
         label_monday.get_style_context ().add_class ("font-weight-600");

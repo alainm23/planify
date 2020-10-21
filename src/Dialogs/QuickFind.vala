@@ -91,6 +91,13 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         """.printf (_("Completed")));
 
+        //  views.add ("""
+        //      {
+        //          "name": "%s",
+        //          "id": 5
+        //      }
+        //  """.printf (_("All Tasks")));
+
         var priorities = new Gee.ArrayList<string> ();
         priorities.add ("""
             {
@@ -391,11 +398,11 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             return false;
         });
 
-        focus_out_event.connect (() => {
-            popdown ();
+        //  focus_out_event.connect (() => {
+        //      popdown ();
 
-            return false;
-        });
+        //      return false;
+        //  });
 
         key_press_event.connect ((event) => {
             var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
@@ -644,6 +651,9 @@ public class SearchItem : Gtk.ListBoxRow {
             } else if (Planner.todoist.get_int_member_by_object (object, "id") == 4) {
                 icon.gicon = new ThemedIcon ("emblem-default-symbolic");
                 icon.get_style_context ().add_class ("completed-icon");
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 5) {
+                icon.gicon = new ThemedIcon ("emblem-ok-symbolic");
+                icon.get_style_context ().add_class ("all-tasks-icon");
             }
 
             var content_label = new Gtk.Label (

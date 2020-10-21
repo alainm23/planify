@@ -49,7 +49,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         use_header_bar = 1;
         var header_bar = (Gtk.HeaderBar) get_header_bar ();
         header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("oauth-dialog");
+        header_bar.get_style_context ().add_class ("preferences-dialog");
         header_bar.get_style_context ().add_class ("default-decoration");
 
         stack = new Gtk.Stack ();
@@ -109,6 +109,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var badge_item = new Dialogs.Preferences.Item ("planner-badge-count", _("Badge Count"));
         var theme_item = new Dialogs.Preferences.Item ("night-light", _("Theme"));
         var quick_add_item = new Dialogs.Preferences.Item ("planner-quick-add", _("Quick Add"));
+        var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
         var general_item = new Dialogs.Preferences.Item ("preferences-system", _("General"), true);
 
         var general_grid = new Gtk.Grid ();
@@ -120,6 +121,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (badge_item);
         general_grid.add (theme_item);
         general_grid.add (quick_add_item);
+        // general_grid.add (backups_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 

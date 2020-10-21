@@ -39,7 +39,8 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         margin_start = 3;
         margin_end = 3;
         orientation = Gtk.Orientation.HORIZONTAL;
-
+        valign = Gtk.Align.CENTER;
+        
         date_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB %Y")));
         date_label.get_style_context ().add_class ("font-bold");
 

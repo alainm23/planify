@@ -90,7 +90,7 @@ public class Widgets.WhatsNew : Gtk.Dialog {
         continue_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         continue_button.expand = true;
         continue_button.margin_top = 6;
-        continue_button.margin_bottom = 6;
+        continue_button.margin_bottom = 24;
         continue_button.valign = Gtk.Align.END;
 
         var content = new Gtk.Grid ();
@@ -110,6 +110,11 @@ public class Widgets.WhatsNew : Gtk.Dialog {
         main_scrolled.add (content);
 
         get_content_area ().add (main_scrolled);
+
+        use_header_bar = 1;
+        var header_bar = (Gtk.HeaderBar) get_header_bar ();
+        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header_bar.get_style_context ().add_class ("oauth-dialog");
 
         continue_button.clicked.connect (() => {
             destroy ();

@@ -1,4 +1,4 @@
-project ('com.github.alainm23.planner', 'vala', 'c', version: '2.5.4')
+project ('com.github.alainm23.planner', 'vala', 'c', version: '2.5.5')
 
 gnome = import('gnome')
 i18n = import('i18n')
@@ -111,6 +111,7 @@ executable(
     'src/Views/Label.vala',
     'src/Views/Completed.vala',
     'src/Views/Priority.vala',
+    'src/Views/AllTasks.vala',
 
     # CalDav Support
     # 'src/Views/TaskList.vala',

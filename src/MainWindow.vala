@@ -33,6 +33,7 @@ public class MainWindow : Gtk.Window {
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
     private Views.Completed completed_view = null;
+    private Views.AllTasks alltasks_view = null;
     private Views.Label label_view = null;
     private Views.Priority priority_view = null;
     
@@ -505,6 +506,13 @@ public class MainWindow : Gtk.Window {
 
             completed_view.add_all_items ();
             stack.visible_child_name = "completed-view";
+        } else if (id == 5) {
+            if (alltasks_view == null) {
+                alltasks_view = new Views.AllTasks ();
+                stack.add_named (alltasks_view, "alltasks-view");
+            }
+            
+            stack.visible_child_name = "alltasks-view";
         }
 
         pane.select_item (id);
