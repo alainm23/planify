@@ -42,6 +42,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
     }
 
     construct {
+        get_style_context ().add_class ("app");
+
         Planner.event_bus.unselect_all ();
         width_request = 525;
         height_request = 600;
@@ -107,7 +109,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var start_page_item = new Dialogs.Preferences.Item ("go-home", _("Homepage"));
         var badge_item = new Dialogs.Preferences.Item ("planner-badge-count", _("Badge Count"));
-        var theme_item = new Dialogs.Preferences.Item ("night-light", _("Theme"));
+        var theme_item = new Dialogs.Preferences.Item ("preferences-color", _("Appearance"));
         var quick_add_item = new Dialogs.Preferences.Item ("planner-quick-add", _("Quick Add"));
         var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
         var general_item = new Dialogs.Preferences.Item ("preferences-system", _("General"), true);
@@ -262,9 +264,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         if (!Planner.settings.get_boolean ("homepage-project")) {
             int type = Planner.settings.get_int ("homepage-item");
-            if (type == 0) {
+            if (type == 1) {
                 inbox_radio.active = true;
-            } else if (type == 1) {
+            } else if (type == 2) {
                 today_radio.active = true;
             } else {
                 upcoming_radio.active = true;
@@ -323,17 +325,17 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         inbox_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 0);
+            Planner.settings.set_int ("homepage-item", 1);
         });
 
         today_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 1);
+            Planner.settings.set_int ("homepage-item", 2);
         });
 
         upcoming_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 2);
+            Planner.settings.set_int ("homepage-item", 3);
         });
 
         return main_box;
@@ -413,7 +415,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_theme_widget () {
-        var info_box = new Dialogs.Preferences.TopBox ("night-light", _("Theme"));
+        var info_box = new Dialogs.Preferences.TopBox ("night-light", _("Appearance"));
 
         var description_label = new Gtk.Label (
             _("Personalize the look and feel of your Planner by choosing the theme that best suits you.")
@@ -427,7 +429,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         description_label.xalign = 0;
 
         var light_radio = new Gtk.RadioButton.with_label (null, _("Light"));
-        light_radio.margin_top = 12;
         light_radio.get_style_context ().add_class ("preference-item-radio");
 
         var night_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Night"));
@@ -439,16 +440,48 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var arc_dark_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Arc Dark"));
         arc_dark_radio.get_style_context ().add_class ("preference-item-radio");
 
+        var font_size_scale = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0.5, 2, 0.1);
+        font_size_scale.hexpand = true;
+        font_size_scale.set_value (Planner.settings.get_double ("font-scale"));
+        font_size_scale.add_mark (1, Gtk.PositionType.LEFT, null);
+        font_size_scale.draw_value = false;
+
+        var font_size_small = new Gtk.Image ();
+        font_size_small.gicon = new ThemedIcon ("font-x-generic-symbolic");
+        font_size_small.pixel_size = 16;
+
+        var font_size_large = new Gtk.Image ();
+        font_size_large.gicon = new ThemedIcon ("font-x-generic-symbolic");
+        font_size_large.pixel_size = 24;
+
+        var font_size_grid = new Gtk.Grid ();
+        font_size_grid.column_spacing = 12;
+        font_size_grid.hexpand = true;
+        font_size_grid.add (font_size_small);
+        font_size_grid.add (font_size_scale);
+        font_size_grid.add (font_size_large);
+        font_size_grid.valign = Gtk.Align.START;
+        font_size_grid.margin_start = 12;
+        font_size_grid.margin_end = 12;
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
 
         main_box.pack_start (info_box, false, false, 0);
         main_box.pack_start (description_label, false, false, 0);
+        main_box.pack_start (new Granite.HeaderLabel (_("Theme")) {
+            margin_start = 12
+        }, false, false, 0);
         main_box.pack_start (light_radio, false, false, 0);
         main_box.pack_start (night_radio, false, false, 0);
         main_box.pack_start (dark_blue_radio, false, false, 0);
         main_box.pack_start (arc_dark_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (new Granite.HeaderLabel (_("Font Size")) {
+            margin_start = 12,
+            margin_top = 12
+        }, false, false, 0);
+        main_box.pack_start (font_size_grid);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
             light_radio.active = true;
@@ -478,6 +511,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         arc_dark_radio.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 3);
+        });
+
+        font_size_scale.value_changed.connect (() => {
+            Planner.settings.set_double ("font-scale", font_size_scale.get_value ());
         });
 
         return main_box;

@@ -54,11 +54,12 @@ public class Widgets.LabelItem : Gtk.EventBox {
         delete_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         delete_revealer.add (delete_button);
 
-        var name_label = new Gtk.Label (label.name);
+        var name_label = new Gtk.Label ("<small>%s</small>".printf (label.name));
         name_label.margin_end = 3;
         name_label.margin_top = 1;
         name_label.valign = Gtk.Align.CENTER;
         name_label.valign = Gtk.Align.CENTER;
+        name_label.use_markup = true;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         box.valign = Gtk.Align.CENTER;
@@ -76,7 +77,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {
                 if (label.id == l.id) {
-                    name_label.label = l.name;
+                    name_label.label = "<small>%s</small>".printf (l.name);
                 }
 
                 return false;

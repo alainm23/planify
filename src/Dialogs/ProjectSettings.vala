@@ -46,6 +46,7 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         height_request = 550;
         width_request = 480;
         get_style_context ().add_class ("planner-dialog");
+        get_style_context ().add_class ("app");
         
         name_entry = new Widgets.Entry ();
         name_entry.margin_start = 12;

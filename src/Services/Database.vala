@@ -3364,6 +3364,34 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Gee.ArrayList<Objects.Item?> get_all_items_uncompleted () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist, day_order
+            FROM Items WHERE checked = 0;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Item?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var i = create_item_from_stmt (stmt);
+
+            all.add (i);
+        }
+
+        stmt.reset ();
+        return all;
+    }
+
     public Gee.ArrayList<Objects.Item?> get_all_items_by_project (int64 id) {
         Sqlite.Statement stmt;
         string sql;

@@ -265,5 +265,11 @@
             <summary>The currently installed version.</summary>
             <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
+
+        <key name="font-scale" type="d">
+            <default>1</default>
+            <summary>font-scale</summary>
+            <description>font-scale</description>
+        </key>
     </schema>
 </schemalist>

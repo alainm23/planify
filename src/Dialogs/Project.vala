@@ -95,6 +95,7 @@ public class Dialogs.Project : Gtk.Dialog {
         Planner.event_bus.hide_new_window_project (project.id);
 
         get_style_context ().add_class ("project-dialog");
+        get_style_context ().add_class ("app");
         int window_x, window_y;
         int width, height;
 

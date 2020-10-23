@@ -1187,6 +1187,28 @@ public class Utils : GLib.Object {
     //      item.content = clean_text;
     //  }
 
+    public void update_font_scale () {
+        string _css = """
+            .app {
+                font-size: %s;
+            }
+        """;
+
+        var provider = new Gtk.CssProvider ();
+
+        try {
+            var css = _css.printf ((100 * Planner.settings.get_double ("font-scale")).to_string () + "%");
+
+            provider.load_from_data (css, css.length);
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+        } catch (GLib.Error e) {
+            debug (e.message);
+        }
+    }
+
     public string build_undo_object (string type, string object_type, string object_id, string undo_type, string undo_value) {
         var builder = new Json.Builder ();
         builder.begin_object ();

@@ -46,6 +46,17 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.5.6" date="2020-10-23">
+      <description>
+        <p>Bug fixes and performance improvement</p>
+        <ul>
+          <li>Github #575 - Home page was fixed.</li>
+          <li>Github #336 - The option to change the text size was added.</li>
+          <li>Updated translations</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.5.4" date="2020-10-12">
       <description>
         <p>Bug fixes and performance improvement</p>

@@ -161,7 +161,7 @@ public class Views.AllTasks : Gtk.EventBox {
     }
 
     private void add_all_items () {
-        foreach (Objects.Item item in Planner.database.get_all_items ()) {
+        foreach (Objects.Item item in Planner.database.get_all_items_uncompleted ()) {
             var row = new Widgets.ItemRow (item, "label");
 
             listbox.add (row);

@@ -39,6 +39,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
     construct {
         height_request = 700;
         width_request = 600;
+        get_style_context ().add_class ("app");
         get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
 
         var info_label = new Gtk.Label (_("Loading…"));

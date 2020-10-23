@@ -154,6 +154,7 @@ public class MainWindow : Gtk.Window {
         // This must come after setting header_paned as the titlebar
         header_paned.get_style_context ().remove_class ("titlebar");
         get_style_context ().add_class ("rounded");
+        get_style_context ().add_class ("app");
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
@@ -363,6 +364,8 @@ public class MainWindow : Gtk.Window {
                 );
             } else if (key == "button-layout") {
                 check_button_layout ();
+            } else if (key == "font-scale") {
+                Planner.utils.update_font_scale ();
             }
         });
 

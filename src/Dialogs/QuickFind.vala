@@ -44,6 +44,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
     construct {
         Planner.event_bus.unselect_all ();
+        get_style_context ().add_class ("app");
         get_style_context ().add_class ("quick-find-dialog");
         // if (get_os_info ("PRETTY_NAME") == null || get_os_info ("PRETTY_NAME").index_of ("elementary") == -1) {
             // get_style_context ().add_class ("dialog-patch");
@@ -91,12 +92,12 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         """.printf (_("Completed")));
 
-        //  views.add ("""
-        //      {
-        //          "name": "%s",
-        //          "id": 5
-        //      }
-        //  """.printf (_("All Tasks")));
+        views.add ("""
+            {
+                "name": "%s",
+                "id": 5
+            }
+        """.printf (_("All Tasks")));
 
         var priorities = new Gee.ArrayList<string> ();
         priorities.add ("""
@@ -136,7 +137,6 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         var search_label = new Gtk.Label (_("Search"));
         search_label.get_style_context ().add_class ("font-weight-600");
-        search_label.get_style_context ().add_class ("welcome");
         search_label.width_request = 90;
         search_label.margin_start = 6;
         search_label.xalign = (float) 0.5;
@@ -398,11 +398,11 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             return false;
         });
 
-        //  focus_out_event.connect (() => {
-        //      popdown ();
+        focus_out_event.connect (() => {
+            popdown ();
 
-        //      return false;
-        //  });
+            return false;
+        });
 
         key_press_event.connect ((event) => {
             var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
@@ -513,7 +513,6 @@ public class SearchItem : Gtk.ListBoxRow {
 
         if (result_type == QuickFindResultType.ITEM) {
             header_label = new Gtk.Label (_("Tasks"));
-            header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
             header_label.width_request = 73;
             header_label.xalign = 1;
@@ -569,7 +568,6 @@ public class SearchItem : Gtk.ListBoxRow {
             add (main_grid);
         } else if (result_type == QuickFindResultType.PROJECT) {
             header_label = new Gtk.Label (_("Projects"));
-            header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
             header_label.width_request = 73;
             header_label.xalign = 1;
@@ -626,7 +624,6 @@ public class SearchItem : Gtk.ListBoxRow {
             add (main_grid);
         } else if (result_type == QuickFindResultType.VIEW) {
             header_label = new Gtk.Label (_("Views"));
-            header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
             header_label.width_request = 73;
             header_label.xalign = 1;
@@ -682,7 +679,6 @@ public class SearchItem : Gtk.ListBoxRow {
             add (main_grid);
         } else if (result_type == QuickFindResultType.LABEL) {
             header_label = new Gtk.Label (_("Labels"));
-            header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
             header_label.width_request = 73;
             header_label.xalign = 1;
@@ -727,7 +723,6 @@ public class SearchItem : Gtk.ListBoxRow {
             add (main_grid);
         } else if (result_type == QuickFindResultType.PRIORITY) {
             header_label = new Gtk.Label (_("Priorities"));
-            header_label.get_style_context ().add_class ("welcome");
             header_label.get_style_context ().add_class ("font-weight-600");
             header_label.width_request = 73;
             header_label.xalign = 1;

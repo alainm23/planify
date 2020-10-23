@@ -81,6 +81,9 @@ public class Planner : Gtk.Application {
         // task_store = new Services.Tasks.Store ();
 
         add_main_option_entries (PLANNER_OPTIONS);
+        
+        // Set lang
+        // GLib.Environment.set_variable ("LANGUAGE", "es", true);
     }
 
     public static Planner _instance = null;
@@ -195,6 +198,7 @@ public class Planner : Gtk.Application {
         default_theme.add_resource_path ("/com/github/alainm23/planner");
 
         utils.apply_theme_changed ();
+        utils.update_font_scale ();
 
         // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
@@ -233,10 +237,8 @@ public class Planner : Gtk.Application {
             var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner %s is here, with many design improvements, new features, and more.".printf (Constants.VERSION)));
 
             List<string> list = new List<string> ();
-            list.append (_("New Quick Find button position."));
-            list.append (_("Github #565 - Fixing error when displaying the project name."));
-            list.append (_("Github #563 - Fixing error when moving a task to the end of the list."));
-            list.append (_("Github #559 #415 - Enabled click to see full details of a completed task."));
+            list.append (_("Github #575 - Homepage was fixed."));
+            list.append (_("Github #336 - The option to change the text size was added."));
             list.append (_("Updated translations."));
             
             dialog.append_notes (_("Bug fixes and performance improvement"), list, 30);
