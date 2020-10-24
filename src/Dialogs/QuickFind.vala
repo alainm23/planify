@@ -130,7 +130,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                 "keywords": "p4",
                 "id": 1
             }
-        """.printf (_("Priority 4")));
+        """.printf (_("None")));
 
         get_header_bar ().visible = false;
         get_header_bar ().no_show_all = true;

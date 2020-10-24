@@ -25,6 +25,23 @@
         <value nick="Arc Dark" value="3" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.default-priority">
+        <value nick="Priority 1" value="0" />
+        <value nick="Priority 2" value="1" />
+        <value nick="Priority 3" value="2" />
+        <value nick="None" value="3" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.start-week">
+        <value nick="Sunday" value="0" />
+        <value nick="Monday" value="1" />
+        <value nick="Tuesday" value="2" />
+        <value nick="Wednesday" value="3" />
+        <value nick="Thursday" value="4" />
+        <value nick="Friday" value="5" />
+        <value nick="Saturday" value="6" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
@@ -37,9 +54,21 @@
             <summary></summary>
             <description></description>
         </key>
-
+        
         <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
             <default>"elementary"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
+        </key>
+
+        <key name="default-priority" enum="com.github.alainm23.planner.default-priority">
+            <default>"None"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
+        </key>
+
+        <key name="start-week" enum="com.github.alainm23.planner.start-week">
+            <default>"Monday"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
         </key>
@@ -270,6 +299,12 @@
             <default>1</default>
             <summary>font-scale</summary>
             <description>font-scale</description>
+        </key>
+
+        <key name="new-tasks-top" type="i">
+            <default>-1</default>
+            <summary>new-tasks-top</summary>
+            <description>new-tasks-top</description>
         </key>
     </schema>
 </schemalist>

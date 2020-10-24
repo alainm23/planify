@@ -20,38 +20,107 @@
 */
 
 public class Widgets.Calendar.CalendarWeek : Gtk.Grid {
+    private Gtk.Label label_monday;
+    private Gtk.Label label_tuesday;
+    private Gtk.Label label_wednesday;
+    private Gtk.Label label_thursday;
+    private Gtk.Label label_friday;
+    private Gtk.Label label_saturday;
+    private Gtk.Label label_sunday;
+
     public CalendarWeek () {
         margin_end = 3;
         column_homogeneous = true;
         valign = Gtk.Align.CENTER;
 
-        var label_monday = new Gtk.Label (_("Mon"));
+        label_monday = new Gtk.Label (_("Mon"));
         label_monday.get_style_context ().add_class ("font-weight-600");
 
-        var label_tuesday = new Gtk.Label (_("Tue"));
+        label_tuesday = new Gtk.Label (_("Tue"));
         label_tuesday.get_style_context ().add_class ("font-weight-600");
 
-        var label_wednesday = new Gtk.Label (_("Wed"));
+        label_wednesday = new Gtk.Label (_("Wed"));
         label_wednesday.get_style_context ().add_class ("font-weight-600");
 
-        var label_thursday = new Gtk.Label (_("Thu"));
+        label_thursday = new Gtk.Label (_("Thu"));
         label_thursday.get_style_context ().add_class ("font-weight-600");
 
-        var label_friday = new Gtk.Label (_("Fri"));
+        label_friday = new Gtk.Label (_("Fri"));
         label_friday.get_style_context ().add_class ("font-weight-600");
 
-        var label_saturday = new Gtk.Label (_("Sat"));
+        label_saturday = new Gtk.Label (_("Sat"));
         label_saturday.get_style_context ().add_class ("font-weight-600");
 
-        var label_sunday = new Gtk.Label (_("Sun"));
+        label_sunday = new Gtk.Label (_("Sun"));
         label_sunday.get_style_context ().add_class ("font-weight-600");
 
-        add (label_monday);
-        add (label_tuesday);
-        add (label_wednesday);
-        add (label_thursday);
-        add (label_friday);
-        add (label_saturday);
-        add (label_sunday);
+        update ();
+    }
+
+    public void update () {
+        foreach (unowned Gtk.Widget child in get_children ()) {
+            child.destroy ();
+        }
+
+        var start_week = Planner.settings.get_enum ("start-week");
+        if (start_week == 0) {
+            add (label_sunday);
+            add (label_monday);
+            add (label_tuesday);
+            add (label_wednesday);
+            add (label_thursday);
+            add (label_friday);
+            add (label_saturday);
+        } else if (start_week == 1) {
+            add (label_monday);
+            add (label_tuesday);
+            add (label_wednesday);
+            add (label_thursday);
+            add (label_friday);
+            add (label_saturday);
+            add (label_sunday);
+        } else if (start_week == 2) {
+            add (label_tuesday);
+            add (label_wednesday);
+            add (label_thursday);
+            add (label_friday);
+            add (label_saturday);
+            add (label_sunday);
+            add (label_monday);
+        } else if (start_week == 3) {
+            add (label_wednesday);
+            add (label_thursday);
+            add (label_friday);
+            add (label_saturday);
+            add (label_sunday);
+            add (label_monday);
+            add (label_tuesday);
+        } else if (start_week == 4) {
+            add (label_thursday);
+            add (label_friday);
+            add (label_saturday);
+            add (label_sunday);
+            add (label_monday);
+            add (label_tuesday);
+            add (label_wednesday);
+        } else if (start_week == 5) {
+            add (label_friday);
+            add (label_saturday);
+            add (label_sunday);
+            add (label_monday);
+            add (label_tuesday);
+            add (label_wednesday);
+            add (label_thursday);
+        } else if (start_week == 6) {
+            add (label_saturday);
+            add (label_sunday);
+            add (label_monday);
+            add (label_tuesday);
+            add (label_wednesday);
+            add (label_thursday);
+            add (label_friday);
+        }
+
+        show_all ();
     }
 }

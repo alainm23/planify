@@ -698,7 +698,7 @@ public class MainWindow : Gtk.Window {
                 "upcoming",
                 new DateTime.now_local ().add_days (1).to_string ()
             );
-        } else {
+        } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
             Planner.event_bus.magic_button_activated (
                 project.id,
@@ -708,6 +708,8 @@ public class MainWindow : Gtk.Window {
                 "project",
                 ""
             );
+        } else if (stack.visible_child_name == "priority-view") {
+            priority_view.add_new_item (index);
         }
     }
 
@@ -722,7 +724,7 @@ public class MainWindow : Gtk.Window {
             label_view.hide_items ();
         } else if (stack.visible_child_name == "priority-view") {
             priority_view.hide_items ();
-        } else {
+        } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
             Planner.event_bus.hide_items_project (project.id);
         }
@@ -749,7 +751,7 @@ public class MainWindow : Gtk.Window {
             
         } else if (stack.visible_child_name == "priority-view") {
             
-        } else {
+        } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
             Planner.database.update_sort_order_project (project.id, sort);
         }
@@ -817,7 +819,7 @@ public class MainWindow : Gtk.Window {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
             }
-        } else {
+        } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
             item.project_id = project.id;
             item.is_todoist = project.is_todoist;
@@ -843,7 +845,7 @@ public class MainWindow : Gtk.Window {
 
         } else if (stack.visible_child_name == "upcoming-view") {
 
-        } else {
+        } else if (stack.visible_child_name.has_prefix ("project")) {
             var project_view = (Views.Project) stack.visible_child;
             project_view.open_new_section ();
         }

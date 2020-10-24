@@ -23,6 +23,7 @@ public class Views.Priority : Gtk.EventBox {
     public int priority { get; set; }
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gtk.ListBox listbox;
+    private Gtk.Stack view_stack;
 
     construct {
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
@@ -71,18 +72,25 @@ public class Views.Priority : Gtk.EventBox {
         );
         placeholder_view.reveal_child = true;
 
-        var view_stack = new Gtk.Stack ();
+        view_stack = new Gtk.Stack ();
         view_stack.expand = true;
         view_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         view_stack.add_named (box_scrolled, "listbox");
         view_stack.add_named (placeholder_view, "placeholder");
+
+        var magic_button = new Widgets.MagicButton ();
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (view_stack, false, true, 0);
 
-        add (main_box);
+        var overlay = new Gtk.Overlay ();
+        overlay.expand = true;
+        overlay.add_overlay (magic_button);
+        overlay.add (main_box);
+
+        add (overlay);
         show_all ();
 
         notify["priority"].connect (() => {
@@ -94,7 +102,7 @@ public class Views.Priority : Gtk.EventBox {
                 } else {
                     icon_image.gicon = new ThemedIcon ("flag-outline-dark");
                 }
-                title_label.label = "<b>%s</b>".printf (_("Priority 4"));
+                title_label.label = "<b>%s</b>".printf (_("None"));
             } else if (priority == 2) {
                 icon_image.gicon = new ThemedIcon ("priority-2");
                 title_label.label = "<b>%s</b>".printf (_("Priority 3"));
@@ -155,6 +163,26 @@ public class Views.Priority : Gtk.EventBox {
                 return false;
             });
         });
+
+        magic_button.clicked.connect (() => {
+            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+        });
+
+        Planner.database.item_added.connect ((item, index) => {
+            if (priority == item.priority) {
+                var row = new Widgets.ItemRow (item);
+
+                if (index == -1) {
+                    listbox.add (row);
+                } else {
+                    listbox.insert (row, index);
+                }
+
+                items_loaded.set (item.id.to_string (), row);
+                listbox.show_all ();
+                view_stack.visible_child_name = "listbox";
+            }
+        });
     }
 
     public void hide_items () {
@@ -164,5 +192,28 @@ public class Views.Priority : Gtk.EventBox {
                 row.hide_item ();
             }
         });
+    }
+
+    public void add_new_item (int index=-1) {
+        var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
+
+        var new_item = new Widgets.NewItem (
+            inbox_project.id,
+            0,
+            inbox_project.is_todoist,
+            "",
+            index,
+            listbox,
+            priority
+        );
+        
+        if (index == -1) {
+            listbox.add (new_item);
+        } else {
+            listbox.insert (new_item, index);
+        }
+
+        listbox.show_all ();
+        view_stack.visible_child_name = "listbox";
     }
 }

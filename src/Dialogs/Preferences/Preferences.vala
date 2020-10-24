@@ -62,6 +62,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack.add_named (get_homepage_widget (), "homepage");
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
+        stack.add_named (get_task_widget (), "task");
         stack.add_named (get_quick_add_widget (), "quick-add");
         stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
@@ -110,6 +111,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var start_page_item = new Dialogs.Preferences.Item ("go-home", _("Homepage"));
         var badge_item = new Dialogs.Preferences.Item ("planner-badge-count", _("Badge Count"));
         var theme_item = new Dialogs.Preferences.Item ("preferences-color", _("Appearance"));
+        var task_item = new Dialogs.Preferences.Item ("process-completed", _("Task default"));
         var quick_add_item = new Dialogs.Preferences.Item ("planner-quick-add", _("Quick Add"));
         var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
         var general_item = new Dialogs.Preferences.Item ("preferences-system", _("General"), true);
@@ -122,8 +124,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
-        general_grid.add (quick_add_item);
-        // general_grid.add (backups_item);
+        general_grid.add (task_item);
+        general_grid.add (backups_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -191,6 +193,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         theme_item.activated.connect (() => {
             stack.visible_child_name = "theme";
+        });
+
+        task_item.activated.connect (() => {
+            stack.visible_child_name = "task";
         });
 
         quick_add_item.activated.connect (() => {
@@ -336,6 +342,86 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         upcoming_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
             Planner.settings.set_int ("homepage-item", 3);
+        });
+
+        return main_box;
+    }
+
+    private Gtk.Widget get_task_widget () {
+        var top_box = new Dialogs.Preferences.TopBox ("go-home", _("Task defaults"));
+
+        var description_label = new Gtk.Label (
+            _("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
+        );
+        description_label.justify = Gtk.Justification.FILL;
+        description_label.use_markup = true;
+        description_label.wrap = true;
+        description_label.xalign = 0;
+        description_label.margin_bottom = 6;
+        description_label.margin_top = 6;
+        description_label.margin_start = 12;
+        description_label.margin_end = 12;
+
+        var new_tasks_position_switch = new Dialogs.Preferences.ItemSwitch (
+            _("New tasks on top"),
+            Planner.settings.get_int ("new-tasks-top") == 0
+        );
+        new_tasks_position_switch.margin_top = 12;
+
+        List<string> list = new List<string> ();
+        list.append (_("Priority 1"));
+        list.append (_("Priority 2"));
+        list.append (_("Priority 3"));
+        list.append (_("None"));
+
+        var default_priority = new Dialogs.Preferences.ItemSelect (
+            _("Default priority"),
+            Planner.settings.get_enum ("default-priority"),
+            list
+        );
+        default_priority.margin_top = 12;
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.margin_top = 6;
+        box.valign = Gtk.Align.START;
+        box.hexpand = true;
+        box.add (description_label);
+        box.add (new_tasks_position_switch);
+        box.add (new Gtk.Label (_("asca ascascca ascasc")) {
+            wrap = true,
+            xalign = 0,
+            margin_start = 12,
+            margin_end = 12,
+            justify = Gtk.Justification.FILL
+        });
+        box.add (default_priority);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        new_tasks_position_switch.activated.connect ((value) => {
+            if (value) {
+                Planner.settings.set_int ("new-tasks-top", 0);
+            } else {
+                Planner.settings.set_int ("new-tasks-top", -1);
+            }
+        });
+
+        default_priority.activated.connect ((index) => {
+            print ("%i\n".printf (index));
+            Planner.settings.set_enum ("default-priority", index);
         });
 
         return main_box;
@@ -732,30 +818,39 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var button_layout = new Dialogs.Preferences.ItemSelect (
             _("Button layout"),
             Planner.settings.get_enum ("button-layout"),
-            list,
-            false
+            list
         );
         button_layout.margin_top = 12;
 
         // var database_settings = new Dialogs.Preferences.DatabaseSettings ();
-
-        var help_header = new Granite.HeaderLabel (_("Help"));
-        help_header.margin_start = 12;
-        help_header.margin_top = 6;
-
-        var tutorial_item = new Dialogs.Preferences.ItemButton (_("Create tutorial project"), _("Create"));
 
         var dz_header = new Granite.HeaderLabel (_("Danger zone"));
         dz_header.get_style_context ().add_class ("label-danger");
         dz_header.margin_start = 12;
         dz_header.margin_top = 6;
 
-        var database_header = new Granite.HeaderLabel (_("Database"));
+        var database_header = new Granite.HeaderLabel (_("Date & time"));
         database_header.margin_start = 12;
         database_header.margin_top = 6;
 
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
-        var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
+        // var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
+
+        List<string> week_list = new List<string> ();
+        week_list.append ("Sunday");
+        week_list.append ("Monday");
+        week_list.append ("Tuesday");
+        week_list.append ("Wednesday");
+        week_list.append ("Thursday");
+        week_list.append ("Friday");
+        week_list.append ("Saturday");
+
+        var start_week = new Dialogs.Preferences.ItemSelect (
+            _("Start of the week"),
+            Planner.settings.get_enum ("start-week"),
+            week_list
+        );
+        start_week.margin_top = 12;
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
@@ -764,11 +859,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_background_label, false, false, 0);
         box.pack_start (run_startup_switch, false, false, 0);
         box.pack_start (run_startup_label, false, false, 0);
-        box.pack_start (button_layout, false, false, 0);
-        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
-        // box.pack_start (database_settings, false, false, 0);/
-        box.pack_start (database_header, false, false, 0);
-        box.pack_start (export_db_item, false, false, 0);
+        // box.pack_start (button_layout, false, false, 0);
+        box.pack_start (start_week, false, false, 0);
+        // box.pack_start (export_db_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
 
@@ -799,21 +892,14 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             Planner.settings.set_enum ("button-layout", index);
         });
 
-        tutorial_item.activated.connect (() => {
-            int64 id = Planner.utils.create_tutorial_project ().id;
-
-            Planner.utils.pane_project_selected (id, 0);
-            Planner.notifications.send_notification (_("Your tutorial project was created"));
-
-            Planner.utils.select_pane_project (id);
-
-            destroy ();
+        start_week.activated.connect ((index) => {
+            Planner.settings.set_enum ("start-week", index);
         });
 
-        export_db_item.activated.connect (() => {
-            var s = new Services.ExportImport ();
-            s.save_file_as ();
-        });
+        //  export_db_item.activated.connect (() => {
+        //      var s = new Services.ExportImport ();
+        //      s.save_file_as ();
+        //  });
 
         clear_db_item.activated.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (

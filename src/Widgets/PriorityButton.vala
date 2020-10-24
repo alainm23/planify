@@ -98,7 +98,7 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
         var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-4", "");
         var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-3", "");
         var priority_3_menu = new Widgets.ModelButton (_("Priority 3"), "priority-2", "");
-        priority_4_menu = new Widgets.ModelButton (_("Priority 4"), "flag-outline-light", "");
+        priority_4_menu = new Widgets.ModelButton (_("None"), "flag-outline-light", "");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;

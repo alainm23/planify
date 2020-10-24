@@ -85,13 +85,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     int is_todoist,
                     string due_date="",
                     int index=-1,
-                    Gtk.ListBox? listbox=null) {
+                    Gtk.ListBox? listbox=null,
+                    int priority=1) {
         this.project_id = project_id;
         this.section_id = section_id;
         this.is_todoist = is_todoist;
         this.due_date = due_date;
         this.index = index;
         this.listbox = listbox;
+        this.priority = priority;
 
         build_ui ();
     }
@@ -112,7 +114,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
-        checked_button.get_style_context ().add_class ("priority-1");
         checked_button.valign = Gtk.Align.CENTER;
 
         content_entry = new Widgets.Entry ();
@@ -351,7 +352,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     is_todoist,
                     due_date,
                     i,
-                    listbox
+                    listbox,
+                    priority
                 );
 
                 if (index == -1) {
@@ -445,6 +447,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         notify["due_date"].connect (() => {
             update_due_date ();
         });
+
+        if (priority == 1) {
+            priority = 4 - Planner.settings.get_enum ("default-priority");
+            update_priority (priority);
+        } else {
+            update_priority (priority);
+        }
     }
 
     public void parse_item_tags (string text) {
@@ -506,7 +515,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-4", "");
         var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-3", "");
         var priority_3_menu = new Widgets.ModelButton (_("Priority 3"), "priority-2", "");
-        priority_4_menu = new Widgets.ModelButton (_("Priority 4"), "flag-outline-light", "");
+        priority_4_menu = new Widgets.ModelButton (_("None"), "flag-outline-light", "");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 3;
@@ -805,7 +814,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                             is_todoist,
                             due_date,
                             i,
-                            listbox
+                            listbox,
+                            priority
                         );
 
                         if (index == -1) {

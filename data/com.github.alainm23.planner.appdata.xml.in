@@ -50,9 +50,9 @@
       <description>
         <p>Bug fixes and performance improvement</p>
         <ul>
-          <li>Github #575 - Home page was fixed.</li>
+          <li>Github #575 - Homepage was fixed.</li>
           <li>Github #336 - The option to change the text size was added.</li>
-          <li>Updated translations</li>
+          <li>Updated translations.</li>
         </ul>
       </description>
     </release>

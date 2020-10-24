@@ -308,7 +308,7 @@ public class Views.Inbox : Gtk.EventBox {
         add (overlay);
 
         magic_button.clicked.connect (() => {
-            add_new_item (-1);
+            add_new_item (Planner.settings.get_int ("new-tasks-top"));
         });
 
         build_drag_and_drop ();

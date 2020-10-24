@@ -503,7 +503,7 @@ public class MainWindow : Gtk.Window {
         var priority_1_menu = new ModelButton (_("Priority 1"), "priority-4", "");
         var priority_2_menu = new ModelButton (_("Priority 2"), "priority-3", "");
         var priority_3_menu = new ModelButton (_("Priority 3"), "priority-2", "");
-        priority_4_menu = new ModelButton (_("Priority 4"), "flag-outline-light", "");
+        priority_4_menu = new ModelButton (_("None"), "flag-outline-light", "");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 3;
