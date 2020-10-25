@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
+"PO-Revision-Date: 2020-10-25 12:09+0000\n"
 "Last-Translator: Guntis <guncharez@outlook.com>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
 "translations/lv/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= "
 "19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
@@ -71,7 +71,7 @@ msgstr ""
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "Plānotājs"
 
 #: src/MainWindow.vala:770 src/MainWindow.vala:786 src/MainWindow.vala:802
 #: src/MainWindow.vala:818
@@ -88,23 +88,23 @@ msgstr ""
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Sākums"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "Birojs"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "Rīkojums"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "Svarīgi"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "Sagaidāms"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
@@ -112,55 +112,55 @@ msgstr ""
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "Sarkans"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "Oranžs"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "Dzeltens"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "Olīvu zaļš"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "Laima zaļš"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "Zaļš"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "Piparmētru zaļš"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "Zilganzaļš"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "Debeszils"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "Gaiši zils"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "Zils"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "Vīnoga"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "Violets"
 
 #: src/Utils.vala:208
 msgid "Lavander"
@@ -263,19 +263,19 @@ msgstr "Šodien"
 
 #: src/Utils.vala:966
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Atvērt ieplānotos"
 
 #: src/Utils.vala:967
 msgid "Open Search"
-msgstr ""
+msgstr "Atvērt Meklēšanu"
 
 #: src/Utils.vala:968
 msgid "Manually sync"
-msgstr ""
+msgstr "Manuāla sinhronizācija"
 
 #: src/Utils.vala:969
 msgid "Quit"
-msgstr ""
+msgstr "Iziet"
 
 #: src/Utils.vala:977
 msgid "The request was incorrect."
@@ -311,7 +311,7 @@ msgstr ""
 #: src/Views/Inbox.vala:79 src/Dialogs/Preferences/Preferences.vala:251
 #: src/Dialogs/Preferences/Preferences.vala:358 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
-msgstr ""
+msgstr "Iesūtne"
 
 #: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
