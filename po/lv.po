@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
 "PO-Revision-Date: 2020-10-25 12:09+0000\n"
-"Last-Translator: Deniss Kozlovs <deniss.kozlovs@gmail.com>\n"
+"Last-Translator: Guntis <guncharez@outlook.com>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
 "translations/lv/>\n"
 "Language: lv\n"
@@ -258,7 +258,7 @@ msgstr "Izveidot jaunu sekciju"
 
 #: src/Utils.vala:964
 msgid "Open the Inbox"
-msgstr "Atvērt Iesūtni"
+msgstr "Atvērt Iesūtnē"
 
 #: src/Utils.vala:965
 msgid "Open Today"
