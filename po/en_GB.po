@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-08-01 11:13+0000\n"
-"Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
+"PO-Revision-Date: 2020-10-25 12:09+0000\n"
+"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: English (United Kingdom) <https://hosted.weblate.org/projects/"
 "planner/translations/en_GB/>\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
@@ -34,21 +34,22 @@ msgstr ""
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "yes"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner %s is here, with many design improvements, new features, and more."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "New Quick Find button position."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
@@ -466,9 +467,8 @@ msgstr "Open the Inbox"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
-#, fuzzy
 msgid "Edit Project"
-msgstr "Add project"
+msgstr "Edit Project"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -650,9 +650,8 @@ msgid "Date completed"
 msgstr "Date completed"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 task completed"
+msgstr "Mark Incomplete"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #, fuzzy
@@ -789,11 +788,11 @@ msgstr "Task added from clipboard"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Failed to duplicate task. Try again."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Failed to add task from clipboard. Try again."
 
 #: src/Widgets/Toast.vala:148
 #, fuzzy

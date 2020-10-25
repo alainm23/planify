@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-07-27 07:41+0000\n"
-"Last-Translator: David Chocholatý <chocholaty.david0@gmail.com>\n"
+"PO-Revision-Date: 2020-10-25 12:09+0000\n"
+"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -17,58 +17,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Opravdu chcete resetovat vše?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
-msgstr "Toto odstraní veškeré uložené informace bez možnosti je vrátit."
+msgstr "Toto odstraní veškeré uložené informace bez možnosti je vrátit. (y/n): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "a"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "ano"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner %s je zde, s vylepšeným vzhledem, novými funkcemi a mnohem více."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Nová pozice tlačítka pro rychlé vyhledávání."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Oprava chyby při zobrazovní názvu projektu."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
-msgstr ""
+msgstr "Github #563 - Oprava chyby při přesouvání úkolu na konec listu."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Umožnění zobrazování detailů kliknutím u dokončených "
+"úkolů."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Navrhnout překlady"
+msgstr "Aktualizované překlady."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Opravy chyb a zlepšení výkonu"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -222,7 +223,7 @@ msgid ""
 "you need to do."
 msgstr ""
 "Tento projekt vám pomůže naučit se základy Planneru a začít pracovat s "
-"jednoduchým systémem pro řízení úkolů, abyste zůstal/a organizovaný/á a měl/"
+"jednoduchým systémem pro správu úkolů, abyste zůstal/a organizovaný/á a měl/"
 "a přehled o všem, co je potřeba udělat."
 
 #: src/Utils.vala:903
@@ -232,6 +233,7 @@ msgstr "Přidávání nových úkolů"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Pro přidání nového úkolu do Planneru, stačí kliknout na + a stisknout Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -296,11 +298,11 @@ msgstr "Požadovaný zdroj nebyl nalezen."
 
 #: src/Utils.vala:981
 msgid "The user has sent too many requests in a given amount of time."
-msgstr "Uživatel odeslal příliš mnoho požadavků v určitém úseku času."
+msgstr "Uživatel odeslal příliš mnoho požadavků v danném možství času."
 
 #: src/Utils.vala:982
 msgid "The request failed due to a server error."
-msgstr "Požadavek selhal kvůli chybě na serveru."
+msgstr "Požadavek selhal kvůli chybě serveru."
 
 #: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
@@ -457,15 +459,13 @@ msgstr "Úkol přesunut pod <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:812
 #: src/Views/Project.vala:1187
-#, fuzzy
 msgid "Open New Window"
-msgstr "Otevřít Příchozí"
+msgstr "Otevřít v novém okně"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
-#, fuzzy
 msgid "Edit Project"
-msgstr "Přidat projekt"
+msgstr "Upravit projekt"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -512,15 +512,15 @@ msgstr "Opravdu chcete odstranit <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:60
 msgid "1d"
-msgstr ""
+msgstr "1d"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1w"
-msgstr ""
+msgstr "1w"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1m"
-msgstr ""
+msgstr "1m"
 
 #: src/Widgets/NewItem.vala:121 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:64
@@ -563,9 +563,8 @@ msgid "Undated"
 msgstr "Bez data"
 
 #: src/Widgets/NewItem.vala:642 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Čas:"
+msgstr "Čas"
 
 #: src/Widgets/NewItem.vala:718 src/Widgets/NewItem.vala:909
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -591,7 +590,7 @@ msgstr "Menu úkolu"
 
 #: src/Widgets/ItemRow.vala:719 src/Widgets/ItemRow.vala:1595
 msgid "Task deleted"
-msgstr "Úkol vymazaný"
+msgstr "Úkol smazán"
 
 #: src/Widgets/ItemRow.vala:1046
 #, c-format
@@ -647,12 +646,10 @@ msgid "Date completed"
 msgstr "Datum dokončení"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 úkol dokončen"
+msgstr "Označit jako nedokončené"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Odstranit úkol"
 
@@ -786,20 +783,19 @@ msgstr "Úkol byl zkopírován do schránky"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Duplikování úkolu se nezdařilo. Zkuste to znovu."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Přidání úkolu do schránky se nezdařilo. Zkuste to znovu."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Odstranit projekt"
+msgstr "Převedený projekt"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Převod projektu se nezdařil. Zkuste to znovu."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -890,9 +886,8 @@ msgid "Startup"
 msgstr "Start"
 
 #: src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
-msgstr "Začněte pracovat místně."
+msgstr "Začněte pracovat lokálně."
 
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:927
@@ -900,18 +895,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Synchronizujte se svým Todoist účtem a začněte pracovat."
+msgstr "Synchronizujte se svým Todoist účtem."
 
 #: src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Důležité"
+msgstr "Importovat zálohu"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importovat dříve exportované zálohy Planneru."
 
 #: src/Views/Inbox.vala:90 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
@@ -940,25 +933,24 @@ msgstr "Zdá se, že vše je organizováno a na správném místě."
 
 #: src/Views/Inbox.vala:814 src/Views/Project.vala:1189
 msgid "Sort by date"
-msgstr ""
+msgstr "Seřadit podle data"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:468
 #: src/Views/Project.vala:1190
 msgid "Sort by priority"
-msgstr ""
+msgstr "Seřadit podle priority"
 
 #: src/Views/Inbox.vala:816 src/Views/Today.vala:469
 #: src/Views/Project.vala:1191
 msgid "Sort by name"
-msgstr ""
+msgstr "Seřadit podle názvu"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:818 src/Views/Today.vala:471
 #: src/Views/Project.vala:1193
-#, fuzzy
 msgid "Utilities"
-msgstr "Priority"
+msgstr "Nástroje"
 
 #: src/Views/Inbox.vala:829 src/Views/Today.vala:479
 #: src/Views/Project.vala:1204
@@ -967,20 +959,17 @@ msgstr "Zobrazit hotové"
 
 #: src/Views/Inbox.vala:965 src/Views/Today.vala:544
 #: src/Views/Project.vala:1340
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Sdílet jako Markdown"
 
 #: src/Views/Inbox.vala:966 src/Views/Today.vala:545
 #: src/Views/Project.vala:1341
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Skrýt podrobnosti"
+msgstr "Skrýt všechny podrobnosti úkolů"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "Menu úkolu"
+msgstr "Nabídka"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -999,14 +988,12 @@ msgid "Tap + to add a task for today."
 msgstr "Klikněte na +, abyste přidal/a úkol na dnešek."
 
 #: src/Views/Today.vala:470
-#, fuzzy
 msgid "Sort by project"
-msgstr "Jak používat projekty"
+msgstr "Seřadit podle projektu"
 
 #: src/Views/Today.vala:590
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "Úkol byl zkopírován do schránky."
+msgstr "Dnes bylo zkopírováno do schránky."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:856
 #, c-format
@@ -1055,9 +1042,8 @@ msgid "Please enter your credentials…"
 msgstr "Zadejte prosím přihlašovací údaje…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Menu projektu"
+msgstr "Nastavení projektu"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1068,36 +1054,33 @@ msgid "Uploading changes…"
 msgstr "Nahrávají se změny…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Sekce"
+msgstr "Možnosti:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Převést na Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Převést"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
-msgstr ""
+msgstr "Přímý přístup:"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Přesunout do projektu"
+msgstr "Převést projekt"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Opravdu chcete odstranit <b>%s</b>?"
+msgstr "Opravdu chcete převést <b>%s</b> do Todoistu?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Jak používat projekty"
+msgstr "Projekt se převádí…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
@@ -1114,7 +1097,7 @@ msgstr "Domovská stránka"
 #: src/Dialogs/Preferences/Preferences.vala:109
 #: src/Dialogs/Preferences/Preferences.vala:341
 msgid "Badge Count"
-msgstr "Počítadlo v odznaku"
+msgstr "Čítač notifikací v odznaku"
 
 #: src/Dialogs/Preferences/Preferences.vala:110
 #: src/Dialogs/Preferences/Preferences.vala:414
@@ -1129,7 +1112,7 @@ msgstr "Rychlé přidání"
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:127
 msgid "Add-ons"
-msgstr "Přídavky"
+msgstr "Doplňky"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1066
@@ -1158,9 +1141,9 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
-"Když otevřete Planner, ujistěte se, že úkoly, které vidíte, jsou pro vás "
-"nejdůležitější. Pohled <b>Příchozí</b> je vaši výchozí domovskou stránkou, "
-"ale tu můžete změnit na cokoliv chcete."
+"Když otevřete Planner, ujistěte se, že úkoly, které vidíte, jsou ty "
+"nejdůležitější. Výchozí domovskou stránkou je <b>Příchozí</b>, ale můžete si "
+"jí změnit na cokoliv chcete."
 
 #: src/Dialogs/Preferences/Preferences.vala:272 src/Dialogs/QuickFind.vala:294
 #: src/Dialogs/QuickFind.vala:564
@@ -1171,7 +1154,8 @@ msgstr "Projekty"
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
-"Vyberte, jaké položky by se měly započítávat do odznaku na ikoně aplikace."
+"Vyberte, jaké položky by se měly započítávat do notifkačního odznaku na "
+"ikoně aplikace."
 
 #: src/Dialogs/Preferences/Preferences.vala:354
 msgid "None"
@@ -1277,7 +1261,7 @@ msgstr "Nebezpečná zóna"
 
 #: src/Dialogs/Preferences/Preferences.vala:714
 msgid "Database"
-msgstr ""
+msgstr "Databáze"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 #: src/Dialogs/Preferences/Preferences.vala:786
@@ -1290,11 +1274,11 @@ msgstr "Resetovat"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export Database"
-msgstr ""
+msgstr "Exportovat databázi"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export"
-msgstr ""
+msgstr "Exportovat"
 
 #: src/Dialogs/Preferences/Preferences.vala:782
 msgid ""
@@ -1349,8 +1333,8 @@ msgid ""
 msgstr ""
 "K Planneru můžete napojit svoji aplikaci <b>kalendáře</b>, abyste viděl/a "
 "své události i úkoly na jednom místě. Uvidíte události jak z osobních, tak i "
-"ze sdílených kalendářů v panelech <b>Dnes</b> a <b>Nadcházející</b>. Je to "
-"užitečné, když spravujete svůj den a když předem plánujete svůj týden."
+"ze sdílených kalendářů v panelech <b>Dnes</b> a <b>Nadcházející</b>. Toto je "
+"užitečné, když spravujete svůj den a plánujete svůj týden."
 
 #: src/Dialogs/Preferences/Preferences.vala:1147
 msgid ""
@@ -1375,7 +1359,7 @@ msgstr "Webová stránka"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr ""
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"

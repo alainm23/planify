@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-02-14 17:50+0000\n"
+"PO-Revision-Date: 2020-10-25 12:09+0000\n"
 "Last-Translator: Guntis <guncharez@outlook.com>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
 "translations/lv/>\n"
@@ -18,39 +18,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= "
 "19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Vai tiešām vēlaties atiestatīt visu?"
 
 #: src/Application.vala:117
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
+"Šis process dzēš visu saglabāto informāciju bez iespējas to atjaunot (y/n): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "jā"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Plānotājs %s ir klāt! Ar daudz jauniem dizaina atjauninājumiem, jaunām "
+"iespējām un uzlabojumiem."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Jauna Ātrās ievades pogas pozīcija."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Salabota kļūda attēlojot projekta nosaukumu."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
@@ -71,7 +74,7 @@ msgstr ""
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "Plānotājs"
 
 #: src/MainWindow.vala:770 src/MainWindow.vala:786 src/MainWindow.vala:802
 #: src/MainWindow.vala:818
@@ -88,23 +91,23 @@ msgstr ""
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Sākums"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "Birojs"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "Rīkojums"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "Svarīgi"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "Sagaidāms"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
@@ -112,79 +115,79 @@ msgstr ""
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "Sarkans"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "Oranžs"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "Dzeltens"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "Olīvu zaļš"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "Laima zaļš"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "Zaļš"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "Piparmētru zaļš"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "Zilganzaļš"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "Debeszils"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "Gaiši zils"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "Zils"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "Vīnoga"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "Violets"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "Lavanda"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "Fuksīns"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "Lasis"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
-msgstr ""
+msgstr "Ogle"
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "Pelēks"
 
 #: src/Utils.vala:213
 msgid "Taupe"
-msgstr ""
+msgstr "Gaiši brūns"
 
 #. vala-lint=line-length
 #: src/Utils.vala:592 src/Widgets/Pane.vala:77 src/Widgets/NewItem.vala:621
@@ -193,22 +196,22 @@ msgstr ""
 #: src/Views/Today.vala:925 src/Dialogs/Preferences/Preferences.vala:255
 #: src/Dialogs/Preferences/Preferences.vala:361 src/Dialogs/QuickFind.vala:78
 msgid "Today"
-msgstr ""
+msgstr "Šodien"
 
 #: src/Utils.vala:594 src/Widgets/Pane.vala:430 src/Widgets/NewItem.vala:627
 #: src/Widgets/ItemRow.vala:1500 src/Widgets/DueButton.vala:224
 #: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:931
 msgid "Tomorrow"
-msgstr ""
+msgstr "Rīt"
 
 #: src/Utils.vala:857
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Ātrā ievade aktivizēta!"
 
 #: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Izvēlieties %s , lai to aktivizētu. Jūs to varēsiet mainīt iestatījumos"
 
 #: src/Utils.vala:897
 msgid "🚀️ Getting Started"
@@ -255,7 +258,7 @@ msgstr "Izveidot jaunu sekciju"
 
 #: src/Utils.vala:964
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Atvērt Iesūtnē"
 
 #: src/Utils.vala:965
 msgid "Open Today"
@@ -263,19 +266,19 @@ msgstr "Šodien"
 
 #: src/Utils.vala:966
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Atvērt ieplānotos"
 
 #: src/Utils.vala:967
 msgid "Open Search"
-msgstr ""
+msgstr "Atvērt Meklēšanu"
 
 #: src/Utils.vala:968
 msgid "Manually sync"
-msgstr ""
+msgstr "Manuāla sinhronizācija"
 
 #: src/Utils.vala:969
 msgid "Quit"
-msgstr ""
+msgstr "Iziet"
 
 #: src/Utils.vala:977
 msgid "The request was incorrect."
@@ -311,7 +314,7 @@ msgstr ""
 #: src/Views/Inbox.vala:79 src/Dialogs/Preferences/Preferences.vala:251
 #: src/Dialogs/Preferences/Preferences.vala:358 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
-msgstr ""
+msgstr "Iesūtne"
 
 #: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
@@ -341,9 +344,8 @@ msgid "Upcoming"
 msgstr ""
 
 #: src/Widgets/Pane.vala:86 src/Widgets/New.vala:492
-#, fuzzy
 msgid "Add Project"
-msgstr "Pievienot sekciju"
+msgstr "Pievienot projektu"
 
 #: src/Widgets/Pane.vala:227 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
@@ -370,9 +372,8 @@ msgid "Name:"
 msgstr ""
 
 #: src/Widgets/New.vala:90
-#, fuzzy
 msgid "Description:"
-msgstr "Sekcijas"
+msgstr "Apraksts:"
 
 #: src/Widgets/New.vala:108
 msgid "Folder:"
@@ -461,9 +462,8 @@ msgstr ""
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
-#, fuzzy
 msgid "Edit Project"
-msgstr "Pievienot sekciju"
+msgstr "Rediģēt projektu"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -675,14 +675,12 @@ msgid "Save"
 msgstr ""
 
 #: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:249
-#, fuzzy
 msgid "Add a description"
-msgstr "Pievienot sekciju"
+msgstr "Pievienot aprakstu"
 
 #: src/Widgets/SectionRow.vala:210 src/Views/Project.vala:970
-#, fuzzy
 msgid "Description"
-msgstr "Sekcijas"
+msgstr "Apraksts"
 
 #: src/Widgets/SectionRow.vala:826 src/Widgets/SectionRow.vala:847
 #, c-format
@@ -702,9 +700,8 @@ msgid "Delete section"
 msgstr ""
 
 #: src/Widgets/SectionRow.vala:952
-#, fuzzy
 msgid "Section deleted"
-msgstr "Sekcijas"
+msgstr "Sekcija dzēsta"
 
 #: src/Widgets/DueButton.vala:262
 msgid "Repeat"
@@ -789,9 +786,8 @@ msgid "Failed to add task from clipboard. Try again."
 msgstr ""
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Kā lietot projektus"
+msgstr "Konvertēts projekts"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
@@ -988,9 +984,8 @@ msgid "Tap + to add a task for today."
 msgstr ""
 
 #: src/Views/Today.vala:470
-#, fuzzy
 msgid "Sort by project"
-msgstr "Kā lietot projektus"
+msgstr "Kārtot pēc projekta"
 
 #: src/Views/Today.vala:590
 msgid "Today was copied to the Clipboard."
@@ -1018,9 +1013,8 @@ msgid "Progress:"
 msgstr ""
 
 #: src/Views/Project.vala:1476
-#, fuzzy
 msgid "Duedate:"
-msgstr "Izpildes datums"
+msgstr "Izpildes datums:"
 
 #: src/Dialogs/TodoistOAuth.vala:44 src/Dialogs/TodoistOAuth.vala:112
 msgid "Loading…"
@@ -1056,9 +1050,8 @@ msgid "Uploading changes…"
 msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Sekcijas"
+msgstr "Opcijas:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
@@ -1073,9 +1066,8 @@ msgid "Direct access:"
 msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Kā lietot projektus"
+msgstr "Konvertēt projektu"
 
 #: src/Dialogs/ProjectSettings.vala:269
 #, c-format
@@ -1083,9 +1075,8 @@ msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
 msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Kā lietot projektus"
+msgstr "Konvertē projektu…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
