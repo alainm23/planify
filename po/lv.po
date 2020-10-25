@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-25 12:09+0000\n"
-"Last-Translator: Guntis <guncharez@outlook.com>\n"
+"PO-Revision-Date: 2020-10-26 13:26+0000\n"
+"Last-Translator: Deniss Kozlovs <deniss.kozlovs@gmail.com>\n"
 "Language-Team: Latvian <https://hosted.weblate.org/projects/planner/"
 "translations/lv/>\n"
 "Language: lv\n"
@@ -58,19 +58,23 @@ msgstr "Github #565 - Salabota kļūda attēlojot projekta nosaukumu."
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"Github #563 - Salabota kļūda, kas radās pārvietojot uzdevumu uz saraksta "
+"beigām."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Pievienota iespēja uzklikšķināt, lai apskatītu pilnu "
+"informāciju par izpildīto darbu."
 
 #: src/Application.vala:244
 msgid "Updated translations."
-msgstr ""
+msgstr "Atjaunināti tulkojumi."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Kļūdu labojumi un ātrdarbības uzlabojumi"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -79,15 +83,15 @@ msgstr "Plānotājs"
 #: src/MainWindow.vala:770 src/MainWindow.vala:786 src/MainWindow.vala:802
 #: src/MainWindow.vala:818
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Pievienot uzdevumu no starpliktuves…"
 
 #: src/Utils.vala:28 src/Widgets/NewItem.vala:58
 msgid "today"
-msgstr ""
+msgstr "šodien"
 
 #: src/Utils.vala:29 src/Widgets/NewItem.vala:59
 msgid "tomorrow"
-msgstr ""
+msgstr "rīt"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -111,7 +115,7 @@ msgstr "Sagaidāms"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
-msgstr ""
+msgstr "Avene"
 
 #: src/Utils.vala:195
 msgid "Red"
@@ -234,6 +238,8 @@ msgstr "Pievienot jaunu uzdevumu"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Lai pievienotu jaunu uzdevumu Plānotāja, uzklikšķiniet uz + un spiediet "
+"Enter."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -282,32 +288,32 @@ msgstr "Iziet"
 
 #: src/Utils.vala:977
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Nekorekts pieprasījums."
 
 #: src/Utils.vala:978
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Nepieciešama autentifikācija, tā nav izdevusies, vai netika iesniegta."
 
 #: src/Utils.vala:979
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Pieprasījums ir korekts, bet attiecas uz lietu, kam pieeja liegta."
 
 #: src/Utils.vala:980
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Pieprasītais resurss netika atrasts."
 
 #: src/Utils.vala:981
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Lietotājs nosūtīja pārāk daudz pieprasījumus noteiktā laikā."
 
 #: src/Utils.vala:982
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Pieprasījums nevarēja tikt apstrādāts servera kļūdas dēļ."
 
 #: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Serveris šobrīd nevar apstrādāt pieprasīto darbību."
 
 #: src/Services/Database.vala:1047 src/Widgets/Pane.vala:76
 #: src/Widgets/ItemRow.vala:1392 src/Widgets/SectionRow.vala:819
@@ -318,30 +324,30 @@ msgstr "Iesūtne"
 
 #: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
-msgstr ""
+msgstr "Šajā datorā"
 
 #: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:150
 msgid "Todoist Project"
-msgstr ""
+msgstr "Todoist projekts"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 #: src/Widgets/SectionRow.vala:1103 src/Widgets/SectionRow.vala:1178
 #: src/Views/Project.vala:1109 src/Views/Project.vala:1146
 msgid "Unable to move task"
-msgstr ""
+msgstr "Uzdevumu nav iespējams pārvietot"
 
 #. modal: true,
 #: src/Widgets/Pane.vala:73 src/Widgets/Pane.vala:214
 #: src/Dialogs/QuickFind.vala:41 src/Dialogs/QuickFind.vala:145
 msgid "Quick Find"
-msgstr ""
+msgstr "Ātrā meklēšana"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:78 src/Widgets/Pane.vala:432
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:258
 #: src/Dialogs/QuickFind.vala:85
 msgid "Upcoming"
-msgstr ""
+msgstr "Tuvākie"
 
 #: src/Widgets/Pane.vala:86 src/Widgets/New.vala:492
 msgid "Add Project"
@@ -349,15 +355,15 @@ msgstr "Pievienot projektu"
 
 #: src/Widgets/Pane.vala:227 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr ""
+msgstr "Iestatījumi"
 
 #: src/Widgets/Pane.vala:249 src/Widgets/Pane.vala:494
 msgid "Sync"
-msgstr ""
+msgstr "Sinhronizēt"
 
 #: src/Widgets/Pane.vala:498
 msgid "Offline mode is on"
-msgstr ""
+msgstr "Ieslēgts bezsaistes režīms"
 
 #: src/Widgets/Pane.vala:498
 msgid ""
@@ -365,11 +371,14 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"Izskatās, ka neesat pieslēgti internetam.\n"
+"Izmaiņas, ko veicat bezsaistes režīmā\n"
+"tiks sinhronizētas, tiklīdz pieslēgsieties tiešsaistē"
 
 #: src/Widgets/New.vala:65 src/Views/Inbox.vala:1064
 #: src/Views/Project.vala:1520 src/Dialogs/ProjectSettings.vala:179
 msgid "Name:"
-msgstr ""
+msgstr "Nosaukums:"
 
 #: src/Widgets/New.vala:90
 msgid "Description:"
@@ -377,7 +386,7 @@ msgstr "Apraksts:"
 
 #: src/Widgets/New.vala:108
 msgid "Folder:"
-msgstr ""
+msgstr "Mape:"
 
 #. grid.add (new Granite.HeaderLabel (_("Description:")) {
 #. margin_top = 6,
@@ -387,78 +396,80 @@ msgstr ""
 #. grid.add (description_frame);
 #: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:190
 msgid "Color:"
-msgstr ""
+msgstr "Krāsa:"
 
 #: src/Widgets/New.vala:164 src/Widgets/ReminderButton.vala:250
 #: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:1080
 #: src/Views/Project.vala:1536
 msgid "Add"
-msgstr ""
+msgstr "Pievienot"
 
 #: src/Widgets/New.vala:199 src/Dialogs/ProjectSettings.vala:209
 msgid "Close"
-msgstr ""
+msgstr "Aizvērt"
 
 #: src/Widgets/New.vala:325
 msgid "Local"
-msgstr ""
+msgstr "Lokāls"
 
 #: src/Widgets/New.vala:400 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
-msgstr ""
+msgstr "Nav mapes"
 
 #: src/Widgets/New.vala:473
 msgid "Project"
-msgstr ""
+msgstr "Projekts"
 
 #: src/Widgets/New.vala:478
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
+"Sāciet jaunu projektu, izveidojiet uzdevumu sarakstu, organizējiet "
+"pierakstus."
 
 #: src/Widgets/New.vala:505
 msgid "Folder"
-msgstr ""
+msgstr "Mape"
 
 #: src/Widgets/New.vala:510
 msgid "Organize your projects in groups and keep your panel clean."
-msgstr ""
+msgstr "Organizējiet savus projektus grupās un uzturiet kārtībā savu sarakstu."
 
 #: src/Widgets/New.vala:523
 msgid "Add Folder"
-msgstr ""
+msgstr "Izveidot mapi"
 
 #: src/Widgets/New.vala:560 src/Dialogs/Preferences/Preferences.vala:707
 msgid "Create tutorial project"
-msgstr ""
+msgstr "Izveidot pamācības projektu"
 
 #: src/Widgets/New.vala:579 src/Dialogs/Preferences/Preferences.vala:767
 msgid "Your tutorial project was created"
-msgstr ""
+msgstr "Pamācības projekts tika izveidots"
 
 #: src/Widgets/New.vala:633
 msgid "New folder"
-msgstr ""
+msgstr "Jauna mape"
 
 #: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:126
 #: src/Views/Project.vala:206
 msgid "Project Menu"
-msgstr ""
+msgstr "Projekta izvēlne"
 
 #: src/Widgets/ProjectRow.vala:146
 msgid "Local Project"
-msgstr ""
+msgstr "Lokālais projekts"
 
 #: src/Widgets/ProjectRow.vala:401 src/Widgets/ItemRow.vala:1401
 #: src/Widgets/ItemRow.vala:1421 src/Widgets/ItemRow.vala:1455
 #: src/Widgets/SectionRow.vala:1085 src/Widgets/SectionRow.vala:1154
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr ""
+msgstr "Uzdevums pārvietots uz <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:812
 #: src/Views/Project.vala:1187
 msgid "Open New Window"
-msgstr ""
+msgstr "Atvērt jaunu logu"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
@@ -467,23 +478,23 @@ msgstr "Rediģēt projektu"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
-msgstr ""
+msgstr "Pārvietot"
 
 #: src/Widgets/ProjectRow.vala:565 src/Widgets/ItemRow.vala:1518
 #: src/Widgets/SectionRow.vala:885 src/Dialogs/Preferences/Preferences.vala:135
 msgid "Share"
-msgstr ""
+msgstr "Dalīties"
 
 #: src/Widgets/ProjectRow.vala:569 src/Views/Inbox.vala:964
 #: src/Views/Today.vala:543 src/Views/Project.vala:1339
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Nosūtīt e-pastā"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1523
 #: src/Widgets/SectionRow.vala:890
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
@@ -494,42 +505,42 @@ msgstr ""
 #: src/Views/Inbox.vala:820 src/Views/Inbox.vala:912
 #: src/Views/Project.vala:1195 src/Views/Project.vala:1287
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: src/Widgets/ProjectRow.vala:607 src/Views/Inbox.vala:907
 #: src/Views/Project.vala:1282
 msgid "Delete project"
-msgstr ""
+msgstr "Dzēst projektu"
 
 #: src/Widgets/ProjectRow.vala:608 src/Widgets/ItemCompletedRow.vala:224
 #: src/Widgets/SectionRow.vala:935 src/Widgets/AreaRow.vala:680
 #: src/Views/Inbox.vala:908 src/Views/Project.vala:1283
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Vai tiešām vēlaties dzēst <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:60
 msgid "1d"
-msgstr ""
+msgstr "1d"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1w"
-msgstr ""
+msgstr "1 ned"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1m"
-msgstr ""
+msgstr "1 mēn"
 
 #: src/Widgets/NewItem.vala:121 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "Uzdevuma nosaukums"
 
 #: src/Widgets/NewItem.vala:143 src/Widgets/SectionRow.vala:104
 #: src/Widgets/SectionRow.vala:875 src/Widgets/SectionRow.vala:1278
 #: src/Widgets/MagicButton.vala:32
 msgid "Add Task"
-msgstr ""
+msgstr "Pievienot uzdevumu"
 
 #: src/Widgets/NewItem.vala:148 src/Widgets/SectionRow.vala:168
 #: src/Widgets/AreaRow.vala:148 src/Widgets/ReminderButton.vala:248
@@ -537,142 +548,142 @@ msgstr ""
 #: src/Views/Inbox.vala:1085 src/Views/Project.vala:221
 #: src/Views/Project.vala:1541
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #: src/Widgets/NewItem.vala:506 src/Dialogs/QuickFind.vala:101
 msgid "Priority 1"
-msgstr ""
+msgstr "Prioritāte 1"
 
 #: src/Widgets/NewItem.vala:507 src/Dialogs/QuickFind.vala:109
 msgid "Priority 2"
-msgstr ""
+msgstr "Prioritāte 2"
 
 #: src/Widgets/NewItem.vala:508 src/Dialogs/QuickFind.vala:117
 msgid "Priority 3"
-msgstr ""
+msgstr "Prioritāte 3"
 
 #: src/Widgets/NewItem.vala:509 src/Dialogs/QuickFind.vala:125
 msgid "Priority 4"
-msgstr ""
+msgstr "Prioritāte 4"
 
 #: src/Widgets/NewItem.vala:633 src/Widgets/ItemRow.vala:1504
 #: src/Widgets/DueButton.vala:230 src/Views/Today.vala:937
 msgid "Undated"
-msgstr ""
+msgstr "Bez datuma"
 
 #: src/Widgets/NewItem.vala:642 src/Widgets/DueButton.vala:239
 msgid "Time"
-msgstr ""
+msgstr "Laiks"
 
 #: src/Widgets/NewItem.vala:718 src/Widgets/NewItem.vala:909
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
 #: src/Widgets/DueButton.vala:148
 msgid "Schedule"
-msgstr ""
+msgstr "Grafiks"
 
 #: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
-msgstr ""
+msgstr "Slēpt detaļas"
 
 #: src/Widgets/ItemRow.vala:524
 msgid "Add Checklist"
-msgstr ""
+msgstr "Pievienot kontrolsarakstu"
 
 #: src/Widgets/ItemRow.vala:531
 msgid "Delete Task"
-msgstr ""
+msgstr "Dzēst uzdevumu"
 
 #: src/Widgets/ItemRow.vala:545
 msgid "Task Menu"
-msgstr ""
+msgstr "Uzdevuma izvēlne"
 
 #: src/Widgets/ItemRow.vala:719 src/Widgets/ItemRow.vala:1595
 msgid "Task deleted"
-msgstr ""
+msgstr "Uzdevums dzēsts"
 
 #: src/Widgets/ItemRow.vala:1046
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Pabeigts. Nākamā atbilstība: %s"
 
 #: src/Widgets/ItemRow.vala:1051
 msgid "1 task completed"
-msgstr ""
+msgstr "1 uzdevums izpildīts"
 
 #: src/Widgets/ItemRow.vala:1434
 msgid "No Section"
-msgstr ""
+msgstr "Nav sekcijas"
 
 #: src/Widgets/ItemRow.vala:1493
 msgid "Complete"
-msgstr ""
+msgstr "Izpildīts"
 
 #: src/Widgets/ItemRow.vala:1494 src/Widgets/AreaRow.vala:653
 msgid "Edit"
-msgstr ""
+msgstr "Rediģēt"
 
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/SectionRow.vala:881
 msgid "Move to Project"
-msgstr ""
+msgstr "Pārvietot uz projektu"
 
 #: src/Widgets/ItemRow.vala:1514
 msgid "Move to Section"
-msgstr ""
+msgstr "Pārvietot uz sekciju"
 
 #: src/Widgets/ItemRow.vala:1522
 msgid "Text"
-msgstr ""
+msgstr "Teksts"
 
 #: src/Widgets/ItemRow.vala:1529
 msgid "Duplicate"
-msgstr ""
+msgstr "Kopēt"
 
 #: src/Widgets/ItemRow.vala:1671 src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
-msgstr ""
+msgstr "Piezīme"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
-msgstr ""
+msgstr "Saturs"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr ""
+msgstr "Beigu datums"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
-msgstr ""
+msgstr "Izpildīšanas datums"
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
-msgstr ""
+msgstr "Atzīmēt kā neizpildītu"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 msgid "Delete task"
-msgstr ""
+msgstr "Dzēst uzdevumu"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:87 src/Widgets/SectionRow.vala:1009
 msgid "Display Tasks"
-msgstr ""
+msgstr "Rāda uzdevumus"
 
 #: src/Widgets/SectionRow.vala:99 src/Widgets/SectionRow.vala:1014
 msgid "Hiding Tasks"
-msgstr ""
+msgstr "Slēpj uzdevumus"
 
 #: src/Widgets/SectionRow.vala:127 src/Widgets/NewSection.vala:69
 msgid "Section name"
-msgstr ""
+msgstr "Sekcijas nosaukums"
 
 #: src/Widgets/SectionRow.vala:147 src/Widgets/AreaRow.vala:97
 msgid "Section Menu"
-msgstr ""
+msgstr "Sekcijas izvēlne"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Widgets/SectionRow.vala:164 src/Widgets/AreaRow.vala:144
 #: src/Views/Project.vala:217 src/Dialogs/ProjectSettings.vala:211
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #: src/Widgets/SectionRow.vala:201 src/Views/Project.vala:249
 msgid "Add a description"
@@ -685,19 +696,19 @@ msgstr "Apraksts"
 #: src/Widgets/SectionRow.vala:826 src/Widgets/SectionRow.vala:847
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr ""
+msgstr "Sekcija pārvietota uz <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:878
 msgid "Rename"
-msgstr ""
+msgstr "Pārsaukt"
 
 #: src/Widgets/SectionRow.vala:879
 msgid "Add Note"
-msgstr ""
+msgstr "Pievienot piezīmi"
 
 #: src/Widgets/SectionRow.vala:934
 msgid "Delete section"
-msgstr ""
+msgstr "Dzēst sekciju"
 
 #: src/Widgets/SectionRow.vala:952
 msgid "Section deleted"
@@ -705,85 +716,87 @@ msgstr "Sekcija dzēsta"
 
 #: src/Widgets/DueButton.vala:262
 msgid "Repeat"
-msgstr ""
+msgstr "Atkārtot"
 
 #: src/Widgets/DueButton.vala:285
 msgid "Every day"
-msgstr ""
+msgstr "Katru dienu"
 
 #: src/Widgets/DueButton.vala:291
 msgid "Every week"
-msgstr ""
+msgstr "Katru nedēļu"
 
 #: src/Widgets/DueButton.vala:297
 msgid "Every month"
-msgstr ""
+msgstr "Katru mēnesi"
 
 #: src/Widgets/DueButton.vala:303
 msgid "Every year"
-msgstr ""
+msgstr "Katru gadu"
 
 #: src/Widgets/LabelButton.vala:42 src/Dialogs/Preferences/Preferences.vala:132
 #: src/Dialogs/Preferences/Preferences.vala:804 src/Dialogs/QuickFind.vala:281
 #: src/Dialogs/QuickFind.vala:674
 msgid "Labels"
-msgstr ""
+msgstr "Birkas"
 
 #: src/Widgets/LabelButton.vala:52
 msgid "labels"
-msgstr ""
+msgstr "birkas"
 
 #: src/Widgets/LabelButton.vala:92 src/Widgets/LabelButton.vala:248
 msgid "Using Labels"
-msgstr ""
+msgstr "Birku lietošana"
 
 #: src/Widgets/LabelButton.vala:93 src/Widgets/LabelButton.vala:249
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Kategorizējiet savus uzdevumus ar birkām, kas vēlāk ļaus atlasīt uzdevumus "
+"ar tiem."
 
 #: src/Widgets/LabelButton.vala:125
 msgid "Type a label"
-msgstr ""
+msgstr "Ievadiet birku"
 
 #: src/Widgets/LabelButton.vala:135 src/Widgets/LabelButton.vala:228
 #: src/Widgets/LabelButton.vala:246
 msgid "Edit labels"
-msgstr ""
+msgstr "Rediģēt birkas"
 
 #: src/Widgets/LabelButton.vala:238
 msgid "Add label"
-msgstr ""
+msgstr "Pievienot birku"
 
 #: src/Widgets/LabelButton.vala:241
 msgid "Label not found"
-msgstr ""
+msgstr "Birka nav atrasta"
 
 #: src/Widgets/LabelButton.vala:242
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Izveidot '%s'"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
-msgstr ""
+msgstr "Atsaukt"
 
 #: src/Widgets/Toast.vala:103 src/Objects/Item.vala:125
 msgid "Task duplicate"
-msgstr ""
+msgstr "Uzdevuma kopija"
 
 #: src/Widgets/Toast.vala:105
 msgid "Task added from clipboard"
-msgstr ""
+msgstr "Uzdevums pievienots no starpliktuves"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Neizdevās izveidot uzdevuma kopiju. Lūdzu, mēģiniet vēlreiz."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Neizdevās izveidot uzdevuma no starpliktuves. Lūdzu, mēģiniet vēlreiz."
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
@@ -791,197 +804,199 @@ msgstr "Konvertēts projekts"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Neizdevās konvertēt projektu. Lūdzu, mēģiniet vēlreiz."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
-msgstr ""
+msgstr "Pievienot projektu"
 
 #: src/Widgets/AreaRow.vala:679
 msgid "Delete folder"
-msgstr ""
+msgstr "Dzēst mapi"
 
 #: src/Widgets/AreaRow.vala:687
 msgid "Delete projects"
-msgstr ""
+msgstr "Dzēst projektus"
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
-msgstr ""
+msgstr "Apakšuzdevuma nosaukums"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Dzēsst"
 
 #: src/Widgets/UpcomingRow.vala:78
 msgid "Add task"
-msgstr ""
+msgstr "Pievienot uzdevumu"
 
 #: src/Widgets/ReminderButton.vala:43
 msgid "Reminders"
-msgstr ""
+msgstr "Atgādinājumi"
 
 #: src/Widgets/ReminderButton.vala:179
 msgid "Add reminder"
-msgstr ""
+msgstr "Pievienot atgādinājumu"
 
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"Vairs neaizmirstiet par saviem uzdevumiem! Ļaujiet Plānotājam atsūtīt jums "
+"atgādinājumu."
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
-msgstr ""
+msgstr "Laiks:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
-msgstr ""
+msgstr "Pievienot birku"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:34
 msgid "%OB, %Y"
-msgstr ""
+msgstr "%OB, %Y"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:43
 msgid "%OB %Y"
-msgstr ""
+msgstr "%OB %Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:27
 msgid "Mon"
-msgstr ""
+msgstr "P"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:30
 msgid "Tue"
-msgstr ""
+msgstr "Ot"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:33
 msgid "Wed"
-msgstr ""
+msgstr "Tr"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 msgid "Thu"
-msgstr ""
+msgstr "Ce"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
 msgid "Fri"
-msgstr ""
+msgstr "Pk"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
 msgid "Sat"
-msgstr ""
+msgstr "S"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
 msgid "Sun"
-msgstr ""
+msgstr "Sv"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
-msgstr ""
+msgstr "Vairs nekad neaizmirstiet izdarīt lietas"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
-msgstr ""
+msgstr "Sāknēšana"
 
 #: src/Views/Welcome.vala:28
 msgid "Start Working Locally."
-msgstr ""
+msgstr "Uzsākt darbu lokāli."
 
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:927
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
 msgid "Synchronize with your Todoist Account."
-msgstr ""
+msgstr "Sinhronizēt ar jūsu Todoist kontu."
 
 #: src/Views/Welcome.vala:30
 msgid "Import Backup"
-msgstr ""
+msgstr "Importēt no rezerves kopijas"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importēt iepriekš eksportēto rezerves kopiju."
 
 #: src/Views/Inbox.vala:90 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
 msgid "Add Section"
-msgstr ""
+msgstr "Pievienot sekciju"
 
 #: src/Views/Inbox.vala:98 src/Views/Project.vala:178
 msgid "Invite person"
-msgstr ""
+msgstr "Uzaicināt personu"
 
 #: src/Views/Inbox.vala:107 src/Views/Project.vala:187
 msgid "Project comments"
-msgstr ""
+msgstr "Projekta komentāri"
 
 #: src/Views/Inbox.vala:115 src/Views/Project.vala:195
 msgid "Search task"
-msgstr ""
+msgstr "Meklēt uzdevumu"
 
 #: src/Views/Inbox.vala:283
 msgid "All clear"
-msgstr ""
+msgstr "Viss tīrs"
 
 #: src/Views/Inbox.vala:284
 msgid "Looks like everything's organized in the right place."
-msgstr ""
+msgstr "Izskatās, ka viss atrodas savās vietās."
 
 #: src/Views/Inbox.vala:814 src/Views/Project.vala:1189
 msgid "Sort by date"
-msgstr ""
+msgstr "Kārtot pēc datuma"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:468
 #: src/Views/Project.vala:1190
 msgid "Sort by priority"
-msgstr ""
+msgstr "Kārtot pēc prioritātes"
 
 #: src/Views/Inbox.vala:816 src/Views/Today.vala:469
 #: src/Views/Project.vala:1191
 msgid "Sort by name"
-msgstr ""
+msgstr "Kārtot pēc nosaukuma"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:818 src/Views/Today.vala:471
 #: src/Views/Project.vala:1193
 msgid "Utilities"
-msgstr ""
+msgstr "Rīki"
 
 #: src/Views/Inbox.vala:829 src/Views/Today.vala:479
 #: src/Views/Project.vala:1204
 msgid "Show Completed"
-msgstr ""
+msgstr "Uzrādīt pabeigtos"
 
 #: src/Views/Inbox.vala:965 src/Views/Today.vala:544
 #: src/Views/Project.vala:1340
 msgid "Share on Markdown"
-msgstr ""
+msgstr "Dalīties Markdown"
 
 #: src/Views/Inbox.vala:966 src/Views/Today.vala:545
 #: src/Views/Project.vala:1341
 msgid "Hide all tasks details"
-msgstr ""
+msgstr "Slēpt visas uzdevuma detaļas"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
-msgstr ""
+msgstr "Izvēlne"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
-msgstr ""
+msgstr "Nokavēts"
 
 #: src/Views/Today.vala:142
 msgid "Reschedule"
-msgstr ""
+msgstr "Pārplānot"
 
 #: src/Views/Today.vala:172
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Kāds uzdevums jums ir padomā?"
 
 #: src/Views/Today.vala:173
 msgid "Tap + to add a task for today."
-msgstr ""
+msgstr "Nospiediet + lai pievienotu šodienas uzdevumus."
 
 #: src/Views/Today.vala:470
 msgid "Sort by project"
@@ -989,28 +1004,28 @@ msgstr "Kārtot pēc projekta"
 
 #: src/Views/Today.vala:590
 msgid "Today was copied to the Clipboard."
-msgstr ""
+msgstr "Šodienas saraksts tikai iekopēts starpliktuvē."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:856
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "Progress: %s"
 
 #: src/Views/Project.vala:390
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Ko plānojat paveikt?"
 
 #: src/Views/Project.vala:391
 msgid "Tap + to add a task to this project."
-msgstr ""
+msgstr "Nospiediet + lai pievienot uzdevumu šajā projektā."
 
 #: src/Views/Project.vala:1460
 msgid "Your Productivity"
-msgstr ""
+msgstr "Jūsu produktivitāte"
 
 #: src/Views/Project.vala:1465
 msgid "Progress:"
-msgstr ""
+msgstr "Progress:"
 
 #: src/Views/Project.vala:1476
 msgid "Duedate:"
@@ -1018,36 +1033,36 @@ msgstr "Izpildes datums:"
 
 #: src/Dialogs/TodoistOAuth.vala:44 src/Dialogs/TodoistOAuth.vala:112
 msgid "Loading…"
-msgstr ""
+msgstr "Notiek ielāde…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:68 src/Dialogs/TodoistOAuth.vala:126
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "Tīkls nav pieejams"
 
 #: src/Dialogs/TodoistOAuth.vala:69
 msgid "Connect to the Internet to connect with Todoist"
-msgstr ""
+msgstr "Pieslēdzaties tiešsaistei, lai izveidotu savienojumu ar Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:92
 msgid "Synchronizing… Wait a moment please."
-msgstr ""
+msgstr "Notiek sinhronizācija... Lūdzu, uzgaidiet."
 
 #: src/Dialogs/TodoistOAuth.vala:104
 msgid "Please enter your credentials…"
-msgstr ""
+msgstr "Ievadiet savus pieslēgšanās datus…"
 
 #: src/Dialogs/ProjectSettings.vala:41
 msgid "Project Settings"
-msgstr ""
+msgstr "Projekta iestatījumi"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
-msgstr ""
+msgstr "Beigu termiņš:"
 
 #: src/Dialogs/ProjectSettings.vala:132
 msgid "Uploading changes…"
-msgstr ""
+msgstr "Izmaiņas tiek ielādētas…"
 
 #: src/Dialogs/ProjectSettings.vala:159
 msgid "Options:"
@@ -1055,15 +1070,15 @@ msgstr "Opcijas:"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Konvertēt uz Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
-msgstr ""
+msgstr "Konvertēt"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
-msgstr ""
+msgstr "Tiešā piekļuve:"
 
 #: src/Dialogs/ProjectSettings.vala:268
 msgid "Convert Project"
@@ -1072,7 +1087,7 @@ msgstr "Konvertēt projektu"
 #: src/Dialogs/ProjectSettings.vala:269
 #, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr ""
+msgstr "Vai tiešām vēlaties konvertēt <b>%s</b> uz Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
 msgid "Converting project…"
@@ -1083,53 +1098,53 @@ msgstr "Konvertē projektu…"
 #: src/Dialogs/Preferences/Preferences.vala:112
 #: src/Dialogs/Preferences/Preferences.vala:654
 msgid "General"
-msgstr ""
+msgstr "Vispārēji"
 
 #: src/Dialogs/Preferences/Preferences.vala:108
 #: src/Dialogs/Preferences/Preferences.vala:237
 msgid "Homepage"
-msgstr ""
+msgstr "Mājaslapa"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 #: src/Dialogs/Preferences/Preferences.vala:341
 msgid "Badge Count"
-msgstr ""
+msgstr "Notifikāciju skaits"
 
 #: src/Dialogs/Preferences/Preferences.vala:110
 #: src/Dialogs/Preferences/Preferences.vala:414
 msgid "Theme"
-msgstr ""
+msgstr "Tēma"
 
 #: src/Dialogs/Preferences/Preferences.vala:111
 #: src/Dialogs/Preferences/Preferences.vala:485
 msgid "Quick Add"
-msgstr ""
+msgstr "Ātrā pievienošana"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:127
 msgid "Add-ons"
-msgstr ""
+msgstr "Papildinājumi"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:1066
 msgid "Calendar Events"
-msgstr ""
+msgstr "Kalendāra notikumi"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:501
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Īsinājumtaustiņi"
 
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:154
 #: src/Dialogs/Preferences/Preferences.vala:1238
 msgid "About"
-msgstr ""
+msgstr "Par programmu"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 #: src/Dialogs/Preferences/Preferences.vala:1144
 msgid "Support & Credits"
-msgstr ""
+msgstr "Atbalsts un izstrādātāji"
 
 #: src/Dialogs/Preferences/Preferences.vala:240
 msgid ""
@@ -1137,46 +1152,51 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Kad jūs atverat Plānotāju, ir vērtīgi redzēt uzdevumus, kas jums ir viss "
+"svarīgākie. Noklusējuma sākumlapa ir jūsu <b>Iesūtnes</b> skats, bet jūsu to "
+"varat nomainīt uz jebkuru citu."
 
 #: src/Dialogs/Preferences/Preferences.vala:272 src/Dialogs/QuickFind.vala:294
 #: src/Dialogs/QuickFind.vala:564
 msgid "Projects"
-msgstr ""
+msgstr "Projekti"
 
 #: src/Dialogs/Preferences/Preferences.vala:344
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
-msgstr ""
+msgstr "Izvēlieties, kādus uzdevumus skaitīt notifikācijā uz lietotnes ikonas."
 
 #: src/Dialogs/Preferences/Preferences.vala:354
 msgid "None"
-msgstr ""
+msgstr "Nevienus"
 
 #: src/Dialogs/Preferences/Preferences.vala:364
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Šodienas + Iesūtne"
 
 #: src/Dialogs/Preferences/Preferences.vala:417
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
+"Personalizējiet Plānotāja izskatu, izvēloties krāsu tēmu kas jums šķiet "
+"ērtakā."
 
 #: src/Dialogs/Preferences/Preferences.vala:427
 msgid "Light"
-msgstr ""
+msgstr "Gaišā"
 
 #: src/Dialogs/Preferences/Preferences.vala:431
 msgid "Night"
-msgstr ""
+msgstr "Nakts"
 
 #: src/Dialogs/Preferences/Preferences.vala:434
 msgid "Dark Blue"
-msgstr ""
+msgstr "Tumši zils"
 
 #: src/Dialogs/Preferences/Preferences.vala:437
 msgid "Arc Dark"
-msgstr ""
+msgstr "Tumšā"
 
 #: src/Dialogs/Preferences/Preferences.vala:488
 msgid ""
@@ -1184,31 +1204,35 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
+"Neatkarīgi no tā, kādu šobrīd lietojat programmu, jūs varat izmantot "
+"īsinājumtaustiņus lai atvērtu Ātrās pievienošanas logu, kurā varat ierakstīt "
+"pagaidu uzdevumus un atgriezties pie sava darba. Jūs varat iestatīt jebkuru "
+"īsinājumtaustiņu pēc jūsu izvēles."
 
 #: src/Dialogs/Preferences/Preferences.vala:498
 #: src/Dialogs/Preferences/Preferences.vala:1080
 msgid "Enabled"
-msgstr ""
+msgstr "Ieslēgts"
 
 #: src/Dialogs/Preferences/Preferences.vala:513
 msgid "Press keys…"
-msgstr ""
+msgstr "Nospiediet taustiņus…"
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Change Keyboard Shortcut"
-msgstr ""
+msgstr "Mainīt īsinājumtaustiņu"
 
 #: src/Dialogs/Preferences/Preferences.vala:549
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Saglabāt pēdējo izvēlēto projektu"
 
 #: src/Dialogs/Preferences/Preferences.vala:657
 msgid "DE Integration"
-msgstr ""
+msgstr "DE integrācija"
 
 #: src/Dialogs/Preferences/Preferences.vala:661
 msgid "Run in background"
-msgstr ""
+msgstr "Lietot fonā"
 
 #: src/Dialogs/Preferences/Preferences.vala:665
 msgid ""
@@ -1216,92 +1240,101 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
+"Ieslēdziet šo iestatījumus, lai Plānotājs darbotos fona režīmā, kad tas tiek "
+"aizvērts. Šis ļaus Plānotājam atjaunot informāciju un sūtīt jums "
+"atgādinājumus."
 
 #: src/Dialogs/Preferences/Preferences.vala:673
 msgid "Run on startup"
-msgstr ""
+msgstr "Atvērt pie sistēmas sāknēšanas"
 
 #: src/Dialogs/Preferences/Preferences.vala:677
 msgid "Enable this setting to make Planner startup with the system."
 msgstr ""
+"Ieslēdziet šo iestatījumu, lai Plānotājs automātiski tiktu atvērts pēc "
+"operētājsistēmas ielādes."
 
 #: src/Dialogs/Preferences/Preferences.vala:694
 msgid "Button layout"
-msgstr ""
+msgstr "Pogu izkārtojums"
 
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:703
 msgid "Help"
-msgstr ""
+msgstr "Palīdzība"
 
 #: src/Dialogs/Preferences/Preferences.vala:707
 msgid "Create"
-msgstr ""
+msgstr "Izveidot"
 
 #: src/Dialogs/Preferences/Preferences.vala:709
 msgid "Danger zone"
-msgstr ""
+msgstr "Bīstamā zona"
 
 #: src/Dialogs/Preferences/Preferences.vala:714
 msgid "Database"
-msgstr ""
+msgstr "Datubāze"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 #: src/Dialogs/Preferences/Preferences.vala:786
 msgid "Reset all"
-msgstr ""
+msgstr "Atiestatīt visu"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 msgid "Reset"
-msgstr ""
+msgstr "Atiestatīt"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export Database"
-msgstr ""
+msgstr "Eksportēt datubāzi"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export"
-msgstr ""
+msgstr "Eksportēt"
 
 #: src/Dialogs/Preferences/Preferences.vala:782
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
-msgstr ""
+msgstr "Šis process dzēš visu saglabāto informāciju bez iespējas to atjaunot."
 
 #: src/Dialogs/Preferences/Preferences.vala:807
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
 msgstr ""
+"Saglabājiet laiku apvienojot līdzīgus uzdevumus ar birkām. Jums būs iespēja "
+"iegūt visus uzdevumus ar izvēlēto birku dažu sekunžu laikā."
 
 #: src/Dialogs/Preferences/Preferences.vala:951
 #, c-format
 msgid "Last successful sync: %s"
-msgstr ""
+msgstr "Pēdējā veiksmīgā sinhronizācija: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:960
 msgid "Sync server"
-msgstr ""
+msgstr "Sinhronizācijas serveris"
 
 #: src/Dialogs/Preferences/Preferences.vala:965
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Ieslēdziet šo iestatījumu lai Plānotājs var automātiski sinhronizēties ar "
+"jūsu Todoist kontu katras 15 minūtes."
 
 #: src/Dialogs/Preferences/Preferences.vala:977
 #: src/Dialogs/Preferences/Preferences.vala:1032
 msgid "Log out"
-msgstr ""
+msgstr "Iziet"
 
 #: src/Dialogs/Preferences/Preferences.vala:1027
 msgid "Are you sure you want to log out?"
-msgstr ""
+msgstr "Vai tiešām vēlaties iziet?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1028
 msgid "This process will close your Todoist session on this device."
-msgstr ""
+msgstr "Šis process aizvērs jūsu Todoist sesiju šajā ierīcē."
 
 #: src/Dialogs/Preferences/Preferences.vala:1069
 msgid ""
@@ -1310,6 +1343,10 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
+"Jūs varat savienot <b>Kalendāra</b> lietotni ar Plānotāju lai redzētu jūsu "
+"pasākumus un uzdevumus vienuviet. Jūs redzēsiet notikumus gan no "
+"personīgiem, gan koplietotiem kalendāriem <b>Šodien</b> un <b>Tuvākie</b> "
+"sarakstā. Šis ir noderīgi, ja pārvaldat savu dienu un nedēļu uz priekšu."
 
 #: src/Dialogs/Preferences/Preferences.vala:1147
 msgid ""
@@ -1317,112 +1354,118 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
+"Plānots ir izstrādāts ar ❤️ un kaisli pēc atvērtā koda. Tomēr, ja jums patīk "
+"Plānotās un vēlaties atbalstīt tā izstrādi, jums ir iespēja ziedot ar:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1173
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Paldies visiem, kas veica ziedojumus ar Patreon vai PayPal. Ja vēlaties, lai "
+"jūsu vārds parādās šeit, apmeklējiet mūsu Patreon kontu 😉️"
 
 #: src/Dialogs/Preferences/Preferences.vala:1252
 msgid "Website"
-msgstr ""
+msgstr "Mājaslapa"
 
 #: src/Dialogs/Preferences/Preferences.vala:1253
 msgid "Github"
-msgstr ""
+msgstr "GitHub"
 
 #: src/Dialogs/Preferences/Preferences.vala:1254
 msgid "Follow"
-msgstr ""
+msgstr "Sekot"
 
 #: src/Dialogs/Preferences/Preferences.vala:1255
 msgid "Report a Problem"
-msgstr ""
+msgstr "Paziņot par problēmu"
 
 #: src/Dialogs/Preferences/Preferences.vala:1256
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Piedāvāt tulkojumus"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "Atpakaļ"
 
 #: src/Dialogs/QuickFind.vala:92
 msgid "Completed"
-msgstr ""
+msgstr "Pabeigts"
 
 #: src/Dialogs/QuickFind.vala:130
 msgid "Search"
-msgstr ""
+msgstr "Meklēt"
 
 #: src/Dialogs/QuickFind.vala:158
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
+"Ātri pārslēdziet projektus un skaits, meklējiet uzdevumus, atlasiet pēc "
+"birkām."
 
 #: src/Dialogs/QuickFind.vala:186
 msgid "UP"
-msgstr ""
+msgstr "UP"
 
 #: src/Dialogs/QuickFind.vala:191
 msgid "DOWN"
-msgstr ""
+msgstr "DOWN"
 
 #: src/Dialogs/QuickFind.vala:196
 msgid "ENTER"
-msgstr ""
+msgstr "ENTER"
 
 #: src/Dialogs/QuickFind.vala:201
 msgid "ESC"
-msgstr ""
+msgstr "ESC"
 
 #: src/Dialogs/QuickFind.vala:211
 msgid "Use"
-msgstr ""
+msgstr "Lietot"
 
 #: src/Dialogs/QuickFind.vala:214
 msgid "to navigate and"
-msgstr ""
+msgstr "lai pārvietotos un"
 
 #: src/Dialogs/QuickFind.vala:216
 msgid "to select,"
-msgstr ""
+msgstr "lai iezīmētu,"
 
 #: src/Dialogs/QuickFind.vala:218
 msgid "to close."
-msgstr ""
+msgstr "lai aizvērtu."
 
 #: src/Dialogs/QuickFind.vala:494
 msgid "Enter"
-msgstr ""
+msgstr "Ievadiet"
 
 #: src/Dialogs/QuickFind.vala:508
 msgid "Tasks"
-msgstr ""
+msgstr "Uzdevumus"
 
 #: src/Dialogs/QuickFind.vala:621
 msgid "Views"
-msgstr ""
+msgstr "Skatus"
 
 #: src/Dialogs/QuickFind.vala:719
 msgid "Priorities"
-msgstr ""
+msgstr "Prioritātes"
 
 #: src/Objects/Project.vala:101
 msgid "The Project was copied to the Clipboard."
-msgstr ""
+msgstr "Projekts tika iekopēts starpliktuvē."
 
 #: src/Objects/Item.vala:118
 msgid "Duplicating task…"
-msgstr ""
+msgstr "Notiek uzdevuma kopēšana…"
 
 #: src/Objects/Item.vala:208 src/Objects/Item.vala:225
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "Uzdevums tika iekopēts starpliktuvē."
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "Sekcija tika iekopēta starpliktuvē."
 
 #~ msgid "Keeping track of your tasks"
 #~ msgstr "Sekošana uzdevumiem"
