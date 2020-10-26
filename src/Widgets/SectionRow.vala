@@ -497,7 +497,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         add_button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         name_entry.changed.connect (() => {
@@ -908,7 +908,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.show_all ();
 
         add_menu.activate.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         note_menu.activate.connect (() => {
@@ -1291,7 +1291,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         grid.show ();
 
         button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         return grid;

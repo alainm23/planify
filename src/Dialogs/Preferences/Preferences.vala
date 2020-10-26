@@ -124,8 +124,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
-        general_grid.add (task_item);
-        general_grid.add (backups_item);
+        // general_grid.add (task_item);
+        // general_grid.add (backups_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -364,7 +364,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var new_tasks_position_switch = new Dialogs.Preferences.ItemSwitch (
             _("New tasks on top"),
-            Planner.settings.get_int ("new-tasks-top") == 0
+            Planner.settings.get_enum ("new-tasks-position") == 0
         );
         new_tasks_position_switch.margin_top = 12;
 
@@ -413,14 +413,13 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         new_tasks_position_switch.activated.connect ((value) => {
             if (value) {
-                Planner.settings.set_int ("new-tasks-top", 0);
+                Planner.settings.set_enum ("new-tasks-position", 0);
             } else {
-                Planner.settings.set_int ("new-tasks-top", -1);
+                Planner.settings.set_enum ("new-tasks-position", -1);
             }
         });
 
         default_priority.activated.connect ((index) => {
-            print ("%i\n".printf (index));
             Planner.settings.set_enum ("default-priority", index);
         });
 
@@ -531,26 +530,47 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         font_size_scale.set_value (Planner.settings.get_double ("font-scale"));
         font_size_scale.add_mark (1, Gtk.PositionType.LEFT, null);
         font_size_scale.draw_value = false;
+        font_size_scale.margin_top = 3;
+        font_size_scale.margin_bottom = 6;
 
         var font_size_small = new Gtk.Image ();
         font_size_small.gicon = new ThemedIcon ("font-x-generic-symbolic");
         font_size_small.pixel_size = 16;
-
+        font_size_small.margin_start = 12;
+        
         var font_size_large = new Gtk.Image ();
         font_size_large.gicon = new ThemedIcon ("font-x-generic-symbolic");
         font_size_large.pixel_size = 24;
+        font_size_large.margin_end = 12;
 
         var font_size_grid = new Gtk.Grid ();
+        font_size_grid.get_style_context ().add_class ("preferences-view");
         font_size_grid.column_spacing = 12;
         font_size_grid.hexpand = true;
         font_size_grid.add (font_size_small);
         font_size_grid.add (font_size_scale);
         font_size_grid.add (font_size_large);
         font_size_grid.valign = Gtk.Align.START;
-        font_size_grid.margin_start = 12;
-        font_size_grid.margin_end = 12;
 
+        List<string> list = new List<string> ();
+        list.append ("elementary");
+        list.append ("Ubuntu");
+        list.append ("Windows");
+        list.append ("macOS");
+        list.append ("Minimize Left");
+        list.append ("Minimize Right");
+        list.append ("Close Only Left");
+        list.append ("Close Only Right");
+
+        var button_layout = new Dialogs.Preferences.ItemSelect (
+            _("Button layout"),
+            Planner.settings.get_enum ("button-layout"),
+            list
+        );
+        button_layout.margin_top = 12;
+       
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.valign = Gtk.Align.START;
         main_box.expand = true;
 
         main_box.pack_start (info_box, false, false, 0);
@@ -567,7 +587,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             margin_start = 12,
             margin_top = 12
         }, false, false, 0);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (font_size_grid);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (button_layout);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
             light_radio.active = true;
@@ -601,6 +624,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         font_size_scale.value_changed.connect (() => {
             Planner.settings.set_double ("font-scale", font_size_scale.get_value ());
+        });
+
+        button_layout.activated.connect ((index) => {
+            Planner.settings.set_enum ("button-layout", index);
         });
 
         return main_box;
@@ -805,23 +832,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         run_startup_label.margin_start = 12;
         run_startup_label.halign = Gtk.Align.START;
 
-        List<string> list = new List<string> ();
-        list.append ("elementary");
-        list.append ("Ubuntu");
-        list.append ("Windows");
-        list.append ("macOS");
-        list.append ("Minimize Left");
-        list.append ("Minimize Right");
-        list.append ("Close Only Left");
-        list.append ("Close Only Right");
-
-        var button_layout = new Dialogs.Preferences.ItemSelect (
-            _("Button layout"),
-            Planner.settings.get_enum ("button-layout"),
-            list
-        );
-        button_layout.margin_top = 12;
-
         // var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 
         var dz_header = new Granite.HeaderLabel (_("Danger zone"));
@@ -886,10 +896,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
-        });
-
-        button_layout.activated.connect ((index) => {
-            Planner.settings.set_enum ("button-layout", index);
         });
 
         start_week.activated.connect ((index) => {

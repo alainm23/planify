@@ -46,6 +46,16 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.5.7" date="2020-10-26">
+      <description>
+        <p>Bug fixes and performance improvement</p>
+        <ul>
+          <li>Github #577 - Fixed recurring tasks.</li>
+          <li>Updated translations.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.5.6" date="2020-10-23">
       <description>
         <p>Bug fixes and performance improvement</p>

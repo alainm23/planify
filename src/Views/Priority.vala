@@ -165,7 +165,7 @@ public class Views.Priority : Gtk.EventBox {
         });
 
         magic_button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         Planner.database.item_added.connect ((item, index) => {

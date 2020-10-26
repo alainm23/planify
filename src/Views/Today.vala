@@ -228,7 +228,7 @@ public class Views.Today : Gtk.EventBox {
         build_drag_and_drop ();
 
         magic_button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
         
         // Check Placeholder view

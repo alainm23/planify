@@ -425,7 +425,7 @@ public class Views.Project : Gtk.EventBox {
         check_due_date ();
 
         magic_button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_int ("new-tasks-top"));
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         // Check Placeholder view

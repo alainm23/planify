@@ -255,7 +255,7 @@ public class Views.TaskList : Gtk.EventBox {
         });
 
         magic_button.clicked.connect (() => {
-            add_new_task (Planner.settings.get_int ("new-tasks-top"));
+            add_new_task (Planner.settings.get_enum ("new-tasks-position"));
         });
 
         Planner.task_store.task_list_modified.connect ((s) => {

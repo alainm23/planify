@@ -42,6 +42,8 @@ public class Planner : Gtk.Application {
     private static int64 load_project = 0;
     private static bool version = false;
     private static bool clear_database = false;
+    private static string lang = "";
+    
 
     public const OptionEntry[] PLANNER_OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref version,
@@ -52,6 +54,8 @@ public class Planner : Gtk.Application {
         "Run the Application in background", null },
         { "load-project", 'l', 0, OptionArg.INT64, ref load_project,
         "Open project in separate window", "PROJECT_ID" },
+        { "lang", 'n', 0, OptionArg.STRING, ref lang,
+        "Open Planner in a specific language", "LANG" },
         { null }
     };
 
@@ -81,9 +85,6 @@ public class Planner : Gtk.Application {
         // task_store = new Services.Tasks.Store ();
 
         add_main_option_entries (PLANNER_OPTIONS);
-        
-        // Set lang
-        // GLib.Environment.set_variable ("LANGUAGE", "es", true);
     }
 
     public static Planner _instance = null;
@@ -97,6 +98,11 @@ public class Planner : Gtk.Application {
     }
 
     protected override void activate () {
+        // Set lang
+        if (lang != "") {
+            GLib.Environment.set_variable ("LANGUAGE", lang, true);
+        }
+        
         if (get_windows ().length () > 0) {
             get_windows ().data.present ();
             get_windows ().data.show_all ();
@@ -237,8 +243,7 @@ public class Planner : Gtk.Application {
             var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner %s is here, with many design improvements, new features, and more.".printf (Constants.VERSION)));
 
             List<string> list = new List<string> ();
-            list.append (_("Github #575 - Homepage was fixed."));
-            list.append (_("Github #336 - The option to change the text size was added."));
+            list.append (_("Github #577 - Fixed recurring tasks."));
             list.append (_("Updated translations."));
             
             dialog.append_notes (_("Bug fixes and performance improvement"), list, 30);

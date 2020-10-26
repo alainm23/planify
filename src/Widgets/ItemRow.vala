@@ -759,7 +759,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             activate_menu (false);
         });
 
-        checked_button.toggled.connect (checked_toggled);
+        checked_button.button_release_event.connect (() => {
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
+            return Gdk.EVENT_STOP;
+        });
 
         check_listbox.remove.connect (() => {
             check_checklist_separator ();
@@ -1034,10 +1038,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
     }
 
-    private void checked_toggled () {
-        if (checked_button.active) {
-            checked_button.active = false;
-
+    private void checked_toggled (bool active) {
+        checked_button.active = false;
+        if (active) {
             if (item.due_is_recurring == 1) {
                 GLib.DateTime next_due = Planner.utils.get_next_recurring_due_date (item, +1);
 
@@ -1051,7 +1054,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                     _("1 task completed"),
                     Planner.utils.build_undo_object ("item_complete", "item", item.id.to_string (), "", "")
                 );
-
                 main_revealer.reveal_child = false;
             }
         } else {

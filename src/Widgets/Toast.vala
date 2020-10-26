@@ -211,19 +211,11 @@ public class Widgets.Toast : Gtk.Revealer {
                 var item = Planner.database.get_item_by_id (
                     int64.parse (Planner.todoist.get_string_member_by_object (query, "object_id"))
                 );
-                
+
                 if (item.id != 0) {
                     if (Planner.todoist.get_string_member_by_object (query, "type") == "item_delete") {
                         Planner.database.show_undo_item (item, "item_delete");
-                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_complete") {
-                        item.checked = 0;
-                        item.date_completed = "";
-    
-                        Planner.database.update_item_completed (item);
-                        if (item.is_todoist == 1) {
-                            Planner.todoist.item_uncomplete (item);
-                        }
-    
+                    } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_complete") { 
                         Planner.database.show_undo_item (item, "item_complete");
                     } else if (Planner.todoist.get_string_member_by_object (query, "type") == "item_reschedule") {
                         Planner.database.update_item_recurring_due_date (item, -1);
