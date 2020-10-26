@@ -25,6 +25,9 @@ public class MainWindow : Gtk.Window {
     public Gee.HashMap <string, bool> projects_loaded;
     public Gee.HashMap <string, bool> tasklists_loaded;
 
+    // Delegates
+    delegate void HookFunc ();
+
     private Widgets.Pane pane;
     private Gtk.HeaderBar sidebar_header;
     private Gtk.HeaderBar projectview_header;
@@ -40,6 +43,7 @@ public class MainWindow : Gtk.Window {
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
     public Services.ActionManager action_manager;
+    public Services.PluginsManager plugins;
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
@@ -57,6 +61,7 @@ public class MainWindow : Gtk.Window {
 
     construct {
         action_manager = new Services.ActionManager (app, this);
+        plugins = new Services.PluginsManager (this);
 
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
@@ -157,6 +162,23 @@ public class MainWindow : Gtk.Window {
         get_style_context ().add_class ("app");
         Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
+
+        realize.connect (() => {
+            // Plugins hook
+            HookFunc hook_func = () => {
+                // plugins.hook_window (this);
+                // plugins.hook_toolbar (toolbar);
+                // plugins.hook_share_menu (toolbar.share_menu);
+                // plugins.hook_notebook_bottom (bottombar);
+                // plugins.hook_split_view (split_view);
+            };
+
+            plugins.extension_added.connect (() => {
+                hook_func ();
+            });
+
+            hook_func ();
+        });
 
         Planner.notifications.send_notification.connect ((message, style) => {
             var notification = new Widgets.Toast (message, "", style);

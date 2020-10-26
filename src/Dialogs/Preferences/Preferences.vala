@@ -124,8 +124,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
-        // general_grid.add (task_item);
-        // general_grid.add (backups_item);
+        general_grid.add (task_item);
+        general_grid.add (backups_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 

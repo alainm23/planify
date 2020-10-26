@@ -1,0 +1,1 @@
+option ('plugins', type : 'boolean', value : true)

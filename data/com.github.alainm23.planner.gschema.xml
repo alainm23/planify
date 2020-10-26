@@ -311,5 +311,11 @@
             <summary>font-scale</summary>
             <description>font-scale</description>
         </key>
+
+        <key type="as" name="plugins-enabled">
+          <default>['demo']</default>
+          <summary>Enabled Plugins</summary>
+          <description>Enabled Plugins</description>
+        </key>
     </schema>
 </schemalist>

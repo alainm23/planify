@@ -5,11 +5,15 @@ i18n = import('i18n')
 
 add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 
+libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'), meson.project_name())
+pluginsdir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'plugins')
+
 conf_data = configuration_data()
 conf_data.set_quoted('PROJECT_NAME', meson.project_name())
 conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf_data.set_quoted('VERSION', meson.project_version())
 conf_data.set_quoted('PREFIX', get_option('prefix'))
+conf_data.set_quoted('PLUGINDIR', pluginsdir)
 conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
 config_header = configure_file(
     input : 'config.vala.in',
@@ -52,6 +56,7 @@ executable(
     'src/Services/ActionManager.vala',
     'src/Services/EventBus.vala',
     'src/Services/ExportImport.vala',
+    'src/Services/PluginManager.vala',
 
     # CalDav Support
     # 'src/Services/Tasks/Store.vala',
@@ -153,6 +158,8 @@ executable(
         libical_dep,
         dependency('libedataserver-1.2', version: '>=3.8.0'),
         dependency('libsoup-2.4'),
+        dependency('libpeas-1.0'),
+        dependency('libpeas-gtk-1.0'),
         meson.get_compiler('c').find_library('m', required : false)
     ],
     install: true
@@ -184,5 +191,8 @@ executable(
 )
 
 subdir('data')
+if get_option('plugins')
+    subdir('plugins')
+endif
 subdir('po')
 meson.add_install_script('build-aux/meson/post_install.py')
