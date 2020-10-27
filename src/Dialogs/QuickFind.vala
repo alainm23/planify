@@ -67,35 +67,35 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         views.add ("""
             {
                 "name": "%s",
-                "id": 1
+                "id": 0
             }
         """.printf (_("Inbox")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 2
+                "id": 1
             }
         """.printf (_("Today")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 3
+                "id": 2
             }
         """.printf (_("Upcoming")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 4
+                "id": 3
             }
         """.printf (_("Completed")));
 
         views.add ("""
             {
                 "name": "%s",
-                "id": 5
+                "id": 4
             }
         """.printf (_("All Tasks")));
 
@@ -239,7 +239,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         main_box.pack_start (top_grid, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (listbox_scrolled, true, true, 0);
-        main_box.pack_end (action_bar, false, true, 0);
+        // main_box.pack_end (action_bar, false, true, 0);
 
         get_content_area ().add (main_box);
 
@@ -635,20 +635,20 @@ public class SearchItem : Gtk.ListBoxRow {
             icon.valign = Gtk.Align.CENTER;
             icon.pixel_size = 12;
 
-            if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
+            if (Planner.todoist.get_int_member_by_object (object, "id") == 0) {
                 icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
                 icon.get_style_context ().add_class ("inbox-icon");
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 1) {
                 icon.gicon = new ThemedIcon ("help-about-symbolic");
                 icon.get_style_context ().add_class ("today-icon");
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 2) {
                 icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
                 icon.get_style_context ().add_class ("upcoming-icon");
                 icon.margin_start = 1;
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 4) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 3) {
                 icon.gicon = new ThemedIcon ("emblem-default-symbolic");
                 icon.get_style_context ().add_class ("completed-icon");
-            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 5) {
+            } else if (Planner.todoist.get_int_member_by_object (object, "id") == 4) {
                 icon.gicon = new ThemedIcon ("emblem-ok-symbolic");
                 icon.get_style_context ().add_class ("all-tasks-icon");
             }

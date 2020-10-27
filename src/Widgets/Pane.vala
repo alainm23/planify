@@ -23,15 +23,16 @@ public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Stack stack;
     public Widgets.New new_project;
 
-    private Widgets.ActionRow search_row;
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
+    // private Widgets.LabelsList labels_widget;
 
     private Gtk.ListBox listbox;
     private Gtk.ListBox project_listbox;
     private Gtk.ListBox area_listbox;
     private Gtk.ScrolledWindow listbox_scrolled;
+    public Gtk.Grid listbox_grid;
 
     private Gtk.Button add_button;
     private Gtk.Button sync_button;
@@ -42,9 +43,9 @@ public class Widgets.Pane : Gtk.EventBox {
     public signal void activated (int id);
     public signal void show_quick_find ();
     public signal void tasklist_selected (E.Source source);
+    public signal void label_selected (Objects.Label label);
 
     private uint timeout;
-    private bool first_init = true;
     public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
     public Gee.ArrayList<Widgets.AreaRow?> areas_list;
 
@@ -66,11 +67,35 @@ public class Widgets.Pane : Gtk.EventBox {
         }
     }
 
+    private Gtk.Widget get_search_row () {
+        var icon = new Gtk.Image ();
+        icon.halign = Gtk.Align.CENTER;
+        icon.valign = Gtk.Align.CENTER;
+        icon.gicon = new ThemedIcon ("system-search-symbolic");
+        icon.pixel_size = 14;
+        icon.get_style_context ().add_class ("search-icon");
+
+        var title = new Gtk.Label (_("Quick Find"));
+        title.margin_bottom = 1;
+        title.get_style_context ().add_class ("pane-item");
+        title.use_markup = true;
+
+        var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        box.margin_start = 2;
+        box.pack_start (icon, false, false, 0);
+        box.pack_start (title, false, false, 0);
+
+        return box;
+    }
+
     construct {
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
         areas_list = new Gee.ArrayList<Widgets.AreaRow?> ();
 
-        search_row = new Widgets.ActionRow (_("Quick Find"), "system-search-symbolic", "search", {"<Ctrl>F"});
+        var search_row = new Gtk.Button ();
+        search_row.can_focus = false;
+        search_row.get_style_context ().add_class ("flat");
+        search_row.add (get_search_row ());
         search_row.margin_bottom = 6;
         
         inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", {"<Ctrl>1"}); // vala-lint=line-length
@@ -98,15 +123,6 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-
-        Planner.database.opened.connect (() => {
-            listbox.foreach ((row) => listbox.remove (row));
-            listbox.add (inbox_row);
-            listbox.add (today_row);
-            listbox.add (upcoming_row);
-            listbox.insert (search_row, 0);
-            listbox.show_all ();
-        });
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 6;
@@ -186,11 +202,14 @@ public class Widgets.Pane : Gtk.EventBox {
         //      listbox.unselect_all ();
         //  });
 
-        var listbox_grid = new Gtk.Grid ();
+        // labels_widget = new Widgets.LabelsList ();
+
+        listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
         listbox_grid.margin_top = 3;
         listbox_grid.margin_end = 6;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
+        listbox_grid.add (search_row);
         listbox_grid.add (listbox);
         listbox_grid.add (drop_project_grid);
         listbox_grid.add (motion_revealer);
@@ -199,6 +218,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
         // listbox_grid.add (caldav_widget);
+        // listbox_grid.add (labels_widget);
         
         listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
@@ -293,6 +313,20 @@ public class Widgets.Pane : Gtk.EventBox {
         build_drag_and_drop ();
         check_network ();
 
+        Planner.database.opened.connect (() => {
+            listbox.foreach ((row) => listbox.remove (row));
+            listbox.add (inbox_row);
+            listbox.add (today_row);
+            listbox.add (upcoming_row);
+            listbox.show_all ();
+
+            // labels_widget.init ();    
+        });
+
+        //  labels_widget.label_selected.connect ((label) => {
+        //      label_selected (label);
+        //  });
+
         // Project Drag and Drop
         Gtk.drag_dest_set (drop_project_grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drop_project_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
@@ -319,6 +353,12 @@ public class Widgets.Pane : Gtk.EventBox {
             return true;
         });
 
+        search_row.clicked.connect (() => {
+            var dialog = new Dialogs.QuickFind ();
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        });
+
         drop_project_grid.drag_leave.connect ((context, time) => {
             motion_revealer.reveal_child = false;
         });
@@ -326,15 +366,11 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox.row_selected.connect ((row) => {
             if (row != null && Planner.database.is_database_empty () != true) {
                 Planner.event_bus.unselect_all ();
-                if (first_init) {
-                    first_init = false;
-                } else {
-                    activated (row.get_index ());
-                    Planner.utils.pane_action_selected ();
-                    project_listbox.unselect_all ();
-                        
-                    // caldav_widget.unselect_all ();
-                }
+                activated (row.get_index ());
+                Planner.utils.pane_action_selected ();
+                project_listbox.unselect_all ();
+                    
+                // caldav_widget.unselect_all ();
             }
         });
 
@@ -499,6 +535,10 @@ public class Widgets.Pane : Gtk.EventBox {
         }
     }
 
+    public void add_label (Objects.Label label) {
+        // labels_widget.add_label (label);
+    }
+
     private void build_drag_and_drop () {
         Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         project_listbox.drag_data_received.connect (on_drag_project_received);
@@ -628,13 +668,10 @@ public class Widgets.Pane : Gtk.EventBox {
 
     public void select_item (int id) {
         if (id == 0) {
-            // listbox.select_row (search_row);
-            listbox.unselect_all ();
-        } else if (id == 1) {
             listbox.select_row (inbox_row);
-        } else if (id == 2) {
+        } else if (id == 1) {
             listbox.select_row (today_row);
-        } else if (id == 3) {
+        } else if (id == 2) {
             listbox.select_row (upcoming_row);
         } else {
             listbox.unselect_all ();

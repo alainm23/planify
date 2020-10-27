@@ -1,16 +1,11 @@
-module_name = 'demo'
+module_name = 'label-sidebar'
 
 module_files = [
-    'demo.vala',
+    'label-sidebar.vala',
 ]
 
 module_deps = [
-    dependency('gee-0.8'),
-    dependency('gobject-2.0'),
-    dependency('glib-2.0'),
-    dependency('granite'),
-    dependency('gtk+-3.0'),
-    dependency('libpeas-1.0'),
+    codecore_dep
 ]
 
 shared_module(

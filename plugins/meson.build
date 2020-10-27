@@ -1,3 +1,3 @@
 msgfmt = find_program('msgfmt')
 
-subdir('demo')
+subdir('label-sidebar')

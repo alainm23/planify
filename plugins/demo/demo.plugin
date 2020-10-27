@@ -1,9 +1,0 @@
-[Plugin]
-Module=demo
-Loader=C
-IAge=2
-Name=Demo
-Description=Demo Description
-Authors=Alain <alainhuntt@gmail.com>
-Copyright=Copyright © 2012 Code and Euclide Developers
-Website=https://github.com/elementary/code

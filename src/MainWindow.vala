@@ -43,7 +43,6 @@ public class MainWindow : Gtk.Window {
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
     public Services.ActionManager action_manager;
-    public Services.PluginsManager plugins;
 
     private uint timeout_id = 0;
     private uint configure_id = 0;
@@ -61,7 +60,6 @@ public class MainWindow : Gtk.Window {
 
     construct {
         action_manager = new Services.ActionManager (app, this);
-        plugins = new Services.PluginsManager (this);
 
         dbus_server = Services.DBusServer.get_default ();
         dbus_server.item_added.connect ((id) => {
@@ -166,14 +164,10 @@ public class MainWindow : Gtk.Window {
         realize.connect (() => {
             // Plugins hook
             HookFunc hook_func = () => {
-                // plugins.hook_window (this);
-                // plugins.hook_toolbar (toolbar);
-                // plugins.hook_share_menu (toolbar.share_menu);
-                // plugins.hook_notebook_bottom (bottombar);
-                // plugins.hook_split_view (split_view);
+                Planner.plugins.hook_pane (pane);
             };
 
-            plugins.extension_added.connect (() => {
+            Planner.plugins.extension_added.connect (() => {
                 hook_func ();
             });
 
@@ -213,7 +207,7 @@ public class MainWindow : Gtk.Window {
                         stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                         stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
                     } else {
-                        go_view (1);
+                        go_view (0);
                     }
                 } else {
                     go_view (Planner.settings.get_int ("homepage-item"));
@@ -272,7 +266,7 @@ public class MainWindow : Gtk.Window {
                 init_progress_controller ();
 
                 // Init Inbox Project
-                go_view (1);
+                go_view (0);
             } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -282,12 +276,16 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        pane.activated.connect ((id) => {
-            go_view (id);
+        pane.activated.connect ((index) => {
+            go_view (index);
         });
 
         pane.tasklist_selected.connect ((source) => {
             go_tasklist (source);
+        });
+
+        pane.label_selected.connect ((label) => {
+            go_label (label.id);
         });
 
         pane.show_quick_find.connect (show_quick_find);
@@ -305,7 +303,7 @@ public class MainWindow : Gtk.Window {
 
             // Create The New Inbox Project
             inbox_view = null;
-            go_view (1);
+            go_view (0);
 
             // Enable UI
             pane.sensitive_ui = true;
@@ -331,7 +329,7 @@ public class MainWindow : Gtk.Window {
         Planner.database.label_added.connect_after ((label) => {
             Idle.add (() => {
                 labels_controller.add_label (label);
-
+                pane.add_label (label);
                 return false;
             });
         });
@@ -339,7 +337,6 @@ public class MainWindow : Gtk.Window {
         Planner.database.label_updated.connect ((label) => {
             Idle.add (() => {
                 labels_controller.update_label (label);
-
                 return false;
             });
         });
@@ -497,10 +494,6 @@ public class MainWindow : Gtk.Window {
 
     public void go_view (int id) {
         if (id == 0) {
-            var dialog = new Dialogs.QuickFind ();
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
-        } else if (id == 1) {
             if (inbox_view == null) {
                 inbox_view = new Views.Inbox (
                     Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
@@ -509,21 +502,21 @@ public class MainWindow : Gtk.Window {
             }
 
             stack.visible_child_name = "inbox-view";
-        } else if (id == 2) {
+        } else if (id == 1) {
             if (today_view == null) {
                 today_view = new Views.Today ();
                 stack.add_named (today_view, "today-view");
             }
 
             stack.visible_child_name = "today-view";
-        } else if (id == 3) {
+        } else if (id == 2) {
             if (upcoming_view == null) {
                 upcoming_view = new Views.Upcoming ();
                 stack.add_named (upcoming_view, "upcoming-view");
             }
 
             stack.visible_child_name = "upcoming-view";
-        } else if (id == 4) {
+        } else if (id == 3) {
             if (completed_view == null) {
                 completed_view = new Views.Completed ();
                 stack.add_named (completed_view, "completed-view");
@@ -531,7 +524,7 @@ public class MainWindow : Gtk.Window {
 
             completed_view.add_all_items ();
             stack.visible_child_name = "completed-view";
-        } else if (id == 5) {
+        } else if (id == 4) {
             if (alltasks_view == null) {
                 alltasks_view = new Views.AllTasks ();
                 stack.add_named (alltasks_view, "alltasks-view");

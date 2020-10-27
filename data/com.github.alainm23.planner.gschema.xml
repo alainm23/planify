@@ -313,7 +313,7 @@
         </key>
 
         <key type="as" name="plugins-enabled">
-          <default>['demo']</default>
+          <default>['label-sidebar']</default>
           <summary>Enabled Plugins</summary>
           <description>Enabled Plugins</description>
         </key>

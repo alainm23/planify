@@ -1,25 +1,34 @@
-project ('com.github.alainm23.planner', 'vala', 'c', version: '2.5.7')
+project (
+    'com.github.alainm23.planner',
+    'vala', 'c',
+    version: '2.5.7'
+)
 
-gnome = import('gnome')
-i18n = import('i18n')
+add_project_arguments([
+        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
+    ],
+    language: 'c',
+)
 
-add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name()), language: 'c')
 
 libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'), meson.project_name())
 pluginsdir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'plugins')
 
-conf_data = configuration_data()
-conf_data.set_quoted('PROJECT_NAME', meson.project_name())
-conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-conf_data.set_quoted('VERSION', meson.project_version())
-conf_data.set_quoted('PREFIX', get_option('prefix'))
-conf_data.set_quoted('PLUGINDIR', pluginsdir)
-conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
-config_header = configure_file(
-    input : 'config.vala.in',
-    output : 'config.vala',
-    configuration : conf_data
-)
+gnome = import('gnome')
+i18n = import('i18n')
+
+glib_dep = dependency('glib-2.0', version: '>=2.30.0')
+gee_dep = dependency('gee-0.8', version: '>=0.8.5')
+gtk_dep = dependency('gtk+-3.0', version: '>=3.6.0')
+granite_dep = dependency('granite', version: '>=5.2.0')
+peas_dep = dependency('libpeas-1.0')
+peasgtk_dep = dependency('libpeas-gtk-1.0')
+sqlite3_dep = dependency('sqlite3')
+json_dep = dependency('json-glib-1.0')
+webkit2gtk_dep = dependency('webkit2gtk-4.0')
+libedataserver_dep = dependency('libedataserver-1.2', version: '>=3.8.0')
+libsoup_dep = dependency('libsoup-2.4')
+posix_dep = meson.get_compiler('c').find_library('m', required : false)
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
@@ -38,159 +47,25 @@ else
     add_project_arguments('--vapidir', join_paths(meson.current_source_dir(), 'vapi'), language: 'vala')
 endif
 
-executable(
-    meson.project_name(),
-    asresources,
-    'src/Application.vala',
-    'src/MainWindow.vala',
-    'src/Utils.vala',
-
-    'src/Services/Database.vala',
-    'src/Services/Todoist.vala',
-    'src/Services/LabelsController.vala',
-    'src/Services/Notifications.vala',
-    'src/Services/Calendar/Util.vala',
-    'src/Services/Calendar/CalendarModel.vala',
-    'src/Services/DBusServer.vala',
-    'src/Services/CustomShortcutSettings.vala',
-    'src/Services/ActionManager.vala',
-    'src/Services/EventBus.vala',
-    'src/Services/ExportImport.vala',
-    'src/Services/PluginManager.vala',
-
-    # CalDav Support
-    # 'src/Services/Tasks/Store.vala',
-    # 'src/Services/Tasks/Utils.vala',
-    
-    'src/Widgets/ActionRow.vala',
-    'src/Widgets/Pane.vala',
-    'src/Widgets/New.vala',
-    'src/Widgets/ProjectRow.vala',
-    'src/Widgets/NewItem.vala',
-    'src/Widgets/ItemRow.vala',
-    'src/Widgets/ItemCompletedRow.vala',
-    'src/Widgets/SectionRow.vala',
-    'src/Widgets/DueButton.vala',
-    'src/Widgets/LabelButton.vala',
-    'src/Widgets/Toast.vala',
-    'src/Widgets/MenuButtons.vala',
-    'src/Widgets/AreaRow.vala',
-    'src/Widgets/MagicButton.vala',
-    'src/Widgets/LabelRow.vala',
-    'src/Widgets/NewCheck.vala',
-    'src/Widgets/CheckRow.vala',
-    'src/Widgets/LabelPreview.vala',
-    'src/Widgets/LabelItem.vala',
-    'src/Widgets/ProjectProgress.vala',
-    'src/Widgets/UpcomingRow.vala',
-    'src/Widgets/EventRow.vala',
-    'src/Widgets/SourceItem.vala',
-    'src/Widgets/ReminderButton.vala',
-    'src/Widgets/ReminderRow.vala',
-    'src/Widgets/NewSection.vala',
-    'src/Widgets/Placeholder.vala',
-    'src/Widgets/NewLabel.vala',
-    'src/Widgets/PriorityButton.vala',
-    'src/Widgets/Entry.vala',
-    'src/Widgets/TextView.vala',
-    'src/Widgets/MultiSelectToolbar.vala',
-    'src/Widgets/ShortcutLabel.vala',
-    'src/Widgets/WhatsNew.vala',
-
-    # CalDav Support
-    # 'src/Widgets/SourceRow.vala',
-    # 'src/Widgets/CalDavList.vala',
-    # 'src/Widgets/TaskRow.vala',
-
-    'src/Widgets/Calendar/Calendar.vala',
-    'src/Widgets/Calendar/CalendarDay.vala',
-    'src/Widgets/Calendar/CalendarHeader.vala',
-    'src/Widgets/Calendar/CalendarView.vala',
-    'src/Widgets/Calendar/CalendarWeek.vala',
-
-    'src/Views/Welcome.vala',
-    'src/Views/Inbox.vala',
-    'src/Views/Today.vala',
-    'src/Views/Upcoming.vala',
-    'src/Views/Project.vala',
-    'src/Views/Label.vala',
-    'src/Views/Completed.vala',
-    'src/Views/Priority.vala',
-    'src/Views/AllTasks.vala',
-
-    # CalDav Support
-    # 'src/Views/TaskList.vala',
-
-    'src/Dialogs/TodoistOAuth.vala',
-    'src/Dialogs/ProjectSettings.vala',
-    'src/Dialogs/QuickFind.vala',
-    'src/Dialogs/ShortcutsDialog.vala',
-    'src/Dialogs/Project.vala',
-
-    'src/Dialogs/Preferences/Preferences.vala',
-    'src/Dialogs/Preferences/ItemSelect.vala',
-    'src/Dialogs/Preferences/ItemSwitch.vala',
-    'src/Dialogs/Preferences/ItemButton.vala',
-    'src/Dialogs/Preferences/DatabaseSettings.vala',
-    'src/Dialogs/Preferences/Item.vala',
-    'src/Dialogs/Preferences/TopBox.vala',
-
-    'src/Objects/Project.vala',
-    'src/Objects/Item.vala',
-    'src/Objects/Area.vala',
-    'src/Objects/Section.vala',
-    'src/Objects/Label.vala',
-    'src/Objects/Collaborator.vala',
-    'src/Objects/Reminder.vala',
-    'src/Objects/Queue.vala',
-    'src/Objects/Shortcuts.vala',
-    config_header,
-    dependencies: [
-        dependency('gee-0.8'),
-        dependency('gobject-2.0'),
-        dependency('glib-2.0'),
-        dependency('granite'),
-        dependency('sqlite3'),
-        dependency('gtk+-3.0'),
-        dependency('json-glib-1.0'),
-        dependency('webkit2gtk-4.0'),
-        libecal_dep,
-        libical_dep,
-        dependency('libedataserver-1.2', version: '>=3.8.0'),
-        dependency('libsoup-2.4'),
-        dependency('libpeas-1.0'),
-        dependency('libpeas-gtk-1.0'),
-        meson.get_compiler('c').find_library('m', required : false)
-    ],
-    install: true
-)
-
-executable(
-    'com.github.alainm23.planner.quick-add',
-    'src/QuickAdd/Application.vala',
-    'src/QuickAdd/MainWindow.vala',
-    'src/QuickAdd/DBusClient.vala',
-    'src/QuickAdd/Database.vala',
-    'src/QuickAdd/Project.vala',
-    'src/QuickAdd/Item.vala',
-    'src/QuickAdd/Queue.vala',
-    asresources,
-    config_header,
-    dependencies: [
-        dependency('glib-2.0'),
-        dependency('gee-0.8'),
-        dependency('gobject-2.0'),
-        dependency('granite'),
-        dependency('sqlite3'),
-        dependency('gtk+-3.0'),
-        dependency('json-glib-1.0'),
-        dependency('libsoup-2.4'),
-        meson.get_compiler('vala').find_library('posix'),
-    ],
-    install: true
-)
+dependencies = [
+    glib_dep,
+    gee_dep,
+    gtk_dep,
+    granite_dep,
+    peas_dep,
+    peasgtk_dep,
+    sqlite3_dep,
+    json_dep,
+    webkit2gtk_dep,
+    libedataserver_dep,
+    libsoup_dep,
+    libecal_dep,
+    libical_dep,
+    posix_dep
+]
 
 subdir('data')
+subdir('src')
 if get_option('plugins')
     subdir('plugins')
 endif

@@ -64,6 +64,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack.add_named (get_theme_widget (), "theme");
         stack.add_named (get_task_widget (), "task");
         stack.add_named (get_quick_add_widget (), "quick-add");
+        stack.add_named (get_plugins_widget (), "plugins");
         stack.add_named (get_todoist_widget (), "todoist");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
@@ -103,6 +104,22 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         });
     }
 
+    private Gtk.Widget get_plugins_widget () {
+        var top_box = new Dialogs.Preferences.TopBox ("go-home", _("Plugins"));
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (Planner.plugins.get_view (), false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+        
+        return main_box;
+    }
+
     private Gtk.Widget get_home_widget () {
         /* General */
         var general_label = new Granite.HeaderLabel (_("General"));
@@ -134,6 +151,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         addons_label.margin_start = 6;
 
         var todoist_item = new Dialogs.Preferences.Item ("planner-todoist", "Todoist");
+        var plugins_item = new Dialogs.Preferences.Item ("extension", "Plugins");
         var calendar_item = new Dialogs.Preferences.Item ("x-office-calendar", _("Calendar Events"));
         var labels_item = new Dialogs.Preferences.Item ("tag", _("Labels"));
         var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
@@ -151,6 +169,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         addons_grid.orientation = Gtk.Orientation.VERTICAL;
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         addons_grid.add (todoist_item);
+        addons_grid.add (plugins_item);
         addons_grid.add (calendar_item);
         addons_grid.add (labels_item);
         addons_grid.add (shortcuts_item);
@@ -193,6 +212,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         theme_item.activated.connect (() => {
             stack.visible_child_name = "theme";
+        });
+
+        plugins_item.activated.connect (() => {
+            stack.visible_child_name = "plugins";
         });
 
         task_item.activated.connect (() => {
@@ -270,11 +293,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         if (!Planner.settings.get_boolean ("homepage-project")) {
             int type = Planner.settings.get_int ("homepage-item");
-            if (type == 1) {
+            if (type == 0) {
                 inbox_radio.active = true;
-            } else if (type == 2) {
+            } else if (type == 1) {
                 today_radio.active = true;
-            } else {
+            } else if (type == 2) {
                 upcoming_radio.active = true;
             }
         }
@@ -331,17 +354,17 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         inbox_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 1);
+            Planner.settings.set_int ("homepage-item", 0);
         });
 
         today_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 2);
+            Planner.settings.set_int ("homepage-item", 1);
         });
 
         upcoming_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 3);
+            Planner.settings.set_int ("homepage-item", 2);
         });
 
         return main_box;
@@ -387,7 +410,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.hexpand = true;
         box.add (description_label);
         box.add (new_tasks_position_switch);
-        box.add (new Gtk.Label (_("asca ascascca ascasc")) {
+        box.add (new Gtk.Label (_("Indicate the position where the new tasks were created.")) {
             wrap = true,
             xalign = 0,
             margin_start = 12,

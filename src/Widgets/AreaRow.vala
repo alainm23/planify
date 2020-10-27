@@ -79,10 +79,11 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
 
         area_image = new Gtk.Image ();
+        area_image.margin_bottom = 1;
         area_image.halign = Gtk.Align.CENTER;
         area_image.valign = Gtk.Align.CENTER;
         area_image.gicon = new ThemedIcon ("folder-outline");
-        area_image.pixel_size = 18;
+        area_image.pixel_size = 16;
         if (area.collapsed == 1) {
             area_image.gicon = new ThemedIcon ("folder-open-outline");
         }
@@ -134,7 +135,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         name_stack.add_named (name_entry, "name_entry");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 5;
+        top_box.margin_start = 6;
         top_box.margin_top = 1;
         top_box.margin_bottom = 1;
         top_box.pack_start (area_image, false, false, 0);

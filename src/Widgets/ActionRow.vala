@@ -62,7 +62,6 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("pane-row");
         get_style_context ().add_class ("action-row");
 
-
         icon = new Gtk.Image ();
         icon.halign = Gtk.Align.CENTER;
         icon.valign = Gtk.Align.CENTER;

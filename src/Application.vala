@@ -34,6 +34,7 @@ public class Planner : Gtk.Application {
     public static Services.Notifications notifications;
     public static Services.EventBus event_bus;
     public static Services.Calendar.CalendarModel calendar_model;
+    public static Services.PluginsManager plugins;
     // public static Services.Tasks.Store task_store;
 
     public signal void go_view (string type, int64 id, int64 id_2);
@@ -82,6 +83,7 @@ public class Planner : Gtk.Application {
         notifications = new Services.Notifications ();
         calendar_model = new Services.Calendar.CalendarModel ();
         event_bus = new Services.EventBus ();
+        plugins = new Services.PluginsManager ();
         // task_store = new Services.Tasks.Store ();
 
         add_main_option_entries (PLANNER_OPTIONS);

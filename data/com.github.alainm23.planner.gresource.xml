@@ -26,6 +26,7 @@
     <file alias="notifications-outline-dark.svg">resources/notifications-outline-dark.svg</file>
     <file alias="pricetag-outline-light.svg">resources/pricetag-outline-light.svg</file>
     <file alias="pricetag-outline-dark.svg">resources/pricetag-outline-dark.svg</file>
+    <file alias="pricetag-outline-blue.svg">resources/pricetag-outline-blue.svg</file>
     <file alias="ellipsis-vertical-outline-light.svg">resources/ellipsis-vertical-outline-light.svg</file>
     <file alias="ellipsis-vertical-outline-dark.svg">resources/ellipsis-vertical-outline-dark.svg</file>
     <file alias="flag-outline-light.svg">resources/flag-outline-light.svg</file>
