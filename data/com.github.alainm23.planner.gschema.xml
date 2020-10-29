@@ -23,6 +23,7 @@
         <value nick="Black" value="1" />
         <value nick="Dark Blue" value="2" />
         <value nick="Arc Dark" value="3" />
+        <value nick="Fun Time" value="4" />
     </enum>
 
     <enum id="com.github.alainm23.planner.default-priority">

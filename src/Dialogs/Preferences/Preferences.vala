@@ -548,6 +548,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var arc_dark_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Arc Dark"));
         arc_dark_radio.get_style_context ().add_class ("preference-item-radio");
 
+        var fun_time_radio = new Gtk.RadioButton.with_label_from_widget (light_radio, _("Fun Time"));
+        fun_time_radio.get_style_context ().add_class ("preference-item-radio");
+
         var font_size_scale = new Gtk.Scale.with_range (Gtk.Orientation.HORIZONTAL, 0.5, 2, 0.1);
         font_size_scale.hexpand = true;
         font_size_scale.set_value (Planner.settings.get_double ("font-scale"));
@@ -605,6 +608,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (night_radio, false, false, 0);
         main_box.pack_start (dark_blue_radio, false, false, 0);
         main_box.pack_start (arc_dark_radio, false, false, 0);
+        main_box.pack_start (fun_time_radio, false, false, 0);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (new Granite.HeaderLabel (_("Font Size")) {
             margin_start = 12,
@@ -623,7 +627,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             dark_blue_radio.active = true;
         } else if (Planner.settings.get_enum ("appearance") == 3) {
             arc_dark_radio.active = true;
-        }   
+        } else if (Planner.settings.get_enum ("appearance") == 4) {
+            fun_time_radio.active = true;
+        }
 
         info_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
@@ -643,6 +649,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         arc_dark_radio.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 3);
+        });
+
+        fun_time_radio.toggled.connect (() => {
+            Planner.settings.set_enum ("appearance", 4);
         });
 
         font_size_scale.value_changed.connect (() => {
