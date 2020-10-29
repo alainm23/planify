@@ -225,6 +225,9 @@ public class PlannerQuickAdd : Gtk.Application {
         } else if (appearance_mode == 3) {
             base_color = "#353945";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+        } else if (appearance_mode == 4) {
+            base_color = "#fff9e0";
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
         }
 
         // CSS provider
