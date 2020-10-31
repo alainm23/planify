@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-07-30 01:41+0000\n"
-"Last-Translator: Lucas Faria <lucasljf@gmail.com>\n"
+"PO-Revision-Date: 2020-11-01 15:26+0000\n"
+"Last-Translator: Igor Benek-Lins <beneklins@protonmail.ch>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,20 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Você tem certeza que deseja redefinir tudo?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
 "O processo remove todas as informações armazenadas sem a possibilidade de "
-"desfazê-las."
+"desfazê-las. (S/N): "
 
 #: src/Application.vala:120
 msgid "y"
@@ -64,9 +63,8 @@ msgid ""
 msgstr ""
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Traduções"
+msgstr "Traduções atualizadas."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
@@ -604,9 +602,8 @@ msgid "Completed. Next occurrence: %s"
 msgstr "Concluído. Próxima ocorrência: %s"
 
 #: src/Widgets/ItemRow.vala:1051
-#, fuzzy
 msgid "1 task completed"
-msgstr "Tarefa concluída"
+msgstr "1 tarefa concluída"
 
 #: src/Widgets/ItemRow.vala:1434
 msgid "No Section"
