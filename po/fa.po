@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-22 21:26+0000\n"
-"Last-Translator: ali najafi <alinfrat@gmail.com>\n"
+"PO-Revision-Date: 2020-11-13 22:28+0000\n"
+"Last-Translator: amir zand <amirzand2002@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/planner/"
 "translations/fa/>\n"
 "Language: fa\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.1\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
@@ -66,7 +66,7 @@ msgstr ""
 
 #: src/Application.vala:244
 msgid "Updated translations."
-msgstr ""
+msgstr "ترجمه بروزرسانی شد."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
@@ -74,120 +74,120 @@ msgstr ""
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "برنامه ریز"
 
 #: src/MainWindow.vala:770 src/MainWindow.vala:786 src/MainWindow.vala:802
 #: src/MainWindow.vala:818
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "اضافه کردن کار از روی کلیپ بورد…"
 
 #: src/Utils.vala:28 src/Widgets/NewItem.vala:58
 msgid "today"
-msgstr ""
+msgstr "امروز"
 
 #: src/Utils.vala:29 src/Widgets/NewItem.vala:59
 msgid "tomorrow"
-msgstr ""
+msgstr "فردا"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "خانه"
 
 #: src/Utils.vala:128 src/Utils.vala:138
 msgid "Office"
-msgstr ""
+msgstr "اداره"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr ""
+msgstr "ماموریت"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
-msgstr ""
+msgstr "مهم"
 
 #: src/Utils.vala:131 src/Utils.vala:150
 msgid "Pending"
-msgstr ""
+msgstr "در حال انتظار"
 
 #: src/Utils.vala:194
 msgid "Berry Red"
-msgstr ""
+msgstr "زرشکی"
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "قرمز"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "نارنجی"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "زرد"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "سبز زیتونی"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "سبز لیمویی"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "سبز"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "سبز نعنایی"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "لجنی"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "آبی آسمانی"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "آبی روشن"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "آبی"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "صورتی قرمز"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "بنفش"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "نیلی کمرنگ"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "ارغوانی"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "حنایی"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
-msgstr ""
+msgstr "ذغالی"
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "خاکستری"
 
 #: src/Utils.vala:213
 msgid "Taupe"
-msgstr ""
+msgstr "خاکستری مایل به قهوه ای"
 
 #. vala-lint=line-length
 #: src/Utils.vala:592 src/Widgets/Pane.vala:77 src/Widgets/NewItem.vala:621
@@ -196,26 +196,26 @@ msgstr ""
 #: src/Views/Today.vala:925 src/Dialogs/Preferences/Preferences.vala:255
 #: src/Dialogs/Preferences/Preferences.vala:361 src/Dialogs/QuickFind.vala:78
 msgid "Today"
-msgstr ""
+msgstr "امروز"
 
 #: src/Utils.vala:594 src/Widgets/Pane.vala:430 src/Widgets/NewItem.vala:627
 #: src/Widgets/ItemRow.vala:1500 src/Widgets/DueButton.vala:224
 #: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:931
 msgid "Tomorrow"
-msgstr ""
+msgstr "فردا"
 
 #: src/Utils.vala:857
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "افزودن سریع فعال شد!"
 
 #: src/Utils.vala:858
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "برای فعال سازی %s را بفشارید. شما می توانید آن را در تنظیمات عوض کنید"
 
 #: src/Utils.vala:897
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ در حال شروع"
 
 #: src/Utils.vala:898
 msgid ""
@@ -274,16 +274,16 @@ msgstr ""
 
 #: src/Utils.vala:969
 msgid "Quit"
-msgstr ""
+msgstr "خروج"
 
 #: src/Utils.vala:977
 msgid "The request was incorrect."
-msgstr ""
+msgstr "درخواست اشتباه بود."
 
 #: src/Utils.vala:978
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "احراز هویت لازم است ، انجام نشده است یا هنوز ارائه نشده است."
 
 #: src/Utils.vala:979
 msgid "The request was valid, but for something that is forbidden."
@@ -291,11 +291,11 @@ msgstr ""
 
 #: src/Utils.vala:980
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "منبع درخواست شده یافت نشد."
 
 #: src/Utils.vala:981
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "کاربر در یک زمان مشخص درخواستهای زیادی ارسال کرده است."
 
 #: src/Utils.vala:982
 msgid "The request failed due to a server error."
@@ -875,24 +875,24 @@ msgstr ""
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
-msgstr ""
+msgstr "شروع به کار"
 
 #: src/Views/Welcome.vala:28
 msgid "Start Working Locally."
-msgstr ""
+msgstr "شروع به کار به ضورت محلی"
 
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:927
 msgid "Todoist"
-msgstr ""
+msgstr "لیست وظایف"
 
 #: src/Views/Welcome.vala:29
 msgid "Synchronize with your Todoist Account."
-msgstr ""
+msgstr "همگام سازی با لیست وظایفِ شما"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Backup"
-msgstr ""
+msgstr "افزودن فایل پشتیبانی"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
