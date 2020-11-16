@@ -8,6 +8,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
     private Gtk.Revealer listbox_revealer;
     private Gtk.EventBox top_eventbox;
     private Gtk.Grid main_grid;
+    private Gtk.Revealer main_revealer;
 
     private uint timeout_id = 0;
     private uint toggle_timeout = 0;
@@ -24,7 +25,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
     }
     
     public void deactivate () {
-        main_grid.destroy ();
+        hide_destroy ();
     }
 
     public void update_state () { }
@@ -99,8 +100,19 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         main_grid.add (top_eventbox);
         main_grid.add (listbox_revealer);
 
-        pane.listbox_grid.add (main_grid);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.reveal_child = false;
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (main_grid);
+
+        pane.listbox_grid.add (main_revealer);
         pane.show_all ();
+
+        timeout_id = Timeout.add (150, () => {
+            timeout_id = 0;
+            main_revealer.reveal_child = true;
+            return false;
+        });
 
         get_all_labels ();
 
@@ -108,6 +120,9 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
             if (row != null) {
                 var label = ((Widgets.LabelPaneRow) row).label;
                 pane.label_selected (label);
+                pane.project_listbox.unselect_all ();
+                pane.listbox.unselect_all ();
+                Planner.event_bus.area_unselect_all ();
             }
         });
 
@@ -118,6 +133,43 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
                 listbox.show_all ();
                 return false;
             });
+        });
+
+        top_eventbox.enter_notify_event.connect ((event) => {
+            menu_stack.visible_child_name = "menu_button";
+            return true;
+        });
+
+        top_eventbox.leave_notify_event.connect ((event) => {
+            if (event.detail == Gdk.NotifyType.INFERIOR) {
+                return false;
+            }
+
+            menu_stack.visible_child_name = "count_label";
+            return true;
+        });
+
+        menu_button.clicked.connect (() => {
+            var dialog = new Dialogs.Preferences.Preferences ("labels");
+            dialog.destroy.connect (Gtk.main_quit);
+            dialog.show_all ();
+        });
+
+        Planner.utils.pane_project_selected.connect (() => {
+            listbox.unselect_all ();
+        });
+
+        Planner.utils.pane_action_selected.connect (() => {
+            listbox.unselect_all ();
+        });
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+
+        Timeout.add (500, () => {
+            main_grid.destroy ();
+            return false;
         });
     }
 

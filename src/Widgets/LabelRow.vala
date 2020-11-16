@@ -208,7 +208,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });

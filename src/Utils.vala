@@ -25,9 +25,6 @@ public class Utils : GLib.Object {
     private const string ALPHA_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private const string NUMERIC_CHARS = "0123456789";
 
-    private const string TODAY = _("today");
-    private const string TOMORROW = _("tomorrow");
-
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
@@ -654,27 +651,51 @@ public class Utils : GLib.Object {
 
         if (item.due_lang == "en") {
             if (item.due_string == "every day" || item.due_string == "daily") {
-                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_days (value * 1);
             } else if (item.due_string == "every week" || item.due_string == "weekly") {
-                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
+                returned = get_date_with_time_from_string (item.due_date).add_days (value * 7);
             } else if (item.due_string == "every month" || item.due_string == "monthly") {
-                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_months (value * 1);
             } else if (item.due_string == "every year" || item.due_string == "yearly") {
-                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_years (value * 1);
             }
         } else if (item.due_lang == "es") {
             if (item.due_string == "cada dia" || item.due_string == "todos dias" || item.due_string == "diario") {
-                returned = get_format_date_from_string (item.due_date).add_days (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_days (value * 1);
             } else if (item.due_string == "cada semana" || item.due_string == "semanal") {
-                returned = get_format_date_from_string (item.due_date).add_days (value * 7);
+                returned = get_date_with_time_from_string (item.due_date).add_days (value * 7);
             } else if (item.due_string == "cada mes" || item.due_string == "mensual") {
-                returned = get_format_date_from_string (item.due_date).add_months (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_months (value * 1);
             } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
-                returned = get_format_date_from_string (item.due_date).add_years (value * 1);
+                returned = get_date_with_time_from_string (item.due_date).add_years (value * 1);
             }
         }
 
         return returned;
+    }
+
+    public GLib.DateTime get_date_with_time_from_string (string due_date) {
+        var date = new GLib.DateTime.from_iso8601 (due_date, new GLib.TimeZone.local ());
+        
+        if (has_time (date)) {
+            return new DateTime.local (
+                date.get_year (),
+                date.get_month (),
+                date.get_day_of_month (),
+                date.get_hour (),
+                date.get_minute (),
+                date.get_second ()
+            );
+        } else {
+            return new DateTime.local (
+                date.get_year (),
+                date.get_month (),
+                date.get_day_of_month (),
+                0,
+                0,
+                0
+            );
+        }
     }
 
     public int get_recurring_iter (Objects.Item item) {
@@ -786,15 +807,15 @@ public class Utils : GLib.Object {
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             } else if (appearance_mode == 3) {
-                base_color = "#353945";
-                check_border_color = "grey";
-                projectview_color = "#404552";
-                pane_color = "#353945";
-                pane_selected_color = "#2B303B";
-                pane_text_color = "#fefeff";
-                popover_background = "#353945";
-                row_selected_color = "shade (@projectview_color, 0.3)";
-                upcoming_color = "#a970ff";
+                 base_color = "#353945";
+                 check_border_color = "grey";
+                 projectview_color = "#404552";
+                 pane_color = "#353945";
+                 pane_selected_color = "#2B303B";
+                 pane_text_color = "#fefeff";
+                 popover_background = "#353945";
+                 row_selected_color = "shade (@projectview_color, 0.3)";
+                 upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
@@ -884,6 +905,30 @@ public class Utils : GLib.Object {
         }
 
         return return_value;
+    }
+
+    public PaneView get_paneview_by_enum (int value) {
+        if (value == 0) {
+            return PaneView.INBOX;
+        } else if (value == 1) {
+            return PaneView.TODAY;
+        } else if (value == 2) {
+            return PaneView.UPCOMING;
+        }
+
+        return PaneView.INBOX;
+    }
+
+    public PaneView get_paneview_by_string (string value) {
+        if (value == "inbox") {
+            return PaneView.INBOX;
+        } else if (value == "today") {
+            return PaneView.TODAY;
+        } else if (value == "upcoming") {
+            return PaneView.UPCOMING;
+        }
+
+        return PaneView.INBOX;
     }
 
     /*

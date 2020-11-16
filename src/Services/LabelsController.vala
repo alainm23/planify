@@ -37,6 +37,7 @@ public class Services.LabelsController : GLib.Object {
                 color: @text_color;
                 padding: 0px 3px 1px 3px;
                 border-radius: 4px;
+                font-size: 0.8em;
                 font-weight: 700;
                 border: 1px solid shade (%s, 0.95)
             }

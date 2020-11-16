@@ -484,8 +484,9 @@ public class Dialogs.Project : Gtk.Dialog {
             check_placeholder_view ();
             set_sort_func (project.sort_order);
 
-            set_size_request (-1, -1);           
-            return false;
+            set_size_request (-1, -1);    
+
+            return GLib.Source.REMOVE;
         });
 
         listbox.row_activated.connect ((r) => {
@@ -1154,7 +1155,7 @@ public class Dialogs.Project : Gtk.Dialog {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1376,7 +1377,7 @@ public class Dialogs.Project : Gtk.Dialog {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1697,7 +1698,7 @@ public class Dialogs.Project : Gtk.Dialog {
             get_position (out root_x, out root_y);
             Planner.settings.set ("project-dialog-position", "(ii)", root_x, root_y);
 
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         return base.configure_event (event);

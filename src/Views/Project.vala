@@ -438,7 +438,7 @@ public class Views.Project : Gtk.EventBox {
             check_placeholder_view ();
             set_sort_func (project.sort_order);
 
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         listbox.row_activated.connect ((r) => {
@@ -628,23 +628,6 @@ public class Views.Project : Gtk.EventBox {
                 update_item_order ();
             }
         });
-
-        //  Planner.database.item_added_with_index.connect ((item, index) => {
-        //      if (project.id == item.project_id && item.section_id == 0) {
-        //          var row = new Widgets.ItemRow (item);
-        //          row.destroy.connect (() => {
-        //              item_row_removed (row);
-        //          });
-
-        //          items_uncompleted_added.set (item.id.to_string (), row);
-        //          listbox.insert (row, index);
-        //          items_list.insert (index, row);
-
-        //          listbox.show_all ();
-        //          check_placeholder_view ();
-        //          check_listbox_margin ();
-        //      }
-        //  });
 
         Planner.database.show_undo_item.connect ((item, type) => {
             if (project.id == item.project_id) {
@@ -897,7 +880,7 @@ public class Views.Project : Gtk.EventBox {
                     check_placeholder_view ();
                     set_sort_func (project.sort_order);
         
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -1175,7 +1158,7 @@ public class Views.Project : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1409,7 +1392,7 @@ public class Views.Project : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

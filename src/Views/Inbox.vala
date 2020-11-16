@@ -325,7 +325,7 @@ public class Views.Inbox : Gtk.EventBox {
             check_placeholder_view ();
             set_sort_func (project.sort_order);
 
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         listbox.row_activated.connect ((r) => {
@@ -800,7 +800,7 @@ public class Views.Inbox : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1030,7 +1030,7 @@ public class Views.Inbox : Gtk.EventBox {
                 return null;
             });
             
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

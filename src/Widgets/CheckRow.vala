@@ -128,15 +128,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         add (main_revealer);
         build_drag_and_drop ();
-
-        if (item.checked == 1) {
-            checked_button.get_style_context ().add_class ("checklist-completed");
-            checked_button.active = true;
-        } else {
-            checked_button.active = false;
-            checked_button.get_style_context ().add_class ("checklist-border");
-            checked_button.get_style_context ().add_class ("checklist-check");
-        }
+        update_checked ();
 
         handle.enter_notify_event.connect ((event) => {
             delete_revealer.reveal_child = true;
@@ -213,7 +205,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -251,23 +243,43 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         
         Planner.database.item_completed.connect ((i) => {
             if (item.id == i.id) {
-                checked_button.get_style_context ().remove_class ("checklist-border");
-                checked_button.get_style_context ().remove_class ("checklist-check");
-
-                checked_button.active = true;
-                checked_button.get_style_context ().add_class ("checklist-completed");
+                item.checked = i.checked;
+                update_checked ();
             }
         });
 
         Planner.database.item_uncompleted.connect ((i) => {
             if (item.id == i.id) {
-                checked_button.get_style_context ().remove_class ("checklist-completed");
-
-                checked_button.active = false;
-                checked_button.get_style_context ().add_class ("checklist-border");
-                checked_button.get_style_context ().add_class ("checklist-check");
+                item.checked = i.checked;
+                update_checked ();
             }
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "underline-completed-tasks") {
+                update_checked ();
+            }
+        });
+    }
+
+    private void update_checked () {
+        checked_button.get_style_context ().remove_class ("checklist-completed");
+        checked_button.get_style_context ().remove_class ("checklist-border");
+        checked_button.get_style_context ().remove_class ("checklist-check");
+        content_label.get_style_context ().remove_class ("line-through");
+
+        if (item.checked == 1) {
+            checked_button.get_style_context ().add_class ("checklist-completed");
+            checked_button.active = true;
+
+            if (Planner.settings.get_boolean ("underline-completed-tasks")) {
+                content_label.get_style_context ().add_class ("line-through");
+            }
+        } else {
+            checked_button.active = false;
+            checked_button.get_style_context ().add_class ("checklist-border");
+            checked_button.get_style_context ().add_class ("checklist-check");
+        }
     }
 
     private void save () {

@@ -71,7 +71,7 @@ public class Views.Today : Gtk.EventBox {
 
         date_label = new Gtk.Label (null);
         date_label.valign = Gtk.Align.CENTER;
-        date_label.margin_top = 6;
+        date_label.margin_top = 3;
         date_label.use_markup = true;
         update_today_label ();
 
@@ -235,7 +235,7 @@ public class Views.Today : Gtk.EventBox {
         Timeout.add (125, () => {
             check_placeholder_view ();
             set_sort_func (Planner.settings.get_int ("today-sort-order"));
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         Planner.event_bus.day_changed.connect (() => {
@@ -697,7 +697,7 @@ public class Views.Today : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

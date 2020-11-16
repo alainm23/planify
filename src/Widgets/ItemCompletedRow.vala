@@ -138,7 +138,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
         timeout_id = Timeout.add (150, () => {
             timeout_id = 0;
             main_revealer.reveal_child = true;
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         checked_button.toggled.connect (() => {
@@ -247,7 +247,7 @@ public class Widgets.ItemCompletedRow : Gtk.ListBoxRow {
 
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 }

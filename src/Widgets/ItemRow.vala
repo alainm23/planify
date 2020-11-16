@@ -210,8 +210,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button.halign = Gtk.Align.BASELINE;
         checked_button.active = item.checked == 1;
 
-        check_priority_style ();
-
         content_label = new Gtk.Label (Planner.utils.get_markup_format (item.content));
         content_label.hexpand = true;
         content_label.valign = Gtk.Align.START;
@@ -281,6 +279,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         duedate_preview_label = new Gtk.Label (null);
         duedate_preview_label.use_markup = true;
+        duedate_preview_label.valign = Gtk.Align.START;
 
         date_preview_revealer = new Gtk.Revealer ();
         date_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -374,7 +373,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_preview_image.pixel_size = 10;
         note_preview_image.margin_end = 6;
-        note_preview_image.valign = Gtk.Align.CENTER;
+        note_preview_image.margin_top = 2;
+        note_preview_image.valign = Gtk.Align.START;
 
         note_preview_revealer = new Gtk.Revealer ();
         note_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -617,11 +617,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         add (main_revealer);
         update_checklist_progress ();
-
+        check_priority_style ();
+        
         timeout_id = Timeout.add (150, () => {
             timeout_id = 0;
             main_revealer.reveal_child = true;
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
@@ -637,6 +638,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Planner.settings.changed.connect ((key) => {
             if (key == "appearance") {
                 check_icon_style ();
+            } else if (key == "underline-completed-tasks") {
+                check_priority_style ();
             }
         });
 
@@ -862,7 +865,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                     Timeout.add (250, () => {
                         save_off = false;
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
 
@@ -1007,8 +1010,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 Timeout.add (700, () => {
                     get_style_context ().remove_class ("item-highlight");
-
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -1034,7 +1036,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1113,7 +1115,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
             activatable = true;
             selectable = true;
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -1650,9 +1652,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().remove_class ("priority-3");
         checked_button.get_style_context ().remove_class ("priority-2");
         checked_button.get_style_context ().remove_class ("priority-1");
+        content_label.get_style_context ().remove_class ("line-through");
 
         if (item.checked == 1) {
             checked_button.get_style_context ().add_class ("checklist-completed");
+
+            if (Planner.settings.get_boolean ("underline-completed-tasks")) {
+                content_label.get_style_context ().add_class ("line-through");
+            }
         } else {
             if (item.priority == 0 || item.priority == 1) {
                 checked_button.get_style_context ().add_class ("priority-1");
@@ -1696,7 +1703,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 }

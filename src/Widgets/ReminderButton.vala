@@ -132,7 +132,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         Timeout.add (125, () => {
             stack.visible_child_name = "list";
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         var popover_grid = new Gtk.Grid ();

@@ -23,21 +23,34 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     public Gtk.Label title_name;
     public Gtk.Image icon { get; set; }
 
-    public string icon_name { get; construct; }
-    public string item_name { get; construct; }
-    public string item_base_name { get; construct; }
+    public PaneView view { get; construct; }
 
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
     private Gtk.Label count_past_label;
     private Gtk.Revealer count_past_revealer;
     private Gtk.Revealer main_revealer;
-
+    private Gtk.EventBox handle;
+    private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer first_motion_revealer;
     private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
+
+    private const Gtk.TargetEntry[] TARGET_PANEVIEW = {
+        {"PANEVIEWROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    public bool reveal_drag_motion {
+        set {
+            motion_revealer.reveal_child = value;
+        }
+        get {
+            return motion_revealer.reveal_child;
+        }
+    }
 
     public bool reveal_child {
         get {
@@ -48,12 +61,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
     }
 
-    public ActionRow (string name, string icon, string item_base_name, string[]? accels) {
+    public ActionRow (PaneView view) {
         Object (
-            item_name: name,
-            icon_name: icon,
-            item_base_name: item_base_name,
-            tooltip_markup: Granite.markup_accel_tooltip (accels, name)
+            view: view
         );
     }
 
@@ -65,10 +75,9 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         icon = new Gtk.Image ();
         icon.halign = Gtk.Align.CENTER;
         icon.valign = Gtk.Align.CENTER;
-        icon.gicon = new ThemedIcon (icon_name);
         icon.pixel_size = 14;
 
-        title_name = new Gtk.Label (item_name);
+        title_name = new Gtk.Label (null);
         title_name.margin_bottom = 1;
         title_name.get_style_context ().add_class ("pane-item");
         title_name.use_markup = true;
@@ -103,36 +112,97 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_revealer.add (count_label);
 
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        main_box.hexpand = true;
         main_box.margin = 3;
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);
         main_box.pack_end (count_revealer, false, false, 0);
         main_box.pack_end (count_past_revealer, false, false, 0);
 
+        var motion_grid = new Gtk.Grid ();
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
+        motion_grid.hexpand = true;
+        motion_grid.margin_bottom = 6;
+        motion_grid.margin_top = 6;
+
+        motion_revealer = new Gtk.Revealer ();
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        motion_revealer.add (motion_grid);
+
+        var first_motion_grid = new Gtk.Grid ();
+        first_motion_grid.get_style_context ().add_class ("grid-motion");
+        first_motion_grid.height_request = 24;
+        first_motion_grid.hexpand = true;
+        first_motion_grid.margin_bottom = 6;
+        first_motion_grid.margin_top = 6;
+
+        first_motion_revealer = new Gtk.Revealer ();
+        first_motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        first_motion_revealer.add (first_motion_grid);
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.hexpand = true;
+        grid.add (first_motion_revealer);
+        grid.add (main_box);
+        grid.add (motion_revealer);
+
+        handle = new Gtk.EventBox ();
+        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        handle.hexpand = true;
+        handle.above_child = false;
+        handle.add (grid);
+
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        main_revealer.add (main_box);
+        main_revealer.add (handle);
         main_revealer.reveal_child = true;
 
         add (main_revealer);
-        build_drag_and_drop ();
 
-        if (item_base_name == "search") {
-            icon.get_style_context ().add_class ("search-icon");
-        } else if (item_base_name == "inbox") {
+        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_PANEVIEW, Gdk.DragAction.MOVE);
+        drag_begin.connect (on_drag_begin);
+        drag_data_get.connect (on_drag_data_get);
+
+        build_drag_and_drop (false);
+
+        Planner.utils.drag_item_activated.connect ((active) => {
+            build_drag_and_drop (active);
+        });
+
+        if (view == PaneView.INBOX) {
+            tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>1"}, _("Inbox"));
+            icon.gicon = new ThemedIcon ("mail-mailbox-symbolic");
+            title_name.label = _("Inbox");
             icon.get_style_context ().add_class ("inbox-icon");
-        } else if (item_base_name == "today") {
+        } else if (view == PaneView.TODAY) {
+            tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>2"}, _("Today"));
+            icon.gicon = new ThemedIcon ("help-about-symbolic");
+            title_name.label = _("Today");
             icon.get_style_context ().add_class ("today-icon");
-            //  if (icon_name == "planner-today-day-symbolic") {
-            //      icon.get_style_context ().add_class ("today-day-icon");
-            //  } else {
-            //      icon.get_style_context ().add_class ("today-night-icon");
-            //  }
-        } else if (item_base_name == "upcoming") {
+        } else if (view == PaneView.UPCOMING) {
+            tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>3"}, _("Upcoming"));
+            icon.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+            title_name.label = _("Upcoming");
             icon.get_style_context ().add_class ("upcoming-icon");
         }
 
         check_count_update ();
+    }
+
+    public string get_view_string () {
+        var returned = "inbox";
+
+        if (view == PaneView.INBOX) {
+            returned = "inbox";
+        } else if (view == PaneView.TODAY) {
+            returned = "today";
+        } else if (view == PaneView.UPCOMING) {
+            returned = "upcoming";
+        }
+
+        return returned;
     }
 
     private void check_count_update () {
@@ -140,7 +210,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             update_count ();
         });
 
-        if (item_base_name == "today") {
+        if (view == PaneView.TODAY) {
             Planner.database.item_added.connect ((item) => {
                 update_count ();
             });
@@ -180,7 +250,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             Planner.database.section_deleted.connect ((s) => {
                 update_count ();
             });
-        } else if (item_base_name == "inbox") {
+        } else if (view == PaneView.INBOX) {
             Planner.database.check_project_count.connect ((id) => {
                 if (Planner.settings.get_int64 ("inbox-project") == id) {
                     update_count ();
@@ -197,21 +267,19 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         timeout_id = Timeout.add (250, () => {
             timeout_id = 0;
 
-            if (item_base_name == "today") {
+            if (view == PaneView.TODAY) {
                 check_today_badge ();
-            } else if (item_base_name == "inbox") {
+            } else if (view == PaneView.INBOX) {
                 check_inbox_badge ();
             }
             
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
     private void check_inbox_badge () {
         int count = Planner.database.get_count_items_by_project (Planner.settings.get_int64 ("inbox-project"));
-
         count_label.label = "<small>%i</small>".printf (count);
-
         if (count <= 0) {
             count_revealer.reveal_child = false;
         } else {
@@ -242,18 +310,105 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     /*
     *   Build DRAGN AND DROP
     */
-    private void build_drag_and_drop () {
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_ITEM, Gdk.DragAction.MOVE);
-        drag_motion.connect (on_drag_item_motion);
-        drag_leave.connect (on_drag_item_leave);
+    private void build_drag_and_drop (bool value) {
+        if (value) {
+            drag_motion.disconnect (on_drag_motion);
+            drag_leave.disconnect (on_drag_leave);
+            drag_end.disconnect (clear_indicator);
 
-        if (item_base_name == "inbox") {
-            drag_data_received.connect (on_drag_imbox_item_received);
-        } else if (item_base_name == "today") {
-            drag_data_received.connect (on_drag_today_item_received);
-        } else if (item_base_name == "upcoming") {
-            drag_data_received.connect (on_drag_upcoming_item_received);
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.ALL, TARGET_ENTRIES_ITEM, Gdk.DragAction.MOVE);
+            drag_motion.connect (on_drag_item_motion);
+            drag_leave.connect (on_drag_item_leave);
+
+            if (view == PaneView.INBOX) {
+                drag_data_received.connect (on_drag_imbox_item_received);
+            } else if (view == PaneView.TODAY) {
+                drag_data_received.connect (on_drag_today_item_received);
+            } else if (view == PaneView.UPCOMING) {
+                drag_data_received.connect (on_drag_upcoming_item_received);
+            }
+        } else {
+            drag_data_received.disconnect (on_drag_imbox_item_received);
+            drag_data_received.disconnect (on_drag_today_item_received);
+            drag_data_received.disconnect (on_drag_upcoming_item_received);
+            drag_motion.disconnect (on_drag_item_motion);
+            drag_leave.disconnect (on_drag_item_leave);
+
+            Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_PANEVIEW, Gdk.DragAction.MOVE);
+            drag_motion.connect (on_drag_motion);
+            drag_leave.connect (on_drag_leave);
+            drag_end.connect (clear_indicator);
         }
+    }
+
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var row = ((Widgets.ActionRow) widget).handle;
+
+        Gtk.Allocation alloc;
+        row.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+
+        cr.set_source_rgba (255, 255, 255, 0);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        row.get_style_context ().add_class ("drag-begin");
+        row.draw (cr);
+        row.get_style_context ().remove_class ("drag-begin");
+
+        Gtk.drag_set_icon_surface (context, surface);
+        main_revealer.reveal_child = false;
+    }
+
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        uchar[] data = new uchar[(sizeof (Widgets.ActionRow))];
+        ((Gtk.Widget[])data)[0] = widget;
+
+        selection_data.set (
+            Gdk.Atom.intern_static_string ("PANEVIEWROW"), 32, data
+        );
+    }
+
+    public void clear_indicator (Gdk.DragContext context) {
+        reveal_drag_motion = false;
+        main_revealer.reveal_child = true;
+        first_motion_revealer.reveal_child = false;
+    }
+
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
+        Gtk.Allocation alloc;
+        handle.get_allocation (out alloc);
+        
+        if (get_index () == 0) {
+            if (y > (alloc.height / 2)) {
+                reveal_drag_motion = true;
+                first_motion_revealer.reveal_child = false;
+            } else {
+                first_motion_revealer.reveal_child = true;
+                reveal_drag_motion = false;
+            }
+        } else {
+            reveal_drag_motion = true;
+        }
+
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        reveal_drag_motion = false;
+        first_motion_revealer.reveal_child = false;
     }
 
     private void on_drag_imbox_item_received (Gdk.DragContext context, int x, int y,

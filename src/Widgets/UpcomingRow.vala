@@ -377,7 +377,7 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

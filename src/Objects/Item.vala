@@ -68,7 +68,7 @@ public class Objects.Item : GLib.Object {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -87,7 +87,7 @@ public class Objects.Item : GLib.Object {
                 return null;
             });
             
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

@@ -26,10 +26,9 @@ public class Widgets.Pane : Gtk.EventBox {
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
     private Widgets.ActionRow upcoming_row;
-    // private Widgets.LabelsList labels_widget;
 
-    private Gtk.ListBox listbox;
-    private Gtk.ListBox project_listbox;
+    public Gtk.ListBox listbox;
+    public Gtk.ListBox project_listbox;
     private Gtk.ListBox area_listbox;
     private Gtk.ScrolledWindow listbox_scrolled;
     public Gtk.Grid listbox_grid;
@@ -40,7 +39,7 @@ public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Image sync_image;
     private Gtk.Image error_image;
 
-    public signal void activated (int id);
+    public signal void activated (PaneView view);
     public signal void show_quick_find ();
     public signal void tasklist_selected (E.Source source);
     public signal void label_selected (Objects.Label label);
@@ -51,6 +50,10 @@ public class Widgets.Pane : Gtk.EventBox {
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
+    private const Gtk.TargetEntry[] TARGET_PANEVIEW = {
+        {"PANEVIEWROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     private const Gtk.TargetEntry[] TARGET_AREAS = {
@@ -98,10 +101,9 @@ public class Widgets.Pane : Gtk.EventBox {
         search_row.add (get_search_row ());
         search_row.margin_bottom = 6;
         
-        inbox_row = new Widgets.ActionRow (_("Inbox"), "mail-mailbox-symbolic", "inbox", {"<Ctrl>1"}); // vala-lint=line-length
-        today_row = new Widgets.ActionRow (_("Today"), "help-about-symbolic", "today", {"<Ctrl>2"}); // vala-lint=line-length
-        upcoming_row = new Widgets.ActionRow (_("Upcoming"), "x-office-calendar-symbolic", "upcoming", {"<Ctrl>3"}); // vala-lint=line-length
-        //var back_row = new Widgets.ActionRow (_("Trash"), "user-trash-symbolic", "upcoming", _("Upcoming"));
+        inbox_row = new Widgets.ActionRow (PaneView.INBOX);
+        today_row = new Widgets.ActionRow (PaneView.TODAY);
+        upcoming_row = new Widgets.ActionRow (PaneView.UPCOMING);
         
         add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.valign = Gtk.Align.CENTER;
@@ -130,25 +132,12 @@ public class Widgets.Pane : Gtk.EventBox {
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
-        var motion_revealer = new Gtk.Revealer ();
-        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        motion_revealer.add (motion_grid);
-
-        var drop_project_grid = new Gtk.Grid ();
-        drop_project_grid.margin_start = 6;
-        drop_project_grid.margin_end = 6;
-        drop_project_grid.height_request = 12;
-
         project_listbox = new Gtk.ListBox ();
+        project_listbox.margin_top = 6;
         project_listbox.get_style_context ().add_class ("pane");
         project_listbox.activate_on_single_click = true;
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
-
-        var drop_area_grid = new Gtk.Grid ();
-        drop_area_grid.margin_start = 6;
-        drop_area_grid.margin_end = 6;
-        drop_area_grid.height_request = 12;
 
         var motion_area_grid = new Gtk.Grid ();
         motion_area_grid.margin_start = 6;
@@ -156,6 +145,24 @@ public class Widgets.Pane : Gtk.EventBox {
         motion_area_grid.margin_bottom = 12;
         motion_area_grid.height_request = 24;
         motion_area_grid.get_style_context ().add_class ("grid-motion");
+
+        area_listbox = new Gtk.ListBox ();
+        area_listbox.get_style_context ().add_class ("pane");
+        area_listbox.activate_on_single_click = true;
+        area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        area_listbox.hexpand = true;
+
+        //  var caldav_widget = new Widgets.CalDavList ();
+        //  caldav_widget.tasklist_selected.connect ((source) => {
+        //      tasklist_selected (source);
+
+        //      project_listbox.unselect_all ();
+        //      listbox.unselect_all ();
+        //  });
+        var drop_area_grid = new Gtk.Grid ();
+        drop_area_grid.margin_start = 6;
+        drop_area_grid.margin_end = 6;
+        drop_area_grid.height_request = 12;
 
         var motion_area_revealer = new Gtk.Revealer ();
         motion_area_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -187,22 +194,6 @@ public class Widgets.Pane : Gtk.EventBox {
         drop_area_grid.drag_leave.connect ((context, time) => {
             motion_area_revealer.reveal_child = false;
         });
-        
-        area_listbox = new Gtk.ListBox ();
-        area_listbox.get_style_context ().add_class ("pane");
-        area_listbox.activate_on_single_click = true;
-        area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        area_listbox.hexpand = true;
-
-        //  var caldav_widget = new Widgets.CalDavList ();
-        //  caldav_widget.tasklist_selected.connect ((source) => {
-        //      tasklist_selected (source);
-
-        //      project_listbox.unselect_all ();
-        //      listbox.unselect_all ();
-        //  });
-
-        // labels_widget = new Widgets.LabelsList ();
 
         listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
@@ -211,14 +202,11 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (search_row);
         listbox_grid.add (listbox);
-        listbox_grid.add (drop_project_grid);
-        listbox_grid.add (motion_revealer);
         listbox_grid.add (project_listbox);
         listbox_grid.add (drop_area_grid);
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
         // listbox_grid.add (caldav_widget);
-        // listbox_grid.add (labels_widget);
         
         listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
@@ -314,43 +302,22 @@ public class Widgets.Pane : Gtk.EventBox {
         check_network ();
 
         Planner.database.opened.connect (() => {
-            listbox.foreach ((row) => listbox.remove (row));
-            listbox.add (inbox_row);
-            listbox.add (today_row);
-            listbox.add (upcoming_row);
+            listbox.foreach ((row) => {
+                listbox.remove (row);
+            });
+
+            string[] array = Planner.settings.get_strv ("views-order");
+            foreach (var view in array) {
+                if (view == "inbox") {
+                    listbox.add (inbox_row);
+                } else if (view == "today") {
+                    listbox.add (today_row);
+                } else if (view == "upcoming") {
+                    listbox.add (upcoming_row);
+                }
+            }
+
             listbox.show_all ();
-
-            // labels_widget.init ();    
-        });
-
-        //  labels_widget.label_selected.connect ((label) => {
-        //      label_selected (label);
-        //  });
-
-        // Project Drag and Drop
-        Gtk.drag_dest_set (drop_project_grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        drop_project_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
-            Widgets.ProjectRow source;
-            Gtk.Allocation alloc;
-
-            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-            source = (Widgets.ProjectRow) row;
-
-            source.get_parent ().remove (source);
-            projects_list.remove (source);
-
-            source.project.area_id = 0;
-
-            project_listbox.insert (source, 0);
-            projects_list.insert (0, source);
-            project_listbox.show_all ();
-
-            update_project_order ();
-        });
-
-        drop_project_grid.drag_motion.connect ((context, x, y, time) => {
-            motion_revealer.reveal_child = true;
-            return true;
         });
 
         search_row.clicked.connect (() => {
@@ -359,18 +326,13 @@ public class Widgets.Pane : Gtk.EventBox {
             dialog.show_all ();
         });
 
-        drop_project_grid.drag_leave.connect ((context, time) => {
-            motion_revealer.reveal_child = false;
-        });
-
         listbox.row_selected.connect ((row) => {
             if (row != null && Planner.database.is_database_empty () != true) {
                 Planner.event_bus.unselect_all ();
-                activated (row.get_index ());
+                
+                activated (((Widgets.ActionRow) row).view);
                 Planner.utils.pane_action_selected ();
                 project_listbox.unselect_all ();
-                    
-                // caldav_widget.unselect_all ();
             }
         });
 
@@ -380,8 +342,6 @@ public class Widgets.Pane : Gtk.EventBox {
                 
                 var project = ((Widgets.ProjectRow) row).project;
                 Planner.utils.pane_project_selected (project.id, 0);
-
-                // caldav_widget.unselect_all ();
             }
         });
 
@@ -540,6 +500,9 @@ public class Widgets.Pane : Gtk.EventBox {
     }
 
     private void build_drag_and_drop () {
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_PANEVIEW, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect (on_drag_paneview_received);
+
         Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         project_listbox.drag_data_received.connect (on_drag_project_received);
 
@@ -547,8 +510,41 @@ public class Widgets.Pane : Gtk.EventBox {
         area_listbox.drag_data_received.connect (on_drag_area_received);
     }
 
+    private void on_drag_paneview_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+
+        Widgets.ActionRow target;
+        Widgets.ActionRow source;
+        Gtk.Allocation alloc;
+
+        target = (Widgets.ActionRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+
+        var row = ((Gtk.Widget[]) selection_data.get_data ()) [0];
+        source = (Widgets.ActionRow) row;
+
+        if (target != null) {
+            source.get_parent ().remove (source);
+            listbox.remove (source);
+
+            if (target.get_index () == 0) {
+                if (y < (alloc.height / 2)) {
+                    listbox.insert (source, 0);
+                } else {
+                    listbox.insert (source, target.get_index () + 1);
+                }
+            } else {
+                listbox.insert (source, target.get_index () + 1);
+            }
+
+            listbox.show_all ();
+            update_views_order ();
+        }
+    }
+
     private void on_drag_project_received (Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint target_type, uint time) {
+
         Widgets.ProjectRow target;
         Widgets.ProjectRow source;
         Gtk.Allocation alloc;
@@ -562,14 +558,22 @@ public class Widgets.Pane : Gtk.EventBox {
         if (target != null) {
             source.get_parent ().remove (source);
             projects_list.remove (source);
-
             source.project.area_id = 0;
 
-            project_listbox.insert (source, target.get_index () + 1);
-            projects_list.insert (target.get_index () + 1, source);
+            if (target.get_index () == 0) {
+                if (y < (alloc.height / 2)) {
+                    project_listbox.insert (source, 0);
+                    projects_list.insert (0, source);
+                } else {
+                    project_listbox.insert (source, target.get_index () + 1);
+                    projects_list.insert (target.get_index () + 1, source);
+                }
+            } else {
+                project_listbox.insert (source, target.get_index () + 1);
+                projects_list.insert (target.get_index () + 1, source);
+            }
 
             project_listbox.show_all ();
-
             update_project_order ();
         }
     }
@@ -614,7 +618,7 @@ public class Widgets.Pane : Gtk.EventBox {
                     timeout = Timeout.add (125, () => {
                         timeout = 0;
                         project_listbox.select_row (row);
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             }
@@ -648,7 +652,7 @@ public class Widgets.Pane : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -662,16 +666,25 @@ public class Widgets.Pane : Gtk.EventBox {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
-    public void select_item (int id) {
-        if (id == 0) {
+    private void update_views_order () {
+        string[] array = {};
+        listbox.foreach ((widget) => {
+            var item = ((Widgets.ActionRow) widget);
+            array += item.get_view_string ();
+        });
+        Planner.settings.set_strv ("views-order", array);
+    }
+
+    public void select_item (PaneView view) {
+        if (view == PaneView.INBOX) {
             listbox.select_row (inbox_row);
-        } else if (id == 1) {
+        } else if (view == PaneView.TODAY) {
             listbox.select_row (today_row);
-        } else if (id == 2) {
+        } else if (view == PaneView.UPCOMING) {
             listbox.select_row (upcoming_row);
         } else {
             listbox.unselect_all ();

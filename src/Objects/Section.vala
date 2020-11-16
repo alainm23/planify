@@ -48,7 +48,7 @@ public class Objects.Section : GLib.Object {
                 Planner.todoist.update_section (this);
             }
                         
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

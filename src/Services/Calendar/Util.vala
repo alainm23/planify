@@ -239,8 +239,7 @@ namespace Util {
         has_scrolled = true;
         Timeout.add (500, () => {
             has_scrolled = false;
-
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

@@ -195,7 +195,8 @@ public class MainWindow : Gtk.Window {
                 Timeout.add (250, () => {
                     stack.visible_child_name = "welcome-view";
                     pane.sensitive_ui = false;
-                    return false;
+                    
+                    return GLib.Source.REMOVE;
                 });
             } else {
                 // Set the homepage view
@@ -207,11 +208,15 @@ public class MainWindow : Gtk.Window {
                         stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
                         stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
                     } else {
-                        go_view (0);
+                        go_view (PaneView.INBOX);
                     }
                 } else {
-                    go_view (Planner.settings.get_int ("homepage-item"));
-                    pane.select_item (Planner.settings.get_int ("homepage-item"));
+                    go_view (Planner.utils.get_paneview_by_enum (
+                        Planner.settings.get_enum ("homepage-item")
+                    ));
+                    pane.select_item (Planner.utils.get_paneview_by_enum (
+                        Planner.settings.get_enum ("homepage-item")
+                    ));
                 }
 
                 // Run Reminder server
@@ -266,7 +271,7 @@ public class MainWindow : Gtk.Window {
                 init_progress_controller ();
 
                 // Init Inbox Project
-                go_view (0);
+                go_view (PaneView.INBOX);
             } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -276,8 +281,8 @@ public class MainWindow : Gtk.Window {
             }
         });
 
-        pane.activated.connect ((index) => {
-            go_view (index);
+        pane.activated.connect ((view) => {
+            go_view (view);
         });
 
         pane.tasklist_selected.connect ((source) => {
@@ -303,7 +308,7 @@ public class MainWindow : Gtk.Window {
 
             // Create The New Inbox Project
             inbox_view = null;
-            go_view (0);
+            go_view (PaneView.INBOX);
 
             // Enable UI
             pane.sensitive_ui = true;
@@ -319,7 +324,7 @@ public class MainWindow : Gtk.Window {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
 
-                pane.select_item (1);
+                pane.select_item (PaneView.INBOX);
             }
         });
 
@@ -409,7 +414,7 @@ public class MainWindow : Gtk.Window {
         Planner.event_bus.hide_new_window_project.connect ((project_id) => {
             var project = ((Views.Project) stack.visible_child).project;
             if (project.id == project_id) {
-                go_view (1);
+                go_view (PaneView.INBOX);
             }
         });
     }
@@ -492,8 +497,8 @@ public class MainWindow : Gtk.Window {
         }
     }
 
-    public void go_view (int id) {
-        if (id == 0) {
+    public void go_view (PaneView view) {
+        if (view == PaneView.INBOX) {
             if (inbox_view == null) {
                 inbox_view = new Views.Inbox (
                     Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
@@ -502,21 +507,21 @@ public class MainWindow : Gtk.Window {
             }
 
             stack.visible_child_name = "inbox-view";
-        } else if (id == 1) {
+        } else if (view == PaneView.TODAY) {
             if (today_view == null) {
                 today_view = new Views.Today ();
                 stack.add_named (today_view, "today-view");
             }
 
             stack.visible_child_name = "today-view";
-        } else if (id == 2) {
+        } else if (view == PaneView.UPCOMING) {
             if (upcoming_view == null) {
                 upcoming_view = new Views.Upcoming ();
                 stack.add_named (upcoming_view, "upcoming-view");
             }
 
             stack.visible_child_name = "upcoming-view";
-        } else if (id == 3) {
+        } else if (view == PaneView.COMPLETED) {
             if (completed_view == null) {
                 completed_view = new Views.Completed ();
                 stack.add_named (completed_view, "completed-view");
@@ -524,7 +529,7 @@ public class MainWindow : Gtk.Window {
 
             completed_view.add_all_items ();
             stack.visible_child_name = "completed-view";
-        } else if (id == 4) {
+        } else if (view == PaneView.ALLTASKS) {
             if (alltasks_view == null) {
                 alltasks_view = new Views.AllTasks ();
                 stack.add_named (alltasks_view, "alltasks-view");
@@ -533,7 +538,7 @@ public class MainWindow : Gtk.Window {
             stack.visible_child_name = "alltasks-view";
         }
 
-        pane.select_item (id);
+        pane.select_item (view);
     }
 
     public void go_project (int64 project_id) {
@@ -652,7 +657,7 @@ public class MainWindow : Gtk.Window {
                 }
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -776,7 +781,11 @@ public class MainWindow : Gtk.Window {
         if (Planner.settings.get_boolean ("homepage-project")) {
             go_project (Planner.settings.get_int64 ("homepage-project-id"));
         } else {
-            go_view (Planner.settings.get_int ("homepage-item"));
+            go_view (
+                Planner.utils.get_paneview_by_enum (
+                    Planner.settings.get_enum ("homepage-item")
+                )
+            );
         }
     }
 
@@ -937,7 +946,7 @@ public class MainWindow : Gtk.Window {
                 Planner.settings.set ("window-position", "(ii)", root_x, root_y);
             }
 
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         return base.configure_event (event);

@@ -40,7 +40,7 @@ public class Objects.Area : GLib.Object {
                 return null;
             });
                 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 }

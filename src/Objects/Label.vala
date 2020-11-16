@@ -44,7 +44,7 @@ public class Objects.Label : GLib.Object {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

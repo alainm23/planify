@@ -7,6 +7,12 @@
         <value nick="Today + Inbox" value="3" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.pane-view">
+        <value nick="Inbox" value="0" />
+        <value nick="Today" value="1" />
+        <value nick="Upcoming" value="2" />
+    </enum>
+
     <enum id="com.github.alainm23.planner.button-layout">
         <value nick="elementary" value="0" />
         <value nick="Ubuntu" value="1" />
@@ -156,6 +162,12 @@
             <description>Quick Add enabled</description>
         </key>
 
+        <key name="underline-completed-tasks" type="b">
+            <default>false</default>
+            <summary>Underline completed tasks.</summary>
+            <description>Underline completed tasks.</description>
+        </key>
+
         <key name="calendar-sources-disabled" type="as">
             <default>[]</default>
             <summary></summary>
@@ -203,13 +215,19 @@
             <summary>homepage-project</summary>
             <description>homepage-project</description>
         </key>
-
-        <key name="homepage-item" type="i">
-            <default>0</default>
+        
+        <key name="homepage-item" enum="com.github.alainm23.planner.pane-view">
+            <default>"Inbox"</default>
             <summary>homepage-item</summary>
             <description>homepage-item</description>
         </key>
         
+        <key name="views-order" type="as">
+            <default>['inbox', 'today', 'upcoming']</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="user-name" type="s">
             <default>""</default>
             <summary>User name</summary>

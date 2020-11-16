@@ -463,7 +463,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             timeout_id = 0;
             receive_updates = false;
             save_task (task);
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -511,7 +511,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
 
             activatable = true;
             selectable = true;
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

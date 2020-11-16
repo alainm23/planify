@@ -109,7 +109,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -120,7 +120,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });

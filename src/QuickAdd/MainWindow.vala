@@ -237,7 +237,7 @@ public class MainWindow : Gtk.Window {
                 content_entry.grab_focus ();
             }
 
-            return false;
+            return GLib.Source.REMOVE;
         });
         
         get_style_context ().add_class ("quick-add");
@@ -249,7 +249,7 @@ public class MainWindow : Gtk.Window {
             */
             Timeout.add (500, () => {
                 destroy ();
-                return false;
+                return GLib.Source.REMOVE;
             });
         });
 
@@ -303,7 +303,7 @@ public class MainWindow : Gtk.Window {
 
             Timeout.add (500, () => {
                 destroy ();
-                return false;
+                return GLib.Source.REMOVE;
             });
         });
 
@@ -315,7 +315,7 @@ public class MainWindow : Gtk.Window {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
 
@@ -374,7 +374,7 @@ public class MainWindow : Gtk.Window {
                 */
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
 
                 return true;

@@ -334,9 +334,6 @@ public class Services.Calendar.CalendarModel : Object {
             string[] sources_disabled = {};
             listbox.foreach ((widget) => {
                 var item = ((Widgets.SourceItem) widget);
-
-                print ("Id: %s".printf (item.source.dup_uid ()));
-
                 if (item.source_enabled == false) {
                     sources_disabled += item.source.dup_uid ();
                 }

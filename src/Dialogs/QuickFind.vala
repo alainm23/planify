@@ -19,15 +19,6 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public enum QuickFindResultType {
-    NONE,
-    ITEM,
-    PROJECT,
-    VIEW,
-    PRIORITY,
-    LABEL
-}
-
 public class Dialogs.QuickFind : Gtk.Dialog {
     SearchItem current_item = null;
     public QuickFind () {
@@ -242,41 +233,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         // main_box.pack_end (action_bar, false, true, 0);
 
         get_content_area ().add (main_box);
-
-        // Add Default Filters
-        foreach (var label in Planner.database.get_all_labels ()) {
-            var row = new SearchItem (
-                QuickFindResultType.LABEL,
-                label.to_json (),
-                search_entry.text
-            );
-
-            listbox.add (row);
-            listbox.show_all ();
-        }
-
-        foreach (var priority in priorities) {
-            var row = new SearchItem (
-                QuickFindResultType.PRIORITY,
-                priority,
-                search_entry.text
-            );
-    
-            listbox.add (row);
-            listbox.show_all ();
-        }
         
         QuickFindResultType result_type = QuickFindResultType.NONE;
-        listbox.foreach ((widget) => {
-            var row = (SearchItem) widget;
-
-            if (row.result_type != result_type) {
-                row.header_label.opacity = 1;
-            }
-
-            result_type = row.result_type;
-        });
-
         search_entry.search_changed.connect (() => {
             listbox.foreach ((widget) => {
                 widget.destroy ();
@@ -451,7 +409,9 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             );
         } else if (item.result_type == QuickFindResultType.VIEW) {
             Planner.instance.main_window.go_view (
-                (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
+                Planner.utils.get_paneview_by_enum (
+                    (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
+                )
             );
         } else if (item.result_type == QuickFindResultType.ITEM) {
             Planner.instance.main_window.go_item (
@@ -475,7 +435,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 }

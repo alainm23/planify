@@ -110,7 +110,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         activatable = false;
         selectable = false;
         get_style_context ().add_class ("item-row");
-        margin_end = 6;
 
         checked_button = new Gtk.CheckButton ();
         checked_button.margin_start = 6;
@@ -222,8 +221,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.margin_top = 6;
         tools_box.hexpand = true;
         tools_box.pack_end (project_button, false, false, 0);
-        tools_box.pack_end (reschedule_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
+        tools_box.pack_end (reschedule_button, false, false, 0);
 
         var note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;
@@ -247,8 +246,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.margin_top = 6;
         main_grid.margin_bottom= 6;
         main_grid.margin_start = 6;
-        main_grid.get_style_context ().add_class ("check-eventbox");
-        main_grid.get_style_context ().add_class ("check-eventbox-border");
+        main_grid.get_style_context ().add_class ("item-row-selected");
+        main_grid.get_style_context ().add_class ("popover");
         main_grid.add (content_grid);
         main_grid.add (note_revealer);
         main_grid.add (tools_box);
@@ -272,7 +271,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             main_revealer.reveal_child = true;
             
             grab_focus ();
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         submit_button.clicked.connect (insert_item);
@@ -300,11 +299,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                             hide_destroy ();
                         }
         
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
 
-                return false;
+                return GLib.Source.REMOVE;
             });
 
             return false;
@@ -778,7 +777,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_revealer.reveal_child = false;
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

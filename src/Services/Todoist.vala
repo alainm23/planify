@@ -2579,7 +2579,7 @@ public class Services.Todoist : GLib.Object {
             Source.remove (delete_timeout);
             delete_timeout = 0;
 
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         return items_to_delete.add (item);

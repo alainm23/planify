@@ -55,7 +55,7 @@ public class Objects.Project : GLib.Object {
                 Planner.todoist.update_project (this);
             }
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

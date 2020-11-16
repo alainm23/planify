@@ -36,6 +36,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.EventBox handle;
 
     private Gtk.Revealer motion_revealer;
+    private Gtk.Revealer first_motion_revealer;
     public Gtk.Revealer main_revealer;
     private Gtk.Label due_label;
 
@@ -182,9 +183,21 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
 
+        var first_motion_grid = new Gtk.Grid ();
+        first_motion_grid.get_style_context ().add_class ("grid-motion");
+        first_motion_grid.height_request = 24;
+        first_motion_grid.hexpand = true;
+        first_motion_grid.margin_bottom = 6;
+        first_motion_grid.margin_top = 6;
+
+        first_motion_revealer = new Gtk.Revealer ();
+        first_motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        first_motion_revealer.add (first_motion_grid);
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.margin_top = grid.margin_bottom = 2;
+        grid.add (first_motion_revealer);
         grid.add (handle_box);
         grid.add (motion_revealer);
 
@@ -261,7 +274,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -345,7 +358,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 Planner.database.get_all_count_items_by_project (project.id)
             );
             
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -452,18 +465,19 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        reveal_drag_motion = true;
-        
-        int index = get_index ();
         Gtk.Allocation alloc;
-        get_allocation (out alloc);
-
-        int real_y = (index * alloc.height) - alloc.height + y;
-        check_scroll (real_y);
-
-        if (should_scroll && !scrolling) {
-            scrolling = true;
-            Timeout.add (SCROLL_DELAY, scroll);
+        handle.get_allocation (out alloc);
+        
+        if (get_index () == 0 && project.area_id == 0) {
+            if (y > (alloc.height / 2)) {
+                reveal_drag_motion = true;
+                first_motion_revealer.reveal_child = false;
+            } else {
+                first_motion_revealer.reveal_child = true;
+                reveal_drag_motion = false;
+            }
+        } else {
+            reveal_drag_motion = true;
         }
 
         return true;
@@ -471,6 +485,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     public void on_drag_leave (Gdk.DragContext context, uint time) {
         reveal_drag_motion = false;
+        first_motion_revealer.reveal_child = false;
     }
 
     public bool on_drag_item_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -485,6 +500,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     public void clear_indicator (Gdk.DragContext context) {
         reveal_drag_motion = false;
         main_revealer.reveal_child = true;
+        first_motion_revealer.reveal_child = false;
     }
 
     private void activate_menu () {
@@ -507,7 +523,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                     Timeout.add (500, () => {
                         destroy ();
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             });
@@ -525,7 +541,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
                         Timeout.add (500, () => {
                             destroy ();
-                            return false;
+                            return GLib.Source.REMOVE;
                         });
                     }
                 });

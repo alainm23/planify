@@ -272,8 +272,8 @@ paned.horizontal > separator {
     background-color: @base_color;
     padding-top: 6px;
     padding-left: 6px;
-    margin-left: 6px;
-    margin-right: 8px;
+    margin-left: 0px;
+    margin-right: 6px;
 }
 
 /*
@@ -1265,4 +1265,8 @@ paned.horizontal > separator {
 
 .note-textview text {
     background: alpha (#3689e6, 0.25);
+}
+
+.line-through {
+    text-decoration: line-through;
 }

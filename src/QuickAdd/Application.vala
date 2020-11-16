@@ -197,7 +197,7 @@ public class PlannerQuickAdd : Gtk.Application {
 
                 Timeout.add (500, () => {
                     main_window.destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });

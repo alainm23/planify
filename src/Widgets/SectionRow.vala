@@ -322,7 +322,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         
         Timeout.add (125, () => {
             set_sort_func (Planner.database.get_project_by_id (section.project_id).sort_order);
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
@@ -464,7 +464,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                     if (menu_visible == false) {
                         toggle_hidden ();
                     }
-                    return false;
+
+                    return GLib.Source.REMOVE;
                 });                
             }
 
@@ -604,7 +605,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
                 Timeout.add (500, () => {
                     destroy ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         });
@@ -1000,7 +1001,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         toggle_timeout = Timeout.add (750, () => {
             toggle_timeout = 0;
             top_eventbox.get_style_context ().remove_class ("active");
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         if (listbox_revealer.reveal_child) {
@@ -1212,7 +1213,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

@@ -62,4 +62,5 @@ public class Services.EventBus : Object {
 
     // Show Task Deleted
     public signal void show_undo_task (string uid, string type="");
+    public signal void area_unselect_all ();
 }

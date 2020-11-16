@@ -196,7 +196,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         motion_revealer = new Gtk.Revealer ();
         motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         motion_revealer.add (motion_grid);
-
+        
         drop_grid = new Gtk.Grid ();
         drop_grid.margin_start = 6;
         drop_grid.margin_end = 6;
@@ -302,7 +302,8 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                     if (menu_visible == false) {
                         toggle_hidden ();
                     }
-                    return false;
+
+                    return GLib.Source.REMOVE;
                 });                
             }
 
@@ -411,6 +412,10 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         Planner.utils.pane_action_selected.connect (() => {
             listbox.unselect_all ();
         });
+
+        Planner.event_bus.area_unselect_all.connect (() => {
+            listbox.unselect_all ();
+        });
     }
 
     private void toggle_hidden () {
@@ -423,7 +428,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
         toggle_timeout = Timeout.add (750, () => {
             toggle_timeout = 0;
             top_eventbox.get_style_context ().remove_class ("active");
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         if (listbox_revealer.reveal_child) {
@@ -460,7 +465,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                         timeout = Timeout.add (125, () => {
                             timeout = 0;
                             listbox.select_row (row);
-                            return false;
+                            return GLib.Source.REMOVE;
                         });
                     }
                 }
@@ -625,7 +630,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
                 return null;
             });
 
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -719,7 +724,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -735,7 +740,7 @@ public class Widgets.AreaRow : Gtk.ListBoxRow {
 
         Timeout.add (500, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

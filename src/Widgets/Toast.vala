@@ -107,7 +107,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
                     GLib.Timeout.add (transition_duration, () => {
                         destroy ();
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             });
@@ -132,7 +132,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
                     GLib.Timeout.add (transition_duration, () => {
                         destroy ();
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             });
@@ -151,7 +151,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
                     GLib.Timeout.add (transition_duration, () => {
                         destroy ();
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             });
@@ -168,7 +168,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
                     GLib.Timeout.add (transition_duration, () => {
                         destroy ();
-                        return false;
+                        return GLib.Source.REMOVE;
                     });
                 }
             });
@@ -232,7 +232,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
             GLib.Timeout.add (transition_duration, () => {
                 destroy ();
-                return false;
+                return GLib.Source.REMOVE;
             });
         });
 
@@ -274,7 +274,7 @@ public class Widgets.Toast : Gtk.Revealer {
                     timeout_id = 0;
     
                     run_query ();
-                    return false;
+                    return GLib.Source.REMOVE;
                 });
             }
         }
@@ -310,7 +310,7 @@ public class Widgets.Toast : Gtk.Revealer {
 
         GLib.Timeout.add (transition_duration, () => {
             destroy ();
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 }

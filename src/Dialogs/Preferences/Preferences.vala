@@ -74,7 +74,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         Timeout.add (125, () => {
             stack.visible_child_name = view;
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         var stack_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -143,6 +143,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (theme_item);
         general_grid.add (task_item);
         general_grid.add (backups_item);
+        general_grid.add (quick_add_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
@@ -292,7 +293,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         upcoming_radio.get_style_context ().add_class ("preference-item-radio");
 
         if (!Planner.settings.get_boolean ("homepage-project")) {
-            int type = Planner.settings.get_int ("homepage-item");
+            int type = Planner.settings.get_enum ("homepage-item");
             if (type == 0) {
                 inbox_radio.active = true;
             } else if (type == 1) {
@@ -354,17 +355,17 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         inbox_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 0);
+            Planner.settings.set_enum ("homepage-item", 0);
         });
 
         today_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 1);
+            Planner.settings.set_enum ("homepage-item", 1);
         });
 
         upcoming_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
-            Planner.settings.set_int ("homepage-item", 2);
+            Planner.settings.set_enum ("homepage-item", 2);
         });
 
         return main_box;
@@ -390,6 +391,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             Planner.settings.get_enum ("new-tasks-position") == 0
         );
         new_tasks_position_switch.margin_top = 12;
+
+        var underline_tasks_switch = new Dialogs.Preferences.ItemSwitch (
+            _("Underline completed tasks."),
+            Planner.settings.get_boolean ("underline-completed-tasks")
+        );
+        underline_tasks_switch.margin_top = 12;
 
         List<string> list = new List<string> ();
         list.append (_("Priority 1"));
@@ -417,6 +424,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             margin_end = 12,
             justify = Gtk.Justification.FILL
         });
+        box.add (underline_tasks_switch);
         box.add (default_priority);
 
         var box_scrolled = new Gtk.ScrolledWindow (null, null);
@@ -440,6 +448,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             } else {
                 Planner.settings.set_enum ("new-tasks-position", -1);
             }
+        });
+
+        underline_tasks_switch.activated.connect ((value) => {
+            Planner.settings.set_boolean ("underline-completed-tasks", value);
         });
 
         default_priority.activated.connect ((index) => {
@@ -1073,7 +1085,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
                 return null;
             });
             
-            return false;
+            return GLib.Source.REMOVE;
         });
     }
 

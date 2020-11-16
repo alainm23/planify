@@ -19,9 +19,27 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+public enum QuickFindResultType {
+    NONE,
+    ITEM,
+    PROJECT,
+    VIEW,
+    PRIORITY,
+    LABEL,
+    RECENT
+}
+
 public enum NotificationStyle {
     NORMAL,
     ERROR
+}
+
+public enum PaneView {
+    INBOX,
+    TODAY,
+    UPCOMING,
+    COMPLETED,
+    ALLTASKS
 }
 
 public class Planner : Gtk.Application {

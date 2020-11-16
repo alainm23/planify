@@ -4045,6 +4045,35 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
+    public Objects.Reminder get_reminder_by_id (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT Reminders.id, Reminders.item_id, Reminders.due_date, Items.content, Items.project_id FROM Reminders
+            INNER JOIN Items ON Reminders.item_id = Items.id WHERE Reminders.id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var r = new Objects.Reminder ();
+        if (stmt.step () == Sqlite.ROW) {
+            r.id = stmt.column_int64 (0);
+            r.item_id = stmt.column_int64 (1);
+            r.due_date = stmt.column_text (2);
+            r.content = stmt.column_text (3);
+            r.project_id = stmt.column_int64 (4);
+        }
+
+        stmt.reset ();
+        return r;
+    }
+
     public bool delete_reminder (int64 id) {
         Sqlite.Statement stmt;
         string sql;
