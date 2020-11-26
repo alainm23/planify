@@ -11,6 +11,8 @@
         <value nick="Inbox" value="0" />
         <value nick="Today" value="1" />
         <value nick="Upcoming" value="2" />
+        <value nick="Completed" value="3" />
+        <value nick="All Tasks" value="4" />
     </enum>
 
     <enum id="com.github.alainm23.planner.button-layout">

@@ -24,9 +24,9 @@ public enum QuickFindResultType {
     ITEM,
     PROJECT,
     VIEW,
-    PRIORITY,
     LABEL,
-    RECENT
+    RECENT,
+    FILTERS
 }
 
 public enum NotificationStyle {

@@ -425,7 +425,71 @@ public class Services.Database : GLib.Object {
         rc = db.exec (sql, null, null);
         debug ("Table CurTempIds created");
 
+        sql = """
+            CREATE TABLE IF NOT EXISTS QuickFindRecents (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                type        TEXT,
+                object      TEXT,
+                date_added  TEXT
+            );
+        """;
+
+        rc = db.exec (sql, null, null);
+        debug ("Table CurTempIds created");
+
         return rc;
+    }
+
+    public void insert_quickfind_recents (string type, string object) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            INSERT OR IGNORE INTO QuickFindRecents (type, object, date_added)
+            VALUES (?, ?, ?);
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, type);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (2, object);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (3, new GLib.DateTime.now_local ().to_string ());
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
+        } else {
+            stmt.reset ();
+        }
+    }
+
+    public GLib.Array<string> get_quick_find_recents () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT * FROM QuickFindRecents ORDER BY date_added DESC LIMIT 10;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        var all = new GLib.Array<string> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            all.append_val (stmt.column_text (1) + "___separator___" + stmt.column_text (2));
+        }
+
+        stmt.reset ();
+        return all;
     }
 
     public bool is_database_empty () {

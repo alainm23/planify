@@ -215,6 +215,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         priority_button.get_style_context ().add_class ("flat");
         priority_button.add (priority_image);
 
+        var label_button = new Widgets.LabelButton.new_item ();
+
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
         tools_box.margin_start = 6;
@@ -222,6 +224,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.hexpand = true;
         tools_box.pack_end (project_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
+        // tools_box.pack_end (label_button, false, false, 0);
         tools_box.pack_end (reschedule_button, false, false, 0);
 
         var note_textview = new Widgets.TextView ();
@@ -239,6 +242,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         note_revealer.add (note_textview);
         note_revealer.reveal_child = false;
 
+        var labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+
+        var labels_edit_revealer = new Gtk.Revealer ();
+        labels_edit_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+        labels_edit_revealer.add (labels_edit_box);
+
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.row_spacing = 0;
@@ -250,6 +259,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.get_style_context ().add_class ("popover");
         main_grid.add (content_grid);
         main_grid.add (note_revealer);
+        main_grid.add (labels_edit_revealer);
         main_grid.add (tools_box);
 
         var grid = new Gtk.Grid ();
@@ -437,6 +447,29 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
             priority_popover.show_all ();
             priority_popover.popup ();
+        });
+
+        label_button.closed.connect (() => {
+            label_button.active = false;
+            entry_menu_opened = false;
+
+            content_entry.grab_focus_without_selecting ();
+            if (content_entry.cursor_position < content_entry.text_length) {
+            content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);
+            }
+        });
+
+        label_button.show_popover.connect (() => {
+            entry_menu_opened = true;
+        });
+
+        label_button.label_selected.connect ((label) => {
+            print ("Label: %s\n".printf (label.name));
+
+            var g = new Widgets.LabelItem (12312312312, 123123123123, label);
+            labels_edit_revealer.reveal_child = true;
+            labels_edit_box.add (g);
+            labels_edit_box.show_all ();
         });
 
         notify["priority"].connect (() => {

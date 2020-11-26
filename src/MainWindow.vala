@@ -38,7 +38,7 @@ public class MainWindow : Gtk.Window {
     private Views.Completed completed_view = null;
     private Views.AllTasks alltasks_view = null;
     private Views.Label label_view = null;
-    private Views.Priority priority_view = null;
+    private Views.Filter filter_view = null;
     
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
@@ -581,14 +581,14 @@ public class MainWindow : Gtk.Window {
         stack.visible_child_name = "label-view";
     }
 
-    public void go_priority (int priority) {
-        if (priority_view == null) {
-            priority_view = new Views.Priority ();
-            stack.add_named (priority_view, "priority-view");
+    public void go_filter (string filter) {
+        if (filter_view == null) {
+            filter_view = new Views.Filter ();
+            stack.add_named (filter_view, "filter-view");
         }
-
-        priority_view.priority = priority;
-        stack.visible_child_name = "priority-view";
+        
+        filter_view.filter = filter;
+        stack.visible_child_name = "filter-view";
     }
 
     private void init_badge_count () {
@@ -729,7 +729,7 @@ public class MainWindow : Gtk.Window {
                 ""
             );
         } else if (stack.visible_child_name == "priority-view") {
-            priority_view.add_new_item (index);
+            filter_view.add_new_item (index);
         }
     }
 
@@ -743,7 +743,7 @@ public class MainWindow : Gtk.Window {
         } else if (stack.visible_child_name == "label-view") {
             label_view.hide_items ();
         } else if (stack.visible_child_name == "priority-view") {
-            priority_view.hide_items ();
+            filter_view.hide_items ();
         } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
             Planner.event_bus.hide_items_project (project.id);

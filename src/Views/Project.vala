@@ -406,7 +406,7 @@ public class Views.Project : Gtk.EventBox {
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (note_stack, false, false, 0);
+        // main_box.pack_start (note_stack, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
         var overlay = new Gtk.Overlay ();

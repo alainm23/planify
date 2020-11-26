@@ -87,7 +87,7 @@ planner_files = files(
     'Views/Project.vala',
     'Views/Label.vala',
     'Views/Completed.vala',
-    'Views/Priority.vala',
+    'Views/Filter.vala',
     'Views/AllTasks.vala',
 
     # CalDav Support

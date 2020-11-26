@@ -272,7 +272,7 @@ paned.horizontal > separator {
     background-color: @base_color;
     padding-top: 6px;
     padding-left: 6px;
-    margin-left: 0px;
+    margin-left: 2px;
     margin-right: 6px;
 }
 

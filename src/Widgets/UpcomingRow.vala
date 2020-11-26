@@ -66,12 +66,6 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
             day = _("Tomorrow");
         }
 
-        //  var date_label = new Gtk.Label ("<small>%s, %s</small>".printf (day, ));
-        //  date_label.halign = Gtk.Align.START;
-        //  date_label.valign = Gtk.Align.START;
-        //  date_label.get_style_context ().add_class ("dim-label");
-        //  date_label.use_markup = true;
-
         var add_button = new Gtk.Button ();
         add_button.can_focus = false;
         add_button.valign = Gtk.Align.CENTER;

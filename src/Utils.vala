@@ -489,7 +489,7 @@ public class Utils : GLib.Object {
     public bool is_tomorrow (GLib.DateTime date) {
         return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
     }
-
+    
     public bool is_upcoming (GLib.DateTime date) {
         var now = get_format_date (new DateTime.now_local ());
 
@@ -914,6 +914,10 @@ public class Utils : GLib.Object {
             return PaneView.TODAY;
         } else if (value == 2) {
             return PaneView.UPCOMING;
+        } else if (value == 3) {
+            return PaneView.COMPLETED;
+        } else if (value == 4) {
+            return PaneView.ALLTASKS;
         }
 
         return PaneView.INBOX;

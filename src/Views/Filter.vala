@@ -19,16 +19,17 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.Priority : Gtk.EventBox {
-    public int priority { get; set; }
+public class Views.Filter : Gtk.EventBox {
+    public string filter { get; set; }
     public Gee.HashMap <string, Widgets.ItemRow> items_loaded;
     private Gtk.ListBox listbox;
     private Gtk.Stack view_stack;
+    private Gtk.Image icon_image;
 
     construct {
         items_loaded = new Gee.HashMap <string, Widgets.ItemRow> ();
 
-        var icon_image = new Gtk.Image ();
+        icon_image = new Gtk.Image ();
         icon_image.valign = Gtk.Align.CENTER;
         icon_image.pixel_size = 16;
 
@@ -93,38 +94,60 @@ public class Views.Priority : Gtk.EventBox {
         add (overlay);
         show_all ();
 
-        notify["priority"].connect (() => {
-            items_loaded.clear ();
+        notify["filter"].connect (() => {
+            clear ();
             
-            if (priority == 1) {
+            if (filter == "p4") {
                 if (Planner.settings.get_enum ("appearance") == 0) {
                     icon_image.gicon = new ThemedIcon ("flag-outline-light");
                 } else {
                     icon_image.gicon = new ThemedIcon ("flag-outline-dark");
                 }
                 title_label.label = "<b>%s</b>".printf (_("None"));
-            } else if (priority == 2) {
+            } else if (filter == "p3") {
                 icon_image.gicon = new ThemedIcon ("priority-2");
                 title_label.label = "<b>%s</b>".printf (_("Priority 3"));
-            } else if (priority == 3) {
+            } else if (filter == "p2") {
                 icon_image.gicon = new ThemedIcon ("priority-3");
                 title_label.label = "<b>%s</b>".printf (_("Priority 2"));
-            } else if (priority == 4) {
+            } else if (filter == "p1") {
                 icon_image.gicon = new ThemedIcon ("priority-4");
                 title_label.label = "<b>%s</b>".printf (_("Priority 1"));
+            } else if (filter == "tomorrow") {
+                icon_image.gicon = new ThemedIcon ("x-office-calendar-symbolic");
+                icon_image.get_style_context ().add_class ("upcoming-icon");
+                title_label.label = "<b>%s</b>".printf (_("Tomorrow"));
             }
 
-            foreach (unowned Gtk.Widget child in listbox.get_children ()) {
-                child.destroy ();
-            }
-            
-            foreach (Objects.Item item in Planner.database.get_items_by_priority (priority)) {
-                var row = new Widgets.ItemRow (item, "label");
+            if (filter == "p4" || filter == "p3" || filter == "p2" || filter == "p1") {
+                int priority;
+                if (filter == "p4") {
+                    priority = 1;
+                } else if (filter == "p3") {
+                    priority = 2;
+                } else if (filter == "p2") {
+                    priority = 3;
+                } else if (filter == "p1") {
+                    priority = 4;
+                }
 
-                listbox.add (row);
-                items_loaded.set (item.id.to_string (), row);
-
-                listbox.show_all ();
+                foreach (Objects.Item item in Planner.database.get_items_by_priority (priority)) {
+                    var row = new Widgets.ItemRow (item, "label");
+    
+                    listbox.add (row);
+                    items_loaded.set (item.id.to_string (), row);
+    
+                    listbox.show_all ();
+                }
+            } else if (filter == "tomorrow") {
+                foreach (var item in Planner.database.get_items_by_date (new GLib.DateTime.now_local ().add_days (1))) {
+                    var row = new Widgets.ItemRow (item, "label");
+    
+                    listbox.add (row);
+                    items_loaded.set (item.id.to_string (), row);
+    
+                    listbox.show_all ();
+                }
             }
 
             if (items_loaded.size > 0) {
@@ -146,43 +169,93 @@ public class Views.Priority : Gtk.EventBox {
         });
 
         Planner.database.item_updated.connect ((item) => {
-            Idle.add (() => {
-                if (items_loaded.has_key (item.id.to_string ())) {
-                    if (priority != items_loaded.get (item.id.to_string ()).item.priority) {
-                        items_loaded.get (item.id.to_string ()).hide_destroy ();
-                        items_loaded.unset (item.id.to_string ());
-    
-                        if (items_loaded.size > 0) {
-                            view_stack.visible_child_name = "listbox";
-                        } else {
-                            view_stack.visible_child_name = "placeholder";
-                        }
-                    }
-                }
+            update_item (item);
+        });
 
-                return false;
-            });
+        Planner.database.item_added.connect ((item, index) => {
+            if (valid_filter (item)) {
+                add_item (item);
+            }
+        });
+
+        Planner.database.add_due_item.connect ((item) => {
+            if (valid_filter (item)) {
+                add_item (item);
+            }
+        });
+
+        Planner.database.update_due_item.connect ((item) => {
+            update_item (item);
+        });
+
+        Planner.database.remove_due_item.connect ((item) => {
+            update_item (item);
+        });
+
+        Planner.database.item_deleted.connect ((item) => {
+            if (items_loaded.has_key (item.id.to_string ())) {
+                items_loaded.get (item.id.to_string ()).hide_destroy ();
+                items_loaded.unset (item.id.to_string ());
+            }
         });
 
         magic_button.clicked.connect (() => {
             add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
+    }
 
-        Planner.database.item_added.connect ((item, index) => {
-            if (priority == item.priority) {
-                var row = new Widgets.ItemRow (item);
+    private void update_item (Objects.Item item) {
+        if (items_loaded.has_key (item.id.to_string ())) {
+            if (valid_filter (item) == false) {
+                items_loaded.get (item.id.to_string ()).hide_destroy ();
+                items_loaded.unset (item.id.to_string ());
 
-                if (index == -1) {
-                    listbox.add (row);
+                if (items_loaded.size > 0) {
+                    view_stack.visible_child_name = "listbox";
                 } else {
-                    listbox.insert (row, index);
+                    view_stack.visible_child_name = "placeholder";
                 }
-
-                items_loaded.set (item.id.to_string (), row);
-                listbox.show_all ();
-                view_stack.visible_child_name = "listbox";
             }
-        });
+        } else {
+            if (valid_filter (item)) {
+                add_item (item);
+            }
+        }
+    }
+
+    private void add_item (Objects.Item item) {
+        var row = new Widgets.ItemRow (item);
+
+        listbox.add (row);
+        items_loaded.set (item.id.to_string (), row);
+        listbox.show_all ();
+        view_stack.visible_child_name = "listbox";
+    }
+
+    public void clear () {
+        items_loaded.clear ();
+        foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+            child.destroy ();
+        }
+        icon_image.get_style_context ().remove_class ("upcoming-icon");
+    }
+
+    private bool valid_filter (Objects.Item item) {
+        var returned = false;
+
+        if (filter == "p4") {
+            returned = item.priority == 1;
+        } else if (filter == "p3") {
+            returned = item.priority == 2;
+        } else if (filter == "p2") {
+            returned = item.priority == 3;
+        } else if (filter == "p1") {
+            returned = item.priority == 4;
+        } else if (filter == "tomorrow") {
+            returned = Planner.utils.is_tomorrow (Planner.utils.get_date_with_time_from_string (item.due_date));
+        }
+
+        return returned;
     }
 
     public void hide_items () {
@@ -204,7 +277,7 @@ public class Views.Priority : Gtk.EventBox {
             "",
             index,
             listbox,
-            priority
+            0
         );
         
         if (index == -1) {
