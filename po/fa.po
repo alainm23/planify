@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-11-13 22:28+0000\n"
-"Last-Translator: amir zand <amirzand2002@gmail.com>\n"
+"PO-Revision-Date: 2020-12-01 13:29+0000\n"
+"Last-Translator: Mohammad Mehdi <mm.ghanbari1996@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/planner/"
 "translations/fa/>\n"
 "Language: fa\n"
@@ -58,11 +58,14 @@ msgstr "Github # 565 - خطای رفع هنگام نمایش نام پروژه."
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"گیت هاب شماره ۵۶۳ -  درست کردم مشکل زمانی که یک وظیفه به انتهای لیست میرود."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"گیت هاب شماره ۵۵۹ و ۴۱۵ - فعال کردن کلیک برای دیدن تمام اطلاعات یک وظیفه "
+"انجام شده"
 
 #: src/Application.vala:244
 msgid "Updated translations."
@@ -70,7 +73,7 @@ msgstr "ترجمه بروزرسانی شد."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "برطرف کردن مشکلات و بهبود عملکرد"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -223,54 +226,58 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"این پروژه به شما یاد میدهد که اصول ابتدایی پلنر را یادبگیرید و سیستم مدیریت "
+"تسک ها و منظم کردن آنها و هرچیزی که نیاز دارید را شروع کنید"
 
 #: src/Utils.vala:903
 msgid "Adding new tasks"
-msgstr ""
+msgstr "اضافه کردن وظیفه / کار جدید"
 
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"برای اضافه کردن وظیفه / کار جدید در پلنر کافی است که دکمه + و سپس کلید اینتر "
+"را فشار دهید"
 
 #: src/Utils.vala:959
 msgid "Create a new task"
-msgstr ""
+msgstr "ساختن یک وظیفه / کار جدید"
 
 #: src/Utils.vala:960
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr ""
+msgstr "ساختن یک وظیفه / کار جدید در بالای لیست (تنها برای )"
 
 #: src/Utils.vala:961
 msgid "Create a new area"
-msgstr ""
+msgstr "ساختن یک فضای جدید"
 
 #: src/Utils.vala:962
 msgid "Create a new project"
-msgstr ""
+msgstr "ساختن یک پروژه جدید"
 
 #: src/Utils.vala:963
 msgid "Create a new section"
-msgstr ""
+msgstr "ساختن یک بخش جدید"
 
 #: src/Utils.vala:964
 msgid "Open the Inbox"
-msgstr ""
+msgstr "باز کردن صندوق ورودی"
 
 #: src/Utils.vala:965
 msgid "Open Today"
-msgstr ""
+msgstr "امروز را باز کن"
 
 #: src/Utils.vala:966
 msgid "Open Upcoming"
-msgstr ""
+msgstr "باز کردن آینده"
 
 #: src/Utils.vala:967
 msgid "Open Search"
-msgstr ""
+msgstr "باز کردن جستجو کردن"
 
 #: src/Utils.vala:968
 msgid "Manually sync"
-msgstr ""
+msgstr "همگام سازی به صورت دستی"
 
 #: src/Utils.vala:969
 msgid "Quit"
@@ -287,7 +294,7 @@ msgstr "احراز هویت لازم است ، انجام نشده است یا �
 
 #: src/Utils.vala:979
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "درخواست شما معتبر است اما برای چند چیز گم شده است"
 
 #: src/Utils.vala:980
 msgid "The requested resource could not be found."
@@ -299,61 +306,61 @@ msgstr "کاربر در یک زمان مشخص درخواستهای زیادی �
 
 #: src/Utils.vala:982
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "این درخواست به دلیل خطای سرور رد شده است"
 
 #: src/Utils.vala:983
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "سرور در حال حاضر نمی تواند درخواست شمارا انجام دهد"
 
 #: src/Services/Database.vala:1047 src/Widgets/Pane.vala:76
 #: src/Widgets/ItemRow.vala:1392 src/Widgets/SectionRow.vala:819
 #: src/Views/Inbox.vala:79 src/Dialogs/Preferences/Preferences.vala:251
 #: src/Dialogs/Preferences/Preferences.vala:358 src/Dialogs/QuickFind.vala:71
 msgid "Inbox"
-msgstr ""
+msgstr "صندوق ورودی"
 
 #: src/Services/Calendar/Util.vala:274
 msgid "On this computer"
-msgstr ""
+msgstr "روی این کامپیوتر"
 
 #: src/Widgets/ActionRow.vala:83 src/Widgets/ProjectRow.vala:150
 msgid "Todoist Project"
-msgstr ""
+msgstr "پروژه تودوایست"
 
 #: src/Widgets/ActionRow.vala:273 src/Widgets/ProjectRow.vala:409
 #: src/Widgets/SectionRow.vala:1103 src/Widgets/SectionRow.vala:1178
 #: src/Views/Project.vala:1109 src/Views/Project.vala:1146
 msgid "Unable to move task"
-msgstr ""
+msgstr "قادر به جابجا کردن وظیفه نیست"
 
 #. modal: true,
 #: src/Widgets/Pane.vala:73 src/Widgets/Pane.vala:214
 #: src/Dialogs/QuickFind.vala:41 src/Dialogs/QuickFind.vala:145
 msgid "Quick Find"
-msgstr ""
+msgstr "پیدا کردن سریع"
 
 #. vala-lint=line-length
 #: src/Widgets/Pane.vala:78 src/Widgets/Pane.vala:432
 #: src/Views/Upcoming.vala:36 src/Dialogs/Preferences/Preferences.vala:258
 #: src/Dialogs/QuickFind.vala:85
 msgid "Upcoming"
-msgstr ""
+msgstr "آینده"
 
 #: src/Widgets/Pane.vala:86 src/Widgets/New.vala:492
 msgid "Add Project"
-msgstr ""
+msgstr "اضافه کردن پروژه"
 
 #: src/Widgets/Pane.vala:227 src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr ""
+msgstr "تنظیمات"
 
 #: src/Widgets/Pane.vala:249 src/Widgets/Pane.vala:494
 msgid "Sync"
-msgstr ""
+msgstr "همگام سازی"
 
 #: src/Widgets/Pane.vala:498
 msgid "Offline mode is on"
-msgstr ""
+msgstr "حالت افلاین فعال است"
 
 #: src/Widgets/Pane.vala:498
 msgid ""
@@ -361,19 +368,21 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"به نظر میرسد شما به اینترنت وصل نشده اید. تغییراتی که در حالت افلاین انجام "
+"میدهید بعد از اولین ارتباط با اینترنت همگام سازی خواهد شد"
 
 #: src/Widgets/New.vala:65 src/Views/Inbox.vala:1064
 #: src/Views/Project.vala:1520 src/Dialogs/ProjectSettings.vala:179
 msgid "Name:"
-msgstr ""
+msgstr "اسم :"
 
 #: src/Widgets/New.vala:90
 msgid "Description:"
-msgstr ""
+msgstr "توضیخات:"
 
 #: src/Widgets/New.vala:108
 msgid "Folder:"
-msgstr ""
+msgstr "فایل:"
 
 #. grid.add (new Granite.HeaderLabel (_("Description:")) {
 #. margin_top = 6,
@@ -383,103 +392,106 @@ msgstr ""
 #. grid.add (description_frame);
 #: src/Widgets/New.vala:123 src/Dialogs/ProjectSettings.vala:190
 msgid "Color:"
-msgstr ""
+msgstr "رنگ:"
 
 #: src/Widgets/New.vala:164 src/Widgets/ReminderButton.vala:250
 #: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:1080
 #: src/Views/Project.vala:1536
 msgid "Add"
-msgstr ""
+msgstr "اضافه کردن"
 
 #: src/Widgets/New.vala:199 src/Dialogs/ProjectSettings.vala:209
 msgid "Close"
-msgstr ""
+msgstr "بستن"
 
 #: src/Widgets/New.vala:325
 msgid "Local"
-msgstr ""
+msgstr "محلی"
 
 #: src/Widgets/New.vala:400 src/Widgets/ProjectRow.vala:503
 msgid "No Folder"
-msgstr ""
+msgstr "بدون پوشه"
 
 #: src/Widgets/New.vala:473
 msgid "Project"
-msgstr ""
+msgstr "پروژه"
 
 #: src/Widgets/New.vala:478
 msgid "Start a new project, create a to do list, organize your notes."
 msgstr ""
+"یک پروژه جدید شروع کنید ، یک لیست برای ایجاد ایجاد کنید ، یادداشت های خود را "
+"سازمان دهید."
 
 #: src/Widgets/New.vala:505
 msgid "Folder"
-msgstr ""
+msgstr "پوشه"
 
 #: src/Widgets/New.vala:510
 msgid "Organize your projects in groups and keep your panel clean."
 msgstr ""
+"پروژه های خود را به صورت گروهی سازماندهی کنید و پنل خود را تمیز نگه دارید."
 
 #: src/Widgets/New.vala:523
 msgid "Add Folder"
-msgstr ""
+msgstr "اضافه کردن پوشه"
 
 #: src/Widgets/New.vala:560 src/Dialogs/Preferences/Preferences.vala:707
 msgid "Create tutorial project"
-msgstr ""
+msgstr "ایجاد پروژه آموزشی"
 
 #: src/Widgets/New.vala:579 src/Dialogs/Preferences/Preferences.vala:767
 msgid "Your tutorial project was created"
-msgstr ""
+msgstr "پروژه آموزش شما ایجاد شد"
 
 #: src/Widgets/New.vala:633
 msgid "New folder"
-msgstr ""
+msgstr "پوشه جدید"
 
 #: src/Widgets/ProjectRow.vala:123 src/Views/Inbox.vala:126
 #: src/Views/Project.vala:206
 msgid "Project Menu"
-msgstr ""
+msgstr "منوی پروژه"
 
 #: src/Widgets/ProjectRow.vala:146
 msgid "Local Project"
-msgstr ""
+msgstr "پروژه محلی"
 
 #: src/Widgets/ProjectRow.vala:401 src/Widgets/ItemRow.vala:1401
 #: src/Widgets/ItemRow.vala:1421 src/Widgets/ItemRow.vala:1455
 #: src/Widgets/SectionRow.vala:1085 src/Widgets/SectionRow.vala:1154
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr ""
+msgstr "وظیفه به <b> %s </b> منتقل شد"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:812
 #: src/Views/Project.vala:1187
 msgid "Open New Window"
-msgstr ""
+msgstr "باز کردن پنجره جدید"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
 msgid "Edit Project"
-msgstr ""
+msgstr "ویرایش پروژه"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
-msgstr ""
+msgstr "حرکت"
 
 #: src/Widgets/ProjectRow.vala:565 src/Widgets/ItemRow.vala:1518
 #: src/Widgets/SectionRow.vala:885 src/Dialogs/Preferences/Preferences.vala:135
 msgid "Share"
-msgstr ""
+msgstr "به اشتراک‌گذاشتن"
 
 #: src/Widgets/ProjectRow.vala:569 src/Views/Inbox.vala:964
 #: src/Views/Today.vala:543 src/Views/Project.vala:1339
 msgid "Send by e-mail"
-msgstr ""
+msgstr "ارسال از طریق ایمیل"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1523
 #: src/Widgets/SectionRow.vala:890
 msgid "Markdown"
-msgstr ""
+msgstr "مارک داون"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
@@ -490,12 +502,12 @@ msgstr ""
 #: src/Views/Inbox.vala:820 src/Views/Inbox.vala:912
 #: src/Views/Project.vala:1195 src/Views/Project.vala:1287
 msgid "Delete"
-msgstr ""
+msgstr "حذف"
 
 #: src/Widgets/ProjectRow.vala:607 src/Views/Inbox.vala:907
 #: src/Views/Project.vala:1282
 msgid "Delete project"
-msgstr ""
+msgstr "حذف پروژه"
 
 #: src/Widgets/ProjectRow.vala:608 src/Widgets/ItemCompletedRow.vala:224
 #: src/Widgets/SectionRow.vala:935 src/Widgets/AreaRow.vala:680
