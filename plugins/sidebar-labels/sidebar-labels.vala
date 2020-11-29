@@ -45,13 +45,13 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
         var menu_image = new Gtk.Image ();
-        menu_image.gicon = new ThemedIcon ("edit-symbolic");
+        menu_image.gicon = new ThemedIcon ("list-add-symbolic");
         menu_image.pixel_size = 14;
 
         var menu_button = new Gtk.Button ();
         menu_button.can_focus = false;
         menu_button.valign = Gtk.Align.CENTER;
-        menu_button.tooltip_text = _("Section Menu");
+        menu_button.tooltip_text = _("Add Label");
         menu_button.image = menu_image;
         menu_button.get_style_context ().remove_class ("button");
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -93,7 +93,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         listbox_revealer = new Gtk.Revealer ();
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.add (listbox);
-        listbox_revealer.reveal_child = true;
+        listbox_revealer.reveal_child = Planner.settings.get_boolean ("sidebar-labels-collapsed");
 
         main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -149,6 +149,14 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
             return true;
         });
 
+        top_eventbox.event.connect ((event) => {
+            if (event.type == Gdk.EventType.BUTTON_PRESS) {
+                toggle_hidden ();
+            }
+            
+            return false;
+        });
+
         menu_button.clicked.connect (() => {
             var dialog = new Dialogs.Preferences.Preferences ("labels");
             dialog.destroy.connect (Gtk.main_quit);
@@ -162,6 +170,17 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         Planner.utils.pane_action_selected.connect (() => {
             listbox.unselect_all ();
         });
+    }
+
+    private void toggle_hidden () {
+        top_eventbox.get_style_context ().add_class ("active");
+        Timeout.add (750, () => {
+            top_eventbox.get_style_context ().remove_class ("active");
+            return GLib.Source.REMOVE;
+        });
+
+        listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
+        Planner.settings.set_boolean ("sidebar-labels-collapsed", listbox_revealer.reveal_child);
     }
 
     public void hide_destroy () {

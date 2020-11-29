@@ -435,7 +435,7 @@ public class Services.Database : GLib.Object {
         """;
 
         rc = db.exec (sql, null, null);
-        debug ("Table CurTempIds created");
+        debug ("Table QuickFindRecents created");
 
         return rc;
     }
@@ -3923,6 +3923,42 @@ public class Services.Database : GLib.Object {
             l.id = stmt.column_int64 (1);
             l.name = stmt.column_text (2);
             l.color = stmt.column_int (3);
+
+            all.add (l);
+        }
+
+        stmt.reset ();
+        return all;
+    }
+
+    public Gee.ArrayList<Objects.Label?> get_labels_by_project (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT Items_Labels.id, Items_Labels.label_id, Labels.name, Labels.color, Items.project_id FROM Items_Labels
+            INNER JOIN Labels ON Items_Labels.label_id = Labels.id
+            INNER JOIN Items ON Items_Labels.item_id = Items.id
+            WHERE Items.project_id = ?
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        var all = new Gee.ArrayList<Objects.Label?> ();
+
+        while ((res = stmt.step ()) == Sqlite.ROW) {
+            var l = new Objects.Label ();
+
+            l.item_label_id = stmt.column_int64 (0);
+            l.id = stmt.column_int64 (1);
+            l.name = stmt.column_text (2);
+            l.color = stmt.column_int (3);
+            l.project_id = stmt.column_int64 (4);
 
             all.add (l);
         }

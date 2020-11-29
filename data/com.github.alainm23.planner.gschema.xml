@@ -313,6 +313,12 @@
             <summary>Use the default database location</summary>
             <description>Whether to use the default location or use an alternative path.</description>
         </key>
+
+        <key name="sidebar-labels-collapsed" type="b">
+            <default>true</default>
+            <summary>sidebar-labels</summary>
+            <description>sidebar-labels</description>
+        </key>
         
         <key name="database-location-path" type="s">
             <default>""</default>

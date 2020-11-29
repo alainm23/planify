@@ -153,7 +153,7 @@ public class Views.Project : Gtk.EventBox {
         due_revealer.add (progress_button);
 
         var section_image = new Gtk.Image ();
-        section_image.gicon = new ThemedIcon ("go-jump-symbolic");
+        section_image.gicon = new ThemedIcon ("section-symbolic");
         section_image.pixel_size = 16;
 
         section_button = new Gtk.ToggleButton ();
@@ -207,6 +207,8 @@ public class Views.Project : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var label_filter = new Widgets.LabelFilter (project);
+
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
@@ -236,14 +238,10 @@ public class Views.Project : Gtk.EventBox {
 
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        // top_box.pack_end (search_button, false, false, 0);
-        if (project.is_todoist == 1) {
-            // top_box.pack_end (add_person_button, false, false, 0);
-            // top_box.pack_end (comment_button, false, false, 0);
-        }
         top_box.pack_end (section_button, false, false, 0);
+        top_box.pack_end (label_filter, false, false, 0);
         top_box.pack_end (due_revealer, false, false, 0);
-        // top_box.pack_end (due_button, false, false, 0);
+
 
         note_textview = new Widgets.TextView ();
         note_textview.tooltip_text = _("Add a description");
@@ -898,6 +896,30 @@ public class Views.Project : Gtk.EventBox {
         Planner.event_bus.hide_items_project.connect ((id) => {
             if (project.id == id) {
                 hide_items ();
+            }
+        });
+
+        Planner.event_bus.filter_label_activated.connect ((project_id, values) => {
+            if (project.id == project_id) {
+                if (values.size > 0) {
+                    foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+                        if (child is Widgets.ItemRow) {
+                            var item = ((Widgets.ItemRow) child);
+                            var returned = false;
+                            foreach (var label in values) {
+                                if (item.labels_hashmap.has_key (label.id.to_string ())) {
+                                    returned = true;
+                                }
+                            }
+
+                            item.main_revealer.reveal_child = returned;
+                        }
+                    }
+                } else {
+                    foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+                        ((Widgets.ItemRow) child).main_revealer.reveal_child = true;
+                    }
+                }
             }
         });
     }

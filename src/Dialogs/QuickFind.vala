@@ -27,7 +27,6 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             deletable: false,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            // modal: true,
             use_header_bar: 1,
             title: _("Quick Find")
         );
@@ -135,10 +134,9 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         search_label.xalign = (float) 0.5;
 
         var search_revealer = new Gtk.Revealer ();
-        search_revealer.reveal_child = false;
         search_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
         search_revealer.add (search_label);
-        search_revealer.reveal_child = false;
+        search_revealer.reveal_child = true;
 
         var search_entry = new Gtk.SearchEntry ();
         search_entry.hexpand = true;

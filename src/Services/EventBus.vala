@@ -63,4 +63,7 @@ public class Services.EventBus : Object {
     // Show Task Deleted
     public signal void show_undo_task (string uid, string type="");
     public signal void area_unselect_all ();
+
+    // Filter By Project
+    public signal void filter_label_activated (int64 project_id, Gee.Collection<Objects.Label> values);
 }

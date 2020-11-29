@@ -749,6 +749,30 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 hide_items ();
             }
         });
+
+        Planner.event_bus.filter_label_activated.connect ((project_id, values) => {
+            if (section.project_id == project_id) {
+                if (values.size > 0) {
+                    foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+                        if (child is Widgets.ItemRow) {
+                            var item = ((Widgets.ItemRow) child);
+                            var returned = false;
+                            foreach (var label in values) {
+                                if (item.labels_hashmap.has_key (label.id.to_string ())) {
+                                    returned = true;
+                                }
+                            }
+
+                            item.main_revealer.reveal_child = returned;
+                        }
+                    }
+                } else {
+                    foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+                        ((Widgets.ItemRow) child).main_revealer.reveal_child = true;
+                    }
+                }
+            }
+        });
     }
 
     private void set_sort_func (int order) {

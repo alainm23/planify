@@ -717,6 +717,10 @@ paned.horizontal > separator {
     border-radius: 4px;
 }
 
+.check-border check {
+    border-radius: 4px;
+}
+
 .check-eventbox-border {
     border: 1px solid alpha (#3689e6, 0.45);
 }
@@ -919,6 +923,14 @@ paned.horizontal > separator {
 
 .label-select-row:selected {
     background-color: @pane_selected_color;
+}
+
+.row-transparent:selected {
+    background-color: transparent;
+}
+
+.row-transparent:selected label {
+    color: @text_color;
 }
 
 .label-select-row:selected label {

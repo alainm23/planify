@@ -20,7 +20,8 @@
 */
 
 public class Widgets.Calendar.CalendarHeader : Gtk.Box {
-    private Gtk.Label date_label;
+    private Gtk.Label month_label;
+    private Gtk.Label year_label;
     private Gtk.Button left_button;
     private Gtk.Button right_button;
     private Gtk.Button center_button;
@@ -31,7 +32,8 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
 
     public GLib.DateTime date {
         set {
-            date_label.label = value.format (_("%OB, %Y"));
+            month_label.label = value.format (_("%OB"));
+            year_label.label = value.format (_("%Y"));
         }
     }
 
@@ -41,27 +43,35 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         orientation = Gtk.Orientation.HORIZONTAL;
         valign = Gtk.Align.CENTER;
         
-        date_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB %Y")));
-        date_label.get_style_context ().add_class ("font-bold");
-
-        center_button = new Gtk.Button.from_icon_name ("mail-unread-symbolic", Gtk.IconSize.MENU);
-        center_button.get_style_context ().add_class ("flat");
-        center_button.can_focus = false;
+        month_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB")));
+        month_label.get_style_context ().add_class ("font-bold");
+        
+        year_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%Y")));
+        year_label.get_style_context ().add_class ("font-bold");
+        year_label.get_style_context ().add_class ("inbox");
 
         left_button = new Gtk.Button.from_icon_name ("pan-start-symbolic", Gtk.IconSize.MENU);
-        left_button.get_style_context ().add_class ("flat");
         left_button.can_focus = false;
-
+        left_button.get_style_context ().add_class ("flat");
+        left_button.get_style_context ().add_class ("no-padding-left");
+        
         right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        right_button.get_style_context ().add_class ("flat");
-        right_button.get_style_context ().add_class ("no-padding-right");
         right_button.can_focus = false;
+        right_button.get_style_context ().add_class ("flat");
 
-        pack_start (date_label, false, false, 0);
+        var date_grid = new Gtk.Grid ();
+        date_grid.add (month_label);
+        date_grid.add (year_label);
+
+        center_button = new Gtk.Button ();
+        center_button.get_style_context ().add_class ("flat");
+        center_button.can_focus = false;
+        center_button.add (date_grid);
+
+        pack_start (left_button, false, false, 0);
+        set_center_widget (center_button);
         pack_end (right_button, false, false, 0);
-        pack_end (center_button, false, false, 0);
-        pack_end (left_button, false, false, 0);
-
+        
         left_button.clicked.connect (() => {
             left_clicked ();
         });

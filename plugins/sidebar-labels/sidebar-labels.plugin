@@ -1,8 +1,8 @@
 [Plugin]
-Module=label-sidebar
+Module=sidebar-labels
 Loader=C
 IAge=2
-Name=Label Sidebar
+Name=Sidebar Labels
 Description=Show your labels in the sidebar.
 Icon=tag
 Authors=Alain M. <alainhuntt@gmail.com>

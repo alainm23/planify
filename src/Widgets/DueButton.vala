@@ -328,6 +328,11 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             update_duedate ();
         });
 
+        //  var flow_box = new Gtk.FlowBox ();
+        //  flow_box.add (today_button);
+        //  flow_box.add (tomorrow_button);
+        //  flow_box.add (undated_button);
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (today_button);

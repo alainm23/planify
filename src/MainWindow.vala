@@ -728,7 +728,7 @@ public class MainWindow : Gtk.Window {
                 "project",
                 ""
             );
-        } else if (stack.visible_child_name == "priority-view") {
+        } else if (stack.visible_child_name == "filter-view") {
             filter_view.add_new_item (index);
         }
     }
@@ -742,7 +742,7 @@ public class MainWindow : Gtk.Window {
             upcoming_view.hide_items ();
         } else if (stack.visible_child_name == "label-view") {
             label_view.hide_items ();
-        } else if (stack.visible_child_name == "priority-view") {
+        } else if (stack.visible_child_name == "filter-view") {
             filter_view.hide_items ();
         } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;
@@ -769,7 +769,7 @@ public class MainWindow : Gtk.Window {
             
         } else if (stack.visible_child_name == "label-view") {
             
-        } else if (stack.visible_child_name == "priority-view") {
+        } else if (stack.visible_child_name == "filter-view") {
             
         } else if (stack.visible_child_name.has_prefix ("project")) {
             var project = ((Views.Project) stack.visible_child).project;

@@ -181,7 +181,7 @@ public class Dialogs.Project : Gtk.Dialog {
         due_revealer.add (progress_button);
 
         var section_image = new Gtk.Image ();
-        section_image.gicon = new ThemedIcon ("go-jump-symbolic");
+        section_image.gicon = new ThemedIcon ("section-symbolic");
         section_image.pixel_size = 16;
 
         section_button = new Gtk.ToggleButton ();
@@ -431,7 +431,7 @@ public class Dialogs.Project : Gtk.Dialog {
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (note_stack, false, false, 0);
+        // main_box.pack_start (note_stack, false, false, 0);
         main_box.pack_start (main_stack, false, true, 0);
 
         var magic_button = new Widgets.MagicButton ();

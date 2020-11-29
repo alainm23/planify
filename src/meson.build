@@ -68,6 +68,7 @@ planner_files = files(
     'Widgets/MultiSelectToolbar.vala',
     'Widgets/ShortcutLabel.vala',
     'Widgets/WhatsNew.vala',
+    'Widgets/LabelFilter.vala',
 
     # CalDav Support
     # 'Widgets/SourceRow.vala',

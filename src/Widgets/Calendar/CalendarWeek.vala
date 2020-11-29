@@ -33,25 +33,25 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Grid {
         column_homogeneous = true;
         valign = Gtk.Align.CENTER;
 
-        label_monday = new Gtk.Label (_("Mon"));
+        label_monday = new Gtk.Label (_("Mo"));
         label_monday.get_style_context ().add_class ("font-weight-600");
 
-        label_tuesday = new Gtk.Label (_("Tue"));
+        label_tuesday = new Gtk.Label (_("Tu"));
         label_tuesday.get_style_context ().add_class ("font-weight-600");
 
-        label_wednesday = new Gtk.Label (_("Wed"));
+        label_wednesday = new Gtk.Label (_("We"));
         label_wednesday.get_style_context ().add_class ("font-weight-600");
 
-        label_thursday = new Gtk.Label (_("Thu"));
+        label_thursday = new Gtk.Label (_("Th"));
         label_thursday.get_style_context ().add_class ("font-weight-600");
 
-        label_friday = new Gtk.Label (_("Fri"));
+        label_friday = new Gtk.Label (_("Fr"));
         label_friday.get_style_context ().add_class ("font-weight-600");
 
-        label_saturday = new Gtk.Label (_("Sat"));
+        label_saturday = new Gtk.Label (_("Sa"));
         label_saturday.get_style_context ().add_class ("font-weight-600");
 
-        label_sunday = new Gtk.Label (_("Sun"));
+        label_sunday = new Gtk.Label (_("Su"));
         label_sunday.get_style_context ().add_class ("font-weight-600");
 
         update ();
