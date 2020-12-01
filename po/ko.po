@@ -3,19 +3,21 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-12-01 13:29+0000\n"
+"Last-Translator: 권나연 <gno3333@naver.com>\n"
+"Language-Team: Korean <https://hosted.weblate.org/projects/planner/"
+"translations/ko/>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
@@ -68,7 +70,7 @@ msgstr ""
 
 #: src/MainWindow.vala:51
 msgid "Planner"
-msgstr ""
+msgstr "플래너"
 
 #: src/MainWindow.vala:770 src/MainWindow.vala:786 src/MainWindow.vala:802
 #: src/MainWindow.vala:818
@@ -109,79 +111,79 @@ msgstr ""
 
 #: src/Utils.vala:195
 msgid "Red"
-msgstr ""
+msgstr "빨간색"
 
 #: src/Utils.vala:196
 msgid "Orange"
-msgstr ""
+msgstr "주황색"
 
 #: src/Utils.vala:197
 msgid "Yellow"
-msgstr ""
+msgstr "노란색"
 
 #: src/Utils.vala:198
 msgid "Olive Green"
-msgstr ""
+msgstr "올리브색"
 
 #: src/Utils.vala:199
 msgid "Lime Green"
-msgstr ""
+msgstr "라임색"
 
 #: src/Utils.vala:200
 msgid "Green"
-msgstr ""
+msgstr "초록색"
 
 #: src/Utils.vala:201
 msgid "Mint Green"
-msgstr ""
+msgstr "민트색"
 
 #: src/Utils.vala:202
 msgid "Teal"
-msgstr ""
+msgstr "청록색"
 
 #: src/Utils.vala:203
 msgid "Sky Blue"
-msgstr ""
+msgstr "하늘색"
 
 #: src/Utils.vala:204
 msgid "Light Blue"
-msgstr ""
+msgstr "연하늘색"
 
 #: src/Utils.vala:205
 msgid "Blue"
-msgstr ""
+msgstr "파란색"
 
 #: src/Utils.vala:206
 msgid "Grape"
-msgstr ""
+msgstr "포도색"
 
 #: src/Utils.vala:207
 msgid "Violet"
-msgstr ""
+msgstr "보라색"
 
 #: src/Utils.vala:208
 msgid "Lavander"
-msgstr ""
+msgstr "라벤더색"
 
 #: src/Utils.vala:209
 msgid "Magenta"
-msgstr ""
+msgstr "자홍색"
 
 #: src/Utils.vala:210
 msgid "Salmon"
-msgstr ""
+msgstr "살몬색"
 
 #: src/Utils.vala:211
 msgid "Charcoal"
-msgstr ""
+msgstr "차콜색"
 
 #: src/Utils.vala:212
 msgid "Grey"
-msgstr ""
+msgstr "회색"
 
 #: src/Utils.vala:213
 msgid "Taupe"
-msgstr ""
+msgstr "회갈색"
 
 #. vala-lint=line-length
 #: src/Utils.vala:592 src/Widgets/Pane.vala:77 src/Widgets/NewItem.vala:621
@@ -190,13 +192,13 @@ msgstr ""
 #: src/Views/Today.vala:925 src/Dialogs/Preferences/Preferences.vala:255
 #: src/Dialogs/Preferences/Preferences.vala:361 src/Dialogs/QuickFind.vala:78
 msgid "Today"
-msgstr ""
+msgstr "오늘"
 
 #: src/Utils.vala:594 src/Widgets/Pane.vala:430 src/Widgets/NewItem.vala:627
 #: src/Widgets/ItemRow.vala:1500 src/Widgets/DueButton.vala:224
 #: src/Widgets/UpcomingRow.vala:66 src/Views/Today.vala:931
 msgid "Tomorrow"
-msgstr ""
+msgstr "내일"
 
 #: src/Utils.vala:857
 msgid "Quick Add Activated!"
