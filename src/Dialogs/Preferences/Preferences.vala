@@ -597,12 +597,23 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         list.append ("Close Only Left");
         list.append ("Close Only Right");
 
+        var use_system_decoration_val = Planner.settings.get_boolean ("use-system-decoration");
         var button_layout = new Dialogs.Preferences.ItemSelect (
             _("Button layout"),
             Planner.settings.get_enum ("button-layout"),
             list
         );
+        button_layout.set_combobox_sensitive (!use_system_decoration_val);
         button_layout.margin_top = 12;
+
+        var use_system_decoration = new Dialogs.Preferences.ItemSwitch (
+            // The reason we need a restart is because GTK has to tell the
+            // window manager whether to add any window decorations *before*
+            // the window is realized.
+            _("Use system window decoration (needs restart)"),
+            use_system_decoration_val
+        );
+        use_system_decoration.margin_top = 12;
        
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.valign = Gtk.Align.START;
@@ -626,6 +637,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (font_size_grid);
         main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
         main_box.pack_start (button_layout);
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        main_box.pack_start (use_system_decoration);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
             light_radio.active = true;
@@ -663,6 +676,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         button_layout.activated.connect ((index) => {
             Planner.settings.set_enum ("button-layout", index);
+        });
+
+        use_system_decoration.activated.connect ((value) => {
+            Planner.settings.set_boolean ("use-system-decoration", value);
+            button_layout.set_combobox_sensitive (!value);
         });
 
         return main_box;
