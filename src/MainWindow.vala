@@ -150,8 +150,10 @@ public class MainWindow : Gtk.Window {
         paned.wide_handle = true;
         paned.pack1 (pane, false, false);
         paned.pack2 (projectview_overlay, true, false);
-        
-        set_titlebar (header_paned);
+
+        if (!Planner.settings.get_boolean ("use-system-decoration")) {
+            set_titlebar (header_paned);
+        }
         add (paned);
 
         // This must come after setting header_paned as the titlebar

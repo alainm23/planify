@@ -80,6 +80,12 @@
             <description>Order the buttons on the title bar</description>
         </key>
 
+        <key name="use-system-decoration" type="b">
+            <default>false</default>
+            <summary>Whether application windows should not use custom title bar</summary>
+            <description>Whether application windows should not use custom title bar</description>
+        </key>
+
         <key name="default-priority" enum="com.github.alainm23.planner.default-priority">
             <default>"None"</default>
             <summary>Order the buttons on the title bar</summary>

@@ -20,14 +20,17 @@
 */
 
 public class Dialogs.Preferences.ItemSelect : Gtk.EventBox {
+    private Gtk.ComboBoxText combobox;
+
     public signal void activated (int active);
 
     public ItemSelect (string title, int active, List<string> items, bool visible_separator=true) {
         var title_label = new Gtk.Label (title);
         title_label.get_style_context ().add_class ("font-weight-600");
 
-        var combobox = new Gtk.ComboBoxText ();
+        combobox = new Gtk.ComboBoxText ();
         combobox.can_focus = false;
+        combobox.sensitive = false;
         combobox.valign = Gtk.Align.CENTER;
 
         foreach (var item in items) {
@@ -60,5 +63,9 @@ public class Dialogs.Preferences.ItemSelect : Gtk.EventBox {
         });
 
         add (main_box);
+    }
+
+    public void set_combobox_sensitive (bool sensitive) {
+        combobox.set_sensitive (sensitive);
     }
 }
