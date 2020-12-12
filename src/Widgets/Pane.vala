@@ -197,8 +197,8 @@ public class Widgets.Pane : Gtk.EventBox {
 
         listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
-        listbox_grid.margin_top = 3;
         listbox_grid.margin_end = 6;
+        listbox_grid.margin_top = 3;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (search_row);
         listbox_grid.add (listbox);
@@ -207,7 +207,11 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_grid.add (motion_area_revealer);
         listbox_grid.add (area_listbox);
         // listbox_grid.add (caldav_widget);
-        
+
+        if (Planner.settings.get_boolean ("use-system-decoration")) {
+            listbox_grid.margin_top = 18;
+        }
+
         listbox_scrolled = new Gtk.ScrolledWindow (null, null);
         listbox_scrolled.width_request = 238;
         listbox_scrolled.hexpand = true;

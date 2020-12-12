@@ -117,7 +117,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         content_entry = new Widgets.Entry ();
         content_entry.hexpand = true;
-        content_entry.margin_start = 4;
+        content_entry.margin_start = 6;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");
@@ -125,8 +125,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var content_grid = new Gtk.Grid ();
         content_grid.margin_end = 12;
-        content_grid.margin_top = 3;
-        content_grid.add (checked_button);
+        // content_grid.margin_top = 3;
+        // content_grid.add (checked_button);
         content_grid.add (content_entry);
 
         var submit_button = new Gtk.Button ();
@@ -151,7 +151,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var buttons_grid = new Gtk.Grid ();
         buttons_grid.halign = Gtk.Align.START;
         buttons_grid.column_spacing = 6;
-        buttons_grid.margin_start = 6;
+        buttons_grid.margin_start = 9;
         buttons_grid.column_homogeneous = true;
         buttons_grid.add (cancel_button);
         buttons_grid.add (submit_button);
@@ -219,13 +219,14 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
-        tools_box.margin_start = 6;
+        // tools_box.margin_start = 6;
         tools_box.margin_top = 6;
         tools_box.hexpand = true;
+        // tools_box.halign = Gtk.Align.START;
+        tools_box.pack_start (reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
-        tools_box.pack_end (priority_button, false, false, 0);
         // tools_box.pack_end (label_button, false, false, 0);
-        tools_box.pack_end (reschedule_button, false, false, 0);
+        tools_box.pack_end (priority_button, false, false, 0);
 
         var note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;

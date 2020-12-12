@@ -161,26 +161,26 @@ public class Utils : GLib.Object {
     public Gee.HashMap<int, string> color () {
         var colors = new Gee.HashMap<int, string> ();
 
-        colors.set (30, "#b8256f"); // ed5353
-        colors.set (31, "#db4035"); // db4035
-        colors.set (32, "#ff9933"); // ff9933
-        colors.set (33, "#fad000"); // fad000
-        colors.set (34, "#afb83b"); // afb83b
-        colors.set (35, "#7ecc49"); // 7ecc49
-        colors.set (36, "#299438"); // 299438
-        colors.set (37, "#6accbc"); // 6accbc
-        colors.set (38, "#158fad"); // 158fad
-        colors.set (39, "#14aaf5"); // 14aaf5
-        colors.set (40, "#96c3eb"); // 96c3eb
-        colors.set (41, "#4073ff"); // 4073ff
-        colors.set (42, "#884dff"); // 884dff
-        colors.set (43, "#af38eb"); // af38eb
-        colors.set (44, "#eb96eb"); // eb96eb
-        colors.set (45, "#e05194"); // e05194
-        colors.set (46, "#ff8d85"); // ff8d85
-        colors.set (47, "#808080"); // 808080
-        colors.set (48, "#b8b8b8"); // b8b8b8
-        colors.set (49, "#ccac93"); // ccac93
+        colors.set (30, "#b8256f");
+        colors.set (31, "#db4035");
+        colors.set (32, "#ff9933");
+        colors.set (33, "#fad000");
+        colors.set (34, "#afb83b");
+        colors.set (35, "#7ecc49");
+        colors.set (36, "#299438");
+        colors.set (37, "#6accbc");
+        colors.set (38, "#158fad");
+        colors.set (39, "#14aaf5");
+        colors.set (40, "#96c3eb");
+        colors.set (41, "#4073ff");
+        colors.set (42, "#884dff");
+        colors.set (43, "#af38eb");
+        colors.set (44, "#eb96eb");
+        colors.set (45, "#e05194");
+        colors.set (46, "#ff8d85");
+        colors.set (47, "#808080");
+        colors.set (48, "#b8b8b8");
+        colors.set (49, "#ccac93");
 
         return colors;
     }

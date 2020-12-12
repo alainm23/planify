@@ -111,6 +111,9 @@ public class MainWindow : Gtk.Window {
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.NONE;
+        if (Planner.settings.get_boolean ("use-system-decoration")) {
+            stack.margin_top = 18;
+        }
 
         stack.add_named (welcome_view, "welcome-view");
         stack.add_named (spinner_loading, "loading-view");

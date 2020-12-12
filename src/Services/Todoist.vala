@@ -214,10 +214,6 @@ public class Services.Todoist : GLib.Object {
                     var parser = new Json.Parser ();
 
                     try {
-                        //  print ("----------------------\n");
-                        //  print ("%s\n".printf ((string) mess.response_body.flatten ().data));
-                        //  print ("----------------------\n");
-
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
                         var node = parser.get_root ().get_object ();
@@ -434,8 +430,8 @@ public class Services.Todoist : GLib.Object {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
                         //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                        //      "This is a primary text",
-                        //      "This is a secondary, multiline, long text. This text usually extends the primary text and prints e.g: the details of an error.",
+                        //      "Planner",
+                        //      "Debug",
                         //      "applications-development",
                         //      Gtk.ButtonsType.CLOSE
                         //  );

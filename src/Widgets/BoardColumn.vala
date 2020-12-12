@@ -1,59 +1,32 @@
-/*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
-*/
-
-public class Widgets.SectionRow : Gtk.ListBoxRow {
-    public Objects.Project project { get; construct; }
+public class Widgets.BoardColumn : Gtk.EventBox {
     public Objects.Section section { get; construct; }
+    public Objects.Project project { get; construct; }
 
-    private Gtk.Button hidden_button;
-    private Gtk.Button add_button;
     private Gtk.Label name_label;
     private Widgets.Entry name_entry;
     private Gtk.Stack name_stack;
-    private Gtk.Revealer main_revealer;
-    private Gtk.Revealer action_revealer;
-    private Gtk.EventBox top_eventbox;
-    private Gtk.Separator separator;
-    private Gtk.Revealer separator_revealer;
-    private Gtk.Revealer motion_revealer;
-    private Gtk.Revealer motion_section_revealer;
-    private Widgets.TextView note_textview;
-    private Gtk.Label note_placeholder;
-    private Gtk.Revealer note_revealer;
-    private Gtk.Grid drop_section_grid;
     private Gtk.ListBox listbox;
-    private Gtk.Revealer listbox_revealer;
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
-    private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
+    private Gtk.Menu projects_menu;
     private bool menu_visible = false;
+    private Gtk.Revealer action_revealer;
+    private Gtk.Revealer separator_revealer;
+    private bool entry_menu_opened = false;
+    private Gtk.Revealer motion_revealer;
+    private Gtk.EventBox top_eventbox;
+    private Gtk.Revealer main_revealer;
+    private Gtk.Box main_box;
+    private Gtk.Revealer left_motion_revealer;
+    private Gtk.Revealer right_motion_revealer;
 
-    private uint timeout = 0;
-    private uint timeout_id = 0;
-    private uint toggle_timeout = 0;
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
     public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
-    private bool entry_menu_opened = false;
+
+    private uint timeout = 0;
+    private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -67,14 +40,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
-    public SectionRow (Objects.Section section, Objects.Project project) {
+
+    public BoardColumn (Objects.Section section, Objects.Project project) {
         Object (
             section: section,
             project: project
         );
     }
 
-    public SectionRow.for_project (Objects.Project project) {
+    public BoardColumn.for_project (Objects.Project project) {
         var section = new Objects.Section ();
         section.id = 0;
         section.project_id = project.id;
@@ -88,33 +62,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     }
 
     construct {
-        can_focus = false;
-        activatable = false;
-        selectable = false;
-        get_style_context ().add_class ("area-row");
+        halign = Gtk.Align.START;
         items_list = new Gee.ArrayList<Widgets.ItemRow?> ();
         items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
 
-        hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
-        hidden_button.can_focus = false;
-        // hidden_button.margin_end = 6;
-        hidden_button.tooltip_text = _("Display Tasks");
-        hidden_button.get_style_context ().remove_class ("button");
-        hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        hidden_button.get_style_context ().add_class ("hidden-button");
-
-        var hidden_revealer = new Gtk.Revealer ();
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = false;
-
-        if (section.collapsed == 1) {
-            hidden_button.get_style_context ().add_class ("opened");
-            hidden_button.tooltip_text = _("Hiding Tasks");
-        }
-
-        add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        var add_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
         add_button.can_focus = false;
         add_button.tooltip_text = _("Add Task");
         add_button.get_style_context ().remove_class ("button");
@@ -128,10 +81,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         add_revealer.add (add_button);
         add_revealer.reveal_child = false; 
 
-        name_label = new Gtk.Label (section.name);
+        name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("font-bold");
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
+        if (section.id == 0) {
+            name_label.label = _("(No Section)");
+        } else {
+            name_label.label = section.name;
+        }
 
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.add (name_label);
@@ -146,7 +104,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("no-padding");
 
         name_stack = new Gtk.Stack ();
-        name_stack.margin_start = 9;
         name_stack.hexpand = true;
         name_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
         name_stack.add_named (name_eventbox, "name_label");
@@ -165,16 +122,17 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.get_style_context ().add_class ("hidden-button");
 
-        var settings_revealer = new Gtk.Revealer ();
-        settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        settings_revealer.add (settings_button);
-        settings_revealer.reveal_child = false;
+        var count_label = new Gtk.Label ("2");
+
+        var menu_stack = new Gtk.Stack ();
+        menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        menu_stack.add_named (count_label, "count");
+        menu_stack.add_named (settings_button, "button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.pack_start (add_revealer, false, false, 0);
+        // top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, true, 0);
-        // top_box.pack_end (hidden_revealer, false, true, 0);
+        top_box.pack_end (menu_stack, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -187,7 +145,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 42;
+        action_grid.margin_start = 12;
         action_grid.margin_top = 6;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
@@ -197,83 +155,30 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         action_revealer.add (action_grid);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 15;
-        top_eventbox.margin_end = 32;
+        top_eventbox.margin_start = 12;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.get_style_context ().add_class ("toogle-box");
         top_eventbox.add (top_box);
 
-        separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 42;
-        separator.margin_end = 40;
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        separator.margin_start = 12;
+        // separator.margin_top = 6;
 
         separator_revealer = new Gtk.Revealer ();
         separator_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         separator_revealer.add (separator);
         separator_revealer.reveal_child = true;
-        if (section.id == 0) {
-            top_eventbox.opacity = 0;
-            separator_revealer.opacity = 0;
-        }
-
-        note_textview = new Widgets.TextView ();
-        note_textview.tooltip_text = _("Add a description");
-        note_textview.hexpand = true;
-        note_textview.valign = Gtk.Align.START;
-        note_textview.margin_top = 6;
-        note_textview.wrap_mode = Gtk.WrapMode.WORD;
-        note_textview.get_style_context ().add_class ("project-textview");
-        note_textview.margin_start = 42;
-        note_textview.margin_end = 40;
-
-        note_placeholder = new Gtk.Label (_("Description"));
-        note_placeholder.opacity = 0.7;
-        note_textview.add (note_placeholder);
-
-        note_textview.buffer.text = Planner.utils.line_break_to_space (section.note);
-
-        note_revealer = new Gtk.Revealer ();
-        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        note_revealer.add (note_textview);
-
-        if (section.note != "") {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            note_revealer.reveal_child = true;
-        } else {
-            note_placeholder.visible = true;
-            note_placeholder.no_show_all = false;
-
-            note_revealer.reveal_child = false;
-        }
-
-        var motion_grid = new Gtk.Grid ();
-        motion_grid.margin_start = 42;
-        motion_grid.margin_end = 32;
-        motion_grid.margin_top = 3;
-        motion_grid.get_style_context ().add_class ("grid-motion");
-        motion_grid.height_request = 24;
-
-        motion_revealer = new Gtk.Revealer ();
-        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        motion_revealer.add (motion_grid);
 
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 30;
-        listbox.margin_end = 32;
-        listbox.valign = Gtk.Align.START;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        listbox.hexpand = true;
         listbox.set_placeholder (get_placeholder ());
-
+        
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_data_received);
 
         completed_listbox = new Gtk.ListBox ();
-        completed_listbox.margin_start = 30;
         completed_listbox.margin_end = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
@@ -293,52 +198,65 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox_box.add (listbox);
         listbox_box.add (completed_revealer);
 
-        listbox_revealer = new Gtk.Revealer ();
-        listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        listbox_revealer.add (listbox_box);
-        if (section.collapsed == 1) {
-            listbox_revealer.reveal_child = true;
-        }
+        var motion_grid = new Gtk.Grid ();
+        motion_grid.margin_start = 12;
+        motion_grid.margin_end = 32;
+        motion_grid.margin_top = 6;
+        motion_grid.get_style_context ().add_class ("grid-motion");
+        motion_grid.height_request = 24;
 
-        drop_section_grid = new Gtk.Grid ();
-        drop_section_grid.margin_start = 6;
-        drop_section_grid.margin_end = 6;
-        drop_section_grid.height_request = 24;
-        
-        var motion_section_grid = new Gtk.Grid ();
-        motion_section_grid.margin_start = 42;
-        motion_section_grid.margin_end = 40;
-        motion_section_grid.margin_bottom = 24;
-        motion_section_grid.get_style_context ().add_class ("grid-motion");
-        motion_section_grid.height_request = 24;
+        motion_revealer = new Gtk.Revealer ();
+        motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        motion_revealer.add (motion_grid);
 
-        motion_section_revealer = new Gtk.Revealer ();
-        motion_section_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        motion_section_revealer.add (motion_section_grid);
-        
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.hexpand = true;
+        var main_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.expand = true;
+        main_scrolled.add (listbox_box);
+
+        main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.vexpand = true;
+        main_box.width_request = 315;
         main_box.pack_start (top_eventbox, false, false, 0);
         main_box.pack_start (separator_revealer, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (note_revealer, false, false, 0);
         main_box.pack_start (motion_revealer, false, false, 0);
-        main_box.pack_start (listbox_revealer, false, false, 0);
-        main_box.pack_start (drop_section_grid, false, false, 0);
-        main_box.pack_start (motion_section_revealer, false, false, 0);
+        main_box.pack_start (main_scrolled, true, true, 0);
+
+        var left_motion_grid = new Gtk.Grid ();
+        left_motion_grid.get_style_context ().add_class ("grid-motion");
+        // left_motion_grid.width_request = 315;
+        //  left_motion_grid.margin_start = 12;
+        //  left_motion_grid.margin_start = 12;
+
+        left_motion_revealer = new Gtk.Revealer ();
+        left_motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        left_motion_revealer.add (left_motion_grid);
+
+        var right_motion_grid = new Gtk.Grid ();
+        right_motion_grid.get_style_context ().add_class ("grid-motion");
+        //  right_motion_grid.width_request = 315;
+
+        right_motion_revealer = new Gtk.Revealer ();
+        right_motion_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        right_motion_revealer.add (right_motion_grid);
+
+        var grid = new Gtk.Grid ();
+        grid.add (left_motion_revealer);
+        grid.add (main_box);
+        grid.add (right_motion_revealer);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (main_box);
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        main_revealer.add (grid);
         main_revealer.reveal_child = true;
 
         add (main_revealer);
+
         add_all_items ();
         add_completed_items ();
+        // build_defaul_drag_and_drop ();
 
-        build_defaul_drag_and_drop ();
-
-        
         Timeout.add (125, () => {
             set_sort_func (Planner.database.get_project_by_id (section.project_id).sort_order);
             return GLib.Source.REMOVE;
@@ -350,6 +268,13 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             }
         });
 
+        completed_listbox.row_activated.connect ((r) => {
+            var row = ((Widgets.ItemRow) r);
+
+            row.reveal_child = true;
+            Planner.event_bus.unselect_all ();
+        });
+
         listbox.row_activated.connect ((r) => {
             var row = ((Widgets.ItemRow) r);
 
@@ -359,13 +284,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 row.reveal_child = true;
                 Planner.event_bus.unselect_all ();
             }
-        });
-
-        completed_listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
-
-            row.reveal_child = true;
-            Planner.event_bus.unselect_all ();
         });
 
         Planner.database.item_added.connect ((item, index) => {
@@ -411,7 +329,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 }
             }
         });
-        
+
         Planner.database.item_uncompleted.connect ((item) => {
             Idle.add (() => {
                 if (section.id == 0) {
@@ -509,13 +427,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             build_item_drag_and_drop (value);
         });
 
-        hidden_button.clicked.connect (() => {
-            toggle_hidden ();
-        });
-
         top_eventbox.enter_notify_event.connect ((event) => {
-            settings_revealer.reveal_child = true;
-            hidden_revealer.reveal_child = true;
+            menu_stack.visible_child_name = "button";
             add_revealer.reveal_child = true;
             add_button.get_style_context ().add_class ("animation");
 
@@ -527,40 +440,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            settings_revealer.reveal_child = false;
-            hidden_revealer.reveal_child = false;
+            menu_stack.visible_child_name = "count";
             add_revealer.reveal_child = false;
             add_button.get_style_context ().remove_class ("animation");
 
             return true;
         });
 
-        top_eventbox.event.connect ((event) => {
-            if (section.id != 0 && event.type == Gdk.EventType.BUTTON_PRESS) {
-                if (timeout_id != 0) {
-                    Source.remove (timeout_id);
-                }
-    
-                timeout_id = Timeout.add (250, () => {
-                    timeout_id = 0;
-
-                    if (menu_visible == false) {
-                        toggle_hidden ();
-                    }
-
-                    return GLib.Source.REMOVE;
-                });                
-            }
-
-            return false;
-        });
-
         top_eventbox.button_press_event.connect ((sender, evt) => {
-            if (section.id != 0 && evt.type == Gdk.EventType.@2BUTTON_PRESS && evt.button == 1) {
-                if (timeout_id != 0) {
-                    Source.remove (timeout_id);
-                }
-
+            if (evt.type == Gdk.EventType.@2BUTTON_PRESS && evt.button == 1 && section.id != 0) {
                 action_revealer.reveal_child = true;
                 name_stack.visible_child_name = "name_entry";
 
@@ -572,7 +460,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 }
 
                 return true;
-            } else if (section.id != 0 && evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
                 activate_menu ();
                 return true;
             }
@@ -604,48 +492,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             menu.hide.connect (() => {
                 entry_menu_opened = false;
             });
-        });
-
-        note_textview.focus_in_event.connect (() => {
-            note_placeholder.visible = false;
-            note_placeholder.no_show_all = true;
-
-            return false;
-        });
-
-        note_textview.focus_out_event.connect (() => {
-            if (note_textview.buffer.text == "") {
-                note_placeholder.visible = true;
-                note_placeholder.no_show_all = false;
-                note_revealer.reveal_child = false;
-            } else {
-                note_revealer.reveal_child = true;
-            }
-
-            // separator_revealer.reveal_child = true;
-
-            return false;
-        });
-
-
-        note_textview.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                if (note_textview.buffer.text == "") {
-                    note_placeholder.visible = true;
-                    note_placeholder.no_show_all = false;
-
-                    note_revealer.reveal_child = false;
-                } else {
-                    note_revealer.reveal_child = true;
-                }
-            }
-
-            return false;
-        });
-
-        note_textview.buffer.changed.connect (() => {
-            // separator_revealer.reveal_child = false;
-            save (false);
         });
 
         name_entry.activate.connect (() =>{
@@ -682,6 +528,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             activate_menu ();
         });
 
+        
         Planner.database.section_deleted.connect ((s) => {
             if (section.id == s.id) {
                 main_revealer.reveal_child = false;
@@ -858,56 +705,210 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
     }
 
+    private void build_magic_button_drag_and_drop (bool value) {
+        name_stack.drag_data_received.disconnect (on_drag_item_received);
+        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+
+        if (value) {
+            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES_MAGIC_BUTTON, Gdk.DragAction.MOVE);
+            name_stack.drag_data_received.connect (on_drag_magic_button_received);
+            name_stack.drag_motion.connect (on_drag_magicbutton_motion);
+            name_stack.drag_leave.connect (on_drag_magicbutton_leave);
+        } else {
+            // build_defaul_drag_and_drop ();
+        }
+    }
+
+    private void build_item_drag_and_drop (bool value) {
+        name_stack.drag_data_received.disconnect (on_drag_item_received);
+        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+
+        if (value) {
+            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+            name_stack.drag_data_received.connect (on_drag_item_received);
+            name_stack.drag_motion.connect (on_drag_magicbutton_motion);
+            name_stack.drag_leave.connect (on_drag_magicbutton_leave);
+        } else {
+            // build_defaul_drag_and_drop ();
+        }
+    }
+
+    public bool on_drag_magicbutton_motion (Gdk.DragContext context, int x, int y, uint time) {
+        motion_revealer.reveal_child = true;
+        return true;
+    }
+
+    public void on_drag_magicbutton_leave (Gdk.DragContext context, uint time) {
+        motion_revealer.reveal_child = false;
+    }
+    
+    public void hide_items () {
+        for (int index = 0; index < items_list.size; index++) {
+            items_list [index].hide_item ();
+        }
+    }
+
+    public void save (bool todoist=true) {
+        name_label.label = name_entry.text;
+        section.name = name_entry.text;
+        // section.note = note_textview.buffer.text;
+
+        action_revealer.reveal_child = false;
+        name_stack.visible_child_name = "name_label";
+
+        section.save (todoist);
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
+        button.valign = Gtk.Align.START;
+        button.always_show_image = true;
+        button.can_focus = false;
+        button.label = _("Add Task");
+        button.get_style_context ().add_class ("flat");
+        button.get_style_context ().add_class ("font-bold");
+        button.get_style_context ().add_class ("add-button");
+        button.get_style_context ().add_class ("background-transparent");
+        button.show ();
+
+        var grid = new Gtk.Grid ();
+        grid.margin_top = 6;
+        grid.margin_start = 6;
+        grid.halign = Gtk.Align.START;
+        grid.add (button);
+        grid.show ();
+
+        button.clicked.connect (() => {
+            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+        });
+
+        return grid;
+    }
+
+    public void add_all_items () {
+        Gee.ArrayList<Objects.Item?> items;
+        if (section.id == 0) {
+            items = Planner.database.get_all_items_by_project_no_section_no_parent (project.id);
+        } else {
+            items = Planner.database.get_all_items_by_section_no_parent (section);
+        }
+
+        foreach (Objects.Item item in items) {
+            var row = new Widgets.ItemRow (item);
+            row.destroy.connect (() => {
+                item_row_removed (row);
+            });
+
+            items_uncompleted_added.set (item.id.to_string (), row);
+            listbox.add (row);
+            items_list.add (row);
+        }
+
+        listbox.show_all ();
+    }
+
+    private void add_completed_items () {
+        Gee.ArrayList<Objects.Item?> items;
+        if (section.id == 0) {
+            items = Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id);
+        } else {
+            items = Planner.database.get_all_completed_items_by_section_no_parent (section);
+        }
+        
+        foreach (var item in items) {
+            var row = new Widgets.ItemRow (item);
+
+            completed_listbox.add (row);
+            items_completed_added.set (item.id.to_string (), row);
+            completed_listbox.show_all ();
+        }
+    }
+
+    private void item_row_removed (Widgets.ItemRow row) {
+        items_list.remove (row);
+        items_uncompleted_added.unset (row.item.id.to_string ());
+        items_completed_added.unset (row.item.id.to_string ());
+    }
+
+    public void add_new_item (int index=-1) {
+        Planner.event_bus.unselect_all ();
+
+        var new_item = new Widgets.NewItem (
+            section.project_id,
+            section.id,
+            section.is_todoist,
+            "",
+            index,
+            listbox
+        );
+        
+        if (index == -1) {
+            listbox.add (new_item);
+        } else {
+            listbox.insert (new_item, index);
+        }
+
+        listbox.show_all ();
+    }
+
     private void set_sort_func (int order) {
         listbox.set_sort_func ((row1, row2) => {
-            var item1 = ((Widgets.ItemRow) row1).item;
-            var item2 = ((Widgets.ItemRow) row2).item;
+            if (row1 is Widgets.ItemRow && row2 is Widgets.ItemRow) {
+                var item1 = ((Widgets.ItemRow) row1).item;
+                var item2 = ((Widgets.ItemRow) row2).item;
 
-            if (order == 0) {
-                return 0;
-            } else if (order == 1) {
-                if (item1.due_date != "" && item2.due_date != "") {
-                    var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
-                    var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
+                if (order == 0) {
+                    return 0;
+                } else if (order == 1) {
+                    if (item1.due_date != "" && item2.due_date != "") {
+                        var date1 = new GLib.DateTime.from_iso8601 (item1.due_date, new GLib.TimeZone.local ());
+                        var date2 = new GLib.DateTime.from_iso8601 (item2.due_date, new GLib.TimeZone.local ());
 
-                    return date1.compare (date2);
-                }
+                        return date1.compare (date2);
+                    }
 
-                if (item1.due_date == "" && item2.due_date != "") {
-                    return 1;
-                }
+                    if (item1.due_date == "" && item2.due_date != "") {
+                        return 1;
+                    }
 
-                return 0;
-            } else if (order == 2) {
-                if (item1.priority < item2.priority) {
-                    return 1;
+                    return 0;
+                } else if (order == 2) {
+                    if (item1.priority < item2.priority) {
+                        return 1;
+                    }
+        
+                    if (item1.priority < item2.priority) {
+                        return -1;
+                    }
+        
+                    return 0;
+                } else {
+                    return item1.content.collate (item2.content);
                 }
-    
-                if (item1.priority < item2.priority) {
-                    return -1;
-                }
-    
-                return 0;
-            } else {
-                return item1.content.collate (item2.content);
             }
+
+            return 0;
         });
 
         listbox.set_sort_func (null);
     }
 
-    private void build_defaul_drag_and_drop () {
-        name_stack.drag_data_received.disconnect (on_drag_item_received);
-        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+    private void update_item_order () {
+        if (timeout != 0) {
+            Source.remove (timeout);
+        }
 
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
-        drag_begin.connect (on_drag_begin);
-        drag_data_get.connect (on_drag_data_get);
-        drag_end.connect (clear_indicator);
+        timeout = Timeout.add (1000, () => {
+            new Thread<void*> ("update_item_order", () => {
+                for (int index = 0; index < items_list.size; index++) {
+                    Planner.database.update_item_order (items_list [index].item, section.id, index);
+                }
 
-        Gtk.drag_dest_set (drop_section_grid, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
-        drop_section_grid.drag_motion.connect (on_drag_motion);
-        drop_section_grid.drag_leave.connect (on_drag_leave);
+                return null;
+            });
+
+            return GLib.Source.REMOVE;
+        });
     }
 
     private void activate_menu () {
@@ -934,7 +935,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 string move_template = _("Section moved to <b>%s</b>");
                 Planner.notifications.send_notification (
                     move_template.printf (
-                        project.name
+                        section.name
                     )
                 );
             });
@@ -955,7 +956,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                         string move_template = _("Section moved to <b>%s</b>");
                         Planner.notifications.send_notification (
                             move_template.printf (
-                                project.name
+                                section.name
                             )
                         );
                     });
@@ -966,7 +967,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         projects_menu.show_all ();
-        top_eventbox.get_style_context ().add_class ("highlight");
         menu_visible = true;
         menu.popup_at_pointer (null);
     }
@@ -976,7 +976,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         menu.width_request = 200;
 
         menu.hide.connect (() => {
-            top_eventbox.get_style_context ().remove_class ("highlight");
             menu_visible = false;
         });
         
@@ -1006,12 +1005,15 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         menu.add (add_menu);
         menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (edit_menu);
-        menu.add (note_menu);
+        if (section.id != 0) {
+            menu.add (edit_menu);
+        }
         menu.add (move_project_menu);
         menu.add (share_menu);
-        menu.add (new Gtk.SeparatorMenuItem ());
-        menu.add (delete_menu);
+        if (section.id != 0) {
+            menu.add (new Gtk.SeparatorMenuItem ());
+            menu.add (delete_menu);
+        }
 
         menu.show_all ();
 
@@ -1021,8 +1023,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         note_menu.activate.connect (() => {
             // separator_revealer.reveal_child = false;
-            note_revealer.reveal_child = true;
-            note_textview.grab_focus ();
+            // note_revealer.reveal_child = true;
+            // note_textview.grab_focus ();
         });
 
         edit_menu.activate.connect (() => {
@@ -1069,190 +1071,86 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
     }
 
-    public void add_all_items () {
-        Gee.ArrayList<Objects.Item?> items;
-        if (section.id == 0) {
-            items = Planner.database.get_all_items_by_project_no_section_no_parent (project.id);
-        } else {
-            items = Planner.database.get_all_items_by_section_no_parent (section);
-        }
-
-        foreach (Objects.Item item in items) {
-            var row = new Widgets.ItemRow (item);
-            row.destroy.connect (() => {
-                item_row_removed (row);
-            });
-
-            items_uncompleted_added.set (item.id.to_string (), row);
-            listbox.add (row);
-            items_list.add (row);
-        }
-
-        if (items_uncompleted_added.size <= 0) {
-            listbox_revealer.reveal_child = true;
-        }
-
-        listbox.show_all ();
-    }
-
-    private void add_completed_items () {
-        Gee.ArrayList<Objects.Item?> items;
-        if (section.id == 0) {
-            items = Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id);
-        } else {
-            items = Planner.database.get_all_completed_items_by_section_no_parent (section);
-        }
-
-        foreach (var item in Planner.database.get_all_completed_items_by_section_no_parent (section)) {
-            var row = new Widgets.ItemRow (item);
-
-            completed_listbox.add (row);
-            items_completed_added.set (item.id.to_string (), row);
-            completed_listbox.show_all ();
-        }
-    }
-
-    private void toggle_hidden () {
-        if (toggle_timeout != 0) {
-            Source.remove (timeout_id);
-            top_eventbox.get_style_context ().remove_class ("active");
-        }
-
-        top_eventbox.get_style_context ().add_class ("active");
-        toggle_timeout = Timeout.add (750, () => {
-            toggle_timeout = 0;
-            top_eventbox.get_style_context ().remove_class ("active");
-            return GLib.Source.REMOVE;
-        });
-
-        if (listbox_revealer.reveal_child) {
-            listbox_revealer.reveal_child = false;
-            hidden_button.get_style_context ().remove_class ("opened");
-            hidden_button.tooltip_text = _("Display Tasks");
-            section.collapsed = 0;
-        } else {
-            listbox_revealer.reveal_child = true;
-            hidden_button.get_style_context ().add_class ("opened");
-            hidden_button.tooltip_text = _("Hiding Tasks");
-            section.collapsed = 1;
-        }
-
-        save (false);
-    }
-
-    public void save (bool todoist=true) {
-        name_label.label = name_entry.text;
-        section.name = name_entry.text;
-        section.note = note_textview.buffer.text;
-
-        action_revealer.reveal_child = false;
-        name_stack.visible_child_name = "name_label";
-
-        section.save (todoist);
-    }
-
-    private void build_magic_button_drag_and_drop (bool value) {
+    private void build_defaul_drag_and_drop () {
         name_stack.drag_data_received.disconnect (on_drag_item_received);
         name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
-        if (value) {
-            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES_MAGIC_BUTTON, Gdk.DragAction.MOVE);
-            name_stack.drag_data_received.connect (on_drag_magic_button_received);
-            name_stack.drag_motion.connect (on_drag_magicbutton_motion);
-            name_stack.drag_leave.connect (on_drag_magicbutton_leave);
-        } else {
-            build_defaul_drag_and_drop ();
+        if (section.id != 0) {
+            Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
+            drag_begin.connect (on_drag_begin);
+            drag_data_get.connect (on_drag_data_get);
+            drag_end.connect (clear_indicator);
         }
+
+        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
+        this.drag_motion.connect (on_drag_motion);
+        this.drag_leave.connect (on_drag_leave);
     }
 
-    private void build_item_drag_and_drop (bool value) {
-        name_stack.drag_data_received.disconnect (on_drag_item_received);
-        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
-
-        if (value) {
-            Gtk.drag_dest_set (name_stack, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-            name_stack.drag_data_received.connect (on_drag_item_received);
-            name_stack.drag_motion.connect (on_drag_magicbutton_motion);
-            name_stack.drag_leave.connect (on_drag_magicbutton_leave);
-        } else {
-            build_defaul_drag_and_drop ();
-        }
-    }
-
-    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        Widgets.ItemRow target;
-        Widgets.ItemRow source;
+    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
         Gtk.Allocation alloc;
-
-        target = (Widgets.ItemRow) listbox.get_row_at_y (y);
-        target.get_allocation (out alloc);
-
-        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-        source = (Widgets.ItemRow) row;
-
-        if (target != null) {
-            if (source.item.is_todoist == section.is_todoist) {
-                if (source.item.project_id != section.project_id) {
-                    Planner.database.update_item_project_id (source.item, section.project_id);
-                }
-
-                if (source.item.section_id != section.id) {
-                    Planner.database.on_drag_item_deleted (source, source.item.section_id);
-                    source.item.section_id = section.id;
-                    if (source.item.is_todoist == 1) {
-                        Planner.todoist.move_item_to_section (source.item, section.id);
-                    }
-    
-                    string move_template = _("Task moved to <b>%s</b>");
-                    Planner.notifications.send_notification (
-                        move_template.printf (
-                            section.name
-                        )
-                    );
-                }
-    
-                source.get_parent ().remove (source);
-                items_list.remove (source);
-    
-                listbox.insert (source, target.get_index () + 1);
-                items_list.insert (target.get_index () + 1, source);
-    
-                listbox.show_all ();
-                update_item_order ();
-            } else {
-                Planner.notifications.send_notification (
-                    _("Unable to move task")
-                );
-            }
-        }
-    }
-
-    private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        add_new_item (0);
-    }
-
-    public void add_new_item (int index=-1) {
-        Planner.event_bus.unselect_all ();
-
-        var new_item = new Widgets.NewItem (
-            section.project_id,
-            section.id,
-            section.is_todoist,
-            "",
-            index,
-            listbox
-        );
+        main_box.get_allocation (out alloc);
         
-        if (index == -1) {
-            listbox.add (new_item);
-        } else {
-            listbox.insert (new_item, index);
+        if (section.id != 0) {
+            if (x > (alloc.width / 2)) {
+                right_motion_revealer.reveal_child = true;
+                left_motion_revealer.reveal_child = false;
+            } else {
+                left_motion_revealer.reveal_child = true;
+                right_motion_revealer.reveal_child = false;
+            }  
         }
 
-        listbox.show_all ();
-        listbox_revealer.reveal_child = true;
+        return true;
+    }
+
+    public void on_drag_leave (Gdk.DragContext context, uint time) {
+        left_motion_revealer.reveal_child = false;
+        right_motion_revealer.reveal_child = false;
+    }
+
+    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+        var row = ((Widgets.BoardColumn) widget).main_box;
+
+        Gtk.Allocation alloc;
+        row.get_allocation (out alloc);
+
+        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+        var cr = new Cairo.Context (surface);
+        cr.set_source_rgba (0, 0, 0, 0.5);
+        cr.set_line_width (1);
+
+        cr.move_to (0, 0);
+        cr.line_to (alloc.width, 0);
+        cr.line_to (alloc.width, alloc.height);
+        cr.line_to (0, alloc.height);
+        cr.line_to (0, 0);
+        cr.stroke ();
+
+        cr.set_source_rgba (255, 255, 255, 0);
+        cr.rectangle (0, 0, alloc.width, alloc.height);
+        cr.fill ();
+
+        // row.get_style_context ().add_class ("drag-begin");
+        row.draw (cr);
+        // row.get_style_context ().remove_class ("drag-begin");
+
+        Gtk.drag_set_icon_surface (context, surface);
+        main_revealer.reveal_child = false;
+    }
+
+    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        uchar[] data = new uchar[(sizeof (Widgets.BoardColumn))];
+        ((Gtk.Widget[])data)[0] = widget;
+
+        selection_data.set (
+            Gdk.Atom.intern_static_string ("SECTIONROW"), 32, data
+        );
+    }
+
+    public void clear_indicator (Gdk.DragContext context) {
+        main_revealer.reveal_child = true;
     }
 
     private void on_drag_item_received (Gdk.DragContext context, int x, int y,
@@ -1290,11 +1188,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     
             listbox.show_all ();
             update_item_order ();
-    
-            listbox_revealer.reveal_child = true;
-            section.collapsed = 1;
-    
-            save (false);
         } else {
             Planner.notifications.send_notification (
                 _("Unable to move task")
@@ -1302,126 +1195,58 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
     }
 
-    public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
-        motion_section_revealer.reveal_child = true;
-        return true;
-    }
-
-    public void on_drag_leave (Gdk.DragContext context, uint time) {
-        motion_section_revealer.reveal_child = false;
-    }
-
-    public bool on_drag_magicbutton_motion (Gdk.DragContext context, int x, int y, uint time) {
-        motion_revealer.reveal_child = true;
-        return true;
-    }
-
-    public void on_drag_magicbutton_leave (Gdk.DragContext context, uint time) {
-        motion_revealer.reveal_child = false;
-    }
-
-    private void update_item_order () {
-        if (timeout != 0) {
-            Source.remove (timeout);
-        }
-
-        timeout = Timeout.add (1000, () => {
-            new Thread<void*> ("update_item_order", () => {
-                for (int index = 0; index < items_list.size; index++) {
-                    Planner.database.update_item_order (items_list [index].item, section.id, index);
-                }
-
-                return null;
-            });
-
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-        }
-
-        var row = ((Widgets.SectionRow) widget).top_eventbox;
-
-        Gtk.Allocation alloc;
-        row.get_allocation (out alloc);
-
-        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
-        var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.5);
-        cr.set_line_width (1);
-
-        cr.move_to (0, 0);
-        cr.line_to (alloc.width, 0);
-        cr.line_to (alloc.width, alloc.height);
-        cr.line_to (0, alloc.height);
-        cr.line_to (0, 0);
-        cr.stroke ();
-
-        cr.set_source_rgba (255, 255, 255, 0);
-        cr.rectangle (0, 0, alloc.width, alloc.height);
-        cr.fill ();
-
-        row.get_style_context ().add_class ("drag-begin");
-        row.draw (cr);
-        row.get_style_context ().remove_class ("drag-begin");
-
-        Gtk.drag_set_icon_surface (context, surface);
-        main_revealer.reveal_child = false;
-    }
-
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+    private void on_drag_magic_button_received (Gdk.DragContext context, int x, int y,
         Gtk.SelectionData selection_data, uint target_type, uint time) {
-        uchar[] data = new uchar[(sizeof (Widgets.SectionRow))];
-        ((Gtk.Widget[])data)[0] = widget;
-
-        selection_data.set (
-            Gdk.Atom.intern_static_string ("SECTIONROW"), 32, data
-        );
+        add_new_item (0);
     }
 
-    public void clear_indicator (Gdk.DragContext context) {
-        main_revealer.reveal_child = true;
-    }
+    private void on_drag_data_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Widgets.ItemRow target;
+        Widgets.ItemRow source;
+        Gtk.Allocation alloc;
+        int newPos;
 
-    private void item_row_removed (Widgets.ItemRow row) {
-        items_list.remove (row);
-        items_uncompleted_added.unset (row.item.id.to_string ());
-        items_completed_added.unset (row.item.id.to_string ());
-    }
+        target = (Widgets.ItemRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
 
-    private Gtk.Widget get_placeholder () {
-        var button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        button.valign = Gtk.Align.CENTER;
-        button.always_show_image = true;
-        button.can_focus = false;
-        button.label = _("Add Task");
-        button.margin_top = 3;
-        button.margin_bottom = 3;
-        button.get_style_context ().add_class ("flat");
-        button.get_style_context ().add_class ("font-bold");
-        button.get_style_context ().add_class ("add-button");
-        button.get_style_context ().add_class ("background-transparent");
-        button.show ();
+        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
+        source = (Widgets.ItemRow) row;
 
-        var grid = new Gtk.Grid ();
-        grid.margin = 12;
-        grid.halign = Gtk.Align.CENTER;
-        grid.add (button);
-        grid.show ();
-
-        button.clicked.connect (() => {
-            add_new_item (Planner.settings.get_enum ("new-tasks-position"));
-        });
-
-        return grid;
-    }
-
-    public void hide_items () {
-        for (int index = 0; index < items_list.size; index++) {
-            items_list [index].hide_item ();
+        if (target != null) {
+            if (source.item.is_todoist == section.is_todoist) {
+                if (source.item.project_id != section.project_id) {
+                    Planner.database.update_item_project_id (source.item, section.project_id);
+                }
+    
+                if (source.item.section_id != section.id) {
+                    Planner.database.on_drag_item_deleted (source, source.item.section_id);
+                    source.item.section_id = section.id;
+                    if (source.item.is_todoist == 1) {
+                        Planner.todoist.move_item_to_section (source.item, section.id);
+                    }
+    
+                    string move_template = _("Task moved to <b>%s</b>");
+                    Planner.notifications.send_notification (
+                        move_template.printf (
+                            section.name
+                        )
+                    );
+                }
+    
+                source.get_parent ().remove (source);
+                items_list.remove (source);
+    
+                listbox.insert (source, target.get_index () + 1);
+                items_list.insert (target.get_index () + 1, source);
+    
+                listbox.show_all ();
+                update_item_order ();
+            } else {
+                Planner.notifications.send_notification (
+                    _("Unable to move task")
+                );
+            }
         }
     }
 }

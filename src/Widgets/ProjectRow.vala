@@ -259,6 +259,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 project.color = p.color;
                 project.note = p.note;
                 project.due_date = p.due_date;
+                project.is_kanban = p.is_kanban;
 
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
