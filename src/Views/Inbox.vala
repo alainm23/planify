@@ -280,16 +280,6 @@ public class Views.Inbox : Gtk.EventBox {
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.margin_top = 3;
         popover_grid.margin_bottom = 3;
-        //  popover_grid.add (open_menu);
-        //  popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-        //      margin_top = 3,
-        //      margin_bottom = 3
-        //  });
-        //  popover_grid.add (edit_menu);
-        //  popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-        //      margin_top = 3,
-        //      margin_bottom = 3
-        //  });
         popover_grid.add (board_button);
         popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
