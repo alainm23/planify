@@ -67,6 +67,7 @@ You'll need the following dependencies:
 * libwebkit2gtk-4.0-dev
 * libecal1.2-dev || libecal2.0-dev
 * libedataserver1.2-dev
+* libpeas-dev
 * libical-dev
 * meson
 * valac >= 0.40.3

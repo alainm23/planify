@@ -233,16 +233,13 @@ public class Dialogs.Project : Gtk.Dialog {
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         action_revealer.add (action_grid);
 
+        var label_filter = new Widgets.LabelFilter (project);
+
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        // top_box.pack_end (search_button, false, false, 0);
-        if (project.is_todoist == 1) {
-            // top_box.pack_end (add_person_button, false, false, 0);
-            // top_box.pack_end (comment_button, false, false, 0);
-        }
         top_box.pack_end (section_button, false, false, 0);
+        top_box.pack_end (label_filter, false, false, 0);
         top_box.pack_end (due_revealer, false, false, 0);
-        // top_box.pack_end (due_button, false, false, 0);
 
         note_textview = new Widgets.TextView ();
         note_textview.tooltip_text = _("Add a description");

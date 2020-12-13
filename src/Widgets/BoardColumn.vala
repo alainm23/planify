@@ -122,7 +122,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.get_style_context ().add_class ("hidden-button");
 
-        var count_label = new Gtk.Label ("2");
+        var count_label = new Gtk.Label (null);
 
         var menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;

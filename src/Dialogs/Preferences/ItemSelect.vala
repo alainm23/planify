@@ -30,7 +30,6 @@ public class Dialogs.Preferences.ItemSelect : Gtk.EventBox {
 
         combobox = new Gtk.ComboBoxText ();
         combobox.can_focus = false;
-        combobox.sensitive = false;
         combobox.valign = Gtk.Align.CENTER;
 
         foreach (var item in items) {
