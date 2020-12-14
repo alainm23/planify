@@ -621,18 +621,19 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         update_checklist_progress ();
         check_priority_style ();
         
-        timeout_id = Timeout.add (150, () => {
-            timeout_id = 0;
+        Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
 
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        drag_begin.connect (on_drag_begin);
-        drag_data_get.connect (on_drag_data_get);
-        drag_end.connect (clear_indicator);
+        if (item.checked == 0) {
+            Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+            drag_begin.connect (on_drag_begin);
+            drag_data_get.connect (on_drag_data_get);
+            drag_end.connect (clear_indicator);
 
-        build_drag_and_drop (false);
+            build_drag_and_drop (false);
+        }
 
         add_all_checks ();
         add_all_labels ();
@@ -666,7 +667,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         Planner.event_bus.drag_magic_button_activated.connect ((value) => {
-            build_drag_and_drop (value);
+            if (item.checked == 0) {
+                build_drag_and_drop (value);
+            }
         });
 
         hidden_button.clicked.connect (() => {

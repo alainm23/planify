@@ -296,10 +296,6 @@ public class Views.Inbox : Gtk.EventBox {
             margin_bottom = 3
         });
         popover_grid.add (share_item);
-        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 3,
-            margin_bottom = 3
-        });
         popover_grid.add (show_completed_button);
 
         popover.add (popover_grid);

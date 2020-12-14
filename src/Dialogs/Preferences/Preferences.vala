@@ -792,9 +792,15 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var save_last_switch = new Dialogs.Preferences.ItemSwitch (
             _("Save Last Selected Project"),
-            Planner.settings.get_boolean ("quick-add-save-last-project")
+            Planner.settings.get_boolean ("quick-add-save-last-project"),
+            false
         );
         save_last_switch.margin_top = 6;
+        
+        var automatically_close_switch = new Dialogs.Preferences.ItemSwitch (
+            _("Automatically close loses focus"),
+            Planner.settings.get_boolean ("quick-add-close-loses-focus")
+        );
 
         var revealer_box = new Gtk.Grid ();
         revealer_box.orientation = Gtk.Orientation.VERTICAL;
@@ -802,6 +808,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         revealer_box.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         revealer_box.add (change_button);
         revealer_box.add (save_last_switch);
+        revealer_box.add (automatically_close_switch);
 
         var box_revealer = new Gtk.Revealer ();
         box_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -838,6 +845,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         save_last_switch.activated.connect ((value) => {
             Planner.settings.set_boolean ("quick-add-save-last-project", value);
+        });
+
+        automatically_close_switch.activated.connect ((value) => {
+            Planner.settings.set_boolean ("quick-add-close-loses-focus", value);
         });
 
         change_button.clicked.connect (() => {

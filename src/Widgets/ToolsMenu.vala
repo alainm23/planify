@@ -104,8 +104,8 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
         Planner.todoist.sync_finished.connect (() => {
             sync_menu.sensitive = true;
             sync_menu.is_loading = false;
+            Planner.notifications.send_notification (_("Sync completed!"));
         });
-
 
         close_button.clicked.connect (() => {
             reveal_child = false;

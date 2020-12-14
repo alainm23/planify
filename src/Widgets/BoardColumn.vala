@@ -583,7 +583,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
             });
         });
 
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+        Planner.database.item_moved.connect ((item, project_id, old_project_id, index) => {
             Idle.add (() => {
                 if (section.project_id == old_project_id) {
                     items_list.foreach ((widget) => {
@@ -594,6 +594,26 @@ public class Widgets.BoardColumn : Gtk.EventBox {
                             items_list.remove (row);
                         }
                     });
+                }
+
+                if (project.id == project_id && item.section_id == section.id) {
+                    item.project_id = project_id;
+
+                    var row = new Widgets.ItemRow (item);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
+                    items_uncompleted_added.set (item.id.to_string (), row);
+                    if (index == -1) {
+                        listbox.add (row);
+                        items_list.add (row);
+                    } else {
+                        listbox.insert (row, index);
+                        items_list.insert (index, row);
+                    }
+                    
+                    listbox.show_all ();
                 }
 
                 return false;
@@ -1205,7 +1225,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         Widgets.ItemRow target;
         Widgets.ItemRow source;
         Gtk.Allocation alloc;
-        
+
         target = (Widgets.ItemRow) listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
 

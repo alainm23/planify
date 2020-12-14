@@ -1179,27 +1179,17 @@ public class Utils : GLib.Object {
         return newtext;
     }
 
-    private string get_datetime (GLib.DateTime date) {
+    public string get_datetime (GLib.DateTime date) {
         GLib.DateTime datetime;
-        //  if (time_switch.active) {
-        //      datetime = new GLib.DateTime.local (
-        //          date.get_year (),
-        //          date.get_month (),
-        //          date.get_day_of_month (),
-        //          time_picker.time.get_hour (),
-        //          time_picker.time.get_minute (),
-        //          time_picker.time.get_second ()
-        //      );
-        //  } else {
-            datetime = new GLib.DateTime.local (
-                date.get_year (),
-                date.get_month (),
-                date.get_day_of_month (),
-                0,
-                0,
-                0
-            );
-        // }
+        
+        datetime = new GLib.DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            0,
+            0,
+            0
+        );
 
         return datetime.to_string ();
     }

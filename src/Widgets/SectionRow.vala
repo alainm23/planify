@@ -269,9 +269,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.hexpand = true;
         listbox.set_placeholder (get_placeholder ());
 
-        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        listbox.drag_data_received.connect (on_drag_data_received);
-
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_start = 30;
         completed_listbox.margin_end = 32;
@@ -336,8 +333,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         add_all_items ();
         add_completed_items ();
 
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect (on_drag_data_received);
         build_defaul_drag_and_drop ();
-
         
         Timeout.add (125, () => {
             set_sort_func (Planner.database.get_project_by_id (section.project_id).sort_order);
@@ -736,7 +734,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             });
         });
 
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
+        Planner.database.item_moved.connect ((item, project_id, old_project_id, index) => {
             Idle.add (() => {
                 if (section.project_id == old_project_id) {
                     items_list.foreach ((widget) => {
@@ -747,6 +745,26 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                             items_list.remove (row);
                         }
                     });
+                }
+
+                if (project.id == project_id && item.section_id == section.id) {
+                    item.project_id = project_id;
+
+                    var row = new Widgets.ItemRow (item);
+                    row.destroy.connect (() => {
+                        item_row_removed (row);
+                    });
+
+                    items_uncompleted_added.set (item.id.to_string (), row);
+                    if (index == -1) {
+                        listbox.add (row);
+                        items_list.add (row);
+                    } else {
+                        listbox.insert (row, index);
+                        items_list.insert (index, row);
+                    }
+                    
+                    listbox.show_all ();
                 }
 
                 return false;
@@ -900,10 +918,12 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_stack.drag_data_received.disconnect (on_drag_item_received);
         name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
-        Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
-        drag_begin.connect (on_drag_begin);
-        drag_data_get.connect (on_drag_data_get);
-        drag_end.connect (clear_indicator);
+        if (section.id != 0) {
+            Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
+            drag_begin.connect (on_drag_begin);
+            drag_data_get.connect (on_drag_data_get);
+            drag_end.connect (clear_indicator);   
+        }
 
         Gtk.drag_dest_set (drop_section_grid, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
         drop_section_grid.drag_motion.connect (on_drag_motion);

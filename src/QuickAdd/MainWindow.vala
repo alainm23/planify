@@ -80,6 +80,7 @@ public class MainWindow : Gtk.Window {
 
         content_entry = new Gtk.Entry ();
         content_entry.hexpand = true;
+        content_entry.margin_start = 6;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("content-entry");
@@ -89,7 +90,7 @@ public class MainWindow : Gtk.Window {
         top_box.margin_top = 3;
         top_box.margin_end = 9;
         top_box.hexpand = true;
-        top_box.pack_start (checked_button, false, false, 0);
+        // top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (content_entry, false, true, 0);
 
         var submit_button = new Gtk.Button ();
@@ -229,7 +230,7 @@ public class MainWindow : Gtk.Window {
 
         add (grid);
 
-        Timeout.add (125, () => {
+        Timeout.add (225, () => {
             if (PlannerQuickAdd.database.is_database_empty ()) {
                 stack.visible_child_name = "warning_grid";
             } else {
@@ -310,7 +311,8 @@ public class MainWindow : Gtk.Window {
         focus_out_event.connect ((event) => {
             if (Posix.isatty (Posix.STDIN_FILENO) == false &&
                 PlannerQuickAdd.database.is_adding == false &&
-                entry_menu_opened == false) {
+                entry_menu_opened == false &&
+                PlannerQuickAdd.settings.get_boolean ("quick-add-close-loses-focus")) {
                 hide ();
 
                 Timeout.add (500, () => {
@@ -367,7 +369,7 @@ public class MainWindow : Gtk.Window {
         });
 
         event_box.button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1 && PlannerQuickAdd.settings.get_boolean ("quick-add-close-loses-focus")) {
                 hide ();
                 /* Retain the window for a short time so that the keybinding
                 * listener does not instantiate a new one right after closing

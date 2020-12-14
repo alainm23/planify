@@ -116,6 +116,12 @@
             <description></description>
         </key>
 
+        <key name="quick-add-close-loses-focus" type="b">
+            <default>true</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="quick-add-shortcut" type="s">
             <default>""</default>
             <summary></summary>

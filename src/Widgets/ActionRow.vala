@@ -441,10 +441,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             new_date = true;
         }
 
-        source.item.due_date = date.to_string ();
-
+        source.item.due_date = Planner.utils.get_datetime (date);
         Planner.database.set_due_item (source.item, new_date);
-
         if (source.item.is_todoist == 1) {
             Planner.todoist.update_item (source.item);
         }
@@ -462,10 +460,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             new_date = true;
         }
 
-        source.item.due_date = date.to_string ();
-
+        source.item.due_date = Planner.utils.get_datetime (date);
         Planner.database.set_due_item (source.item, new_date);
-
         if (source.item.is_todoist == 1) {
             Planner.todoist.update_item (source.item);
         }

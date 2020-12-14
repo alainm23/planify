@@ -597,11 +597,11 @@ public class Dialogs.Project : Gtk.Dialog {
             margin_bottom = 3
         });
         popover_grid.add (share_item);
+        popover_grid.add (show_completed_button);
         popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
             margin_bottom = 3
         });
-        popover_grid.add (show_completed_button);
         popover_grid.add (delete_menu);
 
         popover.add (popover_grid);
