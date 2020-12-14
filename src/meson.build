@@ -72,6 +72,7 @@ planner_files = files(
     'Widgets/BoardView.vala',
     'Widgets/BoardColumn.vala',
     'Widgets/ListView.vala',
+    'Widgets/ToolsMenu.vala',
 
     # CalDav Support
     # 'Widgets/SourceRow.vala',

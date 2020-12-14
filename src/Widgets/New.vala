@@ -210,7 +210,7 @@ public class Widgets.New : Gtk.Revealer {
         stack.add_named (box, "box");
 
         var main_grid = new Gtk.Grid ();
-        main_grid.margin = 8;
+        main_grid.margin = 9;
         main_grid.height_request = 275;
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");

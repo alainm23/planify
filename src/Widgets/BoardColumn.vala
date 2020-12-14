@@ -126,8 +126,8 @@ public class Widgets.BoardColumn : Gtk.EventBox {
 
         var menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        menu_stack.add_named (count_label, "count");
         menu_stack.add_named (settings_button, "button");
+        menu_stack.add_named (count_label, "count");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         // top_box.pack_start (add_revealer, false, false, 0);
@@ -428,7 +428,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            menu_stack.visible_child_name = "button";
+            // menu_stack.visible_child_name = "button";
             add_revealer.reveal_child = true;
             add_button.get_style_context ().add_class ("animation");
 
@@ -440,7 +440,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
                 return false;
             }
 
-            menu_stack.visible_child_name = "count";
+            // menu_stack.visible_child_name = "count";
             add_revealer.reveal_child = false;
             add_button.get_style_context ().remove_class ("animation");
 
@@ -1205,8 +1205,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         Widgets.ItemRow target;
         Widgets.ItemRow source;
         Gtk.Allocation alloc;
-        int newPos;
-
+        
         target = (Widgets.ItemRow) listbox.get_row_at_y (y);
         target.get_allocation (out alloc);
 

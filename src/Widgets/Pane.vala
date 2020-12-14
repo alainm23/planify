@@ -22,6 +22,7 @@
 public class Widgets.Pane : Gtk.EventBox {
     private Gtk.Stack stack;
     public Widgets.New new_project;
+    public Widgets.ToolsMenu tools_menu;
 
     private Widgets.ActionRow inbox_row;
     private Widgets.ActionRow today_row;
@@ -34,10 +35,6 @@ public class Widgets.Pane : Gtk.EventBox {
     public Gtk.Grid listbox_grid;
 
     private Gtk.Button add_button;
-    private Gtk.Button sync_button;
-
-    private Gtk.Image sync_image;
-    private Gtk.Image error_image;
 
     public signal void activated (PaneView view);
     public signal void show_quick_find ();
@@ -219,6 +216,7 @@ public class Widgets.Pane : Gtk.EventBox {
         listbox_scrolled.add (listbox_grid);
 
         new_project = new Widgets.New ();
+        tools_menu = new Widgets.ToolsMenu ();
 
         // Search Button
         var search_button = new Gtk.Button ();
@@ -243,39 +241,18 @@ public class Widgets.Pane : Gtk.EventBox {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var settings_image = new Gtk.Image ();
-        settings_image.gicon = new ThemedIcon ("open-menu-symbolic");
-        settings_image.pixel_size = 14;
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 16;
         settings_button.image = settings_image;
-
-        sync_image = new Gtk.Image ();
-        sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");
-        sync_image.get_style_context ().add_class ("sync-image-rotate");
-        sync_image.pixel_size = 16;
-
-        error_image = new Gtk.Image ();
-        error_image.gicon = new ThemedIcon ("dialog-warning-symbolic");
-        error_image.pixel_size = 16;
-
-        sync_button = new Gtk.Button ();
-        sync_button.can_focus = false;
-        sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
-        sync_button.valign = Gtk.Align.CENTER;
-        sync_button.halign = Gtk.Align.CENTER;
-        sync_button.get_style_context ().add_class ("sync");
-        sync_button.get_style_context ().add_class ("settings-button");
-        sync_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        sync_button.visible = Planner.settings.get_boolean ("todoist-account");
-        sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         header_box.get_style_context ().add_class ("pane");
-        header_box.pack_start (sync_button, false, false, 0);
         header_box.pack_start (settings_button, false, false, 0);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        action_box.margin_end = 9;
-        action_box.margin_bottom = 6;
-        action_box.margin_start = 9;
+        action_box.margin = 6;
+        action_box.margin_end = 12;
+        action_box.margin_start = 12;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
         action_box.pack_end (header_box, false, false, 0);
@@ -288,6 +265,7 @@ public class Widgets.Pane : Gtk.EventBox {
         
         var overlay = new Gtk.Overlay ();
         overlay.add_overlay (new_project);
+        overlay.add_overlay (tools_menu);
         overlay.add (main_box);
 
         var grid = new Gtk.Grid ();
@@ -303,7 +281,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
         add (stack);
         build_drag_and_drop ();
-        check_network ();
 
         Planner.database.opened.connect (() => {
             listbox.foreach ((row) => {
@@ -347,6 +324,12 @@ public class Widgets.Pane : Gtk.EventBox {
                 var project = ((Widgets.ProjectRow) row).project;
                 Planner.utils.pane_project_selected (project.id, 0);
             }
+        });
+
+        settings_button.clicked.connect (() => {
+            Planner.event_bus.unselect_all ();
+            tools_menu.reveal_child = true;
+            tools_menu.check_network_available ();
         });
 
         add_button.clicked.connect (() => {
@@ -420,11 +403,6 @@ public class Widgets.Pane : Gtk.EventBox {
             });
         });
 
-        var network_monitor = GLib.NetworkMonitor.get_default ();
-        network_monitor.network_changed.connect (() => {
-            check_network ();
-        });
-
         Planner.utils.drag_item_activated.connect ((value) => {
             if (value) {
                 upcoming_row.title_name.label = _("Tomorrow");
@@ -458,45 +436,6 @@ public class Widgets.Pane : Gtk.EventBox {
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
         });
-
-        settings_button.clicked.connect (() => {
-            var dialog = new Dialogs.Preferences.Preferences ();
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
-        });
-
-        sync_button.clicked.connect (() => {
-            Planner.todoist.sync ();
-        });
-
-        Planner.todoist.sync_started.connect (() => {
-            sync_button.sensitive = false;
-            sync_button.get_style_context ().add_class ("is_loading");
-        });
-
-        Planner.todoist.sync_finished.connect (() => {
-            sync_button.sensitive = true;
-            sync_button.get_style_context ().remove_class ("is_loading");
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "todoist-account") {
-                sync_button.visible = Planner.settings.get_boolean ("todoist-account");
-                sync_button.no_show_all = !Planner.settings.get_boolean ("todoist-account");
-            }
-        });
-    }
-    
-    private void check_network () {
-        var available = GLib.NetworkMonitor.get_default ().get_network_available ();
-
-        if (available) {
-            sync_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
-            sync_button.image = sync_image;
-        } else {
-            sync_button.image = error_image;
-            sync_button.tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
-        }
     }
 
     public void add_label (Objects.Label label) {

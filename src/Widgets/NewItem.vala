@@ -275,13 +275,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         add (main_revealer);
 
-        timeout_id = Timeout.add (150, () => {
-            timeout_id = 0;
-
+        Timeout.add (main_revealer.transition_duration, () => {
             content_entry.grab_focus ();
             main_revealer.reveal_child = true;
-            
             grab_focus ();
+
             return GLib.Source.REMOVE;
         });
 

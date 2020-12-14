@@ -89,8 +89,8 @@ public class Widgets.ListView : Gtk.EventBox {
         foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
             var row = new Widgets.SectionRow (section, project);
             section_listbox.add (row);
-            section_listbox.show_all ();
         }
+        section_listbox.show_all ();
     }
 
     public void add_new_item (int index=-1) {

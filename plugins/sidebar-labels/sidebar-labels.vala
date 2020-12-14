@@ -108,10 +108,9 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         pane.listbox_grid.add (main_revealer);
         pane.show_all ();
 
-        timeout_id = Timeout.add (150, () => {
-            timeout_id = 0;
+        Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
-            return false;
+            return GLib.Source.REMOVE;
         });
 
         get_all_labels ();

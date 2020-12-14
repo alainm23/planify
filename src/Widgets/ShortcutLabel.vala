@@ -46,7 +46,7 @@ public class Widgets.ShortcutLabel : Gtk.Grid {
                     continue;
                 }
                 var label = new Gtk.Label (accel.replace ("Super", "⌘"));
-                label.get_style_context ().add_class ("keyboardkey");
+                label.get_style_context ().add_class ("keycap");
                 add (label);
 
                 if (index < accels.length) {

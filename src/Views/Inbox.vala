@@ -154,8 +154,11 @@ public class Views.Inbox : Gtk.EventBox {
         show_all ();
 
         magic_button.clicked.connect (() => {
-            board_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
-            list_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+            if (project.is_kanban == 1) {
+                board_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+            } else {
+                list_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+            }
         });
 
         // Check Placeholder view

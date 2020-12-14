@@ -260,17 +260,8 @@ public class Planner : Gtk.Application {
         utils.set_quick_add_shortcut (quick_add_shortcut, Planner.settings.get_boolean ("quick-add-enabled"));
 
         if (settings.get_string ("version") != Constants.VERSION) {
-            var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner %s is here, with many design improvements, new features, and more.".printf (Constants.VERSION)));
-
-            List<string> list = new List<string> ();
-            list.append (_("Github #577 - Fixed recurring tasks."));
-            list.append (_("Updated translations."));
+            utils.open_whats_new_dialog ();
             
-            dialog.append_notes (_("Bug fixes and performance improvement"), list, 30);
-
-            dialog.show_all ();
-            dialog.present ();
-
             // Update the settings so we don't show the same dialog again.
             settings.set_string ("version", Constants.VERSION);
         }

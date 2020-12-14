@@ -312,7 +312,7 @@ paned.horizontal > separator {
     100% { -gtk-icon-transform: rotate(180deg); }
 }
 
-.sync.is_loading image {
+.is_loading {
     animation: spin 1000ms linear infinite;
 }
 

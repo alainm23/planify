@@ -251,7 +251,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_start = 42;
         motion_grid.margin_end = 32;
-        motion_grid.margin_top = 3;
+        motion_grid.margin_top = 6;
         motion_grid.get_style_context ().add_class ("grid-motion");
         motion_grid.height_request = 24;
 
@@ -1103,7 +1103,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             items = Planner.database.get_all_completed_items_by_section_no_parent (section);
         }
 
-        foreach (var item in Planner.database.get_all_completed_items_by_section_no_parent (section)) {
+        foreach (var item in items) {
             var row = new Widgets.ItemRow (item);
 
             completed_listbox.add (row);
