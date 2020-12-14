@@ -61,6 +61,17 @@
             ]
         },
         {
+            "name": "libpeas",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/libpeas.git",
+                    "branch": "master"
+                }
+            ]
+        },
+        {
             "name": "intltool",
             "cleanup": [
                 "*"
