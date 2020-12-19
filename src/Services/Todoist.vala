@@ -2049,6 +2049,83 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
+    public async void add_item_async (Objects.Item item, GLib.Cancellable cancellable, int index, int64 temp_id_mapping) {
+        item_added_started (temp_id_mapping);
+
+        string temp_id = Planner.utils.generate_string ();
+        string uuid = Planner.utils.generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_add_item_json (item, temp_id, uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, cancellable);
+            var parser = new Json.Parser ();
+
+            yield parser.load_from_stream_async (stream);
+
+            var node = parser.get_root ().get_object ();
+
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
+
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+
+                Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+                item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+
+                if (Planner.database.insert_item (item, index)) {
+                    item_added_completed (temp_id_mapping);
+                }
+            } else {
+                item_added_error (
+                    temp_id_mapping,
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
+            }
+        } catch (Error e) {
+            if ((int32) message.status_code == 400 || (int32) message.status_code == 401 ||
+                (int32) message.status_code == 403 || (int32) message.status_code == 404 ||
+                (int32) message.status_code == 429 || (int32) message.status_code == 500 ||
+                (int32) message.status_code == 503) {
+                item_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    Planner.utils.get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                item_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                item.id = temp_id_mapping;
+
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = item.id;
+                queue.temp_id = temp_id;
+                queue.query = "item_add";
+                queue.args = item.to_json ();
+
+                if (Planner.database.insert_item (item, index) &&
+                    Planner.database.insert_queue (queue) &&
+                    Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
+                    item_added_completed (temp_id_mapping);
+                }
+            }
+        }
+    }
+
     public string get_add_item_json (Objects.Item item, string temp_id, string uuid) {
         var builder = new Json.Builder ();
         builder.begin_array ();

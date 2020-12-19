@@ -42,6 +42,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private Gtk.Popover projects_popover = null;
     private Gtk.Popover reschedule_popover = null;
     private Gtk.Popover priority_popover = null;
+    private GLib.Cancellable cancellable = null;
     private Widgets.ModelButton priority_4_menu;
     private Widgets.ModelButton undated_button;
     private Gtk.ListBox projects_listbox;
@@ -343,7 +344,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         Planner.todoist.item_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
                 submit_stack.visible_child_name = "spinner";
-                sensitive = false;
+                submit_button.sensitive = false;
+                main_grid.sensitive = false;
             }
         });
 
@@ -378,8 +380,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         Planner.todoist.item_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
                 submit_stack.visible_child_name = "label";
-                sensitive = true;
-                content_entry.text = "";
+                submit_button.sensitive = false;
+                main_grid.sensitive = false;
             }
         });
 
@@ -463,8 +465,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         label_button.label_selected.connect ((label) => {
-            print ("Label: %s\n".printf (label.name));
-
             var g = new Widgets.LabelItem (12312312312, 123123123123, label);
             labels_edit_revealer.reveal_child = true;
             labels_edit_box.add (g);
@@ -806,6 +806,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     }
 
     public void hide_destroy () {
+        if (cancellable != null) {
+            cancellable.cancel ();
+        }
+
         main_revealer.reveal_child = false;
         Timeout.add (500, () => {
             destroy ();
@@ -830,7 +834,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 temp_id_mapping = Planner.utils.generate_id ();
                 
                 if (is_todoist == 1) {
-                    Planner.todoist.add_item (item, index, temp_id_mapping);
+                    // Planner.todoist.add_item (item, index, temp_id_mapping);
+                    cancellable = new Cancellable ();
+                    Planner.todoist.add_item_async (item, cancellable, index, temp_id_mapping);
                 } else {
                     item.id = Planner.utils.generate_id ();
                     if (Planner.database.insert_item (item, index)) {
