@@ -263,7 +263,8 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         });
 
         Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
-            if (section.project_id == project_id && section.id == section_id) {
+            if (section.project_id == project_id && section.id == section_id &&
+                Planner.database.get_project_by_id (section.project_id).is_kanban == 1) {
                 add_new_item (index);
             }
         });
@@ -792,8 +793,9 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         button.show ();
 
         var grid = new Gtk.Grid ();
-        grid.margin_top = 6;
-        grid.margin_start = 6;
+        grid.margin_top = 12;
+        grid.margin_bottom = 6;
+        grid.margin_start = 4;
         grid.halign = Gtk.Align.START;
         grid.add (button);
         grid.show ();

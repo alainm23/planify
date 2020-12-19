@@ -267,7 +267,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        listbox.set_placeholder (get_placeholder ());
+        if (section.id != 0) {
+            listbox.set_placeholder (get_placeholder ());
+        }
 
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_start = 30;
@@ -343,7 +345,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         Planner.event_bus.magic_button_activated.connect ((project_id, section_id, is_todoist, index) => {
-            if (section.project_id == project_id && section.id == section_id) {
+            if (section.project_id == project_id && section.id == section_id &&
+                Planner.database.get_project_by_id (section.project_id).is_kanban == 0) {
                 add_new_item (index);
             }
         });

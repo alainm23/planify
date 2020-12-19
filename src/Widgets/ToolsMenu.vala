@@ -66,7 +66,7 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
 
         var main_grid = new Gtk.Grid ();
         main_grid.margin = 9;
-        main_grid.width_request = 240;
+        main_grid.width_request = 219;
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.add (content_grid);

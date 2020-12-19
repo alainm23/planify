@@ -253,8 +253,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.row_spacing = 0;
         main_grid.expand = false;
-        main_grid.margin_top = 6;
-        main_grid.margin_bottom= 6;
+        // main_grid.margin_top = 6;
+        main_grid.margin_bottom = 6;
         main_grid.margin_start = 6;
         main_grid.get_style_context ().add_class ("item-row-selected");
         main_grid.get_style_context ().add_class ("popover");

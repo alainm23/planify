@@ -20,24 +20,26 @@
 */
 
 public class Widgets.LabelFilter : Gtk.ToggleButton {
-    public Objects.Project project { get; construct; }
+    public Objects.Project project { get; set; }
     private Gtk.Label filter_label;
     private Gtk.Popover popover = null;
     private Gtk.ListBox listbox;
     public Gee.HashMap <string, Objects.Label> labels_loaded;
     public Gee.HashMap <string, Objects.Label> labels_selected;
 
-    public LabelFilter (Objects.Project project) {
-        Object (
-            project: project
-        );
-    }
+    //  public LabelFilter (Objects.Project project) {
+    //      Object (
+    //          project: project
+    //      );
+    //  }
 
     construct {
+        margin_bottom = 3;
         can_focus = false;
         valign = Gtk.Align.END;
         tooltip_text = _("Filter by Label");
         get_style_context ().add_class ("flat");
+        get_style_context ().add_class ("no-padding");
 
         labels_loaded = new Gee.HashMap <string, Objects.Label> ();
         labels_selected = new Gee.HashMap <string, Objects.Label> ();
@@ -61,6 +63,10 @@ public class Widgets.LabelFilter : Gtk.ToggleButton {
         main_revealer.reveal_child = Planner.database.get_labels_by_project (project.id).size > 0;
 
         add (main_revealer);
+
+        notify["project"].connect (() => {
+            main_revealer.reveal_child = Planner.database.get_labels_by_project (project.id).size > 0;
+        });
 
         toggled.connect (() => {
             if (active) {

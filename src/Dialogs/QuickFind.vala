@@ -310,6 +310,17 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                     listbox.show_all ();
                 }
 
+                foreach (var section in Planner.database.get_all_sections_by_search (search_entry.text)) {
+                    var row = new SearchItem (
+                        QuickFindResultType.SECTION,
+                        section.to_json (),
+                        search_entry.text
+                    );
+
+                    listbox.add (row);
+                    listbox.show_all ();
+                }
+
                 result_type = QuickFindResultType.NONE;
                 listbox.foreach ((widget) => {
                     var row = (SearchItem) widget;
@@ -335,7 +346,6 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         focus_out_event.connect (() => {
             popdown ();
-
             return false;
         });
 
@@ -429,6 +439,11 @@ public class Dialogs.QuickFind : Gtk.Dialog {
                     Planner.todoist.get_string_member_by_object (item.object, "filter")
                 );
             }
+        } else if (item.result_type == QuickFindResultType.SECTION) {
+            Planner.database.insert_quickfind_recents ("SECTION", item.object);
+            Planner.instance.main_window.go_project (
+                Planner.todoist.get_int_member_by_object (item.object, "project_id")
+            );
         }
 
         popdown ();
@@ -557,6 +572,20 @@ public class SearchItem : Gtk.ListBoxRow {
             main_grid.attach (header_label, 0, 0, 1, 1);
             main_grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
             main_grid.attach (get_quick_find_result (search_term), 2, 0, 1, 1);
+
+            add (main_grid);
+        } else if (result_type == QuickFindResultType.SECTION) {
+            header_label = new Gtk.Label (_("Sections"));
+            header_label.get_style_context ().add_class ("font-weight-600");
+            header_label.width_request = 73;
+            header_label.xalign = 1;
+            header_label.margin_end = 29;
+            header_label.opacity = 0;
+
+            var main_grid = new Gtk.Grid ();
+            main_grid.attach (header_label, 0, 0, 1, 1);
+            main_grid.attach (new Gtk.Separator (Gtk.Orientation.VERTICAL), 1, 0, 1, 1);
+            main_grid.attach (get_quick_find_result ("SECTION"), 2, 0, 1, 1);
 
             add (main_grid);
         }
@@ -766,6 +795,35 @@ public class SearchItem : Gtk.ListBoxRow {
             grid.margin_start = 5;
             grid.margin_end = 6;
             grid.column_spacing = 5;
+            grid.add (icon);
+            grid.add (content_label);
+            grid.add (shortcut_revealer);
+
+            returned = grid;
+        } else if (object_type == "SECTION") {
+            var icon = new Gtk.Image ();
+            icon.halign = Gtk.Align.CENTER;
+            icon.valign = Gtk.Align.CENTER;
+            icon.pixel_size = 16;
+            icon.gicon = new ThemedIcon ("section-2-symbolic");
+
+            var content_label = new Gtk.Label (
+                markup_string_with_search (
+                    Planner.todoist.get_string_member_by_object (object, "name"),
+                    search_term
+                )
+            );
+            content_label.ellipsize = Pango.EllipsizeMode.END;
+            content_label.xalign = 0;
+            content_label.use_markup = true;
+            content_label.margin_bottom = 1;
+            content_label.tooltip_text = Planner.todoist.get_string_member_by_object (object, "name");
+
+            var grid = new Gtk.Grid ();
+            grid.margin = 3;
+            grid.margin_start = 6;
+            grid.margin_end = 6;
+            grid.column_spacing = 6;
             grid.add (icon);
             grid.add (content_label);
             grid.add (shortcut_revealer);

@@ -91,7 +91,6 @@ menu {
 }
 
 .sidebar-header {
-    padding-left: 1px;
     background-color: @pane_color;
 }
 
@@ -104,7 +103,6 @@ menu {
 }
 
 .projectview-header {
-    /* padding-right: 3px; */
     background-color: @projectview_color;
 }
 

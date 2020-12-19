@@ -620,7 +620,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         add (main_revealer);
         update_checklist_progress ();
         check_priority_style ();
-        
+        if (item.collapsed == 1) {
+            show_item ();
+        }
+
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
@@ -1082,6 +1085,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     public void show_item () {
+        item.collapsed = 1;
         preview_revealer.transition_duration = 0;
 
         bottom_revealer.reveal_child = true;
@@ -1097,9 +1101,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         selectable = false;
 
         content_entry_focus ();
+        save (false);
     }
 
     public void hide_item () {
+        item.collapsed = 0;
         preview_revealer.transition_duration = 150;
         Planner.utils.remove_item_show_queue (this);
 
@@ -1115,11 +1121,10 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_preview_box ();
         update_checklist_progress ();
 
-        timeout_id = Timeout.add (250, () => {
-            timeout_id = 0;
-
+        Timeout.add (250, () => {
             activatable = true;
             selectable = true;
+            save (false);
             return GLib.Source.REMOVE;
         });
     }
@@ -1155,7 +1160,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             item.project_id,
             item.section_id,
             item.is_todoist,
-            this.get_index () + 1,
+            get_index () + 1,
             view,
             item.due_date
         );

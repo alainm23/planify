@@ -20,6 +20,7 @@
     <file alias="folder-outline.svg">resources/folder-outline.svg</file>
     <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
     <file alias="section-symbolic.svg">resources/section-symbolic.svg</file>
+    <file alias="section-2-symbolic.svg">resources/section-2-symbolic.svg</file>
     <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
     <file alias="github.svg">resources/github.svg</file>
 

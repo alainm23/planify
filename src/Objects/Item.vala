@@ -41,6 +41,7 @@ public class Objects.Item : GLib.Object {
     public string due_string { get; set; default = ""; }
     public string due_lang { get; set; default = ""; }
     public int due_is_recurring { get; set; default = 0; }
+    public int collapsed { get; set; default = 0; }
 
     public string date_added { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string date_completed { get; set; default = ""; }

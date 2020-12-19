@@ -233,7 +233,8 @@ public class Dialogs.Project : Gtk.Dialog {
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         action_revealer.add (action_grid);
 
-        var label_filter = new Widgets.LabelFilter (project);
+        var label_filter = new Widgets.LabelFilter ();
+        label_filter.project = project;
 
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);

@@ -106,7 +106,8 @@ public class Views.Inbox : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var label_filter = new Widgets.LabelFilter (project);
+        var label_filter = new Widgets.LabelFilter ();
+        label_filter.project = project;
         
         top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;

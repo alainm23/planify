@@ -23,6 +23,7 @@ public enum QuickFindResultType {
     NONE,
     ITEM,
     PROJECT,
+    SECTION,
     VIEW,
     LABEL,
     RECENT,

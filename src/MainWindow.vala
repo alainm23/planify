@@ -22,7 +22,7 @@
 public class MainWindow : Gtk.Window {
     public weak Planner app { get; construct; }
 
-    public Gee.HashMap <string, bool> projects_loaded;
+    public Gee.HashMap <string, Views.Project> projects_loaded;
     public Gee.HashMap <string, bool> tasklists_loaded;
 
     // Delegates
@@ -39,6 +39,7 @@ public class MainWindow : Gtk.Window {
     private Views.AllTasks alltasks_view = null;
     private Views.Label label_view = null;
     private Views.Filter filter_view = null;
+    private Views.Project project_view = null;
     
     private Widgets.MultiSelectToolbar multiselect_toolbar;
     private Services.DBusServer dbus_server;
@@ -66,8 +67,8 @@ public class MainWindow : Gtk.Window {
             Planner.database.item_added (Planner.database.get_item_by_id (id), -1);
         });
 
-        projects_loaded = new Gee.HashMap <string, bool> ();
         tasklists_loaded = new Gee.HashMap <string, bool> ();
+        projects_loaded = new Gee.HashMap <string, Views.Project> ();
 
         var header_revealer = new Gtk.Revealer ();
         header_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -208,10 +209,7 @@ public class MainWindow : Gtk.Window {
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
-                        projects_loaded.set (project_id.to_string (), true);
-                        var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
-                        stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
-                        stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+                        go_project (project_id);
                     } else {
                         go_view (PaneView.INBOX);
                     }
@@ -361,23 +359,9 @@ public class MainWindow : Gtk.Window {
 
         Planner.instance.go_view.connect ((type, id, id2) => {
             if (type == "project") {
-                if (projects_loaded.has_key (id.to_string ())) {
-                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
-                } else {
-                    projects_loaded.set (id.to_string (), true);
-                    var project_view = new Views.Project (Planner.database.get_project_by_id (id));
-                    stack.add_named (project_view, "project-view-%s".printf (id.to_string ()));
-                    stack.visible_child_name = "project-view-%s".printf (id.to_string ());
-                }
+                go_project (id);
             } else if (type == "item") {
-                if (projects_loaded.has_key (id2.to_string ())) {
-                    stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
-                } else {
-                    projects_loaded.set (id2.to_string (), true);
-                    var project_view = new Views.Project (Planner.database.get_project_by_id (id2));
-                    stack.add_named (project_view, "project-view-%s".printf (id2.to_string ()));
-                    stack.visible_child_name = "project-view-%s".printf (id2.to_string ());
-                }
+                go_project (id2);
             }
         });
 
@@ -547,16 +531,21 @@ public class MainWindow : Gtk.Window {
     }
 
     public void go_project (int64 project_id) {
-        var project = Planner.database.get_project_by_id (project_id);
-
-        if (projects_loaded.has_key (project.id.to_string ())) {
-            stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
-        } else {
-            projects_loaded.set (project.id.to_string (), true);
-            var project_view = new Views.Project (Planner.database.get_project_by_id (project.id));
-            stack.add_named (project_view, "project-view-%s".printf (project.id.to_string ()));
-            stack.visible_child_name = "project-view-%s".printf (project.id.to_string ());
+        if (project_view == null) {
+            project_view = new Views.Project ();
+            stack.add_named (project_view, "project-view");
         }
+
+        project_view.project = Planner.database.get_project_by_id (project_id);
+        stack.visible_child_name = "project-view";
+        //  if (projects_loaded.has_key (project_id.to_string ())) {
+        //      stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+        //  } else {
+        //      var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
+        //      stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
+        //      stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
+        //      projects_loaded.set (project_id.to_string (), project_view);
+        //  }
     }
 
     public void go_tasklist (E.Source source) {
