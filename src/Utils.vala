@@ -1046,6 +1046,13 @@ public class Utils : GLib.Object {
         return messages.get (code);
     }
 
+    public bool is_todoist_error (int status_code) {
+        return (status_code == 400 || status_code == 401 ||
+            status_code == 403 || status_code == 404 ||
+            status_code == 429 || status_code == 500 ||
+            status_code == 503);
+    }
+
     public Gee.ArrayList<string> get_patrons () {
         var patrons = new Gee.ArrayList<string> ();
 

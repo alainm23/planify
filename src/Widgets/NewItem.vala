@@ -338,6 +338,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         });
 
         cancel_button.clicked.connect (() => {
+            if (cancellable != null) {
+                cancellable.cancel ();
+            }
+            
             hide_destroy ();
         });
 
@@ -377,11 +381,13 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             }
         });
 
-        Planner.todoist.item_added_error.connect ((id) => {
+        Planner.todoist.item_added_error.connect ((id, error_code, error_message) => {
             if (temp_id_mapping == id) {
                 submit_stack.visible_child_name = "label";
-                submit_button.sensitive = false;
-                main_grid.sensitive = false;
+                submit_button.sensitive = true;
+                main_grid.sensitive = true;
+
+                Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
             }
         });
 
@@ -806,10 +812,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     }
 
     public void hide_destroy () {
-        if (cancellable != null) {
-            cancellable.cancel ();
-        }
-
         main_revealer.reveal_child = false;
         Timeout.add (500, () => {
             destroy ();

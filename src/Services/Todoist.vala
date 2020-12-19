@@ -2092,10 +2092,7 @@ public class Services.Todoist : GLib.Object {
                 );
             }
         } catch (Error e) {
-            if ((int32) message.status_code == 400 || (int32) message.status_code == 401 ||
-                (int32) message.status_code == 403 || (int32) message.status_code == 404 ||
-                (int32) message.status_code == 429 || (int32) message.status_code == 500 ||
-                (int32) message.status_code == 503) {
+            if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
                 item_added_error (
                     temp_id_mapping,
                     (int32) message.status_code,
