@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-09-22 18:37+0000\n"
-"Last-Translator: RealGeo113 <grzegorz.lukaszun@gmail.com>\n"
+"PO-Revision-Date: 2020-12-21 13:29+0000\n"
+"Last-Translator: Kacper Podpora <kacperp1010@gmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/planner/"
 "translations/pl/>\n"
 "Language: pl\n"
@@ -18,59 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Jesteś pewien, że chcesz wszystko zresetować?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
-"Ten proces usuwa wszystkie zapisane informacje bez możliwości ich cofnięcia."
+"Ten proces usuwa wszystkie zapisane informacje bez możliwości cofnięcia. (t/"
+"n): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "t"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "tak"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planer %s jest tutaj, z nowymi ulepszeniami wyglądu, nowymi funkcjami i "
+"więcej."
 
 #: src/Application.vala:240
+#, fuzzy
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Nowa pozycja przycisku Quick Find."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
-msgstr ""
+msgstr "Github #565 - Naprawa błędu podczas wyświetlania nazwy projektu."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
-msgstr ""
+msgstr "Github #563 - Naprawa błędu, kiedy przenosisz zadanie na koniec listy."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Dodano możliwość zobaczenia pełnych informacji o "
+"skończonym zadaniu."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Zaproponuj tłumaczenie"
+msgstr "Zaktualizowano tłumaczenia."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Poprawki błędów i wydajności"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -83,11 +87,11 @@ msgstr "Dodawanie zadania ze schowka…"
 
 #: src/Utils.vala:28 src/Widgets/NewItem.vala:58
 msgid "today"
-msgstr "Dziś"
+msgstr "dziś"
 
 #: src/Utils.vala:29 src/Widgets/NewItem.vala:59
 msgid "tomorrow"
-msgstr "Jutro"
+msgstr "jutro"
 
 #: src/Utils.vala:127 src/Utils.vala:134 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -99,7 +103,7 @@ msgstr "Biuro"
 
 #: src/Utils.vala:129 src/Utils.vala:142
 msgid "Errand"
-msgstr "Zadania"
+msgstr "Sprawy do załatwienia"
 
 #: src/Utils.vala:130 src/Utils.vala:146
 msgid "Important"
@@ -435,7 +439,7 @@ msgstr "Dodaj Katalog"
 
 #: src/Widgets/New.vala:560 src/Dialogs/Preferences/Preferences.vala:707
 msgid "Create tutorial project"
-msgstr ""
+msgstr "Stwórz projekt samouczka."
 
 #: src/Widgets/New.vala:579 src/Dialogs/Preferences/Preferences.vala:767
 msgid "Your tutorial project was created"
@@ -463,15 +467,13 @@ msgstr "Zadanie przeniesiono do <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:812
 #: src/Views/Project.vala:1187
-#, fuzzy
 msgid "Open New Window"
-msgstr "Otwórz skrzynkę odbiorczą"
+msgstr "Otwórz Nowe Okno"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
-#, fuzzy
 msgid "Edit Project"
-msgstr "Projekt Todoist"
+msgstr "Edytuj Projekt"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -491,7 +493,7 @@ msgstr "Wyślij e-mailem"
 #: src/Widgets/ProjectRow.vala:570 src/Widgets/ItemRow.vala:1523
 #: src/Widgets/SectionRow.vala:890
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:578 src/Widgets/ProjectRow.vala:612
@@ -549,19 +551,19 @@ msgstr ""
 
 #: src/Widgets/NewItem.vala:506 src/Dialogs/QuickFind.vala:101
 msgid "Priority 1"
-msgstr ""
+msgstr "Priorytet 1"
 
 #: src/Widgets/NewItem.vala:507 src/Dialogs/QuickFind.vala:109
 msgid "Priority 2"
-msgstr ""
+msgstr "Priorytet 2"
 
 #: src/Widgets/NewItem.vala:508 src/Dialogs/QuickFind.vala:117
 msgid "Priority 3"
-msgstr ""
+msgstr "Priorytet 3"
 
 #: src/Widgets/NewItem.vala:509 src/Dialogs/QuickFind.vala:125
 msgid "Priority 4"
-msgstr ""
+msgstr "Priorytet 4"
 
 #: src/Widgets/NewItem.vala:633 src/Widgets/ItemRow.vala:1504
 #: src/Widgets/DueButton.vala:230 src/Views/Today.vala:937
@@ -789,20 +791,19 @@ msgstr "Zadanie dodane ze schowka"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Nie udało się zduplikować zadania. Spróbuj ponownie."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Nie udało się dodać zadania z schowka. Spróbuj ponownie."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Usuń projekt"
+msgstr "Przekonwertowany projekt"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Nie udało się przekonwertować projektu. Spróbuj ponownie."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
