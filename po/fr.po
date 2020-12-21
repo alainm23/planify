@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-10-12 13:14-0500\n"
-"PO-Revision-Date: 2020-10-19 11:39+0000\n"
-"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"PO-Revision-Date: 2020-11-03 10:26+0000\n"
+"Last-Translator: Simon Arys <arys.simon@outlook.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -18,60 +18,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3.1-dev\n"
+"X-Generator: Weblate 4.3.2-dev\n"
 
 #: src/Application.vala:116 src/Dialogs/Preferences/Preferences.vala:781
 msgid "Are you sure you want to reset all?"
 msgstr "Êtes-vous sûr de vouloir tout réinitialiser ?"
 
 #: src/Application.vala:117
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
 "Supprime toutes les informations stockées sans possibilité de revenir en "
-"arrière."
+"arrière. (o/n): "
 
 #: src/Application.vala:120
 msgid "y"
-msgstr ""
+msgstr "o"
 
 #: src/Application.vala:120
 msgid "yes"
-msgstr ""
+msgstr "oui"
 
 #: src/Application.vala:233
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner %s est arrivé, avec des améliorations visuelles, de nouvelles "
+"fonctionnalités, et autres."
 
 #: src/Application.vala:240
 msgid "New Quick Find button position."
-msgstr ""
+msgstr "Nouvelle position du bouton de recherche rapide."
 
 #: src/Application.vala:241
 msgid "Github #565 - Fixing error when displaying the project name."
 msgstr ""
+"Github #565 - Correction de l'erreur lors de l'affichage du nom du projet."
 
 #: src/Application.vala:242
 msgid "Github #563 - Fixing error when moving a task to the end of the list."
 msgstr ""
+"Github #563 - Correction de l'erreur lors du déplacement d'une tâche à la "
+"fin de la liste."
 
 #: src/Application.vala:243
 msgid ""
 "Github #559 #415 - Enabled click to see full details of a completed task."
 msgstr ""
+"Github #559 #415 - Ajout d'une fonctionnalité permettant de voir les détails "
+"complets d'une tâche terminée."
 
 #: src/Application.vala:244
-#, fuzzy
 msgid "Updated translations."
-msgstr "Traductions:"
+msgstr "Traductions mises à jour."
 
 #: src/Application.vala:246
 msgid "Bug fixes and performance improvement"
-msgstr ""
+msgstr "Correction de bugs et amélioration des performances"
 
 #: src/MainWindow.vala:51
 msgid "Planner"
@@ -235,6 +240,8 @@ msgstr "Ajouter de nouvelles tâches"
 #: src/Utils.vala:904
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Pour ajouter une nouvelle tâche à Planner, cliquez sur + et appuyez sur "
+"Entrée."
 
 #: src/Utils.vala:959
 msgid "Create a new task"
@@ -466,15 +473,13 @@ msgstr "Tâche déplacée vers <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:559 src/Views/Inbox.vala:812
 #: src/Views/Project.vala:1187
-#, fuzzy
 msgid "Open New Window"
-msgstr "Ouvrir la boite de réception"
+msgstr "Ouvrir une nouvelle fenêtre"
 
 #: src/Widgets/ProjectRow.vala:560 src/Views/Inbox.vala:813
 #: src/Views/Project.vala:1188
-#, fuzzy
 msgid "Edit Project"
-msgstr "Ajouter un projet"
+msgstr "Éditer un projet"
 
 #: src/Widgets/ProjectRow.vala:561
 msgid "Move"
@@ -521,15 +526,15 @@ msgstr "Êtes-vous sûr·e de vouloir supprimer <b>%s</b> ?"
 
 #: src/Widgets/NewItem.vala:60
 msgid "1d"
-msgstr ""
+msgstr "1j"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1w"
-msgstr ""
+msgstr "1sem"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1m"
-msgstr ""
+msgstr "1m"
 
 #: src/Widgets/NewItem.vala:121 src/Widgets/ItemRow.vala:232
 #: src/Widgets/AreaRow.vala:122 src/Widgets/CheckRow.vala:64
@@ -572,9 +577,8 @@ msgid "Undated"
 msgstr "Sans date"
 
 #: src/Widgets/NewItem.vala:642 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "Heure :"
+msgstr "Temps"
 
 #: src/Widgets/NewItem.vala:718 src/Widgets/NewItem.vala:909
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -656,12 +660,10 @@ msgid "Date completed"
 msgstr "Date complétée"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "Marquer comme terminé"
+msgstr "Marquer comme inachevé"
 
 #: src/Widgets/ItemCompletedRow.vala:223
-#, fuzzy
 msgid "Delete task"
 msgstr "Supprimer la tâche"
 
@@ -795,20 +797,19 @@ msgstr "Tâche ajoutée depuis le presse-papier"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "La duplication de la tâche a échoué. Réessayez."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "L'ajout de la tâche à partir du presse-papier a échoué. Réessayez."
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "Déplacer le projet"
+msgstr "Projet Converti"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "La conversion du projet a échoué. Réessayez."
 
 #: src/Widgets/AreaRow.vala:650
 msgid "Add project"
@@ -901,7 +902,6 @@ msgid "Startup"
 msgstr "Mise en route"
 
 #: src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
 msgstr "Commencez à travailler localement."
 
@@ -911,18 +911,16 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "Synchronisez avec votre compte Todoist et commencez à travailler."
+msgstr "Synchroniser avec votre compte Todoist."
 
 #: src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Important"
+msgstr "Importer une sauvegarde"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "Importer une sauvegarde exportée de Planner."
 
 #: src/Views/Inbox.vala:90 src/Views/Project.vala:162
 #: src/Views/Project.vala:170
@@ -951,25 +949,24 @@ msgstr "On dirait que tout est organisé."
 
 #: src/Views/Inbox.vala:814 src/Views/Project.vala:1189
 msgid "Sort by date"
-msgstr ""
+msgstr "Trier par date"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:815 src/Views/Today.vala:468
 #: src/Views/Project.vala:1190
 msgid "Sort by priority"
-msgstr ""
+msgstr "Trier par priorité"
 
 #: src/Views/Inbox.vala:816 src/Views/Today.vala:469
 #: src/Views/Project.vala:1191
 msgid "Sort by name"
-msgstr ""
+msgstr "Trier par nom"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:818 src/Views/Today.vala:471
 #: src/Views/Project.vala:1193
-#, fuzzy
 msgid "Utilities"
-msgstr "Priorités"
+msgstr "Fonctionnalités"
 
 #: src/Views/Inbox.vala:829 src/Views/Today.vala:479
 #: src/Views/Project.vala:1204
@@ -978,15 +975,13 @@ msgstr "Afficher les tâches complétées"
 
 #: src/Views/Inbox.vala:965 src/Views/Today.vala:544
 #: src/Views/Project.vala:1340
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Partager en Markdown"
 
 #: src/Views/Inbox.vala:966 src/Views/Today.vala:545
 #: src/Views/Project.vala:1341
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "Masquer les détails"
+msgstr "Masquer les détails des tâches"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -1009,14 +1004,12 @@ msgid "Tap + to add a task for today."
 msgstr "Cliquez sur + pour ajouter une tâche."
 
 #: src/Views/Today.vala:470
-#, fuzzy
 msgid "Sort by project"
-msgstr "Exporter le projet"
+msgstr "Trier par projet"
 
 #: src/Views/Today.vala:590
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "La tâche a été copiée dans le presse-papier."
+msgstr "Aujourd'hui a été copié dans le presse-papier."
 
 #: src/Views/Project.vala:144 src/Views/Project.vala:856
 #, c-format
@@ -1065,9 +1058,8 @@ msgid "Please enter your credentials…"
 msgstr "Veuillez saisir vos identifiants…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "Menu du projet"
+msgstr "Paramètres du projet"
 
 #: src/Dialogs/ProjectSettings.vala:74
 msgid "Deadline:"
@@ -1078,13 +1070,12 @@ msgid "Uploading changes…"
 msgstr "Téléchargement des modifications…"
 
 #: src/Dialogs/ProjectSettings.vala:159
-#, fuzzy
 msgid "Options:"
-msgstr "Options"
+msgstr "Options :"
 
 #: src/Dialogs/ProjectSettings.vala:164
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Convertir vers Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:164 src/Dialogs/ProjectSettings.vala:273
 msgid "Convert"
@@ -1092,22 +1083,20 @@ msgstr "Convertir"
 
 #: src/Dialogs/ProjectSettings.vala:198
 msgid "Direct access:"
-msgstr ""
+msgstr "Accès direct :"
 
 #: src/Dialogs/ProjectSettings.vala:268
-#, fuzzy
 msgid "Convert Project"
-msgstr "Déplacer vers le projet"
+msgstr "Convertir le projet"
 
 #: src/Dialogs/ProjectSettings.vala:269
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "Êtes-vous sûr·e de vouloir supprimer <b>%s</b> ?"
+msgstr "Êtes-vous sûr·e de vouloir convertir <b>%s</b> vers Todoist?"
 
 #: src/Dialogs/ProjectSettings.vala:281
-#, fuzzy
 msgid "Converting project…"
-msgstr "Déplacer le projet"
+msgstr "Conversion du projet…"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:105
@@ -1290,7 +1279,7 @@ msgstr "Zone dangereuse"
 
 #: src/Dialogs/Preferences/Preferences.vala:714
 msgid "Database"
-msgstr ""
+msgstr "Base de données"
 
 #: src/Dialogs/Preferences/Preferences.vala:718
 #: src/Dialogs/Preferences/Preferences.vala:786
@@ -1303,7 +1292,7 @@ msgstr "Réinitialiser"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export Database"
-msgstr ""
+msgstr "Exporter la base de données"
 
 #: src/Dialogs/Preferences/Preferences.vala:719
 msgid "Export"
