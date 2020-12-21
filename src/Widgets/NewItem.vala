@@ -387,7 +387,9 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 submit_button.sensitive = true;
                 main_grid.sensitive = true;
 
-                Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
+                if (error_code != 0) {
+                    Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
+                }
             }
         });
 
@@ -836,9 +838,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 temp_id_mapping = Planner.utils.generate_id ();
                 
                 if (is_todoist == 1) {
-                    // Planner.todoist.add_item (item, index, temp_id_mapping);
                     cancellable = new Cancellable ();
-                    Planner.todoist.add_item_async (item, cancellable, index, temp_id_mapping);
+                    Planner.todoist.add_item (item, cancellable, index, temp_id_mapping);
                 } else {
                     item.id = Planner.utils.generate_id ();
                     if (Planner.database.insert_item (item, index)) {

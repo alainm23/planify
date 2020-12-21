@@ -199,497 +199,478 @@ public class Services.Todoist : GLib.Object {
         });
     }
 
-    public void first_sync (string token, string view) {
+    public async void first_sync (string token, string view) {
         first_sync_started ();
 
-        new Thread<void*> ("first_sync", () => {
-            string url = TODOIST_SYNC_URL;
-            url = url + "?token=" + token;
-            url = url + "&sync_token=" + "*";
-            url = url + "&resource_types=" + "[\"all\"]";
+        string url = TODOIST_SYNC_URL;
+        url = url + "?token=" + token;
+        url = url + "&sync_token=" + "*";
+        url = url + "&resource_types=" + "[\"all\"]";
 
-            var message = new Soup.Message ("POST", url);
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    var parser = new Json.Parser ();
+        var message = new Soup.Message ("POST", url);
 
-                    try {
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+        try {
+            var stream = yield session.send_async (message, new Cancellable ());
+            var parser = new Json.Parser ();
+            yield parser.load_from_stream_async (stream);
 
-                        var node = parser.get_root ().get_object ();
+            var node = parser.get_root ().get_object ();
 
-                        // Create user
-                        var user_object = node.get_object_member ("user");
+            // Create user
+            var user_object = node.get_object_member ("user");
 
-                        Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
-                        Planner.settings.set_string ("todoist-access-token", token);
-                        Planner.settings.set_boolean ("todoist-sync-server", true);
+            Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
+            Planner.settings.set_string ("todoist-access-token", token);
+            Planner.settings.set_boolean ("todoist-sync-server", true);
 
-                        // User
-                        Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-                        Planner.settings.set_string ("todoist-user-image-id",
-                            user_object.get_string_member ("image_id")
-                        );
-                        Planner.settings.set_boolean ("todoist-account", true);
+            // User
+            Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+            Planner.settings.set_string ("todoist-user-image-id",
+                user_object.get_string_member ("image_id")
+            );
+            Planner.settings.set_boolean ("todoist-account", true);
 
-                        if (view == "preferences") {
-                            // Delete Old Inbox Project
-                            Planner.database.delete_project (Planner.settings.get_int64 ("inbox-project"));
-                        }
+            if (view == "preferences") {
+                // Delete Old Inbox Project
+                Planner.database.delete_project (Planner.settings.get_int64 ("inbox-project"));
+            }
 
-                        // Set Inbox Project
-                        Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+            // Set Inbox Project
+            Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
 
 
-                        Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
-                        Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-                        Planner.settings.set_string ("todoist-user-join-date",
-                            user_object.get_string_member ("join_date"));
+            Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
+            Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+            Planner.settings.set_string ("todoist-user-join-date",
+                user_object.get_string_member ("join_date"));
 
-                        Planner.settings.set_string ("todoist-user-avatar",
-                            user_object.get_string_member ("avatar_s640")
-                        );
-                        Planner.settings.set_boolean ("todoist-user-is-premium",
-                            user_object.get_boolean_member ("is_premium")
-                        );
+            Planner.settings.set_string ("todoist-user-avatar",
+                user_object.get_string_member ("avatar_s640")
+            );
+            Planner.settings.set_boolean ("todoist-user-is-premium",
+                user_object.get_boolean_member ("is_premium")
+            );
 
 
-                        // Cretae Default Labels
-                        Planner.utils.create_default_labels ();
+            // Cretae Default Labels
+            Planner.utils.create_default_labels ();
 
-                        // Create projects
-                        unowned Json.Array projects = node.get_array_member ("projects");
-                        foreach (unowned Json.Node item in projects.get_elements ()) {
-                            var object = item.get_object ();
+            // Create projects
+            unowned Json.Array projects = node.get_array_member ("projects");
+            foreach (unowned Json.Node item in projects.get_elements ()) {
+                var object = item.get_object ();
 
-                            var p = new Objects.Project ();
+                var p = new Objects.Project ();
 
-                            p.id = object.get_int_member ("id");
-                            p.name = object.get_string_member ("name");
-                            p.color = (int32) object.get_int_member ("color");
-                            p.is_deleted = (int32) object.get_int_member ("is_deleted");
-                            p.is_archived = (int32) object.get_int_member ("is_archived");
-                            p.is_favorite = (int32) object.get_int_member ("is_favorite");
-                            p.is_todoist = 1;
-                            p.is_sync = 1;
+                p.id = object.get_int_member ("id");
+                p.name = object.get_string_member ("name");
+                p.color = (int32) object.get_int_member ("color");
+                p.is_deleted = (int32) object.get_int_member ("is_deleted");
+                p.is_archived = (int32) object.get_int_member ("is_archived");
+                p.is_favorite = (int32) object.get_int_member ("is_favorite");
+                p.is_todoist = 1;
+                p.is_sync = 1;
 
-                            if (object.get_boolean_member ("team_inbox")) {
-                                p.team_inbox = 1;
-                            } else {
-                                p.team_inbox = 0;
-                            }
-
-                            if (object.get_boolean_member ("inbox_project")) {
-                                p.inbox_project = 1;
-                            } else {
-                                p.inbox_project = 0;
-                            }
-
-                            if (object.get_boolean_member ("shared")) {
-                                p.shared = 1;
-                            } else {
-                                p.shared = 0;
-                            }
-
-                            Planner.database.insert_project (p);
-                        }
-
-                        // Create Sections
-                        unowned Json.Array sections = node.get_array_member ("sections");
-                        foreach (unowned Json.Node item in sections.get_elements ()) {
-                            var object = item.get_object ();
-
-                            var s = new Objects.Section ();
-
-                            s.id = object.get_int_member ("id");
-                            s.project_id = object.get_int_member ("project_id");
-                            s.name = object.get_string_member ("name");
-                            s.date_added = object.get_string_member ("date_added");
-                            s.is_deleted = (int32) object.get_int_member ("is_deleted");
-                            s.is_archived = (int32) object.get_int_member ("is_archived");
-                            s.collapsed = 1;
-                            s.is_todoist = 1;
-
-                            if (object.get_null_member ("date_archived") == false) {
-                                s.date_archived = object.get_string_member ("date_archived");
-                            }
-
-                            if (object.get_null_member ("sync_id") == false) {
-                                s.sync_id = object.get_int_member ("sync_id");
-                            }
-
-                            Planner.database.insert_section (s);
-                        }
-
-                        // Create items
-                        unowned Json.Array items = node.get_array_member ("items");
-                        foreach (unowned Json.Node item in items.get_elements ()) {
-                            var object = item.get_object ();
-
-                            var i = new Objects.Item ();
-
-                            i.id = object.get_int_member ("id");
-                            i.project_id = object.get_int_member ("project_id");
-                            i.user_id = object.get_int_member ("user_id");
-                            i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                            i.content = object.get_string_member ("content");
-                            i.checked = (int32) object.get_int_member ("checked");
-                            i.priority = (int32) object.get_int_member ("priority");
-                            i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                            i.date_added = object.get_string_member ("date_added");
-                            i.is_todoist = 1;
-
-                            if (object.get_null_member ("sync_id") == false) {
-                                i.sync_id = object.get_int_member ("sync_id");
-                            }
-
-                            if (object.get_null_member ("responsible_uid") == false) {
-                                i.responsible_uid = object.get_int_member ("responsible_uid");
-                            }
-
-                            if (object.get_null_member ("section_id") == false) {
-                                i.section_id = object.get_int_member ("section_id");
-                            }
-
-                            if (object.get_null_member ("parent_id") == false) {
-                                i.parent_id = object.get_int_member ("parent_id");
-                            }
-
-                            if (object.get_null_member ("date_completed") == false) {
-                                i.date_completed = object.get_string_member ("date_completed");
-                            }
-
-                            if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
-                                var due_object = object.get_object_member ("due");
-                                var datetime = Planner.utils.get_todoist_datetime (
-                                    due_object.get_string_member ("date")
-                                );
-                                i.due_date = datetime.to_string ();
-
-                                if (object.get_null_member ("timezone") == false) {
-                                    i.due_timezone = due_object.get_string_member ("timezone");
-                                }
-
-                                i.due_string = due_object.get_string_member ("string");
-                                i.due_lang = due_object.get_string_member ("lang");
-                                if (due_object.get_boolean_member ("is_recurring")) {
-                                    i.due_is_recurring = 1;
-                                }
-                            }
-
-                            Planner.database.insert_item (i);
-                        }
-
-                        // Download Profile Image
-                        Planner.utils.download_profile_image (
-                            user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
-                        );
-
-                        // Run Reminder server
-                        Planner.notifications.init_server ();
-
-                        // Run Todoisr Sync server
-                        run_server ();
-
-                        // To do: Create a tutorial project
-                        Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
-
-                        first_sync_finished ();
-                    } catch (Error e) {
-                        debug (e.message);
-                    }
+                if (object.get_boolean_member ("team_inbox")) {
+                    p.team_inbox = 1;
                 } else {
-                    show_message ("Request page fail", @"status code: $(mess.status_code)", "dialog-error");
+                    p.team_inbox = 0;
                 }
-            });
 
-            return null;
-        });
+                if (object.get_boolean_member ("inbox_project")) {
+                    p.inbox_project = 1;
+                } else {
+                    p.inbox_project = 0;
+                }
+
+                if (object.get_boolean_member ("shared")) {
+                    p.shared = 1;
+                } else {
+                    p.shared = 0;
+                }
+
+                Planner.database.insert_project (p);
+            }
+
+            // Create Sections
+            unowned Json.Array sections = node.get_array_member ("sections");
+            foreach (unowned Json.Node item in sections.get_elements ()) {
+                var object = item.get_object ();
+
+                var s = new Objects.Section ();
+
+                s.id = object.get_int_member ("id");
+                s.project_id = object.get_int_member ("project_id");
+                s.name = object.get_string_member ("name");
+                s.date_added = object.get_string_member ("date_added");
+                s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                s.is_archived = (int32) object.get_int_member ("is_archived");
+                s.collapsed = 1;
+                s.is_todoist = 1;
+
+                if (object.get_null_member ("date_archived") == false) {
+                    s.date_archived = object.get_string_member ("date_archived");
+                }
+
+                if (object.get_null_member ("sync_id") == false) {
+                    s.sync_id = object.get_int_member ("sync_id");
+                }
+
+                Planner.database.insert_section (s);
+            }
+
+            // Create items
+            unowned Json.Array items = node.get_array_member ("items");
+            foreach (unowned Json.Node item in items.get_elements ()) {
+                var object = item.get_object ();
+
+                var i = new Objects.Item ();
+
+                i.id = object.get_int_member ("id");
+                i.project_id = object.get_int_member ("project_id");
+                i.user_id = object.get_int_member ("user_id");
+                i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                i.content = object.get_string_member ("content");
+                i.checked = (int32) object.get_int_member ("checked");
+                i.priority = (int32) object.get_int_member ("priority");
+                i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                i.date_added = object.get_string_member ("date_added");
+                i.is_todoist = 1;
+
+                if (object.get_null_member ("sync_id") == false) {
+                    i.sync_id = object.get_int_member ("sync_id");
+                }
+
+                if (object.get_null_member ("responsible_uid") == false) {
+                    i.responsible_uid = object.get_int_member ("responsible_uid");
+                }
+
+                if (object.get_null_member ("section_id") == false) {
+                    i.section_id = object.get_int_member ("section_id");
+                }
+
+                if (object.get_null_member ("parent_id") == false) {
+                    i.parent_id = object.get_int_member ("parent_id");
+                }
+
+                if (object.get_null_member ("date_completed") == false) {
+                    i.date_completed = object.get_string_member ("date_completed");
+                }
+
+                if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                    var due_object = object.get_object_member ("due");
+                    var datetime = Planner.utils.get_todoist_datetime (
+                        due_object.get_string_member ("date")
+                    );
+                    i.due_date = datetime.to_string ();
+
+                    if (object.get_null_member ("timezone") == false) {
+                        i.due_timezone = due_object.get_string_member ("timezone");
+                    }
+
+                    i.due_string = due_object.get_string_member ("string");
+                    i.due_lang = due_object.get_string_member ("lang");
+                    if (due_object.get_boolean_member ("is_recurring")) {
+                        i.due_is_recurring = 1;
+                    }
+                }
+
+                Planner.database.insert_item (i);
+            }
+
+            // Download Profile Image
+            Planner.utils.download_profile_image (
+                user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
+            );
+
+            // Run Reminder server
+            Planner.notifications.init_server ();
+
+            // Run Todoisr Sync server
+            run_server ();
+
+            // To do: Create a tutorial project
+            Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
+
+            first_sync_finished ();
+        } catch (Error e) {
+            show_message ("Request page fail", @"status code: $(message.status_code)", "dialog-error");
+        }
     }
 
     /*
     *   Sync
     */
 
-    public void sync () {
+    public async void sync () {
         sync_started ();
 
-        new Thread<void*> ("todoist_share_project", () => {
-            string url = TODOIST_SYNC_URL;
-            url = url + "?token=" + Planner.settings.get_string ("todoist-access-token");
-            url = url + "&sync_token=" + Planner.settings.get_string ("todoist-sync-token");
-            url = url + "&resource_types=" + "[\"all\"]";
+        string url = TODOIST_SYNC_URL;
+        url = url + "?token=" + Planner.settings.get_string ("todoist-access-token");
+        url = url + "&sync_token=" + Planner.settings.get_string ("todoist-sync-token");
+        url = url + "&resource_types=" + "[\"all\"]";
 
-            var message = new Soup.Message ("POST", url);
+        var message = new Soup.Message ("POST", url);
 
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    var parser = new Json.Parser ();
+        try {
+            var stream = yield session.send_async (message, new Cancellable ());
+            var parser = new Json.Parser ();
+            yield parser.load_from_stream_async (stream);
 
-                    try {
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+            //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+            //      "Planner",
+            //      "Debug",
+            //      "applications-development",
+            //      Gtk.ButtonsType.CLOSE
+            //  );
 
-                        //  var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                        //      "Planner",
-                        //      "Debug",
-                        //      "applications-development",
-                        //      Gtk.ButtonsType.CLOSE
-                        //  );
+            //  message_dialog.show_error_details ((string) mess.response_body.flatten ().data);
 
-                        //  message_dialog.show_error_details ((string) mess.response_body.flatten ().data);
+            //  message_dialog.run ();
+            //  message_dialog.destroy ();
 
-                        //  message_dialog.run ();
-                        //  message_dialog.destroy ();
+            var node = parser.get_root ().get_object ();
+            var sync_token = node.get_string_member ("sync_token");
 
-                        var node = parser.get_root ().get_object ();
-                        var sync_token = node.get_string_member ("sync_token");
+            // Update sync token
+            Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                        // Update sync token
-                        Planner.settings.set_string ("todoist-sync-token", sync_token);
+            // Projects
+            unowned Json.Array projects_array = node.get_array_member ("projects");
+            foreach (unowned Json.Node item in projects_array.get_elements ()) {
+                var object = item.get_object ();
 
-                        // Projects
-                        unowned Json.Array projects_array = node.get_array_member ("projects");
-                        foreach (unowned Json.Node item in projects_array.get_elements ()) {
-                            var object = item.get_object ();
+                if (Planner.database.project_exists (object.get_int_member ("id"))) {
+                    if (object.get_int_member ("is_deleted") == 1) {
+                        Planner.database.delete_project (object.get_int_member ("id"));
+                    } else {
+                        var project = Planner.database.get_project_by_id (object.get_int_member ("id"));
 
-                            if (Planner.database.project_exists (object.get_int_member ("id"))) {
-                                if (object.get_int_member ("is_deleted") == 1) {
-                                    Planner.database.delete_project (object.get_int_member ("id"));
-                                } else {
-                                    var project = Planner.database.get_project_by_id (object.get_int_member ("id"));
+                        project.name = object.get_string_member ("name");
+                        project.color = (int32) object.get_int_member ("color");
+                        project.is_favorite = (int32) object.get_int_member ("is_favorite");
 
-                                    project.name = object.get_string_member ("name");
-                                    project.color = (int32) object.get_int_member ("color");
-                                    project.is_favorite = (int32) object.get_int_member ("is_favorite");
-
-                                    if (object.get_null_member ("shared") == false &&
-                                        object.get_boolean_member ("shared")) {
-                                        project.shared = 1;
-                                    } else {
-                                        project.shared = 0;
-                                    }
-
-                                    Planner.database.update_project (project);
-                                }
-                            } else {
-                                var p = new Objects.Project ();
-
-                                p.id = object.get_int_member ("id");
-                                p.name = object.get_string_member ("name");
-                                p.color = (int32) object.get_int_member ("color");
-                                p.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                p.is_archived = (int32) object.get_int_member ("is_archived");
-                                p.is_favorite = (int32) object.get_int_member ("is_favorite");
-                                p.is_todoist = 1;
-                                p.is_sync = 1;
-
-                                if (object.get_boolean_member ("team_inbox")) {
-                                    p.team_inbox = 1;
-                                } else {
-                                    p.team_inbox = 0;
-                                }
-
-                                if (object.get_boolean_member ("inbox_project")) {
-                                    p.inbox_project = 1;
-                                } else {
-                                    p.inbox_project = 0;
-                                }
-
-                                if (object.get_boolean_member ("shared")) {
-                                    p.shared = 1;
-                                } else {
-                                    p.shared = 0;
-                                }
-
-                                Planner.database.insert_project (p);
-                            }
+                        if (object.get_null_member ("shared") == false &&
+                            object.get_boolean_member ("shared")) {
+                            project.shared = 1;
+                        } else {
+                            project.shared = 0;
                         }
 
-                        // Sections
-                        unowned Json.Array sections_array = node.get_array_member ("sections");
-                        foreach (unowned Json.Node item in sections_array.get_elements ()) {
-                            var object = item.get_object ();
-
-                            if (Planner.database.section_exists (object.get_int_member ("id"))) {
-                                var section = Planner.database.get_section_by_id (object.get_int_member ("id"));
-
-                                if (object.get_boolean_member ("is_deleted") == true) {
-                                    Planner.database.delete_section (section);
-                                } else {
-                                    if (object.get_int_member ("project_id") != section.project_id) {
-                                        Planner.database.move_section (section, object.get_int_member ("project_id"));
-                                    }
-
-                                    section.name = object.get_string_member ("name");
-
-                                    Planner.database.update_section (section);
-                                }
-                            } else {
-                                var s = new Objects.Section ();
-
-                                s.id = object.get_int_member ("id");
-                                s.project_id = object.get_int_member ("project_id");
-                                s.name = object.get_string_member ("name");
-                                s.date_added = object.get_string_member ("date_added");
-                                s.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                s.is_archived = (int32) object.get_int_member ("is_archived");
-                                s.collapsed = 1;
-                                s.is_todoist = 1;
-
-                                if (object.get_null_member ("date_archived") == false) {
-                                    s.date_archived = object.get_string_member ("date_archived");
-                                }
-
-                                if (object.get_null_member ("sync_id") == false) {
-                                    s.sync_id = object.get_int_member ("sync_id");
-                                }
-
-                                Planner.database.insert_section (s);
-                            }
-                        }
-
-                        // Items
-                        unowned Json.Array items = node.get_array_member ("items");
-                        foreach (unowned Json.Node item in items.get_elements ()) {
-                            var object = item.get_object ();
-
-                            if (Planner.database.item_exists (object.get_int_member ("id"))) {
-                                var i = Planner.database.get_item_by_id (object.get_int_member ("id"));
-
-                                if (object.get_boolean_member ("is_deleted") == true) {
-                                    Planner.database.delete_item (i);
-                                } else {
-                                    if ((int32) object.get_int_member ("checked") != i.checked) {
-                                        i.checked = (int32) object.get_int_member ("checked");
-                                        if ((int32) object.get_int_member ("checked") == 0) {
-                                            i.date_completed = "";
-                                        } else {
-                                            i.date_completed = new GLib.DateTime.from_iso8601 (object.get_string_member ("date_completed"), new GLib.TimeZone.local ()).to_string ();
-                                        }
-                                        
-                                        Planner.database.update_item_completed (i);
-                                    }
-
-                                    // Update data
-                                    i.content = object.get_string_member ("content");
-                                    i.is_todoist = 1;
-                                    i.priority = (int32) object.get_int_member ("priority");
-                                    i.checked = (int32) object.get_int_member ("checked");
-                                    Planner.database.update_item (i);
-
-                                    // Update duedate
-                                    string due_date = "";
-                                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
-                                        due_date = Planner.utils.get_todoist_datetime (
-                                            object.get_object_member ("due").get_string_member ("date")
-                                        ).to_string ();
-
-                                        if (object.get_object_member ("due").get_boolean_member ("is_recurring")) {
-                                            i.due_is_recurring = 1;
-                                        } else {
-                                            i.due_is_recurring = 0;
-                                        }
-
-                                        i.due_string = object.get_object_member ("due").get_string_member ("string");
-                                        i.due_lang = object.get_object_member ("due").get_string_member ("lang");
-                                    }
-
-                                    if (due_date != i.due_date) {
-                                        bool new_date = false;
-                                        if (due_date != "") {
-                                            if (i.due_date == "") {
-                                                new_date = true;
-                                            }
-                                        }
-
-                                        i.due_date = due_date;
-                                        Planner.database.set_due_item (i, new_date);
-                                    }
-
-
-                                    if (object.get_int_member ("project_id") != i.project_id) {
-                                        Planner.database.move_item (i, object.get_int_member ("project_id"));
-                                    }
-
-                                    int64 section_id;
-                                    if (object.get_null_member ("section_id")) {
-                                        section_id = 0;
-                                    } else {
-                                        section_id = object.get_int_member ("section_id");
-                                    }
-
-                                    if (section_id != i.section_id) {
-                                        Planner.database.move_item_section (i, section_id);
-                                    }
-                                }
-                            } else {
-                                var i = new Objects.Item ();
-
-                                i.id = object.get_int_member ("id");
-                                i.project_id = object.get_int_member ("project_id");
-                                i.user_id = object.get_int_member ("user_id");
-                                i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
-                                i.content = object.get_string_member ("content");
-                                i.checked = (int32) object.get_int_member ("checked");
-                                i.priority = (int32) object.get_int_member ("priority");
-                                i.is_deleted = (int32) object.get_int_member ("is_deleted");
-                                i.date_added = object.get_string_member ("date_added");
-                                i.is_todoist = 1;
-
-                                if (object.get_null_member ("sync_id") == false) {
-                                    i.sync_id = object.get_int_member ("sync_id");
-                                }
-
-                                if (object.get_null_member ("responsible_uid") == false) {
-                                    i.responsible_uid = object.get_int_member ("responsible_uid");
-                                }
-
-                                if (object.get_null_member ("section_id") == false) {
-                                    i.section_id = object.get_int_member ("section_id");
-                                }
-
-                                if (object.get_null_member ("parent_id") == false) {
-                                    i.parent_id = object.get_int_member ("parent_id");
-                                }
-
-                                if (object.get_null_member ("date_completed") == false) {
-                                    i.date_completed = object.get_string_member ("date_completed");
-                                }
-
-                                if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
-                                    var due_object = object.get_object_member ("due");
-                                    var datetime = Planner.utils.get_todoist_datetime (
-                                        due_object.get_string_member ("date")
-                                    );
-                                    i.due_date = datetime.to_string ();
-
-                                    if (object.get_null_member ("timezone") == false) {
-                                        i.due_timezone = due_object.get_string_member ("timezone");
-                                    }
-
-                                    i.due_string = due_object.get_string_member ("string");
-                                    i.due_lang = due_object.get_string_member ("lang");
-                                    if (due_object.get_boolean_member ("is_recurring")) {
-                                        i.due_is_recurring = 1;
-                                    }
-                                }
-
-                                Planner.database.insert_item (i);
-                            }
-                        }
-
-                        queue ();
-                    } catch (Error e) {
-                        debug (e.message);
-                        sync_finished ();
+                        Planner.database.update_project (project);
                     }
                 } else {
-                    sync_finished ();
-                }
-            });
+                    var p = new Objects.Project ();
 
-            return null;
-        });
+                    p.id = object.get_int_member ("id");
+                    p.name = object.get_string_member ("name");
+                    p.color = (int32) object.get_int_member ("color");
+                    p.is_deleted = (int32) object.get_int_member ("is_deleted");
+                    p.is_archived = (int32) object.get_int_member ("is_archived");
+                    p.is_favorite = (int32) object.get_int_member ("is_favorite");
+                    p.is_todoist = 1;
+                    p.is_sync = 1;
+
+                    if (object.get_boolean_member ("team_inbox")) {
+                        p.team_inbox = 1;
+                    } else {
+                        p.team_inbox = 0;
+                    }
+
+                    if (object.get_boolean_member ("inbox_project")) {
+                        p.inbox_project = 1;
+                    } else {
+                        p.inbox_project = 0;
+                    }
+
+                    if (object.get_boolean_member ("shared")) {
+                        p.shared = 1;
+                    } else {
+                        p.shared = 0;
+                    }
+
+                    Planner.database.insert_project (p);
+                }
+            }
+
+            // Sections
+            unowned Json.Array sections_array = node.get_array_member ("sections");
+            foreach (unowned Json.Node item in sections_array.get_elements ()) {
+                var object = item.get_object ();
+
+                if (Planner.database.section_exists (object.get_int_member ("id"))) {
+                    var section = Planner.database.get_section_by_id (object.get_int_member ("id"));
+
+                    if (object.get_boolean_member ("is_deleted") == true) {
+                        Planner.database.delete_section (section);
+                    } else {
+                        if (object.get_int_member ("project_id") != section.project_id) {
+                            Planner.database.move_section (section, object.get_int_member ("project_id"));
+                        }
+
+                        section.name = object.get_string_member ("name");
+
+                        Planner.database.update_section (section);
+                    }
+                } else {
+                    var s = new Objects.Section ();
+
+                    s.id = object.get_int_member ("id");
+                    s.project_id = object.get_int_member ("project_id");
+                    s.name = object.get_string_member ("name");
+                    s.date_added = object.get_string_member ("date_added");
+                    s.is_deleted = (int32) object.get_int_member ("is_deleted");
+                    s.is_archived = (int32) object.get_int_member ("is_archived");
+                    s.collapsed = 1;
+                    s.is_todoist = 1;
+
+                    if (object.get_null_member ("date_archived") == false) {
+                        s.date_archived = object.get_string_member ("date_archived");
+                    }
+
+                    if (object.get_null_member ("sync_id") == false) {
+                        s.sync_id = object.get_int_member ("sync_id");
+                    }
+
+                    Planner.database.insert_section (s);
+                }
+            }
+
+            // Items
+            unowned Json.Array items = node.get_array_member ("items");
+            foreach (unowned Json.Node item in items.get_elements ()) {
+                var object = item.get_object ();
+
+                if (Planner.database.item_exists (object.get_int_member ("id"))) {
+                    var i = Planner.database.get_item_by_id (object.get_int_member ("id"));
+
+                    if (object.get_boolean_member ("is_deleted") == true) {
+                        Planner.database.delete_item (i);
+                    } else {
+                        if ((int32) object.get_int_member ("checked") != i.checked) {
+                            i.checked = (int32) object.get_int_member ("checked");
+                            if ((int32) object.get_int_member ("checked") == 0) {
+                                i.date_completed = "";
+                            } else {
+                                i.date_completed = new GLib.DateTime.from_iso8601 (object.get_string_member ("date_completed"), new GLib.TimeZone.local ()).to_string ();
+                            }
+                            
+                            Planner.database.update_item_completed (i);
+                        }
+
+                        // Update data
+                        i.content = object.get_string_member ("content");
+                        i.is_todoist = 1;
+                        i.priority = (int32) object.get_int_member ("priority");
+                        i.checked = (int32) object.get_int_member ("checked");
+                        Planner.database.update_item (i);
+
+                        // Update duedate
+                        string due_date = "";
+                        if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                            due_date = Planner.utils.get_todoist_datetime (
+                                object.get_object_member ("due").get_string_member ("date")
+                            ).to_string ();
+
+                            if (object.get_object_member ("due").get_boolean_member ("is_recurring")) {
+                                i.due_is_recurring = 1;
+                            } else {
+                                i.due_is_recurring = 0;
+                            }
+
+                            i.due_string = object.get_object_member ("due").get_string_member ("string");
+                            i.due_lang = object.get_object_member ("due").get_string_member ("lang");
+                        }
+
+                        if (due_date != i.due_date) {
+                            bool new_date = false;
+                            if (due_date != "") {
+                                if (i.due_date == "") {
+                                    new_date = true;
+                                }
+                            }
+
+                            i.due_date = due_date;
+                            Planner.database.set_due_item (i, new_date);
+                        }
+
+
+                        if (object.get_int_member ("project_id") != i.project_id) {
+                            Planner.database.move_item (i, object.get_int_member ("project_id"));
+                        }
+
+                        int64 section_id;
+                        if (object.get_null_member ("section_id")) {
+                            section_id = 0;
+                        } else {
+                            section_id = object.get_int_member ("section_id");
+                        }
+
+                        if (section_id != i.section_id) {
+                            Planner.database.move_item_section (i, section_id);
+                        }
+                    }
+                } else {
+                    var i = new Objects.Item ();
+
+                    i.id = object.get_int_member ("id");
+                    i.project_id = object.get_int_member ("project_id");
+                    i.user_id = object.get_int_member ("user_id");
+                    i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                    i.content = object.get_string_member ("content");
+                    i.checked = (int32) object.get_int_member ("checked");
+                    i.priority = (int32) object.get_int_member ("priority");
+                    i.is_deleted = (int32) object.get_int_member ("is_deleted");
+                    i.date_added = object.get_string_member ("date_added");
+                    i.is_todoist = 1;
+
+                    if (object.get_null_member ("sync_id") == false) {
+                        i.sync_id = object.get_int_member ("sync_id");
+                    }
+
+                    if (object.get_null_member ("responsible_uid") == false) {
+                        i.responsible_uid = object.get_int_member ("responsible_uid");
+                    }
+
+                    if (object.get_null_member ("section_id") == false) {
+                        i.section_id = object.get_int_member ("section_id");
+                    }
+
+                    if (object.get_null_member ("parent_id") == false) {
+                        i.parent_id = object.get_int_member ("parent_id");
+                    }
+
+                    if (object.get_null_member ("date_completed") == false) {
+                        i.date_completed = object.get_string_member ("date_completed");
+                    }
+
+                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                        var due_object = object.get_object_member ("due");
+                        var datetime = Planner.utils.get_todoist_datetime (
+                            due_object.get_string_member ("date")
+                        );
+                        i.due_date = datetime.to_string ();
+
+                        if (object.get_null_member ("timezone") == false) {
+                            i.due_timezone = due_object.get_string_member ("timezone");
+                        }
+
+                        i.due_string = due_object.get_string_member ("string");
+                        i.due_lang = due_object.get_string_member ("lang");
+                        if (due_object.get_boolean_member ("is_recurring")) {
+                            i.due_is_recurring = 1;
+                        }
+                    }
+
+                    Planner.database.insert_item (i);
+                }
+            }
+
+            queue ();
+        } catch (Error e) {
+            sync_finished ();
+            show_message ("Request page fail", @"status code: $(message.status_code)", "dialog-error");
+        }
     }
 
     /*
@@ -1218,83 +1199,72 @@ public class Services.Todoist : GLib.Object {
     *   Projects
     */
 
-    public void add_project (Objects.Project project) {
+    public async void add_project (Objects.Project project, GLib.Cancellable cancellable) {
         project_added_started ();
-        new Thread<void*> ("todoist_add_project", () => {
-            string temp_id = Planner.utils.generate_string ();
-            string uuid = Planner.utils.generate_string ();
 
-            string url = "%s?token=%s&commands=%s".printf (
-                TODOIST_SYNC_URL,
-                Planner.settings.get_string ("todoist-access-token"),
-                get_add_project_json (project, temp_id, uuid)
-            );
-            
-            var message = new Soup.Message ("POST", url);
+        string temp_id = Planner.utils.generate_string ();
+        string uuid = Planner.utils.generate_string ();
 
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    var parser = new Json.Parser ();
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_add_project_json (project, temp_id, uuid)
+        );
+        
+        var message = new Soup.Message ("POST", url);
 
-                    try {
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+        try {
+            var stream = yield session.send_async (message, cancellable);
+            var parser = new Json.Parser ();
+            yield parser.load_from_stream_async (stream);
 
-                        var node = parser.get_root ().get_object ();
+            var node = parser.get_root ().get_object ();
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
 
-                        var sync_status = node.get_object_member ("sync_status");
-                        var uuid_member = sync_status.get_member (uuid);
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+                Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            string sync_token = node.get_string_member ("sync_token");
-                            Planner.settings.set_string ("todoist-sync-token", sync_token);
+                project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
-
-                            if (Planner.database.insert_project (project)) {
-                                project_added_completed ();
-                            }
-                        } else {
-                            project_added_error (
-                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                                sync_status.get_object_member (uuid).get_string_member ("error")
-                            );
-                        }
-                    } catch (Error e) {
-                        project_added_error (
-                            (int32) mess.status_code,
-                            e.message
-                        );
-                    }
-                } else {
-                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
-                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
-                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
-                        (int32) mess.status_code == 503) {
-                        project_added_error (
-                            (int32) mess.status_code,
-                            Planner.utils.get_todoist_error ((int32) mess.status_code)
-                        );
-                    } else {
-                        project.id = Planner.utils.generate_id ();
-
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = project.id;
-                        queue.temp_id = temp_id;
-                        queue.query = "project_add";
-                        queue.args = project.to_json ();
-
-                        if (Planner.database.insert_project (project) &&
-                            Planner.database.insert_queue (queue) &&
-                            Planner.database.insert_CurTempIds (project.id, temp_id, "project")) {
-                            project_added_completed ();
-                        }
-                    }
+                if (Planner.database.insert_project (project)) {
+                    project_added_completed ();
                 }
-            });
+            } else {
+                project_added_error (
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
+            }
+        } catch (Error e) {
+            if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
+                project_added_error (
+                    (int32) message.status_code,
+                    Planner.utils.get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                project_added_error (
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                project.id = Planner.utils.generate_id ();
 
-            return null;
-        });
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = project.id;
+                queue.temp_id = temp_id;
+                queue.query = "project_add";
+                queue.args = project.to_json ();
+
+                if (Planner.database.insert_project (project) &&
+                    Planner.database.insert_queue (queue) &&
+                    Planner.database.insert_CurTempIds (project.id, temp_id, "project")) {
+                    project_added_completed ();
+                }
+            }
+        }
     }
 
     public string get_add_project_json (Objects.Project project, string temp_id, string uuid) {
@@ -1526,85 +1496,75 @@ public class Services.Todoist : GLib.Object {
         Sections
     */
 
-    public void add_section (Objects.Section section, int64 temp_id_mapping) {
+    public async void add_section (Objects.Section section, GLib.Cancellable cancellable, int64 temp_id_mapping) {
         section_added_started (temp_id_mapping);
-        new Thread<void*> ("todoist_add_section", () => {
-            string temp_id = Planner.utils.generate_string ();
-            string uuid = Planner.utils.generate_string ();
 
-            string url = "%s?token=%s&commands=%s".printf (
-                TODOIST_SYNC_URL,
-                Planner.settings.get_string ("todoist-access-token"),
-                get_add_section_json (section, temp_id, uuid)
-            );
+        string temp_id = Planner.utils.generate_string ();
+        string uuid = Planner.utils.generate_string ();
 
-            var message = new Soup.Message ("POST", url);
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_add_section_json (section, temp_id, uuid)
+        );
 
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    try {
-                        var parser = new Json.Parser ();
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+        var message = new Soup.Message ("POST", url);
 
-                        var node = parser.get_root ().get_object ();
+        try {
+            var stream = yield session.send_async (message, cancellable);
+            var parser = new Json.Parser ();
+            yield parser.load_from_stream_async (stream);
 
-                        var sync_status = node.get_object_member ("sync_status");
-                        var uuid_member = sync_status.get_member (uuid);
+            var node = parser.get_root ().get_object ();
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
 
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            string sync_token = node.get_string_member ("sync_token");
-                            Planner.settings.set_string ("todoist-sync-token", sync_token);
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+                Planner.settings.set_string ("todoist-sync-token", sync_token);
 
-                            section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+                section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                            if (Planner.database.insert_section (section)) {
-                                section_added_completed (temp_id_mapping);
-                            }
-                        } else {
-                            section_added_error (
-                                temp_id_mapping,
-                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                                sync_status.get_object_member (uuid).get_string_member ("error")
-                            );
-                        }
-                    } catch (Error e) {
-                        section_added_error (
-                            temp_id_mapping,
-                            (int32) mess.status_code,
-                            e.message
-                        );
-                    }
-                } else {
-                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
-                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
-                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
-                        (int32) mess.status_code == 503) {
-                        section_added_error (
-                            temp_id_mapping,
-                            (int32) mess.status_code,
-                            Planner.utils.get_todoist_error ((int32) mess.status_code)
-                        );
-                    } else {
-                        section.id = Planner.utils.generate_id ();
-
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = section.id;
-                        queue.temp_id = temp_id;
-                        queue.query = "section_add";
-                        queue.args = section.to_json ();
-
-                        if (Planner.database.insert_section (section) &&
-                            Planner.database.insert_queue (queue) &&
-                            Planner.database.insert_CurTempIds (section.id, temp_id, "section")) {
-                            section_added_completed (temp_id_mapping);
-                        }
-                    }
+                if (Planner.database.insert_section (section)) {
+                    section_added_completed (temp_id_mapping);
                 }
-            });
+            } else {
+                section_added_error (
+                    temp_id_mapping,
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
+            }
+        } catch (Error e) {
+            if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
+                section_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    Planner.utils.get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                section_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                section.id = Planner.utils.generate_id ();
 
-            return null;
-        });
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = section.id;
+                queue.temp_id = temp_id;
+                queue.query = "section_add";
+                queue.args = section.to_json ();
+
+                if (Planner.database.insert_section (section) &&
+                    Planner.database.insert_queue (queue) &&
+                    Planner.database.insert_CurTempIds (section.id, temp_id, "section")) {
+                    section_added_completed (temp_id_mapping);
+                }
+            }
+        }
     }
 
     public string get_add_section_json (Objects.Section section, string temp_id, string uuid) {
@@ -1968,88 +1928,7 @@ public class Services.Todoist : GLib.Object {
         Items
     */
 
-    public void add_item (Objects.Item item, int index, int64 temp_id_mapping) {
-        item_added_started (temp_id_mapping);
-        new Thread<void*> ("todoist_add_project", () => {
-            string temp_id = Planner.utils.generate_string ();
-            string uuid = Planner.utils.generate_string ();
-
-            string url = "%s?token=%s&commands=%s".printf (
-                TODOIST_SYNC_URL,
-                Planner.settings.get_string ("todoist-access-token"),
-                get_add_item_json (item, temp_id, uuid)
-            );
-
-            var message = new Soup.Message ("POST", url);
-
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    try {
-                        var parser = new Json.Parser ();
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
-
-                        var node = parser.get_root ().get_object ();
-
-                        var sync_status = node.get_object_member ("sync_status");
-                        var uuid_member = sync_status.get_member (uuid);
-
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            string sync_token = node.get_string_member ("sync_token");
-                            Planner.settings.set_string ("todoist-sync-token", sync_token);
-
-                            item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
-
-                            if (Planner.database.insert_item (item, index)) {
-                                item_added_completed (temp_id_mapping);
-                            }
-                        } else {
-                            item_added_error (
-                                temp_id_mapping,
-                                (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                                sync_status.get_object_member (uuid).get_string_member ("error")
-                            );
-                        }
-                    } catch (Error e) {
-                        item_added_error (
-                            temp_id_mapping,
-                            (int32) mess.status_code,
-                            e.message
-                        );
-                    }
-                } else {
-                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
-                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
-                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
-                        (int32) mess.status_code == 503) {
-                        item_added_error (
-                            temp_id_mapping,
-                            (int32) mess.status_code,
-                            Planner.utils.get_todoist_error ((int32) mess.status_code)
-                        );
-                    } else {
-                        item.id = temp_id_mapping;
-
-                        var queue = new Objects.Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = item.id;
-                        queue.temp_id = temp_id;
-                        queue.query = "item_add";
-                        queue.args = item.to_json ();
-
-                        if (Planner.database.insert_item (item, index) &&
-                            Planner.database.insert_queue (queue) &&
-                            Planner.database.insert_CurTempIds (item.id, temp_id, "item")) {
-                            item_added_completed (temp_id_mapping);
-                        }
-                    }
-                }
-            });
-
-            return null;
-        });
-    }
-
-    public async void add_item_async (Objects.Item item, GLib.Cancellable cancellable, int index, int64 temp_id_mapping) {
+    public async void add_item (Objects.Item item, GLib.Cancellable cancellable, int index, int64 temp_id_mapping) {
         item_added_started (temp_id_mapping);
 
         string temp_id = Planner.utils.generate_string ();

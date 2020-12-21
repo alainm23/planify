@@ -156,7 +156,8 @@ public class Widgets.NewCheck : Gtk.EventBox {
                     name_entry.text = "";
                 }
             } else {
-                Planner.todoist.add_item (item, 0, temp_id_mapping);
+                var cancellable = new Cancellable ();
+                Planner.todoist.add_item (item, cancellable, 0, temp_id_mapping);
             }
         }
     }

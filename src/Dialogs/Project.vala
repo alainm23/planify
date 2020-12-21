@@ -937,10 +937,11 @@ public class Dialogs.Project : Gtk.Dialog {
                 section_name_entry.text = "";
                 new_section_popover.popdown ();
             } else {
+                var cancellable = new Cancellable ();
                 temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Planner.todoist.add_section (section, temp_id_mapping);
+                Planner.todoist.add_section (section, cancellable, temp_id_mapping);
             }
         }
     }

@@ -28,6 +28,7 @@ public class Widgets.New : Gtk.Revealer {
     private Gtk.Image source_image;
     private Gtk.Popover source_popover = null;
     private Gtk.Popover help_popover = null;
+    private GLib.Cancellable cancellable = null;
 
     public Gtk.Stack stack;
 
@@ -51,6 +52,10 @@ public class Widgets.New : Gtk.Revealer {
             reveal_child = value;
 
             if (value) {
+                if (cancellable != null) {
+                    cancellable = null;
+                }
+
                 build_area_liststore (Planner.settings.get_int64 ("area-selected"));
             }
         }
@@ -258,6 +263,7 @@ public class Widgets.New : Gtk.Revealer {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
 
+            Planner.notifications.send_notification (_("Project %s was created successfully".printf ("<b>" + Planner.utils.get_dialog_text (name_entry.text) + "</b>")));
             cancel ();
         });
 
@@ -265,8 +271,9 @@ public class Widgets.New : Gtk.Revealer {
             submit_button.sensitive = true;
             submit_stack.visible_child_name = "label";
 
-            print ("error_code: %i\n".printf (error_code));
-            print ("error_message: %s\n".printf (error_message));
+            if (error_code != 0) {
+                Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
+            }
         });
 
         source_button.toggled.connect (() => {
@@ -594,6 +601,10 @@ public class Widgets.New : Gtk.Revealer {
     }
 
     private void cancel () {
+        if (cancellable != null) {
+            cancellable.cancel ();
+        }
+
         reveal_child = false;
 
         name_entry.text = "";
@@ -623,8 +634,9 @@ public class Widgets.New : Gtk.Revealer {
                     cancel ();
                 }
             } else {
+                cancellable = new Cancellable ();
                 project.is_todoist = 1;
-                Planner.todoist.add_project (project);
+                Planner.todoist.add_project (project, cancellable);
             }
         }
     }

@@ -324,7 +324,7 @@ public class Services.Database : GLib.Object {
                 date_updated        TEXT,
                 is_todoist          INTEGER,
                 day_order           INTEGER,
-                collapsed           INTEGER,
+                collapsed           INTEGER
             );
         """;
 

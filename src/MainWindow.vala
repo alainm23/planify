@@ -789,6 +789,7 @@ public class MainWindow : Gtk.Window {
         item.section_id = 0;
 
         var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
+        var cancellable = new Cancellable ();
 
         if (stack.visible_child_name == "inbox-view") {
             item.project_id = inbox_project.id;
@@ -796,7 +797,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -812,7 +813,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -828,7 +829,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -844,7 +845,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, -1, temp_id_mapping);
+                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")

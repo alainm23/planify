@@ -174,10 +174,11 @@ public class Widgets.NewSection : Gtk.Revealer {
 
                 reveal = false;
             } else {
+                var cancellable = new Cancellable ();
                 temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Planner.todoist.add_section (section, temp_id_mapping);
+                Planner.todoist.add_section (section, cancellable, temp_id_mapping);
             }
         }
     }
