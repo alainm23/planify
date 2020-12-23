@@ -85,13 +85,12 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
         delete_revealer.add (delete_button);
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        box.get_style_context ().add_class ("transition");
         box.hexpand = true;
         box.margin_top = 3;
         box.margin_bottom = 2;
         box.pack_start (checked_button, false, false, 0);
         box.pack_start (content_stack, false, true, 9);
-        box.pack_end (delete_revealer, false, true, 0);
+        box.pack_end (delete_revealer, false, false, 0);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         drag_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);

@@ -669,6 +669,11 @@ public class Utils : GLib.Object {
             }
         }
 
+        if (is_overdue (returned) || is_today (returned)) {
+            item.due_date = returned.to_string ();
+            return get_next_recurring_due_date (item, +1);
+        }
+
         return returned;
     }
 
