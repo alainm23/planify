@@ -113,7 +113,6 @@ planner_files = files(
 
     'Objects/Project.vala',
     'Objects/Item.vala',
-    'Objects/Area.vala',
     'Objects/Section.vala',
     'Objects/Label.vala',
     'Objects/Collaborator.vala',

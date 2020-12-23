@@ -298,12 +298,12 @@ public class Widgets.New : Gtk.Revealer {
 
         area_combobox.changed.connect (() => {
             if (area_change_activated) {
-                var area = get_area_selected ();
-                if (area == null) {
-                    Planner.settings.set_int64 ("area-selected", 0);
-                } else {
-                    Planner.settings.set_int64 ("area-selected", area.id);
-                }
+                // var area = get_area_selected ();
+                //  if (area == null) {
+                //      Planner.settings.set_int64 ("area-selected", 0);
+                //  } else {
+                //      Planner.settings.set_int64 ("area-selected", area.id);
+                //  }
             }
         });
 
@@ -441,17 +441,17 @@ public class Widgets.New : Gtk.Revealer {
         area_combobox.add_attribute (text_cell, "text", 1);
     }
 
-    public Objects.Area? get_area_selected () {
-        Gtk.TreeIter iter;
-        if (!area_combobox.get_active_iter (out iter)) {
-            return null;
-        }
+    //  public Objects.Area? get_area_selected () {
+    //      Gtk.TreeIter iter;
+    //      if (!area_combobox.get_active_iter (out iter)) {
+    //          return null;
+    //      }
 
-        Value item;
-        area_liststore.get_value (iter, 0, out item);
+    //      Value item;
+    //      area_liststore.get_value (iter, 0, out item);
 
-        return (Objects.Area) item;
-    }
+    //      return (Objects.Area) item;
+    //  }
 
     public int? get_color_selected () {
         Gtk.TreeIter iter;
@@ -480,18 +480,18 @@ public class Widgets.New : Gtk.Revealer {
 
     private void create_project () {
         if (name_entry.text != "") {
-            var area = get_area_selected ();
+            // var area = get_area_selected ();
 
             var project = new Objects.Project ();
             project.name = name_entry.text;
             project.color = get_color_selected ();
             project.note = description_textview.buffer.text;
 
-            if (area == null) {
-                project.area_id = 0;
-            } else {
-                project.area_id = area.id;
-            }
+            //  if (area == null) {
+            //      project.area_id = 0;
+            //  } else {
+            //      project.area_id = area.id;
+            //  }
 
             if (source_image.icon_name == "planner-offline-symbolic") {
                 project.id = Planner.utils.generate_id ();

@@ -24,10 +24,7 @@ public class Services.Database : GLib.Object {
     private string db_path;
 
     public signal void update_all_bage ();
-
-    public signal void area_added (Objects.Area area);
-    public signal void area_deleted (Objects.Area area);
-
+    
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (int64 id);
@@ -248,19 +245,6 @@ public class Services.Database : GLib.Object {
             stderr.printf ("Can't open database: %d, %s\n", rc, db.errmsg ());
             Gtk.main_quit ();
         }
-
-        sql = """
-            CREATE TABLE IF NOT EXISTS Areas (
-                id              INTEGER PRIMARY KEY,
-                name            TEXT,
-                date_added      TEXT,
-                collapsed       INTEGER,
-                item_order      INTEGER
-            );
-        """;
-
-        rc = db.exec (sql, null, null);
-        debug ("Table Areas created");
 
         sql = """
             CREATE TABLE IF NOT EXISTS Projects (
@@ -962,168 +946,6 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    /*
-        Areas
-    */
-
-    public bool area_exists (int64 id) {
-        bool returned = false;
-        Sqlite.Statement stmt;
-
-        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Areas WHERE id = ?", -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            returned = stmt.column_int (0) > 0;
-        }
-
-        stmt.reset ();
-        return returned;
-    }
-
-    public bool insert_area (Objects.Area area) {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            SELECT COUNT (*) FROM Areas;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.ROW) {
-            area.item_order = stmt.column_int (0);
-        }
-
-        stmt.reset ();
-
-        sql = """
-            INSERT OR IGNORE INTO Areas (id, name, date_added, collapsed, item_order)
-            VALUES (?, ?, ?, ?, ?);
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, area.id);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (2, area.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (3, area.date_added);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, area.collapsed);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, area.item_order);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            stmt.reset ();
-            return false;
-        } else {
-            area_added (area);
-            stmt.reset ();
-            return true;
-        }
-    }
-
-    public Gee.ArrayList<Objects.Area?> get_all_areas () {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            SELECT id, name, date_added, collapsed, item_order FROM Areas ORDER BY item_order;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        var all = new Gee.ArrayList<Objects.Area?> ();
-
-        while ((res = stmt.step ()) == Sqlite.ROW) {
-            var a = new Objects.Area ();
-
-            a.id = stmt.column_int64 (0);
-            a.name = stmt.column_text (1);
-            a.date_added = stmt.column_text (2);
-            a.collapsed = stmt.column_int (3);
-            a.item_order = stmt.column_int (4);
-
-            all.add (a);
-        }
-
-        stmt.reset ();
-        return all;
-    }
-
-    public bool update_area (Objects.Area area) {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            UPDATE Areas SET name = ?, collapsed = ?, item_order = ? WHERE id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_text (1, area.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (2, area.collapsed);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, area.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (4, area.id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.DONE) {
-            stmt.reset ();
-            return true;
-        } else {
-            stmt.reset ();
-            return false;
-        }
-    }
-
-    public bool delete_area (Objects.Area area) {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            DELETE FROM Areas WHERE id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (1, area.id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            return false;
-        }
-
-        area_deleted (area);
-        stmt.reset ();
-        return true;
-    }
-
     public Objects.Project create_inbox_project () {
         Sqlite.Statement stmt;
         string sql;
@@ -1160,31 +982,6 @@ public class Services.Database : GLib.Object {
 
         stmt.reset ();
         return project;
-    }
-
-    public void update_area_item_order (int64 area_id, int item_order) {
-        Sqlite.Statement stmt;
-        string sql;
-        int res;
-
-        sql = """
-            UPDATE Areas SET item_order = ? WHERE id = ?;
-        """;
-
-        res = db.prepare_v2 (sql, -1, out stmt);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (1, item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int64 (2, area_id);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.DONE) {
-            //updated_playlist (playlist);
-        }
-
-        stmt.reset ();
     }
 
     /*
@@ -2172,38 +1969,54 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite)
-            VALUES (?, ?, ?, ?, ?, ?);
+            SELECT count(*) FROM Labels WHERE name = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, label.id);
+        res = stmt.bind_text (1, label.name);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_text (2, label.name);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (3, label.color);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (4, label.item_order);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (5, label.is_deleted);
-        assert (res == Sqlite.OK);
-
-        res = stmt.bind_int (6, label.is_favorite);
-        assert (res == Sqlite.OK);
-
-        if (stmt.step () == Sqlite.DONE) {
-            label_added (label);
+        if (stmt.step () == Sqlite.ROW && stmt.column_int (0) <= 0) {
             stmt.reset ();
-            return true;
+
+            sql = """
+                INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite)
+                VALUES (?, ?, ?, ?, ?, ?);
+            """;
+
+            res = db.prepare_v2 (sql, -1, out stmt);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int64 (1, label.id);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_text (2, label.name);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (3, label.color);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (4, label.item_order);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (5, label.is_deleted);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (6, label.is_favorite);
+            assert (res == Sqlite.OK);
+
+            if (stmt.step () == Sqlite.DONE) {
+                label_added (label);
+                stmt.reset ();
+                return true;
+            } else {
+                warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+                stmt.reset ();
+                return false;
+            }   
         } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-            stmt.reset ();
             return false;
         }
     }
