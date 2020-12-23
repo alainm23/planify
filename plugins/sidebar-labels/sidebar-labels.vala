@@ -38,7 +38,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         area_image.pixel_size = 16;
 
         var name_label = new Gtk.Label (_("Labels"));
-        name_label.margin_start = 9;
+        name_label.margin_start = 7;
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("pane-area");
         name_label.valign = Gtk.Align.CENTER;
@@ -69,16 +69,16 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         menu_stack.add_named (menu_button, "menu_button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 5;
-        top_box.margin_top = 1;
-        top_box.margin_bottom = 1;
+        top_box.margin_start = 6;
+        top_box.margin_top = 6;
+        top_box.margin_bottom = 3;
         top_box.pack_start (area_image, false, false, 0);
         top_box.pack_start (name_label, false, true, 0);
         top_box.pack_end (menu_stack, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 7;
-        top_eventbox.margin_end = 5;
+        top_eventbox.margin_start = 6;
+        top_eventbox.margin_end = 3;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
         top_eventbox.get_style_context ().add_class ("toogle-box");
@@ -114,17 +114,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         });
 
         get_all_labels ();
-
-        listbox.row_selected.connect ((row) => {
-            if (row != null) {
-                var label = ((Widgets.LabelPaneRow) row).label;
-                pane.label_selected (label);
-                pane.project_listbox.unselect_all ();
-                pane.listbox.unselect_all ();
-                Planner.event_bus.area_unselect_all ();
-            }
-        });
-
+        
         Planner.database.label_added.connect_after ((label) => {
             Idle.add (() => {
                 var row = new Widgets.LabelPaneRow (label);
@@ -160,10 +150,6 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
             var dialog = new Dialogs.Preferences.Preferences ("labels");
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
-        });
-
-        Planner.utils.pane_project_selected.connect (() => {
-            listbox.unselect_all ();
         });
 
         Planner.utils.pane_action_selected.connect (() => {
@@ -212,9 +198,11 @@ public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
     }
 
     construct {
-        margin_start = margin_end = 6;
+        margin_start = 6;
         margin_top = 2;
-        get_style_context ().add_class ("pane-row");
+        margin_end = 3;
+        get_style_context ().add_class ("label-row");
+        get_style_context ().add_class ("transparent");
 
         var color_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
         color_image.valign = Gtk.Align.CENTER;
@@ -224,9 +212,8 @@ public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
 
         var name_label = new Gtk.Label (label.name);
         name_label.halign = Gtk.Align.START;
-        name_label.get_style_context ().add_class ("font-weight-600");
         name_label.valign = Gtk.Align.CENTER;
-        name_label.margin_start = 3;
+        name_label.margin_start = 1;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
         count_label = new Gtk.Label (null);
@@ -243,18 +230,43 @@ public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         main_box.margin = 6;
         main_box.margin_end = 3;
+        main_box.margin_bottom = 5;
+        main_box.margin_top = 5;
         main_box.hexpand = true;
         main_box.pack_start (color_image, false, false, 0);
         main_box.pack_start (name_label, false, true, 0);
         main_box.pack_end (count_revealer, false, true, 0);
 
+        var handle = new Gtk.EventBox ();
+        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
+        handle.hexpand = true;
+        handle.above_child = false;
+        handle.add (main_box);
+
         var main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (main_box);
+        main_revealer.add (handle);
 
         add (main_revealer);
         update_count ();
+
+        handle.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+                Planner.event_bus.pane_selected (PaneType.LABEL, label.id);
+                return false;
+            }
+
+            return false;
+        });
+
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.LABEL && label.id == id) {
+                handle.get_style_context ().add_class ("project-selected");
+            } else {
+                handle.get_style_context ().remove_class ("project-selected");
+            }
+        });
 
         Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {

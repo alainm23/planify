@@ -170,10 +170,6 @@ paned.horizontal > separator {
     padding-top:.2em;
     padding-bottom:.2em;
 }
-    
-.pane-row:selected .pane-item {
-    font-weight: 600;
-}
 
 .pane-area {
     font-weight: 700;
@@ -195,8 +191,31 @@ paned.horizontal > separator {
     background-color: transparent;
 }
 
+
+.action-row {
+    background: transparent;
+    transition: all 250ms ease-in-out;
+}
+
 .action-row:selected image {
     animation: fancy-turn 0.7s ease-in-out;
+}
+
+.label-row {
+    background: transparent;
+    transition: all 250ms ease-in-out;
+}
+
+.pane-row button {
+    background-color: transparent;
+}
+
+.pane-row:selected .pane-item {
+    font-weight: 600;
+}
+
+.pane-row:selected label {
+    font-weight: 600;
 }
 
 .pane-row:selected {
@@ -205,16 +224,28 @@ paned.horizontal > separator {
     border-radius: 6px;
 }
 
-.pane-row button {
+.project-row {
+    transition: all 250ms ease-in-out;
     background-color: transparent;
 }
 
-.project-row {
-    transition: all 250ms ease-in-out;
+.project-row label {
+    color: @pane_text_color;
 }
 
-.project-row:selected:focus image {
+.project-row image {
     color: @pane_text_color;
+}
+
+/* .project-row:selected:focus image {
+    color: @pane_text_color;
+} */
+
+.project-selected {
+    background-color: @pane_selected_color;
+    border-radius: 6px;
+    color: @pane_text_color;
+    font-weight: 600;
 }
 
 .header-row {
@@ -1178,6 +1209,10 @@ paned.horizontal > separator {
 .edit-button {
     background: transparent;
     padding: 0px;
+}
+
+.transparent {
+    background: transparent;
 }
 
 @keyframes toggle-animation {

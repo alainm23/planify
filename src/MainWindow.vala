@@ -209,17 +209,15 @@ public class MainWindow : Gtk.Window {
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
-                        go_project (project_id);
+                        Planner.event_bus.pane_selected (PaneType.PROJECT, project_id);
                     } else {
-                        go_view (PaneView.INBOX);
+                        Planner.event_bus.pane_selected (PaneType.ACTION, 0);
                     }
                 } else {
-                    go_view (Planner.utils.get_paneview_by_enum (
+                    Planner.event_bus.pane_selected (
+                        PaneType.ACTION,
                         Planner.settings.get_enum ("homepage-item")
-                    ));
-                    pane.select_item (Planner.utils.get_paneview_by_enum (
-                        Planner.settings.get_enum ("homepage-item")
-                    ));
+                    );
                 }
 
                 // Run Reminder server
@@ -230,7 +228,6 @@ public class MainWindow : Gtk.Window {
 
                 // Add all projects and areas
                 pane.add_all_projects ();
-                pane.add_all_areas ();
 
                 // Init Progress Server
                 init_badge_count ();
@@ -253,7 +250,10 @@ public class MainWindow : Gtk.Window {
                 Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
 
                 // To do: Create a tutorial project
-                Planner.utils.pane_project_selected (Planner.utils.create_tutorial_project ().id, 0);
+                Planner.event_bus.pane_selected (
+                    PaneType.PROJECT,
+                    Planner.utils.create_tutorial_project ().id
+                );
 
                 // Create Inbox Project
                 var inbox_project = Planner.database.create_inbox_project ();
@@ -274,7 +274,7 @@ public class MainWindow : Gtk.Window {
                 init_progress_controller ();
 
                 // Init Inbox Project
-                go_view (PaneView.INBOX);
+                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
             } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -282,10 +282,6 @@ public class MainWindow : Gtk.Window {
                 var s = new Services.ExportImport ();
                 s.import_backup ();
             }
-        });
-
-        pane.activated.connect ((view) => {
-            go_view (view);
         });
 
         pane.tasklist_selected.connect ((source) => {
@@ -296,12 +292,16 @@ public class MainWindow : Gtk.Window {
             go_label (label.id);
         });
 
-        pane.show_quick_find.connect (show_quick_find);
-
-        Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
-            go_project (project_id);
+        pane.view_selected.connect ((view) => {
+            go_view (Planner.utils.get_paneview_by_enum ((int32) view));
         });
 
+        pane.project_selected.connect ((id) => {
+            go_project (id);
+        });
+
+        pane.show_quick_find.connect (show_quick_find);
+        
         Planner.todoist.first_sync_started.connect (() => {
             stack.visible_child_name = "loading-view";
         });
@@ -311,7 +311,7 @@ public class MainWindow : Gtk.Window {
 
             // Create The New Inbox Project
             inbox_view = null;
-            go_view (PaneView.INBOX);
+            Planner.event_bus.pane_selected (PaneType.ACTION, 0);
 
             // Enable UI
             pane.sensitive_ui = true;
@@ -326,8 +326,7 @@ public class MainWindow : Gtk.Window {
             if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
-
-                pane.select_item (PaneView.INBOX);
+                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
             }
         });
 
@@ -477,6 +476,10 @@ public class MainWindow : Gtk.Window {
     }
 
     public void new_project () {
+        if (pane.visible_tool_widget ()) {
+            pane.set_visible_tool_widget (false);
+        }
+        
         if (pane.new_project.reveal) {
             pane.new_project.reveal = false;
         } else {
@@ -561,7 +564,7 @@ public class MainWindow : Gtk.Window {
 
     public void go_item (int64 item_id) {
         var item = Planner.database.get_item_by_id (item_id);
-        go_project (item.project_id);
+        Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id);
         Planner.utils.highlight_item (item_id);
     }
 
@@ -773,12 +776,16 @@ public class MainWindow : Gtk.Window {
 
     public void go_home () {
         if (Planner.settings.get_boolean ("homepage-project")) {
-            go_project (Planner.settings.get_int64 ("homepage-project-id"));
+            int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
+            if (Planner.database.project_exists (project_id)) {
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project_id);
+            } else {
+                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+            }
         } else {
-            go_view (
-                Planner.utils.get_paneview_by_enum (
-                    Planner.settings.get_enum ("homepage-item")
-                )
+            Planner.event_bus.pane_selected (
+                PaneType.ACTION,
+                Planner.settings.get_enum ("homepage-item")
             );
         }
     }
@@ -797,7 +804,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
+                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -813,7 +820,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
+                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -829,7 +836,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
+                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -845,7 +852,7 @@ public class MainWindow : Gtk.Window {
 
             if (item.is_todoist == 1) {
                 var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
+                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
                 Planner.notifications.send_undo_notification (
                     _("Adding task from clipboard…"),
                     Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
@@ -875,6 +882,8 @@ public class MainWindow : Gtk.Window {
 
         if (pane.visible_new_widget ()) {
             pane.set_visible_new_widget (false);
+        } else if (pane.visible_tool_widget ()) {
+            pane.set_visible_tool_widget (false);
         } else {
             if (stack.visible_child_name == "inbox-view") {
                 //inbox_view.hide_last_item ();

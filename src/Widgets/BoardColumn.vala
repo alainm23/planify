@@ -26,7 +26,6 @@ public class Widgets.BoardColumn : Gtk.EventBox {
     public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
 
     private uint timeout = 0;
-    private uint timeout_id = 0;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -1093,21 +1092,21 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         });
     }
 
-    private void build_defaul_drag_and_drop () {
-        name_stack.drag_data_received.disconnect (on_drag_item_received);
-        name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
+    //  private void build_defaul_drag_and_drop () {
+    //      name_stack.drag_data_received.disconnect (on_drag_item_received);
+    //      name_stack.drag_data_received.disconnect (on_drag_magic_button_received);
 
-        if (section.id != 0) {
-            Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
-            drag_begin.connect (on_drag_begin);
-            drag_data_get.connect (on_drag_data_get);
-            drag_end.connect (clear_indicator);
-        }
+    //      if (section.id != 0) {
+    //          Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
+    //          drag_begin.connect (on_drag_begin);
+    //          drag_data_get.connect (on_drag_data_get);
+    //          drag_end.connect (clear_indicator);
+    //      }
 
-        Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
-        this.drag_motion.connect (on_drag_motion);
-        this.drag_leave.connect (on_drag_leave);
-    }
+    //      Gtk.drag_dest_set (this, Gtk.DestDefaults.MOTION, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
+    //      this.drag_motion.connect (on_drag_motion);
+    //      this.drag_leave.connect (on_drag_leave);
+    //  }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
         Gtk.Allocation alloc;
@@ -1131,45 +1130,45 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         right_motion_revealer.reveal_child = false;
     }
 
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var row = ((Widgets.BoardColumn) widget).main_box;
+    //  private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+    //      var row = ((Widgets.BoardColumn) widget).main_box;
 
-        Gtk.Allocation alloc;
-        row.get_allocation (out alloc);
+    //      Gtk.Allocation alloc;
+    //      row.get_allocation (out alloc);
 
-        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
-        var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (0, 0, 0, 0.5);
-        cr.set_line_width (1);
+    //      var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+    //      var cr = new Cairo.Context (surface);
+    //      cr.set_source_rgba (0, 0, 0, 0.5);
+    //      cr.set_line_width (1);
 
-        cr.move_to (0, 0);
-        cr.line_to (alloc.width, 0);
-        cr.line_to (alloc.width, alloc.height);
-        cr.line_to (0, alloc.height);
-        cr.line_to (0, 0);
-        cr.stroke ();
+    //      cr.move_to (0, 0);
+    //      cr.line_to (alloc.width, 0);
+    //      cr.line_to (alloc.width, alloc.height);
+    //      cr.line_to (0, alloc.height);
+    //      cr.line_to (0, 0);
+    //      cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0);
-        cr.rectangle (0, 0, alloc.width, alloc.height);
-        cr.fill ();
+    //      cr.set_source_rgba (255, 255, 255, 0);
+    //      cr.rectangle (0, 0, alloc.width, alloc.height);
+    //      cr.fill ();
 
-        // row.get_style_context ().add_class ("drag-begin");
-        row.draw (cr);
-        // row.get_style_context ().remove_class ("drag-begin");
+    //      // row.get_style_context ().add_class ("drag-begin");
+    //      row.draw (cr);
+    //      // row.get_style_context ().remove_class ("drag-begin");
 
-        Gtk.drag_set_icon_surface (context, surface);
-        main_revealer.reveal_child = false;
-    }
+    //      Gtk.drag_set_icon_surface (context, surface);
+    //      main_revealer.reveal_child = false;
+    //  }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        uchar[] data = new uchar[(sizeof (Widgets.BoardColumn))];
-        ((Gtk.Widget[])data)[0] = widget;
+    //  private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+    //      Gtk.SelectionData selection_data, uint target_type, uint time) {
+    //      uchar[] data = new uchar[(sizeof (Widgets.BoardColumn))];
+    //      ((Gtk.Widget[])data)[0] = widget;
 
-        selection_data.set (
-            Gdk.Atom.intern_static_string ("SECTIONROW"), 32, data
-        );
-    }
+    //      selection_data.set (
+    //          Gdk.Atom.intern_static_string ("SECTIONROW"), 32, data
+    //      );
+    //  }
 
     public void clear_indicator (Gdk.DragContext context) {
         main_revealer.reveal_child = true;

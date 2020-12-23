@@ -47,7 +47,6 @@ public class Widgets.WhatsNew : Gtk.Dialog {
             deletable: false,
             resizable: false,
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true
         );
     }

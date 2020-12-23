@@ -21,6 +21,7 @@
 
 public class Objects.Project : GLib.Object {
     public int64 area_id { get; set; default = 0; }
+    public int64 parent_id { get; set; default = 0; }
     public int64 id { get; set; default = 0; }
     public string name { get; set; default = ""; }
     public string note { get; set; default = ""; }
@@ -39,6 +40,7 @@ public class Objects.Project : GLib.Object {
     public int is_kanban { get; set; default = 0; }
     public int show_completed { get; set; default = 0; }
     public int sort_order { get; set; default = 0; }
+    public int collapsed { get; set; default = 0; }
 
     private uint timeout_id = 0;
 

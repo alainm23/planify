@@ -68,8 +68,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
     }
 
     construct {
-        margin_start = margin_end = 6;
-        get_style_context ().add_class ("pane-row");
+        margin_start = 6;
         get_style_context ().add_class ("action-row");
 
         icon = new Gtk.Image ();
@@ -106,6 +105,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         count_label.use_markup = true;
         count_label.opacity = 0.7;
         count_label.width_chars = 3;
+        count_label.margin_end = 3;
 
         count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
@@ -114,6 +114,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         main_box.hexpand = true;
         main_box.margin = 3;
+        main_box.margin_top = 2;
+        main_box.margin_bottom = 2;
         main_box.pack_start (icon, false, false, 0);
         main_box.pack_start (title_name, false, false, 6);
         main_box.pack_end (count_revealer, false, false, 0);
@@ -189,6 +191,27 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         }
 
         check_count_update ();
+
+        handle.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+                Planner.event_bus.pane_selected (
+                    PaneType.ACTION,
+                    (int64) Planner.utils.get_int_by_paneview (view)
+                );
+
+                return false;
+            }
+
+            return false;
+        });
+
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.ACTION && (int64) Planner.utils.get_int_by_paneview (view) == id) {
+                handle.get_style_context ().add_class ("project-selected");
+            } else {
+                handle.get_style_context ().remove_class ("project-selected");
+            }
+        });
     }
 
     public string get_view_string () {

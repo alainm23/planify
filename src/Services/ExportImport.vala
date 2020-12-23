@@ -86,38 +86,14 @@ public class Services.ExportImport : Object {
                     builder.end_object ();
                 }
             builder.end_array ();
-
-            // Areas
-            builder.set_member_name ("areas");
-            builder.begin_array ();
-                foreach (var area in Planner.database.get_all_areas ()) {
-                    builder.begin_object ();
-                    builder.set_member_name ("id");
-                    builder.add_int_value (area.id);
-
-                    builder.set_member_name ("name");
-                    builder.add_string_value (area.name);
-
-                    builder.set_member_name ("date_added");
-                    builder.add_string_value (area.date_added);
-
-                    builder.set_member_name ("collapsed");
-                    builder.add_int_value (area.collapsed);
-
-                    builder.set_member_name ("item_order");
-                    builder.add_int_value (area.item_order);
-
-                    builder.end_object ();
-                }
-            builder.end_array ();
             
             // Projects
             builder.set_member_name ("projects");
             builder.begin_array ();
                 foreach (var project in Planner.database.get_all_projects ()) {
                     builder.begin_object ();
-                    builder.set_member_name ("area_id");
-                    builder.add_int_value (project.area_id);
+                    builder.set_member_name ("parent_id");
+                    builder.add_int_value (project.parent_id);
 
                     builder.set_member_name ("id");
                     builder.add_int_value (project.id);
@@ -443,21 +419,6 @@ public class Services.ExportImport : Object {
                     Planner.database.insert_label (l);
                 }
 
-                // Create Areas
-                unowned Json.Array areas = node.get_array_member ("areas");
-                foreach (unowned Json.Node item in areas.get_elements ()) {
-                    var object = item.get_object ();
-
-                    var a = new Objects.Area ();
-                    a.id = object.get_int_member ("id");
-                    a.name = object.get_string_member ("name");
-                    a.date_added = object.get_string_member ("date_added");
-                    a.collapsed = (int32) object.get_int_member ("collapsed");
-                    a.item_order = (int32) object.get_int_member ("item_order");
-
-                    Planner.database.insert_area (a);
-                }
-
                 // Create Projects
                 unowned Json.Array projects = node.get_array_member ("projects");
                 foreach (unowned Json.Node item in projects.get_elements ()) {
@@ -466,7 +427,7 @@ public class Services.ExportImport : Object {
                     var p = new Objects.Project ();
 
                     p.id = object.get_int_member ("id");
-                    p.area_id = object.get_int_member ("area_id");
+                    p.parent_id = object.get_int_member ("parent_id");
                     p.name = object.get_string_member ("name");
                     p.note = object.get_string_member ("note");
                     p.due_date = object.get_string_member ("due_date");

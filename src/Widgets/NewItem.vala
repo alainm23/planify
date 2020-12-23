@@ -66,6 +66,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private uint focus_timeout = 0;
 
     private Widgets.Entry content_entry;
+    private Widgets.TextView note_textview;
     private Gtk.Revealer main_revealer;
     private bool entry_menu_opened = false;
 
@@ -218,26 +219,38 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         var label_button = new Widgets.LabelButton.new_item ();
 
+        var note_image = new Gtk.Image ();
+        note_image.pixel_size = 14;
+        note_image.icon_name = "text-x-generic-symbolic";
+
+        var note_button = new Gtk.Button ();
+        note_button.tooltip_text = _("Add Note");
+        note_button.get_style_context ().add_class ("flat");
+        note_button.get_style_context ().add_class ("dim-label");
+        note_button.add (note_image);
+
+        var note_placeholder = new Gtk.Label (_("Note"));
+        note_placeholder.opacity = 0.7;
+
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
-        // tools_box.margin_start = 6;
         tools_box.margin_top = 6;
         tools_box.hexpand = true;
-        // tools_box.halign = Gtk.Align.START;
         tools_box.pack_start (reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
         // tools_box.pack_end (label_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
+        tools_box.pack_end (note_button, false, false, 0);
 
-        var note_textview = new Widgets.TextView ();
+        note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;
-        note_textview.margin_end = 12;
-        note_textview.margin_start = 27;
+        note_textview.margin_end = 9;
+        note_textview.margin_start = 9;
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.CHAR;
         note_textview.get_style_context ().add_class ("textview");
-        note_textview.get_style_context ().add_class ("note-textview");
+        note_textview.add (note_placeholder);
 
         var note_revealer = new Gtk.Revealer ();
         note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
@@ -335,6 +348,43 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             }
 
             parse_item_tags (content_entry.text);
+        });
+
+        note_textview.focus_out_event.connect (() => {
+            if (note_textview.buffer.text.strip () == "") {
+                note_placeholder.visible = true;
+            } else {
+                note_placeholder.visible = false;
+            }
+
+            focus_timeout = Timeout.add (1000, () => {
+                focus_timeout = 0;
+                if (entry_menu_opened == false && content_entry.text.strip () == "") {
+                    timeout_id = Timeout.add (250, () => {
+                        timeout_id = 0;
+        
+                        if (temp_id_mapping == 0) {
+                            hide_destroy ();
+                        }
+        
+                        return GLib.Source.REMOVE;
+                    });
+                }
+
+                return GLib.Source.REMOVE;
+            });
+
+            return false;
+        });
+
+        note_textview.focus_in_event.connect (() => {
+            note_placeholder.visible = false;
+
+            if (focus_timeout != 0) {
+                GLib.Source.remove (focus_timeout);
+            }
+
+            return false;
         });
 
         cancel_button.clicked.connect (() => {
@@ -493,6 +543,15 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         } else {
             update_priority (priority);
         }
+
+        note_button.clicked.connect (() => {
+            if (note_revealer.reveal_child) {
+                note_revealer.reveal_child = false;
+            } else {
+                note_revealer.reveal_child = true;
+                note_textview.grab_focus ();
+            }
+        });
     }
 
     public void parse_item_tags (string text) {
@@ -835,11 +894,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 item.is_todoist = is_todoist;
                 item.due_date = due_date;
                 item.content = content_entry.text;
+                item.note = note_textview.buffer.text;
                 temp_id_mapping = Planner.utils.generate_id ();
                 
                 if (is_todoist == 1) {
                     cancellable = new Cancellable ();
-                    Planner.todoist.add_item (item, cancellable, index, temp_id_mapping);
+                    Planner.todoist.add_item.begin (item, cancellable, index, temp_id_mapping);
                 } else {
                     item.id = Planner.utils.generate_id ();
                     if (Planner.database.insert_item (item, index)) {

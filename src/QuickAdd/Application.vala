@@ -90,6 +90,10 @@ public class PlannerQuickAdd : Gtk.Application {
             border-radius: 4px;
         }
 
+        .textview text {
+            background: alpha (#3689e6, 0.24);
+        }
+
         .check-grid {
             background-color: alpha (#3689e6, 0.25);
             border-radius: 4px;

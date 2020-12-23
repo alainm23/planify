@@ -32,7 +32,7 @@ public class Services.Database : GLib.Object {
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (int64 id);
     public signal void project_show_completed (Objects.Project project);
-    public signal void project_moved (Objects.Project project);
+    public signal void project_moved (Objects.Project project, int64 parent_id, int64 old_parent_id);
     public signal void update_project_count (int64 id, int items_0, int items_1);
     public signal void project_id_updated (int64 current_id, int64 new_id);
 
@@ -165,10 +165,20 @@ public class Services.Database : GLib.Object {
 
         /*
         * Release 2.7
-        * Add collapsed 
+        * - Add Item > collapsed 
+        * - Add Project > parent_id
+        * - Add Project > collapsed
         */
         if (!Planner.database.column_exists ("Items", "collapsed")) {
             Planner.database.add_int_column ("Items", "collapsed", 0);
+        }
+
+        if (!Planner.database.column_exists ("Projects", "parent_id")) {
+            Planner.database.add_int_column ("Projects", "parent_id", 0);
+        }
+
+        if (!Planner.database.column_exists ("Projects", "collapsed")) {
+            Planner.database.add_int_column ("Projects", "collapsed", 0);
         }
     }
 
@@ -271,7 +281,9 @@ public class Services.Database : GLib.Object {
                 shared           INTEGER,
                 is_kanban        INTEGER,
                 show_completed   INTEGER,
-                sort_order       INTEGER
+                sort_order       INTEGER,
+                parent_id        INTEGER,
+                collapsed        INTEGER
             );
         """;
 
@@ -1208,7 +1220,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT COUNT (*) FROM Projects WHERE area_id = 0;
+            SELECT COUNT (*) FROM Projects WHERE parent_id = 0;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1223,8 +1235,9 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, area_id, name, note, due_date, color,
                 is_todoist, inbox_project, team_inbox, item_order, is_deleted, is_archived,
-                is_favorite, is_sync, shared, show_completed, sort_order)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                is_favorite, is_sync, shared, show_completed, sort_order, parent_id,
+                collapsed)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1278,7 +1291,13 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (16, project.show_completed);
         assert (res == Sqlite.OK);
         
-        res = stmt.bind_int (16, project.sort_order);
+        res = stmt.bind_int (17, project.sort_order);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (18, project.parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (19, project.collapsed);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1301,7 +1320,8 @@ public class Services.Database : GLib.Object {
             UPDATE Projects SET name = ?, note = ?, due_date = ?,
                 color = ?, item_order = ?,
                 is_deleted = ?, is_archived = ?, is_favorite = ?,
-                is_sync = ?, shared = ?, is_kanban = ?, show_completed = ?
+                is_sync = ?, shared = ?, is_kanban = ?, show_completed = ?,
+                collapsed = ?
             WHERE id = ?;
         """;
 
@@ -1344,7 +1364,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int (12, project.show_completed);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (13, project.id);
+        res = stmt.bind_int (13, project.collapsed);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (14, project.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1582,20 +1605,20 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public bool move_project (Objects.Project project, int64 area_id) {
+    public bool move_project (Objects.Project project, int64 parent_id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
-        project.area_id = area_id;
+        int64 old_parent_id = project.parent_id;
 
         sql = """
-            SELECT COUNT (*) FROM Projects WHERE area_id = ?;
+            SELECT COUNT (*) FROM Projects WHERE parent_id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, area_id);
+        res = stmt.bind_int64 (1, parent_id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.ROW) {
@@ -1605,13 +1628,13 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
 
         sql = """
-            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
+            UPDATE Projects SET parent_id = ?, item_order = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, area_id);
+        res = stmt.bind_int64 (1, parent_id);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (2, project.item_order);
@@ -1621,7 +1644,7 @@ public class Services.Database : GLib.Object {
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
-            project_moved (project);
+            project_moved (project, parent_id, old_parent_id);
             stmt.reset ();
             return true;
         } else {
@@ -1630,7 +1653,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Project?> get_all_projects_by_area (int64 id) {
+    public Gee.ArrayList<Objects.Project?> get_all_projects_by_parent (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1638,8 +1661,8 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
-            FROM Projects WHERE area_id = ? ORDER BY item_order;
+                sort_order, parent_id, collapsed
+            FROM Projects WHERE parent_id = ? ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1671,6 +1694,8 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
 
             all.add (p);
         }
@@ -1687,7 +1712,7 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
+                sort_order, parent_id, collapsed
             FROM Projects WHERE is_todoist = 1;
         """;
 
@@ -1717,6 +1742,8 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
 
             all.add (p);
         }
@@ -1751,7 +1778,7 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
+                sort_order, parent_id, collapsed
             FROM Projects ORDER BY item_order;
         """;
 
@@ -1781,6 +1808,8 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
 
             all.add (p);
         }
@@ -1797,7 +1826,7 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
+                sort_order, parent_id, collapsed
             FROM Projects WHERE name LIKE ?;
         """;
 
@@ -1829,6 +1858,8 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
 
             all.add (p);
         }
@@ -1878,7 +1909,7 @@ public class Services.Database : GLib.Object {
         return all;
     }
 
-    public Gee.ArrayList<Objects.Project?> get_all_projects_no_area () {
+    public Gee.ArrayList<Objects.Project?> get_all_projects_no_parent () {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -1886,8 +1917,8 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
-            FROM Projects WHERE inbox_project = 0 AND area_id = 0 ORDER BY item_order;
+                sort_order, parent_id, collapsed
+            FROM Projects WHERE inbox_project = 0 AND parent_id = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -1916,6 +1947,8 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
 
             all.add (p);
         }
@@ -1932,7 +1965,7 @@ public class Services.Database : GLib.Object {
         sql = """
             SELECT id, area_id, name, note, due_date, color, is_todoist, inbox_project, team_inbox,
                 item_order, is_deleted, is_archived, is_favorite, is_sync, shared, is_kanban, show_completed,
-                sort_order
+                sort_order, parent_id, collapsed
             FROM Projects WHERE id = ?;
         """;
 
@@ -1963,25 +1996,27 @@ public class Services.Database : GLib.Object {
             p.is_kanban = stmt.column_int (15);
             p.show_completed = stmt.column_int (16);
             p.sort_order = stmt.column_int (17);
+            p.parent_id = stmt.column_int64 (18);
+            p.collapsed = stmt.column_int (19);
         }
 
         stmt.reset ();
         return p;
     }
 
-    public void update_project_item_order (int64 project_id, int64 area_id, int item_order) {
+    public void update_project_item_order (int64 project_id, int64 parent_id, int item_order) {
         Sqlite.Statement stmt;
         string sql;
         int res;
 
         sql = """
-            UPDATE Projects SET area_id = ?, item_order = ? WHERE id = ?;
+            UPDATE Projects SET parent_id = ?, item_order = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, area_id);
+        res = stmt.bind_int64 (1, parent_id);
         assert (res == Sqlite.OK);
 
         res = stmt.bind_int (2, item_order);

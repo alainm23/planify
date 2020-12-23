@@ -146,7 +146,7 @@ public class Widgets.Toast : Gtk.Revealer {
                     reveal_child = false;
 
                     Planner.notifications.send_notification (_("Converted project"));
-                    Planner.todoist.sync ();
+                    Planner.todoist.sync.begin ();
                     Planner.database.delete_project (id);
 
                     GLib.Timeout.add (transition_duration, () => {

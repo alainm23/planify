@@ -21,6 +21,7 @@
 
 public class Widgets.ToolsMenu : Gtk.Revealer {
     private Widgets.SyncButton sync_menu;
+    private Gtk.Separator sync_separator;
 
     construct {
         transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -47,12 +48,12 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
         sync_menu.visible = Planner.settings.get_boolean ("todoist-account");
         sync_menu.no_show_all = !Planner.settings.get_boolean ("todoist-account");
 
-        var sync_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+        sync_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
-            margin_bottom = 3,
-            visible = Planner.settings.get_boolean ("todoist-account"),
-            no_show_all = !Planner.settings.get_boolean ("todoist-account")
+            margin_bottom = 3
         };
+        sync_separator.visible = Planner.settings.get_boolean ("todoist-account");
+        sync_separator.no_show_all = !Planner.settings.get_boolean ("todoist-account");
 
         var content_grid = new Gtk.Grid ();
         content_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -89,11 +90,13 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
 
                 sync_separator.visible = Planner.settings.get_boolean ("todoist-account");
                 sync_separator.no_show_all = !Planner.settings.get_boolean ("todoist-account");
+
+                show_all ();
             }
         });
 
         sync_menu.clicked.connect (() => {
-            Planner.todoist.sync ();
+            Planner.todoist.sync.begin ();
         });
 
         Planner.todoist.sync_started.connect (() => {

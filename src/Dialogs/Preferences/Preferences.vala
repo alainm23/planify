@@ -63,7 +63,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
         stack.add_named (get_task_widget (), "task");
-        stack.add_named (get_backups_widget (), "backups");
+        // stack.add_named (get_backups_widget (), "backups");
         stack.add_named (get_quick_add_widget (), "quick-add");
         stack.add_named (get_plugins_widget (), "plugins");
         stack.add_named (get_todoist_widget (), "todoist");
@@ -131,7 +131,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var theme_item = new Dialogs.Preferences.Item ("preferences-color", _("Appearance"));
         var task_item = new Dialogs.Preferences.Item ("process-completed", _("Task default"));
         var quick_add_item = new Dialogs.Preferences.Item ("planner-quick-add", _("Quick Add"));
-        var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
+        // var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
         var general_item = new Dialogs.Preferences.Item ("preferences-system", _("General"), true);
 
         var general_grid = new Gtk.Grid ();
@@ -143,7 +143,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.add (badge_item);
         general_grid.add (theme_item);
         general_grid.add (task_item);
-        general_grid.add (backups_item);
+        // general_grid.add (backups_item);
         general_grid.add (quick_add_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
@@ -265,9 +265,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             stack.visible_child_name = "fund";
         });
 
-        backups_item.activated.connect (() => {
-            stack.visible_child_name = "backups";
-        });
+        //  backups_item.activated.connect (() => {
+        //      stack.visible_child_name = "backups";
+        //  });
 
         return main_scrolled;
     }
@@ -948,7 +948,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         database_header.margin_top = 6;
 
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
-        // var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
+        var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
 
         List<string> week_list = new List<string> ();
         week_list.append ("Sunday");
@@ -962,7 +962,8 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         var start_week = new Dialogs.Preferences.ItemSelect (
             _("Start of the week"),
             Planner.settings.get_enum ("start-week"),
-            week_list
+            week_list,
+            false
         );
         start_week.margin_top = 12;
 
@@ -975,7 +976,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.pack_start (run_startup_label, false, false, 0);
         // box.pack_start (button_layout, false, false, 0);
         box.pack_start (start_week, false, false, 0);
-        // box.pack_start (export_db_item, false, false, 0);
+        box.pack_start (export_db_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
 
@@ -1006,10 +1007,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             Planner.settings.set_enum ("start-week", index);
         });
 
-        //  export_db_item.activated.connect (() => {
-        //      var s = new Services.ExportImport ();
-        //      s.save_file_as ();
-        //  });
+        export_db_item.activated.connect (() => {
+            var s = new Services.ExportImport ();
+            s.save_file_as ();
+        });
 
         clear_db_item.activated.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (

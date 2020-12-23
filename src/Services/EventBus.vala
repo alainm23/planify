@@ -66,4 +66,8 @@ public class Services.EventBus : Object {
 
     // Filter By Project
     public signal void filter_label_activated (int64 project_id, Gee.Collection<Objects.Label> values);
+
+    // Pane Selected
+    public signal void project_selected (int64 project_id);
+    public signal void pane_selected (PaneType pane_type, int64 id);
 }

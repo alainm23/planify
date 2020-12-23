@@ -28,9 +28,7 @@ public class Utils : GLib.Object {
     public string APP_FOLDER; // vala-lint=naming-convention
     public string AVATARS_FOLDER; // vala-lint=naming-convention
     public Settings h24_settings;
-
-    public signal void pane_project_selected (int64 project_id, int64 area_id);
-    public signal void select_pane_project (int64 project_id);
+    
     public signal void pane_action_selected ();
 
     public signal void insert_project_to_area (int64 area_id);
@@ -921,6 +919,22 @@ public class Utils : GLib.Object {
         }
 
         return PaneView.INBOX;
+    }
+
+    public int get_int_by_paneview (PaneView value) {
+        if (value == PaneView.INBOX) {
+            return 0;
+        } else if (value == PaneView.TODAY) {
+            return 1;
+        } else if (value == PaneView.UPCOMING) {
+            return 2;
+        } else if (value == PaneView.COMPLETED) {
+            return 3;
+        } else if (value == PaneView.ALLTASKS) {
+            return 4;
+        }
+
+        return 0;
     }
 
     public PaneView get_paneview_by_string (string value) {

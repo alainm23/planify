@@ -36,7 +36,6 @@ public class Services.ActionManager : Object {
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
     public const string ACTION_NEW_SECTION = "action_new_section";
-    public const string ACTION_NEW_FOLDER = "action_new_folder";
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_UPCOMING = "action_view_upcoming";
@@ -64,7 +63,6 @@ public class Services.ActionManager : Object {
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
         { ACTION_NEW_SECTION, action_new_section },
-        { ACTION_NEW_FOLDER, action_new_folder },
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_UPCOMING, action_view_upcoming },
@@ -103,7 +101,6 @@ public class Services.ActionManager : Object {
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
-        typing_accelerators.set (ACTION_NEW_FOLDER, "f");
         typing_accelerators.set (ACTION_SORT_DATE, "d");
         typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
         typing_accelerators.set (ACTION_SORT_NAME, "n");
@@ -172,20 +169,12 @@ public class Services.ActionManager : Object {
 
     private void action_sync_manually () {
         Planner.event_bus.ctrl_pressed = false;
-        Planner.todoist.sync ();
+        Planner.todoist.sync.begin ();
     }
 
     private void action_new_project () {
         Planner.event_bus.unselect_all ();
         window.new_project ();
-    }
-
-    private void action_new_folder () {
-        Planner.event_bus.unselect_all ();
-
-        var area = new Objects.Area ();
-        area.name = _("New area");
-        Planner.database.insert_area (area);
     }
 
     private void action_new_section () {
@@ -195,17 +184,17 @@ public class Services.ActionManager : Object {
 
     private void action_view_inbox () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (PaneView.INBOX);
+        Planner.event_bus.pane_selected (PaneType.ACTION, 0);
     }
 
     private void action_view_today () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (PaneView.TODAY);
+        Planner.event_bus.pane_selected (PaneType.ACTION, 1);
     }
 
     private void action_view_upcoming () {
         Planner.event_bus.ctrl_pressed = false;
-        window.go_view (PaneView.UPCOMING);
+        Planner.event_bus.pane_selected (PaneType.ACTION, 2);
     }
 
     private void action_view_home () {

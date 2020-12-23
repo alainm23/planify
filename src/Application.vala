@@ -43,6 +43,12 @@ public enum PaneView {
     ALLTASKS
 }
 
+public enum PaneType {
+    ACTION,
+    PROJECT,
+    LABEL
+}
+
 public class Planner : Gtk.Application {
     public MainWindow? main_window = null;
 

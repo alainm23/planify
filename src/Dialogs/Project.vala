@@ -53,7 +53,6 @@ public class Dialogs.Project : Gtk.Dialog {
     private Gtk.Revealer due_revealer;
     private Gtk.Label due_label;
 
-    private uint timeout = 0;
     private uint configure_id = 0;
     private int64 temp_id_mapping { get; set; default = 0; }
     private bool entry_menu_opened = false;
@@ -941,7 +940,7 @@ public class Dialogs.Project : Gtk.Dialog {
                 temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Planner.todoist.add_section (section, cancellable, temp_id_mapping);
+                Planner.todoist.add_section.begin (section, cancellable, temp_id_mapping);
             }
         }
     }

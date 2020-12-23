@@ -30,20 +30,19 @@ public class Widgets.Pane : Gtk.EventBox {
 
     public Gtk.ListBox listbox;
     public Gtk.ListBox project_listbox;
-    private Gtk.ListBox area_listbox;
     private Gtk.ScrolledWindow listbox_scrolled;
     public Gtk.Grid listbox_grid;
 
     private Gtk.Button add_button;
 
-    public signal void activated (PaneView view);
     public signal void show_quick_find ();
     public signal void tasklist_selected (E.Source source);
     public signal void label_selected (Objects.Label label);
+    public signal void project_selected (int64 id);
+    public signal void view_selected (int64 id);
 
     private uint timeout;
     public Gee.ArrayList<Widgets.ProjectRow?> projects_list;
-    public Gee.ArrayList<Widgets.AreaRow?> areas_list;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"PROJECTROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -51,10 +50,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
     private const Gtk.TargetEntry[] TARGET_PANEVIEW = {
         {"PANEVIEWROW", Gtk.TargetFlags.SAME_APP, 0}
-    };
-
-    private const Gtk.TargetEntry[] TARGET_AREAS = {
-        {"AREAROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
     public bool sensitive_ui {
@@ -90,7 +85,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
     construct {
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
-        areas_list = new Gee.ArrayList<Widgets.AreaRow?> ();
 
         var search_row = new Gtk.Button ();
         search_row.can_focus = false;
@@ -136,19 +130,6 @@ public class Widgets.Pane : Gtk.EventBox {
         project_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         project_listbox.hexpand = true;
 
-        var motion_area_grid = new Gtk.Grid ();
-        motion_area_grid.margin_start = 6;
-        motion_area_grid.margin_end = 6;
-        motion_area_grid.margin_bottom = 12;
-        motion_area_grid.height_request = 24;
-        motion_area_grid.get_style_context ().add_class ("grid-motion");
-
-        area_listbox = new Gtk.ListBox ();
-        area_listbox.get_style_context ().add_class ("pane");
-        area_listbox.activate_on_single_click = true;
-        area_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
-        area_listbox.hexpand = true;
-
         //  var caldav_widget = new Widgets.CalDavList ();
         //  caldav_widget.tasklist_selected.connect ((source) => {
         //      tasklist_selected (source);
@@ -156,53 +137,15 @@ public class Widgets.Pane : Gtk.EventBox {
         //      project_listbox.unselect_all ();
         //      listbox.unselect_all ();
         //  });
-        var drop_area_grid = new Gtk.Grid ();
-        drop_area_grid.margin_start = 6;
-        drop_area_grid.margin_end = 6;
-        drop_area_grid.height_request = 12;
-
-        var motion_area_revealer = new Gtk.Revealer ();
-        motion_area_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        motion_area_revealer.add (motion_area_grid);
-
-        Gtk.drag_dest_set (drop_area_grid, Gtk.DestDefaults.ALL, TARGET_AREAS, Gdk.DragAction.MOVE);
-        drop_area_grid.drag_data_received.connect ((context, x, y, selection_data, target_type, time) => {
-            Widgets.AreaRow source;
-            Gtk.Allocation alloc;
-    
-            var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-            source = (Widgets.AreaRow) row;
-            
-            source.get_parent ().remove (source);
-            areas_list.remove (source);
-            
-            area_listbox.insert (source, 0);
-            areas_list.insert (0, source);
-            area_listbox.show_all ();
-
-            update_area_order ();
-        });
-
-        drop_area_grid.drag_motion.connect ((context, x, y, time) => {
-            motion_area_revealer.reveal_child = true;
-            return true;
-        });
-
-        drop_area_grid.drag_leave.connect ((context, time) => {
-            motion_area_revealer.reveal_child = false;
-        });
 
         listbox_grid = new Gtk.Grid ();
         listbox_grid.margin_start = 6;
-        listbox_grid.margin_end = 6;
+        listbox_grid.margin_end = 9;
         listbox_grid.margin_top = 3;
         listbox_grid.orientation = Gtk.Orientation.VERTICAL;
         listbox_grid.add (search_row);
         listbox_grid.add (listbox);
         listbox_grid.add (project_listbox);
-        listbox_grid.add (drop_area_grid);
-        listbox_grid.add (motion_area_revealer);
-        listbox_grid.add (area_listbox);
         // listbox_grid.add (caldav_widget);
 
         if (Planner.settings.get_boolean ("use-system-decoration")) {
@@ -301,28 +244,50 @@ public class Widgets.Pane : Gtk.EventBox {
             listbox.show_all ();
         });
 
+        Planner.todoist.first_sync_finished.connect (() => {
+            listbox.foreach ((row) => {
+                listbox.remove (row);
+            });
+
+            string[] array = Planner.settings.get_strv ("views-order");
+            foreach (var view in array) {
+                if (view == "inbox") {
+                    listbox.add (inbox_row);
+                } else if (view == "today") {
+                    listbox.add (today_row);
+                } else if (view == "upcoming") {
+                    listbox.add (upcoming_row);
+                }
+            }
+
+            listbox.show_all ();
+        });
+
         search_row.clicked.connect (() => {
             var dialog = new Dialogs.QuickFind ();
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
         });
 
-        listbox.row_selected.connect ((row) => {
-            if (row != null && Planner.database.is_database_empty () != true) {
-                Planner.event_bus.unselect_all ();
+        //  listbox.row_selected.connect ((row) => {
+        //      if (row != null && Planner.database.is_database_empty () != true) {
+        //          Planner.event_bus.unselect_all ();
                 
-                activated (((Widgets.ActionRow) row).view);
-                Planner.utils.pane_action_selected ();
-                project_listbox.unselect_all ();
-            }
-        });
+        //          activated (((Widgets.ActionRow) row).view);
+        //          Planner.utils.pane_action_selected ();
+        //          project_listbox.unselect_all ();
+        //      }
+        //  });
 
-        project_listbox.row_selected.connect ((row) => {
-            if (row != null) {
-                Planner.event_bus.unselect_all ();
-                
-                var project = ((Widgets.ProjectRow) row).project;
-                Planner.utils.pane_project_selected (project.id, 0);
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            Planner.event_bus.unselect_all ();
+
+            if (pane_type == PaneType.PROJECT) {
+                project_selected (id);
+            } else if (pane_type == PaneType.ACTION) {
+                view_selected (id);
+            } else if (pane_type == PaneType.LABEL) {
+                label_selected (Planner.database.get_label_by_id (id));
             }
         });
 
@@ -336,41 +301,40 @@ public class Widgets.Pane : Gtk.EventBox {
             Planner.event_bus.unselect_all ();
             new_project.reveal = true;
         });
-
-        Planner.database.area_added.connect ((area) => {
-            var row = new Widgets.AreaRow (area);
-            row.scrolled = listbox_scrolled;
-            row.destroy.connect (() => {
-                area_row_removed (row);
-            });
-
-            area_listbox.add (row);
-            area_listbox.add (row);
-            area_listbox.show_all ();
-
-            row.set_focus = true;
-        });
-
-        Planner.utils.pane_project_selected.connect ((project_id, area_id) => {
-            listbox.unselect_all ();
-
-            if (area_id != 0) {
-                project_listbox.unselect_all ();
-            }
-        });
-
-        Planner.utils.select_pane_project.connect ((project_id) => {
-            project_listbox.foreach ((widget) => {
-                var row = (Widgets.ProjectRow) widget;
-
-                if (row.project.id == project_id) {
-                    project_listbox.select_row (row);
-                }
-            });
-        });
-
+        
         Planner.database.project_added.connect ((project) => {
-            if (project.inbox_project == 0 && project.area_id == 0) {
+            Idle.add (() => {
+                if (project.inbox_project == 0 && project.parent_id == 0) {
+                    var row = new Widgets.ProjectRow (project);
+                    // row.scrolled = l1istbox_scrolled;
+                    row.destroy.connect (() => {
+                        project_row_removed (row);
+                    });
+    
+                    project_listbox.add (row);
+                    projects_list.add (row);
+    
+                    project_listbox.show_all ();
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.project_moved.connect ((project, parent_id, old_parent_id) => {
+            if (old_parent_id == 0) {
+                project_listbox.foreach ((widget) => {
+                    var row = (Widgets.ProjectRow) widget;
+
+                    if (row.project.id == project.id) {
+                        row.destroy ();
+                    }
+                });
+            }
+
+            if (parent_id == 0) {
+                project.parent_id = 0;
+
                 var row = new Widgets.ProjectRow (project);
                 row.scrolled = listbox_scrolled;
                 row.destroy.connect (() => {
@@ -382,25 +346,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
                 project_listbox.show_all ();
             }
-        });
-
-        Planner.database.project_moved.connect ((project) => {
-            Idle.add (() => {
-                if (project.area_id == 0) {
-                    var row = new Widgets.ProjectRow (project);
-                    row.scrolled = listbox_scrolled;
-                    row.destroy.connect (() => {
-                        project_row_removed (row);
-                    });
-
-                    project_listbox.add (row);
-                    projects_list.add (row);
-
-                    project_listbox.show_all ();
-                }
-
-                return false;
-            });
         });
 
         Planner.utils.drag_item_activated.connect ((value) => {
@@ -415,14 +360,6 @@ public class Widgets.Pane : Gtk.EventBox {
             stack.visible_child_name = "grid";
 
             project_listbox.foreach ((widget) => {
-                Idle.add (() => {
-                    widget.destroy ();
-
-                    return false;
-                });
-            });
-
-            area_listbox.foreach ((widget) => {
                 Idle.add (() => {
                     widget.destroy ();
 
@@ -448,9 +385,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
         Gtk.drag_dest_set (project_listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         project_listbox.drag_data_received.connect (on_drag_project_received);
-
-        Gtk.drag_dest_set (area_listbox, Gtk.DestDefaults.ALL, TARGET_AREAS, Gdk.DragAction.MOVE);
-        area_listbox.drag_data_received.connect (on_drag_area_received);
     }
 
     private void on_drag_paneview_received (Gdk.DragContext context, int x, int y,
@@ -501,7 +435,11 @@ public class Widgets.Pane : Gtk.EventBox {
         if (target != null) {
             source.get_parent ().remove (source);
             projects_list.remove (source);
-            source.project.area_id = 0;
+            
+            if (source.project.parent_id != 0 && source.project.is_todoist == 1) {
+                source.project.parent_id = 0;
+                Planner.todoist.move_project.begin (source.project, 0);
+            }
 
             if (target.get_index () == 0) {
                 if (y < (alloc.height / 2)) {
@@ -521,32 +459,8 @@ public class Widgets.Pane : Gtk.EventBox {
         }
     }
 
-    private void on_drag_area_received (Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        Widgets.AreaRow target;
-        Widgets.AreaRow source;
-        Gtk.Allocation alloc;
-
-        target = (Widgets.AreaRow) area_listbox.get_row_at_y (y);
-        target.get_allocation (out alloc);
-
-        var row = ((Gtk.Widget[]) selection_data.get_data ())[0];
-        source = (Widgets.AreaRow) row;
-
-        if (target != null) {
-            source.get_parent ().remove (source);
-            areas_list.remove (source);
-
-            area_listbox.insert (source, target.get_index () + 1);
-            areas_list.insert (target.get_index () + 1, source);
-            area_listbox.show_all ();
-
-            update_area_order ();
-        }
-    }
-
     public void add_all_projects () {
-        foreach (var project in Planner.database.get_all_projects_no_area ()) {
+        foreach (var project in Planner.database.get_all_projects_no_parent ()) {
             var row = new Widgets.ProjectRow (project);
             row.scrolled = listbox_scrolled;
             row.destroy.connect (() => {
@@ -570,40 +484,11 @@ public class Widgets.Pane : Gtk.EventBox {
         project_listbox.show_all ();
     }
 
-    public void add_all_areas () {
-        foreach (var area in Planner.database.get_all_areas ()) {
-            var row = new Widgets.AreaRow (area);
-            row.scrolled = listbox_scrolled;
-            row.destroy.connect (() => {
-                area_row_removed (row);
-            });
-
-            area_listbox.add (row);
-            areas_list.add (row);
-        }
-
-        area_listbox.show_all ();
-    }
-
     private void update_project_order () {
-        timeout = Timeout.add (250, () => {
+        Timeout.add (250, () => {
             new Thread<void*> ("update_project_order", () => {
                 for (int index = 0; index < projects_list.size; index++) {
                     Planner.database.update_project_item_order (projects_list [index].project.id, 0, index);
-                }
-
-                return null;
-            });
-
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    private void update_area_order () {
-        timeout = Timeout.add (250, () => {
-            new Thread<void*> ("update_area_order", () => {
-                for (int index = 0; index < areas_list.size; index++) {
-                    Planner.database.update_area_item_order (areas_list [index].area.id, index);
                 }
 
                 return null;
@@ -638,15 +523,19 @@ public class Widgets.Pane : Gtk.EventBox {
         projects_list.remove (row);
     }
 
-    private void area_row_removed (Widgets.AreaRow row) {
-        areas_list.remove (row);
-    }
-
     public bool visible_new_widget () {
         return new_project.reveal;
     }
 
+    public bool visible_tool_widget () {
+        return tools_menu.reveal_child;
+    }
+
     public void set_visible_new_widget (bool value) {
         new_project.reveal = false;
+    }
+
+    public void set_visible_tool_widget (bool value) {
+        tools_menu.reveal_child = value;
     }
 }

@@ -39,7 +39,6 @@ public class Views.Inbox : Gtk.EventBox {
     private Gtk.Popover popover = null;
     private Gtk.ToggleButton settings_button;
 
-    private uint timeout = 0;
     private int64 temp_id_mapping { get; set; default = 0; }
     
     public Inbox (Objects.Project project) {
@@ -566,7 +565,7 @@ public class Views.Inbox : Gtk.EventBox {
                 temp_id_mapping = Planner.utils.generate_id ();
                 section.is_todoist = 1;
 
-                Planner.todoist.add_section (section, cancellable, temp_id_mapping);
+                Planner.todoist.add_section.begin (section, cancellable, temp_id_mapping);
             }
         }
     }

@@ -46,7 +46,6 @@ planner_files = files(
     'Widgets/LabelButton.vala',
     'Widgets/Toast.vala',
     'Widgets/MenuButtons.vala',
-    'Widgets/AreaRow.vala',
     'Widgets/MagicButton.vala',
     'Widgets/LabelRow.vala',
     'Widgets/NewCheck.vala',

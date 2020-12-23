@@ -115,7 +115,7 @@ public class Objects.Item : GLib.Object {
         if (is_todoist == 1) {
             var cancellable = new Cancellable ();
             var temp_id_mapping = Planner.utils.generate_id ();
-            Planner.todoist.add_item (item, cancellable, -1, temp_id_mapping);
+            Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
             Planner.notifications.send_undo_notification (
                 _("Duplicating task…"),
                 Planner.utils.build_undo_object ("item_duplicate", "item", temp_id_mapping.to_string (), "", "")

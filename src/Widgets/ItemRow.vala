@@ -83,7 +83,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.SeparatorMenuItem date_separator;
     private Gtk.Menu menu = null;
 
-    private uint timeout_id = 0;
     private bool save_off = false;
 
     public Gee.HashMap<string, bool> labels_hashmap;

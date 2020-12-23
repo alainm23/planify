@@ -390,15 +390,15 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         if (item.result_type == QuickFindResultType.PROJECT) {
             Planner.database.insert_quickfind_recents ("PROJECT", item.object);
-            Planner.instance.main_window.go_project (
+            Planner.event_bus.pane_selected (
+                PaneType.PROJECT,
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
         } else if (item.result_type == QuickFindResultType.VIEW) {
             Planner.database.insert_quickfind_recents ("VIEW", item.object);
-            Planner.instance.main_window.go_view (
-                Planner.utils.get_paneview_by_enum (
-                    (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
-                )
+            Planner.event_bus.pane_selected (
+                PaneType.ACTION,
+                (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
             );
         } else if (item.result_type == QuickFindResultType.ITEM) {
             Planner.database.insert_quickfind_recents ("ITEM", item.object);
@@ -407,7 +407,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             );
         } else if (item.result_type == QuickFindResultType.LABEL) {
             Planner.database.insert_quickfind_recents ("LABEL", item.object);
-            Planner.instance.main_window.go_label (
+            Planner.event_bus.pane_selected (
+                PaneType.LABEL,
                 Planner.todoist.get_int_member_by_object (item.object, "id")
             );
         } else if (item.result_type == QuickFindResultType.FILTERS) {
@@ -441,7 +442,8 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         } else if (item.result_type == QuickFindResultType.SECTION) {
             Planner.database.insert_quickfind_recents ("SECTION", item.object);
-            Planner.instance.main_window.go_project (
+            Planner.event_bus.pane_selected (
+                PaneType.PROJECT,
                 Planner.todoist.get_int_member_by_object (item.object, "project_id")
             );
         }

@@ -50,13 +50,14 @@ public class Widgets.New : Gtk.Revealer {
         }
         set {
             reveal_child = value;
+            name_entry.grab_focus ();
 
             if (value) {
                 if (cancellable != null) {
                     cancellable = null;
                 }
 
-                build_area_liststore (Planner.settings.get_int64 ("area-selected"));
+                build_area_liststore ();
             }
         }
     }
@@ -68,7 +69,7 @@ public class Widgets.New : Gtk.Revealer {
         halign = Gtk.Align.CENTER;
 
         var name_header = new Granite.HeaderLabel (_("Name:"));
-        name_header.margin_start = 6;
+        name_header.margin_start = 9;
 
         name_entry = new Widgets.Entry ();
         name_entry.get_style_context ().add_class ("name-entry");
@@ -87,7 +88,7 @@ public class Widgets.New : Gtk.Revealer {
         source_button.get_style_context ().add_class ("source-button");
 
         var top_grid = new Gtk.Grid ();
-        top_grid.margin_start = top_grid.margin_end = 6;
+        top_grid.margin_start = top_grid.margin_end = 9;
         top_grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
         top_grid.add (name_entry);
         top_grid.add (source_button);
@@ -110,13 +111,14 @@ public class Widgets.New : Gtk.Revealer {
         description_frame.margin_start = description_frame.margin_end = 6;
         description_frame.add (description_scrolled);
 
-        var area_header = new Granite.HeaderLabel (_("Folder:"));
+        var area_header = new Granite.HeaderLabel (_("Parent:"));
 
-        area_liststore = new Gtk.ListStore (3, typeof (Objects.Area?), typeof (unowned string), typeof (string));
+        area_liststore = new Gtk.ListStore (3, typeof (Objects.Project?), typeof (unowned string), typeof (string));
         area_combobox = new Gtk.ComboBox.with_model (area_liststore);
 
         var area_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        area_box.margin_start = area_box.margin_end = 6;
+        area_box.margin_start = area_box.margin_end = 9;
+        area_box.margin_top = 6;
         area_box.pack_start (area_header, false, false, 0);
         area_box.pack_start (area_combobox, false, false, 0);
 
@@ -127,11 +129,11 @@ public class Widgets.New : Gtk.Revealer {
 
         var color_header = new Granite.HeaderLabel (_("Color:"));
         color_header.margin_top = 6;
-        color_header.margin_start = 6;
+        color_header.margin_start = 9;
 
         color_liststore = new Gtk.ListStore (3, typeof (int), typeof (unowned string), typeof (string));
         color_combobox = new Gtk.ComboBox.with_model (color_liststore);
-        color_combobox.margin_start = color_combobox.margin_end = 6;
+        color_combobox.margin_start = color_combobox.margin_end = 9;
 
         Gtk.TreeIter iter;
         foreach (var color in Planner.utils.get_color_list ()) {
@@ -193,7 +195,7 @@ public class Widgets.New : Gtk.Revealer {
         // box.pack_start (description_frame, false, false, 0);
         box.pack_start (color_header, false, false, 0);
         box.pack_start (color_combobox, false, false, 0);
-        box.pack_start (area_revealer, false, false, 0);
+        // box.pack_start (area_revealer, false, false, 0);
         box.pack_end (action_bar, false, false, 0);
 
         var close_image = new Gtk.Image ();
@@ -211,12 +213,13 @@ public class Widgets.New : Gtk.Revealer {
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
-        stack.add_named (create_chooser_widget (), "chooser");
+        // stack.add_named (create_chooser_widget (), "chooser");
         stack.add_named (box, "box");
 
         var main_grid = new Gtk.Grid ();
         main_grid.margin = 9;
         main_grid.height_request = 275;
+        main_grid.width_request = 219;
         main_grid.expand = false;
         main_grid.get_style_context ().add_class ("add-project-widget");
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -307,7 +310,7 @@ public class Widgets.New : Gtk.Revealer {
         Planner.utils.insert_project_to_area.connect ((area_id) => {
             reveal_child = true;
             stack.visible_child_name = "box";
-            build_area_liststore (area_id);
+            build_area_liststore ();
             name_entry.grab_focus ();
         });
     }
@@ -395,7 +398,7 @@ public class Widgets.New : Gtk.Revealer {
         });
     }
 
-    private void build_area_liststore (int64 area_id) {
+    private void build_area_liststore () {
         area_change_activated = false;
         area_liststore.clear ();
         area_combobox.clear ();
@@ -405,29 +408,21 @@ public class Widgets.New : Gtk.Revealer {
         area_liststore.append (out iter);
         area_liststore.@set (iter,
             0, null,
-            1, " " + _("No Folder"),
+            1, " " + _("No Parent"),
             2, "window-close-symbolic"
         );
 
-        if (area_id == 0) {
-            area_combobox.set_active_iter (iter);
-        } else {
-            if (Planner.database.area_exists (area_id) == false) {
-                area_combobox.set_active_iter (iter);
-            }
-        }
+        area_combobox.set_active_iter (iter);
 
-        var areas = Planner.database.get_all_areas ();
-        foreach (var area in areas) {
-            area_liststore.append (out iter);
-            area_liststore.@set (iter,
-                0, area,
-                1, " " + area.name,
-                2, "folder-outline"
-            );
-
-            if (area.id == area_id && area_id != 0) {
-                area_combobox.set_active_iter (iter);
+        var areas = Planner.database.get_all_projects ();
+        foreach (var project in areas) {
+            if (project.inbox_project == 0) {
+                area_liststore.append (out iter);
+                area_liststore.@set (iter,
+                    0, project,
+                    1, " " + project.name,
+                    2, "planner-project-symbolic"
+                );
             }
         }
 
@@ -470,136 +465,6 @@ public class Widgets.New : Gtk.Revealer {
         return (int) item;
     }
 
-    private Gtk.Box create_chooser_widget () {
-        var project_image = new Gtk.Image ();
-        project_image.halign = Gtk.Align.START;
-        project_image.valign = Gtk.Align.CENTER;
-        project_image.gicon = new ThemedIcon ("planner-project-symbolic");
-        project_image.pixel_size = 14;
-        project_image.get_style_context ().add_class ("area-icon");
-
-        var project_label = new Gtk.Label (_("Project"));
-        project_label.get_style_context ().add_class ("h3");
-        project_label.get_style_context ().add_class ("font-bold");
-        project_label.halign = Gtk.Align.START;
-
-        var project_detail_label = new Gtk.Label (_("Start a new project, create a to do list, organize your notes."));
-        project_detail_label.wrap = true;
-        project_detail_label.xalign = 0;
-
-        var project_grid = new Gtk.Grid ();
-        project_grid.margin_start = 3;
-        project_grid.column_spacing = 3;
-        project_grid.attach (project_image, 0, 0, 1, 1);
-        project_grid.attach (project_label, 1, 0, 1, 1);
-        project_grid.attach (project_detail_label, 1, 1, 1, 1);
-
-        project_button = new Gtk.Button ();
-        project_button.margin_top = 6;
-        project_button.add (project_grid);
-        project_button.tooltip_markup = Granite.markup_accel_tooltip ({"p"}, _("Add Project"));
-        project_button.get_style_context ().add_class ("fancy-turn-animation");
-        project_button.get_style_context ().remove_class ("button");
-        project_button.get_style_context ().add_class ("flat");
-        project_button.get_style_context ().add_class ("menuitem");
-
-        var area_image = new Gtk.Image ();
-        area_image.halign = Gtk.Align.START;
-        area_image.valign = Gtk.Align.CENTER;
-        area_image.gicon = new ThemedIcon ("folder-symbolic");
-        area_image.pixel_size = 14;
-        area_image.get_style_context ().add_class ("project-icon");
-
-        var source_label = new Gtk.Label (_("Folder"));
-        source_label.get_style_context ().add_class ("h3");
-        source_label.get_style_context ().add_class ("font-bold");
-        source_label.halign = Gtk.Align.START;
-
-        var area_detail_label = new Gtk.Label (_("Organize your projects in groups and keep your panel clean."));
-        area_detail_label.wrap = true;
-        area_detail_label.xalign = 0;
-
-        var area_grid = new Gtk.Grid ();
-        area_grid.margin_start = 3;
-        area_grid.column_spacing = 3;
-        area_grid.attach (area_image, 0, 0, 1, 1);
-        area_grid.attach (source_label, 1, 0, 1, 1);
-        area_grid.attach (area_detail_label, 1, 1, 1, 1);
-
-        area_button = new Gtk.Button ();
-        area_button.add (area_grid);
-        area_button.tooltip_markup = Granite.markup_accel_tooltip ({"f"}, _("Add Folder"));
-        area_button.get_style_context ().add_class ("fancy-turn-animation");
-        area_button.get_style_context ().remove_class ("button");
-        area_button.get_style_context ().add_class ("flat");
-        area_button.get_style_context ().add_class ("menuitem");
-
-        var help_button = new Gtk.ToggleButton ();
-        help_button.margin = 6;
-        help_button.can_focus = false;
-        help_button.valign = Gtk.Align.CENTER;
-        help_button.halign = Gtk.Align.START;
-        help_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var help_image = new Gtk.Image ();
-        help_image.gicon = new ThemedIcon ("help-contents-symbolic");
-        help_image.pixel_size = 14;
-        help_button.image = help_image;
-
-        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        box.pack_start (project_button, false, false, 0);
-        box.pack_start (area_button, false, false, 0);
-        box.pack_end (help_button, false, false, 0);
-
-        project_button.clicked.connect (() => {
-            stack.visible_child_name = "box";
-            name_entry.grab_focus ();
-        });
-
-        area_button.clicked.connect (create_area);
-
-        help_button.toggled.connect (() => {
-            if (help_button.active) {
-                if (help_popover == null) {
-                    help_popover = new Gtk.Popover (help_button);
-                    help_popover.position = Gtk.PositionType.TOP;
-                    help_popover.get_style_context ().add_class ("popover-background");
-
-                    var create_menu = new Widgets.ModelButton (_("Create tutorial project"), "planner-project-symbolic", "");
-
-                    var popover_grid = new Gtk.Grid ();
-                    popover_grid.margin_top = 3;
-                    popover_grid.margin_bottom = 3;
-                    popover_grid.orientation = Gtk.Orientation.VERTICAL;
-                    popover_grid.add (create_menu);
-                    popover_grid.show_all ();
-
-                    help_popover.add (popover_grid);
-
-                    help_popover.closed.connect (() => {
-                        help_button.active = false;
-                    });
-
-                    create_menu.clicked.connect (() => {
-                        int64 id = Planner.utils.create_tutorial_project ().id;
-
-                        Planner.utils.pane_project_selected (id, 0);
-                        Planner.notifications.send_notification (_("Your tutorial project was created"));
-
-                        Planner.utils.select_pane_project (id);
-            
-                        help_popover.popdown ();
-                        reveal = false;
-                    });
-                }
-            }
-
-            help_popover.popup ();
-        });
-
-        return box;
-    }
-
     private void cancel () {
         if (cancellable != null) {
             cancellable.cancel ();
@@ -638,15 +503,6 @@ public class Widgets.New : Gtk.Revealer {
                 project.is_todoist = 1;
                 Planner.todoist.add_project (project, cancellable);
             }
-        }
-    }
-
-    private void create_area () {
-        var area = new Objects.Area ();
-        area.name = _("New folder");
-
-        if (Planner.database.insert_area (area)) {
-            cancel ();
         }
     }
 }

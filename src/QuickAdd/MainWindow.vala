@@ -43,6 +43,7 @@ public class MainWindow : Gtk.Window {
     private Gtk.Label project_label;
     private Gtk.ListBox projects_listbox;
     private Gtk.SearchEntry search_entry;
+    private Gtk.TextView note_textview;
     private Gtk.ToggleButton reschedule_button;
     private Gtk.Switch time_switch;
     private Granite.Widgets.TimePicker time_picker;
@@ -90,7 +91,6 @@ public class MainWindow : Gtk.Window {
         top_box.margin_top = 3;
         top_box.margin_end = 9;
         top_box.hexpand = true;
-        // top_box.pack_start (checked_button, false, false, 0);
         top_box.pack_start (content_entry, false, true, 0);
 
         var submit_button = new Gtk.Button ();
@@ -159,6 +159,34 @@ public class MainWindow : Gtk.Window {
         reschedule_button.add (get_schedule_grid ());
         update_due_date ();
 
+        var note_image = new Gtk.Image ();
+        note_image.pixel_size = 14;
+        note_image.icon_name = "text-x-generic-symbolic";
+
+        var note_button = new Gtk.Button ();
+        note_button.tooltip_text = _("Add Note");
+        note_button.get_style_context ().add_class ("flat");
+        note_button.get_style_context ().add_class ("dim-label");
+        note_button.add (note_image);
+
+        var note_placeholder = new Gtk.Label (_("Note"));
+        note_placeholder.opacity = 0.7;
+
+        note_textview = new Gtk.TextView ();
+        note_textview.margin_top = 6;
+        note_textview.margin_end = 9;
+        note_textview.margin_start = 9;
+        note_textview.hexpand = true;
+        note_textview.valign = Gtk.Align.START;
+        note_textview.wrap_mode = Gtk.WrapMode.CHAR;
+        note_textview.get_style_context ().add_class ("textview");
+        note_textview.add (note_placeholder);
+
+        var note_revealer = new Gtk.Revealer ();
+        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        note_revealer.add (note_textview);
+        note_revealer.reveal_child = false;
+
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
         tools_box.margin_start = 6;
@@ -167,6 +195,7 @@ public class MainWindow : Gtk.Window {
         tools_box.pack_end (project_button, false, false, 0);
         tools_box.pack_end (reschedule_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
+        tools_box.pack_end (note_button, false, false, 0);
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -177,6 +206,7 @@ public class MainWindow : Gtk.Window {
         main_grid.margin_start = 6;
         main_grid.get_style_context ().add_class ("check-grid");
         main_grid.add (top_box);
+        main_grid.add (note_revealer);
         main_grid.add (tools_box);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -401,6 +431,30 @@ public class MainWindow : Gtk.Window {
                 reschedule_popover.show_all ();
                 reschedule_popover.popup ();
             }
+        });
+
+        note_button.clicked.connect (() => {
+            if (note_revealer.reveal_child) {
+                note_revealer.reveal_child = false;
+            } else {
+                note_revealer.reveal_child = true;
+                note_textview.grab_focus ();
+            }
+        });
+
+        note_textview.focus_out_event.connect (() => {
+            if (note_textview.buffer.text.strip () == "") {
+                note_placeholder.visible = true;
+            } else {
+                note_placeholder.visible = false;
+            }
+            
+            return false;
+        });
+
+        note_textview.focus_in_event.connect (() => {
+            note_placeholder.visible = false;
+            return false;
         });
     }
 
@@ -695,6 +749,7 @@ public class MainWindow : Gtk.Window {
         if (content_entry.text.strip () != "") {
             var item = new Item ();
             item.content = content_entry.text;
+            item.note = note_textview.buffer.text;
             item.priority = priority;  
             item.id = generate_id ();
             item.project_id = project.id;
