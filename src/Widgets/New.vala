@@ -58,6 +58,7 @@ public class Widgets.New : Gtk.Revealer {
                 }
 
                 build_area_liststore ();
+                color_combobox.active = GLib.Random.int_range (0, Planner.utils.get_color_list ().size);
             }
         }
     }
