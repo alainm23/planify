@@ -564,7 +564,13 @@ public class MainWindow : Gtk.Window {
 
     public void go_item (int64 item_id) {
         var item = Planner.database.get_item_by_id (item_id);
-        Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id);
+        var project = Planner.database.get_project_by_id (item.project_id);
+        if (project.inbox_project == 1) {
+            Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+        } else {
+            Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id);
+        }
+
         Planner.utils.highlight_item (item_id);
     }
 

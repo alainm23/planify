@@ -267,7 +267,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         var project_preview_grid = new Gtk.Grid ();
         project_preview_grid.column_spacing = 3;
         project_preview_grid.margin_end = 6;
-        project_preview_grid.halign = Gtk.Align.CENTER;
+        project_preview_grid.margin_top = 2;
+        project_preview_grid.halign = Gtk.Align.START;
         project_preview_grid.add (project_preview_image);
         project_preview_grid.add (project_preview_label);
 
@@ -374,8 +375,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_preview_image.gicon = new ThemedIcon ("text-x-generic-symbolic");
         note_preview_image.pixel_size = 10;
         note_preview_image.margin_end = 6;
-        note_preview_image.margin_top = 2;
-        note_preview_image.valign = Gtk.Align.CENTER;
+        note_preview_image.margin_top = 3;
+        note_preview_image.valign = Gtk.Align.START;
 
         note_preview_revealer = new Gtk.Revealer ();
         note_preview_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
