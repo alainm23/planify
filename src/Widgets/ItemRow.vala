@@ -82,6 +82,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Widgets.ImageMenuItem tomorrow_menu;
     private Gtk.SeparatorMenuItem date_separator;
     private Gtk.Menu menu = null;
+    private bool menu_opened = false;
 
     private bool save_off = false;
 
@@ -655,7 +656,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         content_entry.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
+            if (key.keyval == 65307 && menu_opened == false) {
                 hide_item ();
             }
 
@@ -801,7 +802,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         note_textview.key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
+            if (key.keyval == 65307 && menu_opened == false) {
                 note_stack.visible_child_name = "label";
                 update_note_label (note_textview.buffer.text);
                 hide_item ();
@@ -1494,6 +1495,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         projects_menu.show_all ();
         sections_menu.show_all ();
 
+        menu_opened = true;
         menu.popup_at_pointer (null);
     }
 
@@ -1503,8 +1505,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         menu.hide.connect (() => {
             handle_grid.get_style_context ().remove_class ("highlight");
+            menu_opened = false;
         });
-
+        
         var complete_menu = new Widgets.ImageMenuItem (_("Complete"), "emblem-default-symbolic");
         edit_menu = new Widgets.ImageMenuItem (_("Edit"), "edit-symbolic");
 
