@@ -307,7 +307,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         duedate_preview_grid = new Gtk.Grid ();
         duedate_preview_grid.column_spacing = 3;
         duedate_preview_grid.margin_end = 6;
-        duedate_preview_grid.halign = Gtk.Align.CENTER;
+        duedate_preview_grid.margin_top = 1;
+        duedate_preview_grid.halign = Gtk.Align.START;
         duedate_preview_grid.add (date_preview_revealer);
         duedate_preview_grid.add (time_preview_revealer);
         duedate_preview_grid.add (duedate_repeat_revealer);
