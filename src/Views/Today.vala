@@ -386,7 +386,6 @@ public class Views.Today : Gtk.EventBox {
                 }
 
                 check_placeholder_view ();
-
                 return false;
             });
         });
@@ -437,6 +436,7 @@ public class Views.Today : Gtk.EventBox {
                 completed_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
                 if (completed_revealer.reveal_child) {
                     add_completed_items ();
+                    check_placeholder_view ();
                 }
             }
         });
@@ -897,7 +897,12 @@ public class Views.Today : Gtk.EventBox {
             overdue_size > 0) {
             view_stack.visible_child_name = "listbox";
         } else {
-            view_stack.visible_child_name = "placeholder";
+            if (Planner.settings.get_boolean ("show-today-completed") &&
+                Planner.database.get_all_today_completed_items ().size > 0) {
+                view_stack.visible_child_name = "listbox";
+            } else {
+                view_stack.visible_child_name = "placeholder";
+            }
         }
 
         if (overdue_size > 0) {
