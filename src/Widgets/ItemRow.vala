@@ -690,7 +690,12 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 var row = new Widgets.CheckRow (i);
 
                 row.hide_item.connect (hide_item);
-
+                row.enter_activate.connect ((r) => {
+                    if (r.get_index () + 1 >= Planner.database.get_all_cheks_by_item (item.id).size) {
+                        new_checklist.reveal_child = true;
+                    }
+                });
+                
                 check_listbox.add (row);
                 check_listbox.show_all ();
 
@@ -1251,6 +1256,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
             var row = new Widgets.CheckRow (check);
 
             row.hide_item.connect (hide_item);
+            row.enter_activate.connect ((r) => {
+                if (r.get_index () + 1 >= Planner.database.get_all_cheks_by_item (item.id).size) {
+                    new_checklist.reveal_child = true;
+                }
+            });
 
             check_listbox.add (row);
             check_listbox.show_all ();

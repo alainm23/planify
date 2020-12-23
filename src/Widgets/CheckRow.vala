@@ -35,7 +35,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
     };
 
     public signal void hide_item ();
-    // public signal void activate (int index);
+    public signal void enter_activate (Widgets.CheckRow row);
 
     public CheckRow (Objects.Item item) {
         Object (
@@ -161,6 +161,7 @@ public class Widgets.CheckRow : Gtk.ListBoxRow {
 
         content_entry.activate.connect (() => {
             content_stack.visible_child_name = "label";
+            enter_activate (this);
         });
 
         content_entry.focus_out_event.connect (() => {
