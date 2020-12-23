@@ -81,7 +81,6 @@ public class MainWindow : Gtk.Window {
 
         content_entry = new Gtk.Entry ();
         content_entry.hexpand = true;
-        content_entry.margin_start = 6;
         content_entry.placeholder_text = _("Task name");
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("content-entry");
@@ -91,6 +90,7 @@ public class MainWindow : Gtk.Window {
         top_box.margin_top = 3;
         top_box.margin_end = 9;
         top_box.hexpand = true;
+        top_box.pack_start (checked_button, false, true, 0);
         top_box.pack_start (content_entry, false, true, 0);
 
         var submit_button = new Gtk.Button ();
@@ -160,7 +160,7 @@ public class MainWindow : Gtk.Window {
         update_due_date ();
 
         var note_image = new Gtk.Image ();
-        note_image.pixel_size = 14;
+        note_image.pixel_size = 16;
         note_image.icon_name = "text-x-generic-symbolic";
 
         var note_button = new Gtk.Button ();
@@ -175,10 +175,11 @@ public class MainWindow : Gtk.Window {
         note_textview = new Gtk.TextView ();
         note_textview.margin_top = 6;
         note_textview.margin_end = 9;
-        note_textview.margin_start = 9;
+        note_textview.margin_start = 28;
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.CHAR;
+        note_textview.height_request = 42;
         note_textview.get_style_context ().add_class ("textview");
         note_textview.add (note_placeholder);
 
@@ -189,11 +190,11 @@ public class MainWindow : Gtk.Window {
 
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
-        tools_box.margin_start = 6;
+        tools_box.margin_start = 20;
         tools_box.margin_top = 6;
         tools_box.hexpand = true;
+        tools_box.pack_start (reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
-        tools_box.pack_end (reschedule_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
         tools_box.pack_end (note_button, false, false, 0);
 
@@ -201,10 +202,8 @@ public class MainWindow : Gtk.Window {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.row_spacing = 0;
         main_grid.expand = false;
-        main_grid.margin_top = 6;
-        main_grid.margin_bottom= 6;
-        main_grid.margin_start = 6;
         main_grid.get_style_context ().add_class ("check-grid");
+        main_grid.get_style_context ().add_class ("popover");
         main_grid.add (top_box);
         main_grid.add (note_revealer);
         main_grid.add (tools_box);
@@ -757,23 +756,10 @@ public class MainWindow : Gtk.Window {
             item.due_date = due_date;
 
             if (project.is_todoist == 1) {
-                PlannerQuickAdd.database.add_todoist_item (item);
+                PlannerQuickAdd.database.add_todoist_item.begin (item);
             } else {
                 PlannerQuickAdd.database.insert_item (item);
             }
-            //  if (project.inbox_project == 1) {
-            //      if (PlannerQuickAdd.database.get_project_by_id (PlannerQuickAdd.settings.get_int64 ("inbox-project")).is_todoist == 1) {
-            //          PlannerQuickAdd.database.add_todoist_item (item);
-            //      } else {
-            //          PlannerQuickAdd.database.insert_item (item);
-            //      }
-            //  } else {
-            //      if (project.is_todoist == 0) {
-            //          PlannerQuickAdd.database.insert_item (item);
-            //      } else {
-            //          PlannerQuickAdd.database.add_todoist_item (item);
-            //      }
-            //  }
         }
     }
 

@@ -467,9 +467,9 @@ public class Views.Today : Gtk.EventBox {
     }
 
     private void update_today_label () {
-        date_label.label = new GLib.DateTime.now_local ().format (
+        date_label.label = "%s ‧ %s".printf (new GLib.DateTime.now_local ().format ("%a"), new GLib.DateTime.now_local ().format (
             Granite.DateTime.get_default_date_format (false, true, false)
-        );
+        ));
     }
 
     private void create_popover () {

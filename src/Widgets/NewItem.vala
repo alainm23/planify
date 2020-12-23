@@ -124,11 +124,12 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         content_entry.get_style_context ().add_class ("flat");
         content_entry.get_style_context ().add_class ("new-entry");
         content_entry.get_style_context ().add_class ("no-padding-right");
+        content_entry.get_style_context ().add_class ("font-bold");
 
         var content_grid = new Gtk.Grid ();
         content_grid.margin_end = 12;
         // content_grid.margin_top = 3;
-        // content_grid.add (checked_button);
+        content_grid.add (checked_button);
         content_grid.add (content_entry);
 
         var submit_button = new Gtk.Button ();
@@ -220,7 +221,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var label_button = new Widgets.LabelButton.new_item ();
 
         var note_image = new Gtk.Image ();
-        note_image.pixel_size = 14;
+        note_image.pixel_size = 16;
         note_image.icon_name = "text-x-generic-symbolic";
 
         var note_button = new Gtk.Button ();
@@ -235,6 +236,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var tools_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         tools_box.margin_bottom = 3;
         tools_box.margin_top = 6;
+        tools_box.margin_start = 20;
         tools_box.hexpand = true;
         tools_box.pack_start (reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
@@ -245,7 +247,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;
         note_textview.margin_end = 9;
-        note_textview.margin_start = 9;
+        note_textview.margin_start = 28;
+        note_textview.height_request = 42;
         note_textview.hexpand = true;
         note_textview.valign = Gtk.Align.START;
         note_textview.wrap_mode = Gtk.WrapMode.CHAR;

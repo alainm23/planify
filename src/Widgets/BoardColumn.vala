@@ -16,7 +16,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
     private bool entry_menu_opened = false;
     private Gtk.Revealer motion_revealer;
     private Gtk.EventBox top_eventbox;
-    private Gtk.Revealer main_revealer;
+    public Gtk.Revealer main_revealer;
     private Gtk.Box main_box;
     private Gtk.Revealer left_motion_revealer;
     private Gtk.Revealer right_motion_revealer;
@@ -244,6 +244,10 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         grid.add (left_motion_revealer);
         grid.add (main_box);
         grid.add (right_motion_revealer);
+        grid.margin_end = 24;
+        //  if (section.id != 0) {
+        //      grid.margin_start = 24;
+        //  }
 
         main_revealer = new Gtk.Revealer ();
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
@@ -839,8 +843,7 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         foreach (var item in items) {
             var row = new Widgets.ItemRow (item);
 
-            completed_listbox.add (row);
-            items_completed_added.set (item.id.to_string (), row);
+            completed_listbox.add (row);            items_completed_added.set (item.id.to_string (), row);
             completed_listbox.show_all ();
         }
     }

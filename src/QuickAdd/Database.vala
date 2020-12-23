@@ -372,75 +372,64 @@ public class Database : GLib.Object {
         return returned;
     }
 
-    public void add_todoist_item (Item item) {
+    public async void add_todoist_item (Item item) {
         item_added_started ();
         is_adding = true;
 
-        new Thread<void*> ("add_todoist_item", () => {
-            string temp_id = generate_string ();
-            string uuid = generate_string ();
+        string temp_id = generate_string ();
+        string uuid = generate_string ();
 
-            string url = "%s?token=%s&commands=%s".printf (
-                TODOIST_SYNC_URL,
-                PlannerQuickAdd.settings.get_string ("todoist-access-token"),
-                get_add_item_json (item, temp_id, uuid)
-            );
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            PlannerQuickAdd.settings.get_string ("todoist-access-token"),
+            get_add_item_json (item, temp_id, uuid)
+        );
 
-            var message = new Soup.Message ("POST", url);
+        var message = new Soup.Message ("POST", url);
 
-            session.queue_message (message, (sess, mess) => {
-                if (mess.status_code == 200) {
-                    try {
-                        var parser = new Json.Parser ();
-                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+        try {
+            var stream = yield session.send_async (message, new GLib.Cancellable ());
+            var parser = new Json.Parser ();
 
-                        var node = parser.get_root ().get_object ();
+            yield parser.load_from_stream_async (stream);
 
-                        var sync_status = node.get_object_member ("sync_status");
-                        var uuid_member = sync_status.get_member (uuid);
+            var node = parser.get_root ().get_object ();
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
 
-                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                            string sync_token = node.get_string_member ("sync_token");
-                            PlannerQuickAdd.settings.set_string ("todoist-sync-token", sync_token);
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+                PlannerQuickAdd.settings.set_string ("todoist-sync-token", sync_token);
 
-                            item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
-                            insert_item (item);
-                            print ("Item creado: %s\n".printf (item.content));
-                            item_added_completed ();
-                            is_adding = false;
-                        } else {
-                            var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-                            var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-                            item_added_error (http_code, error_message);
-                            is_adding = false;
-                        }
-                    } catch (Error e) {
-                        item_added_error ((int32) mess.status_code, e.message);
-                        is_adding = false;
-                    }
-                } else {
-                    if (is_disconnected ()) {
-                        var queue = new Queue ();
-                        queue.uuid = uuid;
-                        queue.object_id = item.id;
-                        queue.temp_id = temp_id;
-                        queue.query = "item_add";
-                        queue.args = item.to_json ();
+                item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+                insert_item (item);
+                item_added_completed ();
+                is_adding = false;
+            } else {
+                var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                item_added_error (http_code, error_message);
+                is_adding = false;
+            }
+        } catch (Error e) {
+            if (is_disconnected ()) {
+                var queue = new Queue ();
+                queue.uuid = uuid;
+                queue.object_id = item.id;
+                queue.temp_id = temp_id;
+                queue.query = "item_add";
+                queue.args = item.to_json ();
 
-                        if (insert_item (item) &&
-                            insert_queue (queue) &&
-                            insert_CurTempIds (item.id, temp_id, "item")) {
-                            item_added_completed ();
-                        }
-                    } else {
-                        item_added_error ((int32) mess.status_code, _("Connection error"));
-                        is_adding = false;
-                    }
+                if (insert_item (item) &&
+                    insert_queue (queue) &&
+                    insert_CurTempIds (item.id, temp_id, "item")) {
+                    item_added_completed ();
                 }
-            });
-
-            return null;
-        });
+            } else {
+                item_added_error ((int32) message.status_code, _("Connection error"));
+                is_adding = false;
+            }
+        }
     }
 
     public string get_encode_text (string text) {
@@ -527,9 +516,7 @@ public class Database : GLib.Object {
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
-
-        print ("%s\n".printf (generator.to_data (null)));
-
+        
         return generator.to_data (null);
     }
 

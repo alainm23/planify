@@ -21,7 +21,9 @@
 
 public class PlannerQuickAdd : Gtk.Application {
     private const string CSS = """
-        @define-color base_color %s;    
+        @define-color base_color %s;
+        @define-color check_border_color %s;
+        @define-color projectview_color %s;
 
         decoration {
             box-shadow:
@@ -91,17 +93,16 @@ public class PlannerQuickAdd : Gtk.Application {
         }
 
         .textview text {
-            background: alpha (#3689e6, 0.24);
+            background: @theme_bg_color;
         }
 
         .check-grid {
-            background-color: alpha (#3689e6, 0.25);
-            border-radius: 4px;
-            border: 1px solid alpha (#3689e6, 0.45);
+            border-radius: 6px;
+            background-color: @theme_bg_color;    
         }
 
         .fake-window {
-            background: @theme_bg_color;
+            background: @projectview_color;
             border-radius: 4px;
             box-shadow:
               0 0 0 1px @decoration_border_color,
@@ -129,7 +130,7 @@ public class PlannerQuickAdd : Gtk.Application {
         
         .priority-1 check {
             border-radius: 4px;
-            border-color: @border_color;
+            border-color: @check_border_color;
             background: transparent;
         }
 
@@ -217,24 +218,41 @@ public class PlannerQuickAdd : Gtk.Application {
         // Dark Mode
         int appearance_mode = settings.get_enum ("appearance");
         string base_color = "white";
+        string check_border_color = "@border_color";
+        string projectview_color = "shade (#FFFFFF, 0.985)";
         if (appearance_mode == 0) {
             base_color = "white";
+            check_border_color = "@border_color";
+            projectview_color = "shade (#FFFFFF, 0.985)";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
         } else if (appearance_mode == 1) {
             base_color = "#282828";
+            check_border_color = "grey";
+            projectview_color = "#1f1f1f";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
         } else if (appearance_mode == 2) {
             base_color = "#15151B";
+            check_border_color = "grey";
+            projectview_color = "#0B0B11";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
         } else if (appearance_mode == 3) {
             base_color = "#353945";
+            check_border_color = "grey";
+            projectview_color = "#404552";
             Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
         }
 
         // CSS provider
         var provider = new Gtk.CssProvider ();
+
+        var css = CSS.printf (
+            base_color,
+            check_border_color,
+            projectview_color
+        );
+
         try {
-            provider.load_from_data (CSS.printf (base_color), CSS.length);
+            provider.load_from_data (css, css.length);
             Gtk.StyleContext.add_provider_for_screen (
                 Gdk.Screen.get_default (), provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION

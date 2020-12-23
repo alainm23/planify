@@ -40,8 +40,8 @@ public class Widgets.BoardView : Gtk.EventBox {
         grid.hexpand = true;
         grid.margin_top = 24;
         grid.margin_start = 31;
-        grid.margin_end = 36;
-        grid.column_spacing = 24;
+        grid.margin_end = 18;
+        // grid.column_spacing = 24;
         grid.halign = Gtk.Align.START;
         // Gtk.drag_dest_set (grid, Gtk.DestDefaults.ALL, TARGET_ENTRIES_SECTION, Gdk.DragAction.MOVE);
         // grid.drag_data_received.connect (on_drag_section_received);
