@@ -957,11 +957,8 @@ public class Utils : GLib.Object {
     public void open_whats_new_dialog () {
         var dialog = new Widgets.WhatsNew ("com.github.alainm23.planner", _("Planner %s is here, with many design improvements, new features, and more.".printf (Constants.VERSION)));
 
-        List<string> list = new List<string> ();
-        list.append (_("Github #577 - Fixed recurring tasks."));
-        list.append (_("Updated translations."));
-        
-        dialog.append_notes (_("Bug fixes and performance improvement"), list, 30);
+        dialog.append ("align-vertical-top", _("New Board View"), _("For Todoist users, the Board View was introduced in this new update, a more visual way to organize your Planner projects. "));
+        dialog.append ("help-about", _("Sub-project"), _("One of the most requested features comes to Planner 2.6, keep your ever-growing project list neat and organized with sub-projects."));
 
         dialog.show_all ();
         dialog.present ();

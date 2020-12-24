@@ -256,7 +256,7 @@ public class Views.Inbox : Gtk.EventBox {
         board_image.valign = Gtk.Align.START;
         board_image.pixel_size = 16;
 
-        var board_label = new Gtk.Label (_("Board View"));
+        var board_label = new Gtk.Label (_("View as board"));
         board_label.hexpand = true;
         board_label.valign = Gtk.Align.START;
         board_label.xalign = 0;

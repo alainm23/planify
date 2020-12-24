@@ -379,18 +379,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
     private Gtk.Widget get_task_widget () {
         var top_box = new Dialogs.Preferences.TopBox ("go-home", _("Task defaults"));
 
-        var description_label = new Gtk.Label (
-            _("When you open up Planner, make sure you see the tasks that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
-        );
-        description_label.justify = Gtk.Justification.FILL;
-        description_label.use_markup = true;
-        description_label.wrap = true;
-        description_label.xalign = 0;
-        description_label.margin_bottom = 6;
-        description_label.margin_top = 6;
-        description_label.margin_start = 12;
-        description_label.margin_end = 12;
-
         var new_tasks_position_switch = new Dialogs.Preferences.ItemSwitch (
             _("New tasks on top"),
             Planner.settings.get_enum ("new-tasks-position") == 0
@@ -420,7 +408,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         box.margin_top = 6;
         box.valign = Gtk.Align.START;
         box.hexpand = true;
-        box.add (description_label);
         box.add (new_tasks_position_switch);
         box.add (new Gtk.Label (_("Indicate the position where the new tasks were created.")) {
             wrap = true,

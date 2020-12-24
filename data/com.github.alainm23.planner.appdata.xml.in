@@ -46,6 +46,24 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.6" date="2020-12-24">
+      <description>
+        <p>Merry Christmas everyone, Planner 2.6 is here.</p>
+        <ul>
+          <li>New Board View</li>
+          <li>Sub-project is here</li>
+          <li>Quick Search now saves your last searches, so you can hop around without even typing.</li>
+          <li>Added new Tomorrow view to Quick Search.</li>
+          <li>Now it is possible to search between Sections.</li>
+          <li>Added a new view in Preferences to edit task defaults.</li>
+          <li>It is now possible to filter the tasks within a project by labels.</li>
+          <li>Labels have been added in the sidebar to make the use of filter by labels much faster.</li>
+          <li>It is now possible to sort the position Inbox, Today and Upcoming by Drag and Drop.</li>
+          <li>A giant code cleanup was done and resource usage was improved. Now Planner is faster and works much better.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.5.7" date="2020-10-26">
       <description>
         <p>Bug fixes and performance improvement</p>

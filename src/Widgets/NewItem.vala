@@ -316,11 +316,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         content_entry.focus_out_event.connect (() => {
             focus_timeout = Timeout.add (1000, () => {
-                focus_timeout = 0;
                 if (entry_menu_opened == false && content_entry.text.strip () == "") {
-                    timeout_id = Timeout.add (250, () => {
-                        timeout_id = 0;
-        
+                    Timeout.add (250, () => {        
                         if (temp_id_mapping == 0) {
                             hide_destroy ();
                         }
@@ -329,7 +326,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     });
                 }
 
-                return GLib.Source.REMOVE;
+                return false;
             });
 
             return false;
