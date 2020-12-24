@@ -843,7 +843,8 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         foreach (var item in items) {
             var row = new Widgets.ItemRow (item);
 
-            completed_listbox.add (row);            items_completed_added.set (item.id.to_string (), row);
+            completed_listbox.add (row);
+            items_completed_added.set (item.id.to_string (), row);
             completed_listbox.show_all ();
         }
     }
