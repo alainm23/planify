@@ -258,7 +258,7 @@ public class MainWindow : Gtk.Window {
                 // Create Inbox Project
                 var inbox_project = Planner.database.create_inbox_project ();
 
-                // Cretae Default Labels
+                // Create Default Labels
                 Planner.utils.create_default_labels ();
 
                 // Set settings

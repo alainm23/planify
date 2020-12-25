@@ -252,7 +252,7 @@ public class Services.Todoist : GLib.Object {
             );
 
 
-            // Cretae Default Labels
+            // Create Default Labels
             Planner.utils.create_default_labels ();
 
             // Create projects

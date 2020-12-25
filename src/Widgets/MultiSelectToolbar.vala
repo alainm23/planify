@@ -188,7 +188,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Revealer {
                     }
                 }
                 var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
-                    _("Delete taks"),
+                    _("Delete task"),
                     message,
                     "user-trash-full",
                 Gtk.ButtonsType.CANCEL);
