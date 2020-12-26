@@ -188,12 +188,12 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             margin_end = 12
         });
         grid.add (name_entry);
-        //  grid.add (new Granite.HeaderLabel (_("Description:")) {
-        //      margin_top = 6,
-        //      margin_start = 12,
-        //      margin_end = 12
-        //  });
-        // grid.add (description_frame);
+        grid.add (new Granite.HeaderLabel (_("Description:")) {
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 12
+        });
+        grid.add (description_frame);
         grid.add (new Granite.HeaderLabel (_("Color:")) {
             margin_top = 6,
             margin_start = 12,
