@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-07-22 13:41+0000\n"
 "Last-Translator: Heart & Soul <shenzhe100@126.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
@@ -386,7 +386,7 @@ msgstr "设置"
 msgid "Name:"
 msgstr "名称:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "描述:"
 
@@ -394,12 +394,6 @@ msgstr "描述:"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "颜色:"
@@ -665,6 +659,7 @@ msgid "Mark Incomplete"
 msgstr "1 个任务完成"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 #, fuzzy
 msgid "Delete task"
 msgstr "删除任务"
@@ -858,11 +853,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "确定删除 <b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "删除任务"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1412,8 +1402,6 @@ msgstr "插件"
 msgid "Calendar Events"
 msgstr "日历事件"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1763,6 +1751,10 @@ msgstr "任务已复制到剪贴板."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "选择的内容已复制到剪贴板."
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "删除任务"
 
 #, fuzzy
 #~ msgid "Updated translations."

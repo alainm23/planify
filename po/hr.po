@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-12-04 17:29+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
@@ -390,7 +390,7 @@ msgstr "Postavke"
 msgid "Name:"
 msgstr "Ime:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "Opis:"
 
@@ -398,12 +398,6 @@ msgstr "Opis:"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Boja:"
@@ -665,6 +659,7 @@ msgid "Mark Incomplete"
 msgstr "Označi kao obavljeno"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
 msgstr "Izbriši zadatak"
 
@@ -860,11 +855,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Stvarno želiš izbrisati <b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "Izbriši zadatak"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1403,8 +1393,6 @@ msgstr "Dodaci"
 msgid "Calendar Events"
 msgstr "Kalendarski događaji"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1762,6 +1750,10 @@ msgstr "Zadatak je kopiran u međuspremnik."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "Odjeljak je kopiran u međuspremnik."
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "Izbriši zadatak"
 
 #~ msgid "New Quick Find button position."
 #~ msgstr "Novi položaj gumba za brzu pretragu."

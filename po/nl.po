@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-12-26 10:50+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
@@ -397,7 +397,7 @@ msgstr "Voorkeuren"
 msgid "Name:"
 msgstr "Naam:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "Beschrijving:"
 
@@ -405,12 +405,6 @@ msgstr "Beschrijving:"
 msgid "Parent:"
 msgstr "Bovenliggend:"
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Kleur:"
@@ -672,6 +666,7 @@ msgid "Mark Incomplete"
 msgstr "Markeren als onvolledig"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
 msgstr "Taak verwijderen"
 
@@ -865,10 +860,6 @@ msgstr "Klaar"
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Weet je zeker dat je <b>%i</b> taken wilt verwijderen?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-msgid "Delete taks"
-msgstr "Taken verwijderen"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1380,8 +1371,6 @@ msgstr "Uitbreidingen"
 msgid "Calendar Events"
 msgstr "Kalendergebeurtenissen"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1740,6 +1729,9 @@ msgstr "De taak is gekopieerd naar het klembord."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "De sectie is gekopieerd naar het klembord."
+
+#~ msgid "Delete taks"
+#~ msgstr "Taken verwijderen"
 
 #~ msgid "New Quick Find button position."
 #~ msgstr "Nieuwe locatie van de snelzoekknop."

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-12-26 10:50+0000\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/"
@@ -393,7 +393,7 @@ msgstr "Inställningar"
 msgid "Name:"
 msgstr "Namn:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "Beskrivning:"
 
@@ -401,12 +401,6 @@ msgstr "Beskrivning:"
 msgid "Parent:"
 msgstr "Överordnat:"
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Färg:"
@@ -668,6 +662,7 @@ msgid "Mark Incomplete"
 msgstr "Markera som ofullständig"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
 msgstr "Ta bort uppgift"
 
@@ -859,10 +854,6 @@ msgstr "Klart"
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Vill du verkligen ta bort %i uppgifter?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-msgid "Delete taks"
-msgstr "Ta bort uppgifter"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1199,7 +1190,8 @@ msgstr "Sök"
 
 #: src/Dialogs/QuickFind.vala:156
 msgid "Quickly switch projects and views, find tasks, search by labels."
-msgstr "Växla projekt och vyer snabbt, hitta uppgifter och sök genom etiketter."
+msgstr ""
+"Växla projekt och vyer snabbt, hitta uppgifter och sök genom etiketter."
 
 #: src/Dialogs/QuickFind.vala:236 src/Dialogs/QuickFind.vala:510
 #: src/Dialogs/ShortcutsDialog.vala:125
@@ -1372,8 +1364,6 @@ msgstr "Insticksmoduler"
 msgid "Calendar Events"
 msgstr "Kalenderhändelser"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1729,3 +1719,6 @@ msgstr "Uppgiften kopierades till urklipp."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "Sektionen kopierades till urklipp."
+
+#~ msgid "Delete taks"
+#~ msgstr "Ta bort uppgifter"

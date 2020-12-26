@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-04-03 19:16+0000\n"
 "Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
 "Language-Team: Afrikaans <https://hosted.weblate.org/projects/planner/"
@@ -387,7 +387,7 @@ msgstr "Voorkeure"
 msgid "Name:"
 msgstr "Naam:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 #, fuzzy
 msgid "Description:"
 msgstr "Afdelings"
@@ -396,12 +396,6 @@ msgstr "Afdelings"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Kleur:"
@@ -671,6 +665,7 @@ msgid "Mark Incomplete"
 msgstr "Op hierdie rekenaar"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 #, fuzzy
 msgid "Delete task"
 msgstr "Verwyder"
@@ -865,11 +860,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Is u seker dat u <b>%s</b> wil verwyder?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "Verwyder"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1402,8 +1392,6 @@ msgstr ""
 msgid "Calendar Events"
 msgstr ""
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1738,6 +1726,10 @@ msgstr ""
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "Verwyder"
 
 #~ msgid "Project"
 #~ msgstr "Projek"

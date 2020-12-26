@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-09-29 12:40+0000\n"
 "Last-Translator: Passachol Tassanakul <ptassanakul@gmail.com>\n"
 "Language-Team: Thai <https://hosted.weblate.org/projects/planner/"
@@ -389,7 +389,7 @@ msgstr "การตั้งค่า"
 msgid "Name:"
 msgstr "ชื่อ:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 #, fuzzy
 msgid "Description:"
 msgstr "คำอธิบาย"
@@ -398,12 +398,6 @@ msgstr "คำอธิบาย"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "สี:"
@@ -674,6 +668,7 @@ msgid "Mark Incomplete"
 msgstr "งานที่เสร็จสมบูรณ์"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 #, fuzzy
 msgid "Delete task"
 msgstr "ลบงาน"
@@ -870,11 +865,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการลบ<b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "ลบงาน"
 
 #: src/Widgets/ShortcutLabel.vala:59
 #, fuzzy
@@ -1427,8 +1417,6 @@ msgstr "ส่วนประกอบเพิ่มเติม"
 msgid "Calendar Events"
 msgstr "กิจกรรมในปฏิทิน"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1795,6 +1783,10 @@ msgstr "งานถูกคัดลอกไปยังคลิปบอร
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "คัดลอกหมวดไปยังคลิปบอร์ดแล้ว"
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "ลบงาน"
 
 #, fuzzy
 #~ msgid "Updated translations."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-11-20 02:28+0000\n"
 "Last-Translator: Natán Parrondo <natanparrondo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
@@ -398,7 +398,7 @@ msgstr "Preferencias"
 msgid "Name:"
 msgstr "Nombre:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "Descripción:"
 
@@ -406,12 +406,6 @@ msgstr "Descripción:"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Color:"
@@ -673,6 +667,7 @@ msgid "Mark Incomplete"
 msgstr "Marcar como incompleto"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
 msgstr "Eliminar tarea"
 
@@ -867,11 +862,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "¿Confirma que quiere eliminar <b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "Eliminar tarea"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1414,8 +1404,6 @@ msgstr "Complementos"
 msgid "Calendar Events"
 msgstr "Calendario de eventos"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1779,6 +1767,10 @@ msgstr "Se ha copiado la tarea en el portapapeles."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "Se ha copiado la sección en el portapapeles."
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "Eliminar tarea"
 
 #~ msgid "New Quick Find button position."
 #~ msgstr "Nueva posición para el botón de Búsqueda Rápida."

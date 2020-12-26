@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-10-25 12:09+0000\n"
 "Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
@@ -395,7 +395,7 @@ msgstr "Preferenze"
 msgid "Name:"
 msgstr "Nome:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
 msgstr "Descrizione:"
 
@@ -403,12 +403,6 @@ msgstr "Descrizione:"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Colore:"
@@ -670,6 +664,7 @@ msgid "Mark Incomplete"
 msgstr "Contrassegna come incompleto"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
 msgstr "Elimina attività"
 
@@ -865,11 +860,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Sei sicuro di voler eliminare <b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "Elimina attività"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1410,8 +1400,6 @@ msgstr "Estensioni"
 msgid "Calendar Events"
 msgstr "Calendario Eventi"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1778,6 +1766,10 @@ msgstr "Il Compito è stata copiata negli Appunti."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "La Sezione è stata copiata negli Appunti."
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "Elimina attività"
 
 #~ msgid "New Quick Find button position."
 #~ msgstr "Nuova posizione del pulsante Ricerca rapida."

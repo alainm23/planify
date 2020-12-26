@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-24 13:02-0500\n"
+"POT-Creation-Date: 2020-12-26 12:51-0500\n"
 "PO-Revision-Date: 2020-02-28 09:14+0000\n"
 "Last-Translator: Long Nguyen <stoostranger@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/"
@@ -392,7 +392,7 @@ msgstr "Cài đặt"
 msgid "Name:"
 msgstr "Tên:"
 
-#: src/Widgets/New.vala:97
+#: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 #, fuzzy
 msgid "Description:"
 msgstr "Xóa Phần này"
@@ -401,12 +401,6 @@ msgstr "Xóa Phần này"
 msgid "Parent:"
 msgstr ""
 
-#. grid.add (new Granite.HeaderLabel (_("Description:")) {
-#. margin_top = 6,
-#. margin_start = 12,
-#. margin_end = 12
-#. });
-#. grid.add (description_frame);
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
 msgstr "Màu:"
@@ -678,6 +672,7 @@ msgid "Mark Incomplete"
 msgstr "Việc đã hoàn thành"
 
 #: src/Widgets/ItemCompletedRow.vala:223
+#: src/Widgets/MultiSelectToolbar.vala:191
 #, fuzzy
 msgid "Delete task"
 msgstr "Xóa việc cần làm"
@@ -876,11 +871,6 @@ msgstr ""
 #, fuzzy, c-format
 msgid "Are you sure you want to delete %i tasks?"
 msgstr "Bạn có chắc chắc bạn muốn xóa <b>%s</b>?"
-
-#: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
-msgid "Delete taks"
-msgstr "Xóa việc cần làm"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -1431,8 +1421,6 @@ msgstr "Tiện ích"
 msgid "Calendar Events"
 msgstr "Sự kiện trên lịch"
 
-#. addons_grid.add (plugins_item);
-#. addons_grid.add (labels_item);
 #. addons_grid.add (shortcuts_item);
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:181
@@ -1796,6 +1784,10 @@ msgstr "Việc cần làm đã được sao chép vào Clipboard."
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "Phần này đã được lưu vào Clipboard."
+
+#, fuzzy
+#~ msgid "Delete taks"
+#~ msgstr "Xóa việc cần làm"
 
 #, fuzzy
 #~ msgid "Updated translations."
