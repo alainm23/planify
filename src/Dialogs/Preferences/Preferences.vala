@@ -171,9 +171,9 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         addons_grid.orientation = Gtk.Orientation.VERTICAL;
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         addons_grid.add (todoist_item);
-        // addons_grid.add (plugins_item);
         addons_grid.add (calendar_item);
-        // addons_grid.add (labels_item);
+        addons_grid.add (labels_item);
+        addons_grid.add (plugins_item);
         // addons_grid.add (shortcuts_item);
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
