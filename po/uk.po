@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-24 13:02-0500\n"
-"PO-Revision-Date: 2020-12-13 19:29+0000\n"
+"PO-Revision-Date: 2020-12-26 10:50+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -184,26 +184,29 @@ msgstr ""
 "новинками."
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "Нова сфера"
+msgstr "Нове подання дошками"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Для користувачів Todoist у цьому новому оновленні було представлено подання "
+"дошками, що є наочнішим способом впорядкування ваших проєктів Planner. "
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "Впорядкувати за проєктом"
+msgstr "Підпроєкт"
 
 #: src/Utils.vala:961
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Одна з найзатребуваніших функцій з'являється у Planner 2.6, підтримуйте ваш "
+"постійно збільшуваний список проєктів охайним та впорядкованим з "
+"підпроєктами."
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -316,11 +319,11 @@ msgstr "На цьому комп’ютері"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Очистіть буфер обміну, скопіюйте текст і повторіть спробу"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Зберегти файл Planner"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -340,22 +343,20 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Файли Planner"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "Нічого немає"
+msgstr "Всі файли"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Відкрити файл Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -398,7 +399,7 @@ msgstr "Опис:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Батьківський:"
 
 #. grid.add (new Granite.HeaderLabel (_("Description:")) {
 #. margin_top = 6,
@@ -424,7 +425,7 @@ msgstr "Закрити"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Проєкт %s успішно створено"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -432,7 +433,7 @@ msgstr "Лоакльно"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:624
 msgid "No Parent"
-msgstr ""
+msgstr "Немає батьківського"
 
 #: src/Widgets/ProjectRow.vala:126 src/Views/Inbox.vala:104
 #: src/Views/Project.vala:183 src/Dialogs/Project.vala:205
@@ -615,7 +616,7 @@ msgstr "Завдання видалено"
 #: src/Widgets/ItemRow.vala:1066
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr "Завершено. Наступна подія: %s"
+msgstr "Виконано. Наступна подія: %s"
 
 #: src/Widgets/ItemRow.vala:1071
 msgid "1 task completed"
@@ -664,7 +665,7 @@ msgstr "Час вичерпано"
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
-msgstr "Позначити незавершеним"
+msgstr "Позначити невиконаним"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 msgid "Delete task"
@@ -672,9 +673,8 @@ msgstr "Видалити завдання"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
 #: src/Widgets/BoardColumn.vala:88
-#, fuzzy
 msgid "(No Section)"
-msgstr "Без розділу"
+msgstr "(Без розділу)"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
@@ -849,21 +849,19 @@ msgid "Add Label"
 msgstr "Додати мітку"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
-#, fuzzy
 msgid "Priority"
-msgstr "Важливість 1"
+msgstr "Важливість"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "Виконано"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "Ви дійсно бажаєте видалити <b>%s</b>?"
+msgstr "Ви дійсно бажаєте видалити %i завдань?"
 
 #: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
 msgid "Delete taks"
 msgstr "Видалити завдання"
 
@@ -873,35 +871,31 @@ msgstr "Вимкнено"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "Що нового"
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "Вміст"
+msgstr "Продовжити"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "Фільтрувати за міткою"
 
 #: src/Widgets/LabelFilter.vala:47
-#, fuzzy
 msgid "Label"
-msgstr "Мітки"
+msgstr "Мітка"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "Що нового"
 
 #: src/Widgets/ToolsMenu.vala:45
-#, fuzzy
 msgid "Keyboard shortcuts"
 msgstr "Комбінації клавіш"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "Час вичерпано"
+msgstr "Синхронізацію завершено"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -922,58 +916,48 @@ msgstr ""
 "буде синхронізовано за повторного підключення"
 
 #: src/Widgets/ToolsMenu.vala:197
-#, fuzzy
 msgid "Sync…"
-msgstr "Синхронізація"
+msgstr "Синхронізація…"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
-#, fuzzy
 msgid "Sync Now"
-msgstr "Синхронізація"
+msgstr "Синхронізувати зараз"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%OB %Y"
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
-#, fuzzy
 msgid "Mo"
 msgstr "Пн"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
-#, fuzzy
 msgid "Tu"
 msgstr "Вт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
-#, fuzzy
 msgid "We"
 msgstr "Ср"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
-#, fuzzy
 msgid "Th"
 msgstr "Чт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
-#, fuzzy
 msgid "Fr"
 msgstr "Пт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
-#, fuzzy
 msgid "Sa"
 msgstr "Сб"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
-#, fuzzy
 msgid "Su"
 msgstr "Нд"
 
@@ -1066,7 +1050,7 @@ msgstr "Показати виконані"
 #: src/Views/Inbox.vala:259 src/Views/Project.vala:567
 #: src/Dialogs/Project.vala:559
 msgid "View as board"
-msgstr ""
+msgstr "Подання дошкою"
 
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
@@ -1137,7 +1121,7 @@ msgstr "Дата завершення:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "Наразі відповідних цьому фільтру завдань немає."
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
@@ -1145,9 +1129,8 @@ msgid "Completed"
 msgstr "Виконано"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
-#, fuzzy
 msgid "All Tasks"
-msgstr "Завдання"
+msgstr "Всі завдання"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
 msgid "Loading…"
@@ -1239,16 +1222,15 @@ msgstr "Вкладки"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "Фільтри"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "Нещодавні"
 
 #: src/Dialogs/QuickFind.vala:580
-#, fuzzy
 msgid "Sections"
-msgstr "Без розділу"
+msgstr "Розділи"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
@@ -1258,7 +1240,7 @@ msgstr "Комбінації клавіш"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
-msgstr ""
+msgstr "Використовується будь-де"
 
 #: src/Dialogs/ShortcutsDialog.vala:62
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
@@ -1268,96 +1250,86 @@ msgid "Change"
 msgstr "Змінити"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
-#, fuzzy
 msgid "Create a new task at the top of the list"
-msgstr "Створити нове завдання на початку переліку (доступно лише в проєктах)"
+msgstr "Створити нове завдання на початку списку"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "Вставте звичайний текст, щоб створити нове завдання"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
-#, fuzzy
 msgid "Create a new section in a project"
-msgstr "Створити новий розділ"
+msgstr "Створити новий розділ проєкту"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
-#, fuzzy
 msgid "Open Quick Add"
-msgstr "Швидке додавання"
+msgstr "Відкрити швидке додавання"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
-#, fuzzy
 msgid "Open Quick Find"
-msgstr "Швидкий пошук"
+msgstr "Відкрити швидкий пошук"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "Почати вводити текст, щоб почати пошук"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
-msgstr "Впорядкувати за важливістю"
+msgstr "Фільтрувати за важливістю"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
-msgstr ""
+msgstr "Список швидкого пошуку для всіх міток"
 
 #: src/Dialogs/ShortcutsDialog.vala:126
 msgid "Quick Find list for all projects"
-msgstr ""
+msgstr "Список швидкого пошуку для всіх проєктів"
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "Фільтрувати за всіма виконаними завданнями."
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
-msgstr ""
+msgstr "Керування вікнами"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
-#, fuzzy
 msgid "Open preferences"
-msgstr "Параметри"
+msgstr "Відкрити параметри"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
-msgstr ""
+msgstr "Відкрити нове вікно поточного проєкту"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "Перемістити вікно проєкту до робочого простору ліворуч"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "Перемістити вікно проєкту до робочого простору праворуч"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
-#, fuzzy
 msgid "Open Keyboard Shortcuts"
-msgstr "Комбінації клавіш"
+msgstr "Відкрити комбінації клавіш"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
-#, fuzzy
 msgid "Navigate"
-msgstr "щоб виділити та"
+msgstr "Навігація"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
-#, fuzzy
 msgid "Open Inbox"
 msgstr "Відкрити Вхідні"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
-#, fuzzy
 msgid "Go to start page"
-msgstr "Автозапуск"
+msgstr "Перейти до початкової сторінки"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "Плагіни"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1380,12 +1352,11 @@ msgstr "Лічильник на піктограмі"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "Зовнішній вигляд"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
-#, fuzzy
 msgid "Task default"
-msgstr "Завдання видалено"
+msgstr "Типове налаштування завдання"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:717
@@ -1427,37 +1398,37 @@ msgstr ""
 "можете налаштувати її як завгодно."
 
 #: src/Dialogs/Preferences/Preferences.vala:380
-#, fuzzy
 msgid "Task defaults"
-msgstr "Завдання видалено"
+msgstr "Типові налаштування завдань"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "Нові завдання вгорі"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "Підкреслювати виконані завдання."
 
 #: src/Dialogs/Preferences/Preferences.vala:401
-#, fuzzy
 msgid "Default priority"
-msgstr "Впорядкувати за важливістю"
+msgstr "Типова важливість"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "Вказувати позицію, де було створено нові завдання."
 
 #: src/Dialogs/Preferences/Preferences.vala:457
-#, fuzzy
 msgid "Backups"
-msgstr "Назад"
+msgstr "Резервні копії"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Planner створює щоденні автоматичні резервні копії активних проєктів і "
+"завдань. Ви можете легко відновити резервні копії в будь-який час за "
+"допомогою імпорту проєкту."
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
@@ -1502,7 +1473,7 @@ msgstr "Розташування кнопок"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "Використовувати системне оформлення вікон (потребен перезапуск)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1510,7 +1481,7 @@ msgstr "Тема"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "Розмір шрифту"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1542,7 +1513,7 @@ msgstr "Зберегти останній вибраний проєкт"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "Автоматично закривати після втрати фокусу"
 
 #: src/Dialogs/Preferences/Preferences.vala:900
 msgid "DE Integration"
@@ -1578,7 +1549,7 @@ msgstr "Небезпечна зона"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "Дата та час"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1599,7 +1570,7 @@ msgstr "Експорт"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "Початок тижня"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1703,49 +1674,44 @@ msgstr "База даних"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Поточне розташування: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
-#, fuzzy
 msgid "Reset to default"
-msgstr "Скинути все"
+msgstr "Відновити типове значення"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
-#, fuzzy
 msgid "Are you sure you want to restore the database location to default?"
-msgstr "Ви впевнені, що хочете скинути все?"
+msgstr "Ви впевнені, що хочете відновити типове розташування бази даних?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "Новим розташуванням бази даних буде: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
-#, fuzzy
 msgid "Are you sure you want to change the database location?"
-msgstr "Ви впевнені, що хочете скинути все?"
+msgstr "Ви впевнені, що хочете змінити розташування бази даних?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
-#, fuzzy
 msgid "This process will move your database file to the selected location."
-msgstr "Сеанс Todoist буде завершено на цьому пристрої."
+msgstr "Цей процес перемістить файл бази даних до вибраного розташування."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "розташування бази даних"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
-#, fuzzy
 msgid "_Cancel"
-msgstr "Скасувати"
+msgstr "_Скасувати"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Відкрити"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Файли бази даних Planner (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
