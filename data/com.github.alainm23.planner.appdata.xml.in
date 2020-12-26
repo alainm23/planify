@@ -46,6 +46,16 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.6.2" date="2020-12-26">
+      <description>
+        <p>Merry Christmas everyone, Planner 2.6 is here.</p>
+        <ul>
+          <li>Github #640 - The labels don't appear in both the sidebar and the settings.</li>
+          <li>Github #641 - The project description.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.6.1" date="2020-12-24">
       <description>
         <p>Merry Christmas everyone, Planner 2.6 is here.</p>
