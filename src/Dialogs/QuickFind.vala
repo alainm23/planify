@@ -985,7 +985,7 @@ namespace Synapse {
             * 1) ^query$
             * 2) ^query
             * 3) \bquery
-            * 4) split to words and seach \bword1.+\bword2 (if there are 2+ words)
+            * 4) split to words and search \bword1.+\bword2 (if there are 2+ words)
             * 5) query
             * 6) split to characters and search \bq.+\bu.+\be.+\br.+\by
             * 7) split to characters and search \bq.*u.*e.*r.*y
