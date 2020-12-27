@@ -196,7 +196,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
                 Planner.event_bus.pane_selected (
                     PaneType.ACTION,
-                    (int64) Planner.utils.get_int_by_paneview (view)
+                    ((int64) Planner.utils.get_int_by_paneview (view)).to_string ()
                 );
 
                 return false;
@@ -206,7 +206,8 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         });
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.ACTION && (int64) Planner.utils.get_int_by_paneview (view) == id) {
+            if (pane_type == PaneType.ACTION &&
+                ((int64) Planner.utils.get_int_by_paneview (view)).to_string () == id) {
                 handle.get_style_context ().add_class ("project-selected");
             } else {
                 handle.get_style_context ().remove_class ("project-selected");

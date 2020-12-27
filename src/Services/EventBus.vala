@@ -69,5 +69,5 @@ public class Services.EventBus : Object {
 
     // Pane Selected
     public signal void project_selected (int64 project_id);
-    public signal void pane_selected (PaneType pane_type, int64 id);
+    public signal void pane_selected (PaneType pane_type, string id);
 }

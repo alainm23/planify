@@ -46,7 +46,8 @@ public enum PaneView {
 public enum PaneType {
     ACTION,
     PROJECT,
-    LABEL
+    LABEL,
+    TASKLIST
 }
 
 public class Planner : Gtk.Application {

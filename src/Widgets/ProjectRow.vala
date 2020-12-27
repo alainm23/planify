@@ -250,7 +250,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         h_grid.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Planner.event_bus.pane_selected (PaneType.PROJECT, project.id);
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project.id.to_string ());
                 return false;
             } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
                 activate_menu ();
@@ -401,7 +401,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.PROJECT && project.id == id) {
+            if (pane_type == PaneType.PROJECT && project.id.to_string () == id) {
                 h_grid.get_style_context ().add_class ("project-selected");
             } else {
                 h_grid.get_style_context ().remove_class ("project-selected");

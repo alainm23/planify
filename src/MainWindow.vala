@@ -31,7 +31,7 @@ public class MainWindow : Gtk.Window {
     private Widgets.Pane pane;
     private Gtk.HeaderBar sidebar_header;
     private Gtk.HeaderBar projectview_header;
-    private Gtk.Stack stack;
+    public Gtk.Stack stack;
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
@@ -170,7 +170,7 @@ public class MainWindow : Gtk.Window {
         realize.connect (() => {
             // Plugins hook
             HookFunc hook_func = () => {
-                Planner.plugins.hook_pane (pane);
+                Planner.plugins.hook_widgets (this, pane);
             };
 
             Planner.plugins.extension_added.connect (() => {
@@ -209,14 +209,14 @@ public class MainWindow : Gtk.Window {
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
-                        Planner.event_bus.pane_selected (PaneType.PROJECT, project_id);
+                        Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
                     } else {
-                        Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+                        Planner.event_bus.pane_selected (PaneType.ACTION, "0");
                     }
                 } else {
                     Planner.event_bus.pane_selected (
                         PaneType.ACTION,
-                        Planner.settings.get_enum ("homepage-item")
+                        Planner.settings.get_enum ("homepage-item").to_string ()
                     );
                 }
 
@@ -252,7 +252,7 @@ public class MainWindow : Gtk.Window {
                 // To do: Create a tutorial project
                 Planner.event_bus.pane_selected (
                     PaneType.PROJECT,
-                    Planner.utils.create_tutorial_project ().id
+                    Planner.utils.create_tutorial_project ().id.to_string ()
                 );
 
                 // Create Inbox Project
@@ -274,7 +274,7 @@ public class MainWindow : Gtk.Window {
                 init_progress_controller ();
 
                 // Init Inbox Project
-                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
             } else if (index == 1) {
                 var todoist_oauth = new Dialogs.TodoistOAuth ();
                 todoist_oauth.show_all ();
@@ -311,7 +311,7 @@ public class MainWindow : Gtk.Window {
 
             // Create The New Inbox Project
             inbox_view = null;
-            Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+            Planner.event_bus.pane_selected (PaneType.ACTION, "0");
 
             // Enable UI
             pane.sensitive_ui = true;
@@ -326,7 +326,7 @@ public class MainWindow : Gtk.Window {
             if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
                 stack.visible_child.destroy ();
                 stack.visible_child_name = "inbox-view";
-                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
             }
         });
 
@@ -566,9 +566,9 @@ public class MainWindow : Gtk.Window {
         var item = Planner.database.get_item_by_id (item_id);
         var project = Planner.database.get_project_by_id (item.project_id);
         if (project.inbox_project == 1) {
-            Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+            Planner.event_bus.pane_selected (PaneType.ACTION, "0");
         } else {
-            Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id);
+            Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id.to_string ());
         }
 
         Planner.utils.highlight_item (item_id);
@@ -784,14 +784,14 @@ public class MainWindow : Gtk.Window {
         if (Planner.settings.get_boolean ("homepage-project")) {
             int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
             if (Planner.database.project_exists (project_id)) {
-                Planner.event_bus.pane_selected (PaneType.PROJECT, project_id);
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
             } else {
-                Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
             }
         } else {
             Planner.event_bus.pane_selected (
                 PaneType.ACTION,
-                Planner.settings.get_enum ("homepage-item")
+                Planner.settings.get_enum ("homepage-item").to_string ()
             );
         }
     }

@@ -392,13 +392,13 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             Planner.database.insert_quickfind_recents ("PROJECT", item.object);
             Planner.event_bus.pane_selected (
                 PaneType.PROJECT,
-                Planner.todoist.get_int_member_by_object (item.object, "id")
+                Planner.todoist.get_int_member_by_object (item.object, "id").to_string ()
             );
         } else if (item.result_type == QuickFindResultType.VIEW) {
             Planner.database.insert_quickfind_recents ("VIEW", item.object);
             Planner.event_bus.pane_selected (
                 PaneType.ACTION,
-                (int32) Planner.todoist.get_int_member_by_object (item.object, "id")
+                ((int32) Planner.todoist.get_int_member_by_object (item.object, "id")).to_string ()
             );
         } else if (item.result_type == QuickFindResultType.ITEM) {
             Planner.database.insert_quickfind_recents ("ITEM", item.object);
@@ -409,7 +409,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             Planner.database.insert_quickfind_recents ("LABEL", item.object);
             Planner.event_bus.pane_selected (
                 PaneType.LABEL,
-                Planner.todoist.get_int_member_by_object (item.object, "id")
+                Planner.todoist.get_int_member_by_object (item.object, "id").to_string ()
             );
         } else if (item.result_type == QuickFindResultType.FILTERS) {
             Planner.database.insert_quickfind_recents ("FILTERS", item.object);
@@ -444,7 +444,7 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             Planner.database.insert_quickfind_recents ("SECTION", item.object);
             Planner.event_bus.pane_selected (
                 PaneType.PROJECT,
-                Planner.todoist.get_int_member_by_object (item.object, "project_id")
+                Planner.todoist.get_int_member_by_object (item.object, "project_id").to_string ()
             );
         }
 

@@ -934,7 +934,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 var task = new ECal.Component ();
                 task.set_new_vtype (ECal.ComponentVType.TODO);
 
-                // unowned ICal.Component ical_task = task.get_icalcomponent ();
+                unowned ICal.Component ical_task = task.get_icalcomponent ();
                 
                 task.get_icalcomponent ().set_summary (content_entry.text);
                 // Planner.task_store.add_task (source, task, this);

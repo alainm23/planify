@@ -1,0 +1,10 @@
+[Plugin]
+Module=caldav
+Loader=C
+IAge=2
+Name=CalDAV
+Description=CalDAV is an open Internet standard for synchronizing calendar events and task lists.
+Icon=tag
+Authors=Alain M. <alainhuntt@gmail.com>
+Copyright=Copyright © 2020 Planner
+Website=https://github.com/alainm23/planner

@@ -2,7 +2,7 @@ public class Plugins.Interface : GLib.Object {
     public Services.PluginsManager manager;
 
     // Signals
-    public signal void hook_pane (Widgets.Pane pane);
+    public signal void hook_widgets (MainWindow window, Widgets.Pane pane);
 
     public Interface (Services.PluginsManager manager) {
         this.manager = manager;
@@ -20,7 +20,7 @@ public class Services.PluginsManager : GLib.Object {
     public Plugins.Interface plugin_iface { private set; public get; }
 
     // Signals
-    public signal void hook_pane (Widgets.Pane pane);
+    public signal void hook_widgets (MainWindow window, Widgets.Pane pane);
 
     public signal void extension_added (Peas.PluginInfo info);
     public signal void extension_removed (Peas.PluginInfo info);
@@ -51,8 +51,8 @@ public class Services.PluginsManager : GLib.Object {
         exts.foreach (on_extension_foreach);
 
         // Connect managers signals to interface's signals
-        this.hook_pane.connect ((w) => {
-            plugin_iface.hook_pane (w);
+        this.hook_widgets.connect ((w, p) => {
+            plugin_iface.hook_widgets (w, p);
         });
    }
 

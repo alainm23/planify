@@ -15,9 +15,10 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
     public void activate () {
         plugins = (Plugins.Interface) object;
-        plugins.hook_pane.connect ((p) => {
-            if (pane != null)
+        plugins.hook_widgets.connect ((w, p) => {
+            if (pane != null) {
                 return;
+            }
             
             pane = p;
             build_ui ();
@@ -170,7 +171,6 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
-
         Timeout.add (500, () => {
             main_grid.destroy ();
             return false;
@@ -253,7 +253,7 @@ public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
 
         handle.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Planner.event_bus.pane_selected (PaneType.LABEL, label.id);
+                Planner.event_bus.pane_selected (PaneType.LABEL, label.id.to_string ());
                 return false;
             }
 
@@ -261,7 +261,7 @@ public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
         });
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.LABEL && label.id == id) {
+            if (pane_type == PaneType.LABEL && label.id.to_string () == id) {
                 handle.get_style_context ().add_class ("project-selected");
             } else {
                 handle.get_style_context ().remove_class ("project-selected");

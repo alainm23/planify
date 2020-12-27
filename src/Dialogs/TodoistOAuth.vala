@@ -58,6 +58,7 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
         webview = new WebKit.WebView ();
         webview.expand = true;
         WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
+        WebKit.WebContext.get_default ().set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.add (webview);

@@ -396,7 +396,7 @@ public class Services.Todoist : GLib.Object {
 
             // To do: Create a tutorial project
             int64 id = Planner.utils.create_tutorial_project ().id;
-            Planner.event_bus.pane_selected (PaneType.PROJECT, id);
+            Planner.event_bus.pane_selected (PaneType.PROJECT, id.to_string ());
 
             first_sync_finished ();
         } catch (Error e) {

@@ -184,17 +184,17 @@ public class Services.ActionManager : Object {
 
     private void action_view_inbox () {
         Planner.event_bus.ctrl_pressed = false;
-        Planner.event_bus.pane_selected (PaneType.ACTION, 0);
+        Planner.event_bus.pane_selected (PaneType.ACTION, "0");
     }
 
     private void action_view_today () {
         Planner.event_bus.ctrl_pressed = false;
-        Planner.event_bus.pane_selected (PaneType.ACTION, 1);
+        Planner.event_bus.pane_selected (PaneType.ACTION, "1");
     }
 
     private void action_view_upcoming () {
         Planner.event_bus.ctrl_pressed = false;
-        Planner.event_bus.pane_selected (PaneType.ACTION, 2);
+        Planner.event_bus.pane_selected (PaneType.ACTION, "2");
     }
 
     private void action_view_home () {

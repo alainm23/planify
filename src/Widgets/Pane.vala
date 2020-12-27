@@ -283,11 +283,11 @@ public class Widgets.Pane : Gtk.EventBox {
             Planner.event_bus.unselect_all ();
 
             if (pane_type == PaneType.PROJECT) {
-                project_selected (id);
+                project_selected (int64.parse (id));
             } else if (pane_type == PaneType.ACTION) {
-                view_selected (id);
+                view_selected (int.parse (id));
             } else if (pane_type == PaneType.LABEL) {
-                label_selected (Planner.database.get_label_by_id (id));
+                label_selected (Planner.database.get_label_by_id (int64.parse (id)));
             }
         });
 
