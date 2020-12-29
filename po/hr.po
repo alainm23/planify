@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-12-04 17:29+0000\n"
+"PO-Revision-Date: 2020-12-29 13:20+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -194,9 +194,8 @@ msgid ""
 msgstr ""
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "Razvrstaj prema projektima"
+msgstr "Pod-projekti"
 
 #: src/Utils.vala:961
 msgid ""
@@ -314,11 +313,11 @@ msgstr "Na ovom računalu"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Prazan međuspremnik, kopiraj neki tekst i pokušaj ponovo"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Spremi datoteku planera"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -338,22 +337,20 @@ msgid "Cancel"
 msgstr "Odustani"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planer"
+msgstr "Datoteke planera"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "Sve je u redu"
+msgstr "Sve datoteke"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Otvori datoteku planera"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Otvori"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -396,7 +393,7 @@ msgstr "Opis:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Nadređeni:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -416,7 +413,7 @@ msgstr "Zatvori"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Projekt %s je uspješno stvoren"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -424,7 +421,7 @@ msgstr "Lokalno"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:624
 msgid "No Parent"
-msgstr ""
+msgstr "Nema nadređenog"
 
 #: src/Widgets/ProjectRow.vala:126 src/Views/Inbox.vala:104
 #: src/Views/Project.vala:183 src/Dialogs/Project.vala:205
@@ -665,9 +662,8 @@ msgstr "Izbriši zadatak"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
 #: src/Widgets/BoardColumn.vala:88
-#, fuzzy
 msgid "(No Section)"
-msgstr "Nema odjeljka"
+msgstr "(Nema odjeljka)"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
@@ -843,18 +839,17 @@ msgid "Add Label"
 msgstr "Dodaj etiketu"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
-#, fuzzy
 msgid "Priority"
-msgstr "Prioritet 1"
+msgstr "Prioritet"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "Dovršeno"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "Stvarno želiš izbrisati <b>%s</b>?"
+msgstr "Stvarno želiš izbrisati %i zadatke?"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -862,35 +857,31 @@ msgstr "Deaktivirano"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "Što je novo"
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "Sadržaj"
+msgstr "Nastavi"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "Filtriraj prema etiketi"
 
 #: src/Widgets/LabelFilter.vala:47
-#, fuzzy
 msgid "Label"
-msgstr "Etikete"
+msgstr "Etiketa"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "Što je novo"
 
 #: src/Widgets/ToolsMenu.vala:45
-#, fuzzy
 msgid "Keyboard shortcuts"
 msgstr "Tipkovnički prečaci"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "Datum obavljanja"
+msgstr "Sinkronizacija dovršena"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -911,60 +902,50 @@ msgstr ""
 "sinkronizirat će se kad se ponovo povežeš"
 
 #: src/Widgets/ToolsMenu.vala:197
-#, fuzzy
 msgid "Sync…"
-msgstr "Sinkronizraj"
+msgstr "Sinkronizraj …"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
-#, fuzzy
 msgid "Sync Now"
-msgstr "Sinkronizraj"
+msgstr "Sinkronizraj sada"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%OB %Y."
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y."
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
-#, fuzzy
 msgid "Mo"
-msgstr "pon"
+msgstr "Po"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
-#, fuzzy
 msgid "Tu"
-msgstr "uto"
+msgstr "Ut"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
-#, fuzzy
 msgid "We"
-msgstr "sri"
+msgstr "Sr"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
-#, fuzzy
 msgid "Th"
-msgstr "čet"
+msgstr "Če"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
-#, fuzzy
 msgid "Fr"
-msgstr "pet"
+msgstr "Pe"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
-#, fuzzy
 msgid "Sa"
-msgstr "sub"
+msgstr "Su"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
-#, fuzzy
 msgid "Su"
-msgstr "ned"
+msgstr "Ne"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
@@ -1055,7 +1036,7 @@ msgstr "Prikaži obavljene"
 #: src/Views/Inbox.vala:259 src/Views/Project.vala:567
 #: src/Dialogs/Project.vala:559
 msgid "View as board"
-msgstr ""
+msgstr "Prikaži kao ploču"
 
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
@@ -1230,16 +1211,15 @@ msgstr "Pogledi"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "Filtri"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "Nedavni"
 
 #: src/Dialogs/QuickFind.vala:580
-#, fuzzy
 msgid "Sections"
-msgstr "Nema odjeljka"
+msgstr "Odjeljci"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
@@ -1249,7 +1229,7 @@ msgstr "Tipkovnički prečaci"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
-msgstr ""
+msgstr "Bilo gdje korišteno"
 
 #: src/Dialogs/ShortcutsDialog.vala:62
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
@@ -1259,20 +1239,18 @@ msgid "Change"
 msgstr "Promjeni"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
-#, fuzzy
 msgid "Create a new task at the top of the list"
-msgstr "Stvori novi zadatak na vrhu popisa (moguće je samo unutar projekata)"
+msgstr "Stvori novi zadatak na vrhu popisa"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "Umetni tekst za izradu novog zadatka"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
-#, fuzzy
 msgid "Create a new section in a project"
-msgstr "Stvori novi odjeljak"
+msgstr "Stvori novi odjeljak u projektu"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
 #, fuzzy
