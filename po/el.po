@@ -3,37 +3,41 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-12-29 13:20+0000\n"
+"Last-Translator: fresh <fresh190@protonmail.com>\n"
+"Language-Team: Greek <https://hosted.weblate.org/projects/planner/"
+"translations/el/>\n"
+"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Είσαι σίγουρος πως θες να γίνει επαναφορά όλων;"
 
 #: src/Application.vala:153
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
+"Η διαδικασία αφαιρεί όλες τις αποθηκευμένες πληροφορίες χωρίς δυνατότητα "
+"αναίρεσης. (ν/ο): "
 
 #: src/Application.vala:156
 msgid "y"
-msgstr ""
+msgstr "ν"
 
 #: src/Application.vala:156
 msgid "yes"
-msgstr ""
+msgstr "ναι"
 
 #: src/MainWindow.vala:56
 msgid "Planner"
@@ -46,11 +50,11 @@ msgstr ""
 
 #: src/Utils.vala:122 src/Utils.vala:129 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "Αρχική"
 
 #: src/Utils.vala:123 src/Utils.vala:133
 msgid "Office"
-msgstr ""
+msgstr "Γραφείο"
 
 #: src/Utils.vala:124 src/Utils.vala:137
 msgid "Errand"
@@ -58,11 +62,11 @@ msgstr ""
 
 #: src/Utils.vala:125 src/Utils.vala:141
 msgid "Important"
-msgstr ""
+msgstr "Σημαντικό"
 
 #: src/Utils.vala:126 src/Utils.vala:145
 msgid "Pending"
-msgstr ""
+msgstr "Εκκρεμεί"
 
 #: src/Utils.vala:189
 msgid "Berry Red"
@@ -70,19 +74,19 @@ msgstr ""
 
 #: src/Utils.vala:190
 msgid "Red"
-msgstr ""
+msgstr "Κόκκινο"
 
 #: src/Utils.vala:191
 msgid "Orange"
-msgstr ""
+msgstr "Πορτοκαλί"
 
 #: src/Utils.vala:192
 msgid "Yellow"
-msgstr ""
+msgstr "Κίτρινο"
 
 #: src/Utils.vala:193
 msgid "Olive Green"
-msgstr ""
+msgstr "Λαδί"
 
 #: src/Utils.vala:194
 msgid "Lime Green"
@@ -90,7 +94,7 @@ msgstr ""
 
 #: src/Utils.vala:195
 msgid "Green"
-msgstr ""
+msgstr "Πράσινο"
 
 #: src/Utils.vala:196
 msgid "Mint Green"
@@ -110,7 +114,7 @@ msgstr ""
 
 #: src/Utils.vala:200
 msgid "Blue"
-msgstr ""
+msgstr "Μπλέ"
 
 #: src/Utils.vala:201
 msgid "Grape"
@@ -118,7 +122,7 @@ msgstr ""
 
 #: src/Utils.vala:202
 msgid "Violet"
-msgstr ""
+msgstr "Βιολετί"
 
 #: src/Utils.vala:203
 msgid "Lavander"
@@ -138,7 +142,7 @@ msgstr ""
 
 #: src/Utils.vala:207
 msgid "Grey"
-msgstr ""
+msgstr "Γκρι"
 
 #: src/Utils.vala:208
 msgid "Taupe"
@@ -152,7 +156,7 @@ msgstr ""
 #: src/Dialogs/QuickFind.vala:63 src/Dialogs/Preferences/Preferences.vala:294
 #: src/Dialogs/Preferences/Preferences.vala:512
 msgid "Today"
-msgstr ""
+msgstr "Σήμερα"
 
 #: src/Utils.vala:589 src/Widgets/Pane.vala:353 src/Widgets/NewItem.vala:734
 #: src/Widgets/ItemRow.vala:1528 src/Widgets/DueButton.vala:224
@@ -160,7 +164,7 @@ msgstr ""
 #: src/Views/Today.vala:941 src/Views/Filter.vala:119
 #: src/Dialogs/QuickFind.vala:125
 msgid "Tomorrow"
-msgstr ""
+msgstr "Αύριο"
 
 #: src/Utils.vala:881
 msgid "Quick Add Activated!"
@@ -529,7 +533,7 @@ msgstr ""
 #: src/Widgets/NewItem.vala:233 src/Widgets/ItemRow.vala:1704
 #: src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
-msgstr ""
+msgstr "Σημείωση"
 
 #: src/Widgets/NewItem.vala:613 src/Widgets/PriorityButton.vala:98
 #: src/Widgets/MultiSelectToolbar.vala:296 src/Views/Filter.vala:115
@@ -554,7 +558,7 @@ msgstr ""
 #: src/Dialogs/QuickFind.vala:117 src/Dialogs/Preferences/Preferences.vala:398
 #: src/Dialogs/Preferences/Preferences.vala:505
 msgid "None"
-msgstr ""
+msgstr "Κανένα"
 
 #: src/Widgets/NewItem.vala:740 src/Widgets/ItemRow.vala:1532
 #: src/Widgets/DueButton.vala:230 src/Widgets/MultiSelectToolbar.vala:404
@@ -570,27 +574,27 @@ msgstr ""
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
 #: src/Widgets/DueButton.vala:148 src/Widgets/MultiSelectToolbar.vala:48
 msgid "Schedule"
-msgstr ""
+msgstr "Πρόγραμμα"
 
 #: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
-msgstr ""
+msgstr "Κρύψε τις λεπτομέρειες"
 
 #: src/Widgets/ItemRow.vala:528
 msgid "Add Checklist"
-msgstr ""
+msgstr "Προσθήκη σε κατάλογο"
 
 #: src/Widgets/ItemRow.vala:535
 msgid "Delete Task"
-msgstr ""
+msgstr "Διαγραφή Εργασίας"
 
 #: src/Widgets/ItemRow.vala:549
 msgid "Task Menu"
-msgstr ""
+msgstr "Κατάλογος Εργασιών"
 
 #: src/Widgets/ItemRow.vala:737 src/Widgets/ItemRow.vala:1623
 msgid "Task deleted"
-msgstr ""
+msgstr "Η εργασία διαγράφηκε"
 
 #: src/Widgets/ItemRow.vala:1066
 #, c-format
@@ -599,7 +603,7 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1071
 msgid "1 task completed"
-msgstr ""
+msgstr "1 εργασία ολοκληρώθηκε"
 
 #: src/Widgets/ItemRow.vala:1460
 msgid "No Section"
@@ -607,40 +611,40 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1521 src/Widgets/MultiSelectToolbar.vala:354
 msgid "Complete"
-msgstr ""
+msgstr "Ολοκληρωμένο"
 
 #: src/Widgets/ItemRow.vala:1522
 msgid "Edit"
-msgstr ""
+msgstr "Επεξεργασία"
 
 #: src/Widgets/ItemRow.vala:1538 src/Widgets/SectionRow.vala:1012
 #: src/Widgets/BoardColumn.vala:1013
 msgid "Move to Project"
-msgstr ""
+msgstr "Μετακίνηση σε Εργασία"
 
 #: src/Widgets/ItemRow.vala:1542
 msgid "Move to Section"
-msgstr ""
+msgstr "Μετακίνηση σε Τμήμα"
 
 #: src/Widgets/ItemRow.vala:1550
 msgid "Text"
-msgstr ""
+msgstr "Κείμενο"
 
 #: src/Widgets/ItemRow.vala:1557
 msgid "Duplicate"
-msgstr ""
+msgstr "Αντίγραφο"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
-msgstr ""
+msgstr "Περιεχόμενο"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr ""
+msgstr "Ημερομηνία λήξης"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
-msgstr ""
+msgstr "Η ημερομηνία ολοκληρώθηκε"
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
@@ -716,82 +720,84 @@ msgstr ""
 
 #: src/Widgets/DueButton.vala:297
 msgid "Every month"
-msgstr ""
+msgstr "Κάθε μήνα"
 
 #: src/Widgets/DueButton.vala:303
 msgid "Every year"
-msgstr ""
+msgstr "Κάθε χρόνο"
 
 #: src/Widgets/LabelButton.vala:50 src/Dialogs/QuickFind.vala:223
 #: src/Dialogs/QuickFind.vala:538 src/Dialogs/ShortcutsDialog.vala:123
 #: src/Dialogs/Preferences/Preferences.vala:158
 #: src/Dialogs/Preferences/Preferences.vala:1027
 msgid "Labels"
-msgstr ""
+msgstr "Ετικέτες"
 
 #: src/Widgets/LabelButton.vala:60
 msgid "labels"
-msgstr ""
+msgstr "ετικέτες"
 
 #: src/Widgets/LabelButton.vala:100 src/Widgets/LabelButton.vala:273
 msgid "Using Labels"
-msgstr ""
+msgstr "Χρήση Ετικετών"
 
 #: src/Widgets/LabelButton.vala:101 src/Widgets/LabelButton.vala:274
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"Κατηγοριοποίησε τους καταλόγους σου με ετικέτες. Έπειτα, χρησιμοποίησέ τες "
+"για ξεκαθάρισμα των καταλόγων σου και συγκεντρώσου."
 
 #: src/Widgets/LabelButton.vala:133
 msgid "Type a label"
-msgstr ""
+msgstr "Πληκτρολόγησε μία ετικέτα"
 
 #: src/Widgets/LabelButton.vala:143 src/Widgets/LabelButton.vala:253
 #: src/Widgets/LabelButton.vala:271
 msgid "Edit labels"
-msgstr ""
+msgstr "Επεξεργασία ετικετών"
 
 #: src/Widgets/LabelButton.vala:263
 msgid "Add label"
-msgstr ""
+msgstr "Προσθήκη ετικέτας"
 
 #: src/Widgets/LabelButton.vala:266
 msgid "Label not found"
-msgstr ""
+msgstr "Η ετικέτα δε βρέθηκε"
 
 #: src/Widgets/LabelButton.vala:267
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Δημιούργησε «%s»"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
-msgstr ""
+msgstr "Αναίρεση"
 
 #: src/Widgets/Toast.vala:103 src/Objects/Item.vala:127
 msgid "Task duplicate"
-msgstr ""
+msgstr "Δημιουργία αντιγράφου εργασίας"
 
 #: src/Widgets/Toast.vala:105
 msgid "Task added from clipboard"
-msgstr ""
+msgstr "Προστέθηκε εργασία από το πρόχειρο"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "Αποτυχία δημιουργίας αντιγράφου της εργασίας. Δοκίμασε ξανά."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "Αποτυχία προσθήκης εργασίας από το πρόχειρο. Δοκίμασε ξανά."
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
-msgstr ""
+msgstr "Το έγγραφο έχει μετατραπεί"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Αποτυχία μετατροπής του εγγράφου. Δοκίμασε ξανά."
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
@@ -954,7 +960,7 @@ msgstr ""
 
 #: src/Views/Welcome.vala:30
 msgid "Import Backup"
-msgstr ""
+msgstr "Εισαγωγή αντιγράφου ασφαλείας"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
@@ -964,58 +970,58 @@ msgstr ""
 #: src/Views/Project.vala:147 src/Dialogs/Project.vala:161
 #: src/Dialogs/Project.vala:169
 msgid "Add Section"
-msgstr ""
+msgstr "Προσθήκη τμήματος"
 
 #: src/Views/Inbox.vala:76 src/Views/Project.vala:155
 #: src/Dialogs/Project.vala:177
 msgid "Invite person"
-msgstr ""
+msgstr "Πρόσκληση ατόμου"
 
 #: src/Views/Inbox.vala:85 src/Views/Project.vala:164
 #: src/Dialogs/Project.vala:186
 msgid "Project comments"
-msgstr ""
+msgstr "Σχόλια εργασίας"
 
 #: src/Views/Inbox.vala:93 src/Views/Project.vala:172
 #: src/Dialogs/Project.vala:194
 msgid "Search task"
-msgstr ""
+msgstr "Αναζήτηση εργασίας"
 
 #: src/Views/Inbox.vala:127 src/Views/Label.vala:67 src/Views/Completed.vala:72
 #: src/Views/Filter.vala:70 src/Views/AllTasks.vala:70
 msgid "All clear"
-msgstr ""
+msgstr "Όλα εντάξει"
 
 #: src/Views/Inbox.vala:128
 msgid "Looks like everything's organized in the right place."
-msgstr ""
+msgstr "Φαίνεται πως όλα είναι οργανωμένα."
 
 #: src/Views/Inbox.vala:215 src/Views/Project.vala:526
 #: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:515
 msgid "Sort by date"
-msgstr ""
+msgstr "Ταξινόμηση κατά ημερομηνία"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:216 src/Views/Today.vala:481 src/Views/Project.vala:527
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:516
 msgid "Sort by priority"
-msgstr ""
+msgstr "Ταξινόμηση κατά προτεραιότητα"
 
 #: src/Views/Inbox.vala:217 src/Views/Today.vala:482 src/Views/Project.vala:528
 #: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:517
 msgid "Sort by name"
-msgstr ""
+msgstr "Ταξινόμηση κατά όνομα"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:219 src/Views/Today.vala:484 src/Views/Project.vala:530
 #: src/Dialogs/Project.vala:519
 msgid "Utilities"
-msgstr ""
+msgstr "Προτεραιότητες"
 
 #: src/Views/Inbox.vala:230 src/Views/Today.vala:492 src/Views/Project.vala:541
 #: src/Dialogs/Project.vala:530
 msgid "Show Completed"
-msgstr ""
+msgstr "Προβολή ολοκληρωμένων εργασιών"
 
 #: src/Views/Inbox.vala:259 src/Views/Project.vala:567
 #: src/Dialogs/Project.vala:559
@@ -1025,36 +1031,36 @@ msgstr ""
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
 msgid "Share on Markdown"
-msgstr ""
+msgstr "Κοινοποίηση στο Markdown"
 
 #: src/Views/Inbox.vala:384 src/Views/Today.vala:558 src/Views/Project.vala:717
 #: src/Dialogs/ShortcutsDialog.vala:105 src/Dialogs/Project.vala:682
 msgid "Hide all tasks details"
-msgstr ""
+msgstr "Κρύψε τις λεπτομέρειες των εργασιών"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
-msgstr ""
+msgstr "Κατάλογος"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
-msgstr ""
+msgstr "Εκπρόθεσμος"
 
 #: src/Views/Today.vala:142
 msgid "Reschedule"
-msgstr ""
+msgstr "Επαναπρογραμματισμός"
 
 #: src/Views/Today.vala:172
 msgid "What tasks are on your mind?"
-msgstr ""
+msgstr "Τι εργασίες έχεις κατά νου;"
 
 #: src/Views/Today.vala:173
 msgid "Tap + to add a task for today."
-msgstr ""
+msgstr "Πάτα + για προσθήκη μίας σημερινής εργασίας."
 
 #: src/Views/Today.vala:483
 msgid "Sort by project"
-msgstr ""
+msgstr "Ταξινόμηση κατά εργασία"
 
 #: src/Views/Today.vala:603
 msgid "Today was copied to the Clipboard."
@@ -1064,7 +1070,7 @@ msgstr ""
 #. board_view = new Widgets.BoardView (project);
 #: src/Views/Project.vala:256 src/Dialogs/Project.vala:281
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Τι θα πετύχεις;"
 
 #: src/Views/Project.vala:257 src/Dialogs/Project.vala:282
 msgid "Tap + to add a task to this project."
@@ -1074,7 +1080,7 @@ msgstr ""
 #: src/Dialogs/Project.vala:143
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "Πρόοδος: %s"
 
 #: src/Views/Project.vala:775 src/Dialogs/Project.vala:757
 msgid "Your Productivity"
@@ -1206,7 +1212,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:159
 #: src/Dialogs/Preferences/Preferences.vala:733
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Συντομεύσεις πληκτρολογίου"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
@@ -1348,7 +1354,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:181
 #: src/Dialogs/Preferences/Preferences.vala:1461
 msgid "About"
-msgstr ""
+msgstr "Σχετικά με"
 
 #: src/Dialogs/Preferences/Preferences.vala:182
 #: src/Dialogs/Preferences/Preferences.vala:1367
@@ -1413,11 +1419,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:581
 msgid "Night"
-msgstr ""
+msgstr "Νύχτα"
 
 #: src/Dialogs/Preferences/Preferences.vala:584
 msgid "Dark Blue"
-msgstr ""
+msgstr "Σκούρο μπλε"
 
 #: src/Dialogs/Preferences/Preferences.vala:587
 msgid "Arc Dark"
@@ -1669,4 +1675,4 @@ msgstr ""
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
-msgstr ""
+msgstr "Το Τμήμα αντιγράφηκε στο Πρόχειρο."

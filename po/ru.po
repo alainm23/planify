@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-10-22 21:26+0000\n"
+"PO-Revision-Date: 2020-12-29 13:20+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3.1\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -252,7 +252,7 @@ msgstr "Создать новый раздел"
 
 #: src/Utils.vala:1041
 msgid "Open the Inbox"
-msgstr "Открыть почту"
+msgstr "Открыть отложенные"
 
 #: src/Utils.vala:1042 src/Dialogs/ShortcutsDialog.vala:158
 msgid "Open Today"
@@ -847,18 +847,17 @@ msgid "Add Label"
 msgstr "Добавить Метку"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
-#, fuzzy
 msgid "Priority"
-msgstr "Приоритет 1"
+msgstr "Приоритет"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
 msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:182
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "Вы уверены, что хотите удалить <b>%s</b>?"
+msgstr "Вы уверены, что хотите удалить %i?"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -878,23 +877,20 @@ msgid "Filter by Label"
 msgstr ""
 
 #: src/Widgets/LabelFilter.vala:47
-#, fuzzy
 msgid "Label"
-msgstr "Метки"
+msgstr "Метка"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
 msgstr ""
 
 #: src/Widgets/ToolsMenu.vala:45
-#, fuzzy
 msgid "Keyboard shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Комбинации клавиш"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "Время вышло"
+msgstr "Синхоризация завершена"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -915,20 +911,17 @@ msgstr ""
 "оффлайн будут синхронизированы, когда вы подключитесь"
 
 #: src/Widgets/ToolsMenu.vala:197
-#, fuzzy
 msgid "Sync…"
-msgstr "Синхронизация"
+msgstr "Синхронизация…"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
-#, fuzzy
 msgid "Sync Now"
-msgstr "Синхронизация"
+msgstr "Синхронизировать сейчас"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%OB %Y"
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
@@ -936,37 +929,30 @@ msgid "%Y"
 msgstr ""
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
-#, fuzzy
 msgid "Mo"
 msgstr "Пн"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
-#, fuzzy
 msgid "Tu"
 msgstr "Вт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
-#, fuzzy
 msgid "We"
 msgstr "Ср"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
-#, fuzzy
 msgid "Th"
 msgstr "Чт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
-#, fuzzy
 msgid "Fr"
 msgstr "Пт"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
-#, fuzzy
 msgid "Sa"
 msgstr "Сб"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
-#, fuzzy
 msgid "Su"
 msgstr "Вс"
 
@@ -1138,9 +1124,8 @@ msgid "Completed"
 msgstr "Выполнено"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
-#, fuzzy
 msgid "All Tasks"
-msgstr "Задачи"
+msgstr "Все задачи"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
 msgid "Loading…"
@@ -1240,15 +1225,14 @@ msgid "Recents"
 msgstr ""
 
 #: src/Dialogs/QuickFind.vala:580
-#, fuzzy
 msgid "Sections"
-msgstr "Без раздела"
+msgstr "Разделы"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
 #: src/Dialogs/Preferences/Preferences.vala:733
 msgid "Keyboard Shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Комбинации клавиш"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
@@ -1273,19 +1257,16 @@ msgstr ""
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
-#, fuzzy
 msgid "Create a new section in a project"
-msgstr "Создать новый раздел"
+msgstr "Создать новый раздел в проекте"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
-#, fuzzy
 msgid "Open Quick Add"
-msgstr "Быстрое добавление"
+msgstr "Открыть быстрое добавление"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
-#, fuzzy
 msgid "Open Quick Find"
-msgstr "Быстрый поиск"
+msgstr "Открыть быстрый поиск"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
@@ -1313,9 +1294,8 @@ msgid "Control windows"
 msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:139
-#, fuzzy
 msgid "Open preferences"
-msgstr "Настройки"
+msgstr "Открыть настройки"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
@@ -1330,9 +1310,8 @@ msgid "Move project window to right workspace"
 msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:147
-#, fuzzy
 msgid "Open Keyboard Shortcuts"
-msgstr "Горячие клавиши"
+msgstr "Открыть комбинации клавиш"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
 #, fuzzy
@@ -1340,9 +1319,8 @@ msgid "Navigate"
 msgstr "чтобы выделить и"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
-#, fuzzy
 msgid "Open Inbox"
-msgstr "Открыть почту"
+msgstr "Открыть отложенные"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
 #, fuzzy
@@ -1441,9 +1419,8 @@ msgid "Indicate the position where the new tasks were created."
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:457
-#, fuzzy
 msgid "Backups"
-msgstr "Назад"
+msgstr "Резервные копии"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
@@ -1728,9 +1705,8 @@ msgid "database location"
 msgstr ""
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
-#, fuzzy
 msgid "_Cancel"
-msgstr "Отмена"
+msgstr "_Закрыть"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
