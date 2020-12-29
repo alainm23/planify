@@ -155,8 +155,8 @@ executable(
     install: true
 )
 
-codecore = library(
-    'codecore',
+plannercore = library(
+    'plannercore',
     planner_files,
     config_header,
     dependencies: dependencies,
@@ -169,16 +169,16 @@ pkg = import('pkgconfig')
 
 pkg.generate(
     version: '0.1',
-    libraries: codecore,
-    description: 'elementary Code headers',
-    name: 'codecore',
-    filebase: 'codecore'
+    libraries: plannercore,
+    description: 'Planner headers',
+    name: 'plannercore',
+    filebase: 'plannercore'
 )
 
-install_data ('codecore.deps', install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'vala', 'vapi'))
+install_data ('plannercore.deps', install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'vala', 'vapi'))
 
-codecore_dep = declare_dependency(
-    link_with: codecore,
+plannercore_dep = declare_dependency(
+    link_with: plannercore,
     dependencies: dependencies,
     include_directories: [include_directories('.')]
 )

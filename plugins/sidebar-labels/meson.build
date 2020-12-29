@@ -5,7 +5,7 @@ module_files = [
 ]
 
 module_deps = [
-    codecore_dep
+    plannercore_dep
 ]
 
 shared_module(
