@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-12-22 18:29+0000\n"
-"Last-Translator: Hahato Toshino <ameer.amino95@gmail.com>\n"
+"PO-Revision-Date: 2021-01-01 05:29+0000\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
 "translations/ja/>\n"
 "Language: ja\n"
@@ -17,18 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
 msgstr "すべてリセットしてもよろしいですか？"
 
 #: src/Application.vala:153
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
-msgstr "保存された全情報を削除します。この操作は元に戻せません。"
+msgstr "保存された全情報を削除します。この操作は元に戻せません。(y/n): "
 
 #: src/Application.vala:156
 msgid "y"
@@ -178,29 +177,30 @@ msgstr "有効にするには %s を試してください。これは、設定�
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
-msgstr ""
+msgstr "デザインの向上や新機能の追加が行われた Planner %s がリリースされました。"
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "新しいエリア"
+msgstr "新しいボードビュー"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Todoist ユーザーは、今回のアップデートで登場したボードビューを利用できます。これは、Planner "
+"内のプロジェクトをもっと視覚的に整理できる機能です。 "
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "プロジェクト名で並べ替え"
+msgstr "サブプロジェクト"
 
 #: src/Utils.vala:961
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"要望の多かった機能が Planner 2.6 で追加されました。サブプロジェクトを使えば、変化の激しいプロジェクト一覧をすっきりとまとめておけます。"
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -313,11 +313,11 @@ msgstr "このコンピューター"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "クリップボードが空です。テキストをコピーしてから、もう一度お試しください"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Planner ファイルを保存"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -337,22 +337,20 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Planner ファイル"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "受信箱は空です"
+msgstr "すべてのファイル"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Planner ファイルを開く"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "開く"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -395,7 +393,7 @@ msgstr "説明:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "親プロジェクト:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -415,7 +413,7 @@ msgstr "閉じる"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "プロジェクト %s を作成しました"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -423,7 +421,7 @@ msgstr "ローカル"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:624
 msgid "No Parent"
-msgstr ""
+msgstr "親プロジェクトなし"
 
 #: src/Widgets/ProjectRow.vala:126 src/Views/Inbox.vala:104
 #: src/Views/Project.vala:183 src/Dialogs/Project.vala:205
@@ -449,7 +447,6 @@ msgstr "新しいウィンドウを開く"
 
 #: src/Widgets/ProjectRow.vala:685 src/Views/Inbox.vala:214
 #: src/Views/Project.vala:525 src/Dialogs/Project.vala:514
-#, fuzzy
 msgid "Edit Project"
 msgstr "プロジェクトを編集"
 
@@ -665,9 +662,8 @@ msgstr "タスクを削除"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
 #: src/Widgets/BoardColumn.vala:88
-#, fuzzy
 msgid "(No Section)"
-msgstr "セクションがありません"
+msgstr "(セクションなし)"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
@@ -793,20 +789,19 @@ msgstr "タスクをクリップボードから追加しました"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "タスクを複製できませんでした。もう一度お試しください。"
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "クリップボードからタスクを追加できませんでした。もう一度お試しください。"
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "プロジェクトを削除"
+msgstr "プロジェクトを変換"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "プロジェクトを変換できませんでした。もう一度お試しください。"
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
@@ -841,18 +836,17 @@ msgid "Add Label"
 msgstr "ラベルを追加"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
-#, fuzzy
 msgid "Priority"
-msgstr "優先順位 1"
+msgstr "優先順位"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
 msgstr ""
 
 #: src/Widgets/MultiSelectToolbar.vala:182
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "<b>%s</b> を削除してもよろしいですか？"
+msgstr "%i 件のタスクを削除してもよろしいですか？"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -860,35 +854,31 @@ msgstr "無効"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "新機能"
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "内容"
+msgstr "続行"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "ラベルで絞り込む"
 
 #: src/Widgets/LabelFilter.vala:47
-#, fuzzy
 msgid "Label"
 msgstr "ラベル"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "新機能"
 
 #: src/Widgets/ToolsMenu.vala:45
-#, fuzzy
 msgid "Keyboard shortcuts"
 msgstr "キーボードショートカット"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "完了した日"
+msgstr "完了済みタスクを同期"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -909,58 +899,48 @@ msgstr ""
 "に同期されます"
 
 #: src/Widgets/ToolsMenu.vala:197
-#, fuzzy
 msgid "Sync…"
-msgstr "同期"
+msgstr "同期…"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
-#, fuzzy
 msgid "Sync Now"
-msgstr "同期"
+msgstr "今すぐ同期"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%Y年%OB"
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y年"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
-#, fuzzy
 msgid "Mo"
 msgstr "月"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
-#, fuzzy
 msgid "Tu"
 msgstr "火"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
-#, fuzzy
 msgid "We"
 msgstr "水"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
-#, fuzzy
 msgid "Th"
 msgstr "木"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
-#, fuzzy
 msgid "Fr"
 msgstr "金"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
-#, fuzzy
 msgid "Sa"
 msgstr "土"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
-#, fuzzy
 msgid "Su"
 msgstr "日"
 
@@ -1032,7 +1012,7 @@ msgstr "日付で並べ替え"
 #: src/Views/Inbox.vala:216 src/Views/Today.vala:481 src/Views/Project.vala:527
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:516
 msgid "Sort by priority"
-msgstr "優先度で並べ替え"
+msgstr "優先順位で並べ替え"
 
 #: src/Views/Inbox.vala:217 src/Views/Today.vala:482 src/Views/Project.vala:528
 #: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:517
@@ -1042,9 +1022,8 @@ msgstr "タスク名で並べ替え"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:219 src/Views/Today.vala:484 src/Views/Project.vala:530
 #: src/Dialogs/Project.vala:519
-#, fuzzy
 msgid "Utilities"
-msgstr "優先順位"
+msgstr "ユーティリティー"
 
 #: src/Views/Inbox.vala:230 src/Views/Today.vala:492 src/Views/Project.vala:541
 #: src/Dialogs/Project.vala:530
@@ -1054,19 +1033,17 @@ msgstr "完了済みを表示"
 #: src/Views/Inbox.vala:259 src/Views/Project.vala:567
 #: src/Dialogs/Project.vala:559
 msgid "View as board"
-msgstr ""
+msgstr "ボードビューにする"
 
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "Markdown 形式で共有"
 
 #: src/Views/Inbox.vala:384 src/Views/Today.vala:558 src/Views/Project.vala:717
 #: src/Dialogs/ShortcutsDialog.vala:105 src/Dialogs/Project.vala:682
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "詳細を非表示"
+msgstr "すべてのタスクの詳細を非表示"
 
 #: src/Views/Today.vala:85
 msgid "Menu"
@@ -1128,7 +1105,7 @@ msgstr "期日:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "現在この絞り込み条件に一致するタスクはありません。"
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
@@ -1136,9 +1113,8 @@ msgid "Completed"
 msgstr "完了"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
-#, fuzzy
 msgid "All Tasks"
-msgstr "タスク"
+msgstr "すべてのタスク"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
 msgid "Loading…"
@@ -1174,36 +1150,33 @@ msgid "Uploading changes…"
 msgstr "変更をアップロードしています…"
 
 #: src/Dialogs/ProjectSettings.vala:166
-#, fuzzy
 msgid "Options:"
-msgstr "セクション"
+msgstr "オプション:"
 
 #: src/Dialogs/ProjectSettings.vala:171
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Todoist に変換"
 
 #: src/Dialogs/ProjectSettings.vala:171 src/Dialogs/ProjectSettings.vala:280
 msgid "Convert"
-msgstr ""
+msgstr "変換"
 
 #: src/Dialogs/ProjectSettings.vala:205
 msgid "Direct access:"
-msgstr ""
+msgstr "直接アクセス:"
 
 #: src/Dialogs/ProjectSettings.vala:275
-#, fuzzy
 msgid "Convert Project"
-msgstr "プロジェクトに移動"
+msgstr "プロジェクトを変換"
 
 #: src/Dialogs/ProjectSettings.vala:276
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "<b>%s</b> を削除してもよろしいですか？"
+msgstr "<b>%s</b> を Todoist に変換してもよろしいですか？"
 
 #: src/Dialogs/ProjectSettings.vala:288
-#, fuzzy
 msgid "Converting project…"
-msgstr "プロジェクト名で並べ替え"
+msgstr "プロジェクトを変換しています…"
 
 #: src/Dialogs/QuickFind.vala:130 src/Dialogs/ShortcutsDialog.vala:111
 msgid "Search"
@@ -1235,16 +1208,15 @@ msgstr "ビュー"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "絞り込み条件"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "最近の項目"
 
 #: src/Dialogs/QuickFind.vala:580
-#, fuzzy
 msgid "Sections"
-msgstr "セクションがありません"
+msgstr "セクション"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
@@ -1264,39 +1236,34 @@ msgid "Change"
 msgstr "変更"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
-#, fuzzy
 msgid "Create a new task at the top of the list"
-msgstr "リストの一番上に新しいタスクを作成します (プロジェクト内のみ有効です)"
+msgstr "リストの一番上に新しいタスクを作成します"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "プレーンテキストを貼り付けて新しいタスクを作成します"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
-#, fuzzy
 msgid "Create a new section in a project"
-msgstr "新しいセクションを作成"
+msgstr "プロジェクトに新しいセクションを作成"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
-#, fuzzy
 msgid "Open Quick Add"
-msgstr "クイック追加"
+msgstr "クイック追加を開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
-#, fuzzy
 msgid "Open Quick Find"
-msgstr "クイック検索"
+msgstr "クイック検索を開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "入力して検索"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
-msgstr "優先度で並べ替え"
+msgstr "優先順位で絞り込む"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
@@ -1308,16 +1275,15 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "完了済みのタスクに絞り込みます。"
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
-msgstr ""
+msgstr "ウィンドウを管理"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
-#, fuzzy
 msgid "Open preferences"
-msgstr "設定"
+msgstr "設定を開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
@@ -1325,16 +1291,15 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "プロジェクトウィンドウを左のワークスペースに移動"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "プロジェクトウィンドウを右のワークスペースに移動"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
-#, fuzzy
 msgid "Open Keyboard Shortcuts"
-msgstr "キーボードショートカット"
+msgstr "キーボードショートカットを開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
 #, fuzzy
@@ -1342,18 +1307,16 @@ msgid "Navigate"
 msgstr "キーを、選択するには"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
-#, fuzzy
 msgid "Open Inbox"
 msgstr "受信箱を開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
-#, fuzzy
 msgid "Go to start page"
-msgstr "システム起動時に実行"
+msgstr "スタートページに移動"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "プラグイン"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1376,7 +1339,7 @@ msgstr "バッジの数字"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "外観"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
 #, fuzzy
@@ -1426,31 +1389,31 @@ msgstr "タスクを削除しました"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "新しいタスクを最上部に表示"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "完了済みタスクに下線を引きます。"
 
 #: src/Dialogs/Preferences/Preferences.vala:401
-#, fuzzy
 msgid "Default priority"
-msgstr "優先度で並べ替え"
+msgstr "デフォルトの優先順位"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:457
-#, fuzzy
 msgid "Backups"
-msgstr "戻る"
+msgstr "バックアップ"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Planner は、毎日自動的にアクティブなプロジェクトとタスクのバックアップを作成します。プロジェクトのインポート機能を使って、いつでも簡単にバックアッ"
+"プから復元できます。"
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
@@ -1495,7 +1458,7 @@ msgstr "ボタンレイアウト"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "システムのウィンドウ装飾を使う (アプリの再起動が必要)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1503,7 +1466,7 @@ msgstr "テーマ"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "フォントサイズ"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1535,7 +1498,7 @@ msgstr "最後に選択したプロジェクトを保存"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "フォーカスがなくなったらアプリを自動的に閉じる"
 
 #: src/Dialogs/Preferences/Preferences.vala:900
 msgid "DE Integration"
@@ -1570,7 +1533,7 @@ msgstr "危険な設定"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "日付と時刻"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1591,7 +1554,7 @@ msgstr "エクスポート"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "週の始まりの曜日"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1690,49 +1653,44 @@ msgstr "データベース"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "現在の保存場所: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
-#, fuzzy
 msgid "Reset to default"
-msgstr "すべてリセット"
+msgstr "デフォルトにリセット"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
-#, fuzzy
 msgid "Are you sure you want to restore the database location to default?"
-msgstr "すべてリセットしてもよろしいですか？"
+msgstr "データベースの場所をデフォルトに復元してもよろしいですか？"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "新しいデータベースの場所: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
-#, fuzzy
 msgid "Are you sure you want to change the database location?"
-msgstr "すべてリセットしてもよろしいですか？"
+msgstr "データベースの場所を変更してもよろしいですか？"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
-#, fuzzy
 msgid "This process will move your database file to the selected location."
-msgstr "このデバイス上の Todoist セッションを閉じます。"
+msgstr "この操作は、データベースファイルを選択された場所に移動します。"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "データベースの場所"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
-#, fuzzy
 msgid "_Cancel"
-msgstr "キャンセル"
+msgstr "キャンセル(_C)"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "開く(_O)"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Planner データベースファイル (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
