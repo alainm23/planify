@@ -46,6 +46,16 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.6.4" date="2021-01-02">
+      <description>
+        <p>Bug fixes and performance improvement</p>
+        <ul>
+          <li>Github #658 - Missing collapse button on projects with due date.</li>
+          <li>Updated translations.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.6.3" date="2020-12-29">
       <description>
         <p>Merry Christmas everyone, Planner 2.6 is here.</p>

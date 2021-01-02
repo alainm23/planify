@@ -9,6 +9,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
     private Gtk.EventBox top_eventbox;
     private Gtk.Grid main_grid;
     private Gtk.Revealer main_revealer;
+    private Gtk.Button arrow_button;
 
     private uint timeout_id = 0;
     private uint toggle_timeout = 0;
@@ -32,14 +33,22 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
     public void update_state () { }
 
     private void build_ui () {
-        var area_image = new Gtk.Image ();
-        area_image.halign = Gtk.Align.CENTER;
-        area_image.valign = Gtk.Align.CENTER;
-        area_image.gicon = new ThemedIcon ("pricetag-outline-blue");
-        area_image.pixel_size = 16;
+        var arrow_icon = new Gtk.Image ();
+        arrow_icon.gicon = new ThemedIcon ("pan-end-symbolic");
+        arrow_icon.pixel_size = 14;
+
+        arrow_button = new Gtk.Button ();
+        arrow_button.valign = Gtk.Align.CENTER;
+        arrow_button.halign = Gtk.Align.CENTER;
+        arrow_button.can_focus = false;
+        arrow_button.image = arrow_icon;
+        arrow_button.tooltip_text = _("Project Menu");
+        arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        arrow_button.get_style_context ().add_class ("dim-label");
+        arrow_button.get_style_context ().add_class ("transparent");
+        arrow_button.get_style_context ().add_class ("hidden-button");
 
         var name_label = new Gtk.Label (_("Labels"));
-        name_label.margin_start = 7;
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("pane-area");
         name_label.valign = Gtk.Align.CENTER;
@@ -70,15 +79,14 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         menu_stack.add_named (menu_button, "menu_button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.margin_start = 6;
-        top_box.margin_top = 6;
+        top_box.margin_top = 3;
         top_box.margin_bottom = 3;
-        top_box.pack_start (area_image, false, false, 0);
+        top_box.pack_start (arrow_button, false, false, 0);
         top_box.pack_start (name_label, false, true, 0);
         top_box.pack_end (menu_stack, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 6;
+        top_eventbox.margin_start = 4;
         top_eventbox.margin_end = 3;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
@@ -87,7 +95,8 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
-        listbox.margin_top = 3;
+        listbox.margin_bottom = 6;
+        listbox.margin_start = 20;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
@@ -97,6 +106,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         listbox_revealer.reveal_child = Planner.settings.get_boolean ("sidebar-labels-collapsed");
 
         main_grid = new Gtk.Grid ();
+        main_grid.margin_top = 6;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (top_eventbox);
         main_grid.add (listbox_revealer);
@@ -109,6 +119,12 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         pane.listbox_grid.add (main_revealer);
         pane.show_all ();
 
+        if (listbox_revealer.reveal_child) {
+            arrow_button.get_style_context ().add_class ("opened");
+        } else {
+            arrow_button.get_style_context ().remove_class ("opened");
+        }
+        
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
@@ -156,6 +172,10 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         Planner.utils.pane_action_selected.connect (() => {
             listbox.unselect_all ();
         });
+
+        arrow_button.clicked.connect (() => {
+            toggle_hidden ();
+        });
     }
 
     private void toggle_hidden () {
@@ -167,6 +187,12 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
         listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
         Planner.settings.set_boolean ("sidebar-labels-collapsed", listbox_revealer.reveal_child);
+
+        if (listbox_revealer.reveal_child) {
+            arrow_button.get_style_context ().add_class ("opened");
+        } else {
+            arrow_button.get_style_context ().remove_class ("opened");
+        }
     }
 
     public void hide_destroy () {

@@ -33,6 +33,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Menu projects_menu;
     private Gtk.Menu menu = null;
     private Gtk.Button arrow_button;
+    private Gtk.Button menu_button;
     private Widgets.ImageMenuItem move_area_menu;
 
     private Gtk.EventBox handle;
@@ -78,7 +79,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        margin_start = 6;
+        margin_start = 4;
         margin_top = 2;
         get_style_context ().add_class ("project-row");
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
@@ -129,11 +130,26 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         arrow_button.get_style_context ().add_class ("transparent");
         arrow_button.get_style_context ().add_class ("hidden-button");
 
+        var menu_icon = new Gtk.Image ();
+        menu_icon.gicon = new ThemedIcon ("view-more-symbolic");
+        menu_icon.pixel_size = 14;
+
+        menu_button = new Gtk.Button ();
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.halign = Gtk.Align.CENTER;
+        menu_button.can_focus = false;
+        menu_button.image = menu_icon;
+        menu_button.tooltip_text = _("Project Menu");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("dim-label");
+        menu_button.get_style_context ().add_class ("transparent");
+        menu_button.get_style_context ().add_class ("hidden-button");
+
         var menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         menu_stack.add_named (count_revealer, "count_revealer");
-        menu_stack.add_named (arrow_button, "arrow_button");
+        menu_stack.add_named (menu_button, "menu_button");
 
         menu_revealer = new Gtk.Revealer ();
         menu_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
@@ -169,13 +185,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
-        handle_box.margin_start = 5;
+        // handle_box.margin_start = 5;
         handle_box.margin_end = 3;
         handle_box.margin_top = 2;
         handle_box.margin_bottom = 2;
+        handle_box.pack_start (arrow_button, false, false, 0);
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_start (source_revealer, false, false, 0);
+        // handle_box.pack_start (source_revealer, false, false, 0);
+
         handle_box.pack_end (menu_revealer, false, false, 0);
         handle_box.pack_end (due_revealer, false, false, 0);
 
@@ -239,6 +257,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         apply_color (Planner.utils.get_color (project.color));
         check_due_date ();
 
+        if (project.collapsed == 1) {
+            arrow_button.get_style_context ().add_class ("opened");
+        }
+
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
@@ -261,7 +283,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         h_grid.enter_notify_event.connect ((event) => {
-            menu_stack.visible_child_name = "arrow_button";
+            menu_stack.visible_child_name = "menu_button";
             source_revealer.reveal_child = true;
 
             return true;
@@ -290,6 +312,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             project.save ();
+        });
+
+        menu_button.clicked.connect (() => {
+            activate_menu ();
         });
   
         Planner.database.project_updated.connect ((p) => {
