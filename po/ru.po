@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-12-29 13:20+0000\n"
+"PO-Revision-Date: 2021-01-01 05:29+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -183,29 +183,32 @@ msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
 "Planner %s уже здесь, со многими улучшениями дизайна, новыми функциями и "
-"многим другим."
+"другим."
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "Новая область"
+msgstr "Новый вид доски"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Для пользователелей Todoist, вид доски был представлен в этом обновлении, "
+"более наглядный способ организации ваших проектов в Planner "
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "Сортировать по проекту"
+msgstr "Подпроект"
 
 #: src/Utils.vala:961
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Одна из самых востребованных функций уже в Planner 2.6, держите свой "
+"постоянно растущий список проектов аккуратным и организованным с "
+"подпроектами."
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -319,11 +322,11 @@ msgstr "На этом компьютере"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Пустой буфер обмена, скопируйте текст и попробуйте снова"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Сохранить файл Planner"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -343,22 +346,20 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Файлы Planner"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "Очистить всё"
+msgstr "Все файлы"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Открыть файл Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Открыть"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -401,7 +402,7 @@ msgstr "Описание:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Родитель:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -421,7 +422,7 @@ msgstr "Закрыть"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Проект %s был успешно создан"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -429,7 +430,7 @@ msgstr "Локально"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:624
 msgid "No Parent"
-msgstr ""
+msgstr "Без родителя"
 
 #: src/Widgets/ProjectRow.vala:126 src/Views/Inbox.vala:104
 #: src/Views/Project.vala:183 src/Dialogs/Project.vala:205
@@ -852,7 +853,7 @@ msgstr "Приоритет"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "Выполнено"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
@@ -865,16 +866,15 @@ msgstr "Выключено"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "Что нового"
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "Контент"
+msgstr "Продолжить"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "Фильтр по метке"
 
 #: src/Widgets/LabelFilter.vala:47
 msgid "Label"
@@ -882,7 +882,7 @@ msgstr "Метка"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "Что нового"
 
 #: src/Widgets/ToolsMenu.vala:45
 msgid "Keyboard shortcuts"
@@ -926,7 +926,7 @@ msgstr "%OB"
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 msgid "Mo"
@@ -1045,7 +1045,7 @@ msgstr "Показать выполненное"
 #: src/Views/Inbox.vala:259 src/Views/Project.vala:567
 #: src/Dialogs/Project.vala:559
 msgid "View as board"
-msgstr ""
+msgstr "Показать как доску"
 
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
@@ -1116,7 +1116,7 @@ msgstr "Срок выполнения:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "На данный момент никаких задач в этом фильтре нет."
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
@@ -1218,11 +1218,11 @@ msgstr "Вкладки"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "Недавние"
 
 #: src/Dialogs/QuickFind.vala:580
 msgid "Sections"
@@ -1236,7 +1236,7 @@ msgstr "Комбинации клавиш"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
-msgstr ""
+msgstr "Использованы в любом месте"
 
 #: src/Dialogs/ShortcutsDialog.vala:62
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
@@ -1246,13 +1246,12 @@ msgid "Change"
 msgstr "Изменить"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
-#, fuzzy
 msgid "Create a new task at the top of the list"
-msgstr "Создать новую задачу наверху листа (работает только внутри проектов)"
+msgstr "Создать новую задачу вверху списка"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "Вставьте обычный текст для создания новой задачи"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
@@ -1270,10 +1269,9 @@ msgstr "Открыть быстрый поиск"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "Начните вводить текст, чтобы начать поиск"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
 msgstr "Сортировать по приоритету"
 
@@ -1287,7 +1285,7 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "Фильтр по всем выполненным задачам."
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
@@ -1299,15 +1297,15 @@ msgstr "Открыть настройки"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
-msgstr ""
+msgstr "Открыть новое окно текущего проекта"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "Переместить окно проекта в левую рабочую область"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "Переместить окно проекта в правую рабочую область"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
 msgid "Open Keyboard Shortcuts"
@@ -1323,13 +1321,12 @@ msgid "Open Inbox"
 msgstr "Открыть отложенные"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
-#, fuzzy
 msgid "Go to start page"
-msgstr "Автозагрузка Planner"
+msgstr "Перейти на главную страницу"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "Плагины"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1352,7 +1349,7 @@ msgstr "Уведомления"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "Внешний вид"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
 #, fuzzy
@@ -1403,20 +1400,19 @@ msgstr "Задача удалена"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "Новые задачи сверху"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "Подчеркнуть выполненные задачи."
 
 #: src/Dialogs/Preferences/Preferences.vala:401
-#, fuzzy
 msgid "Default priority"
-msgstr "Сортировать по приоритету"
+msgstr "Приоритет по умолчанию"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "Указать позицию, в которой были созданы новые задачи."
 
 #: src/Dialogs/Preferences/Preferences.vala:457
 msgid "Backups"
@@ -1427,6 +1423,9 @@ msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Planner создает автоматические ежедневные резервные копии ваших активных "
+"проектов и задач. Вы можете легко восстановить свои резервные копии в любое "
+"время с помощью импорта проекта."
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
@@ -1471,7 +1470,7 @@ msgstr "Расположение кнопок"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "Использовать системную рамку окна (требуется перезапуск)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1479,7 +1478,7 @@ msgstr "Тема"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "Размер шрифта"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1510,7 +1509,7 @@ msgstr "Сохранить последний выбранный проект"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "Автоматическое закрытие при потере фокуса"
 
 #: src/Dialogs/Preferences/Preferences.vala:900
 msgid "DE Integration"
@@ -1545,7 +1544,7 @@ msgstr "Опасная зона"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "Дата и время"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1566,7 +1565,7 @@ msgstr "Экспорт"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "Начало недели"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1673,36 +1672,32 @@ msgstr "База данных"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Текущее расположение: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
-#, fuzzy
 msgid "Reset to default"
-msgstr "Сбросить всё"
+msgstr "Сброс к значению по умолчанию"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
-#, fuzzy
 msgid "Are you sure you want to restore the database location to default?"
-msgstr "Вы уверены, что хотите сбросить всё?"
+msgstr "Вы уверены, что хотите вернуть расположение базы данных по умолчанию?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "Новое расположение базы данных будет: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
-#, fuzzy
 msgid "Are you sure you want to change the database location?"
-msgstr "Вы уверены, что хотите сбросить всё?"
+msgstr "Вы уверены, что хотите изменить расположение базы данных?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
-#, fuzzy
 msgid "This process will move your database file to the selected location."
-msgstr "Этот процесс закроет вашу сессию Todoist на этом устройстве."
+msgstr "Этот процесс переместит файл базы данных в выбранное место."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "расположение базы данных"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 msgid "_Cancel"
@@ -1710,11 +1705,11 @@ msgstr "_Закрыть"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Открыть"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Файлы БД Planner (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
