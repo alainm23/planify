@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '2.6.5'
+    version: '2.6.6'
 )
 
 add_project_arguments([

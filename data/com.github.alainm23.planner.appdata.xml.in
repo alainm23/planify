@@ -46,7 +46,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="2.6.5" date="2021-01-02">
+    <release version="2.6.6" date="2021-01-02">
       <description>
         <p>Bug fixes and performance improvement</p>
         <ul>
