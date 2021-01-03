@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2021-01-01 05:29+0000\n"
+"PO-Revision-Date: 2021-01-05 19:29+0000\n"
 "Last-Translator: tsitokhtsev <tsitokhtsev2002@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/planner/"
 "translations/ru/>\n"
@@ -671,9 +671,8 @@ msgstr "Удалить задачу"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
 #: src/Widgets/BoardColumn.vala:88
-#, fuzzy
 msgid "(No Section)"
-msgstr "Без раздела"
+msgstr "(Без раздела)"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
@@ -1312,9 +1311,8 @@ msgid "Open Keyboard Shortcuts"
 msgstr "Открыть комбинации клавиш"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
-#, fuzzy
 msgid "Navigate"
-msgstr "чтобы выделить и"
+msgstr "Управлять"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
 msgid "Open Inbox"
@@ -1352,9 +1350,8 @@ msgid "Appearance"
 msgstr "Внешний вид"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
-#, fuzzy
 msgid "Task default"
-msgstr "Задача удалена"
+msgstr "По умолчанию"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:717
@@ -1394,9 +1391,8 @@ msgstr ""
 "вкладка <b>Отложенные</b>, но вы можете сменить ее на нужную вам."
 
 #: src/Dialogs/Preferences/Preferences.vala:380
-#, fuzzy
 msgid "Task defaults"
-msgstr "Задача удалена"
+msgstr "Значения по умолчанию для задач"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
