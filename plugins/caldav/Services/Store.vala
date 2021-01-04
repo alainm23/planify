@@ -176,18 +176,16 @@ public class Services.Tasks.Store : Object {
         destroy_task_list_client (task_list, client);
     }
 
-    public void add_task (E.Source list, ECal.Component task, Widgets.NewItem new_task) {
+    public void add_task (E.Source list, ECal.Component task, Widgets.TaskRow new_task) {
         add_task_async.begin (list, task, new_task);
     }
 
-    private async void add_task_async (E.Source list, ECal.Component task, Widgets.NewItem new_task) {
+    private async void add_task_async (E.Source list, ECal.Component task, Widgets.TaskRow new_task) {
         ECal.Client client;
         try {
             client = get_client (list);
         } catch (Error e) {
             new_task.loading = false;
-
-            // Send Notification Error
             critical (e.message);
             return;
         }
@@ -197,24 +195,14 @@ public class Services.Tasks.Store : Object {
 
         try {
             string? uid;
-#if E_CAL_2_0
             yield client.create_object (comp, ECal.OperationFlags.NONE, null, out uid);
-#else
-            yield client.create_object (comp, null, out uid);
-#endif
             if (uid != null) {
                 comp.set_uid (uid);
             }
-            
-            //  var row = new Widgets.NewItem.for_source (new_task.source, new_task.listbox);
-            //  new_task.listbox.add (row);
-            //  new_task.listbox.show_all ();
 
             new_task.hide_destroy ();
         } catch (GLib.Error error) {
             new_task.loading = false;
-
-            // Send Notification Error
             critical (error.message);
         }
     }
@@ -237,27 +225,15 @@ public class Services.Tasks.Store : Object {
             comp.set_status (ICal.PropertyStatus.NONE);
             task.set_percent_complete (0);
 
-#if E_CAL_2_0
             task.set_completed (new ICal.Time.null_time ());
-#else
-            var null_time = ICal.Time.null_time ();
-            task.set_completed (ref null_time);
-#endif
 
             update_icalcomponent (client, comp, ECal.ObjModType.ONLY_THIS);
-
         } else {
             debug (@"Completing $(task.is_instance() ? "instance" : "task") '$(comp.get_uid())'");
 
             comp.set_status (ICal.PropertyStatus.COMPLETED);
             task.set_percent_complete (100);
-
-#if E_CAL_2_0
             task.set_completed (new ICal.Time.today ());
-#else
-            var today_time = ICal.Time.today ();
-            task.set_completed (ref today_time);
-#endif
 
             update_icalcomponent (client, comp, ECal.ObjModType.THIS_AND_PRIOR);
         }
@@ -348,44 +324,13 @@ public class Services.Tasks.Store : Object {
     }
 
     private void update_icalcomponent (ECal.Client client, ICal.Component comp, ECal.ObjModType mod_type) {
-        client.modify_object.begin (comp, mod_type, null, (obj, res) => {
+        client.modify_object.begin (comp, mod_type, ECal.OperationFlags.NONE, null, (obj, res) => {
             try {
                 client.modify_object.end (res);
             } catch (Error e) {
                 warning (e.message);
             }
         });
-//          try {
-//  #if E_CAL_2_0
-//              client.modify_object_sync (comp, mod_type, ECal.OperationFlags.NONE, null);
-//  #else
-//              client.modify_object_sync (comp, mod_type, null);
-//  #endif
-//          } catch (Error e) {
-//              warning (e.message);
-//              return;
-//          }
-
-//          if (comp.get_uid () == null) {
-//              return;
-//          }
-
-//          try {
-//              SList<ECal.Component> ecal_tasks;
-//              client.get_objects_for_uid_sync (comp.get_uid (), out ecal_tasks, null);
-
-//  #if E_CAL_2_0
-//              var ical_tasks = new SList<ICal.Component> ();
-//  #else
-//              var ical_tasks = new SList<unowned ICal.Component> ();
-//  #endif
-//              foreach (unowned ECal.Component ecal_task in ecal_tasks) {
-//                  ical_tasks.append (ecal_task.get_icalcomponent ());
-//              }
-
-//          } catch (Error e) {
-//              warning (e.message);
-//          }
     }
 
     public void remove_task (E.Source list, ECal.Component task, ECal.ObjModType mod_type) {
@@ -402,11 +347,7 @@ public class Services.Tasks.Store : Object {
         string? rid = task.has_recurrences () ? null : task.get_recurid_as_string ();
         debug (@"Removing task '$uid'");
 
-#if E_CAL_2_0
         client.remove_object.begin (uid, rid, mod_type, ECal.OperationFlags.NONE, null, (obj, results) => {
-#else
-        client.remove_object.begin (uid, rid, mod_type, null, (obj, results) => {
-#endif
             try {
                 client.remove_object.end (results);
             } catch (Error e) {
@@ -475,11 +416,7 @@ public class Services.Tasks.Store : Object {
         }
     }
 
-#if E_CAL_2_0
     private void on_objects_added (E.Source task_list, ECal.Client client, SList<ICal.Component> objects, TasksAddedFunc on_tasks_added) {  // vala-lint=line-length
-#else
-    private void on_objects_added (E.Source task_list, ECal.Client client, SList<weak ICal.Component> objects, TasksAddedFunc on_tasks_added) {  // vala-lint=line-length
-#endif
         debug (@"Received $(objects.length()) added task(s) for task list '%s'", task_list.dup_display_name ());
         var added_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);  // vala-lint=line-length
         objects.foreach ((ical_comp) => {
@@ -503,11 +440,7 @@ public class Services.Tasks.Store : Object {
         on_tasks_added (added_tasks.read_only_view, task_list);
     }
 
-#if E_CAL_2_0
     private void on_objects_modified (E.Source task_list, ECal.Client client, SList<ICal.Component> objects, TasksModifiedFunc on_tasks_modified) {  // vala-lint=line-length
-#else
-    private void on_objects_modified (E.Source task_list, ECal.Client client, SList<weak ICal.Component> objects, TasksModifiedFunc on_tasks_modified) {  // vala-lint=line-length
-#endif
         debug (@"Received $(objects.length()) modified task(s) for task list '%s'", task_list.dup_display_name ());
         var updated_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);  // vala-lint=line-length
         objects.foreach ((comp) => {
@@ -530,13 +463,8 @@ public class Services.Tasks.Store : Object {
         on_tasks_modified (updated_tasks.read_only_view);
     }
 
-#if E_CAL_2_0
     private void on_objects_removed (E.Source task_list, ECal.Client client, SList<ECal.ComponentId?> cids, TasksRemovedFunc on_tasks_removed) {  // vala-lint=line-length
-#else
-    private void on_objects_removed (E.Source task_list, ECal.Client client, SList<weak ECal.ComponentId?> cids, TasksRemovedFunc on_tasks_removed) {  // vala-lint=line-length
-#endif
         debug (@"Received $(cids.length()) removed task(s) for task list '%s'", task_list.dup_display_name ());
-
         on_tasks_removed (cids);
     }
 }

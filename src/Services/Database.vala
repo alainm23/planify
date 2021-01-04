@@ -443,6 +443,19 @@ public class Services.Database : GLib.Object {
         rc = db.exec (sql, null, null);
         debug ("Table QuickFindRecents created");
 
+        //  sql = """
+        //      CREATE TRIGGER IF NOT EXISTS item_updated
+        //          AFTER UPDATE ON Items
+        //          WHEN old.content <> new.content
+        //              OR old.note <> new.note
+        //      BEGIN
+
+        //      END
+        //  """;
+
+        //  rc = db.exec (sql, null, null);
+        //  debug ("Table QuickFindRecents created");
+
         return rc;
     }
 

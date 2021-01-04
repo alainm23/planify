@@ -22,6 +22,7 @@
 public class Widgets.TaskRow : Gtk.ListBoxRow {
     public E.Source source { get; construct; }
     public ECal.Component task { get; construct set; }
+    public bool edit {get; construct; }
     public bool completed { get; private set; }
     
     private Gtk.CheckButton checked_button;
@@ -48,6 +49,10 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
     private Gtk.Revealer time_revealer;
     private Gtk.Popover reschedule_popover = null;
 
+    private Gtk.Button submit_button;
+    private Gtk.Stack submit_stack;
+    private Gtk.Button cancel_button;
+    private Services.Tasks.Store task_store;
     private uint timeout_id = 0;
     private bool receive_updates = true;
     
@@ -62,14 +67,39 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
     }
 
-    public TaskRow (ECal.Component task, E.Source source) {
+    public bool loading {
+        set {
+            if (value) {
+                submit_stack.visible_child_name = "spinner";
+                sensitive = false;
+            } else {
+                submit_stack.visible_child_name = "label";
+                sensitive = true;
+            }
+        }
+    }
+
+    public TaskRow.for_source (E.Source source) {
+        var task = new ECal.Component ();
+        task.set_new_vtype (ECal.ComponentVType.TODO);
+
         Object (
             task: task,
-            source: source
+            source: source,
+            edit: false
         );
     }
-    
+
+    public TaskRow.for_component (ECal.Component task, E.Source source) {
+        Object (
+            task: task,
+            source: source,
+            edit: true
+        );
+    }
+
     construct {
+        task_store = Services.Tasks.Store.get_default ();
         can_focus = false;
         get_style_context ().add_class ("item-row");
 
@@ -215,6 +245,36 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         main_grid.add (top_box);
         main_grid.add (bottom_revealer);
 
+        // Action Button
+        submit_button = new Gtk.Button ();
+        submit_button.sensitive = false;
+        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var submit_spinner = new Gtk.Spinner ();
+        submit_spinner.start ();
+
+        submit_stack = new Gtk.Stack ();
+        submit_stack.expand = true;
+        submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        submit_stack.add_named (new Gtk.Label (_("Add Task")), "label");
+        submit_stack.add_named (submit_spinner, "spinner");
+
+        submit_button.add (submit_stack);
+
+        cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("cancel-button");
+
+        var action_grid = new Gtk.Grid ();
+        action_grid.halign = Gtk.Align.START;
+        action_grid.column_spacing = 6;
+        action_grid.margin_start = 3;
+        action_grid.column_homogeneous = true;
+        action_grid.add (cancel_button);
+        action_grid.add (submit_button);
+        action_grid.visible = !edit;
+        action_grid.no_show_all = edit;
+
         handle_grid = new Gtk.Grid ();
         handle_grid.hexpand = true;
         handle_grid.margin_start = 6;
@@ -222,7 +282,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         handle_grid.orientation = Gtk.Orientation.VERTICAL;
 
         handle_grid.add (main_grid);
-        // handle_grid.add (motion_revealer);
+        handle_grid.add (action_grid);
 
         var handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -231,15 +291,26 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         handle.add (handle_grid);
 
         main_revealer = new Gtk.Revealer ();
-        main_revealer.reveal_child = true;
+        main_revealer.reveal_child = false;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (handle);
 
         add (main_revealer);
 
+        Timeout.add (main_revealer.transition_duration, () => {
+            main_revealer.reveal_child = true;
+
+            if (!edit) {
+                show_item ();
+            }
+
+            return GLib.Source.REMOVE;
+        });
+
         notify["task"].connect (() => {
             update_request ();
         });
+
         update_request ();
 
         content_entry.key_release_event.connect ((key) => {
@@ -251,10 +322,20 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         content_entry.activate.connect (() => {
-            hide_item ();
+            if (edit) {
+                hide_item ();
+            } else {
+                add_task ();
+            }
         });
 
         content_entry.changed.connect (() => {
+            if (!edit && content_entry.text.strip () != "") {
+                submit_button.sensitive = true;
+            } else {
+                submit_button.sensitive = false;
+            }
+
             save_timeout ();
         });
 
@@ -288,7 +369,8 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             if (task == null) {
                 return;
             }
-            // Planner.task_store.complete_task (source, task);
+            
+            task_store.complete_task (source, task);
         });
 
         button_press_event.connect ((sender, evt) => {
@@ -325,11 +407,30 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
             }
         });
 
+        submit_button.clicked.connect (add_task);
+
         //  Planner.event_bus.show_undo_task.connect ((uid, type) => {
         //      if (task.get_icalcomponent ().get_uid () == uid) {
         //          main_revealer.reveal_child = true;
         //      }
         //  });
+    }
+
+    private void add_task () {
+        if (content_entry.text.strip () != "") {
+            loading = true;
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+
+            var description = note_textview.buffer.text;
+            if (description != null && description.strip ().length > 0) {
+                var property = new ICal.Property (ICal.PropertyKind.DESCRIPTION_PROPERTY);
+                property.set_description (description.strip ());
+                ical_task.add_property (property);
+            }
+
+            task.get_icalcomponent ().set_summary (content_entry.text);
+            task_store.add_task (source, task, this);
+        }
     }
 
     private void activate_menu (bool visible=true) {
@@ -436,7 +537,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         });
 
         delete_menu.activate.connect (() => {
-            // Planner.task_store.remove_task (source, task, ECal.ObjModType.ALL);
+            task_store.remove_task (source, task, ECal.ObjModType.ALL);
             hide_destroy ();
             //  Planner.notifications.send_undo_notification (
             //      _("Task deleted"),
@@ -460,7 +561,6 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         timeout_id = Timeout.add (500, () => {
-            timeout_id = 0;
             receive_updates = false;
             save_task (task);
             return GLib.Source.REMOVE;
@@ -473,7 +573,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         // Clear the old description
         int count = ical_task.count_properties (ICal.PropertyKind.DESCRIPTION_PROPERTY);
         for (int i = 0; i < count; i++) {
-            unowned ICal.Property remove_prop;
+            ICal.Property remove_prop;
             remove_prop = ical_task.get_first_property (ICal.PropertyKind.DESCRIPTION_PROPERTY);
             ical_task.remove_property (remove_prop);
         }
@@ -487,7 +587,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
         }
 
         task.get_icalcomponent ().set_summary (content_entry.text);
-        // Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
+        task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
     }
 
     public void hide_item () {
@@ -695,7 +795,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 ical_task.set_due (Planner.utils.date_time_to_ical (new GLib.DateTime.now_local (), null));
             }
 
-            // Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
+            task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
         });
 
         tomorrow_button.clicked.connect (() => {
@@ -707,13 +807,13 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 ical_task.set_due (Planner.utils.date_time_to_ical (new GLib.DateTime.now_local ().add_days (1), null));
             }
 
-            // Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
+            task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
         });
 
         undated_button.clicked.connect (() => {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
             ical_task.set_due (new ICal.Time.null_time ());
-            // Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
+            task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
         });
 
         calendar.selection_changed.connect ((date) => {
@@ -725,7 +825,7 @@ public class Widgets.TaskRow : Gtk.ListBoxRow {
                 ical_task.set_due (Planner.utils.date_time_to_ical (date, null));
             }
             
-            // Planner.task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
+            task_store.update_task (source, task, ECal.ObjModType.THIS_AND_FUTURE);
         });
         
         time_switch.notify["active"].connect (() => {

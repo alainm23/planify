@@ -7,8 +7,9 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
 
     private Gee.HashMap<E.Source, Widgets.SourceRow>? source_rows = null;
     private Gee.HashMap<string, E.Source>? source_uids = null;
-    private Gee.HashMap <string, bool> tasklists_loaded;
+    // private Gee.HashMap <string, bool> tasklists_loaded;
     private static Services.Tasks.Store task_store;
+    private Views.TaskList listview = null;
     private Gtk.ListBox listbox;
     private Gtk.Grid main_grid;
     private Gtk.Button arrow_button;
@@ -100,7 +101,7 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         top_eventbox.get_style_context ().add_class ("toogle-box");
 
         task_store = Services.Tasks.Store.get_default ();
-        tasklists_loaded = new Gee.HashMap <string, bool> ();
+        // tasklists_loaded = new Gee.HashMap <string, bool> ();
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
@@ -113,6 +114,7 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         listbox_revealer = new Gtk.Revealer ();
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.add (listbox);
+        listbox_revealer.reveal_child = true;
 
         main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -167,6 +169,46 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         });
     }
 
+    private void header_update_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+        if (!(lbrow is Widgets.SourceRow)) {
+            return;
+        }
+        var row = (Widgets.SourceRow) lbrow;
+        if (lbbefore != null && lbbefore is Widgets.SourceRow) {
+            var before = (Widgets.SourceRow) lbbefore;
+            if (row.source.parent == before.source.parent) {
+                return;
+            }
+        }
+
+        var header_label = new Granite.HeaderLabel (get_esource_collection_display_name (row.source)) {
+            ellipsize = Pango.EllipsizeMode.MIDDLE,
+            margin_start = 6
+        };
+
+        row.set_header (header_label);
+    }
+
+    public string get_esource_collection_display_name (E.Source source) {
+        var display_name = "";
+
+        try {
+            var registry = task_store.get_registry_sync ();
+            var collection_source = registry.find_extension (source, E.SOURCE_EXTENSION_COLLECTION);
+
+            if (collection_source != null) {
+                display_name = collection_source.display_name;
+            } else if (source.has_extension (E.SOURCE_EXTENSION_TASK_LIST)) {
+                display_name = ((E.SourceTaskList) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST)).backend_name;
+            }
+
+        } catch (Error e) {
+            warning (e.message);
+        }
+
+        return display_name;
+    }
+
     private void toggle_hidden () {
         top_eventbox.get_style_context ().add_class ("active");
         Timeout.add (750, () => {
@@ -185,14 +227,14 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
     }
 
     public void tasklist_selected (E.Source source) {
-        if (tasklists_loaded.has_key (source.uid)) {
-            window.stack.visible_child_name = "tasklist-%s".printf (source.uid);
-        } else {
-            tasklists_loaded.set (source.uid, true);
-            var tasklist_view = new Views.TaskList (source);
-            window.stack.add_named (tasklist_view, "tasklist-%s".printf (source.uid));
-            window.stack.visible_child_name = "tasklist-%s".printf (source.uid);
+        if (listview == null) {
+            listview = new Views.TaskList ();
+            window.stack.add_named (listview, "tasklist");
         }
+
+        listview.source = source;
+
+        window.stack.visible_child_name = "tasklist";
     }   
 
     private void add_source (E.Source source) {
@@ -204,7 +246,6 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
             source_uids = new Gee.HashMap<string, E.Source> ();
         }
 
-        debug ("Adding row '%s'", source.dup_display_name ());
         if (!source_rows.has_key (source)) {
             source_rows[source] = new Widgets.SourceRow (source);
             source_uids[source.uid] = source;

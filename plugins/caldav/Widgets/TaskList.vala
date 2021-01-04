@@ -20,7 +20,7 @@
 */
 
 public class Views.TaskList : Gtk.EventBox {
-    public E.Source source { get; construct; }
+    public E.Source source { get; set; }
     private ECal.ClientView view;
     
     private Gtk.Label name_label;
@@ -36,14 +36,10 @@ public class Views.TaskList : Gtk.EventBox {
     public Gee.HashMap <string, Widgets.TaskRow> items_completed_added;
     private static Services.Tasks.Store task_store;
     private bool entry_menu_opened = false;
-
-    public TaskList (E.Source source) {
-        Object (
-            source: source
-        );
-    }
+    private Gee.Collection<ECal.ClientView> views;
 
     construct {
+        views = new Gee.ArrayList<ECal.ClientView> ((Gee.EqualDataFunc<ECal.ClientView>?) direct_equal);
         task_store = Services.Tasks.Store.get_default ();
         items_uncompleted_added = new Gee.HashMap <string, Widgets.TaskRow> ();
         items_completed_added = new Gee.HashMap <string, Widgets.TaskRow> ();
@@ -129,7 +125,7 @@ public class Views.TaskList : Gtk.EventBox {
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        // listbox.set_placeholder (placeholder_view);
+        listbox.set_placeholder (placeholder_view);
 
         completed_listbox = new Gtk.ListBox ();
         completed_listbox.margin_start = 30;
@@ -168,23 +164,19 @@ public class Views.TaskList : Gtk.EventBox {
         overlay.add (main_box);
 
         add (overlay);
-        update_request ();
         
-        try {
-            view = task_store.create_task_list_view (
-                source,
-                "(contains? 'any' '')",
-                on_tasks_added,
-                on_tasks_modified,
-                on_tasks_removed
-            );
+        notify["source"].connect (() => {
+            remove_views ();
 
-        } catch (Error e) {
-            print (e.message);
-            critical (e.message);
-        }
+            foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+                child.destroy ();
+            }
 
-        show_all ();
+            add_view (source, "(contains? 'any' '')");
+            update_request ();
+
+            show_all ();
+        });
 
         listbox.row_activated.connect ((r) => {
             var row = ((Widgets.TaskRow) r);
@@ -266,8 +258,38 @@ public class Views.TaskList : Gtk.EventBox {
         });
     }
 
+    private void remove_views () {
+        items_completed_added.clear ();
+        items_uncompleted_added.clear ();
+
+        lock (views) {
+            foreach (ECal.ClientView view in views) {
+                task_store.destroy_task_list_view (view);
+            }
+            views.clear ();
+        }
+    }
+
+    public void add_view (E.Source task_list, string query) {
+        try {
+            var view = task_store.create_task_list_view (
+                task_list,
+                query,
+                on_tasks_added,
+                on_tasks_modified,
+                on_tasks_removed);
+
+            lock (views) {
+                views.add (view);
+            }
+
+        } catch (Error e) {
+            critical (e.message);
+        }
+    }
+
     public void add_new_task (int index=-1) {
-        var new_task = new Widgets.NewItem.for_source (source, listbox);
+        var new_task = new Widgets.TaskRow.for_source (source);
         listbox.add (new_task);
         listbox.show_all ();
     }
@@ -297,14 +319,14 @@ public class Views.TaskList : Gtk.EventBox {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
             if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
                 if (!items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
-                    var row = new Widgets.TaskRow (task, source);
+                    var row = new Widgets.TaskRow.for_component (task, source);
                     completed_listbox.add (row);
 
                     items_completed_added.set (task.get_icalcomponent ().get_uid (), row);
                 }
             } else {
                 if (!items_uncompleted_added.has_key (task.get_icalcomponent ().get_uid ())) {
-                    var row = new Widgets.TaskRow (task, source);
+                    var row = new Widgets.TaskRow.for_component (task, source);
                     listbox.add (row);
 
                     items_uncompleted_added.set (task.get_icalcomponent ().get_uid (), row);
@@ -326,7 +348,7 @@ public class Views.TaskList : Gtk.EventBox {
                 }
 
                 if (!items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
-                    var row = new Widgets.TaskRow (task, source);
+                    var row = new Widgets.TaskRow.for_component (task, source);
                     completed_listbox.insert (row, 0);
 
                     items_completed_added.set (task.get_icalcomponent ().get_uid (), row);
@@ -340,7 +362,7 @@ public class Views.TaskList : Gtk.EventBox {
                 }
 
                 if (!items_uncompleted_added.has_key (task.get_icalcomponent ().get_uid ())) {
-                    var row = new Widgets.TaskRow (task, source);
+                    var row = new Widgets.TaskRow.for_component (task, source);
                     listbox.add (row);
 
                     items_uncompleted_added.set (task.get_icalcomponent ().get_uid (), row);

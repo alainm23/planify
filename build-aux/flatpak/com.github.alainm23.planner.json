@@ -14,7 +14,7 @@
         "--socket=wayland",
         "--filesystem=home",
         "--talk-name=org.gtk.vfs.*",
-        "--talk-name=org.gnome.evolution.dataserver.AddressBook9",
+        "--talk-name=org.gnome.evolution.dataserver.AddressBook10",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
         "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
@@ -44,13 +44,14 @@
             ],
             "buildsystem": "cmake-ninja",
             "config-opts": [
-                "-DCMAKE_INSTALL_LIBDIR:PATH=/app/lib",
-                "-DBUILD_SHARED_LIBS=On",
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+                "-DBUILD_SHARED_LIBS=ON",
                 "-DGOBJECT_INTROSPECTION=true",
                 "-DICAL_GLIB_VAPI=true",
                 "-DICAL_GLIB=true",
-                "-DICAL_BUILD_DOCS=False",
-                "-DWITH_CXX_BINDINGS=False"
+                "-DICAL_BUILD_DOCS=false",
+                "-DWITH_CXX_BINDINGS=false"
             ],
             "sources": [
                 {
@@ -88,12 +89,17 @@
             "name": "evolution-data-server",
             "buildsystem": "cmake-ninja",
             "cleanup": [
-                "/share/GConf"
+                "/share/GConf",
+                "/lib/evolution-data-server/*-backends",
+                "/libexec",
+                "/share/dbus-1/services"
             ],
             "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
                 "-DENABLE_FILE_LOCKING=fcntl",
                 "-DENABLE_DOT_LOCKING=OFF",
                 "-DENABLE_OAUTH2=ON",
+                "-DENABLE_CANBERRA=OFF",
                 "-DENABLE_GTK=ON",
                 "-DENABLE_UOA=OFF",
                 "-DENABLE_GOA=OFF",
@@ -113,8 +119,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/evolution-data-server/3.36/evolution-data-server-3.36.0.tar.xz",
-                    "sha256": "d4d70e6658fb9e1f85639dcff315bbdddd3aa2de2ad069b1776af3fb9e9598ec"
+                    "url": "https://download.gnome.org/sources/evolution-data-server/3.38/evolution-data-server-3.38.2.tar.xz",
+                    "sha256": "bf20785963efe3afa9d3b3a229cb61d1c60fa2fc11e29d632e050b3714cad455"
                 }
             ]
         },
