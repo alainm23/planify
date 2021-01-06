@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-07-22 13:41+0000\n"
-"Last-Translator: Heart & Soul <shenzhe100@126.com>\n"
+"PO-Revision-Date: 2021-01-07 15:29+0000\n"
+"Last-Translator: pessoa <accounts@pessoa.cc>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "planner/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/Application.vala:156
 msgid "yes"
-msgstr ""
+msgstr "确认"
 
 #: src/MainWindow.vala:56
 msgid "Planner"
@@ -191,9 +191,8 @@ msgid ""
 msgstr ""
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "如何使用项目"
+msgstr "子项目"
 
 #: src/Utils.vala:961
 msgid ""
@@ -220,7 +219,7 @@ msgstr "添加新的任务"
 
 #: src/Utils.vala:981
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "要添加新任务至 Planner，请点击 + 并按 Enter 键。"
 
 #: src/Utils.vala:1036 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new task"
@@ -310,11 +309,11 @@ msgstr "在这台计算机上"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "空剪贴板，请复制文本后再次尝试"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "保存 Planner 文件"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -334,22 +333,20 @@ msgid "Cancel"
 msgstr "取消"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Planner 文件"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "全部清除"
+msgstr "所有文件"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "打开 Planner 文件"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "打开"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -412,7 +409,7 @@ msgstr "关闭"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "成功创建%s项目"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -441,15 +438,13 @@ msgstr "将项目移动到 <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:684 src/Views/Inbox.vala:213
 #: src/Views/Project.vala:524
-#, fuzzy
 msgid "Open New Window"
-msgstr "打开待办事项"
+msgstr "打开新窗口"
 
 #: src/Widgets/ProjectRow.vala:685 src/Views/Inbox.vala:214
 #: src/Views/Project.vala:525 src/Dialogs/Project.vala:514
-#, fuzzy
 msgid "Edit Project"
-msgstr "添加项目"
+msgstr "编辑项目"
 
 #: src/Widgets/ProjectRow.vala:686 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
@@ -573,9 +568,8 @@ msgid "Undated"
 msgstr "无期限"
 
 #: src/Widgets/NewItem.vala:749 src/Widgets/DueButton.vala:239
-#, fuzzy
 msgid "Time"
-msgstr "时间:"
+msgstr "时间"
 
 #: src/Widgets/NewItem.vala:825 src/Widgets/NewItem.vala:1019
 #: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
@@ -654,9 +648,8 @@ msgid "Date completed"
 msgstr "今日完成"
 
 #: src/Widgets/ItemCompletedRow.vala:203
-#, fuzzy
 msgid "Mark Incomplete"
-msgstr "1 个任务完成"
+msgstr "标记为未完成"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #: src/Widgets/MultiSelectToolbar.vala:191
@@ -797,7 +790,7 @@ msgstr ""
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
+msgstr "从剪贴板添加任务失败。请重试。"
 
 #: src/Widgets/Toast.vala:148
 #, fuzzy
@@ -841,13 +834,12 @@ msgid "Add Label"
 msgstr "添加标签"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
-#, fuzzy
 msgid "Priority"
-msgstr "优先级 1"
+msgstr "优先级"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "完成"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, fuzzy, c-format
@@ -863,13 +855,12 @@ msgid "What's New"
 msgstr ""
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "内容"
+msgstr "继续"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "以标签过滤"
 
 #: src/Widgets/LabelFilter.vala:47
 #, fuzzy
@@ -881,14 +872,12 @@ msgid "What's new"
 msgstr ""
 
 #: src/Widgets/ToolsMenu.vala:45
-#, fuzzy
 msgid "Keyboard shortcuts"
-msgstr "键盘快捷键"
+msgstr "快捷键"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "今日完成"
+msgstr "完成同步"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -909,14 +898,12 @@ msgstr ""
 "来完成同步"
 
 #: src/Widgets/ToolsMenu.vala:197
-#, fuzzy
 msgid "Sync…"
-msgstr "同步"
+msgstr "同步…"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
-#, fuzzy
 msgid "Sync Now"
-msgstr "同步"
+msgstr "立即同步"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
@@ -927,7 +914,7 @@ msgstr "%OB %Y"
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 #, fuzzy
@@ -988,13 +975,12 @@ msgid "Synchronize with your Todoist Account."
 msgstr "同步你的待办清单账号并且开始工作."
 
 #: src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "重要"
+msgstr "导入备份"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
-msgstr ""
+msgstr "导入事先导出的 Planner 备份。"
 
 #: src/Views/Inbox.vala:68 src/Views/Project.vala:139
 #: src/Views/Project.vala:147 src/Dialogs/Project.vala:161
@@ -1029,18 +1015,18 @@ msgstr "看起来所有的事情都已经组织到正确的地方."
 #: src/Views/Inbox.vala:215 src/Views/Project.vala:526
 #: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:515
 msgid "Sort by date"
-msgstr ""
+msgstr "按日期排序"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:216 src/Views/Today.vala:481 src/Views/Project.vala:527
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:516
 msgid "Sort by priority"
-msgstr ""
+msgstr "按优先级排序"
 
 #: src/Views/Inbox.vala:217 src/Views/Today.vala:482 src/Views/Project.vala:528
 #: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:517
 msgid "Sort by name"
-msgstr ""
+msgstr "按名称排序"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:219 src/Views/Today.vala:484 src/Views/Project.vala:530
@@ -1061,20 +1047,17 @@ msgstr ""
 
 #: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
 #: src/Dialogs/Project.vala:681
-#, fuzzy
 msgid "Share on Markdown"
-msgstr "Markdown"
+msgstr "以 Markdown 格式分享"
 
 #: src/Views/Inbox.vala:384 src/Views/Today.vala:558 src/Views/Project.vala:717
 #: src/Dialogs/ShortcutsDialog.vala:105 src/Dialogs/Project.vala:682
-#, fuzzy
 msgid "Hide all tasks details"
-msgstr "隐藏细节"
+msgstr "隐藏所有任务细节"
 
 #: src/Views/Today.vala:85
-#, fuzzy
 msgid "Menu"
-msgstr "任务菜单"
+msgstr "菜单"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -1093,9 +1076,8 @@ msgid "Tap + to add a task for today."
 msgstr "点击 + 以添加今天的任务."
 
 #: src/Views/Today.vala:483
-#, fuzzy
 msgid "Sort by project"
-msgstr "如何使用项目"
+msgstr "按项目排序"
 
 #: src/Views/Today.vala:603
 #, fuzzy
@@ -1141,9 +1123,8 @@ msgid "Completed"
 msgstr "完成"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
-#, fuzzy
 msgid "All Tasks"
-msgstr "任务"
+msgstr "所有任务"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
 msgid "Loading…"
@@ -1239,7 +1220,7 @@ msgstr "查看"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "过滤器"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
@@ -1274,7 +1255,7 @@ msgstr "在列表顶部创建一个任务(只工作在项目中)"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "粘贴纯文本以开始新任务"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
@@ -1284,18 +1265,16 @@ msgid "Create a new section in a project"
 msgstr "创建一个新分区"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
-#, fuzzy
 msgid "Open Quick Add"
-msgstr "快速添加"
+msgstr "打开快速添加"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
-#, fuzzy
 msgid "Open Quick Find"
-msgstr "快速查找"
+msgstr "打开快速查找"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "输入以开始搜索"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 #, fuzzy
@@ -1357,7 +1336,7 @@ msgstr "开机运行"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "插件"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1380,7 +1359,7 @@ msgstr "角标"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "外观"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
 #, fuzzy
@@ -1438,16 +1417,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 msgid "Default priority"
-msgstr ""
+msgstr "默认优先级"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "显示新任务的位置。"
 
 #: src/Dialogs/Preferences/Preferences.vala:457
-#, fuzzy
 msgid "Backups"
-msgstr "返回"
+msgstr "备份"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
@@ -1503,7 +1481,7 @@ msgstr "主题"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "字号"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1567,7 +1545,7 @@ msgstr "危险的选项"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "日期 & 时间"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1580,15 +1558,15 @@ msgstr "重置"
 
 #: src/Dialogs/Preferences/Preferences.vala:938
 msgid "Export Database"
-msgstr ""
+msgstr "导出数据库"
 
 #: src/Dialogs/Preferences/Preferences.vala:938
 msgid "Export"
-msgstr ""
+msgstr "导出"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "一周的起始日"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1666,7 +1644,7 @@ msgstr "网站"
 
 #: src/Dialogs/Preferences/Preferences.vala:1476
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1477
 msgid "Follow"
@@ -1682,7 +1660,7 @@ msgstr "贡献翻译"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:28
 msgid "Database"
-msgstr ""
+msgstr "数据库"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:43
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
@@ -1717,7 +1695,7 @@ msgstr "这个操作将会在这个设备上关闭你的待办事项会话."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "数据库位置"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 #, fuzzy
