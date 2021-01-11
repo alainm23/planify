@@ -432,7 +432,6 @@ public class Widgets.BoardColumn : Gtk.EventBox {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            // menu_stack.visible_child_name = "button";
             add_revealer.reveal_child = true;
             add_button.get_style_context ().add_class ("animation");
 

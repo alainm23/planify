@@ -469,16 +469,6 @@ public class Widgets.Pane : Gtk.EventBox {
 
             project_listbox.add (row);
             projects_list.add (row);
-
-            if (Planner.settings.get_boolean ("homepage-project")) {
-                if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
-                    timeout = Timeout.add (125, () => {
-                        timeout = 0;
-                        project_listbox.select_row (row);
-                        return GLib.Source.REMOVE;
-                    });
-                }
-            }
         }
 
         project_listbox.show_all ();

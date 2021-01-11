@@ -1216,50 +1216,79 @@ public class Utils : GLib.Object {
 
         return datetime.to_string ();
     }
-
-    //  public void parse_item_tags (Objects.Item item, string text) {
-    //      var clean_text = "";
-    //      Regex word_regex = /\S+\s*/;
-    //      MatchInfo match_info;
+    
+    public Gee.HashMap<string, int> FULL_MONTH_NAME_DICTIONARY () {
+        var map = new Gee.HashMap<string, int> ();
         
-    //      try {
-    //          var match_text = text.strip ();
-    //      for (word_regex.match (match_text, 0, out match_info) ; match_info.matches () ; match_info.next ()) {
-    //          var word = match_info.fetch (0);
-    //          var stripped = word.strip ().down ();
+        map.set ("january", 1);
+        map.set ("february", 2);
+        map.set ("march", 3);
+        map.set ("april", 4);
+        map.set ("may", 5);
+        map.set ("june", 6);
+        map.set ("july", 7);
+        map.set ("august", 8);
+        map.set ("september", 9);
+        map.set ("october", 10);
+        map.set ("november", 11);
+        map.set ("december", 12);
+        
+        return map;
+    }
 
-    //          switch (stripped) {
-    //              case TODAY:
-    //                  item.due_date = get_datetime (new GLib.DateTime.now_local ());
-    //                  clean_text+= word;
-    //                  break;
-    //              case TOMORROW:
-    //                  item.due_date = get_datetime (new GLib.DateTime.now_local ().add_days (1));
-    //                  clean_text+= word;
-    //                  break;
-    //              case "p1":
-    //                  item.priority = 4;
-    //                  break;
-    //              case "p2":
-    //                  item.priority = 3;
-    //                  break;
-    //              case "p3":
-    //                  item.priority = 2;
-    //                  break;
-    //              case "p4":
-    //                  item.priority = 1;
-    //                  break;
-    //              default:
-    //                  clean_text+= word;
-    //                  break;
-    //          }
-    //          }
-    //      } catch (GLib.RegexError ex) {
-    //          return text;
-    //      }
+    public Gee.HashMap<string, int> MONTH_DICTIONARY () {
+        var map = new Gee.HashMap<string, int> ();
+        
+        map.set ("jan", 1);
+        map.set ("jan.", 1);
+        
+        map.set ("feb", 2);
+        map.set ("feb.", 2);
+        
+        map.set ("mar", 3);
+        map.set ("mar.", 3);
+        
+        map.set ("apr", 4);
+        map.set ("apr.", 4);
+        
+        map.set ("may", 5);
+        map.set ("may.", 5);
+        
+        map.set ("jun", 6);
+        map.set ("jun.", 6);
+        
+        map.set ("jul", 7);
+        map.set ("jul.", 7);
+        
+        map.set ("aug", 8);
+        map.set ("aug.", 8);
+        
+        map.set ("sep", 9);
+        map.set ("sep.", 9);
+        
+        map.set ("oct", 10);
+        map.set ("oct.", 10);
+        
+        map.set ("nov", 11);
+        map.set ("nov.", 11);
+        
+        map.set ("dec", 12);
+        map.set ("dec.", 12);
 
-    //      item.content = clean_text;
-    //  }
+        return map;
+    }
+
+    public int get_month_number_by_query (string name) {
+        int returned = 0;
+
+        if (FULL_MONTH_NAME_DICTIONARY ().has_key (name)) {
+            returned = FULL_MONTH_NAME_DICTIONARY ().get (name);
+        } else if (MONTH_DICTIONARY ().has_key (name)) {
+            returned = MONTH_DICTIONARY ().get (name);
+        }
+
+        return returned;
+    }
 
     public void update_font_scale () {
         string _css = """

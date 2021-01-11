@@ -121,8 +121,12 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.pack_end (section_button, false, false, 0);
         top_box.pack_end (label_filter, false, false, 0);
 
-        list_view = new Widgets.ListView (project);
-        board_view = new Widgets.BoardView (project);
+        list_view = new Widgets.ListView ();
+        list_view.project = project;
+
+        board_view = new Widgets.BoardView ();
+        board_view.project = project;
+        
         var placeholder_view = new Widgets.Placeholder (
             _("All clear"),
             _("Looks like everything's organized in the right place."),

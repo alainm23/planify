@@ -20,7 +20,6 @@
 */
 
 public class Views.Project : Gtk.EventBox {
-    // public Objects.Project project { get; construct; }
     public Objects.Project project { get; set; }
 
     private Gtk.Label name_label;
@@ -57,14 +56,7 @@ public class Views.Project : Gtk.EventBox {
     private int64 temp_id_mapping { get; set; default = 0; }
     private bool entry_menu_opened = false;
 
-    //  public Project (Objects.Project project) {
-    //      Object (
-    //          project: project
-    //      );
-    //  }
-
     construct {
-        //  name_label = new Gtk.Label (project.name);
         name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
@@ -77,7 +69,6 @@ public class Views.Project : Gtk.EventBox {
         name_eventbox.add (name_label);
 
         name_entry = new Widgets.Entry ();
-        // name_entry.text = project.name;
         name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("flat");
         name_entry.get_style_context ().add_class ("title-label");
@@ -141,30 +132,6 @@ public class Views.Project : Gtk.EventBox {
         section_button.get_style_context ().add_class ("flat");
         section_button.add (section_image);
 
-        var add_person_button = new Gtk.Button.from_icon_name ("contact-new-symbolic", Gtk.IconSize.MENU);
-        add_person_button.valign = Gtk.Align.CENTER;
-        add_person_button.halign = Gtk.Align.CENTER;
-        add_person_button.tooltip_text = _("Invite person");
-        add_person_button.can_focus = false;
-        add_person_button.margin_start = 6;
-        add_person_button.get_style_context ().add_class ("flat");
-
-        var comment_button = new Gtk.Button.from_icon_name ("internet-chat-symbolic", Gtk.IconSize.MENU);
-        comment_button.valign = Gtk.Align.CENTER;
-        comment_button.halign = Gtk.Align.CENTER;
-        comment_button.can_focus = false;
-        comment_button.tooltip_text = _("Project comments");
-        comment_button.margin_start = 6;
-        comment_button.get_style_context ().add_class ("flat");
-
-        var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic", Gtk.IconSize.MENU);
-        search_button.valign = Gtk.Align.CENTER;
-        search_button.halign = Gtk.Align.CENTER;
-        search_button.can_focus = false;
-        search_button.tooltip_text = _("Search task");
-        search_button.margin_start = 6;
-        search_button.get_style_context ().add_class ("flat");
-
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
         settings_image.pixel_size = 14;
@@ -177,13 +144,6 @@ public class Views.Project : Gtk.EventBox {
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         var label_filter = new Widgets.LabelFilter ();
-
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        top_box.hexpand = true;
-        top_box.valign = Gtk.Align.START;
-        top_box.margin_end = 36;
-        top_box.margin_start = 42;
-        top_box.margin_top = 6;
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -205,6 +165,12 @@ public class Views.Project : Gtk.EventBox {
         action_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         action_revealer.add (action_grid);
 
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        top_box.hexpand = true;
+        top_box.valign = Gtk.Align.START;
+        top_box.margin_end = 36;
+        top_box.margin_start = 42;
+        top_box.margin_top = 6;
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 6);
         top_box.pack_end (section_button, false, false, 6);
@@ -220,7 +186,6 @@ public class Views.Project : Gtk.EventBox {
 
         // Note Label
         note_label = new Gtk.Label ("");
-        // note_label.valign = Gtk.Align.START;
         note_label.wrap = true;
         note_label.wrap_mode = Pango.WrapMode.CHAR;
         note_label.xalign = 0;
@@ -244,12 +209,12 @@ public class Views.Project : Gtk.EventBox {
         
         //  list_view = new Widgets.ListView (project);
         //  board_view = new Widgets.BoardView (project);
-        var placeholder_view = new Widgets.Placeholder (
-            _("What will you accomplish?"),
-            _("Tap + to add a task to this project."),
-            "planner-project-symbolic"
-        );
-        placeholder_view.reveal_child = true;
+        //  var placeholder_view = new Widgets.Placeholder (
+        //      _("What will you accomplish?"),
+        //      _("Tap + to add a task to this project."),
+        //      "planner-project-symbolic"
+        //  );
+        //  placeholder_view.reveal_child = true;
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -285,28 +250,23 @@ public class Views.Project : Gtk.EventBox {
             progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             check_due_date ();
 
-            if (list_view != null) {
-                list_view.destroy ();
-                list_view = null;
+            if (list_view == null) {
+                list_view = new Widgets.ListView ();
+                main_stack.add_named (list_view, "project");
             }
+            
+            list_view.project = project;
 
-            if (board_view != null) {
-                board_view.destroy ();
-                board_view = null;
+            if (board_view == null) {
+                board_view = new Widgets.BoardView ();
+                main_stack.add_named (board_view, "board");
             }
-            //  foreach (unowned Gtk.Widget child in main_stack.get_children ()) {
-            //      child.destroy ();
-            //  }
-
-            list_view = new Widgets.ListView (project);
-            board_view = new Widgets.BoardView (project);
-
-            main_stack.add_named (list_view, "project");
-            main_stack.add_named (board_view, "board");
+            
+            board_view.project = project;
 
             show_all ();
 
-            Timeout.add (125, () => {
+            Timeout.add (main_stack.transition_duration, () => {
                 Planner.database.get_project_count (project.id);
                 
                 if (project.is_kanban == 1) {

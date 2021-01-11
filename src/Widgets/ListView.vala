@@ -1,5 +1,5 @@
 public class Widgets.ListView : Gtk.EventBox {
-    public Objects.Project project { get; construct; }
+    public Objects.Project project { get; set; }
     
     private Gtk.ListBox section_listbox;
     private Widgets.SectionRow inbox_section;
@@ -9,12 +9,6 @@ public class Widgets.ListView : Gtk.EventBox {
     };
 
     private uint timeout = 0;
-
-    public ListView (Objects.Project project) {
-        Object (
-            project: project
-        );
-    }
 
     construct {
         section_listbox = new Gtk.ListBox ();
@@ -36,7 +30,10 @@ public class Widgets.ListView : Gtk.EventBox {
         scrolled.add (grid);
 
         add (scrolled);
-        add_sections ();
+
+        notify["project"].connect (() => {
+            add_sections ();
+        });
 
         Planner.database.section_added.connect ((section) => {
             if (project.id == section.project_id) {
@@ -90,7 +87,8 @@ public class Widgets.ListView : Gtk.EventBox {
             var row = new Widgets.SectionRow (section, project);
             section_listbox.add (row);
         }
-        section_listbox.show_all ();
+        
+        show_all ();
     }
 
     public void add_new_item (int index=-1) {

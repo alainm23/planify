@@ -1316,3 +1316,7 @@ paned.horizontal > separator {
 .line-through {
     text-decoration: line-through;
 }
+
+.border-radius-4 {
+    border-radius: 4px;
+}

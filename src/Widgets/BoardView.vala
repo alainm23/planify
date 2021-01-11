@@ -20,19 +20,13 @@
 */
 
 public class Widgets.BoardView : Gtk.EventBox {
-    public Objects.Project project { get; construct; }
+    public Objects.Project project { get; set; }
     private Gtk.Grid grid;
     private Widgets.BoardColumn inbox_board;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES_SECTION = {
         {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
     };
-
-    public BoardView (Objects.Project project) {
-        Object (
-            project: project
-        );
-    }
 
     construct {
         grid = new Gtk.Grid ();
@@ -51,7 +45,10 @@ public class Widgets.BoardView : Gtk.EventBox {
         scrolled_window.add (grid);
 
         add (scrolled_window);
-        add_boards ();
+
+        notify["project"].connect (() => {
+            add_boards ();
+        });
 
         Planner.database.section_added.connect ((section) => {
             if (project.id == section.project_id) {
@@ -79,7 +76,8 @@ public class Widgets.BoardView : Gtk.EventBox {
             var board = new Widgets.BoardColumn (section, project);
             grid.add (board);
         }
-        grid.show_all ();
+        
+        show_all ();
     }
 
     public void add_new_item (int index=-1) {

@@ -83,6 +83,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         margin_top = 2;
         get_style_context ().add_class ("project-row");
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
+        tooltip_text = project.name;
 
         project_progress = new Widgets.ProjectProgress (9);
         project_progress.margin = 2;
@@ -99,7 +100,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         progress_grid.halign = Gtk.Align.CENTER;
 
         name_label = new Gtk.Label (project.name);
-        name_label.tooltip_text = project.name;
         name_label.get_style_context ().add_class ("pane-item");
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
@@ -124,7 +124,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         arrow_button.halign = Gtk.Align.CENTER;
         arrow_button.can_focus = false;
         arrow_button.image = arrow_icon;
-        arrow_button.tooltip_text = _("Project Menu");
         arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         arrow_button.get_style_context ().add_class ("dim-label");
         arrow_button.get_style_context ().add_class ("transparent");
@@ -156,24 +155,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         menu_revealer.reveal_child = true;
         menu_revealer.add (menu_stack);
 
-        var source_icon = new Gtk.Image ();
-        source_icon.valign = Gtk.Align.CENTER;
-        source_icon.get_style_context ().add_class ("dim-label");
-        source_icon.pixel_size = 14;
-        source_icon.margin_start = 6;
-
-        if (project.is_todoist == 0) {
-            source_icon.tooltip_text = _("Local Project");
-            source_icon.icon_name = "planner-offline-symbolic";
-        } else {
-            source_icon.icon_name = "planner-online-symbolic";
-            source_icon.tooltip_text = _("Todoist Project");
-        }
-
-        var source_revealer = new Gtk.Revealer ();
-        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        source_revealer.add (source_icon);
-
         due_label = new Gtk.Label (null);
         due_label.use_markup = true;
         due_label.valign = Gtk.Align.CENTER;
@@ -185,14 +166,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
-        // handle_box.margin_start = 5;
         handle_box.margin_end = 3;
         handle_box.margin_top = 2;
         handle_box.margin_bottom = 2;
         handle_box.pack_start (arrow_button, false, false, 0);
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        // handle_box.pack_start (source_revealer, false, false, 0);
 
         handle_box.pack_end (menu_revealer, false, false, 0);
         handle_box.pack_end (due_revealer, false, false, 0);
@@ -253,9 +232,9 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-        add_subprojects ();
         apply_color (Planner.utils.get_color (project.color));
         check_due_date ();
+        add_subprojects ();
 
         if (project.collapsed == 1) {
             arrow_button.get_style_context ().add_class ("opened");
@@ -284,8 +263,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         h_grid.enter_notify_event.connect ((event) => {
             menu_stack.visible_child_name = "menu_button";
-            source_revealer.reveal_child = true;
-
             return true;
         });
 
@@ -295,8 +272,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             }
 
             menu_stack.visible_child_name = "count_revealer";
-            source_revealer.reveal_child = false;
-
             return true;
         });
 
@@ -311,7 +286,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 project.collapsed = 1;
             }
 
-            project.save ();
+            project.save (false);
         });
 
         menu_button.clicked.connect (() => {

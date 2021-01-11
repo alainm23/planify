@@ -275,8 +275,12 @@ public class Dialogs.Project : Gtk.Dialog {
         note_stack.add_named (note_eventbox, "label");
         note_stack.add_named (note_textview, "textview");
         
-        list_view = new Widgets.ListView (project);
-        board_view = new Widgets.BoardView (project);
+        list_view = new Widgets.ListView ();
+        list_view.project = project;
+
+        board_view = new Widgets.BoardView ();
+        board_view.project = project;
+        
         var placeholder_view = new Widgets.Placeholder (
             _("What will you accomplish?"),
             _("Tap + to add a task to this project."),

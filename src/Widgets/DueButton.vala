@@ -22,6 +22,7 @@
 public class Widgets.DueButton : Gtk.ToggleButton {
     public Objects.Item item { get; construct; }
 
+    private Gtk.SearchEntry search_entry;
     private Gtk.Label due_label;
     private Gtk.Image due_image;
     private Gtk.Label time_label;
@@ -95,7 +96,7 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         add (main_grid);
 
-        this.toggled.connect (() => {
+        toggled.connect (() => {
             if (this.active) {
                 if (popover == null) {
                     create_popover ();
@@ -196,12 +197,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
     private void create_popover () {
         popover = new Gtk.Popover (this);
-        popover.position = Gtk.PositionType.RIGHT;
+        popover.position = Gtk.PositionType.BOTTOM;
         popover.get_style_context ().add_class ("popover-background");
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;
-        popover_grid.margin_bottom = 12;
+        popover_grid.margin_bottom = 6;
         popover_grid.width_request = 235;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.add (get_calendar_widget ());
@@ -215,6 +216,13 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     private Gtk.Widget get_calendar_widget () {
+        search_entry = new Gtk.SearchEntry ();
+        search_entry.margin = 9;
+        search_entry.margin_top = 3;
+        search_entry.get_style_context ().add_class ("border-radius-4");
+
+        var parsed_button = new Widgets.DateTimeButton ();
+
         today_button = new Widgets.ModelButton (_("Today"), "help-about-symbolic", "");
         today_button.get_style_context ().add_class ("due-menuitem");
         today_button.item_image.pixel_size = 14;
@@ -232,6 +240,17 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         undated_button.item_image.pixel_size = 14;
         undated_button.color = 2;
         undated_button.due_label = true;
+
+        var dates_grid = new Gtk.Grid ();
+        dates_grid.orientation = Gtk.Orientation.VERTICAL;
+        dates_grid.add (today_button);
+        dates_grid.add (tomorrow_button);
+        dates_grid.add (undated_button);
+
+        var dates_revealer = new Gtk.Revealer ();
+        dates_revealer.reveal_child = true;
+        dates_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        dates_revealer.add (dates_grid);
 
         calendar = new Widgets.Calendar.Calendar (false);
         calendar.hexpand = true;
@@ -335,14 +354,15 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.add (today_button);
-        grid.add (tomorrow_button);
-        grid.add (undated_button);
-        grid.add (calendar);
-        grid.add (time_box);
-        grid.add (time_picker_revealer);
-        grid.add (recurring_box);
-        grid.add (combobox_revealer);
+        grid.add (search_entry);
+        grid.add (parsed_button);
+        grid.add (dates_revealer);
+        // grid.add (tomorrow_button);
+        // grid.add (calendar);
+        // grid.add (time_box);
+        // grid.add (time_picker_revealer);
+        // grid.add (recurring_box);
+        // grid.add (combobox_revealer);
         grid.show_all ();
 
         today_button.clicked.connect (() => {
@@ -360,6 +380,27 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         calendar.selection_changed.connect ((date) => {
             set_due (get_datetime (date));
+        });
+
+        search_entry.search_changed.connect (() => {
+            var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
+            dates_revealer.reveal_child = parsed_result == null;
+            parsed_button.set_result (parsed_result);
+        });
+
+        search_entry.activate.connect (() => {
+            var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
+            if (parsed_result != null) {
+                set_due (parsed_result.date.to_string ());
+                popover.popdown ();
+                search_entry.text = "";
+            }
+        });
+
+        parsed_button.clicked.connect (() => {
+            set_due (parsed_button.parsed_result.date.to_string ());
+            popover.popdown ();
+            search_entry.text = "";
         });
 
         return grid;
@@ -469,6 +510,74 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         Planner.database.set_due_item (item, new_date);
         if (item.is_todoist == 1) {
             Planner.todoist.update_item (item);
+        }
+    }
+}
+
+public class Widgets.DateTimeButton : Gtk.Revealer {
+    public ParsedResult? parsed_result { get; set; }
+
+    private Gtk.Button button;
+    private Gtk.Image date_icon;
+    private Gtk.Label primary_label;
+    private Gtk.Label seconday_label;
+
+    public signal void clicked ();
+
+    construct {
+        date_icon = new Gtk.Image ();
+        date_icon.pixel_size = 16;   
+        
+        primary_label = new Gtk.Label (null);
+
+        var button_grid = new Gtk.Grid ();
+        button_grid.add (date_icon);
+        button_grid.add (primary_label);
+
+        button = new Gtk.Button ();
+        button.hexpand = true;
+        button.get_style_context ().remove_class ("button");
+        button.get_style_context ().add_class ("flat");
+        button.get_style_context ().add_class ("menuitem");
+        button.get_style_context ().add_class ("no-border");
+        button.can_focus = false;
+        button.add (button_grid);
+
+        add (button);
+
+        button.clicked.connect (() => {
+            clicked ();
+        });
+    }
+
+    public void set_result (ParsedResult? parsed_result) {
+        this.parsed_result = parsed_result;
+        reveal_child = parsed_result != null;
+
+        date_icon.get_style_context ().remove_class ("overdue-label");
+        date_icon.get_style_context ().remove_class ("today");
+        date_icon.get_style_context ().remove_class ("upcoming");
+
+        if (parsed_result.is_recurring) {
+            // primary_label.label = date.date.substring (0, 10);
+        } else {
+            primary_label.label = parsed_result.get_default_date_format ();
+
+            if (Planner.utils.is_today (parsed_result.date)) {
+                date_icon.gicon = new ThemedIcon ("help-about-symbolic");
+                date_icon.get_style_context ().add_class ("today");
+            } else if (Planner.utils.is_overdue (parsed_result.date)) {
+                date_icon.gicon = new ThemedIcon ("calendar-overdue");
+                date_icon.get_style_context ().add_class ("overdue-label");
+            } else {
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    date_icon.gicon = new ThemedIcon ("calendar-outline-light");
+                } else {
+                    date_icon.gicon = new ThemedIcon ("calendar-outline-dark");
+                }
+
+                date_icon.get_style_context ().add_class ("upcoming");
+            }
         }
     }
 }

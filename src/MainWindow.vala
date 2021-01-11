@@ -133,15 +133,7 @@ public class MainWindow : Gtk.Window {
         slim_mode_button.image = slim_mode_icon;
         slim_mode_button.get_style_context ().add_class ("dim-label");
         slim_mode_button.valign = Gtk.Align.CENTER;
-
-        //  var slim_mode_revealer = new Gtk.Revealer ();
-        //  slim_mode_revealer.valign = Gtk.Align.CENTER;
-        //  slim_mode_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        //  slim_mode_revealer.add (slim_mode_button);
-        //  slim_mode_revealer.reveal_child = true;
-
-        //  sidebar_header.pack_end (slim_mode_revealer);
-        
+                
         multiselect_toolbar = new Widgets.MultiSelectToolbar ();
 
         var projectview_overlay = new Gtk.Overlay ();
@@ -282,10 +274,6 @@ public class MainWindow : Gtk.Window {
                 var s = new Services.ExportImport ();
                 s.import_backup ();
             }
-        });
-
-        pane.tasklist_selected.connect ((source) => {
-            go_tasklist (source);
         });
 
         pane.label_selected.connect ((label) => {
@@ -541,25 +529,6 @@ public class MainWindow : Gtk.Window {
 
         project_view.project = Planner.database.get_project_by_id (project_id);
         stack.visible_child_name = "project-view";
-        //  if (projects_loaded.has_key (project_id.to_string ())) {
-        //      stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
-        //  } else {
-        //      var project_view = new Views.Project (Planner.database.get_project_by_id (project_id));
-        //      stack.add_named (project_view, "project-view-%s".printf (project_id.to_string ()));
-        //      stack.visible_child_name = "project-view-%s".printf (project_id.to_string ());
-        //      projects_loaded.set (project_id.to_string (), project_view);
-        //  }
-    }
-
-    public void go_tasklist (E.Source source) {
-        //  if (tasklists_loaded.has_key (source.uid)) {
-        //      stack.visible_child_name = "tasklist-%s".printf (source.uid);
-        //  } else {
-        //      tasklists_loaded.set (source.uid, true);
-        //      var tasklist_view = new Views.TaskList (source);
-        //      stack.add_named (tasklist_view, "tasklist-%s".printf (source.uid));
-        //      stack.visible_child_name = "tasklist-%s".printf (source.uid);
-        //  }
     }
 
     public void go_item (int64 item_id) {

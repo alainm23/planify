@@ -29,11 +29,8 @@ planner_files = files(
     'Services/EventBus.vala',
     'Services/ExportImport.vala',
     'Services/PluginManager.vala',
+    'Services/DateParser.vala',
 
-    # CalDav Support
-    # 'Services/Tasks/Store.vala',
-    # 'Services/Tasks/Utils.vala',
-    
     'Widgets/ActionRow.vala',
     'Widgets/Pane.vala',
     'Widgets/New.vala',
@@ -73,11 +70,6 @@ planner_files = files(
     'Widgets/ListView.vala',
     'Widgets/ToolsMenu.vala',
 
-    # CalDav Support
-    # 'Widgets/SourceRow.vala',
-    # 'Widgets/CalDavList.vala',
-    # 'Widgets/TaskRow.vala',
-
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
     'Widgets/Calendar/CalendarHeader.vala',
@@ -93,9 +85,6 @@ planner_files = files(
     'Views/Completed.vala',
     'Views/Filter.vala',
     'Views/AllTasks.vala',
-
-    # CalDav Support
-    # 'Views/TaskList.vala',
 
     'Dialogs/TodoistOAuth.vala',
     'Dialogs/ProjectSettings.vala',

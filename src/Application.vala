@@ -61,7 +61,7 @@ public class Planner : Gtk.Application {
     public static Services.EventBus event_bus;
     public static Services.Calendar.CalendarModel calendar_model;
     public static Services.PluginsManager plugins;
-    // public static Services.Tasks.Store task_store;
+    public static Services.DateParser date_parser;
 
     public signal void go_view (string type, int64 id, int64 id_2);
 
@@ -110,7 +110,7 @@ public class Planner : Gtk.Application {
         calendar_model = new Services.Calendar.CalendarModel ();
         event_bus = new Services.EventBus ();
         plugins = new Services.PluginsManager ();
-        // task_store = new Services.Tasks.Store ();
+        date_parser = new Services.DateParser ();
 
         add_main_option_entries (PLANNER_OPTIONS);
     }
@@ -126,7 +126,6 @@ public class Planner : Gtk.Application {
     }
 
     protected override void activate () {
-        // Set lang
         if (lang != "") {
             GLib.Environment.set_variable ("LANGUAGE", lang, true);
         }
@@ -237,27 +236,7 @@ public class Planner : Gtk.Application {
         // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
         Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
-
-        // Path Theme
-        //  if (utils.is_flatpak ()) {
-        //      string CSS = """
-        //          window decoration {
-        //              box-shadow: none;
-        //              border: 1px solid @decoration_border_color;
-        //              border-radius: 4px;
-        //              margin: 0px;
-        //          }
-        //      """;
-
-        //      var _provider = new Gtk.CssProvider ();
-        //      _provider.load_from_data (CSS, CSS.length);
-
-        //      Gtk.StyleContext.add_provider_for_screen (
-        //          Gdk.Screen.get_default (), _provider,
-        //          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        //      );
-        //  }
-
+        
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
         if (quick_add_shortcut == "") {
