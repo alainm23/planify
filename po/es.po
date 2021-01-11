@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-11-20 02:28+0000\n"
-"Last-Translator: Natán Parrondo <natanparrondo@gmail.com>\n"
+"PO-Revision-Date: 2021-01-12 01:32+0000\n"
+"Last-Translator: Joaquin Gonzalez <cpjags@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -185,9 +185,8 @@ msgstr ""
 "nuevas y mucho más."
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "Nueva área"
+msgstr "Nueva vista"
 
 #: src/Utils.vala:960
 msgid ""
@@ -196,9 +195,8 @@ msgid ""
 msgstr ""
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "Ordenar por proyecto"
+msgstr "Subproyectos"
 
 #: src/Utils.vala:961
 msgid ""
