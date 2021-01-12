@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-12-29 13:20+0000\n"
+"PO-Revision-Date: 2021-01-05 19:29+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -183,15 +183,16 @@ msgstr ""
 "drugo."
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "Novo područje"
+msgstr "Novi prikaz ploče"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Za korisnike Todoista, u ovoj novoj verziji ugrađen je prikaz ploče – "
+"vizualniji način organiziranja tvojih projekata u programu „Planer“. "
 
 #: src/Utils.vala:961
 msgid "Sub-project"
@@ -202,6 +203,8 @@ msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Jedna od najtraženijih funkcija dodana je u Planer 2.6. Čuvaj tvoj rastući "
+"popis projekata pomoću pod-projekata."
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -1107,7 +1110,7 @@ msgstr "Datum roka:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "Trenutačno nema zadataka u ovom filtru."
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
@@ -1115,9 +1118,8 @@ msgid "Completed"
 msgstr "Obavljeno"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
-#, fuzzy
 msgid "All Tasks"
-msgstr "Zadaci"
+msgstr "Svi zadaci"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
 msgid "Loading…"
@@ -1253,80 +1255,72 @@ msgid "Create a new section in a project"
 msgstr "Stvori novi odjeljak u projektu"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
-#, fuzzy
 msgid "Open Quick Add"
-msgstr "Brzo dodavanje"
+msgstr "Otvori „Brzo dodavanje“"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
-#, fuzzy
 msgid "Open Quick Find"
-msgstr "Brza pretraga"
+msgstr "Otvori „Brza pretraga“"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "Počni tipkati za započinjanje pretrage"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
-msgstr "Razvrstaj prema prioritetu"
+msgstr "Filtriraj prema prioritetu"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
-msgstr ""
+msgstr "Popis brze pretrage za sve etikete"
 
 #: src/Dialogs/ShortcutsDialog.vala:126
 msgid "Quick Find list for all projects"
-msgstr ""
+msgstr "Popis brze pretrage za sve projekte"
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "Filtriraj prema svim tvojim obavljenim zadacima."
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
-msgstr ""
+msgstr "Upravljaj prozorima"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
-#, fuzzy
 msgid "Open preferences"
-msgstr "Postavke"
+msgstr "Otvori postavke"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
-msgstr ""
+msgstr "Otvori novi prozor trenutačnog projekta"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "Premjesti prozor projekta u lijevi radni prostor"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "Premjesti prozor projekta u desni radni prostor"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
-#, fuzzy
 msgid "Open Keyboard Shortcuts"
-msgstr "Tipkovnički prečaci"
+msgstr "Otvori tipkovničke prečace"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
-#, fuzzy
 msgid "Navigate"
-msgstr "za navigiranje i"
+msgstr "Navigiranje"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
-#, fuzzy
 msgid "Open Inbox"
 msgstr "Otvori ulazni sandučić"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
-#, fuzzy
 msgid "Go to start page"
-msgstr "Pokreni prilikom pokretanja sustava"
+msgstr "Idi na početnu stranicu"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "Dodaci"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1349,12 +1343,11 @@ msgstr "Broj znački"
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "Izgled"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
-#, fuzzy
 msgid "Task default"
-msgstr "Zadatak izbrisan"
+msgstr "Standardna postavka zadatka"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:717
@@ -1394,37 +1387,37 @@ msgstr ""
 "god želiš."
 
 #: src/Dialogs/Preferences/Preferences.vala:380
-#, fuzzy
 msgid "Task defaults"
-msgstr "Zadatak izbrisan"
+msgstr "Standardne postavke zadatka"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "Novi zadaci na vrh"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "Podcrtaj završene zadatke."
 
 #: src/Dialogs/Preferences/Preferences.vala:401
-#, fuzzy
 msgid "Default priority"
-msgstr "Razvrstaj prema prioritetu"
+msgstr "Standardni prioritet"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "Naznači mjesto na kojem su stvoreni novi zadaci."
 
 #: src/Dialogs/Preferences/Preferences.vala:457
-#, fuzzy
 msgid "Backups"
-msgstr "Natrag"
+msgstr "Sigurnosne kopije"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Planer stvara automatske dnevne sigurnosne kopije tvojih aktivnih projekata "
+"i zadataka. Sigurnosne kopije možeš jednostavno obnoviti bilo kada, uvozom "
+"projekta."
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
@@ -1466,7 +1459,7 @@ msgstr "Raspored gumbova"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "Koristi izgled prozora sustava (zahtijeva ponovno pokretanje)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1474,7 +1467,7 @@ msgstr "Tema"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "Veličina fonta"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1506,7 +1499,7 @@ msgstr "Spremi zadnje odabrani projekt"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "Automatski zatvori pri gubljenju fokusa"
 
 #: src/Dialogs/Preferences/Preferences.vala:900
 msgid "DE Integration"
@@ -1541,7 +1534,7 @@ msgstr "Opasno područje"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "Datum i vrijeme"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1562,7 +1555,7 @@ msgstr "Izvoz"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "Početak tjedna"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1665,49 +1658,45 @@ msgstr "Baza podataka"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Trenutačno mjesto: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
-#, fuzzy
 msgid "Reset to default"
-msgstr "Vrati sve na izvorno"
+msgstr "Vrati na izvorne postavke"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
-#, fuzzy
 msgid "Are you sure you want to restore the database location to default?"
-msgstr "Stvarno želiš sve vratiti na izvorne vrijednosti?"
+msgstr "Stvarno želiš obnoviti mjesto baze podataka na standardno?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "Novo mjesto baze podataka bit će: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
-#, fuzzy
 msgid "Are you sure you want to change the database location?"
-msgstr "Stvarno želiš sve vratiti na izvorne vrijednosti?"
+msgstr "Stvarno želiš promijeniti mjesto baze podataka?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
-#, fuzzy
 msgid "This process will move your database file to the selected location."
-msgstr "Ovaj će postupak zatvoriti sesiju Todoista na ovom uređaju."
+msgstr ""
+"Ovaj će postupak premjestiti tvoju datoteku baze podataka na odabrano mjesto."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "mjesto baze podataka"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
-#, fuzzy
 msgid "_Cancel"
-msgstr "Odustani"
+msgstr "O_dustani"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Otvori"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Datoteke baze podataka planera (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
