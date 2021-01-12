@@ -15,7 +15,6 @@ public class Services.DateParser : Object {
     private GLib.Regex DATE_FORMAT_06_EN = /\d{1,4}(th)?(?=\W|$)/;
     private GLib.Regex MID_MONTH_EN = /(mid)\s(jan(.)?(uary)?|feb(.)?(ruary)?|mar(.)?(ch)?|apr(.)?(il)?|may(.)?|jun(.)?(e)?|jul(.)?(y)?|aug(.)?(ust)?|sep(.)?(tember)?|oct(.)?(ober)?|nov(.)?(ember)?|dec(.)?(ember)?)(?=\W|$)/;
     private GLib.Regex END_OF_MONTH_EN = /last\sday(\sof(\sthe)?\smonth)?(?=\W|$)/;
-    private GLib.Regex 
 
     /*---- ES ----*/
     // private GLib.Regex EVERY_N_DAYS_REGEX_ES = /(cada \d+ (dia|dias))(?=\W|$)/;

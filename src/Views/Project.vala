@@ -219,11 +219,7 @@ public class Views.Project : Gtk.EventBox {
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-        // main_stack.add_named (list_view, "project");
-        // main_stack.add_named (board_view, "board");
-        // main_stack.add_named (placeholder_view, "placeholder");
-
+        
         var magic_button = new Widgets.MagicButton ();
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -271,6 +267,8 @@ public class Views.Project : Gtk.EventBox {
                 
                 if (project.is_kanban == 1) {
                     main_stack.visible_child_name = "board";
+                } else {
+                    main_stack.visible_child_name = "project";
                 }
                 
                 return GLib.Source.REMOVE;
