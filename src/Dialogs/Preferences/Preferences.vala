@@ -1002,7 +1002,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         clear_db_item.activated.connect (() => {
             var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
                 _("Are you sure you want to reset all?"),
-                _("It process removes all stored information without the possibility of undoing it."),
+                _("This process removes all stored information without the possibility of undoing it."),
                 "edit-delete",
             Gtk.ButtonsType.CANCEL);
 
