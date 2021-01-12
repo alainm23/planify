@@ -209,26 +209,28 @@ public class Services.Todoist : GLib.Object {
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
-
+        // session.send_message (message);
         try {
-            var stream = yield session.send_async (message, new Cancellable ());
+            var stream = yield session.send_async (message);
             var parser = new Json.Parser ();
             yield parser.load_from_stream_async (stream);
+            
+            //  parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+            //  print ("%s\n".printf ((string) message.response_body.flatten ().data));
 
             var node = parser.get_root ().get_object ();
-            
-            // Create user
-            var user_object = node.get_object_member ("user");
 
             Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
             Planner.settings.set_string ("todoist-access-token", token);
             Planner.settings.set_boolean ("todoist-sync-server", true);
 
-            // User
+            // Create user
+            var user_object = node.get_object_member ("user");
+
             Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
-            Planner.settings.set_string ("todoist-user-image-id",
-                user_object.get_string_member ("image_id")
-            );
+            if (user_object.get_null_member ("image_id") == false) {
+                Planner.settings.set_string ("todoist-user-image-id", user_object.get_string_member ("image_id"));
+            }
             Planner.settings.set_boolean ("todoist-account", true);
 
             if (view == "preferences") {
@@ -238,19 +240,15 @@ public class Services.Todoist : GLib.Object {
 
             // Set Inbox Project
             Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
-
-
             Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
             Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-            Planner.settings.set_string ("todoist-user-join-date",
-                user_object.get_string_member ("join_date"));
+            Planner.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
 
-            Planner.settings.set_string ("todoist-user-avatar",
-                user_object.get_string_member ("avatar_s640")
-            );
-            Planner.settings.set_boolean ("todoist-user-is-premium",
-                user_object.get_boolean_member ("is_premium")
-            );
+            if (user_object.get_null_member ("image_id") == false) {
+                Planner.settings.set_string ("todoist-user-avatar", user_object.get_string_member ("avatar_s640"));
+            }
+            
+            Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
 
 
             // Create Default Labels
@@ -269,21 +267,20 @@ public class Services.Todoist : GLib.Object {
                 p.is_deleted = (int32) object.get_int_member ("is_deleted");
                 p.is_archived = (int32) object.get_int_member ("is_archived");
                 p.is_favorite = (int32) object.get_int_member ("is_favorite");
+                p.is_todoist = 1;
+                p.is_sync = 1;
 
                 if (!object.get_null_member ("parent_id")) {
                     p.parent_id = object.get_int_member ("parent_id");
                 }
 
-                p.is_todoist = 1;
-                p.is_sync = 1;
-
-                if (object.get_boolean_member ("team_inbox")) {
+                if (object.has_member ("team_inbox") && object.get_boolean_member ("team_inbox")) {
                     p.team_inbox = 1;
                 } else {
                     p.team_inbox = 0;
                 }
 
-                if (object.get_boolean_member ("inbox_project")) {
+                if (object.has_member ("inbox_project") && object.get_boolean_member ("inbox_project")) {
                     p.inbox_project = 1;
                 } else {
                     p.inbox_project = 0;
@@ -335,7 +332,9 @@ public class Services.Todoist : GLib.Object {
                 i.id = object.get_int_member ("id");
                 i.project_id = object.get_int_member ("project_id");
                 i.user_id = object.get_int_member ("user_id");
-                i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                if (object.get_null_member ("assigned_by_uid") == false) {
+                    i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
+                }
                 i.content = object.get_string_member ("content");
                 i.checked = (int32) object.get_int_member ("checked");
                 i.priority = (int32) object.get_int_member ("priority");
@@ -363,14 +362,14 @@ public class Services.Todoist : GLib.Object {
                     i.date_completed = object.get_string_member ("date_completed");
                 }
 
-                if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                if (object.get_null_member ("due") == false) {
                     var due_object = object.get_object_member ("due");
                     var datetime = Planner.utils.get_todoist_datetime (
                         due_object.get_string_member ("date")
                     );
                     i.due_date = datetime.to_string ();
 
-                    if (object.get_null_member ("timezone") == false) {
+                    if (due_object.get_null_member ("timezone") == false) {
                         i.due_timezone = due_object.get_string_member ("timezone");
                     }
 
@@ -385,9 +384,11 @@ public class Services.Todoist : GLib.Object {
             }
 
             // Download Profile Image
-            Planner.utils.download_profile_image (
-                user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
-            );
+            if (user_object.get_null_member ("image_id") == false) {
+                Planner.utils.download_profile_image (
+                    user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
+                );
+            }
 
             // Run Reminder server
             Planner.notifications.init_server ();
@@ -570,7 +571,7 @@ public class Services.Todoist : GLib.Object {
 
                         // Update duedate
                         string due_date = "";
-                        if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                        if (object.get_null_member ("due") == false) {
                             due_date = Planner.utils.get_todoist_datetime (
                                 object.get_object_member ("due").get_string_member ("date")
                             ).to_string ();
@@ -647,7 +648,7 @@ public class Services.Todoist : GLib.Object {
                         i.date_completed = object.get_string_member ("date_completed");
                     }
 
-                    if (object.get_member ("due").get_node_type () == Json.NodeType.OBJECT) {
+                    if (object.get_null_member ("due") == false) {
                         var due_object = object.get_object_member ("due");
                         var datetime = Planner.utils.get_todoist_datetime (
                             due_object.get_string_member ("date")
@@ -699,13 +700,16 @@ public class Services.Todoist : GLib.Object {
                     try {
                         parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
 
+                        //  print ("-----------------\n");
+                        //  print ("%s\n".printf ((string) mess.response_body.flatten ().data));
+                        //  print ("-----------------\n");
+                        
                         var node = parser.get_root ().get_object ();
-                        var sync_status = node.get_object_member ("sync_status");
                         string sync_token = node.get_string_member ("sync_token");
                         Planner.settings.set_string ("todoist-sync-token", sync_token);
 
                         foreach (var q in queue) {
-                            var uuid_member = sync_status.get_member (q.uuid);
+                            var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
                             if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                                 if (q.query == "project_add") {
                                     var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
