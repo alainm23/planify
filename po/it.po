@@ -5,10 +5,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2020-12-26 12:51-0500\n"
-"PO-Revision-Date: 2020-10-25 12:09+0000\n"
-"Last-Translator: albanobattistella <albano_battistella@hotmail.com>\n"
+"PO-Revision-Date: 2021-01-14 23:32+0000\n"
+"Last-Translator: John Key <diniro5110@majorsww.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3.2-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -183,26 +183,29 @@ msgstr ""
 "e altro ancora."
 
 #: src/Utils.vala:960
-#, fuzzy
 msgid "New Board View"
-msgstr "Nuova area"
+msgstr "Nuova vista agenda"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Per gli utenti di Todoist, la vista ad agenda è stata introdotta in questo "
+"nuovo aggiornamento, un modo più visivo per organizzare i tuoi progetti di "
+"Planner. "
 
 #: src/Utils.vala:961
-#, fuzzy
 msgid "Sub-project"
-msgstr "Ordina per progetto"
+msgstr "Sottoprogetto"
 
 #: src/Utils.vala:961
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Una delle funzioni più richieste arriva su Planner 2.6, mantieni i tuoi "
+"progetti in continua crescita con le liste pulite e i sottoprogetti."
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -319,11 +322,11 @@ msgstr "Su questo computer"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Appunti vuoti, copia qualche testo e riprova"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Salva il file Planner"
 
 #. top_box.pack_end (hidden_revealer, false, true, 0);
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
@@ -343,22 +346,20 @@ msgid "Cancel"
 msgstr "Annulla"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "File Planner"
 
 #: src/Services/ExportImport.vala:382
-#, fuzzy
 msgid "All files"
-msgstr "Tutto chiaro"
+msgstr "Tutti i file"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Apri un file planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Apri"
 
 #: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
 msgid "Todoist Project"
@@ -421,7 +422,7 @@ msgstr "Chiudi"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Il progetto %s è stato creato con successo"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -670,9 +671,8 @@ msgstr "Elimina attività"
 
 #: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
 #: src/Widgets/BoardColumn.vala:88
-#, fuzzy
 msgid "(No Section)"
-msgstr "No Sezione"
+msgstr "Nessuna Sezione"
 
 #. hidden_button.margin_end = 6;
 #: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
@@ -854,7 +854,7 @@ msgstr "Priorità 1"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, fuzzy, c-format
@@ -867,16 +867,15 @@ msgstr "Disabilitato"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "Cosa c'è di nuovo"
 
 #: src/Widgets/WhatsNew.vala:88
-#, fuzzy
 msgid "Continue"
-msgstr "Contenuto"
+msgstr "Continua"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "Filtra per etichetta"
 
 #: src/Widgets/LabelFilter.vala:47
 #, fuzzy
@@ -885,7 +884,7 @@ msgstr "Etichette"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "Cosa c'è di nuovo"
 
 #: src/Widgets/ToolsMenu.vala:45
 #, fuzzy
@@ -893,9 +892,8 @@ msgid "Keyboard shortcuts"
 msgstr "Scorciatoie da tastiera"
 
 #: src/Widgets/ToolsMenu.vala:110
-#, fuzzy
 msgid "Sync completed"
-msgstr "Data completamento"
+msgstr "Sincronizzazione completata"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
@@ -927,14 +925,13 @@ msgstr "Sincronizza"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%OB %Y"
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 #, fuzzy
@@ -973,7 +970,7 @@ msgstr "Dom"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
-msgstr "Non preoccuparti più di dimenticare di nuovo le cose"
+msgstr "Non preoccuparti più di dimenticare qualcosa"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
@@ -1308,9 +1305,8 @@ msgid "Quick Find list for all projects"
 msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:128
-#, fuzzy
 msgid "Filter by all your completed tasks."
-msgstr "Nascondi task completati"
+msgstr "Filtra per compiti completati"
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
@@ -1432,9 +1428,8 @@ msgid "New tasks on top"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:389
-#, fuzzy
 msgid "Underline completed tasks."
-msgstr "Nascondi task completati"
+msgstr "Evidenzia i compiti completati"
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 #, fuzzy
