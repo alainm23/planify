@@ -1027,11 +1027,6 @@ paned.horizontal > separator {
     border-radius: 0px 3px 3px 0px;
 }
 
-.project-progress-view {
-    border-radius: 50%;
-    border: 1.5px solid @text_color;
-}
-
 .close-button {
     padding: 3px;
     border: none;

@@ -81,8 +81,7 @@ public class Views.Project : Gtk.EventBox {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var project_progress = new Widgets.ProjectProgress (9);
-        project_progress.margin = 2;
+        var project_progress = new Widgets.ProjectProgress (15);
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         //  project_progress.percentage = get_percentage (
@@ -97,7 +96,6 @@ public class Views.Project : Gtk.EventBox {
         //  }
 
         var progress_grid = new Gtk.Grid ();
-        progress_grid.get_style_context ().add_class ("project-progress-view");
         progress_grid.add (project_progress);
         progress_grid.valign = Gtk.Align.CENTER;
         progress_grid.halign = Gtk.Align.CENTER;

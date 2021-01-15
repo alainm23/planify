@@ -85,12 +85,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         projects_list = new Gee.ArrayList<Widgets.ProjectRow?> ();
         tooltip_text = project.name;
 
-        project_progress = new Widgets.ProjectProgress (9);
-        project_progress.margin = 2;
+        project_progress = new Widgets.ProjectProgress (18);
+        project_progress.enable_subprojects = true;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
-                
+
         var progress_grid = new Gtk.Grid ();
         progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
             project.id.to_string ()
@@ -212,6 +212,14 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         listbox_revealer.reveal_child = project.collapsed == 1;
         listbox_revealer.add (listbox);
 
+        listbox.add.connect(() => {
+            project_progress.has_subprojects = listbox.get_children().length() > 0;
+        });
+
+        listbox.remove.connect(() => {
+            project_progress.has_subprojects = listbox.get_children().length() > 0;
+        });
+
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.margin_top = grid.margin_bottom = 2;
@@ -232,7 +240,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-        apply_color (Planner.utils.get_color (project.color));
         check_due_date ();
         add_subprojects ();
 
@@ -304,7 +311,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 name_label.label = p.name;
                 project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
-                apply_color (Planner.utils.get_color (p.color));
                 check_due_date ();
             }
         });
@@ -418,32 +424,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         }
         
         listbox.show_all ();
-    }
-
-    private void apply_color (string color) {
-        string _css = """
-            .project-progress-%s {
-                border-radius: 50%;
-                border: 1.5px solid %s;
-            }
-        """;
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var css = _css.printf (
-                project.id.to_string (),
-                color
-            );
-
-            provider.load_from_data (css, css.length);
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } catch (GLib.Error e) {
-            return;
-        }
     }
 
     private void update_count () {

@@ -111,8 +111,7 @@ public class Dialogs.Project : Gtk.Dialog {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var project_progress = new Widgets.ProjectProgress (9);
-        project_progress.margin = 2;
+        var project_progress = new Widgets.ProjectProgress (18);
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.percentage = get_percentage (
