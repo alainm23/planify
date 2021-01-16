@@ -639,9 +639,7 @@ public class SearchItem : Gtk.ListBoxRow {
 
             returned = grid;
         } else if (object_type == "PROJECT") {
-            var project_progress = new Widgets.ProjectProgress (10);
-            project_progress.margin = 1;
-            project_progress.line_width = 0;
+            var project_progress = new Widgets.ProjectProgress (15);
             project_progress.valign = Gtk.Align.CENTER;
             project_progress.halign = Gtk.Align.CENTER;
             project_progress.progress_fill_color = Planner.utils.get_color (
