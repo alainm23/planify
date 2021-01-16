@@ -219,7 +219,13 @@ public class Views.Project : Gtk.EventBox {
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        list_view = new Widgets.ListView ();
+        board_view = new Widgets.BoardView ();
         
+        main_stack.add_named (board_view, "board");
+        main_stack.add_named (list_view, "project");
+
         var magic_button = new Widgets.MagicButton ();
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -246,18 +252,7 @@ public class Views.Project : Gtk.EventBox {
             progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             check_due_date ();
 
-            if (list_view == null) {
-                list_view = new Widgets.ListView ();
-                main_stack.add_named (list_view, "project");
-            }
-            
-            list_view.project = project;
-
-            if (board_view == null) {
-                board_view = new Widgets.BoardView ();
-                main_stack.add_named (board_view, "board");
-            }
-            
+            list_view.project = project;            
             board_view.project = project;
 
             show_all ();

@@ -1,4 +1,4 @@
-public class Widgets.BoardColumn : Gtk.EventBox {
+public class Widgets.BoardColumn : Gtk.FlowBoxChild {
     public Objects.Section section { get; construct; }
     public Objects.Project project { get; construct; }
 
