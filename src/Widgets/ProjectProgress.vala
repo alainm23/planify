@@ -96,8 +96,8 @@ public class Widgets.ProjectProgress : Gtk.Bin {
         var outer_delta = enable_subprojects ? (subproject_offset + subproject_line_width) : line_width;
         var inner_delta = enable_subprojects ? 1 : 2;
 
-        var outer_radius = Math.round(center_x - outer_delta);
-        var inner_radius = Math.round(outer_radius - line_width - inner_delta);
+        var outer_radius = Math.round (center_x - outer_delta);
+        var inner_radius = Math.round (outer_radius - line_width - inner_delta);
 
         color = Gdk.RGBA ();
         color.parse (progress_fill_color);
@@ -105,7 +105,7 @@ public class Widgets.ProjectProgress : Gtk.Bin {
 
         // Progress/Percentage Fill
         if (percentage > 0) {
-            cr.move_to(center_x, center_y);
+            cr.move_to (center_x, center_y);
             cr.arc (center_x,
                     center_y,
                     inner_radius,
@@ -116,12 +116,12 @@ public class Widgets.ProjectProgress : Gtk.Bin {
 
         // Outer circle around progress
         cr.set_line_width (line_width);
-        cr.arc(center_x,
+        cr.arc (center_x,
                center_y,
                outer_radius ,
                0,
                Math.PI * 2);
-        cr.stroke();
+        cr.stroke ();
 
         // Extra circle to indicate sub projects
         if (has_subprojects && enable_subprojects) {
@@ -129,12 +129,12 @@ public class Widgets.ProjectProgress : Gtk.Bin {
             Gdk.cairo_set_source_rgba (cr, color);
             cr.set_line_width (subproject_line_width);
 
-            cr.arc(center_x + 2,
-                   center_y - 2,
+            cr.arc (center_x + 2,
+                   center_y + 2,
                    outer_radius,
-                   -0.9 * Math.PI,
-                   0.4 * Math.PI);
-            cr.stroke();
+                   Math.PI / 90.0,
+                   90.0 * Math.PI / 180.0);
+            cr.stroke ();
         }
 
         cr.restore ();

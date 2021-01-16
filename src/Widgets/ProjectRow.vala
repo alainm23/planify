@@ -109,10 +109,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         name_label.margin_start = 9;
 
         count_label = new Gtk.Label (null);
+        count_label.halign = Gtk.Align.END;
         count_label.valign = Gtk.Align.CENTER;
         count_label.opacity = 0.7;
         count_label.use_markup = true;
         count_label.width_chars = 3;
+        count_label.margin_end = 3;
 
         count_revealer = new Gtk.Revealer ();
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
@@ -124,7 +126,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         arrow_button = new Gtk.Button ();
         arrow_button.valign = Gtk.Align.CENTER;
-        arrow_button.halign = Gtk.Align.CENTER;
+        arrow_button.halign = Gtk.Align.END;
         arrow_button.can_focus = false;
         arrow_button.image = arrow_icon;
         arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -134,7 +136,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
         menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        menu_stack.hhomogeneous = false;
+        menu_stack.homogeneous = true;
 
         due_label = new Gtk.Label (null);
         due_label.use_markup = true;
