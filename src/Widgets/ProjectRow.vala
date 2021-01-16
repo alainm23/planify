@@ -42,6 +42,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Revealer first_motion_revealer;
     public Gtk.Revealer main_revealer;
     private Gtk.Label due_label;
+    private Gtk.Stack menu_stack;
 
     private int count = 0;
     private uint timeout_id = 0;
@@ -51,7 +52,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     // private bool should_scroll = false;
     public Gtk.Adjustment vadjustment;
     private Gtk.Revealer menu_revealer;
-    private Gtk.Revealer due_revealer;
     private const int SCROLL_STEP_SIZE = 5;
     private const int SCROLL_DISTANCE = 30;
     private const int SCROLL_DELAY = 50;
@@ -62,6 +62,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     private const Gtk.TargetEntry[] TARGET_ENTRIES_ITEM = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
+
+    private bool has_subprojects {
+        get {
+            return listbox.get_children().length() > 0;
+        }
+    }
 
     public bool reveal_drag_motion {
         set {
@@ -92,9 +98,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
 
         var progress_grid = new Gtk.Grid ();
-        progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
-            project.id.to_string ()
-        ));
         progress_grid.add (project_progress);
         progress_grid.valign = Gtk.Align.CENTER;
         progress_grid.halign = Gtk.Align.CENTER;
@@ -129,52 +132,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         arrow_button.get_style_context ().add_class ("transparent");
         arrow_button.get_style_context ().add_class ("hidden-button");
 
-        var menu_icon = new Gtk.Image ();
-        menu_icon.gicon = new ThemedIcon ("view-more-symbolic");
-        menu_icon.pixel_size = 14;
-
-        menu_button = new Gtk.Button ();
-        menu_button.valign = Gtk.Align.CENTER;
-        menu_button.halign = Gtk.Align.CENTER;
-        menu_button.can_focus = false;
-        menu_button.image = menu_icon;
-        menu_button.tooltip_text = _("Project Menu");
-        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        menu_button.get_style_context ().add_class ("dim-label");
-        menu_button.get_style_context ().add_class ("transparent");
-        menu_button.get_style_context ().add_class ("hidden-button");
-
-        var menu_stack = new Gtk.Stack ();
+        menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-        menu_stack.add_named (count_revealer, "count_revealer");
-        menu_stack.add_named (menu_button, "menu_button");
-
-        menu_revealer = new Gtk.Revealer ();
-        menu_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        menu_revealer.reveal_child = true;
-        menu_revealer.add (menu_stack);
+        menu_stack.hhomogeneous = false;
 
         due_label = new Gtk.Label (null);
         due_label.use_markup = true;
         due_label.valign = Gtk.Align.CENTER;
         due_label.get_style_context ().add_class ("pane-due-button");
 
-        due_revealer = new Gtk.Revealer ();
-        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        due_revealer.add (due_label);
+        menu_stack.add_named (count_revealer, "count_revealer");
+        menu_stack.add_named (arrow_button, "arrow_button");
+        menu_stack.add_named (due_label, "due_label");
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.margin_end = 3;
         handle_box.margin_top = 2;
         handle_box.margin_bottom = 2;
-        handle_box.pack_start (arrow_button, false, false, 0);
+        handle_box.margin_start = 4;
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-
-        handle_box.pack_end (menu_revealer, false, false, 0);
-        handle_box.pack_end (due_revealer, false, false, 0);
+        handle_box.pack_end (menu_stack, false, false, 0);
 
         h_grid = new Gtk.EventBox ();
         h_grid.get_style_context ().add_class ("transition");
@@ -212,13 +191,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         listbox_revealer.reveal_child = project.collapsed == 1;
         listbox_revealer.add (listbox);
 
-        listbox.add.connect(() => {
-            project_progress.has_subprojects = listbox.get_children().length() > 0;
-        });
-
-        listbox.remove.connect(() => {
-            project_progress.has_subprojects = listbox.get_children().length() > 0;
-        });
+        listbox.add.connect(() => {project_progress.has_subprojects = has_subprojects;});
+        listbox.remove.connect(() => {project_progress.has_subprojects = has_subprojects;});
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
@@ -250,7 +224,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         drag_begin.connect (on_drag_begin);
         drag_data_get.connect (on_drag_data_get);
-        
+
         Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES, Gdk.DragAction.MOVE);
         listbox.drag_data_received.connect (on_drag_project_received);
 
@@ -269,8 +243,10 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         h_grid.enter_notify_event.connect ((event) => {
-            menu_stack.visible_child_name = "menu_button";
-            return true;
+            if (has_subprojects) {
+                menu_stack.visible_child_name = "arrow_button";
+                return true;
+            }
         });
 
         h_grid.leave_notify_event.connect ((event) => {
@@ -278,7 +254,12 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            menu_stack.visible_child_name = "count_revealer";
+            if (project.due_date == "") {
+                menu_stack.visible_child_name = "count_revealer";
+            } else {
+                menu_stack.visible_child_name = "due_label";
+            }
+
             return true;
         });
 
@@ -832,16 +813,17 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
     //  }
 
     private void check_due_date () {
-        if (project.due_date == "") {
-            due_revealer.reveal_child = false;
-            menu_revealer.reveal_child = true;
-        } else {
-            due_revealer.reveal_child = true;
-            menu_revealer.reveal_child = false;
+        if (project.due_date != "") {
             var due = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
             due_label.label = "<small>%s</small>".printf (Planner.utils.get_relative_date_from_date (due));
         }
-    } 
+
+        // Workaround to fix small bug when collapsing/expanding project - this causes save and would
+        // hide currently hovered arrow
+        if (menu_stack.visible_child_name != "arrow_button") {
+            menu_stack.visible_child_name = project.due_date == "" ? "count_revealer" : "due_label";
+        }
+    }
 
     private void project_row_removed (Widgets.ProjectRow row) {
         projects_list.remove (row);
