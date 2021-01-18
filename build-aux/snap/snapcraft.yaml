@@ -1,0 +1,113 @@
+name: planner
+base: core18 
+version: master
+summary: Planner
+description: |
+  Never worry about forgetting things again.
+
+grade: stable
+confinement: strict
+
+architectures:
+  - build-on: i386
+  - build-on: amd64
+  - build-on: armhf
+  - build-on: arm64
+
+apps:
+  planner:
+    extensions: [gnome-3-28]
+    command: usr/bin/com.github.alainm23.planner
+    plugs:
+      - desktop
+      - desktop-legacy
+      - opengl
+      - x11
+      - home
+      - removable-media
+    slots: [ dbus-planner ]
+    desktop: usr/share/applications/com.github.alainm23.planner.desktop
+    environment:
+      GSETTINGS_SCHEMA_DIR: $SNAP/share/glib-2.0/schemas
+      GTK_USE_PORTAL: "1"
+
+slots:
+  dbus-planner:
+    interface: dbus
+    bus: session
+    name: com.github.alainm23.planner
+
+parts:
+  elementary-sdk:
+    plugin: nil
+    build-packages:
+      - software-properties-common
+    override-pull: |
+      add-apt-repository -y ppa:elementary-os/stable
+      add-apt-repository -y ppa:elementary-os/os-patches
+      apt -y update
+      apt -y upgrade
+  planner:
+    plugin: meson
+    after: [elementary-sdk]
+    meson-parameters:
+      - --prefix=/usr
+    source: https://github.com/alainm23/planner.git
+    override-build: |
+      snapcraftctl build
+      sed -i 's|Icon=com.github.alainm23.planner|Icon=${SNAP}/usr/share/icons/hicolor/scalable/apps/com.github.alainm23.planner.svg|' ${SNAPCRAFT_PART_INSTALL}/usr/share/applications/com.github.alainm23.planner.desktop
+    build-packages:
+      - gettext
+      - libgtk-3-dev
+      - valac
+      - libgranite-dev
+      - libjson-glib-dev
+      - libglib2.0-dev
+      - libgee-0.8-dev
+      - libsqlite3-dev
+      - libsoup2.4-dev
+      - libwebkit2gtk-4.0-dev
+      - libedataserver1.2-dev
+      - libecal1.2-dev
+      - libpeas-dev
+      - libical-dev
+    stage-packages:
+      - libecal-1.2-19
+      - libdatrie1
+      - libdbus-1-3
+      - libepoxy0
+      - libexpat1
+      - libffi6
+      - libgcrypt20
+      - libgee-0.8-2
+      - libgpg-error0
+      - libgraphite2-3
+      - libharfbuzz0b
+      - libgoocanvas-2.0-9
+      - libgranite5
+      - liblz4-1
+      - liblzma5
+      - libmount1
+      - libpcre3
+      - libpixman-1-0
+      - libpng16-16
+      - libthai0
+      - libwayland-client0
+      - libwayland-cursor0
+      - libwayland-egl1-mesa
+      - libx11-6
+      - libxau6
+      - libxcb1
+      - libxcb-render0
+      - libxcb-shm0
+      - libxcomposite1
+      - libxcursor1
+      - libxdamage1
+      - libxdmcp6
+      - libxext6
+      - libxfixes3
+      - libxi6
+      - libxinerama1
+      - libxkbcommon0
+      - libxrender1
+      - zlib1g

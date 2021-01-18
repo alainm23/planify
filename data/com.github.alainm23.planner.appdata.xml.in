@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2017-2019 Alain M. <alain23@protonmail.com> -->
+<!-- Copyright 2021 Alain M. <alain23@protonmail.com> -->
 <component type="desktop">
   <id>com.github.alainm23.planner</id>
   <metadata_license>CC0</metadata_license>
@@ -46,6 +46,18 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.6.9" date="2021-01-18">
+      <description>
+        <p>Bug fixes and performance improvement</p>
+        <ul>
+          <li>New visual indicator to know if a project has a subproject. thanks to Jakub Koudelka</li>
+          <li>UX improvement to collapse or expand subprojects. thanks to Jakub Koudelka</li>
+          <li>Added a task counter in Sections and Boards.</li>
+          <li>Updated translations.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.6.8" date="2021-01-04">
       <description>
         <p>Bug fixes and performance improvement</p>

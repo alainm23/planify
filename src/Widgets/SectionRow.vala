@@ -44,6 +44,8 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
     private Gtk.Menu projects_menu;
+    private Gtk.Label count_label;
+    private Gtk.Revealer count_revealer;
     private Gtk.Menu menu = null;
     private bool menu_visible = false;
 
@@ -98,16 +100,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         hidden_button = new Gtk.Button.from_icon_name ("pan-end-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
-        // hidden_button.margin_end = 6;
         hidden_button.tooltip_text = _("Display Tasks");
         hidden_button.get_style_context ().remove_class ("button");
         hidden_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         hidden_button.get_style_context ().add_class ("hidden-button");
-
-        var hidden_revealer = new Gtk.Revealer ();
-        hidden_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        hidden_revealer.add (hidden_button);
-        hidden_revealer.reveal_child = false;
 
         if (section.collapsed == 1) {
             hidden_button.get_style_context ().add_class ("opened");
@@ -152,29 +148,41 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var settings_image = new Gtk.Image ();
-        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_image.pixel_size = 14;
+        var menu_image = new Gtk.Image ();
+        menu_image.gicon = new ThemedIcon ("view-more-symbolic");
+        menu_image.pixel_size = 14;
 
-        var settings_button = new Gtk.Button ();
-        settings_button.can_focus = false;
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.tooltip_text = _("Section Menu");
-        settings_button.image = settings_image;
-        settings_button.get_style_context ().remove_class ("button");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("hidden-button");
+        var menu_button = new Gtk.Button ();
+        menu_button.can_focus = false;
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.tooltip_text = _("Section Menu");
+        menu_button.image = menu_image;
+        menu_button.get_style_context ().remove_class ("button");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("hidden-button");
 
-        var settings_revealer = new Gtk.Revealer ();
-        settings_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        settings_revealer.add (settings_button);
-        settings_revealer.reveal_child = false;
+        count_label = new Gtk.Label (null);
+        count_label.halign = Gtk.Align.END;
+        count_label.valign = Gtk.Align.CENTER;
+        count_label.opacity = 0.7;
+        count_label.use_markup = true;
+        count_label.width_chars = 3;
+        count_label.margin_end = 3;
+
+        count_revealer = new Gtk.Revealer ();
+        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.add (count_label);
+
+        var menu_stack = new Gtk.Stack ();
+        menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        menu_stack.homogeneous = true;
+        menu_stack.add_named (count_revealer, "count_revealer");
+        menu_stack.add_named (menu_button, "menu_button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_revealer, false, true, 0);
-        // top_box.pack_end (hidden_revealer, false, true, 0);
+        top_box.pack_end (menu_stack, false, true, 0);
 
         var submit_button = new Gtk.Button.with_label (_("Save"));
         submit_button.sensitive = false;
@@ -515,11 +523,10 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {
-            settings_revealer.reveal_child = true;
-            hidden_revealer.reveal_child = true;
             add_revealer.reveal_child = true;
             add_button.get_style_context ().add_class ("animation");
-
+            menu_stack.visible_child_name = "menu_button";
+            
             return true;
         });
 
@@ -528,10 +535,9 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 return false;
             }
 
-            settings_revealer.reveal_child = false;
-            hidden_revealer.reveal_child = false;
             add_revealer.reveal_child = false;
             add_button.get_style_context ().remove_class ("animation");
+            menu_stack.visible_child_name = "count_revealer";
 
             return true;
         });
@@ -645,7 +651,6 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         });
 
         note_textview.buffer.changed.connect (() => {
-            // separator_revealer.reveal_child = false;
             save (false);
         });
 
@@ -679,7 +684,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             separator_revealer.reveal_child = true;
         });
 
-        settings_button.clicked.connect (() => {
+        menu_button.clicked.connect (() => {
             activate_menu ();
         });
 
@@ -877,6 +882,25 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
                 }
             }
         });
+
+        listbox.add.connect (() => {
+            check_count_label ();
+        });
+
+        listbox.remove.connect (() => {
+            check_count_label ();
+        });
+    }
+
+    private void check_count_label () {
+        var count = listbox.get_children ().length ();
+        count_label.label = "<small>%i</small>".printf ((int) count);
+
+        if (count <= 0) {
+            count_revealer.reveal_child = false;
+        } else {
+            count_revealer.reveal_child = true;
+        }
     }
 
     private void set_sort_func (int order) {
@@ -1116,6 +1140,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
         }
 
         listbox.show_all ();
+        check_count_label ();
     }
 
     private void add_completed_items () {
