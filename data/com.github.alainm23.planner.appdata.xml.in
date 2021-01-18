@@ -50,8 +50,8 @@
       <description>
         <p>Bug fixes and performance improvement</p>
         <ul>
-          <li>New visual indicator to know if a project has a subproject. thanks to Jakub Koudelka</li>
-          <li>UX improvement to collapse or expand subprojects. thanks to Jakub Koudelka</li>
+          <li>New visual indicator to know if a project has a subproject, thanks to Jakub Koudelka</li>
+          <li>UX improvement to collapse or expand subprojects, thanks to Jakub Koudelka</li>
           <li>Added a task counter in Sections and Boards.</li>
           <li>Updated translations.</li>
         </ul>
