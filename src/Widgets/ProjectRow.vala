@@ -65,7 +65,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
 
     private bool has_subprojects {
         get {
-            return listbox.get_children().length() > 0;
+            return listbox.get_children ().length () > 0;
         }
     }
 
@@ -143,9 +143,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         due_label.valign = Gtk.Align.CENTER;
         due_label.get_style_context ().add_class ("pane-due-button");
 
-        menu_stack.add_named (count_revealer, "count_revealer");
-        menu_stack.add_named (arrow_button, "arrow_button");
-        menu_stack.add_named (due_label, "due_label");
+        if (project.due_date != "") {
+            menu_stack.add_named (due_label, "due_label");
+            menu_stack.add_named (count_revealer, "count_revealer");
+            menu_stack.add_named (arrow_button, "arrow_button");
+        } else {
+            menu_stack.add_named (count_revealer, "count_revealer");
+            menu_stack.add_named (arrow_button, "arrow_button");
+            menu_stack.add_named (due_label, "due_label");
+        }
 
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
@@ -193,8 +199,8 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         listbox_revealer.reveal_child = project.collapsed == 1;
         listbox_revealer.add (listbox);
 
-        listbox.add.connect(() => {project_progress.has_subprojects = has_subprojects;});
-        listbox.remove.connect(() => {project_progress.has_subprojects = has_subprojects;});
+        listbox.add.connect (() => {project_progress.has_subprojects = has_subprojects;});
+        listbox.remove.connect (() => {project_progress.has_subprojects = has_subprojects;});
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;

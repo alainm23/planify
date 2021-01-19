@@ -354,15 +354,15 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.add (search_entry);
-        grid.add (parsed_button);
+        // grid.add (search_entry);
+        // grid.add (parsed_button);
         grid.add (dates_revealer);
         // grid.add (tomorrow_button);
-        // grid.add (calendar);
-        // grid.add (time_box);
-        // grid.add (time_picker_revealer);
-        // grid.add (recurring_box);
-        // grid.add (combobox_revealer);
+        grid.add (calendar);
+        grid.add (time_box);
+        grid.add (time_picker_revealer);
+        grid.add (recurring_box);
+        grid.add (combobox_revealer);
         grid.show_all ();
 
         today_button.clicked.connect (() => {

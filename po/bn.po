@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-26 12:51-0500\n"
+"POT-Creation-Date: 2021-01-18 19:34-0500\n"
 "PO-Revision-Date: 2020-09-01 07:36+0000\n"
 "Last-Translator: Oymate <dhruboadittya96@gmail.com>\n"
 "Language-Team: Bengali <https://hosted.weblate.org/projects/planner/"
@@ -42,8 +42,8 @@ msgstr ""
 msgid "Planner"
 msgstr "পরিকল্পক"
 
-#: src/MainWindow.vala:815 src/MainWindow.vala:831 src/MainWindow.vala:847
-#: src/MainWindow.vala:863
+#: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
+#: src/MainWindow.vala:832
 msgid "Adding task from clipboard…"
 msgstr "ক্লিপবোর্ড থেকে কাজ যোগ করা হচ্ছে…"
 
@@ -149,7 +149,7 @@ msgstr "তামাটে"
 
 #: src/Utils.vala:587 src/Widgets/ActionRow.vala:182
 #: src/Widgets/ActionRow.vala:184 src/Widgets/NewItem.vala:728
-#: src/Widgets/ItemRow.vala:1524 src/Widgets/DueButton.vala:218
+#: src/Widgets/ItemRow.vala:1524 src/Widgets/DueButton.vala:226
 #: src/Widgets/MultiSelectToolbar.vala:392 src/Views/Today.vala:68
 #: src/Views/Today.vala:592 src/Views/Today.vala:609 src/Views/Today.vala:935
 #: src/Dialogs/QuickFind.vala:63 src/Dialogs/Preferences/Preferences.vala:294
@@ -158,7 +158,7 @@ msgid "Today"
 msgstr "আজ"
 
 #: src/Utils.vala:589 src/Widgets/Pane.vala:353 src/Widgets/NewItem.vala:734
-#: src/Widgets/ItemRow.vala:1528 src/Widgets/DueButton.vala:224
+#: src/Widgets/ItemRow.vala:1528 src/Widgets/DueButton.vala:232
 #: src/Widgets/UpcomingRow.vala:66 src/Widgets/MultiSelectToolbar.vala:398
 #: src/Views/Today.vala:941 src/Views/Filter.vala:119
 #: src/Dialogs/QuickFind.vala:125
@@ -298,9 +298,9 @@ msgstr "সার্ভার ত্রুটির কারণে অনুর
 msgid "The server is currently unable to handle the request."
 msgstr "সার্ভারটি বর্তমানে অনুরোধটি পরিচালনা করতে অক্ষম।"
 
-#: src/Services/Database.vala:955 src/Widgets/ActionRow.vala:177
+#: src/Services/Database.vala:968 src/Widgets/ActionRow.vala:177
 #: src/Widgets/ActionRow.vala:179 src/Widgets/ItemRow.vala:1418
-#: src/Widgets/SectionRow.vala:950 src/Widgets/BoardColumn.vala:953
+#: src/Widgets/SectionRow.vala:974 src/Widgets/BoardColumn.vala:985
 #: src/Views/Inbox.vala:57 src/Dialogs/QuickFind.vala:56
 #: src/Dialogs/Preferences/Preferences.vala:290
 #: src/Dialogs/Preferences/Preferences.vala:509
@@ -319,20 +319,19 @@ msgstr ""
 msgid "Save Planner file"
 msgstr ""
 
-#. top_box.pack_end (hidden_revealer, false, true, 0);
-#: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:179
-#: src/Widgets/BoardColumn.vala:136 src/Views/Project.vala:196
-#: src/Dialogs/ProjectSettings.vala:218 src/Dialogs/Project.vala:215
+#: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:187
+#: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:146
+#: src/Dialogs/ProjectSettings.vala:218 src/Dialogs/Project.vala:214
 msgid "Save"
 msgstr "সংরক্ষণ"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
-#: src/Widgets/NewItem.vala:151 src/Widgets/SectionRow.vala:183
+#: src/Widgets/NewItem.vala:151 src/Widgets/SectionRow.vala:191
 #: src/Widgets/ReminderButton.vala:248 src/Widgets/NewSection.vala:85
-#: src/Widgets/NewLabel.vala:77 src/Widgets/BoardColumn.vala:140
-#: src/Views/Inbox.vala:463 src/Views/Project.vala:200
-#: src/Views/Project.vala:856 src/Dialogs/Project.vala:219
-#: src/Dialogs/Project.vala:838
+#: src/Widgets/NewLabel.vala:77 src/Widgets/BoardColumn.vala:152
+#: src/Views/Inbox.vala:467 src/Views/Project.vala:150
+#: src/Views/Project.vala:799 src/Dialogs/Project.vala:218
+#: src/Dialogs/Project.vala:841
 msgid "Cancel"
 msgstr "বাতিল"
 
@@ -354,7 +353,7 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: src/Widgets/ActionRow.vala:90 src/Widgets/ProjectRow.vala:154
+#: src/Widgets/ActionRow.vala:90
 msgid "Todoist Project"
 msgstr "টোডোস্ট প্রজেক্ট"
 
@@ -364,9 +363,9 @@ msgstr "টোডোস্ট প্রজেক্ট"
 msgid "Upcoming"
 msgstr "আসন্ন"
 
-#: src/Widgets/ActionRow.vala:450 src/Widgets/ProjectRow.vala:525
-#: src/Widgets/SectionRow.vala:1248 src/Widgets/SectionRow.vala:1323
-#: src/Widgets/BoardColumn.vala:1218 src/Widgets/BoardColumn.vala:1271
+#: src/Widgets/ActionRow.vala:451 src/Widgets/ProjectRow.vala:495
+#: src/Widgets/SectionRow.vala:1273 src/Widgets/SectionRow.vala:1348
+#: src/Widgets/BoardColumn.vala:1250 src/Widgets/BoardColumn.vala:1303
 msgid "Unable to move task"
 msgstr "কাজ সরাতে অক্ষম"
 
@@ -384,8 +383,8 @@ msgstr "প্রকল্প যুক্ত করো"
 msgid "Preferences"
 msgstr "পছন্দসমূহ"
 
-#: src/Widgets/New.vala:72 src/Views/Inbox.vala:442 src/Views/Project.vala:835
-#: src/Dialogs/ProjectSettings.vala:186 src/Dialogs/Project.vala:817
+#: src/Widgets/New.vala:72 src/Views/Inbox.vala:446 src/Views/Project.vala:778
+#: src/Dialogs/ProjectSettings.vala:186 src/Dialogs/Project.vala:820
 msgid "Name:"
 msgstr "নাম:"
 
@@ -402,8 +401,8 @@ msgid "Color:"
 msgstr "রঙ:"
 
 #: src/Widgets/New.vala:172 src/Widgets/ReminderButton.vala:250
-#: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:458
-#: src/Views/Project.vala:851 src/Dialogs/Project.vala:833
+#: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:462
+#: src/Views/Project.vala:794 src/Dialogs/Project.vala:836
 msgid "Add"
 msgstr "যোগ করো"
 
@@ -421,83 +420,74 @@ msgstr ""
 msgid "Local"
 msgstr "স্থানীয়"
 
-#: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:624
+#: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
 msgstr ""
 
-#: src/Widgets/ProjectRow.vala:126 src/Views/Inbox.vala:104
-#: src/Views/Project.vala:183 src/Dialogs/Project.vala:205
-msgid "Project Menu"
-msgstr "প্রকল্প মেনু"
-
-#: src/Widgets/ProjectRow.vala:150
-msgid "Local Project"
-msgstr "স্থানীয় প্রকল্প"
-
-#: src/Widgets/ProjectRow.vala:517 src/Widgets/ItemRow.vala:1427
+#: src/Widgets/ProjectRow.vala:487 src/Widgets/ItemRow.vala:1427
 #: src/Widgets/ItemRow.vala:1447 src/Widgets/ItemRow.vala:1481
-#: src/Widgets/SectionRow.vala:1230 src/Widgets/SectionRow.vala:1299
-#: src/Widgets/BoardColumn.vala:1199 src/Widgets/BoardColumn.vala:1253
+#: src/Widgets/SectionRow.vala:1255 src/Widgets/SectionRow.vala:1324
+#: src/Widgets/BoardColumn.vala:1231 src/Widgets/BoardColumn.vala:1285
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr "কাজ সরানো হয়েছে <b> %s </b>"
 
-#: src/Widgets/ProjectRow.vala:684 src/Views/Inbox.vala:213
-#: src/Views/Project.vala:524
+#: src/Widgets/ProjectRow.vala:654 src/Views/Inbox.vala:217
+#: src/Views/Project.vala:467
 #, fuzzy
 msgid "Open New Window"
 msgstr "ইনবক্স খুলুন"
 
-#: src/Widgets/ProjectRow.vala:685 src/Views/Inbox.vala:214
-#: src/Views/Project.vala:525 src/Dialogs/Project.vala:514
+#: src/Widgets/ProjectRow.vala:655 src/Views/Inbox.vala:218
+#: src/Views/Project.vala:468 src/Dialogs/Project.vala:517
 #, fuzzy
 msgid "Edit Project"
 msgstr "প্রকল্প যুক্ত করো"
 
-#: src/Widgets/ProjectRow.vala:686 src/Widgets/MultiSelectToolbar.vala:55
+#: src/Widgets/ProjectRow.vala:656 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
 msgstr "সরাও"
 
-#: src/Widgets/ProjectRow.vala:690 src/Widgets/ItemRow.vala:1546
-#: src/Widgets/SectionRow.vala:1016 src/Widgets/BoardColumn.vala:1017
+#: src/Widgets/ProjectRow.vala:660 src/Widgets/ItemRow.vala:1546
+#: src/Widgets/SectionRow.vala:1040 src/Widgets/BoardColumn.vala:1049
 #: src/Dialogs/Preferences/Preferences.vala:161
 msgid "Share"
 msgstr "ভাগ"
 
-#: src/Widgets/ProjectRow.vala:694 src/Views/Inbox.vala:382
-#: src/Views/Today.vala:556 src/Views/Project.vala:715
-#: src/Dialogs/Project.vala:680
+#: src/Widgets/ProjectRow.vala:664 src/Views/Inbox.vala:386
+#: src/Views/Today.vala:556 src/Views/Project.vala:658
+#: src/Dialogs/Project.vala:683
 msgid "Send by e-mail"
 msgstr "ইমেইলের মাধ্যমে প্রেরিত"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
-#: src/Widgets/ProjectRow.vala:695 src/Widgets/ItemRow.vala:1551
-#: src/Widgets/SectionRow.vala:1021 src/Widgets/BoardColumn.vala:1022
+#: src/Widgets/ProjectRow.vala:665 src/Widgets/ItemRow.vala:1551
+#: src/Widgets/SectionRow.vala:1045 src/Widgets/BoardColumn.vala:1054
 msgid "Markdown"
 msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
-#: src/Widgets/ProjectRow.vala:703 src/Widgets/ProjectRow.vala:737
+#: src/Widgets/ProjectRow.vala:673 src/Widgets/ProjectRow.vala:707
 #: src/Widgets/ItemRow.vala:1558 src/Widgets/ItemCompletedRow.vala:204
-#: src/Widgets/ItemCompletedRow.vala:228 src/Widgets/SectionRow.vala:1027
-#: src/Widgets/SectionRow.vala:1070 src/Widgets/CheckRow.vala:79
-#: src/Widgets/MultiSelectToolbar.vala:196 src/Widgets/BoardColumn.vala:1028
-#: src/Widgets/BoardColumn.vala:1074 src/Views/Inbox.vala:221
-#: src/Views/Inbox.vala:332 src/Views/Project.vala:532
-#: src/Views/Project.vala:648 src/Dialogs/Project.vala:521
-#: src/Dialogs/Project.vala:630
+#: src/Widgets/ItemCompletedRow.vala:228 src/Widgets/SectionRow.vala:1051
+#: src/Widgets/SectionRow.vala:1094 src/Widgets/CheckRow.vala:79
+#: src/Widgets/MultiSelectToolbar.vala:196 src/Widgets/BoardColumn.vala:1060
+#: src/Widgets/BoardColumn.vala:1106 src/Views/Inbox.vala:225
+#: src/Views/Inbox.vala:336 src/Views/Project.vala:475
+#: src/Views/Project.vala:591 src/Dialogs/Project.vala:524
+#: src/Dialogs/Project.vala:633
 msgid "Delete"
 msgstr "মুছে ফেলা"
 
-#: src/Widgets/ProjectRow.vala:732 src/Views/Inbox.vala:327
-#: src/Views/Project.vala:643 src/Dialogs/Project.vala:625
+#: src/Widgets/ProjectRow.vala:702 src/Views/Inbox.vala:331
+#: src/Views/Project.vala:586 src/Dialogs/Project.vala:628
 msgid "Delete project"
 msgstr "প্রকল্প মুছুন"
 
-#: src/Widgets/ProjectRow.vala:733 src/Widgets/ItemCompletedRow.vala:224
-#: src/Widgets/SectionRow.vala:1066 src/Widgets/MultiSelectToolbar.vala:185
-#: src/Widgets/BoardColumn.vala:1070 src/Views/Inbox.vala:328
-#: src/Views/Project.vala:644 src/Dialogs/Project.vala:626
+#: src/Widgets/ProjectRow.vala:703 src/Widgets/ItemCompletedRow.vala:224
+#: src/Widgets/SectionRow.vala:1090 src/Widgets/MultiSelectToolbar.vala:185
+#: src/Widgets/BoardColumn.vala:1102 src/Views/Inbox.vala:332
+#: src/Views/Project.vala:587 src/Dialogs/Project.vala:629
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "আপনি কি নিশ্চিত আপনি <b>%s </b> বিলোপ করতে চান?"
@@ -527,15 +517,15 @@ msgstr ""
 msgid "Task name"
 msgstr "টাস্ক নাম"
 
-#: src/Widgets/NewItem.vala:146 src/Widgets/SectionRow.vala:119
-#: src/Widgets/SectionRow.vala:1006 src/Widgets/SectionRow.vala:1423
-#: src/Widgets/MagicButton.vala:32 src/Widgets/BoardColumn.vala:71
-#: src/Widgets/BoardColumn.vala:791 src/Widgets/BoardColumn.vala:1007
+#: src/Widgets/NewItem.vala:146 src/Widgets/SectionRow.vala:115
+#: src/Widgets/SectionRow.vala:1030 src/Widgets/SectionRow.vala:1448
+#: src/Widgets/MagicButton.vala:32 src/Widgets/BoardColumn.vala:73
+#: src/Widgets/BoardColumn.vala:822 src/Widgets/BoardColumn.vala:1039
 msgid "Add Task"
 msgstr "টাস্ক যোগ"
 
-#: src/Widgets/NewItem.vala:228 src/Widgets/SectionRow.vala:1010
-#: src/Widgets/BoardColumn.vala:1011
+#: src/Widgets/NewItem.vala:228 src/Widgets/SectionRow.vala:1034
+#: src/Widgets/BoardColumn.vala:1043
 msgid "Add Note"
 msgstr "নোট যোগ করো"
 
@@ -570,19 +560,19 @@ msgid "None"
 msgstr "none"
 
 #: src/Widgets/NewItem.vala:740 src/Widgets/ItemRow.vala:1532
-#: src/Widgets/DueButton.vala:230 src/Widgets/MultiSelectToolbar.vala:404
+#: src/Widgets/DueButton.vala:238 src/Widgets/MultiSelectToolbar.vala:404
 #: src/Views/Today.vala:947
 msgid "Undated"
 msgstr "তারিখবিহীন"
 
-#: src/Widgets/NewItem.vala:749 src/Widgets/DueButton.vala:239
+#: src/Widgets/NewItem.vala:749 src/Widgets/DueButton.vala:258
 #, fuzzy
 msgid "Time"
 msgstr "সময়:"
 
 #: src/Widgets/NewItem.vala:825 src/Widgets/NewItem.vala:1019
-#: src/Widgets/DueButton.vala:58 src/Widgets/DueButton.vala:67
-#: src/Widgets/DueButton.vala:148 src/Widgets/MultiSelectToolbar.vala:48
+#: src/Widgets/DueButton.vala:59 src/Widgets/DueButton.vala:68
+#: src/Widgets/DueButton.vala:149 src/Widgets/MultiSelectToolbar.vala:48
 msgid "Schedule"
 msgstr "সময়সূচী"
 
@@ -627,8 +617,8 @@ msgstr "সম্পূর্ণ"
 msgid "Edit"
 msgstr "সম্পাদন করা"
 
-#: src/Widgets/ItemRow.vala:1538 src/Widgets/SectionRow.vala:1012
-#: src/Widgets/BoardColumn.vala:1013
+#: src/Widgets/ItemRow.vala:1538 src/Widgets/SectionRow.vala:1036
+#: src/Widgets/BoardColumn.vala:1045
 msgid "Move to Project"
 msgstr "প্রকল্পে সরান"
 
@@ -667,75 +657,74 @@ msgstr "১টি কাজ সম্পন্ন"
 msgid "Delete task"
 msgstr "কার্য মুছুন"
 
-#: src/Widgets/SectionRow.vala:81 src/Widgets/BoardColumn.vala:54
-#: src/Widgets/BoardColumn.vala:88
+#: src/Widgets/SectionRow.vala:83 src/Widgets/BoardColumn.vala:56
+#: src/Widgets/BoardColumn.vala:90
 #, fuzzy
 msgid "(No Section)"
 msgstr "কোন বিভাগ নেই"
 
-#. hidden_button.margin_end = 6;
-#: src/Widgets/SectionRow.vala:102 src/Widgets/SectionRow.vala:1154
+#: src/Widgets/SectionRow.vala:103 src/Widgets/SectionRow.vala:1179
 msgid "Display Tasks"
 msgstr "কার্য প্রদর্শন করো"
 
-#: src/Widgets/SectionRow.vala:114 src/Widgets/SectionRow.vala:1159
+#: src/Widgets/SectionRow.vala:110 src/Widgets/SectionRow.vala:1184
 msgid "Hiding Tasks"
 msgstr "কাজ গোপন"
 
-#: src/Widgets/SectionRow.vala:142 src/Widgets/NewSection.vala:69
-#: src/Widgets/BoardColumn.vala:99
+#: src/Widgets/SectionRow.vala:138 src/Widgets/NewSection.vala:69
+#: src/Widgets/BoardColumn.vala:101
 msgid "Section name"
 msgstr "অংশের নাম"
 
-#: src/Widgets/SectionRow.vala:162 src/Widgets/BoardColumn.vala:118
+#: src/Widgets/SectionRow.vala:158
 msgid "Section Menu"
 msgstr "সেকশন মেনু"
 
-#: src/Widgets/SectionRow.vala:220 src/Views/Project.vala:223
-#: src/Dialogs/Project.vala:245
+#: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:179
+#: src/Dialogs/Project.vala:244
 msgid "Add a description"
 msgstr "বিস্তারিত যোগ করো"
 
-#: src/Widgets/SectionRow.vala:229 src/Views/Project.vala:494
-#: src/Dialogs/Project.vala:484
+#: src/Widgets/SectionRow.vala:237 src/Views/Project.vala:437
+#: src/Dialogs/Project.vala:487
 msgid "Description"
 msgstr "বিস্তারিত"
 
-#: src/Widgets/SectionRow.vala:957 src/Widgets/SectionRow.vala:978
-#: src/Widgets/BoardColumn.vala:960 src/Widgets/BoardColumn.vala:981
+#: src/Widgets/SectionRow.vala:981 src/Widgets/SectionRow.vala:1002
+#: src/Widgets/BoardColumn.vala:992 src/Widgets/BoardColumn.vala:1013
 #, c-format
 msgid "Section moved to <b>%s</b>"
 msgstr "বিভাগ সরানো হয়েছে <b>%s</b>তে"
 
-#: src/Widgets/SectionRow.vala:1009 src/Widgets/BoardColumn.vala:1010
+#: src/Widgets/SectionRow.vala:1033 src/Widgets/BoardColumn.vala:1042
 msgid "Rename"
 msgstr "নামান্তর"
 
-#: src/Widgets/SectionRow.vala:1065 src/Widgets/BoardColumn.vala:1069
+#: src/Widgets/SectionRow.vala:1089 src/Widgets/BoardColumn.vala:1101
 msgid "Delete section"
 msgstr "অধ্যায় বিলোপ করো"
 
-#: src/Widgets/SectionRow.vala:1083 src/Widgets/BoardColumn.vala:1087
+#: src/Widgets/SectionRow.vala:1107 src/Widgets/BoardColumn.vala:1119
 msgid "Section deleted"
 msgstr "বিভাগ মুছা হয়েছে"
 
-#: src/Widgets/DueButton.vala:262
+#: src/Widgets/DueButton.vala:281
 msgid "Repeat"
 msgstr "পুনরাবৃত্তি"
 
-#: src/Widgets/DueButton.vala:285
+#: src/Widgets/DueButton.vala:304
 msgid "Every day"
 msgstr "প্রতিদিন"
 
-#: src/Widgets/DueButton.vala:291
+#: src/Widgets/DueButton.vala:310
 msgid "Every week"
 msgstr "প্রতি সপ্তাহে"
 
-#: src/Widgets/DueButton.vala:297
+#: src/Widgets/DueButton.vala:316
 msgid "Every month"
 msgstr "প্রতি মাসে"
 
-#: src/Widgets/DueButton.vala:303
+#: src/Widgets/DueButton.vala:322
 msgid "Every year"
 msgstr "প্রতি বছর"
 
@@ -881,6 +870,11 @@ msgstr ""
 msgid "Label"
 msgstr "লেবেল"
 
+#: src/Widgets/BoardColumn.vala:120
+#, fuzzy
+msgid "Board Menu"
+msgstr "প্রকল্প মেনু"
+
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
 msgstr ""
@@ -1001,77 +995,78 @@ msgstr "গুরুত্বপূর্ণ"
 msgid "Import Previously Exported Planner Backup."
 msgstr ""
 
-#: src/Views/Inbox.vala:68 src/Views/Project.vala:139
-#: src/Views/Project.vala:147 src/Dialogs/Project.vala:161
-#: src/Dialogs/Project.vala:169
+#: src/Views/Inbox.vala:68 src/Views/Project.vala:128
+#: src/Dialogs/Project.vala:160 src/Dialogs/Project.vala:168
 msgid "Add Section"
 msgstr "অধ্যায় জুড়ুন"
 
-#: src/Views/Inbox.vala:76 src/Views/Project.vala:155
-#: src/Dialogs/Project.vala:177
+#: src/Views/Inbox.vala:76 src/Dialogs/Project.vala:176
 msgid "Invite person"
 msgstr "আমন্ত্রণ ব্যক্তি"
 
-#: src/Views/Inbox.vala:85 src/Views/Project.vala:164
-#: src/Dialogs/Project.vala:186
+#: src/Views/Inbox.vala:85 src/Dialogs/Project.vala:185
 msgid "Project comments"
 msgstr "প্রকল্প মন্তব্য"
 
-#: src/Views/Inbox.vala:93 src/Views/Project.vala:172
-#: src/Dialogs/Project.vala:194
+#: src/Views/Inbox.vala:93 src/Dialogs/Project.vala:193
 msgid "Search task"
 msgstr "অনুসন্ধান, টাস্ক"
 
-#: src/Views/Inbox.vala:127 src/Views/Label.vala:67 src/Views/Completed.vala:72
+#: src/Views/Inbox.vala:104 src/Views/Project.vala:140
+#: src/Dialogs/Project.vala:204
+msgid "Project Menu"
+msgstr "প্রকল্প মেনু"
+
+#: src/Views/Inbox.vala:131 src/Views/Label.vala:67 src/Views/Completed.vala:72
 #: src/Views/Filter.vala:70 src/Views/AllTasks.vala:70
 msgid "All clear"
 msgstr "সব পরিষ্কার"
 
-#: src/Views/Inbox.vala:128
+#: src/Views/Inbox.vala:132
 msgid "Looks like everything's organized in the right place."
 msgstr "দেখে মনে হচ্ছে সবকিছু সংগঠিত সঠিক জায়গায়."
 
-#: src/Views/Inbox.vala:215 src/Views/Project.vala:526
-#: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:515
+#: src/Views/Inbox.vala:219 src/Views/Project.vala:469
+#: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:518
 msgid "Sort by date"
 msgstr ""
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
-#: src/Views/Inbox.vala:216 src/Views/Today.vala:481 src/Views/Project.vala:527
-#: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:516
+#: src/Views/Inbox.vala:220 src/Views/Today.vala:481 src/Views/Project.vala:470
+#: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:519
 msgid "Sort by priority"
 msgstr ""
 
-#: src/Views/Inbox.vala:217 src/Views/Today.vala:482 src/Views/Project.vala:528
-#: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:517
+#: src/Views/Inbox.vala:221 src/Views/Today.vala:482 src/Views/Project.vala:471
+#: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:520
 msgid "Sort by name"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
-#: src/Views/Inbox.vala:219 src/Views/Today.vala:484 src/Views/Project.vala:530
-#: src/Dialogs/Project.vala:519
+#: src/Views/Inbox.vala:223 src/Views/Today.vala:484 src/Views/Project.vala:473
+#: src/Dialogs/Project.vala:522
 #, fuzzy
 msgid "Utilities"
 msgstr "অগ্রাধিকার"
 
-#: src/Views/Inbox.vala:230 src/Views/Today.vala:492 src/Views/Project.vala:541
-#: src/Dialogs/Project.vala:530
+#: src/Views/Inbox.vala:234 src/Views/Today.vala:492 src/Views/Project.vala:484
+#: src/Dialogs/Project.vala:533
 msgid "Show Completed"
 msgstr "সমাপ্ত দেখাও"
 
-#: src/Views/Inbox.vala:259 src/Views/Project.vala:567
-#: src/Dialogs/Project.vala:559
+#: src/Views/Inbox.vala:263 src/Views/Project.vala:510
+#: src/Dialogs/Project.vala:562
 msgid "View as board"
 msgstr ""
 
-#: src/Views/Inbox.vala:383 src/Views/Today.vala:557 src/Views/Project.vala:716
-#: src/Dialogs/Project.vala:681
+#: src/Views/Inbox.vala:387 src/Views/Today.vala:557 src/Views/Project.vala:659
+#: src/Dialogs/Project.vala:684
 #, fuzzy
 msgid "Share on Markdown"
 msgstr "Markdown"
 
-#: src/Views/Inbox.vala:384 src/Views/Today.vala:558 src/Views/Project.vala:717
-#: src/Dialogs/ShortcutsDialog.vala:105 src/Dialogs/Project.vala:682
+#: src/Views/Inbox.vala:388 src/Views/Today.vala:558 src/Views/Project.vala:660
+#: src/Dialogs/ShortcutsDialog.vala:105 src/Dialogs/Project.vala:685
 #, fuzzy
 msgid "Hide all tasks details"
 msgstr "বিস্তারিত লুকাও"
@@ -1107,31 +1102,21 @@ msgstr "কীভাবে প্রকল্পগুলি ব্যবহা�
 msgid "Today was copied to the Clipboard."
 msgstr "টাস্কটি ক্লিপবোর্ডে অনুলিপি করা হয়েছিল।"
 
-#. list_view = new Widgets.ListView (project);
-#. board_view = new Widgets.BoardView (project);
-#: src/Views/Project.vala:256 src/Dialogs/Project.vala:281
-msgid "What will you accomplish?"
-msgstr "তুমি কী অর্জন করবে?"
-
-#: src/Views/Project.vala:257 src/Dialogs/Project.vala:282
-msgid "Tap + to add a task to this project."
-msgstr "একটি কাজ যোগ করতে + টিপ দাও।"
-
-#: src/Views/Project.vala:293 src/Views/Project.vala:477
-#: src/Dialogs/Project.vala:143
+#: src/Views/Project.vala:250 src/Views/Project.vala:420
+#: src/Dialogs/Project.vala:142
 #, c-format
 msgid "Progress: %s"
 msgstr "অগ্রগতি: %s"
 
-#: src/Views/Project.vala:775 src/Dialogs/Project.vala:757
+#: src/Views/Project.vala:718 src/Dialogs/Project.vala:760
 msgid "Your Productivity"
 msgstr "তোমার উৎপাদনশীলতা"
 
-#: src/Views/Project.vala:780 src/Dialogs/Project.vala:762
+#: src/Views/Project.vala:723 src/Dialogs/Project.vala:765
 msgid "Progress:"
 msgstr "অগ্রগতি:"
 
-#: src/Views/Project.vala:791 src/Dialogs/Project.vala:773
+#: src/Views/Project.vala:734 src/Dialogs/Project.vala:776
 msgid "Duedate:"
 msgstr "নির্ধারিত তারিখ:"
 
@@ -1150,24 +1135,24 @@ msgstr "সম্পূর্ণ"
 msgid "All Tasks"
 msgstr "কাজ"
 
-#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:113
+#: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:114
 msgid "Loading…"
 msgstr "লোড হচ্ছে…"
 
 #. Alert
-#: src/Dialogs/TodoistOAuth.vala:69 src/Dialogs/TodoistOAuth.vala:127
+#: src/Dialogs/TodoistOAuth.vala:70 src/Dialogs/TodoistOAuth.vala:128
 msgid "Network Is Not Available"
 msgstr "নেটওয়ার্ক সুপ্রাপ্য নয়"
 
-#: src/Dialogs/TodoistOAuth.vala:70
+#: src/Dialogs/TodoistOAuth.vala:71
 msgid "Connect to the Internet to connect with Todoist"
 msgstr "টডোইস্টের সাথে সংযোগ রাখতে ইন্টারনেটের সাথে সংযোগ স্থাপন করো"
 
-#: src/Dialogs/TodoistOAuth.vala:93
+#: src/Dialogs/TodoistOAuth.vala:94
 msgid "Synchronizing… Wait a moment please."
 msgstr "সিঙ্ক্রোনাইজ করা হচ্ছে ... দয়া করে একটি মুহুর্ত অপেক্ষা করো।"
 
-#: src/Dialogs/TodoistOAuth.vala:105
+#: src/Dialogs/TodoistOAuth.vala:106
 msgid "Please enter your credentials…"
 msgstr "অনুগ্রহ করে তোমার প্রমাণপত্রাদি প্রবেশ করাও…"
 
@@ -1360,6 +1345,14 @@ msgstr "ইনবক্স খুলুন"
 #, fuzzy
 msgid "Go to start page"
 msgstr "স্টার্টআপ-এ চালান"
+
+#: src/Dialogs/Project.vala:284
+msgid "What will you accomplish?"
+msgstr "তুমি কী অর্জন করবে?"
+
+#: src/Dialogs/Project.vala:285
+msgid "Tap + to add a task to this project."
+msgstr "একটি কাজ যোগ করতে + টিপ দাও।"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
@@ -1600,9 +1593,10 @@ msgid "Start of the week"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
+#, fuzzy
 msgid ""
-"It process removes all stored information without the possibility of undoing "
-"it."
+"This process removes all stored information without the possibility of "
+"undoing it."
 msgstr "এটি প্রক্রিয়া বাতিল করার সম্ভাবনা ছাড়াই সমস্ত সঞ্চিত তথ্য অপসারণ করে."
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
@@ -1763,6 +1757,9 @@ msgstr "টাস্কটি ক্লিপবোর্ডে অনুলি�
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
 msgstr "বিভাগটি ক্লিপবোর্ডে অনুলিপি করা হয়েছিল।"
+
+#~ msgid "Local Project"
+#~ msgstr "স্থানীয় প্রকল্প"
 
 #, fuzzy
 #~ msgid "Delete taks"
@@ -1962,10 +1959,6 @@ msgstr "বিভাগটি ক্লিপবোর্ডে অনুলি�
 
 #~ msgid "Hiding Projects"
 #~ msgstr "প্রকল্প লুকিয়ে"
-
-#, fuzzy
-#~ msgid "Folder Menu"
-#~ msgstr "প্রকল্প মেনু"
 
 #~ msgid "Due:"
 #~ msgstr "বাকি:"

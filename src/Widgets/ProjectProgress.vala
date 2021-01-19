@@ -13,9 +13,9 @@ using Cairo;
 
 public class Widgets.ProjectProgress : Gtk.Bin {
     public int min_d { get; construct; }
-    private double _percentage;
-    private string _progress_fill_color;
     public int subproject_offset = 2;
+    private string _progress_fill_color;
+    private double _percentage;
     public double subproject_line_width = 1.1;
     public double line_width = 1.5;
     public bool has_subprojects = false;
@@ -40,7 +40,7 @@ public class Widgets.ProjectProgress : Gtk.Bin {
             return _percentage;
         }
         set {
-            _percentage = double.min(double.max(value, 0), 1);
+            _percentage = double.min (double.max (value, 0), 1);
         }
     }
 
@@ -73,12 +73,12 @@ public class Widgets.ProjectProgress : Gtk.Bin {
 
     public override void get_preferred_width (out int min_w, out int natural_w) {
         min_w = min_d;
-        natural_w = int.max(calculate_diameter (), min_d);
+        natural_w = int.max (calculate_diameter (), min_d);
     }
 
     public override void get_preferred_height (out int min_h, out int natural_h) {
         min_h = min_d;
-        natural_h = int.max(calculate_diameter (), min_d);
+        natural_h = int.max (calculate_diameter (), min_d);
     }
 
     public override void size_allocate (Gtk.Allocation allocation) {

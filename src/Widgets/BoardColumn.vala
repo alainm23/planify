@@ -20,6 +20,8 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
     private Gtk.Box main_box;
     private Gtk.Revealer left_motion_revealer;
     private Gtk.Revealer right_motion_revealer;
+    private Gtk.Revealer count_revealer;
+    private Gtk.Label count_label;
 
     public Gee.ArrayList<Widgets.ItemRow?> items_list;
     public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
@@ -108,28 +110,38 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var settings_image = new Gtk.Image ();
-        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_image.pixel_size = 14;
+        var menu_image = new Gtk.Image ();
+        menu_image.gicon = new ThemedIcon ("view-more-symbolic");
+        menu_image.pixel_size = 14;
 
-        var settings_button = new Gtk.Button ();
-        settings_button.can_focus = false;
-        settings_button.valign = Gtk.Align.CENTER;
-        settings_button.tooltip_text = _("Section Menu");
-        settings_button.image = settings_image;
-        settings_button.get_style_context ().remove_class ("button");
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("hidden-button");
+        var menu_button = new Gtk.Button ();
+        menu_button.can_focus = false;
+        menu_button.valign = Gtk.Align.CENTER;
+        menu_button.tooltip_text = _("Board Menu");
+        menu_button.image = menu_image;
+        menu_button.get_style_context ().remove_class ("button");
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.get_style_context ().add_class ("hidden-button");
 
-        var count_label = new Gtk.Label (null);
+        count_label = new Gtk.Label (null);
+        count_label.halign = Gtk.Align.END;
+        count_label.valign = Gtk.Align.CENTER;
+        count_label.opacity = 0.7;
+        count_label.use_markup = true;
+        count_label.width_chars = 3;
+        count_label.margin_end = 3;
+
+        count_revealer = new Gtk.Revealer ();
+        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.add (count_label);
 
         var menu_stack = new Gtk.Stack ();
         menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        menu_stack.add_named (settings_button, "button");
-        menu_stack.add_named (count_label, "count");
+        menu_stack.homogeneous = true;
+        menu_stack.add_named (count_revealer, "count_revealer");
+        menu_stack.add_named (menu_button, "menu_button");
 
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        // top_box.pack_start (add_revealer, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (menu_stack, false, true, 0);
 
@@ -434,6 +446,7 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
         top_eventbox.enter_notify_event.connect ((event) => {
             add_revealer.reveal_child = true;
             add_button.get_style_context ().add_class ("animation");
+            menu_stack.visible_child_name = "menu_button";
 
             return true;
         });
@@ -443,9 +456,9 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
                 return false;
             }
 
-            // menu_stack.visible_child_name = "count";
             add_revealer.reveal_child = false;
             add_button.get_style_context ().remove_class ("animation");
+            menu_stack.visible_child_name = "count_revealer";
 
             return true;
         });
@@ -527,7 +540,7 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
             separator_revealer.reveal_child = true;
         });
 
-        settings_button.clicked.connect (() => {
+        menu_button.clicked.connect (() => {
             activate_menu ();
         });
 
@@ -726,6 +739,25 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
                 }
             }
         });
+
+        listbox.add.connect (() => {
+            check_count_label ();
+        });
+
+        listbox.remove.connect (() => {
+            check_count_label ();
+        });
+    }
+
+    private void check_count_label () {
+        var count = listbox.get_children ().length ();
+        count_label.label = "<small>%i</small>".printf ((int) count);
+
+        if (count <= 0) {
+            count_revealer.reveal_child = false;
+        } else {
+            count_revealer.reveal_child = true;
+        }
     }
 
     private void build_magic_button_drag_and_drop (bool value) {
@@ -829,6 +861,7 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
         }
 
         listbox.show_all ();
+        check_count_label ();
     }
 
     private void add_completed_items () {
