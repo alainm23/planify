@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -86,7 +86,7 @@ msgstr "Amarelo"
 
 #: src/Utils.vala:193
 msgid "Olive Green"
-msgstr "Verde Oliva"
+msgstr "Verde Azeitona"
 
 #: src/Utils.vala:194
 msgid "Lime Green"
@@ -193,6 +193,8 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Para utilizadores do Todoist, a Board View foi introduzida neste update, uma "
+"maneira mais visual de organizar os seus projectos no Planner. "
 
 #: src/Utils.vala:961
 #, fuzzy
@@ -204,6 +206,8 @@ msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Uma das funcionalidades mais solicitadas chega ao Planner 2.6, mantenha a "
+"sua lista crescente de projectos ordenada e organizada com sub-projectos."
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -318,18 +322,17 @@ msgstr "Neste computador"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Apague a área de transferência, copie algum texto e tente outra vez"
 
 #: src/Services/ExportImport.vala:350
-#, fuzzy
 msgid "Save Planner file"
-msgstr "Olá Planner !!!"
+msgstr "Guardar o ficheiro do Planner"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:187
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:146
 #: src/Dialogs/ProjectSettings.vala:218 src/Dialogs/Project.vala:214
 msgid "Save"
-msgstr "Gravar"
+msgstr "Guardar"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
 #: src/Widgets/NewItem.vala:151 src/Widgets/SectionRow.vala:191
@@ -353,11 +356,11 @@ msgstr "Tudo limpo"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Abrir o ficheiro do Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/Widgets/ActionRow.vala:90
 msgid "Todoist Project"
@@ -420,7 +423,7 @@ msgstr "Fechar"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "O Projecto %s foi criado com sucesso"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
