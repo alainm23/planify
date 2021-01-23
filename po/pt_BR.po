@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-01 05:29+0000\n"
-"Last-Translator: Mário Victor Ribeiro Silva <mariovictorrs@gmail.com>\n"
+"PO-Revision-Date: 2021-01-27 12:32+0000\n"
+"Last-Translator: Renato Oliveira <renato@wisefox.me>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -399,7 +399,7 @@ msgstr "Descrição:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Pai:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -427,7 +427,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
-msgstr ""
+msgstr "Sem Pai"
 
 #: src/Widgets/ProjectRow.vala:487 src/Widgets/ItemRow.vala:1427
 #: src/Widgets/ItemRow.vala:1447 src/Widgets/ItemRow.vala:1481
@@ -868,9 +868,8 @@ msgid "Label"
 msgstr "Etiquetas"
 
 #: src/Widgets/BoardColumn.vala:120
-#, fuzzy
 msgid "Board Menu"
-msgstr "Pasta"
+msgstr "Menu do Quadro"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
@@ -1261,11 +1260,11 @@ msgstr "Filtrar por prioridade"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
-msgstr ""
+msgstr "Lista de Busca Rápida para todos os rótulos"
 
 #: src/Dialogs/ShortcutsDialog.vala:126
 msgid "Quick Find list for all projects"
-msgstr ""
+msgstr "Lista de Busca Rápida para todos os projetos"
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
@@ -1556,13 +1555,12 @@ msgid "Start of the week"
 msgstr "Início da semana"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."
 msgstr ""
-"O processo remove todas as informações armazenadas sem a possibilidade de "
-"desfazê-las."
+"Este processo remove todas as informações armazenadas sem a possibilidade de "
+"desfazê-lo."
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
 msgid ""
