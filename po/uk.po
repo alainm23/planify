@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-20 20:32+0000\n"
+"PO-Revision-Date: 2021-01-27 12:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -1454,7 +1454,7 @@ msgstr "Розташування кнопок"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr "Використовувати системне оформлення вікон (потребен перезапуск)"
+msgstr "Використовувати системне обрамлення вікон (потрібен перезапуск)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
