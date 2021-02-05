@@ -48,11 +48,11 @@
 <a href="https://flathub.org/apps/details/com.github.alainm23.planner"><img height="50" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/></a>
 
 ### Arch Linux
-[elementary-planner-git](https://aur.archlinux.org/packages/elementary-planner-git) are available in AUR thanks to @yochananmarqos.
+[elementary-planner](https://aur.archlinux.org/packages/elementary-planner) is available in AUR thanks to @yochananmarqos.
 
 ### Fedora
-[elementary-planner](https://src.fedoraproject.org/rpms/elementary-planner) are available in Fedora repos thanks to @tim77.
-* You should install [elementary-theme](https://src.fedoraproject.org/rpms/elementary-theme) and [elementary-icon-theme](https://src.fedoraproject.org/rpms/elementary-icon-theme) to be a complete experience.
+[elementary-planner](https://src.fedoraproject.org/rpms/elementary-planner) is available in Fedora repos thanks to @tim77.
+* You should install [elementary-theme](https://src.fedoraproject.org/rpms/elementary-theme) and [elementary-icon-theme](https://src.fedoraproject.org/rpms/elementary-icon-theme) to get a complete experience.
 
 ## Building
 
