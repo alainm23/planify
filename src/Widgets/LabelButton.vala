@@ -76,7 +76,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
                     Planner.database.label_added.connect ((label) => {
                         if (popover != null) {
-                            var row = new Widgets.LabelPopoverRow (label);
+                            var row = new Widgets.LabelPopoverRow (item_id, label);
                             listbox.add (row);
                         }
                     });
@@ -90,7 +90,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
                 if (labels.size > 0) {
                     foreach (Objects.Label l in labels) {
-                        var row = new Widgets.LabelPopoverRow (l);
+                        var row = new Widgets.LabelPopoverRow (item_id, l);
                         listbox.add (row);
                     }
 
@@ -156,7 +156,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         listbox = new Gtk.ListBox ();
         listbox.activate_on_single_click = true;
-        listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        listbox.selection_mode = Gtk.SelectionMode.NONE;
         listbox.expand = true;
         listbox.set_placeholder (get_alert_placeholder ());
 
@@ -178,6 +178,12 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             this.active = false;
             label_entry.text = "";
             closed ();
+
+            var item = Planner.database.get_item_by_id (item_id);
+            if (item.is_todoist == 1 &&
+                Planner.settings.get_boolean ("todoist-sync-labels")) {
+                Planner.todoist.update_item (item);
+            }
         });
 
         popover.show.connect (() => {
@@ -226,20 +232,6 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             }
         });
 
-        listbox.row_activated.connect ((row) => {
-            var label = ((Widgets.LabelPopoverRow) row).label;
-            if (item_id == 0) {
-                label_selected (label);
-                popover.popdown ();
-                closed ();
-            } else {
-                if (Planner.database.add_item_label (item_id, label)) {
-                    popover.popdown ();
-                    closed ();
-                }
-            }
-        });
-
         label_entry.changed.connect (() => {
             listbox.foreach ((widget) => {
                 widget.destroy ();
@@ -253,7 +245,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                     edit_labels.tooltip_text = _("Edit labels");
 
                     foreach (Objects.Label l in labels) {
-                        var row = new Widgets.LabelPopoverRow (l);
+                        var row = new Widgets.LabelPopoverRow (item_id, l);
                         listbox.add (row);
                     }
 
@@ -369,14 +361,19 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
 public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
+    public int64 item_id { get; construct; }
+    private Gtk.CheckButton checked_button;
 
-    public LabelPopoverRow (Objects.Label label) {
+    public LabelPopoverRow (int64 item_id, Objects.Label label) {
         Object (
+            item_id: item_id,
             label: label
         );
     }
 
     construct {
+        activatable = false;
+        selectable = false;
         get_style_context ().add_class ("label-select-row");
 
         var label_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
@@ -392,19 +389,44 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
         name_label.margin_bottom = 1;
         name_label.use_markup = true;
 
+        var source_icon = new Gtk.Image ();
+        source_icon.pixel_size = 14;
+        source_icon.gicon = new ThemedIcon ("planner-online-symbolic");
+        source_icon.tooltip_text = _("Todoist Label");
+
+        checked_button = new Gtk.CheckButton ();
+        checked_button.valign = Gtk.Align.CENTER;
+        checked_button.get_style_context ().add_class ("check-border");
+        checked_button.halign = Gtk.Align.END;
+        checked_button.hexpand = true;
+        checked_button.active = Planner.database.exists_item_label (item_id, label.id) == false;
+    
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        box.margin = 6;
         box.hexpand = true;
         box.pack_start (label_image, false, false, 0);
         box.pack_start (name_label, false, true, 0);
+        if (label.is_todoist == 1) {
+            box.pack_start (source_icon, false, false, 0);   
+        }
+        box.pack_end (checked_button, false, true, 0);
 
         var grid = new Gtk.Grid ();
         grid.hexpand = true;
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (box);
-        grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        add (grid);
+        var button = new Gtk.ModelButton ();
+        button.get_style_context ().add_class ("menu-button");
+        button.get_child ().destroy ();
+        button.add (grid);
+
+        add (button);
+
+        button.button_release_event.connect (() => {
+            checked_button.active = !checked_button.active;  
+            toggled (checked_button.active);      
+            return Gdk.EVENT_STOP;
+        });
 
         Planner.database.label_updated.connect ((l) => {
             Idle.add (() => {
@@ -416,10 +438,19 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
             });
         });
 
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
+        Planner.database.label_deleted.connect ((id) => {
+            if (label.id == id) {
                 destroy ();
             }
         });
+    }
+
+    private void toggled (bool active) {
+        if (active) {
+            Planner.database.add_item_label (item_id, label);
+        } else {
+            var id = Planner.database.get_item_label (item_id, label.id);
+            Planner.database.delete_item_label (id, item_id, label);
+        }
     }
 }

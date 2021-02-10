@@ -728,6 +728,15 @@ public class MainWindow : Gtk.Window {
 
             var dialog = new Dialogs.Project (project, false);
             dialog.destroy.connect (Gtk.main_quit);
+            
+            int window_x, window_y;
+            var rect = Gtk.Allocation ();
+            
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
         }
     }

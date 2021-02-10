@@ -35,12 +35,18 @@ public class Widgets.ListView : Gtk.EventBox {
             add_sections ();
         });
 
-        Planner.database.section_added.connect ((section) => {
+        Planner.database.section_added.connect ((section, index) => {
             if (project.id == section.project_id) {
                 var row = new Widgets.SectionRow (section, project);
-                section_listbox.add (row);
-                section_listbox.show_all ();
+                row.add_new_section_row.connect (add_new_section_row);
 
+                if (index == -1) {
+                    section_listbox.add (row);
+                } else {
+                    section_listbox.insert (row, index);
+                }
+                
+                section_listbox.show_all ();
                 update_section_order ();
             }
         });
@@ -85,6 +91,7 @@ public class Widgets.ListView : Gtk.EventBox {
         section_listbox.add (inbox_section);
         foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
             var row = new Widgets.SectionRow (section, project);
+            row.add_new_section_row.connect (add_new_section_row);
             section_listbox.add (row);
         }
         
@@ -123,19 +130,14 @@ public class Widgets.ListView : Gtk.EventBox {
         }
 
         timeout = Timeout.add (150, () => {
-            timeout = 0;
-
             new Thread<void*> ("update_section_order", () => {
-                section_listbox.foreach ((widget) => {
-                    var row = (Gtk.ListBoxRow) widget;
-                    int index = row.get_index ();
-
-                    var section = ((Widgets.SectionRow) row).section;
-
-                    new Thread<void*> ("update_section_order", () => {
+                int index = 0;
+                section_listbox.@foreach ((row) => {
+                    if (row is Widgets.SectionRow) {
+                        var section = ((Widgets.SectionRow) row).section;
                         Planner.database.update_section_item_order (section.id, index);
-                        return null;
-                    });
+                        index++;
+                    }
                 });
 
                 return null;
@@ -143,5 +145,11 @@ public class Widgets.ListView : Gtk.EventBox {
 
             return GLib.Source.REMOVE;
         });
+    }
+
+    private void add_new_section_row (int index) {
+        var row = new Widgets.NewSection (project.id, project.is_todoist, index + 1);
+        section_listbox.insert (row, index + 1);
+        section_listbox.show_all ();
     }
 }

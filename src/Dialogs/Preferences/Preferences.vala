@@ -1183,6 +1183,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             _("Sync server"), Planner.settings.get_boolean ("todoist-sync-server")
         );
         sync_server_switch.margin_top = 24;
+        
 
         var sync_server_label = new Gtk.Label (
             _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.") // vala-lint=line-length
@@ -1192,6 +1193,13 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         sync_server_label.margin_start = 12;
         sync_server_label.margin_top = 3;
         sync_server_label.xalign = (float) 0.0;
+        
+        var sync_label_switch = new Dialogs.Preferences.ItemSwitch (
+            _("Sync Labels"), Planner.settings.get_boolean ("todoist-sync-labels")
+        );
+        sync_label_switch.margin_top = 12;
+        sync_label_switch.visible = Planner.settings.get_boolean ("todoist-user-is-premium");
+        sync_label_switch.no_show_all = !Planner.settings.get_boolean ("todoist-user-is-premium");
 
         var delete_image = new Gtk.Image ();
         delete_image.pixel_size = 16;
@@ -1234,6 +1242,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         main_box.pack_start (last_update, false, false, 0);
         main_box.pack_start (sync_server_switch, false, true, 0);
         main_box.pack_start (sync_server_label, false, true, 0);
+        main_box.pack_start (sync_label_switch, false, true, 0);
         main_box.pack_start (eventbox, false, true, 0);
 
         top_box.back_activated.connect (() => {
@@ -1242,6 +1251,16 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         sync_server_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("todoist-sync-server", val);
+        });
+
+        sync_label_switch.activated.connect ((val) => {
+            Planner.settings.set_boolean ("todoist-sync-labels", val);
+
+            if (val) {
+                Planner.todoist.add_all_labels ();
+            } else {
+                Planner.database.delete_label_todoist ();
+            }
         });
 
         eventbox.button_press_event.connect ((sender, evt) => {

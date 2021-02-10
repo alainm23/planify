@@ -77,6 +77,17 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_label.margin_start = 3;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
+        var source_icon = new Gtk.Image ();
+        source_icon.pixel_size = 16;
+        source_icon.gicon = new ThemedIcon ("planner-online-symbolic");
+
+        var name_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        name_box.add (name_label);
+
+        if (label.is_todoist == 1) {
+            name_box.add (source_icon);
+        }
+
         name_entry = new Gtk.Entry ();
         name_entry.text = label.name;
         name_entry.placeholder_text = _("Home");
@@ -88,7 +99,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_stack = new Gtk.Stack ();
         name_stack.margin_bottom = 1;
         name_stack.transition_type = Gtk.StackTransitionType.NONE;
-        name_stack.add_named (name_label, "name_label");
+        name_stack.add_named (name_box, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
         var delete_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
@@ -166,7 +177,10 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         });
 
         delete_button.clicked.connect (() => {
-            Planner.database.delete_label (label);
+            Planner.database.delete_label (label.id);
+            if (label.is_todoist == 1) {
+                Planner.todoist.delete_label (label);
+            }
         });
 
         color_button.toggled.connect (() => {
@@ -179,9 +193,9 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             }
         });
 
-        name_entry.changed.connect (() => {
-            save ();
-        });
+        //  name_entry.changed.connect (() => {
+            
+        //  });
 
         name_entry.activate.connect (() => {
             name_stack.visible_child_name = "name_label";
@@ -190,6 +204,7 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_entry.focus_out_event.connect (() => {
             if (entry_menu_opened == false) {
                 name_stack.visible_child_name = "name_label";
+                save ();
             }
             
             return false;
@@ -202,8 +217,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
             });
         });
 
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
+        Planner.database.label_deleted.connect ((id) => {
+            if (label.id == id) {
                 main_revealer.reveal_child = false;
 
                 Timeout.add (500, () => {
@@ -331,11 +346,14 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     }
 
     private void save () {
-        label.name = name_entry.text;
-        label.color = color_selected;
-        name_label.label = label.name;
+        if (name_entry.text.strip () != "") {
+            label.name = name_entry.text.replace (" ", "_");
+            label.color = color_selected;
+            name_label.label = label.name;
+            label.save ();
 
-        label.save ();
+            name_entry.text = name_entry.text.replace (" ", "_");
+        }
     }
 
     private void create_popover () {

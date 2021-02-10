@@ -67,8 +67,8 @@ public class Widgets.LabelPreview : Gtk.EventBox {
             }
         });
 
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
+        Planner.database.label_deleted.connect ((id) => {
+            if (label.id == id) {
                 destroy ();
             }
         });

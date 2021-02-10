@@ -92,6 +92,13 @@ public class Services.Todoist : GLib.Object {
     public signal void item_moved_completed (int64 id);
     public signal void item_moved_error (int64 id, int error_code, string error_message);
 
+    /*
+        Labels
+    */
+    public signal void label_added_started (int64 id);
+    public signal void label_added_completed (int64 id);
+    public signal void label_added_error (int64 id, int error_code, string error_message);
+
     public signal void avatar_downloaded (string id);
 
     public Gee.ArrayList<Objects.Item?> items_to_complete;
@@ -211,8 +218,9 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
         // session.send_message (message);
         try {
-            var stream = yield session.send_async (message);
             var parser = new Json.Parser ();
+
+            var stream = yield session.send_async (message);
             yield parser.load_from_stream_async (stream);
             
             //  parser.load_from_data ((string) message.response_body.flatten ().data, -1);
@@ -249,10 +257,32 @@ public class Services.Todoist : GLib.Object {
             }
             
             Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+            if (user_object.get_boolean_member ("is_premium")) {
+                Planner.settings.set_boolean ("todoist-sync-labels", true);
+            }
 
 
             // Create Default Labels
             Planner.utils.create_default_labels ();
+
+            // Create labels
+            unowned Json.Array labels = node.get_array_member ("labels");
+            foreach (unowned Json.Node item in labels.get_elements ()) {
+                var object = item.get_object ();
+
+                var label = new Objects.Label ();
+                label.id = object.get_int_member ("id");
+                label.name = object.get_string_member ("name");
+                label.color = (int32) object.get_int_member ("color");
+                label.is_favorite = (int32) object.get_int_member ("is_favorite");
+                label.is_todoist = 1;
+
+                if (Planner.database.insert_label (label)) {
+                    print ("Agregado: %s\n".printf (label.name));
+                } else {
+                    print ("Error: %s\n".printf (label.name));
+                }
+            }
 
             // Create projects
             unowned Json.Array projects = node.get_array_member ("projects");
@@ -419,17 +449,60 @@ public class Services.Todoist : GLib.Object {
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
-
+        // session.send_message (message);
         try {
-            var stream = yield session.send_async (message, new Cancellable ());
             var parser = new Json.Parser ();
+
+            var stream = yield session.send_async (message, new Cancellable ());
             yield parser.load_from_stream_async (stream);
+
+            //  parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+            //  print ("---------------------\n");
+            //  print ("%s\n".printf ((string) message.response_body.flatten ().data));
+            //  print ("---------------------\n");
 
             var node = parser.get_root ().get_object ();
             var sync_token = node.get_string_member ("sync_token");
 
             // Update sync token
             Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+            // Update user
+            if (node.has_member ("user")) {
+                var user_object = node.get_object_member ("user");
+                Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+                Planner.settings.set_string ("user-name", user_object.get_string_member ("full_name"));
+                Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+            }
+
+            // Labels
+            unowned Json.Array labels = node.get_array_member ("labels");
+            foreach (unowned Json.Node item in labels.get_elements ()) {
+                var object = item.get_object ();
+
+                if (Planner.database.label_exists (object.get_int_member ("id"))) {
+                    if (object.get_int_member ("is_deleted") == 1) {
+                        Planner.database.delete_label (object.get_int_member ("id"));
+                    } else {
+                        var label = Planner.database.get_label_by_id (object.get_int_member ("id"));
+                        label.id = object.get_int_member ("id");
+                        label.name = object.get_string_member ("name");
+                        label.color = (int32) object.get_int_member ("color");
+                        label.is_favorite = (int32) object.get_int_member ("is_favorite");
+
+                        Planner.database.update_label (label);
+                    }
+                } else {
+                    var label = new Objects.Label ();
+                    label.id = object.get_int_member ("id");
+                    label.name = object.get_string_member ("name");
+                    label.color = (int32) object.get_int_member ("color");
+                    label.is_favorite = (int32) object.get_int_member ("is_favorite");
+                    label.is_todoist = 1;
+
+                    Planner.database.insert_label (label);
+                }
+            }
 
             // Projects
             unowned Json.Array projects_array = node.get_array_member ("projects");
@@ -599,19 +672,48 @@ public class Services.Todoist : GLib.Object {
                         }
 
 
+                        // Move Project
                         if (object.get_int_member ("project_id") != i.project_id) {
                             Planner.database.move_item (i, object.get_int_member ("project_id"));
                         }
 
+                        // Set Parent
+                        int64 parent_id;
+                        if (object.get_null_member ("parent_id")) {
+                            parent_id = 0;
+                        } else {
+                            parent_id = object.get_int_member ("parent_id");
+                        }  
+
+                        // Set Section
                         int64 section_id;
                         if (object.get_null_member ("section_id")) {
                             section_id = 0;
                         } else {
                             section_id = object.get_int_member ("section_id");
+                        } 
+
+                        if (parent_id != i.parent_id) {
+                            Planner.database.move_item_parent (i, parent_id);
                         }
 
                         if (section_id != i.section_id) {
+                            i.parent_id = parent_id;
                             Planner.database.move_item_section (i, section_id);
+                        }
+
+                        var labels_map = new Gee.HashMap <string, bool> ();
+                        foreach (unowned Json.Node label_id in object.get_array_member ("labels").get_elements ()) {
+                            labels_map [label_id.get_int ().to_string ()] = true;
+                            Planner.database.add_item_label (
+                                i.id, Planner.database.get_label_by_id (label_id.get_int ())
+                            );
+                        }
+
+                        foreach (var label in Planner.database.get_labels_by_item (i.id)) {
+                            if (labels_map.has_key (label.id.to_string ()) == false) {
+                                Planner.database.delete_item_label (label.item_label_id, i.id, label);
+                            } 
                         }
                     }
                 } else {
@@ -667,6 +769,12 @@ public class Services.Todoist : GLib.Object {
                     }
 
                     Planner.database.insert_item (i);
+
+                    foreach (unowned Json.Node label_id in object.get_array_member ("labels").get_elements ()) {
+                        Planner.database.add_item_label (
+                            i.id, Planner.database.get_label_by_id (label_id.get_int ())
+                        );
+                    }
                 }
             }
 
@@ -1203,6 +1311,252 @@ public class Services.Todoist : GLib.Object {
     }
 
     /*
+    *   Labels
+    */
+
+    public async void add_all_labels () {
+        string url = TODOIST_SYNC_URL;
+        url = url + "?token=" + Planner.settings.get_string ("todoist-access-token");
+        url = url + "&sync_token=" + "*";
+        url = url + "&resource_types=" + "[\"labels\"]";
+
+        var message = new Soup.Message ("POST", url);
+        // session.send_message (message);
+        try {
+            var parser = new Json.Parser ();
+
+            var stream = yield session.send_async (message);
+            yield parser.load_from_stream_async (stream);
+
+            //  parser.load_from_data ((string) message.response_body.flatten ().data, -1);
+            //  print ("%s\n".printf ((string) message.response_body.flatten ().data));
+
+            var node = parser.get_root ().get_object ();
+            
+            unowned Json.Array labels = node.get_array_member ("labels");
+            foreach (unowned Json.Node item in labels.get_elements ()) {
+                var object = item.get_object ();
+
+                var label = new Objects.Label ();
+                label.id = object.get_int_member ("id");
+                label.name = object.get_string_member ("name");
+                label.color = (int32) object.get_int_member ("color");
+                label.is_favorite = (int32) object.get_int_member ("is_favorite");
+                label.is_todoist = 1;
+
+                if (Planner.database.insert_label (label)) {
+                    print ("Agregado: %s\n".printf (label.name));
+                } else {
+                    print ("Error: %s\n".printf (label.name));
+                }
+            }
+        } catch (Error e) {
+            show_message ("Request page fail", @"status code: $(message.status_code), $(e.message)", "dialog-error");
+        }
+    }
+
+    public async void add_label (Objects.Label label, int64 temp_id_mapping) {
+        label_added_started (temp_id_mapping);
+
+        string temp_id = Planner.utils.generate_string ();
+        string uuid = Planner.utils.generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_add_label_json (label, temp_id, uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message);
+            var parser = new Json.Parser ();
+
+            yield parser.load_from_stream_async (stream);
+
+            var node = parser.get_root ().get_object ();
+
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
+
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+
+                Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+                label.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+
+                if (Planner.database.insert_label (label)) {
+                    label_added_completed (temp_id_mapping);
+                }
+            } else {
+                label_added_error (
+                    temp_id_mapping,
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
+            }
+        } catch (Error e) {
+            if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
+                item_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    Planner.utils.get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                item_added_error (
+                    temp_id_mapping,
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                label.id = temp_id_mapping;
+
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = label.id;
+                queue.temp_id = temp_id;
+                queue.query = "label_add";
+                queue.args = label.to_json ();
+
+                if (Planner.database.insert_label (label) &&
+                    Planner.database.insert_queue (queue) &&
+                    Planner.database.insert_CurTempIds (label.id, temp_id, "label")) {
+                    label_added_completed (temp_id_mapping);
+                }
+            }
+        }
+    }
+
+    public string get_add_label_json (Objects.Label label, string temp_id, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        builder.set_member_name ("type");
+        builder.add_string_value ("label_add");
+
+        builder.set_member_name ("temp_id");
+        builder.add_string_value (temp_id);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("name");
+            builder.add_string_value (Planner.utils.get_encode_text (label.name));
+
+            builder.set_member_name ("color");
+            builder.add_int_value (label.color);
+
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public async void update_label (Objects.Label label) {
+        string uuid = Planner.utils.generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_update_label_json (label, uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message);
+            var parser = new Json.Parser ();
+
+            yield parser.load_from_stream_async (stream);
+
+            var node = parser.get_root ().get_object ();
+
+            var sync_status = node.get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
+
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                string sync_token = node.get_string_member ("sync_token");
+                Planner.settings.set_string ("todoist-sync-token", sync_token);
+            } else {
+                //  item_updated_error (
+                //      item.id,
+                //      (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                //      sync_status.get_object_member (uuid).get_string_member ("error")
+                //  );
+            }
+        } catch (Error e) {
+            if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
+                //  item_added_error (
+                //      temp_id_mapping,
+                //      (int32) message.status_code,
+                //      Planner.utils.get_todoist_error ((int32) message.status_code)
+                //  );
+            } else if ((int32) message.status_code == 0) {
+                //  item_added_error (
+                //      temp_id_mapping,
+                //      (int32) message.status_code,
+                //      e.message
+                //  );
+            } else {
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = label.id;
+                queue.query = "label_update";
+                queue.args = label.to_json ();
+                if (Planner.database.insert_queue (queue)) {
+                    
+                }
+            }
+        }
+    }
+
+    private string get_update_label_json (Objects.Label label, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("label_update");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (label.id);
+
+            builder.set_member_name ("name");
+            builder.add_string_value (Planner.utils.get_encode_text (label.name));
+
+            builder.set_member_name ("color");
+            builder.add_int_value (label.color);
+
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    /*
     *   Projects
     */
 
@@ -1501,7 +1855,7 @@ public class Services.Todoist : GLib.Object {
             return null;
         });
     }
-
+    
     public async void move_project (Objects.Project project, int64 parent_id) {
         string uuid = Planner.utils.generate_string ();
 
@@ -1604,7 +1958,7 @@ public class Services.Todoist : GLib.Object {
         Sections
     */
 
-    public async void add_section (Objects.Section section, GLib.Cancellable cancellable, int64 temp_id_mapping) {
+    public async void add_section (Objects.Section section, GLib.Cancellable cancellable, int64 temp_id_mapping, int index=-1) {
         section_added_started (temp_id_mapping);
 
         string temp_id = Planner.utils.generate_string ();
@@ -1633,7 +1987,7 @@ public class Services.Todoist : GLib.Object {
 
                 section.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
-                if (Planner.database.insert_section (section)) {
+                if (Planner.database.insert_section (section, index)) {
                     section_added_completed (temp_id_mapping);
                 }
             } else {
@@ -1666,7 +2020,7 @@ public class Services.Todoist : GLib.Object {
                 queue.query = "section_add";
                 queue.args = section.to_json ();
 
-                if (Planner.database.insert_section (section) &&
+                if (Planner.database.insert_section (section, index) &&
                     Planner.database.insert_queue (queue) &&
                     Planner.database.insert_CurTempIds (section.id, temp_id, "section")) {
                     section_added_completed (temp_id_mapping);
@@ -2189,6 +2543,8 @@ public class Services.Todoist : GLib.Object {
                 get_update_item_json (item, uuid)
             );
 
+            print ("get_update_item_json: %s\n".printf (get_update_item_json (item, uuid)));
+
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {
@@ -2390,6 +2746,16 @@ public class Services.Todoist : GLib.Object {
                 builder.add_null_value ();
             }
 
+            if (Planner.settings.get_boolean ("todoist-sync-labels")) {
+                builder.set_member_name ("labels");
+                builder.begin_array ();
+                foreach (var label in Planner.database.get_labels_by_item (item.id)) {
+                    if (label.is_todoist == 1) {
+                        builder.add_int_value (label.id);
+                    }
+                }
+                builder.end_array ();
+            }
             builder.end_object ();
         builder.end_object ();
         builder.end_array ();
@@ -3153,6 +3519,82 @@ public class Services.Todoist : GLib.Object {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public void delete_label (Objects.Label label) {
+        new Thread<void*> ("todoist_delete_label", () => {
+            string uuid = Planner.utils.generate_string ();
+
+            string url = "%s?token=%s&commands=%s".printf (
+                TODOIST_SYNC_URL,
+                Planner.settings.get_string ("todoist-access-token"),
+                get_delete_json (label.id, "label_delete", uuid)
+            );
+
+            var message = new Soup.Message ("POST", url);
+
+            session.queue_message (message, (sess, mess) => {
+                if (mess.status_code == 200) {
+                    var parser = new Json.Parser ();
+
+                    try {
+                        parser.load_from_data ((string) mess.response_body.flatten ().data, -1);
+
+                        var node = parser.get_root ().get_object ();
+
+                        var sync_status = node.get_object_member ("sync_status");
+                        var uuid_member = sync_status.get_member (uuid);
+
+                        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                            string sync_token = node.get_string_member ("sync_token");
+                            Planner.settings.set_string ("todoist-sync-token", sync_token);
+                            // project_deleted_completed (project.id);
+                        } else {
+                            //  project_deleted_error (
+                            //      project.id,
+                            //      (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                            //      sync_status.get_object_member (uuid).get_string_member ("error")
+                            //  );
+                        }
+                    } catch (Error e) {
+                        //  project_deleted_error (
+                        //      project.id,
+                        //      (int32) mess.status_code,
+                        //      e.message
+                        //  );
+                    }
+                } else {
+                    if ((int32) mess.status_code == 400 || (int32) mess.status_code == 401 ||
+                        (int32) mess.status_code == 403 || (int32) mess.status_code == 404 ||
+                        (int32) mess.status_code == 429 || (int32) mess.status_code == 500 ||
+                        (int32) mess.status_code == 503) {
+                        //  project_deleted_error (
+                        //      project.id,
+                        //      (int32) mess.status_code,
+                        //      Planner.utils.get_todoist_error ((int32) mess.status_code)
+                        //  );
+                    } else {
+                        if (Planner.database.curTempIds_exists (label.id)) {
+                            var queue = Planner.database.get_queue_by_object_id (label.id);
+                            Planner.database.remove_queue (queue.uuid);
+                            Planner.database.remove_CurTempIds (label.id);
+                        } else {
+                            var queue = new Objects.Queue ();
+                            queue.uuid = uuid;
+                            queue.object_id = label.id;
+                            queue.query = "label_delete";
+                            queue.args = label.to_json ();
+
+                            if (Planner.database.insert_queue (queue)) {
+                                // project_deleted_completed (project.id);
+                            }
+                        }
+                    }
+                }
+            });
+
+            return null;
+        });
     }
     
     private void show_message (string txt_primary, string txt_secondary, string icon) {

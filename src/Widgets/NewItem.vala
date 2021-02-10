@@ -167,7 +167,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         if (source == null) {
             var project = Planner.database.get_project_by_id (project_id);
-
+            
             project_icon = new Gtk.Image ();
             project_icon.valign = Gtk.Align.CENTER;
             project_icon.halign = Gtk.Align.CENTER;
@@ -242,7 +242,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.pack_end (project_button, false, false, 0);
         // tools_box.pack_end (label_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
-        tools_box.pack_end (note_button, false, false, 0);
+        // tools_box.pack_end (note_button, false, false, 0);
 
         note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;
@@ -258,7 +258,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         var note_revealer = new Gtk.Revealer ();
         note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         note_revealer.add (note_textview);
-        note_revealer.reveal_child = false;
+        note_revealer.reveal_child = true;
 
         var labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 

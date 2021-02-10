@@ -72,19 +72,12 @@ public class Dialogs.Project : Gtk.Dialog {
 
         get_style_context ().add_class ("project-dialog");
         get_style_context ().add_class ("app");
-        int window_x, window_y;
-        int width, height;
 
         use_header_bar = 1;
         var header_bar = (Gtk.HeaderBar) get_header_bar ();
         header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         header_bar.get_style_context ().add_class ("oauth-dialog");
         header_bar.get_style_context ().add_class ("default-decoration");
-        
-        Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
-        Planner.settings.get ("project-dialog-size", "(ii)", out width, out height);
-        
-        set_size_request (width, height);
 
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
@@ -311,7 +304,6 @@ public class Dialogs.Project : Gtk.Dialog {
 
         var content_area = get_content_area ();
         content_area.add (overlay);
-        show_all ();
 
         delete_event.connect (() => {
             if (only_window) {
@@ -345,7 +337,7 @@ public class Dialogs.Project : Gtk.Dialog {
 
             if (project.is_kanban == 1) {
                 main_stack.visible_child_name = "board";
-            }  
+            }
 
             return GLib.Source.REMOVE;
         });

@@ -1,7 +1,8 @@
 module_name = 'sidebar-labels'
 
 module_files = [
-    'sidebar-labels.vala',
+    'LabelSidebar.vala',
+    'LabelPaneRow.vala'
 ]
 
 module_deps = [

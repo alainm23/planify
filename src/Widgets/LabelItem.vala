@@ -101,6 +101,10 @@ public class Widgets.LabelItem : Gtk.EventBox {
 
         delete_button.clicked.connect (() => {
             Planner.database.delete_item_label (id, item_id, label);
+            if (label.is_todoist == 1 &&
+                Planner.settings.get_boolean ("todoist-sync-labels")) {
+                Planner.todoist.update_item (Planner.database.get_item_by_id (item_id));
+            }
         });
 
         Planner.database.item_label_deleted.connect ((i, item_id, label) => {
@@ -114,8 +118,8 @@ public class Widgets.LabelItem : Gtk.EventBox {
             }
         });
 
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
+        Planner.database.label_deleted.connect ((id) => {
+            if (label.id == id) {
                 main_revealer.reveal_child = false;
 
                 Timeout.add (500, () => {

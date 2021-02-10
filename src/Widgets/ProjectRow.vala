@@ -153,15 +153,28 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             menu_stack.add_named (due_label, "due_label");
         }
 
+        var source_icon = new Gtk.Image ();
+        source_icon.pixel_size = 14;
+        source_icon.gicon = new ThemedIcon ("planner-online-symbolic");
+        source_icon.tooltip_text = _("Todoist Project");
+        source_icon.margin_start = 6;
+
+        var source_revealer = new Gtk.Revealer ();
+        source_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        source_revealer.add (source_icon);
+
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.margin_end = 3;
         handle_box.margin_top = 2;
         handle_box.margin_bottom = 2;
-        handle_box.margin_start = 4;
+        handle_box.margin_start = 5;
+        handle_box.pack_end (menu_stack, false, false, 0);
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);
-        handle_box.pack_end (menu_stack, false, false, 0);
+        if (project.is_todoist == 1) {
+            handle_box.pack_start (source_revealer, false, false, 0);   
+        }
 
         h_grid = new Gtk.EventBox ();
         h_grid.get_style_context ().add_class ("transition");
@@ -251,6 +264,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         });
 
         h_grid.enter_notify_event.connect ((event) => {
+            source_revealer.reveal_child = true;
             if (has_subprojects) {
                 menu_stack.visible_child_name = "arrow_button";
                 return true;
@@ -267,6 +281,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             } else {
                 menu_stack.visible_child_name = "due_label";
             }
+            source_revealer.reveal_child = false;
 
             return true;
         });
@@ -459,7 +474,6 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
             drag_data_received.connect (on_drag_item_received);
             drag_motion.connect (on_drag_item_motion);
             drag_leave.connect (on_drag_item_leave);
-
         } else {
             drag_data_received.disconnect (on_drag_item_received);
             drag_motion.disconnect (on_drag_item_motion);
@@ -541,7 +555,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         Gtk.Allocation alloc;
         handle.get_allocation (out alloc);
         
-        if (get_index () == 0 && project.area_id == 0) {
+        if (get_index () == 0) {
             if (y > (alloc.height / 2)) {
                 reveal_drag_motion = true;
                 first_motion_revealer.reveal_child = false;
@@ -688,6 +702,15 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         open_menu.activate.connect (() => {
             var dialog = new Dialogs.Project (project);
             dialog.destroy.connect (Gtk.main_quit);
+
+            int window_x, window_y;
+            var rect = Gtk.Allocation ();
+            
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
         });
 
