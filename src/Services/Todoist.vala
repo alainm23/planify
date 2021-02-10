@@ -2390,7 +2390,9 @@ public class Services.Todoist : GLib.Object {
         Items
     */
 
-    public async void add_item (Objects.Item item, GLib.Cancellable cancellable, int index, int64 temp_id_mapping) {
+    public async void add_item (
+        Objects.Item item, GLib.Cancellable cancellable,
+        int index, int64 temp_id_mapping, Gee.Collection<Widgets.LabelItem> labels=null) {
         item_added_started (temp_id_mapping);
 
         string temp_id = Planner.utils.generate_string ();
@@ -2399,7 +2401,7 @@ public class Services.Todoist : GLib.Object {
         string url = "%s?token=%s&commands=%s".printf (
             TODOIST_SYNC_URL,
             Planner.settings.get_string ("todoist-access-token"),
-            get_add_item_json (item, temp_id, uuid)
+            get_add_item_json (item, labels, temp_id, uuid)
         );
 
         var message = new Soup.Message ("POST", url);
@@ -2423,6 +2425,11 @@ public class Services.Todoist : GLib.Object {
                 item.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                 if (Planner.database.insert_item (item, index)) {
+                    if (labels != null) {
+                        foreach (Widgets.LabelItem label_item in labels) {
+                            Planner.database.add_item_label (item.id, label_item.label);
+                        }
+                    }
                     item_added_completed (temp_id_mapping);
                 }
             } else {
@@ -2464,7 +2471,7 @@ public class Services.Todoist : GLib.Object {
         }
     }
 
-    public string get_add_item_json (Objects.Item item, string temp_id, string uuid) {
+    public string get_add_item_json (Objects.Item item, Gee.Collection<Widgets.LabelItem> labels=null, string temp_id, string uuid) {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();
@@ -2519,8 +2526,17 @@ public class Services.Todoist : GLib.Object {
                 builder.end_object ();
             }
 
+            if (labels != null) {
+                builder.set_member_name ("labels");
+                builder.begin_array ();
+                foreach (Widgets.LabelItem label_item in labels) {
+                    if (label_item.label.is_todoist == 1) {
+                        builder.add_int_value (label_item.label.id);
+                    }
+                }
+                builder.end_array ();
+            }
             builder.end_object ();
-
         builder.end_object ();
         builder.end_array ();
 

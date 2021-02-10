@@ -32,7 +32,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
     public signal void closed ();
     public signal void show_popover ();
-    public signal void label_selected (Objects.Label label);
+    public signal void label_selected (Objects.Label label, bool active);
 
     public LabelButton (int64 item_id) {
         Object (
@@ -69,14 +69,18 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         add (main_grid);
 
-        this.toggled.connect (() => {
-            if (this.active) {
+        toggled.connect (() => {
+            if (active) {
                 if (popover == null) {
                     create_popover ();
 
                     Planner.database.label_added.connect ((label) => {
                         if (popover != null) {
                             var row = new Widgets.LabelPopoverRow (item_id, label);
+                            row.label_checked.connect ((label, active) => {
+                                label_selected (label, active);
+                            });
+
                             listbox.add (row);
                         }
                     });
@@ -91,6 +95,9 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
                 if (labels.size > 0) {
                     foreach (Objects.Label l in labels) {
                         var row = new Widgets.LabelPopoverRow (item_id, l);
+                        row.label_checked.connect ((label, active) => {
+                            label_selected (label, active);
+                        });
                         listbox.add (row);
                     }
 
@@ -211,7 +218,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
                 var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
                 if (item_id == 0) {
-                    label_selected (label);
+                    label_selected (label, true);
                     popover.popdown ();
                     closed ();
                 } else {
@@ -271,7 +278,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
             if (listbox.get_selected_row () != null) {
                 var label = ((Widgets.LabelPopoverRow) listbox.get_selected_row ()).label;
                 if (item_id == 0) {
-                    label_selected (label);
+                    label_selected (label, true);
                     popover.popdown ();
                     closed ();
                 } else {
@@ -308,7 +315,7 @@ public class Widgets.LabelButton : Gtk.ToggleButton {
 
         if (Planner.database.insert_label (label)) {
             if (item_id == 0) {
-                label_selected (label);
+                label_selected (label, true);
                 popover.popdown ();
                 closed ();
             } else {
@@ -363,6 +370,8 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
     public int64 item_id { get; construct; }
     private Gtk.CheckButton checked_button;
+    
+    public signal void label_checked (Objects.Label label, bool active);
 
     public LabelPopoverRow (int64 item_id, Objects.Label label) {
         Object (
@@ -399,7 +408,12 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("check-border");
         checked_button.halign = Gtk.Align.END;
         checked_button.hexpand = true;
-        checked_button.active = Planner.database.exists_item_label (item_id, label.id) == false;
+
+        if (item_id == 0) {
+
+        } else {
+            checked_button.active = Planner.database.exists_item_label (item_id, label.id) == false;
+        }
     
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.hexpand = true;
@@ -446,11 +460,15 @@ public class Widgets.LabelPopoverRow : Gtk.ListBoxRow {
     }
 
     private void toggled (bool active) {
-        if (active) {
-            Planner.database.add_item_label (item_id, label);
+        if (item_id == 0) {
+            label_checked (label, active);
         } else {
-            var id = Planner.database.get_item_label (item_id, label.id);
-            Planner.database.delete_item_label (id, item_id, label);
+            if (active) {
+                Planner.database.add_item_label (item_id, label);
+            } else {
+                var id = Planner.database.get_item_label (item_id, label.id);
+                Planner.database.delete_item_label (id, item_id, label);
+            }
         }
     }
 }

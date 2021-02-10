@@ -61,6 +61,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     private const string DATE_1D = _("1d");
     private const string DATE_1W = _("1w");
     private const string DATE_1M = _("1m");
+    public Gee.HashMap <string, Widgets.LabelItem> labels_map;
 
     private uint timeout_id = 0;
     private uint focus_timeout = 0;
@@ -108,6 +109,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
     }
 
     private void build_ui () {
+        labels_map = new Gee.HashMap <string, Widgets.LabelItem> ();
+
         can_focus = false;
         activatable = false;
         selectable = false;
@@ -214,7 +217,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         priority_image.gicon = new ThemedIcon ("edit-flag-symbolic");
 
         priority_button = new Gtk.ToggleButton ();
-        priority_button.margin_end = 6;
         priority_button.get_style_context ().add_class ("flat");
         priority_button.add (priority_image);
 
@@ -240,8 +242,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.hexpand = true;
         tools_box.pack_start (reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
-        // tools_box.pack_end (label_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
+        tools_box.pack_end (label_button, false, false, 0);
         // tools_box.pack_end (note_button, false, false, 0);
 
         note_textview = new Widgets.TextView ();
@@ -261,6 +263,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         note_revealer.reveal_child = true;
 
         var labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        labels_edit_box.margin_start = 27;
+        labels_edit_box.margin_bottom = 12;
 
         var labels_edit_revealer = new Gtk.Revealer ();
         labels_edit_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -522,11 +526,20 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             entry_menu_opened = true;
         });
 
-        label_button.label_selected.connect ((label) => {
-            var g = new Widgets.LabelItem (12312312312, 123123123123, label);
-            labels_edit_revealer.reveal_child = true;
-            labels_edit_box.add (g);
-            labels_edit_box.show_all ();
+        label_button.label_selected.connect ((label, active) => {
+            if (active) {
+                var g = new Widgets.LabelItem (0, 0, label);
+                labels_edit_revealer.reveal_child = true;
+                labels_edit_box.add (g);
+                labels_edit_box.show_all ();
+
+                labels_map.set (label.id.to_string (), g);
+            } else {
+                if (labels_map.has_key (label.id.to_string ())) {
+                    labels_map.get (label.id.to_string ()).hide_destroy ();
+                    labels_map.unset (label.id.to_string ());
+                }
+            }
         });
 
         notify["priority"].connect (() => {
@@ -899,10 +912,19 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 
                 if (is_todoist == 1) {
                     cancellable = new Cancellable ();
-                    Planner.todoist.add_item.begin (item, cancellable, index, temp_id_mapping);
+                    Planner.todoist.add_item.begin (
+                        item,
+                        cancellable,
+                        index,
+                        temp_id_mapping,
+                        labels_map.values);
                 } else {
                     item.id = Planner.utils.generate_id ();
                     if (Planner.database.insert_item (item, index)) {
+                        foreach (Widgets.LabelItem label_item in labels_map.values) {
+                            Planner.database.add_item_label (item.id, label_item.label);
+                        }
+
                         var i = index;
                         if (i != -1) {
                             i++;

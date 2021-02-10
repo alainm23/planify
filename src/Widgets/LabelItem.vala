@@ -24,6 +24,8 @@ public class Widgets.LabelItem : Gtk.EventBox {
     public int64 item_id { get; construct; }
     public Objects.Label label { get; construct; }
 
+    private Gtk.Revealer main_revealer;
+
     public LabelItem (int64 id, int64 item_id, Objects.Label label) {
         Object (
             id: id,
@@ -67,7 +69,7 @@ public class Widgets.LabelItem : Gtk.EventBox {
         box.add (delete_revealer);
         box.add (name_label);
 
-        var main_revealer = new Gtk.Revealer ();
+        main_revealer = new Gtk.Revealer ();
         main_revealer.reveal_child = true;
         main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
         main_revealer.add (box);
@@ -100,33 +102,35 @@ public class Widgets.LabelItem : Gtk.EventBox {
         });
 
         delete_button.clicked.connect (() => {
-            Planner.database.delete_item_label (id, item_id, label);
-            if (label.is_todoist == 1 &&
-                Planner.settings.get_boolean ("todoist-sync-labels")) {
-                Planner.todoist.update_item (Planner.database.get_item_by_id (item_id));
+            if (id == 0 && item_id == 0) {
+                hide_destroy ();
+            } else {
+                Planner.database.delete_item_label (id, item_id, label);
+                if (label.is_todoist == 1 &&
+                    Planner.settings.get_boolean ("todoist-sync-labels")) {
+                    Planner.todoist.update_item (Planner.database.get_item_by_id (item_id));
+                }
             }
         });
 
         Planner.database.item_label_deleted.connect ((i, item_id, label) => {
             if (id == i) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return GLib.Source.REMOVE;
-                });
+                hide_destroy ();
             }
         });
 
         Planner.database.label_deleted.connect ((id) => {
             if (label.id == id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return GLib.Source.REMOVE;
-                });
+                hide_destroy ();
             }
+        });
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
         });
     }
 }
