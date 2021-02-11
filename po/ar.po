@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2020-07-17 01:47+0000\n"
-"Last-Translator: Osaid makhalfih <osaid.m1@gmail.com>\n"
+"PO-Revision-Date: 2021-01-27 12:32+0000\n"
+"Last-Translator: phwright <bolaris@protonmail.com>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/planner/"
 "translations/ar/>\n"
 "Language: ar\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "هل أنت متأكد من أنك تريد إعادة ضبط جميع الاعدادات؟"
 
 #: src/Application.vala:153
 msgid ""
@@ -49,7 +49,7 @@ msgstr ""
 
 #: src/Utils.vala:122 src/Utils.vala:129 src/Widgets/LabelRow.vala:82
 msgid "Home"
-msgstr ""
+msgstr "الرئيسة"
 
 #: src/Utils.vala:123 src/Utils.vala:133
 msgid "Office"
@@ -69,11 +69,11 @@ msgstr "عالق"
 
 #: src/Utils.vala:189
 msgid "Berry Red"
-msgstr "التوت الأحمر"
+msgstr "أحمر فاتح"
 
 #: src/Utils.vala:190
 msgid "Red"
-msgstr "احمر"
+msgstr "أحمر"
 
 #: src/Utils.vala:191
 msgid "Orange"
@@ -93,11 +93,11 @@ msgstr "اخضر ليموني"
 
 #: src/Utils.vala:195
 msgid "Green"
-msgstr "اخضر"
+msgstr "أخضر"
 
 #: src/Utils.vala:196
 msgid "Mint Green"
-msgstr "اخضر نعناعي"
+msgstr "أخضر نعناعي"
 
 #: src/Utils.vala:197
 msgid "Teal"
@@ -117,7 +117,7 @@ msgstr "أزرق"
 
 #: src/Utils.vala:201
 msgid "Grape"
-msgstr "عنب"
+msgstr "عنابي"
 
 #: src/Utils.vala:202
 msgid "Violet"
@@ -133,7 +133,7 @@ msgstr "أرجواني"
 
 #: src/Utils.vala:205
 msgid "Salmon"
-msgstr "سلمون"
+msgstr "سالموني"
 
 #: src/Utils.vala:206
 msgid "Charcoal"
@@ -155,7 +155,7 @@ msgstr ""
 #: src/Dialogs/QuickFind.vala:63 src/Dialogs/Preferences/Preferences.vala:294
 #: src/Dialogs/Preferences/Preferences.vala:512
 msgid "Today"
-msgstr ""
+msgstr "اليوم"
 
 #: src/Utils.vala:589 src/Widgets/Pane.vala:353 src/Widgets/NewItem.vala:734
 #: src/Widgets/ItemRow.vala:1528 src/Widgets/DueButton.vala:232
@@ -163,11 +163,11 @@ msgstr ""
 #: src/Views/Today.vala:941 src/Views/Filter.vala:119
 #: src/Dialogs/QuickFind.vala:125
 msgid "Tomorrow"
-msgstr ""
+msgstr "غداً"
 
 #: src/Utils.vala:881
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "تم تفعيل الإضافة السريعة!"
 
 #: src/Utils.vala:882
 #, c-format
@@ -213,7 +213,7 @@ msgstr ""
 
 #: src/Utils.vala:980
 msgid "Adding new tasks"
-msgstr ""
+msgstr "إضافة مهمات جديدة"
 
 #: src/Utils.vala:981
 msgid "To add a new task to Planner, just click + and press Enter."
@@ -225,7 +225,7 @@ msgstr ""
 
 #: src/Utils.vala:1037
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr ""
+msgstr "أنشئ مهمة جديدة في أعلى القائمة (تعمل فقط داخل المشاريع)"
 
 #: src/Utils.vala:1038
 msgid "Create a new area"
@@ -245,15 +245,15 @@ msgstr ""
 
 #: src/Utils.vala:1042 src/Dialogs/ShortcutsDialog.vala:158
 msgid "Open Today"
-msgstr ""
+msgstr "إفتح \"اليوم\""
 
 #: src/Utils.vala:1043 src/Dialogs/ShortcutsDialog.vala:160
 msgid "Open Upcoming"
-msgstr ""
+msgstr "إفتح \"المقبلة\""
 
 #: src/Utils.vala:1044
 msgid "Open Search"
-msgstr ""
+msgstr "افتح البحث"
 
 #: src/Utils.vala:1045
 msgid "Manually sync"
@@ -274,7 +274,7 @@ msgstr ""
 
 #: src/Utils.vala:1056
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "الطلب كان صالحاً، ولكن لشيء ممنوع."
 
 #: src/Utils.vala:1057
 msgid "The requested resource could not be found."
@@ -282,15 +282,15 @@ msgstr ""
 
 #: src/Utils.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "أرسل المستخدم عددًا كبيرًا من الطلبات في فترة زمنية معينة."
 
 #: src/Utils.vala:1059
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "فشل الطلب بسبب خطأ في الخادم."
 
 #: src/Utils.vala:1060
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "الخادم غير قادر على معالجة الطلب حالياً."
 
 #: src/Services/Database.vala:968 src/Widgets/ActionRow.vala:177
 #: src/Widgets/ActionRow.vala:179 src/Widgets/ItemRow.vala:1418

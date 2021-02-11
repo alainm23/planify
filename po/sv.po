@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2020-12-26 10:50+0000\n"
+"PO-Revision-Date: 2021-01-20 20:32+0000\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/"
 "translations/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -865,7 +865,6 @@ msgid "Label"
 msgstr "Etikett"
 
 #: src/Widgets/BoardColumn.vala:120
-#, fuzzy
 msgid "Board Menu"
 msgstr "Uppgiftsmeny"
 
@@ -1551,11 +1550,12 @@ msgid "Start of the week"
 msgstr "Första dagen i veckan"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."
-msgstr "Det tar bort all lagrad information utan möjlighet att ångra det."
+msgstr ""
+"Den här åtgärden tar bort all lagrad information utan möjlighet att ångra "
+"det."
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
 msgid ""

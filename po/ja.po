@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-01 05:29+0000\n"
+"PO-Revision-Date: 2021-01-27 12:32+0000\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <https://hosted.weblate.org/projects/planner/"
 "translations/ja/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -834,7 +834,7 @@ msgstr "優先順位"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "完了済み"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
@@ -862,9 +862,8 @@ msgid "Label"
 msgstr "ラベル"
 
 #: src/Widgets/BoardColumn.vala:120
-#, fuzzy
 msgid "Board Menu"
-msgstr "フォルダーメニュー"
+msgstr "ボードメニュー"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
@@ -1079,9 +1078,8 @@ msgid "Progress: %s"
 msgstr "進捗: %s"
 
 #: src/Views/Project.vala:718 src/Dialogs/Project.vala:760
-#, fuzzy
 msgid "Your Productivity"
-msgstr "効率"
+msgstr "生産性"
 
 #: src/Views/Project.vala:723 src/Dialogs/Project.vala:765
 msgid "Progress:"
@@ -1291,9 +1289,8 @@ msgid "Open Keyboard Shortcuts"
 msgstr "キーボードショートカットを開く"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
-#, fuzzy
 msgid "Navigate"
-msgstr "キーを、選択するには"
+msgstr "ナビゲーション"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
 msgid "Open Inbox"
@@ -1555,7 +1552,6 @@ msgid "Start of the week"
 msgstr "週の始まりの曜日"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."

@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2020-12-26 10:50+0000\n"
+"PO-Revision-Date: 2021-01-27 12:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -866,9 +866,8 @@ msgid "Label"
 msgstr "Мітка"
 
 #: src/Widgets/BoardColumn.vala:120
-#, fuzzy
 msgid "Board Menu"
-msgstr "Меню теки"
+msgstr "Меню дошки"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
@@ -1455,7 +1454,7 @@ msgstr "Розташування кнопок"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr "Використовувати системне оформлення вікон (потребен перезапуск)"
+msgstr "Використовувати системне обрамлення вікон (потрібен перезапуск)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1555,11 +1554,10 @@ msgid "Start of the week"
 msgstr "Початок тижня"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."
-msgstr "Всі збережені дані буде вилучено без можливості відновлення."
+msgstr "Цей процес вилучає всі розміщені дані без можливості скасувати це."
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
 msgid ""
