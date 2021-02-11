@@ -195,7 +195,7 @@ public class Views.Project : Gtk.EventBox {
 
         note_stack = new Gtk.Stack ();
         note_stack.hexpand = true;
-        note_stack.margin_top = 24;
+        note_stack.margin_top = 12;
         note_stack.margin_start = 42;
         note_stack.margin_end = 43;
         note_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;

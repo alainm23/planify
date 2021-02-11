@@ -89,12 +89,12 @@ public class Views.Completed : Gtk.EventBox {
         add (main_box);
         show_all ();
 
-        listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
+        //  listbox.row_activated.connect ((r) => {
+        //      var row = ((Widgets.ItemRow) r);
 
-            row.reveal_child = true;
-            Planner.event_bus.unselect_all ();
-        });
+        //      row.reveal_child = true;
+        //      Planner.event_bus.unselect_all ();
+        //  });
     }
 
     public void add_all_items () {
