@@ -80,7 +80,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
 
         var stack_scrolled = new Gtk.ScrolledWindow (null, null);
         stack_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
-        stack_scrolled.width_request = 246;
+        stack_scrolled.vscrollbar_policy = Gtk.PolicyType.NEVER;
         stack_scrolled.expand = true;
         stack_scrolled.add (stack);
 
@@ -88,8 +88,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         content_area.border_width = 0;
         content_area.add (stack_scrolled);
 
-        // add_button (_("Close"), Gtk.ResponseType.CLOSE);
-        
         Planner.utils.init_labels_color ();
 
         response.connect ((response_id) => {

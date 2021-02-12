@@ -81,12 +81,13 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_top = 3;
         top_box.margin_bottom = 3;
+        top_box.margin_start = 6;
         // top_box.pack_start (arrow_button, false, false, 0);
         top_box.pack_start (name_label, false, true, 0);
         top_box.pack_end (menu_stack, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 12;
+        top_eventbox.margin_start = 3;
         top_eventbox.margin_end = 3;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
@@ -179,7 +180,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
     private void toggle_hidden () {
         top_eventbox.get_style_context ().add_class ("active");
-        Timeout.add (750, () => {
+        Timeout.add (listbox_revealer.transition_duration, () => {
             top_eventbox.get_style_context ().remove_class ("active");
             return GLib.Source.REMOVE;
         });

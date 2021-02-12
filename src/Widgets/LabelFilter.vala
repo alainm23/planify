@@ -178,6 +178,7 @@ public class Widgets.LabelFilterRow : Gtk.ListBoxRow {
         grid.show_all ();
 
         var button = new Gtk.ModelButton ();
+        button.get_style_context ().add_class ("menu-button");
         button.get_child ().destroy ();
         button.add (grid);
 

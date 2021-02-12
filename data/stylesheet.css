@@ -781,10 +781,11 @@ paned.horizontal > separator {
     background-color: @projectview_color;
     padding-left: 0px;
     border-bottom: none;
+    box-shadow: none;
 }
 
 .menu-button {
-    padding: 3px;
+    padding: 3px 6px 3px 6px;
 }
 
 .project-name-entry {
