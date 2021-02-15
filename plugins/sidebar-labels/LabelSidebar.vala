@@ -81,12 +81,13 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_top = 3;
         top_box.margin_bottom = 3;
-        top_box.pack_start (arrow_button, false, false, 0);
+        top_box.margin_start = 6;
+        // top_box.pack_start (arrow_button, false, false, 0);
         top_box.pack_start (name_label, false, true, 0);
         top_box.pack_end (menu_stack, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
-        top_eventbox.margin_start = 4;
+        top_eventbox.margin_start = 3;
         top_eventbox.margin_end = 3;
         top_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         top_eventbox.add (top_box);
@@ -96,7 +97,6 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
         listbox.margin_bottom = 6;
-        listbox.margin_start = 20;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
@@ -134,7 +134,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
         
         Planner.database.label_added.connect_after ((label) => {
             Idle.add (() => {
-                var row = new Widgets.LabelPaneRow (label);
+                var row = new Plugins.LabelPaneRow (label);
                 listbox.insert (row, 0);
                 listbox.show_all ();
                 return false;
@@ -180,7 +180,7 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
     private void toggle_hidden () {
         top_eventbox.get_style_context ().add_class ("active");
-        Timeout.add (750, () => {
+        Timeout.add (listbox_revealer.transition_duration, () => {
             top_eventbox.get_style_context ().remove_class ("active");
             return GLib.Source.REMOVE;
         });
@@ -205,138 +205,10 @@ public class Plugins.LabelSidebar : Peas.ExtensionBase, Peas.Activatable {
 
     private void get_all_labels () {
         foreach (var label in Planner.database.get_all_labels ()) {
-            var row = new Widgets.LabelPaneRow (label);
+            var row = new Plugins.LabelPaneRow (label);
             listbox.add (row);
         }
         listbox.show_all ();
-    }
-}
-
-public class Widgets.LabelPaneRow : Gtk.ListBoxRow {
-    public Objects.Label label { get; construct; }
-    private Gtk.Label count_label;
-    private Gtk.Revealer count_revealer;
-
-    public LabelPaneRow (Objects.Label label) {
-        Object (
-            label: label
-        );
-    }
-
-    construct {
-        margin_start = 6;
-        margin_top = 2;
-        margin_end = 3;
-        get_style_context ().add_class ("label-row");
-        get_style_context ().add_class ("transparent");
-
-        var color_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
-        color_image.valign = Gtk.Align.CENTER;
-        color_image.halign = Gtk.Align.CENTER;
-        color_image.can_focus = false;
-        color_image.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
-
-        var name_label = new Gtk.Label (label.name);
-        name_label.halign = Gtk.Align.START;
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.margin_start = 1;
-        name_label.set_ellipsize (Pango.EllipsizeMode.END);
-
-        count_label = new Gtk.Label (null);
-        count_label.label = "<small>%i</small>".printf (8);
-        count_label.valign = Gtk.Align.CENTER;
-        count_label.opacity = 0.7;
-        count_label.use_markup = true;
-        count_label.width_chars = 3;
-
-        count_revealer = new Gtk.Revealer ();
-        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        count_revealer.add (count_label);
-
-        var main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        main_box.margin = 6;
-        main_box.margin_end = 3;
-        main_box.margin_bottom = 5;
-        main_box.margin_top = 5;
-        main_box.hexpand = true;
-        main_box.pack_start (color_image, false, false, 0);
-        main_box.pack_start (name_label, false, true, 0);
-        main_box.pack_end (count_revealer, false, true, 0);
-
-        var handle = new Gtk.EventBox ();
-        handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
-        handle.hexpand = true;
-        handle.above_child = false;
-        handle.add (main_box);
-
-        var main_revealer = new Gtk.Revealer ();
-        main_revealer.reveal_child = true;
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (handle);
-
-        add (main_revealer);
-        update_count ();
-
-        handle.button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Planner.event_bus.pane_selected (PaneType.LABEL, label.id.to_string ());
-                return false;
-            }
-
-            return false;
-        });
-
-        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.LABEL && label.id.to_string () == id) {
-                handle.get_style_context ().add_class ("project-selected");
-            } else {
-                handle.get_style_context ().remove_class ("project-selected");
-            }
-        });
-
-        Planner.database.label_updated.connect ((l) => {
-            Idle.add (() => {
-                if (label.id == l.id) {
-                    name_label.label = l.name;
-                }
-
-                return false;
-            });
-        });
-
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
-                main_revealer.reveal_child = false;
-
-                Timeout.add (500, () => {
-                    destroy ();
-                    return false;
-                });
-            }
-        });
-
-        Planner.database.item_label_added.connect ((id, item_id, l) => {
-            if (label.id == l.id) {
-                update_count ();
-            }
-        });
-
-        Planner.database.item_label_deleted.connect ((id, item_id, l) => {
-            if (label.id == l.id) {
-                update_count ();
-            }
-        });
-    }
-
-    private void update_count () {
-        var count = Planner.database.get_items_by_label (label.id).size;
-        count_label.label = "<small>%i</small>".printf (count);
-
-        if (count <= 0) {
-            count_revealer.reveal_child = false;
-        } else {
-            count_revealer.reveal_child = true;
-        }
     }
 }
 

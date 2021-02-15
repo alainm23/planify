@@ -35,7 +35,7 @@ public class Services.Database : GLib.Object {
 
     public signal void subtract_task_counter (int64 id);
 
-    public signal void section_added (Objects.Section section);
+    public signal void section_added (Objects.Section section, int index);
     public signal void section_deleted (Objects.Section section);
     public signal void section_updated (Objects.Section section);
     public signal void section_moved (Objects.Section section, int64 project_id, int64 old_project_id);
@@ -56,10 +56,12 @@ public class Services.Database : GLib.Object {
     public signal void delete_undo_item (Objects.Item item);
     public signal void item_moved (Objects.Item item, int64 project_id, int64 old_project_id, int index);
     public signal void item_section_moved (Objects.Item item, int64 section_id, int64 old_section_id);
+    public signal void item_parent_moved (Objects.Item item, int64 parent_id, int64 old_parent_id);
+    public signal void item_section_parent_moved (Objects.Item item, int64 section_id, int64 old_section_id, int64 parent_id, int64 old_parent_id);
     public signal void item_id_updated (int64 current_id, int64 new_id);
 
     public signal void label_added (Objects.Label label);
-    public signal void label_deleted (Objects.Label label);
+    public signal void label_deleted (int64 id);
     public signal void label_updated (Objects.Label label);
 
     public signal void reminder_added (Objects.Reminder reminder);
@@ -1976,6 +1978,28 @@ public class Services.Database : GLib.Object {
         Labels
     */
 
+    public bool label_name_exists (string name) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT count(*) FROM Labels WHERE name = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_text (1, name);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW && stmt.column_int (0) <= 0) {
+            return false;
+        }
+
+        return true;
+    }
+
     public bool insert_label (Objects.Label label) {
         Sqlite.Statement stmt;
         string sql;
@@ -1995,8 +2019,8 @@ public class Services.Database : GLib.Object {
             stmt.reset ();
 
             sql = """
-                INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite)
-                VALUES (?, ?, ?, ?, ?, ?);
+                INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite, is_todoist)
+                VALUES (?, ?, ?, ?, ?, ?, ?);
             """;
 
             res = db.prepare_v2 (sql, -1, out stmt);
@@ -2018,6 +2042,9 @@ public class Services.Database : GLib.Object {
             assert (res == Sqlite.OK);
 
             res = stmt.bind_int (6, label.is_favorite);
+            assert (res == Sqlite.OK);
+
+            res = stmt.bind_int (7, label.is_todoist);
             assert (res == Sqlite.OK);
 
             if (stmt.step () == Sqlite.DONE) {
@@ -2135,7 +2162,7 @@ public class Services.Database : GLib.Object {
         return l;
     }
 
-    public bool delete_label (Objects.Label label) {
+    public bool delete_label (int64 id) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -2147,11 +2174,11 @@ public class Services.Database : GLib.Object {
         res = db.prepare_v2 (sql, -1, out stmt);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (1, label.id);
+        res = stmt.bind_int64 (1, id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
-            label_deleted (label);
+            label_deleted (id);
             stmt.reset ();
             return true;
         } else {
@@ -2203,6 +2230,14 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void delete_label_todoist () {
+        foreach (var label in get_all_labels ()) {
+            if (label.is_todoist == 1) {
+                delete_label (label.id);
+            }
+        }
+    }
+    
     /*
         Sections
     */
@@ -2225,7 +2260,25 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public bool insert_section (Objects.Section section) {
+    public bool label_exists (int64 id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT (*) FROM Labels WHERE id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        stmt.reset ();
+        return returned;
+    }
+
+    public bool insert_section (Objects.Section section, int index=-1) {
         Sqlite.Statement stmt;
         string sql;
         int res;
@@ -2282,7 +2335,7 @@ public class Services.Database : GLib.Object {
             stmt.reset ();
             return false;
         } else {
-            section_added (section);
+            section_added (section, index);
             stmt.reset ();
             return true;
         }
@@ -3817,8 +3870,9 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            SELECT Items_Labels.id, Items_Labels.label_id, Labels.name, Labels.color FROM Items_Labels
-            INNER JOIN Labels ON Items_Labels.label_id = Labels.id
+            SELECT Items_Labels.id, Items_Labels.label_id, Labels.name, Labels.color, Labels.is_todoist
+                FROM Items_Labels
+                INNER JOIN Labels ON Items_Labels.label_id = Labels.id
             WHERE item_id = ?;
         """;
 
@@ -3837,6 +3891,7 @@ public class Services.Database : GLib.Object {
             l.id = stmt.column_int64 (1);
             l.name = stmt.column_text (2);
             l.color = stmt.column_int (3);
+            l.is_todoist = stmt.column_int (4);
 
             all.add (l);
         }
@@ -3907,6 +3962,48 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public bool exists_item_label (int64 item_id, int64 label_id) {
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT COUNT(*) FROM Items_Labels WHERE item_id = ? AND label_id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, label_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) <= 0;
+        }
+        
+        stmt.reset ();
+        return returned;
+    }
+
+    public int64 get_item_label (int64 item_id, int64 label_id) {
+        int64 returned = 0;
+        Sqlite.Statement stmt;
+
+        int res = db.prepare_v2 ("SELECT id FROM Items_Labels WHERE item_id = ? AND label_id = ?", -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, item_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, label_id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int64 (0);
+        }
+        
+        stmt.reset ();
+        return returned;
+    }
+
     public void move_item_section (Objects.Item item, int64 section_id) {
         Sqlite.Statement stmt;
         string sql;
@@ -3930,6 +4027,66 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
             item_section_moved (item, section_id, old_section_id);
+        }
+
+        stmt.reset ();
+    }
+
+    public void move_item_section_parent (Objects.Item item, int64 section_id, int64 parent_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int64 old_section_id = item.section_id;
+        int64 old_parent_id = item.parent_id;
+
+        sql = """
+            UPDATE Items SET section_id = ?, parent_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, section_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            item_section_parent_moved (item, section_id, old_section_id, parent_id, old_parent_id);
+        }
+
+        stmt.reset ();
+    }
+
+    public void move_item_parent (Objects.Item item, int64 parent_id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+        int64 old_parent_id = item.parent_id;
+
+        sql = """
+            UPDATE Items SET parent_id = ? WHERE id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (2, item.id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            item_parent_moved (item, parent_id, old_parent_id);
         }
 
         stmt.reset ();

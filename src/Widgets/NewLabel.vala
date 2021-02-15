@@ -30,6 +30,7 @@ public class Widgets.NewLabel : Gtk.EventBox {
     public signal void insert_row (Widgets.LabelRow row, int position);
 
     private int color_selected = 30;
+    private int64 temp_id_mapping { get; set; default = 0; }
     private const Gtk.TargetEntry[] TARGET_ENTRIES_LABEL = {
         {"LABELROW", Gtk.TargetFlags.SAME_APP, 0}
     };
@@ -40,19 +41,29 @@ public class Widgets.NewLabel : Gtk.EventBox {
         add_image.pixel_size = 16;
 
         var add_label = new Gtk.Label (_("Add Label"));
-        add_label.margin_start = 3;
         add_label.get_style_context ().add_class ("font-weight-600");
 
-        var add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var label_exists = new Gtk.Label (_("Label already exists."));
+        label_exists.get_style_context ().add_class ("label-danger");
+
+        var exists_revealer = new Gtk.Revealer ();
+        exists_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        exists_revealer.add (label_exists);
+
+        var add_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         add_box.margin_start = 14;
         add_box.margin_top = 7;
         add_box.margin_bottom = 7;
         add_box.pack_start (add_image, false, false, 0);
         add_box.pack_start (add_label, false, false, 0);
 
-        var add_eventbox = new Gtk.EventBox ();
-        add_eventbox.hexpand = true;
-        add_eventbox.add (add_box);
+        var add_button = new Gtk.Button ();
+        add_button.get_style_context ().add_class ("flat");
+        add_button.get_style_context ().add_class ("font-bold");
+        add_button.get_style_context ().add_class ("add-button");
+        add_button.get_style_context ().add_class ("no-padding");
+        add_button.get_style_context ().add_class ("transparent");
+        add_button.add (add_box);
 
         // Entry
         color_button = new Gtk.ToggleButton ();
@@ -79,19 +90,28 @@ public class Widgets.NewLabel : Gtk.EventBox {
         cancel_button.get_style_context ().add_class ("font-weight-600");
         cancel_button.get_style_context ().add_class ("no-padding");
 
+        var submit_spinner = new Gtk.Spinner ();
+        submit_spinner.margin_end = 6;
+        submit_spinner.start ();
+
+        var spinner_revealer = new Gtk.Revealer ();
+        spinner_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT;
+        spinner_revealer.add (submit_spinner);
+
         var entry_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         entry_box.margin_end = 3;
         entry_box.margin_start = 6;
         entry_box.pack_start (color_button, false, false, 0);
         entry_box.pack_start (name_entry, false, true, 0);
-        entry_box.pack_end (cancel_button, false, true, 0);
+        entry_box.pack_end (spinner_revealer, false, false, 0);
+        entry_box.pack_end (exists_revealer, false, false, 0);
 
         var stack = new Gtk.Stack ();
         stack.get_style_context ().add_class ("view");
         stack.hexpand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        stack.add_named (add_eventbox, "label");
+        stack.add_named (add_button, "label");
         stack.add_named (entry_box, "entry");
 
         var motion_grid = new Gtk.Grid ();
@@ -117,26 +137,34 @@ public class Widgets.NewLabel : Gtk.EventBox {
         apply_styles (Planner.utils.get_color (color_selected));
         build_drag_and_drop ();
 
-        add_eventbox.button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
-                name_entry.grab_focus ();
-                stack.visible_child_name = "entry";
-                return true;
+        add_button.clicked.connect (() => {
+            name_entry.grab_focus ();
+            stack.visible_child_name = "entry";
+        });
+        
+        name_entry.activate.connect (() => {
+            if (name_entry.text.strip () != "" &&
+                Planner.database.label_name_exists (name_entry.text.strip ()) == false) {
+                var label = new Objects.Label ();
+                label.name = name_entry.text.replace (" ", "_");
+                label.color = color_selected;
+                if (Planner.settings.get_boolean ("todoist-sync-labels")) {
+                    label.is_todoist = 1;
+                    temp_id_mapping = Planner.utils.generate_id ();
+                    Planner.todoist.add_label (label, temp_id_mapping);
+                } else {
+                    if (Planner.database.insert_label (label)) {
+                        name_entry.text = "";
+                        stack.visible_child_name = "label";
+                    }
+                }
+            } else {
+                exists_revealer.reveal_child = true;
             }
-
-            return false;
         });
 
-        name_entry.activate.connect (() => {
-            if (name_entry.text != "") {
-                var label = new Objects.Label ();
-                label.name = name_entry.text;
-                label.color = color_selected;
-                Planner.database.insert_label (label);
-
-                name_entry.text = "";
-                stack.visible_child_name = "label";
-            }
+        name_entry.changed.connect (() => {
+            exists_revealer.reveal_child = false;
         });
 
         name_entry.key_release_event.connect ((key) => {
@@ -169,6 +197,33 @@ public class Widgets.NewLabel : Gtk.EventBox {
                 }
 
                 popover.show_all ();
+            }
+        });
+
+        Planner.todoist.label_added_started.connect ((id) => {
+            if (temp_id_mapping == id) {
+                spinner_revealer.reveal_child = true;
+                name_entry.sensitive = false;
+            }
+        });
+
+        Planner.todoist.label_added_completed.connect ((id) => {
+            if (temp_id_mapping == id) {
+                spinner_revealer.reveal_child = false;
+                stack.visible_child_name = "label";
+                name_entry.text = "";
+                name_entry.sensitive = true;
+                temp_id_mapping = 0;
+            }
+        });
+
+        Planner.todoist.item_added_error.connect ((id, error_code, error_message) => {
+            if (temp_id_mapping == id) {
+                spinner_revealer.reveal_child = false;
+                stack.visible_child_name = "label";
+                name_entry.text = "";
+                name_entry.sensitive = true;
+                temp_id_mapping = 0;
             }
         });
     }

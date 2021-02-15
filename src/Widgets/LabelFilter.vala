@@ -39,7 +39,6 @@ public class Widgets.LabelFilter : Gtk.ToggleButton {
         valign = Gtk.Align.END;
         tooltip_text = _("Filter by Label");
         get_style_context ().add_class ("flat");
-        get_style_context ().add_class ("no-padding");
 
         labels_loaded = new Gee.HashMap <string, Objects.Label> ();
         labels_selected = new Gee.HashMap <string, Objects.Label> ();
@@ -158,11 +157,13 @@ public class Widgets.LabelFilterRow : Gtk.ListBoxRow {
         checked_button = new Gtk.CheckButton ();
         checked_button.valign = Gtk.Align.CENTER;
         checked_button.get_style_context ().add_class ("check-border");
-        
-        var color_image = new Gtk.Image.from_icon_name ("tag-symbolic", Gtk.IconSize.MENU);
-        color_image.valign = Gtk.Align.CENTER;
-        color_image.halign = Gtk.Align.CENTER;
-        color_image.can_focus = false;
+        checked_button.halign = Gtk.Align.END;
+        checked_button.hexpand = true;
+
+        var color_image = new Gtk.Image ();
+        color_image.gicon = new ThemedIcon ("tag-symbolic");
+        color_image.pixel_size = 14;
+        color_image.margin_top = 1;
         color_image.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
 
         label_name = new Gtk.Label (label.name);
@@ -171,12 +172,13 @@ public class Widgets.LabelFilterRow : Gtk.ListBoxRow {
         var grid = new Gtk.Grid ();
         grid.column_spacing = 6;
         grid.hexpand = true;
-        grid.add (checked_button);
         grid.add (color_image);
         grid.add (label_name);
+        grid.add (checked_button);
         grid.show_all ();
 
         var button = new Gtk.ModelButton ();
+        button.get_style_context ().add_class ("menu-button");
         button.get_child ().destroy ();
         button.add (grid);
 

@@ -512,7 +512,7 @@ paned.horizontal > separator {
 .content-entry {
     color: @text_color;
     border-width: 0px 0px 0px 0px;
-    background-color: @base_color;
+    background-color: transparent;
 }
 
 .entry-no-border {
@@ -781,10 +781,11 @@ paned.horizontal > separator {
     background-color: @projectview_color;
     padding-left: 0px;
     border-bottom: none;
+    box-shadow: none;
 }
 
 .menu-button {
- padding: 3px;
+    padding: 3px 6px 3px 6px;
 }
 
 .project-name-entry {
@@ -1315,3 +1316,22 @@ paned.horizontal > separator {
 .border-radius-4 {
     border-radius: 4px;
 }
+
+.new_section_grid {
+    color: #3689e6;
+    font-weight: 600;
+}
+
+.new_section_grid separator {
+    border-top: 1px solid #3689e6;
+}
+
+.new-section-grid {
+    background-color: alpha (#3689e6, 0.25);
+    border-radius: 4px;
+    padding: 0 3px 0 3px;
+    border-radius: 4px;
+    border: 1px solid alpha (#3689e6, 0.45);
+}
+
+

@@ -142,14 +142,14 @@ public class Widgets.UpcomingRow : Gtk.ListBoxRow {
         build_drag_and_drop (false);
 
         listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
+            //  var row = ((Widgets.ItemRow) r);
 
-            if (Planner.event_bus.ctrl_pressed) {
-                Planner.event_bus.select_item (row);
-            } else {
-                row.reveal_child = true;
-                Planner.event_bus.unselect_all ();
-            }
+            //  if (Planner.event_bus.ctrl_pressed) {
+            //      Planner.event_bus.select_item (row);
+            //  } else {
+            //      row.reveal_child = true;
+            //      Planner.event_bus.unselect_all ();
+            //  }
         });
         
         Planner.database.item_added.connect ((item, index) => {

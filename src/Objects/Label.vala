@@ -42,6 +42,9 @@ public class Objects.Label : GLib.Object {
 
             new Thread<void*> ("save_timeout", () => {
                 Planner.database.update_label (this);
+                if (this.is_todoist == 1) {
+                    Planner.todoist.update_label (this);
+                }
                 return null;
             });
 

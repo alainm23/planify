@@ -320,6 +320,12 @@
             <description>Todoist user is premium</description>
         </key>
 
+        <key name="todoist-sync-labels" type="b">
+            <default>false</default>
+            <summary>Todoist sync labels</summary>
+            <description>Todoist sync labels</description>
+        </key>
+
         <key name="database-location-use-default" type="b">
             <default>true</default>
             <summary>Use the default database location</summary>

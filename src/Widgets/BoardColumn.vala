@@ -284,23 +284,23 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
             }
         });
 
-        completed_listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
+        //  completed_listbox.row_activated.connect ((r) => {
+        //      var row = ((Widgets.ItemRow) r);
 
-            row.reveal_child = true;
-            Planner.event_bus.unselect_all ();
-        });
+        //      row.reveal_child = true;
+        //      Planner.event_bus.unselect_all ();
+        //  });
 
-        listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
+        //  listbox.row_activated.connect ((r) => {
+        //      var row = ((Widgets.ItemRow) r);
 
-            if (Planner.event_bus.ctrl_pressed) {
-                Planner.event_bus.select_item (row);
-            } else {
-                row.reveal_child = true;
-                Planner.event_bus.unselect_all ();
-            }
-        });
+        //      if (Planner.event_bus.ctrl_pressed) {
+        //          Planner.event_bus.select_item (row);
+        //      } else {
+        //          row.reveal_child = true;
+        //          Planner.event_bus.unselect_all ();
+        //      }
+        //  });
 
         Planner.database.item_added.connect ((item, index) => {
             if (section.id == 0) {

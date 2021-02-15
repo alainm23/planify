@@ -157,16 +157,16 @@ public class Views.Filter : Gtk.EventBox {
             }
         });
 
-        listbox.row_activated.connect ((r) => {
-            var row = ((Widgets.ItemRow) r);
+        //  listbox.row_activated.connect ((r) => {
+        //      var row = ((Widgets.ItemRow) r);
 
-            if (Planner.event_bus.ctrl_pressed) {
-                Planner.event_bus.select_item (row);
-            } else {
-                row.reveal_child = true;
-                Planner.event_bus.unselect_all ();
-            }
-        });
+        //      if (Planner.event_bus.ctrl_pressed) {
+        //          Planner.event_bus.select_item (row);
+        //      } else {
+        //          row.reveal_child = true;
+        //          Planner.event_bus.unselect_all ();
+        //      }
+        //  });
 
         Planner.database.item_updated.connect ((item) => {
             update_item (item);

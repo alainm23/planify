@@ -207,6 +207,12 @@ public class Planner : Gtk.Application {
         if (load_project != 0) {
             var dialog = new Dialogs.Project (database.get_project_by_id (load_project), true);
             dialog.destroy.connect (Gtk.main_quit);
+                        
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
         }
 

@@ -46,7 +46,7 @@ public class Widgets.LabelPreview : Gtk.EventBox {
         name_label.use_markup = true;
 
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        box.get_style_context ().add_class ("label-preview-%s".printf (label.id.to_string ()));
+        box.get_style_context ().add_class ("label-%s".printf (label.id.to_string ()));
         box.add (name_label);
 
         add (box);
@@ -67,8 +67,8 @@ public class Widgets.LabelPreview : Gtk.EventBox {
             }
         });
 
-        Planner.database.label_deleted.connect ((l) => {
-            if (label.id == l.id) {
+        Planner.database.label_deleted.connect ((id) => {
+            if (label.id == id) {
                 destroy ();
             }
         });

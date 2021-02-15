@@ -319,6 +319,15 @@ public class Views.Inbox : Gtk.EventBox {
         open_menu.clicked.connect (() => {
             var dialog = new Dialogs.Project (project);
             dialog.destroy.connect (Gtk.main_quit);
+            
+            int window_x, window_y;
+            var rect = Gtk.Allocation ();
+            
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
 
             popover.popdown ();
@@ -575,7 +584,10 @@ public class Views.Inbox : Gtk.EventBox {
     }
 
     public void add_new_item (int index) {
-        board_view.add_new_item (index);
-        list_view.add_new_item (index);
+        if (project.is_kanban == 1) {
+            board_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+        } else {
+            list_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
+        }
     }
 }

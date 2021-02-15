@@ -194,8 +194,8 @@ public class Widgets.Pane : Gtk.EventBox {
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         action_box.margin = 6;
-        action_box.margin_end = 12;
-        action_box.margin_start = 12;
+        action_box.margin_end = 13;
+        action_box.margin_start = 9;
         action_box.hexpand = true;
         action_box.pack_start (add_revealer, false, false, 0);
         action_box.pack_end (header_box, false, false, 0);

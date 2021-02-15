@@ -22,9 +22,6 @@
 public class MainWindow : Gtk.Window {
     public weak Planner app { get; construct; }
 
-    public Gee.HashMap <string, Views.Project> projects_loaded;
-    public Gee.HashMap <string, bool> tasklists_loaded;
-
     // Delegates
     delegate void HookFunc ();
 
@@ -66,10 +63,7 @@ public class MainWindow : Gtk.Window {
         dbus_server.item_added.connect ((id) => {
             Planner.database.item_added (Planner.database.get_item_by_id (id), -1);
         });
-
-        tasklists_loaded = new Gee.HashMap <string, bool> ();
-        projects_loaded = new Gee.HashMap <string, Views.Project> ();
-
+        
         var header_revealer = new Gtk.Revealer ();
         header_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
@@ -728,6 +722,15 @@ public class MainWindow : Gtk.Window {
 
             var dialog = new Dialogs.Project (project, false);
             dialog.destroy.connect (Gtk.main_quit);
+            
+            int window_x, window_y;
+            var rect = Gtk.Allocation ();
+            
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
         }
     }

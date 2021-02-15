@@ -48,25 +48,39 @@ public class Views.Project : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
 
     private Gtk.Popover progress_popover = null;
-    private Gtk.ToggleButton progress_button;
+    private Gtk.ToggleButton deadline_button;
     
-    private Gtk.Revealer due_revealer;
-    private Gtk.Label due_label;
+    private Gtk.Revealer deadline_revealer;
+    private Gtk.Label deadline_label;
 
     private int64 temp_id_mapping { get; set; default = 0; }
     private bool entry_menu_opened = false;
 
     construct {
+        var project_progress = new Widgets.ProjectProgress (16);
+        project_progress.margin_top = 1;
+        project_progress.valign = Gtk.Align.CENTER;
+        project_progress.halign = Gtk.Align.CENTER;
+
         name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
         name_label.get_style_context ().add_class ("font-bold");
 
+        var source_icon = new Gtk.Image ();
+        source_icon.pixel_size = 16;
+
+        var name_label_box = new Gtk.Grid ();
+        name_label_box.column_spacing = 6;
+        name_label_box.add (project_progress);
+        name_label_box.add (name_label);
+        // name_label_box.add (source_icon);
+
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.valign = Gtk.Align.START;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.hexpand = true;
-        name_eventbox.add (name_label);
+        name_eventbox.add (name_label_box);
 
         name_entry = new Widgets.Entry ();
         name_entry.get_style_context ().add_class ("font-bold");
@@ -81,42 +95,26 @@ public class Views.Project : Gtk.EventBox {
         name_stack.add_named (name_eventbox, "name_label");
         name_stack.add_named (name_entry, "name_entry");
 
-        var project_progress = new Widgets.ProjectProgress (15);
-        project_progress.valign = Gtk.Align.CENTER;
-        project_progress.halign = Gtk.Align.CENTER;
-        //  project_progress.percentage = get_percentage (
-        //      Planner.database.get_count_checked_items_by_project (project.id),
-        //      Planner.database.get_all_count_items_by_project (project.id)
-        //  );
-        
-        //  if (Planner.settings.get_enum ("appearance") == 0) {
-        //      project_progress.progress_fill_color = "#000000";
-        //  } else {
-        //      project_progress.progress_fill_color = "#FFFFFF";
-        //  }
+        var deadline_icon = new Gtk.Image ();
+        deadline_icon.gicon = new ThemedIcon ("edit-flag-symbolic");
+        deadline_icon.pixel_size = 14;
 
-        var progress_grid = new Gtk.Grid ();
-        progress_grid.add (project_progress);
-        progress_grid.valign = Gtk.Align.CENTER;
-        progress_grid.halign = Gtk.Align.CENTER;
+        deadline_label = new Gtk.Label (null);
+        deadline_label.get_style_context ().add_class ("font-bold");
 
-        due_label = new Gtk.Label (null);
-        due_label.get_style_context ().add_class ("font-bold");
+        var deadline_grid = new Gtk.Grid ();
+        deadline_grid.add (deadline_icon);
+        deadline_grid.add (deadline_label);
 
-        var p_grid = new Gtk.Grid ();
-        p_grid.add (progress_grid);
-        p_grid.add (due_label);
+        deadline_button = new Gtk.ToggleButton ();
+        deadline_button.halign = Gtk.Align.CENTER;
+        deadline_button.can_focus = false;
+        deadline_button.get_style_context ().add_class ("flat");
+        deadline_button.add (deadline_grid);
 
-        progress_button = new Gtk.ToggleButton ();
-        progress_button.valign = Gtk.Align.CENTER;
-        progress_button.halign = Gtk.Align.CENTER;
-        progress_button.can_focus = false;
-        progress_button.get_style_context ().add_class ("flat");
-        progress_button.add (p_grid);
-
-        due_revealer = new Gtk.Revealer ();
-        due_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        due_revealer.add (progress_button);
+        deadline_revealer = new Gtk.Revealer ();
+        deadline_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+        deadline_revealer.add (deadline_button);
 
         var section_image = new Gtk.Image ();
         section_image.gicon = new ThemedIcon ("section-symbolic");
@@ -132,10 +130,10 @@ public class Views.Project : Gtk.EventBox {
 
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_image.pixel_size = 14;
+        settings_image.pixel_size = 16;
 
         settings_button = new Gtk.ToggleButton ();
-        settings_button.valign = Gtk.Align.CENTER;
+        settings_button.valign = Gtk.Align.START;
         settings_button.can_focus = false;
         settings_button.tooltip_text = _("Project Menu");
         settings_button.image = settings_image;
@@ -166,14 +164,14 @@ public class Views.Project : Gtk.EventBox {
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
-        top_box.margin_end = 36;
+        top_box.margin_end = 32;
         top_box.margin_start = 42;
         top_box.margin_top = 6;
         top_box.pack_start (name_stack, false, true, 0);
-        top_box.pack_end (settings_button, false, false, 6);
-        top_box.pack_end (section_button, false, false, 6);
+        top_box.pack_end (settings_button, false, false, 0);
+        // top_box.pack_end (section_button, false, false, 6);
         top_box.pack_end (label_filter, false, false, 0);
-        top_box.pack_end (due_revealer, false, false, 0);
+        top_box.pack_end (deadline_revealer, false, false, 0);
 
         note_textview = new Widgets.TextView ();
         note_textview.tooltip_text = _("Add a description");
@@ -197,7 +195,7 @@ public class Views.Project : Gtk.EventBox {
 
         note_stack = new Gtk.Stack ();
         note_stack.hexpand = true;
-        note_stack.margin_top = 18;
+        note_stack.margin_top = 12;
         note_stack.margin_start = 42;
         note_stack.margin_end = 43;
         note_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
@@ -205,14 +203,12 @@ public class Views.Project : Gtk.EventBox {
         note_stack.add_named (note_eventbox, "label");
         note_stack.add_named (note_textview, "textview");
         
-        //  list_view = new Widgets.ListView (project);
-        //  board_view = new Widgets.BoardView (project);
-        //  var placeholder_view = new Widgets.Placeholder (
-        //      _("What will you accomplish?"),
-        //      _("Tap + to add a task to this project."),
-        //      "planner-project-symbolic"
-        //  );
-        //  placeholder_view.reveal_child = true;
+        var placeholder_view = new Widgets.Placeholder (
+            _("What will you accomplish?"),
+            _("Tap + to add a task to this project."),
+            "planner-project-symbolic"
+        );
+        placeholder_view.reveal_child = true;
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
@@ -220,7 +216,8 @@ public class Views.Project : Gtk.EventBox {
 
         list_view = new Widgets.ListView ();
         board_view = new Widgets.BoardView ();
-        
+
+        main_stack.add_named (placeholder_view, "placeholder");
         main_stack.add_named (board_view, "board");
         main_stack.add_named (list_view, "project");
 
@@ -246,8 +243,22 @@ public class Views.Project : Gtk.EventBox {
             note_textview.buffer.text = project.note;
             update_note_label (project.note);
 
+            if (project.is_todoist == 0) {
+                source_icon.gicon = new ThemedIcon ("planner-offline-symbolic");
+                source_icon.tooltip_text = _("Local Project");
+            } else {
+                source_icon.gicon = new ThemedIcon ("planner-online-symbolic");
+                source_icon.tooltip_text = _("Todoist Project");
+            }
+
             label_filter.project = project;
-            progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
+            deadline_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
+            project_progress.progress_fill_color = Planner.utils.get_color (project.color);
+            project_progress.percentage = get_percentage (
+                Planner.database.get_count_checked_items_by_project (project.id),
+                Planner.database.get_all_count_items_by_project (project.id)
+            );
+
             check_due_date ();
 
             list_view.project = project;            
@@ -383,7 +394,7 @@ public class Views.Project : Gtk.EventBox {
             open_new_section ();
         });
 
-        progress_button.toggled.connect (() => {
+        deadline_button.toggled.connect (() => {
             Planner.event_bus.unselect_all ();
             open_progress_popover ();
         });
@@ -395,6 +406,7 @@ public class Views.Project : Gtk.EventBox {
                 name_label.label = p.name;
                 name_entry.text = p.name;
                 note_textview.buffer.text = p.note;
+                project_progress.progress_fill_color = Planner.utils.get_color (p.color);
 
                 update_note_label (note_textview.buffer.text);
                 check_due_date ();
@@ -417,17 +429,7 @@ public class Views.Project : Gtk.EventBox {
                     Planner.database.get_count_checked_items_by_project (project.id),
                     Planner.database.get_all_count_items_by_project (project.id)
                 );
-                progress_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
-            }
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "appearance") {
-                if (Planner.settings.get_enum ("appearance") == 0) {
-                    project_progress.progress_fill_color = "#000000";
-                } else {
-                    project_progress.progress_fill_color = "#FFFFFF";
-                }
+                deadline_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             }
         });
     }
@@ -566,7 +568,7 @@ public class Views.Project : Gtk.EventBox {
         edit_menu.clicked.connect (() => {
             var dialog = new Dialogs.ProjectSettings (project);
             dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
+            
 
             popover.popdown ();
         });
@@ -574,6 +576,15 @@ public class Views.Project : Gtk.EventBox {
         open_menu.clicked.connect (() => {
             var dialog = new Dialogs.Project (project);
             dialog.destroy.connect (Gtk.main_quit);
+            
+            int window_x, window_y;
+            var rect = Gtk.Allocation ();
+            
+            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
+            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
+
+            dialog.set_allocation (rect);
+            dialog.move (window_x, window_y);
             dialog.show_all ();
 
             popover.popdown ();
@@ -711,7 +722,7 @@ public class Views.Project : Gtk.EventBox {
     }
 
     public void build_progress_popover () {
-        progress_popover = new Gtk.Popover (progress_button);
+        progress_popover = new Gtk.Popover (deadline_button);
         progress_popover.get_style_context ().add_class ("popover-background");
         progress_popover.position = Gtk.PositionType.BOTTOM;
 
@@ -766,7 +777,7 @@ public class Views.Project : Gtk.EventBox {
         progress_popover.add (popover_grid);
 
         progress_popover.closed.connect (() => {
-            progress_button.active = false;
+            deadline_button.active = false;
         });
     }
 
@@ -908,11 +919,11 @@ public class Views.Project : Gtk.EventBox {
 
     void check_due_date () {
         if (project.due_date == "") {
-            due_revealer.reveal_child = false;
+            deadline_revealer.reveal_child = false;
         } else {
-            due_revealer.reveal_child = true;
+            deadline_revealer.reveal_child = true;
             var due = new GLib.DateTime.from_iso8601 (project.due_date, new GLib.TimeZone.local ());
-            due_label.label = Planner.utils.get_relative_date_from_date (due);
+            deadline_label.label = Planner.utils.get_relative_date_from_date (due);
         }
     }
 }

@@ -19,93 +19,96 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.NewSection : Gtk.Revealer {
+public class Widgets.NewSection : Gtk.ListBoxRow {
     public int64 project_id { get; set; }
     public int is_todoist { get; set; }
+    public int index { get; set; }
     public int64 temp_id_mapping {get; set; default = 0; }
 
     private Widgets.Entry name_entry;
+    private Gtk.Revealer main_revealer;
+    private Gtk.Stack submit_stack;
+    private GLib.Cancellable cancellable = null;
+    private uint focus_timeout = 0;
+    private bool entry_menu_opened = false;
 
-    public signal void cancel_activated ();
-
-    public bool reveal {
-        set {
-            reveal_child = value;
-
-            if (value) {
-                name_entry.grab_focus ();
-
-                grab_focus ();
-            } else {
-                name_entry.text = "";
-                cancel_activated ();
-            }
-        }
-        get {
-            return reveal_child;
-        }
-    }
-
-    public NewSection (int64 project_id, int is_todoist) {
+    public NewSection (int64 project_id, int is_todoist, int index) {
         Object (
             project_id: project_id,
-            is_todoist: is_todoist
+            is_todoist: is_todoist,
+            index: index
         );
     }
 
     construct {
-        transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-
-        var loading_spinner = new Gtk.Spinner ();
-        loading_spinner.start ();
-
-        var loading_revealer = new Gtk.Revealer ();
-        loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        loading_revealer.add (loading_spinner);
-
         name_entry = new Widgets.Entry ();
         name_entry.hexpand = true;
         name_entry.valign = Gtk.Align.CENTER;
-        name_entry.placeholder_text = _("Section name");
+        name_entry.placeholder_text = _("Name this section");
         name_entry.get_style_context ().add_class ("flat");
-        name_entry.get_style_context ().add_class ("header-title");
-        name_entry.get_style_context ().add_class ("header-entry");
-        name_entry.get_style_context ().add_class ("content-entry");
+        name_entry.get_style_context ().add_class ("transparent");
+        name_entry.get_style_context ().add_class ("font-bold");
+        name_entry.get_style_context ().add_class ("new-item-entry");
+        //  name_entry.get_style_context ().add_class ("header-title");
+        //  name_entry.get_style_context ().add_class ("header-entry");
+        //  name_entry.get_style_context ().add_class ("content-entry");
+        //  name_entry.get_style_context ().add_class ("font-bold");
 
-        var top_grid = new Gtk.Grid ();
-        top_grid.margin_start = 14;
-        top_grid.column_spacing = 12;
-        top_grid.add (loading_revealer);
-        top_grid.add (name_entry);
+        var name_grid = new Gtk.Grid ();
+        name_grid.get_style_context ().add_class ("new-section-grid");
+        name_grid.margin_start = 42;
+        name_grid.margin_end = 38;
+        name_grid.add (name_entry);
 
-        var submit_button = new Gtk.Button.with_label (_("Add"));
+        var submit_button = new Gtk.Button ();
         submit_button.sensitive = false;
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
+        var submit_spinner = new Gtk.Spinner ();
+        submit_spinner.start ();
+
+        submit_stack = new Gtk.Stack ();
+        submit_stack.expand = true;
+        submit_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        submit_stack.add_named (new Gtk.Label (_("Add Section")), "label");
+        submit_stack.add_named (submit_spinner, "spinner");
+
+        submit_button.add (submit_stack);
+
         var cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button.get_style_context ().add_class ("planner-button");
 
         var action_grid = new Gtk.Grid ();
         action_grid.halign = Gtk.Align.START;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 40;
+        action_grid.margin_start = 42;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
-        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_start = 41;
-        separator.margin_end = 32;
-        separator.margin_bottom = 6;
-
         var main_grid = new Gtk.Grid ();
+        main_grid.row_spacing = 6;
         main_grid.margin_top = 6;
         main_grid.margin_bottom = 12;
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.add (top_grid);
-        main_grid.add (separator);
+        main_grid.add (name_grid);
         main_grid.add (action_grid);
 
-        add (main_grid);
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        main_revealer.add (main_grid);
+        main_revealer.reveal_child = false;
+
+        add (main_revealer);
+
+        Timeout.add (main_revealer.transition_duration, () => {
+            main_revealer.reveal_child = true;
+            grab_focus ();
+            name_entry.grab_focus ();
+
+            return GLib.Source.REMOVE;
+        });
 
         submit_button.clicked.connect (insert_section);
 
@@ -113,9 +116,42 @@ public class Widgets.NewSection : Gtk.Revealer {
             insert_section ();
         });
 
+        name_entry.focus_out_event.connect (() => {
+            focus_timeout = Timeout.add (1000, () => {
+                if (entry_menu_opened == false && name_entry.text.strip () == "") {
+                    Timeout.add (250, () => {        
+                        if (temp_id_mapping == 0) {
+                            hide_destroy ();
+                        }
+        
+                        return GLib.Source.REMOVE;
+                    });
+                }
+
+                return false;
+            });
+
+            return false;
+        });
+
+        name_entry.focus_in_event.connect (() => {
+            if (focus_timeout != 0) {
+                GLib.Source.remove (focus_timeout);
+            }
+
+            return false;
+        });
+
+        name_entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
+        });
+
         name_entry.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
-                reveal = false;
+                hide_destroy ();
             }
 
             return false;
@@ -130,33 +166,30 @@ public class Widgets.NewSection : Gtk.Revealer {
         });
 
         cancel_button.clicked.connect (() => {
-            reveal = false;
+            if (cancellable != null) {
+                cancellable.cancel ();
+            }
+            
+            hide_destroy ();
         });
 
         Planner.todoist.section_added_started.connect ((id) => {
             if (temp_id_mapping == id) {
-                loading_revealer.reveal_child = true;
-                sensitive = false;
+                submit_stack.visible_child_name = "spinner";
+                submit_button.sensitive = false;
             }
         });
 
         Planner.todoist.section_added_completed.connect ((id) => {
             if (temp_id_mapping == id) {
-                loading_revealer.reveal_child = false;
-                temp_id_mapping = 0;
-                sensitive = true;
-
-                reveal = false;
+                hide_destroy ();
             }
         });
 
         Planner.todoist.section_added_error.connect ((id) => {
             if (temp_id_mapping == id) {
-                loading_revealer.reveal_child = false;
-                temp_id_mapping = 0;
-                print ("Add Section Error\n");
-                sensitive = true;
-                reveal = false;
+                submit_stack.visible_child_name = "label";
+                submit_button.sensitive = true;
             }
         });
     }
@@ -170,16 +203,21 @@ public class Widgets.NewSection : Gtk.Revealer {
 
             if (is_todoist == 0) {
                 section.id = Planner.utils.generate_id ();
-                Planner.database.insert_section (section);
-
-                reveal = false;
+                Planner.database.insert_section (section, index);
             } else {
-                var cancellable = new Cancellable ();
+                cancellable = new Cancellable ();
                 temp_id_mapping = Planner.utils.generate_id ();
-                section.is_todoist = 1;
 
-                Planner.todoist.add_section.begin (section, cancellable, temp_id_mapping);
+                Planner.todoist.add_section.begin (section, cancellable, temp_id_mapping, index);
             }
         }
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
+        });
     }
 }
