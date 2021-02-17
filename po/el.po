@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2020-12-29 13:20+0000\n"
+"PO-Revision-Date: 2021-02-18 10:50+0000\n"
 "Last-Translator: fresh <fresh190@protonmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/planner/"
 "translations/el/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.5\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -41,12 +41,12 @@ msgstr "ναι"
 
 #: src/MainWindow.vala:56
 msgid "Planner"
-msgstr ""
+msgstr "Ημερολόγιο"
 
 #: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
 #: src/MainWindow.vala:832
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Προσθήκη εργασίας από το πρόχειρο…"
 
 #: src/Utils.vala:122 src/Utils.vala:129 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -336,15 +336,15 @@ msgstr ""
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
-msgstr ""
+msgstr "Όλα τα αρχεία"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Ανοιγμα αρχείου Ημερολογίου"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Άνοιγμα"
 
 #: src/Widgets/ActionRow.vala:90
 msgid "Todoist Project"
@@ -354,18 +354,18 @@ msgstr ""
 #: src/Widgets/Pane.vala:355 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:70 src/Dialogs/Preferences/Preferences.vala:297
 msgid "Upcoming"
-msgstr ""
+msgstr "Επερχόμενο"
 
 #: src/Widgets/ActionRow.vala:451 src/Widgets/ProjectRow.vala:495
 #: src/Widgets/SectionRow.vala:1273 src/Widgets/SectionRow.vala:1348
 #: src/Widgets/BoardColumn.vala:1250 src/Widgets/BoardColumn.vala:1303
 msgid "Unable to move task"
-msgstr ""
+msgstr "Αδύνατη η μετακίνηση εργασίας"
 
 #: src/Widgets/Pane.vala:73 src/Widgets/Pane.vala:167
 #: src/Dialogs/QuickFind.vala:31 src/Dialogs/QuickFind.vala:143
 msgid "Quick Find"
-msgstr ""
+msgstr "Γρήγορη Εύρεση"
 
 #: src/Widgets/Pane.vala:104
 msgid "Add Project"
@@ -374,16 +374,16 @@ msgstr ""
 #: src/Widgets/Pane.vala:180 src/Widgets/ToolsMenu.vala:43
 #: src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr ""
+msgstr "Προτιμήσεις"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:446 src/Views/Project.vala:778
 #: src/Dialogs/ProjectSettings.vala:186 src/Dialogs/Project.vala:820
 msgid "Name:"
-msgstr ""
+msgstr "Όνομα:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
-msgstr ""
+msgstr "Περιγραφή:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
@@ -391,18 +391,18 @@ msgstr ""
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
-msgstr ""
+msgstr "Χρώμα:"
 
 #: src/Widgets/New.vala:172 src/Widgets/ReminderButton.vala:250
 #: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:462
 #: src/Views/Project.vala:794 src/Dialogs/Project.vala:836
 msgid "Add"
-msgstr ""
+msgstr "Προσθήκη"
 
 #: src/Widgets/New.vala:207 src/Widgets/ToolsMenu.vala:37
 #: src/Dialogs/ProjectSettings.vala:216
 msgid "Close"
-msgstr ""
+msgstr "Κλείσιμο"
 
 #: src/Widgets/New.vala:270
 #, c-format
@@ -411,7 +411,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:337
 msgid "Local"
-msgstr ""
+msgstr "Τοπικά"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
@@ -423,12 +423,12 @@ msgstr ""
 #: src/Widgets/BoardColumn.vala:1231 src/Widgets/BoardColumn.vala:1285
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr ""
+msgstr "Η εργασία μετακινήθηκε στο <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:654 src/Views/Inbox.vala:217
 #: src/Views/Project.vala:467
 msgid "Open New Window"
-msgstr ""
+msgstr "Άνοιγμα Νέου Παραθύρου"
 
 #: src/Widgets/ProjectRow.vala:655 src/Views/Inbox.vala:218
 #: src/Views/Project.vala:468 src/Dialogs/Project.vala:517
@@ -437,19 +437,19 @@ msgstr ""
 
 #: src/Widgets/ProjectRow.vala:656 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
-msgstr ""
+msgstr "Μετακίνηση"
 
 #: src/Widgets/ProjectRow.vala:660 src/Widgets/ItemRow.vala:1546
 #: src/Widgets/SectionRow.vala:1040 src/Widgets/BoardColumn.vala:1049
 #: src/Dialogs/Preferences/Preferences.vala:161
 msgid "Share"
-msgstr ""
+msgstr "Κοινοποίηση"
 
 #: src/Widgets/ProjectRow.vala:664 src/Views/Inbox.vala:386
 #: src/Views/Today.vala:556 src/Views/Project.vala:658
 #: src/Dialogs/Project.vala:683
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Αποστολή μέσω ηλεκτρονικού ταχυδρομείου"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:665 src/Widgets/ItemRow.vala:1551
@@ -1523,13 +1523,12 @@ msgid "Start of the week"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."
 msgstr ""
 "Η διαδικασία αφαιρεί όλες τις αποθηκευμένες πληροφορίες χωρίς δυνατότητα "
-"αναίρεσης. (ν/ο): "
+"αναίρεσης."
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
 msgid ""
