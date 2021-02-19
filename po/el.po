@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-02-18 10:50+0000\n"
+"PO-Revision-Date: 2021-02-20 07:50+0000\n"
 "Last-Translator: fresh <fresh190@protonmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/planner/"
 "translations/el/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
-msgstr "Είσαι σίγουρος πως θες να γίνει επαναφορά όλων;"
+msgstr "Είστε σίγουρος πως θέλετε να γίνει επαναφορά όλων;"
 
 #: src/Application.vala:153
 msgid ""
@@ -41,7 +41,7 @@ msgstr "ναι"
 
 #: src/MainWindow.vala:56
 msgid "Planner"
-msgstr "Ημερολόγιο"
+msgstr "Planner"
 
 #: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
 #: src/MainWindow.vala:832
@@ -90,7 +90,7 @@ msgstr "Λαδί"
 
 #: src/Utils.vala:194
 msgid "Lime Green"
-msgstr ""
+msgstr "Πρασινοκίτρινο"
 
 #: src/Utils.vala:195
 msgid "Green"
@@ -98,27 +98,27 @@ msgstr "Πράσινο"
 
 #: src/Utils.vala:196
 msgid "Mint Green"
-msgstr ""
+msgstr "Πράσινο της Μέντας"
 
 #: src/Utils.vala:197
 msgid "Teal"
-msgstr ""
+msgstr "Γαλαζοπράσινο"
 
 #: src/Utils.vala:198
 msgid "Sky Blue"
-msgstr ""
+msgstr "Ουρανί"
 
 #: src/Utils.vala:199
 msgid "Light Blue"
-msgstr ""
+msgstr "Γαλάζιο"
 
 #: src/Utils.vala:200
 msgid "Blue"
-msgstr "Μπλέ"
+msgstr "Μπλε"
 
 #: src/Utils.vala:201
 msgid "Grape"
-msgstr ""
+msgstr "Μωβ"
 
 #: src/Utils.vala:202
 msgid "Violet"
@@ -126,19 +126,19 @@ msgstr "Βιολετί"
 
 #: src/Utils.vala:203
 msgid "Lavander"
-msgstr ""
+msgstr "Λιλά"
 
 #: src/Utils.vala:204
 msgid "Magenta"
-msgstr ""
+msgstr "Φούξια"
 
 #: src/Utils.vala:205
 msgid "Salmon"
-msgstr ""
+msgstr "Σομόν"
 
 #: src/Utils.vala:206
 msgid "Charcoal"
-msgstr ""
+msgstr "Ανθρακί"
 
 #: src/Utils.vala:207
 msgid "Grey"
@@ -146,7 +146,7 @@ msgstr "Γκρι"
 
 #: src/Utils.vala:208
 msgid "Taupe"
-msgstr ""
+msgstr "Μπεζ-γκρι"
 
 #: src/Utils.vala:587 src/Widgets/ActionRow.vala:182
 #: src/Widgets/ActionRow.vala:184 src/Widgets/NewItem.vala:728
@@ -168,18 +168,22 @@ msgstr "Αύριο"
 
 #: src/Utils.vala:881
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Ενεργοποιήθηκε η Εύκολη Προσθήκη!"
 
 #: src/Utils.vala:882
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
+"Δοκίμασε %s για ενεργοποίηση. Μπορείτε να το αλλάξετε αυτό από τις "
+"προτιμήσεις"
 
 #: src/Utils.vala:958
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Το Planner %s είναι εδώ, με βελτιωμένο σχεδιασμό, νέες λειτουργίες και πολλά "
+"ακόμη."
 
 #: src/Utils.vala:960
 msgid "New Board View"
@@ -203,7 +207,7 @@ msgstr ""
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Ξεκινώντας"
 
 #: src/Utils.vala:975
 msgid ""
@@ -211,18 +215,21 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Αυτό το έργο θα σας βοηθήσει να μάθετε τα βασικά του Planner. Ξεκινήστε με "
+"ένα απλό σύστημα διαχείρισης εργασιών ώστε να παραμένετε οργανωμένοι και να "
+"βρίσκεστε στην κορυφή όσων χρειάζεται να κάνετε."
 
 #: src/Utils.vala:980
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Προσθήκη νέων εργασιών"
 
 #: src/Utils.vala:981
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "Για προσθήκη μιας νέας εργασίας στο Planner, απλά πατήστε + και Enter."
 
 #: src/Utils.vala:1036 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new task"
-msgstr ""
+msgstr "Δημιουργία νέας εργασίας"
 
 #: src/Utils.vala:1037
 msgid "Create a new task at the top of the list (only works inside projects)"
@@ -230,52 +237,52 @@ msgstr ""
 
 #: src/Utils.vala:1038
 msgid "Create a new area"
-msgstr ""
+msgstr "Δημιουργία νέας περιοχής"
 
 #: src/Utils.vala:1039 src/Dialogs/ShortcutsDialog.vala:91
 msgid "Create a new project"
-msgstr ""
+msgstr "Δημιουργία νέου έργου"
 
 #: src/Utils.vala:1040
 msgid "Create a new section"
-msgstr ""
+msgstr "Δημιουργία νέου τμήματος"
 
 #: src/Utils.vala:1041
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Άνοιγμα «Εισερχόμενα»"
 
 #: src/Utils.vala:1042 src/Dialogs/ShortcutsDialog.vala:158
 msgid "Open Today"
-msgstr ""
+msgstr "Άνοιγμα «Σήμερα»"
 
 #: src/Utils.vala:1043 src/Dialogs/ShortcutsDialog.vala:160
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Άνοιγμα «Επερχόμενο»"
 
 #: src/Utils.vala:1044
 msgid "Open Search"
-msgstr ""
+msgstr "Άνοιγμα «Αναζήτηση»"
 
 #: src/Utils.vala:1045
 msgid "Manually sync"
-msgstr ""
+msgstr "Μη αυτόματος συγχρονισμός"
 
 #: src/Utils.vala:1046 src/Dialogs/ShortcutsDialog.vala:137
 msgid "Quit"
-msgstr ""
+msgstr "Έξοδος"
 
 #: src/Utils.vala:1054
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Λανθασμένο αίτημα."
 
 #: src/Utils.vala:1055
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Είναι απαραίτητη η ταυτοποίηση, και απέτυχε, ή δεν έχει δοθεί ακόμα."
 
 #: src/Utils.vala:1056
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Το αίτημα ήταν έγκυρο, μα αφορούσε κάτι απαγορευμένο."
 
 #: src/Utils.vala:1057
 msgid "The requested resource could not be found."
@@ -300,25 +307,25 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:290
 #: src/Dialogs/Preferences/Preferences.vala:509
 msgid "Inbox"
-msgstr ""
+msgstr "Εισερχόμενα"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
-msgstr ""
+msgstr "Σε αυτόν τον υπολογιστή"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Το πρόχειρο είναι άδειο, αντιγράψτε κάποιο κείμενο και προσπαθήστε ξανά"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Αποθήκευση αρχείου Planner"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:187
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:146
 #: src/Dialogs/ProjectSettings.vala:218 src/Dialogs/Project.vala:214
 msgid "Save"
-msgstr ""
+msgstr "Αποθήκευση"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
 #: src/Widgets/NewItem.vala:151 src/Widgets/SectionRow.vala:191
@@ -328,11 +335,11 @@ msgstr ""
 #: src/Views/Project.vala:799 src/Dialogs/Project.vala:218
 #: src/Dialogs/Project.vala:841
 msgid "Cancel"
-msgstr ""
+msgstr "Ακύρωση"
 
 #: src/Services/ExportImport.vala:377
 msgid "Planner files"
-msgstr ""
+msgstr "Αρχεία Planner"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
@@ -340,7 +347,7 @@ msgstr "Όλα τα αρχεία"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr "Ανοιγμα αρχείου Ημερολογίου"
+msgstr "Άνοιγμα αρχείου Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
@@ -597,7 +604,7 @@ msgstr "1 εργασία ολοκληρώθηκε"
 
 #: src/Widgets/ItemRow.vala:1460
 msgid "No Section"
-msgstr ""
+msgstr "Κανένα Τμήμα"
 
 #: src/Widgets/ItemRow.vala:1521 src/Widgets/MultiSelectToolbar.vala:354
 msgid "Complete"
@@ -648,7 +655,7 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:83 src/Widgets/BoardColumn.vala:56
 #: src/Widgets/BoardColumn.vala:90
 msgid "(No Section)"
-msgstr ""
+msgstr "(Κανένα Τμήμα)"
 
 #: src/Widgets/SectionRow.vala:103 src/Widgets/SectionRow.vala:1179
 msgid "Display Tasks"
@@ -661,11 +668,11 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:138 src/Widgets/NewSection.vala:69
 #: src/Widgets/BoardColumn.vala:101
 msgid "Section name"
-msgstr ""
+msgstr "Όνομα τμήματος"
 
 #: src/Widgets/SectionRow.vala:158
 msgid "Section Menu"
-msgstr ""
+msgstr "Μενού Τμήματος"
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:179
 #: src/Dialogs/Project.vala:244
@@ -681,7 +688,7 @@ msgstr ""
 #: src/Widgets/BoardColumn.vala:992 src/Widgets/BoardColumn.vala:1013
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr ""
+msgstr "Το Τμήμα μετακινήθηκε σε <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:1033 src/Widgets/BoardColumn.vala:1042
 msgid "Rename"
@@ -689,11 +696,11 @@ msgstr ""
 
 #: src/Widgets/SectionRow.vala:1089 src/Widgets/BoardColumn.vala:1101
 msgid "Delete section"
-msgstr ""
+msgstr "Διαγραφή τμήματος"
 
 #: src/Widgets/SectionRow.vala:1107 src/Widgets/BoardColumn.vala:1119
 msgid "Section deleted"
-msgstr ""
+msgstr "Το Τμήμα διαγράφηκε"
 
 #: src/Widgets/DueButton.vala:281
 msgid "Repeat"
@@ -963,7 +970,7 @@ msgstr ""
 #: src/Views/Inbox.vala:68 src/Views/Project.vala:128
 #: src/Dialogs/Project.vala:160 src/Dialogs/Project.vala:168
 msgid "Add Section"
-msgstr "Προσθήκη τμήματος"
+msgstr "Προσθήκη Τμηματος"
 
 #: src/Views/Inbox.vala:76 src/Dialogs/Project.vala:176
 msgid "Invite person"
@@ -1187,11 +1194,11 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "Πρόσφατα"
 
 #: src/Dialogs/QuickFind.vala:580
 msgid "Sections"
-msgstr ""
+msgstr "Τμήματα"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
@@ -1222,7 +1229,7 @@ msgstr ""
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
 msgid "Create a new section in a project"
-msgstr ""
+msgstr "Δημιουργία νέου τμήματος σε ένα έργο"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
 msgid "Open Quick Add"
@@ -1375,40 +1382,47 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 msgid "Default priority"
-msgstr ""
+msgstr "Προεπιλεγμένη προτεραιότητα"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "Υποδείξτε τη θέση όπου δημιουργήθηκαν οι νέες εργασίες."
 
 #: src/Dialogs/Preferences/Preferences.vala:457
 msgid "Backups"
-msgstr ""
+msgstr "Αντίγραφα ασφαλείας"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Το Planner, καθημερινά, δημιουργεί, αυτόματα, αντίγραφα ασφαλείας των "
+"ενεργών έργων και εργασιών σας. Μπορείτε εύκολα να επαναφέρετε τα αντίγραφα "
+"ασφαλείας σας οποιαδήποτε στιγμή χρησιμοποιώντας την εισαγωγή έργου."
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
 msgstr ""
+"Επιλογή στοιχείων που θα υπολογίζονται για το σήμα στο εικονίδιο της "
+"εφαρμογής."
 
 #: src/Dialogs/Preferences/Preferences.vala:515
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Σήμερα + Εισερχόμενα"
 
 #: src/Dialogs/Preferences/Preferences.vala:568
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
 msgstr ""
+"Εξατομικεύστε την εμφάνιση και την αίσθηση του Planner σας επιλέγοντας το "
+"θέμα που σας ταιριάζει καλύτερα."
 
 #: src/Dialogs/Preferences/Preferences.vala:578
 msgid "Light"
-msgstr ""
+msgstr "Ανοιχτόχρωμο"
 
 #: src/Dialogs/Preferences/Preferences.vala:581
 msgid "Night"
@@ -1424,7 +1438,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:629
 msgid "Button layout"
-msgstr ""
+msgstr "Διάταξη κουμπιών"
 
 #. The reason we need a restart is because GTK has to tell the
 #. window manager whether to add any window decorations *before*
@@ -1435,11 +1449,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
-msgstr ""
+msgstr "Θέμα"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
-msgstr ""
+msgstr "Μέγεθος Γραμματοσειράς"
 
 #: src/Dialogs/Preferences/Preferences.vala:720
 msgid ""
@@ -1451,19 +1465,19 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:730
 #: src/Dialogs/Preferences/Preferences.vala:1303
 msgid "Enabled"
-msgstr ""
+msgstr "Ενεργοποιημένο"
 
 #: src/Dialogs/Preferences/Preferences.vala:745
 msgid "Press keys…"
-msgstr ""
+msgstr "Πληκτρολογήστε…"
 
 #: src/Dialogs/Preferences/Preferences.vala:772
 msgid "Change Keyboard Shortcut"
-msgstr ""
+msgstr "Αλλαγή Συντόμευσης Πληκτρολογίου"
 
 #: src/Dialogs/Preferences/Preferences.vala:781
 msgid "Save Last Selected Project"
-msgstr ""
+msgstr "Αποθήκευση Τελευταίου Επιλεγμένου Έργου"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
@@ -1475,7 +1489,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:904
 msgid "Run in background"
-msgstr ""
+msgstr "Εκτέλεση στο παρασκήνιο"
 
 #: src/Dialogs/Preferences/Preferences.vala:908
 msgid ""
@@ -1483,14 +1497,19 @@ msgid ""
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
 msgstr ""
+"Ενεργοποίηση αυτής της ρύθμισης για εκτέλεση του Planner στο παρασκήνιο μετά "
+"το κλείσιμο. Αυτό θα επιτρέψει στο Planner να συνεχίσει να ενημερώνεται και "
+"να στέλνει υπενθυμιστικές ειδοποιήσεις."
 
 #: src/Dialogs/Preferences/Preferences.vala:916
 msgid "Run on startup"
-msgstr ""
+msgstr "Εκτέλεση κατά την εκκίνηση"
 
 #: src/Dialogs/Preferences/Preferences.vala:920
 msgid "Enable this setting to make Planner startup with the system."
 msgstr ""
+"Ενεργοποιήστε αυτήν τη ρύθμιση για να εκκινείται το Planner μαζί με το "
+"σύστημα."
 
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:928
@@ -1499,24 +1518,24 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "Ημερομηνία & ώρα"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
 msgid "Reset all"
-msgstr ""
+msgstr "Επαναφορά όλων"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 msgid "Reset"
-msgstr ""
+msgstr "Επαναφορά"
 
 #: src/Dialogs/Preferences/Preferences.vala:938
 msgid "Export Database"
-msgstr ""
+msgstr "Εξαγωγή Βάσης Δεδομένων"
 
 #: src/Dialogs/Preferences/Preferences.vala:938
 msgid "Export"
-msgstr ""
+msgstr "Εξαγωγή"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
@@ -1539,11 +1558,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:1174
 #, c-format
 msgid "Last successful sync: %s"
-msgstr ""
+msgstr "Τελευταίος επιτυχής συγχρονισμός: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:1183
 msgid "Sync server"
-msgstr ""
+msgstr "Συγχρονισμός διακομιστή"
 
 #: src/Dialogs/Preferences/Preferences.vala:1188
 msgid ""
@@ -1554,11 +1573,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:1200
 #: src/Dialogs/Preferences/Preferences.vala:1255
 msgid "Log out"
-msgstr ""
+msgstr "Αποσύνδεση"
 
 #: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Are you sure you want to log out?"
-msgstr ""
+msgstr "Θες σίγουρα να αποσυνδεθείς;"
 
 #: src/Dialogs/Preferences/Preferences.vala:1251
 msgid "This process will close your Todoist session on this device."
@@ -1578,75 +1597,84 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
+"Το Planner αναπτύσσεται με ❤️ και το πάθος για τον Ανοιχτό Κώδικα. Πάντως, "
+"αν σας αρέσει το Planner και θέλετε να υποστηρίξετε την ανάπτυξή του, "
+"εξετάστε το ενδεχόμενο να κάνετε δωρεά μέσω:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1396
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
+"Χάρη σε όσους έκαναν δωρεά μέσω του Patreon ή του PayPal. (Εάν επιθυμείς να "
+"εμφανίζεσαι εδώ επισκέψου τον λογαριασμό μας στο Patreon 😉)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1475
 msgid "Website"
-msgstr ""
+msgstr "Ιστότοπος"
 
 #: src/Dialogs/Preferences/Preferences.vala:1476
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1477
 msgid "Follow"
-msgstr ""
+msgstr "Ακολουθήστε"
 
 #: src/Dialogs/Preferences/Preferences.vala:1478
 msgid "Report a Problem"
-msgstr ""
+msgstr "Αναφορά Προβλήματος"
 
 #: src/Dialogs/Preferences/Preferences.vala:1479
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Πρόταση Μεταφράσεων"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:28
 msgid "Database"
-msgstr ""
+msgstr "Βάση δεδομένων"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:43
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Τρέχουσα τοποθεσία: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
 msgid "Reset to default"
-msgstr ""
+msgstr "Επαναφορά προεπιλογών"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
 msgid "Are you sure you want to restore the database location to default?"
 msgstr ""
+"Είστε σίγουρος πως θέλετε να επαναφέρετε την τοποθεσία της βάσης δεδομένων "
+"στις προεπιλογές;"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "Η νέα τοποθεσία της βάσης δεδομένων θα είναι: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
 msgid "Are you sure you want to change the database location?"
-msgstr ""
+msgstr "Είστε βέβαιος πως θέλετε να αλλάξει η τοποθεσία της βάσης δεδομένων;"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
 msgid "This process will move your database file to the selected location."
 msgstr ""
+"Αυτή η διαδικασία θα μετακινήσει το αρχείο βάσης δεδομένων στην επιλεγμένη "
+"θέση."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "τοποθεσία βάσης δεδομένων"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 msgid "_Cancel"
-msgstr ""
+msgstr "_Ακύρωση"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Άνοιγμα"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
@@ -1654,19 +1682,19 @@ msgstr ""
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "Επιστροφή"
 
 #: src/Objects/Project.vala:103
 msgid "The Project was copied to the Clipboard."
-msgstr ""
+msgstr "Το Έργο αντιγράφηκε στο Πρόχειρο."
 
 #: src/Objects/Item.vala:120
 msgid "Duplicating task…"
-msgstr ""
+msgstr "Αντιγραφή εργασίας…"
 
 #: src/Objects/Item.vala:210 src/Objects/Item.vala:227
 msgid "The Task was copied to the Clipboard."
-msgstr ""
+msgstr "Η Εργασία αντιγράφηκε στο Πρόχειρο."
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
