@@ -26,13 +26,7 @@ public class Widgets.LabelFilter : Gtk.ToggleButton {
     private Gtk.ListBox listbox;
     public Gee.HashMap <string, Objects.Label> labels_loaded;
     public Gee.HashMap <string, Objects.Label> labels_selected;
-
-    //  public LabelFilter (Objects.Project project) {
-    //      Object (
-    //          project: project
-    //      );
-    //  }
-
+    
     construct {
         margin_bottom = 3;
         can_focus = false;
@@ -159,6 +153,7 @@ public class Widgets.LabelFilterRow : Gtk.ListBoxRow {
         checked_button.get_style_context ().add_class ("check-border");
         checked_button.halign = Gtk.Align.END;
         checked_button.hexpand = true;
+        checked_button.margin_start = 12;
 
         var color_image = new Gtk.Image ();
         color_image.gicon = new ThemedIcon ("tag-symbolic");

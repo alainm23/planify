@@ -29,6 +29,7 @@ public class Widgets.ModelButton : Gtk.Button {
             item_image.gicon = new ThemedIcon (value);
         }
     }
+    
     public string tooltip {
         set {
             tooltip_text = value;

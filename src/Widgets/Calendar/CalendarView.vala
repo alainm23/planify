@@ -32,7 +32,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
         days_grid = new Gtk.Grid ();
         days_grid.column_homogeneous = true;
-        days_grid.row_homogeneous = false;
+        days_grid.row_homogeneous = true;
 
         var col = 0;
         var row = 0;

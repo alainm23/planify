@@ -61,7 +61,7 @@ public class Planner : Gtk.Application {
     public static Services.EventBus event_bus;
     public static Services.Calendar.CalendarModel calendar_model;
     public static Services.PluginsManager plugins;
-    public static Services.DateParser date_parser;
+    // public static Services.DateParser date_parser;
 
     public signal void go_view (string type, int64 id, int64 id_2);
 
@@ -110,7 +110,7 @@ public class Planner : Gtk.Application {
         calendar_model = new Services.Calendar.CalendarModel ();
         event_bus = new Services.EventBus ();
         plugins = new Services.PluginsManager ();
-        date_parser = new Services.DateParser ();
+        // date_parser = new Services.DateParser ();
 
         add_main_option_entries (PLANNER_OPTIONS);
     }

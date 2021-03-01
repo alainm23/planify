@@ -43,7 +43,6 @@ public class Widgets.Calendar.CalendarDay : Gtk.EventBox {
 
         var main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.margin = 3;
         main_grid.halign = Gtk.Align.CENTER;
         main_grid.valign = Gtk.Align.CENTER;
         main_grid.add (label);

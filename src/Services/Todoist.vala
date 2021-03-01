@@ -96,7 +96,7 @@ public class Services.Todoist : GLib.Object {
         Labels
     */
     public signal void label_added_started (int64 id);
-    public signal void label_added_completed (int64 id);
+    public signal void label_added_completed (int64 id, Objects.Label label);
     public signal void label_added_error (int64 id, int error_code, string error_message);
 
     public signal void avatar_downloaded (string id);
@@ -683,7 +683,7 @@ public class Services.Todoist : GLib.Object {
                             parent_id = 0;
                         } else {
                             parent_id = object.get_int_member ("parent_id");
-                        }  
+                        }
 
                         // Set Section
                         int64 section_id;
@@ -691,15 +691,15 @@ public class Services.Todoist : GLib.Object {
                             section_id = 0;
                         } else {
                             section_id = object.get_int_member ("section_id");
-                        } 
-
-                        if (parent_id != i.parent_id) {
-                            Planner.database.move_item_parent (i, parent_id);
                         }
-
+                        
                         if (section_id != i.section_id) {
-                            i.parent_id = parent_id;
-                            Planner.database.move_item_section (i, section_id);
+                            if (parent_id != i.parent_id) {
+                                Planner.database.move_item_parent (i, parent_id);
+                            } else {
+                                i.parent_id = parent_id;
+                                Planner.database.move_item_section (i, section_id);
+                            }
                         }
 
                         var labels_map = new Gee.HashMap <string, bool> ();
@@ -1355,7 +1355,7 @@ public class Services.Todoist : GLib.Object {
         }
     }
 
-    public async void add_label (Objects.Label label, int64 temp_id_mapping) {
+    public async void add_label (Objects.Label label, int64 temp_id_mapping, GLib.Cancellable cancellable=null) {
         label_added_started (temp_id_mapping);
 
         string temp_id = Planner.utils.generate_string ();
@@ -1370,7 +1370,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message);
+            var stream = yield session.send_async (message, cancellable);
             var parser = new Json.Parser ();
 
             yield parser.load_from_stream_async (stream);
@@ -1388,7 +1388,7 @@ public class Services.Todoist : GLib.Object {
                 label.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                 if (Planner.database.insert_label (label)) {
-                    label_added_completed (temp_id_mapping);
+                    label_added_completed (temp_id_mapping, label);
                 }
             } else {
                 label_added_error (
@@ -1423,7 +1423,7 @@ public class Services.Todoist : GLib.Object {
                 if (Planner.database.insert_label (label) &&
                     Planner.database.insert_queue (queue) &&
                     Planner.database.insert_CurTempIds (label.id, temp_id, "label")) {
-                    label_added_completed (temp_id_mapping);
+                    label_added_completed (temp_id_mapping, label);
                 }
             }
         }
@@ -2536,6 +2536,12 @@ public class Services.Todoist : GLib.Object {
                 }
                 builder.end_array ();
             }
+
+            if (item.parent_id != 0) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (item.parent_id);
+            }
+            
             builder.end_object ();
         builder.end_object ();
         builder.end_array ();
@@ -2558,9 +2564,7 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.get_string ("todoist-access-token"),
                 get_update_item_json (item, uuid)
             );
-
-            print ("get_update_item_json: %s\n".printf (get_update_item_json (item, uuid)));
-
+            
             var message = new Soup.Message ("POST", url);
 
             session.queue_message (message, (sess, mess) => {

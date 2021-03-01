@@ -22,18 +22,19 @@
 public class Widgets.NewItem : Gtk.ListBoxRow {
     public int64 project_id { get; set; }
     public int64 section_id { get; set; }
+    public int64 parent_id { get; set; }
     public int is_todoist { get; set; }
     public int index { get; set; }
     public string due_date { get; set; default = ""; }
     public int priority { get; set; default = 1; }
     public Gtk.ListBox? listbox { get; set; default = null; }
-
     public E.Source source { get; set; default = null; }
 
     private Gtk.CheckButton checked_button;
     private Gtk.ToggleButton project_button;
     private Gtk.ToggleButton reschedule_button;
     private Gtk.ToggleButton priority_button;
+    private Widgets.ScheduleButton _reschedule_button;
     private Gtk.Stack submit_stack;
     private Gtk.Image priority_image;
     private Gtk.Image project_icon;
@@ -89,7 +90,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     string due_date="",
                     int index=-1,
                     Gtk.ListBox? listbox=null,
-                    int priority=1) {
+                    int priority=1,
+                    int64 parent_id=0) {
         this.project_id = project_id;
         this.section_id = section_id;
         this.is_todoist = is_todoist;
@@ -97,6 +99,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         this.index = index;
         this.listbox = listbox;
         this.priority = priority;
+        this.parent_id = parent_id;
 
         build_ui ();
     }
@@ -162,8 +165,11 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         buttons_grid.add (cancel_button);
         buttons_grid.add (submit_button);
 
+        _reschedule_button = new Widgets.ScheduleButton.new_item ();
+
         reschedule_button = new Gtk.ToggleButton ();
         reschedule_button.get_style_context ().add_class ("flat");
+        reschedule_button.get_style_context ().add_class ("transparent");
         reschedule_button.halign = Gtk.Align.START;
         reschedule_button.add (get_schedule_grid ());
         update_due_date ();
@@ -208,6 +214,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         project_button = new Gtk.ToggleButton ();
         project_button.get_style_context ().add_class ("flat");
+        project_button.get_style_context ().add_class ("transparent");
         project_button.halign = Gtk.Align.START;
         project_button.valign = Gtk.Align.CENTER;
         project_button.add (project_grid);
@@ -218,19 +225,16 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
 
         priority_button = new Gtk.ToggleButton ();
         priority_button.get_style_context ().add_class ("flat");
+        priority_button.get_style_context ().add_class ("transparent");
         priority_button.add (priority_image);
 
         var label_button = new Widgets.LabelButton.new_item ();
+        label_button.labels_map = labels_map;
+        label_button.get_style_context ().add_class ("transparent");
 
         var note_image = new Gtk.Image ();
         note_image.pixel_size = 16;
         note_image.icon_name = "text-x-generic-symbolic";
-
-        var note_button = new Gtk.Button ();
-        note_button.tooltip_text = _("Add Note");
-        note_button.get_style_context ().add_class ("flat");
-        note_button.get_style_context ().add_class ("dim-label");
-        note_button.add (note_image);
 
         var note_placeholder = new Gtk.Label (_("Note"));
         note_placeholder.opacity = 0.7;
@@ -240,11 +244,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         tools_box.margin_top = 6;
         tools_box.margin_start = 20;
         tools_box.hexpand = true;
-        tools_box.pack_start (reschedule_button, false, false, 0);
+        tools_box.pack_start (_reschedule_button, false, false, 0);
         tools_box.pack_end (project_button, false, false, 0);
         tools_box.pack_end (priority_button, false, false, 0);
         tools_box.pack_end (label_button, false, false, 0);
-        // tools_box.pack_end (note_button, false, false, 0);
 
         note_textview = new Widgets.TextView ();
         note_textview.margin_top = 6;
@@ -256,15 +259,10 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         note_textview.wrap_mode = Gtk.WrapMode.CHAR;
         note_textview.get_style_context ().add_class ("textview");
         note_textview.add (note_placeholder);
-
-        var note_revealer = new Gtk.Revealer ();
-        note_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        note_revealer.add (note_textview);
-        note_revealer.reveal_child = true;
-
+        
         var labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_edit_box.margin_start = 27;
-        labels_edit_box.margin_bottom = 12;
+        labels_edit_box.margin_bottom = 6;
 
         var labels_edit_revealer = new Gtk.Revealer ();
         labels_edit_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -280,7 +278,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         main_grid.get_style_context ().add_class ("item-row-selected");
         main_grid.get_style_context ().add_class ("popover");
         main_grid.add (content_grid);
-        main_grid.add (note_revealer);
+        main_grid.add (note_textview);
         main_grid.add (labels_edit_revealer);
         main_grid.add (tools_box);
 
@@ -421,7 +419,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                     due_date,
                     i,
                     listbox,
-                    priority
+                    priority,
+                    parent_id
                 );
 
                 if (index == -1) {
@@ -526,20 +525,35 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
             entry_menu_opened = true;
         });
 
+        _reschedule_button.popover_opened.connect ((active) => {
+            entry_menu_opened = active;
+        });
+
         label_button.label_selected.connect ((label, active) => {
-            if (active) {
-                var g = new Widgets.LabelItem (0, 0, label);
+            if (active && labels_map.has_key (label.id.to_string ()) == false) {
+                var label_item_row = new Widgets.LabelItem (0, 0, label);
+                label_item_row.destroy.connect (() => {
+                    labels_map.unset (label.id.to_string ());
+                });
+
                 labels_edit_revealer.reveal_child = true;
-                labels_edit_box.add (g);
+                labels_edit_box.add (label_item_row);
                 labels_edit_box.show_all ();
 
-                labels_map.set (label.id.to_string (), g);
-            } else {
+                labels_map.set (label.id.to_string (), label_item_row);
+            } else if (active == false) {
                 if (labels_map.has_key (label.id.to_string ())) {
                     labels_map.get (label.id.to_string ()).hide_destroy ();
-                    labels_map.unset (label.id.to_string ());
                 }
             }
+        });
+
+        label_button.clear.connect (() => {
+            foreach (Gtk.Widget element in labels_edit_box.get_children ()) {
+                labels_edit_box.remove (element);
+            }
+
+            labels_map.clear ();
         });
 
         notify["priority"].connect (() => {
@@ -556,15 +570,6 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
         } else {
             update_priority (priority);
         }
-
-        note_button.clicked.connect (() => {
-            if (note_revealer.reveal_child) {
-                note_revealer.reveal_child = false;
-            } else {
-                note_revealer.reveal_child = true;
-                note_textview.grab_focus ();
-            }
-        });
     }
 
     public void parse_item_tags (string text) {
@@ -904,6 +909,7 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                 item.priority = priority;         
                 item.project_id = project_id;
                 item.section_id = section_id;
+                item.parent_id = parent_id;
                 item.is_todoist = is_todoist;
                 item.due_date = due_date;
                 item.content = content_entry.text;
@@ -937,7 +943,8 @@ public class Widgets.NewItem : Gtk.ListBoxRow {
                             due_date,
                             i,
                             listbox,
-                            priority
+                            priority,
+                            parent_id
                         );
 
                         if (index == -1) {

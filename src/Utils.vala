@@ -583,11 +583,11 @@ public class Utils : GLib.Object {
     }
 
     public string get_relative_date_from_date (GLib.DateTime date) {
-        if (Planner.utils.is_today (date)) {
+        if (is_today (date)) {
             return _("Today");
-        } else if (Planner.utils.is_tomorrow (date)) {
+        } else if (is_tomorrow (date)) {
             return _("Tomorrow");
-        } else if (Planner.utils.is_overdue (date)) {
+        } else if (is_overdue (date)) {
             return Granite.DateTime.get_relative_datetime (date);
         } else {
             return get_default_date_format_from_date (date);
@@ -786,16 +786,15 @@ public class Utils : GLib.Object {
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
             } else if (appearance_mode == 1) {
-                base_color = "#282828";
+                base_color = "#222222";
                 check_border_color = "grey";
-                projectview_color = "#1f1f1f";
-                pane_color = "shade (@bg_color, 0.7)";
-                pane_selected_color = "#282828";
+                projectview_color = "#151515";
+                pane_color = "#1e1e1e";
+                pane_selected_color = "#2B2B2B";
                 pane_text_color = "#ffffff";
                 popover_background = "#333333";
-                row_selected_color = "shade (#333333, 0.4)";
+                row_selected_color = "alpha (#000000, 0.35)";
                 upcoming_color = "#a970ff";
-
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             } else if (appearance_mode == 2) {
                 base_color = "#15151B";
@@ -810,15 +809,15 @@ public class Utils : GLib.Object {
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             } else if (appearance_mode == 3) {
-                 base_color = "#353945";
-                 check_border_color = "grey";
-                 projectview_color = "#404552";
-                 pane_color = "#353945";
-                 pane_selected_color = "#2B303B";
-                 pane_text_color = "#fefeff";
-                 popover_background = "#353945";
-                 row_selected_color = "shade (@projectview_color, 0.3)";
-                 upcoming_color = "#a970ff";
+                base_color = "#353945";
+                check_border_color = "grey";
+                projectview_color = "#404552";
+                pane_color = "#353945";
+                pane_selected_color = "#2B303B";
+                pane_text_color = "#fefeff";
+                popover_background = "#353945";
+                row_selected_color = "shade (@projectview_color, 0.3)";
+                upcoming_color = "#a970ff";
 
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }

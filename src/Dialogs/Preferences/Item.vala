@@ -84,6 +84,7 @@ public class Dialogs.Preferences.Item : Gtk.EventBox {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 32;
+        separator.margin_bottom = 3;
 
         if (last) {
             separator.visible = false;

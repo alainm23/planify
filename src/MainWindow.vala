@@ -487,6 +487,7 @@ public class MainWindow : Gtk.Window {
                 stack.add_named (today_view, "today-view");
             }
 
+            today_view.add_items ();
             stack.visible_child_name = "today-view";
         } else if (view == PaneView.UPCOMING) {
             if (upcoming_view == null) {

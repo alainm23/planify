@@ -86,6 +86,8 @@ public class Views.Today : Gtk.EventBox {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var label_filter = new Widgets.LabelFilter ();
+
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
@@ -98,6 +100,7 @@ public class Views.Today : Gtk.EventBox {
         top_box.pack_start (title_label, false, false, 0);
         top_box.pack_start (date_label, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
+        top_box.pack_end (label_filter, false, false, 0);
 
         listbox = new Gtk.ListBox ();
         listbox.margin_start = 30;
@@ -221,27 +224,14 @@ public class Views.Today : Gtk.EventBox {
         overlay.add (main_box);
 
         add (overlay);
-
-        add_all_items ();
-        add_completed_items ();
-        show_all ();
         build_drag_and_drop ();
 
         magic_button.clicked.connect (() => {
             add_new_item (Planner.settings.get_enum ("new-tasks-position"));
         });
-        
-        // Check Placeholder view
-        Timeout.add (125, () => {
-            check_placeholder_view ();
-            set_sort_func (Planner.settings.get_int ("today-sort-order"));
-            return GLib.Source.REMOVE;
-        });
-
+    
         Planner.event_bus.day_changed.connect (() => {
-            update_today_label ();
-            add_all_items ();
-            add_completed_items ();
+            add_items ();
         });
 
         reschedule_button.toggled.connect (() => {
@@ -253,35 +243,6 @@ public class Views.Today : Gtk.EventBox {
 
             reschedule_popover.popup ();
         });
-
-        //  listbox.row_activated.connect ((r) => {
-        //      var row = ((Widgets.ItemRow) r);
-
-        //      if (Planner.event_bus.ctrl_pressed) {
-        //          Planner.event_bus.select_item (row);
-        //      } else {
-        //          row.reveal_child = true;
-        //          Planner.event_bus.unselect_all ();
-        //      }
-        //  });
-
-        //  completed_listbox.row_activated.connect ((r) => {
-        //      var row = ((Widgets.ItemRow) r);
-
-        //      row.reveal_child = true;
-        //      Planner.event_bus.unselect_all ();
-        //  });
-
-        //  overdue_listbox.row_activated.connect ((r) => {
-        //      var row = ((Widgets.ItemRow) r);
-
-        //      if (Planner.event_bus.ctrl_pressed) {
-        //          Planner.event_bus.select_item (row);
-        //      } else {
-        //          row.reveal_child = true;
-        //          Planner.event_bus.unselect_all ();
-        //      }
-        //  });
 
         listbox.remove.connect ((row) => {
             check_placeholder_view ();
@@ -466,8 +427,22 @@ public class Views.Today : Gtk.EventBox {
         });
     }
 
+    public void add_items () {
+        update_today_label ();
+        add_all_items ();
+        add_completed_items ();
+        show_all ();
+
+        // Check Placeholder view
+        Timeout.add (125, () => {
+            check_placeholder_view ();
+            set_sort_func (Planner.settings.get_int ("today-sort-order"));
+            return GLib.Source.REMOVE;
+        });
+    }
+
     private void update_today_label () {
-        date_label.label = "%s ‧ %s".printf (new GLib.DateTime.now_local ().format ("%a"), new GLib.DateTime.now_local ().format (
+        date_label.label = "%s %s".printf (new GLib.DateTime.now_local ().format ("%a"), new GLib.DateTime.now_local ().format (
             Granite.DateTime.get_default_date_format (false, true, false)
         ));
     }

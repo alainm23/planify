@@ -151,10 +151,10 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         addons_label.margin_start = 6;
 
         var todoist_item = new Dialogs.Preferences.Item ("planner-todoist", "Todoist");
-        var plugins_item = new Dialogs.Preferences.Item ("extension", "Plugins");
         var calendar_item = new Dialogs.Preferences.Item ("x-office-calendar", _("Calendar Events"));
         var labels_item = new Dialogs.Preferences.Item ("tag", _("Labels"));
-        var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"), true);
+        var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"));
+        var plugins_item = new Dialogs.Preferences.Item ("extension", "Plugins", true);
 
         var share_b = new Gtk.Button.with_label (_("Share"));
         share_b.clicked.connect (() => {
@@ -639,31 +639,40 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
             use_system_decoration_val
         );
         use_system_decoration.margin_top = 12;
-       
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.valign = Gtk.Align.START;
-        main_box.expand = true;
+        use_system_decoration.margin_bottom = 12;
 
-        main_box.pack_start (info_box, false, false, 0);
-        main_box.pack_start (description_label, false, false, 0);
-        main_box.pack_start (new Granite.HeaderLabel (_("Theme")) {
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.valign = Gtk.Align.START;
+        box.expand = true;
+        box.pack_start (description_label, false, false, 0);
+        box.pack_start (new Granite.HeaderLabel (_("Theme")) {
             margin_start = 12
         }, false, false, 0);
-        main_box.pack_start (light_radio, false, false, 0);
-        main_box.pack_start (night_radio, false, false, 0);
-        main_box.pack_start (dark_blue_radio, false, false, 0);
-        main_box.pack_start (arc_dark_radio, false, false, 0);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-        main_box.pack_start (new Granite.HeaderLabel (_("Font Size")) {
+        box.pack_start (light_radio, false, false, 0);
+        box.pack_start (night_radio, false, false, 0);
+        box.pack_start (dark_blue_radio, false, false, 0);
+        box.pack_start (arc_dark_radio, false, false, 0);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        box.pack_start (new Granite.HeaderLabel (_("Font Size")) {
             margin_start = 12,
             margin_top = 12
         }, false, false, 0);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-        main_box.pack_start (font_size_grid);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-        main_box.pack_start (button_layout);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
-        main_box.pack_start (use_system_decoration);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        box.pack_start (font_size_grid);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        box.pack_start (button_layout);
+        box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, true, 0);
+        box.pack_start (use_system_decoration);
+
+        var main_scrolled = new Gtk.ScrolledWindow (null, null);
+        main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        main_scrolled.expand = true;
+        main_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+        main_box.pack_start (info_box, false, false, 0);
+        main_box.pack_start (main_scrolled, false, true, 0);
 
         if (Planner.settings.get_enum ("appearance") == 0) {
             light_radio.active = true;
@@ -908,6 +917,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         run_background_label.wrap = true;
         run_background_label.xalign = 0;
         run_background_label.margin_start = 12;
+        run_background_label.margin_top = 6;
         run_background_label.halign = Gtk.Align.START;
 
         var run_startup_switch = new Dialogs.Preferences.ItemSwitch (
@@ -919,6 +929,7 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         run_startup_label.wrap = true;
         run_startup_label.xalign = 0;
         run_startup_label.margin_start = 12;
+        run_startup_label.margin_top = 6;
         run_startup_label.halign = Gtk.Align.START;
 
         // var database_settings = new Dialogs.Preferences.DatabaseSettings ();
@@ -1611,7 +1622,9 @@ public class PreferencePerson : Gtk.ListBoxRow {
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.get_style_context ().add_class ("preferences-view");
         main_box.pack_start (grid);
-        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        main_box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_bottom = 1
+        });
 
         add (main_box);
     }

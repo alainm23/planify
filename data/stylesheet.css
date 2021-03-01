@@ -751,6 +751,10 @@ paned.horizontal > separator {
     border: 1px solid @check_border_color;
 }
 
+.check-border check:checked {
+    border-color: shade (@colorAccent, 0.9);
+}
+
 .check-eventbox-border {
     border: 1px solid alpha (#3689e6, 0.45);
 }
@@ -903,6 +907,11 @@ paned.horizontal > separator {
     padding: 7px 6px 6px 12px;
     background-color: shade (@bg_color, 1.1);
     font-weight: 600;
+    margin-top: 1px;
+}
+
+.preference-item-radio radio:checked {
+    border-color: shade (@colorAccent, 0.9);
 }
 
 .active-switch slider {
@@ -1012,12 +1021,32 @@ paned.horizontal > separator {
     border-radius: 4px;
 }
 
+.calendar-header label {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 .due-menuitem {
     padding: 1px 0px 1px 6px;
 }
 
 .popover-background {
     background-color: @popover_background;
+}
+
+.popover-entry {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @popover_background,
+                0.98
+            ),
+            shade (
+                @popover_background,
+                1
+            )
+        );
 }
 
 .repeat-image {
@@ -1058,6 +1087,10 @@ paned.horizontal > separator {
 
 .border-radius-4 {
     border-radius: 4px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
 }
 
 .checklist-completed check {
@@ -1195,6 +1228,14 @@ paned.horizontal > separator {
     border-radius: 4px 0px 0px 4px;
 }
 
+.time-alternative label:first-child {
+    padding: 3px 3px 0px 3px;
+}
+
+.time-alternative label:last-child {
+    padding: 0px 3px 3px 3px;
+}
+
 .slim-mode-button {
     border: 1px solid shade (@bg_color, 0.95);
     padding: 0px;
@@ -1315,6 +1356,10 @@ paned.horizontal > separator {
 
 .border-radius-4 {
     border-radius: 4px;
+}
+
+.border-radius-50 {
+    border-radius: 50px;
 }
 
 .new_section_grid {
