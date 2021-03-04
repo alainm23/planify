@@ -465,6 +465,6 @@ public class Services.Tasks.Store : Object {
 
     private void on_objects_removed (E.Source task_list, ECal.Client client, SList<ECal.ComponentId?> cids, TasksRemovedFunc on_tasks_removed) {  // vala-lint=line-length
         debug (@"Received $(cids.length()) removed task(s) for task list '%s'", task_list.dup_display_name ());
-        on_tasks_removed (cids);
+        // on_tasks_removed (cids);
     }
 }

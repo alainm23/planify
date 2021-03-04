@@ -28,6 +28,7 @@ public class Widgets.ShortcutLabel : Gtk.Grid {
 
     construct {
         valign = Gtk.Align.CENTER;
+        halign = Gtk.Align.END;
         column_spacing = 6;
 
         update_accels (accels);

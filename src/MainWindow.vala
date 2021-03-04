@@ -19,15 +19,15 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class MainWindow : Gtk.Window {
+public class MainWindow : Hdy.ApplicationWindow {
     public weak Planner app { get; construct; }
 
     // Delegates
     delegate void HookFunc ();
 
     private Widgets.Pane pane;
-    private Gtk.HeaderBar sidebar_header;
-    private Gtk.HeaderBar projectview_header;
+    private Hdy.HeaderBar sidebar_header;
+    private Hdy.HeaderBar projectview_header;
     public Gtk.Stack stack;
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
@@ -56,6 +56,10 @@ public class MainWindow : Gtk.Window {
         );
     }
 
+    static construct {
+        Hdy.init ();
+    }
+
     construct {
         action_manager = new Services.ActionManager (app, this);
 
@@ -63,35 +67,30 @@ public class MainWindow : Gtk.Window {
         dbus_server.item_added.connect ((id) => {
             Planner.database.item_added (Planner.database.get_item_by_id (id), -1);
         });
-        
-        var header_revealer = new Gtk.Revealer ();
-        header_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
-        sidebar_header = new Gtk.HeaderBar ();
+        sidebar_header = new Hdy.HeaderBar ();
+        sidebar_header.decoration_layout = "close:";
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
-        sidebar_header.custom_title = header_revealer;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
-        sidebar_header.get_style_context ().add_class ("titlebar");
         sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        projectview_header = new Gtk.HeaderBar ();
+        pane = new Widgets.Pane ();
+
+        var sidebar = new Gtk.Grid ();
+        sidebar.attach (sidebar_header, 0, 0);
+        sidebar.attach (pane, 0, 1);
+
+        projectview_header = new Hdy.HeaderBar ();
         projectview_header.has_subtitle = false;
+        projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
-        projectview_header.get_style_context ().add_class ("titlebar");
         projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         check_button_layout ();
-
-        var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        header_paned.wide_handle = true;
-        header_paned.pack1 (sidebar_header, false, false);
-        header_paned.pack2 (projectview_header, true, false);
-
-        pane = new Widgets.Pane ();
 
         var welcome_view = new Views.Welcome ();
 
@@ -112,7 +111,7 @@ public class MainWindow : Gtk.Window {
 
         stack.add_named (welcome_view, "welcome-view");
         stack.add_named (spinner_loading, "loading-view");
-        
+
         var notifications_grid = new Gtk.Grid ();
         notifications_grid.orientation = Gtk.Orientation.VERTICAL;
         notifications_grid.margin_bottom = 12;
@@ -136,21 +135,20 @@ public class MainWindow : Gtk.Window {
         projectview_overlay.add_overlay (multiselect_toolbar);
         projectview_overlay.add (stack);
 
+        var view_grid = new Gtk.Grid ();
+        view_grid.attach (projectview_header, 0, 0);
+        view_grid.attach (projectview_overlay, 0, 1);
+
         var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        paned.wide_handle = true;
-        paned.pack1 (pane, false, false);
-        paned.pack2 (projectview_overlay, true, false);
+        paned.pack1 (sidebar, false, false);
+        paned.pack2 (view_grid, true, false);
 
         if (!Planner.settings.get_boolean ("use-system-decoration")) {
-            set_titlebar (header_paned);
+            // set_titlebar (header_paned);
         }
-        add (paned);
 
-        // This must come after setting header_paned as the titlebar
-        header_paned.get_style_context ().remove_class ("titlebar");
-        get_style_context ().add_class ("rounded");
-        get_style_context ().add_class ("app");
-        Planner.settings.bind ("pane-position", header_paned, "position", GLib.SettingsBindFlags.DEFAULT);
+        add (paned);
+        
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
         realize.connect (() => {

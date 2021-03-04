@@ -90,28 +90,31 @@ menu {
     background-color: @popover_background;
 }
 
+
+.unified {
+    border-radius: 6px;
+}
+
+.unified > decoration-overlay {
+    border-radius: rem(6px);
+}
+
+.csd {
+    border-radius: 6px;
+}
+
+.csd > decoration {
+    border-radius: 6px;
+}
+
 .sidebar-header {
     background-color: @pane_color;
-}
-
-.sidebar-header:dir(ltr) {
-    border-top-right-radius: 0;
-}
-
-.sidebar-header:dir(rtl) {
-    border-top-left-radius: 0;
+    border-radius: 6px 0px 0px 0px;
 }
 
 .projectview-header {
     background-color: @projectview_color;
-}
-
-.projectview-header:dir(ltr) {
-    border-top-left-radius: 0;
-}
-
-.projectview-header:dir(rtl) {
-    border-top-right-radius: 0;
+    border-radius: 0px 6px 0px 0px;
 }
 
 paned {

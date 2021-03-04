@@ -19,24 +19,16 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Preferences.TopBox : Gtk.Box {
-    private Gtk.Button default_button;
-
+public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
     public signal void back_activated ();
     public signal void action_activated ();
 
-    public string action_button {
-        set {
-            var image = new Gtk.Image ();
-            image.gicon = new ThemedIcon (value);
-            image.pixel_size = 16;
-
-            default_button.image = image;
-            default_button.visible = true;
-        }
-    }
-
     public TopBox (string icon, string title) {
+        decoration_layout = "close:";
+        has_subtitle = false;
+        show_close_button = false;
+        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
         var back_button = new Gtk.Button.from_icon_name ("arrow-back-symbolic", Gtk.IconSize.MENU);
         back_button.always_show_image = true;
         back_button.can_focus = false;
@@ -51,32 +43,23 @@ public class Dialogs.Preferences.TopBox : Gtk.Box {
         title_button.get_style_context ().add_class ("font-bold");
         title_button.get_style_context ().add_class ("h3");
 
-        default_button = new Gtk.Button ();
-        default_button.margin = 3;
-        default_button.valign = Gtk.Align.CENTER;
-        default_button.get_style_context ().add_class ("flat");
-        default_button.get_style_context ().add_class ("dim-label");
-        default_button.visible = false;
-        default_button.no_show_all = true;
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.hexpand = true;
         header_box.pack_start (back_button, false, false, 0);
         header_box.set_center_widget (title_button);
-        header_box.pack_end (default_button, false, false, 0);
-
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.hexpand = true;
-        main_box.valign = Gtk.Align.START;
-        main_box.pack_start (header_box);
+        header_box.pack_end (done_button, false, false, 0);
 
         back_button.clicked.connect (() => {
             back_activated ();
         });
 
-        default_button.clicked.connect (() => {
-            action_activated ();
+        done_button.clicked.connect (() => {
+            
         });
 
-        add (main_box);
+        set_custom_title (header_box);
     }
 }

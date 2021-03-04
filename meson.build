@@ -26,6 +26,7 @@ peasgtk_dep = dependency('libpeas-gtk-1.0')
 sqlite3_dep = dependency('sqlite3')
 json_dep = dependency('json-glib-1.0')
 webkit2gtk_dep = dependency('webkit2gtk-4.0')
+libhandy = dependency ('libhandy-1', version: '>=0.90.0')
 libedataserver_dep = dependency('libedataserver-1.2', version: '>=3.8.0')
 libsoup_dep = dependency('libsoup-2.4')
 posix_dep = meson.get_compiler('c').find_library('m', required : false)
@@ -61,7 +62,8 @@ dependencies = [
     libsoup_dep,
     libecal_dep,
     libical_dep,
-    posix_dep
+    posix_dep,
+    libhandy
 ]
 
 subdir('data')

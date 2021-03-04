@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Preferences.Preferences : Gtk.Dialog {
+public class Dialogs.Preferences.Preferences : Hdy.Window {
     public string view { get; construct; }
     private Gtk.Stack stack;
     private uint timeout_id = 0;
@@ -48,12 +48,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         width_request = 525;
         height_request = 600;
 
-        use_header_bar = 1;
-        var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("preferences-dialog");
-        header_bar.get_style_context ().add_class ("default-decoration");
-
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -63,7 +57,6 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack.add_named (get_badge_count_widget (), "badge-count");
         stack.add_named (get_theme_widget (), "theme");
         stack.add_named (get_task_widget (), "task");
-        // stack.add_named (get_backups_widget (), "backups");
         stack.add_named (get_quick_add_widget (), "quick-add");
         stack.add_named (get_plugins_widget (), "plugins");
         stack.add_named (get_todoist_widget (), "todoist");
@@ -84,15 +77,15 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         stack_scrolled.expand = true;
         stack_scrolled.add (stack);
 
-        var content_area = get_content_area ();
-        content_area.border_width = 0;
-        content_area.add (stack_scrolled);
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        // main_grid.add (header);
+        main_grid.add (stack_scrolled);
+
+        add (main_grid);
 
         Planner.utils.init_labels_color ();
-
-        response.connect ((response_id) => {
-            destroy ();
-        });
 
         key_press_event.connect ((event) => {
             if (event.keyval == 65307) {
@@ -120,6 +113,33 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
     }
 
     private Gtk.Widget get_home_widget () {
+        var header = new Hdy.HeaderBar ();
+        header.decoration_layout = "close:";
+        header.has_subtitle = false;
+        header.show_close_button = false;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var settings_icon = new Gtk.Image ();
+        settings_icon.halign = Gtk.Align.CENTER;
+        settings_icon.valign = Gtk.Align.CENTER;
+        settings_icon.pixel_size = 16;
+        settings_icon.gicon = new ThemedIcon ("open-menu-symbolic");
+
+        var settings_label = new Gtk.Label (_("Settings"));
+        settings_label.get_style_context ().add_class ("h3");
+
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.margin = 3;
+        header_box.hexpand = true;
+        header_box.pack_start (settings_icon, false, false, 0);
+        header_box.pack_start (settings_label, false, false, 6);
+        header_box.pack_end (done_button, false, false, 0);
+
+        header.set_custom_title (header_box);
+
         /* General */
         var general_label = new Granite.HeaderLabel (_("General"));
         general_label.margin_start = 6;
@@ -136,15 +156,12 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         general_grid.valign = Gtk.Align.START;
         general_grid.get_style_context ().add_class ("preferences-view");
         general_grid.orientation = Gtk.Orientation.VERTICAL;
-        general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
         general_grid.add (theme_item);
         general_grid.add (task_item);
-        // general_grid.add (backups_item);
         general_grid.add (quick_add_item);
         general_grid.add (general_item);
-        general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         /* Addons */
         var addons_label = new Granite.HeaderLabel (_("Add-ons"));
@@ -190,17 +207,23 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         others_grid.add (fund_item);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.valign = Gtk.Align.START;
-        main_grid.add (general_grid);
-        main_grid.add (addons_grid);
-        main_grid.add (others_grid);
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.valign = Gtk.Align.START;
+        grid.add (general_grid);
+        grid.add (addons_grid);
+        grid.add (others_grid);
 
         var main_scrolled = new Gtk.ScrolledWindow (null, null);
         main_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
         main_scrolled.expand = true;
-        main_scrolled.add (main_grid);
+        main_scrolled.add (grid);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (header);
+        main_grid.add (main_scrolled);
 
         start_page_item.activated.connect (() => {
             stack.visible_child_name = "homepage";
@@ -267,7 +290,11 @@ public class Dialogs.Preferences.Preferences : Gtk.Dialog {
         //      stack.visible_child_name = "backups";
         //  });
 
-        return main_scrolled;
+        done_button.clicked.connect ((response_id) => {
+            destroy ();
+        });
+
+        return main_grid;
     }
 
     private Gtk.Widget get_homepage_widget () {

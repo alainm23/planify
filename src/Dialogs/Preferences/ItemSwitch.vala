@@ -24,6 +24,8 @@ public class Dialogs.Preferences.ItemSwitch : Gtk.EventBox {
 
     public ItemSwitch (string title, bool active=false, bool visible_separator=true) {
         var title_label = new Gtk.Label (title);
+        title_label.wrap = true;
+        title_label.xalign = 0;
         title_label.get_style_context ().add_class ("font-weight-600");
 
         var button_switch = new Gtk.Switch ();

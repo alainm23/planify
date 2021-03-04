@@ -158,7 +158,7 @@ public class Widgets.ToolMenuItem : Gtk.Button {
         can_focus = false;
 
         var item_label = new Gtk.Label (text);
-        item_label.get_style_context ().add_class ("font-weight-600");
+        // item_label.get_style_context ().add_class ("font-weight-600");
 
         var shortcut_label = new Widgets.ShortcutLabel (accels);
 
