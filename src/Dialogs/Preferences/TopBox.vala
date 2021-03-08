@@ -21,7 +21,7 @@
 
 public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
     public signal void back_activated ();
-    public signal void action_activated ();
+    public signal void done_activated ();
 
     public TopBox (string icon, string title) {
         decoration_layout = "close:";
@@ -36,12 +36,23 @@ public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
         back_button.margin = 3;
         back_button.valign = Gtk.Align.CENTER;
         back_button.get_style_context ().add_class ("flat");
-        back_button.get_style_context ().add_class ("dim-label");
+
+        var title_icon = new Gtk.Image ();
+        title_icon.halign = Gtk.Align.CENTER;
+        title_icon.valign = Gtk.Align.CENTER;
+        title_icon.pixel_size = 16;
+        title_icon.gicon = new ThemedIcon (icon);
 
         var title_button = new Gtk.Label (title);
         title_button.valign = Gtk.Align.CENTER;
         title_button.get_style_context ().add_class ("font-bold");
         title_button.get_style_context ().add_class ("h3");
+
+        var top_grid = new Gtk.Grid ();
+        top_grid.valign = Gtk.Align.CENTER;
+        top_grid.column_spacing = 6;
+        // top_grid.add (title_icon);
+        top_grid.add (title_button);
 
         var done_button = new Gtk.Button.with_label (_("Done"));
         done_button.get_style_context ().add_class ("flat");
@@ -49,7 +60,7 @@ public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         header_box.hexpand = true;
         header_box.pack_start (back_button, false, false, 0);
-        header_box.set_center_widget (title_button);
+        header_box.set_center_widget (top_grid);
         header_box.pack_end (done_button, false, false, 0);
 
         back_button.clicked.connect (() => {
@@ -57,7 +68,7 @@ public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
         });
 
         done_button.clicked.connect (() => {
-            
+            done_activated ();
         });
 
         set_custom_title (header_box);

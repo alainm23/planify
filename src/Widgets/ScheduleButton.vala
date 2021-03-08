@@ -21,6 +21,7 @@
 
 public class Widgets.ScheduleButton : Gtk.ToggleButton {
     public Objects.Item item { get; construct; }
+    public Objects.Duedate duedate { get; set; }
 
     private Gtk.Image due_image;
     private Gtk.Label due_label;
@@ -39,6 +40,8 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
     private Widgets.ScheduleRow calendar_row;
     private Widgets.ScheduleRow time_row;
     private Gtk.Stack stack;
+    private Gtk.Revealer no_time_revealer;
+
     public signal void popover_opened (bool active);
 
     public ScheduleButton (Objects.Item item) {
@@ -57,8 +60,13 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
     }
 
     construct {
-        tooltip_text = _("Schedule");
+        duedate = new Objects.Duedate ();
 
+        if (item.id != 0) {
+            duedate.date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+        }
+
+        tooltip_text = _("Schedule");
         get_style_context ().add_class ("flat");
         get_style_context ().add_class ("item-action-button");
 
@@ -70,6 +78,7 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         due_label.use_markup = true;
 
         time_label = new Gtk.Label (null);
+        time_label.get_style_context ().add_class ("no-padding");
         time_label.use_markup = true;
 
         time_revealer = new Gtk.Revealer ();
@@ -103,14 +112,16 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
                     create_popover ();
                 }
 
+                update_popover (duedate);
+
                 popover.popup ();
             }
         });
 
-        // update_date_text (item);
+        update_button (duedate);
         Planner.settings.changed.connect ((key) => {
             if (key == "appearance") {
-                // update_date_text (item);
+                update_button (duedate);
             }
         });
     }
@@ -166,6 +177,27 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         popover.closed.connect (() => {
             popover_opened (false);
             active = false;
+
+            if (item.id != 0) {
+                bool new_date = false;
+                if (duedate.is_valid ()) {
+                    if (item.due_date == "") {
+                        new_date = true;
+                    }
+
+                    item.due_date = duedate.get_due_date ();
+                } else {
+                    item.due_date = "";
+                    item.due_is_recurring = 0;
+                    item.due_string = "";
+                    item.due_lang = "";
+                }
+
+                Planner.database.set_due_item (item, new_date);
+                if (item.is_todoist == 1) {
+                    Planner.todoist.update_item (item);
+                }
+            }
         });
 
         popover.show.connect (() => {
@@ -179,9 +211,13 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         clear_back_button.clicked.connect (() => {
             if (stack.visible_child_name != "home") {
                 stack.visible_child_name = "home";
+                check_clear_back_button ();
+            } else {
+                duedate.date = null;
+                update_popover (duedate);
+                update_button (duedate);
+                popover.popdown ();
             }
-
-            check_clear_back_button ();
         });
     }
 
@@ -202,7 +238,7 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        grid.add (search_entry);
+        // grid.add (search_entry);
         grid.add (today_row);
         grid.add (tomorrow_row);
         grid.add (calendar_row);
@@ -224,6 +260,15 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         time_row.clicked.connect (() => {
             stack.visible_child_name = "pick-time";
             check_clear_back_button ();
+
+            no_time_revealer.reveal_child = false;
+            time_picker.grab_focus ();
+
+            if (duedate.is_valid ()) {
+                if (Planner.utils.has_time (duedate.date)) {
+                    no_time_revealer.reveal_child = true;
+                }
+            }
         });
 
         return grid;
@@ -254,9 +299,9 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         time_picker.get_style_context ().add_class ("border-radius-4");
         time_picker.get_style_context ().add_class ("popover-entry");
 
-        var morning_button = new Widgets.TimeAlternativeButton (_("Morning"), "09:30 AM");
-        var afternoon_button = new Widgets.TimeAlternativeButton (_("Afternoon"), "01:30 PM");
-        var evening_button = new Widgets.TimeAlternativeButton (_("Evening"), "07:30 PM");
+        var morning_button = new Widgets.TimeAlternativeButton (_("Morning"), "morning-time");
+        var afternoon_button = new Widgets.TimeAlternativeButton (_("Afternoon"), "afternoon-time");
+        var evening_button = new Widgets.TimeAlternativeButton (_("Evening"), "evening-time");
 
         var times_grid = new Gtk.Grid ();
         times_grid.column_homogeneous = true;
@@ -270,27 +315,87 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         set_time_button.get_style_context ().add_class ("border-radius-50");
         set_time_button.halign = Gtk.Align.CENTER;
 
-        var no_time = new Gtk.Button.with_label (_("No Time"));
-        no_time.margin_top = 6;
-        no_time.can_focus = false;
-        no_time.get_style_context ().add_class ("flat");
-        no_time.halign = Gtk.Align.CENTER;
+        var no_time_button = new Gtk.Button.with_label (_("No Time"));
+        no_time_button.margin_top = 6;
+        no_time_button.can_focus = false;
+        no_time_button.get_style_context ().add_class ("flat");
+        no_time_button.halign = Gtk.Align.CENTER;
+
+        no_time_revealer = new Gtk.Revealer ();
+        no_time_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        no_time_revealer.reveal_child = true;
+        no_time_revealer.add (no_time_button);
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.add (time_picker);
         grid.add (times_grid);
         grid.add (set_time_button);
-        grid.add (no_time);
+        grid.add (no_time_revealer);
 
-        
+        set_time_button.clicked.connect (() => {
+            set_time (time_picker.time);
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
+
+        time_picker.activate.connect (() => {
+            set_time (time_picker.time);
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
+
+        morning_button.clicked.connect (() => {
+            set_time (morning_button.time);
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
+
+        afternoon_button.clicked.connect (() => {
+            set_time (afternoon_button.time);
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
+
+        evening_button.clicked.connect (() => {
+            set_time (evening_button.time);
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
+
+        no_time_button.clicked.connect (() => {
+            duedate.no_time ();
+
+            update_button (duedate);
+            update_popover (duedate);
+
+            stack.visible_child_name = "home";
+            check_clear_back_button ();
+        });
 
         return grid;
     }
 
-    private void set_date (DateTime datetime) {
-        // update_button (datetime);
-        update_popover (datetime);
+    private void set_date (DateTime date) {
+        if (Planner.utils.has_time (duedate.date)) {
+            duedate.update_date (date);
+        } else {
+            duedate.date = date;
+        }
+
+        update_button (duedate);
+        update_popover (duedate);
+    }
+
+    private void set_time (DateTime time) {
+        if (duedate.is_valid ()) {
+            duedate.set_time (time);
+        } else {
+            duedate.date = time;
+        }
+
+        update_button (duedate);
+        update_popover (duedate);
     }
 
     private void check_clear_back_button () {
@@ -303,18 +408,90 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         }
     }
 
-    private void update_popover (DateTime datetime) {
+    private void update_popover (Objects.Duedate duedate) {
         today_row.selected = false;
         tomorrow_row.selected = false;
         calendar_row.date_label = "";
+        time_row.date_label = "";
 
-        if (Planner.utils.is_today (datetime)) {
-            today_row.selected = true;
-        } else if (Planner.utils.is_tomorrow (datetime)) {
-            tomorrow_row.selected = true;
-        } else {
-            calendar_row.date_label = Planner.utils.get_relative_date_from_date (datetime);
+        if (duedate.is_valid ()) {
+            if (Planner.utils.is_today (duedate.date)) {
+                today_row.selected = true;
+            } else if (Planner.utils.is_tomorrow (duedate.date)) {
+                tomorrow_row.selected = true;
+            } else {
+                calendar_row.date_label = Planner.utils.get_relative_date_from_date (duedate.date);
+            }
+    
+            if (Planner.utils.has_time (duedate.date)) {
+                time_row.date_label = duedate.date.format (Planner.utils.get_default_time_format ());
+            }
         }
+    }
+
+    private void update_button (Objects.Duedate duedate) {
+        due_label.label = _("Schedule");
+        time_label.label = "";
+        
+        if (Planner.settings.get_enum ("appearance") == 0) {
+            due_image.gicon = new ThemedIcon ("calendar-outline-light");
+        } else {
+            due_image.gicon = new ThemedIcon ("calendar-outline-dark");
+        }
+
+        due_image.get_style_context ().remove_class ("overdue-label");
+        due_image.get_style_context ().remove_class ("today");
+        due_image.get_style_context ().remove_class ("upcoming");
+
+        repeat_revealer.reveal_child = false;
+        time_revealer.reveal_child = false;
+
+        if (duedate.is_valid ()) {
+            due_label.label = Planner.utils.get_relative_date_from_date (duedate.date);
+            if (Planner.utils.has_time (duedate.date)) {
+                time_label.label = duedate.date.format (Planner.utils.get_default_time_format ());
+                time_revealer.reveal_child = true;
+            }
+
+            if (Planner.utils.is_today (duedate.date)) {
+                due_image.gicon = new ThemedIcon ("help-about-symbolic");
+                due_image.get_style_context ().add_class ("today");
+            } else if (Planner.utils.is_overdue (duedate.date)) {
+                due_image.gicon = new ThemedIcon ("calendar-overdue");
+                due_image.get_style_context ().add_class ("overdue-label");
+            } else {
+                if (Planner.settings.get_enum ("appearance") == 0) {
+                    due_image.gicon = new ThemedIcon ("calendar-outline-light");
+                } else {
+                    due_image.gicon = new ThemedIcon ("calendar-outline-dark");
+                }
+
+                due_image.get_style_context ().add_class ("upcoming");
+            }
+
+            //  if (item.due_is_recurring == 1) {
+            //      repeat_revealer.reveal_child = true;
+            //  } else {
+            //      repeat_revealer.reveal_child = false;
+            //  }
+        }
+    }
+
+    public void set_new_item_due_date (string due_date) {
+        if (due_date != "") {
+            duedate.date = Planner.utils.get_format_date_from_string (due_date);
+            update_button (duedate);
+        }
+    }
+
+    public string get_due_date () {
+        var returned = "";
+
+        if (duedate.is_valid ()) {
+            returned = duedate.get_due_date ();
+        }
+
+        return returned;
     }
 }
 
@@ -411,25 +588,17 @@ public class Widgets.ScheduleRow : Gtk.Button {
 }
 
 public class Widgets.TimeAlternativeButton : Gtk.Button {
+    public string text { get; construct; }
+    public string key { get; construct; }
+    public GLib.DateTime time { get; set; }
+
     private Gtk.Label title_label;
     private Gtk.Label time_label;
 
-    public string text {
-        set {
-            title_label.label = value;
-        }
-    }
-
-    public string time {
-        set {
-            time_label.label = value;
-        }
-    }
-
-    public TimeAlternativeButton (string text, string time) {
+    public TimeAlternativeButton (string text, string key) {
         Object (
             text: text,
-            time: time
+            key: key
         );
     }
 
@@ -440,13 +609,17 @@ public class Widgets.TimeAlternativeButton : Gtk.Button {
         get_style_context ().add_class ("no-border");
         get_style_context ().add_class ("time-alternative");
         can_focus = false;
+        int hour, minute;
+        Planner.settings.get (key, "(ii)", out hour, out minute);
 
-        title_label = new Gtk.Label (null);
+        time = Planner.utils.get_time_by_hour_minute (hour, minute);
+
+        title_label = new Gtk.Label (text);
         title_label.get_style_context ().add_class ("font-bold");
 
-        time_label = new Gtk.Label (null);
+        time_label = new Gtk.Label (time.format (Planner.utils.get_default_time_format ()));
         time_label.get_style_context ().add_class ("small-label");
-
+        
         var grid = new Gtk.Grid ();
         grid.halign = Gtk.Align.CENTER;
         grid.orientation = Gtk.Orientation.VERTICAL;

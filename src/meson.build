@@ -109,7 +109,7 @@ planner_files = files(
     'Objects/Reminder.vala',
     'Objects/Queue.vala',
     'Objects/Shortcuts.vala',
-    'Objects/ParsedResult.vala'
+    'Objects/Duedate.vala'
 )
 
 executable(

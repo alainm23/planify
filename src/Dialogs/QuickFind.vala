@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.QuickFind : Gtk.Dialog {
+public class Dialogs.QuickFind : Hdy.Window {
     SearchItem current_item = null;
     public QuickFind () {
         Object (
@@ -27,14 +27,12 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             deletable: false,
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            use_header_bar: 1,
             title: _("Quick Find")
         );
     }
 
     construct {
         Planner.event_bus.unselect_all ();
-        get_style_context ().add_class ("app");
         get_style_context ().add_class ("quick-find-dialog");
         width_request = 575;
         height_request = 455;
@@ -124,13 +122,9 @@ public class Dialogs.QuickFind : Gtk.Dialog {
             }
         """.printf (_("Tomorrow")));
 
-        get_header_bar ().visible = false;
-        get_header_bar ().no_show_all = true;
-
         var search_label = new Gtk.Label (_("Search"));
         search_label.get_style_context ().add_class ("font-weight-600");
         search_label.width_request = 90;
-        search_label.margin_start = 6;
         search_label.xalign = (float) 0.5;
 
         var search_revealer = new Gtk.Revealer ();
@@ -140,14 +134,20 @@ public class Dialogs.QuickFind : Gtk.Dialog {
 
         var search_entry = new Gtk.SearchEntry ();
         search_entry.hexpand = true;
+        search_entry.margin_end = 1;
         search_entry.placeholder_text = _("Quick Find");
 
         var top_grid = new Gtk.Grid ();
         top_grid.column_spacing = 6;
-        top_grid.margin_end = 6;
-        top_grid.margin_top = 6;
         top_grid.add (search_revealer);
         top_grid.add (search_entry);
+
+        var header = new Hdy.HeaderBar ();
+        header.decoration_layout = "close:";
+        header.has_subtitle = false;
+        header.show_close_button = false;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header.set_custom_title (top_grid);
 
         var placeholder_image = new Gtk.Image ();
         placeholder_image.gicon = new ThemedIcon ("folder-saved-search-symbolic");
@@ -179,15 +179,15 @@ public class Dialogs.QuickFind : Gtk.Dialog {
         listbox_scrolled.add (listbox);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-        separator.margin_top = 6;
+        separator.margin_top = 1;
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
-        main_box.pack_start (top_grid, false, false, 0);
+        main_box.pack_start (header, false, false, 0);
         main_box.pack_start (separator, false, false, 0);
         main_box.pack_start (listbox_scrolled, true, true, 0);
 
-        get_content_area ().add (main_box);
+        add (main_box);
         
         var recents = Planner.database.get_quick_find_recents ();
         for (int i = 0; i < recents.length ; i++) {

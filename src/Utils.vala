@@ -582,6 +582,20 @@ public class Utils : GLib.Object {
         return Granite.DateTime.get_default_time_format (settings.get_enum ("clock-format") == 1, false);
     }
 
+    public GLib.DateTime get_time_by_hour_minute (int hour, int minute) {
+        var now = new DateTime.now_local ();
+        var time = new DateTime.local (
+            now.get_year (),
+            now.get_month (),
+            now.get_day_of_month (),
+            hour,
+            minute,
+            0
+        );
+
+        return time;
+    }
+
     public string get_relative_date_from_date (GLib.DateTime date) {
         if (is_today (date)) {
             return _("Today");

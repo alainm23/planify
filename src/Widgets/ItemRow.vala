@@ -69,6 +69,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Menu sections_menu;
     private Widgets.ImageMenuItem undated_menu;
     private Widgets.DueButton due_button;
+    private Widgets.ScheduleButton reschedule_button;
     private Widgets.ImageMenuItem move_section_menu;
     private Widgets.ImageMenuItem edit_menu;
     private Widgets.ImageMenuItem today_menu;
@@ -466,6 +467,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         labels_edit_revealer.add (labels_edit_box);
 
         due_button = new Widgets.DueButton (item);
+        reschedule_button = new Widgets.ScheduleButton (item);
 
         var reminder_button = new Widgets.ReminderButton (item);
 
@@ -509,7 +511,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         action_box.margin_bottom = 3;
         action_box.margin_end = 3;
         action_box.sensitive = item.checked == 0;
-        action_box.pack_start (due_button, false, true, 0);
+        action_box.pack_start (reschedule_button, false, true, 0);
         action_box.pack_end (menu_button, false, false, 0);
         action_box.pack_end (reminder_button, false, true, 0);
         action_box.pack_end (priority_button, false, false, 0);
@@ -828,7 +830,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                due_button.update_date_text (i);
+                // due_button.update_date_text (i);
             }
         });
 
@@ -842,7 +844,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                due_button.update_date_text (i);
+                // due_button.update_date_text (i);
             }
         });
 
@@ -856,7 +858,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                due_button.update_date_text (i);
+                // due_button.update_date_text (i);
             }
         });
 
@@ -994,7 +996,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Planner.event_bus.day_changed.connect (() => {
             update_duedate_text ();
-            due_button.update_date_text (item);
+            // due_button.update_date_text (item);
         });
 
         Planner.database.item_uncompleted.connect ((i) => {
@@ -1555,23 +1557,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         today_menu.activate.connect (() => {
-            due_button.set_due (
-                Planner.utils.get_format_date (
-                    new GLib.DateTime.now_local ()
-                ).to_string ()
-            );
+            //  due_button.set_due (
+            //      Planner.utils.get_format_date (
+            //          new GLib.DateTime.now_local ()
+            //      ).to_string ()
+            //  );
         });
 
         tomorrow_menu.activate.connect (() => {
-            due_button.set_due (
-                Planner.utils.get_format_date (
-                    new GLib.DateTime.now_local ().add_days (1)
-                ).to_string ()
-            );
+            //  due_button.set_due (
+            //      Planner.utils.get_format_date (
+            //          new GLib.DateTime.now_local ().add_days (1)
+            //      ).to_string ()
+            //  );
         });
 
         undated_menu.activate.connect (() => {
-            due_button.set_due ("");
+            // due_button.set_due ("");
         });
 
         share_text_menu.activate.connect (() => {

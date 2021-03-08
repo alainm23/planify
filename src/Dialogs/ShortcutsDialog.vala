@@ -25,6 +25,7 @@ public class Dialogs.ShortcutsDialog : Hdy.Window {
             transient_for: Planner.instance.main_window,
             deletable: true,
             resizable: true,
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: false,
             title: _("Keyboard Shortcuts")
         );
@@ -33,7 +34,6 @@ public class Dialogs.ShortcutsDialog : Hdy.Window {
     construct {
         Planner.event_bus.unselect_all ();
         get_style_context ().add_class ("release-dialog");
-        get_style_context ().add_class ("app");
         width_request = 525;
         height_request = 600;
 
@@ -177,7 +177,7 @@ public class Dialogs.ShortcutsDialog : Hdy.Window {
         settings_icon.halign = Gtk.Align.CENTER;
         settings_icon.valign = Gtk.Align.CENTER;
         settings_icon.pixel_size = 16;
-        settings_icon.gicon = new ThemedIcon ("preferences-desktop-keyboard-shortcuts-symbolic");
+        settings_icon.gicon = new ThemedIcon ("input-keyboard-symbolic");
 
         var settings_label = new Gtk.Label (_("Keyboard Shortcuts"));
         settings_label.get_style_context ().add_class ("h3");
@@ -199,8 +199,17 @@ public class Dialogs.ShortcutsDialog : Hdy.Window {
         main_grid.orientation = Gtk.Orientation.VERTICAL;
         main_grid.add (header);
         main_grid.add (scrolled);
-
+        
         add (main_grid);
+
+        done_button.clicked.connect (() => {
+            hide ();
+
+            Timeout.add (500, () => {
+                destroy ();
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private class NameLabel : Gtk.Label {

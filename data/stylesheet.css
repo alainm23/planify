@@ -96,7 +96,7 @@ menu {
 }
 
 .unified > decoration-overlay {
-    border-radius: rem(6px);
+    border-radius: 6px;
 }
 
 .csd {
@@ -1382,4 +1382,75 @@ paned.horizontal > separator {
     border: 1px solid alpha (#3689e6, 0.45);
 }
 
+.found-icon {
+    background-color: #ed5353;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.homepage {
+    background-color: #3689e6;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.app-badge {
+    background-color: #c6262e;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.appearance {
+    background-color: #28bca3;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.task-default {
+    background-color: #485a6c;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.quick-add {
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.general {
+    background-color: #a56de2;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.todoist {
+    background-color: #c6262e;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.calendar {
+    background-color: #68b723;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.labels {
+    background-color: #de3e80;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.plugins {
+    background-color: #f37329;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.about {
+    background-color: #f9c440;
+    border-radius: 6px;
+    padding: 3px;
+}
 

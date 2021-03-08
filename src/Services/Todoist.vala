@@ -411,6 +411,12 @@ public class Services.Todoist : GLib.Object {
                 }
 
                 Planner.database.insert_item (i);
+
+                foreach (unowned Json.Node label_id in object.get_array_member ("labels").get_elements ()) {
+                    Planner.database.add_item_label (
+                        i.id, Planner.database.get_label_by_id (label_id.get_int ())
+                    );
+                }
             }
 
             // Download Profile Image

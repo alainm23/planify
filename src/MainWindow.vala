@@ -28,7 +28,8 @@ public class MainWindow : Hdy.ApplicationWindow {
     private Widgets.Pane pane;
     private Hdy.HeaderBar sidebar_header;
     private Hdy.HeaderBar projectview_header;
-    public Gtk.Stack stack;
+    public Gtk.Stack project_stack;
+    public Gtk.Stack main_stack;
     private Views.Inbox inbox_view = null;
     private Views.Today today_view = null;
     private Views.Upcoming upcoming_view = null;
@@ -50,9 +51,9 @@ public class MainWindow : Hdy.ApplicationWindow {
             application: application,
             app: application,
             icon_name: "com.github.alainm23.planner",
-            title: _("Planner"),
-            height_request: 400,
-            width_request: 400
+            title: _("Planner")
+            // height_request: 400,
+            // width_request: 400
         );
     }
 
@@ -73,7 +74,7 @@ public class MainWindow : Hdy.ApplicationWindow {
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
-        sidebar_header.get_style_context ().add_class ("default-decoration");
+        // sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         pane = new Widgets.Pane ();
@@ -87,30 +88,17 @@ public class MainWindow : Hdy.ApplicationWindow {
         projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
-        projectview_header.get_style_context ().add_class ("default-decoration");
+        // projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         check_button_layout ();
 
-        var welcome_view = new Views.Welcome ();
-
-        var spinner_loading = new Gtk.Spinner ();
-        spinner_loading.valign = Gtk.Align.CENTER;
-        spinner_loading.halign = Gtk.Align.CENTER;
-        spinner_loading.width_request = 50;
-        spinner_loading.height_request = 50;
-        spinner_loading.active = true;
-        spinner_loading.start ();
-
-        stack = new Gtk.Stack ();
-        stack.expand = true;
-        stack.transition_type = Gtk.StackTransitionType.NONE;
+        project_stack = new Gtk.Stack ();
+        project_stack.expand = true;
+        project_stack.transition_type = Gtk.StackTransitionType.NONE;
         if (Planner.settings.get_boolean ("use-system-decoration")) {
-            stack.margin_top = 18;
+            project_stack.margin_top = 18;
         }
-
-        stack.add_named (welcome_view, "welcome-view");
-        stack.add_named (spinner_loading, "loading-view");
 
         var notifications_grid = new Gtk.Grid ();
         notifications_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -133,7 +121,7 @@ public class MainWindow : Hdy.ApplicationWindow {
         projectview_overlay.expand = true;
         projectview_overlay.add_overlay (notifications_grid);
         projectview_overlay.add_overlay (multiselect_toolbar);
-        projectview_overlay.add (stack);
+        projectview_overlay.add (project_stack);
 
         var view_grid = new Gtk.Grid ();
         view_grid.attach (projectview_header, 0, 0);
@@ -147,7 +135,27 @@ public class MainWindow : Hdy.ApplicationWindow {
             // set_titlebar (header_paned);
         }
 
-        add (paned);
+        var welcome_view = new Views.Welcome ();
+
+        var welcome_header = new Hdy.HeaderBar ();
+        welcome_header.has_subtitle = false;
+        welcome_header.show_close_button = true;
+        // welcome_header.get_style_context ().add_class ("default-decoration");
+        welcome_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var welcome_grid = new Gtk.Grid ();
+        welcome_grid.orientation = Gtk.Orientation.VERTICAL;
+        welcome_grid.add (welcome_header);
+        welcome_grid.add (welcome_view);
+
+        main_stack = new Gtk.Stack ();
+        main_stack.expand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.NONE;
+
+        main_stack.add_named (paned, "stack-view");
+        main_stack.add_named (welcome_grid, "welcome-view");
+
+        add (main_stack);
         
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
@@ -164,32 +172,17 @@ public class MainWindow : Hdy.ApplicationWindow {
             hook_func ();
         });
 
-        Planner.notifications.send_notification.connect ((message, style) => {
-            var notification = new Widgets.Toast (message, "", style);
-            notifications_grid.add (notification);
-            notifications_grid.show_all ();
-
-            notification.send_notification ();
-        });
-
-        Planner.notifications.send_undo_notification.connect ((message, query) => {
-            var notification = new Widgets.Toast (message, query, NotificationStyle.NORMAL);
-            notifications_grid.add (notification);
-            notifications_grid.show_all ();
-
-            notification.send_notification ();
-        });
-
         Planner.database.opened.connect (() => {
             if (Planner.database.is_database_empty ()) {
                 Timeout.add (250, () => {
-                    stack.visible_child_name = "welcome-view";
+                    main_stack.visible_child_name = "welcome-view";
                     pane.sensitive_ui = false;
                     
                     return GLib.Source.REMOVE;
                 });
             } else {
-                // Set the homepage view
+                main_stack.visible_child_name = "stack-view";
+
                 if (Planner.settings.get_boolean ("homepage-project")) {
                     int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
                     if (Planner.database.project_exists (project_id)) {
@@ -225,11 +218,29 @@ public class MainWindow : Hdy.ApplicationWindow {
             inbox_view.destroy ();
             inbox_view = null;
 
-            stack.visible_child_name = "welcome-view";
+            main_stack.visible_child_name = "welcome-view";
+        });
+
+        Planner.notifications.send_notification.connect ((message, style) => {
+            var notification = new Widgets.Toast (message, "", style);
+            notifications_grid.add (notification);
+            notifications_grid.show_all ();
+
+            notification.send_notification ();
+        });
+
+        Planner.notifications.send_undo_notification.connect ((message, query) => {
+            var notification = new Widgets.Toast (message, query, NotificationStyle.NORMAL);
+            notifications_grid.add (notification);
+            notifications_grid.show_all ();
+
+            notification.send_notification ();
         });
 
         welcome_view.activated.connect ((index) => {
             if (index == 0) {
+                main_stack.visible_child_name = "stack-view";
+
                 // Save user name
                 Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
 
@@ -248,10 +259,10 @@ public class MainWindow : Hdy.ApplicationWindow {
                 // Set settings
                 Planner.settings.set_int64 ("inbox-project", inbox_project.id);
 
-                stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+                project_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
                 pane.sensitive_ui = true;
-                stack.transition_type = Gtk.StackTransitionType.NONE;
+                project_stack.transition_type = Gtk.StackTransitionType.NONE;
 
                 // Init Progress Server
                 init_badge_count ();
@@ -281,13 +292,10 @@ public class MainWindow : Hdy.ApplicationWindow {
         });
 
         pane.show_quick_find.connect (show_quick_find);
-        
-        Planner.todoist.first_sync_started.connect (() => {
-            stack.visible_child_name = "loading-view";
-        });
 
         Planner.todoist.first_sync_finished.connect (() => {
-            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+            main_stack.visible_child_name = "stack-view";
+            project_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
             // Create The New Inbox Project
             inbox_view = null;
@@ -295,7 +303,7 @@ public class MainWindow : Hdy.ApplicationWindow {
 
             // Enable UI
             pane.sensitive_ui = true;
-            stack.transition_type = Gtk.StackTransitionType.NONE;
+            project_stack.transition_type = Gtk.StackTransitionType.NONE;
 
             // Init Progress Server
             init_badge_count ();
@@ -303,9 +311,9 @@ public class MainWindow : Hdy.ApplicationWindow {
         });
 
         Planner.database.project_deleted.connect ((id) => {
-            if ("project-view-%s".printf (id.to_string ()) == stack.visible_child_name) {
-                stack.visible_child.destroy ();
-                stack.visible_child_name = "inbox-view";
+            if ("project-view-%s".printf (id.to_string ()) == project_stack.visible_child_name) {
+                project_stack.visible_child.destroy ();
+                project_stack.visible_child_name = "inbox-view";
                 Planner.event_bus.pane_selected (PaneType.ACTION, "0");
             }
         });
@@ -380,7 +388,7 @@ public class MainWindow : Hdy.ApplicationWindow {
         });
 
         Planner.event_bus.hide_new_window_project.connect ((project_id) => {
-            var project = ((Views.Project) stack.visible_child).project;
+            var project = ((Views.Project) project_stack.visible_child).project;
             if (project.id == project_id) {
                 go_view (PaneView.INBOX);
             }
@@ -475,40 +483,40 @@ public class MainWindow : Hdy.ApplicationWindow {
                 inbox_view = new Views.Inbox (
                     Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
                 );
-                stack.add_named (inbox_view, "inbox-view");
+                project_stack.add_named (inbox_view, "inbox-view");
             }
 
-            stack.visible_child_name = "inbox-view";
+            project_stack.visible_child_name = "inbox-view";
         } else if (view == PaneView.TODAY) {
             if (today_view == null) {
                 today_view = new Views.Today ();
-                stack.add_named (today_view, "today-view");
+                project_stack.add_named (today_view, "today-view");
             }
 
             today_view.add_items ();
-            stack.visible_child_name = "today-view";
+            project_stack.visible_child_name = "today-view";
         } else if (view == PaneView.UPCOMING) {
             if (upcoming_view == null) {
                 upcoming_view = new Views.Upcoming ();
-                stack.add_named (upcoming_view, "upcoming-view");
+                project_stack.add_named (upcoming_view, "upcoming-view");
             }
 
-            stack.visible_child_name = "upcoming-view";
+            project_stack.visible_child_name = "upcoming-view";
         } else if (view == PaneView.COMPLETED) {
             if (completed_view == null) {
                 completed_view = new Views.Completed ();
-                stack.add_named (completed_view, "completed-view");
+                project_stack.add_named (completed_view, "completed-view");
             }
 
             completed_view.add_all_items ();
-            stack.visible_child_name = "completed-view";
+            project_stack.visible_child_name = "completed-view";
         } else if (view == PaneView.ALLTASKS) {
             if (alltasks_view == null) {
                 alltasks_view = new Views.AllTasks ();
-                stack.add_named (alltasks_view, "alltasks-view");
+                project_stack.add_named (alltasks_view, "alltasks-view");
             }
             
-            stack.visible_child_name = "alltasks-view";
+            project_stack.visible_child_name = "alltasks-view";
         }
 
         pane.select_item (view);
@@ -517,11 +525,11 @@ public class MainWindow : Hdy.ApplicationWindow {
     public void go_project (int64 project_id) {
         if (project_view == null) {
             project_view = new Views.Project ();
-            stack.add_named (project_view, "project-view");
+            project_stack.add_named (project_view, "project-view");
         }
 
         project_view.project = Planner.database.get_project_by_id (project_id);
-        stack.visible_child_name = "project-view";
+        project_stack.visible_child_name = "project-view";
     }
 
     public void go_item (int64 item_id) {
@@ -539,21 +547,21 @@ public class MainWindow : Hdy.ApplicationWindow {
     public void go_label (int64 label_id) {
         if (label_view == null) {
             label_view = new Views.Label ();
-            stack.add_named (label_view, "label-view");
+            project_stack.add_named (label_view, "label-view");
         }
 
         label_view.label = Planner.database.get_label_by_id (label_id);
-        stack.visible_child_name = "label-view";
+        project_stack.visible_child_name = "label-view";
     }
 
     public void go_filter (string filter) {
         if (filter_view == null) {
             filter_view = new Views.Filter ();
-            stack.add_named (filter_view, "filter-view");
+            project_stack.add_named (filter_view, "filter-view");
         }
         
         filter_view.filter = filter;
-        stack.visible_child_name = "filter-view";
+        project_stack.visible_child_name = "filter-view";
     }
 
     private void init_badge_count () {
@@ -668,11 +676,11 @@ public class MainWindow : Hdy.ApplicationWindow {
     }
 
     public void add_task_action (int index) {
-        if (stack.visible_child_name == "inbox-view") {
+        if (project_stack.visible_child_name == "inbox-view") {
             inbox_view.add_new_item (index);
-        } else if (stack.visible_child_name == "today-view") {
+        } else if (project_stack.visible_child_name == "today-view") {
             today_view.add_new_item (index);
-        } else if (stack.visible_child_name == "upcoming-view") {
+        } else if (project_stack.visible_child_name == "upcoming-view") {
             var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
             
             Planner.event_bus.magic_button_activated (
@@ -683,8 +691,8 @@ public class MainWindow : Hdy.ApplicationWindow {
                 "upcoming",
                 new DateTime.now_local ().add_days (1).to_string ()
             );
-        } else if (stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) stack.visible_child).project;
+        } else if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) project_stack.visible_child).project;
             Planner.event_bus.magic_button_activated (
                 project.id,
                 0,
@@ -693,31 +701,31 @@ public class MainWindow : Hdy.ApplicationWindow {
                 "project",
                 ""
             );
-        } else if (stack.visible_child_name == "filter-view") {
+        } else if (project_stack.visible_child_name == "filter-view") {
             filter_view.add_new_item (index);
         }
     }
 
     public void hide_all () {
-        if (stack.visible_child_name == "inbox-view") {
+        if (project_stack.visible_child_name == "inbox-view") {
             Planner.event_bus.hide_items_project (Planner.settings.get_int64 ("inbox-project"));
-        } else if (stack.visible_child_name == "today-view") {
+        } else if (project_stack.visible_child_name == "today-view") {
             today_view.hide_items ();
-        } else if (stack.visible_child_name == "upcoming-view") {
+        } else if (project_stack.visible_child_name == "upcoming-view") {
             upcoming_view.hide_items ();
-        } else if (stack.visible_child_name == "label-view") {
+        } else if (project_stack.visible_child_name == "label-view") {
             label_view.hide_items ();
-        } else if (stack.visible_child_name == "filter-view") {
+        } else if (project_stack.visible_child_name == "filter-view") {
             filter_view.hide_items ();
-        } else if (stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) stack.visible_child).project;
+        } else if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) project_stack.visible_child).project;
             Planner.event_bus.hide_items_project (project.id);
         }
     }
 
     public void open_new_project_window () {
-        if (stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) stack.visible_child).project;
+        if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) project_stack.visible_child).project;
 
             var dialog = new Dialogs.Project (project, false);
             dialog.destroy.connect (Gtk.main_quit);
@@ -735,18 +743,18 @@ public class MainWindow : Hdy.ApplicationWindow {
     }
 
     public void sort (int sort) {
-        if (stack.visible_child_name == "inbox-view") {
+        if (project_stack.visible_child_name == "inbox-view") {
             Planner.database.update_sort_order_project (Planner.settings.get_int64 ("inbox-project"), sort);
-        } else if (stack.visible_child_name == "today-view") {
+        } else if (project_stack.visible_child_name == "today-view") {
             Planner.settings.set_int ("today-sort-order", sort);
-        } else if (stack.visible_child_name == "upcoming-view") {
+        } else if (project_stack.visible_child_name == "upcoming-view") {
             
-        } else if (stack.visible_child_name == "label-view") {
+        } else if (project_stack.visible_child_name == "label-view") {
             
-        } else if (stack.visible_child_name == "filter-view") {
+        } else if (project_stack.visible_child_name == "filter-view") {
             
-        } else if (stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) stack.visible_child).project;
+        } else if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) project_stack.visible_child).project;
             Planner.database.update_sort_order_project (project.id, sort);
         }
     }
@@ -775,7 +783,7 @@ public class MainWindow : Hdy.ApplicationWindow {
         var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
         var cancellable = new Cancellable ();
 
-        if (stack.visible_child_name == "inbox-view") {
+        if (project_stack.visible_child_name == "inbox-view") {
             item.project_id = inbox_project.id;
             item.is_todoist = inbox_project.is_todoist;
 
@@ -790,7 +798,7 @@ public class MainWindow : Hdy.ApplicationWindow {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
             }
-        } else if (stack.visible_child_name == "today-view") {
+        } else if (project_stack.visible_child_name == "today-view") {
             item.project_id = inbox_project.id;
             item.is_todoist = inbox_project.is_todoist;
             item.due_date = new GLib.DateTime.now_local ().to_string ();
@@ -806,7 +814,7 @@ public class MainWindow : Hdy.ApplicationWindow {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
             }
-        } else if (stack.visible_child_name == "upcoming-view") {
+        } else if (project_stack.visible_child_name == "upcoming-view") {
             item.project_id = inbox_project.id;
             item.is_todoist = inbox_project.is_todoist;
             item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
@@ -822,8 +830,8 @@ public class MainWindow : Hdy.ApplicationWindow {
                 item.id = Planner.utils.generate_id ();
                 Planner.database.insert_item (item, -1);
             }
-        } else if (stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) stack.visible_child).project;
+        } else if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project = ((Views.Project) project_stack.visible_child).project;
             item.project_id = project.id;
             item.is_todoist = project.is_todoist;
 
@@ -842,14 +850,14 @@ public class MainWindow : Hdy.ApplicationWindow {
     }
 
     public void new_section_action () {
-        if (stack.visible_child_name == "inbox-view") {
+        if (project_stack.visible_child_name == "inbox-view") {
             inbox_view.open_new_section ();
-        } else if (stack.visible_child_name == "today-view") {
+        } else if (project_stack.visible_child_name == "today-view") {
 
-        } else if (stack.visible_child_name == "upcoming-view") {
+        } else if (project_stack.visible_child_name == "upcoming-view") {
 
-        } else if (stack.visible_child_name.has_prefix ("project")) {
-            var project_view = (Views.Project) stack.visible_child;
+        } else if (project_stack.visible_child_name.has_prefix ("project")) {
+            var project_view = (Views.Project) project_stack.visible_child;
             project_view.open_new_section ();
         }
     }
@@ -862,14 +870,14 @@ public class MainWindow : Hdy.ApplicationWindow {
         } else if (pane.visible_tool_widget ()) {
             pane.set_visible_tool_widget (false);
         } else {
-            if (stack.visible_child_name == "inbox-view") {
+            if (project_stack.visible_child_name == "inbox-view") {
                 //inbox_view.hide_last_item ();
-            } else if (stack.visible_child_name == "today-view") {
+            } else if (project_stack.visible_child_name == "today-view") {
                 //today_view.hide_last_item ();
-            } else if (stack.visible_child_name == "upcoming-view") {
+            } else if (project_stack.visible_child_name == "upcoming-view") {
                 //upcoming_view.hide_last_item ();
             } else {
-                //var project_view = (Views.Project) stack.visible_child;
+                //var project_view = (Views.Project) project_stack.visible_child;
                 //project_view.hide_last_item ();
             }
         }

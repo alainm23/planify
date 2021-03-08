@@ -124,7 +124,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.margin_start = 5;
-        handle_box.margin_end = 3;
+        handle_box.margin_end = 1;
         handle_box.margin_top = handle_box.margin_bottom = 2;
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);

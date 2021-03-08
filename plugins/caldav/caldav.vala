@@ -62,36 +62,12 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         name_label.valign = Gtk.Align.CENTER;
         name_label.set_ellipsize (Pango.EllipsizeMode.END);
 
-        var menu_image = new Gtk.Image ();
-        menu_image.gicon = new ThemedIcon ("list-add-symbolic");
-        menu_image.pixel_size = 14;
-
-        var menu_button = new Gtk.Button ();
-        menu_button.can_focus = false;
-        menu_button.valign = Gtk.Align.CENTER;
-        menu_button.tooltip_text = _("Add Label");
-        menu_button.image = menu_image;
-        menu_button.get_style_context ().remove_class ("button");
-        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        menu_button.get_style_context ().add_class ("hidden-button");
-
-        var count_label = new Gtk.Label (null);
-        count_label.valign = Gtk.Align.CENTER;
-        count_label.opacity = 0;
-        count_label.use_markup = true;
-        count_label.width_chars = 3;
-
-        var menu_stack = new Gtk.Stack ();
-        menu_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-        menu_stack.add_named (count_label, "count_label");
-        menu_stack.add_named (menu_button, "menu_button");
-
         var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.margin_top = 3;
         top_box.margin_bottom = 3;
-        top_box.pack_start (arrow_button, false, false, 0);
+        top_box.margin_start = 5;
         top_box.pack_start (name_label, false, true, 0);
-        top_box.pack_end (menu_stack, false, false, 0);
+        top_box.pack_end (arrow_button, false, false, 0);
 
         top_eventbox = new Gtk.EventBox ();
         top_eventbox.margin_start = 4;
@@ -107,7 +83,6 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         listbox.get_style_context ().add_class ("pane");
         listbox.activate_on_single_click = true;
         listbox.margin_bottom = 6;
-        listbox.margin_start = 20;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
@@ -229,12 +204,12 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
     public void tasklist_selected (E.Source source) {
         if (listview == null) {
             listview = new Views.TaskList ();
-            window.stack.add_named (listview, "tasklist");
+            window.project_stack.add_named (listview, "tasklist");
         }
 
         listview.source = source;
 
-        window.stack.visible_child_name = "tasklist";
+        window.project_stack.visible_child_name = "tasklist";
     }   
 
     private void add_source (E.Source source) {

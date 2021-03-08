@@ -97,7 +97,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_plugins_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("go-home", _("Plugins"));
+        var top_box = new Dialogs.Preferences.TopBox ("extension", _("Plugins"));
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
@@ -108,8 +108,21 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
         });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
         
         return main_box;
+    }
+
+    private void hide_destroy () {
+        hide ();
+
+        Timeout.add (500, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
+        });
     }
 
     private Gtk.Widget get_home_widget () {
@@ -140,38 +153,63 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         header.set_custom_title (header_box);
 
-        /* General */
-        var general_label = new Granite.HeaderLabel (_("General"));
-        general_label.margin_start = 6;
+        var fund_item = new Dialogs.Preferences.Item ("heart-outline", _("Buy Planner a Soda"), true);
+        fund_item.icon_image.get_style_context ().add_class ("found-icon");
+        
+        var found_grid = new Gtk.Grid ();
+        found_grid.valign = Gtk.Align.START;
+        found_grid.get_style_context ().add_class ("preferences-view");
+        found_grid.margin_top = 18;
+        found_grid.orientation = Gtk.Orientation.VERTICAL;
+        found_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        found_grid.add (fund_item);
+        found_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
-        var start_page_item = new Dialogs.Preferences.Item ("go-home", _("Homepage"));
-        var badge_item = new Dialogs.Preferences.Item ("planner-badge-count", _("Badge Count"));
-        var theme_item = new Dialogs.Preferences.Item ("preferences-color", _("Appearance"));
-        var task_item = new Dialogs.Preferences.Item ("process-completed", _("Task default"));
-        var quick_add_item = new Dialogs.Preferences.Item ("planner-quick-add", _("Quick Add"));
-        // var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
-        var general_item = new Dialogs.Preferences.Item ("preferences-system", _("General"), true);
+        /* General */        
+        var start_page_item = new Dialogs.Preferences.Item ("home-outline", _("Homepage"));
+        start_page_item.icon_image.get_style_context ().add_class ("homepage");
+
+        var badge_item = new Dialogs.Preferences.Item ("app-badge", _("Badge Count"));
+        badge_item.icon_image.get_style_context ().add_class ("app-badge");
+
+        var theme_item = new Dialogs.Preferences.Item ("color-palette-outline", _("Appearance"));
+        theme_item.icon_image.get_style_context ().add_class ("appearance");
+
+        var task_item = new Dialogs.Preferences.Item ("checkmark-circle-outline", _("Task default"));
+        task_item.icon_image.get_style_context ().add_class ("task-default");
+
+        var quick_add_item = new Dialogs.Preferences.Item ("add-circle-outline", _("Quick Add"));
+        quick_add_item.icon_image.get_style_context ().add_class ("quick-add");
+
+        var general_item = new Dialogs.Preferences.Item ("cog-outline", _("General"), true);
+        general_item.icon_image.get_style_context ().add_class ("general");
 
         var general_grid = new Gtk.Grid ();
         general_grid.valign = Gtk.Align.START;
+        general_grid.margin_top = 18;
         general_grid.get_style_context ().add_class ("preferences-view");
         general_grid.orientation = Gtk.Orientation.VERTICAL;
+        general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        general_grid.add (theme_item);
         general_grid.add (start_page_item);
         general_grid.add (badge_item);
-        general_grid.add (theme_item);
         general_grid.add (task_item);
         general_grid.add (quick_add_item);
         general_grid.add (general_item);
-
+        general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        
         /* Addons */
-        var addons_label = new Granite.HeaderLabel (_("Add-ons"));
-        addons_label.margin_start = 6;
+        var todoist_item = new Dialogs.Preferences.Item ("cloudy-outline", "Todoist");
+        todoist_item.icon_image.get_style_context ().add_class ("todoist");
 
-        var todoist_item = new Dialogs.Preferences.Item ("planner-todoist", "Todoist");
-        var calendar_item = new Dialogs.Preferences.Item ("x-office-calendar", _("Calendar Events"));
-        var labels_item = new Dialogs.Preferences.Item ("tag", _("Labels"));
-        var shortcuts_item = new Dialogs.Preferences.Item ("preferences-desktop-keyboard", _("Keyboard Shortcuts"));
-        var plugins_item = new Dialogs.Preferences.Item ("extension", "Plugins", true);
+        var calendar_item = new Dialogs.Preferences.Item ("calendar-clear-outline", _("Calendar Events"));
+        calendar_item.icon_image.get_style_context ().add_class ("calendar");
+
+        var labels_item = new Dialogs.Preferences.Item ("pricetags-outline", _("Labels"));
+        labels_item.icon_image.get_style_context ().add_class ("labels");
+
+        var plugins_item = new Dialogs.Preferences.Item ("extension-puzzle-outline", _("Plugins"), true);
+        plugins_item.icon_image.get_style_context ().add_class ("plugins");
 
         var share_b = new Gtk.Button.with_label (_("Share"));
         share_b.clicked.connect (() => {
@@ -189,12 +227,11 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         addons_grid.add (calendar_item);
         addons_grid.add (labels_item);
         addons_grid.add (plugins_item);
-        // addons_grid.add (shortcuts_item);
         addons_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         /* Others */
-        var about_item = new Dialogs.Preferences.Item ("dialog-information", _("About"));
-        var fund_item = new Dialogs.Preferences.Item ("help-about", _("Support & Credits"), true);
+        var about_item = new Dialogs.Preferences.Item ("information-circle-outline", _("About"), true);
+        about_item.icon_image.get_style_context ().add_class ("about");
 
         var others_grid = new Gtk.Grid ();
         others_grid.margin_top = 18;
@@ -204,12 +241,13 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         others_grid.orientation = Gtk.Orientation.VERTICAL;
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         others_grid.add (about_item);
-        others_grid.add (fund_item);
+        // others_grid.add (fund_item);
         others_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
         grid.valign = Gtk.Align.START;
+        grid.add (found_grid);
         grid.add (general_grid);
         grid.add (addons_grid);
         grid.add (others_grid);
@@ -264,14 +302,6 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         labels_item.activated.connect (() => {
             stack.visible_child_name = "labels";
-        });
-
-        shortcuts_item.activated.connect (() => {
-            destroy ();
-
-            var dialog = new Dialogs.ShortcutsDialog ();
-            dialog.destroy.connect (Gtk.main_quit);
-            dialog.show_all ();
         });
 
         calendar_item.activated.connect (() => {
@@ -383,6 +413,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         inbox_radio.toggled.connect (() => {
             Planner.settings.set_boolean ("homepage-project", false);
             Planner.settings.set_enum ("homepage-item", 0);
@@ -402,7 +436,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_task_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("go-home", _("Task defaults"));
+        var top_box = new Dialogs.Preferences.TopBox ("process-completed", _("Task default"));
 
         var new_tasks_position_switch = new Dialogs.Preferences.ItemSwitch (
             _("New tasks on top"),
@@ -457,6 +491,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
         });
 
         new_tasks_position_switch.activated.connect ((value) => {
@@ -552,7 +590,6 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         }
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_box.margin_top = 6;
         main_box.valign = Gtk.Align.START;
         main_box.hexpand = true;
         main_box.pack_start (top_box, false, false, 0);
@@ -565,6 +602,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
         });
 
         none_radio.toggled.connect (() => {
@@ -587,7 +628,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_theme_widget () {
-        var info_box = new Dialogs.Preferences.TopBox ("night-light", _("Appearance"));
+        var info_box = new Dialogs.Preferences.TopBox ("preferences-color", _("Appearance"));
 
         var description_label = new Gtk.Label (
             _("Personalize the look and feel of your Planner by choosing the theme that best suits you.")
@@ -715,6 +756,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        info_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         light_radio.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 0);
         });
@@ -748,7 +793,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_quick_add_widget () {
-        var info_box = new Dialogs.Preferences.TopBox ("night-light", _("Quick Add"));
+        var info_box = new Dialogs.Preferences.TopBox ("planner-quick-add", _("Quick Add"));
 
         var description_label = new Gtk.Label (
             _("Don't worry about which app you're using. You can use a keyboard shortcut to open the Quick Add window, where you can enter a pending task and quickly return to work. You can change the keyboard shortcut whenever you want.") // vala-lint=line-length
@@ -864,6 +909,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        info_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         save_last_switch.activated.connect ((value) => {
             Planner.settings.set_boolean ("quick-add-save-last-project", value);
         });
@@ -928,7 +977,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_general_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("night-light", _("General"));
+        var top_box = new Dialogs.Preferences.TopBox ("preferences-system", _("General"));
         top_box.margin_bottom = 12;
 
         var de_header = new Granite.HeaderLabel (_("DE Integration"));
@@ -1024,6 +1073,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
         });
 
         start_week.activated.connect ((index) => {
@@ -1142,6 +1195,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
         });
 
         listbox.row_activated.connect ((row) => {
@@ -1285,6 +1342,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         sync_server_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("todoist-sync-server", val);
         });
@@ -1405,6 +1466,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         enabled_switch.activated.connect ((val) => {
             Planner.settings.set_boolean ("calendar-enabled", val);
         });
@@ -1419,7 +1484,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_fund_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("face-heart", _("Support & Credits"));
+        var top_box = new Dialogs.Preferences.TopBox ("help-about", _("Support & Credits"));
 
         var description_label = new Gtk.Label (
             _("Planner is being developed with ❤️ and passion for Open Source. However, if you like Planner and want to support its development, consider donating to via:")
@@ -1493,6 +1558,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             stack.visible_child_name = "home";
         });
 
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
         paypal_button.clicked.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://www.paypal.me/alainm23", null);
@@ -1513,7 +1582,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
     }
 
     private Gtk.Widget get_about_widget () {
-        var top_box = new Dialogs.Preferences.TopBox ("office-calendar", _("About"));
+        var top_box = new Dialogs.Preferences.TopBox ("dialog-information", _("About"));
 
         var app_icon = new Gtk.Image ();
         app_icon.gicon = new ThemedIcon ("com.github.alainm23.planner");
@@ -1557,6 +1626,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.back_activated.connect (() => {
             stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
         });
 
         web_item.activated.connect (() => {
