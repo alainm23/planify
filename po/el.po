@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-02-27 10:50+0000\n"
+"PO-Revision-Date: 2021-03-16 19:02+0000\n"
 "Last-Translator: fresh <fresh190@protonmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/planner/"
 "translations/el/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.5.2-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -237,6 +237,8 @@ msgstr "Δημιουργία νέας εργασίας"
 #: src/Utils.vala:1037
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Δημιουργία νέας εργασίας στην κορυφή της λίστας (λειτουργεί μόνο μέσα σε "
+"έργα)"
 
 #: src/Utils.vala:1038
 msgid "Create a new area"
@@ -289,19 +291,21 @@ msgstr "Το αίτημα ήταν έγκυρο, μα αφορούσε κάτι 
 
 #: src/Utils.vala:1057
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Δε βρέθηκε ο ζητούμενος πόρος."
 
 #: src/Utils.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"Ο χρήστης έχει στείλει υπερβολικά πολλές αιτήσεις σε ένα δεδομένο χρονικό "
+"διάστημα."
 
 #: src/Utils.vala:1059
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Αποτυχία αιτήματος λόγω σφάλματος του διακομιστή."
 
 #: src/Utils.vala:1060
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Ο διακομιστής αδυνατεί να χειριστεί την αίτηση αυτή τη στιγμή."
 
 #: src/Services/Database.vala:968 src/Widgets/ActionRow.vala:177
 #: src/Widgets/ActionRow.vala:179 src/Widgets/ItemRow.vala:1418
@@ -379,7 +383,7 @@ msgstr "Γρήγορη Εύρεση"
 
 #: src/Widgets/Pane.vala:104
 msgid "Add Project"
-msgstr ""
+msgstr "Προσθήκη Έργου"
 
 #: src/Widgets/Pane.vala:180 src/Widgets/ToolsMenu.vala:43
 #: src/Dialogs/Preferences/Preferences.vala:40
@@ -397,7 +401,7 @@ msgstr "Περιγραφή:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Γονέας:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -417,7 +421,7 @@ msgstr "Κλείσιμο"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Επιτυχής δημιουργία του %s έργου"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -425,7 +429,7 @@ msgstr "Τοπικά"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
-msgstr ""
+msgstr "Χωρίς Γονέα"
 
 #: src/Widgets/ProjectRow.vala:487 src/Widgets/ItemRow.vala:1427
 #: src/Widgets/ItemRow.vala:1447 src/Widgets/ItemRow.vala:1481
@@ -443,7 +447,7 @@ msgstr "Άνοιγμα Νέου Παραθύρου"
 #: src/Widgets/ProjectRow.vala:655 src/Views/Inbox.vala:218
 #: src/Views/Project.vala:468 src/Dialogs/Project.vala:517
 msgid "Edit Project"
-msgstr ""
+msgstr "Επεξεργασία Έργου"
 
 #: src/Widgets/ProjectRow.vala:656 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
@@ -478,12 +482,12 @@ msgstr ""
 #: src/Views/Project.vala:591 src/Dialogs/Project.vala:524
 #: src/Dialogs/Project.vala:633
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 #: src/Widgets/ProjectRow.vala:702 src/Views/Inbox.vala:331
 #: src/Views/Project.vala:586 src/Dialogs/Project.vala:628
 msgid "Delete project"
-msgstr ""
+msgstr "Διαγραφή έργου"
 
 #: src/Widgets/ProjectRow.vala:703 src/Widgets/ItemCompletedRow.vala:224
 #: src/Widgets/SectionRow.vala:1090 src/Widgets/MultiSelectToolbar.vala:185
@@ -491,15 +495,15 @@ msgstr ""
 #: src/Views/Project.vala:587 src/Dialogs/Project.vala:629
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Είστε βέβαιος πως θέλετε να διαγραφεί το <b>%s</b>;"
 
 #: src/Widgets/NewItem.vala:59
 msgid "today"
-msgstr ""
+msgstr "σήμερα"
 
 #: src/Widgets/NewItem.vala:60
 msgid "tomorrow"
-msgstr ""
+msgstr "αύριο"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1d"
@@ -1206,7 +1210,7 @@ msgstr "Τμήματα"
 #: src/Dialogs/Preferences/Preferences.vala:159
 #: src/Dialogs/Preferences/Preferences.vala:733
 msgid "Keyboard Shortcuts"
-msgstr "Συντομεύσεις πληκτρολογίου"
+msgstr "Συντομεύσεις Πληκτρολογίου"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
@@ -1267,7 +1271,7 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:139
 msgid "Open preferences"
-msgstr ""
+msgstr "Άνοιγμα προτιμήσεων"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
@@ -1275,27 +1279,27 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "Μετακίνηση παραθύρου έργου στον αριστερό χώρο εργασίας"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "Μετακίνηση παραθύρου έργου στον δεξί χώρο εργασίας"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
 msgid "Open Keyboard Shortcuts"
-msgstr ""
+msgstr "Άνοιγμα «Συντομεύσεις Πληκτρολογίου»"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
 msgid "Navigate"
-msgstr ""
+msgstr "Πλοήγηση"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
 msgid "Open Inbox"
-msgstr ""
+msgstr "Άνοιγμα «Εισερχόμενα»"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
 msgid "Go to start page"
-msgstr ""
+msgstr "Μεταφορά στη σελίδα εκκίνησης"
 
 #: src/Dialogs/Project.vala:284
 msgid "What will you accomplish?"
@@ -1303,11 +1307,11 @@ msgstr "Τι θα πετύχεις;"
 
 #: src/Dialogs/Project.vala:285
 msgid "Tap + to add a task to this project."
-msgstr ""
+msgstr "Πατήστε + για προσθήκη εργασίας σε αυτό το έργο."
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
-msgstr ""
+msgstr "Επεκτάσεις"
 
 #. General
 #. var backups_item = new Dialogs.Preferences.Item ("drive-harddisk", _("Backups"));
@@ -1315,41 +1319,41 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:135
 #: src/Dialogs/Preferences/Preferences.vala:897
 msgid "General"
-msgstr ""
+msgstr "Γενικά"
 
 #: src/Dialogs/Preferences/Preferences.vala:129
 #: src/Dialogs/Preferences/Preferences.vala:276
 msgid "Homepage"
-msgstr ""
+msgstr "Αρχική σελίδα"
 
 #: src/Dialogs/Preferences/Preferences.vala:130
 #: src/Dialogs/Preferences/Preferences.vala:492
 msgid "Badge Count"
-msgstr ""
+msgstr "Μετρητής Σήματος"
 
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "Εμφάνιση"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
 msgid "Task default"
-msgstr ""
+msgstr "Προεπιλογή εργασίας"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:717
 msgid "Quick Add"
-msgstr ""
+msgstr "Γρήγορη Προσθήκη"
 
 #. Addons
 #: src/Dialogs/Preferences/Preferences.vala:152
 msgid "Add-ons"
-msgstr ""
+msgstr "Πρόσθετα"
 
 #: src/Dialogs/Preferences/Preferences.vala:157
 #: src/Dialogs/Preferences/Preferences.vala:1289
 msgid "Calendar Events"
-msgstr ""
+msgstr "Συμβάντα Ημερολογίου"
 
 #. addons_grid.add (shortcuts_item);
 #. Others
@@ -1361,7 +1365,7 @@ msgstr "Σχετικά με"
 #: src/Dialogs/Preferences/Preferences.vala:182
 #: src/Dialogs/Preferences/Preferences.vala:1367
 msgid "Support & Credits"
-msgstr ""
+msgstr "Υποστήριξη & Κατάλογος Συντελεστών"
 
 #: src/Dialogs/Preferences/Preferences.vala:279
 msgid ""
@@ -1369,18 +1373,21 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Όταν ανοίγετε το Planner, βεβαιωθείτε ότι βλέπετε τις σημαντικότερες "
+"εργασίες. Η προεπιλεγμένη αρχική σελίδα είναι τα <b>Εισερχόμενα</b>, αλλά "
+"μπορείτε να την αλλάξετε σύμφωνα με τις προτιμήσεις σας."
 
 #: src/Dialogs/Preferences/Preferences.vala:380
 msgid "Task defaults"
-msgstr ""
+msgstr "Προεπιλογές εργασιών"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "Οι νέες εργασίες στην κορυφή"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "Υπογράμμιση ολοκληρωμένων εργασιών."
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 msgid "Default priority"
@@ -1447,7 +1454,7 @@ msgstr "Διάταξη κουμπιών"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "Χρήση διακόσμησης παραθύρου συστήματος (χρειάζεται επανεκκίνηση)"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1516,7 +1523,7 @@ msgstr ""
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:928
 msgid "Danger zone"
-msgstr ""
+msgstr "Ζώνη κινδύνου"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
@@ -1541,7 +1548,7 @@ msgstr "Εξαγωγή"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Start of the week"
-msgstr ""
+msgstr "Αρχή της εβδομάδας"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
 msgid ""
@@ -1686,7 +1693,7 @@ msgstr "_Άνοιγμα"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Αρχεία DB Planner (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
