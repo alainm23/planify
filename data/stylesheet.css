@@ -90,28 +90,31 @@ menu {
     background-color: @popover_background;
 }
 
+
+.unified {
+    border-radius: 6px;
+}
+
+.unified > decoration-overlay {
+    border-radius: 6px;
+}
+
+.csd {
+    border-radius: 6px;
+}
+
+.csd > decoration {
+    border-radius: 6px;
+}
+
 .sidebar-header {
     background-color: @pane_color;
-}
-
-.sidebar-header:dir(ltr) {
-    border-top-right-radius: 0;
-}
-
-.sidebar-header:dir(rtl) {
-    border-top-left-radius: 0;
+    border-radius: 6px 0px 0px 0px;
 }
 
 .projectview-header {
     background-color: @projectview_color;
-}
-
-.projectview-header:dir(ltr) {
-    border-top-left-radius: 0;
-}
-
-.projectview-header:dir(rtl) {
-    border-top-right-radius: 0;
+    border-radius: 0px 6px 0px 0px;
 }
 
 paned {
@@ -751,6 +754,10 @@ paned.horizontal > separator {
     border: 1px solid @check_border_color;
 }
 
+.check-border check:checked {
+    border-color: shade (@colorAccent, 0.9);
+}
+
 .check-eventbox-border {
     border: 1px solid alpha (#3689e6, 0.45);
 }
@@ -903,6 +910,11 @@ paned.horizontal > separator {
     padding: 7px 6px 6px 12px;
     background-color: shade (@bg_color, 1.1);
     font-weight: 600;
+    margin-top: 1px;
+}
+
+.preference-item-radio radio:checked {
+    border-color: shade (@colorAccent, 0.9);
 }
 
 .active-switch slider {
@@ -1012,12 +1024,32 @@ paned.horizontal > separator {
     border-radius: 4px;
 }
 
+.calendar-header label {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
 .due-menuitem {
     padding: 1px 0px 1px 6px;
 }
 
 .popover-background {
     background-color: @popover_background;
+}
+
+.popover-entry {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @popover_background,
+                0.98
+            ),
+            shade (
+                @popover_background,
+                1
+            )
+        );
 }
 
 .repeat-image {
@@ -1058,6 +1090,10 @@ paned.horizontal > separator {
 
 .border-radius-4 {
     border-radius: 4px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
 }
 
 .checklist-completed check {
@@ -1195,6 +1231,14 @@ paned.horizontal > separator {
     border-radius: 4px 0px 0px 4px;
 }
 
+.time-alternative label:first-child {
+    padding: 3px 3px 0px 3px;
+}
+
+.time-alternative label:last-child {
+    padding: 0px 3px 3px 3px;
+}
+
 .slim-mode-button {
     border: 1px solid shade (@bg_color, 0.95);
     padding: 0px;
@@ -1317,6 +1361,10 @@ paned.horizontal > separator {
     border-radius: 4px;
 }
 
+.border-radius-50 {
+    border-radius: 50px;
+}
+
 .new_section_grid {
     color: #3689e6;
     font-weight: 600;
@@ -1334,4 +1382,75 @@ paned.horizontal > separator {
     border: 1px solid alpha (#3689e6, 0.45);
 }
 
+.found-icon {
+    background-color: #ed5353;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.homepage {
+    background-color: #3689e6;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.app-badge {
+    background-color: #c6262e;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.appearance {
+    background-color: #28bca3;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.task-default {
+    background-color: #485a6c;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.quick-add {
+    background-color: #1a1a1a;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.general {
+    background-color: #a56de2;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.todoist {
+    background-color: #c6262e;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.calendar {
+    background-color: #68b723;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.labels {
+    background-color: #de3e80;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.plugins {
+    background-color: #f37329;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.about {
+    background-color: #f9c440;
+    border-radius: 6px;
+    padding: 3px;
+}
 

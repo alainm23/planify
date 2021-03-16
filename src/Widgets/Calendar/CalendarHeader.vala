@@ -60,11 +60,13 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         right_button.get_style_context ().add_class ("flat");
 
         var date_grid = new Gtk.Grid ();
+        date_grid.column_spacing = 6;
         date_grid.add (month_label);
         date_grid.add (year_label);
 
         center_button = new Gtk.Button ();
         center_button.get_style_context ().add_class ("flat");
+        center_button.get_style_context ().add_class ("calendar-header");
         center_button.can_focus = false;
         center_button.add (date_grid);
 

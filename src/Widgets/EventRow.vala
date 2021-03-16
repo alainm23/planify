@@ -139,9 +139,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
     private void set_color () {
         var color = cal.dup_color ();
-
-        print ("Color: %s".printf (color));
-
         string color_css = """
             .event-%s {
                 background-color: %s;

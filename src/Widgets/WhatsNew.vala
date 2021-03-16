@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.WhatsNew : Gtk.Dialog {
+public class Widgets.WhatsNew : Hdy.Window {
     private Gtk.Image app_icon;
     private Gtk.Label description_label;
 
@@ -108,12 +108,17 @@ public class Widgets.WhatsNew : Gtk.Dialog {
         main_scrolled.expand = true;
         main_scrolled.add (content);
 
-        get_content_area ().add (main_scrolled);
+        var header = new Hdy.HeaderBar ();
+        header.has_subtitle = false;
+        header.show_close_button = true;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        use_header_bar = 1;
-        var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("oauth-dialog");
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (header);
+        main_grid.add (main_scrolled);
+
+        add (main_grid);
 
         continue_button.clicked.connect (() => {
             destroy ();

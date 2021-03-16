@@ -27,7 +27,6 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     private Gtk.Image due_image;
     private Gtk.Label time_label;
     private Gtk.Revealer time_revealer;
-
     private Gtk.Popover popover = null;
 
     private Widgets.ModelButton today_button;
@@ -52,6 +51,12 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     public DueButton (Objects.Item item) {
         Object (
             item: item
+        );
+    }
+
+    public DueButton.new_item () {
+        Object (
+            item: null
         );
     }
 
@@ -216,10 +221,35 @@ public class Widgets.DueButton : Gtk.ToggleButton {
     }
 
     private Gtk.Widget get_calendar_widget () {
+        var clear_button = new Gtk.Button.with_label (_("Clear"));
+        clear_button.get_style_context ().add_class ("flat");
+        clear_button.get_style_context ().add_class ("font-weight-600");
+        clear_button.get_style_context ().add_class ("label-danger");
+        clear_button.get_style_context ().add_class ("no-padding-right");
+        clear_button.can_focus = false;
+
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
+        done_button.get_style_context ().add_class ("font-weight-600");
+        done_button.get_style_context ().add_class ("no-padding-left");
+        done_button.can_focus = false;
+
+        var title_label = new Gtk.Label (_("Schedule"));
+        title_label.get_style_context ().add_class ("font-bold");
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.margin_start = 3;
+        header_box.margin_end = 3;
+        header_box.pack_start (done_button, false, false, 0);
+        header_box.set_center_widget (title_label);
+        header_box.pack_end (clear_button, false, false, 0);
+
         search_entry = new Gtk.SearchEntry ();
-        search_entry.margin = 9;
-        search_entry.margin_top = 3;
+        search_entry.margin = 6;
+        search_entry.margin_start = 9;
+        search_entry.margin_end = 9;
         search_entry.get_style_context ().add_class ("border-radius-4");
+        search_entry.get_style_context ().add_class ("popover-entry");
 
         var parsed_button = new Widgets.DateTimeButton ();
 
@@ -234,18 +264,11 @@ public class Widgets.DueButton : Gtk.ToggleButton {
         tomorrow_button.item_image.pixel_size = 14;
         tomorrow_button.color = 1;
         tomorrow_button.due_label = true;
-
-        undated_button = new Widgets.ModelButton (_("Undated"), "window-close-symbolic", "");
-        undated_button.get_style_context ().add_class ("due-menuitem");
-        undated_button.item_image.pixel_size = 14;
-        undated_button.color = 2;
-        undated_button.due_label = true;
-
+        
         var dates_grid = new Gtk.Grid ();
         dates_grid.orientation = Gtk.Orientation.VERTICAL;
         dates_grid.add (today_button);
         dates_grid.add (tomorrow_button);
-        dates_grid.add (undated_button);
 
         var dates_revealer = new Gtk.Revealer ();
         dates_revealer.reveal_child = true;
@@ -343,6 +366,10 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             update_duedate ();
         });
 
+        done_button.clicked.connect (() => {
+            popover.popdown ();
+        });
+
         time_picker.changed.connect (() => {
             update_duedate ();
         });
@@ -354,15 +381,16 @@ public class Widgets.DueButton : Gtk.ToggleButton {
 
         var grid = new Gtk.Grid ();
         grid.orientation = Gtk.Orientation.VERTICAL;
-        // grid.add (search_entry);
-        // grid.add (parsed_button);
+        grid.add (header_box);
+        grid.add (search_entry);
+        grid.add (parsed_button);
         grid.add (dates_revealer);
         // grid.add (tomorrow_button);
-        grid.add (calendar);
-        grid.add (time_box);
-        grid.add (time_picker_revealer);
-        grid.add (recurring_box);
-        grid.add (combobox_revealer);
+        // grid.add (calendar);
+        // grid.add (time_box);
+        // grid.add (time_picker_revealer);
+        // grid.add (recurring_box);
+        // grid.add (combobox_revealer);
         grid.show_all ();
 
         today_button.clicked.connect (() => {
@@ -378,29 +406,34 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             popover.popdown ();
         });
 
+        clear_button.clicked.connect (() => {
+            set_due ("");
+            popover.popdown ();
+        });
+
         calendar.selection_changed.connect ((date) => {
             set_due (get_datetime (date));
         });
 
         search_entry.search_changed.connect (() => {
-            var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
-            dates_revealer.reveal_child = parsed_result == null;
-            parsed_button.set_result (parsed_result);
+            //  var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
+            //  dates_revealer.reveal_child = parsed_result == null;
+            //  parsed_button.set_result (parsed_result);
         });
 
         search_entry.activate.connect (() => {
-            var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
-            if (parsed_result != null) {
-                set_due (parsed_result.date.to_string ());
-                popover.popdown ();
-                search_entry.text = "";
-            }
+            //  var parsed_result = Planner.date_parser.parse (search_entry.text.down ().strip ());
+            //  if (parsed_result != null) {
+            //      set_due (parsed_result.date.to_string ());
+            //      popover.popdown ();
+            //      search_entry.text = "";
+            //  }
         });
 
         parsed_button.clicked.connect (() => {
-            set_due (parsed_button.parsed_result.date.to_string ());
-            popover.popdown ();
-            search_entry.text = "";
+            //  set_due (parsed_button.parsed_result.date.to_string ());
+            //  popover.popdown ();
+            //  search_entry.text = "";
         });
 
         return grid;
@@ -507,15 +540,15 @@ public class Widgets.DueButton : Gtk.ToggleButton {
             recurring_switch.active = false;
         }
 
-        Planner.database.set_due_item (item, new_date);
-        if (item.is_todoist == 1) {
-            Planner.todoist.update_item (item);
-        }
+        //  Planner.database.set_due_item (item, new_date);
+        //  if (item.is_todoist == 1) {
+        //      Planner.todoist.update_item (item);
+        //  }
     }
 }
 
 public class Widgets.DateTimeButton : Gtk.Revealer {
-    public ParsedResult? parsed_result { get; set; }
+    // public ParsedResult? parsed_result { get; set; }
 
     private Gtk.Button button;
     private Gtk.Image date_icon;
@@ -550,34 +583,34 @@ public class Widgets.DateTimeButton : Gtk.Revealer {
         });
     }
 
-    public void set_result (ParsedResult? parsed_result) {
-        this.parsed_result = parsed_result;
-        reveal_child = parsed_result != null;
+    //  public void set_result (ParsedResult? parsed_result) {
+    //      this.parsed_result = parsed_result;
+    //      reveal_child = parsed_result != null;
 
-        date_icon.get_style_context ().remove_class ("overdue-label");
-        date_icon.get_style_context ().remove_class ("today");
-        date_icon.get_style_context ().remove_class ("upcoming");
+    //      date_icon.get_style_context ().remove_class ("overdue-label");
+    //      date_icon.get_style_context ().remove_class ("today");
+    //      date_icon.get_style_context ().remove_class ("upcoming");
 
-        if (parsed_result.is_recurring) {
-            // primary_label.label = date.date.substring (0, 10);
-        } else {
-            primary_label.label = parsed_result.get_default_date_format ();
+    //      if (parsed_result.is_recurring) {
+    //          // primary_label.label = date.date.substring (0, 10);
+    //      } else {
+    //          primary_label.label = parsed_result.get_default_date_format ();
 
-            if (Planner.utils.is_today (parsed_result.date)) {
-                date_icon.gicon = new ThemedIcon ("help-about-symbolic");
-                date_icon.get_style_context ().add_class ("today");
-            } else if (Planner.utils.is_overdue (parsed_result.date)) {
-                date_icon.gicon = new ThemedIcon ("calendar-overdue");
-                date_icon.get_style_context ().add_class ("overdue-label");
-            } else {
-                if (Planner.settings.get_enum ("appearance") == 0) {
-                    date_icon.gicon = new ThemedIcon ("calendar-outline-light");
-                } else {
-                    date_icon.gicon = new ThemedIcon ("calendar-outline-dark");
-                }
+    //          if (Planner.utils.is_today (parsed_result.date)) {
+    //              date_icon.gicon = new ThemedIcon ("help-about-symbolic");
+    //              date_icon.get_style_context ().add_class ("today");
+    //          } else if (Planner.utils.is_overdue (parsed_result.date)) {
+    //              date_icon.gicon = new ThemedIcon ("calendar-overdue");
+    //              date_icon.get_style_context ().add_class ("overdue-label");
+    //          } else {
+    //              if (Planner.settings.get_enum ("appearance") == 0) {
+    //                  date_icon.gicon = new ThemedIcon ("calendar-outline-light");
+    //              } else {
+    //                  date_icon.gicon = new ThemedIcon ("calendar-outline-dark");
+    //              }
 
-                date_icon.get_style_context ().add_class ("upcoming");
-            }
-        }
-    }
+    //              date_icon.get_style_context ().add_class ("upcoming");
+    //          }
+    //      }
+    //  }
 }

@@ -20,7 +20,7 @@
 */
 
 public class Dialogs.Preferences.Item : Gtk.EventBox {
-    private Gtk.Image icon_image;
+    public Gtk.Image icon_image;
     private Gtk.Label title_label;
 
     public string _title;
@@ -61,7 +61,7 @@ public class Dialogs.Preferences.Item : Gtk.EventBox {
 
     construct {
         icon_image = new Gtk.Image ();
-        icon_image.pixel_size = 24;
+        icon_image.pixel_size = 18;
 
         title_label = new Gtk.Label (null);
         title_label.get_style_context ().add_class ("h3");
@@ -84,6 +84,7 @@ public class Dialogs.Preferences.Item : Gtk.EventBox {
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
         separator.margin_start = 32;
+        separator.margin_bottom = 3;
 
         if (last) {
             separator.visible = false;

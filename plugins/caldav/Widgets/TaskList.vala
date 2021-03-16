@@ -172,6 +172,10 @@ public class Views.TaskList : Gtk.EventBox {
                 child.destroy ();
             }
 
+            foreach (unowned Gtk.Widget child in completed_listbox.get_children ()) {
+                child.destroy ();
+            }
+
             add_view (source, "(contains? 'any' '')");
             update_request ();
 
@@ -376,7 +380,7 @@ public class Views.TaskList : Gtk.EventBox {
         completed_listbox.show_all ();
     }
 
-    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
+    private void on_tasks_removed (SList<weak ECal.ComponentId?> cids) {
         unowned Widgets.TaskRow? task_row = null;
         var row_index = 0;
         do {

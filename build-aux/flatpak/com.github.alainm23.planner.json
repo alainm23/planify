@@ -2,15 +2,15 @@
     "app-id": "com.github.alainm23.planner",
     "sdk": "org.gnome.Sdk",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.36",
+    "runtime-version": "3.38",
     "base": "io.elementary.BaseApp",
-    "base-version": "juno-19.08",
+    "base-version": "juno-20.08",
     "command": "com.github.alainm23.planner",
     "finish-args": [
-        "--share=network",
         "--share=ipc",
-        "--device=dri",
+        "--share=network",
         "--socket=fallback-x11",
+        "--device=dri",
         "--socket=wayland",
         "--filesystem=home",
         "--talk-name=org.gtk.vfs.*",
@@ -136,6 +136,23 @@
                     "type": "archive",
                     "url": "https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz",
                     "sha256": "e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748"
+                }
+            ]
+        },
+        {
+            "name" : "libhandy",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dglade_catalog=disabled"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libhandy.git",
+                    "tag" : "1.0.0",
+                    "commit" : "94313c206258860b2428712e7ece1d02c5177857"
                 }
             ]
         },

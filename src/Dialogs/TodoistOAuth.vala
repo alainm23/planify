@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.TodoistOAuth : Gtk.Dialog {
+public class Dialogs.TodoistOAuth : Hdy.Window {
     public string view { get; construct; }
     private WebKit.WebView webview;
     private const string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read_write,data:delete,project:delete&state=XE3K-4BBL-4XLG-UDS8"; // vala-lint=line-length
@@ -71,6 +71,15 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             _("Connect to the Internet to connect with Todoist"),
             "network-error"
         );
+
+        // Loading
+        var spinner_loading = new Gtk.Spinner ();
+        spinner_loading.valign = Gtk.Align.CENTER;
+        spinner_loading.halign = Gtk.Align.CENTER;
+        spinner_loading.width_request = 50;
+        spinner_loading.height_request = 50;
+        spinner_loading.active = true;
+        spinner_loading.start ();
         
         var stack = new Gtk.Stack ();
         stack.expand = true;
@@ -78,14 +87,20 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
 
         stack.add_named (scrolled, "web_view");
         stack.add_named (alert_view, "error_view");
+        stack.add_named (spinner_loading, "spinner-view");
 
-        get_content_area ().pack_start (stack, true, true, 0);
+        var header = new Hdy.HeaderBar ();
+        header.has_subtitle = false;
+        header.show_close_button = true;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        header.set_custom_title (container_grid);
 
-        use_header_bar = 1;
-        var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("oauth-dialog");
-        header_bar.custom_title = container_grid;
+        var main_grid = new Gtk.Grid ();
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (header);
+        main_grid.add (stack);
+
+        add (main_grid);
 
         webview.load_changed.connect ((load_event) => {
             var redirect_uri = webview.get_uri ();
@@ -94,7 +109,6 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
                 info_label.label = _("Synchronizing… Wait a moment please.");
                 webview.stop_loading ();
                 Planner.todoist.get_todoist_token (redirect_uri, view);
-                destroy ();
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
@@ -130,6 +144,14 @@ public class Dialogs.TodoistOAuth : Gtk.Dialog {
             }
 
             return true;
+        });
+
+        Planner.todoist.first_sync_started.connect (() => {
+            stack.visible_child_name = "spinner-view";
+        });
+
+        Planner.todoist.first_sync_finished.connect (() => {
+            destroy ();
         });
     }
 }

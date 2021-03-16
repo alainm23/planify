@@ -493,6 +493,7 @@ public class Widgets.ProjectRow : Gtk.ListBoxRow {
         source = (Widgets.ItemRow) row;
 
         if (source.item.is_todoist == project.is_todoist) {
+            source.item.parent_id = 0;
             Planner.database.move_item (source.item, project.id);
             if (source.item.is_todoist == 1) {
                 Planner.todoist.move_item (source.item, project.id);

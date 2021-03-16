@@ -19,12 +19,13 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ShortcutsDialog : Gtk.Dialog {
+public class Dialogs.ShortcutsDialog : Hdy.Window {
     public ShortcutsDialog () {
         Object (
             transient_for: Planner.instance.main_window,
             deletable: true,
             resizable: true,
+            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: false,
             title: _("Keyboard Shortcuts")
         );
@@ -33,16 +34,9 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
     construct {
         Planner.event_bus.unselect_all ();
         get_style_context ().add_class ("release-dialog");
-        get_style_context ().add_class ("app");
         width_request = 525;
         height_request = 600;
 
-        use_header_bar = 1;
-        var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("oauth-dialog");
-        header_bar.get_style_context ().add_class ("default-decoration");
-        
         string keys = Planner.settings.get_string ("quick-add-shortcut");
         uint accelerator_key;
         Gdk.ModifierType accelerator_mods;
@@ -164,8 +158,7 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
         var grid = new Gtk.Grid ();
         grid.halign = Gtk.Align.CENTER;
         grid.column_spacing = 12;
-        grid.margin = 32;
-        grid.margin_top = 0;
+        grid.margin = 24;
         grid.hexpand = true;
         grid.attach (column, 0, 0);
 
@@ -174,9 +167,49 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
         scrolled.expand = true;
         scrolled.add (grid);
 
-        var content_area = get_content_area ();
-        content_area.border_width = 0;
-        content_area.add (scrolled);
+        var header = new Hdy.HeaderBar ();
+        header.decoration_layout = "close:";
+        header.has_subtitle = false;
+        header.show_close_button = false;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var settings_icon = new Gtk.Image ();
+        settings_icon.halign = Gtk.Align.CENTER;
+        settings_icon.valign = Gtk.Align.CENTER;
+        settings_icon.pixel_size = 16;
+        settings_icon.gicon = new ThemedIcon ("input-keyboard-symbolic");
+
+        var settings_label = new Gtk.Label (_("Keyboard Shortcuts"));
+        settings_label.get_style_context ().add_class ("h3");
+
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.margin = 3;
+        header_box.hexpand = true;
+        header_box.pack_start (settings_icon, false, false, 0);
+        header_box.pack_start (settings_label, false, false, 6);
+        header_box.pack_end (done_button, false, false, 0);
+
+        header.set_custom_title (header_box);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (header);
+        main_grid.add (scrolled);
+        
+        add (main_grid);
+
+        done_button.clicked.connect (() => {
+            hide ();
+
+            Timeout.add (500, () => {
+                destroy ();
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private class NameLabel : Gtk.Label {
@@ -188,7 +221,8 @@ public class Dialogs.ShortcutsDialog : Gtk.Dialog {
 
         construct {
             halign = Gtk.Align.START;
-            xalign = 1;
+            xalign = 0;
+            wrap = true;
         }
     }
 }

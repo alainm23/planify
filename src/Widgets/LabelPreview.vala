@@ -41,6 +41,7 @@ public class Widgets.LabelPreview : Gtk.EventBox {
         color_image.pixel_size = 13;
 
         var name_label = new Gtk.Label ("<small>%s</small>".printf (label.name));
+        name_label.get_style_context ().add_class ("font-bold");
         name_label.valign = Gtk.Align.CENTER;
         name_label.valign = Gtk.Align.CENTER;
         name_label.use_markup = true;

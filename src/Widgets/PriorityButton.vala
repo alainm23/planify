@@ -94,6 +94,7 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
         popover = new Gtk.Popover (this);
         popover.position = Gtk.PositionType.BOTTOM;
         popover.get_style_context ().add_class ("popover-background");
+        popover.width_request = 185;
 
         var priority_1_menu = new Widgets.ModelButton (_("Priority 1"), "priority-4", "");
         var priority_2_menu = new Widgets.ModelButton (_("Priority 2"), "priority-3", "");
@@ -103,7 +104,6 @@ public class Widgets.PriorityButton : Gtk.ToggleButton {
         var popover_grid = new Gtk.Grid ();
         popover_grid.margin_top = 6;
         popover_grid.margin_bottom = 6;
-        popover_grid.width_request = 150;
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
         popover_grid.add (priority_1_menu);
         popover_grid.add (priority_2_menu);

@@ -29,7 +29,7 @@ planner_files = files(
     'Services/EventBus.vala',
     'Services/ExportImport.vala',
     'Services/PluginManager.vala',
-    'Services/DateParser.vala',
+    # 'Services/DateParser.vala',
 
     'Widgets/ActionRow.vala',
     'Widgets/Pane.vala',
@@ -69,6 +69,7 @@ planner_files = files(
     'Widgets/BoardColumn.vala',
     'Widgets/ListView.vala',
     'Widgets/ToolsMenu.vala',
+    'Widgets/ScheduleButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -108,6 +109,7 @@ planner_files = files(
     'Objects/Reminder.vala',
     'Objects/Queue.vala',
     'Objects/Shortcuts.vala',
+    'Objects/Duedate.vala'
 )
 
 executable(

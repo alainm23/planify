@@ -52,16 +52,12 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         margin_top = 2;
         get_style_context ().add_class ("project-row");
 
-        project_progress = new Widgets.ProjectProgress (9);
-        project_progress.margin = 2;
+        project_progress = new Widgets.ProjectProgress (18);
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = task_list.dup_color ();
 
         var progress_grid = new Gtk.Grid ();
-        progress_grid.get_style_context ().add_class ("project-progress-%s".printf (
-            source.uid
-        ));
         progress_grid.add (project_progress);
         progress_grid.valign = Gtk.Align.CENTER;
         progress_grid.halign = Gtk.Align.CENTER;
@@ -128,7 +124,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         var handle_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         handle_box.hexpand = true;
         handle_box.margin_start = 5;
-        handle_box.margin_end = 3;
+        handle_box.margin_end = 1;
         handle_box.margin_top = handle_box.margin_bottom = 2;
         handle_box.pack_start (progress_grid, false, false, 0);
         handle_box.pack_start (name_label, false, false, 0);

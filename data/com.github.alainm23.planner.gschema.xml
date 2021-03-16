@@ -349,6 +349,24 @@
             <summary>The currently installed version.</summary>
             <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
+        
+        <key name="morning-time" type="(ii)">
+            <default>(9, 30)</default>
+            <summary>(13, 30)</summary>
+            <description></description>
+        </key>
+
+        <key name="afternoon-time" type="(ii)">
+            <default>(13, 30)</default>
+            <summary>(hour, minute)</summary>
+            <description></description>
+        </key>
+
+        <key name="evening-time" type="(ii)">
+            <default>(19, 30)</default>
+            <summary>(hour, minute)</summary>
+            <description></description>
+        </key>
 
         <key name="font-scale" type="d">
             <default>1</default>

@@ -3002,7 +3002,7 @@ public class Services.Database : GLib.Object {
         subtract_task_counter (old_project_id);
 
         sql = """
-            UPDATE Items SET project_id = ?, section_id = ? WHERE id = ?;
+            UPDATE Items SET project_id = ?, section_id = ?, parent_id = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -3014,7 +3014,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, section_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (3, item.id);
+        res = stmt.bind_int64 (3, item.parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
@@ -3051,7 +3054,7 @@ public class Services.Database : GLib.Object {
         int res;
 
         sql = """
-            UPDATE Items SET item_order = ?, section_id = ? WHERE id = ?;
+            UPDATE Items SET item_order = ?, section_id = ?, parent_id = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -3063,7 +3066,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (2, section_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (3, item.id);
+        res = stmt.bind_int64 (3, 0);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (4, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -3962,6 +3968,31 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public bool clear_item_label (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Items_Labels WHERE item_id = ?;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+            stmt.reset ();
+            return false;
+        }
+        
+        stmt.reset ();
+        return true;
+    }
+
     public bool exists_item_label (int64 item_id, int64 label_id) {
         bool returned = false;
         Sqlite.Statement stmt;
@@ -4011,7 +4042,7 @@ public class Services.Database : GLib.Object {
         int64 old_section_id = item.section_id;
 
         sql = """
-            UPDATE Items SET section_id = ? WHERE id = ?;
+            UPDATE Items SET section_id = ?, parent_id = ? WHERE id = ?;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);
@@ -4020,7 +4051,10 @@ public class Services.Database : GLib.Object {
         res = stmt.bind_int64 (1, section_id);
         assert (res == Sqlite.OK);
 
-        res = stmt.bind_int64 (2, item.id);
+        res = stmt.bind_int64 (2, item.parent_id);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (3, item.id);
         assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Project : Gtk.Dialog {
+public class Dialogs.Project : Hdy.Window {
     private Widgets.BoardView board_view;
     private Widgets.ListView list_view;
 
@@ -73,11 +73,10 @@ public class Dialogs.Project : Gtk.Dialog {
         get_style_context ().add_class ("project-dialog");
         get_style_context ().add_class ("app");
 
-        use_header_bar = 1;
-        var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header_bar.get_style_context ().add_class ("oauth-dialog");
-        header_bar.get_style_context ().add_class ("default-decoration");
+        var header = new Hdy.HeaderBar ();
+        header.has_subtitle = false;
+        header.show_close_button = true;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
@@ -290,6 +289,7 @@ public class Dialogs.Project : Gtk.Dialog {
 
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
+        main_box.pack_start (header, false, true, 0);
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
         // main_box.pack_start (note_stack, false, false, 0);
@@ -302,8 +302,7 @@ public class Dialogs.Project : Gtk.Dialog {
         overlay.add_overlay (magic_button);
         overlay.add (main_box);
 
-        var content_area = get_content_area ();
-        content_area.add (overlay);
+        add (overlay);
 
         delete_event.connect (() => {
             if (only_window) {

@@ -41,6 +41,8 @@ public class Widgets.NewSection : Gtk.ListBoxRow {
     }
 
     construct {
+        get_style_context ().add_class ("item-row");
+
         name_entry = new Widgets.Entry ();
         name_entry.hexpand = true;
         name_entry.valign = Gtk.Align.CENTER;
@@ -49,10 +51,6 @@ public class Widgets.NewSection : Gtk.ListBoxRow {
         name_entry.get_style_context ().add_class ("transparent");
         name_entry.get_style_context ().add_class ("font-bold");
         name_entry.get_style_context ().add_class ("new-item-entry");
-        //  name_entry.get_style_context ().add_class ("header-title");
-        //  name_entry.get_style_context ().add_class ("header-entry");
-        //  name_entry.get_style_context ().add_class ("content-entry");
-        //  name_entry.get_style_context ().add_class ("font-bold");
 
         var name_grid = new Gtk.Grid ();
         name_grid.get_style_context ().add_class ("new-section-grid");

@@ -78,5 +78,18 @@
     <file alias="rabbit.svg">resources/avatars/rabbit.svg</file>
     <file alias="tiger.svg">resources/avatars/tiger.svg</file>
     <file alias="zoo.svg">resources/avatars/zoo.svg</file>
+
+    <file alias="heart-outline.svg">resources/settings/heart-outline.svg</file>
+    <file alias="home-outline.svg">resources/settings/home-outline.svg</file>
+    <file alias="add-circle-outline.svg">resources/settings/add-circle-outline.svg</file>
+    <file alias="calendar-clear-outline.svg">resources/settings/calendar-clear-outline.svg</file>
+    <file alias="cloudy-outline.svg">resources/settings/cloudy-outline.svg</file>
+    <file alias="cog-outline.svg">resources/settings/cog-outline.svg</file>
+    <file alias="color-palette-outline.svg">resources/settings/color-palette-outline.svg</file>
+    <file alias="extension-puzzle-outline.svg">resources/settings/extension-puzzle-outline.svg</file>
+    <file alias="information-circle-outline.svg">resources/settings/information-circle-outline.svg</file>
+    <file alias="pricetags-outline.svg">resources/settings/pricetags-outline.svg</file>
+    <file alias="checkmark-circle-outline.svg">resources/settings/checkmark-circle-outline.svg</file>
+    <file alias="app-badge.svg">resources/settings/app-badge.svg</file>
   </gresource>
 </gresources>

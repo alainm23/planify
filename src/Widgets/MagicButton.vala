@@ -37,8 +37,8 @@ public class Widgets.MagicButton : Gtk.Revealer {
         halign = Gtk.Align.END;
 
         magic_button = new Gtk.Button.from_icon_name ("list-add-symbolic", Gtk.IconSize.MENU);
-        magic_button.height_request = 32;
-        magic_button.width_request = 32;
+        magic_button.height_request = 38;
+        magic_button.width_request = 38;
         magic_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         magic_button.get_style_context ().add_class ("magic-button");
         magic_button.get_style_context ().add_class ("magic-button-animation");

@@ -269,7 +269,11 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
         add (main_revealer);
 
         add_all_items ();
-        add_completed_items ();
+        if (Planner.database.get_project_by_id (section.project_id).show_completed == 1) {
+            add_completed_items ();
+            completed_revealer.reveal_child = true;
+        }
+
         // build_defaul_drag_and_drop ();
 
         Timeout.add (125, () => {
@@ -691,9 +695,19 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
         Planner.database.project_show_completed.connect ((project) => {
             if (project.id == section.project_id) {
                 if (project.show_completed == 1) {
+                    add_completed_items ();
                     completed_revealer.reveal_child = true;
                 } else {
                     completed_revealer.reveal_child = false;
+                    items_completed_added.clear ();
+
+                    Timeout.add (completed_revealer.transition_duration, () => {
+                        foreach (var child in completed_listbox.get_children ()) {
+                            child.destroy ();
+                        }
+            
+                        return GLib.Source.REMOVE;
+                    });
                 }
             }
         });
@@ -865,6 +879,7 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
     }
 
     private void add_completed_items () {
+        items_completed_added.clear ();
         Gee.ArrayList<Objects.Item?> items;
         if (section.id == 0) {
             items = Planner.database.get_all_completed_items_by_project_no_section_no_parent (project.id);
@@ -1224,6 +1239,7 @@ public class Widgets.BoardColumn : Gtk.FlowBoxChild {
             if (source.item.section_id != section.id) {
                 Planner.database.on_drag_item_deleted (source, source.item.section_id);
                 source.item.section_id = section.id;
+                source.item.parent_id = 0;
                 if (source.item.is_todoist == 1) {
                     Planner.todoist.move_item_to_section (source.item, section.id);
                 } 

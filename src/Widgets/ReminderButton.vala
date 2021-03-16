@@ -123,6 +123,30 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
         popover.width_request = 260;
         popover.height_request = 250;
 
+        var clear_button = new Gtk.Button.with_label (_("Clear"));
+        clear_button.get_style_context ().add_class ("flat");
+        clear_button.get_style_context ().add_class ("font-weight-600");
+        clear_button.get_style_context ().add_class ("label-danger");
+        clear_button.get_style_context ().add_class ("no-padding-left");
+        clear_button.can_focus = false;
+
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
+        done_button.get_style_context ().add_class ("font-weight-600");
+        done_button.get_style_context ().add_class ("no-padding-right");
+        done_button.can_focus = false;
+
+        var title_label = new Gtk.Label (_("Labels"));
+        title_label.get_style_context ().add_class ("font-bold");
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.margin_top = 3;
+        header_box.margin_start = 3;
+        header_box.margin_end = 3;
+        header_box.pack_start (clear_button, false, false, 0);
+        header_box.set_center_widget (title_label);
+        header_box.pack_end (done_button, false, false, 0);
+
         stack = new Gtk.Stack ();
         stack.expand = true;
         stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -137,6 +161,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.add (header_box);
         popover_grid.add (stack);
         popover_grid.show_all ();
 

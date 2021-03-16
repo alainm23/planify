@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectSettings : Gtk.Dialog {
+public class Dialogs.ProjectSettings : Hdy.Window {
     public Objects.Project project { get; construct; }
     private Widgets.Entry name_entry;
     private Widgets.TextView description_textview;
@@ -45,14 +45,6 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
     construct {
         height_request = 550;
         width_request = 480;
-        get_style_context ().add_class ("planner-dialog");
-        get_style_context ().add_class ("app");
-
-        //  use_header_bar = 1;
-        //  var header_bar = (Gtk.HeaderBar) get_header_bar ();
-        //  header_bar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        //  header_bar.get_style_context ().add_class ("oauth-dialog");
-        //  header_bar.get_style_context ().add_class ("default-decoration");
 
         name_entry = new Widgets.Entry ();
         name_entry.margin_start = 12;
@@ -212,18 +204,50 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
         grid.add (loading_revealer);
         grid.show_all ();
 
-        get_content_area ().add (grid);
-        add_button (_("Close"), Gtk.ResponseType.CLOSE);
+        var header = new Hdy.HeaderBar ();
+        header.decoration_layout = "close:";
+        header.has_subtitle = false;
+        header.show_close_button = false;
+        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);
-        save_button.has_default = true;
-        save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+        var header_icon = new Gtk.Image ();
+        header_icon.halign = Gtk.Align.CENTER;
+        header_icon.valign = Gtk.Align.CENTER;
+        header_icon.pixel_size = 16;
+        header_icon.gicon = new ThemedIcon ("document-edit-symbolic");
+
+        var header_label = new Gtk.Label (_("Edit project"));
+        header_label.get_style_context ().add_class ("h3");
+
+        var done_button = new Gtk.Button.with_label (_("Done"));
+        done_button.get_style_context ().add_class ("flat");
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        header_box.margin = 3;
+        header_box.hexpand = true;
+        header_box.pack_start (header_icon, false, false, 0);
+        header_box.pack_start (header_label, false, false, 6);
+        header_box.pack_end (done_button, false, false, 0);
+
+        header.set_custom_title (header_box);
+
+        var main_grid = new Gtk.Grid ();
+        main_grid.expand = true;
+        main_grid.orientation = Gtk.Orientation.VERTICAL;
+        main_grid.add (header);
+        main_grid.add (grid);
+
+        add (main_grid);
+        
+        //  var save_button = (Gtk.Button) add_button (_("Save"), Gtk.ResponseType.APPLY);
+        //  save_button.has_default = true;
+        //  save_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
 
         name_entry.changed.connect (() => {
             if (name_entry.text != "") {
-                save_button.sensitive = true;
+                // save_button.sensitive = true;
             } else {
-                save_button.sensitive = false;
+                // save_button.sensitive = false;
             }
         });
 
@@ -239,15 +263,10 @@ public class Dialogs.ProjectSettings : Gtk.Dialog {
             save_and_exit ();
         });
 
-        response.connect ((response_id) => {
-            if (response_id == Gtk.ResponseType.APPLY) {
-                save_and_exit ();
-            } else {
-                destroy ();
-            }
+        done_button.clicked.connect ((response_id) => {
+            save_and_exit ();
         });
         
-
         due_switch.notify["active"].connect (() => {
             due_revealer.reveal_child = due_switch.active;
         });
