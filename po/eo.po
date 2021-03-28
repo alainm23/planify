@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-12 01:32+0000\n"
+"PO-Revision-Date: 2021-03-28 23:04+0000\n"
 "Last-Translator: James <greenjamesag@gmail.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -574,7 +574,7 @@ msgstr "Horaro"
 
 #: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
-msgstr ""
+msgstr "Kaŝu Detalojn"
 
 #: src/Widgets/ItemRow.vala:528
 msgid "Add Checklist"
