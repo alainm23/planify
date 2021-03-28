@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
 "PO-Revision-Date: 2021-03-28 23:04+0000\n"
-"Last-Translator: James <greenjamesag@gmail.com>\n"
+"Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
 "Language: eo\n"
@@ -315,13 +315,13 @@ msgstr ""
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Konservi Planner-dosieron"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:187
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:146
 #: src/Dialogs/ProjectSettings.vala:218 src/Dialogs/Project.vala:214
 msgid "Save"
-msgstr ""
+msgstr "Konservi"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
 #: src/Widgets/NewItem.vala:151 src/Widgets/SectionRow.vala:191
@@ -331,12 +331,11 @@ msgstr ""
 #: src/Views/Project.vala:799 src/Dialogs/Project.vala:218
 #: src/Dialogs/Project.vala:841
 msgid "Cancel"
-msgstr ""
+msgstr "Nuligi"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planner"
+msgstr "Planner-dosieroj"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
@@ -344,15 +343,15 @@ msgstr "Ĉiuj dosieroj"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Malfermi Planner-dosieron"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr "Malfermu"
+msgstr "Malfermi"
 
 #: src/Widgets/ActionRow.vala:90
 msgid "Todoist Project"
-msgstr ""
+msgstr "Projekto de Todoist"
 
 #: src/Widgets/ActionRow.vala:187 src/Widgets/ActionRow.vala:189
 #: src/Widgets/Pane.vala:355 src/Views/Upcoming.vala:36
@@ -373,7 +372,7 @@ msgstr ""
 
 #: src/Widgets/Pane.vala:104
 msgid "Add Project"
-msgstr ""
+msgstr "Aldoni Projekton"
 
 #: src/Widgets/Pane.vala:180 src/Widgets/ToolsMenu.vala:43
 #: src/Dialogs/Preferences/Preferences.vala:40
@@ -391,7 +390,7 @@ msgstr "Priskribo:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Patro:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -401,12 +400,12 @@ msgstr "Koloro:"
 #: src/Widgets/NewSection.vala:81 src/Views/Inbox.vala:462
 #: src/Views/Project.vala:794 src/Dialogs/Project.vala:836
 msgid "Add"
-msgstr ""
+msgstr "Aldoni"
 
 #: src/Widgets/New.vala:207 src/Widgets/ToolsMenu.vala:37
 #: src/Dialogs/ProjectSettings.vala:216
 msgid "Close"
-msgstr ""
+msgstr "Fermi"
 
 #: src/Widgets/New.vala:270
 #, c-format
@@ -419,7 +418,7 @@ msgstr "Loka"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
-msgstr ""
+msgstr "Senpatra"
 
 #: src/Widgets/ProjectRow.vala:487 src/Widgets/ItemRow.vala:1427
 #: src/Widgets/ItemRow.vala:1447 src/Widgets/ItemRow.vala:1481
@@ -432,16 +431,16 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:654 src/Views/Inbox.vala:217
 #: src/Views/Project.vala:467
 msgid "Open New Window"
-msgstr ""
+msgstr "Malfermi Novan Fenestron"
 
 #: src/Widgets/ProjectRow.vala:655 src/Views/Inbox.vala:218
 #: src/Views/Project.vala:468 src/Dialogs/Project.vala:517
 msgid "Edit Project"
-msgstr "Redaktu Projekton"
+msgstr "Redakti Projekton"
 
 #: src/Widgets/ProjectRow.vala:656 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
-msgstr ""
+msgstr "Movi"
 
 #: src/Widgets/ProjectRow.vala:660 src/Widgets/ItemRow.vala:1546
 #: src/Widgets/SectionRow.vala:1040 src/Widgets/BoardColumn.vala:1049
@@ -453,13 +452,13 @@ msgstr ""
 #: src/Views/Today.vala:556 src/Views/Project.vala:658
 #: src/Dialogs/Project.vala:683
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Sendi retpoŝte"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:665 src/Widgets/ItemRow.vala:1551
 #: src/Widgets/SectionRow.vala:1045 src/Widgets/BoardColumn.vala:1054
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:673 src/Widgets/ProjectRow.vala:707
@@ -472,12 +471,12 @@ msgstr ""
 #: src/Views/Project.vala:591 src/Dialogs/Project.vala:524
 #: src/Dialogs/Project.vala:633
 msgid "Delete"
-msgstr ""
+msgstr "Forviŝi"
 
 #: src/Widgets/ProjectRow.vala:702 src/Views/Inbox.vala:331
 #: src/Views/Project.vala:586 src/Dialogs/Project.vala:628
 msgid "Delete project"
-msgstr ""
+msgstr "Forviŝi projekton"
 
 #: src/Widgets/ProjectRow.vala:703 src/Widgets/ItemCompletedRow.vala:224
 #: src/Widgets/SectionRow.vala:1090 src/Widgets/MultiSelectToolbar.vala:185
@@ -485,51 +484,49 @@ msgstr ""
 #: src/Views/Project.vala:587 src/Dialogs/Project.vala:629
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Ĉu vi certe volas forviŝi <b>%s</b>?"
 
 #: src/Widgets/NewItem.vala:59
-#, fuzzy
 msgid "today"
-msgstr "Hodiaŭ"
+msgstr "hodiaŭ"
 
 #: src/Widgets/NewItem.vala:60
-#, fuzzy
 msgid "tomorrow"
-msgstr "Morgaŭ"
+msgstr "morgaŭ"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1d"
-msgstr ""
+msgstr "1t"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1w"
-msgstr ""
+msgstr "1sem"
 
 #: src/Widgets/NewItem.vala:63
 msgid "1m"
-msgstr ""
+msgstr "1m"
 
 #: src/Widgets/NewItem.vala:123 src/Widgets/ItemRow.vala:230
 #: src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "Nomo de tasko"
 
 #: src/Widgets/NewItem.vala:146 src/Widgets/SectionRow.vala:115
 #: src/Widgets/SectionRow.vala:1030 src/Widgets/SectionRow.vala:1448
 #: src/Widgets/MagicButton.vala:32 src/Widgets/BoardColumn.vala:73
 #: src/Widgets/BoardColumn.vala:822 src/Widgets/BoardColumn.vala:1039
 msgid "Add Task"
-msgstr ""
+msgstr "Aldoni Taskon"
 
 #: src/Widgets/NewItem.vala:228 src/Widgets/SectionRow.vala:1034
 #: src/Widgets/BoardColumn.vala:1043
 msgid "Add Note"
-msgstr ""
+msgstr "Aldoni Noton"
 
 #: src/Widgets/NewItem.vala:233 src/Widgets/ItemRow.vala:1704
 #: src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
-msgstr ""
+msgstr "Noto"
 
 #: src/Widgets/NewItem.vala:613 src/Widgets/PriorityButton.vala:98
 #: src/Widgets/MultiSelectToolbar.vala:296 src/Views/Filter.vala:115
