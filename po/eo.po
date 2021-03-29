@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-03-28 23:04+0000\n"
+"PO-Revision-Date: 2021-03-30 16:26+0000\n"
 "Last-Translator: phlostically <phlostically@mailinator.com>\n"
 "Language-Team: Esperanto <https://hosted.weblate.org/projects/planner/"
 "translations/eo/>\n"
@@ -44,7 +44,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
 #: src/MainWindow.vala:832
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Aldonante taskon el la tondujo…"
 
 #: src/Utils.vala:122 src/Utils.vala:129 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -56,7 +56,7 @@ msgstr "Oficejo"
 
 #: src/Utils.vala:124 src/Utils.vala:137
 msgid "Errand"
-msgstr ""
+msgstr "Farendaĵo"
 
 #: src/Utils.vala:125 src/Utils.vala:141
 msgid "Important"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: src/Utils.vala:189
 msgid "Berry Red"
-msgstr ""
+msgstr "Bera"
 
 #: src/Utils.vala:190
 msgid "Red"
@@ -76,7 +76,7 @@ msgstr "Ruĝa"
 
 #: src/Utils.vala:191
 msgid "Orange"
-msgstr "Oranĝkolora"
+msgstr "Oranĝa"
 
 #: src/Utils.vala:192
 msgid "Yellow"
@@ -84,11 +84,11 @@ msgstr "Flava"
 
 #: src/Utils.vala:193
 msgid "Olive Green"
-msgstr ""
+msgstr "Oliva"
 
 #: src/Utils.vala:194
 msgid "Lime Green"
-msgstr ""
+msgstr "Limea"
 
 #: src/Utils.vala:195
 msgid "Green"
@@ -96,19 +96,19 @@ msgstr "Verda"
 
 #: src/Utils.vala:196
 msgid "Mint Green"
-msgstr ""
+msgstr "Menta"
 
 #: src/Utils.vala:197
 msgid "Teal"
-msgstr ""
+msgstr "Bluverda"
 
 #: src/Utils.vala:198
 msgid "Sky Blue"
-msgstr "Ĉiela Blua"
+msgstr "Ĉielblua"
 
 #: src/Utils.vala:199
 msgid "Light Blue"
-msgstr ""
+msgstr "Helblua"
 
 #: src/Utils.vala:200
 msgid "Blue"
@@ -116,7 +116,7 @@ msgstr "Blua"
 
 #: src/Utils.vala:201
 msgid "Grape"
-msgstr "Uvo"
+msgstr "Vinbera"
 
 #: src/Utils.vala:202
 msgid "Violet"
@@ -124,19 +124,19 @@ msgstr "Violkolora"
 
 #: src/Utils.vala:203
 msgid "Lavander"
-msgstr ""
+msgstr "Lavendblua"
 
 #: src/Utils.vala:204
 msgid "Magenta"
-msgstr ""
+msgstr "Fuksina"
 
 #: src/Utils.vala:205
 msgid "Salmon"
-msgstr "Salmkolora"
+msgstr "Salma"
 
 #: src/Utils.vala:206
 msgid "Charcoal"
-msgstr ""
+msgstr "Karba"
 
 #: src/Utils.vala:207
 msgid "Grey"
@@ -193,7 +193,7 @@ msgstr ""
 
 #: src/Utils.vala:961
 msgid "Sub-project"
-msgstr "Sub-projekto"
+msgstr "Subprojekto"
 
 #: src/Utils.vala:961
 msgid ""
@@ -203,7 +203,7 @@ msgstr ""
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
-msgstr "🚀️ Akiranta Komencita"
+msgstr "🚀️ Unuaj Paŝoj"
 
 #: src/Utils.vala:975
 #, fuzzy
@@ -217,7 +217,7 @@ msgstr ""
 
 #: src/Utils.vala:980
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Aldoni novajn taskojn"
 
 #: src/Utils.vala:981
 msgid "To add a new task to Planner, just click + and press Enter."
@@ -225,7 +225,7 @@ msgstr ""
 
 #: src/Utils.vala:1036 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new task"
-msgstr "Kreu novan taskon"
+msgstr "Krei novan taskon"
 
 #: src/Utils.vala:1037
 msgid "Create a new task at the top of the list (only works inside projects)"
@@ -233,15 +233,15 @@ msgstr "Kreu novan taskon ĉe la supro de la listo (nur funkcias en projektoj)"
 
 #: src/Utils.vala:1038
 msgid "Create a new area"
-msgstr "Kreu novan areon"
+msgstr "Krei novan areon"
 
 #: src/Utils.vala:1039 src/Dialogs/ShortcutsDialog.vala:91
 msgid "Create a new project"
-msgstr "kreu novan projekton"
+msgstr "Krei novan projekton"
 
 #: src/Utils.vala:1040
 msgid "Create a new section"
-msgstr "Kreu novan sekcion"
+msgstr "Krei novan sekcion"
 
 #: src/Utils.vala:1041
 msgid "Open the Inbox"
@@ -249,7 +249,7 @@ msgstr "Malfermi la enirkeston"
 
 #: src/Utils.vala:1042 src/Dialogs/ShortcutsDialog.vala:158
 msgid "Open Today"
-msgstr "Malfermu Hodiaŭ"
+msgstr "Malfermi Hodiaŭajn Taskojn"
 
 #: src/Utils.vala:1043 src/Dialogs/ShortcutsDialog.vala:160
 msgid "Open Upcoming"
@@ -261,15 +261,15 @@ msgstr "Malfermu Serĉon"
 
 #: src/Utils.vala:1045
 msgid "Manually sync"
-msgstr ""
+msgstr "Mane sinkronigi"
 
 #: src/Utils.vala:1046 src/Dialogs/ShortcutsDialog.vala:137
 msgid "Quit"
-msgstr "Forlasu"
+msgstr "Forlasi"
 
 #: src/Utils.vala:1054
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La peto ne ĝustis."
 
 #: src/Utils.vala:1055
 msgid ""
@@ -571,7 +571,7 @@ msgstr "Horaro"
 
 #: src/Widgets/ItemRow.vala:196
 msgid "Hide Details"
-msgstr "Kaŝu Detalojn"
+msgstr "Kaŝi Detalojn"
 
 #: src/Widgets/ItemRow.vala:528
 msgid "Add Checklist"
@@ -579,15 +579,15 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:535
 msgid "Delete Task"
-msgstr ""
+msgstr "Forviŝi Taskon"
 
 #: src/Widgets/ItemRow.vala:549
 msgid "Task Menu"
-msgstr ""
+msgstr "Taska Menuo"
 
 #: src/Widgets/ItemRow.vala:737 src/Widgets/ItemRow.vala:1623
 msgid "Task deleted"
-msgstr ""
+msgstr "Forviŝiĝis tasko"
 
 #: src/Widgets/ItemRow.vala:1066
 #, c-format
@@ -596,11 +596,11 @@ msgstr ""
 
 #: src/Widgets/ItemRow.vala:1071
 msgid "1 task completed"
-msgstr ""
+msgstr "1 tasko kompletiĝis"
 
 #: src/Widgets/ItemRow.vala:1460
 msgid "No Section"
-msgstr ""
+msgstr "Neniu Sekcio"
 
 #: src/Widgets/ItemRow.vala:1521 src/Widgets/MultiSelectToolbar.vala:354
 msgid "Complete"
@@ -608,16 +608,16 @@ msgstr "Kompleta"
 
 #: src/Widgets/ItemRow.vala:1522
 msgid "Edit"
-msgstr ""
+msgstr "Redakti"
 
 #: src/Widgets/ItemRow.vala:1538 src/Widgets/SectionRow.vala:1036
 #: src/Widgets/BoardColumn.vala:1045
 msgid "Move to Project"
-msgstr "Movu al Projekto"
+msgstr "Movi al Projekto"
 
 #: src/Widgets/ItemRow.vala:1542
 msgid "Move to Section"
-msgstr "Movo al Sekcio"
+msgstr "Movi al Sekcio"
 
 #: src/Widgets/ItemRow.vala:1550
 msgid "Text"
@@ -629,7 +629,7 @@ msgstr ""
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
-msgstr ""
+msgstr "Enhavo"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
@@ -641,12 +641,12 @@ msgstr ""
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
-msgstr ""
+msgstr "Marki kiel Nekompletan"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
-msgstr ""
+msgstr "Forviŝi taskon"
 
 #: src/Widgets/SectionRow.vala:83 src/Widgets/BoardColumn.vala:56
 #: src/Widgets/BoardColumn.vala:90
@@ -655,25 +655,25 @@ msgstr "(Neniu Sekcio)"
 
 #: src/Widgets/SectionRow.vala:103 src/Widgets/SectionRow.vala:1179
 msgid "Display Tasks"
-msgstr ""
+msgstr "Montri Taskojn"
 
 #: src/Widgets/SectionRow.vala:110 src/Widgets/SectionRow.vala:1184
 msgid "Hiding Tasks"
-msgstr ""
+msgstr "Kaŝi Taskojn"
 
 #: src/Widgets/SectionRow.vala:138 src/Widgets/NewSection.vala:69
 #: src/Widgets/BoardColumn.vala:101
 msgid "Section name"
-msgstr ""
+msgstr "Nomo de sekcio"
 
 #: src/Widgets/SectionRow.vala:158
 msgid "Section Menu"
-msgstr ""
+msgstr "Sekcia Menuo"
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:179
 #: src/Dialogs/Project.vala:244
 msgid "Add a description"
-msgstr ""
+msgstr "Aldoni priskribon"
 
 #: src/Widgets/SectionRow.vala:237 src/Views/Project.vala:437
 #: src/Dialogs/Project.vala:487
@@ -684,54 +684,54 @@ msgstr "Priskribo"
 #: src/Widgets/BoardColumn.vala:992 src/Widgets/BoardColumn.vala:1013
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr ""
+msgstr "Sekcio moviĝis al <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:1033 src/Widgets/BoardColumn.vala:1042
 msgid "Rename"
-msgstr ""
+msgstr "Alinomi"
 
 #: src/Widgets/SectionRow.vala:1089 src/Widgets/BoardColumn.vala:1101
 msgid "Delete section"
-msgstr ""
+msgstr "Forviŝi sekcion"
 
 #: src/Widgets/SectionRow.vala:1107 src/Widgets/BoardColumn.vala:1119
 msgid "Section deleted"
-msgstr ""
+msgstr "Forviŝiĝis sekcio"
 
 #: src/Widgets/DueButton.vala:281
 msgid "Repeat"
-msgstr ""
+msgstr "Ripeti"
 
 #: src/Widgets/DueButton.vala:304
 msgid "Every day"
-msgstr ""
+msgstr "Ĉiutage"
 
 #: src/Widgets/DueButton.vala:310
 msgid "Every week"
-msgstr ""
+msgstr "Ĉiusemajne"
 
 #: src/Widgets/DueButton.vala:316
 msgid "Every month"
-msgstr ""
+msgstr "Ĉiumonate"
 
 #: src/Widgets/DueButton.vala:322
 msgid "Every year"
-msgstr ""
+msgstr "Ĉiujare"
 
 #: src/Widgets/LabelButton.vala:50 src/Dialogs/QuickFind.vala:223
 #: src/Dialogs/QuickFind.vala:538 src/Dialogs/ShortcutsDialog.vala:123
 #: src/Dialogs/Preferences/Preferences.vala:158
 #: src/Dialogs/Preferences/Preferences.vala:1027
 msgid "Labels"
-msgstr ""
+msgstr "Etikedoj"
 
 #: src/Widgets/LabelButton.vala:60
 msgid "labels"
-msgstr ""
+msgstr "etikedoj"
 
 #: src/Widgets/LabelButton.vala:100 src/Widgets/LabelButton.vala:273
 msgid "Using Labels"
-msgstr ""
+msgstr "Uzi Etikedojn"
 
 #: src/Widgets/LabelButton.vala:101 src/Widgets/LabelButton.vala:274
 msgid ""
@@ -741,29 +741,29 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:133
 msgid "Type a label"
-msgstr ""
+msgstr "Tajpu etikedon"
 
 #: src/Widgets/LabelButton.vala:143 src/Widgets/LabelButton.vala:253
 #: src/Widgets/LabelButton.vala:271
 msgid "Edit labels"
-msgstr ""
+msgstr "Redakti etikedojn"
 
 #: src/Widgets/LabelButton.vala:263
 msgid "Add label"
-msgstr ""
+msgstr "Aldoni etikedon"
 
 #: src/Widgets/LabelButton.vala:266
 msgid "Label not found"
-msgstr ""
+msgstr "Ne troviĝis etikedo"
 
 #: src/Widgets/LabelButton.vala:267
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "Krei '%s'"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
-msgstr ""
+msgstr "Malfari"
 
 #: src/Widgets/Toast.vala:103 src/Objects/Item.vala:127
 msgid "Task duplicate"
@@ -771,7 +771,7 @@ msgstr ""
 
 #: src/Widgets/Toast.vala:105
 msgid "Task added from clipboard"
-msgstr ""
+msgstr "Aldoniĝis tasko el tondujo"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
@@ -783,23 +783,23 @@ msgstr ""
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
-msgstr ""
+msgstr "Konvertiĝis projekto"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Malsukcesis konverti projekton. Reprovu."
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
-msgstr ""
+msgstr "Nomo de subtasko"
 
 #: src/Widgets/LabelItem.vala:43
 msgid "Remove"
-msgstr ""
+msgstr "Forigi"
 
 #: src/Widgets/UpcomingRow.vala:72
 msgid "Add task"
-msgstr ""
+msgstr "Aldoni taskon"
 
 #: src/Widgets/ReminderButton.vala:43
 msgid "Reminders"
@@ -815,44 +815,44 @@ msgstr ""
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
-msgstr ""
+msgstr "Tempo:"
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
-msgstr ""
+msgstr "Aldoni Etikedon"
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
-msgstr ""
+msgstr "Prioritato"
 
 #: src/Widgets/MultiSelectToolbar.vala:46
 msgid "Done"
-msgstr ""
+msgstr "Farita"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr ""
+msgstr "Ĉu vi certe volas forviŝi %i taskojn?"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
-msgstr ""
+msgstr "Malŝaltita"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "Kio Novas"
 
 #: src/Widgets/WhatsNew.vala:88
 msgid "Continue"
-msgstr ""
+msgstr "Daŭrigi"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Filter by Label"
-msgstr ""
+msgstr "Filtri laŭ Etikedo"
 
 #: src/Widgets/LabelFilter.vala:47
 msgid "Label"
-msgstr ""
+msgstr "Etikedo"
 
 #: src/Widgets/BoardColumn.vala:120
 msgid "Board Menu"
@@ -860,19 +860,19 @@ msgstr ""
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "Kio novas"
 
 #: src/Widgets/ToolsMenu.vala:45
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Fulmoklavoj"
 
 #: src/Widgets/ToolsMenu.vala:110
 msgid "Sync completed"
-msgstr ""
+msgstr "Sinkronigo finiĝis"
 
 #: src/Widgets/ToolsMenu.vala:186
 msgid "Sync"
-msgstr ""
+msgstr "Sinkronigi"
 
 #: src/Widgets/ToolsMenu.vala:189
 msgid "Offline mode is on"
@@ -887,49 +887,49 @@ msgstr ""
 
 #: src/Widgets/ToolsMenu.vala:197
 msgid "Sync…"
-msgstr ""
+msgstr "Sinkronigi…"
 
 #: src/Widgets/ToolsMenu.vala:200 src/Widgets/ToolsMenu.vala:213
 msgid "Sync Now"
-msgstr ""
+msgstr "Sinkronigi Nun"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 msgid "Mo"
-msgstr ""
+msgstr "Lu"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
 msgid "Tu"
-msgstr ""
+msgstr "Ma"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
 msgid "We"
-msgstr ""
+msgstr "Me"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
 msgid "Th"
-msgstr ""
+msgstr "Ĵa"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
 msgid "Fr"
-msgstr ""
+msgstr "Ve"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
 msgid "Sa"
-msgstr ""
+msgstr "Sa"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
 msgid "Su"
-msgstr ""
+msgstr "Di"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
@@ -946,7 +946,7 @@ msgstr ""
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:1150
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Views/Welcome.vala:29
 msgid "Synchronize with your Todoist Account."
@@ -964,24 +964,24 @@ msgstr ""
 #: src/Views/Inbox.vala:68 src/Views/Project.vala:128
 #: src/Dialogs/Project.vala:160 src/Dialogs/Project.vala:168
 msgid "Add Section"
-msgstr ""
+msgstr "Aldoni Sekcion"
 
 #: src/Views/Inbox.vala:76 src/Dialogs/Project.vala:176
 msgid "Invite person"
-msgstr ""
+msgstr "Inviti homon"
 
 #: src/Views/Inbox.vala:85 src/Dialogs/Project.vala:185
 msgid "Project comments"
-msgstr ""
+msgstr "Projektaj komentoj"
 
 #: src/Views/Inbox.vala:93 src/Dialogs/Project.vala:193
 msgid "Search task"
-msgstr ""
+msgstr "Serĉi taskon"
 
 #: src/Views/Inbox.vala:104 src/Views/Project.vala:140
 #: src/Dialogs/Project.vala:204
 msgid "Project Menu"
-msgstr ""
+msgstr "Projekta Menuo"
 
 #: src/Views/Inbox.vala:131 src/Views/Label.vala:67 src/Views/Completed.vala:72
 #: src/Views/Filter.vala:70 src/Views/AllTasks.vala:70
@@ -995,24 +995,24 @@ msgstr ""
 #: src/Views/Inbox.vala:219 src/Views/Project.vala:469
 #: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:518
 msgid "Sort by date"
-msgstr ""
+msgstr "Ordigi laŭ dato"
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:220 src/Views/Today.vala:481 src/Views/Project.vala:470
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:519
 msgid "Sort by priority"
-msgstr ""
+msgstr "Ordigi laŭ prioritato"
 
 #: src/Views/Inbox.vala:221 src/Views/Today.vala:482 src/Views/Project.vala:471
 #: src/Dialogs/ShortcutsDialog.vala:102 src/Dialogs/Project.vala:520
 msgid "Sort by name"
-msgstr ""
+msgstr "Ordigi laŭ nomo"
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:223 src/Views/Today.vala:484 src/Views/Project.vala:473
 #: src/Dialogs/Project.vala:522
 msgid "Utilities"
-msgstr ""
+msgstr "Iloj"
 
 #: src/Views/Inbox.vala:234 src/Views/Today.vala:492 src/Views/Project.vala:484
 #: src/Dialogs/Project.vala:533
@@ -1036,7 +1036,7 @@ msgstr ""
 
 #: src/Views/Today.vala:85
 msgid "Menu"
-msgstr ""
+msgstr "Menuo"
 
 #: src/Views/Today.vala:125
 msgid "Overdue"
@@ -1056,7 +1056,7 @@ msgstr ""
 
 #: src/Views/Today.vala:483
 msgid "Sort by project"
-msgstr ""
+msgstr "Ordigi laŭ projekto"
 
 #: src/Views/Today.vala:603
 msgid "Today was copied to the Clipboard."
@@ -1066,7 +1066,7 @@ msgstr ""
 #: src/Dialogs/Project.vala:142
 #, c-format
 msgid "Progress: %s"
-msgstr ""
+msgstr "Progreso: %s"
 
 #: src/Views/Project.vala:718 src/Dialogs/Project.vala:760
 msgid "Your Productivity"
@@ -1074,7 +1074,7 @@ msgstr ""
 
 #: src/Views/Project.vala:723 src/Dialogs/Project.vala:765
 msgid "Progress:"
-msgstr ""
+msgstr "Progreso:"
 
 #: src/Views/Project.vala:734 src/Dialogs/Project.vala:776
 msgid "Duedate:"
@@ -1088,15 +1088,15 @@ msgstr ""
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
 msgid "Completed"
-msgstr ""
+msgstr "Kompletigita"
 
 #: src/Views/AllTasks.vala:36 src/Dialogs/QuickFind.vala:84
 msgid "All Tasks"
-msgstr ""
+msgstr "Ĉiuj Taskoj"
 
 #: src/Dialogs/TodoistOAuth.vala:45 src/Dialogs/TodoistOAuth.vala:114
 msgid "Loading…"
-msgstr ""
+msgstr "Ŝargante…"
 
 #. Alert
 #: src/Dialogs/TodoistOAuth.vala:70 src/Dialogs/TodoistOAuth.vala:128
@@ -1129,7 +1129,7 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:166
 msgid "Options:"
-msgstr ""
+msgstr "Opcioj:"
 
 #: src/Dialogs/ProjectSettings.vala:171
 msgid "Convert to Todoist"
@@ -1137,7 +1137,7 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:171 src/Dialogs/ProjectSettings.vala:280
 msgid "Convert"
-msgstr ""
+msgstr "Konverti"
 
 #: src/Dialogs/ProjectSettings.vala:205
 msgid "Direct access:"
@@ -1145,7 +1145,7 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:275
 msgid "Convert Project"
-msgstr ""
+msgstr "Konverti Projekton"
 
 #: src/Dialogs/ProjectSettings.vala:276
 #, c-format
@@ -1154,11 +1154,11 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:288
 msgid "Converting project…"
-msgstr ""
+msgstr "Konvertante projekton…"
 
 #: src/Dialogs/QuickFind.vala:130 src/Dialogs/ShortcutsDialog.vala:111
 msgid "Search"
-msgstr ""
+msgstr "Serĉi"
 
 #: src/Dialogs/QuickFind.vala:156
 msgid "Quickly switch projects and views, find tasks, search by labels."
@@ -1176,15 +1176,15 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:496
 msgid "Tasks"
-msgstr ""
+msgstr "Taskoj"
 
 #: src/Dialogs/QuickFind.vala:524
 msgid "Views"
-msgstr ""
+msgstr "Vidoj"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "Filtriloj"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
@@ -1192,13 +1192,13 @@ msgstr ""
 
 #: src/Dialogs/QuickFind.vala:580
 msgid "Sections"
-msgstr ""
+msgstr "Sekcioj"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
 #: src/Dialogs/Preferences/Preferences.vala:733
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Fulmoklavoj"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
@@ -1208,9 +1208,8 @@ msgstr ""
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
 #: src/Dialogs/Preferences/DatabaseSettings.vala:97
 #: src/Dialogs/Preferences/DatabaseSettings.vala:121
-#, fuzzy
 msgid "Change"
-msgstr "Oranĝkolora"
+msgstr "Ŝanĝi"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
 msgid "Create a new task at the top of the list"
@@ -1240,7 +1239,7 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 msgid "Filter by priorities"
-msgstr ""
+msgstr "Filtri laŭ prioritatoj"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
@@ -1308,12 +1307,12 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:135
 #: src/Dialogs/Preferences/Preferences.vala:897
 msgid "General"
-msgstr ""
+msgstr "Ĝenerala"
 
 #: src/Dialogs/Preferences/Preferences.vala:129
 #: src/Dialogs/Preferences/Preferences.vala:276
 msgid "Homepage"
-msgstr ""
+msgstr "Hejmpaĝo"
 
 #: src/Dialogs/Preferences/Preferences.vala:130
 #: src/Dialogs/Preferences/Preferences.vala:492
@@ -1323,7 +1322,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:131
 #: src/Dialogs/Preferences/Preferences.vala:565
 msgid "Appearance"
-msgstr ""
+msgstr "Aspekto"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
 msgid "Task default"
@@ -1377,7 +1376,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 msgid "Default priority"
-msgstr ""
+msgstr "Apriora prioritato"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
 msgid "Indicate the position where the new tasks were created."
@@ -1439,7 +1438,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
-msgstr ""
+msgstr "Etoso"
 
 #: src/Dialogs/Preferences/Preferences.vala:659
 msgid "Font Size"
@@ -1499,11 +1498,11 @@ msgstr ""
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:928
 msgid "Danger zone"
-msgstr ""
+msgstr "Danĝera zono"
 
 #: src/Dialogs/Preferences/Preferences.vala:933
 msgid "Date & time"
-msgstr ""
+msgstr "Dato & tempo"
 
 #: src/Dialogs/Preferences/Preferences.vala:937
 #: src/Dialogs/Preferences/Preferences.vala:1009
@@ -1556,7 +1555,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:1200
 #: src/Dialogs/Preferences/Preferences.vala:1255
 msgid "Log out"
-msgstr ""
+msgstr "Elsaluti"
 
 #: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Are you sure you want to log out?"
@@ -1589,34 +1588,33 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1475
 msgid "Website"
-msgstr ""
+msgstr "Retejo"
 
 #: src/Dialogs/Preferences/Preferences.vala:1476
 msgid "Github"
-msgstr ""
+msgstr "Deponejo"
 
 #: src/Dialogs/Preferences/Preferences.vala:1477
-#, fuzzy
 msgid "Follow"
-msgstr "Flava"
+msgstr "Aboni"
 
 #: src/Dialogs/Preferences/Preferences.vala:1478
 msgid "Report a Problem"
-msgstr ""
+msgstr "Raporti Problemon"
 
 #: src/Dialogs/Preferences/Preferences.vala:1479
 msgid "Suggest Translations"
-msgstr ""
+msgstr "Traduki"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:28
 msgid "Database"
-msgstr ""
+msgstr "Datenbanko"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:43
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Aktuala loko: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
 msgid "Reset to default"
@@ -1641,15 +1639,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "loko de datenbanko"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 msgid "_Cancel"
-msgstr ""
+msgstr "_Nuligi"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Malfermi"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
@@ -1657,7 +1655,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
-msgstr ""
+msgstr "Reen"
 
 #: src/Objects/Project.vala:103
 msgid "The Project was copied to the Clipboard."
