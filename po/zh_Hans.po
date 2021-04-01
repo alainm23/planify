@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-07 15:29+0000\n"
-"Last-Translator: pessoa <accounts@pessoa.cc>\n"
+"PO-Revision-Date: 2021-04-01 11:29+0000\n"
+"Last-Translator: WhiredPlanck <fungdaat31@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "planner/translations/zh_Hans/>\n"
 "Language: zh_Hans\n"
@@ -17,22 +17,21 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4.1-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
-msgstr "你确定要清除所有数据?"
+msgstr "确定要重置所有设置吗？"
 
 #: src/Application.vala:153
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
-msgstr "这个操作将移除所有的数据并且不可恢复."
+msgstr "这个操作将移除所有已存储的数据并且不可撤销。(y/n): "
 
 #: src/Application.vala:156
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: src/Application.vala:156
 msgid "yes"
@@ -178,17 +177,17 @@ msgstr "你可以从参数中将%s设为活动状态"
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
-msgstr ""
+msgstr "Planner 有 %s 新版本啦，有诸多设计改进和新功能等。"
 
 #: src/Utils.vala:960
 msgid "New Board View"
-msgstr ""
+msgstr "新增看板视图"
 
 #: src/Utils.vala:960
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
-msgstr ""
+msgstr "对于任务列表用户，此次更新将会带来「看板视图」，组织计划项目更直观。 "
 
 #: src/Utils.vala:961
 msgid "Sub-project"
@@ -198,7 +197,7 @@ msgstr "子项目"
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
-msgstr ""
+msgstr "Planner 2.6 将带来大家要求最多的功能之一：让持续增长项目列表保持整洁，并用子项目形式组织起来。"
 
 #: src/Utils.vala:974
 msgid "🚀️ Getting Started"
@@ -388,7 +387,7 @@ msgstr "描述:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "紧前任务："
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:197
 msgid "Color:"
@@ -416,7 +415,7 @@ msgstr "本地"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:594
 msgid "No Parent"
-msgstr ""
+msgstr "没有紧前任务"
 
 #: src/Widgets/ProjectRow.vala:487 src/Widgets/ItemRow.vala:1427
 #: src/Widgets/ItemRow.vala:1447 src/Widgets/ItemRow.vala:1481
@@ -494,15 +493,15 @@ msgstr "明日"
 
 #: src/Widgets/NewItem.vala:61
 msgid "1d"
-msgstr ""
+msgstr "1 天"
 
 #: src/Widgets/NewItem.vala:62
 msgid "1w"
-msgstr ""
+msgstr "1 周"
 
 #: src/Widgets/NewItem.vala:63
 msgid "1m"
-msgstr ""
+msgstr "1 个月"
 
 #: src/Widgets/NewItem.vala:123 src/Widgets/ItemRow.vala:230
 #: src/Widgets/CheckRow.vala:64
@@ -643,15 +642,13 @@ msgstr "标记为未完成"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
 msgid "Delete task"
 msgstr "删除任务"
 
 #: src/Widgets/SectionRow.vala:83 src/Widgets/BoardColumn.vala:56
 #: src/Widgets/BoardColumn.vala:90
-#, fuzzy
 msgid "(No Section)"
-msgstr "无分区"
+msgstr "（未命名分区）"
 
 #: src/Widgets/SectionRow.vala:103 src/Widgets/SectionRow.vala:1179
 msgid "Display Tasks"
@@ -775,20 +772,19 @@ msgstr "从剪贴板添加任务"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "复制任务失败。请重试。"
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
 msgstr "从剪贴板添加任务失败。请重试。"
 
 #: src/Widgets/Toast.vala:148
-#, fuzzy
 msgid "Converted project"
-msgstr "删除项目"
+msgstr "已转换项目"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "转换项目失败。请重试。"
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
@@ -831,9 +827,9 @@ msgid "Done"
 msgstr "完成"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "确定删除 <b>%s</b>?"
+msgstr "确定要删除 %i 项任务吗？"
 
 #: src/Widgets/ShortcutLabel.vala:59
 msgid "Disabled"
@@ -841,7 +837,7 @@ msgstr "关闭"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "新功能介绍"
 
 #: src/Widgets/WhatsNew.vala:88
 msgid "Continue"
@@ -852,18 +848,16 @@ msgid "Filter by Label"
 msgstr "以标签过滤"
 
 #: src/Widgets/LabelFilter.vala:47
-#, fuzzy
 msgid "Label"
 msgstr "标签"
 
 #: src/Widgets/BoardColumn.vala:120
-#, fuzzy
 msgid "Board Menu"
-msgstr "任务菜单"
+msgstr "看板菜单"
 
 #: src/Widgets/ToolsMenu.vala:44
 msgid "What's new"
-msgstr ""
+msgstr "新功能介绍"
 
 #: src/Widgets/ToolsMenu.vala:45
 msgid "Keyboard shortcuts"
@@ -901,9 +895,8 @@ msgstr "立即同步"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
-#, fuzzy
 msgid "%OB"
-msgstr "%OB %Y"
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
@@ -911,37 +904,30 @@ msgid "%Y"
 msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
-#, fuzzy
 msgid "Mo"
 msgstr "周一"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
-#, fuzzy
 msgid "Tu"
 msgstr "周二"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
-#, fuzzy
 msgid "We"
 msgstr "周三"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
-#, fuzzy
 msgid "Th"
 msgstr "周四"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
-#, fuzzy
 msgid "Fr"
 msgstr "周五"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
-#, fuzzy
 msgid "Sa"
 msgstr "周六"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
-#, fuzzy
 msgid "Su"
 msgstr "周日"
 
@@ -954,9 +940,8 @@ msgid "Startup"
 msgstr "开始"
 
 #: src/Views/Welcome.vala:28
-#, fuzzy
 msgid "Start Working Locally."
-msgstr "在本地开始工作."
+msgstr "在此地开始工作。"
 
 #: src/Views/Welcome.vala:29 src/Dialogs/TodoistOAuth.vala:35
 #: src/Dialogs/Preferences/Preferences.vala:1150
@@ -964,9 +949,8 @@ msgid "Todoist"
 msgstr "待办清单"
 
 #: src/Views/Welcome.vala:29
-#, fuzzy
 msgid "Synchronize with your Todoist Account."
-msgstr "同步你的待办清单账号并且开始工作."
+msgstr "通过待办清单帐号同步。"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Backup"
@@ -1026,9 +1010,8 @@ msgstr "按名称排序"
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:223 src/Views/Today.vala:484 src/Views/Project.vala:473
 #: src/Dialogs/Project.vala:522
-#, fuzzy
 msgid "Utilities"
-msgstr "优先级"
+msgstr "实用工具"
 
 #: src/Views/Inbox.vala:234 src/Views/Today.vala:492 src/Views/Project.vala:484
 #: src/Dialogs/Project.vala:533
@@ -1038,7 +1021,7 @@ msgstr "显示已完成"
 #: src/Views/Inbox.vala:263 src/Views/Project.vala:510
 #: src/Dialogs/Project.vala:562
 msgid "View as board"
-msgstr ""
+msgstr "以看板形式查看"
 
 #: src/Views/Inbox.vala:387 src/Views/Today.vala:557 src/Views/Project.vala:659
 #: src/Dialogs/Project.vala:684
@@ -1075,9 +1058,8 @@ msgid "Sort by project"
 msgstr "按项目排序"
 
 #: src/Views/Today.vala:603
-#, fuzzy
 msgid "Today was copied to the Clipboard."
-msgstr "任务已复制到剪贴板."
+msgstr "「今日任务」已复制到剪贴板。"
 
 #: src/Views/Project.vala:250 src/Views/Project.vala:420
 #: src/Dialogs/Project.vala:142
@@ -1100,7 +1082,7 @@ msgstr "截至日期:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "当前无符合此条件的任务。"
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:77
 #: src/Dialogs/ShortcutsDialog.vala:127
@@ -1133,9 +1115,8 @@ msgid "Please enter your credentials…"
 msgstr "请输入你的凭据…"
 
 #: src/Dialogs/ProjectSettings.vala:41
-#, fuzzy
 msgid "Project Settings"
-msgstr "项目菜单"
+msgstr "项目设置"
 
 #: src/Dialogs/ProjectSettings.vala:81
 msgid "Deadline:"
@@ -1146,36 +1127,33 @@ msgid "Uploading changes…"
 msgstr "上传更改…"
 
 #: src/Dialogs/ProjectSettings.vala:166
-#, fuzzy
 msgid "Options:"
-msgstr "分区"
+msgstr "选项："
 
 #: src/Dialogs/ProjectSettings.vala:171
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "转换为待办清单"
 
 #: src/Dialogs/ProjectSettings.vala:171 src/Dialogs/ProjectSettings.vala:280
 msgid "Convert"
-msgstr ""
+msgstr "转换"
 
 #: src/Dialogs/ProjectSettings.vala:205
 msgid "Direct access:"
-msgstr ""
+msgstr "直接访问："
 
 #: src/Dialogs/ProjectSettings.vala:275
-#, fuzzy
 msgid "Convert Project"
-msgstr "移动到项目"
+msgstr "转换项目"
 
 #: src/Dialogs/ProjectSettings.vala:276
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to convert <b>%s</b> to Todoist?"
-msgstr "确定删除 <b>%s</b>?"
+msgstr "确定要转换 <b>%s</b> 为待办清单吗？"
 
 #: src/Dialogs/ProjectSettings.vala:288
-#, fuzzy
 msgid "Converting project…"
-msgstr "如何使用项目"
+msgstr "转换项目…"
 
 #: src/Dialogs/QuickFind.vala:130 src/Dialogs/ShortcutsDialog.vala:111
 msgid "Search"
@@ -1209,12 +1187,11 @@ msgstr "过滤器"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "最近任务"
 
 #: src/Dialogs/QuickFind.vala:580
-#, fuzzy
 msgid "Sections"
-msgstr "无分区"
+msgstr "分区"
 
 #: src/Dialogs/ShortcutsDialog.vala:29
 #: src/Dialogs/Preferences/Preferences.vala:159
@@ -1224,7 +1201,7 @@ msgstr "键盘快捷键"
 
 #: src/Dialogs/ShortcutsDialog.vala:58
 msgid "Used anywhere"
-msgstr ""
+msgstr "随处使用"
 
 #: src/Dialogs/ShortcutsDialog.vala:62
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
@@ -1234,9 +1211,8 @@ msgid "Change"
 msgstr "修改"
 
 #: src/Dialogs/ShortcutsDialog.vala:87
-#, fuzzy
 msgid "Create a new task at the top of the list"
-msgstr "在列表顶部创建一个任务(只工作在项目中)"
+msgstr "在列表顶部创建新任务"
 
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Paste plain text to create new task"
@@ -1245,9 +1221,8 @@ msgstr "粘贴纯文本以开始新任务"
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:95
-#, fuzzy
 msgid "Create a new section in a project"
-msgstr "创建一个新分区"
+msgstr "在项目中创建一个新分区"
 
 #: src/Dialogs/ShortcutsDialog.vala:108
 msgid "Open Quick Add"
@@ -1262,62 +1237,56 @@ msgid "Start typing to begin a search"
 msgstr "输入以开始搜索"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
-msgstr "优先级"
+msgstr "按优先级过滤"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
-msgstr ""
+msgstr "所有标签的快速查找列表"
 
 #: src/Dialogs/ShortcutsDialog.vala:126
 msgid "Quick Find list for all projects"
-msgstr ""
+msgstr "所有项目的快速查找列表"
 
 #: src/Dialogs/ShortcutsDialog.vala:128
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "按所有已完成任务过滤。"
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
-msgstr ""
+msgstr "控制窗口"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
-#, fuzzy
 msgid "Open preferences"
-msgstr "设置"
+msgstr "打开偏好设置"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open current project new window"
-msgstr ""
+msgstr "在新窗口打开当前项目"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "将项目窗口移到左侧工作空间"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "移动项目窗口到右侧工作空间"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
-#, fuzzy
 msgid "Open Keyboard Shortcuts"
-msgstr "键盘快捷键"
+msgstr "打开键盘快捷键设置"
 
 #: src/Dialogs/ShortcutsDialog.vala:149
-#, fuzzy
 msgid "Navigate"
-msgstr "游览并且"
+msgstr "导航"
 
 #: src/Dialogs/ShortcutsDialog.vala:156
-#, fuzzy
 msgid "Open Inbox"
-msgstr "打开待办事项"
+msgstr "打开待办收件夹"
 
 #: src/Dialogs/ShortcutsDialog.vala:162
-#, fuzzy
 msgid "Go to start page"
-msgstr "开机运行"
+msgstr "转到开始页"
 
 #: src/Dialogs/Project.vala:284
 msgid "What will you accomplish?"
@@ -1325,7 +1294,7 @@ msgstr "将要完成什么?"
 
 #: src/Dialogs/Project.vala:285
 msgid "Tap + to add a task to this project."
-msgstr "点击 + 以添加任务到项目."
+msgstr "点击 + 以添加任务到此项目。"
 
 #: src/Dialogs/Preferences/Preferences.vala:109
 msgid "Plugins"
@@ -1355,9 +1324,8 @@ msgid "Appearance"
 msgstr "外观"
 
 #: src/Dialogs/Preferences/Preferences.vala:132
-#, fuzzy
 msgid "Task default"
-msgstr "清除任务"
+msgstr "任务默认"
 
 #: src/Dialogs/Preferences/Preferences.vala:133
 #: src/Dialogs/Preferences/Preferences.vala:717
@@ -1396,17 +1364,16 @@ msgstr ""
 "以根据自己的喜好修改它."
 
 #: src/Dialogs/Preferences/Preferences.vala:380
-#, fuzzy
 msgid "Task defaults"
-msgstr "清除任务"
+msgstr "项目默认值"
 
 #: src/Dialogs/Preferences/Preferences.vala:383
 msgid "New tasks on top"
-msgstr ""
+msgstr "新增任务到顶部"
 
 #: src/Dialogs/Preferences/Preferences.vala:389
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "下划线已完成任务。"
 
 #: src/Dialogs/Preferences/Preferences.vala:401
 msgid "Default priority"
@@ -1424,49 +1391,49 @@ msgstr "备份"
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
-msgstr ""
+msgstr "Planner 会自动为您的活跃项目和任务创建每日备份。您可以在任意时间使用项目导入轻松还原备份。"
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
 "Choose which items should be counted for the badge on the application icon."
-msgstr "修改在应用程序的角标上要显示的条目."
+msgstr "选择要在应用图标上显示计数角标的条目。"
 
 #: src/Dialogs/Preferences/Preferences.vala:515
 msgid "Today + Inbox"
-msgstr "今天+待办事项"
+msgstr "今日任务 + 待办收件夹"
 
 #: src/Dialogs/Preferences/Preferences.vala:568
 msgid ""
 "Personalize the look and feel of your Planner by choosing the theme that "
 "best suits you."
-msgstr "选择你喜欢的主题来个性化Planner."
+msgstr "选择合适的主题来个性化 Planner 外观和质感。"
 
 #: src/Dialogs/Preferences/Preferences.vala:578
 msgid "Light"
-msgstr "亮"
+msgstr "亮色"
 
 #: src/Dialogs/Preferences/Preferences.vala:581
 msgid "Night"
-msgstr "暗"
+msgstr "暗色"
 
 #: src/Dialogs/Preferences/Preferences.vala:584
 msgid "Dark Blue"
-msgstr "Dark Blue"
+msgstr "深蓝色"
 
 #: src/Dialogs/Preferences/Preferences.vala:587
 msgid "Arc Dark"
-msgstr "Arc Dark"
+msgstr "北极黑"
 
 #: src/Dialogs/Preferences/Preferences.vala:629
 msgid "Button layout"
-msgstr "按钮样式"
+msgstr "按钮布局"
 
 #. The reason we need a restart is because GTK has to tell the
 #. window manager whether to add any window decorations *before*
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "使用系统窗口装饰（需要重启）"
 
 #: src/Dialogs/Preferences/Preferences.vala:651
 msgid "Theme"
@@ -1488,7 +1455,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:730
 #: src/Dialogs/Preferences/Preferences.vala:1303
 msgid "Enabled"
-msgstr "打开"
+msgstr "已启用"
 
 #: src/Dialogs/Preferences/Preferences.vala:745
 msgid "Press keys…"
@@ -1504,7 +1471,7 @@ msgstr "保存最近选择的项目"
 
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "自动关闭失焦窗口"
 
 #: src/Dialogs/Preferences/Preferences.vala:900
 msgid "DE Integration"
@@ -1562,11 +1529,10 @@ msgid "Start of the week"
 msgstr "一周的起始日"
 
 #: src/Dialogs/Preferences/Preferences.vala:1005
-#, fuzzy
 msgid ""
 "This process removes all stored information without the possibility of "
 "undoing it."
-msgstr "这个操作将移除所有的数据并且不可恢复."
+msgstr "此操作将移除所有已存储信息并且不可撤销。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1030
 msgid ""
@@ -1598,7 +1564,7 @@ msgstr "注销"
 
 #: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Are you sure you want to log out?"
-msgstr "你确定要注销账户?"
+msgstr "确定要退出帐号吗？"
 
 #: src/Dialogs/Preferences/Preferences.vala:1251
 msgid "This process will close your Todoist session on this device."
@@ -1620,17 +1586,13 @@ msgid ""
 "Planner is being developed with ❤️ and passion for Open Source. However, if "
 "you like Planner and want to support its development, consider donating to "
 "via:"
-msgstr ""
-"Planner 正在不断的发展并且是开源的 ❤️.无论如何，如果你喜欢Planner并且支持我们"
-"的开发工作,请考虑捐助我们:"
+msgstr "Planner 正在用 ❤️ 和热情为开源事业开发中。无论如何，如果你喜欢 Planner 并且愿意支持其开发，请考虑通过这些方式捐助我们："
 
 #: src/Dialogs/Preferences/Preferences.vala:1396
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
-msgstr ""
-"非常感谢你们使用 Patreon or PayPal来捐助. (If you want to appear here visit "
-"our Patreon account 😉️)"
+msgstr "感谢通过 Patreon 或 Paypal 捐赠我们的人们。（如果你也想自己的名字出现在这，请访问我们的 Patreon 帐号 😉️）"
 
 #: src/Dialogs/Preferences/Preferences.vala:1475
 msgid "Website"
@@ -1646,7 +1608,7 @@ msgstr "找到我们"
 
 #: src/Dialogs/Preferences/Preferences.vala:1478
 msgid "Report a Problem"
-msgstr "漏洞报告"
+msgstr "问题报告"
 
 #: src/Dialogs/Preferences/Preferences.vala:1479
 msgid "Suggest Translations"
@@ -1660,49 +1622,44 @@ msgstr "数据库"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "当前位置：%s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
-#, fuzzy
 msgid "Reset to default"
-msgstr "重置所有数据"
+msgstr "恢复默认设置"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
-#, fuzzy
 msgid "Are you sure you want to restore the database location to default?"
-msgstr "你确定要清除所有数据?"
+msgstr "确定要恢复到默认数据库位置吗？"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "新数据库位置将在：<b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
-#, fuzzy
 msgid "Are you sure you want to change the database location?"
-msgstr "你确定要清除所有数据?"
+msgstr "确定要更改数据库位置吗？"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
-#, fuzzy
 msgid "This process will move your database file to the selected location."
-msgstr "这个操作将会在这个设备上关闭你的待办事项会话."
+msgstr "此操作将移动数据库文件到所选位置。"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
 msgstr "数据库位置"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
-#, fuzzy
 msgid "_Cancel"
-msgstr "取消"
+msgstr "取消(_C)"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "打开(_O)"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Planner 数据库文件 (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:43
 msgid "Back"
