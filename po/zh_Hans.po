@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-04-01 11:29+0000\n"
+"PO-Revision-Date: 2021-04-01 12:31+0000\n"
 "Last-Translator: WhiredPlanck <fungdaat31@outlook.com>\n"
 "Language-Team: Chinese (Simplified) <https://hosted.weblate.org/projects/"
 "planner/translations/zh_Hans/>\n"
@@ -44,7 +44,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
 #: src/MainWindow.vala:832
 msgid "Adding task from clipboard…"
-msgstr "从剪贴板中添加任务...…"
+msgstr "从剪贴板中添加任务…"
 
 #: src/Utils.vala:122 src/Utils.vala:129 src/Widgets/LabelRow.vala:82
 msgid "Home"
@@ -56,7 +56,7 @@ msgstr "办公"
 
 #: src/Utils.vala:124 src/Utils.vala:137
 msgid "Errand"
-msgstr "任务"
+msgstr "差事"
 
 #: src/Utils.vala:125 src/Utils.vala:141
 msgid "Important"
@@ -64,7 +64,7 @@ msgstr "重要"
 
 #: src/Utils.vala:126 src/Utils.vala:145
 msgid "Pending"
-msgstr "即将发生"
+msgstr "待处理"
 
 #: src/Utils.vala:189
 msgid "Berry Red"
@@ -171,7 +171,7 @@ msgstr "快速添加活动!"
 #: src/Utils.vala:882
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr "你可以从参数中将%s设为活动状态"
+msgstr "尝试 %s 以激活它。您可以在偏好设置中更改"
 
 #: src/Utils.vala:958
 #, c-format
@@ -187,7 +187,7 @@ msgstr "新增看板视图"
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
-msgstr "对于任务列表用户，此次更新将会带来「看板视图」，组织计划项目更直观。 "
+msgstr "对于待办清单用户，此次更新将会带来「看板视图」，组织计划项目更直观。 "
 
 #: src/Utils.vala:961
 msgid "Sub-project"
@@ -208,9 +208,7 @@ msgid ""
 "This project will help you learn the basics of Planner and get started with "
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
-msgstr ""
-"这个项目将帮助你学习关于Planner的基本操作并且开始使用一个简单的任务管理系统来"
-"组织你所需要去做的任何事情."
+msgstr "这个项目将通过一个简单的任务管理系统，帮助您学习 Planner 的基础知识，以让你需要做的所有事情井然有序和保持优先。"
 
 #: src/Utils.vala:980
 msgid "Adding new tasks"
@@ -271,27 +269,27 @@ msgstr "请求错误."
 #: src/Utils.vala:1055
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr "必要的身份验证失败或未通过请求."
+msgstr "须要身份验证，但已失败或尚未提供。"
 
 #: src/Utils.vala:1056
 msgid "The request was valid, but for something that is forbidden."
-msgstr "请求有效，但无权限访问."
+msgstr "请求有效，但无权限访问。"
 
 #: src/Utils.vala:1057
 msgid "The requested resource could not be found."
-msgstr "找不到请求的资源."
+msgstr "找不到请求的资源。"
 
 #: src/Utils.vala:1058
 msgid "The user has sent too many requests in a given amount of time."
-msgstr "用户在同一时间发送了太多的请求."
+msgstr "用户在同一时间发送了太多请求。"
 
 #: src/Utils.vala:1059
 msgid "The request failed due to a server error."
-msgstr "由于服务器错误，请求失败."
+msgstr "由于服务器错误，请求失败。"
 
 #: src/Utils.vala:1060
 msgid "The server is currently unable to handle the request."
-msgstr "服务器当前无法相应请求."
+msgstr "服务器当前无法处理请求。"
 
 #: src/Services/Database.vala:968 src/Widgets/ActionRow.vala:177
 #: src/Widgets/ActionRow.vala:179 src/Widgets/ItemRow.vala:1418
@@ -300,7 +298,7 @@ msgstr "服务器当前无法相应请求."
 #: src/Dialogs/Preferences/Preferences.vala:290
 #: src/Dialogs/Preferences/Preferences.vala:509
 msgid "Inbox"
-msgstr "待办事项"
+msgstr "待办收件夹"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
@@ -308,7 +306,7 @@ msgstr "在这台计算机上"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr "空剪贴板，请复制文本后再次尝试"
+msgstr "剪贴板是空的，请复制文本后再次尝试"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
@@ -354,7 +352,7 @@ msgstr "待办清单项目"
 #: src/Widgets/Pane.vala:355 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:70 src/Dialogs/Preferences/Preferences.vala:297
 msgid "Upcoming"
-msgstr "将要发生"
+msgstr "未来事项"
 
 #: src/Widgets/ActionRow.vala:451 src/Widgets/ProjectRow.vala:495
 #: src/Widgets/SectionRow.vala:1273 src/Widgets/SectionRow.vala:1348
@@ -374,16 +372,16 @@ msgstr "添加项目"
 #: src/Widgets/Pane.vala:180 src/Widgets/ToolsMenu.vala:43
 #: src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr "设置"
+msgstr "偏好设置"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:446 src/Views/Project.vala:778
 #: src/Dialogs/ProjectSettings.vala:186 src/Dialogs/Project.vala:820
 msgid "Name:"
-msgstr "名称:"
+msgstr "名称："
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:191
 msgid "Description:"
-msgstr "描述:"
+msgstr "描述："
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
@@ -407,7 +405,7 @@ msgstr "关闭"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr "成功创建%s项目"
+msgstr "项目 %s 已成功创建"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -423,7 +421,7 @@ msgstr "没有紧前任务"
 #: src/Widgets/BoardColumn.vala:1231 src/Widgets/BoardColumn.vala:1285
 #, c-format
 msgid "Task moved to <b>%s</b>"
-msgstr "将项目移动到 <b>%s</b>"
+msgstr "项目已移动到 <b>%s</b>"
 
 #: src/Widgets/ProjectRow.vala:654 src/Views/Inbox.vala:217
 #: src/Views/Project.vala:467
@@ -572,7 +570,7 @@ msgstr "隐藏细节"
 
 #: src/Widgets/ItemRow.vala:528
 msgid "Add Checklist"
-msgstr "添加检查列表"
+msgstr "添加检查单"
 
 #: src/Widgets/ItemRow.vala:535
 msgid "Delete Task"
@@ -593,7 +591,7 @@ msgstr "已完成,下一个事件: %s"
 
 #: src/Widgets/ItemRow.vala:1071
 msgid "1 task completed"
-msgstr "1 个任务完成"
+msgstr "1 个任务已完成"
 
 #: src/Widgets/ItemRow.vala:1460
 msgid "No Section"
@@ -630,7 +628,7 @@ msgstr "内容"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr "截至日期"
+msgstr "截止日期"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
@@ -661,11 +659,11 @@ msgstr "隐藏任务"
 #: src/Widgets/SectionRow.vala:138 src/Widgets/NewSection.vala:69
 #: src/Widgets/BoardColumn.vala:101
 msgid "Section name"
-msgstr "选择名称"
+msgstr "分区名称"
 
 #: src/Widgets/SectionRow.vala:158
 msgid "Section Menu"
-msgstr "选择菜单"
+msgstr "分区菜单"
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:179
 #: src/Dialogs/Project.vala:244
@@ -681,7 +679,7 @@ msgstr "描述"
 #: src/Widgets/BoardColumn.vala:992 src/Widgets/BoardColumn.vala:1013
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr "将选择移动到 <b>%s</b>"
+msgstr "分区已移动到 <b>%s</b>"
 
 #: src/Widgets/SectionRow.vala:1033 src/Widgets/BoardColumn.vala:1042
 msgid "Rename"
@@ -734,7 +732,7 @@ msgstr "使用标签"
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
-msgstr "使用标签来将你的待办事项分类，用这些来过滤你的列表以便获得专注."
+msgstr "使用标签来分类您的待办事项，之后使用它们过滤列表来集中注意力。"
 
 #: src/Widgets/LabelButton.vala:133
 msgid "Type a label"
@@ -808,11 +806,11 @@ msgstr "添加提醒"
 
 #: src/Widgets/ReminderButton.vala:221
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr "不要再忘记任务了!Planner会向你发送提醒."
+msgstr "不会再忘记任务了！让 Planner 给您发送提醒。"
 
 #: src/Widgets/ReminderButton.vala:241
 msgid "Time:"
-msgstr "时间:"
+msgstr "时间："
 
 #: src/Widgets/NewLabel.vala:42
 msgid "Add Label"
@@ -873,7 +871,7 @@ msgstr "同步"
 
 #: src/Widgets/ToolsMenu.vala:189
 msgid "Offline mode is on"
-msgstr "启动离线模式"
+msgstr "离线模式已开启"
 
 #: src/Widgets/ToolsMenu.vala:189
 msgid ""
@@ -881,9 +879,9 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
-"看起来你并没有连接到互联网\n"
-"当你重新连接后切换离线模式\n"
-"来完成同步"
+"看起来您并没有连接到互联网。\n"
+"离线模式下所做的更改将在重新\n"
+"联网后进行同步"
 
 #: src/Widgets/ToolsMenu.vala:197
 msgid "Sync…"
@@ -933,7 +931,7 @@ msgstr "周日"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
-msgstr "不要担心再次忘记事情"
+msgstr "不再担心忘记事情"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
@@ -989,7 +987,7 @@ msgstr "全部清除"
 
 #: src/Views/Inbox.vala:132
 msgid "Looks like everything's organized in the right place."
-msgstr "看起来所有的事情都已经组织到正确的地方."
+msgstr "看起来所有的事情都已经安排妥当了。"
 
 #: src/Views/Inbox.vala:219 src/Views/Project.vala:469
 #: src/Dialogs/ShortcutsDialog.vala:97 src/Dialogs/Project.vala:518
@@ -1065,19 +1063,19 @@ msgstr "「今日任务」已复制到剪贴板。"
 #: src/Dialogs/Project.vala:142
 #, c-format
 msgid "Progress: %s"
-msgstr "进度: %s"
+msgstr "进度：%s"
 
 #: src/Views/Project.vala:718 src/Dialogs/Project.vala:760
 msgid "Your Productivity"
-msgstr "你的工作效率"
+msgstr "您的生产力"
 
 #: src/Views/Project.vala:723 src/Dialogs/Project.vala:765
 msgid "Progress:"
-msgstr "进度:"
+msgstr "进度："
 
 #: src/Views/Project.vala:734 src/Dialogs/Project.vala:776
 msgid "Duedate:"
-msgstr "截至日期:"
+msgstr "截止日期："
 
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
@@ -1108,7 +1106,7 @@ msgstr "连接到网络以获取在线的待办事项"
 
 #: src/Dialogs/TodoistOAuth.vala:94
 msgid "Synchronizing… Wait a moment please."
-msgstr "同步中...请稍候."
+msgstr "同步中...请稍候。"
 
 #: src/Dialogs/TodoistOAuth.vala:106
 msgid "Please enter your credentials…"
@@ -1120,11 +1118,11 @@ msgstr "项目设置"
 
 #: src/Dialogs/ProjectSettings.vala:81
 msgid "Deadline:"
-msgstr "最后期限:"
+msgstr "最后期限："
 
 #: src/Dialogs/ProjectSettings.vala:139
 msgid "Uploading changes…"
-msgstr "上传更改…"
+msgstr "正在上传更改…"
 
 #: src/Dialogs/ProjectSettings.vala:166
 msgid "Options:"
@@ -1359,9 +1357,7 @@ msgid ""
 "When you open up Planner, make sure you see the tasks that are most "
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
-msgstr ""
-"当你打开Planner,确保你看到的任务是最重要的.<b>Inbox</b>是你默认的主页,但你可"
-"以根据自己的喜好修改它."
+msgstr "当您打开 Planner 时，要确保看到的任务是最重要的。<b>待办收件夹</b>是默认的主页，但您可以根据自己的喜好修改它。"
 
 #: src/Dialogs/Preferences/Preferences.vala:380
 msgid "Task defaults"
@@ -1448,9 +1444,7 @@ msgid ""
 "Don't worry about which app you're using. You can use a keyboard shortcut to "
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
-msgstr ""
-"不要担心你在其他应用程序上工作.你可以使用键盘快捷键来打开快速添加窗口,编辑任"
-"务后快速返回工作.你也可以根据自己的需要改变键盘快捷键."
+msgstr "不用担心您正在使用什么程序。 您可以使用键盘快捷键打开「快速添加」窗口、在其中输入挂起的任务并快速恢复工作。 您可以随时更改键盘快捷键。"
 
 #: src/Dialogs/Preferences/Preferences.vala:730
 #: src/Dialogs/Preferences/Preferences.vala:1303
@@ -1486,9 +1480,7 @@ msgid ""
 "Enable this setting to keep Planner running in the background when it "
 "closes. This will allow Planner to continue updating and sending reminder "
 "notifications."
-msgstr ""
-"打开该选项在Planner窗口关闭时依然在系统后台运行.这将允许Planner更新数据和发送"
-"通知."
+msgstr "启用该选项以让 Planner 在关闭窗口时依在系统后台运行。这将允许 Planner 继续更新数据和发送通知。"
 
 #: src/Dialogs/Preferences/Preferences.vala:916
 msgid "Run on startup"
@@ -1496,7 +1488,7 @@ msgstr "开机运行"
 
 #: src/Dialogs/Preferences/Preferences.vala:920
 msgid "Enable this setting to make Planner startup with the system."
-msgstr "打开该选项让Planner跟随系统启动."
+msgstr "启用该选项以让 Planner 跟随系统启动。"
 
 #. var database_settings = new Dialogs.Preferences.DatabaseSettings ();
 #: src/Dialogs/Preferences/Preferences.vala:928
@@ -1538,14 +1530,12 @@ msgstr "此操作将移除所有已存储信息并且不可撤销。"
 msgid ""
 "Save time by batching similar tasks together using labels. You’ll be able to "
 "pull up a list of all tasks with any given label in a matter of seconds."
-msgstr ""
-"节约为所有任务设置相同标签的时间.你将在几秒钟内为列表中所有的任务分配任何标"
-"签."
+msgstr "通过使用标签将类似的任务批处理在一起来节省时间。这样可以在几秒钟内调出带有任何给定标签的所有任务列表。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1174
 #, c-format
 msgid "Last successful sync: %s"
-msgstr "最后一次成功同步的时间: %s"
+msgstr "最后一次成功同步的时间：%s"
 
 #: src/Dialogs/Preferences/Preferences.vala:1183
 msgid "Sync server"
@@ -1555,12 +1545,12 @@ msgstr "同步服务器"
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
-msgstr "激活后Planner将每隔15分钟自动同步你的待办事项账户."
+msgstr "激活此设置后 Planner 将每隔 15 分钟自动通过您的待办清单帐号进行同步。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1200
 #: src/Dialogs/Preferences/Preferences.vala:1255
 msgid "Log out"
-msgstr "注销"
+msgstr "退出登录"
 
 #: src/Dialogs/Preferences/Preferences.vala:1250
 msgid "Are you sure you want to log out?"
@@ -1568,7 +1558,7 @@ msgstr "确定要退出帐号吗？"
 
 #: src/Dialogs/Preferences/Preferences.vala:1251
 msgid "This process will close your Todoist session on this device."
-msgstr "这个操作将会在这个设备上关闭你的待办事项会话."
+msgstr "此操作将会在本设备上关闭您的待办清单会话。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1292
 msgid ""
@@ -1577,9 +1567,8 @@ msgid ""
 "shared calendars in <b>Today</b> and <b>Upcoming</b>. This is useful when "
 "you’re managing your day, and as you plan the week ahead."
 msgstr ""
-"你可以连接到你的<b>Calendar</b>应用在同一个地方一起查看所有的事件和待办事项."
-"你可以查看从<b>Today</b>到<b>Upcoming</b>中的个人和公共日历.这对你管理自己的"
-"一天是很有帮助的,并且你可以提前计划这一周."
+"您可以连接 Planner 和您的 <b>Calendar</b> 应用，以在一个地方查看所有的事件和待办事项。您可以查看在 <b>今日任务</b> 和 "
+"<b>未来事项</b> 中来自个人和共享日历中的事件。这在管理自己一日事务、以及计划未来一周时都很有帮助。"
 
 #: src/Dialogs/Preferences/Preferences.vala:1370
 msgid ""
@@ -1604,7 +1593,7 @@ msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1477
 msgid "Follow"
-msgstr "找到我们"
+msgstr "关注我们"
 
 #: src/Dialogs/Preferences/Preferences.vala:1478
 msgid "Report a Problem"
@@ -1667,7 +1656,7 @@ msgstr "返回"
 
 #: src/Objects/Project.vala:103
 msgid "The Project was copied to the Clipboard."
-msgstr "项目已复制到剪贴板."
+msgstr "项目已复制到剪贴板。"
 
 #: src/Objects/Item.vala:120
 msgid "Duplicating task…"
@@ -1675,11 +1664,11 @@ msgstr "复制任务…"
 
 #: src/Objects/Item.vala:210 src/Objects/Item.vala:227
 msgid "The Task was copied to the Clipboard."
-msgstr "任务已复制到剪贴板."
+msgstr "任务已复制到剪贴板。"
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
-msgstr "选择的内容已复制到剪贴板."
+msgstr "分区内容已复制到剪贴板。"
 
 #~ msgid "Local Project"
 #~ msgstr "本地项目"
