@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-04-02 15:26+0000\n"
+"PO-Revision-Date: 2021-04-05 22:26+0000\n"
 "Last-Translator: WhiredPlanck <fungdaat31@outlook.com>\n"
 "Language-Team: Chinese (Traditional) <https://hosted.weblate.org/projects/"
 "planner/translations/zh_Hant/>\n"
@@ -264,7 +264,7 @@ msgstr "退出"
 
 #: src/Utils.vala:1054
 msgid "The request was incorrect."
-msgstr "請求錯誤."
+msgstr "請求不正確。"
 
 #: src/Utils.vala:1055
 msgid ""
