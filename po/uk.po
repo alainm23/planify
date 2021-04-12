@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-04-02 15:26+0000\n"
+"PO-Revision-Date: 2021-04-13 20:26+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -466,7 +466,7 @@ msgstr "Надіслати електронною поштою"
 #: src/Widgets/ProjectRow.vala:665 src/Widgets/ItemRow.vala:1551
 #: src/Widgets/SectionRow.vala:1045 src/Widgets/BoardColumn.vala:1054
 msgid "Markdown"
-msgstr "Розмітка"
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:673 src/Widgets/ProjectRow.vala:707
