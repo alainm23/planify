@@ -204,6 +204,10 @@ paned.horizontal > separator {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
+.action-row-label {
+    color: @pane_text_color;
+}
+
 .label-row {
     background: transparent;
     transition: all 250ms ease-in-out;
@@ -606,44 +610,44 @@ paned.horizontal > separator {
     padding: 3px;
 }
 
-.search-icon {
-    background-color: #fa1955;
-    color: #fff;
+.all-tasks-icon {
+    background-color: #28bca3;
+    color: #104b41;
     border-radius: 4px;
     padding: 2px;
 }
 
-.inbox-icon {
-    background-color: #3689e6;
-    color: #fff;
+.search-icon {
+    background-color: #fa1955;
+    color: #640a22;
     border-radius: 4px;
     padding: 2px;
 }
 
 .completed-icon {
     background-color: #25b84c;
-    color: #fff;
+    color: #0f4a1e;
     border-radius: 4px;
     padding: 2px;
 }
 
-.all-tasks-icon {
-    background-color: #28bca3;
-    color: #fff;
+.inbox-icon {
+    background-color: #3689e6;
+    color: #16375c;
     border-radius: 4px;
     padding: 2px;
 }
 
 .today-icon {
     background-color: #ffaa00;
-    color: #ffffff;
+    color: #664400;
     border-radius: 4px;
     padding: 2px;
 }
 
 .upcoming-icon {
-    background-color: #692fc2;
-    color: #fff;
+    background-color: #a56de2;
+    color: #422c5a;
     border-radius: 4px;
     padding: 2px;
 }
@@ -683,11 +687,9 @@ paned.horizontal > separator {
 }
 
 .add-button:hover image {
-    color: #3689e6;
     animation: add-animation 0.5s ease-in-out;
-
     background-color: #3689e6;
-    color: #fff;
+    color: #002e99;
     border-radius: 4px;
 }
 
@@ -730,6 +732,7 @@ paned.horizontal > separator {
 .magic-button {
     border-radius: 50%;
     padding: 5px;
+    color: #002e99;
 }
 
 .label-button {
@@ -738,10 +741,6 @@ paned.horizontal > separator {
     padding: 0px 6px 0px 6px;
     color: @text_color;
     opacity: 0.7;
-}
-
-.magic-button {
-    border-radius: 50%;
 }
 
 .check-eventbox {
@@ -829,7 +828,7 @@ paned.horizontal > separator {
 
 .badge-expired {
     background-color: #fa1955;
-    color: #ffffff;
+    color: #640a22;
     border-radius: 50px;
 }
 
@@ -911,6 +910,14 @@ paned.horizontal > separator {
     background-color: shade (@bg_color, 1.1);
     font-weight: 600;
     margin-top: 1px;
+}
+
+.preference-item-radio radio {
+    color: #16375c;
+}
+
+.checklist-radio check {
+    color: #16375c;
 }
 
 .preference-item-radio radio:checked {
@@ -1052,6 +1059,36 @@ paned.horizontal > separator {
         );
 }
 
+.popover-spinbutton {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @popover_background,
+                0.98
+            ),
+            shade (
+                @popover_background,
+                1
+            )
+        );
+}
+
+.popover-spinbutton entry {
+    background-image:
+        linear-gradient(
+            to bottom,
+            shade (
+                @popover_background,
+                0.98
+            ),
+            shade (
+                @popover_background,
+                1
+            )
+        );
+}
+
 .repeat-image {
     -gtk-icon-transform: rotate(45deg);
 }
@@ -1115,7 +1152,7 @@ paned.horizontal > separator {
         inset 0 0 0 1px shade (#25b84c, 1.15),
         inset 0 1px 0 0 shade (#25b84c, 1.3),
         0 1px 1px 0 shade (@bg_color, 0.85);
-    color: #fff;
+    color: #0f4a1e;
     -gtk-icon-source: -gtk-icontheme("check-active-symbolic");
     -gtk-icon-shadow: 0 1px 1px shade (#25b84c, 0.85);
 }
@@ -1454,3 +1491,27 @@ paned.horizontal > separator {
     padding: 3px;
 }
 
+.back-b label {
+    padding-left: 0px;
+}
+
+spinbutton.horizontal button.down,
+spinbutton.horizontal button.up {
+    -gtk-icon-transform: scale(0.7);
+    padding: 0 1px;
+}
+
+.repeat-label {
+    background-color: shade (@popover_background, 0.97);
+    border-top: 1px solid shade (@popover_background, 0.75);
+    border-bottom: 1px solid shade (@popover_background, 0.75);
+    padding: 6px;
+}
+
+.source-button label {
+    padding: 0px;
+}
+
+.source-button image {
+    padding: 0px;
+}

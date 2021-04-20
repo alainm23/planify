@@ -3373,6 +3373,28 @@ public class Services.Database : GLib.Object {
         return get_items_from_stmt (stmt);
     }
 
+    public Gee.ArrayList<Objects.Item?> get_all_completed_items_by_parent (int64 id) {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            SELECT id, project_id, section_id, user_id, assigned_by_uid, responsible_uid,
+                sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
+                due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
+                date_completed, date_updated, is_todoist, day_order, collapsed
+            FROM Items WHERE parent_id = ? AND checked = 1 ORDER BY date_completed;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        res = stmt.bind_int64 (1, id);
+        assert (res == Sqlite.OK);
+
+        return get_items_from_stmt (stmt);
+    }
+
     public Gee.ArrayList<Objects.Item?> get_all_items () {
         Sqlite.Statement stmt;
         string sql;
@@ -3634,7 +3656,7 @@ public class Services.Database : GLib.Object {
                 sync_id, parent_id, priority, item_order, checked, is_deleted, content, note,
                 due_date, due_timezone, due_string, due_lang, due_is_recurring, date_added,
                 date_completed, date_updated, is_todoist, day_order, collapsed
-            FROM Items WHERE parent_id = ? ORDER BY item_order;
+            FROM Items WHERE parent_id = ? AND checked = 0 ORDER BY item_order;
         """;
 
         res = db.prepare_v2 (sql, -1, out stmt);

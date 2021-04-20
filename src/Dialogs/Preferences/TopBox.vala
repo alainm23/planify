@@ -35,6 +35,7 @@ public class Dialogs.Preferences.TopBox : Hdy.HeaderBar {
         back_button.label = _("Back");
         back_button.margin = 3;
         back_button.valign = Gtk.Align.CENTER;
+        back_button.get_style_context ().add_class ("back-b");
         back_button.get_style_context ().add_class ("flat");
 
         var title_icon = new Gtk.Image ();

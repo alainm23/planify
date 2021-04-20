@@ -50,13 +50,6 @@ public class Utils : GLib.Object {
     public Utils () {
         APP_FOLDER = GLib.Path.build_filename (Environment.get_user_data_dir (), "com.github.alainm23.planner");
         AVATARS_FOLDER = GLib.Path.build_filename (APP_FOLDER, "avatars");
-
-        h24_settings = new Settings ("org.gnome.desktop.interface");
-        h24_settings.changed.connect ((key) => {
-            if (key == "clock-format") {
-                clock_format_changed ();
-            }
-        });
     }
 
     public void create_dir_with_parents (string dir) {
@@ -330,7 +323,7 @@ public class Utils : GLib.Object {
         string color_css = """
             .color-%s radio {
                 background: %s;
-                border: 1px solid shade (%s, 0.67);
+                border: 1px solid shade (%s, 0.65);
             }
         """;
 
@@ -555,7 +548,7 @@ public class Utils : GLib.Object {
     }
 
     public bool is_clock_format_12h () {
-        var format = h24_settings.get_string ("clock-format");
+        var format = Planner.settings.get_string ("clock-format");
         return (format.contains ("12h"));
     }
 
@@ -578,8 +571,9 @@ public class Utils : GLib.Object {
     }
 
     public string get_default_time_format () {
-        var settings = new Settings ("org.gnome.desktop.interface");
-        return Granite.DateTime.get_default_time_format (settings.get_enum ("clock-format") == 1, false);
+        return Granite.DateTime.get_default_time_format (
+            Planner.settings.get_enum ("clock-format") == 1, false
+        );
     }
 
     public GLib.DateTime get_time_by_hour_minute (int hour, int minute) {
@@ -715,6 +709,24 @@ public class Utils : GLib.Object {
         }
     }
 
+    /**
+    * Find the most likely year, from a raw number. For example:
+    * 1997 => 1997
+    * 97 => 1997
+    * 12 => 2012
+    */
+    public int find_most_likely_ad_year (int year_number) {
+        if (year_number < 100) {
+            if (year_number > 50) {
+                year_number = year_number + 1900;
+            } else {
+                year_number = year_number + 2000;
+            }
+        }
+    
+        return year_number;
+    }
+
     public int get_recurring_iter (Objects.Item item) {
         int returned = 4;
 
@@ -738,6 +750,22 @@ public class Utils : GLib.Object {
             } else if (item.due_string == "cada año" || item.due_string == "anualmente") {
                 returned = 3;
             }
+        }
+
+        return returned;
+    }
+
+    public bool check_regex (GLib.Regex regex, string expression) {
+        MatchInfo info;
+        var returned = false;
+        try {
+            if (regex.match_all (expression, 0, out info)) {
+                if (info.fetch_all ().length > 0) {
+                    returned = expression == info.fetch_all () [0];
+                }                   
+            }    
+        } catch (GLib.RegexError ex) {
+            returned = false;
         }
 
         return returned;
@@ -1297,6 +1325,20 @@ public class Utils : GLib.Object {
         }
 
         return returned;
+    }
+
+    public Gdk.RGBA calculate_shade (string hex, double percentage) {
+        Gdk.RGBA rgba = Gdk.RGBA ();
+        rgba.parse (hex);
+
+        double r = (rgba.red * 255) * percentage;
+        double g = (rgba.green * 255) * percentage;
+        double b = (rgba.blue * 255) * percentage;
+
+        Gdk.RGBA new_rgba = Gdk.RGBA ();
+        new_rgba.parse ("rgb (%s, %s, %s)".printf (r.to_string (), g.to_string (), b.to_string ()));
+
+        return new_rgba;
     }
 
     public void update_font_scale () {

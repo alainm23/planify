@@ -7,7 +7,7 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
 
     private Gee.HashMap<E.Source, Widgets.SourceRow>? source_rows = null;
     private Gee.HashMap<string, E.Source>? source_uids = null;
-    // private Gee.HashMap <string, bool> tasklists_loaded;
+    private Gee.Collection<E.Source>? collection_sources;
     private static Services.Tasks.Store task_store;
     private Views.TaskList listview = null;
     private Gtk.ListBox listbox;
@@ -77,7 +77,6 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         top_eventbox.get_style_context ().add_class ("toogle-box");
 
         task_store = Services.Tasks.Store.get_default ();
-        // tasklists_loaded = new Gee.HashMap <string, bool> ();
 
         listbox = new Gtk.ListBox ();
         listbox.get_style_context ().add_class ("pane");
@@ -112,14 +111,19 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
                 return;
             }
 
-            // listbox.set_header_func (header_update_func);
-            
             var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
             task_lists.foreach ((source) => {
                 E.SourceTaskList list = (E.SourceTaskList) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
                 if (list.selected == true && source.enabled == true) {
                     add_source (source);
                 }
+            });
+
+            add_collection_source (registry.ref_builtin_task_list ());
+
+            var task_list_collections = registry.list_sources (E.SOURCE_EXTENSION_COLLECTION);
+            task_list_collections.foreach ((collection_source) => {
+                add_collection_source (collection_source);
             });
         });
 
@@ -142,8 +146,138 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         arrow_button.clicked.connect (() => {
             toggle_hidden ();
         });
+
+        Planner.event_bus.sync.connect (() => {
+            action_refresh_all_lists ();
+        });
     }
 
+    private void action_refresh_all_lists () {
+        task_store.get_registry.begin ((obj, res) => {
+            try {
+                var registry = task_store.get_registry.end (res);
+
+                if (collection_sources != null) {
+                    lock (collection_sources) {
+                        foreach (var collection_source in collection_sources) {
+                            var backend_name = task_store.get_collection_backend_name (collection_source, registry);
+
+                            if (backend_name.down () != "local") {
+                                try {
+                                    registry.refresh_backend_sync (collection_source.dup_uid ());
+                                } catch (Error e) {
+                                    // dialog_refresh_backend_error (e, collection_source, registry);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (source_rows != null) {
+                    lock (source_rows) {
+                        source_rows.foreach (source_row => {
+                            source_row.key.set_connection_status (E.SourceConnectionStatus.CONNECTING);
+                            source_row.value.update_request ();
+
+                            task_store.refresh_task_list.begin (source_row.key, null, (obj, res) => {
+                                try {
+                                    task_store.refresh_task_list.end (res);
+                                    source_row.key.set_connection_status (E.SourceConnectionStatus.CONNECTED);
+                                } catch (Error e) {
+                                    source_row.key.set_connection_status (E.SourceConnectionStatus.DISCONNECTED);
+                                    // dialog_refresh_task_list_error (e, source_row.key, registry);
+                                }
+                                source_row.value.update_request ();
+                            });
+                            return true;
+                        });
+                    }
+                }
+
+            } catch (Error e) {
+                // dialog_get_registry_error (e);
+            }
+        });
+    }
+
+    private void add_collection_source (E.Source collection_source) {
+        if (collection_sources == null) {
+            collection_sources = new Gee.HashSet<E.Source> (CalDAVUtil.esource_hash_func, CalDAVUtil.esource_equal_func);
+        }
+        E.SourceTaskList collection_source_tasklist_extension = (E.SourceTaskList)collection_source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+        if (collection_sources.contains (collection_source) || !collection_source.enabled || !collection_source_tasklist_extension.selected) {
+            return;
+        }
+        collection_sources.add (collection_source);
+
+        var source_button = new Widgets.SourceButton (
+            task_store.get_collection_backend_name (collection_source, task_store.get_registry_sync ()),
+            CalDAVUtil.get_esource_collection_display_name (collection_source),
+            valid_source_icon (task_store.get_collection_backend_name (collection_source, task_store.get_registry_sync ())),
+            collection_source.uid
+        );
+        source_button.sensitive = task_store.is_add_task_list_supported (collection_source);
+        source_button.clicked.connect (() => {
+            add_new_list (collection_source);
+        });
+
+        pane.add_project_buttonbox.add (source_button);
+        pane.add_project_buttonbox.show_all ();
+        pane.buttonbox_scrolled.show_all ();
+    }
+
+    private string valid_source_icon (string source) {
+        if (source == "local") {
+            return "planner-offline-symbolic";
+        }
+
+        return "planner-online-symbolic";
+    }
+
+    private void add_new_list (E.Source collection_source) {
+        var error_dialog_primary_text = _("Creating a new task list failed");
+        var error_dialog_secondary_text = _("The task list registry may be unavailable or unable to be written to.");
+
+        try {
+            var new_source = new E.Source (null, null);
+            var new_source_tasklist_extension = (E.SourceTaskList) new_source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+            new_source.display_name = _("New list");
+            new_source_tasklist_extension.color = "#0e9a83";
+
+            task_store.add_task_list.begin (new_source, collection_source, (obj, res) => {
+                try {
+                    task_store.add_task_list.end (res);
+                } catch (Error e) {
+                    critical (e.message);
+                    show_error_dialog (error_dialog_primary_text, error_dialog_secondary_text, e);
+                }
+            });
+
+        } catch (Error e) {
+            critical (e.message);
+            show_error_dialog (error_dialog_primary_text, error_dialog_secondary_text, e);
+        }
+    }
+
+    private void show_error_dialog (string primary_text, string secondary_text, Error e) {
+        string error_message = e.message;
+
+        GLib.Idle.add (() => {
+            var error_dialog = new Granite.MessageDialog (
+                primary_text,
+                secondary_text,
+                new ThemedIcon ("dialog-error"),
+                Gtk.ButtonsType.CLOSE
+            );
+            error_dialog.show_error_details (error_message);
+            error_dialog.run ();
+            error_dialog.destroy ();
+
+            return GLib.Source.REMOVE;
+        });
+    }
+    
     private void header_update_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
         if (!(lbrow is Widgets.SourceRow)) {
             return;

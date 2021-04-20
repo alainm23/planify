@@ -31,12 +31,15 @@ public class Views.TaskList : Gtk.EventBox {
     private Gtk.ListBox completed_listbox;
     private Gtk.Revealer completed_revealer;
     private Gtk.ToggleButton settings_button;
+    private Gtk.Stack main_stack;
+    private Widgets.ProjectProgress project_progress;
 
     public Gee.HashMap <string, Widgets.TaskRow> items_uncompleted_added;
     public Gee.HashMap <string, Widgets.TaskRow> items_completed_added;
     private static Services.Tasks.Store task_store;
     private bool entry_menu_opened = false;
     private Gee.Collection<ECal.ClientView> views;
+    private E.SourceTaskList task_list;
 
     construct {
         views = new Gee.ArrayList<ECal.ClientView> ((Gee.EqualDataFunc<ECal.ClientView>?) direct_equal);
@@ -44,6 +47,21 @@ public class Views.TaskList : Gtk.EventBox {
         items_uncompleted_added = new Gee.HashMap <string, Widgets.TaskRow> ();
         items_completed_added = new Gee.HashMap <string, Widgets.TaskRow> ();
 
+        var color_popover = new Widgets.ColorPopover ();
+
+        project_progress = new Widgets.ProjectProgress (16);
+        project_progress.valign = Gtk.Align.CENTER;
+        project_progress.halign = Gtk.Align.CENTER;
+
+        var progress_button = new Gtk.MenuButton ();
+        progress_button.valign = Gtk.Align.START;
+        progress_button.get_style_context ().add_class ("no-padding");
+        progress_button.get_style_context ().add_class ("flat");
+        progress_button.add (project_progress);
+        progress_button.popover = color_popover;
+        progress_button.margin_end = 6;
+        progress_button.margin_top = 2;
+        
         name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
         name_label.get_style_context ().add_class ("title-label");
@@ -106,29 +124,21 @@ public class Views.TaskList : Gtk.EventBox {
         top_box.margin_start = 42;
         top_box.margin_top = 6;
 
+        top_box.pack_start (progress_button, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
 
-        var placeholder_view = new Widgets.Placeholder (
-            _("What will you accomplish?"),
-            _("Tap + to add a task to this project."),
-            "planner-project-symbolic"
-        );
-        placeholder_view.reveal_child = true;
-        placeholder_view.show_all ();
-
         listbox = new Gtk.ListBox ();
-        listbox.margin_start = 30;
+        listbox.margin_start = 32;
         listbox.margin_top = 12;
         listbox.margin_end = 32;
         listbox.get_style_context ().add_class ("listbox");
         listbox.activate_on_single_click = true;
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
-        listbox.set_placeholder (placeholder_view);
 
         completed_listbox = new Gtk.ListBox ();
-        completed_listbox.margin_start = 30;
+        completed_listbox.margin_start = 32;
         completed_listbox.margin_end = 32;
         completed_listbox.valign = Gtk.Align.START;
         completed_listbox.get_style_context ().add_class ("listbox");
@@ -152,11 +162,25 @@ public class Views.TaskList : Gtk.EventBox {
 
         var magic_button = new Widgets.MagicButton ();
 
+        var placeholder_view = new Widgets.Placeholder (
+            _("What will you accomplish?"),
+            _("Tap + to add a task to this project."),
+            "planner-project-symbolic"
+        );
+        placeholder_view.reveal_child = true;
+        placeholder_view.show_all ();
+
+        main_stack = new Gtk.Stack ();
+        main_stack.expand = true;
+        main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+        main_stack.add_named (placeholder_view, "placeholder");
+        main_stack.add_named (listbox_scrolled, "tasklist");
+
         var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.expand = true;
         main_box.pack_start (top_box, false, false, 0);
         main_box.pack_start (action_revealer, false, false, 0);
-        main_box.pack_start (listbox_scrolled, true, true, 0);
+        main_box.pack_start (main_stack, false, true, 0);
 
         var overlay = new Gtk.Overlay ();
         overlay.expand = true;
@@ -166,6 +190,8 @@ public class Views.TaskList : Gtk.EventBox {
         add (overlay);
         
         notify["source"].connect (() => {
+            task_list = ((E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST));
+            project_progress.progress_fill_color = task_list.dup_color ();
             remove_views ();
 
             foreach (unowned Gtk.Widget child in listbox.get_children ()) {
@@ -182,6 +208,14 @@ public class Views.TaskList : Gtk.EventBox {
             show_all ();
         });
 
+        //  listbox.add.connect (() => {
+        //      check_tasklist_placeholder ();
+        //  });
+
+        //  listbox.remove.connect (() => {
+        //      check_tasklist_placeholder ();
+        //  });
+
         listbox.row_activated.connect ((r) => {
             var row = ((Widgets.TaskRow) r);
             row.reveal_child = true;
@@ -190,6 +224,11 @@ public class Views.TaskList : Gtk.EventBox {
         completed_listbox.row_activated.connect ((r) => {
             var row = ((Widgets.TaskRow) r);
             row.reveal_child = true;
+        });
+
+        color_popover.color_changed.connect ((color) => {
+            task_list.color = Planner.utils.get_color (color);
+            source.write.begin (null);
         });
 
         cancel_button.clicked.connect (() => {
@@ -272,6 +311,8 @@ public class Views.TaskList : Gtk.EventBox {
             }
             views.clear ();
         }
+
+        check_tasklist_placeholder ();
     }
 
     public void add_view (E.Source task_list, string query) {
@@ -293,29 +334,32 @@ public class Views.TaskList : Gtk.EventBox {
     }
 
     public void add_new_task (int index=-1) {
+        main_stack.visible_child_name = "tasklist";
+
         var new_task = new Widgets.TaskRow.for_source (source);
         listbox.add (new_task);
         listbox.show_all ();
     }
 
     private void save () {
-        if (source != null && source.writable) {
-            source.display_name = name_entry.text;
-            
-            name_label.label = name_entry.text;
-            action_revealer.reveal_child = false;
-            name_stack.visible_child_name = "name_label";
-
-            source.write.begin (null, (obj, res) => {
+        task_store.update_task_list_display_name.begin (source, name_entry.text, (obj, res) => {
+            GLib.Idle.add (() => {
                 try {
-                    source.write.end (res);
+                    task_store.update_task_list_display_name.end (res);
+                    action_revealer.reveal_child = false;
+                    name_stack.visible_child_name = "name_label";
+                    source.display_name = name_entry.text;
                 } catch (Error e) {
-                    warning (e.message);
+                    name_entry.text = source.display_name;
+                    name_label.label = source.display_name;
+                    action_revealer.reveal_child = false;
+                    name_stack.visible_child_name = "name_label";
+                    print ("Error: %s\n".printf (e.message));
                 }
+
+                return GLib.Source.REMOVE;
             });
-        } else {
-            warning (@"Source is not writable: $(source.display_name)");
-        }
+        });
     }
 
     private void on_tasks_added (Gee.Collection<ECal.Component> tasks) {
@@ -340,6 +384,7 @@ public class Views.TaskList : Gtk.EventBox {
 
         listbox.show_all ();
         completed_listbox.show_all ();
+        check_tasklist_placeholder ();
     }
 
     private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
@@ -378,6 +423,7 @@ public class Views.TaskList : Gtk.EventBox {
 
         listbox.show_all ();
         completed_listbox.show_all ();
+        check_tasklist_placeholder ();
     }
 
     private void on_tasks_removed (SList<weak ECal.ComponentId?> cids) {
@@ -398,16 +444,27 @@ public class Views.TaskList : Gtk.EventBox {
             }
             row_index++;
         } while (task_row != null);
+
+        check_tasklist_placeholder ();
     }
 
     public void update_request () {
         name_label.label = source.dup_display_name ();
         name_entry.text = source.dup_display_name ();
+        project_progress.progress_fill_color = task_list.dup_color ();
 
         listbox.@foreach ((row) => {
             if (row is Widgets.TaskRow) {
                 (row as Widgets.TaskRow).update_request ();
             }
         });
+    }
+
+    private void check_tasklist_placeholder () {
+        if (items_uncompleted_added.size > 0) {
+            main_stack.visible_child_name = "tasklist";
+        } else {
+            main_stack.visible_child_name = "placeholder";
+        }
     }
 }

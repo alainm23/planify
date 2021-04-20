@@ -57,10 +57,20 @@ public class Views.Project : Gtk.EventBox {
     private bool entry_menu_opened = false;
 
     construct {
+        var color_popover = new Widgets.ColorPopover ();
+
         var project_progress = new Widgets.ProjectProgress (16);
-        project_progress.margin_top = 1;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
+
+        var progress_button = new Gtk.MenuButton ();
+        progress_button.valign = Gtk.Align.START;
+        progress_button.get_style_context ().add_class ("no-padding");
+        progress_button.get_style_context ().add_class ("flat");
+        progress_button.add (project_progress);
+        progress_button.popover = color_popover;
+        progress_button.margin_end = 12;
+        progress_button.margin_top = 2;
 
         name_label = new Gtk.Label (null);
         name_label.halign = Gtk.Align.START;
@@ -70,17 +80,11 @@ public class Views.Project : Gtk.EventBox {
         var source_icon = new Gtk.Image ();
         source_icon.pixel_size = 16;
 
-        var name_label_box = new Gtk.Grid ();
-        name_label_box.column_spacing = 6;
-        name_label_box.add (project_progress);
-        name_label_box.add (name_label);
-        // name_label_box.add (source_icon);
-
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.valign = Gtk.Align.START;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.hexpand = true;
-        name_eventbox.add (name_label_box);
+        name_eventbox.add (name_label);
 
         name_entry = new Widgets.Entry ();
         name_entry.get_style_context ().add_class ("font-bold");
@@ -153,7 +157,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.margin_top = 6;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 41;
+        action_grid.margin_start = 65;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -167,9 +171,9 @@ public class Views.Project : Gtk.EventBox {
         top_box.margin_end = 32;
         top_box.margin_start = 42;
         top_box.margin_top = 6;
+        top_box.pack_start (progress_button, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        // top_box.pack_end (section_button, false, false, 6);
         top_box.pack_end (label_filter, false, false, 0);
         top_box.pack_end (deadline_revealer, false, false, 0);
 
@@ -254,6 +258,7 @@ public class Views.Project : Gtk.EventBox {
             label_filter.project = project;
             deadline_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             project_progress.progress_fill_color = Planner.utils.get_color (project.color);
+            color_popover.selected = project.color;
             project_progress.percentage = get_percentage (
                 Planner.database.get_count_checked_items_by_project (project.id),
                 Planner.database.get_all_count_items_by_project (project.id)
@@ -277,6 +282,13 @@ public class Views.Project : Gtk.EventBox {
                 
                 return GLib.Source.REMOVE;
             });
+        });
+
+        color_popover.color_changed.connect ((color) => {
+            if (project != null) {
+                project.color = color;
+                save (true);
+            }
         });
 
         magic_button.clicked.connect (() => {
@@ -432,6 +444,18 @@ public class Views.Project : Gtk.EventBox {
                 deadline_button.tooltip_text = _("Progress: %s".printf (GLib.Math.round ((project_progress.percentage * 100)).to_string ())) + "%";
             }
         });
+
+        Planner.event_bus.edit_project.connect ((id) => {
+            if (project.id == id) {
+                edit ();
+            }
+        });
+    }
+
+    public void edit () {
+        action_revealer.reveal_child = true;
+        name_stack.visible_child_name = "name_entry";
+        name_entry.grab_focus ();
     }
 
     private void update_note_label (string text) {

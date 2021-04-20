@@ -88,6 +88,7 @@ public class Widgets.ListView : Gtk.EventBox {
         }
 
         inbox_section = new Widgets.SectionRow.for_project (project);
+        inbox_section.add_new_section_row.connect (add_new_section_row);
         section_listbox.add (inbox_section);
         foreach (var section in Planner.database.get_all_sections_by_project (project.id)) {
             var row = new Widgets.SectionRow (section, project);

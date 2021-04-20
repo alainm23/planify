@@ -30,23 +30,19 @@ libhandy = dependency ('libhandy-1', version: '>=0.90.0')
 libedataserver_dep = dependency('libedataserver-1.2', version: '>=3.8.0')
 libsoup_dep = dependency('libsoup-2.4')
 posix_dep = meson.get_compiler('c').find_library('m', required : false)
+libecal_dep = dependency('libecal-2.0', required: false)
+libical_dep = dependency('libical-glib')
+libgdata_dep = dependency('libgdata')
+curl = find_program('curl')
+
+add_project_arguments('--define=E_CAL_2_0', language: 'vala')
+add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
-
-libecal_dep = dependency('libecal-2.0', required: false)
-if libecal_dep.found()
-    libical_dep = dependency('libical-glib')
-    add_project_arguments('--define=E_CAL_2_0', language: 'vala')
-    add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
-else
-    libecal_dep = dependency('libecal-1.2', version: '>=3.8.0')
-    libical_dep = dependency('libical')
-    add_project_arguments('--vapidir', join_paths(meson.current_source_dir(), 'vapi'), language: 'vala')
-endif
 
 dependencies = [
     glib_dep,
@@ -63,8 +59,15 @@ dependencies = [
     libecal_dep,
     libical_dep,
     posix_dep,
-    libhandy
+    libhandy,
+    libgdata_dep
 ]
+
+if libecal_dep.version ().version_compare ('>=3.39.2')
+    add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
+else
+    dependencies += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
+endif
 
 subdir('data')
 subdir('src')
