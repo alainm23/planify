@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-04-07 13:26+0000\n"
-"Last-Translator: MvBonin <markwartbonin@hotmail.com>\n"
+"PO-Revision-Date: 2021-04-27 10:32+0000\n"
+"Last-Translator: mondstern <mondstern@snopyta.org>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/planner/"
 "translations/de/>\n"
 "Language: de\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -906,10 +906,10 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
-"Es sieht so aus, als seist du nicht mit\n"
-"dem Internet verbunden. Änderungen im \n"
-"Offline-Modus werden synchonisiert, \n"
-"wenn du wieder online bist"
+"Sieht aus, als wärst Du nicht mit dem Internet verbunden. Änderungen, die Du "
+"im Offline\n"
+"Modus vornimmst, werden synchronisiert, wenn Du wieder eine Verbindung "
+"herstellst"
 
 #: src/Widgets/ToolsMenu.vala:197
 msgid "Sync…"
@@ -1274,9 +1274,8 @@ msgid "Start typing to begin a search"
 msgstr "Beginne zu tippen, um eine Suche zu beginnen"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
-#, fuzzy
 msgid "Filter by priorities"
-msgstr "Nach Prioritäten sortieren"
+msgstr "Nach Prioritäten filtern"
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Quick Find list for all labels"
@@ -1287,9 +1286,8 @@ msgid "Quick Find list for all projects"
 msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:128
-#, fuzzy
 msgid "Filter by all your completed tasks."
-msgstr "Verstecke abgeschlossene Aufgaben"
+msgstr "Verstecke abgeschlossene Aufgaben."
 
 #: src/Dialogs/ShortcutsDialog.vala:130
 msgid "Control windows"
@@ -1304,14 +1302,12 @@ msgid "Open current project new window"
 msgstr "Aktuelles Projekt in neuem Fenster öffnen"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
-#, fuzzy
 msgid "Move project window to left workspace"
-msgstr "Projektfenster zu linkem Arbeitsplatz verschieben"
+msgstr "Projektfenster in den linken Arbeitsbereich verschieben"
 
 #: src/Dialogs/ShortcutsDialog.vala:145
-#, fuzzy
 msgid "Move project window to right workspace"
-msgstr "Prokektfenster zu rechtem Arbeitsplatz verschieben"
+msgstr "Projektfenster in den rechten Arbeitsbereich verschieben"
 
 #: src/Dialogs/ShortcutsDialog.vala:147
 msgid "Open Keyboard Shortcuts"
@@ -1422,23 +1418,21 @@ msgid "Default priority"
 msgstr "Standard-Priorität"
 
 #: src/Dialogs/Preferences/Preferences.vala:412
-#, fuzzy
 msgid "Indicate the position where the new tasks were created."
-msgstr "Die Position, wo neue Aufgaben erstellt werden."
+msgstr "Gebe die Position an, an der die neuen Aufgaben erstellt wurden."
 
 #: src/Dialogs/Preferences/Preferences.vala:457
 msgid "Backups"
 msgstr "Backups"
 
 #: src/Dialogs/Preferences/Preferences.vala:460
-#, fuzzy
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
-"Planner erstellt automatisch tägliche Backups deiner aktiven Projekte und "
-"Aufgaben. Du kannst sie jederzeit einfach wiederherstellen über Projekt-"
-"Import."
+"Planner erstellt automatisch tägliche Backups Deiner aktiven Projekte und "
+"Aufgaben. Mit dem Projektimport kannst Du Deine Sicherungen jederzeit "
+"einfach wiederherstellen."
 
 #: src/Dialogs/Preferences/Preferences.vala:495
 msgid ""
