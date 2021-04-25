@@ -237,6 +237,7 @@ public class Planner : Gtk.Application {
 
         utils.apply_theme_changed ();
         utils.update_font_scale ();
+        utils.init_labels_color ();
 
         // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");

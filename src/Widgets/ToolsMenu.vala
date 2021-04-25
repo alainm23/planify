@@ -19,26 +19,43 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ToolsMenu : Gtk.Revealer {
+public class Widgets.ToolsMenu : Gtk.ToggleButton {
     private Widgets.SyncButton sync_menu;
     private Gtk.Separator sync_separator;
+    private Gtk.Popover popover = null;
 
     construct {
-        transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-        reveal_child = false;
-        valign = Gtk.Align.END;
+        tooltip_text = _("Settings");
+        can_focus = false;
+        valign = Gtk.Align.CENTER;
         halign = Gtk.Align.CENTER;
+        get_style_context ().add_class ("settings-button");
+        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var close_image = new Gtk.Image ();
-        close_image.gicon = new ThemedIcon ("close-symbolic");
-        close_image.pixel_size = 12;
+        var settings_image = new Gtk.Image ();
+        settings_image.gicon = new ThemedIcon ("view-more-symbolic");
+        settings_image.pixel_size = 16;
 
-        var close_button = new Gtk.Button ();
-        close_button.tooltip_markup = Granite.markup_accel_tooltip ({"Escape"}, _("Close"));
-        close_button.image = close_image;
-        close_button.valign = Gtk.Align.START;
-        close_button.halign = Gtk.Align.START;
-        close_button.get_style_context ().add_class ("close-button");
+        add (settings_image);
+
+        toggled.connect (() => {
+            if (active) {
+                if (popover == null) {
+                    create_popover ();
+                }
+
+                popover.show_all ();
+            }
+        });
+    }
+
+    public void check_network_available () {
+        sync_menu.network_available = GLib.NetworkMonitor.get_default ().get_network_available ();
+    }
+
+    private void create_popover () {
+        popover = new Gtk.Popover (this);
+        popover.position = Gtk.PositionType.TOP;
 
         var preferences_menu = new Widgets.ToolMenuItem (_("Preferences"), {"Ctrl", ","});
         var whats_new_menu = new Widgets.ToolMenuItem (_("What's new"), {});
@@ -59,28 +76,23 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
         content_grid.orientation = Gtk.Orientation.VERTICAL;
         content_grid.margin_top = 3;
         content_grid.margin_bottom = 3;
+        content_grid.width_request = 192;
         content_grid.add (preferences_menu);
         content_grid.add (keyboard_menu);
         content_grid.add (whats_new_menu);
         content_grid.add (sync_separator);
         content_grid.add (sync_menu);
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.margin = 9;
-        main_grid.width_request = 219;
-        main_grid.expand = false;
-        main_grid.get_style_context ().add_class ("add-project-widget");
-        main_grid.add (content_grid);
+        popover.add (content_grid);
         
-        var overlay = new Gtk.Overlay ();
-        overlay.add_overlay (close_button);
-        overlay.add (main_grid);
-
-        add (overlay);
         check_network_available ();
         var network_monitor = GLib.NetworkMonitor.get_default ();
         network_monitor.network_changed.connect (() => {
             check_network_available ();
+        });
+
+        popover.closed.connect (() => {
+            active = false;
         });
 
         Planner.settings.changed.connect ((key) => {
@@ -97,6 +109,7 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
 
         sync_menu.clicked.connect (() => {
             Planner.todoist.sync.begin ();
+            Planner.event_bus.sync ();
         });
 
         Planner.todoist.sync_started.connect (() => {
@@ -110,32 +123,24 @@ public class Widgets.ToolsMenu : Gtk.Revealer {
             Planner.notifications.send_notification (_("Sync completed"));
         });
 
-        close_button.clicked.connect (() => {
-            reveal_child = false;
-        });
-
         preferences_menu.clicked.connect (() => {
-            reveal_child = false;
+            popover.popdown ();
             var dialog = new Dialogs.Preferences.Preferences ();
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
         });
 
         whats_new_menu.clicked.connect (() => {
-            reveal_child = false;
+            popover.popdown ();
             Planner.utils.open_whats_new_dialog ();
         });
 
         keyboard_menu.clicked.connect (() => {
-            reveal_child = false;
+            popover.popdown ();
             var dialog = new Dialogs.ShortcutsDialog ();
             dialog.destroy.connect (Gtk.main_quit);
             dialog.show_all ();
         });
-    }
-
-    public void check_network_available () {
-        sync_menu.network_available = GLib.NetworkMonitor.get_default ().get_network_available ();
     }
 }
 

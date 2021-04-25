@@ -528,29 +528,18 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
             toggle_hidden ();
         });
 
-        new_section_eventbox.enter_notify_event.connect ((event) => {
-            if (section.id != 0) {
-                new_section_revealer.reveal_child = true;
-            }
-            
-            return true;
-        });
-
-        new_section_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
+        Gtk.drag_dest_set (new_section_eventbox, Gtk.DestDefaults.ALL, TARGET_ENTRIES_MAGIC_BUTTON, Gdk.DragAction.MOVE);
+        new_section_eventbox.drag_data_received.connect (() => {
             new_section_revealer.reveal_child = false;
-
-            return true;
+            add_new_section_row (get_index ());
         });
 
-        new_section_eventbox.button_press_event.connect ((sender, evt) => {
-            if (section.id != 0 && evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                new_section_revealer.reveal_child = false;
-                add_new_section_row (get_index ());
-            }
+        new_section_eventbox.drag_motion.connect (() => {
+            new_section_revealer.reveal_child = true;
+        });
+
+        new_section_eventbox.drag_leave.connect (() => {
+            new_section_revealer.reveal_child = false;
         });
 
         top_eventbox.enter_notify_event.connect ((event) => {

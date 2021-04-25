@@ -70,4 +70,8 @@ public class Services.EventBus : Object {
     // Pane Selected
     public signal void project_selected (int64 project_id);
     public signal void pane_selected (PaneType pane_type, string id);
+    public signal void edit_project (int64 project_id);
+
+    // SYNC
+    public signal void sync ();
 }

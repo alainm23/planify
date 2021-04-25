@@ -20,7 +20,8 @@
 
 
 errordomain TaskModelError {
-    CLIENT_NOT_AVAILABLE
+    CLIENT_NOT_AVAILABLE,
+    BACKEND_ERROR
 }
 
 public class Services.Tasks.Store : Object {
@@ -30,7 +31,7 @@ public class Services.Tasks.Store : Object {
 
     public delegate void TasksAddedFunc (Gee.Collection<ECal.Component> tasks, E.Source task_list);
     public delegate void TasksModifiedFunc (Gee.Collection<ECal.Component> tasks);
-    public delegate void TasksRemovedFunc (SList<weak ECal.ComponentId?> cids);
+    public delegate void TasksRemovedFunc (SList<ECal.ComponentId?> cids);
 
     private Gee.Future<E.SourceRegistry> registry;
     private HashTable<string, ECal.Client> task_list_client;
@@ -70,18 +71,6 @@ public class Services.Tasks.Store : Object {
         }
 
         return client;
-    }
-
-    private void create_task_list_client (E.Source task_list) {
-        try {
-            var client = (ECal.Client) ECal.Client.connect_sync (task_list, ECal.ClientSourceType.TASKS, -1, null);
-            lock (task_list_client) {
-                task_list_client.insert (task_list.dup_uid (), client);
-            }
-
-        } catch (Error e) {
-            critical (e.message);
-        }
     }
 
     private void destroy_task_list_client (E.Source task_list, ECal.Client client) {
@@ -128,7 +117,8 @@ public class Services.Tasks.Store : Object {
             var registry = yield new E.SourceRegistry (null);
 
             registry.source_added.connect ((task_list) => {
-                add_task_list (task_list);
+                debug ("Adding task list '%s'", task_list.dup_display_name ());
+                create_task_list_client (task_list);
                 task_list_added (task_list);
             });
 
@@ -137,14 +127,25 @@ public class Services.Tasks.Store : Object {
             });
 
             registry.source_removed.connect ((task_list) => {
-                remove_task_list (task_list);
+                debug ("Removing task list '%s'", task_list.dup_display_name ());
+                
+                ECal.Client client;
+                try {
+                    client = get_client (task_list);
+                } catch (Error e) {
+                    /* Already out of the model, so do nothing */
+                    warning (e.message);
+                    return;
+                }
+                
+                destroy_task_list_client (task_list, client);
                 task_list_removed (task_list);
             });
 
             registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST).foreach ((task_list) => {
                 E.SourceTaskList task_list_extension = (E.SourceTaskList)task_list.get_extension (E.SOURCE_EXTENSION_TASK_LIST);  // vala-lint=line-length
                 if (task_list_extension.selected == true && task_list.enabled == true) {
-                    add_task_list (task_list);
+                    registry.source_added (task_list);
                 }
             });
 
@@ -156,9 +157,70 @@ public class Services.Tasks.Store : Object {
         }
     }
 
-    private void add_task_list (E.Source task_list) {
-        debug ("Adding task list '%s'", task_list.dup_display_name ());
-        create_task_list_client (task_list);
+    private void create_task_list_client (E.Source task_list) {
+        try {
+            var client = (ECal.Client) ECal.Client.connect_sync (task_list, ECal.ClientSourceType.TASKS, -1, null);
+            lock (task_list_client) {
+                task_list_client.insert (task_list.dup_uid (), client);
+            }
+
+        } catch (Error e) {
+            critical (e.message);
+        }
+    }
+
+    public async void add_task_list (E.Source task_list, E.Source collection_or_sibling) throws Error {
+        var registry = get_registry_sync ();
+        var task_list_extension = (E.SourceTaskList) task_list.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+        var backend_name = get_collection_backend_name (collection_or_sibling, registry);
+
+        switch (backend_name.down ()) {
+            case "webdav":
+                var collection_source = registry.find_extension (collection_or_sibling, E.SOURCE_EXTENSION_COLLECTION);
+                var collection_source_webdav_session = new E.WebDAVSession (collection_source);
+                var credentials_provider = new E.SourceCredentialsProvider (registry);
+
+                E.NamedParameters credentials;
+                credentials_provider.lookup_sync (collection_source, null, out credentials);
+                collection_source_webdav_session.credentials = credentials;
+
+                var webdav_task_list_uri = yield discover_webdav_server_uri (credentials, collection_source);
+                webdav_task_list_uri.set_path (webdav_task_list_uri.get_path () + "/" + GLib.Uuid.string_random ().up ());
+
+                collection_source_webdav_session.mkcalendar_sync (
+                    webdav_task_list_uri.to_string (false),
+                    task_list.display_name,
+                    null,
+                    task_list_extension.color,
+                    E.WebDAVResourceSupports.TASKS,
+                    null
+                );
+
+                registry.refresh_backend_sync (collection_source.uid, null);
+                break;
+
+            case "google":
+                var collection_source = registry.find_extension (collection_or_sibling, E.SOURCE_EXTENSION_COLLECTION);
+                var authorizer = (GData.Authorizer) new E.GDataOAuth2Authorizer (collection_source, typeof (GData.TasksService));
+                var gtasks_service = new GData.TasksService (authorizer);
+
+                var gtasks_tasklist = new GData.TasksTasklist (null) {
+                    title = task_list.display_name
+                };
+
+                gtasks_service.insert_tasklist (gtasks_tasklist, null);
+                yield registry.refresh_backend (collection_source.uid, null);
+                break;
+
+            case "local":
+                task_list.parent = "local-stub";
+                task_list_extension.backend_name = "local";
+
+                registry.commit_source_sync (task_list, null);
+                break;
+            default:
+                throw new TaskModelError.BACKEND_ERROR ("Task list management for '%s' is not supported yet.".printf (backend_name));
+        }
     }
 
     private void remove_task_list (E.Source task_list) {
@@ -237,76 +299,6 @@ public class Services.Tasks.Store : Object {
 
             update_icalcomponent (client, comp, ECal.ObjModType.THIS_AND_PRIOR);
         }
-
-//          if (task.has_recurrences () && !was_completed) {
-//  #if E_CAL_2_0
-//              var duration = new ICal.Duration.null_duration ();
-//              duration.set_weeks (520); // roughly 10 years
-//              var today = new ICal.Time.today ();
-//  #else
-//              var duration = ICal.Duration.null_duration ();
-//              duration.weeks = 520; // roughly 10 years
-//              var today = ICal.Time.today ();
-//  #endif
-
-//              var start = comp.get_dtstart ();
-//              if (today.compare (start) > 0) {
-//                  start = today;
-//              }
-//              var end = start.add (duration);
-
-//  #if E_CAL_2_0
-//              ECal.RecurInstanceCb recur_instance_callback = (instance_comp, instance_start_timet, instance_end_timet, cancellable) => {
-//  #else
-//              ECal.RecurInstanceFn recur_instance_callback = (instance, instance_start_timet, instance_end_timet) => {
-//  #endif
-
-//  #if E_CAL_2_0
-//                  var instance = new ECal.Component ();
-//                  instance.set_icalcomponent (instance_comp);
-//  #else
-//                  unowned ICal.Component instance_comp = instance.get_icalcomponent ();
-//  #endif
-
-//                  if (!instance_comp.get_due ().is_null_time ()) {
-//                      instance_comp.set_due (instance_comp.get_dtstart ());
-//                  }
-
-//                  instance_comp.set_status (ICal.PropertyStatus.NONE);
-//                  instance.set_percent_complete (0);
-
-//  #if E_CAL_2_0
-//                  instance.set_completed (new ICal.Time.null_time ());
-//  #else
-//                  var null_time = ICal.Time.null_time ();
-//                  instance.set_completed (ref null_time);
-//  #endif
-
-//                  if (instance.has_alarms ()) {
-//                      instance.get_alarm_uids ().@foreach ((alarm_uid) => {
-//                          ECal.ComponentAlarmTrigger trigger;
-//  #if E_CAL_2_0
-//                          trigger = new ECal.ComponentAlarmTrigger.relative (ECal.ComponentAlarmTriggerKind.RELATIVE_START, new ICal.Duration.null_duration ());
-//  #else
-//                          trigger = ECal.ComponentAlarmTrigger () {
-//                              type = ECal.ComponentAlarmTriggerKind.RELATIVE_START,
-//                              rel_duration = ICal.Duration.null_duration ()
-//                          };
-//  #endif
-//                          instance.get_alarm (alarm_uid).set_trigger (trigger);
-//                      });
-//                  }
-
-//                  update_icalcomponent (client, instance_comp, ECal.ObjModType.THIS_AND_FUTURE);
-//                  return false; // only generate one instance
-//              };
-
-//  #if E_CAL_2_0
-//              client.generate_instances_for_object_sync (comp, start.as_timet (), end.as_timet (), null, recur_instance_callback);
-//  #else
-//              client.generate_instances_for_object_sync (comp, start.as_timet (), end.as_timet (), recur_instance_callback);
-//  #endif
-//          }
     }
 
     public void update_task (E.Source list, ECal.Component task, ECal.ObjModType mod_type) {
@@ -418,7 +410,7 @@ public class Services.Tasks.Store : Object {
 
     private void on_objects_added (E.Source task_list, ECal.Client client, SList<ICal.Component> objects, TasksAddedFunc on_tasks_added) {  // vala-lint=line-length
         debug (@"Received $(objects.length()) added task(s) for task list '%s'", task_list.dup_display_name ());
-        var added_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);  // vala-lint=line-length
+        var added_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalDAVUtil.calcomponent_equal_func);  // vala-lint=line-length
         objects.foreach ((ical_comp) => {
             try {
                 SList<ECal.Component> ecal_tasks;
@@ -442,7 +434,7 @@ public class Services.Tasks.Store : Object {
 
     private void on_objects_modified (E.Source task_list, ECal.Client client, SList<ICal.Component> objects, TasksModifiedFunc on_tasks_modified) {  // vala-lint=line-length
         debug (@"Received $(objects.length()) modified task(s) for task list '%s'", task_list.dup_display_name ());
-        var updated_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) Util.calcomponent_equal_func);  // vala-lint=line-length
+        var updated_tasks = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalDAVUtil.calcomponent_equal_func);  // vala-lint=line-length
         objects.foreach ((comp) => {
             try {
                 SList<ECal.Component> ecal_tasks;
@@ -465,6 +457,190 @@ public class Services.Tasks.Store : Object {
 
     private void on_objects_removed (E.Source task_list, ECal.Client client, SList<ECal.ComponentId?> cids, TasksRemovedFunc on_tasks_removed) {  // vala-lint=line-length
         debug (@"Received $(cids.length()) removed task(s) for task list '%s'", task_list.dup_display_name ());
-        // on_tasks_removed (cids);
+        on_tasks_removed (cids);
+    }
+
+    public bool is_add_task_list_supported (E.Source source) {
+        try {
+            var registry = get_registry_sync ();
+            var backend_name = get_collection_backend_name (source, registry);
+
+            switch (backend_name.down ()) {
+                case "webdav": return true;
+                case "google": return true;
+                case "local": return true;
+            }
+
+        } catch (Error e) {
+            warning (e.message);
+        }
+        return false;
+    }
+
+    public string get_collection_backend_name (E.Source source, E.SourceRegistry registry) {
+        string? backend_name = null;
+
+        var collection_source = registry.find_extension (source, E.SOURCE_EXTENSION_COLLECTION);
+        if (collection_source != null) {
+            var collection_source_extension = (E.SourceCollection) collection_source.get_extension (E.SOURCE_EXTENSION_COLLECTION);
+            backend_name = collection_source_extension.backend_name;
+        }
+
+        if (backend_name == null && source.has_extension (E.SOURCE_EXTENSION_TASK_LIST)) {
+            var source_extension = (E.SourceTaskList) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+            backend_name = source_extension.backend_name;
+        }
+
+        return backend_name == null ? "" : backend_name;
+    }
+
+    private async Soup.URI discover_webdav_server_uri (E.NamedParameters credentials, E.Source collection_source) throws Error {
+        var collection_source_extension = (E.SourceCollection) collection_source.get_extension (E.SOURCE_EXTENSION_COLLECTION);
+
+        Soup.URI? webdav_server_uri = null;
+        GLib.Error? webdav_error = null;
+
+#if HAS_EDS_3_40
+        collection_source.webdav_discover_sources.begin (
+#else
+        E.webdav_discover_sources.begin (
+            collection_source,
+#endif
+            collection_source_extension.calendar_url,
+            E.WebDAVDiscoverSupports.TASKS,
+            credentials,
+            null,
+            (obj, res) => {
+                string webdav_certificate_pem;
+                GLib.TlsCertificateFlags? webdav_certificate_errors;
+                GLib.SList<E.WebDAVDiscoveredSource?> webdav_discovered_sources;
+                GLib.SList<string> webdav_calendar_user_addresses;
+
+                try {
+
+#if HAS_EDS_3_40
+                    collection_source.webdav_discover_sources.end (
+#else
+                    E.webdav_discover_sources_finish (
+                        collection_source,
+#endif
+                        res,
+                        out webdav_certificate_pem,
+                        out webdav_certificate_errors,
+                        out webdav_discovered_sources,
+                        out webdav_calendar_user_addresses
+                    );
+
+                    if (webdav_discovered_sources.length () > 0) {
+                        var webdav_discovered_source = webdav_discovered_sources.nth_data (0);
+                        webdav_server_uri = new Soup.URI (webdav_discovered_source.href.dup ());
+                    }
+
+#if !HAS_EDS_3_40
+                    E.webdav_discover_do_free_discovered_sources ((owned) webdav_discovered_sources);
+#endif
+
+                    if (webdav_server_uri == null) {
+                        throw new TaskModelError.BACKEND_ERROR ("Unable to resolve the WebDAV uri from backend.");
+                    }
+
+                    var uri_dir_path = webdav_server_uri.get_path ();
+                    if (uri_dir_path.has_suffix ("/")) {
+                        uri_dir_path = uri_dir_path.substring (0, uri_dir_path.length - 1);
+                    }
+                    uri_dir_path = uri_dir_path.substring (0, uri_dir_path.last_index_of ("/"));
+                    webdav_server_uri.set_path (uri_dir_path);
+
+                } catch (Error e) {
+                    webdav_error = e;
+                }
+                discover_webdav_server_uri.callback ();
+            }
+        );
+
+        yield;
+
+        if (webdav_error != null) {
+            throw webdav_error;
+        }
+        return webdav_server_uri;
+    }
+
+    public async void update_task_list_display_name (E.Source task_list, string display_name) throws Error {
+        var registry = get_registry_sync ();
+        var collection_source = registry.find_extension (task_list, E.SOURCE_EXTENSION_COLLECTION);
+
+        if (collection_source != null && task_list.has_extension (E.SOURCE_EXTENSION_WEBDAV_BACKEND)) {
+            debug ("WebDAV Rename '%s'", task_list.get_uid ());
+
+            var collection_source_webdav_session = new E.WebDAVSession (collection_source);
+            var source_webdav_extension = (E.SourceWebdav) task_list.get_extension (E.SOURCE_EXTENSION_WEBDAV_BACKEND);
+
+            var credentials_provider = new E.SourceCredentialsProvider (registry);
+            E.NamedParameters credentials;
+            credentials_provider.lookup_sync (collection_source, null, out credentials);
+            collection_source_webdav_session.credentials = credentials;
+
+            var changes = new GLib.SList<E.WebDAVPropertyChange> ();
+            changes.append (new E.WebDAVPropertyChange.set (
+                E.WEBDAV_NS_DAV,
+                "displayname",
+                display_name
+            ));
+
+#if HAS_EDS_3_40
+            collection_source_webdav_session.update_properties_sync (
+#else
+            E.webdav_session_update_properties_sync (
+                collection_source_webdav_session,
+#endif
+                source_webdav_extension.soup_uri.to_string (false),
+                changes,
+                null
+            );
+
+            registry.refresh_backend_sync (collection_source.uid, null);
+
+        } else if ("gtasks" == ((E.SourceTaskList) task_list.get_extension (E.SOURCE_EXTENSION_TASK_LIST)).backend_name && E.GDataOAuth2Authorizer.supported ()) {
+            debug ("GTasks Rename '%s'", task_list.get_uid ());
+
+            var authorizer = (GData.Authorizer) new E.GDataOAuth2Authorizer (collection_source, typeof (GData.TasksService));
+            var gtasks_service = new GData.TasksService (authorizer);
+            var uri = "https://www.googleapis.com/tasks/v1/users/@me/lists/%s";
+            var task_list_id = ((E.SourceResource) task_list.get_extension (
+                E.SOURCE_EXTENSION_RESOURCE
+            )).identity.replace ("gtasks::", "");
+
+            var gtasks_tasklist = (GData.TasksTasklist) yield gtasks_service.query_single_entry_async (
+                GData.TasksService.get_primary_authorization_domain (),
+                uri.printf (task_list_id),
+                null,
+                typeof (GData.TasksTasklist),
+                null
+            );
+
+            gtasks_tasklist.title = display_name;
+            gtasks_service.update_tasklist (gtasks_tasklist, null);
+
+            yield registry.refresh_backend (collection_source.uid, null);
+
+        } else if (task_list.parent == "local-stub") {
+            debug ("Local Rename '%s'", task_list.get_uid ());
+
+            task_list.display_name = display_name;
+            registry.commit_source_sync (task_list, null);
+
+        } else {
+            throw new TaskModelError.BACKEND_ERROR ("Renaming tasks list is not supported yet for this type of backend.");
+        }
+    }
+
+    public async bool refresh_task_list (E.Source source, GLib.Cancellable? cancellable = null) throws Error {
+        var client = get_client (source);
+
+        if (client.check_refresh_supported ()) {
+            return yield client.refresh (cancellable);
+        }
+        return false;
     }
 }

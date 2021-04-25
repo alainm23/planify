@@ -18,7 +18,7 @@
 *
 */
 
-namespace Tasks.Util {
+namespace CalDAVUtil {
     /**
     * Replaces all line breaks with a space and
     * replaces multiple spaces with a single one.
@@ -35,7 +35,7 @@ namespace Tasks.Util {
         }
 
         try {
-            return Tasks.Util.line_break_to_space_regex.replace (str, str.length, 0, " ");
+            return CalDAVUtil.line_break_to_space_regex.replace (str, str.length, 0, " ");
         } catch (GLib.RegexError e) {
             warning (e.message);
         }
@@ -60,46 +60,21 @@ namespace Tasks.Util {
     * Converts two datetimes to one TimeType. The first contains the date,
     * its time settings are ignored. The second one contains the time itself.
     */
-    public ICal.Time date_time_to_ical (DateTime date, DateTime? time_local, string? timezone = null) {
-    #if E_CAL_2_0
-        var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
-    #else
-        var result = ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
-    #endif
-        if (time_local != null) {
+    public ICal.Time duedate_to_ical (Objects.Duedate duedate, string? timezone = null) {
+        var result = new ICal.Time.from_day_of_year (duedate.datetime.get_day_of_year (), duedate.datetime.get_year ());
+
+        if (!duedate.has_time ()) {
             if (timezone != null) {
-    #if E_CAL_2_0
                 result.set_timezone (ICal.Timezone.get_builtin_timezone (timezone));
-    #else
-                result.zone = ICal.Timezone.get_builtin_timezone (timezone);
-    #endif
             } else {
-    #if E_CAL_2_0
                 result.set_timezone (ECal.util_get_system_timezone ());
-    #else
-                result.zone = ECal.Util.get_system_timezone ();
-    #endif
             }
 
-    #if E_CAL_2_0
             result.set_is_date (false);
-            result.set_time (time_local.get_hour (), time_local.get_minute (), time_local.get_second ());
-    #else
-            result._is_date = 0;
-            result.hour = time_local.get_hour ();
-            result.minute = time_local.get_minute ();
-            result.second = time_local.get_second ();
-    #endif
+            result.set_time (duedate.datetime.get_hour (), duedate.datetime.get_minute (), duedate.datetime.get_second ());
         } else {
-    #if E_CAL_2_0
             result.set_is_date (true);
             result.set_time (0, 0, 0);
-    #else
-            result._is_date = 1;
-            result.hour = 0;
-            result.minute = 0;
-            result.second = 0;
-    #endif
         }
 
         return result;
@@ -124,19 +99,28 @@ namespace Tasks.Util {
     * Converts the given TimeType to a DateTime.
     * XXX : Track next versions of evolution in order to convert ICal.Timezone to GLib.TimeZone with a dedicated function…
     */
+    public Objects.Duedate ical_to_duedate (ICal.Time date) {
+        int year, month, day, hour, minute, second;
+        date.get_date (out year, out month, out day);
+        date.get_time (out hour, out minute, out second);
+
+        var duedate = new Objects.Duedate ();
+        duedate.datetime = new DateTime (
+            timezone_from_ical (date), year, month,
+            day, hour, minute, second
+        );
+
+        return duedate;
+    }
+
     public DateTime ical_to_date_time (ICal.Time date) {
-    #if E_CAL_2_0
         int year, month, day, hour, minute, second;
         date.get_date (out year, out month, out day);
         date.get_time (out hour, out minute, out second);
         return new DateTime (timezone_from_ical (date), year, month,
             day, hour, minute, second);
-    #else
-        return new DateTime (timezone_from_ical (date), date.year, date.month,
-            date.day, date.hour, date.minute, date.second);
-    #endif
     }
-
+    
     /**
     * Compares a {@link GLib.DateTime} to {@link GLib.DateTime.now_local} and returns a location, relative date string.
     * Results appear as natural-language strings like "Today", "Yesterday", "Fri, Apr 17", "Jan 15", "Sep 18 2019".
@@ -162,5 +146,33 @@ namespace Tasks.Util {
         } else {
             return date_time.format (Granite.DateTime.get_default_date_format (false, true, true));
         }
+    }
+
+    public string get_esource_collection_display_name (E.Source source) {
+        var task_store = Services.Tasks.Store.get_default ();
+        var display_name = "";
+
+        try {
+            var registry = task_store.get_registry_sync ();
+            var collection_source = registry.find_extension (source, E.SOURCE_EXTENSION_COLLECTION);
+
+            if (collection_source != null) {
+                display_name = collection_source.display_name;
+            } else if (source.has_extension (E.SOURCE_EXTENSION_TASK_LIST)) {
+                display_name = ((E.SourceTaskList) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST)).backend_name;
+            }
+
+        } catch (Error e) {
+            warning (e.message);
+        }
+        return display_name;
+    }
+
+    public uint esource_hash_func (E.Source source) {
+        return source.hash ();
+    }
+
+    public bool esource_equal_func (E.Source a, E.Source b) {
+        return a.equal (b);
     }
 }

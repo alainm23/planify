@@ -2,8 +2,8 @@ module_name = 'caldav'
 
 module_files = [
     'caldav.vala',
+    'Utils.vala',
     'Services/Store.vala',
-    'Services/Utils.vala',
     'Widgets/SourceRow.vala',
     'Widgets/TaskList.vala',
     'Widgets/TaskRow.vala'

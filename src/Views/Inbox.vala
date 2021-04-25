@@ -96,7 +96,7 @@ public class Views.Inbox : Gtk.EventBox {
 
         var settings_image = new Gtk.Image ();
         settings_image.gicon = new ThemedIcon ("view-more-symbolic");
-        settings_image.pixel_size = 14;
+        settings_image.pixel_size = 16;
 
         settings_button = new Gtk.ToggleButton ();
         settings_button.valign = Gtk.Align.CENTER;
@@ -118,7 +118,7 @@ public class Views.Inbox : Gtk.EventBox {
         top_box.pack_start (icon_image, false, false, 0);
         top_box.pack_start (title_label, false, false, 0);
         top_box.pack_end (settings_button, false, false, 0);
-        top_box.pack_end (section_button, false, false, 0);
+        // top_box.pack_end (section_button, false, false, 0);
         top_box.pack_end (label_filter, false, false, 0);
 
         list_view = new Widgets.ListView ();

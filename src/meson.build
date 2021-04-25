@@ -29,7 +29,9 @@ planner_files = files(
     'Services/EventBus.vala',
     'Services/ExportImport.vala',
     'Services/PluginManager.vala',
-    # 'Services/DateParser.vala',
+    'Services/Chrono/Chrono.vala',
+    'Services/Chrono/Locales/en.vala',
+    'Services/Chrono/Locales/extras.vala',
 
     'Widgets/ActionRow.vala',
     'Widgets/Pane.vala',
@@ -70,6 +72,8 @@ planner_files = files(
     'Widgets/ListView.vala',
     'Widgets/ToolsMenu.vala',
     'Widgets/ScheduleButton.vala',
+    'Widgets/ColorPopover.vala',
+    'Widgets/SourceButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -100,6 +104,7 @@ planner_files = files(
     'Dialogs/Preferences/DatabaseSettings.vala',
     'Dialogs/Preferences/Item.vala',
     'Dialogs/Preferences/TopBox.vala',
+    'Dialogs/Preferences/ItemTimePicker.vala',
 
     'Objects/Project.vala',
     'Objects/Item.vala',

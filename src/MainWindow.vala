@@ -52,8 +52,6 @@ public class MainWindow : Hdy.ApplicationWindow {
             app: application,
             icon_name: "com.github.alainm23.planner",
             title: _("Planner")
-            // height_request: 400,
-            // width_request: 400
         );
     }
 
@@ -74,7 +72,6 @@ public class MainWindow : Hdy.ApplicationWindow {
         sidebar_header.has_subtitle = false;
         sidebar_header.show_close_button = true;
         sidebar_header.get_style_context ().add_class ("sidebar-header");
-        // sidebar_header.get_style_context ().add_class ("default-decoration");
         sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         pane = new Widgets.Pane ();
@@ -88,7 +85,6 @@ public class MainWindow : Hdy.ApplicationWindow {
         projectview_header.decoration_layout = ":maximize";
         projectview_header.show_close_button = true;
         projectview_header.get_style_context ().add_class ("projectview-header");
-        // projectview_header.get_style_context ().add_class ("default-decoration");
         projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
         check_button_layout ();
@@ -156,7 +152,7 @@ public class MainWindow : Hdy.ApplicationWindow {
         main_stack.add_named (welcome_grid, "welcome-view");
 
         add (main_stack);
-        
+
         Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
 
         realize.connect (() => {
@@ -366,6 +362,8 @@ public class MainWindow : Hdy.ApplicationWindow {
                 check_button_layout ();
             } else if (key == "font-scale") {
                 Planner.utils.update_font_scale ();
+            } else if (key == "clock-format") {
+                Planner.utils.clock_format_changed ();
             }
         });
 

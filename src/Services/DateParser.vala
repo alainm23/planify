@@ -57,7 +57,7 @@ public class Services.DateParser : Object {
         return returned;
     }
 
-    public ParsedResult? parse (string expression, string lang="en") {
+    public Objects.Duedate? parse (string expression, string lang="en") {
         if (regex_map.has_key (lang)) {
             for (int i = 0; i < regex_map [lang].length ; i++) {
                 var regex = regex_map [lang].index (i);
@@ -70,7 +70,7 @@ public class Services.DateParser : Object {
         return null;
     }
 
-    private ParsedResult? get_regex (GLib.Regex regex, string expression, string lang) {
+    private Objects.Duedate? get_regex (GLib.Regex regex, string expression, string lang) {
         if (regex == PARSING_CONTEXT_EN) {
             return get_parsing_context_date (expression, lang);
         } else if (regex == EVERY_N_DAYS_REGEX_EN || regex == EVERY_DAY_REGEX_EN) {
@@ -98,8 +98,8 @@ public class Services.DateParser : Object {
         return null;
     }
 
-    private ParsedResult? get_parsing_context_date (string expression, string lang) {
-        var parsed_result = new ParsedResult ();
+    private Objects.Duedate? get_parsing_context_date (string expression, string lang) {
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
 
         if (expression == "now" || expression == "today") {
@@ -113,8 +113,8 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_every_n_days_date (string expression, string lang) {
-        var parsed_result = new ParsedResult ();
+    private Objects.Duedate? get_every_n_days_date (string expression, string lang) {
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         parsed_result.is_recurring = true;
         parsed_result.text = expression;
@@ -123,10 +123,10 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_next_month (string lang) {
+    private Objects.Duedate? get_next_month (string lang) {
         var now = new GLib.DateTime.now_local ();
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         parsed_result.text = "";
         parsed_result.date = new GLib.DateTime.local (
@@ -141,7 +141,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_01 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_01 (string expression, string lang) {
         var month = Planner.utils.get_month_number_by_query (expression.split (" ") [0]);
         var day_string = expression.split (" ") [1];
 
@@ -156,7 +156,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
 
         parsed_result.date = new GLib.DateTime.local (
@@ -171,7 +171,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_02 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_02 (string expression, string lang) {
         var day_string = expression.split (" ") [0];
         var month = Planner.utils.get_month_number_by_query (expression.split (" ") [1]);
 
@@ -186,7 +186,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         
         parsed_result.date = new GLib.DateTime.local (
@@ -201,7 +201,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_03 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_03 (string expression, string lang) {
         var day = int.parse (expression.split ("/") [0]);
         var month = int.parse (expression.split ("/") [1]);
 
@@ -213,7 +213,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         
         parsed_result.date = new GLib.DateTime.local (
@@ -228,7 +228,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_04 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_04 (string expression, string lang) {
         var month_string = expression.split (" ") [0];
         var day_string = expression.split (" ") [1];
         var year_string = expression.split (" ") [2];
@@ -251,7 +251,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
 
         parsed_result.date = new GLib.DateTime.local (
@@ -266,7 +266,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_05 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_05 (string expression, string lang) {
         var year_string = expression.split (" ") [0];
         var month_string = expression.split (" ") [1];
         var day_string = expression.split (" ") [2];
@@ -289,7 +289,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
 
         parsed_result.date = new GLib.DateTime.local (
@@ -304,7 +304,7 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_date_format_06 (string expression, string lang) {
+    private Objects.Duedate? get_date_format_06 (string expression, string lang) {
         var date_now = new GLib.DateTime.now_local ();
 
         int day = 0;
@@ -318,7 +318,7 @@ public class Services.DateParser : Object {
             return null;
         }
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         parsed_result.date = new GLib.DateTime.local (
             date_now.get_year (),
@@ -332,11 +332,11 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_mid_month (string expression, string lang) {
+    private Objects.Duedate? get_mid_month (string expression, string lang) {
         var date_now = new GLib.DateTime.now_local ();
         var month = Planner.utils.get_month_number_by_query (expression.split (" ") [1]);
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         parsed_result.date = new GLib.DateTime.local (
             date_now.get_year (),
@@ -350,10 +350,10 @@ public class Services.DateParser : Object {
         return parsed_result;
     }
 
-    private ParsedResult? get_end_of_month (string expression, string lang) {
+    private Objects.Duedate? get_end_of_month (string expression, string lang) {
         var date_now = new GLib.DateTime.now_local ();
 
-        var parsed_result = new ParsedResult ();
+        var parsed_result = new Objects.Duedate ();
         parsed_result.lang = lang;
         parsed_result.date = new GLib.DateTime.local (
             date_now.get_year (),

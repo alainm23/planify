@@ -79,6 +79,7 @@ public class Widgets.ActionRow : Gtk.ListBoxRow {
         title_name = new Gtk.Label (null);
         title_name.margin_bottom = 1;
         title_name.get_style_context ().add_class ("pane-item");
+        title_name.get_style_context ().add_class ("action-row-label");
         title_name.use_markup = true;
 
         var source_icon = new Gtk.Image ();

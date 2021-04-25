@@ -39,6 +39,9 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer note_preview_revealer;
     private Gtk.Revealer bottom_revealer;
     private Gtk.ListBox listbox;
+    private Gtk.Revealer listbox_revealer;
+    private Gtk.ListBox completed_listbox;
+    private Gtk.Revealer completed_revealer;
     public Gtk.Revealer main_revealer;
     private Gtk.Grid main_grid;
     private Gtk.Label duedate_preview_label;
@@ -79,6 +82,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     private bool menu_opened = false;
     private bool save_off = false;
     public Gee.HashMap<string, bool> labels_hashmap;
+    public Gee.HashMap <string, Widgets.ItemRow> items_uncompleted_added;
+    public Gee.HashMap<string, Widgets.ItemRow> items_completed_added;
 
     private const Gtk.TargetEntry[] TARGET_ENTRIES = {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
@@ -184,6 +189,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         can_focus = false;
         get_style_context ().add_class ("item-row");
         labels_hashmap = new Gee.HashMap<string, bool> ();
+        items_completed_added = new Gee.HashMap<string, Widgets.ItemRow> ();
+        items_uncompleted_added = new Gee.HashMap <string, Widgets.ItemRow> ();
 
         hidden_button = new Gtk.Button.from_icon_name ("view-restore-symbolic", Gtk.IconSize.MENU);
         hidden_button.can_focus = false;
@@ -262,7 +269,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         // Preview Icons
         project_preview_image = new Gtk.Image ();
         project_preview_image.pixel_size = 9;
-        //project_preview_image.get_style_context ().add_class ("project-color-%s".printf (item.project_id.to_string ()));
 
         project_preview_label = new Gtk.Label (null);
         project_preview_label.use_markup = true;
@@ -412,6 +418,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         check_reminder_preview_label (reminder);
         Planner.utils.clock_format_changed.connect (() => {
             check_reminder_preview_label (reminder);
+            update_duedate_text ();
         });
 
         if (item.note != "") {
@@ -454,9 +461,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         note_stack.add_named (note_eventbox, "label");
         note_stack.add_named (note_textview, "textview");
 
-        /*
-            Actions
-        */
+        // Actions
 
         labels_edit_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         labels_edit_box.margin_start = 27;
@@ -470,9 +475,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         reschedule_button = new Widgets.ScheduleButton (item);
 
         var reminder_button = new Widgets.ReminderButton (item);
-
         var priority_button = new Widgets.PriorityButton (item);
-
         var label_button = new Widgets.LabelButton (item.id);
 
         checklist_icon = new Gtk.Image ();
@@ -528,9 +531,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         bottom_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         bottom_revealer.add (bottom_box);
 
-        /*
-            Motion Revealer
-        */
+        // Motion Revealer
 
         var motion_grid = new Gtk.Grid ();
         motion_grid.margin_bottom = 3;
@@ -560,10 +561,22 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         listbox.selection_mode = Gtk.SelectionMode.SINGLE;
         listbox.hexpand = true;
 
-        var listbox_revealer = new Gtk.Revealer ();
+        listbox_revealer = new Gtk.Revealer ();
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.reveal_child = true;
         listbox_revealer.add (listbox);
+
+        completed_listbox = new Gtk.ListBox ();
+        completed_listbox.margin_start = 12;
+        completed_listbox.valign = Gtk.Align.START;
+        completed_listbox.get_style_context ().add_class ("listbox");
+        completed_listbox.activate_on_single_click = true;
+        completed_listbox.selection_mode = Gtk.SelectionMode.SINGLE;
+        completed_listbox.hexpand = true;
+
+        completed_revealer = new Gtk.Revealer ();
+        completed_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+        completed_revealer.add (completed_listbox);
 
         handle_grid = new Gtk.Grid ();
         handle_grid.hexpand = true;
@@ -574,6 +587,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         handle_grid.add (main_grid);
         handle_grid.add (motion_revealer);
         handle_grid.add (listbox_revealer);
+        handle_grid.add (completed_revealer);
 
         var handle = new Gtk.EventBox ();
         handle.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
@@ -695,7 +709,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         Planner.database.item_added.connect ((i) => {
             if (item.id == i.parent_id) {
-                var row = new Widgets.ItemRow (i);                
+                var row = new Widgets.ItemRow (i);
+                items_uncompleted_added.set (i.id.to_string (), row);                
                 listbox.add (row);
                 listbox.show_all ();
             }
@@ -715,7 +730,8 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 if (item.id == parent_id) {
                     i.parent_id = parent_id;
-                    var row = new Widgets.ItemRow (i);                
+                    var row = new Widgets.ItemRow (i);
+                    items_uncompleted_added.set (i.id.to_string (), row);              
                     listbox.add (row);
                     listbox.show_all ();
                 }
@@ -792,7 +808,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         note_eventbox.button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS && item.checked == 0) {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS) {
                 note_stack.visible_child_name = "textview";
                 note_textview.grab_focus ();
 
@@ -830,7 +846,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                // due_button.update_date_text (i);
+                reschedule_button.update_duedate (i);
             }
         });
 
@@ -844,7 +860,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                // due_button.update_date_text (i);
+                reschedule_button.update_duedate (i);
             }
         });
 
@@ -858,7 +874,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
                 update_duedate_text ();
                 check_preview_box ();
 
-                // due_button.update_date_text (i);
+                reschedule_button.clear ();
             }
         });
 
@@ -1007,6 +1023,67 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
                 return false;
             });
+        });
+
+        Planner.database.item_uncompleted.connect ((i) => {
+            Idle.add (() => {
+                if (item.id == i.parent_id) {
+                    if (items_completed_added.has_key (i.id.to_string ())) {
+                        items_completed_added.unset (i.id.to_string ());
+                    }
+
+                    if (items_uncompleted_added.has_key (i.id.to_string ()) == false) {
+                        var row = new Widgets.ItemRow (i);
+
+                        listbox.add (row);
+                        items_uncompleted_added.set (i.id.to_string (), row);
+                        listbox.show_all ();
+                    }
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.item_completed.connect ((i) => {
+            Idle.add (() => {
+                if (item.id == i.parent_id) {
+                    if (items_uncompleted_added.has_key (i.id.to_string ())) {
+                        items_uncompleted_added.get (i.id.to_string ()).destroy ();
+                        items_uncompleted_added.unset (i.id.to_string ());
+                    }
+
+                    if (items_completed_added.has_key (i.id.to_string ()) == false) {
+                        var row = new Widgets.ItemRow (i);
+
+                        items_completed_added.set (i.id.to_string (), row);
+                        completed_listbox.insert (row, 0);
+                        completed_listbox.show_all ();
+                    }
+                }
+
+                return false;
+            });
+        });
+
+        Planner.database.project_show_completed.connect ((project) => {
+            if (item.project_id == project.id) {
+                if (project.show_completed == 1) {
+                    add_completed_items ();
+                    completed_revealer.reveal_child = true;
+                } else {
+                    completed_revealer.reveal_child = false;
+                    items_completed_added.clear ();
+
+                    Timeout.add (completed_revealer.transition_duration, () => {
+                        foreach (var child in completed_listbox.get_children ()) {
+                            child.destroy ();
+                        }
+            
+                        return GLib.Source.REMOVE;
+                    });
+                }
+            }
         });
     }
     
@@ -1232,11 +1309,23 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
 
     private void add_all_checks () {
-        foreach (var item in Planner.database.get_all_cheks_by_item (item.id)) {
-            var row = new Widgets.ItemRow (item);
+        foreach (var i in Planner.database.get_all_cheks_by_item (item.id)) {
+            var row = new Widgets.ItemRow (i);
 
+            items_uncompleted_added.set (i.id.to_string (), row);
             listbox.add (row);
             listbox.show_all ();
+        }
+    }
+
+    private void add_completed_items () {
+        items_completed_added.clear ();
+        foreach (var i in Planner.database.get_all_completed_items_by_parent (item.id)) {
+            var row = new Widgets.ItemRow (i);
+
+            completed_listbox.add (row);
+            items_completed_added.set (i.id.to_string (), row);
+            completed_listbox.show_all ();
         }
     }
 
@@ -1325,11 +1414,11 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
     }
         
     private void check_checklist_separator () {
-        //  if (check_listbox.get_children ().length () > 0) {
-        //      checklist_preview_revealer.reveal_child = true;
-        //  } else {
-        //      checklist_preview_revealer.reveal_child = false;
-        //  }
+        if (listbox.get_children ().length () > 0) {
+            checklist_preview_revealer.reveal_child = true;
+        } else {
+            checklist_preview_revealer.reveal_child = false;
+        }
 
         check_preview_box ();
     }
@@ -1557,23 +1646,26 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         });
 
         today_menu.activate.connect (() => {
-            //  due_button.set_due (
-            //      Planner.utils.get_format_date (
-            //          new GLib.DateTime.now_local ()
-            //      ).to_string ()
-            //  );
+            reschedule_button.set_new_item_due_date (
+                Planner.utils.get_datetime (
+                    new GLib.DateTime.now_local ()
+                )
+            );
+            reschedule_button.save_item ();
         });
 
         tomorrow_menu.activate.connect (() => {
-            //  due_button.set_due (
-            //      Planner.utils.get_format_date (
-            //          new GLib.DateTime.now_local ().add_days (1)
-            //      ).to_string ()
-            //  );
+            reschedule_button.set_new_item_due_date (
+                Planner.utils.get_datetime (
+                    new GLib.DateTime.now_local ().add_days (1)
+                )
+            );
+            reschedule_button.save_item ();
         });
 
         undated_menu.activate.connect (() => {
-            // due_button.set_due ("");
+            reschedule_button.clear ();
+            reschedule_button.save_item ();
         });
 
         share_text_menu.activate.connect (() => {

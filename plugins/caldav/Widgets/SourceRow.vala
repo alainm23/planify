@@ -53,6 +53,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("project-row");
 
         project_progress = new Widgets.ProjectProgress (18);
+        project_progress.enable_subprojects = true;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = task_list.dup_color ();
@@ -143,7 +144,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         main_revealer.add (handle);
 
         add (main_revealer);
-        apply_color (task_list.dup_color ());
         create_task_list_view ();
         update_request ();
 
@@ -374,36 +374,9 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         });
     }
 
-    private void apply_color (string color) {
-        string _css = """
-            .project-progress-%s {
-                border-radius: 50%;
-                border: 1.5px solid %s;
-            }
-        """;
-
-        var provider = new Gtk.CssProvider ();
-
-        try {
-            var css = _css.printf (
-                source.uid,
-                color
-            );
-
-            provider.load_from_data (css, css.length);
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } catch (GLib.Error e) {
-            return;
-        }
-    }
-
     public void update_request () {
         var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
         name_label.label = source.display_name;
-        apply_color (task_list.dup_color ());
         project_progress.progress_fill_color = task_list.dup_color ();
         
         if (source.connection_status == E.SourceConnectionStatus.CONNECTING) {

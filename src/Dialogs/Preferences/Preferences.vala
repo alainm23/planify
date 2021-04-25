@@ -60,6 +60,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         stack.add_named (get_quick_add_widget (), "quick-add");
         stack.add_named (get_plugins_widget (), "plugins");
         stack.add_named (get_todoist_widget (), "todoist");
+        stack.add_named (get_datetime_widget (), "datetime");
         stack.add_named (get_general_widget (), "general");
         stack.add_named (get_labels_widget (), "labels");
         stack.add_named (get_calendar_widget (), "calendar");
@@ -84,9 +85,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         main_grid.add (stack_scrolled);
 
         add (main_grid);
-
-        Planner.utils.init_labels_color ();
-
+        
         key_press_event.connect ((event) => {
             if (event.keyval == 65307) {
                 return true;
@@ -181,6 +180,9 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         var quick_add_item = new Dialogs.Preferences.Item ("add-circle-outline", _("Quick Add"));
         quick_add_item.icon_image.get_style_context ().add_class ("quick-add");
 
+        var datetime_item = new Dialogs.Preferences.Item ("cog-outline", _("Date & Time"));
+        datetime_item.icon_image.get_style_context ().add_class ("general");
+
         var general_item = new Dialogs.Preferences.Item ("cog-outline", _("General"), true);
         general_item.icon_image.get_style_context ().add_class ("general");
 
@@ -195,6 +197,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         general_grid.add (badge_item);
         general_grid.add (task_item);
         general_grid.add (quick_add_item);
+        general_grid.add (datetime_item);
         general_grid.add (general_item);
         general_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         
@@ -289,6 +292,10 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         general_item.activated.connect (() => {
             stack.visible_child_name = "general";
+        });
+
+        datetime_item.activated.connect (() => {
+            stack.visible_child_name = "datetime";
         });
 
         todoist_item.activated.connect (() => {
@@ -473,6 +480,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             xalign = 0,
             margin_start = 12,
             margin_end = 12,
+            margin_top = 6,
             justify = Gtk.Justification.FILL
         });
         box.add (underline_tasks_switch);
@@ -511,6 +519,80 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         default_priority.activated.connect ((index) => {
             Planner.settings.set_enum ("default-priority", index);
+        });
+
+        return main_box;
+    }
+
+    private Gtk.Widget get_datetime_widget () {
+        var top_box = new Dialogs.Preferences.TopBox ("process-completed", _("Date & Time"));
+
+        var week_list = new List<string> ();
+        week_list.append ("Sunday");
+        week_list.append ("Monday");
+        //  week_list.append ("Tuesday");
+        //  week_list.append ("Wednesday");
+        //  week_list.append ("Thursday");
+        //  week_list.append ("Friday");
+        //  week_list.append ("Saturday");
+
+        var start_week = new Dialogs.Preferences.ItemSelect (
+            _("Start of the week"),
+            Planner.settings.get_enum ("start-week"),
+            week_list,
+            false
+        );
+        start_week.margin_top = 12;
+
+        var clock_list = new List<string> ();
+        clock_list.append ("24h");
+        clock_list.append ("12h");
+
+        var clock_format = new Dialogs.Preferences.ItemSelect (
+            _("Clock Format"),
+            Planner.settings.get_enum ("clock-format"),
+            clock_list,
+            false
+        );
+        var mornign_picker = new Dialogs.Preferences.ItemTimePicker (_("Mornign"), "morning-time", false);
+        var afternoon_picker = new Dialogs.Preferences.ItemTimePicker (_("Afternoon"), "afternoon-time", false);
+        var evening_picker = new Dialogs.Preferences.ItemTimePicker (_("Evening"), "evening-time");
+
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.margin_top = 6;
+        box.valign = Gtk.Align.START;
+        box.hexpand = true;
+        box.add (start_week);
+        box.add (clock_format);
+        box.add (mornign_picker);
+        box.add (afternoon_picker);
+        box.add (evening_picker);
+
+        var box_scrolled = new Gtk.ScrolledWindow (null, null);
+        box_scrolled.hscrollbar_policy = Gtk.PolicyType.NEVER;
+        box_scrolled.expand = true;
+        box_scrolled.add (box);
+
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_box.expand = true;
+
+        main_box.pack_start (top_box, false, false, 0);
+        main_box.pack_start (box_scrolled, false, true, 0);
+
+        top_box.back_activated.connect (() => {
+            stack.visible_child_name = "home";
+        });
+
+        top_box.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        start_week.activated.connect ((index) => {
+            Planner.settings.set_enum ("start-week", index);
+        });
+
+        clock_format.activated.connect ((index) => {
+            Planner.settings.set_enum ("clock-format", index);
         });
 
         return main_box;
@@ -855,6 +937,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         change_button.get_style_context ().add_class ("inbox");
         change_button.halign = Gtk.Align.END;
         change_button.margin_end = 6;
+        change_button.margin_top = 6;
 
         var save_last_switch = new Dialogs.Preferences.ItemSwitch (
             _("Save Last Selected Project"),
@@ -1022,23 +1105,6 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         var clear_db_item = new Dialogs.Preferences.ItemButton (_("Reset all"), _("Reset"));
         var export_db_item = new Dialogs.Preferences.ItemButton (_("Export Database"), _("Export"));
 
-        List<string> week_list = new List<string> ();
-        week_list.append ("Sunday");
-        week_list.append ("Monday");
-        week_list.append ("Tuesday");
-        week_list.append ("Wednesday");
-        week_list.append ("Thursday");
-        week_list.append ("Friday");
-        week_list.append ("Saturday");
-
-        var start_week = new Dialogs.Preferences.ItemSelect (
-            _("Start of the week"),
-            Planner.settings.get_enum ("start-week"),
-            week_list,
-            false
-        );
-        start_week.margin_top = 12;
-
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         box.expand = true;
         box.pack_start (de_header, false, false, 0);
@@ -1047,7 +1113,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         box.pack_start (run_startup_switch, false, false, 0);
         box.pack_start (run_startup_label, false, false, 0);
         // box.pack_start (button_layout, false, false, 0);
-        box.pack_start (start_week, false, false, 0);
+        // box.pack_start (start_week, false, false, 0);
         box.pack_start (export_db_item, false, false, 0);
         box.pack_start (dz_header, false, false, 0);
         box.pack_start (clear_db_item, false, false, 0);
@@ -1077,10 +1143,6 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
 
         top_box.done_activated.connect (() => {
             hide_destroy ();
-        });
-
-        start_week.activated.connect ((index) => {
-            Planner.settings.set_enum ("start-week", index);
         });
 
         export_db_item.activated.connect (() => {
