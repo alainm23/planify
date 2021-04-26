@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-03-01 13:50+0000\n"
+"PO-Revision-Date: 2021-04-27 10:32+0000\n"
 "Last-Translator: HelaBasa <R45XvezA@protonmail.ch>\n"
 "Language-Team: Sinhala <https://hosted.weblate.org/projects/planner/"
 "translations/si/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -31,15 +31,15 @@ msgstr ""
 
 #: src/Application.vala:156
 msgid "y"
-msgstr ""
+msgstr "ඔ"
 
 #: src/Application.vala:156
 msgid "yes"
-msgstr ""
+msgstr "ඔව්"
 
 #: src/MainWindow.vala:56
 msgid "Planner"
-msgstr ""
+msgstr "ප්ලෑනර්"
 
 #: src/MainWindow.vala:784 src/MainWindow.vala:800 src/MainWindow.vala:816
 #: src/MainWindow.vala:832
@@ -72,15 +72,15 @@ msgstr ""
 
 #: src/Utils.vala:190
 msgid "Red"
-msgstr ""
+msgstr "රතු"
 
 #: src/Utils.vala:191
 msgid "Orange"
-msgstr ""
+msgstr "තැඹිලි"
 
 #: src/Utils.vala:192
 msgid "Yellow"
-msgstr ""
+msgstr "කහ"
 
 #: src/Utils.vala:193
 msgid "Olive Green"
@@ -88,11 +88,11 @@ msgstr ""
 
 #: src/Utils.vala:194
 msgid "Lime Green"
-msgstr ""
+msgstr "දෙහි කොළ"
 
 #: src/Utils.vala:195
 msgid "Green"
-msgstr ""
+msgstr "කොළ"
 
 #: src/Utils.vala:196
 msgid "Mint Green"
