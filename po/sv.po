@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-27 19:46+0000\n"
+"PO-Revision-Date: 2021-04-27 19:48+0000\n"
 "Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Swedish <https://hosted.weblate.org/projects/planner/"
 "translations/sv/>\n"
@@ -41,7 +41,7 @@ msgstr "ja"
 
 #: src/MainWindow.vala:54 src/Widgets/Pane.vala:402
 msgid "Planner"
-msgstr "Planner"
+msgstr "Planerare"
 
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
