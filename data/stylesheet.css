@@ -749,6 +749,7 @@ paned.horizontal > separator {
 }
 
 .check-border check {
+    color: #16375c;
     border-radius: 4px;
     border: 1px solid @check_border_color;
 }
@@ -914,6 +915,14 @@ paned.horizontal > separator {
 
 .preference-item-radio radio {
     color: #16375c;
+}
+
+.item-radio radio {
+    color: #16375c;
+}
+
+.item-radio radio:checked {
+    border-color: shade (@colorAccent, 0.9);
 }
 
 .checklist-radio check {

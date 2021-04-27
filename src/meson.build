@@ -74,6 +74,7 @@ planner_files = files(
     'Widgets/ScheduleButton.vala',
     'Widgets/ColorPopover.vala',
     'Widgets/SourceButton.vala',
+    'Widgets/SortButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',

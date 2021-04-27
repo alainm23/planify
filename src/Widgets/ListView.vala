@@ -32,7 +32,7 @@ public class Widgets.ListView : Gtk.EventBox {
         add (scrolled);
 
         notify["project"].connect (() => {
-            add_sections ();
+            // add_sections ();
         });
 
         Planner.database.section_added.connect ((section, index) => {
@@ -97,6 +97,12 @@ public class Widgets.ListView : Gtk.EventBox {
         }
         
         show_all ();
+    }
+
+    public void remove_sections () {
+        foreach (unowned Gtk.Widget child in section_listbox.get_children ()) {
+            child.destroy ();
+        }
     }
 
     public void add_new_item (int index=-1) {

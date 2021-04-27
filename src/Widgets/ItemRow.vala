@@ -609,6 +609,14 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             check_preview_box ();
+
+            if (Planner.database.get_project_by_id (item.project_id).show_completed == 1) {
+                add_completed_items ();    
+                completed_revealer.reveal_child = true;
+            }
+
+            add_all_checks ();
+            add_all_labels ();
             return GLib.Source.REMOVE;
         });
 
@@ -620,9 +628,6 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
             build_drag_and_drop (false);
         }
-
-        add_all_checks ();
-        add_all_labels ();
 
         top_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
