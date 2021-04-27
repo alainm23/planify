@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-27 12:32+0000\n"
+"PO-Revision-Date: 2021-04-13 20:26+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -466,7 +466,7 @@ msgstr "Надіслати електронною поштою"
 #: src/Widgets/ProjectRow.vala:665 src/Widgets/ItemRow.vala:1551
 #: src/Widgets/SectionRow.vala:1045 src/Widgets/BoardColumn.vala:1054
 msgid "Markdown"
-msgstr "Розмітка"
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:673 src/Widgets/ProjectRow.vala:707
@@ -1439,7 +1439,7 @@ msgstr "Темна"
 
 #: src/Dialogs/Preferences/Preferences.vala:584
 msgid "Dark Blue"
-msgstr "Синя"
+msgstr "Синій"
 
 #: src/Dialogs/Preferences/Preferences.vala:587
 msgid "Arc Dark"

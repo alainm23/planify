@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2020-06-29 00:03+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2021-02-15 17:50+0000\n"
+"Last-Translator: Aleix Ràfols Bayot <alrafolsba@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2-dev\n"
+"X-Generator: Weblate 4.5-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -28,6 +28,8 @@ msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
+"El procés elimina tota la informació emmagatzemada sense la possibilitat de "
+"desfer-ho. (y/n): "
 
 #: src/Application.vala:156
 msgid "y"
@@ -235,15 +237,15 @@ msgstr ""
 
 #: src/Utils.vala:1038
 msgid "Create a new area"
-msgstr ""
+msgstr "Crea una nova àrea"
 
 #: src/Utils.vala:1039 src/Dialogs/ShortcutsDialog.vala:91
 msgid "Create a new project"
-msgstr ""
+msgstr "Crea un nou projecte"
 
 #: src/Utils.vala:1040
 msgid "Create a new section"
-msgstr ""
+msgstr "Crea una nova secció"
 
 #: src/Utils.vala:1041
 msgid "Open the Inbox"
@@ -255,7 +257,7 @@ msgstr "Obre Avui"
 
 #: src/Utils.vala:1043 src/Dialogs/ShortcutsDialog.vala:160
 msgid "Open Upcoming"
-msgstr ""
+msgstr "Obre Propers"
 
 #: src/Utils.vala:1044
 msgid "Open Search"
@@ -292,11 +294,11 @@ msgstr ""
 
 #: src/Utils.vala:1059
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "La sol·licitud ha fallat arran d'un error del servidor."
 
 #: src/Utils.vala:1060
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Actualment el servidor no pot gestionar la sol·licitud."
 
 #: src/Services/Database.vala:968 src/Widgets/ActionRow.vala:177
 #: src/Widgets/ActionRow.vala:179 src/Widgets/ItemRow.vala:1418
@@ -305,15 +307,15 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:290
 #: src/Dialogs/Preferences/Preferences.vala:509
 msgid "Inbox"
-msgstr ""
+msgstr "Safata d'entrada"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
-msgstr ""
+msgstr "En aquest ordinador"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Porta-retalls buit, copieu algun text i torneu-ho a provar."
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"

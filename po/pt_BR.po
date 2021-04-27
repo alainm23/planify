@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-01-18 19:34-0500\n"
-"PO-Revision-Date: 2021-01-27 12:32+0000\n"
-"Last-Translator: Renato Oliveira <renato@wisefox.me>\n"
+"PO-Revision-Date: 2021-03-30 16:26+0000\n"
+"Last-Translator: Rodrigo Vilas Boas <rodrigo@reverberar.com>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/"
 "planner/translations/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.6-dev\n"
 
 #: src/Application.vala:152 src/Dialogs/Preferences/Preferences.vala:1004
 msgid "Are you sure you want to reset all?"
@@ -541,19 +541,19 @@ msgstr "Observação"
 #: src/Widgets/MultiSelectToolbar.vala:296 src/Views/Filter.vala:115
 #: src/Dialogs/QuickFind.vala:93 src/Dialogs/Preferences/Preferences.vala:395
 msgid "Priority 1"
-msgstr "Prioridade baixa"
+msgstr "Prioridade 1"
 
 #: src/Widgets/NewItem.vala:614 src/Widgets/PriorityButton.vala:99
 #: src/Widgets/MultiSelectToolbar.vala:297 src/Views/Filter.vala:112
 #: src/Dialogs/QuickFind.vala:101 src/Dialogs/Preferences/Preferences.vala:396
 msgid "Priority 2"
-msgstr "Prioridade média-baixa"
+msgstr "Prioridade 2"
 
 #: src/Widgets/NewItem.vala:615 src/Widgets/PriorityButton.vala:100
 #: src/Widgets/MultiSelectToolbar.vala:298 src/Views/Filter.vala:109
 #: src/Dialogs/QuickFind.vala:109 src/Dialogs/Preferences/Preferences.vala:397
 msgid "Priority 3"
-msgstr "Prioridade média"
+msgstr "Prioridade 3"
 
 #: src/Widgets/NewItem.vala:616 src/Widgets/PriorityButton.vala:101
 #: src/Widgets/MultiSelectToolbar.vala:299 src/Views/Filter.vala:106
