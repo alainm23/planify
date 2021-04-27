@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2020-02-28 09:14+0000\n"
-"Last-Translator: Stabsy <stabsy@tuta.io>\n"
+"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"Last-Translator: Åke Engelbrektson <eson@svenskasprakfiler.se>\n"
 "Language-Team: Danish <https://hosted.weblate.org/projects/planner/"
 "translations/da/>\n"
 "Language: da\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -1423,15 +1423,15 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Morgon"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Eftermiddag"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Kväll"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
