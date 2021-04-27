@@ -216,7 +216,7 @@ public class Widgets.SyncButton : Gtk.Button {
         can_focus = false;
 
         item_label = new Gtk.Label (_("Sync Now"));
-        item_label.get_style_context ().add_class ("font-weight-600");
+        // item_label.get_style_context ().add_class ("font-weight-600");
 
         sync_image = new Gtk.Image ();
         sync_image.gicon = new ThemedIcon ("emblem-synchronizing-symbolic");

@@ -47,7 +47,7 @@ public class Widgets.BoardView : Gtk.EventBox {
         add (scrolled_window);
 
         notify["project"].connect (() => {
-            add_boards ();
+            // add_boards ();
         });
 
         Planner.database.section_added.connect ((section) => {
@@ -78,6 +78,12 @@ public class Widgets.BoardView : Gtk.EventBox {
         }
         
         show_all ();
+    }
+
+    public void remove_boards () {
+        foreach (unowned Gtk.Widget child in grid.get_children ()) {
+            child.destroy ();
+        }
     }
 
     public void add_new_item (int index=-1) {

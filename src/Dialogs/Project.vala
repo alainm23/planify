@@ -183,8 +183,12 @@ public class Dialogs.Project : Hdy.Window {
         var label_filter = new Widgets.LabelFilter ();
         label_filter.project = project;
 
+        var sort_button = new Widgets.SortButton ();
+        sort_button.project = project;
+
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
+        top_box.pack_end (sort_button, false, false, 0);
         top_box.pack_end (label_filter, false, false, 0);
         top_box.pack_end (deadline_revealer, false, false, 0);
 
@@ -260,6 +264,25 @@ public class Dialogs.Project : Hdy.Window {
 
         add (overlay);
 
+        // Check Placeholder view
+        Timeout.add (125, () => {
+            Planner.database.get_project_count (project.id);
+
+            if (project.is_kanban == 1) {
+                board_view.add_boards ();
+            } else {
+                list_view.add_sections ();
+            }
+
+            show_all ();
+
+            if (project.is_kanban == 1) {
+                main_stack.visible_child_name = "board";
+            }
+
+            return GLib.Source.REMOVE;
+        });
+
         delete_event.connect (() => {
             if (only_window) {
                 Planner.instance.main_window.destroy ();
@@ -284,17 +307,6 @@ public class Dialogs.Project : Hdy.Window {
             } else {
                 list_view.add_new_item (Planner.settings.get_enum ("new-tasks-position"));
             }
-        });
-
-        // Check Placeholder view
-        Timeout.add (125, () => {
-            Planner.database.get_project_count (project.id);
-
-            if (project.is_kanban == 1) {
-                main_stack.visible_child_name = "board";
-            }
-
-            return GLib.Source.REMOVE;
         });
 
         submit_button.clicked.connect (() => {
@@ -661,6 +673,9 @@ public class Dialogs.Project : Hdy.Window {
         board_button.button_release_event.connect (() => {
             board_switch.activate ();
 
+            list_view.remove_sections ();
+            board_view.remove_boards ();
+            
             if (board_switch.active) {
                 project.is_kanban = 0;
                 main_stack.visible_child_name = "project";
