@@ -69,6 +69,7 @@ You'll need the following dependencies:
 * libedataserver1.2-dev
 * libpeas-dev
 * libical-dev
+* libhandy-1-0
 * meson
 * valac >= 0.40.3
 * [elementary-icons](https://github.com/elementary/icons)
