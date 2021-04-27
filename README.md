@@ -91,7 +91,7 @@ Planner is currently translated into several languages and with your help, we ca
 
 
 ## Support
-If you like Planner and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23) or [PayPal](https://www.paypal.me/alainm23)
+If you like Planner and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
 
 Made with 💗 in Perú
 
