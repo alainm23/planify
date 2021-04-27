@@ -71,6 +71,8 @@ You'll need the following dependencies:
 * libical-dev
 * meson
 * valac >= 0.40.3
+* [elementary-icons](https://github.com/elementary/icons)
+* [elementary-stylesheet](https://github.com/elementary/stylesheet/releases/tag/5.4.2)
 
 Run `meson build` to configure the build environment. Change to the build directory and run `ninja` to build
 

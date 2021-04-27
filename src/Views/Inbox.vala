@@ -155,7 +155,6 @@ public class Views.Inbox : Gtk.EventBox {
         overlay.add (main_box);
 
         add (overlay);
-        show_all ();
 
         magic_button.clicked.connect (() => {
             if (project.is_kanban == 1) {
@@ -170,9 +169,17 @@ public class Views.Inbox : Gtk.EventBox {
             Planner.database.get_project_count (project.id);
 
             if (project.is_kanban == 1) {
+                board_view.add_boards ();
+            } else {
+                list_view.add_sections ();
+            }
+
+            show_all ();
+
+            if (project.is_kanban == 1) {
                 main_stack.visible_child_name = "board";
             }
-            
+
             return GLib.Source.REMOVE;
         });
 
@@ -421,6 +428,9 @@ public class Views.Inbox : Gtk.EventBox {
         board_button.button_release_event.connect (() => {
             board_switch.activate ();
 
+            list_view.remove_sections ();
+            board_view.remove_boards ();
+            
             if (board_switch.active) {
                 project.is_kanban = 0;
                 main_stack.visible_child_name = "project";

@@ -1644,6 +1644,7 @@ public class Widgets.ItemRow : Gtk.ListBoxRow {
 
         complete_menu.activate.connect (() => {
             checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
         });
 
         edit_menu.activate.connect (() => {

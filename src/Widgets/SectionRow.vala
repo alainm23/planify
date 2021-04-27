@@ -1503,7 +1503,7 @@ public class Widgets.SectionRow : Gtk.ListBoxRow {
 
         var grid = new Gtk.Grid ();
         grid.margin_top = 6;
-        grid.margin_start = 6;
+        grid.margin_start = 4;
         grid.halign = Gtk.Align.START;
         grid.add (button);
         grid.show ();
