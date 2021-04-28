@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
 "PO-Revision-Date: 2021-04-30 11:32+0000\n"
-"Last-Translator: Carles Mateu <carlesm@carlesm.com>\n"
+"Last-Translator: Aleix Ràfols Bayot <alrafolsba@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
 "Language: ca\n"
@@ -197,9 +197,8 @@ msgstr ""
 "projectes del Planificador. "
 
 #: src/Utils.vala:1002
-#, fuzzy
 msgid "Sub-project"
-msgstr "Com s’utilitzen els projectes"
+msgstr "Subprojecte"
 
 #: src/Utils.vala:1002
 msgid ""
