@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-02-15 17:50+0000\n"
-"Last-Translator: Aleix Ràfols Bayot <alrafolsba@gmail.com>\n"
+"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"Last-Translator: Carles Mateu <carlesm@carlesm.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -33,11 +33,11 @@ msgstr ""
 
 #: src/Application.vala:155
 msgid "y"
-msgstr ""
+msgstr "s"
 
 #: src/Application.vala:155
 msgid "yes"
-msgstr ""
+msgstr "si"
 
 #: src/MainWindow.vala:54 src/Widgets/Pane.vala:402
 msgid "Planner"
@@ -46,7 +46,7 @@ msgstr "Planificador"
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Afegint tasca del portapapers…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 msgid "Home"
@@ -172,13 +172,15 @@ msgstr "S’ha activat l’addició ràpida."
 #: src/Utils.vala:923
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
+msgstr "Intenta %s per activar-ho. Pots canviar-ho a les preferències"
 
 #: src/Utils.vala:999
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"El Planner %s és aquí, amb moltes millores de disseny, noves "
+"característiques i més."
 
 #: src/Utils.vala:1001
 #, fuzzy
@@ -190,6 +192,9 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Per als usuaris deTodoist, la vista de taulers va introduïr-se en aquesta "
+"nova actualització, és una forma més visual d'organitzar els vostres "
+"projectes del Planificador. "
 
 #: src/Utils.vala:1002
 #, fuzzy
@@ -1524,9 +1529,8 @@ msgid "Night"
 msgstr "Nocturn"
 
 #: src/Dialogs/Preferences/Preferences.vala:732
-#, fuzzy
 msgid "Dark Blue"
-msgstr "Blau cel"
+msgstr "Blau fosc"
 
 #: src/Dialogs/Preferences/Preferences.vala:735
 msgid "Arc Dark"
