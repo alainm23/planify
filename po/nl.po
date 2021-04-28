@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-01-20 20:32+0000\n"
-"Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
+"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
 "Language: nl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -173,7 +173,7 @@ msgstr "Snel toevoegen geactiveerd!"
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
-"Druk op '%s' om het te activeren. Dit kun je aanpassen in de voorkeuren."
+"Klik op '%s' om het te activeren. Dit kun je aanpassen in de voorkeuren."
 
 #: src/Utils.vala:999
 #, c-format
@@ -387,14 +387,12 @@ msgid "Preferences"
 msgstr "Voorkeuren"
 
 #: src/Widgets/Pane.vala:403
-#, fuzzy
 msgid "Planner Project"
-msgstr "Project converteren"
+msgstr "Planner-project"
 
 #: src/Widgets/Pane.vala:410
-#, fuzzy
 msgid "New Project"
-msgstr "Project"
+msgstr "Nieuw project"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -568,9 +566,8 @@ msgid "Hide Details"
 msgstr "Details tonen"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Taak toevoegen"
+msgstr "Bijkomende taak toevoegen"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -680,9 +677,8 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Secties toevoegen"
+msgstr "Sectie toevoegen"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -776,7 +772,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Zoeken of maken"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -788,9 +784,8 @@ msgid "Create '%s'"
 msgstr "'%s' maken"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Todoist-label"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -851,9 +846,8 @@ msgid "Time:"
 msgstr "Tijd:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Sectie verwijderen"
+msgstr "Geef deze sectie een naam"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
@@ -866,7 +860,7 @@ msgstr "Label toevoegen"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Dit label is al in gebruik."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -902,9 +896,8 @@ msgid "Board Menu"
 msgstr "Bordmenu"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Projectinstellingen"
+msgstr "Instellingen"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -932,7 +925,7 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
-"Het lijkt erop dat je niet verbonden bent met\n"
+"Het lijkt er op dat je niet verbonden bent met\n"
 "internet. De aanpassingen die je nu doet worden\n"
 "gesynchroniseerd zodra je verbonden bent."
 
@@ -1201,7 +1194,6 @@ msgid "Direct access:"
 msgstr "Directe toegang:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
 msgstr "Project aanpassen"
 
@@ -1359,7 +1351,7 @@ msgstr "Plug-ins"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Geef de maker een blikje fris"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1389,7 +1381,6 @@ msgstr "Snel toevoegen"
 
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
-#, fuzzy
 msgid "Date & Time"
 msgstr "Datum en tijd"
 
@@ -1441,19 +1432,19 @@ msgstr "Begin van de week"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Klokopmaak"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Ochtend"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Middag"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Avond"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
@@ -1637,9 +1628,8 @@ msgstr ""
 "je Todoist-account."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Labels"
+msgstr "Labels synchroniseren"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
