@@ -154,7 +154,7 @@ public class Widgets.ListView : Gtk.EventBox {
         });
     }
 
-    private void add_new_section_row (int index) {
+    public void add_new_section_row (int index) {
         var row = new Widgets.NewSection (project.id, project.is_todoist, index + 1);
         section_listbox.insert (row, index + 1);
         section_listbox.show_all ();

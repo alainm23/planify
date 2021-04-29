@@ -208,6 +208,14 @@ public class Views.TaskList : Gtk.EventBox {
             show_all ();
         });
 
+        Planner.event_bus.edit_tasklist.connect ((uid) => {
+            if (source.uid == uid) {
+                action_revealer.reveal_child = true;
+                name_stack.visible_child_name = "name_entry";
+                name_entry.grab_focus ();
+            }
+        });
+
         //  listbox.add.connect (() => {
         //      check_tasklist_placeholder ();
         //  });

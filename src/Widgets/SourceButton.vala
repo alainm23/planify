@@ -1,8 +1,21 @@
 public class Widgets.SourceButton : Gtk.Button {
+    public int64 temp_id_mapping { get; set; default = 0; }
     public string primary_text { get; construct; }
     public string source { get; construct; }
     public string icon_name { get; construct; }
     public string key { get; construct; }
+
+    private Gtk.Revealer loading_revealer;
+
+    public bool loading {
+        set {
+            loading_revealer.reveal_child = value;
+        }
+
+        get {
+            return loading_revealer.reveal_child;
+        }
+    }
 
     public SourceButton (string primary_text, string source, string icon_name, string key="") {
         Object (
@@ -46,7 +59,7 @@ public class Widgets.SourceButton : Gtk.Button {
         spinner_loading.start ();
         spinner_loading.margin_end = 6;
 
-        var loading_revealer = new Gtk.Revealer ();
+        loading_revealer = new Gtk.Revealer ();
         loading_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
         loading_revealer.add (spinner_loading);
 
@@ -59,5 +72,38 @@ public class Widgets.SourceButton : Gtk.Button {
         grid.attach (loading_revealer,    2, 0, 2, 2);
 
         add (grid);
+
+        Planner.todoist.project_added_started.connect ((id) => {
+            sensitive = false;
+            if (temp_id_mapping == id) {
+                loading = true;
+            }
+        });
+
+        Planner.todoist.project_added_completed.connect ((id, project_id) => {
+            sensitive = true;
+            if (temp_id_mapping == id) {
+                temp_id_mapping = 0;
+                loading = false;
+
+                Timeout.add (250, () => {
+                    Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
+                    Planner.event_bus.edit_project (project_id);
+                    return GLib.Source.REMOVE;
+                });
+            }
+        });
+
+        Planner.todoist.project_added_error.connect ((id, error_code, error_message) => {
+            sensitive = true;
+            if (temp_id_mapping == id) {
+                temp_id_mapping = 0;
+                loading = false;
+            }
+            
+            if (error_code != 0) {
+                Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
+            }
+        });
     }
 }

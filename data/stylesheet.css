@@ -799,11 +799,13 @@ paned.horizontal > separator {
     padding-left: 0px;
     padding-top: 0px;
     background-color: @projectview_color;
+    border: none;
 }
 
 .project-name-entry:focus {
-    border-bottom: 1px solid alpha (@colorAccent, 0.8);
+    border: none;
     box-shadow: none;
+    padding-bottom: 6px;
 }
 
 .title-label {
