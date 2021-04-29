@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-01-23 18:32+0000\n"
+"PO-Revision-Date: 2021-04-30 11:32+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -319,7 +319,7 @@ msgstr "Prazan međuspremnik, kopiraj neki tekst i pokušaj ponovo"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr "Spremi datoteku planera"
+msgstr "Spremi datoteku Planera"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:189
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:149
@@ -338,7 +338,7 @@ msgstr "Odustani"
 
 #: src/Services/ExportImport.vala:377
 msgid "Planner files"
-msgstr "Datoteke planera"
+msgstr "Datoteke Planera"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
@@ -346,7 +346,7 @@ msgstr "Sve datoteke"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr "Otvori datoteku planera"
+msgstr "Otvori datoteku Planera"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
@@ -380,14 +380,12 @@ msgid "Preferences"
 msgstr "Postavke"
 
 #: src/Widgets/Pane.vala:403
-#, fuzzy
 msgid "Planner Project"
-msgstr "Konvertiraj projekt"
+msgstr "Planer projekt"
 
 #: src/Widgets/Pane.vala:410
-#, fuzzy
 msgid "New Project"
-msgstr "Projekt"
+msgstr "Novi projekt"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -561,9 +559,8 @@ msgid "Hide Details"
 msgstr "Sakrij detalje"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Dodaj zadatak"
+msgstr "Dodaj podzadatak"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -673,9 +670,8 @@ msgid "Description"
 msgstr "Opis"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Dodaj odjeljke"
+msgstr "Dodaj odjeljak"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -708,7 +704,7 @@ msgstr "Odredi termin"
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "Izbriši"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -769,7 +765,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Traži ili stvori"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -781,9 +777,8 @@ msgid "Create '%s'"
 msgstr "Stvori „%s”"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Todoist etiketa"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -844,9 +839,8 @@ msgid "Time:"
 msgstr "Vrijeme:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Izbriši odjeljak"
+msgstr "Imenuj ovaj odjeljak"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
@@ -859,7 +853,7 @@ msgstr "Dodaj etiketu"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Etiketa već postoji."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -895,9 +889,8 @@ msgid "Board Menu"
 msgstr "Izbornik ploče"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Postavke projekta"
+msgstr "Postavke"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -1194,7 +1187,6 @@ msgid "Direct access:"
 msgstr "Izravni pristup:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
 msgstr "Uredi projekt"
 
@@ -1352,7 +1344,7 @@ msgstr "Dodaci"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Kupi Planeru mineralnu vodu"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1382,7 +1374,6 @@ msgstr "Brzo dodavanje"
 
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
-#, fuzzy
 msgid "Date & Time"
 msgstr "Datum i vrijeme"
 
@@ -1434,19 +1425,19 @@ msgstr "Početak tjedna"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Format sata"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Jutro"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Popodne"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Večer"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
@@ -1627,9 +1618,8 @@ msgstr ""
 "Todoist računom svakih 15 minuta."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Etikete"
+msgstr "Sinkroniziraj etikete"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
@@ -1666,7 +1656,7 @@ msgid ""
 "you like Planner and want to support its development, consider donating to "
 "via:"
 msgstr ""
-"Planer se razvija s ❤️ i strašću prema otvorenom kodu. Međutim, ako ti se "
+"Planer se razvija sa ❤️ i strašću prema otvorenom kodu. Međutim, ako ti se "
 "Planer sviđa i želiš podržati njegov razvoj, razmisli o donaciji putem:"
 
 #: src/Dialogs/Preferences/Preferences.vala:1578
@@ -1743,7 +1733,7 @@ msgstr "_Otvori"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr "Datoteke baze podataka planera (sqlite)"
+msgstr "Datoteke baze podataka Planera (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:35
 msgid "Back"
