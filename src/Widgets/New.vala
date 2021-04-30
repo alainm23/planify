@@ -271,14 +271,7 @@ public class Widgets.New : Gtk.Revealer {
             cancel ();
         });
 
-        Planner.todoist.project_added_error.connect ((error_code, error_message) => {
-            submit_button.sensitive = true;
-            submit_stack.visible_child_name = "label";
-
-            if (error_code != 0) {
-                Planner.notifications.send_notification (error_message, NotificationStyle.ERROR);
-            }
-        });
+        
 
         source_button.toggled.connect (() => {
             if (source_popover == null) {
@@ -494,7 +487,7 @@ public class Widgets.New : Gtk.Revealer {
             } else {
                 cancellable = new Cancellable ();
                 project.is_todoist = 1;
-                Planner.todoist.add_project (project, cancellable);
+                // Planner.todoist.add_project (project, cancellable);
             }
         }
     }

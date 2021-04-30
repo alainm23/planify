@@ -386,7 +386,14 @@ public class Widgets.Pane : Gtk.EventBox {
             );
 
             todoist_source_button.clicked.connect (() => {
-                
+                todoist_source_button.temp_id_mapping = Planner.utils.generate_id ();
+
+                var project = new Objects.Project ();
+                project.name = _("New Project");
+                project.color = GLib.Random.int_range (30, 50);
+                project.id = Planner.utils.generate_id ();
+                project.is_todoist = 1;
+                Planner.todoist.add_project (project, null, todoist_source_button.temp_id_mapping);
             });
 
             add_project_buttonbox.add (todoist_source_button);

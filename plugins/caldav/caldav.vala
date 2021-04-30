@@ -211,23 +211,26 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         }
         collection_sources.add (collection_source);
 
-        var source_button = new Widgets.SourceButton (
-            task_store.get_collection_backend_name (collection_source, task_store.get_registry_sync ()),
-            CalDAVUtil.get_esource_collection_display_name (collection_source),
-            valid_source_icon (task_store.get_collection_backend_name (collection_source, task_store.get_registry_sync ())),
-            collection_source.uid
-        );
-        source_button.sensitive = task_store.is_add_task_list_supported (collection_source);
-        source_button.clicked.connect (() => {
-            add_new_list (collection_source);
-        });
-
-        pane.add_project_buttonbox.add (source_button);
-        pane.add_project_buttonbox.show_all ();
-        pane.buttonbox_scrolled.show_all ();
+        var backend_name = task_store.get_collection_backend_name (collection_source, task_store.get_registry_sync ());
+        if (backend_name == "local") {
+            var source_button = new Widgets.SourceButton (
+                _("Task List"),
+                CalDAVUtil.get_esource_collection_display_name (collection_source),
+                get_source_icon (backend_name),
+                collection_source.uid
+            );
+            source_button.sensitive = task_store.is_add_task_list_supported (collection_source);
+            source_button.clicked.connect (() => {
+                add_new_list (collection_source);
+            });
+    
+            pane.add_project_buttonbox.add (source_button);
+            pane.add_project_buttonbox.show_all ();
+            pane.buttonbox_scrolled.show_all ();
+        }
     }
 
-    private string valid_source_icon (string source) {
+    private string get_source_icon (string source) {
         if (source == "local") {
             return "planner-offline-symbolic";
         }
@@ -248,6 +251,14 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
             task_store.add_task_list.begin (new_source, collection_source, (obj, res) => {
                 try {
                     task_store.add_task_list.end (res);
+                    Timeout.add (250, () => {
+                        Planner.event_bus.pane_selected (PaneType.TASKLIST, new_source.uid);
+                        Timeout.add (250, () => {
+                            Planner.event_bus.edit_tasklist (new_source.uid);
+                            return GLib.Source.REMOVE;
+                        });
+                        return GLib.Source.REMOVE;
+                    });
                 } catch (Error e) {
                     critical (e.message);
                     show_error_dialog (error_dialog_primary_text, error_dialog_secondary_text, e);

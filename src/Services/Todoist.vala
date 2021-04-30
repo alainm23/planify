@@ -36,9 +36,9 @@ public class Services.Todoist : GLib.Object {
         Project Signals
     */
 
-    public signal void project_added_started ();
-    public signal void project_added_completed ();
-    public signal void project_added_error (int error_code, string error_message);
+    public signal void project_added_started (int64 temp_id_mapping);
+    public signal void project_added_completed (int64 temp_id_mapping, int64 project_id);
+    public signal void project_added_error (int64 temp_id_mapping, int error_code, string error_message);
 
     public signal void project_updated_started (int64 id);
     public signal void project_updated_completed (int64 id);
@@ -1566,8 +1566,8 @@ public class Services.Todoist : GLib.Object {
     *   Projects
     */
 
-    public async void add_project (Objects.Project project, GLib.Cancellable cancellable) {
-        project_added_started ();
+    public async void add_project (Objects.Project project, GLib.Cancellable cancellable, int64 temp_id_mapping) {
+        project_added_started (temp_id_mapping);
 
         string temp_id = Planner.utils.generate_string ();
         string uuid = Planner.utils.generate_string ();
@@ -1596,10 +1596,11 @@ public class Services.Todoist : GLib.Object {
                 project.id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
 
                 if (Planner.database.insert_project (project)) {
-                    project_added_completed ();
+                    project_added_completed (temp_id_mapping, project.id);
                 }
             } else {
                 project_added_error (
+                    temp_id_mapping,
                     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
                     sync_status.get_object_member (uuid).get_string_member ("error")
                 );
@@ -1607,11 +1608,13 @@ public class Services.Todoist : GLib.Object {
         } catch (Error e) {
             if (Planner.utils.is_todoist_error ((int32) message.status_code)) {
                 project_added_error (
+                    temp_id_mapping,
                     (int32) message.status_code,
                     Planner.utils.get_todoist_error ((int32) message.status_code)
                 );
             } else if ((int32) message.status_code == 0) {
                 project_added_error (
+                    temp_id_mapping,
                     (int32) message.status_code,
                     e.message
                 );
@@ -1628,7 +1631,7 @@ public class Services.Todoist : GLib.Object {
                 if (Planner.database.insert_project (project) &&
                     Planner.database.insert_queue (queue) &&
                     Planner.database.insert_CurTempIds (project.id, temp_id, "project")) {
-                    project_added_completed ();
+                    project_added_completed (temp_id_mapping, project.id);
                 }
             }
         }

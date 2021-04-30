@@ -34,7 +34,7 @@ public class Widgets.SortButton : Gtk.ToggleButton {
         can_focus = false;
         valign = Gtk.Align.END;
         get_style_context ().add_class ("flat");
-
+        
         sort_label = new Gtk.Label (_("Sort"));
         sort_label.get_style_context ().add_class ("font-bold");
 

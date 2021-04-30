@@ -158,7 +158,7 @@ public class Views.Project : Gtk.EventBox {
         action_grid.margin_top = 6;
         action_grid.column_homogeneous = true;
         action_grid.column_spacing = 6;
-        action_grid.margin_start = 65;
+        action_grid.margin_start = 41;
         action_grid.add (cancel_button);
         action_grid.add (submit_button);
 
@@ -175,6 +175,7 @@ public class Views.Project : Gtk.EventBox {
         top_box.pack_start (progress_button, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
+        // top_box.pack_end (section_button, false, false, 0);
         top_box.pack_end (sort_button, false, false, 0);
         top_box.pack_end (label_filter, false, false, 0);
         top_box.pack_end (deadline_revealer, false, false, 0);
@@ -501,10 +502,7 @@ public class Views.Project : Gtk.EventBox {
 
         var open_menu = new Widgets.ModelButton (_("Open New Window"), "window-new-symbolic", "");
         var edit_menu = new Widgets.ModelButton (_("Edit Project"), "edit-symbolic", "");
-        var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
-        var sort_priority_menu = new Widgets.ModelButton (_("Sort by priority"), "edit-flag-symbolic", "");
-        var sort_name_menu = new Widgets.ModelButton (_("Sort by name"), "font-x-generic-symbolic", "");
-        //var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
+        var new_section_menu = new Widgets.ModelButton (_("Add Section"), "section-symbolic", "");
         var utilities_item = new Widgets.ModelButton (_("Utilities"), "applications-utilities-symbolic", "", true);
         var order_by_item = new Widgets.ModelButton (_("Utilities"), "applications-utilities-symbolic", "", true);
 
@@ -572,19 +570,13 @@ public class Views.Project : Gtk.EventBox {
             margin_top = 3,
             margin_bottom = 3
         });
+        popover_grid.add (new_section_menu);
         popover_grid.add (edit_menu);
         popover_grid.add (board_button);
         popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
             margin_bottom = 3
         });
-        // popover_grid.add (sort_date_menu);
-        // popover_grid.add (sort_priority_menu);
-        // popover_grid.add (sort_name_menu);
-        //  popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-        //      margin_top = 3,
-        //      margin_bottom = 3
-        //  });
         popover_grid.add (utilities_item);
         popover_grid.add (show_completed_button);
         popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
@@ -602,9 +594,17 @@ public class Views.Project : Gtk.EventBox {
         edit_menu.clicked.connect (() => {
             var dialog = new Dialogs.ProjectSettings (project);
             dialog.destroy.connect (Gtk.main_quit);
-            
+            dialog.show_all ();
 
             popover.popdown ();
+        });
+
+        new_section_menu.clicked.connect (() => {
+            if (board_switch.active) {
+
+            } else {
+                list_view.add_new_section_row (0);
+            }
         });
 
         open_menu.clicked.connect (() => {
@@ -683,21 +683,6 @@ public class Views.Project : Gtk.EventBox {
             show_all ();
             save (false);
             return Gdk.EVENT_STOP;
-        });
-
-        sort_date_menu.clicked.connect (() => {
-            Planner.database.update_sort_order_project (project.id, 1);
-            popover.popdown ();
-        });
-
-        sort_priority_menu.clicked.connect (() => {
-            Planner.database.update_sort_order_project (project.id, 2);
-            popover.popdown ();
-        });
-
-        sort_name_menu.clicked.connect (() => {
-            Planner.database.update_sort_order_project (project.id, 3);
-            popover.popdown ();
         });
 
         utilities_item.clicked.connect (() => {

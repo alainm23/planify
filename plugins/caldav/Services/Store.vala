@@ -215,7 +215,6 @@ public class Services.Tasks.Store : Object {
             case "local":
                 task_list.parent = "local-stub";
                 task_list_extension.backend_name = "local";
-
                 registry.commit_source_sync (task_list, null);
                 break;
             default:

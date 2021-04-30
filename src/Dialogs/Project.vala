@@ -77,8 +77,9 @@ public class Dialogs.Project : Hdy.Window {
         header.show_close_button = true;
         header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var color_popover = new Widgets.ColorPopover ();
+
         var project_progress = new Widgets.ProjectProgress (16);
-        project_progress.margin_top = 1;
         project_progress.valign = Gtk.Align.CENTER;
         project_progress.halign = Gtk.Align.CENTER;
         project_progress.progress_fill_color = Planner.utils.get_color (project.color);
@@ -86,6 +87,15 @@ public class Dialogs.Project : Hdy.Window {
             Planner.database.get_count_checked_items_by_project (project.id),
             Planner.database.get_all_count_items_by_project (project.id)
         );
+
+        var progress_button = new Gtk.MenuButton ();
+        progress_button.valign = Gtk.Align.START;
+        progress_button.get_style_context ().add_class ("no-padding");
+        progress_button.get_style_context ().add_class ("flat");
+        progress_button.add (project_progress);
+        progress_button.popover = color_popover;
+        progress_button.margin_end = 12;
+        progress_button.margin_top = 2;
 
         name_label = new Gtk.Label (project.name);
         name_label.halign = Gtk.Align.START;
@@ -95,17 +105,11 @@ public class Dialogs.Project : Hdy.Window {
         var source_icon = new Gtk.Image ();
         source_icon.pixel_size = 16;
 
-        var name_label_box = new Gtk.Grid ();
-        name_label_box.column_spacing = 6;
-        name_label_box.add (project_progress);
-        name_label_box.add (name_label);
-        // name_label_box.add (source_icon);
-
         var name_eventbox = new Gtk.EventBox ();
         name_eventbox.valign = Gtk.Align.START;
         name_eventbox.add_events (Gdk.EventMask.ENTER_NOTIFY_MASK | Gdk.EventMask.LEAVE_NOTIFY_MASK);
         name_eventbox.hexpand = true;
-        name_eventbox.add (name_label_box);
+        name_eventbox.add (name_label);
 
         name_entry = new Widgets.Entry ();
         name_entry.text = project.name;
@@ -154,7 +158,7 @@ public class Dialogs.Project : Hdy.Window {
         settings_button.image = settings_image;
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        var top_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         top_box.hexpand = true;
         top_box.valign = Gtk.Align.START;
         top_box.margin_end = 32;
@@ -186,6 +190,7 @@ public class Dialogs.Project : Hdy.Window {
         var sort_button = new Widgets.SortButton ();
         sort_button.project = project;
 
+        top_box.pack_start (progress_button, false, false, 0);
         top_box.pack_start (name_stack, false, true, 0);
         top_box.pack_end (settings_button, false, false, 0);
         top_box.pack_end (sort_button, false, false, 0);
