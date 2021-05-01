@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2020-11-25 12:28+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"PO-Revision-Date: 2021-05-02 10:32+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/planner/"
 "translations/pt/>\n"
 "Language: pt\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -191,6 +191,8 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Para utilizadores do Todoist, a Board View foi introduzida neste update, uma "
+"maneira mais visual de organizar os seus projectos no Planner. "
 
 #: src/Utils.vala:1002
 #, fuzzy
@@ -202,6 +204,8 @@ msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Uma das funcionalidades mais solicitadas chega ao Planner 2.6, mantenha a "
+"sua lista crescente de projectos ordenada e organizada com sub-projectos."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
@@ -316,7 +320,7 @@ msgstr "Neste computador"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Apague a área de transferência, copie algum texto e tente outra vez"
 
 #: src/Services/ExportImport.vala:350
 #, fuzzy
@@ -350,11 +354,11 @@ msgstr "Tudo limpo"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Abrir o ficheiro do Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/Widgets/ActionRow.vala:91 src/Widgets/ProjectRow.vala:159
 #: src/Views/Project.vala:257
@@ -404,7 +408,7 @@ msgstr "Descrição:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Pai:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:189
 msgid "Color:"
@@ -422,7 +426,7 @@ msgstr "Fechar"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "Projeto %s foi criado com sucesso"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -430,7 +434,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:609
 msgid "No Parent"
-msgstr ""
+msgstr "Sem Pai"
 
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1490
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/ItemRow.vala:1545
@@ -713,7 +717,7 @@ msgstr "Cronograma"
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "Limpar"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -722,7 +726,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:143
 #: src/Dialogs/Preferences/TopBox.vala:58
 msgid "Done"
-msgstr ""
+msgstr "Feito"
 
 #: src/Widgets/DueButton.vala:281
 msgid "Time"
@@ -882,7 +886,7 @@ msgstr "Desativado"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "O que há de novo"
 
 #: src/Widgets/WhatsNew.vala:88
 #, fuzzy
@@ -891,7 +895,7 @@ msgstr "Conteúdo"
 
 #: src/Widgets/LabelFilter.vala:34
 msgid "Filter by Label"
-msgstr ""
+msgstr "Filtrar por etiqueta"
 
 #: src/Widgets/LabelFilter.vala:40
 #, fuzzy
@@ -910,7 +914,7 @@ msgstr "Definições de projeto"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
-msgstr ""
+msgstr "O que há de novo"
 
 #: src/Widgets/ToolsMenu.vala:62
 #, fuzzy
@@ -959,7 +963,7 @@ msgstr "%OB %Y"
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:49
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 #, fuzzy
@@ -1081,7 +1085,7 @@ msgstr "Mostrar concluído"
 #: src/Views/Inbox.vala:270 src/Views/Project.vala:546
 #: src/Dialogs/Project.vala:526
 msgid "View as board"
-msgstr ""
+msgstr "Visualizar como quadro"
 
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
 #: src/Dialogs/Project.vala:648
@@ -1154,7 +1158,7 @@ msgstr "Data de vencimento:"
 #: src/Views/Label.vala:68 src/Views/Completed.vala:73 src/Views/Filter.vala:71
 #: src/Views/AllTasks.vala:71
 msgid "No tasks in this filter at the moment."
-msgstr ""
+msgstr "Nenhuma tarefa neste filtro no momento."
 
 #: src/Views/Completed.vala:36 src/Dialogs/QuickFind.vala:75
 #: src/Dialogs/ShortcutsDialog.vala:121
@@ -1263,11 +1267,11 @@ msgstr "Ver"
 
 #: src/Dialogs/QuickFind.vala:552
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: src/Dialogs/QuickFind.vala:566
 msgid "Recents"
-msgstr ""
+msgstr "Recentes"
 
 #: src/Dialogs/QuickFind.vala:580
 #, fuzzy
@@ -1281,7 +1285,7 @@ msgstr "Atalhos do teclado"
 
 #: src/Dialogs/ShortcutsDialog.vala:52
 msgid "Used anywhere"
-msgstr ""
+msgstr "Usado em outro lugar"
 
 #: src/Dialogs/ShortcutsDialog.vala:56
 #: src/Dialogs/Preferences/DatabaseSettings.vala:45
@@ -1299,7 +1303,7 @@ msgstr ""
 
 #: src/Dialogs/ShortcutsDialog.vala:83
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "Cole o texto simples para criar uma nova tarefa"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
@@ -1320,7 +1324,7 @@ msgstr "Procurar Rápido"
 
 #: src/Dialogs/ShortcutsDialog.vala:114
 msgid "Start typing to begin a search"
-msgstr ""
+msgstr "Comece a digitar para iniciar uma pesquisa"
 
 #: src/Dialogs/ShortcutsDialog.vala:116
 #, fuzzy
@@ -1329,19 +1333,19 @@ msgstr "Organizar por prioridade"
 
 #: src/Dialogs/ShortcutsDialog.vala:118
 msgid "Quick Find list for all labels"
-msgstr ""
+msgstr "Lista de Busca Rápida para todos os rótulos"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Quick Find list for all projects"
-msgstr ""
+msgstr "Lista de Busca Rápida para todos os projetos"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "Filtrar por todas suas tarefas concluídas."
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Control windows"
-msgstr ""
+msgstr "Controles da Janela"
 
 #: src/Dialogs/ShortcutsDialog.vala:133
 #, fuzzy
@@ -1350,15 +1354,15 @@ msgstr "Definições"
 
 #: src/Dialogs/ShortcutsDialog.vala:135
 msgid "Open current project new window"
-msgstr ""
+msgstr "Abrir projeto atual em nova janela"
 
 #: src/Dialogs/ShortcutsDialog.vala:137
 msgid "Move project window to left workspace"
-msgstr ""
+msgstr "Mover janela do projeto para a área de trabalho da esquerda"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
 msgid "Move project window to right workspace"
-msgstr ""
+msgstr "Mover janela do projeto para a área de trabalho da direita"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 #, fuzzy
@@ -1383,7 +1387,7 @@ msgstr "Executar ao iniciar"
 #: src/Dialogs/Preferences/Preferences.vala:99
 #: src/Dialogs/Preferences/Preferences.vala:214
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
@@ -1403,7 +1407,7 @@ msgstr "Contador do Ícone"
 #: src/Dialogs/Preferences/Preferences.vala:174
 #: src/Dialogs/Preferences/Preferences.vala:713
 msgid "Appearance"
-msgstr ""
+msgstr "Aparência"
 
 #: src/Dialogs/Preferences/Preferences.vala:177
 #: src/Dialogs/Preferences/Preferences.vala:446
@@ -1419,7 +1423,7 @@ msgstr "Adicionar rápido"
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
 msgid "Date & Time"
-msgstr ""
+msgstr "Data & hora"
 
 #: src/Dialogs/Preferences/Preferences.vala:186
 #: src/Dialogs/Preferences/Preferences.vala:1063
@@ -1449,11 +1453,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:449
 msgid "New tasks on top"
-msgstr ""
+msgstr "Nova tarefa ao topo"
 
 #: src/Dialogs/Preferences/Preferences.vala:455
 msgid "Underline completed tasks."
-msgstr ""
+msgstr "Sublinha as tarefas concluídas."
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 #, fuzzy
@@ -1462,11 +1466,11 @@ msgstr "Organizar por prioridade"
 
 #: src/Dialogs/Preferences/Preferences.vala:478
 msgid "Indicate the position where the new tasks were created."
-msgstr ""
+msgstr "Indique a posição onde a novas tarefas serão criadas."
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Start of the week"
-msgstr ""
+msgstr "Início da semana"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
@@ -1494,6 +1498,9 @@ msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
+"Planner cria backups diários automaticamente para os seus projetos e tarefas "
+"ativos. Pode facilmente restaurar seus backups a qualquer hora a usar a "
+"importação de projeto."
 
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid ""
@@ -1536,7 +1543,7 @@ msgstr "Layout de botões"
 #. the window is realized.
 #: src/Dialogs/Preferences/Preferences.vala:788
 msgid "Use system window decoration (needs restart)"
-msgstr ""
+msgstr "Usar decoração da janela do sistema (Necessario reiniciar)"
 
 #: src/Dialogs/Preferences/Preferences.vala:798
 msgid "Theme"
@@ -1544,7 +1551,7 @@ msgstr "Tema"
 
 #: src/Dialogs/Preferences/Preferences.vala:806
 msgid "Font Size"
-msgstr ""
+msgstr "Tamanho da Fonte"
 
 #: src/Dialogs/Preferences/Preferences.vala:881
 msgid ""
@@ -1575,7 +1582,7 @@ msgstr "Gravar o último projeto selecionado"
 
 #: src/Dialogs/Preferences/Preferences.vala:950
 msgid "Automatically close loses focus"
-msgstr ""
+msgstr "Fechar automaticamente ao perder o foco"
 
 #: src/Dialogs/Preferences/Preferences.vala:1066
 msgid "DE Integration"
@@ -1610,7 +1617,7 @@ msgstr "Zona de perigo"
 
 #: src/Dialogs/Preferences/Preferences.vala:1101
 msgid "Date & time"
-msgstr ""
+msgstr "Data e Hora"
 
 #: src/Dialogs/Preferences/Preferences.vala:1105
 #: src/Dialogs/Preferences/Preferences.vala:1160
@@ -1743,7 +1750,7 @@ msgstr "Base de dados"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr ""
+msgstr "Localização atual: %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
 #, fuzzy
@@ -1758,7 +1765,7 @@ msgstr "Tem a certeza que quer restaurar tudo?"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
 #, c-format
 msgid "The new database location will be: <b>%s</b>"
-msgstr ""
+msgstr "O novo local para o banco de dados será: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
 #, fuzzy
@@ -1772,7 +1779,7 @@ msgstr "Este processo vai fechar a sua sessão Todoist neste dispositivo."
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr ""
+msgstr "local do banco de dados"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 #, fuzzy
@@ -1781,11 +1788,11 @@ msgstr "Cancelar"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Aberto"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr ""
+msgstr "Ficheiros do BD do Planner (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:35
 msgid "Back"
