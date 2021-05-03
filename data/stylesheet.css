@@ -125,37 +125,6 @@ paned {
     border-top-right-radius: 4px;
 }
 
-/* paned > separator {
-    margin-right: 0;
-    min-width: 1px;
-    min-height: 1px;
-} */
-
-paned.vertical > separator {
-    background-image:
-        linear-gradient(
-            @menu_separator -2px,
-            @menu_separator_shadow 1px,
-            @menu_separator_shadow 2px,
-            transparent 2px
-        );
-    margin-bottom: 0px;
-    min-height: 1px;
-}
-
-paned.horizontal > separator {
-    background-image:
-        linear-gradient(
-            to right,
-            @menu_separator 1px,
-            @menu_separator_shadow 1px,
-            @menu_separator_shadow 2px,
-            transparent 2px
-        );
-    margin-right: 0px;
-    min-width: 1px;
-}
-
 .pane {
     background-color: @pane_color;
     border-bottom-left-radius: 4px;

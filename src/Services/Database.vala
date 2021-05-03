@@ -2912,7 +2912,7 @@ public class Services.Database : GLib.Object {
         string sql;
         int res;
 
-        GLib.DateTime next_due = Planner.utils.get_next_recurring_due_date (item, value);
+        GLib.DateTime next_due = Services.Chrono.Chrono.instance.get_next_recurring (item, value).datetime;
         item.due_date = next_due.to_string ();
 
         sql = """

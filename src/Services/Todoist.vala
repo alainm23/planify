@@ -257,10 +257,7 @@ public class Services.Todoist : GLib.Object {
             }
             
             Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-            if (user_object.get_boolean_member ("is_premium")) {
-                Planner.settings.set_boolean ("todoist-sync-labels", true);
-            }
-
+            Planner.settings.set_boolean ("todoist-sync-labels", true);
 
             // Create Default Labels
             Planner.utils.create_default_labels ();
