@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"PO-Revision-Date: 2021-05-06 01:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -1060,7 +1060,7 @@ msgstr "Подання дошкою"
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
 #: src/Dialogs/Project.vala:648
 msgid "Share on Markdown"
-msgstr "Поділитися у вигляді розмітки"
+msgstr "Поділитися Markdown"
 
 #: src/Views/Inbox.vala:404 src/Views/Today.vala:533 src/Views/Project.vala:709
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:649
