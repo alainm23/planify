@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-01-21 22:32+0000\n"
-"Last-Translator: Óscar Fernández Díaz <oscfdezdz@tuta.io>\n"
+"PO-Revision-Date: 2021-05-09 13:32+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/planner/"
 "translations/es/>\n"
 "Language: es\n"
@@ -18,23 +18,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
-msgstr "¿Estás seguro que quieres restablecer todo?"
+msgstr "¿Confirma que quiere restablecerlo todo?"
 
 #: src/Application.vala:152
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
-"El proceso eliminará toda la información almacenada. No podrás deshacer esta "
-"acción. "
+"El proceso eliminará toda la información almacenada. No podrá deshacer esta "
+"acción. (s/n): "
 
 #: src/Application.vala:155
 msgid "y"
-msgstr "y"
+msgstr "s"
 
 #: src/Application.vala:155
 msgid "yes"
@@ -59,7 +59,7 @@ msgstr "Oficina"
 
 #: src/Utils.vala:117 src/Utils.vala:130
 msgid "Errand"
-msgstr "Recado"
+msgstr "Encargo"
 
 #: src/Utils.vala:118 src/Utils.vala:134
 msgid "Important"
@@ -242,15 +242,15 @@ msgstr ""
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
-msgstr "Crear una nueva área"
+msgstr "Crear una área nueva"
 
 #: src/Utils.vala:1080 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new project"
-msgstr "Crear un nuevo proyecto"
+msgstr "Crear un proyecto nuevo"
 
 #: src/Utils.vala:1081
 msgid "Create a new section"
-msgstr "Crear una nueva sección"
+msgstr "Crear una sección nueva"
 
 #: src/Utils.vala:1082
 msgid "Open the Inbox"
@@ -322,7 +322,7 @@ msgstr "En este equipo"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr "Portapapeles vacío, intenta copiar algo de texto y vuelve a intentarlo"
+msgstr "El portapapeles está vacío; copie algún texto y vuelva a intentarlo"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
@@ -387,14 +387,12 @@ msgid "Preferences"
 msgstr "Preferencias"
 
 #: src/Widgets/Pane.vala:403
-#, fuzzy
 msgid "Planner Project"
-msgstr "Convertir proyecto"
+msgstr "Proyecto de Planner"
 
 #: src/Widgets/Pane.vala:410
-#, fuzzy
 msgid "New Project"
-msgstr "Proyecto"
+msgstr "Proyecto nuevo"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -425,7 +423,7 @@ msgstr "Cerrar"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr "Proyecto %s fue creado con éxito"
+msgstr "Se creó el proyecto %s correctamente"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -568,9 +566,8 @@ msgid "Hide Details"
 msgstr "Ocultar detalles"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Añadir tarea"
+msgstr "Añadir tarea secundaria"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -680,9 +677,8 @@ msgid "Description"
 msgstr "Descripción"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Añadir secciones"
+msgstr "Añadir sección"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -776,7 +772,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Buscar o crear"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -788,9 +784,8 @@ msgid "Create '%s'"
 msgstr "Crear «%s»"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Etiqueta de Todoist"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -850,9 +845,8 @@ msgid "Time:"
 msgstr "Hora:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Eliminar sección"
+msgstr "Dé nombre a esta sección"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
@@ -865,7 +859,7 @@ msgstr "Añadir etiqueta"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Ya existe la etiqueta."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -874,7 +868,7 @@ msgstr "Prioridad"
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "¿Estás seguro de que quieres borrar las tareas de %i?"
+msgstr "¿Confirma que quiere eliminar %i tareas?"
 
 #: src/Widgets/ShortcutLabel.vala:60
 msgid "Disabled"
@@ -901,9 +895,8 @@ msgid "Board Menu"
 msgstr "Menú del tablero"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Configuración del proyecto"
+msgstr "Configuración"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -955,35 +948,35 @@ msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:36
 msgid "Mo"
-msgstr "Lun"
+msgstr "Lu"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:39
 msgid "Tu"
-msgstr "Mar"
+msgstr "Ma"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:42
 msgid "We"
-msgstr "Mié"
+msgstr "Mi"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:45
 msgid "Th"
-msgstr "Jue"
+msgstr "Ju"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:48
 msgid "Fr"
-msgstr "Vie"
+msgstr "Vi"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:51
 msgid "Sa"
-msgstr "Sáb"
+msgstr "Sá"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:54
 msgid "Su"
-msgstr "Dom"
+msgstr "Do"
 
 #: src/Views/Welcome.vala:26
 msgid "Never worry about forgetting things again"
-msgstr "Nunca se preocupe por olvidar las cosas de nuevo"
+msgstr "No vuelva a preocuparse de olvidar las cosas"
 
 #: src/Views/Welcome.vala:28
 msgid "Startup"
@@ -1066,7 +1059,7 @@ msgstr "Mostrar completadas"
 #: src/Views/Inbox.vala:270 src/Views/Project.vala:546
 #: src/Dialogs/Project.vala:526
 msgid "View as board"
-msgstr "Ver como un tablero"
+msgstr "Ver como tablero"
 
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
 #: src/Dialogs/Project.vala:648
@@ -1200,7 +1193,6 @@ msgid "Direct access:"
 msgstr "Acceso directo:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
 msgstr "Editar proyecto"
 
@@ -1279,7 +1271,7 @@ msgstr "Cree una nueva tarea en la parte superior de la lista"
 
 #: src/Dialogs/ShortcutsDialog.vala:83
 msgid "Paste plain text to create new task"
-msgstr "Pegar texto plano para crear una nueva tarea"
+msgstr "Pegar texto plano para crear una tarea nueva"
 
 #. column.attach (new Widgets.ShortcutLabel ({"f"}), 0, 5);
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
@@ -1297,7 +1289,7 @@ msgstr "Abrir Búsqueda rápida"
 
 #: src/Dialogs/ShortcutsDialog.vala:114
 msgid "Start typing to begin a search"
-msgstr "Empieza a escribir para iniciar una búsqueda"
+msgstr "Empiece a escribir para iniciar una búsqueda"
 
 #: src/Dialogs/ShortcutsDialog.vala:116
 msgid "Filter by priorities"
@@ -1313,7 +1305,7 @@ msgstr "Lista de Búsqueda rápida para todos los proyectos"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 msgid "Filter by all your completed tasks."
-msgstr "Filtrar por todas tus tareas completadas."
+msgstr "Filtrar por todas sus tareas completadas."
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Control windows"
@@ -1358,7 +1350,7 @@ msgstr "Complementos"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Comprar un refresco a Planner"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1379,7 +1371,7 @@ msgstr "Apariencia"
 #: src/Dialogs/Preferences/Preferences.vala:177
 #: src/Dialogs/Preferences/Preferences.vala:446
 msgid "Task default"
-msgstr "Tarea por defecto"
+msgstr "Predeterminado de la tarea"
 
 #: src/Dialogs/Preferences/Preferences.vala:180
 #: src/Dialogs/Preferences/Preferences.vala:878
@@ -1388,7 +1380,6 @@ msgstr "Adición rápida"
 
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
-#, fuzzy
 msgid "Date & Time"
 msgstr "Fecha y hora"
 
@@ -1420,7 +1411,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:449
 msgid "New tasks on top"
-msgstr "Nuevas tareas en la parte superior"
+msgstr "Tareas nuevas en la parte superior"
 
 #: src/Dialogs/Preferences/Preferences.vala:455
 msgid "Underline completed tasks."
@@ -1428,11 +1419,11 @@ msgstr "Subrayar tareas completadas."
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid "Default priority"
-msgstr "Prioridad por defecto"
+msgstr "Prioridad predeterminada"
 
 #: src/Dialogs/Preferences/Preferences.vala:478
 msgid "Indicate the position where the new tasks were created."
-msgstr "Indicar la posición en la que se crearon las nuevas tareas."
+msgstr "Indicar la posición en la que se crearon las tareas nuevas."
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Start of the week"
@@ -1440,32 +1431,32 @@ msgstr "Principio de la semana"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Formato del reloj"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Mañana"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Tarde"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Noche"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
-msgstr "Copias de seguridad"
+msgstr "Copias de respaldo"
 
 #: src/Dialogs/Preferences/Preferences.vala:605
 msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
-"Planner crea copias de seguridad diarias automáticas de tus proyectos y "
-"tareas activas. Puedes restaurar fácilmente tus copias de seguridad en "
-"cualquier momento usando la importación de proyectos."
+"Planner crea copias de respaldo diarias automáticas de sus proyectos y "
+"tareas activas. Puede restaurar fácilmente las copias de respaldo en "
+"cualquier momento mediante la importación de proyectos."
 
 #: src/Dialogs/Preferences/Preferences.vala:640
 msgid ""
@@ -1518,7 +1509,7 @@ msgstr "Tema"
 
 #: src/Dialogs/Preferences/Preferences.vala:806
 msgid "Font Size"
-msgstr "Tamaño de la fuente"
+msgstr "Tamaño de letra"
 
 #: src/Dialogs/Preferences/Preferences.vala:881
 msgid ""
@@ -1610,7 +1601,7 @@ msgid ""
 "undoing it."
 msgstr ""
 "Este proceso elimina toda la información almacenada sin posibilidad de "
-"deshacerla."
+"deshacerlo."
 
 #: src/Dialogs/Preferences/Preferences.vala:1181
 msgid ""
@@ -1638,9 +1629,8 @@ msgstr ""
 "su cuenta de Todoist cada 15 minutos."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Etiquetas"
+msgstr "Sincronizar etiquetas"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
@@ -1725,7 +1715,7 @@ msgstr "Restablecer a valores predeterminados"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:92
 msgid "Are you sure you want to restore the database location to default?"
 msgstr ""
-"¿Estás seguro de que quieres restaurar la ubicación de la base de datos a la "
+"¿Confirma que quiere restaurar la ubicación de la base de datos a la "
 "predeterminada?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:93
@@ -1735,7 +1725,7 @@ msgstr "La nueva ubicación de la base de datos será: <b>%s</b>"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:116
 msgid "Are you sure you want to change the database location?"
-msgstr "¿Estás seguro de que quieres cambiar la ubicación de la base de datos?"
+msgstr "¿Confirma que quiere cambiar la ubicación de la base de datos?"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:117
 msgid "This process will move your database file to the selected location."
