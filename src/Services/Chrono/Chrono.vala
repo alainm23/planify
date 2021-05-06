@@ -28,4 +28,12 @@ public class Services.Chrono.Chrono : GLib.Object {
 
         return null;
     }
+
+    public Objects.Duedate? get_next_recurring (Objects.Item item, int value, string lang="en") {
+        if (lang == "en") {
+            return en.get_next_recurring (item, value);
+        }
+
+        return null;
+    }
 }

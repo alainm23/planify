@@ -1353,8 +1353,8 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             _("Sync Labels"), Planner.settings.get_boolean ("todoist-sync-labels")
         );
         sync_label_switch.margin_top = 12;
-        sync_label_switch.visible = Planner.settings.get_boolean ("todoist-user-is-premium");
-        sync_label_switch.no_show_all = !Planner.settings.get_boolean ("todoist-user-is-premium");
+        // sync_label_switch.visible = Planner.settings.get_boolean ("todoist-user-is-premium");
+        // sync_label_switch.no_show_all = !Planner.settings.get_boolean ("todoist-user-is-premium");
 
         var delete_image = new Gtk.Image ();
         delete_image.pixel_size = 16;

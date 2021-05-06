@@ -113,6 +113,11 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
 
         if (item.id != 0) {
             duedate.datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+            if (item.due_is_recurring == 1) {
+                duedate.is_recurring = true;
+                duedate.lang = item.due_lang;
+                duedate.text = item.due_string;
+            }
         }
 
         toggled.connect (() => {
@@ -252,7 +257,12 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         
         tomorrow_row = new Widgets.ScheduleRow (_("Tomorrow"), "go-jump-symbolic");
         calendar_row = new Widgets.ScheduleRow (_("Pick Date"), "office-calendar-symbolic", true);
+        
         time_row = new Widgets.ScheduleRow (_("Pick Time"), "appointment-new-symbolic", true);
+        time_row.item_image.pixel_size = 14;
+        time_row.item_label.margin_start = 1;
+        time_row.item_image.margin_start = 1;
+
         repeat_row = new Widgets.ScheduleRow (_("Repeat"), "emblem-synchronizing-symbolic", true);
 
         var grid = new Gtk.Grid ();
@@ -295,6 +305,7 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         repeat_row.clicked.connect (() => {
             stack.visible_child_name = "pick-repeat";
             check_clear_button ();
+            check_repeat_widget ();
         });
 
         search_entry.search_changed.connect (() => {
@@ -308,8 +319,13 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
                     time_row.reveal_child = false;
                     repeat_row.reveal_child = false;
 
-                    parse_row.text = duedate.get_relative_date_format ();
-                    parse_row.icon = duedate.get_icon ();
+                    if (duedate.is_recurring) {
+                        parse_row.text = duedate.text;
+                        parse_row.icon = "media-playlist-repeat-symbolic";
+                    } else {
+                        parse_row.text = duedate.get_relative_date_format ();
+                        parse_row.icon = duedate.get_icon ();
+                    }
                 } else {
                     parse_row.reveal_child = false;
                     today_row.reveal_child = true;
@@ -346,6 +362,11 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
                 duedate.datetime = duedate_parse.datetime;
                 duedate.lang = duedate_parse.lang;
                 duedate.is_recurring = duedate_parse.is_recurring;
+                duedate.text = duedate_parse.text;
+
+                if (duedate.is_recurring) {
+                    repeat_label.label = duedate.text;
+                }
 
                 update_button (duedate);
                 update_popover (duedate);
@@ -539,23 +560,23 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         string text = "";
         if (repeat_spin_button.get_value_as_int () <= 1) {
             if (repeat_combobox.active == 0) {
-                text = "Day";
+                text = "day";
             } else if (repeat_combobox.active == 1) {
-                text = "Week";
+                text = "week";
             } else if (repeat_combobox.active == 2) {
-                text = "Month";
+                text = "month";
             } else if (repeat_combobox.active == 3) {
-                text = "Year";
+                text = "year";
             }
         } else {
             if (repeat_combobox.active == 0) {
-                text = "Days";
+                text = "days";
             } else if (repeat_combobox.active == 1) {
-                text = "Weeks";
+                text = "weeks";
             } else if (repeat_combobox.active == 2) {
-                text = "Months";
+                text = "months";
             } else if (repeat_combobox.active == 3) {
-                text = "Years";
+                text = "years";
             }
         }
 
@@ -607,28 +628,28 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
 
         if (repeat_spin_button.get_value_as_int () <= 1) {
             if (repeat_combobox.active == 0) {
-                text = "Day";
+                text = "day";
             } else if (repeat_combobox.active == 1) {
-                text = "Week";
+                text = "week";
             } else if (repeat_combobox.active == 2) {
-                text = "Month";
+                text = "month";
             } else if (repeat_combobox.active == 3) {
-                text = "Year";
+                text = "year";
             }
         } else {
             if (repeat_combobox.active == 0) {
-                text = "Days";
+                text = "days";
             } else if (repeat_combobox.active == 1) {
-                text = "Weeks";
+                text = "weeks";
             } else if (repeat_combobox.active == 2) {
-                text = "Months";
+                text = "months";
             } else if (repeat_combobox.active == 3) {
-                text = "Years";
+                text = "years";
             }
         }
 
         returned = "%s %i %s".printf (
-            _("Every"),
+            "Every",
             repeat_spin_button.get_value_as_int (),
             text
         );
@@ -718,6 +739,12 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
 
     public void update_duedate (Objects.Item item) {
         duedate.datetime = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+        if (item.due_is_recurring == 1) {
+            duedate.is_recurring = true;
+            duedate.lang = item.due_lang;
+            duedate.text = item.due_string;
+        }
+
         update_popover (duedate);
         update_button (duedate);
     }
@@ -789,12 +816,21 @@ public class Widgets.ScheduleButton : Gtk.ToggleButton {
         update_button (duedate);
         update_popover (duedate);
     }
+
+    private void check_repeat_widget () {
+        if (duedate.is_recurring) {
+            repeat_label.label = duedate.text;
+            no_repeat_revealer.reveal_child = true;
+        } else {
+            no_repeat_revealer.reveal_child = false;
+        }
+    }
 }
 
 public class Widgets.ScheduleRow : Gtk.Revealer {
     public bool with_preview { get; construct; }
-    private Gtk.Label item_label;
-    private Gtk.Revealer selected_revealer;
+    public Gtk.Label item_label;
+    public Gtk.Revealer selected_revealer;
     public Gtk.Image item_image;
     public Gtk.Label preview_label;
 

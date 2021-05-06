@@ -16,6 +16,8 @@ public class Services.Chrono.en : GLib.Object {
     private string DAY_CONSTANT = "(0[1-9]|[12]\\d|3[01])";
     private string YEAR_CONSTANT = "(?:(?:19|20)[0-9]{2})"; // 1900 to 2099:
     private string PARSING_CONTEXT_CONSTANT = "(\\W|^)(today|tomorrow|tmr|yesterday|next\\sweek|next\\syear|(next\\smonth(s)?))";
+    private string EVERY_DAY = "(\\W|^)every\\s(day(?:s)?|week(?:s)?|month(?:s)?|year(?:s)?)(?=\\W|$)";
+    private string EVERY_N_DAY = "(\\W|^)every\\s(\\d+)\\s(day(?:s)?|week(?:s)?|month(?:s)?|year(?:s)?)(?=\\W|$)";
 
     // 12:00 pm, 6pm, 6 pm, 6:00 pm, 3:00pm, 5:15am, 06:30 pm, 06:30pm, 06:30 pm
     private string TIME_VALID = "\\d{1,2}([:.]?\\d{1,2})?([ ]?[a|p]m)?";
@@ -53,6 +55,10 @@ public class Services.Chrono.en : GLib.Object {
     // TIME
     private GLib.Regex TIME_REGEX;
 
+    // RECURRING
+    private GLib.Regex EVERY_DAY_REGEX;
+    private GLib.Regex EVERY_N_DAY_REGEX;
+
     private GLib.Array<GLib.Regex> regex_list;
 
     construct {
@@ -82,13 +88,14 @@ public class Services.Chrono.en : GLib.Object {
         MM_DD_TH_YYYY_TIME = new GLib.Regex (MONTHS_CONSTANT + "\\s" + DAY_TH_CONSTANT + "\\s" + YEAR_CONSTANT + "\\s" + TIME_VALID + "(?=\\W|$)");
         MM_DD_YYYY_TIME = new GLib.Regex (MONTHS_CONSTANT + "\\s" + DAY_CONSTANT + "\\s" + YEAR_CONSTANT + "\\s" + TIME_VALID + "(?=\\W|$)");
         MM_DD_TH_YYYY_AT_TIME = new GLib.Regex (MONTHS_CONSTANT + "\\s" + DAY_TH_CONSTANT + "\\s" + YEAR_CONSTANT + "\\s(at|@)\\s" + TIME_VALID + "(?=\\W|$)");
-        
 
         // April 23th 1pm, Jul 28 1pm 
         MM_DD_HH_MM_REGEX = new GLib.Regex (MONTHS_CONSTANT + "\\s" + DAY_CONSTANT + "\\s" + TIME_VALID + "(?=\\W|$)");
         MM_DD_TH_HH_MM_REGEX = new GLib.Regex (MONTHS_CONSTANT + "\\s" + DAY_TH_CONSTANT + "\\s" + TIME_VALID + "(?=\\W|$)");
 
         TIME_REGEX = new GLib.Regex (TIME_VALID + "(?=\\W|$)");
+        EVERY_DAY_REGEX = new GLib.Regex (EVERY_DAY);
+        EVERY_N_DAY_REGEX = new GLib.Regex (EVERY_N_DAY);
 
         regex_list = new GLib.Array<GLib.Regex> ();
         regex_list.append_val (MM_DD_TH_YYYY_TIME);
@@ -116,6 +123,8 @@ public class Services.Chrono.en : GLib.Object {
         regex_list.append_val (TIME_REGEX);
         regex_list.append_val (MM_YYYY);
         regex_list.append_val (YYYY_MM);
+        regex_list.append_val (EVERY_DAY_REGEX);
+        regex_list.append_val (EVERY_N_DAY_REGEX);
     }
     
     public Objects.Duedate? parse (string expression) {
@@ -166,9 +175,52 @@ public class Services.Chrono.en : GLib.Object {
             return get_month_dd_year_time (expression);
         } else if (regex == MM_DD_TH_YYYY_AT_TIME) {
             return get_month_dd_year_at_time (expression);
+        } else if (regex == EVERY_DAY_REGEX) {
+            return get_every_day (expression);
+        } else if (regex == EVERY_N_DAY_REGEX) {
+            return get_n_every_day (expression);
         }
 
         return null;
+    }
+
+    public Objects.Duedate? get_next_recurring (Objects.Item item, int value) {
+        int number = 1;
+        string add = "";
+        if (Planner.utils.check_regex (EVERY_N_DAY_REGEX, item.due_string)) {
+            if (int.parse (item.due_string.split (" ") [1]) <= 0) {
+                return null;
+            }
+    
+            if (get_every_by_query (item.due_string.split (" ") [2]) == null) {
+                return null;
+            } 
+
+            number = int.parse (item.due_string.split (" ") [1]);
+            add = get_every_by_query (item.due_string.split (" ") [2]);
+        } else {
+            add = get_every_by_query (item.due_string.split (" ") [1]);
+        }
+
+        var date = new GLib.DateTime.from_iso8601 (item.due_date, new GLib.TimeZone.local ());
+
+        if (add == "day") {
+            date = date.add_days (value * number);
+        } else if (add == "week") {
+            date = date.add_days (value * (7 * number));
+        } else if (add == "month") {
+            date = date.add_months (value * number);
+        } else if (add == "year") {
+            date = date.add_years (value * number);
+        }
+
+        var parsed_result = new Objects.Duedate ();
+        parsed_result.is_recurring = true;
+        parsed_result.lang = "en";
+        parsed_result.datetime = date;
+        parsed_result.text = item.due_string;
+
+        return parsed_result;
     }
 
     private Objects.Duedate? get_parsing_context (string expression) {
@@ -518,7 +570,6 @@ public class Services.Chrono.en : GLib.Object {
     }
 
     private Objects.Duedate? get_month_dd_year_at_time (string expression) {
-        print ("Exp: %s\n".printf (expression));
         if (get_month_number_by_query (expression.split (" ") [0]) <= 0) {
             return null;
         }
@@ -545,6 +596,40 @@ public class Services.Chrono.en : GLib.Object {
             time.get_minute (),
             0
         );
+
+        return parsed_result;
+    }
+
+    private Objects.Duedate? get_every_day (string expression) {
+        if (get_every_by_query (expression.split (" ") [1]) == null) {
+            return null;
+        }
+
+        var parsed_result = new Objects.Duedate ();
+
+        parsed_result.is_recurring = true;
+        parsed_result.lang = "en";
+        parsed_result.datetime = Planner.utils.get_format_date (new DateTime.now_local ());
+        parsed_result.text = expression;
+
+        return parsed_result;
+    }
+
+    private Objects.Duedate? get_n_every_day (string expression) {
+        if (int.parse (expression.split (" ") [1]) <= 0) {
+            return null;
+        }
+
+        if (get_every_by_query (expression.split (" ") [2]) == null) {
+            return null;
+        }
+
+        var parsed_result = new Objects.Duedate ();
+
+        parsed_result.is_recurring = true;
+        parsed_result.lang = "en";
+        parsed_result.datetime = Planner.utils.get_format_date (new DateTime.now_local ());
+        parsed_result.text = expression;
 
         return parsed_result;
     }
@@ -656,6 +741,16 @@ public class Services.Chrono.en : GLib.Object {
         return returned;
     }
 
+    private string get_every_by_query (string name) {
+        string returned = null;
+
+        if (EVERY_DICTIONARY ().has_key (name)) {
+            returned = EVERY_DICTIONARY ().get (name);
+        }
+
+        return returned;
+    }
+
     private Gee.HashMap<string, int> FULL_MONTH_NAME_DICTIONARY () {
         var map = new Gee.HashMap<string, int> ();
         
@@ -747,6 +842,24 @@ public class Services.Chrono.en : GLib.Object {
         map.set ("sunday", 6);
         map.set ("sun.", 6);
         map.set ("sun", 6);
+
+        return map;
+    }
+
+    private Gee.HashMap<string, string> EVERY_DICTIONARY () {
+        var map = new Gee.HashMap<string, string> ();
+        
+        map.set ("day", "day");
+        map.set ("days", "day");
+
+        map.set ("week", "week");
+        map.set ("weeks", "week");
+
+        map.set ("month", "month");
+        map.set ("months", "month");
+
+        map.set ("year", "year");
+        map.set ("years", "year");
 
         return map;
     }
