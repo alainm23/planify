@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"PO-Revision-Date: 2021-05-09 13:32+0000\n"
 "Last-Translator: Aleix Ràfols Bayot <alrafolsba@gmail.com>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/planner/"
 "translations/ca/>\n"
@@ -46,7 +46,7 @@ msgstr "Planificador"
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
 msgid "Adding task from clipboard…"
-msgstr "Afegint tasca del portapapers…"
+msgstr "S'afegeixen les tasques des del porta-retalls…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 msgid "Home"
@@ -172,14 +172,14 @@ msgstr "S’ha activat l’addició ràpida."
 #: src/Utils.vala:923
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr "Intenta %s per activar-ho. Pots canviar-ho a les preferències"
+msgstr "Proveu %s per activar-ho. Podeu canviar-ho a les preferències."
 
 #: src/Utils.vala:999
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
-"El Planner %s és aquí, amb moltes millores de disseny, noves "
+"El Planificador %s és aquí, amb moltes millores de disseny, noves "
 "característiques i més."
 
 #: src/Utils.vala:1001
@@ -192,8 +192,8 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
-"Per als usuaris deTodoist, la vista de taulers va introduïr-se en aquesta "
-"nova actualització, és una forma més visual d'organitzar els vostres "
+"Per als usuaris del Todoist, la vista amb taulers  va ser introduïda en "
+"aquesta nova actualització, una forma més visual d'organitzar els vostres "
 "projectes del Planificador. "
 
 #: src/Utils.vala:1002
@@ -205,6 +205,9 @@ msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Una de les funcions més sol·licitades arriba al Planificador 2.6, mantingueu "
+"la vostra llista de projectes cada vegada més gran organitzada amb "
+"subprojectes."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
@@ -276,7 +279,7 @@ msgstr "Surt"
 
 #: src/Utils.vala:1095
 msgid "The request was incorrect."
-msgstr ""
+msgstr "La sol·licitud era incorrecta."
 
 #: src/Utils.vala:1096
 msgid ""
@@ -285,15 +288,15 @@ msgstr ""
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "La sol·licitud era vàlida, però per a quelcom prohibit."
 
 #: src/Utils.vala:1098
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "No s'ha pogut trobar el recurs sol·licitat."
 
 #: src/Utils.vala:1099
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "L'usuari ha enviat massa peticions en massa poc temps."
 
 #: src/Utils.vala:1100
 msgid "The request failed due to a server error."
@@ -322,7 +325,7 @@ msgstr "Porta-retalls buit, copieu algun text i torneu-ho a provar."
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Desa un fitxer del Planificador"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:189
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:149
@@ -340,43 +343,42 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: src/Services/ExportImport.vala:377
-#, fuzzy
 msgid "Planner files"
-msgstr "Planificador"
+msgstr "Fitxers del Planificador"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
-msgstr ""
+msgstr "Tots els fitxers"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Obre un fitxer del Planificador"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Obre"
 
 #: src/Widgets/ActionRow.vala:91 src/Widgets/ProjectRow.vala:159
 #: src/Views/Project.vala:257
 msgid "Todoist Project"
-msgstr ""
+msgstr "Projecte del Todoist"
 
 #: src/Widgets/ActionRow.vala:188 src/Widgets/ActionRow.vala:190
 #: src/Widgets/Pane.vala:356 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:68 src/Dialogs/Preferences/Preferences.vala:359
 msgid "Upcoming"
-msgstr ""
+msgstr "Propers"
 
 #: src/Widgets/ActionRow.vala:452 src/Widgets/ProjectRow.vala:510
 #: src/Widgets/SectionRow.vala:1322 src/Widgets/SectionRow.vala:1397
 #: src/Widgets/BoardColumn.vala:1266 src/Widgets/BoardColumn.vala:1319
 msgid "Unable to move task"
-msgstr ""
+msgstr "No s'ha pogut moure la tasca"
 
 #: src/Widgets/Pane.vala:77 src/Widgets/Pane.vala:180
 #: src/Dialogs/QuickFind.vala:30 src/Dialogs/QuickFind.vala:138
 msgid "Quick Find"
-msgstr ""
+msgstr "Cerca ràpida"
 
 #: src/Widgets/Pane.vala:193 src/Widgets/ToolsMenu.vala:60
 #: src/Dialogs/Preferences/Preferences.vala:40
@@ -404,7 +406,7 @@ msgstr "Descripció:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr ""
+msgstr "Pare:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:189
 msgid "Color:"
@@ -422,7 +424,7 @@ msgstr "Tanca"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "S'ha creat correctament el projecte %s"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -430,7 +432,7 @@ msgstr "Local"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:609
 msgid "No Parent"
-msgstr ""
+msgstr "Sense pare"
 
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1490
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/ItemRow.vala:1545
@@ -448,13 +450,12 @@ msgstr "Obre la safata d’entrada"
 
 #: src/Widgets/ProjectRow.vala:670 src/Views/Inbox.vala:225
 #: src/Views/Project.vala:503 src/Dialogs/Project.vala:481
-#, fuzzy
 msgid "Edit Project"
-msgstr "Afegeix un projecte"
+msgstr "Edita el projecte"
 
 #: src/Widgets/ProjectRow.vala:671 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
-msgstr ""
+msgstr "Mou"
 
 #: src/Widgets/ProjectRow.vala:675 src/Widgets/ItemRow.vala:1610
 #: src/Widgets/SectionRow.vala:1091 src/Widgets/BoardColumn.vala:1064
@@ -466,13 +467,13 @@ msgstr "Comparteix"
 #: src/Views/Today.vala:531 src/Views/Project.vala:707
 #: src/Dialogs/Project.vala:647
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Envia per correu electrònic"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:680 src/Widgets/ItemRow.vala:1615
 #: src/Widgets/SectionRow.vala:1096 src/Widgets/BoardColumn.vala:1069
 msgid "Markdown"
-msgstr ""
+msgstr "Markdown"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:688 src/Widgets/ProjectRow.vala:731
@@ -541,19 +542,19 @@ msgstr "Nota"
 #: src/Widgets/MultiSelectToolbar.vala:296 src/Views/Filter.vala:115
 #: src/Dialogs/QuickFind.vala:91 src/Dialogs/Preferences/Preferences.vala:461
 msgid "Priority 1"
-msgstr ""
+msgstr "Prioritat 1"
 
 #: src/Widgets/NewItem.vala:615 src/Widgets/PriorityButton.vala:100
 #: src/Widgets/MultiSelectToolbar.vala:297 src/Views/Filter.vala:112
 #: src/Dialogs/QuickFind.vala:99 src/Dialogs/Preferences/Preferences.vala:462
 msgid "Priority 2"
-msgstr ""
+msgstr "Prioritat 2"
 
 #: src/Widgets/NewItem.vala:616 src/Widgets/PriorityButton.vala:101
 #: src/Widgets/MultiSelectToolbar.vala:298 src/Views/Filter.vala:109
 #: src/Dialogs/QuickFind.vala:107 src/Dialogs/Preferences/Preferences.vala:463
 msgid "Priority 3"
-msgstr ""
+msgstr "Prioritat 3"
 
 #: src/Widgets/NewItem.vala:617 src/Widgets/PriorityButton.vala:102
 #: src/Widgets/MultiSelectToolbar.vala:299 src/Views/Filter.vala:106
@@ -563,9 +564,8 @@ msgid "None"
 msgstr "Cap"
 
 #: src/Widgets/ItemRow.vala:199
-#, fuzzy
 msgid "Hide Details"
-msgstr "Mostra els detalls"
+msgstr "Amaga els detalls"
 
 #: src/Widgets/ItemRow.vala:486
 #, fuzzy
@@ -587,19 +587,19 @@ msgstr ""
 #: src/Widgets/ItemRow.vala:1128
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Completat. Propera ocurrència: %s"
 
 #: src/Widgets/ItemRow.vala:1133
 msgid "1 task completed"
-msgstr ""
+msgstr "1 tasca completada"
 
 #: src/Widgets/ItemRow.vala:1523
 msgid "No Section"
-msgstr ""
+msgstr "Sense secció"
 
 #: src/Widgets/ItemRow.vala:1585 src/Widgets/MultiSelectToolbar.vala:354
 msgid "Complete"
-msgstr ""
+msgstr "Completa"
 
 #: src/Widgets/ItemRow.vala:1586
 msgid "Edit"
@@ -613,11 +613,11 @@ msgstr "Sense datar"
 #: src/Widgets/ItemRow.vala:1602 src/Widgets/SectionRow.vala:1087
 #: src/Widgets/BoardColumn.vala:1060
 msgid "Move to Project"
-msgstr ""
+msgstr "Mou al projecte"
 
 #: src/Widgets/ItemRow.vala:1606
 msgid "Move to Section"
-msgstr ""
+msgstr "Mou a la secció"
 
 #: src/Widgets/ItemRow.vala:1614
 msgid "Text"
@@ -625,7 +625,7 @@ msgstr "Text"
 
 #: src/Widgets/ItemRow.vala:1621
 msgid "Duplicate"
-msgstr ""
+msgstr "Duplica"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
@@ -633,31 +633,29 @@ msgstr "Contingut"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr ""
+msgstr "Data de venciment"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
-msgstr ""
+msgstr "Data de finalització"
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
-msgstr ""
+msgstr "Marca com a incompleta"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #: src/Widgets/MultiSelectToolbar.vala:191
-#, fuzzy
 msgid "Delete task"
 msgstr "Suprimeix la tasca"
 
 #: src/Widgets/SectionRow.vala:84 src/Widgets/BoardColumn.vala:56
 #: src/Widgets/BoardColumn.vala:90
-#, fuzzy
 msgid "(No Section)"
-msgstr "Afegeix una secció"
+msgstr "(Sense secció)"
 
 #: src/Widgets/SectionRow.vala:104 src/Widgets/SectionRow.vala:1227
 msgid "Display Tasks"
-msgstr ""
+msgstr "Mostra les tasques"
 
 #: src/Widgets/SectionRow.vala:111 src/Widgets/SectionRow.vala:1232
 msgid "Hiding Tasks"
@@ -712,7 +710,7 @@ msgstr "S’ha suprimit la secció"
 #: src/Widgets/DueButton.vala:154 src/Widgets/DueButton.vala:237
 #: src/Widgets/MultiSelectToolbar.vala:48
 msgid "Schedule"
-msgstr ""
+msgstr "Programa"
 
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
