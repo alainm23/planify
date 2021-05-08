@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-05-06 01:32+0000\n"
+"PO-Revision-Date: 2021-05-09 13:32+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/planner/"
 "translations/pt/>\n"
@@ -872,7 +872,7 @@ msgstr "Prioridade"
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "Tem certeza de que deseja excluir as tarefas de %i?"
+msgstr "Tem certeza de que deseja apagar as tarefas de %i?"
 
 #: src/Widgets/ShortcutLabel.vala:60
 msgid "Disabled"
@@ -1647,7 +1647,7 @@ msgstr "Tem a certeza que quer sair?"
 
 #: src/Dialogs/Preferences/Preferences.vala:1429
 msgid "This process will close your Todoist session on this device."
-msgstr "Este processo vai fechar a sua sessão Todoist neste dispositivo."
+msgstr "Este processo vai fechar a sua sessão Todoist neste aparelho."
 
 #: src/Dialogs/Preferences/Preferences.vala:1470
 msgid ""
