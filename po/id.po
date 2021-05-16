@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
 "PO-Revision-Date: 2021-05-18 00:39+0000\n"
-"Last-Translator: Hidayat Sudarjat <hidayat@sudarjat.my.id>\n"
+"Last-Translator: william mahagintha <williammahagintha123456@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/planner/"
 "translations/id/>\n"
 "Language: id\n"
@@ -277,7 +277,7 @@ msgstr "Autentikasi dibutuhkan namun gagal, atau belum tersampaikan."
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Permintaan sudah valid, tetapi untuk sesuatu yang dilarang"
 
 #: src/Utils.vala:1098
 msgid "The requested resource could not be found."
