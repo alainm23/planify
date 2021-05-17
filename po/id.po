@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-12 16:26+0000\n"
-"Last-Translator: liimee <alt3753.7@gmail.com>\n"
+"PO-Revision-Date: 2021-05-18 00:39+0000\n"
+"Last-Translator: Hidayat Sudarjat <hidayat@sudarjat.my.id>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/planner/"
 "translations/id/>\n"
 "Language: id\n"
@@ -17,17 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Anda yakin untuk me-reset semuanya?"
 
 #: src/Application.vala:152
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
+"Semua informasi tersimpan akan dihapus dan tidak dapat dibatalkan. (y/n): "
 
 #: src/Application.vala:155
 msgid "y"
@@ -44,7 +45,7 @@ msgstr ""
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Menambahkan tugas dari clipboard…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 #, fuzzy
@@ -105,7 +106,7 @@ msgstr "Teal"
 
 #: src/Utils.vala:191
 msgid "Sky Blue"
-msgstr ""
+msgstr "Biru Langit"
 
 #: src/Utils.vala:192
 msgid "Light Blue"
@@ -133,7 +134,7 @@ msgstr "Magenta"
 
 #: src/Utils.vala:198
 msgid "Salmon"
-msgstr "Salmon"
+msgstr "Bangbang"
 
 #: src/Utils.vala:199
 msgid "Charcoal"
@@ -192,7 +193,7 @@ msgstr ""
 
 #: src/Utils.vala:1002
 msgid "Sub-project"
-msgstr ""
+msgstr "Sub-projek"
 
 #: src/Utils.vala:1002
 msgid ""
@@ -202,7 +203,7 @@ msgstr ""
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ Ayo Mulai"
 
 #: src/Utils.vala:1016
 msgid ""
@@ -221,11 +222,12 @@ msgstr ""
 
 #: src/Utils.vala:1077 src/Dialogs/ShortcutsDialog.vala:79
 msgid "Create a new task"
-msgstr ""
+msgstr "Buat tugas baru"
 
 #: src/Utils.vala:1078
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Buat tugas baru di bagian teratas daftar (hanya tersedia dalam \"Proyek\")"
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
@@ -266,12 +268,12 @@ msgstr "Keluar"
 
 #: src/Utils.vala:1095
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Kesalahan permintaan."
 
 #: src/Utils.vala:1096
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Autentikasi dibutuhkan namun gagal, atau belum tersampaikan."
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
@@ -284,6 +286,8 @@ msgstr ""
 #: src/Utils.vala:1099
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
+"Pengguna mengirimkan terlalu banyak permintaan dalam rentang waktu yang "
+"diberikan."
 
 #: src/Utils.vala:1100
 msgid "The request failed due to a server error."
@@ -291,7 +295,7 @@ msgstr ""
 
 #: src/Utils.vala:1101
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Server saat ini tidak mampu menangani permintaan."
 
 #: src/Services/Database.vala:970 src/Widgets/ActionRow.vala:178
 #: src/Widgets/ActionRow.vala:180 src/Widgets/ItemRow.vala:1481
@@ -300,7 +304,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:352
 #: src/Dialogs/Preferences/Preferences.vala:654
 msgid "Inbox"
-msgstr ""
+msgstr "Kotak Masuk"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
@@ -331,7 +335,7 @@ msgstr "Batal"
 
 #: src/Services/ExportImport.vala:377
 msgid "Planner files"
-msgstr ""
+msgstr "Berkas Planner"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
@@ -805,11 +809,11 @@ msgstr "Gagal membuat tugas dari papan klip. Coba lagi."
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
-msgstr ""
+msgstr "Projek terkonversi"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "Konversi projek gagal. Silakan coba kembali."
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
@@ -833,7 +837,7 @@ msgstr "Tambahkan pengingat"
 
 #: src/Widgets/ReminderButton.vala:246
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr ""
+msgstr "Agar tugas tidak terlupakan lagi, biarkan Planner mengingatkan Anda."
 
 #: src/Widgets/ReminderButton.vala:266
 msgid "Time:"
@@ -1102,11 +1106,11 @@ msgstr ""
 
 #: src/Views/Project.vala:213 src/Dialogs/Project.vala:236
 msgid "What will you accomplish?"
-msgstr ""
+msgstr "Apa yang ingin Anda capai?"
 
 #: src/Views/Project.vala:214 src/Dialogs/Project.vala:237
 msgid "Tap + to add a task to this project."
-msgstr ""
+msgstr "Klik + untuk menambahkan tugas ke projek ini"
 
 #: src/Views/Project.vala:254
 #, fuzzy
@@ -1185,7 +1189,7 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:163
 msgid "Convert to Todoist"
-msgstr ""
+msgstr "Konversikan ke Todoist"
 
 #: src/Dialogs/ProjectSettings.vala:163 src/Dialogs/ProjectSettings.vala:299
 msgid "Convert"
@@ -1212,7 +1216,7 @@ msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:307
 msgid "Converting project…"
-msgstr ""
+msgstr "Mengonversi projek…"
 
 #: src/Dialogs/QuickFind.vala:125 src/Dialogs/ShortcutsDialog.vala:105
 msgid "Search"
@@ -1271,7 +1275,7 @@ msgstr "Ubah"
 
 #: src/Dialogs/ShortcutsDialog.vala:81
 msgid "Create a new task at the top of the list"
-msgstr ""
+msgstr "Buat tugas baru di ujung atas daftar"
 
 #: src/Dialogs/ShortcutsDialog.vala:83
 msgid "Paste plain text to create new task"
@@ -1354,13 +1358,13 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Traktir Pengembang Planner"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
 #: src/Dialogs/Preferences/Preferences.vala:338
 msgid "Homepage"
-msgstr ""
+msgstr "Beranda"
 
 #: src/Dialogs/Preferences/Preferences.vala:171
 #: src/Dialogs/Preferences/Preferences.vala:637
@@ -1385,7 +1389,7 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
 msgid "Date & Time"
-msgstr ""
+msgstr "Tanggal & Waktu"
 
 #: src/Dialogs/Preferences/Preferences.vala:186
 #: src/Dialogs/Preferences/Preferences.vala:1063
