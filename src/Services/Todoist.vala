@@ -363,6 +363,7 @@ public class Services.Todoist : GLib.Object {
                     i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
                 }
                 i.content = object.get_string_member ("content");
+                i.note = object.get_string_member ("description");
                 i.checked = (int32) object.get_int_member ("checked");
                 i.priority = (int32) object.get_int_member ("priority");
                 i.is_deleted = (int32) object.get_int_member ("is_deleted");
@@ -640,6 +641,7 @@ public class Services.Todoist : GLib.Object {
 
                         // Update data
                         i.content = object.get_string_member ("content");
+                        i.note = object.get_string_member ("description");
                         i.is_todoist = 1;
                         i.priority = (int32) object.get_int_member ("priority");
                         i.checked = (int32) object.get_int_member ("checked");
@@ -727,6 +729,7 @@ public class Services.Todoist : GLib.Object {
                     i.user_id = object.get_int_member ("user_id");
                     i.assigned_by_uid = object.get_int_member ("assigned_by_uid");
                     i.content = object.get_string_member ("content");
+                    i.note = object.get_string_member ("description");
                     i.checked = (int32) object.get_int_member ("checked");
                     i.priority = (int32) object.get_int_member ("priority");
                     i.is_deleted = (int32) object.get_int_member ("is_deleted");
@@ -2497,6 +2500,9 @@ public class Services.Todoist : GLib.Object {
             builder.set_member_name ("content");
             builder.add_string_value (Planner.utils.get_encode_text (item.content));
 
+            builder.set_member_name ("description");
+            builder.add_string_value (Planner.utils.get_encode_text (item.note));
+
             builder.set_member_name ("project_id");
             builder.add_int_value (item.project_id);
 
@@ -2729,6 +2735,9 @@ public class Services.Todoist : GLib.Object {
 
             builder.set_member_name ("content");
             builder.add_string_value (Planner.utils.get_encode_text (item.content));
+
+            builder.set_member_name ("description");
+            builder.add_string_value (Planner.utils.get_encode_text (item.note));
 
             builder.set_member_name ("priority");
             if (item.priority == 0) {
@@ -3506,6 +3515,9 @@ public class Services.Todoist : GLib.Object {
 
                     builder.set_member_name ("content");
                     builder.add_string_value (Planner.utils.get_encode_text (i.content));
+
+                    builder.set_member_name ("description");
+                    builder.add_string_value (Planner.utils.get_encode_text (i.note));
 
                     builder.set_member_name ("parent_id");
                     builder.add_string_value (temp_id);

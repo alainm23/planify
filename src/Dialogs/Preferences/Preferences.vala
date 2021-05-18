@@ -1574,6 +1574,13 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         patreon_button.margin_start = patreon_button.margin_end = 12;
         patreon_button.image = patreon_icon;
 
+        var liberapay_icon = new Gtk.Image.from_resource ("/com/github/alainm23/planner/liberapay_logo_black-on-yellow.svg");
+        var liberapay_button = new Gtk.Button ();
+        liberapay_button.can_focus = false;
+        liberapay_button.get_style_context ().add_class ("flat");
+        liberapay_button.margin_start = liberapay_button.margin_end = 12;
+        liberapay_button.image = liberapay_icon;
+
         var description_02_label = new Gtk.Label (
             _("Thanks to them who made a donation via Patreon or PayPal. (If you want to appear here visit our Patreon account 😉️)")
         );
@@ -1601,6 +1608,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         box.pack_start (description_label, false, false, 0);
         box.pack_start (paypal_button, false, false, 6);
         box.pack_start (patreon_button, false, false, 6);
+        box.pack_start (liberapay_button, false, false, 6);
         box.pack_start (description_02_label, false, false, 6);
         box.pack_start (new Gtk.Separator (Gtk.Orientation.HORIZONTAL), false, false, 0);
         box.pack_start (listbox, false, false, 0);
@@ -1635,6 +1643,14 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         patreon_button.clicked.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://www.patreon.com/alainm23", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        liberapay_button.clicked.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://liberapay.com/Alain/", null);
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
