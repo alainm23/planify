@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-05 22:26+0000\n"
-"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"PO-Revision-Date: 2021-05-18 20:34+0000\n"
+"Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -384,9 +384,8 @@ msgid "Preferences"
 msgstr "Tercihler"
 
 #: src/Widgets/Pane.vala:403
-#, fuzzy
 msgid "Planner Project"
-msgstr "Planı Dönüştür"
+msgstr "Planner Projesi"
 
 #: src/Widgets/Pane.vala:410
 #, fuzzy
