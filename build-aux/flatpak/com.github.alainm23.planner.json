@@ -38,6 +38,75 @@
     ],
     "modules": [
         {
+            "name": "icons",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/elementary/icons.git"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "xcursorgen",
+                    "cleanup": [ "*" ],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://gitlab.freedesktop.org/xorg/app/xcursorgen.git",
+                            "tag": "xcursorgen-1.0.7"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "stylesheet",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/elementary/stylesheet.git"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "sassc",
+                    "cleanup": [ "*" ],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://github.com/sass/sassc.git",
+                            "tag": "3.6.1"
+                        },
+                        {
+                            "type": "script",
+                            "dest-filename": "autogen.sh",
+                            "commands": [ "autoreconf -si" ]
+                        }
+                    ],
+                    "modules": [
+                        {
+                            "name": "libsass",
+                            "cleanup": [ "*" ],
+                            "sources": [
+                                {
+                                    "type": "git",
+                                    "url": "https://github.com/sass/libsass.git",
+                                    "tag": "3.6.4"
+                                },
+                                {
+                                    "type": "script",
+                                    "dest-filename": "autogen.sh",
+                                    "commands": [ "autoreconf -si" ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "name": "libical",
             "cleanup": [
                 "/lib/cmake"
@@ -153,6 +222,21 @@
                     "url" : "https://gitlab.gnome.org/GNOME/libhandy.git",
                     "tag" : "1.0.0",
                     "commit" : "94313c206258860b2428712e7ece1d02c5177857"
+                }
+            ]
+        },
+        {
+            "name" : "libgdata",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dalways_build_tests=false",
+                "-Dgoa=disabled"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libgdata.git",
+                    "tag" : "0.17.13"
                 }
             ]
         },

@@ -348,6 +348,12 @@
             <summary>sidebar-labels</summary>
             <description>sidebar-labels</description>
         </key>
+
+        <key name="sidebar-caldav-collapsed" type="b">
+            <default>true</default>
+            <summary>caldav-labels</summary>
+            <description>caldav-labels</description>
+        </key>
         
         <key name="database-location-path" type="s">
             <default>""</default>

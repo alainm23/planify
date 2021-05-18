@@ -382,7 +382,8 @@ public class Widgets.Pane : Gtk.EventBox {
                 "Todoist",
                 Planner.settings.get_string ("todoist-user-email"),
                 "planner-online-symbolic",
-                "todoist"
+                "todoist",
+                "planner"
             );
 
             todoist_source_button.clicked.connect (() => {
@@ -409,7 +410,8 @@ public class Widgets.Pane : Gtk.EventBox {
             _("Planner"),
             _("Planner Project"),
             "planner-offline-symbolic",
-            "planner-project"
+            "planner-project",
+            "planner"
         );
 
         local_source_button.clicked.connect (() => {

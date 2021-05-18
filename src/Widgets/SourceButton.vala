@@ -4,6 +4,7 @@ public class Widgets.SourceButton : Gtk.Button {
     public string source { get; construct; }
     public string icon_name { get; construct; }
     public string key { get; construct; }
+    public string tipo { get; construct; }
 
     private Gtk.Revealer loading_revealer;
 
@@ -17,11 +18,14 @@ public class Widgets.SourceButton : Gtk.Button {
         }
     }
 
-    public SourceButton (string primary_text, string source, string icon_name, string key="") {
+    public SourceButton (string primary_text, string source,
+        string icon_name, string key="", string tipo) {
         Object (
             primary_text: primary_text,
             source: source,
-            icon_name: icon_name
+            icon_name: icon_name,
+            key: key,
+            tipo: tipo
         );
     }
 
