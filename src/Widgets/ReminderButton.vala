@@ -161,7 +161,7 @@ public class Widgets.ReminderButton : Gtk.ToggleButton {
 
         var popover_grid = new Gtk.Grid ();
         popover_grid.orientation = Gtk.Orientation.VERTICAL;
-        popover_grid.add (header_box);
+        // popover_grid.add (header_box);
         popover_grid.add (stack);
         popover_grid.show_all ();
 

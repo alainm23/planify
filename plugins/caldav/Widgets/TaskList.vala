@@ -33,6 +33,9 @@ public class Views.TaskList : Gtk.EventBox {
     private Gtk.ToggleButton settings_button;
     private Gtk.Stack main_stack;
     private Widgets.ProjectProgress project_progress;
+    private Gtk.Popover popover = null;
+    private Gtk.Switch show_completed_switch;
+    private Gtk.ModelButton show_completed_button;
 
     public Gee.HashMap <string, Widgets.TaskRow> items_uncompleted_added;
     public Gee.HashMap <string, Widgets.TaskRow> items_completed_added;
@@ -216,14 +219,21 @@ public class Views.TaskList : Gtk.EventBox {
             }
         });
 
-        //  listbox.add.connect (() => {
-        //      check_tasklist_placeholder ();
-        //  });
+        settings_button.toggled.connect (() => {
+            Planner.event_bus.unselect_all ();
 
-        //  listbox.remove.connect (() => {
-        //      check_tasklist_placeholder ();
-        //  });
+            if (settings_button.active) {
+                if (popover == null) {
+                    create_popover ();
+                }
 
+                // show_completed_switch.active = project.show_completed == 1;
+                // board_switch.active = project.is_kanban == 1;
+
+                popover.show_all ();
+            }
+        });
+        
         listbox.row_activated.connect ((r) => {
             var row = ((Widgets.TaskRow) r);
             row.reveal_child = true;
@@ -309,6 +319,78 @@ public class Views.TaskList : Gtk.EventBox {
         });
     }
 
+    private void create_popover () {
+        popover = new Gtk.Popover (settings_button);
+        popover.get_style_context ().add_class ("popover-background");
+        popover.position = Gtk.PositionType.BOTTOM;
+
+        var delete_menu = new Widgets.ModelButton (_("Delete"), "user-trash-symbolic");
+        delete_menu.get_style_context ().add_class ("menu-danger");
+
+        // Show Complete
+        var show_completed_image = new Gtk.Image ();
+        show_completed_image.gicon = new ThemedIcon ("emblem-default-symbolic");
+        show_completed_image.valign = Gtk.Align.START;
+        show_completed_image.pixel_size = 16;
+
+        var show_completed_label = new Gtk.Label (_("Show Completed"));
+        show_completed_label.hexpand = true;
+        show_completed_label.valign = Gtk.Align.START;
+        show_completed_label.xalign = 0;
+        show_completed_label.margin_start = 9;
+
+        show_completed_switch = new Gtk.Switch ();
+        show_completed_switch.margin_start = 12;
+        show_completed_switch.get_style_context ().add_class ("planner-switch");
+
+        var show_completed_grid = new Gtk.Grid ();
+        show_completed_grid.add (show_completed_image);
+        show_completed_grid.add (show_completed_label);
+        show_completed_grid.add (show_completed_switch);
+
+        show_completed_button = new Gtk.ModelButton ();
+        show_completed_button.get_style_context ().add_class ("popover-model-button");
+        show_completed_button.get_child ().destroy ();
+        show_completed_button.add (show_completed_grid);
+
+        var popover_grid = new Gtk.Grid ();
+        popover_grid.orientation = Gtk.Orientation.VERTICAL;
+        popover_grid.margin_top = 3;
+        popover_grid.margin_bottom = 3;
+        popover_grid.add (show_completed_button);
+        popover_grid.add (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_bottom = 3
+        });
+        popover_grid.add (delete_menu);
+        popover.add (popover_grid);
+
+        delete_menu.clicked.connect (() => {
+            popover.popdown ();
+            var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+                _("Delete project"),
+                _("Are you sure you want to delete <b>%s</b>?".printf (Planner.utils.get_dialog_text (source.display_name))),
+                "user-trash-full",
+            Gtk.ButtonsType.CANCEL);
+
+            var remove_button = new Gtk.Button.with_label (_("Delete"));
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+            message_dialog.show_all ();
+
+            if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
+                if (source.removable) {
+                    source.remove.begin (null);
+                } else {
+                    Gdk.beep ();
+                }
+            }
+
+            message_dialog.destroy ();
+        });
+    }
+
     private void remove_views () {
         items_completed_added.clear ();
         items_uncompleted_added.clear ();
@@ -377,7 +459,6 @@ public class Views.TaskList : Gtk.EventBox {
                 if (!items_completed_added.has_key (task.get_icalcomponent ().get_uid ())) {
                     var row = new Widgets.TaskRow.for_component (task, source);
                     completed_listbox.add (row);
-
                     items_completed_added.set (task.get_icalcomponent ().get_uid (), row);
                 }
             } else {

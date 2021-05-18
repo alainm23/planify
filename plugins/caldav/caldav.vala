@@ -35,6 +35,13 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         task_store.task_list_modified.disconnect (update_source);
         task_store.task_list_removed.disconnect (remove_source);
 
+        foreach (var child in pane.add_project_buttonbox.get_children ()) {
+            var source_button = (Widgets.SourceButton) child;
+            if (source_button.tipo == "caldav") {
+                child.destroy ();
+            }
+        }
+
         main_grid.destroy ();
     }
 
@@ -88,7 +95,13 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         listbox_revealer = new Gtk.Revealer ();
         listbox_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         listbox_revealer.add (listbox);
-        listbox_revealer.reveal_child = true;
+        listbox_revealer.reveal_child = Planner.settings.get_boolean ("sidebar-caldav-collapsed");
+
+        if (listbox_revealer.reveal_child) {
+            arrow_button.get_style_context ().add_class ("opened");
+        } else {
+            arrow_button.get_style_context ().remove_class ("opened");
+        }
 
         main_grid = new Gtk.Grid ();
         main_grid.orientation = Gtk.Orientation.VERTICAL;
@@ -217,7 +230,8 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
                 _("Task List"),
                 CalDAVUtil.get_esource_collection_display_name (collection_source),
                 get_source_icon (backend_name),
-                collection_source.uid
+                collection_source.uid,
+                "caldav"
             );
             source_button.sensitive = task_store.is_add_task_list_supported (collection_source);
             source_button.clicked.connect (() => {
@@ -337,7 +351,7 @@ public class Plugins.CalDAV : Peas.ExtensionBase, Peas.Activatable {
         });
 
         listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
-        // Planner.settings.set_boolean ("sidebar-labels-collapsed", listbox_revealer.reveal_child);
+        Planner.settings.set_boolean ("sidebar-caldav-collapsed", listbox_revealer.reveal_child);
 
         if (listbox_revealer.reveal_child) {
             arrow_button.get_style_context ().add_class ("opened");
