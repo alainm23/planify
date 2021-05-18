@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-04-13 20:26+0000\n"
+"PO-Revision-Date: 2021-05-06 01:32+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.6-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -383,14 +383,12 @@ msgid "Preferences"
 msgstr "Параметри"
 
 #: src/Widgets/Pane.vala:403
-#, fuzzy
 msgid "Planner Project"
-msgstr "Перетворити проєкт"
+msgstr "Проєкт Planner"
 
 #: src/Widgets/Pane.vala:410
-#, fuzzy
 msgid "New Project"
-msgstr "Проєкт"
+msgstr "Новий проєкт"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -564,9 +562,8 @@ msgid "Hide Details"
 msgstr "Сховати подробиці"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Додати завдання"
+msgstr "Додати підзавдання"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -676,9 +673,8 @@ msgid "Description"
 msgstr "Опис"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Додати розділи"
+msgstr "Додати розділ"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -711,7 +707,7 @@ msgstr "Графік"
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "Очистити"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -772,7 +768,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Шукати або Створити"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -784,9 +780,8 @@ msgid "Create '%s'"
 msgstr "Створити '%s'"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Мітка Todoist"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -846,9 +841,8 @@ msgid "Time:"
 msgstr "Час:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Видалити розділ"
+msgstr "Назвати цей розділ"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
@@ -861,7 +855,7 @@ msgstr "Додати мітку"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Мітка вже існує."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -897,9 +891,8 @@ msgid "Board Menu"
 msgstr "Меню дошки"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Параметри проєкту"
+msgstr "Налаштування"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -1067,7 +1060,7 @@ msgstr "Подання дошкою"
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
 #: src/Dialogs/Project.vala:648
 msgid "Share on Markdown"
-msgstr "Поділитися у вигляді розмітки"
+msgstr "Поділитися Markdown"
 
 #: src/Views/Inbox.vala:404 src/Views/Today.vala:533 src/Views/Project.vala:709
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:649
@@ -1196,7 +1189,6 @@ msgid "Direct access:"
 msgstr "Безпосередній доступ:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
 msgstr "Змінити проєкт"
 
@@ -1352,7 +1344,7 @@ msgstr "Плагіни"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Купити содову для Planner"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1382,7 +1374,6 @@ msgstr "Швидке додавання"
 
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
-#, fuzzy
 msgid "Date & Time"
 msgstr "Дата та час"
 
@@ -1434,19 +1425,19 @@ msgstr "Початок тижня"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Формат годинника"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Ранок"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Полудень"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Вечір"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
@@ -1631,9 +1622,8 @@ msgstr ""
 "обліковим записом Todoist що 15 хвилин."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Мітки"
+msgstr "Синхронізувати мітки"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
