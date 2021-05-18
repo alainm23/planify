@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-05-18 20:34+0000\n"
+"PO-Revision-Date: 2021-05-18 21:32+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/planner/"
 "translations/tr/>\n"
@@ -191,20 +191,20 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
-"Todoist kullanıcıları için, Planner projelerinizi organize etmenin daha "
+"Todoist kullanıcıları için, Planner planlarınızı organize etmenin daha "
 "görsel bir yolu olan Pano Görünümü bu güncellemeyle birlikte sunuldu. "
 
 #: src/Utils.vala:1002
 msgid "Sub-project"
-msgstr "Alt Proje"
+msgstr "Alt Plan"
 
 #: src/Utils.vala:1002
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
-"En çok istenilen özelliklerden biri Planner 2.6'ya geliyor, alt projelerle "
-"birlikte sürekli büyüyen projelerinizi temiz ve düzenli tutun."
+"En çok istenilen özelliklerden biri Planner 2.6'ya geliyor, alt planlarla "
+"birlikte sürekli büyüyen planlarınızı temiz ve düzenli tutun."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
@@ -269,7 +269,7 @@ msgstr "Aramayı Aç"
 
 #: src/Utils.vala:1086
 msgid "Manually sync"
-msgstr "Manuel olarak senkronize et"
+msgstr "Elle eşzamanla"
 
 #: src/Utils.vala:1087 src/Dialogs/ShortcutsDialog.vala:131
 msgid "Quit"
@@ -385,12 +385,11 @@ msgstr "Tercihler"
 
 #: src/Widgets/Pane.vala:403
 msgid "Planner Project"
-msgstr "Planner Projesi"
+msgstr "Planner Planı"
 
 #: src/Widgets/Pane.vala:410
-#, fuzzy
 msgid "New Project"
-msgstr "Plan"
+msgstr "Yeni Plan"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -403,7 +402,7 @@ msgstr "Açıklama:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
-msgstr "Ana proje:"
+msgstr "Ana plan:"
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:189
 msgid "Color:"
@@ -421,7 +420,7 @@ msgstr "Kapat"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr "%s adlı proje başarıyla oluşturuldu"
+msgstr "%s adlı plan başarıyla oluşturuldu"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
@@ -564,9 +563,8 @@ msgid "Hide Details"
 msgstr "Ayrıntıları Gizle"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Görev ekle"
+msgstr "Alt görev ekle"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -676,7 +674,6 @@ msgid "Description"
 msgstr "Açıklama"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
 msgstr "Bölüm ekle"
 
@@ -711,7 +708,7 @@ msgstr "Zamanla"
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "Temizle"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -772,7 +769,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Ara veya Oluştur"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -784,9 +781,8 @@ msgid "Create '%s'"
 msgstr "'%s' oluştur"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Todoist Etiketi"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -847,9 +843,8 @@ msgid "Time:"
 msgstr "Zaman:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Bölümü Sil"
+msgstr "Bu bölümü adlandır"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
@@ -862,7 +857,7 @@ msgstr "Etiket Ekle"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Etiket zaten var."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -871,7 +866,7 @@ msgstr "Öncelik"
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr "%i görevlerini silmek istediğinize emin misiniz?"
+msgstr "%i görevi silmek istediğinize emin misiniz?"
 
 #: src/Widgets/ShortcutLabel.vala:60
 msgid "Disabled"
@@ -898,9 +893,8 @@ msgid "Board Menu"
 msgstr "Pano Menüsü"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Plan Ayarları"
+msgstr "Ayarlar"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -912,15 +906,15 @@ msgstr "Klavye Kısayolları"
 
 #: src/Widgets/ToolsMenu.vala:123
 msgid "Sync completed"
-msgstr "Eşitleme tamamlandı"
+msgstr "Eşzamanlama tamamlandı"
 
 #: src/Widgets/ToolsMenu.vala:191
 msgid "Sync"
-msgstr "Eşitleme"
+msgstr "Eşzamanla"
 
 #: src/Widgets/ToolsMenu.vala:194
 msgid "Offline mode is on"
-msgstr "Çevrimdışı mod açık"
+msgstr "Çevrim dışı mod açık"
 
 #: src/Widgets/ToolsMenu.vala:194
 msgid ""
@@ -928,17 +922,17 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
-"Görünüşe göre internet. \n"
-"Çevrimdışı yaptığınız değişiklikler\n"
-"yeniden bağlandığınızda mod senkronize edilecek"
+"Görünüşe göre internete bağlı değilsiniz.\n"
+"Çevrim dışı modda yaptığınız değişiklikler,\n"
+"yeniden bağlandığınızda eşzamanlanacak"
 
 #: src/Widgets/ToolsMenu.vala:202
 msgid "Sync…"
-msgstr "Eşitle…"
+msgstr "Eşzamanla…"
 
 #: src/Widgets/ToolsMenu.vala:205 src/Widgets/ToolsMenu.vala:218
 msgid "Sync Now"
-msgstr "Şimdi Eşitle"
+msgstr "Şimdi Eşzamanla"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
@@ -1027,7 +1021,7 @@ msgstr "Plan Menüsü"
 #: src/Views/Inbox.vala:131 src/Views/Label.vala:67 src/Views/Completed.vala:72
 #: src/Views/Filter.vala:70 src/Views/AllTasks.vala:70
 msgid "All clear"
-msgstr "Tümünü sil"
+msgstr "Her şey yolunda"
 
 #: src/Views/Inbox.vala:132
 msgid "Looks like everything's organized in the right place."
@@ -1162,7 +1156,7 @@ msgstr "Todoist ile bağlanmak için İnternet'e bağlanın"
 
 #: src/Dialogs/TodoistOAuth.vala:109
 msgid "Synchronizing… Wait a moment please."
-msgstr "Senkronize ediliyor… Bir dakika bekleyin lütfen."
+msgstr "Eşzamanlanıyor… Lütfen biraz bekleyin."
 
 #: src/Dialogs/TodoistOAuth.vala:120
 msgid "Please enter your credentials…"
@@ -1197,9 +1191,8 @@ msgid "Direct access:"
 msgstr "Doğrudan erişim:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
-msgstr "Planı Düzenle"
+msgstr "Planı düzenle"
 
 #: src/Dialogs/ProjectSettings.vala:294
 msgid "Convert Project"
@@ -1282,7 +1275,7 @@ msgstr "Yeni görev oluşturmak için sade metni yapıştırın"
 #. column.attach (new NameLabel (_("Create a new folder")), 1, 5);
 #: src/Dialogs/ShortcutsDialog.vala:89
 msgid "Create a new section in a project"
-msgstr "Bir projenin içinde yeni bir bölüm oluştur"
+msgstr "Bir planın içinde yeni bir bölüm oluştur"
 
 #: src/Dialogs/ShortcutsDialog.vala:102
 msgid "Open Quick Add"
@@ -1306,7 +1299,7 @@ msgstr "Tüm etiketler için Hızlı Bul listesi"
 
 #: src/Dialogs/ShortcutsDialog.vala:120
 msgid "Quick Find list for all projects"
-msgstr "Tüm projeler için Hızlı Bul listesi"
+msgstr "Tüm planlar için Hızlı Bul listesi"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 msgid "Filter by all your completed tasks."
@@ -1322,15 +1315,15 @@ msgstr "Tercihleri aç"
 
 #: src/Dialogs/ShortcutsDialog.vala:135
 msgid "Open current project new window"
-msgstr "Mevcut projeyi yeni pencerede aç"
+msgstr "Geçerli planı yeni pencerede aç"
 
 #: src/Dialogs/ShortcutsDialog.vala:137
 msgid "Move project window to left workspace"
-msgstr "Proje penceresini sol çalışma alanına taşı"
+msgstr "Plan penceresini sol çalışma alanına taşı"
 
 #: src/Dialogs/ShortcutsDialog.vala:139
 msgid "Move project window to right workspace"
-msgstr "Proje penceresini sağ çalışma alanına taşı"
+msgstr "Plan penceresini sağ çalışma alanına taşı"
 
 #: src/Dialogs/ShortcutsDialog.vala:141
 msgid "Open Keyboard Shortcuts"
@@ -1355,7 +1348,7 @@ msgstr "Eklentiler"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Planner'a Bir İçecek Ismarlayın"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1385,9 +1378,8 @@ msgstr "Hızlı Ekleme"
 
 #: src/Dialogs/Preferences/Preferences.vala:183
 #: src/Dialogs/Preferences/Preferences.vala:528
-#, fuzzy
 msgid "Date & Time"
-msgstr "Tarih ve zaman"
+msgstr "Tarih ve Zaman"
 
 #: src/Dialogs/Preferences/Preferences.vala:186
 #: src/Dialogs/Preferences/Preferences.vala:1063
@@ -1437,19 +1429,19 @@ msgstr "Haftanın başlangıcı"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Saat Biçimi"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Sabah"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Öğleden sonra"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Akşam"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
@@ -1460,8 +1452,8 @@ msgid ""
 "Planner creates automatic daily backups of your active projects and tasks. "
 "You can easily restore your backups anytime using project import."
 msgstr ""
-"Planner, aktif projelerinizin ve görevlerinizin otomatik günlük yedeklerini "
-"oluşturur. Proje içe aktarmayı kullanarak yedeklerinizi istediğiniz zaman "
+"Planner, etkin planlarınızın ve görevlerinizin otomatik günlük yedeklerini "
+"oluşturur. Plan içe aktarmayı kullanarak yedeklerinizi istediğiniz zaman "
 "kolayca geri yükleyebilirsiniz."
 
 #: src/Dialogs/Preferences/Preferences.vala:640
@@ -1618,24 +1610,23 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:1329
 #, c-format
 msgid "Last successful sync: %s"
-msgstr "Son başarılı senkronizasyon: %s"
+msgstr "Son başarılı eşzamanlama: %s"
 
 #: src/Dialogs/Preferences/Preferences.vala:1338
 msgid "Sync server"
-msgstr "Senkronizasyon sunucusu"
+msgstr "Eşzamanlama sunucusu"
 
 #: src/Dialogs/Preferences/Preferences.vala:1344
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
-"Planner'ın 15 dakikada bir otomatik olarak Todoist hesabınızla senkronize "
-"edilmesi için bu ayarı etkinleştirin."
+"Planner'ın 15 dakikada bir otomatik olarak Todoist hesabınızla "
+"eşzamanlanması için bu ayarı etkinleştirin."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Etiketler"
+msgstr "Etiketleri Eşzamanla"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
@@ -1750,7 +1741,7 @@ msgstr "_Aç"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
-msgstr "Planner VT Dosyaları (sqlite)"
+msgstr "Planner DB Dosyaları (sqlite)"
 
 #: src/Dialogs/Preferences/TopBox.vala:35
 msgid "Back"
