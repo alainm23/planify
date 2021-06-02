@@ -46,6 +46,18 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+    <release version="2.7" date="2021-06-01">
+      <description>
+        <p>Planner 2.7 is here...</p>
+        <ul>
+          <li>New Natural Language Date Parser.</li>
+          <li>First beta support for CalDAV.</li>
+          <li>Labels synced with Todoist.</li>
+          <li>Many, many design improvements.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.6.9" date="2021-01-18">
       <description>
         <p>Bug fixes and performance improvement</p>
