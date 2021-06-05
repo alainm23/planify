@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-05-06 01:32+0000\n"
+"PO-Revision-Date: 2021-06-06 20:34+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/planner/"
 "translations/uk/>\n"
@@ -78,7 +78,7 @@ msgstr "Червоний"
 
 #: src/Utils.vala:184
 msgid "Orange"
-msgstr "Помаранчевий"
+msgstr "Жовтогарячий"
 
 #: src/Utils.vala:185
 msgid "Yellow"
