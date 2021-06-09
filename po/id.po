@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-05-25 13:33+0000\n"
+"PO-Revision-Date: 2021-06-10 08:34+0000\n"
 "Last-Translator: liimee <alt3753.7@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/planner/"
 "translations/id/>\n"
@@ -134,7 +134,7 @@ msgstr "Magenta"
 
 #: src/Utils.vala:198
 msgid "Salmon"
-msgstr "Bangbang"
+msgstr "Salmon"
 
 #: src/Utils.vala:199
 msgid "Charcoal"
