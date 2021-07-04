@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
 "PO-Revision-Date: 2021-07-05 17:33+0000\n"
-"Last-Translator: Mirko Brombin <send@mirko.pm>\n"
+"Last-Translator: Marco Bottacin <westdam@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/planner/"
 "translations/it/>\n"
 "Language: it\n"
@@ -261,7 +261,7 @@ msgstr "Aperto Oggi"
 
 #: src/Utils.vala:1084 src/Dialogs/ShortcutsDialog.vala:154
 msgid "Open Upcoming"
-msgstr "Apri Imminente"
+msgstr "Apri Prossimi"
 
 #: src/Utils.vala:1085
 msgid "Open Search"
@@ -277,7 +277,7 @@ msgstr "Esci"
 
 #: src/Utils.vala:1095
 msgid "The request was incorrect."
-msgstr "La richiesta non era corretta."
+msgstr "La richiesta non è corretta."
 
 #: src/Utils.vala:1096
 msgid ""
