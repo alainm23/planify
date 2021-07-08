@@ -1428,7 +1428,7 @@ msgid "Clock Format"
 msgstr "Format sata"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
+msgid "Morning"
 msgstr "Jutro"
 
 #: src/Dialogs/Preferences/Preferences.vala:558

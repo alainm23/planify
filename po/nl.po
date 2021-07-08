@@ -1435,7 +1435,7 @@ msgid "Clock Format"
 msgstr "Klokopmaak"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
+msgid "Morning"
 msgstr "Ochtend"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
