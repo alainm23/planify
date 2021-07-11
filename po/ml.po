@@ -3,23 +3,25 @@
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2021-07-12 22:35+0000\n"
+"Last-Translator: Goutham Krishna <gauthamkrishna9991@live.com>\n"
+"Language-Team: Malayalam <https://hosted.weblate.org/projects/planner/"
+"translations/ml/>\n"
+"Language: ml\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.7.2-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "എല്ലാം പുന സജ്ജമാക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
 
 #: src/Application.vala:152
 msgid ""
@@ -33,116 +35,116 @@ msgstr ""
 
 #: src/Application.vala:155
 msgid "yes"
-msgstr ""
+msgstr "അതെ"
 
 #: src/MainWindow.vala:54 src/Widgets/Pane.vala:402
 msgid "Planner"
-msgstr ""
+msgstr "പ്ലാനർ"
 
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "ക്ലിപ്പ്ബോർഡിൽ നിന്ന് ടാസ്‌ക് ചേർക്കുന്നു…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 msgid "Home"
-msgstr ""
+msgstr "ഹോം"
 
 #: src/Utils.vala:116 src/Utils.vala:126
 msgid "Office"
-msgstr ""
+msgstr "ഓഫീസ്"
 
 #: src/Utils.vala:117 src/Utils.vala:130
 msgid "Errand"
-msgstr ""
+msgstr "ചെയ്യേണ്ട കാര്യം"
 
 #: src/Utils.vala:118 src/Utils.vala:134
 msgid "Important"
-msgstr ""
+msgstr "പ്രധാനപ്പെട്ടത്"
 
 #: src/Utils.vala:119 src/Utils.vala:138
 msgid "Pending"
-msgstr ""
+msgstr "പരിഹരിക്കപ്പെടാത്ത"
 
 #: src/Utils.vala:182
 msgid "Berry Red"
-msgstr ""
+msgstr "ബെറി ചുവപ്പ്"
 
 #: src/Utils.vala:183
 msgid "Red"
-msgstr ""
+msgstr "ചുവപ്പ്"
 
 #: src/Utils.vala:184
 msgid "Orange"
-msgstr ""
+msgstr "ഓറഞ്ച്"
 
 #: src/Utils.vala:185
 msgid "Yellow"
-msgstr ""
+msgstr "മഞ്ഞ"
 
 #: src/Utils.vala:186
 msgid "Olive Green"
-msgstr ""
+msgstr "ഒലിവ് പച്ച"
 
 #: src/Utils.vala:187
 msgid "Lime Green"
-msgstr ""
+msgstr "നാരങ്ങ പച്ച"
 
 #: src/Utils.vala:188
 msgid "Green"
-msgstr ""
+msgstr "പച്ച"
 
 #: src/Utils.vala:189
 msgid "Mint Green"
-msgstr ""
+msgstr "പുതിന പച്ച"
 
 #: src/Utils.vala:190
 msgid "Teal"
-msgstr ""
+msgstr "ടീൽ"
 
 #: src/Utils.vala:191
 msgid "Sky Blue"
-msgstr ""
+msgstr "ആകാശ നീലിമ"
 
 #: src/Utils.vala:192
 msgid "Light Blue"
-msgstr ""
+msgstr "ഇളം നീല"
 
 #: src/Utils.vala:193
 msgid "Blue"
-msgstr ""
+msgstr "നീല"
 
 #: src/Utils.vala:194
 msgid "Grape"
-msgstr ""
+msgstr "മുന്തിരി"
 
 #: src/Utils.vala:195
 msgid "Violet"
-msgstr ""
+msgstr "വയലറ്റ്"
 
 #: src/Utils.vala:196
 msgid "Lavander"
-msgstr ""
+msgstr "ലാവെൻഡർ"
 
 #: src/Utils.vala:197
 msgid "Magenta"
-msgstr ""
+msgstr "മജന്ത"
 
 #: src/Utils.vala:198
 msgid "Salmon"
-msgstr ""
+msgstr "കോര"
 
 #: src/Utils.vala:199
 msgid "Charcoal"
-msgstr ""
+msgstr "കരി"
 
 #: src/Utils.vala:200
 msgid "Grey"
-msgstr ""
+msgstr "ചാരനിറം"
 
 #: src/Utils.vala:201
 msgid "Taupe"
-msgstr ""
+msgstr "ട്യൂപ്പ് നിറം"
 
 #: src/Utils.vala:595 src/Widgets/ActionRow.vala:183
 #: src/Widgets/ActionRow.vala:185 src/Widgets/ItemRow.vala:1588
@@ -152,53 +154,62 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:356
 #: src/Dialogs/Preferences/Preferences.vala:657
 msgid "Today"
-msgstr ""
+msgstr "ഇന്ന്"
 
 #: src/Utils.vala:597 src/Widgets/Pane.vala:354 src/Widgets/ItemRow.vala:1592
 #: src/Widgets/DueButton.vala:262 src/Widgets/UpcomingRow.vala:66
 #: src/Widgets/MultiSelectToolbar.vala:398 src/Views/Today.vala:916
 #: src/Views/Filter.vala:119 src/Dialogs/QuickFind.vala:123
 msgid "Tomorrow"
-msgstr ""
+msgstr "നാളെ"
 
 #: src/Utils.vala:922
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "ദ്രുത ചേർക്കൽ സജീവമാക്കി!"
 
 #: src/Utils.vala:923
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
+"ഇത് സജീവമാക്കാൻ %s ശ്രമിക്കുക. നിങ്ങൾക്ക് ഇത് മുൻഗണനകളിൽ മാറ്റാൻ കഴിയും."
 
 #: src/Utils.vala:999
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"നിരവധി ഡിസൈൻ‌ മെച്ചപ്പെടുത്തലുകൾ‌, പുതിയ സവിശേഷതകൾ‌ എന്നിവയും അതിലേറെയും "
+"ആയിട്ട് പ്ലാനർ‌ %s എത്തി."
 
 #: src/Utils.vala:1001
 msgid "New Board View"
-msgstr ""
+msgstr "പുതിയ ബോർഡ് ദർശനം"
 
 #: src/Utils.vala:1001
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"ടോഡോയിസ്റ്റ് ഉപയോക്താക്കൾക്കായി, നിങ്ങളുടെ പ്ലാനർ പ്രോജക്റ്റുകൾ "
+"ഓർഗനൈസുചെയ്യുന്നതിനുള്ള കൂടുതൽ വിഷ്വൽ മാർഗമായ ഈ പുതിയ അപ്‌ഡേറ്റിൽ ബോർഡ് ദർശനം"
+" അവതരിപ്പിച്ചു. "
 
 #: src/Utils.vala:1002
 msgid "Sub-project"
-msgstr ""
+msgstr "ഉപ പ്രോജക്റ്റ്"
 
 #: src/Utils.vala:1002
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"ഏറ്റവും ആവശ്യപ്പെട്ട സവിശേഷതകളിലൊന്ന് പ്ലാനർ 2.6-ൽ വരുന്നു, നിങ്ങളുടെ വളരുന്"
+"ന പ്രോജക്റ്റ് ലിസ്റ്റ് വൃത്തിയായി സൂക്ഷിക്കുക, ഉപ പ്രോജക്റ്റുകൾ ഉപയോഗിച്ച് "
+"ഓർഗനൈസുചെയ്യുക."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
-msgstr ""
+msgstr "🚀️ ആമുഖം"
 
 #: src/Utils.vala:1016
 msgid ""
@@ -209,35 +220,37 @@ msgstr ""
 
 #: src/Utils.vala:1021
 msgid "Adding new tasks"
-msgstr ""
+msgstr "പുതിയ ചുമതലകൾ ചേർക്കുന്നു"
 
 #: src/Utils.vala:1022
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "ഒരു പുതിയ ടാസ്‌ക് ചേർക്കാൻ, + ക്ലിക്കുചെയ്‌ത് എന്റർ ക്ലിക്കുചെയ്യുക."
 
 #: src/Utils.vala:1077 src/Dialogs/ShortcutsDialog.vala:79
 msgid "Create a new task"
-msgstr ""
+msgstr "ഒരു പുതിയ ടാസ്ക് സൃഷ്ടിക്കുക."
 
 #: src/Utils.vala:1078
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"ലിസ്റ്റിന്റെ മുകളിൽ ഒരു പുതിയ ടാസ്‌ക് സൃഷ്‌ടിക്കുക (പ്രോജക്റ്റുകൾക്കുള്ളിൽ "
+"മാത്രം പ്രവർത്തിക്കുന്നു)"
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
-msgstr ""
+msgstr "ഒരു പുതിയ ഏരിയ സൃഷ്ടിക്കുക"
 
 #: src/Utils.vala:1080 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new project"
-msgstr ""
+msgstr "ഒരു പുതിയ പ്രോജക്റ്റ് സൃഷ്‌ടിക്കുക"
 
 #: src/Utils.vala:1081
 msgid "Create a new section"
-msgstr ""
+msgstr "ഒരു പുതിയ വിഭാഗം സൃഷ്ടിക്കുക"
 
 #: src/Utils.vala:1082
 msgid "Open the Inbox"
-msgstr ""
+msgstr "ഇൻ‌ബോക്സ് തുറക്കുക"
 
 #: src/Utils.vala:1083 src/Dialogs/ShortcutsDialog.vala:152
 msgid "Open Today"
@@ -245,48 +258,48 @@ msgstr ""
 
 #: src/Utils.vala:1084 src/Dialogs/ShortcutsDialog.vala:154
 msgid "Open Upcoming"
-msgstr ""
+msgstr "വരാനിരിക്കുന്നവ തുറക്കുക"
 
 #: src/Utils.vala:1085
 msgid "Open Search"
-msgstr ""
+msgstr "തിരയൽ തുറക്കുക"
 
 #: src/Utils.vala:1086
 msgid "Manually sync"
-msgstr ""
+msgstr "സ്വമേധയാ സമന്വയിപ്പിക്കുക"
 
 #: src/Utils.vala:1087 src/Dialogs/ShortcutsDialog.vala:131
 msgid "Quit"
-msgstr ""
+msgstr "നിർത്തുക"
 
 #: src/Utils.vala:1095
 msgid "The request was incorrect."
-msgstr ""
+msgstr "അഭ്യർത്ഥന തെറ്റായിരുന്നു."
 
 #: src/Utils.vala:1096
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "പ്രാമാണീകരണം ആവശ്യമാണ്, പരാജയപ്പെട്ടു, അല്ലെങ്കിൽ ഇതുവരെ നൽകിയിട്ടില്ല."
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "അഭ്യർത്ഥന നിയമപരമായിരുന്നു, പക്ഷേ വിലക്കപ്പെട്ട ഒന്നിനായി."
 
 #: src/Utils.vala:1098
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "അഭ്യർത്ഥിച്ച ഉറവിടം കണ്ടെത്താൻ കഴിഞ്ഞില്ല."
 
 #: src/Utils.vala:1099
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "ഒരു നിശ്ചിത സമയത്തിനുള്ളിൽ ഉപയോക്താവ് വളരെയധികം അഭ്യർത്ഥനകൾ അയച്ചു."
 
 #: src/Utils.vala:1100
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "ഒരു സെർവർ പിശക് കാരണം അഭ്യർത്ഥന പരാജയപ്പെട്ടു."
 
 #: src/Utils.vala:1101
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "സെർവറിന് നിലവിൽ അഭ്യർത്ഥന കൈകാര്യം ചെയ്യാൻ കഴിയില്ല."
 
 #: src/Services/Database.vala:970 src/Widgets/ActionRow.vala:178
 #: src/Widgets/ActionRow.vala:180 src/Widgets/ItemRow.vala:1481
@@ -295,25 +308,25 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:352
 #: src/Dialogs/Preferences/Preferences.vala:654
 msgid "Inbox"
-msgstr ""
+msgstr "ഇൻ‌ബോക്സ്"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
-msgstr ""
+msgstr "ഈ കമ്പ്യൂട്ടറിൽ"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "ക്ലിപ്പ്ബോർഡ് ശൂന്യമാണ്, കുറച്ച് വാചകം പകർത്തി വീണ്ടും ശ്രമിക്കുക"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "പ്ലാനറെ സേവ് ചെയ്യുക"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:189
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:149
 #: src/Dialogs/Project.vala:163
 msgid "Save"
-msgstr ""
+msgstr "സേവ്"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
 #: src/Widgets/NewItem.vala:148 src/Widgets/SectionRow.vala:193
@@ -322,50 +335,50 @@ msgstr ""
 #: src/Views/Inbox.vala:486 src/Views/Project.vala:153
 #: src/Views/Project.vala:848 src/Dialogs/Project.vala:167
 msgid "Cancel"
-msgstr ""
+msgstr "റദ്ദാക്കുക"
 
 #: src/Services/ExportImport.vala:377
 msgid "Planner files"
-msgstr ""
+msgstr "പ്ലാനർ ഫയലുകൾ"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
-msgstr ""
+msgstr "എല്ലാ ഫയലുകളും"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "പ്ലാനർ ഫയൽ തുറക്കുക"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "തുറക്കുക"
 
 #: src/Widgets/ActionRow.vala:91 src/Widgets/ProjectRow.vala:159
 #: src/Views/Project.vala:257
 msgid "Todoist Project"
-msgstr ""
+msgstr "ടോഡോയിസ്റ്റ് പ്രോജക്റ്റ്"
 
 #: src/Widgets/ActionRow.vala:188 src/Widgets/ActionRow.vala:190
 #: src/Widgets/Pane.vala:356 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:68 src/Dialogs/Preferences/Preferences.vala:359
 msgid "Upcoming"
-msgstr ""
+msgstr "വരാനിരിക്കുന്നത്"
 
 #: src/Widgets/ActionRow.vala:452 src/Widgets/ProjectRow.vala:510
 #: src/Widgets/SectionRow.vala:1322 src/Widgets/SectionRow.vala:1397
 #: src/Widgets/BoardColumn.vala:1266 src/Widgets/BoardColumn.vala:1319
 msgid "Unable to move task"
-msgstr ""
+msgstr "ചുമതല നീക്കാൻ കഴിയുന്നില്ല"
 
 #: src/Widgets/Pane.vala:77 src/Widgets/Pane.vala:180
 #: src/Dialogs/QuickFind.vala:30 src/Dialogs/QuickFind.vala:138
 msgid "Quick Find"
-msgstr ""
+msgstr "ദ്രുത കണ്ടെത്തൽ"
 
 #: src/Widgets/Pane.vala:193 src/Widgets/ToolsMenu.vala:60
 #: src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr ""
+msgstr "മുൻ‌ഗണനകൾ"
 
 #: src/Widgets/Pane.vala:403
 msgid "Planner Project"
@@ -378,11 +391,11 @@ msgstr ""
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
 msgid "Name:"
-msgstr ""
+msgstr "പേര്:"
 
 #: src/Widgets/New.vala:97 src/Dialogs/ProjectSettings.vala:183
 msgid "Description:"
-msgstr ""
+msgstr "വിവരണം:"
 
 #: src/Widgets/New.vala:115
 msgid "Parent:"
@@ -390,29 +403,29 @@ msgstr ""
 
 #: src/Widgets/New.vala:131 src/Dialogs/ProjectSettings.vala:189
 msgid "Color:"
-msgstr ""
+msgstr "നിറം:"
 
 #: src/Widgets/New.vala:172 src/Widgets/ReminderButton.vala:275
 #: src/Views/Inbox.vala:481 src/Views/Project.vala:843
 msgid "Add"
-msgstr ""
+msgstr "ചേർക്കുക"
 
 #: src/Widgets/New.vala:207
 msgid "Close"
-msgstr ""
+msgstr "അടയ്ക്കുക"
 
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr ""
+msgstr "പ്രോജക്റ്റ് %s വിജയകരമായി സൃഷ്ടിച്ചു"
 
 #: src/Widgets/New.vala:337
 msgid "Local"
-msgstr ""
+msgstr "സമന്വയിപ്പിച്ചിട്ടില്ലാത്തത്"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:609
 msgid "No Parent"
-msgstr ""
+msgstr "ഒരു പൂർവ്വികനും ഇല്ല"
 
 #: src/Widgets/ProjectRow.vala:502 src/Widgets/ItemRow.vala:1490
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/ItemRow.vala:1545
@@ -425,34 +438,34 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:669 src/Views/Inbox.vala:224
 #: src/Views/Project.vala:502
 msgid "Open New Window"
-msgstr ""
+msgstr "പുതിയ വിൻ‌ഡോ തുറക്കുക"
 
 #: src/Widgets/ProjectRow.vala:670 src/Views/Inbox.vala:225
 #: src/Views/Project.vala:503 src/Dialogs/Project.vala:481
 msgid "Edit Project"
-msgstr ""
+msgstr "പ്രോജക്റ്റ് എഡിറ്റുചെയ്യുക"
 
 #: src/Widgets/ProjectRow.vala:671 src/Widgets/MultiSelectToolbar.vala:55
 msgid "Move"
-msgstr ""
+msgstr "നീക്കുക"
 
 #: src/Widgets/ProjectRow.vala:675 src/Widgets/ItemRow.vala:1610
 #: src/Widgets/SectionRow.vala:1091 src/Widgets/BoardColumn.vala:1064
 #: src/Dialogs/Preferences/Preferences.vala:217
 msgid "Share"
-msgstr ""
+msgstr "പങ്കിടുക"
 
 #: src/Widgets/ProjectRow.vala:679 src/Views/Inbox.vala:402
 #: src/Views/Today.vala:531 src/Views/Project.vala:707
 #: src/Dialogs/Project.vala:647
 msgid "Send by e-mail"
-msgstr ""
+msgstr "ഇമെയിൽ വഴി അയയ്ക്കുക"
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:680 src/Widgets/ItemRow.vala:1615
 #: src/Widgets/SectionRow.vala:1096 src/Widgets/BoardColumn.vala:1069
 msgid "Markdown"
-msgstr ""
+msgstr "മാർക്ക്ഡൌൺ"
 
 #. var duplicate_menu = new Widgets.ImageMenuItem (_("Duplicate"), "edit-copy-symbolic");
 #: src/Widgets/ProjectRow.vala:688 src/Widgets/ProjectRow.vala:731
@@ -470,7 +483,7 @@ msgstr ""
 #: src/Widgets/ProjectRow.vala:726 src/Views/Inbox.vala:347
 #: src/Views/Project.vala:631 src/Dialogs/Project.vala:592
 msgid "Delete project"
-msgstr ""
+msgstr "പ്രോജക്റ്റ് ഇല്ലാതാക്കുക"
 
 #: src/Widgets/ProjectRow.vala:727 src/Widgets/ItemCompletedRow.vala:224
 #: src/Widgets/SectionRow.vala:1137 src/Widgets/MultiSelectToolbar.vala:185
@@ -478,15 +491,15 @@ msgstr ""
 #: src/Views/Project.vala:632 src/Dialogs/Project.vala:593
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "<b>%s</b> ഇല്ലാതാക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
 
 #: src/Widgets/NewItem.vala:51
 msgid "today"
-msgstr ""
+msgstr "ഇന്ന്"
 
 #: src/Widgets/NewItem.vala:52
 msgid "tomorrow"
-msgstr ""
+msgstr "നാളെ"
 
 #: src/Widgets/NewItem.vala:53
 msgid "1d"
@@ -494,146 +507,146 @@ msgstr ""
 
 #: src/Widgets/NewItem.vala:54
 msgid "1w"
-msgstr ""
+msgstr "1ആഴ്ച"
 
 #: src/Widgets/NewItem.vala:55
 msgid "1m"
-msgstr ""
+msgstr "1മാസ."
 
 #: src/Widgets/NewItem.vala:120 src/Widgets/ItemRow.vala:233
 #: src/Widgets/CheckRow.vala:64
 msgid "Task name"
-msgstr ""
+msgstr "ടാസ്‌ക് പേര്"
 
 #: src/Widgets/NewItem.vala:143 src/Widgets/SectionRow.vala:116
 #: src/Widgets/SectionRow.vala:1081 src/Widgets/SectionRow.vala:1502
 #: src/Widgets/MagicButton.vala:32 src/Widgets/BoardColumn.vala:73
 #: src/Widgets/BoardColumn.vala:836 src/Widgets/BoardColumn.vala:1054
 msgid "Add Task"
-msgstr ""
+msgstr "ടാസ്‌ക് ചേർക്കുക"
 
 #: src/Widgets/NewItem.vala:224 src/Widgets/ItemRow.vala:1772
 #: src/Widgets/ItemCompletedRow.vala:43
 msgid "Note"
-msgstr ""
+msgstr "കുറിപ്പ്"
 
 #: src/Widgets/NewItem.vala:614 src/Widgets/PriorityButton.vala:99
 #: src/Widgets/MultiSelectToolbar.vala:296 src/Views/Filter.vala:115
 #: src/Dialogs/QuickFind.vala:91 src/Dialogs/Preferences/Preferences.vala:461
 msgid "Priority 1"
-msgstr ""
+msgstr "മുൻഗണന 1"
 
 #: src/Widgets/NewItem.vala:615 src/Widgets/PriorityButton.vala:100
 #: src/Widgets/MultiSelectToolbar.vala:297 src/Views/Filter.vala:112
 #: src/Dialogs/QuickFind.vala:99 src/Dialogs/Preferences/Preferences.vala:462
 msgid "Priority 2"
-msgstr ""
+msgstr "മുൻഗണന 2"
 
 #: src/Widgets/NewItem.vala:616 src/Widgets/PriorityButton.vala:101
 #: src/Widgets/MultiSelectToolbar.vala:298 src/Views/Filter.vala:109
 #: src/Dialogs/QuickFind.vala:107 src/Dialogs/Preferences/Preferences.vala:463
 msgid "Priority 3"
-msgstr ""
+msgstr "മുൻഗണന 3"
 
 #: src/Widgets/NewItem.vala:617 src/Widgets/PriorityButton.vala:102
 #: src/Widgets/MultiSelectToolbar.vala:299 src/Views/Filter.vala:106
 #: src/Dialogs/QuickFind.vala:115 src/Dialogs/Preferences/Preferences.vala:464
 #: src/Dialogs/Preferences/Preferences.vala:650
 msgid "None"
-msgstr ""
+msgstr "ഒന്നുമില്ല"
 
 #: src/Widgets/ItemRow.vala:199
 msgid "Hide Details"
-msgstr ""
+msgstr "വിശദാംശങ്ങൾ മറയ്‌ക്കുക"
 
 #: src/Widgets/ItemRow.vala:486
 msgid "Add sub-task"
-msgstr ""
+msgstr "ഉപ ചുമതല ചേർക്കുക"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
-msgstr ""
+msgstr "ചുമതല ഇല്ലാതാക്കുക"
 
 #: src/Widgets/ItemRow.vala:507
 msgid "Task Menu"
-msgstr ""
+msgstr "ചുമതല മെനു"
 
 #: src/Widgets/ItemRow.vala:778 src/Widgets/ItemRow.vala:1691
 msgid "Task deleted"
-msgstr ""
+msgstr "ചുമതല ഇല്ലാതാക്കി"
 
 #: src/Widgets/ItemRow.vala:1128
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "പൂർത്തിയായി. അടുത്ത സംഭവം: %s"
 
 #: src/Widgets/ItemRow.vala:1133
 msgid "1 task completed"
-msgstr ""
+msgstr "1 ചുമതല പൂർത്തിയായി"
 
 #: src/Widgets/ItemRow.vala:1523
 msgid "No Section"
-msgstr ""
+msgstr "വിഭാഗമില്ല"
 
 #: src/Widgets/ItemRow.vala:1585 src/Widgets/MultiSelectToolbar.vala:354
 msgid "Complete"
-msgstr ""
+msgstr "പൂർത്തിയായി"
 
 #: src/Widgets/ItemRow.vala:1586
 msgid "Edit"
-msgstr ""
+msgstr "തിരുത്തുക"
 
 #: src/Widgets/ItemRow.vala:1596 src/Widgets/MultiSelectToolbar.vala:404
 #: src/Views/Today.vala:922
 msgid "Undated"
-msgstr ""
+msgstr "തീയതി രേഖപ്പെടുത്തിയിട്ടില്ലാത്തത്"
 
 #: src/Widgets/ItemRow.vala:1602 src/Widgets/SectionRow.vala:1087
 #: src/Widgets/BoardColumn.vala:1060
 msgid "Move to Project"
-msgstr ""
+msgstr "പ്രോജക്റ്റിലേക്ക് നീക്കുക"
 
 #: src/Widgets/ItemRow.vala:1606
 msgid "Move to Section"
-msgstr ""
+msgstr "വിഭാഗത്തിലേക്ക് നീക്കുക"
 
 #: src/Widgets/ItemRow.vala:1614
 msgid "Text"
-msgstr ""
+msgstr "വാചകം"
 
 #: src/Widgets/ItemRow.vala:1621
 msgid "Duplicate"
-msgstr ""
+msgstr "പകര്പ്പെടുക്കുക"
 
 #: src/Widgets/ItemCompletedRow.vala:41
 msgid "Content"
-msgstr ""
+msgstr "ഉള്ളടക്കം"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr ""
+msgstr "അവസാന തീയതി"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
-msgstr ""
+msgstr "പൂർത്തിയായ തീയതി"
 
 #: src/Widgets/ItemCompletedRow.vala:203
 msgid "Mark Incomplete"
-msgstr ""
+msgstr "അപൂർണ്ണമാണെന്ന് അടയാളപ്പെടുത്തുക"
 
 #: src/Widgets/ItemCompletedRow.vala:223
 #: src/Widgets/MultiSelectToolbar.vala:191
 msgid "Delete task"
-msgstr ""
+msgstr "ചുമതല ഇല്ലാതാക്കുക"
 
 #: src/Widgets/SectionRow.vala:84 src/Widgets/BoardColumn.vala:56
 #: src/Widgets/BoardColumn.vala:90
 msgid "(No Section)"
-msgstr ""
+msgstr "(വിഭാഗമില്ല)"
 
 #: src/Widgets/SectionRow.vala:104 src/Widgets/SectionRow.vala:1227
 msgid "Display Tasks"
-msgstr ""
+msgstr "ചുമതലകൾ കാണിക്കുക"
 
 #: src/Widgets/SectionRow.vala:111 src/Widgets/SectionRow.vala:1232
 msgid "Hiding Tasks"
@@ -641,58 +654,58 @@ msgstr ""
 
 #: src/Widgets/SectionRow.vala:140 src/Widgets/BoardColumn.vala:101
 msgid "Section name"
-msgstr ""
+msgstr "വിഭാഗത്തിന്റെ പേര്"
 
 #: src/Widgets/SectionRow.vala:160
 msgid "Section Menu"
-msgstr ""
+msgstr "വിഭാഗം മെനു"
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:183
 #: src/Dialogs/Project.vala:196
 msgid "Add a description"
-msgstr ""
+msgstr "ഒരു വിവരണം ചേർക്കുക"
 
 #: src/Widgets/SectionRow.vala:237 src/Views/Project.vala:472
 #: src/Dialogs/Project.vala:451
 msgid "Description"
-msgstr ""
+msgstr "വിവരണം"
 
 #: src/Widgets/SectionRow.vala:305
 msgid "Add section"
-msgstr ""
+msgstr "വിഭാഗം ചേർക്കുക"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
 #, c-format
 msgid "Section moved to <b>%s</b>"
-msgstr ""
+msgstr "വിഭാഗം <b>%s</b> ലേക്ക് നീക്കി"
 
 #: src/Widgets/SectionRow.vala:1084 src/Widgets/BoardColumn.vala:1057
 msgid "Rename"
-msgstr ""
+msgstr "പേരുമാറ്റുക"
 
 #: src/Widgets/SectionRow.vala:1085 src/Widgets/BoardColumn.vala:1058
 msgid "Add Note"
-msgstr ""
+msgstr "കുറിപ്പ് ചേര്ക്കുക"
 
 #: src/Widgets/SectionRow.vala:1136 src/Widgets/BoardColumn.vala:1116
 msgid "Delete section"
-msgstr ""
+msgstr "വിഭാഗം ഇല്ലാതാക്കുക"
 
 #: src/Widgets/SectionRow.vala:1154 src/Widgets/BoardColumn.vala:1134
 msgid "Section deleted"
-msgstr ""
+msgstr "വിഭാഗം ഇല്ലാതാക്കി"
 
 #: src/Widgets/DueButton.vala:64 src/Widgets/DueButton.vala:73
 #: src/Widgets/DueButton.vala:154 src/Widgets/DueButton.vala:237
 #: src/Widgets/MultiSelectToolbar.vala:48
 msgid "Schedule"
-msgstr ""
+msgstr "പട്ടിക"
 
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "ശൂനമാക്കുക"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -701,31 +714,31 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:143
 #: src/Dialogs/Preferences/TopBox.vala:58
 msgid "Done"
-msgstr ""
+msgstr "പൂർത്തിയായി"
 
 #: src/Widgets/DueButton.vala:281
 msgid "Time"
-msgstr ""
+msgstr "സമയം"
 
 #: src/Widgets/DueButton.vala:304
 msgid "Repeat"
-msgstr ""
+msgstr "ആവർത്തനം"
 
 #: src/Widgets/DueButton.vala:327
 msgid "Every day"
-msgstr ""
+msgstr "എല്ലാ ദിവസവും"
 
 #: src/Widgets/DueButton.vala:333
 msgid "Every week"
-msgstr ""
+msgstr "എല്ലാ ആഴ്ചയും"
 
 #: src/Widgets/DueButton.vala:339
 msgid "Every month"
-msgstr ""
+msgstr "എല്ലാ മാസവും"
 
 #: src/Widgets/DueButton.vala:345
 msgid "Every year"
-msgstr ""
+msgstr "എല്ലാ വർഷവും"
 
 #: src/Widgets/LabelButton.vala:55 src/Widgets/LabelButton.vala:167
 #: src/Widgets/ReminderButton.vala:139 src/Dialogs/QuickFind.vala:223
@@ -733,11 +746,11 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:211
 #: src/Dialogs/Preferences/Preferences.vala:1178
 msgid "Labels"
-msgstr ""
+msgstr "ലേബലുകൾ"
 
 #: src/Widgets/LabelButton.vala:65
 msgid "labels"
-msgstr ""
+msgstr "ലേബലുകൾ"
 
 #: src/Widgets/LabelButton.vala:122
 msgid "Using Labels"
@@ -748,153 +761,158 @@ msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
+"ചെയ്യേണ്ട കാര്യങ്ങളെ ലേബലുകൾ ഉപയോഗിച്ച് വർഗ്ഗീകരിക്കുക, തുടർന്ന് നിങ്ങളുടെ "
+"ലിസ്റ്റുകൾ ഫിൽട്ടർ ചെയ്യാനും ഫോക്കസ് ചെയ്യാനും അവ ഉപയോഗിക്കുക."
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "തിരയുക അല്ലെങ്കിൽ സൃഷ്ടിക്കുക"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
-msgstr ""
+msgstr "ലേബൽ കണ്ടെത്തിയില്ല"
 
 #: src/Widgets/LabelButton.vala:287
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "'%s' സൃഷ്ടിക്കുക"
 
 #: src/Widgets/LabelButton.vala:463
 msgid "Todoist Label"
-msgstr ""
+msgstr "ട്യൂട്ഇസ്റ് ലേബൽ"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
-msgstr ""
+msgstr "പഴയപടിയാക്കുക"
 
 #: src/Widgets/Toast.vala:103 src/Objects/Item.vala:127
 msgid "Task duplicate"
-msgstr ""
+msgstr "ചുമതല പകര്പ്പ്"
 
 #: src/Widgets/Toast.vala:105
 msgid "Task added from clipboard"
-msgstr ""
+msgstr "ക്ലിപ്പ്ബോർഡിൽ നിന്ന് ചുമതല ചേർത്തു"
 
 #: src/Widgets/Toast.vala:122
 msgid "Failed to duplicate task. Try again."
-msgstr ""
+msgstr "ചുമതല തനിപ്പകർപ്പാക്കുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക."
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
 msgstr ""
+"ക്ലിപ്പ്ബോർഡിൽ നിന്ന് ചുമതല ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക."
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
-msgstr ""
+msgstr "പദ്ധതി പരിവർത്തനം ചെയ്‌തു"
 
 #: src/Widgets/Toast.vala:165
 msgid "Failed to convert project. Try again."
-msgstr ""
+msgstr "പദ്ധതി പരിവർത്തനം ചെയ്യുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക."
 
 #: src/Widgets/NewCheck.vala:73
 msgid "Subtask name"
-msgstr ""
+msgstr "ഉപ ടാസ്ക് നാമം"
 
 #: src/Widgets/LabelItem.vala:45
 msgid "Remove"
-msgstr ""
+msgstr "നീക്കംചെയ്യുക"
 
 #: src/Widgets/UpcomingRow.vala:72
 msgid "Add task"
-msgstr ""
+msgstr "ചുമതല ചേർക്കുക"
 
 #: src/Widgets/ReminderButton.vala:43
 msgid "Reminders"
-msgstr ""
+msgstr "ഓർമ്മപ്പെടുത്തലുകൾ"
 
 #: src/Widgets/ReminderButton.vala:204
 msgid "Add reminder"
-msgstr ""
+msgstr "ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക"
 
 #: src/Widgets/ReminderButton.vala:246
 msgid "Never forget a task again! Have Planner send you a reminder."
 msgstr ""
+"ഇനി ഒരിക്കലും ഒരു ചുമതല മറക്കരുത്! പ്ലാനർ നിങ്ങൾക്ക് ഒരു ഓർമ്മപ്പെടുത്തൽ "
+"അയയ്‌ക്കുക."
 
 #: src/Widgets/ReminderButton.vala:266
 msgid "Time:"
-msgstr ""
+msgstr "സമയം:"
 
 #: src/Widgets/NewSection.vala:49
 msgid "Name this section"
-msgstr ""
+msgstr "ഈ വിഭാഗത്തിന് പേര് നൽകുക"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130
 msgid "Add Section"
-msgstr ""
+msgstr "വിഭാഗം ചേർക്കുക"
 
 #: src/Widgets/NewLabel.vala:43
 msgid "Add Label"
-msgstr ""
+msgstr "ലേബൽ ചേർക്കുക"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "ലേബൽ ഇതിനകം ഇവിടെ നിലവിലുണ്ട്."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
-msgstr ""
+msgstr "മുൻഗണന"
 
 #: src/Widgets/MultiSelectToolbar.vala:182
 #, c-format
 msgid "Are you sure you want to delete %i tasks?"
-msgstr ""
+msgstr "%i ടാസ്‌ക്കുകൾ ഇല്ലാതാക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
 
 #: src/Widgets/ShortcutLabel.vala:60
 msgid "Disabled"
-msgstr ""
+msgstr "അപ്രാപ്‌തമാക്കി"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
-msgstr ""
+msgstr "പുതിയതെന്ത്"
 
 #: src/Widgets/WhatsNew.vala:88
 msgid "Continue"
-msgstr ""
+msgstr "തുടരുക"
 
 #: src/Widgets/LabelFilter.vala:34
 msgid "Filter by Label"
-msgstr ""
+msgstr "ലേബൽ പ്രകാരം ഫിൽട്ടർ ചെയ്യുക"
 
 #: src/Widgets/LabelFilter.vala:40
 msgid "Label"
-msgstr ""
+msgstr "ലേബൽ"
 
 #: src/Widgets/BoardColumn.vala:120
 msgid "Board Menu"
-msgstr ""
+msgstr "ബോർഡ് മെനു"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
 msgid "Settings"
-msgstr ""
+msgstr "ക്രമീകരണങ്ങൾ"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
-msgstr ""
+msgstr "പുതിയതെന്ത്"
 
 #: src/Widgets/ToolsMenu.vala:62
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "കീബോർഡ് കുറുക്കുവഴികൾ"
 
 #: src/Widgets/ToolsMenu.vala:123
 msgid "Sync completed"
-msgstr ""
+msgstr "സമന്വയം പൂർത്തിയായി"
 
 #: src/Widgets/ToolsMenu.vala:191
 msgid "Sync"
-msgstr ""
+msgstr "സമന്വയം"
 
 #: src/Widgets/ToolsMenu.vala:194
 msgid "Offline mode is on"
-msgstr ""
+msgstr "ഓഫ്‌ലൈൻ മോഡ് ഓണാണ്"
 
 #: src/Widgets/ToolsMenu.vala:194
 msgid ""
@@ -902,14 +920,17 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"നിങ്ങൾ ഇന്റർനെറ്റിലേക്ക് കണക്റ്റുചെയ്‌തിട്ടില്ലെന്ന് \n"
+"തോന്നുന്നു. നിങ്ങൾ വീണ്ടും ബന്ധിപ്പിക്കുമ്പോൾ \n"
+"ഓഫ്‌ലൈൻ മോഡിൽ വരുത്തിയ മാറ്റങ്ങൾ സമന്വയിപ്പിക്കും"
 
 #: src/Widgets/ToolsMenu.vala:202
 msgid "Sync…"
-msgstr ""
+msgstr "സമന്വയിപ്പിക്കുക…"
 
 #: src/Widgets/ToolsMenu.vala:205 src/Widgets/ToolsMenu.vala:218
 msgid "Sync Now"
-msgstr ""
+msgstr "ഇപ്പോൾ സമന്വയിപ്പിക്കുക"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:46
@@ -1450,7 +1471,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:732
 msgid "Dark Blue"
-msgstr ""
+msgstr "കടും നീല"
 
 #: src/Dialogs/Preferences/Preferences.vala:735
 msgid "Arc Dark"
