@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-07-26 19:47+0000\n"
-"Last-Translator: Halo 11 <sesowi7793@britted.com>\n"
+"PO-Revision-Date: 2021-07-27 20:34+0000\n"
+"Last-Translator: Hunter Developer <hunter.developer@protonmail.com>\n"
 "Language-Team: Albanian <https://hosted.weblate.org/projects/planner/"
 "translations/sq/>\n"
 "Language: sq\n"
@@ -20,7 +20,6 @@ msgstr ""
 "X-Generator: Weblate 4.7.2-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
-#, fuzzy
 msgid "Are you sure you want to reset all?"
 msgstr "Je i sigurt që dëshiron t'i rivendosësh të gjitha?"
 
@@ -29,7 +28,7 @@ msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
-"Procesi heq të gjithë informacionin e ruajtur dhe nuk do te keni  mundësinë "
+"Procesi heq të gjithë informacionin e ruajtur dhe nuk do te keni mundësinë "
 "per ta zhbërë atë. (y / n): "
 
 #: src/Application.vala:155
@@ -75,15 +74,15 @@ msgstr ""
 
 #: src/Utils.vala:183
 msgid "Red"
-msgstr ""
+msgstr "E kuqe"
 
 #: src/Utils.vala:184
 msgid "Orange"
-msgstr ""
+msgstr "Portokalli"
 
 #: src/Utils.vala:185
 msgid "Yellow"
-msgstr ""
+msgstr "E verdhe"
 
 #: src/Utils.vala:186
 msgid "Olive Green"
@@ -95,7 +94,7 @@ msgstr ""
 
 #: src/Utils.vala:188
 msgid "Green"
-msgstr ""
+msgstr "Jeshile"
 
 #: src/Utils.vala:189
 msgid "Mint Green"
@@ -157,18 +156,18 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:356
 #: src/Dialogs/Preferences/Preferences.vala:657
 msgid "Today"
-msgstr ""
+msgstr "Sot"
 
 #: src/Utils.vala:597 src/Widgets/Pane.vala:354 src/Widgets/ItemRow.vala:1592
 #: src/Widgets/DueButton.vala:262 src/Widgets/UpcomingRow.vala:66
 #: src/Widgets/MultiSelectToolbar.vala:398 src/Views/Today.vala:916
 #: src/Views/Filter.vala:119 src/Dialogs/QuickFind.vala:123
 msgid "Tomorrow"
-msgstr ""
+msgstr "Nesër"
 
 #: src/Utils.vala:922
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Shtimin i Shpejtë U Aktivizua!"
 
 #: src/Utils.vala:923
 #, c-format
@@ -217,42 +216,47 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
+"Ky projekt do t'ju ndihmojë të mësoni bazat e Planner dhe të filloni me një "
+"sistem të thjeshtë të menaxhimit të detyrës për të qëndruar të organizuar "
+"dhe mbi gjithçka që duhet të bëni."
 
 #: src/Utils.vala:1021
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Duke shtuar detyra të reja"
 
 #: src/Utils.vala:1022
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
+"Për të shtuar një detyrë të re në Planner, vetëm kliko + dhe shtyp Enter."
 
 #: src/Utils.vala:1077 src/Dialogs/ShortcutsDialog.vala:79
 msgid "Create a new task"
-msgstr ""
+msgstr "Krijo një detyrë të re"
 
 #: src/Utils.vala:1078
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
+"Krijo një detyrë të re në krye të listës (funksionon vetëm brenda projekteve)"
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
-msgstr ""
+msgstr "Krijo një zonë të re"
 
 #: src/Utils.vala:1080 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new project"
-msgstr ""
+msgstr "Krijo një projekt të ri"
 
 #: src/Utils.vala:1081
 msgid "Create a new section"
-msgstr ""
+msgstr "Krijo një seksion të ri"
 
 #: src/Utils.vala:1082
 msgid "Open the Inbox"
-msgstr ""
+msgstr "Hapni Inbox"
 
 #: src/Utils.vala:1083 src/Dialogs/ShortcutsDialog.vala:152
 msgid "Open Today"
-msgstr ""
+msgstr "Hapur Sot"
 
 #: src/Utils.vala:1084 src/Dialogs/ShortcutsDialog.vala:154
 msgid "Open Upcoming"
@@ -260,44 +264,46 @@ msgstr ""
 
 #: src/Utils.vala:1085
 msgid "Open Search"
-msgstr ""
+msgstr "Hapni Kërkimin"
 
 #: src/Utils.vala:1086
 msgid "Manually sync"
-msgstr ""
+msgstr "Sinkronizoni manualisht"
 
 #: src/Utils.vala:1087 src/Dialogs/ShortcutsDialog.vala:131
 msgid "Quit"
-msgstr ""
+msgstr "Hiqe"
 
 #: src/Utils.vala:1095
 msgid "The request was incorrect."
-msgstr ""
+msgstr "Kërkesa ishte e pasaktë."
 
 #: src/Utils.vala:1096
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"Autentifikimi është i nevojshëm, dhe ka dështuar, ose nuk është siguruar "
+"ende."
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "Kërkesa ishte e vlefshme, por për diçka që është e ndaluar."
 
 #: src/Utils.vala:1098
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Burimi i kërkuar nuk mund të gjendej."
 
 #: src/Utils.vala:1099
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "Përdoruesi ka dërguar shumë kërkesa në një kohë të caktuar."
 
 #: src/Utils.vala:1100
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Kërkesa dështoi për shkak të një gabimi në server."
 
 #: src/Utils.vala:1101
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "Serveri aktualisht nuk është në gjendje të trajtojë kërkesën."
 
 #: src/Services/Database.vala:970 src/Widgets/ActionRow.vala:178
 #: src/Widgets/ActionRow.vala:180 src/Widgets/ItemRow.vala:1481
@@ -306,25 +312,25 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:352
 #: src/Dialogs/Preferences/Preferences.vala:654
 msgid "Inbox"
-msgstr ""
+msgstr "Inboxi"
 
 #: src/Services/Calendar/Util.vala:273
 msgid "On this computer"
-msgstr ""
+msgstr "Në këtë kompjuter"
 
 #: src/Services/ActionManager.vala:215
 msgid "Empty clipboard, copy some text and try again"
-msgstr ""
+msgstr "Zbrazni kujtesën e fragmenteve, kopjoni një tekst dhe provoni përsëri"
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Ruani skedarin Planner"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:189
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:149
 #: src/Dialogs/Project.vala:163
 msgid "Save"
-msgstr ""
+msgstr "Ruaj"
 
 #: src/Services/ExportImport.vala:353 src/Services/ExportImport.vala:545
 #: src/Widgets/NewItem.vala:148 src/Widgets/SectionRow.vala:193
@@ -333,58 +339,58 @@ msgstr ""
 #: src/Views/Inbox.vala:486 src/Views/Project.vala:153
 #: src/Views/Project.vala:848 src/Dialogs/Project.vala:167
 msgid "Cancel"
-msgstr ""
+msgstr "Anulo"
 
 #: src/Services/ExportImport.vala:377
 msgid "Planner files"
-msgstr ""
+msgstr "Skedarët e Planner"
 
 #: src/Services/ExportImport.vala:382
 msgid "All files"
-msgstr ""
+msgstr "Te gjitha dokumentet"
 
 #: src/Services/ExportImport.vala:542
 msgid "Open Planner file"
-msgstr ""
+msgstr "Hap skedarin Planner"
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Hap"
 
 #: src/Widgets/ActionRow.vala:91 src/Widgets/ProjectRow.vala:159
 #: src/Views/Project.vala:257
 msgid "Todoist Project"
-msgstr ""
+msgstr "Projekti Todoist"
 
 #: src/Widgets/ActionRow.vala:188 src/Widgets/ActionRow.vala:190
 #: src/Widgets/Pane.vala:356 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:68 src/Dialogs/Preferences/Preferences.vala:359
 msgid "Upcoming"
-msgstr ""
+msgstr "E ardhshme"
 
 #: src/Widgets/ActionRow.vala:452 src/Widgets/ProjectRow.vala:510
 #: src/Widgets/SectionRow.vala:1322 src/Widgets/SectionRow.vala:1397
 #: src/Widgets/BoardColumn.vala:1266 src/Widgets/BoardColumn.vala:1319
 msgid "Unable to move task"
-msgstr ""
+msgstr "Lëvizja e detyrës është e pamundur"
 
 #: src/Widgets/Pane.vala:77 src/Widgets/Pane.vala:180
 #: src/Dialogs/QuickFind.vala:30 src/Dialogs/QuickFind.vala:138
 msgid "Quick Find"
-msgstr ""
+msgstr "Gjej shpejt"
 
 #: src/Widgets/Pane.vala:193 src/Widgets/ToolsMenu.vala:60
 #: src/Dialogs/Preferences/Preferences.vala:40
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencat"
 
 #: src/Widgets/Pane.vala:403
 msgid "Planner Project"
-msgstr ""
+msgstr "Projekti i Planner"
 
 #: src/Widgets/Pane.vala:410
 msgid "New Project"
-msgstr ""
+msgstr "Projekti i ri"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178
@@ -1461,7 +1467,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:732
 msgid "Dark Blue"
-msgstr ""
+msgstr "Blu e errët"
 
 #: src/Dialogs/Preferences/Preferences.vala:735
 msgid "Arc Dark"
