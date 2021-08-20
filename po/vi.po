@@ -6,10 +6,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2020-02-28 09:14+0000\n"
-"Last-Translator: Long Nguyen <stoostranger@gmail.com>\n"
+"PO-Revision-Date: 2021-08-21 03:34+0000\n"
+"Last-Translator: Doan Ngoc Thuong <ngthuongdoan@gmail.com>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/planner/"
 "translations/vi/>\n"
 "Language: vi\n"
@@ -17,27 +17,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.8-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
 msgstr "Bạn có chắc chắc muốn cài lại tất cả?"
 
 #: src/Application.vala:152
-#, fuzzy
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it. (y/n): "
 msgstr ""
-"Quá trình này sẽ xóa vĩnh viễn tất cả thông tin và hoàn toàn không hủy được."
+"Quá trình này sẽ xóa vĩnh viễn tất cả thông tin và không thể hoàn tác. (y/n):"
+" "
 
 #: src/Application.vala:155
 msgid "y"
-msgstr ""
+msgstr "có"
 
 #: src/Application.vala:155
 msgid "yes"
-msgstr ""
+msgstr "có"
 
 #: src/MainWindow.vala:54 src/Widgets/Pane.vala:402
 msgid "Planner"
@@ -46,7 +46,7 @@ msgstr "Planner"
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
 msgid "Adding task from clipboard…"
-msgstr ""
+msgstr "Thêm tác vụ từ bản ghi…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 msgid "Home"
@@ -179,28 +179,33 @@ msgstr "Thử %s để kích hoạt. Bạn có thể thay đổi trong cài đ�
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
+"Planner %s đã đến cùng với rất nhiều cải tiến về thiết kế, tính năng và hơn "
+"thế nữa."
 
 #: src/Utils.vala:1001
-#, fuzzy
 msgid "New Board View"
-msgstr "Thêm vùng"
+msgstr "Thêm khung nhìn"
 
 #: src/Utils.vala:1001
 msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
+"Dành cho người dùng Todoist, Khung Nhìn được giới thiệu như là một cải tiến "
+"mới, một cách hiển thị giúp cho việc sắp xếp các dự án Planner tốt hơn. "
 
 #: src/Utils.vala:1002
-#, fuzzy
 msgid "Sub-project"
-msgstr "Cách sử dụng kế hoạch"
+msgstr "Dự án con"
 
 #: src/Utils.vala:1002
 msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
+"Một trong những tính năng được yêu cầu nhiều nhất đã được tích hợp trong bản "
+"Planner 2.6, giữ cho danh sách dự án ngày càng tăng của bạn gọn gàng và có "
+"tổ chức với sự trợ giúp của các dự án con."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
@@ -212,9 +217,9 @@ msgid ""
 "a simple task management system to stay organized and on top of everything "
 "you need to do."
 msgstr ""
-"Kế hoạch mẫu này sẽ chỉ cho bạn về cơ bản cách sử dụng Planner và bắt đầu "
-"thử một hệ thống quản lý việc đơn giản để bạn luôn ngăn nắp và sẵn sàng với "
-"mọi việc cần làm."
+"Dự án mẫu này sẽ hướng dẫn bạn sử dụng Planner một cách cơ bản bằng một hệ "
+"thống quản lý tác vụ đơn giản, để công việc bạn luôn ngăn nắp và sẵn sàng "
+"với mọi việc cần làm."
 
 #: src/Utils.vala:1021
 msgid "Adding new tasks"
@@ -222,7 +227,7 @@ msgstr "Thêm việc cần làm"
 
 #: src/Utils.vala:1022
 msgid "To add a new task to Planner, just click + and press Enter."
-msgstr ""
+msgstr "Để thêm tác vụ mới, chỉ cần click và nhấn Enter."
 
 #: src/Utils.vala:1077 src/Dialogs/ShortcutsDialog.vala:79
 msgid "Create a new task"
@@ -230,7 +235,7 @@ msgstr "Tạo việc cần làm mới"
 
 #: src/Utils.vala:1078
 msgid "Create a new task at the top of the list (only works inside projects)"
-msgstr "Tạo việc cần làm trên cùng"
+msgstr "Tạo việc cần làm mới ưu tiên nhất (chỉ dùng trong Dự án)"
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
@@ -238,7 +243,7 @@ msgstr "Thêm Khu vực"
 
 #: src/Utils.vala:1080 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new project"
-msgstr "Tạo kế hoạch mới"
+msgstr "Tạo Dự án mới"
 
 #: src/Utils.vala:1081
 msgid "Create a new section"
