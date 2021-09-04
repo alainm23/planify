@@ -392,7 +392,7 @@ msgstr "Einstellungen"
 #: src/Widgets/Pane.vala:393 src/Widgets/Pane.vala:419
 #, fuzzy
 msgid "New Project"
-msgstr "Projekt"
+msgstr "Neues Projekt"
 
 #: src/Widgets/Pane.vala:411
 #, fuzzy
@@ -1382,7 +1382,7 @@ msgstr "Plugins"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Planner einen ausgeben"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1464,19 +1464,19 @@ msgstr "Start der Woche"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Uhrenformat"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
-msgstr ""
+msgid "Morning"
+msgstr "Morgen"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Nachmittag"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Abend"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
