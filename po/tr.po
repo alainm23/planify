@@ -1439,7 +1439,7 @@ msgid "Clock Format"
 msgstr "Saat Biçimi"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
+msgid "Morning"
 msgstr "Sabah"
 
 #: src/Dialogs/Preferences/Preferences.vala:558

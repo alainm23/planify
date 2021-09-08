@@ -1435,7 +1435,7 @@ msgid "Clock Format"
 msgstr "Формат годинника"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
+msgid "Morning"
 msgstr "Ранок"
 
 #: src/Dialogs/Preferences/Preferences.vala:558

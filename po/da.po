@@ -1429,7 +1429,7 @@ msgid "Clock Format"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:557
-msgid "Mornign"
+msgid "Morning"
 msgstr "Morgon"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
