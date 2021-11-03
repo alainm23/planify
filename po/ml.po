@@ -170,16 +170,15 @@ msgstr "ദ്രുത ചേർക്കൽ സജീവമാക്കി!"
 #: src/Utils.vala:923
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
-"ഇത് സജീവമാക്കാൻ %s ശ്രമിക്കുക. നിങ്ങൾക്ക് ഇത് മുൻഗണനകളിൽ മാറ്റാൻ കഴിയും."
+msgstr "ഇത് സജീവമാക്കാൻ %s ശ്രമിക്കുക. നിങ്ങൾക്ക് ഇത് മുൻഗണനകളിൽ മാറ്റാൻ കഴിയും."
 
 #: src/Utils.vala:999
 #, c-format
 msgid ""
 "Planner %s is here, with many design improvements, new features, and more."
 msgstr ""
-"നിരവധി ഡിസൈൻ‌ മെച്ചപ്പെടുത്തലുകൾ‌, പുതിയ സവിശേഷതകൾ‌ എന്നിവയും അതിലേറെയും "
-"ആയിട്ട് പ്ലാനർ‌ %s എത്തി."
+"നിരവധി ഡിസൈൻ‌ മെച്ചപ്പെടുത്തലുകൾ‌, പുതിയ സവിശേഷതകൾ‌ എന്നിവയും അതിലേറെയും ആയിട്ട് പ്ലാനർ‌ %s "
+"എത്തി."
 
 #: src/Utils.vala:1001
 msgid "New Board View"
@@ -190,9 +189,8 @@ msgid ""
 "For Todoist users, the Board View was introduced in this new update, a more "
 "visual way to organize your Planner projects. "
 msgstr ""
-"ടോഡോയിസ്റ്റ് ഉപയോക്താക്കൾക്കായി, നിങ്ങളുടെ പ്ലാനർ പ്രോജക്റ്റുകൾ "
-"ഓർഗനൈസുചെയ്യുന്നതിനുള്ള കൂടുതൽ വിഷ്വൽ മാർഗമായ ഈ പുതിയ അപ്‌ഡേറ്റിൽ ബോർഡ് ദർശനം"
-" അവതരിപ്പിച്ചു. "
+"ടോഡോയിസ്റ്റ് ഉപയോക്താക്കൾക്കായി, നിങ്ങളുടെ പ്ലാനർ പ്രോജക്റ്റുകൾ ഓർഗനൈസുചെയ്യുന്നതിനുള്ള കൂടുതൽ "
+"വിഷ്വൽ മാർഗമായ ഈ പുതിയ അപ്‌ഡേറ്റിൽ ബോർഡ് ദർശനം അവതരിപ്പിച്ചു. "
 
 #: src/Utils.vala:1002
 msgid "Sub-project"
@@ -203,9 +201,8 @@ msgid ""
 "One of the most requested features comes to Planner 2.6, keep your ever-"
 "growing project list neat and organized with sub-projects."
 msgstr ""
-"ഏറ്റവും ആവശ്യപ്പെട്ട സവിശേഷതകളിലൊന്ന് പ്ലാനർ 2.6-ൽ വരുന്നു, നിങ്ങളുടെ വളരുന്"
-"ന പ്രോജക്റ്റ് ലിസ്റ്റ് വൃത്തിയായി സൂക്ഷിക്കുക, ഉപ പ്രോജക്റ്റുകൾ ഉപയോഗിച്ച് "
-"ഓർഗനൈസുചെയ്യുക."
+"ഏറ്റവും ആവശ്യപ്പെട്ട സവിശേഷതകളിലൊന്ന് പ്ലാനർ 2.6-ൽ വരുന്നു, നിങ്ങളുടെ വളരുന്ന പ്രോജക്റ്റ് ലിസ്റ്റ് "
+"വൃത്തിയായി സൂക്ഷിക്കുക, ഉപ പ്രോജക്റ്റുകൾ ഉപയോഗിച്ച് ഓർഗനൈസുചെയ്യുക."
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
@@ -233,8 +230,7 @@ msgstr "ഒരു പുതിയ ടാസ്ക് സൃഷ്ടിക്ക
 #: src/Utils.vala:1078
 msgid "Create a new task at the top of the list (only works inside projects)"
 msgstr ""
-"ലിസ്റ്റിന്റെ മുകളിൽ ഒരു പുതിയ ടാസ്‌ക് സൃഷ്‌ടിക്കുക (പ്രോജക്റ്റുകൾക്കുള്ളിൽ "
-"മാത്രം പ്രവർത്തിക്കുന്നു)"
+"ലിസ്റ്റിന്റെ മുകളിൽ ഒരു പുതിയ ടാസ്‌ക് സൃഷ്‌ടിക്കുക (പ്രോജക്റ്റുകൾക്കുള്ളിൽ മാത്രം പ്രവർത്തിക്കുന്നു)"
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
@@ -380,11 +376,12 @@ msgstr "ദ്രുത കണ്ടെത്തൽ"
 msgid "Preferences"
 msgstr "മുൻ‌ഗണനകൾ"
 
-#: src/Widgets/Pane.vala:403
+#: src/Widgets/Pane.vala:403 src/Widgets/Pane.vala:411
 msgid "Planner Project"
 msgstr ""
 
-#: src/Widgets/Pane.vala:410
+#: src/Widgets/Pane.vala:410 src/Widgets/Pane.vala:393
+#: src/Widgets/Pane.vala:419
 msgid "New Project"
 msgstr ""
 
@@ -431,6 +428,8 @@ msgstr "ഒരു പൂർവ്വികനും ഇല്ല"
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/ItemRow.vala:1545
 #: src/Widgets/SectionRow.vala:1304 src/Widgets/SectionRow.vala:1373
 #: src/Widgets/BoardColumn.vala:1247 src/Widgets/BoardColumn.vala:1301
+#: src/Widgets/ItemRow.vala:1495 src/Widgets/ItemRow.vala:1515
+#: src/Widgets/ItemRow.vala:1550
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr ""
@@ -476,7 +475,9 @@ msgstr "മാർക്ക്ഡൌൺ"
 #: src/Widgets/BoardColumn.vala:1121 src/Views/Inbox.vala:232
 #: src/Views/Inbox.vala:352 src/Views/Project.vala:511
 #: src/Views/Project.vala:636 src/Dialogs/Project.vala:488
-#: src/Dialogs/Project.vala:597
+#: src/Dialogs/Project.vala:597 src/Widgets/ItemRow.vala:1627
+#: src/Views/Project.vala:509 src/Dialogs/Project.vala:493
+#: src/Dialogs/Project.vala:602
 msgid "Delete"
 msgstr ""
 
@@ -761,8 +762,8 @@ msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
 msgstr ""
-"ചെയ്യേണ്ട കാര്യങ്ങളെ ലേബലുകൾ ഉപയോഗിച്ച് വർഗ്ഗീകരിക്കുക, തുടർന്ന് നിങ്ങളുടെ "
-"ലിസ്റ്റുകൾ ഫിൽട്ടർ ചെയ്യാനും ഫോക്കസ് ചെയ്യാനും അവ ഉപയോഗിക്കുക."
+"ചെയ്യേണ്ട കാര്യങ്ങളെ ലേബലുകൾ ഉപയോഗിച്ച് വർഗ്ഗീകരിക്കുക, തുടർന്ന് നിങ്ങളുടെ ലിസ്റ്റുകൾ ഫിൽട്ടർ "
+"ചെയ്യാനും ഫോക്കസ് ചെയ്യാനും അവ ഉപയോഗിക്കുക."
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
@@ -799,8 +800,7 @@ msgstr "ചുമതല തനിപ്പകർപ്പാക്കുന്�
 
 #: src/Widgets/Toast.vala:128
 msgid "Failed to add task from clipboard. Try again."
-msgstr ""
-"ക്ലിപ്പ്ബോർഡിൽ നിന്ന് ചുമതല ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക."
+msgstr "ക്ലിപ്പ്ബോർഡിൽ നിന്ന് ചുമതല ചേർക്കുന്നതിൽ പരാജയപ്പെട്ടു. വീണ്ടും ശ്രമിക്കുക."
 
 #: src/Widgets/Toast.vala:148
 msgid "Converted project"
@@ -832,9 +832,7 @@ msgstr "ഓർമ്മപ്പെടുത്തൽ ചേർക്കുക"
 
 #: src/Widgets/ReminderButton.vala:246
 msgid "Never forget a task again! Have Planner send you a reminder."
-msgstr ""
-"ഇനി ഒരിക്കലും ഒരു ചുമതല മറക്കരുത്! പ്ലാനർ നിങ്ങൾക്ക് ഒരു ഓർമ്മപ്പെടുത്തൽ "
-"അയയ്‌ക്കുക."
+msgstr "ഇനി ഒരിക്കലും ഒരു ചുമതല മറക്കരുത്! പ്ലാനർ നിങ്ങൾക്ക് ഒരു ഓർമ്മപ്പെടുത്തൽ അയയ്‌ക്കുക."
 
 #: src/Widgets/ReminderButton.vala:266
 msgid "Time:"
@@ -1012,7 +1010,7 @@ msgid "Search task"
 msgstr ""
 
 #: src/Views/Inbox.vala:104 src/Views/Project.vala:142
-#: src/Dialogs/Project.vala:153
+#: src/Dialogs/Project.vala:153 src/Dialogs/Project.vala:157
 msgid "Project Menu"
 msgstr ""
 
@@ -1027,43 +1025,52 @@ msgstr ""
 
 #: src/Views/Inbox.vala:226 src/Views/Project.vala:504
 #: src/Dialogs/ShortcutsDialog.vala:91 src/Dialogs/Project.vala:482
+#: src/Dialogs/Project.vala:487
 msgid "Sort by date"
 msgstr ""
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:227 src/Views/Today.vala:456 src/Views/Project.vala:505
 #: src/Dialogs/ShortcutsDialog.vala:93 src/Dialogs/Project.vala:483
+#: src/Dialogs/Project.vala:488
 msgid "Sort by priority"
 msgstr ""
 
 #: src/Views/Inbox.vala:228 src/Views/Today.vala:457 src/Views/Project.vala:506
 #: src/Dialogs/ShortcutsDialog.vala:96 src/Dialogs/Project.vala:484
+#: src/Dialogs/Project.vala:489
 msgid "Sort by name"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:230 src/Views/Today.vala:459 src/Views/Project.vala:508
 #: src/Views/Project.vala:509 src/Dialogs/Project.vala:486
+#: src/Views/Project.vala:506 src/Views/Project.vala:507
+#: src/Dialogs/Project.vala:491
 msgid "Utilities"
 msgstr ""
 
 #: src/Views/Inbox.vala:241 src/Views/Today.vala:467 src/Views/Project.vala:520
-#: src/Dialogs/Project.vala:497
+#: src/Dialogs/Project.vala:497 src/Views/Project.vala:518
+#: src/Dialogs/Project.vala:502
 msgid "Show Completed"
 msgstr ""
 
 #: src/Views/Inbox.vala:270 src/Views/Project.vala:546
-#: src/Dialogs/Project.vala:526
+#: src/Dialogs/Project.vala:526 src/Views/Project.vala:544
+#: src/Dialogs/Project.vala:531
 msgid "View as board"
 msgstr ""
 
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
-#: src/Dialogs/Project.vala:648
+#: src/Dialogs/Project.vala:648 src/Views/Project.vala:693
+#: src/Dialogs/Project.vala:653
 msgid "Share on Markdown"
 msgstr ""
 
 #: src/Views/Inbox.vala:404 src/Views/Today.vala:533 src/Views/Project.vala:709
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:649
+#: src/Views/Project.vala:694 src/Dialogs/Project.vala:654
 msgid "Hide all tasks details"
 msgstr ""
 
@@ -1096,32 +1103,39 @@ msgid "Today was copied to the Clipboard."
 msgstr ""
 
 #: src/Views/Project.vala:213 src/Dialogs/Project.vala:236
+#: src/Views/Project.vala:214 src/Dialogs/Project.vala:241
 msgid "What will you accomplish?"
 msgstr ""
 
 #: src/Views/Project.vala:214 src/Dialogs/Project.vala:237
+#: src/Views/Project.vala:215 src/Dialogs/Project.vala:242
 msgid "Tap + to add a task to this project."
 msgstr ""
 
-#: src/Views/Project.vala:254
+#: src/Views/Project.vala:254 src/Views/Project.vala:255
 msgid "Local Project"
 msgstr ""
 
 #: src/Views/Project.vala:262 src/Views/Project.vala:453
 #: src/Dialogs/Project.vala:140 src/Dialogs/Project.vala:444
+#: src/Views/Project.vala:263 src/Views/Project.vala:454
+#: src/Dialogs/Project.vala:144 src/Dialogs/Project.vala:449
 #, c-format
 msgid "Progress: %s"
 msgstr ""
 
 #: src/Views/Project.vala:767 src/Dialogs/Project.vala:718
+#: src/Views/Project.vala:752 src/Dialogs/Project.vala:723
 msgid "Your Productivity"
 msgstr ""
 
 #: src/Views/Project.vala:772 src/Dialogs/Project.vala:723
+#: src/Views/Project.vala:757 src/Dialogs/Project.vala:728
 msgid "Progress:"
 msgstr ""
 
 #: src/Views/Project.vala:783 src/Dialogs/Project.vala:734
+#: src/Views/Project.vala:768 src/Dialogs/Project.vala:739
 msgid "Duedate:"
 msgstr ""
 
@@ -1390,6 +1404,7 @@ msgstr ""
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:236
 #: src/Dialogs/Preferences/Preferences.vala:1647
+#: src/Dialogs/Preferences/Preferences.vala:1663
 msgid "About"
 msgstr ""
 
@@ -1637,28 +1652,34 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1578
+#: src/Dialogs/Preferences/Preferences.vala:1585
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1661
+#: src/Dialogs/Preferences/Preferences.vala:1677
 msgid "Website"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1662
+#: src/Dialogs/Preferences/Preferences.vala:1678
 msgid "Github"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1663
+#: src/Dialogs/Preferences/Preferences.vala:1679
 msgid "Follow"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1664
+#: src/Dialogs/Preferences/Preferences.vala:1680
 msgid "Report a Problem"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1665
+#: src/Dialogs/Preferences/Preferences.vala:1681
 msgid "Suggest Translations"
 msgstr ""
 
@@ -1727,4 +1748,11 @@ msgstr ""
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:1132
+#, c-format
+msgid ""
+"Sorry, Planner doesn't support the '%s' language yet, please try to set a "
+"recurring task in English."
 msgstr ""

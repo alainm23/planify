@@ -393,7 +393,7 @@ msgid "New Project"
 msgstr "Projekti i ri"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
-#: src/Dialogs/ProjectSettings.vala:178
+#: src/Dialogs/ProjectSettings.vala:178 src/Views/Project.vala:812
 msgid "Name:"
 msgstr ""
 
@@ -411,6 +411,7 @@ msgstr ""
 
 #: src/Widgets/New.vala:172 src/Widgets/ReminderButton.vala:275
 #: src/Views/Inbox.vala:481 src/Views/Project.vala:843
+#: src/Views/Project.vala:828
 msgid "Add"
 msgstr ""
 
@@ -423,11 +424,12 @@ msgstr ""
 msgid "Project %s was created successfully"
 msgstr ""
 
-#: src/Widgets/New.vala:337
+#: src/Widgets/New.vala:337 src/Widgets/New.vala:330
 msgid "Local"
 msgstr ""
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:609
+#: src/Widgets/New.vala:405
 msgid "No Parent"
 msgstr ""
 
@@ -435,17 +437,20 @@ msgstr ""
 #: src/Widgets/ItemRow.vala:1510 src/Widgets/ItemRow.vala:1545
 #: src/Widgets/SectionRow.vala:1304 src/Widgets/SectionRow.vala:1373
 #: src/Widgets/BoardColumn.vala:1247 src/Widgets/BoardColumn.vala:1301
+#: src/Widgets/ItemRow.vala:1495 src/Widgets/ItemRow.vala:1515
+#: src/Widgets/ItemRow.vala:1550
 #, c-format
 msgid "Task moved to <b>%s</b>"
 msgstr ""
 
 #: src/Widgets/ProjectRow.vala:669 src/Views/Inbox.vala:224
-#: src/Views/Project.vala:502
+#: src/Views/Project.vala:502 src/Views/Project.vala:503
 msgid "Open New Window"
 msgstr ""
 
 #: src/Widgets/ProjectRow.vala:670 src/Views/Inbox.vala:225
 #: src/Views/Project.vala:503 src/Dialogs/Project.vala:481
+#: src/Views/Project.vala:504 src/Dialogs/Project.vala:486
 msgid "Edit Project"
 msgstr ""
 
@@ -455,19 +460,21 @@ msgstr ""
 
 #: src/Widgets/ProjectRow.vala:675 src/Widgets/ItemRow.vala:1610
 #: src/Widgets/SectionRow.vala:1091 src/Widgets/BoardColumn.vala:1064
-#: src/Dialogs/Preferences/Preferences.vala:217
+#: src/Dialogs/Preferences/Preferences.vala:217 src/Widgets/ItemRow.vala:1615
 msgid "Share"
 msgstr ""
 
 #: src/Widgets/ProjectRow.vala:679 src/Views/Inbox.vala:402
 #: src/Views/Today.vala:531 src/Views/Project.vala:707
-#: src/Dialogs/Project.vala:647
+#: src/Dialogs/Project.vala:647 src/Views/Project.vala:692
+#: src/Dialogs/Project.vala:652
 msgid "Send by e-mail"
 msgstr ""
 
 #. var share_text_menu = new Widgets.ImageMenuItem (_("Text"), "text-x-generic-symbolic");
 #: src/Widgets/ProjectRow.vala:680 src/Widgets/ItemRow.vala:1615
 #: src/Widgets/SectionRow.vala:1096 src/Widgets/BoardColumn.vala:1069
+#: src/Widgets/ItemRow.vala:1620
 msgid "Markdown"
 msgstr ""
 
@@ -480,12 +487,15 @@ msgstr ""
 #: src/Widgets/BoardColumn.vala:1121 src/Views/Inbox.vala:232
 #: src/Views/Inbox.vala:352 src/Views/Project.vala:511
 #: src/Views/Project.vala:636 src/Dialogs/Project.vala:488
-#: src/Dialogs/Project.vala:597
+#: src/Dialogs/Project.vala:597 src/Widgets/ItemRow.vala:1627
+#: src/Views/Project.vala:509 src/Dialogs/Project.vala:493
+#: src/Dialogs/Project.vala:602
 msgid "Delete"
 msgstr ""
 
 #: src/Widgets/ProjectRow.vala:726 src/Views/Inbox.vala:347
 #: src/Views/Project.vala:631 src/Dialogs/Project.vala:592
+#: src/Dialogs/Project.vala:597
 msgid "Delete project"
 msgstr ""
 
@@ -493,6 +503,7 @@ msgstr ""
 #: src/Widgets/SectionRow.vala:1137 src/Widgets/MultiSelectToolbar.vala:185
 #: src/Widgets/BoardColumn.vala:1117 src/Views/Inbox.vala:348
 #: src/Views/Project.vala:632 src/Dialogs/Project.vala:593
+#: src/Dialogs/Project.vala:598
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr ""
@@ -530,7 +541,7 @@ msgid "Add Task"
 msgstr ""
 
 #: src/Widgets/NewItem.vala:224 src/Widgets/ItemRow.vala:1772
-#: src/Widgets/ItemCompletedRow.vala:43
+#: src/Widgets/ItemCompletedRow.vala:43 src/Widgets/ItemRow.vala:1777
 msgid "Note"
 msgstr ""
 
@@ -576,49 +587,51 @@ msgid "Task Menu"
 msgstr ""
 
 #: src/Widgets/ItemRow.vala:778 src/Widgets/ItemRow.vala:1691
+#: src/Widgets/ItemRow.vala:1696
 msgid "Task deleted"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1128
+#: src/Widgets/ItemRow.vala:1128 src/Widgets/ItemRow.vala:1127
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1133
+#: src/Widgets/ItemRow.vala:1133 src/Widgets/ItemRow.vala:1138
 msgid "1 task completed"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1523
+#: src/Widgets/ItemRow.vala:1523 src/Widgets/ItemRow.vala:1528
 msgid "No Section"
 msgstr ""
 
 #: src/Widgets/ItemRow.vala:1585 src/Widgets/MultiSelectToolbar.vala:354
+#: src/Widgets/ItemRow.vala:1590
 msgid "Complete"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1586
+#: src/Widgets/ItemRow.vala:1586 src/Widgets/ItemRow.vala:1591
 msgid "Edit"
 msgstr ""
 
 #: src/Widgets/ItemRow.vala:1596 src/Widgets/MultiSelectToolbar.vala:404
-#: src/Views/Today.vala:922
+#: src/Views/Today.vala:922 src/Widgets/ItemRow.vala:1601
 msgid "Undated"
 msgstr ""
 
 #: src/Widgets/ItemRow.vala:1602 src/Widgets/SectionRow.vala:1087
-#: src/Widgets/BoardColumn.vala:1060
+#: src/Widgets/BoardColumn.vala:1060 src/Widgets/ItemRow.vala:1607
 msgid "Move to Project"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1606
+#: src/Widgets/ItemRow.vala:1606 src/Widgets/ItemRow.vala:1611
 msgid "Move to Section"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1614
+#: src/Widgets/ItemRow.vala:1614 src/Widgets/ItemRow.vala:1619
 msgid "Text"
 msgstr ""
 
-#: src/Widgets/ItemRow.vala:1621
+#: src/Widgets/ItemRow.vala:1621 src/Widgets/ItemRow.vala:1626
 msgid "Duplicate"
 msgstr ""
 
@@ -665,12 +678,14 @@ msgid "Section Menu"
 msgstr ""
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:183
-#: src/Dialogs/Project.vala:196
+#: src/Dialogs/Project.vala:196 src/Views/Project.vala:184
+#: src/Dialogs/Project.vala:201
 msgid "Add a description"
 msgstr ""
 
 #: src/Widgets/SectionRow.vala:237 src/Views/Project.vala:472
-#: src/Dialogs/Project.vala:451
+#: src/Dialogs/Project.vala:451 src/Views/Project.vala:473
+#: src/Dialogs/Project.vala:456
 msgid "Description"
 msgstr ""
 
@@ -844,7 +859,7 @@ msgid "Name this section"
 msgstr ""
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
-#: src/Views/Project.vala:130
+#: src/Views/Project.vala:130 src/Views/Project.vala:505
 msgid "Add Section"
 msgstr ""
 
@@ -1008,7 +1023,7 @@ msgid "Search task"
 msgstr ""
 
 #: src/Views/Inbox.vala:104 src/Views/Project.vala:142
-#: src/Dialogs/Project.vala:153
+#: src/Dialogs/Project.vala:153 src/Dialogs/Project.vala:157
 msgid "Project Menu"
 msgstr ""
 
@@ -1023,43 +1038,52 @@ msgstr ""
 
 #: src/Views/Inbox.vala:226 src/Views/Project.vala:504
 #: src/Dialogs/ShortcutsDialog.vala:91 src/Dialogs/Project.vala:482
+#: src/Dialogs/Project.vala:487
 msgid "Sort by date"
 msgstr ""
 
 #. var sort_date_menu = new Widgets.ModelButton (_("Sort by date"), "x-office-calendar-symbolic", "");
 #: src/Views/Inbox.vala:227 src/Views/Today.vala:456 src/Views/Project.vala:505
 #: src/Dialogs/ShortcutsDialog.vala:93 src/Dialogs/Project.vala:483
+#: src/Dialogs/Project.vala:488
 msgid "Sort by priority"
 msgstr ""
 
 #: src/Views/Inbox.vala:228 src/Views/Today.vala:457 src/Views/Project.vala:506
 #: src/Dialogs/ShortcutsDialog.vala:96 src/Dialogs/Project.vala:484
+#: src/Dialogs/Project.vala:489
 msgid "Sort by name"
 msgstr ""
 
 #. var archive_menu = new Widgets.ModelButton (_("Archive project"), "planner-archive-symbolic");
 #: src/Views/Inbox.vala:230 src/Views/Today.vala:459 src/Views/Project.vala:508
 #: src/Views/Project.vala:509 src/Dialogs/Project.vala:486
+#: src/Views/Project.vala:506 src/Views/Project.vala:507
+#: src/Dialogs/Project.vala:491
 msgid "Utilities"
 msgstr ""
 
 #: src/Views/Inbox.vala:241 src/Views/Today.vala:467 src/Views/Project.vala:520
-#: src/Dialogs/Project.vala:497
+#: src/Dialogs/Project.vala:497 src/Views/Project.vala:518
+#: src/Dialogs/Project.vala:502
 msgid "Show Completed"
 msgstr ""
 
 #: src/Views/Inbox.vala:270 src/Views/Project.vala:546
-#: src/Dialogs/Project.vala:526
+#: src/Dialogs/Project.vala:526 src/Views/Project.vala:544
+#: src/Dialogs/Project.vala:531
 msgid "View as board"
 msgstr ""
 
 #: src/Views/Inbox.vala:403 src/Views/Today.vala:532 src/Views/Project.vala:708
-#: src/Dialogs/Project.vala:648
+#: src/Dialogs/Project.vala:648 src/Views/Project.vala:693
+#: src/Dialogs/Project.vala:653
 msgid "Share on Markdown"
 msgstr ""
 
 #: src/Views/Inbox.vala:404 src/Views/Today.vala:533 src/Views/Project.vala:709
 #: src/Dialogs/ShortcutsDialog.vala:99 src/Dialogs/Project.vala:649
+#: src/Views/Project.vala:694 src/Dialogs/Project.vala:654
 msgid "Hide all tasks details"
 msgstr ""
 
@@ -1092,32 +1116,39 @@ msgid "Today was copied to the Clipboard."
 msgstr ""
 
 #: src/Views/Project.vala:213 src/Dialogs/Project.vala:236
+#: src/Views/Project.vala:214 src/Dialogs/Project.vala:241
 msgid "What will you accomplish?"
 msgstr ""
 
 #: src/Views/Project.vala:214 src/Dialogs/Project.vala:237
+#: src/Views/Project.vala:215 src/Dialogs/Project.vala:242
 msgid "Tap + to add a task to this project."
 msgstr ""
 
-#: src/Views/Project.vala:254
+#: src/Views/Project.vala:254 src/Views/Project.vala:255
 msgid "Local Project"
 msgstr ""
 
 #: src/Views/Project.vala:262 src/Views/Project.vala:453
 #: src/Dialogs/Project.vala:140 src/Dialogs/Project.vala:444
+#: src/Views/Project.vala:263 src/Views/Project.vala:454
+#: src/Dialogs/Project.vala:144 src/Dialogs/Project.vala:449
 #, c-format
 msgid "Progress: %s"
 msgstr ""
 
 #: src/Views/Project.vala:767 src/Dialogs/Project.vala:718
+#: src/Views/Project.vala:752 src/Dialogs/Project.vala:723
 msgid "Your Productivity"
 msgstr ""
 
 #: src/Views/Project.vala:772 src/Dialogs/Project.vala:723
+#: src/Views/Project.vala:757 src/Dialogs/Project.vala:728
 msgid "Progress:"
 msgstr ""
 
 #: src/Views/Project.vala:783 src/Dialogs/Project.vala:734
+#: src/Views/Project.vala:768 src/Dialogs/Project.vala:739
 msgid "Duedate:"
 msgstr ""
 
@@ -1386,6 +1417,7 @@ msgstr ""
 #. Others
 #: src/Dialogs/Preferences/Preferences.vala:236
 #: src/Dialogs/Preferences/Preferences.vala:1647
+#: src/Dialogs/Preferences/Preferences.vala:1663
 msgid "About"
 msgstr ""
 
@@ -1633,28 +1665,34 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1578
+#: src/Dialogs/Preferences/Preferences.vala:1585
 msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1661
+#: src/Dialogs/Preferences/Preferences.vala:1677
 msgid "Website"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1662
+#: src/Dialogs/Preferences/Preferences.vala:1678
 msgid "Github"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1663
+#: src/Dialogs/Preferences/Preferences.vala:1679
 msgid "Follow"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1664
+#: src/Dialogs/Preferences/Preferences.vala:1680
 msgid "Report a Problem"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1665
+#: src/Dialogs/Preferences/Preferences.vala:1681
 msgid "Suggest Translations"
 msgstr ""
 
@@ -1723,4 +1761,11 @@ msgstr ""
 
 #: src/Objects/Section.vala:94
 msgid "The Section was copied to the Clipboard."
+msgstr ""
+
+#: src/Widgets/ItemRow.vala:1132
+#, c-format
+msgid ""
+"Sorry, Planner doesn't support the '%s' language yet, please try to set a "
+"recurring task in English."
 msgstr ""
