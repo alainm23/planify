@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"PO-Revision-Date: 2021-11-03 22:29+0000\n"
 "Last-Translator: Heimen Stoffels <vistausss@fastmail.com>\n"
 "Language-Team: Dutch <https://hosted.weblate.org/projects/planner/"
 "translations/nl/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -173,7 +173,7 @@ msgstr "Snel toevoegen geactiveerd!"
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
 msgstr ""
-"Klik op '%s' om het te activeren. Dit kun je aanpassen in de voorkeuren."
+"Klik op ‘%s’ om het te activeren. Dit kun je aanpassen in de voorkeuren."
 
 #: src/Utils.vala:999
 #, c-format
@@ -228,7 +228,7 @@ msgstr "Taken toevoegen"
 #: src/Utils.vala:1022
 msgid "To add a new task to Planner, just click + and press Enter."
 msgstr ""
-"Voeg een nieuwe taak toe door op '+' te klikken en dan op Enter te drukken."
+"Voeg een nieuwe taak toe door op ‘+’ te klikken en dan op Enter te drukken."
 
 #: src/Utils.vala:1077 src/Dialogs/ShortcutsDialog.vala:79
 msgid "Create a new task"
@@ -423,7 +423,7 @@ msgstr "Sluiten"
 #: src/Widgets/New.vala:270
 #, c-format
 msgid "Project %s was created successfully"
-msgstr "Het project '%s' is aangemaakt"
+msgstr "‘%s’ is aangemaakt"
 
 #: src/Widgets/New.vala:330
 msgid "Local"
@@ -592,6 +592,8 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
+"Planner heeft nog geen ondersteuning voor de taal ‘%s’. Stel de taak in op "
+"Engels."
 
 #: src/Widgets/ItemRow.vala:1138
 msgid "1 task completed"
@@ -788,7 +790,7 @@ msgstr "Label niet gevonden"
 #: src/Widgets/LabelButton.vala:287
 #, c-format
 msgid "Create '%s'"
-msgstr "'%s' maken"
+msgstr "‘%s’ maken"
 
 #: src/Widgets/LabelButton.vala:463
 msgid "Todoist Label"
@@ -1035,7 +1037,7 @@ msgstr "Opgeruimd staat netjes"
 
 #: src/Views/Inbox.vala:132
 msgid "Looks like everything's organized in the right place."
-msgstr "Het lijkt erop dat alles goed georganiseerd is."
+msgstr "Het lijkt er op dat alles goed georganiseerd is."
 
 #: src/Views/Inbox.vala:226 src/Dialogs/ShortcutsDialog.vala:91
 #: src/Dialogs/Project.vala:487
@@ -1105,7 +1107,7 @@ msgstr "Sorteren op project"
 
 #: src/Views/Today.vala:578
 msgid "Today was copied to the Clipboard."
-msgstr "'Vandaag' is gekopieerd naar het klembord."
+msgstr "‘Vandaag’ is gekopieerd naar het klembord."
 
 #: src/Views/Project.vala:214 src/Dialogs/Project.vala:241
 msgid "What will you accomplish?"
@@ -1413,7 +1415,7 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
-"Zorg ervoor dat je de taken onder ogen krijgt die voor jou het belangrijkst "
+"Zorg er voor dat je de taken onder ogen krijgt die voor jou het belangrijkst "
 "zijn zodra je Planner opent. Standaard wordt <b>Postvak IN</b> getoond, maar "
 "je kunt zelf een andere pagina kiezen."
 
@@ -1524,8 +1526,8 @@ msgid ""
 "open the Quick Add window, where you can enter a pending task and quickly "
 "return to work. You can change the keyboard shortcut whenever you want."
 msgstr ""
-"Het maakt niet uit welke in welke toepassing je zit: je kunt het venster "
-"'Snel toevoegen' met de sneltoets makkelijk openen vanuit elke toepassing. "
+"Het maakt niet uit welke in welke toepassing je zit: je kunt het venster ‘"
+"Snel toevoegen’ met de sneltoets makkelijk openen vanuit elke toepassing. "
 "Voeg een taak toe en ga snel weer aan het werk."
 
 #: src/Dialogs/Preferences/Preferences.vala:891
