@@ -554,7 +554,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
             clock_list,
             false
         );
-        var mornign_picker = new Dialogs.Preferences.ItemTimePicker (_("Mornign"), "morning-time", false);
+        var morning_picker = new Dialogs.Preferences.ItemTimePicker (_("Morning"), "morning-time", false);
         var afternoon_picker = new Dialogs.Preferences.ItemTimePicker (_("Afternoon"), "afternoon-time", false);
         var evening_picker = new Dialogs.Preferences.ItemTimePicker (_("Evening"), "evening-time");
 
@@ -564,7 +564,7 @@ public class Dialogs.Preferences.Preferences : Hdy.Window {
         box.hexpand = true;
         box.add (start_week);
         box.add (clock_format);
-        box.add (mornign_picker);
+        box.add (morning_picker);
         box.add (afternoon_picker);
         box.add (evening_picker);
 
