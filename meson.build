@@ -1,78 +1,57 @@
-project (
-    'com.github.alainm23.planner',
-    'vala', 'c',
-    version: '2.7'
-)
+project ('com.github.alainm23.planner', 'vala', 'c')
 
-add_project_arguments([
-        '-DGETTEXT_PACKAGE="@0@"'.format(meson.project_name())
-    ],
-    language: 'c',
-)
+gnome = import ('gnome')
+i18n = import ('i18n')
 
-
-libexecdir = join_paths(get_option('prefix'), get_option('libexecdir'), meson.project_name())
-pluginsdir = join_paths(get_option('prefix'), get_option('libdir'), meson.project_name(), 'plugins')
-
-gnome = import('gnome')
-i18n = import('i18n')
-
-glib_dep = dependency('glib-2.0', version: '>=2.30.0')
-gee_dep = dependency('gee-0.8', version: '>=0.8.5')
-gtk_dep = dependency('gtk+-3.0', version: '>=3.6.0')
-granite_dep = dependency('granite', version: '>=5.2.0')
-peas_dep = dependency('libpeas-1.0')
-peasgtk_dep = dependency('libpeas-gtk-1.0')
-sqlite3_dep = dependency('sqlite3')
-json_dep = dependency('json-glib-1.0')
-webkit2gtk_dep = dependency('webkit2gtk-4.0')
-libhandy = dependency ('libhandy-1', version: '>=0.90.0')
-libedataserver_dep = dependency('libedataserver-1.2', version: '>=3.8.0')
-libsoup_dep = dependency('libsoup-2.4')
-posix_dep = meson.get_compiler('c').find_library('m', required : false)
-libecal_dep = dependency('libecal-2.0', required: false)
-libical_dep = dependency('libical-glib')
-libgdata_dep = dependency('libgdata')
-curl = find_program('curl')
-
-add_project_arguments('--define=E_CAL_2_0', language: 'vala')
-add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
+add_global_arguments ('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name ()), language:'c')
 
 asresources = gnome.compile_resources (
-    'as-resources', 'data/' + meson.project_name() + '.gresource.xml',
+    'as-resources', 'data/' + meson.project_name () + '.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
 
-dependencies = [
-    glib_dep,
-    gee_dep,
-    gtk_dep,
-    granite_dep,
-    peas_dep,
-    peasgtk_dep,
-    sqlite3_dep,
-    json_dep,
-    webkit2gtk_dep,
-    libedataserver_dep,
-    libsoup_dep,
-    libecal_dep,
-    libical_dep,
-    posix_dep,
-    libhandy,
-    libgdata_dep
-]
+executable (
+    meson.project_name (),
+    'src/Util.vala',
+    'src/Application.vala',
+    'src/MainWindow.vala',
+    
+    'src/Widgets/Sidebar.vala',
+    'src/Widgets/FilterPaneRow.vala',
+    'src/Widgets/DynamicIcon.vala',
+    'src/Widgets/HeaderItem.vala',
+    'src/Widgets/TodoistSync.vala',
+    'src/Widgets/ProjectRow.vala',
+    'src/Widgets/ProjectProgress.vala',
+    'src/Widgets/LabelRow.vala',
 
-if libecal_dep.version ().version_compare ('>=3.39.2')
-    add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
-else
-    dependencies += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
-endif
+    'src/Views/Welcome.vala',
+
+    'src/Dialogs/TodoistOAuth.vala',
+
+    'src/Services/EventBus.vala',
+    'src/Services/Database.vala',
+    'src/Services/Todoist.vala',
+
+    'src/Objects/Project.vala',
+    'src/Objects/Label.vala',
+    asresources,
+    dependencies: [
+        dependency('glib-2.0'),
+        dependency('gobject-2.0'),
+        dependency('gee-0.8', version: '>=0.8.5'),
+        dependency('granite'),
+        dependency('gtk+-3.0'),
+        dependency('sqlite3'),
+        dependency('json-glib-1.0'),
+        dependency('webkit2gtk-4.0'),
+        dependency('libhandy-1', version: '>= 0.90.0'),
+        meson.get_compiler ('c').find_library ('m', required : false)
+    ],
+    install: true
+)
 
 subdir('data')
-subdir('src')
-if get_option('plugins')
-    subdir('plugins')
-endif
-subdir('po')
+# subdir('po')
 meson.add_install_script('build-aux/meson/post_install.py')

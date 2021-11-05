@@ -60,6 +60,13 @@
         <value nick="12h" value="1" />
     </enum>
 
+    <enum id="com.github.alainm23.planner.backend-type">
+        <value nick="none" value="0" />
+        <value nick="local" value="1" />
+        <value nick="todoist" value="2" />
+        <value nick="caldav" value="3" />
+    </enum>
+
     <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
@@ -79,6 +86,12 @@
             <description></description>
         </key>
 
+        <key name="backend-type" enum="com.github.alainm23.planner.backend-type">
+            <default>"none"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="appearance" enum="com.github.alainm23.planner.appearance">
             <default>"Light"</default>
             <summary></summary>
@@ -89,12 +102,6 @@
             <default>"elementary"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
-        </key>
-
-        <key name="use-system-decoration" type="b">
-            <default>false</default>
-            <summary>Whether application windows should not use custom title bar</summary>
-            <description>Whether application windows should not use custom title bar</description>
         </key>
 
         <key name="default-priority" enum="com.github.alainm23.planner.default-priority">
@@ -129,12 +136,6 @@
 
         <key name="quick-add-close-loses-focus" type="b">
             <default>true</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="quick-add-shortcut" type="s">
-            <default>""</default>
             <summary></summary>
             <description></description>
         </key>
@@ -174,41 +175,11 @@
             <summary></summary>
             <description></description>
         </key>
-        
-        <key name="calendar-enabled" type="b">
-            <default>true</default>
-            <summary>Calendar enabled</summary>
-            <description>Calendar enabled</description>
-        </key>
-
-        <key name="quick-add-enabled" type="b">
-            <default>true</default>
-            <summary>Quick Add enabled</summary>
-            <description>Quick Add enabled</description>
-        </key>
 
         <key name="underline-completed-tasks" type="b">
             <default>false</default>
             <summary>Underline completed tasks.</summary>
             <description>Underline completed tasks.</description>
-        </key>
-
-        <key name="calendar-sources-disabled" type="as">
-            <default>[]</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="source-selected" type="i">
-            <default>0</default>
-            <summary>Source selected</summary>
-            <description>Source selected</description>
-        </key>
-
-        <key name="area-selected" type="x">
-            <default>0</default>
-            <summary>Last Area selected</summary>
-            <description>Last Area selected</description>
         </key>
 
         <key name="inbox-project" type="x">
@@ -253,22 +224,16 @@
             <description></description>
         </key>
 
-        <key name="user-name" type="s">
-            <default>""</default>
-            <summary>User name</summary>
-            <description>User name</description>
+        <key name="show-today-completed" type="b">
+            <default>false</default>
+            <summary>show-today-completed</summary>
+            <description>show-today-completed</description>
         </key>
 
         <key name="todoist-account" type="b">
             <default>false</default>
             <summary>User name</summary>
             <description>User name</description>
-        </key>
-
-        <key name="show-today-completed" type="b">
-            <default>false</default>
-            <summary>show-today-completed</summary>
-            <description>show-today-completed</description>
         </key>
 
         <key name="todoist-sync-server" type="b">
@@ -313,6 +278,12 @@
             <description>Todoist email account</description>
         </key>
 
+        <key name="todoist-user-name" type="s">
+            <default>""</default>
+            <summary>Todoist email account</summary>
+            <description>Todoist email account</description>
+        </key>
+
         <key name="todoist-user-join-date" type="s">
             <default>""</default>
             <summary>Todoist user join date</summary>
@@ -337,12 +308,6 @@
             <description>Todoist sync labels</description>
         </key>
 
-        <key name="database-location-use-default" type="b">
-            <default>true</default>
-            <summary>Use the default database location</summary>
-            <description>Whether to use the default location or use an alternative path.</description>
-        </key>
-
         <key name="sidebar-labels-collapsed" type="b">
             <default>true</default>
             <summary>sidebar-labels</summary>
@@ -355,12 +320,6 @@
             <description>caldav-labels</description>
         </key>
         
-        <key name="database-location-path" type="s">
-            <default>""</default>
-            <summary>Database location</summary>
-            <description>The location where all Planner data is stored.</description>
-        </key>
-
         <key name="version" type="s">
             <default>'0.0.0'</default>
             <summary>The currently installed version.</summary>
@@ -383,18 +342,6 @@
             <default>(19, 30)</default>
             <summary>(hour, minute)</summary>
             <description></description>
-        </key>
-
-        <key name="font-scale" type="d">
-            <default>1</default>
-            <summary>font-scale</summary>
-            <description>font-scale</description>
-        </key>
-
-        <key type="as" name="plugins-enabled">
-          <default>['sidebar-labels']</default>
-          <summary>Enabled Plugins</summary>
-          <description>Enabled Plugins</description>
         </key>
     </schema>
 </schemalist>

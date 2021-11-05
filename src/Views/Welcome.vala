@@ -23,16 +23,28 @@ public class Views.Welcome : Gtk.EventBox {
     public signal void activated (int index);
 
     construct {
-        var welcome = new Granite.Widgets.Welcome ("Planner", _("Never worry about forgetting things again"));
-        welcome.margin_bottom = 48;
-        welcome.append ("help-about", _("Startup"), _("Start Working Locally."));
+        var headerbar = new Hdy.HeaderBar ();
+        headerbar.title = _("Planner");
+        headerbar.has_subtitle = false;
+        headerbar.show_close_button = true;
+        headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var welcome = new Granite.Widgets.Welcome ("Planner", _("Never worry about forgetting things again")) {
+            margin_bottom = 48
+        };
+        welcome.append ("help-about", _("Startup"), _("Start working locally."));
         welcome.append ("planner-todoist", _("Todoist"), _("Synchronize with your Todoist Account."));
-        welcome.append ("folder-download", _("Import Backup"), _("Import Previously Exported Planner Backup."));
+        welcome.append ("preferences-desktop-online-accounts", _("CalDAV"), _("Synchronize your Tasks with CalDAV."));
         welcome.get_style_context ().remove_class (Gtk.STYLE_CLASS_VIEW);
+
+        var grid = new Gtk.Grid ();
+        grid.orientation = Gtk.Orientation.VERTICAL;
+        grid.add (headerbar);
+        grid.add (welcome);
 
         var scrolled = new Gtk.ScrolledWindow (null, null);
         scrolled.expand = true;
-        scrolled.add (welcome);
+        scrolled.add (grid);
 
         add (scrolled);
 

@@ -1,10 +1,10 @@
 /*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+* Copyright (c) 2017 Daniel Foré (http://danielfore.com)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
 * License as published by the Free Software Foundation; either
-* version 3 of the License, or (at your option) any later version.
+* version 2 of the License, or (at your option) any later version.
 *
 * This program is distributed in the hope that it will be useful,
 * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,41 +15,16 @@
 * License along with this program; if not, write to the
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
-*
-* Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class MainWindow : Hdy.ApplicationWindow {
-    public weak Planner app { get; construct; }
+public class MainWindow : Hdy.Window {
+    private Widgets.Sidebar sidebar;
+    private Gtk.Stack main_stack;
 
-    // Delegates
-    delegate void HookFunc ();
-
-    private Widgets.Pane pane;
-    private Hdy.HeaderBar sidebar_header;
-    private Hdy.HeaderBar projectview_header;
-    public Gtk.Stack project_stack;
-    public Gtk.Stack main_stack;
-    private Views.Inbox inbox_view = null;
-    private Views.Today today_view = null;
-    private Views.Upcoming upcoming_view = null;
-    private Views.Completed completed_view = null;
-    private Views.AllTasks alltasks_view = null;
-    private Views.Label label_view = null;
-    private Views.Filter filter_view = null;
-    private Views.Project project_view = null;
-    
-    private Widgets.MultiSelectToolbar multiselect_toolbar;
-    private Services.DBusServer dbus_server;
-    public Services.ActionManager action_manager;
-
-    private uint timeout_id = 0;
     private uint configure_id = 0;
-
-    public MainWindow (Planner application) {
+    public MainWindow (Gtk.Application application) {
         Object (
             application: application,
-            app: application,
             icon_name: "com.github.alainm23.planner",
             title: _("Planner")
         );
@@ -58,856 +33,158 @@ public class MainWindow : Hdy.ApplicationWindow {
     static construct {
         Hdy.init ();
     }
-
+    
     construct {
-        action_manager = new Services.ActionManager (app, this);
+        var sidebar_header = new Hdy.HeaderBar () {
+            has_subtitle = false,
+            show_close_button = true,
+            hexpand = true
+        };
+        unowned Gtk.StyleContext sidebar_header_context = sidebar_header.get_style_context ();
+        sidebar_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        dbus_server = Services.DBusServer.get_default ();
-        dbus_server.item_added.connect ((id) => {
-            Planner.database.item_added (Planner.database.get_item_by_id (id), -1);
-        });
+        var main_header = new Hdy.HeaderBar () {
+            has_subtitle = false,
+            show_close_button = true,
+            hexpand = true,
+            margin_start = 3,
+            margin_end = 3
+        };
 
-        sidebar_header = new Hdy.HeaderBar ();
-        sidebar_header.decoration_layout = "close:";
-        sidebar_header.has_subtitle = false;
-        sidebar_header.show_close_button = true;
-        sidebar_header.get_style_context ().add_class ("sidebar-header");
-        sidebar_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        var search_entry = new Gtk.SearchEntry () {
+            placeholder_text = _("Search")
+        };
 
-        pane = new Widgets.Pane ();
+        unowned Gtk.StyleContext search_entry_context = search_entry.get_style_context ();
+        search_entry_context.add_class ("border-radius-6");
 
-        var sidebar = new Gtk.Grid ();
-        sidebar.attach (sidebar_header, 0, 0);
-        sidebar.attach (pane, 0, 1);
+        var sidebar_image = new Gtk.Image () {
+            gicon = new ThemedIcon ("view-sidebar-start-symbolic"),
+            pixel_size = 16
+        };
+        
+        var sidebar_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
 
-        projectview_header = new Hdy.HeaderBar ();
-        projectview_header.has_subtitle = false;
-        projectview_header.decoration_layout = ":maximize";
-        projectview_header.show_close_button = true;
-        projectview_header.get_style_context ().add_class ("projectview-header");
-        projectview_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        sidebar_button.add (sidebar_image);
 
-        check_button_layout ();
+        unowned Gtk.StyleContext sidebar_button_context = sidebar_button.get_style_context ();
+        sidebar_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        project_stack = new Gtk.Stack ();
-        project_stack.expand = true;
-        project_stack.transition_type = Gtk.StackTransitionType.NONE;
-        if (Planner.settings.get_boolean ("use-system-decoration")) {
-            project_stack.margin_top = 18;
-        }
+        var add_image = new Widgets.DynamicIcon ();
+        add_image.size = 16;
+        add_image.icon_name = "planner-search";
+        
+        var add_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
+        
+        add_button.add (add_image);
 
-        var notifications_grid = new Gtk.Grid ();
-        notifications_grid.orientation = Gtk.Orientation.VERTICAL;
-        notifications_grid.margin_bottom = 12;
-        notifications_grid.halign = Gtk.Align.CENTER;
-        notifications_grid.valign = Gtk.Align.END;
+        unowned Gtk.StyleContext add_button_context = add_button.get_style_context ();
+        add_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var slim_mode_icon = new Gtk.Image ();
-        slim_mode_icon.gicon = new ThemedIcon ("pane-show-symbolic");
-        slim_mode_icon.pixel_size = 13;
+        var header_end_grid = new Gtk.Grid ();
+        header_end_grid.add (search_entry);
 
-        var slim_mode_button = new Gtk.Button ();
-        slim_mode_button.image = slim_mode_icon;
-        slim_mode_button.get_style_context ().add_class ("dim-label");
-        slim_mode_button.valign = Gtk.Align.CENTER;
-                
-        multiselect_toolbar = new Widgets.MultiSelectToolbar ();
+        main_header.pack_start (sidebar_button);
+        main_header.pack_end (header_end_grid);
 
-        var projectview_overlay = new Gtk.Overlay ();
-        projectview_overlay.expand = true;
-        projectview_overlay.add_overlay (notifications_grid);
-        projectview_overlay.add_overlay (multiselect_toolbar);
-        projectview_overlay.add (project_stack);
+        var header_group = new Hdy.HeaderGroup ();
+        header_group.add_header_bar (sidebar_header);
+        header_group.add_header_bar (main_header);
 
-        var view_grid = new Gtk.Grid ();
-        view_grid.attach (projectview_header, 0, 0);
-        view_grid.attach (projectview_overlay, 0, 1);
+        unowned Gtk.StyleContext main_header_context = main_header.get_style_context ();
+        main_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        
+        sidebar = new Widgets.Sidebar ();
 
-        var paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-        paned.pack1 (sidebar, false, false);
-        paned.pack2 (view_grid, true, false);
+        var sidebar_content = new Gtk.Grid () {
+            width_request = 225,
+            vexpand = true,
+            hexpand = false
+        };
+        sidebar_content.attach (sidebar_header, 0, 0);
+        sidebar_content.attach (sidebar, 0, 1);
 
-        if (!Planner.settings.get_boolean ("use-system-decoration")) {
-            // set_titlebar (header_paned);
-        }
+        var main_grid = new Gtk.Grid ();
+        main_grid.attach (main_header, 0, 0);
+        main_grid.attach (new Gtk.Label ("Tasklist"), 0, 1);
+
+        unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
+        main_grid_context.add_class ("view");
+
+        var flap_view = new Hdy.Flap () {
+            locked = true,
+            fold_policy = Hdy.FlapFoldPolicy.NEVER
+        };
+        flap_view.content = main_grid;
+        flap_view.separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+        flap_view.flap = sidebar_content;
 
         var welcome_view = new Views.Welcome ();
-
-        var welcome_header = new Hdy.HeaderBar ();
-        welcome_header.has_subtitle = false;
-        welcome_header.show_close_button = true;
-        // welcome_header.get_style_context ().add_class ("default-decoration");
-        welcome_header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var welcome_grid = new Gtk.Grid ();
-        welcome_grid.orientation = Gtk.Orientation.VERTICAL;
-        welcome_grid.add (welcome_header);
-        welcome_grid.add (welcome_view);
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
         main_stack.transition_type = Gtk.StackTransitionType.NONE;
 
-        main_stack.add_named (paned, "stack-view");
-        main_stack.add_named (welcome_grid, "welcome-view");
+        main_stack.add_named (welcome_view, "welcome-view");
+        main_stack.add_named (flap_view, "main-view");
 
         add (main_stack);
 
-        Planner.settings.bind ("pane-position", paned, "position", GLib.SettingsBindFlags.DEFAULT);
-
-        realize.connect (() => {
-            // Plugins hook
-            HookFunc hook_func = () => {
-                Planner.plugins.hook_widgets (this, pane);
-            };
-
-            Planner.plugins.extension_added.connect (() => {
-                hook_func ();
-            });
-
-            hook_func ();
-        });
-
-        Planner.database.opened.connect (() => {
-            if (Planner.database.is_database_empty ()) {
-                Timeout.add (250, () => {
-                    main_stack.visible_child_name = "welcome-view";
-                    pane.sensitive_ui = false;
-                    
-                    return GLib.Source.REMOVE;
-                });
-            } else {
-                main_stack.visible_child_name = "stack-view";
-
-                if (Planner.settings.get_boolean ("homepage-project")) {
-                    int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
-                    if (Planner.database.project_exists (project_id)) {
-                        Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
-                    } else {
-                        Planner.event_bus.pane_selected (PaneType.ACTION, "0");
-                    }
-                } else {
-                    Planner.event_bus.pane_selected (
-                        PaneType.ACTION,
-                        Planner.settings.get_enum ("homepage-item").to_string ()
-                    );
-                }
-
-                // Run Reminder server
-                Planner.notifications.init_server ();
-
-                // Run Todoisr Sync server
-                Planner.todoist.run_server ();
-
-                // Add all projects and areas
-                pane.add_all_projects ();
-
-                // Init Progress Server
-                init_badge_count ();
-                init_progress_controller ();
-
-                pane.sensitive_ui = true;
-            }
-        });
-
-        Planner.database.reset.connect (() => {
-            inbox_view.destroy ();
-            inbox_view = null;
-
-            main_stack.visible_child_name = "welcome-view";
-        });
-
-        Planner.notifications.send_notification.connect ((message, style) => {
-            var notification = new Widgets.Toast (message, "", style);
-            notifications_grid.add (notification);
-            notifications_grid.show_all ();
-
-            notification.send_notification ();
-        });
-
-        Planner.notifications.send_undo_notification.connect ((message, query) => {
-            var notification = new Widgets.Toast (message, query, NotificationStyle.NORMAL);
-            notifications_grid.add (notification);
-            notifications_grid.show_all ();
-
-            notification.send_notification ();
-        });
+        Planner.settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
 
         welcome_view.activated.connect ((index) => {
-            if (index == 0) {
-                main_stack.visible_child_name = "stack-view";
-
-                // Save user name
-                Planner.settings.set_string ("user-name", GLib.Environment.get_real_name ());
-
-                // To do: Create a tutorial project
-                Planner.event_bus.pane_selected (
-                    PaneType.PROJECT,
-                    Planner.utils.create_tutorial_project ().id.to_string ()
-                );
-
-                // Create Inbox Project
-                var inbox_project = Planner.database.create_inbox_project ();
-
-                // Create Default Labels
-                Planner.utils.create_default_labels ();
-
-                // Set settings
-                Planner.settings.set_int64 ("inbox-project", inbox_project.id);
-
-                project_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-                pane.sensitive_ui = true;
-                project_stack.transition_type = Gtk.StackTransitionType.NONE;
-
-                // Init Progress Server
-                init_badge_count ();
-                init_progress_controller ();
-
-                // Init Inbox Project
-                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
-            } else if (index == 1) {
-                var todoist_oauth = new Dialogs.TodoistOAuth ();
-                todoist_oauth.show_all ();
-            } else {
-                var s = new Services.ExportImport ();
-                s.import_backup ();
-            }
+            Planner.settings.set_enum ("backend-type", index + 1);
+            init_backend ();
         });
 
-        pane.label_selected.connect ((label) => {
-            go_label (label.id);
-        });
-
-        pane.view_selected.connect ((view) => {
-            go_view (Planner.utils.get_paneview_by_enum ((int32) view));
-        });
-
-        pane.project_selected.connect ((id) => {
-            go_project (id);
-        });
-
-        pane.show_quick_find.connect (show_quick_find);
-
-        Planner.todoist.first_sync_finished.connect (() => {
-            main_stack.visible_child_name = "stack-view";
-            project_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
-
-            // Create The New Inbox Project
-            inbox_view = null;
-            Planner.event_bus.pane_selected (PaneType.ACTION, "0");
-
-            // Enable UI
-            pane.sensitive_ui = true;
-            project_stack.transition_type = Gtk.StackTransitionType.NONE;
-
-            // Init Progress Server
-            init_badge_count ();
-            init_progress_controller ();
-        });
-
-        Planner.database.project_deleted.connect ((id) => {
-            if ("project-view-%s".printf (id.to_string ()) == project_stack.visible_child_name) {
-                project_stack.visible_child.destroy ();
-                project_stack.visible_child_name = "inbox-view";
-                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
-            }
-        });
-
-        // Label Controller
-        var labels_controller = new Services.LabelsController ();
-
-        Planner.database.label_added.connect_after ((label) => {
-            Idle.add (() => {
-                labels_controller.add_label (label);
-                pane.add_label (label);
-                return false;
-            });
-        });
-
-        Planner.database.label_updated.connect ((label) => {
-            Idle.add (() => {
-                labels_controller.update_label (label);
-                return false;
-            });
-        });
-
-        delete_event.connect (() => {
-            if (Planner.settings.get_boolean ("run-in-background")) {
-                return hide_on_delete ();
-            }
-
-            return false;
-        });
-
-        Planner.instance.go_view.connect ((type, id, id2) => {
-            if (type == "project") {
-                go_project (id);
-            } else if (type == "item") {
-                go_project (id2);
-            }
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "appearance") {
-                Planner.utils.apply_theme_changed ();
-            } else if (key == "badge-count") {
-                set_badge_visible ();
-            } else if (key == "todoist-sync-token") {
-                Planner.settings.set_string (
-                    "todoist-last-sync",
-                    new GLib.DateTime.now_local ().to_string ()
-                );
-            } else if (key == "button-layout") {
-                check_button_layout ();
-            } else if (key == "font-scale") {
-                Planner.utils.update_font_scale ();
-            } else if (key == "clock-format") {
-                Planner.utils.clock_format_changed ();
-            }
-        });
-
-        key_press_event.connect ((event) => {
-            if (event.keyval == 65507) {
-                Planner.event_bus.ctrl_pressed = true;
-                Planner.event_bus.ctrl_press ();
-            }
-
-            return false;
-        });
-        
-        key_release_event.connect ((event) => {
-            if (event.keyval == 65507) {
-                Planner.event_bus.ctrl_pressed = false;
-                Planner.event_bus.ctrl_release ();
-            }
-            
-            return false;
-        });
-
-        Planner.event_bus.hide_new_window_project.connect ((project_id) => {
-            var project = ((Views.Project) project_stack.visible_child).project;
-            if (project.id == project_id) {
-                go_view (PaneView.INBOX);
-            }
-        });
-    }
-
-    public void init_progress_controller () {
-        Planner.database.item_added.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
-        
-        Planner.database.item_updated.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
-
-        Planner.database.item_moved.connect ((item, project_id, old_project_id) => {
-            Planner.database.check_project_count (project_id);
-            Planner.database.check_project_count (old_project_id);
-        });
-
-        Planner.database.item_deleted.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
-
-        Planner.database.item_completed.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
-
-        Planner.database.item_uncompleted.connect ((item) => {
-            Planner.database.check_project_count (item.project_id);
-        });
-
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                Planner.database.check_project_count (id);
-                return false;
-            });
-        });
-
-        Planner.database.update_project_count.connect ((id, items_0, items_1) => {
-            Planner.database.check_project_count (id);
-        });
-
-        /*
-        *   Sections Event
-        */
-        Planner.database.section_added.connect ((section) => {
-            Idle.add (() => {
-                Planner.database.check_project_count (section.project_id);
-                return false;
-            });
-        });
-
-        Planner.database.section_deleted.connect ((section) => {
-            Planner.database.check_project_count (section.project_id);
-        });
-
-        Planner.database.section_moved.connect ((section, id, old_project_id) => {
-            Idle.add (() => {
-                Planner.database.check_project_count (id);
-                Planner.database.check_project_count (old_project_id);
-                return false;
-            });
-        });
-
-        Planner.database.update_all_bage ();
-    }
-
-    public void show_quick_find () {
-        var dialog = new Dialogs.QuickFind ();
-        dialog.destroy.connect (Gtk.main_quit);
-        dialog.show_all ();
-    }
-
-    public void new_project () {
-        if (pane.visible_tool_widget ()) {
-            pane.set_visible_tool_widget (false);
-        }
-        
-        if (pane.new_project.reveal) {
-            pane.new_project.reveal = false;
-        } else {
-            pane.new_project.reveal = true;
-            pane.new_project.stack.visible_child_name = "box";
-            pane.new_project.name_entry.grab_focus ();
-        }
-    }
-
-    public void go_view (PaneView view) {
-        if (view == PaneView.INBOX) {
-            if (inbox_view == null) {
-                inbox_view = new Views.Inbox (
-                    Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"))
-                );
-                project_stack.add_named (inbox_view, "inbox-view");
-            }
-
-            project_stack.visible_child_name = "inbox-view";
-        } else if (view == PaneView.TODAY) {
-            if (today_view == null) {
-                today_view = new Views.Today ();
-                project_stack.add_named (today_view, "today-view");
-            }
-
-            today_view.add_items ();
-            project_stack.visible_child_name = "today-view";
-        } else if (view == PaneView.UPCOMING) {
-            if (upcoming_view == null) {
-                upcoming_view = new Views.Upcoming ();
-                project_stack.add_named (upcoming_view, "upcoming-view");
-            }
-
-            project_stack.visible_child_name = "upcoming-view";
-        } else if (view == PaneView.COMPLETED) {
-            if (completed_view == null) {
-                completed_view = new Views.Completed ();
-                project_stack.add_named (completed_view, "completed-view");
-            }
-
-            completed_view.add_all_items ();
-            project_stack.visible_child_name = "completed-view";
-        } else if (view == PaneView.ALLTASKS) {
-            if (alltasks_view == null) {
-                alltasks_view = new Views.AllTasks ();
-                project_stack.add_named (alltasks_view, "alltasks-view");
-            }
-            
-            project_stack.visible_child_name = "alltasks-view";
-        }
-
-        pane.select_item (view);
-    }
-
-    public void go_project (int64 project_id) {
-        if (project_view == null) {
-            project_view = new Views.Project ();
-            project_stack.add_named (project_view, "project-view");
-        }
-
-        project_view.project = Planner.database.get_project_by_id (project_id);
-        project_stack.visible_child_name = "project-view";
-    }
-
-    public void go_item (int64 item_id) {
-        var item = Planner.database.get_item_by_id (item_id);
-        var project = Planner.database.get_project_by_id (item.project_id);
-        if (project.inbox_project == 1) {
-            Planner.event_bus.pane_selected (PaneType.ACTION, "0");
-        } else {
-            Planner.event_bus.pane_selected (PaneType.PROJECT, item.project_id.to_string ());
-        }
-
-        Planner.utils.highlight_item (item_id);
-    }
-
-    public void go_label (int64 label_id) {
-        if (label_view == null) {
-            label_view = new Views.Label ();
-            project_stack.add_named (label_view, "label-view");
-        }
-
-        label_view.label = Planner.database.get_label_by_id (label_id);
-        project_stack.visible_child_name = "label-view";
-    }
-
-    public void go_filter (string filter) {
-        if (filter_view == null) {
-            filter_view = new Views.Filter ();
-            project_stack.add_named (filter_view, "filter-view");
-        }
-        
-        filter_view.filter = filter;
-        project_stack.visible_child_name = "filter-view";
-    }
-
-    private void init_badge_count () {
-        set_badge_visible ();
-
-        Planner.database.item_added.connect ((item) => {
-            set_badge_visible ();
-        });
-
-        //  Planner.database.item_added_with_index.connect (() => {
-        //      set_badge_visible ();
-        //  });
-
-        Planner.database.item_deleted.connect ((item) => {
-            set_badge_visible ();
-        });
-
-        Planner.database.item_completed.connect ((item) => {
-            set_badge_visible ();
-        });
-
-        Planner.database.add_due_item.connect (() => {
-            set_badge_visible ();
-        });
-
-        Planner.database.update_due_item.connect (() => {
-            set_badge_visible ();
-        });
-
-        Planner.database.remove_due_item.connect (() => {
-            set_badge_visible ();
-        });
-
-        Planner.database.item_moved.connect (() => {
-            Idle.add (() => {
-                set_badge_visible ();
-
-                return false;
-            });
-        });
-
-        Planner.database.subtract_task_counter.connect ((id) => {
-            Idle.add (() => {
-                set_badge_visible ();
-
-                return false;
-            });
-        });
-    }
-
-    private void set_badge_visible () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
-        }
-
-        timeout_id = Timeout.add (300, () => {
-            timeout_id = 0;
-            
-            Granite.Services.Application.set_badge_visible.begin (
-                Planner.settings.get_enum ("badge-count") != 0, (obj, res) => {
-                try {
-                    Granite.Services.Application.set_badge_visible.end (res);
-                    update_badge_count ();
-                } catch (GLib.Error e) {
-                    critical (e.message);
-                }
-            });
-
+        Timeout.add (main_stack.transition_duration, () => {
+            init_backend ();
             return GLib.Source.REMOVE;
         });
-    }
 
-    private void update_badge_count () {
-        int badge_count = Planner.settings.get_enum ("badge-count");
-        int count = 0;
-
-        if (badge_count == 1) {
-            count = Planner.database.get_project_count (Planner.settings.get_int64 ("inbox-project"));
-        } else if (badge_count == 2) {
-            count = Planner.database.get_today_count () + Planner.database.get_past_count ();
-        } else if (badge_count == 3) {
-            count = (Planner.database.get_project_count (
-                Planner.settings.get_int64 ("inbox-project")) +
-                Planner.database.get_past_count () +
-                Planner.database.get_today_count ()) -
-                Planner.database.get_today_project_count (Planner.settings.get_int64 ("inbox-project")
-            );
-        }
-
-        bool badge_visible = false;
-        if (count > 0) {
-            badge_visible = true;
-        }
-
-        Granite.Services.Application.set_badge.begin (count, (obj, res) => {
-            try {
-                Granite.Services.Application.set_badge.end (res);
-
-                if (badge_visible == false) {
-                    Granite.Services.Application.set_badge_visible.begin (badge_visible, (obj, res) => {
-                        try {
-                            Granite.Services.Application.set_badge_visible.end (res);
-                        } catch (GLib.Error e) {
-                            critical (e.message);
-                        }
-                    });
-                }
-            } catch (GLib.Error e) {
-                critical (e.message);
+        sidebar_button.clicked.connect (() => {
+            if (flap_view.reveal_flap) {
+                flap_view.reveal_flap = false;
+                sidebar_image.gicon = new ThemedIcon ("view-sidebar-end-symbolic");
+            } else {
+                flap_view.reveal_flap = true;
+                sidebar_image.gicon = new ThemedIcon ("view-sidebar-start-symbolic");
             }
         });
     }
 
-    public void add_task_action (int index) {
-        if (project_stack.visible_child_name == "inbox-view") {
-            inbox_view.add_new_item (index);
-        } else if (project_stack.visible_child_name == "today-view") {
-            today_view.add_new_item (index);
-        } else if (project_stack.visible_child_name == "upcoming-view") {
-            var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
-            
-            Planner.event_bus.magic_button_activated (
-                inbox_project.id,
-                0,
-                inbox_project.is_todoist,
-                index,
-                "upcoming",
-                new DateTime.now_local ().add_days (1).to_string ()
-            );
-        } else if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) project_stack.visible_child).project;
-            Planner.event_bus.magic_button_activated (
-                project.id,
-                0,
-                project.is_todoist,
-                index,
-                "project",
-                ""
-            );
-        } else if (project_stack.visible_child_name == "filter-view") {
-            filter_view.add_new_item (index);
-        }
-    }
+    private void init_backend () {
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            // Init Database
+            Planner.database = Services.Database.get_default ();
+            Planner.database.init_database ();
 
-    public void hide_all () {
-        if (project_stack.visible_child_name == "inbox-view") {
-            Planner.event_bus.hide_items_project (Planner.settings.get_int64 ("inbox-project"));
-        } else if (project_stack.visible_child_name == "today-view") {
-            today_view.hide_items ();
-        } else if (project_stack.visible_child_name == "upcoming-view") {
-            upcoming_view.hide_items ();
-        } else if (project_stack.visible_child_name == "label-view") {
-            label_view.hide_items ();
-        } else if (project_stack.visible_child_name == "filter-view") {
-            filter_view.hide_items ();
-        } else if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) project_stack.visible_child).project;
-            Planner.event_bus.hide_items_project (project.id);
-        }
-    }
+            if (backend_type == BackendType.TODOIST) {
+                Planner.todoist = Services.Todoist.get_default ();
+                Planner.todoist.init ();
 
-    public void open_new_project_window () {
-        if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) project_stack.visible_child).project;
-
-            var dialog = new Dialogs.Project (project, false);
-            dialog.destroy.connect (Gtk.main_quit);
-            
-            int window_x, window_y;
-            var rect = Gtk.Allocation ();
-            
-            Planner.settings.get ("project-dialog-position", "(ii)", out window_x, out window_y);
-            Planner.settings.get ("project-dialog-size", "(ii)", out rect.width, out rect.height);
-
-            dialog.set_allocation (rect);
-            dialog.move (window_x, window_y);
-            dialog.show_all ();
-        }
-    }
-
-    public void sort (int sort) {
-        if (project_stack.visible_child_name == "inbox-view") {
-            Planner.database.update_sort_order_project (Planner.settings.get_int64 ("inbox-project"), sort);
-        } else if (project_stack.visible_child_name == "today-view") {
-            Planner.settings.set_int ("today-sort-order", sort);
-        } else if (project_stack.visible_child_name == "upcoming-view") {
-            
-        } else if (project_stack.visible_child_name == "label-view") {
-            
-        } else if (project_stack.visible_child_name == "filter-view") {
-            
-        } else if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) project_stack.visible_child).project;
-            Planner.database.update_sort_order_project (project.id, sort);
-        }
-    }
-
-    public void go_home () {
-        if (Planner.settings.get_boolean ("homepage-project")) {
-            int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
-            if (Planner.database.project_exists (project_id)) {
-                Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
-            } else {
-                Planner.event_bus.pane_selected (PaneType.ACTION, "0");
+                // Init Signals
+                Planner.todoist.oauth_closed.connect ((welcome) => {
+                    if (welcome) {
+                        main_stack.visible_child_name = "welcome-view";
+                    }
+                });
             }
+
+            // Init Widgets
+            main_stack.visible_child_name = "main-view";
+            sidebar.init (backend_type);
+        } else if (backend_type == BackendType.CALDAV) {
+
         } else {
-            Planner.event_bus.pane_selected (
-                PaneType.ACTION,
-                Planner.settings.get_enum ("homepage-item").to_string ()
-            );
-        }
-    }
-
-    public void add_task_clipboard_action (string text) {
-        var item = new Objects.Item ();
-        item.content = text;       
-        item.section_id = 0;
-
-        var inbox_project = Planner.database.get_project_by_id (Planner.settings.get_int64 ("inbox-project"));
-        var cancellable = new Cancellable ();
-
-        if (project_stack.visible_child_name == "inbox-view") {
-            item.project_id = inbox_project.id;
-            item.is_todoist = inbox_project.is_todoist;
-
-            if (item.is_todoist == 1) {
-                var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
-                Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard…"),
-                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
-                );
-            } else {
-                item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1);
-            }
-        } else if (project_stack.visible_child_name == "today-view") {
-            item.project_id = inbox_project.id;
-            item.is_todoist = inbox_project.is_todoist;
-            item.due_date = new GLib.DateTime.now_local ().to_string ();
-
-            if (item.is_todoist == 1) {
-                var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
-                Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard…"),
-                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
-                );
-            } else {
-                item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1);
-            }
-        } else if (project_stack.visible_child_name == "upcoming-view") {
-            item.project_id = inbox_project.id;
-            item.is_todoist = inbox_project.is_todoist;
-            item.due_date = new GLib.DateTime.now_local ().add_days (1).to_string ();
-
-            if (item.is_todoist == 1) {
-                var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
-                Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard…"),
-                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
-                );
-            } else {
-                item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1);
-            }
-        } else if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project = ((Views.Project) project_stack.visible_child).project;
-            item.project_id = project.id;
-            item.is_todoist = project.is_todoist;
-
-            if (item.is_todoist == 1) {
-                var temp_id_mapping = Planner.utils.generate_id ();
-                Planner.todoist.add_item.begin (item, cancellable, -1, temp_id_mapping);
-                Planner.notifications.send_undo_notification (
-                    _("Adding task from clipboard…"),
-                    Planner.utils.build_undo_object ("item_add_from_clipboard", "item", temp_id_mapping.to_string (), "", "")
-                );
-            } else {
-                item.id = Planner.utils.generate_id ();
-                Planner.database.insert_item (item, -1);
-            }
-        }
-    }
-
-    public void new_section_action () {
-        if (project_stack.visible_child_name == "inbox-view") {
-            inbox_view.open_new_section ();
-        } else if (project_stack.visible_child_name == "today-view") {
-
-        } else if (project_stack.visible_child_name == "upcoming-view") {
-
-        } else if (project_stack.visible_child_name.has_prefix ("project")) {
-            var project_view = (Views.Project) project_stack.visible_child;
-            project_view.open_new_section ();
-        }
-    }
-
-    public void hide_item () {
-        Planner.event_bus.unselect_all ();
-
-        if (pane.visible_new_widget ()) {
-            pane.set_visible_new_widget (false);
-        } else if (pane.visible_tool_widget ()) {
-            pane.set_visible_tool_widget (false);
-        } else {
-            if (project_stack.visible_child_name == "inbox-view") {
-                //inbox_view.hide_last_item ();
-            } else if (project_stack.visible_child_name == "today-view") {
-                //today_view.hide_last_item ();
-            } else if (project_stack.visible_child_name == "upcoming-view") {
-                //upcoming_view.hide_last_item ();
-            } else {
-                //var project_view = (Views.Project) project_stack.visible_child;
-                //project_view.hide_last_item ();
-            }
-        }
-    }
-
-    private void check_button_layout () {
-        int button_layout = Planner.settings.get_enum ("button-layout");
-
-        if (button_layout == 0) { // elementary
-            sidebar_header.decoration_layout = "close:";
-            projectview_header.decoration_layout = ":maximize";
-        } else if (button_layout == 1) { // Ubuntu
-            sidebar_header.decoration_layout = "close,maximize,minimize:";
-            projectview_header.decoration_layout = ":";
-        } else if (button_layout == 2) { // Windows
-            sidebar_header.decoration_layout = ":";
-            projectview_header.decoration_layout = ":minimize,maximize,close";
-        } else if (button_layout == 3) { // macOS
-            sidebar_header.decoration_layout = "close,minimize,maximize";
-            projectview_header.decoration_layout = ":";
-        } else if (button_layout == 4) { // Minimize Left
-            sidebar_header.decoration_layout = "close,minimize:";
-            projectview_header.decoration_layout = ":maximize";
-        } else if (button_layout == 5) { // Minimize Right
-            sidebar_header.decoration_layout = "close:";
-            projectview_header.decoration_layout = ":minimize,maximize";
-        } else if (button_layout == 6) { // Close Only Left
-            sidebar_header.decoration_layout = "close:";
-            projectview_header.decoration_layout = ":";
-        } else if (button_layout == 7) { // Close Only Right
-            sidebar_header.decoration_layout = ":";
-            projectview_header.decoration_layout = ":close";
+            main_stack.visible_child_name = "welcome-view";
         }
     }
 
@@ -918,20 +195,14 @@ public class MainWindow : Hdy.ApplicationWindow {
 
         configure_id = Timeout.add (100, () => {
             configure_id = 0;
+            
+            Gdk.Rectangle rect;
+            get_allocation (out rect);
+            Planner.settings.set ("window-size", "(ii)", rect.width, rect.height);
 
-            if (is_maximized) {
-                Planner.settings.set_boolean ("window-maximized", true);
-            } else {
-                Planner.settings.set_boolean ("window-maximized", false);
-
-                Gdk.Rectangle rect;
-                get_allocation (out rect);
-                Planner.settings.set ("window-size", "(ii)", rect.width, rect.height);
-
-                int root_x, root_y;
-                get_position (out root_x, out root_y);
-                Planner.settings.set ("window-position", "(ii)", root_x, root_y);
-            }
+            int root_x, root_y;
+            get_position (out root_x, out root_y);
+            Planner.settings.set ("window-position", "(ii)", root_x, root_y);
 
             return GLib.Source.REMOVE;
         });

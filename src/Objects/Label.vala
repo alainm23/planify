@@ -20,7 +20,7 @@
 */
 
 public class Objects.Label : GLib.Object {
-    public int64 id { get; set; default = Planner.utils.generate_id (); }
+    public int64 id { get; set; default = 0; }
     public int64 item_label_id { get; set; default = 0; }
     public int64 project_id { get; set; default = 0; }
     public string name { get; set; default = ""; }
@@ -30,47 +30,46 @@ public class Objects.Label : GLib.Object {
     public int is_favorite { get; set; default = 0; }
     public int is_todoist { get; set; default = 0; }
 
-    private uint timeout_id = 0;
-
-    public void save () {
-        if (timeout_id != 0) {
-            Source.remove (timeout_id);
+    public string _id_string;
+    public string id_string {
+        get {
+            _id_string = id.to_string ();
+            return _id_string;
         }
+    }
 
-        timeout_id = Timeout.add (250, () => {
-            timeout_id = 0;
+    public signal void deleted ();
+    public signal void updated ();
 
-            new Thread<void*> ("save_timeout", () => {
-                Planner.database.update_label (this);
-                if (this.is_todoist == 1) {
-                    Planner.todoist.update_label (this);
-                }
-                return null;
-            });
-
-            return GLib.Source.REMOVE;
+    construct {
+        deleted.connect (() => {
+            Planner.database.label_deleted (this);
         });
     }
 
-    public string to_json () {
-        var builder = new Json.Builder ();
-        builder.begin_object ();
+    public Label.from_json (Json.Node node) {
+        id = node.get_object ().get_int_member ("id");
+        update_from_json (node);
+        is_todoist = 1;
+    }
 
-        builder.set_member_name ("id");
-        builder.add_int_value (this.id);
+    public void update_from_json (Json.Node node) {
+        name = node.get_object ().get_string_member ("name");
 
-        builder.set_member_name ("name");
-        builder.add_string_value (this.name);
+        if (!node.get_object ().get_null_member ("color")) {
+            color = (int32) node.get_object ().get_int_member ("color");
+        }
+        
+        if (!node.get_object ().get_null_member ("is_favorite")) {
+            is_favorite = (int32) node.get_object ().get_int_member ("is_favorite");
+        }
 
-        builder.set_member_name ("color");
-        builder.add_int_value (this.color);
-
-        builder.end_object ();
-
-        Json.Generator generator = new Json.Generator ();
-        Json.Node root = builder.get_root ();
-        generator.set_root (root);
-
-        return generator.to_data (null);
+        if (!node.get_object ().get_null_member ("is_deleted")) {
+            is_deleted = (int32) node.get_object ().get_int_member ("is_deleted");
+        }
+        
+        if (!node.get_object ().get_null_member ("item_order")) {
+            item_order = (int32) node.get_object ().get_int_member ("item_order");
+        }
     }
 }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="4.2333331mm"
+   height="4.2333331mm"
+   viewBox="0 0 4.2333331 4.2333331"
+   version="1.1"
+   id="svg10539">
+  <defs
+     id="defs10533" />
+  <metadata
+     id="metadata10536">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     transform="translate(45.205952,-342.50834)">
+    <path
+       id="rect10509"
+       style="color:#bebebe;display:inline;overflow:visible;visibility:visible;opacity:1;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:0.99999994;marker:none"
+       d="M 3 2 C 1.9093002 2 1 2.9093039 1 4 L 1 12 C 1 13.090696 1.9093002 14 3 14 L 13 14 C 14.090704 14 15 13.090696 15 12 L 15 4 C 15 2.9093039 14.090704 2 13 2 L 3 2 z M 3 4 L 6 4 L 6 12 L 3 12 L 3 4 z M 7 4 L 13 4 L 13 12 L 7 12 L 7 4 z "
+       transform="matrix(0.26458333,0,0,0.26458333,-45.205952,342.50834)" />
+    <rect
+       transform="matrix(0,-1,-1,0,0,0)"
+       style="color:#bebebe;display:inline;overflow:visible;visibility:visible;opacity:0.35;fill:#241f31;fill-opacity:1;stroke:none;stroke-width:0.26458332;marker:none"
+       id="rect10511"
+       width="2.1166327"
+       height="0.79374611"
+       x="-345.68332"
+       y="43.618412" />
+  </g>
+</svg>
