@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2021-04-30 11:32+0000\n"
+"PO-Revision-Date: 2021-11-10 22:51+0000\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: Croatian <https://hosted.weblate.org/projects/planner/"
 "translations/hr/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.9.1-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -49,7 +49,7 @@ msgstr "Dodaje se zadatak iz međuspremnika …"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
 msgid "Home"
-msgstr "Privatno"
+msgstr "Početna"
 
 #: src/Utils.vala:116 src/Utils.vala:126
 msgid "Office"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: src/Utils.vala:1015
 msgid "🚀️ Getting Started"
-msgstr "🚀️ Kako započeti"
+msgstr "🚀️ Početak"
 
 #: src/Utils.vala:1016
 msgid ""
@@ -585,6 +585,8 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
+"Na žalost, Planer još ne podržava „%s” jezik. Pokušaj postaviti ponavljajući "
+"zadatak na engleskom jeziku."
 
 #: src/Widgets/ItemRow.vala:1138
 msgid "1 task completed"
