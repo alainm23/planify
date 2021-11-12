@@ -1,0 +1,139 @@
+@define-color color_primary @BLUEBERRY_500;
+@define-color accent_color @color_primary;
+
+textview,
+entry {
+    caret-color: @color_primary;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+.pane-listbox row:not(:first-child) {
+    margin-top: 3px;
+}
+
+.pane-listbox {
+    padding: 6px;
+    background-color: @base_color;
+    border-radius: 6px;
+    border: 0.4px solid @menu_separator;
+}
+
+.pane-listbox-background {
+    background-color: @base_color;
+}
+
+.selectable-item {
+    border-radius: 4px;
+    transition: all 220ms ease-in-out;
+}
+
+.selectable-item:selected {
+    background-color: transparent;
+    color: @text_color;
+    font-weight: bold;
+}
+
+.selectable-item-selected {
+    background-color: @selected_bg_color;
+    border-radius: 6px;
+}
+
+.selectable-item:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
+.selectable-item label {
+    font-weight: 500;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.action-button image {
+    transition: 0.35s;
+}
+
+.action-button:hover image {
+    -gtk-icon-transform: scale(1.3);
+}
+
+.todoist-sync-button {
+    padding: 3px;
+}
+
+.label-color {
+    background: @colorAccent;
+    border: 1px solid @borders;
+    border-radius: 50%;
+    box-shadow:
+        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+    min-height: 12px;
+    min-width: 12px;
+}
+
+.is_loading image {
+    animation: spin 1000ms linear infinite;
+}
+
+.transition {
+    transition: all 115ms ease-in-out;
+}
+
+.hidden-button {
+    background-color: transparent;
+}
+
+.hidden-button image {
+    transition: all 150ms ease-in-out;
+    color: @text_color;
+}
+
+.hidden-button.opened image {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.grid-motion {
+    background-color: @selected_bg_color;
+    border-radius: 6px;
+}
+
+.drag-begin {
+    background-color: @base_color;
+    border: 1px solid @menu_separator;
+    border-radius: 6px;
+    box-shadow: none;
+    padding: 6px;
+}
+
+.opacity-1 {
+    opacity: 1;
+}
+
+.title {
+    font-weight:bold;
+    font-size: 12pt;
+    letter-spacing: -0.05em;
+}
+
+.editable-label entry {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: inherit;
+    padding: 0;
+}
+
+.editable-buttons button {
+    border-radius: 6px;
+    padding: 1px;
+}
+
+.editable-buttons label {
+    font-weight: 600;
+}

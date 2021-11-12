@@ -20,6 +20,8 @@
 public class MainWindow : Hdy.Window {
     private Widgets.Sidebar sidebar;
     private Gtk.Stack main_stack;
+    private Gtk.Stack views_stack;
+    private Widgets.ProjectHeader project_header;
 
     private uint configure_id = 0;
     public MainWindow (Gtk.Application application) {
@@ -43,7 +45,7 @@ public class MainWindow : Hdy.Window {
         unowned Gtk.StyleContext sidebar_header_context = sidebar_header.get_style_context ();
         sidebar_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var main_header = new Hdy.HeaderBar () {
+        project_header = new Widgets.ProjectHeader () {
             has_subtitle = false,
             show_close_button = true,
             hexpand = true,
@@ -51,55 +53,13 @@ public class MainWindow : Hdy.Window {
             margin_end = 3
         };
 
-        var search_entry = new Gtk.SearchEntry () {
-            placeholder_text = _("Search")
-        };
-
-        unowned Gtk.StyleContext search_entry_context = search_entry.get_style_context ();
-        search_entry_context.add_class ("border-radius-6");
-
-        var sidebar_image = new Gtk.Image () {
-            gicon = new ThemedIcon ("view-sidebar-start-symbolic"),
-            pixel_size = 16
-        };
-        
-        var sidebar_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        sidebar_button.add (sidebar_image);
-
-        unowned Gtk.StyleContext sidebar_button_context = sidebar_button.get_style_context ();
-        sidebar_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 16;
-        add_image.icon_name = "planner-search";
-        
-        var add_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        
-        add_button.add (add_image);
-
-        unowned Gtk.StyleContext add_button_context = add_button.get_style_context ();
-        add_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var header_end_grid = new Gtk.Grid ();
-        header_end_grid.add (search_entry);
-
-        main_header.pack_start (sidebar_button);
-        main_header.pack_end (header_end_grid);
+        unowned Gtk.StyleContext project_header_context = project_header.get_style_context ();
+        project_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
         var header_group = new Hdy.HeaderGroup ();
         header_group.add_header_bar (sidebar_header);
-        header_group.add_header_bar (main_header);
+        header_group.add_header_bar (project_header);
 
-        unowned Gtk.StyleContext main_header_context = main_header.get_style_context ();
-        main_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        
         sidebar = new Widgets.Sidebar ();
 
         var sidebar_content = new Gtk.Grid () {
@@ -110,9 +70,14 @@ public class MainWindow : Hdy.Window {
         sidebar_content.attach (sidebar_header, 0, 0);
         sidebar_content.attach (sidebar, 0, 1);
 
+        views_stack = new Gtk.Stack () {
+            expand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
         var main_grid = new Gtk.Grid ();
-        main_grid.attach (main_header, 0, 0);
-        main_grid.attach (new Gtk.Label ("Tasklist"), 0, 1);
+        main_grid.attach (project_header, 0, 0);
+        main_grid.attach (views_stack, 0, 1);
 
         unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
         main_grid_context.add_class ("view");
@@ -137,6 +102,7 @@ public class MainWindow : Hdy.Window {
         add (main_stack);
 
         Planner.settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
+        Planner.settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
 
         welcome_view.activated.connect ((index) => {
             Planner.settings.set_enum ("backend-type", index + 1);
@@ -148,15 +114,24 @@ public class MainWindow : Hdy.Window {
             return GLib.Source.REMOVE;
         });
 
-        sidebar_button.clicked.connect (() => {
-            if (flap_view.reveal_flap) {
-                flap_view.reveal_flap = false;
-                sidebar_image.gicon = new ThemedIcon ("view-sidebar-end-symbolic");
-            } else {
-                flap_view.reveal_flap = true;
-                sidebar_image.gicon = new ThemedIcon ("view-sidebar-start-symbolic");
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.PROJECT) {
+                add_project_view (Planner.database.get_project (int64.parse (id)));
             }
         });
+    }
+
+    private Views.Project add_project_view (Objects.Project project) {
+        Views.Project? project_view;
+        project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+        if (project_view == null) {
+            project_view = new Views.Project (project);
+            views_stack.add_named (project_view, project.view_id);
+        }
+
+        project_header.project = project;
+        views_stack.set_visible_child_name (project.view_id);
+        return project_view;
     }
 
     private void init_backend () {

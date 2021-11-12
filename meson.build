@@ -25,8 +25,12 @@ executable (
     'src/Widgets/ProjectRow.vala',
     'src/Widgets/ProjectProgress.vala',
     'src/Widgets/LabelRow.vala',
+    'src/Widgets/ProjectHeader.vala',
+    'src/Widgets/EditableLabel.vala',
+    'src/Widgets/TopHeaderProject.vala',
 
     'src/Views/Welcome.vala',
+    'src/Views/Project.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
 

@@ -95,10 +95,14 @@ public class Planner : Gtk.Application {
             gtk_settings.gtk_application_prefer_dark_theme = is_dark;
         });
 
-        var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        var provider_stylesheet = new Gtk.CssProvider ();
+        provider_stylesheet.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
+        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_stylesheet, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
         
+        var provider_animations = new Gtk.CssProvider ();
+        provider_animations.load_from_resource ("/com/github/alainm23/planner/animations.css");
+        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_animations, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");
         

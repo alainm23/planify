@@ -7,6 +7,7 @@ public class Services.Database : GLib.Object {
     public signal void reset ();
 
     public signal void project_added (Objects.Project project);
+    public signal void project_deleted (Objects.Project project);
 
     public signal void label_added (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
@@ -44,6 +45,12 @@ public class Services.Database : GLib.Object {
         label_deleted.connect ((label) => {
             if (_labels.remove (label)) {
                 debug ("Label Removed: %s", label.name);
+            }
+        });
+
+        project_deleted.connect ((project) => {
+            if (_projects.remove (project)) {
+                debug ("Project Removed: %s", project.name);
             }
         });
     }
@@ -175,7 +182,7 @@ public class Services.Database : GLib.Object {
 
         Sqlite.Statement stmt;
         string sql = """
-            SELECT * FROM Projects;
+            SELECT * FROM Projects ORDER BY child_order;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -251,6 +258,75 @@ public class Services.Database : GLib.Object {
 
         stmt.reset ();
         return stmt.step () == Sqlite.DONE;
+    }
+
+    public Objects.Project get_project (int64 id) {
+        Objects.Project? return_value = null;
+        lock (_projects) {
+            foreach (var project in _projects) {
+                if (project.id == id) {
+                    return_value = project;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public void delete_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+        string sql = """
+            DELETE FROM Projects WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, sql, "$id", project.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            project.deleted ();
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        stmt.reset ();
+    }
+
+    public void update_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+        string sql = """
+            UPDATE Projects SET name=$name, note=$note, due_date=$due_date, color=$color, is_todoist=$is_todoist,
+                inbox_project=$inbox_project, team_inbox=$team_inbox, child_order=$child_order, is_deleted=$is_deleted,
+                is_archived=$is_archived, is_favorite=$is_favorite, shared=$shared, is_kanban=$is_kanban,
+                show_completed=$show_completed, sort_order=$sort_order, parent_id=$parent_id, collapsed=$collapsed
+            WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, sql, "$name", project.name);
+        set_parameter_str (stmt, sql, "$note", project.note);
+        set_parameter_str (stmt, sql, "$due_date", project.due_date);
+        set_parameter_int (stmt, sql, "$color", project.color);
+        set_parameter_int (stmt, sql, "$is_todoist", project.is_todoist);
+        set_parameter_int (stmt, sql, "$inbox_project", project.inbox_project);
+        set_parameter_int (stmt, sql, "$team_inbox", project.team_inbox);
+        set_parameter_int (stmt, sql, "$child_order", project.child_order);
+        set_parameter_int (stmt, sql, "$is_deleted", project.is_deleted);
+        set_parameter_int (stmt, sql, "$is_archived", project.is_archived);
+        set_parameter_int (stmt, sql, "$is_favorite", project.is_favorite);
+        set_parameter_int (stmt, sql, "$shared", project.shared);
+        set_parameter_int (stmt, sql, "$is_kanban", project.is_kanban);
+        set_parameter_int (stmt, sql, "$show_completed", project.show_completed);
+        set_parameter_int (stmt, sql, "$sort_order", project.sort_order);
+        set_parameter_int (stmt, sql, "$collapsed", project.collapsed);
+        set_parameter_int64 (stmt, sql, "$parent_id", project.parent_id);
+        set_parameter_int64 (stmt, sql, "$id", project.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            project.updated ();
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        stmt.reset ();
     }
 
     /*
@@ -399,3 +475,4 @@ public class Services.Database : GLib.Object {
         stmt.bind_text (par_position, val);
     }
 }
+

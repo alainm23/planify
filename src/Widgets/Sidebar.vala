@@ -13,9 +13,11 @@ public class Widgets.Sidebar : Gtk.EventBox {
     private Gtk.Grid main_grid;
     
     public Gee.HashMap <string, Widgets.LabelRow> labels_hashmap;
+    public Gee.HashMap <string, Widgets.ProjectRow> projects_hashmap;
 
     construct {
         labels_hashmap = new Gee.HashMap <string, Widgets.LabelRow> ();
+        projects_hashmap = new Gee.HashMap <string, Widgets.ProjectRow> ();
 
         todoist_button = new Widgets.TodoistSync ();
 
@@ -38,8 +40,8 @@ public class Widgets.Sidebar : Gtk.EventBox {
         };
         listbox_grid.add (listbox);
 
-        projects_header = new Widgets.HeaderItem (_("Projects"), _("Add project"), _("No project available. Create one by clicking on the '+' button"));
-        labels_header = new Widgets.HeaderItem (_("Labels"), _("Add label"), _("Your list of filters will show up here. Create one by clicking on the '+' button"));
+        projects_header = new Widgets.HeaderItem (PaneType.PROJECT);
+        labels_header = new Widgets.HeaderItem (PaneType.LABEL);
 
         main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
@@ -57,6 +59,32 @@ public class Widgets.Sidebar : Gtk.EventBox {
         scrolled_window.add (main_grid);
 
         add (scrolled_window);
+
+        projects_header.add_activated.connect (() => {
+            prepare_new_project ();
+        });
+    }
+
+    private void prepare_new_project () {
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+        var project = new Objects.Project ();
+        project.name = _("New Project");
+        project.color = GLib.Random.int_range (30, 50);
+
+        if (backend_type == BackendType.TODOIST) {
+            project.is_todoist = 1;
+            projects_header.is_loading = true;
+            Planner.todoist.add_project.begin (project, (obj, res) => {
+                project.id = Planner.todoist.add_project.end (res);
+                Planner.database.insert_project (project);
+                projects_header.is_loading = false;
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
+            });
+        } else {
+            project.id = Util.get_default ().generate_id ();
+            Planner.database.insert_project (project);
+        }
     }
 
     public void init (BackendType backend_type) {
@@ -69,9 +97,15 @@ public class Widgets.Sidebar : Gtk.EventBox {
 
             // Init signals
             Planner.database.project_added.connect (add_row_project);
+            Planner.database.project_deleted.connect (delete_row_project);
 
             Planner.database.label_added.connect (add_row_label);
             Planner.database.label_deleted.connect (delete_row_label);
+
+            Planner.event_bus.delete_row_project.connect (delete_row_project);
+
+            Planner.todoist.sync_started.connect (todoist_button.sync_started);
+            Planner.todoist.sync_finished.connect (todoist_button.sync_finished);
 
             // Get projects
             add_all_projects ();
@@ -85,9 +119,15 @@ public class Widgets.Sidebar : Gtk.EventBox {
     }
 
     private void add_row_project (Objects.Project project) {
-        if (project.inbox_project == 0 && project.parent_id == 0) {
+        if (project.inbox_project == 0) {
             var row = new Widgets.ProjectRow (project);
-            projects_header.add_child (row);
+            projects_hashmap [project.id_string] = row;
+
+            if (project.parent_id == 0) {
+                projects_header.add_child (row);
+            } else {
+                projects_hashmap [project.parent_id_string].add_subproject (row);
+            }
         }
     }
 
@@ -112,6 +152,14 @@ public class Widgets.Sidebar : Gtk.EventBox {
     private void delete_row_label (Objects.Label label) {
         if (labels_hashmap.has_key (label.id_string)) {
             labels_hashmap [label.id_string].hide_destroy ();
+            labels_hashmap.unset (label.id_string);
+        }
+    }
+
+    private void delete_row_project (Objects.Project project) {
+        if (projects_hashmap.has_key (project.id_string)) {
+            projects_hashmap [project.id_string].hide_destroy ();
+            projects_hashmap.unset (project.id_string);
         }
     }
 }

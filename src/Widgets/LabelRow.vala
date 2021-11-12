@@ -25,6 +25,8 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
     private Gtk.Grid widget_color;
+    private Gtk.Grid handle_grid;
+    private Gtk.EventBox labelrow_eventbox;
 
     public LabelRow (Objects.Label label) {
         Object (
@@ -46,17 +48,24 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-        var main_grid = new Gtk.Grid () {
+        var labelrow_grid = new Gtk.Grid () {
             column_spacing = 6,
             margin = 3
         };
-        main_grid.add (widget_color);
-        main_grid.add (name_label);
+        labelrow_grid.add (widget_color);
+        labelrow_grid.add (name_label);
+
+        handle_grid = new Gtk.Grid ();
+        handle_grid.add (labelrow_grid);
+
+        labelrow_eventbox = new Gtk.EventBox ();
+        labelrow_eventbox.get_style_context ().add_class ("transition");
+        labelrow_eventbox.add (handle_grid);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
-        main_revealer.add (main_grid);
+        main_revealer.add (labelrow_eventbox);
 
         add (main_revealer);
 
@@ -70,6 +79,31 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         label.updated.connect (() => {
             update_request ();
         });
+
+        labelrow_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+                Timeout.add (120, () => {
+                    if (main_revealer.reveal_child) {
+                        Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
+                    }
+                    return GLib.Source.REMOVE;
+                });
+                return false;
+            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                // activate_menu ();
+                return false;
+            }
+
+            return false;
+        });
+
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.LABEL && label.id_string == id) {
+                labelrow_eventbox.get_style_context ().add_class ("selectable-item-selected");
+            } else {
+                labelrow_eventbox.get_style_context ().remove_class ("selectable-item-selected");
+            }
+        });
     }
 
     public void update_request () {
@@ -79,7 +113,6 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
-
         Timeout.add (main_revealer.transition_duration, () => {
             destroy ();
             return GLib.Source.REMOVE;

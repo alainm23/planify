@@ -7,6 +7,7 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
     private Widgets.DynamicIcon title_image;
     private Gtk.Label title_label;
     private Gtk.Label count_label;
+    private Gtk.EventBox content_eventbox;
 
     public FilterPaneRow (FilterType filter_type) {
         Object (
@@ -19,6 +20,7 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
 
         title_image = new Widgets.DynamicIcon ();
         title_image.size = 19;
+        title_image.dark = false;
 
         title_label = new Gtk.Label (null) {
 
@@ -40,9 +42,33 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
         main_grid.add (title_label);
         main_grid.add (count_label);
 
-        add (main_grid);
+        content_eventbox = new Gtk.EventBox ();
+        content_eventbox.get_style_context ().add_class ("transition");
+        content_eventbox.add (main_grid);
+
+        add (content_eventbox);
 
         build_filter_data ();
+
+        content_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+                Planner.event_bus.pane_selected (PaneType.FILTER, filter_type.to_string ());
+                return false;
+            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                // activate_menu ();
+                return false;
+            }
+
+            return false;
+        });
+
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
+                content_eventbox.get_style_context ().add_class ("selectable-item-selected");
+            } else {
+                content_eventbox.get_style_context ().remove_class ("selectable-item-selected");
+            }
+        });
     }
 
     private void build_filter_data () {
@@ -53,7 +79,7 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
             title_label.label = _("Inbox");
             title_image.icon_name = "planner-inbox";
         } else if (filter_type == FilterType.UPCOMING) {
-            title_label.label = _("Upcoming");
+            title_label.label = _("Tomorrow");
             title_image.icon_name = "planner-calendar";
         } else if (filter_type == FilterType.TRASH) {
             title_label.label = _("Trash");

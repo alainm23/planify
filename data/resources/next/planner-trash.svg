@@ -5,17 +5,17 @@
    fill="none"
    viewBox="0 0 24 24"
    version="1.1"
-   id="svg6"
-   sodipodi:docname="planner-inbox-next.svg"
+   id="svg8"
+   sodipodi:docname="planner-trash.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs10" />
+     id="defs12" />
   <sodipodi:namedview
-     id="namedview8"
+     id="namedview10"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -23,29 +23,37 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="22.083333"
-     inkscape:cx="3.0566038"
-     inkscape:cy="12.022642"
+     inkscape:zoom="31.23055"
+     inkscape:cx="4.2426406"
+     inkscape:cy="11.895404"
      inkscape:window-width="1366"
      inkscape:window-height="707"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6" />
+     inkscape:current-layer="svg8" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M19.25 11.75L17.6644 6.20056C17.4191 5.34195 16.6344 4.75 15.7414 4.75H8.2586C7.36564 4.75 6.58087 5.34196 6.33555 6.20056L4.75 11.75"
+     d="M6.75 7.75L7.59115 17.4233C7.68102 18.4568 8.54622 19.25 9.58363 19.25H14.4164C15.4538 19.25 16.319 18.4568 16.4088 17.4233L17.25 7.75"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#7e8087;stroke-opacity:1;fill:#7e8087;fill-opacity:0.10196079" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M10.2142 12.3689C9.95611 12.0327 9.59467 11.75 9.17085 11.75H4.75V17.25C4.75 18.3546 5.64543 19.25 6.75 19.25H17.25C18.3546 19.25 19.25 18.3546 19.25 17.25V11.75H14.8291C14.4053 11.75 14.0439 12.0327 13.7858 12.3689C13.3745 12.9046 12.7276 13.25 12 13.25C11.2724 13.25 10.6255 12.9046 10.2142 12.3689Z"
+     d="M9.75 7.5V6.75C9.75 5.64543 10.6454 4.75 11.75 4.75H12.25C13.3546 4.75 14.25 5.64543 14.25 6.75V7.5"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#7e8087;stroke-opacity:1;fill:#7e8087;fill-opacity:0.10196079" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M5 7.75H19"
+     id="path6"
+     style="stroke:#7e8087;stroke-opacity:1" />
 </svg>

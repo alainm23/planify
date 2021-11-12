@@ -1,20 +1,30 @@
 public class Widgets.HeaderItem : Gtk.EventBox {
-    public string item_name { get; construct; }
-    public string add_tooltip { get; construct; }
-    public string placeholder_message { get; construct; }
+    public PaneType pane_type { get; construct; }
+    public string item_name { get; set; }
+    public string add_tooltip { get; set; }
+    public string placeholder_message { get; set; }
 
     private Gtk.Label name_label;
     private Gtk.ListBox listbox;
+    private Gtk.Stack action_stack;
 
-    public HeaderItem (string item_name, string add_tooltip, string placeholder_message) {
+    public signal void add_activated ();
+
+    public bool is_loading {
+        set {
+            action_stack.visible_child_name = value ? "spinner" : "button";
+        }
+    }
+
+    public HeaderItem (PaneType pane_type) {
         Object (
-            item_name: item_name,
-            add_tooltip: add_tooltip,
-            placeholder_message: placeholder_message
+            pane_type: pane_type
         );
     }
 
     construct {
+        update_labels ();
+
         name_label = new Gtk.Label (item_name) {
             margin_start = 12,
             halign = Gtk.Align.START
@@ -50,35 +60,30 @@ public class Widgets.HeaderItem : Gtk.EventBox {
         add_button_context.add_class ("no-padding");
         add_button_context.add_class ("action-button");
 
-        var arrow_image = new Widgets.DynamicIcon ();
-        arrow_image.size = 16;
-        arrow_image.dark = false;
-        arrow_image.icon_name = "pan-end-symbolic";
-        
-        var arrow_button = new Gtk.Button () {
+        // Loading
+        var spinner_loading = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
-            can_focus = false
+            halign = Gtk.Align.CENTER,
+            active = true
         };
-
-        arrow_button.add (arrow_image);
-
-        unowned Gtk.StyleContext arrow_button_context = arrow_button.get_style_context ();
-        arrow_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var action_grid = new Gtk.Grid () {
+        spinner_loading.start ();
+        
+        action_stack = new Gtk.Stack () {
             halign = Gtk.Align.END,
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_end = 15
+            margin_end = 15,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
         };
-        action_grid.add (add_button);
-        // action_grid.add (arrow_button);
+
+        action_stack.add_named (add_button, "button");
+        action_stack.add_named (spinner_loading, "spinner");
 
         var header_grid = new Gtk.Grid () {
             hexpand = true
         };
         header_grid.add (name_label);
-        header_grid.add (action_grid);
+        header_grid.add (action_stack);
         
         var main_grid = new Gtk.Grid () {
             hexpand = true,
@@ -88,6 +93,22 @@ public class Widgets.HeaderItem : Gtk.EventBox {
         main_grid.add (listbox_grid);
 
         add (main_grid);
+
+        add_button.clicked.connect (() => {
+            add_activated ();
+        });
+    }
+
+    private void update_labels () {
+        if (pane_type == PaneType.PROJECT) {
+            item_name = _("Projects");
+            add_tooltip = _("Add project");
+            placeholder_message = _("No project available. Create one by clicking on the '+' button");
+        } else if (pane_type == PaneType.LABEL) {
+            item_name = _("Labels");
+            add_tooltip = _("Add label");
+            placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
+        }
     }
 
     private Gtk.Widget get_placeholder () {

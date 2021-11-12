@@ -314,6 +314,12 @@
             <description>sidebar-labels</description>
         </key>
 
+        <key name="slim-mode" type="b">
+            <default>false</default>
+            <summary>Slim Mode</summary>
+            <description>Slim Mode</description>
+        </key>
+
         <key name="sidebar-caldav-collapsed" type="b">
             <default>true</default>
             <summary>caldav-labels</summary>

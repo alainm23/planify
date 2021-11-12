@@ -3,7 +3,29 @@ public enum FilterType {
     TODAY,
     INBOX,
     UPCOMING,
-    TRASH
+    TRASH;
+
+    public string to_string () {
+        switch (this) {
+            case QUICK_SEARCH:
+                return "QUICK_SEARCH";
+
+            case TODAY:
+                return "TODAY";
+
+            case INBOX:
+                return "INBOX";
+
+            case UPCOMING:
+                return "UPCOMING";
+
+            case TRASH:
+                return "TRASH";
+
+            default:
+                assert_not_reached();
+        }
+    }
 }
 
 public enum BackendType {
@@ -146,5 +168,73 @@ public class Util : GLib.Object {
 
         unowned Gtk.StyleContext style_context = widget.get_style_context ();
         style_context.add_provider (providers[color], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+    }
+
+    public string get_todoist_avatar_path () {
+        return GLib.Path.build_filename (
+            Environment.get_user_data_dir () + "/com.github.alainm23.planner",
+            Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
+        );
+    }
+
+    public void download_profile_image (string id, string avatar_url) {
+        if (id != null) {
+            var file_path = File.new_for_path (get_todoist_avatar_path ());
+            var file_from_uri = File.new_for_uri (avatar_url);
+            if (file_path.query_exists () == false) {
+                MainLoop loop = new MainLoop ();
+
+                file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => { // vala-lint=line-length
+                }, (obj, res) => {
+                    try {
+                        if (file_from_uri.copy_async.end (res)) {
+                            Planner.event_bus.avatar_downloaded ();
+                        }
+                    } catch (Error e) {
+                        debug ("Error: %s\n", e.message);
+                    }
+
+                    loop.quit ();
+                });
+
+                loop.run ();
+            }
+        }
+    }
+
+    public int64 generate_id (int len=10) {
+        string allowed_characters = "0123456789";
+
+        var password_builder = new StringBuilder ();
+        for (var i = 0; i < len; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
+        }
+
+        if (int64.parse (password_builder.str) <= 0) {
+            return generate_id ();
+        }
+
+        return int64.parse (password_builder.str);
+    }
+
+    public string generate_string () {
+        string allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" + "0123456789";
+
+        var password_builder = new StringBuilder ();
+        for (var i = 0; i < 36; i++) {
+            var random_index = Random.int_range (0, allowed_characters.length);
+            password_builder.append_c (allowed_characters[random_index]);
+        }
+
+        return password_builder.str;
+    }
+
+    public string generate_temp_id () {
+        return "_" + generate_id (13).to_string ();
+    }
+
+    public string get_encode_text (string text) {
+        return text.replace ("&", "%26").replace ("#", "%23");
     }
 }
