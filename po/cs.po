@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-08-11 16:33+0000\n"
-"Last-Translator: Richard Hollmann <richard.hollmann@gmail.com>\n"
+"PO-Revision-Date: 2021-11-30 12:52+0000\n"
+"Last-Translator: esszed <stepan.zoubek@gmail.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/planner/"
 "translations/cs/>\n"
 "Language: cs\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -1328,11 +1328,11 @@ msgstr "Rychlé hledání (všechny projekty)"
 
 #: src/Dialogs/ShortcutsDialog.vala:122
 msgid "Filter by all your completed tasks."
-msgstr ""
+msgstr "Filtrujte podle všech dokončených úkolů."
 
 #: src/Dialogs/ShortcutsDialog.vala:124
 msgid "Control windows"
-msgstr ""
+msgstr "Správa oken"
 
 #: src/Dialogs/ShortcutsDialog.vala:133
 msgid "Open preferences"
@@ -1355,9 +1355,8 @@ msgid "Open Keyboard Shortcuts"
 msgstr "Otevřít klávesové zkratky"
 
 #: src/Dialogs/ShortcutsDialog.vala:143
-#, fuzzy
 msgid "Navigate"
-msgstr "pro navigaci a"
+msgstr "Navigovat"
 
 #: src/Dialogs/ShortcutsDialog.vala:150
 msgid "Open Inbox"
@@ -1440,7 +1439,7 @@ msgstr "Nové úkoly na začátku"
 
 #: src/Dialogs/Preferences/Preferences.vala:455
 msgid "Underline completed tasks."
-msgstr "Podtrhávat dokončené úkoly"
+msgstr "Podtrhávat dokončené úkoly."
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid "Default priority"
@@ -1448,7 +1447,7 @@ msgstr "Výchozí priorita"
 
 #: src/Dialogs/Preferences/Preferences.vala:478
 msgid "Indicate the position where the new tasks were created."
-msgstr "Indikovat pozici, kde byly vytvořeny nové úkoly"
+msgstr "Indikovat pozici, kde byly vytvořeny nové úkoly."
 
 #: src/Dialogs/Preferences/Preferences.vala:540
 msgid "Start of the week"
@@ -1698,8 +1697,8 @@ msgid ""
 "Thanks to them who made a donation via Patreon or PayPal. (If you want to "
 "appear here visit our Patreon account 😉️)"
 msgstr ""
-"Děkujeme všem, kteří učinili dar pomocí Patreonu nebo PayPalu. (Pokud tu "
-"chcete mít jméno, navštivte náš účet na Patreonu 😉️)"
+"Děkujeme všem, kteří učinili dar pomocí Patreonu nebo PayPalu. (Pokud zde "
+"chcete mít Vaše jméno, navštivte náš účet na Patreonu 😉️)"
 
 #: src/Dialogs/Preferences/Preferences.vala:1661
 #: src/Dialogs/Preferences/Preferences.vala:1677
@@ -1799,6 +1798,8 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
+"Omlouváme se, Planner zatím nepodporuje jazyk '%s', prosím zkuste nastavit "
+"opakující se úkol v angličtině."
 
 #~ msgid "Add Project"
 #~ msgstr "Přidat projekt"
