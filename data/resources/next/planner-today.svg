@@ -5,7 +5,7 @@
    fill="none"
    viewBox="0 0 24 24"
    version="1.1"
-   id="svg1759"
+   id="svg4"
    sodipodi:docname="planner-clock.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -13,9 +13,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1763" />
+     id="defs8" />
   <sodipodi:namedview
-     id="namedview1761"
+     id="namedview6"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -23,27 +23,21 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="11.041667"
-     inkscape:cx="4.6641508"
-     inkscape:cy="3.1245282"
+     inkscape:zoom="22.083333"
+     inkscape:cx="3.0566038"
+     inkscape:cy="12.022642"
      inkscape:window-width="1366"
      inkscape:window-height="707"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg1759" />
-  <circle
-     cx="12"
-     cy="12"
-     r="7.25"
-     stroke="currentColor"
-     stroke-width="1.5"
-     id="circle1755"
-     style="stroke:#ffa800;stroke-opacity:1;fill:#ffa800;fill-opacity:0.1" />
+     inkscape:current-layer="svg4" />
   <path
      stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
      stroke-width="1.5"
-     d="M12 8V12L14 14"
-     id="path1757"
-     style="stroke:#ffa800;stroke-opacity:1" />
+     d="M12 4.75L13.75 10.25H19.25L14.75 13.75L16.25 19.25L12 15.75L7.75 19.25L9.25 13.75L4.75 10.25H10.25L12 4.75Z"
+     id="path2"
+     style="stroke:#ffaa00;stroke-opacity:1;fill:#ffaa00;fill-opacity:0.15000001" />
 </svg>

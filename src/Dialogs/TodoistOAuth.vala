@@ -21,7 +21,9 @@
 
 public class Dialogs.TodoistOAuth : Hdy.Window {
     private WebKit.WebView webview;
-    private const string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=b0dd7d3714314b1dbbdab9ee03b6b432&scope=data:read_write,data:delete,project:delete&state=XE3K-4BBL-4XLG-UDS8"; // vala-lint=line-length
+    private string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s"; // vala-lint=line-length
+    private string STATE = Util.get_default ().generate_string ();
+
     public TodoistOAuth () {
         Object (
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
@@ -30,15 +32,18 @@ public class Dialogs.TodoistOAuth : Hdy.Window {
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true,
-            title: _("Todoist")
+            title: _("Todoist Sync"),
+            height_request: 720,
+            width_request: 600
         );
     }
 
     construct {
-        height_request = 700;
-        width_request = 600;
-        get_style_context ().add_class ("app");
-        get_style_context ().add_class (Gtk.STYLE_CLASS_VIEW);
+        OAUTH_OPEN_URL = OAUTH_OPEN_URL.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, STATE);
+        
+        unowned Gtk.StyleContext dialog_context = get_style_context ();
+        dialog_context.add_class (Gtk.STYLE_CLASS_VIEW);
+        dialog_context.add_class ("app");
 
         var info_label = new Gtk.Label (_("Loading…"));
 
@@ -103,7 +108,7 @@ public class Dialogs.TodoistOAuth : Hdy.Window {
         webview.load_changed.connect ((load_event) => {
             var redirect_uri = webview.get_uri ();
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
-                ("&state=XE3K-4BBL-4XLG-UDS8" in redirect_uri)) {
+                ("&state=%s".printf (STATE) in redirect_uri)) {
                 info_label.label = _("Synchronizing… Wait a moment please.");
                 webview.stop_loading ();
                 Planner.todoist.get_todoist_token (redirect_uri);

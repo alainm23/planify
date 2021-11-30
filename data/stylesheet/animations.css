@@ -10,3 +10,8 @@
     75%  { -gtk-icon-transform: rotate(30deg);  }
     100% { -gtk-icon-transform: rotate(0deg);   }
 }
+
+@keyframes add-animation {
+    0% { -gtk-icon-transform: rotate(0deg); }
+    100% { -gtk-icon-transform: rotate(180deg); }
+}

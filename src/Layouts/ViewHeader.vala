@@ -1,8 +1,6 @@
-public class Widgets.ProjectHeader : Hdy.HeaderBar {
+public class Layouts.ViewHeader : Hdy.HeaderBar {
     public Objects.Project project { get; set; }
     
-    private Gtk.SearchEntry search_entry;
-
     construct {
         var sidebar_image = new Gtk.Image () {
             gicon = new ThemedIcon ("view-sidebar-start-symbolic"),
@@ -38,29 +36,37 @@ public class Widgets.ProjectHeader : Hdy.HeaderBar {
         project_grid.add (project_progress);
         project_grid.add (name_label);
 
+        var project_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+        };
+        project_revealer.add (project_grid);
+
         var start_grid = new Gtk.Grid () {
             column_spacing = 6
         };
 
         start_grid.add (sidebar_button);
-        // start_grid.add (project_grid);
 
-        search_entry = new Gtk.SearchEntry ();
-
-        unowned Gtk.StyleContext search_entry_context = search_entry.get_style_context ();
-        search_entry_context.add_class ("border-radius-6");
+        var magic_button = new Widgets.MagicButton ();
 
         var end_grid = new Gtk.Grid () {
             column_spacing = 6
         };
 
-        end_grid.add (search_entry);
+        end_grid.add (magic_button);
+
+        var end_grid_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+        };
+        end_grid_revealer.add (end_grid);
 
         pack_start (start_grid);
-        // custom_title = project_grid;
-        // pack_end (end_grid);
+        custom_title = project_revealer;
+        // pack_end (end_grid_revealer);
 
         notify["project"].connect (() => {
+            project_revealer.reveal_child = false;
+            end_grid_revealer.reveal_child = false;
             project_progress.progress_fill_color = Util.get_default ().get_color (project.color);
             name_label.label = project.name;
         });
@@ -77,6 +83,11 @@ public class Widgets.ProjectHeader : Hdy.HeaderBar {
                     sidebar_image.gicon = new ThemedIcon ("view-sidebar-start-symbolic");
                 }   
             }
+        });
+
+        Planner.event_bus.view_header.connect ((reveal_child) => {
+            project_revealer.reveal_child = reveal_child;
+            // end_grid_revealer.reveal_child = reveal_child;
         });
     }
 }

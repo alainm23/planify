@@ -60,14 +60,14 @@ public class Widgets.TodoistSync : Gtk.EventBox {
         };
 
         unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
-        main_grid_context.add_class ("pane-listbox");
+        main_grid_context.add_class ("pane-content");
         main_grid_context.add_class ("todoist-sync-button");
 
         main_grid.add (todoist_box);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = false
+            reveal_child = (BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST
         };
         main_revealer.add (main_grid);
 
@@ -76,7 +76,6 @@ public class Widgets.TodoistSync : Gtk.EventBox {
         update ();
 
         Planner.settings.bind ("todoist-user-email", username_label, "label", GLib.SettingsBindFlags.DEFAULT);
-        Planner.settings.bind ("todoist-account", main_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         sync_button.clicked.connect (() => {
             Services.Todoist.get_default ().sync_async ();
@@ -84,6 +83,12 @@ public class Widgets.TodoistSync : Gtk.EventBox {
 
         Planner.event_bus.avatar_downloaded.connect (() => {
            update ();
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "backend-type") {
+                main_revealer.reveal_child = (BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST;
+            }
         });
     }
 
@@ -98,9 +103,11 @@ public class Widgets.TodoistSync : Gtk.EventBox {
     }
 
     private void update () {
-        avatar.set_loadable_icon (
-            new FileIcon (File.new_for_path (Util.get_default ().get_todoist_avatar_path ()))
-        );
+        var file = File.new_for_path (Util.get_default ().get_todoist_avatar_path ());
+        if (file.query_exists ()) {
+            avatar.set_loadable_icon (new FileIcon (file));    
+        }
+        
         avatar.text = Planner.settings.get_string ("todoist-user-name");
     }
 }

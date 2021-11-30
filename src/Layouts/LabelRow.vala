@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.LabelRow : Gtk.ListBoxRow {
+public class Layouts.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
 
     private Gtk.Label name_label;
@@ -38,7 +38,9 @@ public class Widgets.LabelRow : Gtk.ListBoxRow {
         get_style_context ().add_class ("selectable-item");
         
         widget_color = new Gtk.Grid () {
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            height_request = 16,
+            width_request = 16
         };
 
         unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();

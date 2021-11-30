@@ -6,9 +6,9 @@ public class Widgets.EditableLabel : Gtk.EventBox {
     private Gtk.Entry entry;
     private Gtk.Stack stack;
     private Gtk.Grid grid;
-    private Gtk.Revealer buttons_revealer;
 
     public string text { get; set; }
+    public bool entry_menu_opened { get; set; default = false; }
 
     public bool editing {
         get {
@@ -18,7 +18,6 @@ public class Widgets.EditableLabel : Gtk.EventBox {
             if (value) {
                 entry.text = text;
                 stack.set_visible_child (entry);
-                // buttons_revealer.reveal_child = true;
 
                 entry.grab_focus_without_selecting ();
                 if (entry.cursor_position < entry.text_length) {
@@ -30,9 +29,14 @@ public class Widgets.EditableLabel : Gtk.EventBox {
                     changed ();
                 }
 
-                // buttons_revealer.reveal_child = false;
                 stack.set_visible_child (grid);
             }
+        }
+    }
+
+    public bool editable {
+        set {
+            entry.editable = value;
         }
     }
 
@@ -109,16 +113,10 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         buttons_grid_context.add_class ("editable-buttons");
         buttons_grid_context.add_class ("small-label");
 
-        buttons_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
-        };
-        buttons_revealer.add (buttons_grid);
-
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
         };
         main_grid.add (stack);
-        main_grid.add (buttons_revealer);
 
         add (main_grid);
 
@@ -140,10 +138,17 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         });
 
         entry.focus_out_event.connect ((event) => {
-            if (stack.visible_child == entry) {
+            if (stack.visible_child == entry && !entry_menu_opened) {
                 editing = false;
             }
             return Gdk.EVENT_PROPAGATE;
+        });
+
+        entry.populate_popup.connect ((menu) => {
+            entry_menu_opened = true;
+            menu.hide.connect (() => {
+                entry_menu_opened = false;
+            });
         });
 
         cancel_button.clicked.connect (() => {

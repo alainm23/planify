@@ -91,7 +91,6 @@ public class Planner : Gtk.Application {
 
         granite_settings.notify["prefers-color-scheme"].connect (() => {
             bool is_dark = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-            event_bus.prefers_color_scheme_changed (is_dark);
             gtk_settings.gtk_application_prefer_dark_theme = is_dark;
         });
 
@@ -106,6 +105,8 @@ public class Planner : Gtk.Application {
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
         default_theme.add_resource_path ("/com/github/alainm23/planner");
         
+        Util.get_default ().update_theme ();
+
         quit_action.activate.connect (() => {
             if (main_window != null) {
                 main_window.destroy ();

@@ -1,6 +1,8 @@
 public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; construct; }
 
+    private Views.List list_view;
+
     public Project (Objects.Project project) {
         Object (
             project: project
@@ -9,30 +11,53 @@ public class Views.Project : Gtk.EventBox {
 
     construct {
         var top_project = new Widgets.TopHeaderProject (project);
+        var magic_button = new Widgets.MagicButton ();
 
-        var note_hypertextview = new Granite.HyperTextView () {
-            hexpand = true,
-            margin_top = 6,
-            margin_start = 27,
-            margin_end = 24,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR
+        list_view = new Views.List (project) {
+            margin_top = 0
         };
 
-        var main_grid = new Gtk.Grid () {
+        var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
+            expand = true,
+            margin_start = 24,
+            margin_end = 24
+        };
+        content.add (top_project);
+        content.add (list_view);
+
+        var content_clamp = new Hdy.Clamp () {
+            maximum_size = 720
+        };
+
+        content_clamp.add (content);
+
+        var scrolled_window = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
             expand = true
         };
-        main_grid.add (top_project);
-        main_grid.add (note_hypertextview);
+        scrolled_window.add (content_clamp);
 
-        var clamp = new Hdy.Clamp () {
-            maximum_size = 1200,
-            tightening_threshold = 0,
+        var overlay = new Gtk.Overlay () {
+            expand = true
         };
-        clamp.add (main_grid);
+        overlay.add_overlay (magic_button);
+        overlay.add (scrolled_window);
 
-        add (clamp);
+        add (overlay);
 
         show_all ();
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 20) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
+            }
+        });
+
+        magic_button.clicked.connect (() => {
+            list_view.prepare_new_item ();
+        });
     }
 }

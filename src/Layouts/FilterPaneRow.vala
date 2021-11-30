@@ -1,4 +1,4 @@
-public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
+public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public FilterType filter_type { get; construct; }
 
     public string title;
@@ -16,31 +16,36 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
     }
     
     construct {
-        get_style_context ().add_class ("selectable-item");
+        get_style_context ().add_class ("filter-pane-row-%s".printf (filter_type.to_string ()));
 
-        title_image = new Widgets.DynamicIcon ();
+        title_image = new Widgets.DynamicIcon () {
+            hexpand = true,
+            halign = Gtk.Align.END
+        };
         title_image.size = 19;
         title_image.dark = false;
 
         title_label = new Gtk.Label (null) {
-
+            hexpand = true,
+            halign = Gtk.Align.START,
+            margin_start = 3
         };
+
+        title_label.get_style_context ().add_class ("font-bold");
 
         count_label = new Gtk.Label ("3") {
             hexpand = true,
-            halign = Gtk.Align.END,
-            margin_end = 3
+            halign = Gtk.Align.START,
+            margin_start = 3
         };
-        count_label.get_style_context ().add_class ("dim-label");
-        count_label.get_style_context ().add_class ("small-label");
 
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
             margin = 3
         };
-        main_grid.add (title_image);
-        main_grid.add (title_label);
-        main_grid.add (count_label);
+        main_grid.attach (title_label, 0, 0, 1, 1);
+        main_grid.attach (title_image, 1, 0, 1, 1);
+        main_grid.attach (count_label, 0, 1, 2, 2);
 
         content_eventbox = new Gtk.EventBox ();
         content_eventbox.get_style_context ().add_class ("transition");
@@ -53,10 +58,8 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
         content_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
                 Planner.event_bus.pane_selected (PaneType.FILTER, filter_type.to_string ());
-                return false;
             } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
                 // activate_menu ();
-                return false;
             }
 
             return false;
@@ -64,9 +67,13 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
-                content_eventbox.get_style_context ().add_class ("selectable-item-selected");
+                get_style_context ().add_class (
+                    "filter-pane-row-%s-selected".printf (filter_type.to_string ())
+                );
             } else {
-                content_eventbox.get_style_context ().remove_class ("selectable-item-selected");
+                get_style_context ().remove_class (
+                    "filter-pane-row-%s-selected".printf (filter_type.to_string ())
+                );
             }
         });
     }
@@ -74,19 +81,16 @@ public class Widgets.FilterPaneRow : Gtk.ListBoxRow {
     private void build_filter_data () {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
-            title_image.icon_name = "planner-clock";
+            title_image.icon_name = "planner-today";
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
             title_image.icon_name = "planner-inbox";
-        } else if (filter_type == FilterType.UPCOMING) {
-            title_label.label = _("Tomorrow");
-            title_image.icon_name = "planner-calendar";
-        } else if (filter_type == FilterType.TRASH) {
-            title_label.label = _("Trash");
-            title_image.icon_name = "planner-trash";
-        } else if (filter_type == FilterType.QUICK_SEARCH) {
-            title_label.label = _("Search");
-            title_image.icon_name = "planner-search";
+        } else if (filter_type == FilterType.SCHEDULED) {
+            title_label.label = _("Scheduled");
+            title_image.icon_name = "planner-scheduled";
+        } else if (filter_type == FilterType.PINBOARD) {
+            title_label.label = _("Pinboard");
+            title_image.icon_name = "planner-pin-tack";
         }
     }
 }

@@ -18,10 +18,10 @@
 */
 
 public class MainWindow : Hdy.Window {
-    private Widgets.Sidebar sidebar;
+    private Layouts.Sidebar sidebar;
     private Gtk.Stack main_stack;
     private Gtk.Stack views_stack;
-    private Widgets.ProjectHeader project_header;
+    private Layouts.ViewHeader views_header;
 
     private uint configure_id = 0;
     public MainWindow (Gtk.Application application) {
@@ -45,7 +45,7 @@ public class MainWindow : Hdy.Window {
         unowned Gtk.StyleContext sidebar_header_context = sidebar_header.get_style_context ();
         sidebar_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        project_header = new Widgets.ProjectHeader () {
+        views_header = new Layouts.ViewHeader () {
             has_subtitle = false,
             show_close_button = true,
             hexpand = true,
@@ -53,22 +53,24 @@ public class MainWindow : Hdy.Window {
             margin_end = 3
         };
 
-        unowned Gtk.StyleContext project_header_context = project_header.get_style_context ();
-        project_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        unowned Gtk.StyleContext views_header_context = views_header.get_style_context ();
+        views_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
         var header_group = new Hdy.HeaderGroup ();
         header_group.add_header_bar (sidebar_header);
-        header_group.add_header_bar (project_header);
+        header_group.add_header_bar (views_header);
 
-        sidebar = new Widgets.Sidebar ();
+        sidebar = new Layouts.Sidebar ();
 
         var sidebar_content = new Gtk.Grid () {
-            width_request = 225,
             vexpand = true,
             hexpand = false
         };
         sidebar_content.attach (sidebar_header, 0, 0);
         sidebar_content.attach (sidebar, 0, 1);
+
+        unowned Gtk.StyleContext sidebar_content_context = sidebar_content.get_style_context ();
+        sidebar_content_context.add_class ("planner-sidebar");
 
         views_stack = new Gtk.Stack () {
             expand = true,
@@ -76,11 +78,11 @@ public class MainWindow : Hdy.Window {
         };
 
         var main_grid = new Gtk.Grid ();
-        main_grid.attach (project_header, 0, 0);
+        main_grid.attach (views_header, 0, 0);
         main_grid.attach (views_stack, 0, 1);
 
         unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
-        main_grid_context.add_class ("view");
+        main_grid_context.add_class ("main-view");
 
         var flap_view = new Hdy.Flap () {
             locked = true,
@@ -94,7 +96,7 @@ public class MainWindow : Hdy.Window {
 
         main_stack = new Gtk.Stack ();
         main_stack.expand = true;
-        main_stack.transition_type = Gtk.StackTransitionType.NONE;
+        main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         main_stack.add_named (welcome_view, "welcome-view");
         main_stack.add_named (flap_view, "main-view");
@@ -117,6 +119,16 @@ public class MainWindow : Hdy.Window {
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Planner.database.get_project (int64.parse (id)));
+            } else if (pane_type == PaneType.FILTER) {
+                if (id == FilterType.INBOX.to_string ()) {
+                  add_project_view (Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id")));
+                }
+            }
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "appearance") {
+                Util.get_default ().update_theme ();
             }
         });
     }
@@ -129,7 +141,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (project_view, project.view_id);
         }
 
-        project_header.project = project;
+        views_header.project = project;
         views_stack.set_visible_child_name (project.view_id);
         return project_view;
     }
@@ -141,6 +153,8 @@ public class MainWindow : Hdy.Window {
             Planner.database = Services.Database.get_default ();
             Planner.database.init_database ();
 
+            // Create Inbox project
+
             if (backend_type == BackendType.TODOIST) {
                 Planner.todoist = Services.Todoist.get_default ();
                 Planner.todoist.init ();
@@ -148,6 +162,8 @@ public class MainWindow : Hdy.Window {
                 // Init Signals
                 Planner.todoist.oauth_closed.connect ((welcome) => {
                     if (welcome) {
+                        Planner.settings.set_enum ("backend-type", 0);
+                        Planner.todoist.log_out ();
                         main_stack.visible_child_name = "welcome-view";
                     }
                 });

@@ -94,10 +94,16 @@
     <file alias="app-badge.svg">resources/settings/app-badge.svg</file>
     
     <file alias="planner-inbox.svg">resources/next/planner-inbox.svg</file>
-    <file alias="planner-calendar.svg">resources/next/planner-calendar.svg</file>
-    <file alias="planner-clock.svg">resources/next/planner-clock.svg</file>
-    <file alias="planner-trash.svg">resources/next/planner-trash.svg</file>
-    <file alias="planner-search.svg">resources/next/planner-search.svg</file>
+    <file alias="planner-today.svg">resources/next/planner-today.svg</file>
+    <file alias="planner-scheduled.svg">resources/next/planner-scheduled.svg</file>
+    <file alias="planner-sidebar-trash.svg">resources/next/planner-sidebar-trash.svg</file>
+    <file alias="planner-pin-tack.svg">resources/next/planner-pin-tack.svg</file>
+
+    <file alias="planner-calendar-light.svg">resources/next/planner-calendar-light.svg</file>
+    <file alias="planner-calendar-dark.svg">resources/next/planner-calendar-dark.svg</file>
+
+    <file alias="planner-search-light.svg">resources/next/planner-search-light.svg</file>
+    <file alias="planner-search-dark.svg">resources/next/planner-search-dark.svg</file>
     <file alias="planner-plus-light.svg">resources/next/planner-plus-light.svg</file>
     <file alias="planner-plus-dark.svg">resources/next/planner-plus-dark.svg</file>
     <file alias="view-sidebar-start-symbolic.svg">resources/next/view-sidebar-start-symbolic.svg</file>
@@ -106,8 +112,15 @@
     <file alias="chevron-right-light.svg">resources/next/chevron-right-light.svg</file>
     <file alias="planner-plus-circle-light.svg">resources/next/planner-plus-circle-light.svg</file>
     <file alias="planner-plus-circle-dark.svg">resources/next/planner-plus-circle-dark.svg</file>
-
     <file alias="planner-refresh-light.svg">resources/next/planner-refresh-light.svg</file>
     <file alias="planner-refresh-dark.svg">resources/next/planner-refresh-dark.svg</file>
+    <file alias="planner-edit-light.svg">resources/next/planner-edit-light.svg</file>
+    <file alias="planner-edit-dark.svg">resources/next/planner-edit-dark.svg</file>
+    <file alias="planner-trash-light.svg">resources/next/planner-trash-light.svg</file>
+    <file alias="planner-trash-dark.svg">resources/next/planner-trash-dark.svg</file>
+    <file alias="planner-star-light.svg">resources/next/planner-star-light.svg</file>
+    <file alias="planner-star-dark.svg">resources/next/planner-star-dark.svg</file>
+    <file alias="planner-note-dark.svg">resources/next/planner-note-dark.svg</file>
+    <file alias="planner-note-light.svg">resources/next/planner-note-light.svg</file>
   </gresource>
 </gresources>

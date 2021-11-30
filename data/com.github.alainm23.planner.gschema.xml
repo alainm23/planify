@@ -30,7 +30,6 @@
         <value nick="Light" value="0" />
         <value nick="Black" value="1" />
         <value nick="Dark Blue" value="2" />
-        <value nick="Arc Dark" value="3" />
     </enum>
 
     <enum id="com.github.alainm23.planner.default-priority">
@@ -165,7 +164,7 @@
         </key>
 
         <key name="pane-position" type="i">
-            <default>255</default>
+            <default>225</default>
             <summary>Most recent pane position</summary>
             <description>Most recent pane position</description>
         </key>
@@ -182,7 +181,7 @@
             <description>Underline completed tasks.</description>
         </key>
 
-        <key name="inbox-project" type="x">
+        <key name="inbox-project-id" type="x">
             <default>0</default>
             <summary>Inbox Project ID</summary>
             <description>Inbox Project ID</description>
@@ -230,12 +229,6 @@
             <description>show-today-completed</description>
         </key>
 
-        <key name="todoist-account" type="b">
-            <default>false</default>
-            <summary>User name</summary>
-            <description>User name</description>
-        </key>
-
         <key name="todoist-sync-server" type="b">
             <default>true</default>
             <summary>todoist-sync-server</summary>
@@ -260,12 +253,6 @@
             <description>Todoist last sync</description>
         </key>
 
-        <key name="todoist-user-id" type="i">
-            <default>0</default>
-            <summary>Todoist sync token</summary>
-            <description>Todoist sync token</description>
-        </key>
-
         <key name="todoist-user-image-id" type="s">
             <default>""</default>
             <summary>Todoist sync token</summary>
@@ -284,12 +271,6 @@
             <description>Todoist email account</description>
         </key>
 
-        <key name="todoist-user-join-date" type="s">
-            <default>""</default>
-            <summary>Todoist user join date</summary>
-            <description>Todoist user join date</description>
-        </key>
-
         <key name="todoist-user-avatar" type="s">
             <default>""</default>
             <summary>Todoist user avatar</summary>
@@ -300,18 +281,6 @@
             <default>false</default>
             <summary>Todoist user is premium</summary>
             <description>Todoist user is premium</description>
-        </key>
-
-        <key name="todoist-sync-labels" type="b">
-            <default>false</default>
-            <summary>Todoist sync labels</summary>
-            <description>Todoist sync labels</description>
-        </key>
-
-        <key name="sidebar-labels-collapsed" type="b">
-            <default>true</default>
-            <summary>sidebar-labels</summary>
-            <description>sidebar-labels</description>
         </key>
 
         <key name="slim-mode" type="b">

@@ -23,7 +23,11 @@ public class Services.Todoist : GLib.Object {
     private Soup.Session session;
     private Json.Parser parser;
 
-    private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v8/sync";
+    private const string TODOIST_SYNC_URL = "https://api.todoist.com/sync/v9/sync";
+    private const string PROJECTS_COLLECTION = "projects";
+    private const string SECTIONS_COLLECTION = "sections";
+    private const string ITEMS_COLLECTION = "items";
+    private const string LABELS_COLLECTION = "labels";
 
     private static Todoist? _instance;
     public static Todoist get_default () {
@@ -49,6 +53,32 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
+    public void log_out () {
+        Planner.settings.set_string ("todoist-sync-token", "");
+        Planner.settings.set_string ("todoist-access-token", "");
+        Planner.settings.set_string ("todoist-last-sync", "");
+        Planner.settings.set_string ("todoist-user-email", "");
+        Planner.settings.set_string ("todoist-user-avatar", "");
+        Planner.settings.set_string ("todoist-user-image-id", "");
+        Planner.settings.set_boolean ("todoist-sync-server", false);
+        Planner.settings.set_boolean ("todoist-user-is-premium", false);
+
+        // Delete all projects, sections and items
+        // foreach (var project in Planner.database.get_all_projects_by_todoist ()) {
+        //     Planner.database.delete_project (project.id);
+        // }
+
+        // Clear Queue
+        // Planner.database.clear_queue ();
+
+        // Clear CurTempIds
+        // Planner.database.clear_cur_temp_ids ();
+
+        // Remove server_timeout
+        // Source.remove (server_timeout);
+        // server_timeout = 0;
+    }
+
     public void init () {
         if (valid_token (Planner.settings.get_string ("todoist-access-token"))) {
             var todoist_oauth = new Dialogs.TodoistOAuth ();
@@ -64,7 +94,6 @@ public class Services.Todoist : GLib.Object {
     }
 
     public void get_todoist_token (string url) {
-        // sync_started ();
         new Thread<void*> ("get_todoist_token", () => {
             try {
                 string code = url.split ("=") [1];
@@ -102,50 +131,61 @@ public class Services.Todoist : GLib.Object {
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
-        // session.send_message (message);
         try {
             var stream = yield session.send_async (message);
             yield parser.load_from_stream_async (stream);
-
-            // parser.load_from_data ((string) message.response_body.flatten ().data, -1);
-            // print ("%s\n".printf ((string) message.response_body.flatten ().data));
         } catch (Error e) {
-            print (e.message);
+            debug (e.message);
         }
 
-        var node = parser.get_root ().get_object ();
+        // Debug
+        print_root (parser.get_root ());
 
-        Planner.settings.set_string ("todoist-sync-token", node.get_string_member ("sync_token"));
+        Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
         Planner.settings.set_string ("todoist-access-token", token);
         Planner.settings.set_boolean ("todoist-sync-server", true);
 
         // Create user
-        var user_object = node.get_object_member ("user");
-        Planner.settings.set_int ("todoist-user-id", (int32) user_object.get_int_member ("id"));
+        var user_object = parser.get_root ().get_object ().get_object_member ("user");
         if (user_object.get_null_member ("image_id") == false) {
             Planner.settings.set_string ("todoist-user-image-id", user_object.get_string_member ("image_id"));
         }
-        Planner.settings.set_boolean ("todoist-account", true);
 
         // Set Inbox Project
-        Planner.settings.set_int64 ("inbox-project", user_object.get_int_member ("inbox_project"));
+        Planner.settings.set_int64 ("inbox-project-id", user_object.get_int_member ("inbox_project_id"));
         Planner.settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
         Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-        Planner.settings.set_string ("todoist-user-join-date", user_object.get_string_member ("join_date"));
-        
         Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-        Planner.settings.set_boolean ("todoist-sync-labels", true);
 
-        // Create labels
-        unowned Json.Array labels = node.get_array_member ("labels");
+        // Create Labels
+        unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
         foreach (unowned Json.Node _node in labels.get_elements ()) {
             Planner.database.insert_label (new Objects.Label.from_json (_node));
         }
 
-        // Create projects
-        unowned Json.Array projects = node.get_array_member ("projects");
+        // Create Projects
+        unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
         foreach (unowned Json.Node _node in projects.get_elements ()) {
-            Planner.database.insert_project (new Objects.Project.from_json (_node));
+            if (!_node.get_object ().get_null_member ("parent_id")) {
+                Objects.Project? project = Planner.database.get_project (_node.get_object ().get_int_member ("parent_id"));
+                if (project != null) {
+                    project.add_subproject_if_not_exists (new Objects.Project.from_json (_node));
+                }
+            } else {
+                Planner.database.insert_project (new Objects.Project.from_json (_node));
+            }
+        }
+
+        // Create Sections
+        unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
+        foreach (unowned Json.Node _node in sections.get_elements ()) {
+            add_section_if_not_exists (_node);
+        }
+
+        // Create Items
+        unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
+        foreach (unowned Json.Node _node in items.get_elements ()) {
+            add_item_if_not_exists (_node);
         }
 
         // Download Profile Image
@@ -175,36 +215,32 @@ public class Services.Todoist : GLib.Object {
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
-        // session.send_message (message);
         try {
             yield parser.load_from_stream_async (yield session.send_async (message));
-
-            // parser.load_from_data ((string) message.response_body.flatten ().data, -1);
-            // print ("%s\n".printf ((string) message.response_body.flatten ().data));
         } catch (Error e) {
-            print (e.message);
+            debug (e.message);
         }
 
-        var node = parser.get_root ().get_object ();
-        var sync_token = node.get_string_member ("sync_token");
+        // Debug
+        print_root (parser.get_root ());
 
         // Update sync token
-        Planner.settings.set_string ("todoist-sync-token", sync_token);
+        Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
 
         // Update user
-        if (node.has_member ("user")) {
-            var user_object = node.get_object_member ("user");
+        if (parser.get_root ().get_object ().has_member ("user")) {
+            var user_object = parser.get_root ().get_object ().get_object_member ("user");
             Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
             Planner.settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
             Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
         }
 
         // Labels
-        unowned Json.Array labels = node.get_array_member ("labels");
+        unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
         foreach (unowned Json.Node _node in labels.get_elements ()) {
             Objects.Label? label = Planner.database.get_label (_node.get_object ().get_int_member ("id"));
             if (label != null) {
-                if ((int32) _node.get_object ().get_int_member ("is_deleted") == 1) {
+                if (_node.get_object ().get_boolean_member ("is_deleted")) {
                     Planner.database.delete_label (label);
                 } else {
                     label.update_from_json (_node);
@@ -216,31 +252,92 @@ public class Services.Todoist : GLib.Object {
         }
 
         // Projects
-        unowned Json.Array projects = node.get_array_member ("projects");
+        unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
         foreach (unowned Json.Node _node in projects.get_elements ()) {
             Objects.Project? project = Planner.database.get_project (_node.get_object ().get_int_member ("id"));
             if (project != null) {
-                if ((int32) _node.get_object ().get_int_member ("is_deleted") == 1) {
+                if ((int32) _node.get_object ().get_int_member ("is_deleted") == Constants.ACTIVE) {
                     Planner.database.delete_project (project);
                 } else {
                     int64 old_parent_id = project.parent_id;
-                    int64 new_parent_id;
-                    if (!_node.get_object ().get_null_member ("parent_id")) {
-                        new_parent_id = _node.get_object ().get_int_member ("parent_id");
-                    } else {
-                        new_parent_id = 0;
-                    }
+                    bool old_is_favorite = project.is_favorite;
 
                     project.update_from_json (_node);
                     Planner.database.update_project (project);
 
-                    if (new_parent_id != old_parent_id) {
-                        Planner.event_bus.delete_row_project (project);
-                        Planner.database.project_added (project);
+                    if (project.parent_id != old_parent_id) {
+                        Planner.event_bus.project_parent_changed (project, old_parent_id);
+                    }
+
+                    if (project.is_favorite != old_is_favorite) {
+                        Planner.event_bus.favorite_toggled (project);
                     }
                 }
             } else {
                 Planner.database.insert_project (new Objects.Project.from_json (_node));
+            }
+        }
+
+        // Sections
+        unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
+        foreach (unowned Json.Node _node in sections.get_elements ()) {
+            Objects.Section? section = Planner.database.get_section (_node.get_object ().get_int_member ("id"));
+            if (section != null) {
+                if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                    Planner.database.delete_section (section);
+                } else {
+                    section.update_from_json (_node);
+                    Planner.database.update_section (section);
+                }
+            } else {
+                add_section_if_not_exists (_node);
+            }
+        }
+
+        // Items
+        unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
+        foreach (unowned Json.Node _node in items.get_elements ()) {
+            Objects.Item? item = Planner.database.get_item (_node.get_object ().get_int_member ("id"));
+            if (item != null) {
+                if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                    Planner.database.delete_item (item);
+                } else {
+                    int64 old_project_id = item.project_id;
+                    int64 old_section_id = item.section_id;
+                    bool old_checked = item.checked;
+
+                    item.update_from_json (_node);
+                    Planner.database.update_item (item);
+
+                    if (old_project_id != item.project_id || old_section_id != item.section_id) {
+                        Planner.event_bus.move_item (item, old_project_id, old_section_id);
+                    }
+
+                    if (old_checked != item.checked) {
+                        Planner.database.checked_toggled (item, old_checked);
+                    }
+                }
+            } else {
+                add_item_if_not_exists (_node);
+            }
+        }
+    }
+
+    private void add_item_if_not_exists (Json.Node node) {
+        if (!node.get_object ().get_null_member ("parent_id")) {
+            // Add to parent
+            return;
+        }
+        
+        if (!node.get_object ().get_null_member ("section_id")) {
+            Objects.Section? section = Planner.database.get_section (node.get_object ().get_int_member ("section_id"));
+            if (section != null) {
+                section.add_item_if_not_exists (new Objects.Item.from_json (node));
+            }
+        } else {
+            Objects.Project? project = Planner.database.get_project (node.get_object ().get_int_member ("project_id"));
+            if (project != null) {
+                project.add_item_if_not_exists (new Objects.Item.from_json (node));
             }
         }
     }
@@ -261,18 +358,19 @@ public class Services.Todoist : GLib.Object {
             var stream = yield session.send_async (message, null);
             yield parser.load_from_stream_async (stream);
         } catch (Error e) {
-            print (e.message);
+            debug (e.message);
         }
 
-        var node = parser.get_root ().get_object ();
-        var sync_status = node.get_object_member ("sync_status");
+        // Debug
+        print_root (parser.get_root ());
+
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
         var uuid_member = sync_status.get_member (uuid);
         int64? id = null;
 
         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-            string sync_token = node.get_string_member ("sync_token");
-            Planner.settings.set_string ("todoist-sync-token", sync_token);
-            id = node.get_object_member ("temp_id_mapping").get_int_member (temp_id);
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+            id = parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_int_member (temp_id);
         } else {
             // project_added_error (
             //     temp_id_mapping,
@@ -299,17 +397,17 @@ public class Services.Todoist : GLib.Object {
             var stream = yield session.send_async (message, null);
             yield parser.load_from_stream_async (stream);
         } catch (Error e) {
-            print (e.message);
+            debug (e.message);
         }
 
-        var node = parser.get_root ().get_object ();
+        // Debug
+        print_root (parser.get_root ());
 
-        var sync_status = node.get_object_member ("sync_status");
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
         var uuid_member = sync_status.get_member (uuid);
 
         if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-            string sync_token = node.get_string_member ("sync_token");
-            Planner.settings.set_string ("todoist-sync-token", sync_token);
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
             // project_updated_completed (project.id);
         } else {
             // project_updated_error (
@@ -318,5 +416,199 @@ public class Services.Todoist : GLib.Object {
             //     sync_status.get_object_member (uuid).get_string_member ("error")
             // );
         }
+    }
+
+    public async void delete (Objects.BaseObject object) {
+        string uuid = Util.get_default ().generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_delete_json (object.id, object.type_delete, uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        // Debug
+        print_root (parser.get_root ());
+
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+        var uuid_member = sync_status.get_member (uuid);
+
+        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+        } else {
+            // project_updated_error (
+            //     project.id,
+            //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+            //     sync_status.get_object_member (uuid).get_string_member ("error")
+            // );
+        }
+    }
+    /*
+        Project
+    */
+
+    public async void update_section (Objects.Section section) {
+        string uuid = Util.get_default ().generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            section.get_update_json (uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        // Debug
+        print_root (parser.get_root ());
+
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+        var uuid_member = sync_status.get_member (uuid);
+
+        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+        } else {
+
+        }
+    }
+
+    private void add_section_if_not_exists (Json.Node node) {
+        Objects.Project? project = Planner.database.get_project (node.get_object ().get_int_member ("project_id"));
+        if (project != null) {
+            project.add_section_if_not_exists (new Objects.Section.from_json (node));
+        }
+    }   
+    
+    /*
+        Items
+    */
+    public async int64? add_item (Objects.Item item) {
+        string temp_id = Util.get_default ().generate_string ();
+        string uuid = Util.get_default ().generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            item.get_add_json (temp_id, uuid)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        // Debug
+        print_root (parser.get_root ());
+
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+        var uuid_member = sync_status.get_member (uuid);
+        int64? id = null;
+
+        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+            id = parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_int_member (temp_id);
+        } else {
+            // project_added_error (
+            //     temp_id_mapping,
+            //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+            //     sync_status.get_object_member (uuid).get_string_member ("error")
+            // );
+        }
+
+        return id;
+    }
+
+    public async bool complete_item (Objects.Item item) {
+        string uuid = Util.get_default ().generate_string ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete")
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        // Debug
+        print_root (parser.get_root ());
+
+        var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+        var uuid_member = sync_status.get_member (uuid);
+        bool returned = false;
+
+        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+            Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+            returned = true;
+        } else {
+            // project_added_error (
+            //     temp_id_mapping,
+            //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+            //     sync_status.get_object_member (uuid).get_string_member ("error")
+            // );
+        }
+
+        return returned;
+    }
+
+    private void print_root (Json.Node root) {
+        Json.Generator generator = new Json.Generator ();
+        generator.set_root (root);
+        debug (generator.to_data (null));
+    }
+
+    public string get_delete_json (int64 id, string type, string uuid) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value (type);
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (id);
+
+            builder.end_object ();
+
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 }

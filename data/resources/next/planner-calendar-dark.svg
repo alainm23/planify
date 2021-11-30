@@ -5,17 +5,17 @@
    fill="none"
    viewBox="0 0 24 24"
    version="1.1"
-   id="svg4"
-   sodipodi:docname="chevron-right-dark.svg"
+   id="svg10"
+   sodipodi:docname="planner-calendar-light.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs8" />
+     id="defs14" />
   <sodipodi:namedview
-     id="namedview6"
+     id="namedview12"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
@@ -23,29 +23,45 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="15.615275"
-     inkscape:cx="-6.3079262"
-     inkscape:cy="14.248869"
+     inkscape:zoom="7.8076376"
+     inkscape:cx="-4.2906705"
+     inkscape:cy="15.817845"
      inkscape:window-width="1366"
      inkscape:window-height="707"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+     inkscape:current-layer="svg10" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M10.75 8.75L14.25 12L10.75 15.25"
+     d="M4.75 8.75C4.75 7.64543 5.64543 6.75 6.75 6.75H17.25C18.3546 6.75 19.25 7.64543 19.25 8.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V8.75Z"
      id="path2"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke:#fffff5;stroke-opacity:1;fill:none;fill-opacity:0.15000001" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M 4.75,12 C 4.75,7.99594 7.99594,4.75 12,4.75 v 0 c 4.0041,0 7.25,3.24594 7.25,7.25 v 0 c 0,4.0041 -3.2459,7.25 -7.25,7.25 v 0 C 7.99594,19.25 4.75,16.0041 4.75,12 Z"
-     id="path2-3"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     d="M8 4.75V8.25"
+     id="path4"
+     style="stroke:#fffff5;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M16 4.75V8.25"
+     id="path6"
+     style="stroke:#fffff5;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M7.75 10.75H16.25"
+     id="path8"
+     style="stroke:#fffff5;stroke-opacity:1" />
 </svg>

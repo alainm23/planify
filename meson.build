@@ -11,36 +11,75 @@ asresources = gnome.compile_resources (
     c_name: 'as'
 )
 
+conf_data = configuration_data()
+conf_data.set_quoted('PROJECT_NAME', meson.project_name())
+conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf_data.set_quoted('VERSION', meson.project_version())
+conf_data.set_quoted('PREFIX', get_option('prefix'))
+conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
+config_header = configure_file(
+    input : 'config.vala.in',
+    output : 'config.vala',
+    configuration : conf_data
+)
+
 executable (
     meson.project_name (),
     'src/Util.vala',
     'src/Application.vala',
     'src/MainWindow.vala',
     
-    'src/Widgets/Sidebar.vala',
-    'src/Widgets/FilterPaneRow.vala',
+    'src/Layouts/Sidebar.vala',
+    'src/Layouts/FilterPaneRow.vala',
+    'src/Layouts/HeaderItem.vala',
+    'src/Layouts/LabelRow.vala',
+    'src/Layouts/ItemRow.vala',
+    'src/Layouts/ProjectRow.vala',
+    'src/Layouts/ViewHeader.vala',
+    'src/Layouts/SectionRow.vala',
+    'src/Layouts/LabelChild.vala',
+
     'src/Widgets/DynamicIcon.vala',
-    'src/Widgets/HeaderItem.vala',
     'src/Widgets/TodoistSync.vala',
-    'src/Widgets/ProjectRow.vala',
     'src/Widgets/ProjectProgress.vala',
-    'src/Widgets/LabelRow.vala',
-    'src/Widgets/ProjectHeader.vala',
     'src/Widgets/EditableLabel.vala',
     'src/Widgets/TopHeaderProject.vala',
+    'src/Widgets/ColorPopover.vala',
+    'src/Widgets/MagicButton.vala',
+    'src/Widgets/HyperTextView.vala',
+    'src/Widgets/LoadingButton.vala',
+    'src/Widgets/ProjectButton.vala',
+    'src/Widgets/IconColorProject.vala',
+    'src/Widgets/ItemSummary.vala',
 
     'src/Views/Welcome.vala',
     'src/Views/Project.vala',
+    'src/Views/List.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
+    'src/Dialogs/ProjectSelector/ProjectSelector.vala',
+    'src/Dialogs/ProjectSelector/ProjectRow.vala',
+    'src/Dialogs/ProjectSelector/SectionRow.vala',
+
+    'src/Dialogs/ContextMenu/Menu.vala',
+    'src/Dialogs/ContextMenu/MenuItem.vala',
+    'src/Dialogs/ContextMenu/MenuItemSelector.vala',
+    'src/Dialogs/ContextMenu/MenuSeparator.vala',
 
     'src/Services/EventBus.vala',
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
 
+    'src/Objects/BaseObject.vala',
     'src/Objects/Project.vala',
     'src/Objects/Label.vala',
+    'src/Objects/Section.vala',
+    'src/Objects/Item.vala',
+    'src/Objects/Color.vala',
+    'src/Objects/DueDate.vala',
+    
     asresources,
+    config_header,
     dependencies: [
         dependency('glib-2.0'),
         dependency('gobject-2.0'),
