@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-04-27 07:58-0500\n"
-"PO-Revision-Date: 2021-06-10 08:34+0000\n"
-"Last-Translator: liimee <alt3753.7@gmail.com>\n"
+"PO-Revision-Date: 2021-12-16 09:54+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/planner/"
 "translations/id/>\n"
 "Language: id\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -40,7 +40,7 @@ msgstr "ya"
 
 #: src/MainWindow.vala:54 src/Widgets/Pane.vala:402 src/Widgets/Pane.vala:410
 msgid "Planner"
-msgstr ""
+msgstr "Perencana"
 
 #: src/MainWindow.vala:792 src/MainWindow.vala:808 src/MainWindow.vala:824
 #: src/MainWindow.vala:840
@@ -48,7 +48,6 @@ msgid "Adding task from clipboard…"
 msgstr "Menambahkan tugas dari clipboard…"
 
 #: src/Utils.vala:115 src/Utils.vala:122 src/Widgets/LabelRow.vala:93
-#, fuzzy
 msgid "Home"
 msgstr "Beranda"
 
@@ -66,11 +65,11 @@ msgstr "Penting"
 
 #: src/Utils.vala:119 src/Utils.vala:138
 msgid "Pending"
-msgstr ""
+msgstr "Tertunda"
 
 #: src/Utils.vala:182
 msgid "Berry Red"
-msgstr ""
+msgstr "Merah Beri"
 
 #: src/Utils.vala:183
 msgid "Red"
@@ -146,7 +145,7 @@ msgstr "Abu-abu"
 
 #: src/Utils.vala:201
 msgid "Taupe"
-msgstr ""
+msgstr "Kelabu tua"
 
 #: src/Utils.vala:595 src/Widgets/ActionRow.vala:183
 #: src/Widgets/ActionRow.vala:185 src/Widgets/ItemRow.vala:1588
@@ -168,13 +167,12 @@ msgstr "Besok"
 
 #: src/Utils.vala:922
 msgid "Quick Add Activated!"
-msgstr ""
+msgstr "Tambah Cepat Diaktifkan!"
 
 #: src/Utils.vala:923
 #, c-format
 msgid "Try %s to activate it. You can change it from the preferences"
-msgstr ""
-"Coba %s untuk mengaktifkan itu. Anda dapat mengubahnya dari preferensi."
+msgstr "Coba %s untuk mengaktifkan itu. Anda dapat mengubahnya dari preferensi"
 
 #: src/Utils.vala:999
 #, c-format
@@ -215,7 +213,7 @@ msgstr ""
 
 #: src/Utils.vala:1021
 msgid "Adding new tasks"
-msgstr ""
+msgstr "Menambahkan tugas baru"
 
 #: src/Utils.vala:1022
 msgid "To add a new task to Planner, just click + and press Enter."
@@ -232,16 +230,15 @@ msgstr ""
 
 #: src/Utils.vala:1079
 msgid "Create a new area"
-msgstr ""
+msgstr "Buat area baru"
 
 #: src/Utils.vala:1080 src/Dialogs/ShortcutsDialog.vala:85
 msgid "Create a new project"
 msgstr "Buat proyek baru"
 
 #: src/Utils.vala:1081
-#, fuzzy
 msgid "Create a new section"
-msgstr "Buat bab baru"
+msgstr "Buat bagian baru"
 
 #: src/Utils.vala:1082
 msgid "Open the Inbox"
@@ -278,11 +275,11 @@ msgstr "Autentikasi dibutuhkan namun gagal, atau belum tersampaikan."
 
 #: src/Utils.vala:1097
 msgid "The request was valid, but for something that is forbidden."
-msgstr "Permintaan sudah valid, tetapi untuk sesuatu yang dilarang"
+msgstr "Permintaan sudah valid, tetapi untuk sesuatu yang dilarang."
 
 #: src/Utils.vala:1098
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "Sumber daya yang diminta tidak dapat ditemukan."
 
 #: src/Utils.vala:1099
 msgid "The user has sent too many requests in a given amount of time."
@@ -292,7 +289,7 @@ msgstr ""
 
 #: src/Utils.vala:1100
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "Permintaan gagal dikarenakan server error."
 
 #: src/Utils.vala:1101
 msgid "The server is currently unable to handle the request."
@@ -317,7 +314,7 @@ msgstr ""
 
 #: src/Services/ExportImport.vala:350
 msgid "Save Planner file"
-msgstr ""
+msgstr "Simpan file Planner"
 
 #: src/Services/ExportImport.vala:352 src/Widgets/SectionRow.vala:189
 #: src/Widgets/BoardColumn.vala:148 src/Views/Project.vala:149
@@ -349,29 +346,29 @@ msgstr ""
 
 #: src/Services/ExportImport.vala:544
 msgid "Open"
-msgstr ""
+msgstr "Buka"
 
 #: src/Widgets/ActionRow.vala:91 src/Widgets/ProjectRow.vala:159
 #: src/Views/Project.vala:257 src/Views/Project.vala:258
 msgid "Todoist Project"
-msgstr ""
+msgstr "Proyek Todoist"
 
 #: src/Widgets/ActionRow.vala:188 src/Widgets/ActionRow.vala:190
 #: src/Widgets/Pane.vala:356 src/Views/Upcoming.vala:36
 #: src/Dialogs/QuickFind.vala:68 src/Dialogs/Preferences/Preferences.vala:359
 msgid "Upcoming"
-msgstr ""
+msgstr "Yang akan datang"
 
 #: src/Widgets/ActionRow.vala:452 src/Widgets/ProjectRow.vala:510
 #: src/Widgets/SectionRow.vala:1322 src/Widgets/SectionRow.vala:1397
 #: src/Widgets/BoardColumn.vala:1266 src/Widgets/BoardColumn.vala:1319
 msgid "Unable to move task"
-msgstr ""
+msgstr "Tidak dapat memindahkan tugas"
 
 #: src/Widgets/Pane.vala:77 src/Widgets/Pane.vala:180
 #: src/Dialogs/QuickFind.vala:30 src/Dialogs/QuickFind.vala:138
 msgid "Quick Find"
-msgstr ""
+msgstr "Cari Cepat"
 
 #: src/Widgets/Pane.vala:193 src/Widgets/ToolsMenu.vala:60
 #: src/Dialogs/Preferences/Preferences.vala:40
@@ -379,15 +376,13 @@ msgid "Preferences"
 msgstr "Preferensi"
 
 #: src/Widgets/Pane.vala:403 src/Widgets/Pane.vala:411
-#, fuzzy
 msgid "Planner Project"
-msgstr "Hapus proyek"
+msgstr "Proyek Planner"
 
 #: src/Widgets/Pane.vala:410 src/Widgets/Pane.vala:393
 #: src/Widgets/Pane.vala:419
-#, fuzzy
 msgid "New Project"
-msgstr "Proyek"
+msgstr "Proyek Baru"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:827
 #: src/Dialogs/ProjectSettings.vala:178 src/Views/Project.vala:812
@@ -423,11 +418,10 @@ msgstr "Proyek %s berhasil dibuat"
 
 #: src/Widgets/New.vala:337 src/Widgets/New.vala:330
 msgid "Local"
-msgstr ""
+msgstr "Lokal"
 
 #: src/Widgets/New.vala:412 src/Widgets/ProjectRow.vala:609
 #: src/Widgets/New.vala:405
-#, fuzzy
 msgid "No Parent"
 msgstr "Tanpa Induk"
 
@@ -519,13 +513,12 @@ msgid "1d"
 msgstr "1h"
 
 #: src/Widgets/NewItem.vala:54
-#, fuzzy
 msgid "1w"
 msgstr "1m"
 
 #: src/Widgets/NewItem.vala:55
 msgid "1m"
-msgstr "1m"
+msgstr "1b"
 
 #: src/Widgets/NewItem.vala:120 src/Widgets/ItemRow.vala:233
 #: src/Widgets/CheckRow.vala:64
@@ -574,9 +567,8 @@ msgid "Hide Details"
 msgstr "Sembunyikan Keterangan"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Tambahkan tugas"
+msgstr "Tambahkan tugas turunan"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -624,9 +616,8 @@ msgid "Move to Project"
 msgstr "Pindahkan ke Proyek"
 
 #: src/Widgets/ItemRow.vala:1606 src/Widgets/ItemRow.vala:1611
-#, fuzzy
 msgid "Move to Section"
-msgstr "Pindahkan ke Bab"
+msgstr "Pindahkan ke Bagian"
 
 #: src/Widgets/ItemRow.vala:1614 src/Widgets/ItemRow.vala:1619
 msgid "Text"
@@ -642,7 +633,7 @@ msgstr "Isi"
 
 #: src/Widgets/ItemCompletedRow.vala:47
 msgid "Due date"
-msgstr ""
+msgstr "Tanggal jatuh tempo"
 
 #: src/Widgets/ItemCompletedRow.vala:50
 msgid "Date completed"
@@ -668,16 +659,15 @@ msgstr "Tampilkan Tugas"
 
 #: src/Widgets/SectionRow.vala:111 src/Widgets/SectionRow.vala:1232
 msgid "Hiding Tasks"
-msgstr ""
+msgstr "Sembunyikan Tugas"
 
 #: src/Widgets/SectionRow.vala:140 src/Widgets/BoardColumn.vala:101
-#, fuzzy
 msgid "Section name"
-msgstr "Nama bab"
+msgstr "Nama bagian"
 
 #: src/Widgets/SectionRow.vala:160
 msgid "Section Menu"
-msgstr ""
+msgstr "Menu Bagian"
 
 #: src/Widgets/SectionRow.vala:228 src/Views/Project.vala:183
 #: src/Dialogs/Project.vala:196 src/Views/Project.vala:184
@@ -692,9 +682,8 @@ msgid "Description"
 msgstr "Keterangan"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Tambahkan keterangan"
+msgstr "Tambah bagian"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -712,11 +701,11 @@ msgstr "Tambahkan Catatan"
 
 #: src/Widgets/SectionRow.vala:1136 src/Widgets/BoardColumn.vala:1116
 msgid "Delete section"
-msgstr ""
+msgstr "Hapus bagian"
 
 #: src/Widgets/SectionRow.vala:1154 src/Widgets/BoardColumn.vala:1134
 msgid "Section deleted"
-msgstr ""
+msgstr "Bagian dihapus"
 
 #: src/Widgets/DueButton.vala:64 src/Widgets/DueButton.vala:73
 #: src/Widgets/DueButton.vala:154 src/Widgets/DueButton.vala:237
@@ -727,7 +716,7 @@ msgstr "Jadwal"
 #: src/Widgets/DueButton.vala:224 src/Widgets/LabelButton.vala:154
 #: src/Widgets/ReminderButton.vala:126
 msgid "Clear"
-msgstr ""
+msgstr "Tuntas"
 
 #. top_grid.add (title_icon);
 #: src/Widgets/DueButton.vala:231 src/Widgets/LabelButton.vala:161
@@ -779,7 +768,6 @@ msgid "Using Labels"
 msgstr "Menggunakan Label"
 
 #: src/Widgets/LabelButton.vala:123
-#, fuzzy
 msgid ""
 "Categorize your to-dos with labels, then use them to filter your lists and "
 "get focused."
@@ -789,7 +777,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Cari atau Buat"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -801,17 +789,16 @@ msgid "Create '%s'"
 msgstr "Buat '%s'"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Label Todoist"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
-msgstr ""
+msgstr "Undo"
 
 #: src/Widgets/Toast.vala:103 src/Objects/Item.vala:127
 msgid "Task duplicate"
-msgstr ""
+msgstr "Duplikat tugas"
 
 #: src/Widgets/Toast.vala:105
 msgid "Task added from clipboard"
@@ -862,14 +849,13 @@ msgid "Time:"
 msgstr "Waktu:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Pindahkan ke Bab"
+msgstr "Nama bagian ini"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130 src/Views/Project.vala:505
 msgid "Add Section"
-msgstr ""
+msgstr "Tambah Bagian"
 
 #: src/Widgets/NewLabel.vala:43
 msgid "Add Label"
@@ -877,7 +863,7 @@ msgstr "Tambahkan Label"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Label sudah ada."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -889,9 +875,8 @@ msgid "Are you sure you want to delete %i tasks?"
 msgstr "Apakah Anda yakin ingin menghapus %i tugas?"
 
 #: src/Widgets/ShortcutLabel.vala:60
-#, fuzzy
 msgid "Disabled"
-msgstr "Dinonaktifkan"
+msgstr "Nonaktif"
 
 #: src/Widgets/WhatsNew.vala:64
 msgid "What's New"
@@ -914,9 +899,8 @@ msgid "Board Menu"
 msgstr "Menu Papan"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Pengaturan Proyek"
+msgstr "Pengaturan"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -1016,16 +1000,14 @@ msgid "Synchronize with your Todoist Account."
 msgstr "Sinkronkan dengan Akun Todoist Anda."
 
 #: src/Views/Welcome.vala:30
-#, fuzzy
 msgid "Import Backup"
-msgstr "Penting"
+msgstr "Impor Cadangan"
 
 #: src/Views/Welcome.vala:30
 msgid "Import Previously Exported Planner Backup."
 msgstr ""
 
 #: src/Views/Inbox.vala:76
-#, fuzzy
 msgid "Invite person"
 msgstr "Undang orang"
 
@@ -1081,7 +1063,6 @@ msgstr ""
 #: src/Views/Inbox.vala:241 src/Views/Today.vala:467 src/Views/Project.vala:520
 #: src/Dialogs/Project.vala:497 src/Views/Project.vala:518
 #: src/Dialogs/Project.vala:502
-#, fuzzy
 msgid "Show Completed"
 msgstr "Tampilkan Yang Sudah Selesai"
 
@@ -1139,7 +1120,7 @@ msgstr "Apa yang ingin Anda capai?"
 #: src/Views/Project.vala:214 src/Dialogs/Project.vala:237
 #: src/Views/Project.vala:215 src/Dialogs/Project.vala:242
 msgid "Tap + to add a task to this project."
-msgstr "Klik + untuk menambahkan tugas ke projek ini"
+msgstr "Klik + untuk menambahkan tugas ke projek ini."
 
 #: src/Views/Project.vala:254 src/Views/Project.vala:255
 #, fuzzy
@@ -1193,9 +1174,8 @@ msgid "Network Is Not Available"
 msgstr "Jaringan Tidak Tersedia"
 
 #: src/Dialogs/TodoistOAuth.vala:71
-#, fuzzy
 msgid "Connect to the Internet to connect with Todoist"
-msgstr "Hubungkan ke Internet untuk menyambungkan dengan Todoist"
+msgstr "Sambungkan ke Internet untuk menyambungkan dengan Todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:109
 msgid "Synchronizing… Wait a moment please."
@@ -1230,7 +1210,6 @@ msgid "Convert"
 msgstr ""
 
 #: src/Dialogs/ProjectSettings.vala:197
-#, fuzzy
 msgid "Direct access:"
 msgstr "Akses langsung:"
 
@@ -1486,9 +1465,8 @@ msgid "Evening"
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:602
-#, fuzzy
 msgid "Backups"
-msgstr "Penting"
+msgstr "Cadangan"
 
 #: src/Dialogs/Preferences/Preferences.vala:605
 msgid ""
@@ -1621,7 +1599,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1106
 msgid "Export"
-msgstr ""
+msgstr "Ekspor"
 
 #: src/Dialogs/Preferences/Preferences.vala:1156
 msgid ""
@@ -1651,14 +1629,13 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Label"
+msgstr "Sinkronkan Label"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
 msgid "Log out"
-msgstr ""
+msgstr "Keluar"
 
 #: src/Dialogs/Preferences/Preferences.vala:1428
 msgid "Are you sure you want to log out?"
@@ -1697,22 +1674,22 @@ msgstr ""
 #: src/Dialogs/Preferences/Preferences.vala:1661
 #: src/Dialogs/Preferences/Preferences.vala:1677
 msgid "Website"
-msgstr ""
+msgstr "Situs web"
 
 #: src/Dialogs/Preferences/Preferences.vala:1662
 #: src/Dialogs/Preferences/Preferences.vala:1678
 msgid "Github"
-msgstr ""
+msgstr "Github"
 
 #: src/Dialogs/Preferences/Preferences.vala:1663
 #: src/Dialogs/Preferences/Preferences.vala:1679
 msgid "Follow"
-msgstr ""
+msgstr "Ikuti"
 
 #: src/Dialogs/Preferences/Preferences.vala:1664
 #: src/Dialogs/Preferences/Preferences.vala:1680
 msgid "Report a Problem"
-msgstr ""
+msgstr "Laporkan keluhan"
 
 #: src/Dialogs/Preferences/Preferences.vala:1665
 #: src/Dialogs/Preferences/Preferences.vala:1681
@@ -1756,11 +1733,11 @@ msgstr ""
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 msgid "_Cancel"
-msgstr ""
+msgstr "_Batal"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:134
 msgid "_Open"
-msgstr ""
+msgstr "_Buka"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:141
 msgid "Planner DB Files (sqlite)"
@@ -1768,7 +1745,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/TopBox.vala:35
 msgid "Back"
-msgstr ""
+msgstr "Kembali"
 
 #: src/Objects/Project.vala:103
 msgid "The Project was copied to the Clipboard."
@@ -1776,7 +1753,7 @@ msgstr ""
 
 #: src/Objects/Item.vala:120
 msgid "Duplicating task…"
-msgstr ""
+msgstr "Menduplikat tugas…"
 
 #: src/Objects/Item.vala:210 src/Objects/Item.vala:227
 msgid "The Task was copied to the Clipboard."
