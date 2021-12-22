@@ -19,13 +19,39 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectSelector.ProjectSelector : Hdy.Window {
-    public Objects.Item item { get; construct; }
+public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
     private Gtk.ListBox listbox;
 
-    public ProjectSelector (Objects.Item item) {
+    public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectRow> projects_hashmap;
+
+    Objects.Project _project;
+    public Objects.Project project {
+        get {
+            return _project;
+        }
+
+        set {
+            _project = value;
+            Planner.event_bus.project_picker_changed (_project.id, Constants.INACTIVE);
+        }
+    }
+
+    Objects.Section _section;
+    public Objects.Section section {
+        get {
+            return _section;
+        }
+
+        set {
+            _section = value;
+            Planner.event_bus.project_picker_changed (_section.project_id, _section.id);
+        }
+    }
+
+    public signal void changed (int64 project_id, int64 section_id);
+
+    public ProjectPicker () {
         Object (
-            item: item,
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.MOUSE,
@@ -34,6 +60,8 @@ public class Dialogs.ProjectSelector.ProjectSelector : Hdy.Window {
     }
 
     construct {
+        projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectRow> ();
+
         var headerbar = new Hdy.HeaderBar () {
             has_subtitle = false,
             show_close_button = false,
@@ -132,6 +160,16 @@ public class Dialogs.ProjectSelector.ProjectSelector : Hdy.Window {
         cancel_button.clicked.connect (() => {
             hide_destroy ();
         });
+
+        done_button.clicked.connect (() => {
+            changed (project.id, section.id);
+            hide_destroy ();
+        });
+
+        Planner.event_bus.project_picker_changed.connect ((project_id, section_id) => {
+            _project = Planner.database.get_project (project_id);
+            _section = Planner.database.get_section (section_id);
+        });
     }
 
     private void hide_destroy () {
@@ -145,21 +183,20 @@ public class Dialogs.ProjectSelector.ProjectSelector : Hdy.Window {
 
     private void add_projects () {
         foreach (Objects.Project project in Planner.database.projects) {
-            var row = new Dialogs.ProjectSelector.ProjectRow (project);
-            listbox.add (row);
-            listbox.show_all ();
+            projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectRow (project);
+            listbox.add (projects_hashmap [project.id_string]);
         }
+
+        foreach (Objects.Section section in Planner.database.sections) {
+            if (projects_hashmap.has_key (section.project_id.to_string ())) {
+                projects_hashmap [section.project_id.to_string ()].add_section (section);
+            }
+        }
+
+        listbox.show_all ();
     }
 
     public void popup () {
         show_all ();
-
-        Gdk.Rectangle rect;
-        get_allocation (out rect);
-
-        int root_x, root_y;
-        get_position (out root_x, out root_y);
-
-        move (root_x + (rect.width / 3), root_y + (rect.height / 3) + 24);
     }
 }

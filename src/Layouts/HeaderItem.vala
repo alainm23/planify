@@ -46,6 +46,25 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         };
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
 
+        var arrow_icon = new Gtk.Image () {
+            gicon = new ThemedIcon ("pan-end-symbolic"),
+            pixel_size = 13
+        };
+        
+        var arrow_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            hexpand = true,
+            halign = Gtk.Align.END,
+            can_focus = false,
+            image = arrow_icon,
+            margin_end = 15
+        };
+        arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        arrow_button.get_style_context ().add_class ("dim-label");
+        arrow_button.get_style_context ().add_class ("transparent");
+        arrow_button.get_style_context ().add_class ("hidden-button");
+        arrow_button.get_style_context ().add_class ("no-padding");
+
         var content_grid = new Gtk.Grid () {
             margin = 9,
             margin_top = 0
@@ -81,13 +100,14 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         }
 
         var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 19;
+        add_image.size = 16;
         add_image.icon_name = "planner-plus-circle";
         
         var add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             can_focus = false,
-            tooltip_text = add_tooltip
+            tooltip_text = add_tooltip,
+            margin_top = 1
         };
 
         add_button.add (add_image);
@@ -106,10 +126,9 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         spinner_loading.start ();
         
         action_stack = new Gtk.Stack () {
-            halign = Gtk.Align.END,
+            halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER,
-            hexpand = true,
-            margin_end = 15,
+            margin_start = 3,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
@@ -127,6 +146,8 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         };
         header_grid.add (name_label);
         header_grid.add (action_revealer);
+        header_grid.add (arrow_button);
+        
         
         var main_grid = new Gtk.Grid () {
             hexpand = true,

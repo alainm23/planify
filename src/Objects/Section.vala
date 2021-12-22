@@ -29,6 +29,14 @@ public class Objects.Section : Objects.BaseObject {
     public bool is_deleted { get; set; default = true; }
     public bool is_archived { get; set; default = true; }
 
+    string _short_name;
+    public string short_name {
+        get {
+            _short_name = Util.get_default ().get_short_name (name);
+            return _short_name;
+        }
+    }
+
     Objects.Project? _project;
     public Objects.Project project {
         get {
@@ -112,7 +120,7 @@ public class Objects.Section : Objects.BaseObject {
             Source.remove (update_timeout_id);
         }
 
-        update_timeout_id = Timeout.add (500, () => {
+        update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
             Planner.database.update_section (this);

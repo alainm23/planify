@@ -16,7 +16,7 @@ public class Services.Database : GLib.Object {
     
     public signal void item_deleted (Objects.Item item);
     public signal void item_added (Objects.Item item);
-    public signal void item_updated (Objects.Item item);
+    public signal void item_updated (Objects.Item item, int64 update_id);
 
     private static Database? _instance;
     public static Database get_default () {
@@ -660,10 +660,10 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         string sql = """
-            INSERT OR IGNORE INTO Items (id, content, description, due, added_at,
+            INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
                 checked, is_deleted, day_order, collapsed)
-            VALUES ($id, $content, $description, $due, $added_at,
+            VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
                 $checked, $is_deleted, $day_order, $collapsed);
         """;
@@ -674,6 +674,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", item.description);
         set_parameter_str (stmt, "$due", item.due.to_string ());
         set_parameter_str (stmt, "$added_at", item.added_at);
+        set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$updated_at", item.updated_at);
         set_parameter_int64 (stmt, "$section_id", item.section_id);
         set_parameter_int64 (stmt, "$project_id", item.project_id);
@@ -807,7 +808,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item (Objects.Item item) {
+    public void update_item (Objects.Item item, int64 update_id = Constants.INACTIVE) {
         Sqlite.Statement stmt;
         string sql = """
             UPDATE Items SET content=$content, description=$description, due=$due,
@@ -838,7 +839,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             item.updated ();
-            item_updated (item);
+            item_updated (item, update_id);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }

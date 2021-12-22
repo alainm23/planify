@@ -82,28 +82,11 @@ public class Planner : Gtk.Application {
         add_action (quit_action);
         set_accels_for_action ("app.quit", {"<Control>q"});
 
-        var granite_settings = Granite.Settings.get_default ();
-        var gtk_settings = Gtk.Settings.get_default ();
-
-        gtk_settings.gtk_application_prefer_dark_theme = (
-            granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+        var provider = new Gtk.CssProvider ();
+        provider.load_from_resource ("/com/github/alainm23/planner/index.css");
+        Gtk.StyleContext.add_provider_for_screen (
+            Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
-
-        granite_settings.notify["prefers-color-scheme"].connect (() => {
-            bool is_dark = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-            gtk_settings.gtk_application_prefer_dark_theme = is_dark;
-        });
-
-        var provider_stylesheet = new Gtk.CssProvider ();
-        provider_stylesheet.load_from_resource ("/com/github/alainm23/planner/stylesheet.css");
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_stylesheet, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        
-        var provider_animations = new Gtk.CssProvider ();
-        provider_animations.load_from_resource ("/com/github/alainm23/planner/animations.css");
-        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider_animations, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-
-        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-        default_theme.add_resource_path ("/com/github/alainm23/planner");
         
         Util.get_default ().update_theme ();
 

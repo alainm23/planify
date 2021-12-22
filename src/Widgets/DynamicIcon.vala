@@ -1,30 +1,29 @@
 public class Widgets.DynamicIcon : Gtk.EventBox {
-    public string icon_name { get; set; default = "planner-inbox"; }
+    public string icon_name { get; set; default = null; }
     public int size { get; set; default = 16; }
-    public bool dark { get; set; default = true; }
     
     private Gtk.Image icon;
 
     construct {
         icon = new Gtk.Image () {
-            pixel_size = size,
-            gicon = new ThemedIcon (icon_name),
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER
         };
 
         add (icon);
 
-        notify["icon_name"].connect (() => {
+        notify["size"].connect (() => {
             generate_icon ();
         });
 
-        notify["size"].connect (() => {
-            icon.pixel_size = size;
-        });
+        // Planner.settings.changed.connect ((key) => {
+        //     if (key == "appearance") {
+        //         generate_icon ();
+        //     }
+        // });
 
-        Planner.event_bus.theme_changed.connect ((is_dark) => {
-            generate_icon (is_dark);
+        Planner.event_bus.theme_changed.connect (() => {
+            generate_icon ();
         });
     }
 
@@ -33,15 +32,19 @@ public class Widgets.DynamicIcon : Gtk.EventBox {
         generate_icon ();
     }
 
-    private void generate_icon (bool is_dark=Planner.settings.get_enum ("appearance") != 1) {
+    private void generate_icon () {
         if (icon_name == null) {
             return;
         }
 
-        if (dark) {
-            icon.gicon = new ThemedIcon ("%s-%s".printf (icon_name, is_dark ? "dark" : "light"));   
+        if (Util.get_default ().is_dynamic_icon (icon_name)) {
+            icon.gicon = new ThemedIcon ("%s-%s".printf (
+                icon_name, Planner.settings.get_enum ("appearance") != 0 ? "dark" : "light"
+            ));  
+            icon.pixel_size = size; 
         } else {
             icon.gicon = new ThemedIcon (icon_name);
+            icon.pixel_size = size;
         }
     }
 }

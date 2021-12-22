@@ -35,6 +35,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    string _short_name;
+    public string short_name {
+        get {
+            _short_name = Util.get_default ().get_short_name (name);
+            return _short_name;
+        }
+    }
+
     Gee.ArrayList<Objects.Section> _sections;
     public Gee.ArrayList<Objects.Section> sections {
         get {
@@ -84,7 +92,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public signal void project_count_updated (int project_count);
+    public signal void project_count_updated ();
 
     construct {
         deleted.connect (() => {
@@ -93,19 +101,25 @@ public class Objects.Project : Objects.BaseObject {
 
         Planner.event_bus.checked_toggled.connect ((item) => {
             if (item.project_id == id) {
-                project_count_updated (project_count);
+                project_count_updated ();
             }
         });
 
         Planner.database.item_deleted.connect ((item) => {
             if (item.project_id == id) {
-                project_count_updated (project_count);
+                project_count_updated ();
             }
         });
 
         Planner.database.item_added.connect ((item) => {
             if (item.project_id == id) {
-                project_count_updated (project_count);
+                project_count_updated ();
+            }
+        });
+
+        Planner.event_bus.item_moved.connect ((item, old_project_id) => {
+            if (item.project_id == id || item.project_id == old_project_id) {
+                project_count_updated ();
             }
         });
     }
@@ -162,7 +176,7 @@ public class Objects.Project : Objects.BaseObject {
             Source.remove (update_timeout_id);
         }
 
-        update_timeout_id = Timeout.add (500, () => {
+        update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
             Planner.database.update_project (this);

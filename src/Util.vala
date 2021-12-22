@@ -255,7 +255,7 @@ public class Util : GLib.Object {
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
 
-            Planner.event_bus.theme_changed (Gtk.Settings.get_default ().gtk_application_prefer_dark_theme);
+            Planner.event_bus.theme_changed ();
         } catch (GLib.Error e) {
             return;
         }
@@ -345,8 +345,6 @@ public class Util : GLib.Object {
             return _("Today");
         } else if (is_tomorrow (date)) {
             return _("Tomorrow");
-        } else if (is_overdue (date)) {
-            return Granite.DateTime.get_relative_datetime (date);
         } else {
             return get_default_date_format_from_date (date);
         }
@@ -355,12 +353,8 @@ public class Util : GLib.Object {
     public string get_calendar_icon (GLib.DateTime date) {
         if (is_today (date)) {
             return "planner-today";
-        } else if (is_tomorrow (date)) {
-            return "planner-calendar";
-        } else if (is_overdue (date)) {
-            return "planner-scheduled";
         } else {
-            return "planner-calendar";
+            return "planner-scheduled";
         }
     }
 
@@ -397,5 +391,102 @@ public class Util : GLib.Object {
         } else {
             return date.format (Granite.DateTime.get_default_date_format (false, true, true));
         }
+    }
+
+    public string get_todoist_datetime_format (string date) {
+        var datetime = new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
+        return datetime.format ("%F") + "T" + datetime.format ("%T");
+    }
+
+    public bool has_time (GLib.DateTime datetime) {
+        bool returned = true;
+        if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
+            returned = false;
+        }
+
+        return returned;
+    }
+
+    public bool has_time_from_string (string date) {
+        return has_time (new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ()));
+    }
+
+    /*
+        Calendar Utils
+    */
+
+    public int get_days_of_month (int index, int year_nav) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) { // vala-lint=line-length
+            return 31;
+        } else {
+            if (index == 2) {
+                if (year_nav % 4 == 0) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            } else {
+                return 30;
+            }
+        }
+    }
+
+    public bool is_current_month (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () == now.get_year ()) {
+            if (date.get_month () == now.get_month ()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    /*
+        Icons
+    */
+
+    private Gee.HashMap<string, bool>? _dynamic_icons;
+    public Gee.HashMap<string, bool> dynamic_icons {
+        get {
+            if (_dynamic_icons == null) {
+                _dynamic_icons = new Gee.HashMap<string, bool> ();
+                _dynamic_icons.set ("planner-calendar", true);
+                _dynamic_icons.set ("planner-search", true);
+                _dynamic_icons.set ("planner-plus", true);
+                _dynamic_icons.set ("chevron-right", true);
+                _dynamic_icons.set ("planner-plus-circle", true);
+                _dynamic_icons.set ("planner-refresh", true);
+                _dynamic_icons.set ("planner-edit", true);
+                _dynamic_icons.set ("planner-trash", true);
+                _dynamic_icons.set ("planner-star", true);
+                _dynamic_icons.set ("planner-note", true);
+                _dynamic_icons.set ("planner-close-circle", true);
+                _dynamic_icons.set ("planner-check-circle", true);
+            }
+
+            return _dynamic_icons;
+        }
+    }
+
+    public bool is_dynamic_icon (string icon_name) {
+        return dynamic_icons.has_key (icon_name);
+    }
+
+    public bool is_input_valid (Gtk.Entry entry) {
+        return entry.get_text_length () > 0;
+    }
+
+    public string get_short_name (string name) {
+        string returned = name;
+        
+        if (name.length > Constants.SHORT_NAME_SIZE) {
+            returned = name.substring (0, Constants.SHORT_NAME_SIZE) + "…";
+        }
+
+        return returned;
     }
 }

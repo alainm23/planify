@@ -1,10 +1,3 @@
-@define-color color_primary @BLUEBERRY_500;
-@define-color accent_color @color_primary;
-@define-color base_color #ffffff;
-@define-color bg_color @SILVER_100;
-@define-color item_bg_color @base_color;
-@define-color item_border_color @menu_separator;
-
 textview,
 entry {
     caret-color: @color_primary;
@@ -28,49 +21,6 @@ entry {
 
 .main-view {
     background-color: @base_color;
-}
-
-.planner-sidebar {
-    background-color: @bg_color;
-}
-
-.pane-content {
-    padding: 6px;
-    background-color: @base_color;
-    border-radius: 6px;
-    border: 0.4px solid @menu_separator;
-}
-
-.pane-listbox-background {
-    background-color: @base_color;
-}
-
-.listbox-background {
-    background-color: @base_color;
-}
-
-.selectable-item {
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-}
-
-.selectable-item:selected {
-    background-color: transparent;
-    color: @text_color;
-    font-weight: bold;
-}
-
-.selectable-item-selected {
-    background-color: @selected_bg_color;
-    border-radius: 6px;
-}
-
-.selectable-item:selected image {
-    animation: fancy-turn 0.7s ease-in-out;
-}
-
-.selectable-item label {
-    font-weight: 500;
 }
 
 .no-padding {
@@ -214,7 +164,7 @@ check {
 
 .card {
     border-radius: 6px;
-    padding: 9px;
+    padding: 9px 9px 6px 9px;
     background-color: @item_bg_color;
 }
 
@@ -240,8 +190,9 @@ check {
 /*
     Menu
 */
+
 .menu {
-    padding: 6px;
+    padding: 3px;
 }
 
 .menu button:not(:first-child) {
@@ -250,7 +201,7 @@ check {
 
 .menu-item {
     border-radius: 6px;
-    padding-left: 3px;
+    padding: 3px;
 }
 
 .menu-item:hover {
@@ -281,54 +232,16 @@ check {
     color: @BLACK_500;
 }
 
-.filter-pane-row-inbox {
-    padding: 3px;
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-    background-color: alpha (@color_primary, .15);
-    color: @color_primary;
+.active-switch slider {
+    min-height: 16px;
+    min-width: 16px;
 }
 
-.filter-pane-row-inbox-selected {
-    box-shadow: 0px 0px 3px 1px @color_primary;
+.content-entry {
+    padding: 0px;
 }
 
-.filter-pane-row-today {
-    padding: 3px;
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-    background-color: alpha (#ffaa00, .15);
-    color: #ffaa00;
-}
-
-.filter-pane-row-today-selected {
-    box-shadow: 0px 0px 3px 1px #ffaa00;
-}
-
-.filter-pane-row-scheduled {
-    padding: 3px;
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-    background-color: alpha (#fa1955, .15);
-    color: #fa1955;
-}
-
-.filter-pane-row-scheduled-selected {
-    box-shadow: 0px 0px 3px 1px #fa1955;
-}
-
-.padding-3 {
-    padding: 3px;
-}
-
-.filter-pane-row-pinboard {
-    padding: 3px;
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-    background-color: alpha (#7e8087, .15);
-    color: #7e8087;
-}
-
-.filter-pane-row-pinboard-selected {
-    box-shadow: 0px 0px 3px 1px #7e8087;
+.content-entry:focus {
+    border-color: transparent;
+    box-shadow: none;
 }

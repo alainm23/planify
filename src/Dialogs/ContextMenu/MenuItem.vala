@@ -4,8 +4,15 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
 
     private Widgets.DynamicIcon menu_icon;
     private Gtk.Label menu_title;
+    private Gtk.Label secondary_label;
 
     public signal void activate_item ();
+
+    public string secondary_text {
+        set {
+            secondary_label.label = value;
+        }
+    }
 
     public MenuItem (string title, string icon_name) {
         Object (
@@ -27,6 +34,14 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
 
         menu_title = new Gtk.Label (title);
 
+        secondary_label = new Gtk.Label (null) {
+            hexpand = true,
+            halign = Gtk.Align.END
+        };
+
+        unowned Gtk.StyleContext secondary_label_context = secondary_label.get_style_context ();
+        secondary_label_context.add_class ("small-label");
+
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
             hexpand = true
@@ -34,6 +49,7 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
 
         main_grid.add (menu_icon);
         main_grid.add (menu_title);
+        main_grid.add (secondary_label);
 
         add (main_grid);
 

@@ -34,6 +34,9 @@ public class MainWindow : Hdy.Window {
 
     static construct {
         Hdy.init ();
+
+        weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+        default_theme.add_resource_path ("/com/github/alainm23/planner");
     }
     
     construct {
@@ -172,6 +175,13 @@ public class MainWindow : Hdy.Window {
             // Init Widgets
             main_stack.visible_child_name = "main-view";
             sidebar.init (backend_type);
+
+            if (backend_type == BackendType.TODOIST) {
+                Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
+                    Services.Todoist.get_default ().sync_async ();
+                    return GLib.Source.REMOVE;
+                });
+            }
         } else if (backend_type == BackendType.CALDAV) {
 
         } else {

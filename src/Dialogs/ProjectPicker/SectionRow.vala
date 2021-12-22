@@ -1,4 +1,4 @@
-public class Dialogs.ProjectSelector.SectionRow : Gtk.ListBoxRow {
+public class Dialogs.ProjectPicker.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
 
     private Gtk.Label name_label;
@@ -70,14 +70,14 @@ public class Dialogs.ProjectSelector.SectionRow : Gtk.ListBoxRow {
 
         sectionrow_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Planner.event_bus.project_selector_selected (section.id);
+                Planner.event_bus.project_picker_changed (section.project_id, section.id);
             }
 
             return Gdk.EVENT_PROPAGATE;
         });
 
-        Planner.event_bus.project_selector_selected.connect ((id) => {
-            selected_revealer.reveal_child = section.id == id;
+        Planner.event_bus.project_picker_changed.connect ((project_id, section_id) => {
+            selected_revealer.reveal_child = section.id == section_id;
         });
     }
 

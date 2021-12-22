@@ -240,9 +240,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.database.item_updated.connect ((item) => {
+        Planner.database.item_updated.connect ((item, update_id) => {
             if (items.has_key (item.id_string)) {
-                items [item.id_string].update_request ();
+                if (items [item.id_string].update_id != update_id) {
+                    items [item.id_string].update_request ();
+                }
             }
 
             if (items_checked.has_key (item.id_string)) {
@@ -262,7 +264,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.event_bus.move_item.connect ((item, old_project_id, old_section_id) => {
+        Planner.event_bus.item_moved.connect ((item, old_project_id, old_section_id) => {
             if (old_project_id == section.project_id && old_section_id == section.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();
@@ -317,6 +319,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     public void prepare_new_item () {
         var row = new Layouts.ItemRow.for_project (section.project);
+        row.item_added.connect (() => {
+            items [row.item.id_string] = row;
+        });
+
         listbox.add (row);
         listbox.show_all ();
     }
@@ -332,7 +338,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         delete_item_context.add_class ("menu-item-danger");
 
         foreach (Objects.Project project in Planner.database.projects) {
-            move_item.add_item (new Dialogs.ProjectSelector.ProjectRow (project, false));
+            move_item.add_item (new Dialogs.ProjectPicker.ProjectRow (project));
         }
 
         menu.add_item (edit_item);

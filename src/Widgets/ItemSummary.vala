@@ -1,12 +1,12 @@
 public class Widgets.ItemSummary : Gtk.Revealer {
     public Objects.Item item { get; construct; }
 
-    private Widgets.DynamicIcon calendar_icon;
     private Gtk.Label calendar_label;
     private Gtk.Revealer calendar_revealer;
+    private Gtk.Revealer summary_revealer;
 
-    private Widgets.DynamicIcon description_image;
-    private Gtk.Revealer description_revealer;
+    private Gtk.Label description_label;
+    private Gtk.Revealer description_label_revealer;
 
     public ItemSummary (Objects.Item item) {
         Object (
@@ -15,17 +15,12 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     }
 
     construct {
-        calendar_icon = new Widgets.DynamicIcon ();
-        calendar_icon.size = 12;
-        calendar_icon.update_icon_name ("planner-calendar");
-
         calendar_label = new Gtk.Label (null);
         calendar_label.get_style_context ().add_class ("small-label");
 
         var calendar_grid = new Gtk.Grid () {
             column_spacing = 3
         };
-        calendar_grid.add (calendar_icon);
         calendar_grid.add (calendar_label);
 
         calendar_revealer = new Gtk.Revealer () {
@@ -33,49 +28,65 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         };
         calendar_revealer.add (calendar_grid);
 
-        description_image = new Widgets.DynamicIcon () {
-            margin_start = 6
+        description_label = new Gtk.Label (null) {
+            xalign = 0,
+            lines = 1,
+            ellipsize = Pango.EllipsizeMode.END
         };
-        description_image.size = 12;
-        description_image.update_icon_name ("planner-note");
+        description_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        description_label.get_style_context ().add_class ("small-label");
 
-        description_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        description_label_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false
         };
-        description_revealer.add (description_image);
-
-        var summary_grid = new Gtk.Grid () {
-            margin_top = 3
-        };
+        description_label_revealer.add (description_label);
+        
+        var summary_grid = new Gtk.Grid ();
         summary_grid.add (calendar_revealer);
-        summary_grid.add (description_revealer);
 
         unowned Gtk.StyleContext summary_grid_context = summary_grid.get_style_context ();
         summary_grid_context.add_class ("dim-label");
 
-        add (summary_grid);
+        summary_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+        summary_revealer.add (summary_grid);
+
+        var main_grid = new Gtk.Grid () {
+            orientation = Gtk.Orientation.VERTICAL
+        };
+        main_grid.add (description_label_revealer);
+        main_grid.add (summary_revealer);
+
+        add (main_grid);
 
         update_request ();
     }
 
     public void update_request () {
+        calendar_label.get_style_context ().remove_class ("overdue-label");
+
         if (item.has_due) {
-            var icon_name = Util.get_default ().get_calendar_icon (item.due.datetime);
-            calendar_icon.dark = icon_name == "planner-calendar" ? true : false;
-            calendar_icon.update_icon_name (icon_name);
             calendar_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
             calendar_revealer.reveal_child = true;
+
+            if (Util.get_default ().is_overdue (item.due.datetime)) {
+                calendar_label.get_style_context ().add_class ("overdue-label");
+            }
         } else {
             calendar_label.label = "";
             calendar_revealer.reveal_child = false;
         }
 
-        description_revealer.reveal_child = item.description != "";
+        description_label.label = Util.get_default ().line_break_to_space (item.description);
+        description_label_revealer.reveal_child = description_label.label.length > 0;
 
         check_revealer ();
     }
 
     public void check_revealer () {
-        reveal_child = calendar_revealer.reveal_child || description_revealer.reveal_child;
+        summary_revealer.reveal_child = calendar_revealer.reveal_child;
+        reveal_child = summary_revealer.reveal_child || description_label_revealer.reveal_child;
     }
 }

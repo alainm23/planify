@@ -22,19 +22,17 @@
 public class Objects.Item : Objects.BaseObject {
     public string content { get; set; default = ""; }
     public string description { get; set; default = ""; }
-    
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
-
     public string added_at { get; set; default = ""; }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public int64 section_id { get; set; default = 0; }
-    public int64 project_id { get; set; default = 0; }
-    public int64 parent_id { get; set; default = 0; }
-    public int priority { get; set; default = 0; }
-    public int child_order { get; set; default = 0; }
-    public int day_order { get; set; default = 0; }
-    public int due_is_recurring { get; set; default = 0; }
+    public int64 section_id { get; set; default = Constants.INACTIVE; }
+    public int64 project_id { get; set; default = Constants.INACTIVE; }
+    public int64 parent_id { get; set; default = Constants.INACTIVE; }
+    public int priority { get; set; default = Constants.INACTIVE; }
+    public int child_order { get; set; default = Constants.INACTIVE; }
+    public int day_order { get; set; default = Constants.INACTIVE; }
+    public int due_is_recurring { get; set; default = Constants.INACTIVE; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
@@ -48,6 +46,23 @@ public class Objects.Item : Objects.BaseObject {
     public bool has_due {
         get {
             return due.datetime != null;
+        }
+    }
+
+    public bool has_section {
+        get {
+            return section_id != Constants.INACTIVE;
+        }
+    }
+
+    Json.Builder _builder;
+    public Json.Builder builder {
+        get {
+            if (_builder == null) {
+                _builder = new Json.Builder ();
+            }
+
+            return _builder;
         }
     }
 
@@ -107,21 +122,6 @@ public class Objects.Item : Objects.BaseObject {
 
         if (!node.get_object ().get_null_member ("due")) {
             due.update_from_json (node.get_object ().get_object_member ("due"));
-            // var due_object = object.get_object_member ("due");
-            // var datetime = Planner.utils.get_todoist_datetime (
-            //     due_object.get_string_member ("date")
-            // );
-            // i.due_date = datetime.to_string ();
-
-            // if (due_object.get_null_member ("timezone") == false) {
-            //     i.due_timezone = due_object.get_string_member ("timezone");
-            // }
-
-            // i.due_string = due_object.get_string_member ("string");
-            // i.due_lang = due_object.get_string_member ("lang");
-            // if (due_object.get_boolean_member ("is_recurring")) {
-            //     i.due_is_recurring = 1;
-            // }
         } else {
             due.reset ();
         }
@@ -136,7 +136,8 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public string get_add_json (string temp_id, string uuid) {
-        var builder = new Json.Builder ();
+        builder.reset ();
+
         builder.begin_array ();
         builder.begin_object ();
 
@@ -174,24 +175,38 @@ public class Objects.Item : Objects.BaseObject {
                 builder.add_int_value (section_id);
             }
 
-            // if (item.due_date != "") {
-            //     builder.set_member_name ("due");
-            //     builder.begin_object ();
+            if (has_due) {
+                builder.set_member_name ("due");
+                builder.begin_object ();
 
-            //     builder.set_member_name ("date");
-            //     if (Planner.utils.has_time_from_string (item.due_date)) {
-            //         builder.add_string_value (Planner.utils.get_todoist_datetime_format (item.due_date));
-            //     } else {
-            //         builder.add_string_value (
-            //             new GLib.DateTime.from_iso8601 (
-            //                 item.due_date,
-            //                 new GLib.TimeZone.local ()
-            //             ).format ("%F")
-            //         );
-            //     }
+                builder.set_member_name ("date");
+                if (Util.get_default ().has_time_from_string (due.date)) {
+                    builder.add_string_value (
+                        Util.get_default ().get_todoist_datetime_format (due.date)
+                    );
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            due.date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
 
-            //     builder.end_object ();
-            // }
+                builder.set_member_name ("is_recurring");
+                builder.add_boolean_value (due.is_recurring);
+
+                builder.set_member_name ("string");
+                builder.add_string_value (due.text);
+
+                builder.set_member_name ("lang");
+                builder.add_string_value (due.lang);
+
+                builder.end_object ();
+            } else {
+                builder.set_member_name ("due");
+                builder.add_null_value ();
+            }
 
             // if (labels != null) {
             //     builder.set_member_name ("labels");
@@ -221,7 +236,8 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public string get_check_json (string uuid, string type) {
-        var builder = new Json.Builder ();
+        builder.reset ();
+
         builder.begin_array ();
         builder.begin_object ();
 
@@ -247,5 +263,176 @@ public class Objects.Item : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public void update (int64 update_id = Constants.INACTIVE) {
+        if (update_timeout_id != 0) {
+            Source.remove (update_timeout_id);
+        }
+
+        update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
+            update_timeout_id = 0;
+
+            Planner.database.update_item (this, update_id);
+            if (project.todoist) {
+                Planner.todoist.update_item.begin (this, (obj, res) => {
+                    Planner.todoist.update_item.end (res);
+                });
+            }
+
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    public void update_async (int64 update_id = Constants.INACTIVE, Widgets.LoadingButton loading_button) {
+        if (update_timeout_id != 0) {
+            Source.remove (update_timeout_id);
+        }
+
+        update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
+            update_timeout_id = 0;
+            loading_button.is_loading = true;
+            Planner.database.update_item (this, update_id);
+            if (project.todoist) {
+                Planner.todoist.update_item.begin (this, (obj, res) => {
+                    Planner.todoist.update_item.end (res);
+                    loading_button.is_loading = false;
+                });
+            }
+
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    public string get_move_item (string uuid, string type, int64 id) {
+        builder.reset ();
+
+        builder.begin_array ();
+        builder.begin_object ();
+
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_move");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (id);
+
+            builder.set_member_name (type);
+            builder.add_int_value (id);
+            
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public string get_update_json (string uuid) {
+        builder.reset ();
+
+        builder.begin_array ();
+        builder.begin_object ();
+
+        builder.set_member_name ("type");
+        builder.add_string_value ("item_update");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_int_value (id);
+
+            builder.set_member_name ("content");
+            builder.add_string_value (Util.get_default ().get_encode_text (content));
+
+            builder.set_member_name ("description");
+            builder.add_string_value (Util.get_default ().get_encode_text (description));
+
+            builder.set_member_name ("priority");
+            if (priority == Constants.INACTIVE) {
+                builder.add_int_value (1);
+            } else {
+                builder.add_int_value (priority);
+            }
+
+            if (has_due) {
+                builder.set_member_name ("due");
+                builder.begin_object ();
+
+                builder.set_member_name ("date");
+                if (Util.get_default ().has_time_from_string (due.date)) {
+                    builder.add_string_value (
+                        Util.get_default ().get_todoist_datetime_format (due.date)
+                    );
+                } else {
+                    builder.add_string_value (
+                        new GLib.DateTime.from_iso8601 (
+                            due.date,
+                            new GLib.TimeZone.local ()
+                        ).format ("%F")
+                    );
+                }
+
+                builder.set_member_name ("is_recurring");
+                builder.add_boolean_value (due.is_recurring);
+
+                builder.set_member_name ("string");
+                builder.add_string_value (due.text);
+
+                builder.set_member_name ("lang");
+                builder.add_string_value (due.lang);
+
+                builder.end_object ();
+            } else {
+                builder.set_member_name ("due");
+                builder.add_null_value ();
+            }
+
+            // if (Planner.settings.get_boolean ("todoist-sync-labels")) {
+            //     builder.set_member_name ("labels");
+            //     builder.begin_array ();
+            //     foreach (var label in Planner.database.get_labels_by_item (item.id)) {
+            //         if (label.is_todoist == 1) {
+            //             builder.add_int_value (label.id);
+            //         }
+            //     }
+            //     builder.end_array ();
+            // }
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
+    public string to_string () {
+        return "";
+    }
+
+    public void delete () {
+        if (project.todoist) {
+            Planner.todoist.delete.begin (this, (obj, res) => {
+                Planner.todoist.delete.end (res);
+                Planner.database.delete_item (this);
+            });
+        } else {
+            Planner.database.delete_item (this);
+        }
     }
 }

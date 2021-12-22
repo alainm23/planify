@@ -35,7 +35,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
         var listbox_grid = new Gtk.Grid () {
             margin = 6,
-            margin_bottom = 3,
+            margin_bottom = 6,
             margin_top = 0
         };
         listbox_grid.add (listbox);
@@ -96,10 +96,16 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
     public void init (BackendType backend_type) {
         if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            // Init Filters
             listbox.add (inbox);
             listbox.add (today);
             listbox.add (upcoming);
             listbox.add (pinboard);
+
+            inbox.init ();
+            today.init ();
+            upcoming.init ();
+            pinboard.init ();
 
             // Init signals
             Planner.database.project_added.connect (add_row_project);

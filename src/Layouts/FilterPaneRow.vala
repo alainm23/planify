@@ -8,6 +8,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private Gtk.Label title_label;
     private Gtk.Label count_label;
     private Gtk.EventBox content_eventbox;
+    private Gtk.Revealer count_revealer;
 
     public FilterPaneRow (FilterType filter_type) {
         Object (
@@ -23,7 +24,6 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
             halign = Gtk.Align.END
         };
         title_image.size = 19;
-        title_image.dark = false;
 
         title_label = new Gtk.Label (null) {
             hexpand = true,
@@ -33,11 +33,15 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 
         title_label.get_style_context ().add_class ("font-bold");
 
-        count_label = new Gtk.Label ("3") {
+        count_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.START,
             margin_start = 3
         };
+
+        count_revealer = new Gtk.Revealer ();
+        count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+        count_revealer.add (count_label);
 
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
@@ -45,7 +49,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         };
         main_grid.attach (title_label, 0, 0, 1, 1);
         main_grid.attach (title_image, 1, 0, 1, 1);
-        main_grid.attach (count_label, 0, 1, 2, 2);
+        main_grid.attach (count_revealer, 0, 1, 2, 2);
 
         content_eventbox = new Gtk.EventBox ();
         content_eventbox.get_style_context ().add_class ("transition");
@@ -81,16 +85,38 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private void build_filter_data () {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
-            title_image.icon_name = "planner-today";
+            title_image.update_icon_name ("planner-today");
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
-            title_image.icon_name = "planner-inbox";
+            title_image.update_icon_name ("planner-inbox");
         } else if (filter_type == FilterType.SCHEDULED) {
             title_label.label = _("Scheduled");
-            title_image.icon_name = "planner-scheduled";
+            title_image.update_icon_name ("planner-scheduled");
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
-            title_image.icon_name = "planner-pin-tack";
+            title_image.update_icon_name ("planner-pin-tack");
+        }
+    }
+
+    private void update_count_label (int count) {
+        count_label.label = count.to_string ();
+        count_revealer.reveal_child = count > 0;
+    }
+
+    public void init () {
+        if (filter_type == FilterType.TODAY) {
+
+        } else if (filter_type == FilterType.INBOX) {  
+            Objects.Project inbox_project = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"));
+            update_count_label (inbox_project.project_count);
+
+            inbox_project.project_count_updated.connect (() => {
+                update_count_label (inbox_project.project_count);
+            });
+        } else if (filter_type == FilterType.SCHEDULED) {
+            
+        } else if (filter_type == FilterType.PINBOARD) {
+            
         }
     }
 }

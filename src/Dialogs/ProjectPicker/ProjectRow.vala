@@ -1,16 +1,14 @@
-public class Dialogs.ProjectSelector.ProjectRow : Gtk.ListBoxRow {
+public class Dialogs.ProjectPicker.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
-    public bool sections { get; construct; }
     
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
     private Gtk.ListBox listbox;
     private Widgets.IconColorProject icon_project;
 
-    public ProjectRow (Objects.Project project, bool sections = true) {
+    public ProjectRow (Objects.Project project) {
         Object (
-            project: project,
-            sections: sections
+            project: project
         );
     }
 
@@ -18,7 +16,8 @@ public class Dialogs.ProjectSelector.ProjectRow : Gtk.ListBoxRow {
         unowned Gtk.StyleContext style_context = get_style_context ();
         style_context.add_class ("no-selected");
 
-        icon_project = new Widgets.IconColorProject (project, 16);
+        icon_project = new Widgets.IconColorProject (16);
+        icon_project.project = project;
 
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
@@ -82,10 +81,6 @@ public class Dialogs.ProjectSelector.ProjectRow : Gtk.ListBoxRow {
 
         update_request ();
 
-        if (sections) {
-            add_items ();
-        }
-
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
@@ -93,14 +88,14 @@ public class Dialogs.ProjectSelector.ProjectRow : Gtk.ListBoxRow {
 
         projectrow_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Planner.event_bus.project_selector_selected (project.id);
+                Planner.event_bus.project_picker_changed (project.id, Constants.INACTIVE);
             }
 
             return Gdk.EVENT_PROPAGATE;
         });
 
-        Planner.event_bus.project_selector_selected.connect ((id) => {
-            selected_revealer.reveal_child = project.id == id;
+        Planner.event_bus.project_picker_changed.connect ((project_id, section_id) => {
+            selected_revealer.reveal_child = project.id == project_id && section_id == Constants.INACTIVE;
         });
     }
 
@@ -109,11 +104,10 @@ public class Dialogs.ProjectSelector.ProjectRow : Gtk.ListBoxRow {
         icon_project.update_request ();
     }
 
-    private void add_items () {
-        foreach (Objects.Section section in project.sections) {
-            var row = new Dialogs.ProjectSelector.SectionRow (section);
-            listbox.add (row);
-            listbox.show_all ();
-        }
+    public Dialogs.ProjectPicker.SectionRow add_section (Objects.Section section) {
+        Dialogs.ProjectPicker.SectionRow row = new Dialogs.ProjectPicker.SectionRow (section);
+        listbox.add (row);
+        listbox.show_all ();
+        return row;
     }
 }

@@ -51,20 +51,30 @@ executable (
     'src/Widgets/ProjectButton.vala',
     'src/Widgets/IconColorProject.vala',
     'src/Widgets/ItemSummary.vala',
+    'src/Widgets/ScheduleButton.vala',
+
+    'src/Widgets/Calendar/Calendar.vala',
+    'src/Widgets/Calendar/CalendarDay.vala',
+    'src/Widgets/Calendar/CalendarHeader.vala',
+    'src/Widgets/Calendar/CalendarView.vala',
+    'src/Widgets/Calendar/CalendarWeek.vala',
 
     'src/Views/Welcome.vala',
     'src/Views/Project.vala',
     'src/Views/List.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
-    'src/Dialogs/ProjectSelector/ProjectSelector.vala',
-    'src/Dialogs/ProjectSelector/ProjectRow.vala',
-    'src/Dialogs/ProjectSelector/SectionRow.vala',
-
+    'src/Dialogs/ProjectPicker/ProjectPicker.vala',
+    'src/Dialogs/ProjectPicker/ProjectRow.vala',
+    'src/Dialogs/ProjectPicker/SectionRow.vala',
+    
+    'src/Dialogs/DateTimePicker/DateTimePicker.vala',
+    
     'src/Dialogs/ContextMenu/Menu.vala',
     'src/Dialogs/ContextMenu/MenuItem.vala',
     'src/Dialogs/ContextMenu/MenuItemSelector.vala',
     'src/Dialogs/ContextMenu/MenuSeparator.vala',
+    'src/Dialogs/ContextMenu/MenuCalendarPicker.vala',
 
     'src/Services/EventBus.vala',
     'src/Services/Database.vala',
