@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2021-05-09 13:32+0000\n"
+"PO-Revision-Date: 2022-01-03 18:56+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/planner/"
 "translations/pt/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.7-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -384,14 +384,12 @@ msgid "Preferences"
 msgstr "Definições"
 
 #: src/Widgets/Pane.vala:393 src/Widgets/Pane.vala:419
-#, fuzzy
 msgid "New Project"
-msgstr "Projeto"
+msgstr "Novo Projeto"
 
 #: src/Widgets/Pane.vala:411
-#, fuzzy
 msgid "Planner Project"
-msgstr "Converter o projeto"
+msgstr "Projeto do Planner"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:812
 #: src/Dialogs/ProjectSettings.vala:178
@@ -565,9 +563,8 @@ msgid "Hide Details"
 msgstr "Ocultar detalhes"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Adicionar tarefa"
+msgstr "Adicionar subtarefa"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -592,6 +589,8 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
+"Desculpe, o Planner ainda não suporta o idioma '%s, por favor, tente definir "
+"uma tarefa recorrente em inglês."
 
 #: src/Widgets/ItemRow.vala:1138
 msgid "1 task completed"
@@ -684,9 +683,8 @@ msgid "Description"
 msgstr "Descrição"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Adicionar secções"
+msgstr "Adicionar secção"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -780,7 +778,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Pesquisar ou Criar"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -792,9 +790,8 @@ msgid "Create '%s'"
 msgstr "Criar '%s'"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Etiqueta do Todoist"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -855,9 +852,8 @@ msgid "Time:"
 msgstr "Tempo:"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Apagar secção"
+msgstr "Nomear secção"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130 src/Views/Project.vala:505
@@ -870,7 +866,7 @@ msgstr "Adicionar Etiqueta"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Esta etiqueta já existe."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
@@ -906,9 +902,8 @@ msgid "Board Menu"
 msgstr "Menu do Quadro"
 
 #: src/Widgets/ToolsMenu.vala:28 src/Dialogs/Preferences/Preferences.vala:140
-#, fuzzy
 msgid "Settings"
-msgstr "Definições de projeto"
+msgstr "Configurações"
 
 #: src/Widgets/ToolsMenu.vala:61
 msgid "What's new"
@@ -1205,7 +1200,6 @@ msgid "Direct access:"
 msgstr "Acesso direto:"
 
 #: src/Dialogs/ProjectSettings.vala:219
-#, fuzzy
 msgid "Edit project"
 msgstr "Editar projeto"
 
@@ -1363,7 +1357,7 @@ msgstr "Plugins"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Comprar um refrigerante para o Planner"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
@@ -1444,19 +1438,19 @@ msgstr "Início da semana"
 
 #: src/Dialogs/Preferences/Preferences.vala:552
 msgid "Clock Format"
-msgstr ""
+msgstr "Formato do relógio"
 
 #: src/Dialogs/Preferences/Preferences.vala:557
 msgid "Mornign"
-msgstr ""
+msgstr "Manhã"
 
 #: src/Dialogs/Preferences/Preferences.vala:558
 msgid "Afternoon"
-msgstr ""
+msgstr "Tarde"
 
 #: src/Dialogs/Preferences/Preferences.vala:559
 msgid "Evening"
-msgstr ""
+msgstr "Noite"
 
 #: src/Dialogs/Preferences/Preferences.vala:602
 msgid "Backups"
@@ -1639,9 +1633,8 @@ msgstr ""
 "conta Todoist a cada 15 minutos."
 
 #: src/Dialogs/Preferences/Preferences.vala:1353
-#, fuzzy
 msgid "Sync Labels"
-msgstr "Etiquetas"
+msgstr "Sincronizar Etiquetas"
 
 #: src/Dialogs/Preferences/Preferences.vala:1363
 #: src/Dialogs/Preferences/Preferences.vala:1433
