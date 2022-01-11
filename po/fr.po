@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2022-01-11 11:55+0000\n"
+"PO-Revision-Date: 2022-01-12 12:56+0000\n"
 "Last-Translator: PowaBanga <lionel.hernou@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
@@ -593,6 +593,8 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
+"Désolé, Planner ne supporte pas encore le langage '%s',  essayez de définir "
+"cette tâche récurrente en Anglais s'il vous plaît."
 
 #: src/Widgets/ItemRow.vala:1138
 msgid "1 task completed"
@@ -685,9 +687,8 @@ msgid "Description"
 msgstr "Description"
 
 #: src/Widgets/SectionRow.vala:305
-#, fuzzy
 msgid "Add section"
-msgstr "Ajouter des sections"
+msgstr "Ajouter une section"
 
 #: src/Widgets/SectionRow.vala:1032 src/Widgets/SectionRow.vala:1053
 #: src/Widgets/BoardColumn.vala:1007 src/Widgets/BoardColumn.vala:1028
@@ -781,7 +782,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr ""
+msgstr "Rechercher ou créer"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -793,9 +794,8 @@ msgid "Create '%s'"
 msgstr "Créer « %s »"
 
 #: src/Widgets/LabelButton.vala:463
-#, fuzzy
 msgid "Todoist Label"
-msgstr "Todoist"
+msgstr "Étiquette Todoist"
 
 #: src/Widgets/Toast.vala:70
 msgid "Undo"
@@ -856,9 +856,8 @@ msgid "Time:"
 msgstr "Heure :"
 
 #: src/Widgets/NewSection.vala:49
-#, fuzzy
 msgid "Name this section"
-msgstr "Supprimer la section"
+msgstr "Nommer cette section"
 
 #: src/Widgets/NewSection.vala:72 src/Views/Inbox.vala:68
 #: src/Views/Project.vala:130 src/Views/Project.vala:505
@@ -871,7 +870,7 @@ msgstr "Ajouter une Étiquette"
 
 #: src/Widgets/NewLabel.vala:46
 msgid "Label already exists."
-msgstr ""
+msgstr "Étiquette déjà existante."
 
 #: src/Widgets/PriorityButton.vala:35 src/Widgets/MultiSelectToolbar.vala:52
 msgid "Priority"
