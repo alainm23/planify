@@ -241,7 +241,7 @@ public class Planner : Gtk.Application {
 
         // Set Theme and Icon
         Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
-        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "elementary");
+        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "z");
         
         // Set shortcut
         string quick_add_shortcut = settings.get_string ("quick-add-shortcut");
