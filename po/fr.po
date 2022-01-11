@@ -7,10 +7,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2021-01-27 12:32+0000\n"
-"Last-Translator: Locness <locness3@orange.fr>\n"
+"PO-Revision-Date: 2022-01-11 11:55+0000\n"
+"Last-Translator: PowaBanga <lionel.hernou@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.5-dev\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -387,9 +387,8 @@ msgid "Preferences"
 msgstr "Préférences"
 
 #: src/Widgets/Pane.vala:393 src/Widgets/Pane.vala:419
-#, fuzzy
 msgid "New Project"
-msgstr "Projet"
+msgstr "Nouveau Projet"
 
 #: src/Widgets/Pane.vala:411
 #, fuzzy
@@ -568,9 +567,8 @@ msgid "Hide Details"
 msgstr "Masquer les détails"
 
 #: src/Widgets/ItemRow.vala:486
-#, fuzzy
 msgid "Add sub-task"
-msgstr "Ajouter une tâche"
+msgstr "Ajouter une sous-tâche"
 
 #: src/Widgets/ItemRow.vala:493
 msgid "Delete Task"
@@ -1434,7 +1432,7 @@ msgstr "De nouvelles tâches en haut"
 
 #: src/Dialogs/Preferences/Preferences.vala:455
 msgid "Underline completed tasks."
-msgstr "Souligner les tâches complétées"
+msgstr "Souligner les tâches complétées."
 
 #: src/Dialogs/Preferences/Preferences.vala:467
 msgid "Default priority"
@@ -1731,7 +1729,7 @@ msgstr "Base de données"
 #: src/Dialogs/Preferences/DatabaseSettings.vala:170
 #, c-format
 msgid "Current location: %s"
-msgstr "Localisation actuelle: %s"
+msgstr "Emplacement actuel : %s"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:85
 msgid "Reset to default"
@@ -1759,7 +1757,7 @@ msgstr ""
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:129
 msgid "database location"
-msgstr "Localisation de la base de données: %s"
+msgstr "Emplacement de la base de données"
 
 #: src/Dialogs/Preferences/DatabaseSettings.vala:132
 msgid "_Cancel"
