@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: alainhuntt@gmail.com\n"
 "POT-Creation-Date: 2021-06-01 19:18-0500\n"
-"PO-Revision-Date: 2022-01-12 12:56+0000\n"
-"Last-Translator: PowaBanga <lionel.hernou@gmail.com>\n"
+"PO-Revision-Date: 2022-02-03 11:56+0000\n"
+"Last-Translator: Mattherix <mattherix@protonmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/planner/"
 "translations/fr/>\n"
 "Language: fr\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11-dev\n"
 
 #: src/Application.vala:151 src/Dialogs/Preferences/Preferences.vala:1155
 msgid "Are you sure you want to reset all?"
@@ -388,12 +388,11 @@ msgstr "Préférences"
 
 #: src/Widgets/Pane.vala:393 src/Widgets/Pane.vala:419
 msgid "New Project"
-msgstr "Nouveau Projet"
+msgstr "Nouveau projet"
 
 #: src/Widgets/Pane.vala:411
-#, fuzzy
 msgid "Planner Project"
-msgstr "Convertir le projet"
+msgstr "Projet Planner"
 
 #: src/Widgets/New.vala:72 src/Views/Inbox.vala:465 src/Views/Project.vala:812
 #: src/Dialogs/ProjectSettings.vala:178
@@ -593,7 +592,7 @@ msgid ""
 "Sorry, Planner doesn't support the '%s' language yet, please try to set a "
 "recurring task in English."
 msgstr ""
-"Désolé, Planner ne supporte pas encore le langage '%s',  essayez de définir "
+"Désolé, Planner ne supporte pas encore le langage '%s', essayez de définir "
 "cette tâche récurrente en Anglais s'il vous plaît."
 
 #: src/Widgets/ItemRow.vala:1138
@@ -782,7 +781,7 @@ msgstr ""
 
 #: src/Widgets/LabelButton.vala:147
 msgid "Search or Create"
-msgstr "Rechercher ou créer"
+msgstr "Rechercher ou Créer"
 
 #: src/Widgets/LabelButton.vala:286
 msgid "Label not found"
@@ -1365,7 +1364,7 @@ msgstr "Extensions"
 
 #: src/Dialogs/Preferences/Preferences.vala:155
 msgid "Buy Planner a Soda"
-msgstr ""
+msgstr "Acheter un soda à Planner"
 
 #. General
 #: src/Dialogs/Preferences/Preferences.vala:168
