@@ -1,125 +1,23 @@
 app-id: com.github.alainm23.planner
 runtime: io.elementary.Platform
-runtime-version: 'daily'
+runtime-version: "6"
 sdk: io.elementary.Sdk
 command: com.github.alainm23.planner
 finish-args:
-  - '--share=ipc'
-  - '--share=network'
-  - '--share=ipc'
-  - '--share=network'
-  - '--socket=fallback-x11'
-  - '--device=dri'
-  - '--socket=wayland'
-  - '--filesystem=home'
-  - '--talk-name=org.gtk.vfs.*'
-  - '--talk-name=org.gnome.evolution.dataserver.AddressBook10'
-  - '--talk-name=org.gnome.evolution.dataserver.Calendar8'
-  - '--talk-name=org.gnome.evolution.dataserver.Sources5'
-  - '--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*'
-  - '--talk-name=com.github.alainm23.planner'
-  - '--filesystem=xdg-run/dconf'
-  - '--filesystem=~/.config/dconf:ro'
-  - '--talk-name=ca.desrt.dconf'
-  - '--env=DCONF_USER_CONFIG_DIR=.config/dconf'
+  - "--device=dri"
+  - "--share=ipc"
+  - "--share=network"
+  - "--socket=fallback-x11"
+  - "--socket=wayland"
+
+  - "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
 cleanup:
-  - '/include'
-  - '/lib/pkgconfig'
-  - '/man'
-  - '/share/doc'
-  - '/share/gtk-doc'
-  - '/share/man'
-  - '/share/pkgconfig'
-  - '/share/vala'
-  - '*.la'
-  - '*.a'
+  - "/include"
+  - "/lib/pkgconfig"
+  - "/share/vala"
+  - "*.a"
+  - "*.la"
 modules:
-  - name: libical
-    buildsystem: cmake-ninja
-    cleanup:
-      - '/lib/cmake'
-    config-opts:
-      - '-DCMAKE_BUILD_TYPE=Release'
-      - '-DCMAKE_INSTALL_LIBDIR=/app/lib'
-      - '-DBUILD_SHARED_LIBS=ON'
-      - '-DGOBJECT_INTROSPECTION=true'
-      - '-DICAL_GLIB_VAPI=true'
-      - '-DICAL_GLIB=true'
-      - '-DICAL_BUILD_DOCS=false'
-      - '-DWITH_CXX_BINDINGS=false'
-    sources:
-      - type: git
-        url: https://github.com/libical/libical.git
-        tag: v3.0.9
-
-  - name: libpeas
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/libpeas.git
-        branch: master
-        
-  - name: libgdata
-    buildsystem: meson
-    config-opts:
-      - '-Dalways_build_tests=false'
-      - '-Dgoa=disabled'
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/libgdata.git
-        tag: '0.17.13'
-
-  - name: evolution-data-server
-    buildsystem: cmake-ninja
-    cleanup:
-      - '/share/GConf'
-      - '/lib/evolution-data-server/*-backends'
-      - '/libexec'
-      - '/share/dbus-1/services'
-    config-opts:
-      - '-DCMAKE_BUILD_TYPE=Release'
-      - '-DENABLE_FILE_LOCKING=fcntl'
-      - '-DENABLE_DOT_LOCKING=OFF'
-      - '-DENABLE_OAUTH2=ON'
-      - '-DENABLE_CANBERRA=OFF'
-      - '-DENABLE_GTK=ON'
-      - '-DENABLE_UOA=OFF'
-      - '-DENABLE_GOA=OFF'
-      - '-DENABLE_GOOGLE=OFF'
-      - '-DENABLE_EXAMPLES=OFF'
-      - '-DENABLE_INTROSPECTION=ON'
-      - '-DENABLE_VALA_BINDINGS=ON'
-      - '-DENABLE_INSTALLED_TESTS=OFF'
-      - '-DENABLE_GTK_DOC=OFF'
-      - '-DWITH_PRIVATE_DOCS=OFF'
-      - '-DWITH_PHONENUMBER=OFF'
-      - '-DWITH_SYSTEMDUSERUNITDIR=OFF'
-      - '-DWITH_LIBDB=OFF'
-      - '-DWITH_OPENLDAP=OFF'
-      - '-DENABLE_WEATHER=OFF'
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/evolution-data-server.git
-        tag: '3.38.2'
-    modules:
-      - name: intltool
-        cleanup:
-          - '*'
-        sources:
-          - type: archive
-            url: https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz
-            md5: 12e517cac2b57a0121cda351570f1e63
-
-  - name: media-keys
-    buildsystem: simple
-    build-commands:
-      - 'install -D data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml'
-      - "sed -i -e 's/@GETTEXT_PACKAGE@/gnome-settings-daemon/g' /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml"
-    sources:
-      - type: archive
-        url: https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz
-        sha256: e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748
-
   - name: planner
     buildsystem: meson
     sources:

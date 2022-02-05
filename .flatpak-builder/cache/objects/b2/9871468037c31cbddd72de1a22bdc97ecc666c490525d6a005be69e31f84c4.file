@@ -1,0 +1,36 @@
+{
+  "id" : "com.github.alainm23.planner",
+  "runtime" : "io.elementary.Platform",
+  "runtime-version" : "6",
+  "runtime-commit" : "dc72c0942e0d0bd570f90b8423ac90188d836991d7341c83ef80a8f8c24e7ba6",
+  "sdk" : "io.elementary.Sdk",
+  "sdk-commit" : "8909d023467a6e2cca7129860a5b4853c6ff53bc5b9a2849777c6bf5b300b75d",
+  "command" : "com.github.alainm23.planner",
+  "modules" : [
+    {
+      "name" : "planner",
+      "buildsystem" : "meson",
+      "sources" : [
+        {
+          "path" : ".",
+          "type" : "dir"
+        }
+      ]
+    }
+  ],
+  "cleanup" : [
+    "/include",
+    "/lib/pkgconfig",
+    "/share/vala",
+    "*.a",
+    "*.la"
+  ],
+  "finish-args" : [
+    "--device=dri",
+    "--share=ipc",
+    "--share=network",
+    "--socket=fallback-x11",
+    "--socket=wayland",
+    "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
+  ]
+}

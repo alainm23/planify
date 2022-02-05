@@ -1,9 +1,13 @@
-project ('com.github.alainm23.planner', 'vala', 'c')
+project (
+    'com.github.alainm23.planner',
+    'vala', 'c',
+    version: '3.0-beta1'
+)
 
 gnome = import ('gnome')
 i18n = import ('i18n')
 
-add_global_arguments ('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name ()), language:'c')
+add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name () + '.gresource.xml',
@@ -49,9 +53,14 @@ executable (
     'src/Widgets/HyperTextView.vala',
     'src/Widgets/LoadingButton.vala',
     'src/Widgets/ProjectButton.vala',
+    'src/Widgets/PinButton.vala',
     'src/Widgets/IconColorProject.vala',
     'src/Widgets/ItemSummary.vala',
     'src/Widgets/ScheduleButton.vala',
+    'src/Widgets/PriorityButton.vala',
+    'src/Widgets/LabelButton.vala',
+    'src/Widgets/ItemLabels.vala',
+    'src/Widgets/ItemLabelChild.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -62,13 +71,32 @@ executable (
     'src/Views/Welcome.vala',
     'src/Views/Project.vala',
     'src/Views/List.vala',
+    'src/Views/Today.vala',
+    'src/Views/Date.vala',
+    'src/Views/Pinboard.vala',
+    'src/Views/Scheduled/Scheduled.vala',
+    'src/Views/Scheduled/ScheduledHeader.vala',
+    'src/Views/Scheduled/ScheduledDay.vala',
+    'src/Views/Label.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
+    'src/Dialogs/Project.vala',
+    'src/Dialogs/Label.vala',
+
+    'src/Dialogs/Settings/Settings.vala',
+    'src/Dialogs/Settings/SettingsHeader.vala',
+    'src/Dialogs/Settings/SettingsContent.vala',
+    'src/Dialogs/Settings/SettingsItem.vala',
+    
     'src/Dialogs/ProjectPicker/ProjectPicker.vala',
     'src/Dialogs/ProjectPicker/ProjectRow.vala',
     'src/Dialogs/ProjectPicker/SectionRow.vala',
     
     'src/Dialogs/DateTimePicker/DateTimePicker.vala',
+    'src/Dialogs/DateTimePicker/TimePicker.vala',
+
+    'src/Dialogs/LabelPicker/LabelPicker.vala',
+    'src/Dialogs/LabelPicker/LabelRow.vala',
     
     'src/Dialogs/ContextMenu/Menu.vala',
     'src/Dialogs/ContextMenu/MenuItem.vala',
@@ -87,7 +115,8 @@ executable (
     'src/Objects/Item.vala',
     'src/Objects/Color.vala',
     'src/Objects/DueDate.vala',
-    
+    'src/Objects/ItemLabel.vala',
+
     asresources,
     config_header,
     dependencies: [
@@ -106,5 +135,5 @@ executable (
 )
 
 subdir('data')
-# subdir('po')
+subdir('po')
 meson.add_install_script('build-aux/meson/post_install.py')

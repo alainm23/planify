@@ -1,0 +1,20 @@
+.picker {
+    background-color: @picker_bg;
+}
+
+.picker-background {
+    background-color: @picker_content_bg;
+}
+
+.picker-content {
+    padding: 3px;
+    border-radius: 6px;
+    background-color: @picker_content_bg;
+    border: 0.4px solid @menu_separator;
+}
+
+.time-button-picker {
+    border-radius: 6px;
+    background-color: @bg_color;
+    border: 0.4px solid @menu_separator;
+}

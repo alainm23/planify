@@ -12,11 +12,6 @@
     padding: 3px;
 }
 
-.overdue-label {
-    color: #fa1955;
-    font-weight: 600;
-}
-
 .datetime-picker-content {
     padding: 6px;
     background-color: @bg_color;
