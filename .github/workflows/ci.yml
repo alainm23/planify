@@ -32,4 +32,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Lint
-      run: io.elementary.vala-lint -d -c .vala-lint.conf .
+      run: io.elementary.vala-lint -c .vala-lint.conf .
