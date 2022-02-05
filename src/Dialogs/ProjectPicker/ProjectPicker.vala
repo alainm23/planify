@@ -200,4 +200,4 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
     public void popup () {
         show_all ();
     }
-}
+    
