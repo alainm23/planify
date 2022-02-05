@@ -1,0 +1,94 @@
+.planner-sidebar {
+    background-color: @picker_bg;
+}
+
+.pane-content {
+    padding: 3px;
+    background-color: @picker_content_bg;
+    border-radius: 6px;
+    border: 0.4px solid @menu_separator;
+}
+
+.pane-listbox-background {
+    background-color: @base_color;
+}
+
+.listbox-background {
+    background-color: @base_color;
+}
+
+.selectable-item {
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+}
+
+.selectable-item:selected {
+    background-color: transparent;
+    color: @text_color;
+    font-weight: bold;
+}
+
+.selectable-item-selected {
+    background-color: @selected_bg_color;
+    border-radius: 6px;
+}
+
+.selectable-item:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
+.selectable-item label {
+    font-weight: 500;
+}
+
+.filter-pane-row-inbox {
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+    background-color: alpha (@color_primary, .15);
+    color: @color_primary;
+}
+
+.filter-pane-row-inbox-selected {
+    box-shadow: 0px 0px 3px 1px @color_primary;
+}
+
+.filter-pane-row-today {
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+    background-color: alpha (#fad000, .15);
+    color: #fad000;
+}
+
+.filter-pane-row-today-selected {
+    box-shadow: 0px 0px 3px 1px #fad000;
+}
+
+.filter-pane-row-scheduled {
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+    background-color: alpha (#fa1955, .15);
+    color: #fa1955;
+}
+
+.filter-pane-row-scheduled-selected {
+    box-shadow: 0px 0px 3px 1px #fa1955;
+}
+
+.padding-3 {
+    padding: 3px;
+}
+
+.filter-pane-row-pinboard {
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+    background-color: alpha (#7e8087, .15);
+    color: #7e8087;
+}
+
+.filter-pane-row-pinboard-selected {
+    box-shadow: 0px 0px 3px 1px #7e8087;
+}

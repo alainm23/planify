@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   fill="none"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg10"
+   sodipodi:docname="planner-refresh-light.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     id="namedview12"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="22.083333"
+     inkscape:cx="3.0566038"
+     inkscape:cy="12.022642"
+     inkscape:window-width="1366"
+     inkscape:window-height="707"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg10" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M11.25 4.75L8.75 7L11.25 9.25"
+     id="path2"
+     style="stroke:#666666;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M12.75 19.25L15.25 17L12.75 14.75"
+     id="path4"
+     style="stroke:#666666;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M9.75 7H13.25C16.5637 7 19.25 9.68629 19.25 13V13.25"
+     id="path6"
+     style="stroke:#666666;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M14.25 17H10.75C7.43629 17 4.75 14.3137 4.75 11V10.75"
+     id="path8"
+     style="stroke:#666666;stroke-opacity:1" />
+</svg>

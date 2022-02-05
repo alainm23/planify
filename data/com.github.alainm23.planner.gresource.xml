@@ -1,96 +1,71 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+  <gresource prefix="/com/github/alainm23/planner/stylesheet">
+    <file alias="animations.css" compressed="true">stylesheet/animations.css</file>
+    <file alias="calendar.css" compressed="true">stylesheet/calendar.css</file>
+    <file alias="stylesheet.css" compressed="true">stylesheet/stylesheet.css</file>
+    <file alias="variables.css" compressed="true">stylesheet/variables.css</file>
+    <file alias="sidebar.css" compressed="true">stylesheet/sidebar.css</file>
+    <file alias="dialog-picker.css" compressed="true">stylesheet/dialog-picker.css</file>
+  </gresource>
   <gresource prefix="/com/github/alainm23/planner">
-    <file alias="stylesheet.css" compressed="true">stylesheet.css</file>
+    <file alias="index.css" compressed="true">stylesheet/index.css</file>
 
-    <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
-    <file alias="planner-badge-count.svg">resources/planner-badge-count.svg</file>
-    <file alias="planner-online-symbolic.svg">resources/planner-online-symbolic.svg</file>
-    <file alias="planner-offline-symbolic.svg">resources/planner-offline-symbolic.svg</file>
-    <file alias="planner-project-symbolic.svg">resources/planner-project-symbolic.svg</file>
-    <file alias="arrow-back-symbolic.svg">resources/arrow-back-symbolic.svg</file>
-    <file alias="chevron-forward-symbolic.svg">resources/chevron-forward-symbolic.svg</file>
-    <file alias="planner-markdown-symbolic.svg">resources/planner-markdown-symbolic.svg</file>
-    <file alias="planner-quick-add.svg">resources/planner-quick-add.svg</file>
-    <file alias="online-account-twitter.svg">resources/online-account-twitter.svg</file>
-    <file alias="paypal.svg">resources/paypal.svg</file>
-    <file alias="become_a_patron.svg">resources/become_a_patron.svg</file>
-    <file alias="liberapay_logo_black-on-yellow.svg">resources/liberapay_logo_black-on-yellow.svg</file>
     <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
-    <file alias="folder-outline.svg">resources/folder-outline.svg</file>
-    <file alias="folder-open-outline.svg">resources/folder-open-outline.svg</file>
-    <file alias="section-symbolic.svg">resources/section-symbolic.svg</file>
-    <file alias="section-2-symbolic.svg">resources/section-2-symbolic.svg</file>
-    <file alias="move-project-symbolic.svg">resources/move-project-symbolic.svg</file>
-    <file alias="github.svg">resources/github.svg</file>
+    <file alias="planner-today.svg">resources/planner-today.svg</file>
+    <file alias="planner-scheduled.svg">resources/planner-scheduled.svg</file>
+    <file alias="planner-sidebar-trash.svg">resources/planner-sidebar-trash.svg</file>
+    <file alias="planner-pin-tack.svg">resources/planner-pin-tack.svg</file>
+    <file alias="view-sidebar-start-symbolic.svg">resources/view-sidebar-start-symbolic.svg</file>
+    <file alias="view-sidebar-end-symbolic.svg">resources/view-sidebar-end-symbolic.svg</file>
+    <file alias="planner-priority-1.svg">resources/planner-priority-1.svg</file>
+    <file alias="planner-priority-2.svg">resources/planner-priority-2.svg</file>
+    <file alias="planner-priority-3.svg">resources/planner-priority-3.svg</file>
+    <file alias="planner-clock.svg">resources/planner-clock.svg</file>
+    <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
+    
+    <file alias="planner-annotation-dots.svg">resources/settings/planner-annotation-dots.svg</file>
+    <file alias="planner-heart.svg">resources/settings/planner-heart.svg</file>
+    <file alias="planner-mail.svg">resources/settings/planner-mail.svg</file>
+    <file alias="planner-appearance.svg">resources/settings/planner-appearance.svg</file>
 
-    <file alias="notifications-outline-light.svg">resources/notifications-outline-light.svg</file>
-    <file alias="notifications-outline-dark.svg">resources/notifications-outline-dark.svg</file>
-    <file alias="pricetag-outline-light.svg">resources/pricetag-outline-light.svg</file>
-    <file alias="pricetag-outline-dark.svg">resources/pricetag-outline-dark.svg</file>
-    <file alias="pricetag-outline-blue.svg">resources/pricetag-outline-blue.svg</file>
-    <file alias="ellipsis-vertical-outline-light.svg">resources/ellipsis-vertical-outline-light.svg</file>
-    <file alias="ellipsis-vertical-outline-dark.svg">resources/ellipsis-vertical-outline-dark.svg</file>
-    <file alias="flag-outline-light.svg">resources/flag-outline-light.svg</file>
-    <file alias="flag-outline-dark.svg">resources/flag-outline-dark.svg</file>
-    <file alias="list-outline-light.svg">resources/list-outline-light.svg</file>
-    <file alias="list-outline-dark.svg">resources/list-outline-dark.svg</file>
-    <file alias="add-circle-outline-light.svg">resources/add-circle-outline-light.svg</file>
-    <file alias="add-circle-outline-dark.svg">resources/add-circle-outline-dark.svg</file>
-    <file alias="calendar-outline-light.svg">resources/calendar-outline-light.svg</file>
-    <file alias="calendar-outline-dark.svg">resources/calendar-outline-dark.svg</file>
-    <file alias="checkmark-circle-outline-light.svg">resources/checkmark-circle-outline-light.svg</file>
-    <file alias="checkmark-circle-outline-dark.svg">resources/checkmark-circle-outline-dark.svg</file>
-    <file alias="calendar-overdue.svg">resources/calendar-overdue.svg</file>
-
-    <file alias="priority-4.svg">resources/priority-4.svg</file>
-    <file alias="priority-3.svg">resources/priority-3.svg</file>
-    <file alias="priority-2.svg">resources/priority-2.svg</file>
-
-    <file alias="color-30.svg">resources/colors/color-30.svg</file>
-    <file alias="color-31.svg">resources/colors/color-31.svg</file>
-    <file alias="color-32.svg">resources/colors/color-32.svg</file>
-    <file alias="color-33.svg">resources/colors/color-33.svg</file>
-    <file alias="color-34.svg">resources/colors/color-34.svg</file>
-    <file alias="color-35.svg">resources/colors/color-35.svg</file>
-    <file alias="color-36.svg">resources/colors/color-36.svg</file>
-    <file alias="color-37.svg">resources/colors/color-37.svg</file>
-    <file alias="color-38.svg">resources/colors/color-38.svg</file>
-    <file alias="color-39.svg">resources/colors/color-39.svg</file>
-    <file alias="color-40.svg">resources/colors/color-40.svg</file>
-    <file alias="color-41.svg">resources/colors/color-41.svg</file>
-    <file alias="color-42.svg">resources/colors/color-42.svg</file>
-    <file alias="color-43.svg">resources/colors/color-43.svg</file>
-    <file alias="color-44.svg">resources/colors/color-44.svg</file>
-    <file alias="color-45.svg">resources/colors/color-45.svg</file>
-    <file alias="color-46.svg">resources/colors/color-46.svg</file>
-    <file alias="color-47.svg">resources/colors/color-47.svg</file>
-    <file alias="color-48.svg">resources/colors/color-48.svg</file>
-    <file alias="color-49.svg">resources/colors/color-49.svg</file>
-
-    <file alias="cat.svg">resources/avatars/cat.svg</file>
-    <file alias="dog.svg">resources/avatars/dog.svg</file>
-    <file alias="koala.svg">resources/avatars/koala.svg</file>
-    <file alias="lion.svg">resources/avatars/lion.svg</file>
-    <file alias="monkey.svg">resources/avatars/monkey.svg</file>
-    <file alias="owl.svg">resources/avatars/owl.svg</file>
-    <file alias="penguin.svg">resources/avatars/penguin.svg</file>
-    <file alias="rabbit.svg">resources/avatars/rabbit.svg</file>
-    <file alias="tiger.svg">resources/avatars/tiger.svg</file>
-    <file alias="zoo.svg">resources/avatars/zoo.svg</file>
-
-    <file alias="heart-outline.svg">resources/settings/heart-outline.svg</file>
-    <file alias="home-outline.svg">resources/settings/home-outline.svg</file>
-    <file alias="add-circle-outline.svg">resources/settings/add-circle-outline.svg</file>
-    <file alias="calendar-clear-outline.svg">resources/settings/calendar-clear-outline.svg</file>
-    <file alias="cloudy-outline.svg">resources/settings/cloudy-outline.svg</file>
-    <file alias="cog-outline.svg">resources/settings/cog-outline.svg</file>
-    <file alias="color-palette-outline.svg">resources/settings/color-palette-outline.svg</file>
-    <file alias="extension-puzzle-outline.svg">resources/settings/extension-puzzle-outline.svg</file>
-    <file alias="information-circle-outline.svg">resources/settings/information-circle-outline.svg</file>
-    <file alias="pricetags-outline.svg">resources/settings/pricetags-outline.svg</file>
-    <file alias="checkmark-circle-outline.svg">resources/settings/checkmark-circle-outline.svg</file>
-    <file alias="app-badge.svg">resources/settings/app-badge.svg</file>
+    <file alias="planner-calendar-light.svg">resources/planner-calendar-light.svg</file>
+    <file alias="planner-calendar-dark.svg">resources/planner-calendar-dark.svg</file>
+    <file alias="planner-search-light.svg">resources/planner-search-light.svg</file>
+    <file alias="planner-search-dark.svg">resources/planner-search-dark.svg</file>
+    <file alias="planner-plus-light.svg">resources/planner-plus-light.svg</file>
+    <file alias="planner-plus-dark.svg">resources/planner-plus-dark.svg</file>
+    <file alias="chevron-right-dark.svg">resources/chevron-right-dark.svg</file>
+    <file alias="chevron-right-light.svg">resources/chevron-right-light.svg</file>
+    <file alias="planner-plus-circle-light.svg">resources/planner-plus-circle-light.svg</file>
+    <file alias="planner-plus-circle-dark.svg">resources/planner-plus-circle-dark.svg</file>
+    <file alias="planner-refresh-light.svg">resources/planner-refresh-light.svg</file>
+    <file alias="planner-refresh-dark.svg">resources/planner-refresh-dark.svg</file>
+    <file alias="planner-edit-light.svg">resources/planner-edit-light.svg</file>
+    <file alias="planner-edit-dark.svg">resources/planner-edit-dark.svg</file>
+    <file alias="planner-trash-light.svg">resources/planner-trash-light.svg</file>
+    <file alias="planner-trash-dark.svg">resources/planner-trash-dark.svg</file>
+    <file alias="planner-star-light.svg">resources/planner-star-light.svg</file>
+    <file alias="planner-star-dark.svg">resources/planner-star-dark.svg</file>
+    <file alias="planner-close-circle-light.svg">resources/planner-close-circle-light.svg</file>
+    <file alias="planner-close-circle-dark.svg">resources/planner-close-circle-dark.svg</file>
+    <file alias="planner-check-circle-light.svg">resources/planner-check-circle-light.svg</file>
+    <file alias="planner-check-circle-dark.svg">resources/planner-check-circle-dark.svg</file>
+    <file alias="planner-flag-light.svg">resources/planner-flag-light.svg</file>
+    <file alias="planner-flag-dark.svg">resources/planner-flag-dark.svg</file>
+    <file alias="chevron-down-dark.svg">resources/chevron-down-dark.svg</file>
+    <file alias="chevron-down-light.svg">resources/chevron-down-light.svg</file>
+    <file alias="dots-horizontal-dark.svg">resources/dots-horizontal-dark.svg</file>
+    <file alias="dots-horizontal-light.svg">resources/dots-horizontal-light.svg</file>
+    <file alias="chevron-left-dark.svg">resources/chevron-left-dark.svg</file>
+    <file alias="chevron-left-light.svg">resources/chevron-left-light.svg</file>
+    <file alias="planner-tag-dark.svg">resources/planner-tag-dark.svg</file>
+    <file alias="planner-tag-light.svg">resources/planner-tag-light.svg</file>
+    <file alias="planner-pinned-dark.svg">resources/planner-pinned-dark.svg</file>
+    <file alias="planner-pinned-light.svg">resources/planner-pinned-light.svg</file>
+    <file alias="planner-pinned-activated.svg">resources/planner-pinned-activated.svg</file>
+    <file alias="planner-settings-dark.svg">resources/planner-settings-dark.svg</file>
+    <file alias="planner-settings-light.svg">resources/planner-settings-light.svg</file>
   </gresource>
 </gresources>

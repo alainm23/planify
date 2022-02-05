@@ -1,0 +1,20 @@
+.calendar-today {
+    color: @accent_color;
+    border-radius: 6px;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.calendar-day-selected {
+    background-color: @accent_color;
+    color: #fafafa;
+    border-radius: 6px;
+    padding: 3px;
+}
+
+.datetime-picker-content {
+    padding: 6px;
+    background-color: @bg_color;
+    border-radius: 6px;
+    border: 0.4px solid @menu_separator;
+}

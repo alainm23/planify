@@ -7,8 +7,6 @@ prefix = os.environ.get('MESON_INSTALL_PREFIX', '/usr/local')
 datadir = os.path.join(prefix, 'share')
 schemadir = os.path.join(os.environ['MESON_INSTALL_PREFIX'], 'share', 'glib-2.0', 'schemas')
 
-#database = os.environ.get ('HOME') + '/.cache/com.github.alainm23.planner/database.db';
-
 if not os.environ.get('DESTDIR'):
     print('Updating icon cache...')
     icon_cache_dir = os.path.join(datadir, 'icons', 'hicolor')

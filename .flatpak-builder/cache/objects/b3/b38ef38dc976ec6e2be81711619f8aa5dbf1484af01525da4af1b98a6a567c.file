@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+    <enum id="com.github.alainm23.planner.badge-count">
+        <value nick="None" value="0" />
+        <value nick="Inbox" value="1" />
+        <value nick="Today" value="2" />
+        <value nick="Today + Inbox" value="3" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.pane-view">
+        <value nick="Inbox" value="0" />
+        <value nick="Today" value="1" />
+        <value nick="Upcoming" value="2" />
+        <value nick="Completed" value="3" />
+        <value nick="All Tasks" value="4" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.button-layout">
+        <value nick="elementary" value="0" />
+        <value nick="Ubuntu" value="1" />
+        <value nick="Windows" value="2" />
+        <value nick="macOS" value="3" />
+        <value nick="Minimize Left" value="4" />
+        <value nick="Minimize Right" value="5" />
+        <value nick="Close Only Left" value="6" />
+        <value nick="Close Only Right" value="7" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.appearance">
+        <value nick="Light" value="0" />
+        <value nick="Black" value="1" />
+        <value nick="Dark Blue" value="2" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.default-priority">
+        <value nick="Priority 1" value="0" />
+        <value nick="Priority 2" value="1" />
+        <value nick="Priority 3" value="2" />
+        <value nick="None" value="3" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.start-week">
+        <value nick="Sunday" value="0" />
+        <value nick="Monday" value="1" />
+        <value nick="Tuesday" value="2" />
+        <value nick="Wednesday" value="3" />
+        <value nick="Thursday" value="4" />
+        <value nick="Friday" value="5" />
+        <value nick="Saturday" value="6" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.new-tasks-position">
+        <value nick="Top" value="0" />
+        <value nick="Bottom" value="-1" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.clock-format">
+        <value nick="24h" value="0" />
+        <value nick="12h" value="1" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.backend-type">
+        <value nick="none" value="0" />
+        <value nick="local" value="1" />
+        <value nick="todoist" value="2" />
+        <value nick="caldav" value="3" />
+    </enum>
+
+    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
+        <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
+            <default>"None"</default>
+            <summary>Choose which items should be counted for the badge on the application icon</summary>
+            <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
+
+        <key name="new-tasks-position" enum="com.github.alainm23.planner.new-tasks-position">
+            <default>"Bottom"</default>
+            <summary>Choose which items should be counted for the badge on the application icon</summary>
+            <description>Choose which items should be counted for the badge on the application icon</description>
+        </key>
+
+        <key name="clock-format" enum="com.github.alainm23.planner.clock-format">
+            <default>"24h"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="backend-type" enum="com.github.alainm23.planner.backend-type">
+            <default>"none"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="appearance" enum="com.github.alainm23.planner.appearance">
+            <default>"Light"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+        
+        <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
+            <default>"elementary"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
+        </key>
+
+        <key name="default-priority" enum="com.github.alainm23.planner.default-priority">
+            <default>"None"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
+        </key>
+
+        <key name="start-week" enum="com.github.alainm23.planner.start-week">
+            <default>"Monday"</default>
+            <summary>Order the buttons on the title bar</summary>
+            <description>Order the buttons on the title bar</description>
+        </key>
+
+        <key name="window-maximized" type="b">
+            <default>false</default>
+            <summary>Whether the window was maximized on last run</summary>
+            <description>Whether the window was maximized on last run</description>
+        </key>
+
+        <key name="quick-add-project-selected" type="x">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="quick-add-save-last-project" type="b">
+            <default>false</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="quick-add-close-loses-focus" type="b">
+            <default>true</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="window-position" type="(ii)">
+          <default>(-1, -1)</default>
+          <summary>Window position</summary>
+          <description>Most recent window position (x, y)</description>
+        </key>
+
+        <key name="window-size" type="(ii)">
+          <default>(1160, 795)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
+        <key name="project-dialog-size" type="(ii)">
+          <default>(583, 725)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
+        <key name="project-dialog-position" type="(ii)">
+          <default>(699, 47)</default>
+          <summary>Most recent window size</summary>
+          <description>Most recent window size (width, height)</description>
+        </key>
+
+        <key name="pane-position" type="i">
+            <default>225</default>
+            <summary>Most recent pane position</summary>
+            <description>Most recent pane position</description>
+        </key>
+
+        <key name="today-sort-order" type="i">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="underline-completed-tasks" type="b">
+            <default>false</default>
+            <summary>Underline completed tasks.</summary>
+            <description>Underline completed tasks.</description>
+        </key>
+
+        <key name="inbox-project-id" type="x">
+            <default>0</default>
+            <summary>Inbox Project ID</summary>
+            <description>Inbox Project ID</description>
+        </key>
+
+        <key name="run-on-startup" type="b">
+            <default>false</default>
+            <summary>Run Planner on startup</summary>
+            <description>Whether Planner should run on startup</description>
+        </key>
+
+        <key name="run-in-background" type="b">
+            <default>false</default>
+            <summary>Run in background</summary>
+            <description>Let Planner run in background and send notifications</description>
+        </key>
+
+        <key name="homepage-project" type="b">
+            <default>false</default>
+            <summary>homepage-project</summary>
+            <description>homepage-project</description>
+        </key>
+
+        <key name="homepage-project-id" type="x">
+            <default>0</default>
+            <summary>homepage-project</summary>
+            <description>homepage-project</description>
+        </key>
+        
+        <key name="homepage-item" enum="com.github.alainm23.planner.pane-view">
+            <default>"Inbox"</default>
+            <summary>homepage-item</summary>
+            <description>homepage-item</description>
+        </key>
+
+        <key name="show-today-completed" type="b">
+            <default>false</default>
+            <summary>show-today-completed</summary>
+            <description>show-today-completed</description>
+        </key>
+
+        <key name="todoist-sync-server" type="b">
+            <default>true</default>
+            <summary>todoist-sync-server</summary>
+            <description>todoist-sync-server</description>
+        </key>
+
+        <key name="todoist-access-token" type="s">
+            <default>""</default>
+            <summary>Todoist access token</summary>
+            <description>Todoist access token</description>
+        </key>
+
+        <key name="todoist-sync-token" type="s">
+            <default>""</default>
+            <summary>Todoist sync token</summary>
+            <description>Todoist sync token</description>
+        </key>
+
+        <key name="todoist-last-sync" type="s">
+            <default>""</default>
+            <summary>Todoist last sync</summary>
+            <description>Todoist last sync</description>
+        </key>
+
+        <key name="todoist-user-image-id" type="s">
+            <default>""</default>
+            <summary>Todoist sync token</summary>
+            <description>Todoist sync token</description>
+        </key>
+
+        <key name="todoist-user-email" type="s">
+            <default>""</default>
+            <summary>Todoist email account</summary>
+            <description>Todoist email account</description>
+        </key>
+
+        <key name="todoist-user-name" type="s">
+            <default>""</default>
+            <summary>Todoist email account</summary>
+            <description>Todoist email account</description>
+        </key>
+
+        <key name="todoist-user-avatar" type="s">
+            <default>""</default>
+            <summary>Todoist user avatar</summary>
+            <description>Todoist user avatar</description>
+        </key>
+
+        <key name="todoist-user-is-premium" type="b">
+            <default>false</default>
+            <summary>Todoist user is premium</summary>
+            <description>Todoist user is premium</description>
+        </key>
+
+        <key name="slim-mode" type="b">
+            <default>true</default>
+            <summary>Slim Mode</summary>
+            <description>Slim Mode</description>
+        </key>
+
+        <key name="description-preview" type="b">
+            <default>true</default>
+            <summary>description-preview</summary>
+            <description>description-preview</description>
+        </key>
+        
+        <key name="version" type="s">
+            <default>'0.0.0'</default>
+            <summary>The currently installed version.</summary>
+            <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        </key>
+    </schema>
+</schemalist>
