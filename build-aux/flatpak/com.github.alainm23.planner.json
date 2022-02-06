@@ -2,54 +2,89 @@
     "app-id": "com.github.alainm23.planner",
     "sdk": "org.gnome.Sdk",
     "runtime": "org.gnome.Platform",
-    "runtime-version": "3.38",
+    "runtime-version": "40",
     "base": "io.elementary.BaseApp",
     "base-version": "juno-20.08",
     "command": "com.github.alainm23.planner",
     "finish-args": [
+        "--device=dri",
         "--share=ipc",
         "--share=network",
         "--socket=fallback-x11",
-        "--device=dri",
         "--socket=wayland",
-        "--filesystem=home",
-        "--talk-name=org.gtk.vfs.*",
-        "--talk-name=org.gnome.evolution.dataserver.AddressBook10",
-        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
-        "--talk-name=org.gnome.evolution.dataserver.Sources5",
-        "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
-        "--talk-name=com.github.alainm23.planner",
-        "--filesystem=xdg-run/dconf",
-        "--filesystem=~/.config/dconf:ro",
-        "--talk-name=ca.desrt.dconf",
-        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+        "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
     ],
     "cleanup": [
         "/include",
         "/lib/pkgconfig",
-        "/man",
-        "/share/doc",
-        "/share/gtk-doc",
-        "/share/man",
-        "/share/pkgconfig",
+        "/lib/debug",
         "/share/vala",
-        "*.la",
-        "*.a"
+        "/man",
+        "*.a",
+        "*.la"
     ],
     "modules": [
         {
-            "name": "icons",
+            "name": "elementary-stylesheet",
             "buildsystem": "meson",
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/elementary/icons.git"
+                    "url": "https://github.com/elementary/stylesheet.git",
+                    "tag": "6.1.1"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "sassc",
+                    "cleanup": ["*"],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://github.com/sass/sassc.git",
+                            "tag": "3.6.1"
+                        },
+                        {
+                            "type": "script",
+                            "dest-filename": "autogen.sh",
+                            "commands": ["autoreconf -si"]
+                        }
+                    ],
+                    "modules": [
+                        {
+                            "name": "libsass",
+                            "cleanup": ["*"],
+                            "sources": [
+                                {
+                                    "type": "git",
+                                    "url": "https://github.com/sass/libsass.git",
+                                    "tag": "3.6.4"
+                                },
+                                {
+                                    "type": "script",
+                                    "dest-filename": "autogen.sh",
+                                    "commands": ["autoreconf -si"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "elementary-icons",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/elementary/icons.git",
+                    "commit": "9e7ace3d6c1d1e3b5ea64012a371e46039bf044a"
                 }
             ],
             "modules": [
                 {
                     "name": "xcursorgen",
-                    "cleanup": [ "*" ],
+                    "cleanup": ["*"],
                     "sources": [
                         {
                             "type": "git",
@@ -61,182 +96,13 @@
             ]
         },
         {
-            "name": "stylesheet",
+            "name": "granite",
             "buildsystem": "meson",
             "sources": [
                 {
                     "type": "git",
-                    "url": "https://github.com/elementary/stylesheet.git"
-                }
-            ],
-            "modules": [
-                {
-                    "name": "sassc",
-                    "cleanup": [ "*" ],
-                    "sources": [
-                        {
-                            "type": "git",
-                            "url": "https://github.com/sass/sassc.git",
-                            "tag": "3.6.1"
-                        },
-                        {
-                            "type": "script",
-                            "dest-filename": "autogen.sh",
-                            "commands": [ "autoreconf -si" ]
-                        }
-                    ],
-                    "modules": [
-                        {
-                            "name": "libsass",
-                            "cleanup": [ "*" ],
-                            "sources": [
-                                {
-                                    "type": "git",
-                                    "url": "https://github.com/sass/libsass.git",
-                                    "tag": "3.6.4"
-                                },
-                                {
-                                    "type": "script",
-                                    "dest-filename": "autogen.sh",
-                                    "commands": [ "autoreconf -si" ]
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "libical",
-            "cleanup": [
-                "/lib/cmake"
-            ],
-            "buildsystem": "cmake-ninja",
-            "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
-                "-DBUILD_SHARED_LIBS=ON",
-                "-DGOBJECT_INTROSPECTION=true",
-                "-DICAL_GLIB_VAPI=true",
-                "-DICAL_GLIB=true",
-                "-DICAL_BUILD_DOCS=false",
-                "-DWITH_CXX_BINDINGS=false"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/libical/libical/releases/download/v3.0.8/libical-3.0.8.tar.gz",
-                    "sha256": "09fecacaf75ba5a242159e3a9758a5446b5ce4d0ab684f98a7040864e1d1286f"
-                }
-            ]
-        },
-        {
-            "name": "libpeas",
-            "buildsystem": "meson",
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libpeas.git",
-                    "branch": "master"
-                }
-            ]
-        },
-        {
-            "name": "intltool",
-            "cleanup": [
-                "*"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
-                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
-                }
-            ]
-        },
-        {
-            "name": "evolution-data-server",
-            "buildsystem": "cmake-ninja",
-            "cleanup": [
-                "/share/GConf",
-                "/lib/evolution-data-server/*-backends",
-                "/libexec",
-                "/share/dbus-1/services"
-            ],
-            "config-opts": [
-                "-DCMAKE_BUILD_TYPE=Release",
-                "-DENABLE_FILE_LOCKING=fcntl",
-                "-DENABLE_DOT_LOCKING=OFF",
-                "-DENABLE_OAUTH2=ON",
-                "-DENABLE_CANBERRA=OFF",
-                "-DENABLE_GTK=ON",
-                "-DENABLE_UOA=OFF",
-                "-DENABLE_GOA=OFF",
-                "-DENABLE_GOOGLE=OFF",
-                "-DENABLE_EXAMPLES=OFF",
-                "-DENABLE_INTROSPECTION=ON",
-                "-DENABLE_VALA_BINDINGS=ON",
-                "-DENABLE_INSTALLED_TESTS=OFF",
-                "-DENABLE_GTK_DOC=OFF",
-                "-DWITH_PRIVATE_DOCS=OFF",
-                "-DWITH_PHONENUMBER=OFF",
-                "-DWITH_SYSTEMDUSERUNITDIR=OFF",
-                "-DWITH_LIBDB=OFF",
-                "-DWITH_OPENLDAP=OFF",
-                "-DENABLE_WEATHER=OFF"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://download.gnome.org/sources/evolution-data-server/3.38/evolution-data-server-3.38.2.tar.xz",
-                    "sha256": "bf20785963efe3afa9d3b3a229cb61d1c60fa2fc11e29d632e050b3714cad455"
-                }
-            ]
-        },
-        {
-            "name": "media-keys",
-            "buildsystem": "simple",
-            "build-commands": [
-                "install -D data/org.gnome.settings-daemon.plugins.media-keys.gschema.xml.in /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml",
-                "sed -i -e 's/@GETTEXT_PACKAGE@/gnome-settings-daemon/g' /app/share/glib-2.0/schemas/org.gnome.settings-daemon.plugins.media-keys.gschema.xml"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/GNOME/gnome-settings-daemon/archive/GNOME_SETTINGS_DAEMON_3_36_1.tar.gz",
-                    "sha256": "e345411f79b4a1175349e144cc772c7a9eb7ab9ae3a542a73609bee471b72748"
-                }
-            ]
-        },
-        {
-            "name" : "libhandy",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dtests=false",
-                "-Dexamples=false",
-                "-Dglade_catalog=disabled"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libhandy.git",
-                    "tag" : "1.0.0",
-                    "commit" : "94313c206258860b2428712e7ece1d02c5177857"
-                }
-            ]
-        },
-        {
-            "name" : "libgdata",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dalways_build_tests=false",
-                "-Dgoa=disabled"
-            ],
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/GNOME/libgdata.git",
-                    "tag" : "0.17.13"
+                    "url": "https://github.com/elementary/granite.git",
+                    "tag": "6.2.0"
                 }
             ]
         },

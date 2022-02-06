@@ -35,7 +35,7 @@ public class Dialogs.ProjectPicker.ProjectRow : Gtk.ListBoxRow {
         selected_icon_context.add_class ("primary-color");
 
         var selected_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
         };
         selected_revealer.add (selected_icon);
 

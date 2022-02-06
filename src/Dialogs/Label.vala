@@ -99,7 +99,7 @@ public class Dialogs.Label : Hdy.Window {
             max_children_per_line = 10,
             min_children_per_line = 8,
             expand = true,
-            valign = Gtk.Align.START,
+            valign = Gtk.Align.START
         };
 
         unowned Gtk.StyleContext flowbox_context = flowbox.get_style_context ();

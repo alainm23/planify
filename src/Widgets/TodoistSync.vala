@@ -21,23 +21,20 @@ public class Widgets.TodoistSync : Gtk.EventBox {
             margin = 3
         };
 
-        var todoist_overlay = new Gtk.Overlay () {
-        };
+        var todoist_overlay = new Gtk.Overlay ();
         todoist_overlay.add_overlay (available_icon);
         todoist_overlay.add (avatar);
 
-        var username_label = new Gtk.Label (Planner.settings.get_string ("todoist-user-name")) {
-        };
+        var username_label = new Gtk.Label (Planner.settings.get_string ("todoist-user-name"));
                 
         sync_icon = new Widgets.DynamicIcon ();
         sync_icon.size = 16;
-        sync_icon.icon_name = "planner-refresh";
+        sync_icon.update_icon_name ("planner-refresh");
 
         var sync_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             can_focus = false,
             margin_end = 6
-            // tooltip_text = add_tooltip
         };
 
         sync_button.add (sync_icon);

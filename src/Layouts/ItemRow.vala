@@ -247,7 +247,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         top_motion_grid.get_style_context ().add_class ("grid-motion");
 
         top_motion_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
         top_motion_revealer.add (top_motion_grid);
 

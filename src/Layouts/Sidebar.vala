@@ -58,8 +58,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
         var settings_label = new Gtk.Label (_("Settings"));
 
-        var settings_grid = new Gtk.Grid () {
-        };
+        var settings_grid = new Gtk.Grid ();
 
         settings_grid.add (settings_image);
         settings_grid.add (settings_label);

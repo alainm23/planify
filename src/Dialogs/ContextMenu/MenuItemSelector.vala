@@ -31,7 +31,7 @@ public class Dialogs.ContextMenu.MenuItemSelector : Gtk.EventBox {
             halign = Gtk.Align.END,
             hexpand = true,
             can_focus = false,
-            image = arrow_icon,
+            image = arrow_icon
         };
 
         unowned Gtk.StyleContext arrow_button_context = arrow_button.get_style_context ();
