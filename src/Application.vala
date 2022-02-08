@@ -162,6 +162,8 @@ public class Planner : Gtk.Application {
                     foreach (string key in schema.list_keys ()) {
                         Planner.settings.reset (key);
                     }
+
+                    main_window.destroy ();
                 } else {
                     message_dialog.hide_destroy ();
                 }

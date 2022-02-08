@@ -186,6 +186,6 @@ public class Dialogs.MessageDialog : Hdy.Window {
         };
         button.get_style_context ().add_class ("border-radius-6");
         button.get_style_context ().add_class (class_name);
-        add_action_widget (button);
+        add_action_widget (button, response);
     }
 }
