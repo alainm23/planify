@@ -7,26 +7,16 @@
   <name>Planner</name>
   <summary>Never worry about forgetting things again</summary>
   <description>
-    <p>🚀️ Planner 2 is here...</p>
+    <p>🚀️ Planner 3 is here...</p>
     <ul>
       <li>🚀️ Complete redesign of the UI.</li>
-      <li>🏅️ New icon.</li>
       <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
       <li>💯️ Progress indicator for each project.</li>
       <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
-      <li>📅️ Visualize your events and plan your day better.</li>
-      <li>💎️ Magic Button arrived: Drag and Drop and create your tasks wherever you want.</li>
-      <li>⏲️ Improved reminder system, now you can create one or more reminders, you decide.</li>
+      <li>💎️ Magic Button: Drag and Drop and create your tasks wherever you want.</li>
       <li>🌙️ Better integration with the dark theme.</li>
       <li>🎉️ and much more.</li>
     </ul>
-
-    <p>Everyone needs a task manager and Planner adapts to anyone's needs</p>
-    <p>How Planner works:</p>
-    <p>1. Collect your Ideas - The Inbox is your default task list in Planner. When you add a task, it goes straight to your Inbox unless you specify that the task goes into a project.</p>
-    <p>2. Get Organized - Create a project for each of your goals, then add the steps to reach them. Review these regularly to stay on top of things.</p>
-    <p>3. Calendar and Events - See your calendar events and plan your time effectively. Planner will remind you on the right day.</p>
-    <p>4. Be even more organized - Add a duedate to your tasks, create labels, use checklists.</p>
 
     <p>☁️ Support for Todoist:</p>
     <ul>
@@ -37,7 +27,6 @@
 
     <p>💎️ Other features:</p>
     <ul>
-      <li>⏲️ Reminders notifications</li>
       <li>🔍️ Quick Find</li>
       <li>🌙️ Night mode</li>
     </ul>
@@ -46,6 +35,21 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+  <release version="3.0-beta1" date="2021-02-08">
+      <description>
+        <p>Planner 3.0 is here...</p>
+        <ul>
+          <li>🚀️ Complete redesign of the UI.</li>
+          <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
+          <li>💯️ Progress indicator for each project.</li>
+          <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
+          <li>💎️ Magic Button: Drag and Drop and create your tasks wherever you want.</li>
+          <li>🌙️ Better integration with the dark theme.</li>
+          <li>🎉️ and much more.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="2.7" date="2021-06-01">
       <description>
         <p>Planner 2.7 is here...</p>
