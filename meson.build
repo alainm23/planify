@@ -43,6 +43,7 @@ executable (
     'src/Layouts/SectionRow.vala',
     'src/Layouts/LabelChild.vala',
 
+    'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',
     'src/Widgets/TodoistSync.vala',
     'src/Widgets/ProjectProgress.vala',
@@ -61,6 +62,7 @@ executable (
     'src/Widgets/LabelButton.vala',
     'src/Widgets/ItemLabels.vala',
     'src/Widgets/ItemLabelChild.vala',
+    'src/Widgets/Placeholder.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -82,6 +84,10 @@ executable (
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/Project.vala',
     'src/Dialogs/Label.vala',
+    'src/Dialogs/MessageDialog.vala',
+    'src/Dialogs/QuickFind/QuickFind.vala',
+    'src/Dialogs/QuickFind/QuickFindItem.vala',
+    'src/Dialogs/QuickFind/Synapse.vala',
 
     'src/Dialogs/Settings/Settings.vala',
     'src/Dialogs/Settings/SettingsHeader.vala',
@@ -103,10 +109,13 @@ executable (
     'src/Dialogs/ContextMenu/MenuItemSelector.vala',
     'src/Dialogs/ContextMenu/MenuSeparator.vala',
     'src/Dialogs/ContextMenu/MenuCalendarPicker.vala',
+    'src/Dialogs/ContextMenu/MenuSwitch.vala',
 
     'src/Services/EventBus.vala',
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
+    'src/Services/ActionManager.vala',
+    'src/Services/Badge.vala',
 
     'src/Objects/BaseObject.vala',
     'src/Objects/Project.vala',

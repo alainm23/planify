@@ -3,6 +3,12 @@ entry {
     caret-color: @color_primary;
 }
 
+button:disabled {
+    background: none;
+    border: none;
+    box-shadow: none;        
+}
+
 .border-radius-6 {
     border-radius: 6px;
 }
@@ -320,6 +326,14 @@ entry {
     font-weight: bold;
 }
 
+.completed-grid {
+    background-color: alpha (#25b84c, 0.125);
+    border-radius: 6px;
+    padding: 0px 3px;
+    color: #25b84c;
+    font-weight: bold;
+}
+
 .placeholder-drag-motion {
     box-shadow: 
         inset 0px 1px 8px -10px #3689e6,
@@ -338,4 +352,13 @@ entry {
 
 .editable-label-focus image {
     color: @color_primary;
+}
+
+.planner-switch slider {
+    min-height: 16px;
+    min-width: 16px;
+}
+
+.line-through {
+    text-decoration: line-through;
 }

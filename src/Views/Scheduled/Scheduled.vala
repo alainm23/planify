@@ -101,16 +101,15 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         };
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         search_button.add (search_image);
+        search_button.clicked.connect (Util.get_default ().open_quick_find);
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = Gtk.Align.START,
-            hexpand = true,
             margin_start = 2,
             margin_end = 6
         };
 
         header_box.pack_start (today_button, false, true, 0);
-        header_box.pack_end (menu_button, false, false, 0);
+        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
         header_box.pack_end (nav_grid, false, false, 12);
 
@@ -118,32 +117,29 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
 
         carousel = new Hdy.Carousel () {
             interactive = true,
-            hexpand = true,
             spacing = 12,
-            valign = Gtk.Align.START,
             margin_top = 12
         };
 
         show_today ();
 
         date_view = new Views.Date () {
-            margin_top = 12
+            margin_top = 12,
+            expand = true
         };
 
         date_view.date = new GLib.DateTime.now_local ().add_days (1);
 
-        var content = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            valign = Gtk.Align.START,
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             expand = true,
             margin_start = 36,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
         };
-        content.add (header_box);
-        content.add (carousel);
-        content.add (date_view);
+        content.pack_start (header_box, false, false, 0);
+        content.pack_start (carousel, false, false, 0);
+        content.pack_start (date_view, true, true, 0);
 
         var content_clamp = new Hdy.Clamp () {
             maximum_size = 720
@@ -166,6 +162,11 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         add (overlay);
         show_all ();
         update_date_label ();
+
+        Timeout.add (250, () => {
+            carousel.expand = false;
+            return GLib.Source.REMOVE;
+        });
 
         carousel.page_changed.connect ((index) => {
             if (position > index) {

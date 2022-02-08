@@ -1,6 +1,13 @@
 public class Views.Pinboard : Gtk.EventBox {
     public Gee.HashMap <string, Layouts.ItemRow> items;
     private Gtk.ListBox listbox;
+    private Gtk.Stack listbox_stack;
+
+    private bool has_items {
+        get {
+            return listbox.get_children ().length () > 0;
+        }
+    }
 
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
@@ -35,7 +42,8 @@ public class Views.Pinboard : Gtk.EventBox {
         };
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         search_button.add (search_image);
-
+        search_button.clicked.connect (Util.get_default ().open_quick_find);
+        
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
             hexpand = true,
@@ -45,7 +53,7 @@ public class Views.Pinboard : Gtk.EventBox {
 
         header_box.pack_start (pin_icon, false, false, 0);
         header_box.pack_start (title_label, false, false, 6);
-        header_box.pack_end (menu_button, false, false, 0);
+        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
         var magic_button = new Widgets.MagicButton ();
@@ -56,7 +64,6 @@ public class Views.Pinboard : Gtk.EventBox {
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true
         };
-        listbox.set_placeholder (get_placeholder ());
 
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("listbox-background");
@@ -65,6 +72,17 @@ public class Views.Pinboard : Gtk.EventBox {
             margin_top = 12
         };
         listbox_grid.add (listbox);
+
+        var listbox_placeholder = new Widgets.Placeholder (
+            _("Pinboard"), _("No tasks with this filter at the moment"), "planner-pin-tack");
+
+        listbox_stack = new Gtk.Stack () {
+            expand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        listbox_stack.add_named (listbox_grid, "listbox");
+        listbox_stack.add_named (listbox_placeholder, "placeholder");
 
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
@@ -75,7 +93,7 @@ public class Views.Pinboard : Gtk.EventBox {
             margin_top = 6
         };
         content.add (header_box);
-        content.add (listbox_grid);
+        content.add (listbox_stack);
 
         var content_clamp = new Hdy.Clamp () {
             maximum_size = 720
@@ -88,7 +106,6 @@ public class Views.Pinboard : Gtk.EventBox {
             expand = true
         };
         scrolled_window.add (content_clamp);
-
         var overlay = new Gtk.Overlay () {
             expand = true
         };
@@ -99,6 +116,11 @@ public class Views.Pinboard : Gtk.EventBox {
         add_items ();
         show_all ();
 
+        Timeout.add (listbox_stack.transition_duration, () => {
+            validate_placeholder ();
+            return GLib.Source.REMOVE;
+        });
+
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
@@ -106,6 +128,18 @@ public class Views.Pinboard : Gtk.EventBox {
         Planner.database.item_added.connect (valid_add_item);
         Planner.database.item_deleted.connect (valid_delete_item);
         Planner.database.item_updated.connect (valid_update_item);
+
+        listbox.add.connect (() => {
+            validate_placeholder ();
+        });
+
+        listbox.remove.connect (() => {
+            validate_placeholder ();
+        });
+    }
+
+    private void validate_placeholder () {
+        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 
     public void prepare_new_item () {
@@ -184,23 +218,5 @@ public class Views.Pinboard : Gtk.EventBox {
         items [item.id_string] = new Layouts.ItemRow (item);
         listbox.add (items [item.id_string]);
         listbox.show_all ();
-    }
-
-    private Gtk.Widget get_placeholder () {
-        var calendar_image = new Widgets.DynamicIcon () {
-            opacity = 0.1
-        };
-        calendar_image.size = 96;
-
-        calendar_image.update_icon_name ("planner-pinned");
-
-        var grid = new Gtk.Grid () {
-            margin_top = 128,
-            halign = Gtk.Align.CENTER
-        };
-        grid.add (calendar_image);
-        grid.show_all ();
-
-        return grid;
     }
 }

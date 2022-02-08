@@ -16,18 +16,26 @@ public class Widgets.ProjectButton : Gtk.Button {
 
     construct {
         get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        icon_project = new Widgets.IconColorProject (13);
+        icon_project = new Widgets.IconColorProject (12);
         icon_project.project = item.project;
-        name_label = new Gtk.Label (null);
+
+        name_label = new Gtk.Label (null) {
+            margin_start = 6
+        };
+
+        var forward_image = new Widgets.DynamicIcon () {
+            margin_start = 3
+        };
+        forward_image.size = 16;
+        forward_image.update_icon_name ("chevron-right");
 
         var projectbutton_grid = new Gtk.Grid () {
-            column_spacing = 6,
             valign = Gtk.Align.CENTER
         };
         projectbutton_grid.add (icon_project);
         projectbutton_grid.add (name_label);
+        projectbutton_grid.add (forward_image);
 
         add (projectbutton_grid);
         update_request ();

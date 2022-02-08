@@ -23,6 +23,8 @@ public class Dialogs.Label : Hdy.Window {
     public Objects.Label label { get; construct; }
 
     private Gtk.Grid widget_color;
+    private Widgets.Entry name_entry;
+    private Widgets.LoadingButton submit_button;
 
     public bool is_creating {
         get {
@@ -80,7 +82,7 @@ public class Dialogs.Label : Hdy.Window {
         unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
         widget_color_context.add_class ("label-color");
 
-        var name_entry = new Gtk.Entry () {
+        name_entry = new Widgets.Entry () {
             margin = 12,
             margin_top = 24,
             placeholder_text = _("Label name")
@@ -139,7 +141,7 @@ public class Dialogs.Label : Hdy.Window {
         unowned Gtk.StyleContext flowbox_grid_context = flowbox_grid.get_style_context ();
         flowbox_grid_context.add_class ("picker-content");
 
-        var submit_button = new Widgets.LoadingButton (
+        submit_button = new Widgets.LoadingButton (
             LoadingButtonType.LABEL,
             is_creating ? _("Add label") : _("Update label")) {
             sensitive = !is_creating
@@ -171,55 +173,63 @@ public class Dialogs.Label : Hdy.Window {
         content_grid.add (submit_cancel_grid);
 
         add (content_grid);
-
+        name_entry.grab_focus ();
+        
         name_entry.changed.connect (() => {
             submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
         });
 
-        submit_button.clicked.connect (() => {
-            if (!is_creating) {
-                label.name = name_entry.text;
-                label.color = color_selected;
-
-                submit_button.is_loading = true;
-                Planner.database.update_label (label);
-                if (label.todoist) {
-                    Planner.todoist.update.begin (label, (obj, res) => {
-                        if (Planner.todoist.update.end (res)) {
-                            submit_button.is_loading = false;
-                            hide_destroy ();
-                        }
-                    });
-                } else {
-                    hide_destroy ();
-                }
-            } else {
-                BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
-
-                label.color = color_selected;
-                label.name = name_entry.text;
-
-                if (backend_type == BackendType.TODOIST) {
-                    label.todoist = true;
-                    submit_button.is_loading = true;
-                    Planner.todoist.add.begin (label, (obj, res) => {
-                        label.id = Planner.todoist.add.end (res);
-                        Planner.database.insert_label (label);
-                        Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
-                        hide_destroy ();
-                    });
-                } else if (backend_type == BackendType.LOCAL) {
-                    label.id = Util.get_default ().generate_id ();
-                    Planner.database.insert_label (label);
-                    Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
-                    hide_destroy ();
-                }
-            }
-        });
+        name_entry.activate.connect (add_label);
+        submit_button.clicked.connect (add_label);
 
         cancel_button.clicked.connect (() => {
             hide_destroy ();
         });
+    }
+
+    private void add_label () {
+        if (!Util.get_default ().is_input_valid (name_entry)) {
+            return;
+        }
+
+        if (!is_creating) {
+            label.name = name_entry.text;
+            label.color = color_selected;
+
+            submit_button.is_loading = true;
+            Planner.database.update_label (label);
+            if (label.todoist) {
+                Planner.todoist.update.begin (label, (obj, res) => {
+                    if (Planner.todoist.update.end (res)) {
+                        submit_button.is_loading = false;
+                        hide_destroy ();
+                    }
+                });
+            } else {
+                hide_destroy ();
+            }
+        } else {
+            BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+            label.color = color_selected;
+            label.name = name_entry.text;
+
+            if (backend_type == BackendType.TODOIST) {
+                label.todoist = true;
+                submit_button.is_loading = true;
+                Planner.todoist.add.begin (label, (obj, res) => {
+                    label.id = Planner.todoist.add.end (res);
+                    Planner.database.insert_label (label);
+                    Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
+                    hide_destroy ();
+                });
+            } else if (backend_type == BackendType.LOCAL) {
+                label.id = Util.get_default ().generate_id ();
+                Planner.database.insert_label (label);
+                Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
+                hide_destroy ();
+            }
+        }
     }
 
     public void hide_destroy () {

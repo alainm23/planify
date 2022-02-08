@@ -51,6 +51,20 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
+    public ObjectType object_type {
+        get {
+            if (this is Objects.Project) {
+                return ObjectType.PROJECT;
+            } else if (this is Objects.Section) {
+                return ObjectType.SECTION;
+            } else if (this is Objects.Item) {
+                return ObjectType.ITEM;
+            } else {
+                return ObjectType.LABEL;
+            }
+        }
+    }
+
     public virtual string get_update_json (string uuid, string? temp_id = null) {
         return "";
     }

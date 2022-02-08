@@ -6,7 +6,7 @@ public class Widgets.EditableLabel : Gtk.EventBox {
     public signal void changed ();
 
     private Gtk.Label title;
-    private Gtk.Entry entry;
+    private Widgets.Entry entry;
     private Gtk.Stack stack;
     private Gtk.Grid grid;
 
@@ -72,8 +72,7 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         };
         grid.add (title);
 
-        entry = new Gtk.Entry () {
-            hexpand = true,
+        entry = new Widgets.Entry () {
             placeholder_text = placeholder_text
         };
 
@@ -87,40 +86,6 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         unowned Gtk.StyleContext stack_context = stack.get_style_context ();
         stack_context.add_class (title_style);
 
-        var submit_button = new Gtk.Button () {
-            width_request = 64
-        };
-        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-
-        var submit_spinner = new Gtk.Spinner ();
-        submit_spinner.start ();
-
-        var submit_stack = new Gtk.Stack () {
-            expand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
-        };
-
-        submit_stack.add_named (new Gtk.Label (_("Save")), "label");
-        submit_stack.add_named (submit_spinner, "spinner");
-
-        submit_button.add (submit_stack);
-
-        var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            width_request = 64
-        };
-
-        var buttons_grid = new Gtk.Grid () {
-            halign = Gtk.Align.START,
-            column_homogeneous = true,
-            column_spacing = 6,
-            margin_top = 6
-        };
-        buttons_grid.add (cancel_button);
-        buttons_grid.add (submit_button);
-
-        unowned Gtk.StyleContext buttons_grid_context = buttons_grid.get_style_context ();
-        buttons_grid_context.add_class ("editable-buttons");
-        buttons_grid_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
@@ -160,17 +125,17 @@ public class Widgets.EditableLabel : Gtk.EventBox {
             });
         });
 
-        cancel_button.clicked.connect (() => {
-            entry.text = text;
-            if (stack.visible_child == entry) {
-                editing = false;
-            }
-        });
+        entry.focus_in_event.connect (handle_focus_in);
+        entry.focus_out_event.connect (update_on_leave);
+    }
 
-        submit_button.clicked.connect (() => {
-            if (stack.visible_child == entry) {
-                editing = false;
-            }
-        });
+    private bool handle_focus_in (Gdk.EventFocus event) {
+        Planner.event_bus.disconnect_typing_accel ();
+        return false;
+    }
+
+    public bool update_on_leave () {
+        Planner.event_bus.connect_typing_accel ();
+        return false;
     }
 }

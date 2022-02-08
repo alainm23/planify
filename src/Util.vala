@@ -85,6 +85,32 @@ public enum LoadingButtonType {
     ICON
 }
 
+public enum ObjectType {
+    PROJECT,
+    SECTION,
+    ITEM,
+    LABEL;
+
+    public string get_header () {
+        switch (this) {
+            case PROJECT:
+                return _("Projects");
+
+            case SECTION:
+                return _("Setions");
+
+            case ITEM:
+                return _("Items");
+
+            case LABEL:
+                return _("Labels");
+
+            default:
+                assert_not_reached();
+        }
+    }
+}
+
 public class Util : GLib.Object {
     public Gtk.TargetEntry[] MAGICBUTTON_TARGET_ENTRIES = {
         {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
@@ -426,7 +452,9 @@ public class Util : GLib.Object {
         }
 
         GLib.DateTime datetime = null;
-        if (date.length == 10) { // YYYY-MM-DD 
+        
+        // YYYY-MM-DD 
+        if (date.length == 10) {
             var _date = date.split ("-");
 
             datetime = new GLib.DateTime.local (
@@ -437,7 +465,8 @@ public class Util : GLib.Object {
                 0,
                 0
             );
-        } else if (date.length == 19) { // YYYY-MM-DDTHH:MM:SS
+        // YYYY-MM-DDTHH:MM:SS
+        } else if (date.length == 19) {
             var _date = date.split ("T") [0].split ("-");
             var _time = date.split ("T") [1].split (":");
 
@@ -449,10 +478,9 @@ public class Util : GLib.Object {
                 int.parse (_time [1]),
                 int.parse (_time [2])
             );
-        } else { // YYYY-MM-DDTHH:MM:SSZ
+        // YYYY-MM-DDTHH:MM:SSZ
+        } else {
             var _date = date.split ("T") [0].split ("-");
-            // var _time = date.split ("T") [1].split (":");
-
             datetime = new GLib.DateTime.local (
                 int.parse (_date [0]),
                 int.parse (_date [1]),
@@ -460,9 +488,6 @@ public class Util : GLib.Object {
                 0,
                 0,
                 0
-                // int.parse (_time [0]),
-                // int.parse (_time [1]),
-                // int.parse (_time [2].substring (0, 2))
             );
         }
 
@@ -594,6 +619,10 @@ public class Util : GLib.Object {
         return has_time (new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ()));
     }
 
+    public GLib.DateTime get_date_from_string (string date) {
+        return new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
+    }
+
     /*
         Calendar Utils
     */
@@ -682,5 +711,18 @@ public class Util : GLib.Object {
 
     public bool is_clock_format_12h () {
         return Planner.settings.get_string ("clock-format").contains ("12h");
+    }
+    
+    public void open_quick_find () {
+        var dialog = new Dialogs.QuickFind.QuickFind ();
+
+        int window_x, window_y;
+        int window_width, width_height;
+
+        Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
+        Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+
+        dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
+        dialog.show_all ();
     }
 }

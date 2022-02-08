@@ -2,6 +2,7 @@ public class Views.Project : Gtk.EventBox {
     public Objects.Project project { get; construct; }
 
     private Views.List list_view;
+    private Gtk.Stack listbox_stack;
 
     public Project (Objects.Project project) {
         Object (
@@ -17,6 +18,19 @@ public class Views.Project : Gtk.EventBox {
             margin_top = 0
         };
 
+        var listbox_placeholder = new Widgets.Placeholder (
+            project.name,
+            _("What will you accomplish?"),
+            "planner-emoji-happy");
+
+        listbox_stack = new Gtk.Stack () {
+            expand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        listbox_stack.add_named (list_view, "listbox");
+        listbox_stack.add_named (listbox_placeholder, "placeholder");
+
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             expand = true,
@@ -26,7 +40,7 @@ public class Views.Project : Gtk.EventBox {
             margin_top = 6
         };
         content.add (top_project);
-        content.add (list_view);
+        content.add (listbox_stack);
 
         var content_clamp = new Hdy.Clamp () {
             maximum_size = 720
@@ -49,6 +63,11 @@ public class Views.Project : Gtk.EventBox {
         add (overlay);
         show_all ();
 
+        Timeout.add (listbox_stack.transition_duration, () => {
+            validate_placeholder ();
+            return GLib.Source.REMOVE;
+        });
+
         scrolled_window.vadjustment.value_changed.connect (() => {
             if (scrolled_window.vadjustment.value > 20) {
                 Planner.event_bus.view_header (true);
@@ -60,5 +79,11 @@ public class Views.Project : Gtk.EventBox {
         magic_button.clicked.connect (() => {
             list_view.prepare_new_item ();
         });
+
+        list_view.children_size_changed.connect (validate_placeholder);
+    }
+
+    private void validate_placeholder () {
+        listbox_stack.visible_child_name = list_view.validate_placeholder () ? "listbox" : "placeholder";
     }
 }

@@ -15,7 +15,18 @@ public class Objects.Project : Objects.BaseObject {
     public bool is_favorite { get; set; default = false; }
     public bool shared { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
-    public bool show_completed { get; set; default = false; }
+    
+    bool _show_completed = false;
+    public bool show_completed {
+        get {
+            return _show_completed;
+        }
+
+        set {
+            _show_completed = value;
+            show_completed_changed ();
+        }
+    }
 
     public int sort_order { get; set; default = 0; }
     public int child_order { get; set; default = 0; }
@@ -79,6 +90,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void section_added (Objects.Section section);
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
+    public signal void show_completed_changed ();
 
     int? _project_count = null;
     public int project_count {
@@ -389,35 +401,41 @@ public class Objects.Project : Objects.BaseObject {
 
             return;
         }
-
-        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+        
+        var message_dialog = new Dialogs.MessageDialog (
             _("Delete project"),
             _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (short_name))),
-            "dialog-warning",
-        Gtk.ButtonsType.CANCEL);
-
-        var remove_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Delete"));
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-
+            "dialog-warning"
+        );
+        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
         message_dialog.show_all ();
 
-        if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-            if (todoist) {
-                remove_button.is_loading = true;
-                Planner.todoist.delete.begin (this, (obj, res) => {
-                    Planner.todoist.delete.end (res);
+        var remove_button = new Widgets.LoadingButton (
+            LoadingButtonType.LABEL, _("Delete")) {
+            hexpand = true
+        };
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        remove_button.get_style_context ().add_class ("border-radius-6");
+        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+        message_dialog.default_action.connect ((response) => {
+            if (response == Gtk.ResponseType.ACCEPT) {
+                if (todoist) {
+                    remove_button.is_loading = true;
+                    Planner.todoist.delete.begin (this, (obj, res) => {
+                        Planner.todoist.delete.end (res);
+                        Planner.database.delete_project (this);
+                        remove_button.is_loading = false;
+                        message_dialog.hide_destroy ();
+                    });
+                } else {
                     Planner.database.delete_project (this);
-                    remove_button.is_loading = false;
-                    message_dialog.destroy ();
-                });
+                    message_dialog.hide_destroy ();
+                }
             } else {
-                Planner.database.delete_project (this);
-                message_dialog.destroy ();
+                message_dialog.hide_destroy ();
             }
-        } else {
-            message_dialog.destroy ();
-        }
+        });
     }
 
     public string to_string () {       

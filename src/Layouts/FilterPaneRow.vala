@@ -11,7 +11,8 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 
     public FilterPaneRow (FilterType filter_type) {
         Object (
-            filter_type: filter_type
+            filter_type: filter_type,
+            can_focus: false
         );
     }
     
@@ -100,18 +101,18 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public void init () {
         if (filter_type == FilterType.TODAY) {
             GLib.DateTime date = new GLib.DateTime.now_local ();
-            update_count_label (Planner.database.get_items_by_date (date ,false).size);
+            update_count_label (Planner.database.get_items_by_date (date, false).size);
 
             Planner.database.item_added.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date ,false).size);
+                update_count_label (Planner.database.get_items_by_date (date, false).size);
             });
 
             Planner.database.item_deleted.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date ,false).size);
+                update_count_label (Planner.database.get_items_by_date (date, false).size);
             });
 
             Planner.database.item_updated.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date ,false).size);
+                update_count_label (Planner.database.get_items_by_date (date, false).size);
             });
         } else if (filter_type == FilterType.INBOX) {  
             Objects.Project inbox_project = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"));

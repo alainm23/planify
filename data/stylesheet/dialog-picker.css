@@ -18,3 +18,16 @@
     background-color: @bg_color;
     border: 0.4px solid @menu_separator;
 }
+
+.quick-find-entry {
+    background: @picker_content_bg;
+    border-radius: 6px;
+}
+
+.quickfind-item {
+    border-radius: 6px;
+}
+
+.quickfind-item:selected {
+    color: @selected_fg_color;
+}

@@ -1,4 +1,9 @@
 public class Services.EventBus : Object {
+    // Shortcuts
+    public signal void disconnect_typing_accel ();
+    public signal void connect_typing_accel ();
+
+    // General
     public signal void theme_changed ();
     public signal void delete_row_project (Objects.Project project);
     public signal void pane_selected (PaneType panel_type, string id);

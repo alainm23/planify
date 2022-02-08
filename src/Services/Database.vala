@@ -148,7 +148,6 @@ public class Services.Database : GLib.Object {
                 is_favorite      INTEGER,
                 shared           INTEGER,
                 view_style       TEXT,
-                show_completed   INTEGER,
                 sort_order       INTEGER,
                 parent_id        INTEGER,
                 collapsed        INTEGER,
@@ -281,12 +280,11 @@ public class Services.Database : GLib.Object {
         return_value.is_favorite = get_parameter_bool (stmt, 9);
         return_value.shared = get_parameter_bool (stmt, 10);
         return_value.view_style = get_view_style_by_text (stmt, 11);
-        return_value.show_completed = get_parameter_bool (stmt, 12);
-        return_value.sort_order = stmt.column_int (13);
-        return_value.parent_id = stmt.column_int64 (14);
-        return_value.collapsed = get_parameter_bool (stmt, 15);
-        return_value.icon_style = get_icon_style_by_text (stmt, 16);
-        return_value.emoji = stmt.column_text (17);
+        return_value.sort_order = stmt.column_int (12);
+        return_value.parent_id = stmt.column_int64 (13);
+        return_value.collapsed = get_parameter_bool (stmt, 14);
+        return_value.icon_style = get_icon_style_by_text (stmt, 15);
+        return_value.emoji = stmt.column_text (16);
         return return_value;
     }
 
@@ -312,9 +310,9 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, color, todoist, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
-                show_completed, sort_order, parent_id, collapsed, icon_style, emoji)
+                sort_order, parent_id, collapsed, icon_style, emoji)
             VALUES ($id, $name, $color, $todoist, $inbox_project, $team_inbox,
-                $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style, $show_completed,
+                $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji);
         """;
 
@@ -331,7 +329,6 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_int (stmt, "$sort_order", project.sort_order);
         set_parameter_int64 (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
@@ -407,7 +404,7 @@ public class Services.Database : GLib.Object {
                 child_order=$child_order, is_deleted=$is_deleted,
                 is_archived=$is_archived, is_favorite=$is_favorite,
                 shared=$shared, view_style=$view_style,
-                show_completed=$show_completed, sort_order=$sort_order,
+                sort_order=$sort_order,
                 parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
                 emoji=$emoji
             WHERE id=$id;
@@ -425,7 +422,6 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_favorite", project.is_favorite);
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
-        set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_int (stmt, "$sort_order", project.sort_order);
         set_parameter_int64 (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
@@ -1130,6 +1126,37 @@ public class Services.Database : GLib.Object {
         }
 
         stmt.reset ();
+    }
+
+    /*
+        Quick Find
+    */
+
+    public Gee.ArrayList<Objects.Project> get_all_projects_by_search (string search_text) {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (search_text.down () in project.name.down ()) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_all_items_by_search (string search_text) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (var item in items) {
+                if (!item.checked && (search_text.down () in item.content.down () ||
+                    search_text.down () in item.description.down ())) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
     }
 
     // PARAMENTER REGION

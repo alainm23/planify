@@ -431,6 +431,16 @@ public class Objects.Item : Objects.BaseObject {
                 builder.add_int_value (id);
             }
 
+            if (temp_id != null) {
+                builder.set_member_name ("project_id");
+                builder.add_int_value (project_id);
+    
+                if (section_id != Constants.INACTIVE) {
+                    builder.set_member_name ("section_id");
+                    builder.add_int_value (section_id);
+                }
+            }
+
             builder.set_member_name ("content");
             builder.add_string_value (Util.get_default ().get_encode_text (content));
 

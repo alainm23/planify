@@ -19,18 +19,19 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.QuickFind : Hdy.Window {
-    public QuickFind () {
-        Object (
-            transient_for: Planner.instance.main_window,
-            deletable: false,
-            destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            title: _("Quick Find")
-        );
+public class Widgets.Entry : Gtk.Entry {
+    construct {
+        focus_in_event.connect (handle_focus_in);
+        focus_out_event.connect (update_on_leave);
     }
 
-    construct {
-        
+    private bool handle_focus_in (Gdk.EventFocus event) {
+        Planner.event_bus.disconnect_typing_accel ();
+        return false;
+    }
+
+    public bool update_on_leave () {
+        Planner.event_bus.connect_typing_accel ();
+        return false;
     }
 }

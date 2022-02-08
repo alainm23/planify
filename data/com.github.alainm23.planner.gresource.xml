@@ -24,7 +24,9 @@
     <file alias="planner-priority-3.svg">resources/planner-priority-3.svg</file>
     <file alias="planner-clock.svg">resources/planner-clock.svg</file>
     <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
-    
+    <file alias="planner-emoji-happy.svg">resources/planner-emoji-happy.svg</file>
+    <file alias="planner-label.svg">resources/planner-label.svg</file>
+
     <file alias="planner-annotation-dots.svg">resources/settings/planner-annotation-dots.svg</file>
     <file alias="planner-heart.svg">resources/settings/planner-heart.svg</file>
     <file alias="planner-mail.svg">resources/settings/planner-mail.svg</file>

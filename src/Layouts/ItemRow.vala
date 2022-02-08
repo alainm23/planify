@@ -5,7 +5,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public int64 section_id { get; set; default = Constants.INACTIVE; }
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Entry content_entry;
+    private Widgets.Entry content_entry;
     private Gtk.Revealer hide_loading_revealer;
     
     private Gtk.Label content_label;
@@ -169,7 +169,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             top_margin = 3,
             bottom_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true
+            hexpand = true,
+            editable = !item.completed
         };
 
         description_textview.get_style_context ().remove_class ("view");
@@ -182,12 +183,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 21,
-            margin_bottom = 3
+            margin_bottom = 6,
+            sensitive = !item.completed
         };
 
-        project_button = new Widgets.ProjectButton (item);
+        project_button = new Widgets.ProjectButton (item) {
+            sensitive = !item.completed
+        };
         schedule_button = new Widgets.ScheduleButton (item);
-        
+        schedule_button.get_style_context ().add_class ("no-padding");
+
         priority_button = new Widgets.PriorityButton (item);
         priority_button.get_style_context ().add_class ("no-padding");
         
@@ -198,8 +203,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         pin_button.get_style_context ().add_class ("no-padding");
 
         var action_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_start = 12,
-            hexpand = true
+            margin_start = 20,
+            margin_top = 6,
+            margin_bottom = 6,
+            hexpand = true,
+            sensitive = !item.completed
         };
 
         action_grid.pack_start (schedule_button, false, false, 0);
@@ -264,13 +272,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         bottom_motion_revealer.add (bottom_motion_grid);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add Task")) {
-            sensitive = false
+            sensitive = false,
+            can_focus = false
         };
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
         submit_button.get_style_context ().add_class ("border-radius-6");
 
-        cancel_button = new Gtk.Button.with_label (_("Cancel"));
+        cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+            can_focus = false
+        };
         cancel_button.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
         cancel_button.get_style_context ().add_class ("border-radius-6");
         cancel_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
@@ -313,7 +324,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         delete_button.add (trash_image);
         delete_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin = 3,
             margin_start = 6,
             margin_end = 6,
@@ -392,10 +403,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         content_label_revealer.add (content_label);
 
-        content_entry = new Gtk.Entry () {
+        content_entry = new Widgets.Entry () {
             hexpand = true,
             placeholder_text = _("Task name"),
-            margin_top = 1
+            margin_top = 1,
+            editable = !item.completed
         };
 
         content_entry.get_style_context ().remove_class ("view");
@@ -725,9 +737,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
+            if (item.completed && Planner.settings.get_boolean ("underline-completed-tasks")) {
+                content_label.get_style_context ().add_class ("line-through");
+            }
         }
 
         content_label.label = item.content;
+        content_label.tooltip_text = item.content;
         content_entry.set_text (item.content);
         description_textview.set_text (item.description);
                 
@@ -995,13 +1011,17 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             if (!edit) {
                 content_label.get_style_context ().add_class ("dim-label");
                 main_grid.get_style_context ().add_class ("complete-animation");
+                if (Planner.settings.get_boolean ("underline-completed-tasks")) {
+                    content_label.get_style_context ().add_class ("line-through");
+                }
             }
 
             complete_timeout = Timeout.add (Constants.COMPLETE_TIMEOUT, () => {
                 complete_timeout = 0;
 
                 item.checked = true;
-                item.completed_at = new GLib.DateTime.now_local ().to_string ();
+                item.completed_at = Util.get_default ().get_format_date (
+                    new GLib.DateTime.now_local ()).to_string ();
     
                 Planner.database.checked_toggled (item, old_checked);
     
@@ -1012,6 +1032,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 GLib.Source.remove (complete_timeout);
                 main_grid.get_style_context ().remove_class ("complete-animation");
                 content_label.get_style_context ().remove_class ("dim-label");
+                content_label.get_style_context ().remove_class ("line-through");
             } else {
                 item.checked = false;
                 item.completed_at = "";

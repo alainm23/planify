@@ -37,7 +37,8 @@ public class Views.Today : Gtk.EventBox {
         };
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         search_button.add (search_image);
-
+        search_button.clicked.connect (Util.get_default ().open_quick_find);
+        
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
             hexpand = true,
@@ -48,7 +49,7 @@ public class Views.Today : Gtk.EventBox {
         header_box.pack_start (today_icon, false, false, 0);
         header_box.pack_start (title_label, false, false, 6);
         header_box.pack_start (date_label, false, false, 0);
-        header_box.pack_end (menu_button, false, false, 0);
+        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
         var magic_button = new Widgets.MagicButton ();

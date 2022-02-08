@@ -25,6 +25,7 @@ public class Planner : Gtk.Application {
     public static Services.Database database;
     public static Services.EventBus event_bus;
     public static Services.Todoist todoist;
+    public static Services.Badge badge;
     
     public static Planner _instance = null;
     public static Planner instance {
@@ -93,34 +94,6 @@ public class Planner : Gtk.Application {
             return;
         }
 
-        if (clear_database) {
-            print ("%s\n".printf (_("Are you sure you want to reset all?")));
-            print (_("It process removes all stored information without the possibility of undoing it. (y/n): "));
-            string input = stdin.read_line ();
-            
-            if (input == _("y") || input == _("yes") ) {
-                string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
-                File db_file = File.new_for_path (db_path);
-
-                if (db_file.query_exists ()) {
-                    try {
-                        db_file.delete ();
-                    } catch (Error err) {
-                        warning (err.message);
-                    }
-                }
-
-                var schema_source = GLib.SettingsSchemaSource.get_default ();
-                SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
-
-                foreach (string key in schema.list_keys ()) {
-                    Planner.settings.reset (key);
-                }
-            }
-
-            return;
-        }
-
         main_window = new MainWindow (this);
 
         int window_x, window_y;
@@ -155,6 +128,45 @@ public class Planner : Gtk.Application {
         );
         
         Util.get_default ().update_theme ();
+
+        if (clear_database) {
+            var message_dialog = new Dialogs.MessageDialog (
+                _("Are you sure you want to reset all?"),
+                _("It process removes all stored information without the possibility of undoing it."),
+                "dialog-warning"
+            ) {
+                modal = true
+            };
+            
+            message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+            message_dialog.add_default_action (_("Reset all"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+            message_dialog.show_all ();
+    
+            message_dialog.default_action.connect ((response) => {
+                if (response == Gtk.ResponseType.ACCEPT) {
+                    string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+                    File db_file = File.new_for_path (db_path);
+
+                    if (db_file.query_exists ()) {
+                        try {
+                            db_file.delete ();
+                        } catch (Error err) {
+                            warning (err.message);
+                        }
+                    }
+
+                    var schema_source = GLib.SettingsSchemaSource.get_default ();
+                    SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
+
+                    foreach (string key in schema.list_keys ()) {
+                        Planner.settings.reset (key);
+                    }
+                } else {
+                    message_dialog.hide_destroy ();
+                }
+            });
+        }
     }
     
     public void create_dir_with_parents (string dir) {

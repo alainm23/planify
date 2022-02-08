@@ -99,6 +99,10 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             update_request ();
         });
 
+        label.deleted.connect (() => {
+            hide_destroy ();
+        });
+
         labelrow_eventbox.button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
                 Timeout.add (120, () => {
@@ -161,6 +165,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         delete_item.activate_item.connect (() => {
             menu.hide_destroy ();
+            label.delete ();
         });
 
         edit_item.clicked.connect (() => {

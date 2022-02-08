@@ -35,6 +35,19 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
             }
             return false;
         });
+
+        focus_in_event.connect (handle_focus_in);
+        focus_out_event.connect (update_on_leave);
+    }
+
+    private bool handle_focus_in (Gdk.EventFocus event) {
+        Planner.event_bus.disconnect_typing_accel ();
+        return false;
+    }
+
+    public bool update_on_leave () {
+        Planner.event_bus.connect_typing_accel ();
+        return false;
     }
 
     private string buffer_get_text () {

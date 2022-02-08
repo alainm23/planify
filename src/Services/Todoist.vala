@@ -201,13 +201,11 @@ public class Services.Todoist : GLib.Object {
     */
     
     public void sync_async () {
-        // if (valid_token (Planner.settings.get_string ("todoist-access-token"))) {
-            sync_started ();
-            sync.begin ((obj, res) => {
-                sync.end (res);
-                sync_finished ();
-            });
-        // }
+        sync_started ();
+        sync.begin ((obj, res) => {
+            sync.end (res);
+            sync_finished ();
+        });
     }
 
     public async void sync () {
@@ -219,110 +217,112 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
         try {
             yield parser.load_from_stream_async (yield session.send_async (message));
+
+            // Debug
+            print_root (parser.get_root ());
+
+            if (!parser.get_root ().get_object ().has_member ("error")) {
+                // Update sync token
+                Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+
+                // Update user
+                if (parser.get_root ().get_object ().has_member ("user")) {
+                    var user_object = parser.get_root ().get_object ().get_object_member ("user");
+                    Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
+                    Planner.settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
+                    Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
+                }
+
+                // Labels
+                unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
+                foreach (unowned Json.Node _node in labels.get_elements ()) {
+                    Objects.Label? label = Planner.database.get_label (_node.get_object ().get_int_member ("id"));
+                    if (label != null) {
+                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                            Planner.database.delete_label (label);
+                        } else {
+                            label.update_from_json (_node);
+                            Planner.database.update_label (label);
+                        }
+                    } else {
+                        Planner.database.insert_label (new Objects.Label.from_json (_node));
+                    }
+                }
+
+                // Projects
+                unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
+                foreach (unowned Json.Node _node in projects.get_elements ()) {
+                    Objects.Project? project = Planner.database.get_project (_node.get_object ().get_int_member ("id"));
+                    if (project != null) {
+                        if ((int32) _node.get_object ().get_int_member ("is_deleted") == Constants.ACTIVE) {
+                            Planner.database.delete_project (project);
+                        } else {
+                            int64 old_parent_id = project.parent_id;
+                            bool old_is_favorite = project.is_favorite;
+
+                            project.update_from_json (_node);
+                            Planner.database.update_project (project);
+
+                            if (project.parent_id != old_parent_id) {
+                                Planner.event_bus.project_parent_changed (project, old_parent_id);
+                            }
+
+                            if (project.is_favorite != old_is_favorite) {
+                                Planner.event_bus.favorite_toggled (project);
+                            }
+                        }
+                    } else {
+                        Planner.database.insert_project (new Objects.Project.from_json (_node));
+                    }
+                }
+
+                // Sections
+                unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
+                foreach (unowned Json.Node _node in sections.get_elements ()) {
+                    Objects.Section? section = Planner.database.get_section (_node.get_object ().get_int_member ("id"));
+                    if (section != null) {
+                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                            Planner.database.delete_section (section);
+                        } else {
+                            section.update_from_json (_node);
+                            Planner.database.update_section (section);
+                        }
+                    } else {
+                        add_section_if_not_exists (_node);
+                    }
+                }
+
+                // Items
+                unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
+                foreach (unowned Json.Node _node in items.get_elements ()) {
+                    Objects.Item? item = Planner.database.get_item (_node.get_object ().get_int_member ("id"));
+                    if (item != null) {
+                        if (_node.get_object ().get_boolean_member ("is_deleted")) {
+                            Planner.database.delete_item (item);
+                        } else {
+                            int64 old_project_id = item.project_id;
+                            int64 old_section_id = item.section_id;
+                            bool old_checked = item.checked;
+
+                            item.update_from_json (_node);
+                            item.update_labels_from_json (_node);
+                            Planner.database.update_item (item);
+
+                            if (old_project_id != item.project_id || old_section_id != item.section_id) {
+                                Planner.event_bus.item_moved (item, old_project_id, old_section_id);
+                            }
+
+                            if (old_checked != item.checked) {
+                                Planner.database.checked_toggled (item, old_checked);
+                            }
+                        }
+                    } else {
+                        add_item_if_not_exists (_node);
+                    }
+                }
+            }
         } catch (Error e) {
             debug (e.message);
-        }
-
-        // Debug
-        print_root (parser.get_root ());
-
-        // Update sync token
-        Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-
-        // Update user
-        if (parser.get_root ().get_object ().has_member ("user")) {
-            var user_object = parser.get_root ().get_object ().get_object_member ("user");
-            Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-            Planner.settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
-            Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
-        }
-
-        // Labels
-        unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
-        foreach (unowned Json.Node _node in labels.get_elements ()) {
-            Objects.Label? label = Planner.database.get_label (_node.get_object ().get_int_member ("id"));
-            if (label != null) {
-                if (_node.get_object ().get_boolean_member ("is_deleted")) {
-                    Planner.database.delete_label (label);
-                } else {
-                    label.update_from_json (_node);
-                    Planner.database.update_label (label);
-                }
-            } else {
-                Planner.database.insert_label (new Objects.Label.from_json (_node));
-            }
-        }
-
-        // Projects
-        unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
-        foreach (unowned Json.Node _node in projects.get_elements ()) {
-            Objects.Project? project = Planner.database.get_project (_node.get_object ().get_int_member ("id"));
-            if (project != null) {
-                if ((int32) _node.get_object ().get_int_member ("is_deleted") == Constants.ACTIVE) {
-                    Planner.database.delete_project (project);
-                } else {
-                    int64 old_parent_id = project.parent_id;
-                    bool old_is_favorite = project.is_favorite;
-
-                    project.update_from_json (_node);
-                    Planner.database.update_project (project);
-
-                    if (project.parent_id != old_parent_id) {
-                        Planner.event_bus.project_parent_changed (project, old_parent_id);
-                    }
-
-                    if (project.is_favorite != old_is_favorite) {
-                        Planner.event_bus.favorite_toggled (project);
-                    }
-                }
-            } else {
-                Planner.database.insert_project (new Objects.Project.from_json (_node));
-            }
-        }
-
-        // Sections
-        unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
-        foreach (unowned Json.Node _node in sections.get_elements ()) {
-            Objects.Section? section = Planner.database.get_section (_node.get_object ().get_int_member ("id"));
-            if (section != null) {
-                if (_node.get_object ().get_boolean_member ("is_deleted")) {
-                    Planner.database.delete_section (section);
-                } else {
-                    section.update_from_json (_node);
-                    Planner.database.update_section (section);
-                }
-            } else {
-                add_section_if_not_exists (_node);
-            }
-        }
-
-        // Items
-        unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
-        foreach (unowned Json.Node _node in items.get_elements ()) {
-            Objects.Item? item = Planner.database.get_item (_node.get_object ().get_int_member ("id"));
-            if (item != null) {
-                if (_node.get_object ().get_boolean_member ("is_deleted")) {
-                    Planner.database.delete_item (item);
-                } else {
-                    int64 old_project_id = item.project_id;
-                    int64 old_section_id = item.section_id;
-                    bool old_checked = item.checked;
-
-                    item.update_from_json (_node);
-                    item.update_labels_from_json (_node);
-                    Planner.database.update_item (item);
-
-                    if (old_project_id != item.project_id || old_section_id != item.section_id) {
-                        Planner.event_bus.item_moved (item, old_project_id, old_section_id);
-                    }
-
-                    if (old_checked != item.checked) {
-                        Planner.database.checked_toggled (item, old_checked);
-                    }
-                }
-            } else {
-                add_item_if_not_exists (_node);
-            }
         }
     }
 
@@ -518,7 +518,7 @@ public class Services.Todoist : GLib.Object {
     private void print_root (Json.Node root) {
         Json.Generator generator = new Json.Generator ();
         generator.set_root (root);
-        debug (generator.to_data (null));
+        debug (generator.to_data (null) + "\n");
     }
 
     public string get_delete_json (int64 id, string type, string uuid) {

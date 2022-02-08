@@ -33,13 +33,15 @@ public class Widgets.IconColorProject : Gtk.EventBox {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        stack.add_named (inbox_icon, "icon");
         stack.add_named (widget_color, "color");
+        stack.add_named (inbox_icon, "icon");
 
         add (stack);
 
         notify["project"].connect (() => {
-            update_request ();
+            if (project != null) {
+                update_request ();
+            }
         });
     }
 

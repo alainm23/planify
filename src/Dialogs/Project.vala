@@ -23,6 +23,11 @@ public class Dialogs.Project : Hdy.Window {
     public string color_selected { get; set; }
     public Objects.Project project { get; construct; }
 
+    private Widgets.Entry name_entry;
+    private Widgets.LoadingButton submit_button;
+    private Granite.ModeSwitch iconstyle_switch;
+    private Widgets.Entry emoji_entry;
+
     public bool is_creating {
         get {
             return project.id == Constants.INACTIVE;
@@ -67,7 +72,7 @@ public class Dialogs.Project : Hdy.Window {
         headerbar.show_close_button = false;
         headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var emoji_entry = new Gtk.Entry () {
+        emoji_entry = new Widgets.Entry () {
             overwrite_mode = true
         };
 
@@ -108,13 +113,13 @@ public class Dialogs.Project : Hdy.Window {
         picker_stack.add_named (preview_button, "emoji-button");
         picker_stack.add_named (emoji_entry, "emoji-entry");
 
-        var iconstyle_switch = new Granite.ModeSwitch.from_icon_name ("media-record-symbolic", "face-smile-symbolic") {
+        iconstyle_switch = new Granite.ModeSwitch.from_icon_name ("media-record-symbolic", "face-smile-symbolic") {
             halign = Gtk.Align.CENTER
         };
         iconstyle_switch.primary_icon_tooltip_text = _("Progress");
         iconstyle_switch.secondary_icon_tooltip_text = _("Emoji");
 
-        var name_entry = new Gtk.Entry () {
+        name_entry = new Widgets.Entry () {
             margin = 12,
             margin_top = 24,
             placeholder_text = _("Project name")
@@ -198,7 +203,7 @@ public class Dialogs.Project : Hdy.Window {
         unowned Gtk.StyleContext main_radio_grid_context = main_radio_grid.get_style_context ();
         main_radio_grid_context.add_class ("picker-content");
 
-        var submit_button = new Widgets.LoadingButton (
+        submit_button = new Widgets.LoadingButton (
             LoadingButtonType.LABEL,
             is_creating ? _("Add project") : _("Update project")) {
             sensitive = !is_creating
@@ -228,11 +233,12 @@ public class Dialogs.Project : Hdy.Window {
         content_grid.add (iconstyle_switch);
         content_grid.add (name_entry);
         content_grid.add (flowbox_grid);
-        content_grid.add (main_radio_grid);
+        // content_grid.add (main_radio_grid);
         content_grid.add (submit_cancel_grid);
 
         add (content_grid);
-
+        name_entry.grab_focus ();
+        
         Timeout.add (preview_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
                 preview_stack.visible_child_name = "progress";
@@ -260,49 +266,8 @@ public class Dialogs.Project : Hdy.Window {
             submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
         });
 
-        submit_button.clicked.connect (() => {
-            if (!is_creating) {
-                project.color = color_selected;
-                project.name = name_entry.text;
-                project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
-                project.emoji = emoji_entry.text;
-
-                submit_button.is_loading = true;
-                Planner.database.update_project (project);
-                if (project.todoist) {
-                    Planner.todoist.update.begin (project, (obj, res) => {
-                        Planner.todoist.update.end (res);
-                        submit_button.is_loading = false;
-                        hide_destroy ();
-                    });
-                } else {
-                    hide_destroy ();
-                }
-            } else {
-                BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
-
-                project.color = color_selected;
-                project.name = name_entry.text;
-                project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
-                project.emoji = emoji_entry.text;
-
-                if (backend_type == BackendType.TODOIST) {
-                    project.todoist = true;
-                    submit_button.is_loading = true;
-                    Planner.todoist.add.begin (project, (obj, res) => {
-                        project.id = Planner.todoist.add.end (res);
-                        Planner.database.insert_project (project);
-                        Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
-                        hide_destroy ();
-                    });
-                } else if (backend_type == BackendType.LOCAL) {
-                    project.id = Util.get_default ().generate_id ();
-                    Planner.database.insert_project (project);
-                    Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
-                    hide_destroy ();
-                }
-            }
-        });
+        name_entry.activate.connect (add_project);
+        submit_button.clicked.connect (add_project);
 
         cancel_button.clicked.connect (() => {
             hide_destroy ();
@@ -311,6 +276,54 @@ public class Dialogs.Project : Hdy.Window {
         iconstyle_switch.notify["active"].connect (() => {
             preview_stack.visible_child_name = iconstyle_switch.active ? "emoji" : "progress";
         });
+    }
+
+    private void add_project () {
+        if (!Util.get_default ().is_input_valid (name_entry)) {
+            return;
+        }
+
+        if (!is_creating) {
+            project.color = color_selected;
+            project.name = name_entry.text;
+            project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
+            project.emoji = emoji_entry.text;
+
+            submit_button.is_loading = true;
+            Planner.database.update_project (project);
+            if (project.todoist) {
+                Planner.todoist.update.begin (project, (obj, res) => {
+                    Planner.todoist.update.end (res);
+                    submit_button.is_loading = false;
+                    hide_destroy ();
+                });
+            } else {
+                hide_destroy ();
+            }
+        } else {
+            BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+            project.color = color_selected;
+            project.name = name_entry.text;
+            project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
+            project.emoji = emoji_entry.text;
+
+            if (backend_type == BackendType.TODOIST) {
+                project.todoist = true;
+                submit_button.is_loading = true;
+                Planner.todoist.add.begin (project, (obj, res) => {
+                    project.id = Planner.todoist.add.end (res);
+                    Planner.database.insert_project (project);
+                    Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
+                    hide_destroy ();
+                });
+            } else if (backend_type == BackendType.LOCAL) {
+                project.id = Util.get_default ().generate_id ();
+                Planner.database.insert_project (project);
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
+                hide_destroy ();
+            }
+        }
     }
 
     public void hide_destroy () {

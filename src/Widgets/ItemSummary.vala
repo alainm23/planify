@@ -106,9 +106,27 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     }
 
     public void update_request () {
+        update_due_label ();
+        update_labels ();
+
+        description_label.label = Util.get_default ().line_break_to_space (item.description);
+        // description_label_revealer.reveal_child = description_label.label.length > 0;
+        // Planner.settings.get_boolean ("description-preview")
+    }
+
+    public void update_due_label () {
         calendar_grid.get_style_context ().remove_class ("overdue-grid");
         calendar_grid.get_style_context ().remove_class ("today-grid");
         calendar_grid.get_style_context ().remove_class ("schedule-grid");
+
+        if (item.completed) {
+            calendar_label.label = Util.get_default ().get_relative_date_from_date (
+                Util.get_default ().get_date_from_string (item.completed_at)
+            );
+            calendar_grid.get_style_context ().add_class ("completed-grid");
+            calendar_revealer.reveal_child = true;
+            return;
+        }
 
         if (item.has_due) {
             calendar_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
@@ -125,12 +143,6 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             calendar_label.label = "";
             calendar_revealer.reveal_child = false;
         }
-
-        update_labels ();
-
-        description_label.label = Util.get_default ().line_break_to_space (item.description);
-        // description_label_revealer.reveal_child = description_label.label.length > 0;
-        // Planner.settings.get_boolean ("description-preview")
     }
 
     public void check_revealer () {

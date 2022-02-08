@@ -4,6 +4,7 @@ public class Views.Date : Gtk.EventBox {
 
     private Gtk.ListBox overdue_listbox;
     private Gtk.ListBox listbox;
+    private Gtk.Stack listbox_stack;
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer overdue_revealer;
     private Gtk.Revealer today_label_revealer;
@@ -17,7 +18,7 @@ public class Views.Date : Gtk.EventBox {
         }
     }
 
-    private bool today_has_children {
+    private bool has_children {
         get {
             return listbox.get_children ().length () > 0;
         }
@@ -81,8 +82,7 @@ public class Views.Date : Gtk.EventBox {
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
-            selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+            selection_mode = Gtk.SelectionMode.SINGLE
         };
 
         if (!is_today_view) {
@@ -92,17 +92,32 @@ public class Views.Date : Gtk.EventBox {
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid ();
+        var listbox_grid = new Gtk.Grid () {
+            valign = Gtk.Align.START
+        };
         listbox_grid.add (listbox);
 
+        var listbox_placeholder = new Widgets.Placeholder (
+            is_today_view ? _("Today") : _("Scheduled"),
+            _("No tasks with this filter at the moment"),
+            is_today_view ? "planner-today" : "planner-scheduled");
+
+        listbox_stack = new Gtk.Stack () {
+            expand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        listbox_stack.add_named (listbox_grid, "listbox");
+        listbox_stack.add_named (listbox_placeholder, "placeholder");
+        
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
-            hexpand = true
+            expand = true
         };
 
         main_grid.add (overdue_revealer);
         main_grid.add (today_label_revealer);
-        main_grid.add (listbox_grid);
+        main_grid.add (listbox_stack);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
@@ -112,6 +127,7 @@ public class Views.Date : Gtk.EventBox {
         add (main_revealer);
 
         Timeout.add (main_revealer.transition_duration, () => {
+            validate_placeholder ();
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
         });
@@ -138,6 +154,19 @@ public class Views.Date : Gtk.EventBox {
         Planner.database.item_added.connect (valid_add_item);
         Planner.database.item_deleted.connect (valid_delete_item);
         Planner.database.item_updated.connect (valid_update_item);
+
+        listbox.add.connect (validate_placeholder);
+        listbox.remove.connect (validate_placeholder);
+        overdue_listbox.add.connect (validate_placeholder);
+        overdue_listbox.remove.connect (validate_placeholder);
+    }
+
+    private void validate_placeholder () {
+        if (is_today_view) {
+            listbox_stack.visible_child_name = overdue_has_children || has_children ? "listbox" : "placeholder";
+        } else {
+            listbox_stack.visible_child_name = has_children ? "listbox" : "placeholder";
+        }
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -232,7 +261,7 @@ public class Views.Date : Gtk.EventBox {
 
     private void update_headers () {
         overdue_revealer.reveal_child = is_today_view && overdue_has_children;
-        today_label_revealer.reveal_child = overdue_revealer.reveal_child && today_has_children;
+        today_label_revealer.reveal_child = overdue_revealer.reveal_child && has_children;
     }
 
     private void add_item (Objects.Item item) {

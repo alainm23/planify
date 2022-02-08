@@ -18,15 +18,20 @@
 */
 
 public class MainWindow : Hdy.Window {
+    public weak Planner app { get; construct; }
+
     private Layouts.Sidebar sidebar;
     private Gtk.Stack main_stack;
     private Gtk.Stack views_stack;
     private Layouts.ViewHeader views_header;
 
+    public Services.ActionManager action_manager;
+
     private uint configure_id = 0;
-    public MainWindow (Gtk.Application application) {
+    public MainWindow (Planner application) {
         Object (
             application: application,
+            app: application,
             icon_name: "com.github.alainm23.planner",
             title: _("Planner")
         );
@@ -40,6 +45,8 @@ public class MainWindow : Hdy.Window {
     }
     
     construct {
+        action_manager = new Services.ActionManager (app, this);
+
         var sidebar_header = new Hdy.HeaderBar () {
             has_subtitle = false,
             show_close_button = true,
@@ -144,7 +151,7 @@ public class MainWindow : Hdy.Window {
         });
     }
 
-    private void add_today_view () {
+    public void add_today_view () {
         Views.Today? today_view;
         today_view = (Views.Today) views_stack.get_child_by_name ("today-view");
         if (today_view == null) {
@@ -155,7 +162,7 @@ public class MainWindow : Hdy.Window {
         views_stack.set_visible_child_name ("today-view");
     }
 
-    private void add_scheduled_view () {
+    public void add_scheduled_view () {
         Views.Scheduled.Scheduled? scheduled_view;
         scheduled_view = (Views.Scheduled.Scheduled) views_stack.get_child_by_name ("scheduled-view");
         if (scheduled_view == null) {
@@ -166,7 +173,7 @@ public class MainWindow : Hdy.Window {
         views_stack.set_visible_child_name ("scheduled-view");
     }
 
-    private void add_pinboard_view () {
+    public void add_pinboard_view () {
         Views.Pinboard? pinboard_view;
         pinboard_view = (Views.Pinboard) views_stack.get_child_by_name ("pinboard-view");
         if (pinboard_view == null) {
@@ -189,7 +196,7 @@ public class MainWindow : Hdy.Window {
         views_stack.set_visible_child_name ("label-view");
     }
 
-    private Views.Project add_project_view (Objects.Project project) {
+    public Views.Project add_project_view (Objects.Project project) {
         Views.Project? project_view;
         project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
         if (project_view == null) {
@@ -206,7 +213,8 @@ public class MainWindow : Hdy.Window {
         BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
         if (backend_type == BackendType.LOCAL) {
             Planner.database = Services.Database.get_default ();
-            Planner.database.init_database ();
+            // Planner.database.init_database ();
+            Services.Badge.get_default ().init ();
 
             main_stack.visible_child_name = "main-view";
 
@@ -233,6 +241,7 @@ public class MainWindow : Hdy.Window {
 
             Planner.todoist.first_sync_finished.connect (() => {
                 sidebar.init (backend_type);
+                // Services.Badge.get_default ().init ();
                 Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
             });
 
@@ -240,6 +249,7 @@ public class MainWindow : Hdy.Window {
 
             if (!Planner.todoist.invalid_token () && !Planner.database.is_database_empty ()) {
                 sidebar.init (backend_type);
+                // Services.Badge.get_default ().init ();
                 Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
 
                 Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {

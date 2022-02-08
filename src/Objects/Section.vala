@@ -159,6 +159,11 @@ public class Objects.Section : Objects.BaseObject {
                 builder.add_int_value (id);
             }
 
+            if (temp_id != null) {
+                builder.set_member_name ("project_id");
+                builder.add_int_value (project_id);
+            }
+
             builder.set_member_name ("name");
             builder.add_string_value (Util.get_default ().get_encode_text (name));
 
@@ -198,33 +203,39 @@ public class Objects.Section : Objects.BaseObject {
             message = _("Delete %s with its %d tasks?".printf (Util.get_default ().get_dialog_text (name), tasks));
         }
 
-        var message_dialog = new Granite.MessageDialog.with_image_from_icon_name (
+        var message_dialog = new Dialogs.MessageDialog (
             _("Delete section"),
             message,
-            "dialog-warning",
-        Gtk.ButtonsType.CANCEL);
-
-        var remove_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Delete"));
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-
+            "dialog-warning"
+        );
+        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
         message_dialog.show_all ();
 
-        if (message_dialog.run () == Gtk.ResponseType.ACCEPT) {
-            if (project.todoist) {
-                remove_button.is_loading = true;
-                Planner.todoist.delete.begin (this, (obj, res) => {
-                    Planner.todoist.delete.end (res);
+        var remove_button = new Widgets.LoadingButton (
+            LoadingButtonType.LABEL, _("Delete")) {
+            hexpand = true
+        };
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        remove_button.get_style_context ().add_class ("border-radius-6");
+        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+        message_dialog.default_action.connect ((response) => {
+            if (response == Gtk.ResponseType.ACCEPT) {
+                if (project.todoist) {
+                    remove_button.is_loading = true;
+                    Planner.todoist.delete.begin (this, (obj, res) => {
+                        Planner.todoist.delete.end (res);
+                        Planner.database.delete_section (this);
+                        remove_button.is_loading = false;
+                        message_dialog.hide_destroy ();
+                    });
+                } else {
                     Planner.database.delete_section (this);
-                    remove_button.is_loading = false;
-                    message_dialog.destroy ();
-                });
+                    message_dialog.hide_destroy ();
+                }
             } else {
-                Planner.database.delete_section (this);
-                message_dialog.destroy ();
+                message_dialog.hide_destroy ();
             }
-        } else {
-            message_dialog.destroy ();
-        }
+        });
     }
 }

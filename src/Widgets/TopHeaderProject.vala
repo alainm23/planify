@@ -50,7 +50,6 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         
         var name_editable = new Widgets.EditableLabel ("header-title") {
             valign = Gtk.Align.CENTER,
-            hexpand = true,
             editable = !project.inbox_project
         };
         name_editable.text = project.inbox_project ? _("Inbox") : project.name;
@@ -77,6 +76,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         };
         search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         search_button.add (search_image);
+        search_button.clicked.connect (Util.get_default ().open_quick_find);
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
@@ -86,7 +86,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         };
 
         projectrow_box.pack_start (icon_progress_stack, false, false, 0);
-        projectrow_box.pack_start (name_editable, false, true, 6);
+        projectrow_box.pack_start (name_editable, false, false, 6);
         projectrow_box.pack_end (menu_button, false, false, 0);
         projectrow_box.pack_end (search_button, false, false, 0);
 
@@ -149,14 +149,21 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
         var add_section_item = new Dialogs.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
         
+        var show_completed_item = new Dialogs.ContextMenu.MenuSwitch (
+            _("Show completed"), "planner-check-circle", project.show_completed);
+
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");
 
         menu.add_item (edit_item);
+        menu.add_item (show_completed_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (add_section_item);
-        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
-        menu.add_item (delete_item);
+
+        if (!project.inbox_project) {
+            menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+            menu.add_item (delete_item);
+        }
 
         menu.popup ();
 
@@ -164,6 +171,10 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
             menu.hide_destroy ();
             var dialog = new Dialogs.Project (project);
             dialog.show_all ();
+        });
+
+        show_completed_item.activate_item.connect (() => {
+            project.show_completed = show_completed_item.active;
         });
 
         delete_item.activate_item.connect (() => {
@@ -175,7 +186,6 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
             Objects.Section new_section = new Objects.Section ();
             new_section.project_id = project.id;
             new_section.name = _("New section");
-            new_section.section_order = 1;
 
             if (project.todoist) {
                 add_section_item.is_loading = true;
@@ -183,7 +193,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
                     new_section.id = Planner.todoist.add.end (res);
                     project.add_section_if_not_exists (new_section);
                     add_section_item.is_loading = false;
-
+                    
                     Timeout.add (300, () => {
                         Planner.event_bus.activate_name_editable_section (new_section);
                         return GLib.Source.REMOVE;

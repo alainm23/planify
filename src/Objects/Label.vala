@@ -42,6 +42,14 @@ public class Objects.Label : Objects.BaseObject {
         }
     }
 
+    string _short_name;
+    public string short_name {
+        get {
+            _short_name = Util.get_default ().get_short_name (name);
+            return _short_name;
+        }
+    }
+
     public signal void label_count_updated ();
 
     construct {
@@ -164,5 +172,55 @@ public class Objects.Label : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public void delete (bool confirm = true) {
+        if (!confirm) {
+            if (todoist) {
+                Planner.todoist.delete.begin (this, (obj, res) => {
+                    Planner.todoist.delete.end (res);
+                    Planner.database.delete_label (this);
+                });
+            } else {
+                Planner.database.delete_label (this);
+            }
+
+            return;
+        }
+
+        var message_dialog = new Dialogs.MessageDialog (
+            _("Delete label"),
+            _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (short_name))),
+            "dialog-warning"
+        );
+        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+        message_dialog.show_all ();
+
+        var remove_button = new Widgets.LoadingButton (
+            LoadingButtonType.LABEL, _("Delete")) {
+            hexpand = true
+        };
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        remove_button.get_style_context ().add_class ("border-radius-6");
+        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+
+        message_dialog.default_action.connect ((response) => {
+            if (response == Gtk.ResponseType.ACCEPT) {
+                if (todoist) {
+                    remove_button.is_loading = true;
+                    Planner.todoist.delete.begin (this, (obj, res) => {
+                        Planner.todoist.delete.end (res);
+                        Planner.database.delete_label (this);
+                        remove_button.is_loading = false;
+                        message_dialog.hide_destroy ();
+                    });
+                } else {
+                    Planner.database.delete_label (this);
+                    message_dialog.hide_destroy ();
+                }
+            } else {
+                message_dialog.hide_destroy ();
+            }
+        });
     }
 }
