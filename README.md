@@ -10,7 +10,7 @@
   <h3 align="center">Never worry about forgetting things again</h3>
 </div>
 
-![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-02.png)
+![Planner Screenshot](https://github.com/alainm23/planner/raw/master/data/screenshot/screenshot-01.png)
 
 ## Planner 2 is here...
 
