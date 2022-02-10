@@ -188,6 +188,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         Timeout.add (main_revealer.transition_duration, () => {
             set_sort_func ();
             main_revealer.reveal_child = true;
+            if (section.activate_name_editable) {
+                name_editable.editing (true, true);
+            }
             return GLib.Source.REMOVE;
         });
 
@@ -339,12 +342,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.event_bus.activate_name_editable_section.connect ((new_section) => {
-            if (new_section.id == section.id) {
-                name_editable.editing = true;
-            }
-        });
-
         section.project.show_completed_changed.connect (() => {
             if (section.project.show_completed) {
                 add_completed_items ();
@@ -461,7 +458,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         }
     }
 
-    public void prepare_new_item () {
+    public void prepare_new_item (string content = "") {
         Planner.event_bus.item_selected (null);
 
         Layouts.ItemRow row;
@@ -470,6 +467,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         } else {
             row = new Layouts.ItemRow.for_section (section);
         }
+
+        row.update_content (content);
 
         row.item_added.connect (() => {
             Util.get_default ().item_added (row);
@@ -501,7 +500,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         edit_item.activate_item.connect (() => {
             menu.hide_destroy ();
-            name_editable.editing = true;
+            name_editable.editing (true);
         });
 
         delete_item.activate_item.connect (() => {

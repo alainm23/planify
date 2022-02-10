@@ -29,6 +29,9 @@ public class Objects.Section : Objects.BaseObject {
     public bool is_deleted { get; set; default = true; }
     public bool is_archived { get; set; default = true; }
 
+    // Tmp
+    public bool activate_name_editable { get; set; default = false; }
+
     string _short_name;
     public string short_name {
         get {

@@ -65,7 +65,8 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
 
         menu_button.add (menu_image);
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
+        menu_button.clicked.connect (project.build_content_menu);
+        
         var search_image = new Widgets.DynamicIcon ();
         search_image.size = 19;
         search_image.update_icon_name ("planner-search");
@@ -136,82 +137,6 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
 
         project.project_count_updated.connect (() => {
             project_progress.percentage = project.percentage;
-        });
-
-        menu_button.clicked.connect (() => {
-            build_content_menu ();
-        });
-    }
-
-    private void build_content_menu () {
-        var menu = new Dialogs.ContextMenu.Menu ();
-
-        var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
-        var add_section_item = new Dialogs.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
-        
-        var show_completed_item = new Dialogs.ContextMenu.MenuSwitch (
-            _("Show completed"), "planner-check-circle", project.show_completed);
-
-        var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
-        delete_item.get_style_context ().add_class ("menu-item-danger");
-
-        menu.add_item (edit_item);
-        menu.add_item (show_completed_item);
-        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
-        menu.add_item (add_section_item);
-
-        if (!project.inbox_project) {
-            menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
-            menu.add_item (delete_item);
-        }
-
-        menu.popup ();
-
-        edit_item.activate_item.connect (() => {
-            menu.hide_destroy ();
-            var dialog = new Dialogs.Project (project);
-            dialog.show_all ();
-        });
-
-        show_completed_item.activate_item.connect (() => {
-            project.show_completed = show_completed_item.active;
-        });
-
-        delete_item.activate_item.connect (() => {
-            menu.hide_destroy ();
-            project.delete ();
-        });
-
-        add_section_item.activate_item.connect (() => {
-            Objects.Section new_section = new Objects.Section ();
-            new_section.project_id = project.id;
-            new_section.name = _("New section");
-
-            if (project.todoist) {
-                add_section_item.is_loading = true;
-                Planner.todoist.add.begin (new_section, (obj, res) => {
-                    new_section.id = Planner.todoist.add.end (res);
-                    project.add_section_if_not_exists (new_section);
-                    add_section_item.is_loading = false;
-                    
-                    Timeout.add (300, () => {
-                        Planner.event_bus.activate_name_editable_section (new_section);
-                        return GLib.Source.REMOVE;
-                    });
-                    
-                    menu.hide_destroy ();
-                });
-            } else {
-                new_section.id = Util.get_default ().generate_id ();
-                project.add_section_if_not_exists (new_section);
-
-                Timeout.add (300, () => {
-                    Planner.event_bus.activate_name_editable_section (new_section);
-                    return GLib.Source.REMOVE;
-                });
-                
-                menu.hide_destroy ();
-            }
         });
     }
 }

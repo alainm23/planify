@@ -725,4 +725,48 @@ public class Util : GLib.Object {
         dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
         dialog.show_all ();
     }
+
+    public void clear_database (string title, string message) {
+        var message_dialog = new Dialogs.MessageDialog (
+            title,
+            message,
+            "dialog-warning"
+        ) {
+            modal = true
+        };
+        
+        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+        message_dialog.add_default_action (_("Reset all"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+
+        message_dialog.show_all ();
+
+        message_dialog.default_action.connect ((response) => {
+            if (response == Gtk.ResponseType.ACCEPT) {
+                clear_database_query ();
+                Planner.instance.main_window.destroy ();
+            } else {
+                message_dialog.hide_destroy ();
+            }
+        });
+    }
+
+    public void clear_database_query () {
+        string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        File db_file = File.new_for_path (db_path);
+
+        if (db_file.query_exists ()) {
+            try {
+                db_file.delete ();
+            } catch (Error err) {
+                warning (err.message);
+            }
+        }
+
+        var schema_source = GLib.SettingsSchemaSource.get_default ();
+        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
+
+        foreach (string key in schema.list_keys ()) {
+            Planner.settings.reset (key);
+        }
+    }
 }

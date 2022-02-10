@@ -146,7 +146,7 @@
         </key>
 
         <key name="window-size" type="(ii)">
-          <default>(1160, 795)</default>
+          <default>(1000, 800)</default>
           <summary>Most recent window size</summary>
           <description>Most recent window size (width, height)</description>
         </key>

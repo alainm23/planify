@@ -29,13 +29,12 @@ public class Services.ActionManager : Object {
     public const string ACTION_QUIT = "action_quit";
     public const string ACTION_PREFERENCES = "action_preferences";
     // public const string ACTION_SHORTCUTS = "action_shortcuts";
-    // public const string ACTION_ADD_TASK = "action_add_task";
-    // public const string ACTION_ADD_TASK_TOP = "action_add_task_top";
-    // public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
+    public const string ACTION_ADD_TASK = "action_add_task";
+    public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
-    // public const string ACTION_NEW_SECTION = "action_new_section";
+    public const string ACTION_NEW_SECTION = "action_new_section";
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_SCHEDULED = "action_view_scheduled";
@@ -55,14 +54,12 @@ public class Services.ActionManager : Object {
         { ACTION_QUIT, action_quit },
         { ACTION_PREFERENCES, action_preferences },
         // { ACTION_SHORTCUTS, action_shortcuts },
-        // { ACTION_ADD_TASK, action_add_task },
-        // { ACTION_ADD_TASK_TOP, action_add_task_top },
-        // { ACTION_ADD_TASK_PASTE, action_add_task_paste },
-        // { ACTION_ADD_TASK, action_add_task },
+        { ACTION_ADD_TASK, action_add_task },
+        { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
-        // { ACTION_NEW_SECTION, action_new_section },
+        { ACTION_NEW_SECTION, action_new_section },
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_SCHEDULED, action_view_scheduled },
@@ -95,11 +92,11 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_ESC, "Escape");
         // action_accelerators.set (ACTION_OPEN_NEW_PROJECT_WINDOW, "<Control>w");
 
-        // typing_accelerators.set (ACTION_ADD_TASK, "a");
+        typing_accelerators.set (ACTION_ADD_TASK, "a");
         // typing_accelerators.set (ACTION_ADD_TASK_TOP, "q");
-        // typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
+        typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
-        // typing_accelerators.set (ACTION_NEW_SECTION, "s");
+        typing_accelerators.set (ACTION_NEW_SECTION, "s");
         // typing_accelerators.set (ACTION_SORT_DATE, "d");
         // typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
         // typing_accelerators.set (ACTION_SORT_NAME, "n");
@@ -177,5 +174,21 @@ public class Services.ActionManager : Object {
 
     private void action_esc () {
         Planner.event_bus.item_selected (null);
+    }
+
+    private void action_new_section () {
+        window.new_section_action ();
+    }
+
+    private void action_add_task () {
+        window.add_task_action ();
+    }
+
+    private void action_add_task_paste () {
+        Gdk.Display display = Gdk.Display.get_default ();
+        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
+        string content = clipboard.wait_for_text ();
+
+        window.add_task_action (content);
     }
 }

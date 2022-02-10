@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '3.0'
+    version: '3.0.2'
 )
 
 gnome = import ('gnome')
@@ -9,7 +9,7 @@ i18n = import ('i18n')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
-asresources = gnome.compile_resources (
+gresource = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name () + '.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
@@ -21,11 +21,36 @@ conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
 conf_data.set_quoted('VERSION', meson.project_version())
 conf_data.set_quoted('PREFIX', get_option('prefix'))
 conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
-config_header = configure_file(
+config_file = configure_file(
     input : 'config.vala.in',
     output : 'config.vala',
     configuration : conf_data
 )
+
+# libecal_dep = dependency('libecal-2.0')
+
+planner_deps = [
+    dependency('glib-2.0'),
+    dependency('gobject-2.0'),
+    dependency('gee-0.8', version: '>=0.8.5'),
+    dependency('granite'),
+    dependency('gtk+-3.0'),
+    dependency('sqlite3'),
+    dependency('json-glib-1.0'),
+    dependency('webkit2gtk-4.0'),
+    dependency('libhandy-1', version: '>= 0.90.0'),
+    ## libecal_dep,
+    # dependency('libedataserver-1.2'),
+    # dependency('libical-glib'),
+    # dependency('libgdata'),
+    meson.get_compiler ('c').find_library ('m', required : false)
+]
+
+# if libecal_dep.version().version_compare('>=3.39.2')
+#     add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
+# else
+#     planner_deps += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
+# endif
 
 executable (
     meson.project_name (),
@@ -42,6 +67,7 @@ executable (
     'src/Layouts/ViewHeader.vala',
     'src/Layouts/SectionRow.vala',
     'src/Layouts/LabelChild.vala',
+    'src/Layouts/SectionChild.vala',
 
     'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',
@@ -80,6 +106,7 @@ executable (
     'src/Views/Scheduled/ScheduledHeader.vala',
     'src/Views/Scheduled/ScheduledDay.vala',
     'src/Views/Label.vala',
+    'src/Views/Board.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/Project.vala',
@@ -125,21 +152,9 @@ executable (
     'src/Objects/Color.vala',
     'src/Objects/DueDate.vala',
     'src/Objects/ItemLabel.vala',
-
-    asresources,
-    config_header,
-    dependencies: [
-        dependency('glib-2.0'),
-        dependency('gobject-2.0'),
-        dependency('gee-0.8', version: '>=0.8.5'),
-        dependency('granite'),
-        dependency('gtk+-3.0'),
-        dependency('sqlite3'),
-        dependency('json-glib-1.0'),
-        dependency('webkit2gtk-4.0'),
-        dependency('libhandy-1', version: '>= 0.90.0'),
-        meson.get_compiler ('c').find_library ('m', required : false)
-    ],
+    gresource,
+    config_file,
+    dependencies: planner_deps,
     install: true
 )
 

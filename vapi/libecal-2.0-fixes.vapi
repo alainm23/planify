@@ -1,4 +1,3 @@
- 
 namespace E {
     [CCode (cheader_filename = "libedataserver/libedataserver.h", cname = "e_webdav_discover_free_discovered_sources")]
     [Version (since = "3.18")]

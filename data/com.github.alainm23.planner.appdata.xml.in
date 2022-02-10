@@ -35,16 +35,17 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-  <release version="3.0" date="2021-02-08">
+  <release version="3.0.2" date="2021-02-10">
       <description>
-        <p>Planner 3.0 is here...</p>
+        <p>Planner 3.0 Beta1 is here...</p>
         <ul>
           <li>🚀️ Complete redesign of the UI.</li>
           <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
-          <li>💯️ Progress indicator for each project.</li>
+          <li>💯️ Progress and Emoji indicator for each project.</li>
           <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
           <li>💎️ Magic Button: Drag and Drop and create your tasks wherever you want.</li>
           <li>🌙️ Better integration with the dark theme.</li>
+          <li>🌙️ Slim Mode.</li>
           <li>🎉️ and much more.</li>
         </ul>
       </description>

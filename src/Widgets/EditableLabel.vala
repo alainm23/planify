@@ -13,29 +13,34 @@ public class Widgets.EditableLabel : Gtk.EventBox {
     public string text { get; set; }
     public bool entry_menu_opened { get; set; default = false; }
 
-    public bool editing {
+    public bool is_editing {
         get {
             return stack.visible_child == entry;
         }
-        set {
-            focus_changed (value);
-            
-            if (value) {
-                entry.text = text;
-                stack.set_visible_child (entry);
+    }
 
+    public void editing (bool value, bool grab_focus = false) {
+        focus_changed (value);
+            
+        if (value) {
+            entry.text = text;
+            stack.set_visible_child (entry);
+
+            if (grab_focus) {
+                entry.grab_focus ();
+            } else {
                 entry.grab_focus_without_selecting ();
                 if (entry.cursor_position < entry.text_length) {
                     entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) entry.text_length, false);
                 }
-            } else {
-                if (entry.text.strip () != "" && text != entry.text) {
-                    text = entry.text;
-                    changed ();
-                }
-
-                stack.set_visible_child (grid);
             }
+        } else {
+            if (entry.text.strip () != "" && text != entry.text) {
+                text = entry.text;
+                changed ();
+            }
+
+            stack.set_visible_child (grid);
         }
     }
 
@@ -97,23 +102,23 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         bind_property ("text", title, "label");
 
         button_press_event.connect ((event) => {
-            editing = true;
+            editing (true);
             return Gdk.EVENT_PROPAGATE;
         });
 
         entry.activate.connect (() => {
             if (stack.visible_child == entry) {
-                editing = false;
+                editing (false);
             }
         });
 
         grab_focus.connect (() => {
-            editing = true;
+            editing (true);
         });
 
         entry.focus_out_event.connect ((event) => {
             if (stack.visible_child == entry && !entry_menu_opened) {
-                editing = false;
+                editing (false);
             }
             return Gdk.EVENT_PROPAGATE;
         });

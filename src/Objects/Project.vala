@@ -500,4 +500,71 @@ public class Objects.Project : Objects.BaseObject {
 
         return ((double) items_checked / (double) items_total);
     }
+
+    public void build_content_menu () {
+        var menu = new Dialogs.ContextMenu.Menu ();
+
+        var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
+        var add_section_item = new Dialogs.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
+        
+        var show_completed_item = new Dialogs.ContextMenu.MenuSwitch (
+            _("Show completed"), "planner-check-circle", show_completed);
+
+        var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
+        delete_item.get_style_context ().add_class ("menu-item-danger");
+
+        menu.add_item (edit_item);
+        menu.add_item (show_completed_item);
+        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        menu.add_item (add_section_item);
+
+        if (!inbox_project) {
+            menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+            menu.add_item (delete_item);
+        }
+
+        menu.popup ();
+
+        edit_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            var dialog = new Dialogs.Project (this);
+            dialog.show_all ();
+        });
+
+        show_completed_item.activate_item.connect (() => {
+            show_completed = show_completed_item.active;
+        });
+
+        delete_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            this.delete ();
+        });
+
+        add_section_item.activate_item.connect (() => {
+            Objects.Section new_section = prepare_new_item ();
+
+            if (todoist) {
+                add_section_item.is_loading = true;
+                Planner.todoist.add.begin (new_section, (obj, res) => {
+                    new_section.id = Planner.todoist.add.end (res);
+                    add_section_if_not_exists (new_section);
+                    add_section_item.is_loading = false;                    
+                    menu.hide_destroy ();
+                });
+            } else {
+                new_section.id = Util.get_default ().generate_id ();
+                add_section_if_not_exists (new_section);
+                menu.hide_destroy ();
+            }
+        });
+    }
+
+    public Objects.Section prepare_new_item () {
+        Objects.Section new_section = new Objects.Section ();
+        new_section.project_id = id;
+        new_section.name = _("New section");
+        new_section.activate_name_editable = true;
+
+        return new_section;
+    }
 }

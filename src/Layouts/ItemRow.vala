@@ -1041,4 +1041,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         }
     }
+
+    public void update_content (string content = "") {
+        content_entry.set_text (content);
+    }
 }

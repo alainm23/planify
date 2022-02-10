@@ -73,8 +73,17 @@ public class Planner : Gtk.Application {
     }
 
     protected override void activate () {
+        if (int.parse (settings.get_string ("version")) <= 2) {
+            Util.get_default ().clear_database_query ();
+        }
+
         if (lang != "") {
             GLib.Environment.set_variable ("LANGUAGE", lang, true);
+        }
+
+        if (version) {
+            print ("%s\n".printf (Constants.VERSION));
+            return;
         }
 
         if (main_window != null) {
@@ -86,11 +95,6 @@ public class Planner : Gtk.Application {
 
             main_window.present ();
 
-            return;
-        }
-
-        if (version) {
-            print ("%s\n".printf (Constants.VERSION));
             return;
         }
 
@@ -130,44 +134,12 @@ public class Planner : Gtk.Application {
         Util.get_default ().update_theme ();
 
         if (clear_database) {
-            var message_dialog = new Dialogs.MessageDialog (
-                _("Are you sure you want to reset all?"),
-                _("It process removes all stored information without the possibility of undoing it."),
-                "dialog-warning"
-            ) {
-                modal = true
-            };
-            
-            message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-            message_dialog.add_default_action (_("Reset all"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
+                _("It process removes all stored information without the possibility of undoing it."));
+        }
 
-            message_dialog.show_all ();
-    
-            message_dialog.default_action.connect ((response) => {
-                if (response == Gtk.ResponseType.ACCEPT) {
-                    string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
-                    File db_file = File.new_for_path (db_path);
-
-                    if (db_file.query_exists ()) {
-                        try {
-                            db_file.delete ();
-                        } catch (Error err) {
-                            warning (err.message);
-                        }
-                    }
-
-                    var schema_source = GLib.SettingsSchemaSource.get_default ();
-                    SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
-
-                    foreach (string key in schema.list_keys ()) {
-                        Planner.settings.reset (key);
-                    }
-
-                    main_window.destroy ();
-                } else {
-                    message_dialog.hide_destroy ();
-                }
-            });
+        if (settings.get_string ("version") != Constants.VERSION) {
+            settings.set_string ("version", Constants.VERSION);
         }
     }
     

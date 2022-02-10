@@ -2,6 +2,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
     public Objects.Project project { get; set; }
     
     private Gtk.Revealer project_revealer;
+    private Gtk.Revealer end_revealer;
     private Widgets.ProjectProgress project_progress;
     private Gtk.Label name_label;
     private Gtk.Label emoji_label;
@@ -54,6 +55,42 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         project_grid.add (progress_emoji_stack);
         project_grid.add (name_label);
 
+        var menu_image = new Widgets.DynamicIcon ();
+        menu_image.size = 19;
+        menu_image.update_icon_name ("dots-horizontal");
+        
+        var menu_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
+
+        menu_button.add (menu_image);
+        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
+        var search_image = new Widgets.DynamicIcon ();
+        search_image.size = 19;
+        search_image.update_icon_name ("planner-search");
+        
+        var search_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
+        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        search_button.add (search_image);
+        search_button.clicked.connect (Util.get_default ().open_quick_find);
+
+        var end_grid = new Gtk.Grid () {
+            column_spacing = 6
+        };
+
+        end_grid.add (search_button);
+        end_grid.add (menu_button);
+
+        end_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+        };
+        end_revealer.add (end_grid);
+
         project_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE
         };
@@ -67,6 +104,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
 
         pack_start (start_grid);
         custom_title = project_revealer;
+        pack_end (end_revealer);
 
         notify["project"].connect (() => {
             project_update_request ();
@@ -74,6 +112,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
             project.project_count_updated.connect (() => {
                 project_progress.percentage = project.percentage;
             });
+            menu_button.clicked.connect (project.build_content_menu);
         });
 
         sidebar_button.clicked.connect (() => {
@@ -92,6 +131,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
 
         Planner.event_bus.view_header.connect ((reveal_child) => {
             project_revealer.reveal_child = reveal_child;
+            end_revealer.reveal_child = reveal_child;
         });
     }
 

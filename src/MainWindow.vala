@@ -151,6 +151,38 @@ public class MainWindow : Hdy.Window {
         });
     }
 
+    public void add_task_action (string content = "") {
+        Views.Project? project_view = get_current_project_view ();
+        if (project_view != null) {
+            project_view.prepare_new_item (content);
+        }
+    }
+
+    public Views.Project? get_current_project_view () {
+        Views.Project? project_view = null;
+        if (views_stack.visible_child_name.has_prefix ("project")) {
+            project_view = (Views.Project) views_stack.visible_child;
+        }
+        return project_view;
+    }
+
+    public void new_section_action () {
+        Views.Project? project_view = get_current_project_view ();
+        if (project_view != null) {
+            Objects.Section new_section = project_view.project.prepare_new_item ();
+
+            if (project_view.project.todoist) {
+                Planner.todoist.add.begin (new_section, (obj, res) => {
+                    new_section.id = Planner.todoist.add.end (res);
+                    project_view.project.add_section_if_not_exists (new_section);
+                });
+            } else {
+                new_section.id = Util.get_default ().generate_id ();
+                project_view.project.add_section_if_not_exists (new_section);
+            }
+        }
+    }
+
     public void add_today_view () {
         Views.Today? today_view;
         today_view = (Views.Today) views_stack.get_child_by_name ("today-view");
@@ -213,8 +245,8 @@ public class MainWindow : Hdy.Window {
         BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
         if (backend_type == BackendType.LOCAL) {
             Planner.database = Services.Database.get_default ();
-            // Planner.database.init_database ();
-            Services.Badge.get_default ().init ();
+            Planner.database.init_database ();
+            // Services.Badge.get_default ().init ();
 
             main_stack.visible_child_name = "main-view";
 
