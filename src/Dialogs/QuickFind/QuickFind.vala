@@ -56,12 +56,12 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         headerbar.custom_title = search_entry;
 
         listbox = new Gtk.ListBox ();
-        listbox.hexpand = true;
-        // listbox.set_placeholder (placeholder_grid);
+        listbox.expand = true;
+        listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
-        listbox_context.add_class ("listbox-background");
+        listbox_context.add_class ("picker-background");
         listbox_context.add_class ("listbox-separator-3");
 
         var listbox_grid = new Gtk.Grid () {
@@ -70,6 +70,10 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
             margin_bottom = 12
         };
         listbox_grid.add (listbox);
+
+        unowned Gtk.StyleContext placeholder_grid_context = listbox_grid.get_style_context ();
+        placeholder_grid_context.add_class ("transition");
+        placeholder_grid_context.add_class ("picker-content");
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null) {
             expand = true,
@@ -106,7 +110,7 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         });
 
         focus_out_event.connect (() => {
-            hide_destroy ();
+            // hide_destroy ();
             return false;
         });
 
@@ -141,6 +145,30 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var message_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels.")) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            expand = true,
+            margin = 6
+        };
+        
+        unowned Gtk.StyleContext message_label_context = message_label.get_style_context ();
+        message_label_context.add_class ("dim-label");
+        message_label_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        var placeholder_grid = new Gtk.Grid () {
+            margin = 6,
+            margin_top = 0,
+            expand = true
+        };
+
+        placeholder_grid.add (message_label);
+        placeholder_grid.show_all ();
+
+        return placeholder_grid;
     }
 
     private void row_activated (Gtk.ListBoxRow row) {

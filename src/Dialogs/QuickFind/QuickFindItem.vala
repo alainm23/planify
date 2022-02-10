@@ -70,8 +70,17 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 use_markup = true
             };
 
-            main_grid.add (checked_button);
-            main_grid.add (content_label);
+            var project_label = new Gtk.Label (item.project.name) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0
+            };
+
+            project_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+            project_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+            main_grid.attach (checked_button, 0, 0, 1, 2);
+            main_grid.attach (content_label, 1, 0, 1, 1);
+            main_grid.attach (project_label, 1, 1, 1, 1);
         }
 
         add (main_grid);

@@ -130,7 +130,9 @@ public class Planner : Gtk.Application {
         Gtk.StyleContext.add_provider_for_screen (
             Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
-        
+
+        Gtk.Settings.get_default ().set_property ("gtk-icon-theme-name", "elementary");
+        Gtk.Settings.get_default ().set_property ("gtk-theme-name", "io.elementary.stylesheet.blueberry");
         Util.get_default ().update_theme ();
 
         if (clear_database) {
