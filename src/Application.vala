@@ -74,7 +74,7 @@ public class Planner : Gtk.Application {
 
     protected override void activate () {
         if (int.parse (settings.get_string ("version")) <= 2) {
-            Util.get_default ().clear_database_query ();
+            Util.get_default ().reset_settings ();
         }
 
         if (lang != "") {
@@ -141,7 +141,11 @@ public class Planner : Gtk.Application {
         }
 
         if (settings.get_string ("version") != Constants.VERSION) {
-            settings.set_string ("version", Constants.VERSION);
+            if (int.parse (settings.get_string ("version")) <= 2) {
+                Util.get_default ().open_migrate_message ();
+            } else {
+                settings.set_string ("version", Constants.VERSION);
+            }
         }
     }
     

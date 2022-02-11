@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '3.0.3'
+    version: '3.0.4'
 )
 
 gnome = import ('gnome')
@@ -144,6 +144,7 @@ executable (
     'src/Services/ActionManager.vala',
     'src/Services/Badge.vala',
 
+    'src/Objects/v2.vala',
     'src/Objects/BaseObject.vala',
     'src/Objects/Project.vala',
     'src/Objects/Label.vala',
