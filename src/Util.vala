@@ -743,6 +743,7 @@ public class Util : GLib.Object {
         message_dialog.default_action.connect ((response) => {
             if (response == Gtk.ResponseType.ACCEPT) {
                 clear_database_query ();
+                reset_settings ();
                 Planner.instance.main_window.destroy ();
             } else {
                 message_dialog.hide_destroy ();
