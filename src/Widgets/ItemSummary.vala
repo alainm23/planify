@@ -147,7 +147,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
 
     public void check_revealer () {
         summary_revealer.reveal_child = calendar_revealer.reveal_child || flowbox_revealer.reveal_child;
-        reveal_child = summary_revealer.reveal_child && !itemrow.edit;
+        reveal_child = summary_revealer.reveal_child && !itemrow.edit && !item.checked;
     }
 
     private void update_labels () {

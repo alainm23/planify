@@ -302,14 +302,16 @@ public class Services.Todoist : GLib.Object {
                         } else {
                             int64 old_project_id = item.project_id;
                             int64 old_section_id = item.section_id;
+                            int64 old_parent_id = item.parent_id;
                             bool old_checked = item.checked;
 
                             item.update_from_json (_node);
                             item.update_labels_from_json (_node);
                             Planner.database.update_item (item);
 
-                            if (old_project_id != item.project_id || old_section_id != item.section_id) {
-                                Planner.event_bus.item_moved (item, old_project_id, old_section_id);
+                            if (old_project_id != item.project_id || old_section_id != item.section_id ||
+                                old_parent_id != item.parent_id) {
+                                Planner.event_bus.item_moved (item, old_project_id, old_section_id, old_parent_id);
                             }
 
                             if (old_checked != item.checked) {
@@ -328,7 +330,11 @@ public class Services.Todoist : GLib.Object {
 
     private void add_item_if_not_exists (Json.Node node) {
         if (!node.get_object ().get_null_member ("parent_id")) {
-            // Add to parent
+            Objects.Item? item = Planner.database.get_item (node.get_object ().get_int_member ("parent_id"));
+            if (item != null) {
+                item.add_item_if_not_exists (new Objects.Item.from_json (node));
+            }
+
             return;
         }
         
@@ -559,6 +565,47 @@ public class Services.Todoist : GLib.Object {
             TODOIST_SYNC_URL,
             Planner.settings.get_string ("todoist-access-token"),
             item.get_move_item (uuid, type, id)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+
+            print_root (parser.get_root ());
+
+            var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+            var uuid_member = sync_status.get_member (uuid);
+
+            if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                Planner.settings.set_string (
+                    "todoist-sync-token",
+                    parser.get_root ().get_object ().get_string_member ("sync_token")
+                );
+                success = true;
+            } else {
+                // project_updated_error (
+                //     project.id,
+                //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                //     sync_status.get_object_member (uuid).get_string_member ("error")
+                // );
+            }
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        return success;
+    }
+
+    public async bool move_section (Objects.Section section, int64 new_project_id) {
+        string uuid = Util.get_default ().generate_string ();
+        bool success = false;
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            section.get_move_section (uuid, new_project_id)
         );
 
         var message = new Soup.Message ("POST", url);

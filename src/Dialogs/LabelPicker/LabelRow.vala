@@ -57,9 +57,13 @@ public class Dialogs.LabelPicker.LabelRow : Gtk.ListBoxRow {
         add (main_grid);
 
         checked_button.button_release_event.connect (() => {
-            checked_button.active = !checked_button.active;
-            checked_toggled (label, checked_button.active);
+            update_checked_toggled ();
             return Gdk.EVENT_STOP;
         });
+    }
+
+    public void update_checked_toggled () {
+        checked_button.active = !checked_button.active;
+        checked_toggled (label, checked_button.active);
     }
 }

@@ -27,6 +27,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     
     private Gtk.Button cancel_clear_button;
     public Gee.HashMap <string, Objects.Label> labels_map;
+    public Gee.HashMap <string, Dialogs.LabelPicker.LabelRow> labels_widgets_map;
 
     public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels_map);
 
@@ -42,6 +43,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
 
     construct {
         labels_map = new Gee.HashMap <string, Objects.Label> ();
+        labels_widgets_map = new Gee.HashMap <string, Dialogs.LabelPicker.LabelRow> ();
 
         foreach (var entry in item.labels.entries) {
             labels_map [entry.key] = entry.value.label;
@@ -90,13 +92,14 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
             placeholder_text = _("Search or Create"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_start = 12,
-            margin_end = 12,
+            margin_start = 9,
+            margin_end = 9,
             margin_top = 3,
             margin_bottom = 12
         };
 
         search_entry.get_style_context ().add_class ("border-radius-6");
+        search_entry.get_style_context ().add_class ("picker-background");
 
         listbox = new Gtk.ListBox () {
             hexpand = true
@@ -143,7 +146,27 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
         add (main_grid);
         add_all_labels ();
 
+        key_press_event.connect ((event) => {
+            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
+
+                return false;
+            }
+
+            return true;
+        });
+
         focus_out_event.connect (() => {
+            labels_changed (labels_map);
             hide_destroy ();
             return false;
         });
@@ -170,16 +193,56 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
         search_entry.search_changed.connect (() => {
             listbox.invalidate_filter ();
         });
+
+        search_entry.activate.connect (() => {
+            if (Util.get_default ().is_input_valid (search_entry)) {
+                Objects.Label label = Planner.database.get_label_by_name (search_entry.text, true);
+                if (label != null) {
+                    if (labels_widgets_map.has_key (label.id_string)) {
+                        labels_widgets_map [label.id_string].update_checked_toggled ();
+                    }
+                } else {
+                    add_assign_label ();
+                }
+            }
+        });
+    }
+
+    private void add_assign_label () {
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+        var label = new Objects.Label ();
+        label.color = Util.get_default ().get_random_color ();
+        label.name = search_entry.text;
+
+        if (backend_type == BackendType.TODOIST) {
+            label.todoist = true;
+            Planner.todoist.add.begin (label, (obj, res) => {
+                label.id = Planner.todoist.add.end (res);
+                Planner.database.insert_label (label);
+                checked_toggled (label, true);
+                labels_changed (labels_map);
+                hide_destroy ();
+            });
+        } else if (backend_type == BackendType.LOCAL) {
+            label.id = Util.get_default ().generate_id ();
+            Planner.database.insert_label (label);
+            checked_toggled (label, true);
+            labels_changed (labels_map);
+            hide_destroy ();
+        }
     }
 
     private void add_all_labels () {
         foreach (Objects.Label label in Planner.database.labels) {
-            var row = new Dialogs.LabelPicker.LabelRow (label, item.labels.has_key (label.id_string));
+            Dialogs.LabelPicker.LabelRow row = new Dialogs.LabelPicker.LabelRow (label, item.labels.has_key (label.id_string));
             row.checked_toggled.connect (checked_toggled);
 
+            labels_widgets_map [label.id_string] = row;
             listbox.add (row);
-            listbox.show_all ();
         }
+
+        listbox.show_all ();
     }
     
     private void hide_destroy () {

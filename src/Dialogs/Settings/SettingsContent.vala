@@ -13,7 +13,8 @@ public class Dialogs.Settings.SettingsContent : Gtk.EventBox {
 
     construct {
         var title_label = new Gtk.Label (title) {
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            margin_start = 3
         };
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
         title_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
@@ -43,6 +44,11 @@ public class Dialogs.Settings.SettingsContent : Gtk.EventBox {
 
     public void add_child (Gtk.Widget child) {
         content_grid.add (child);
+        content_grid.show_all ();
+    }
+
+    public void attach_child (Gtk.Widget child, int left, int top) {
+        content_grid.attach (child, left, top);
         content_grid.show_all ();
     }
 }

@@ -50,6 +50,10 @@
     color: @color_primary;
 }
 
+.filter-pane-row-inbox:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
 .filter-pane-row-inbox-selected {
     box-shadow: 0px 0px 3px 1px @color_primary;
 }
@@ -60,6 +64,10 @@
     transition: all 220ms ease-in-out;
     background-color: alpha (#fad000, .15);
     color: #fad000;
+}
+
+.filter-pane-row-today:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
 }
 
 .filter-pane-row-today-selected {
@@ -78,6 +86,10 @@
     box-shadow: 0px 0px 3px 1px #fa1955;
 }
 
+.filter-pane-row-scheduled:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
 .padding-3 {
     padding: 3px;
 }
@@ -92,4 +104,8 @@
 
 .filter-pane-row-pinboard-selected {
     box-shadow: 0px 0px 3px 1px #7e8087;
+}
+
+.filter-pane-row-pinboard:selected image {
+    animation: fancy-turn 0.7s ease-in-out;
 }

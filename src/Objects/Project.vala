@@ -1,7 +1,5 @@
 public class Objects.Project : Objects.BaseObject {
     public int64 parent_id { get; set; default = 0; }
-
-    public string name { get; set; default = ""; }
     public string due_date { get; set; default = ""; }
     public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
@@ -151,6 +149,14 @@ public class Objects.Project : Objects.BaseObject {
 
         Planner.event_bus.item_moved.connect ((item, old_project_id, section_id, insert) => {
             if (item.project_id == id || old_project_id == id) {
+                _project_count = update_project_count ();
+                _percentage = update_percentage ();
+                project_count_updated ();
+            }
+        });
+
+        Planner.database.section_moved.connect ((section, old_project_id) => {
+            if (section.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
                 project_count_updated ();
@@ -513,10 +519,14 @@ public class Objects.Project : Objects.BaseObject {
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");
 
-        menu.add_item (edit_item);
-        menu.add_item (show_completed_item);
-        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        if (!inbox_project) {
+            menu.add_item (edit_item);
+        }
+        
         menu.add_item (add_section_item);
+        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        menu.add_item (show_completed_item);
+
 
         if (!inbox_project) {
             menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());

@@ -1,6 +1,7 @@
 public class Widgets.EditableLabel : Gtk.EventBox {
     public string title_style { get; construct; }
     public string placeholder_text { get; construct; }
+    public bool auto_focus { get; construct; }
 
     public signal void focus_changed (bool active);
     public signal void changed ();
@@ -50,10 +51,11 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         }
     }
 
-    public EditableLabel (string title_style, string placeholder_text = "") {
+    public EditableLabel (string title_style, string placeholder_text = "", bool auto_focus = true) {
         Object (
             title_style: title_style,
-            placeholder_text: placeholder_text 
+            placeholder_text: placeholder_text,
+            auto_focus: auto_focus
         );
     }
 
@@ -101,19 +103,21 @@ public class Widgets.EditableLabel : Gtk.EventBox {
 
         bind_property ("text", title, "label");
 
-        button_press_event.connect ((event) => {
-            editing (true);
-            return Gdk.EVENT_PROPAGATE;
-        });
+        if (auto_focus) {
+            button_press_event.connect ((event) => {
+                editing (true);
+                return Gdk.EVENT_PROPAGATE;
+            });
+
+            grab_focus.connect (() => {
+                editing (true);
+            });
+        }
 
         entry.activate.connect (() => {
             if (stack.visible_child == entry) {
                 editing (false);
             }
-        });
-
-        grab_focus.connect (() => {
-            editing (true);
         });
 
         entry.focus_out_event.connect ((event) => {

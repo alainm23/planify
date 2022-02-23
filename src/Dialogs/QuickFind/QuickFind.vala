@@ -61,7 +61,7 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         listbox.set_header_func (header_function);
 
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
-        listbox_context.add_class ("picker-background");
+        listbox_context.add_class ("listbox-background");
         listbox_context.add_class ("listbox-separator-3");
 
         var listbox_grid = new Gtk.Grid () {
@@ -70,10 +70,6 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
             margin_bottom = 12
         };
         listbox_grid.add (listbox);
-
-        unowned Gtk.StyleContext placeholder_grid_context = listbox_grid.get_style_context ();
-        placeholder_grid_context.add_class ("transition");
-        placeholder_grid_context.add_class ("picker-content");
 
         var listbox_scrolled = new Gtk.ScrolledWindow (null, null) {
             expand = true,
@@ -95,6 +91,18 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
             if (search_entry.text.strip () != "") {
                 clean_results ();
 
+                Objects.BaseObject[] filters = {
+                    Objects.Today.get_default (),
+                    Objects.Scheduled.get_default (),
+                    Objects.Pinboard.get_default ()
+                };
+                foreach (Objects.BaseObject object in filters) {
+                    if (search_entry.text.down () in object.name.down ()) {
+                        listbox.add (new Dialogs.QuickFind.QuickFindItem (object, search_entry.text));
+                        listbox.show_all ();
+                    }
+                }
+
                 foreach (Objects.Project project in Planner.database.get_all_projects_by_search (search_entry.text)) {
                     listbox.add (new Dialogs.QuickFind.QuickFindItem (project, search_entry.text));
                     listbox.show_all ();
@@ -104,13 +112,18 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
                     listbox.add (new Dialogs.QuickFind.QuickFindItem (item, search_entry.text));
                     listbox.show_all ();
                 }
+
+                foreach (Objects.Label label in Planner.database.get_all_labels_by_search (search_entry.text)) {
+                    listbox.add (new Dialogs.QuickFind.QuickFindItem (label, search_entry.text));
+                    listbox.show_all ();
+                }
             } else {
                 clean_results ();
             }
         });
 
         focus_out_event.connect (() => {
-            // hide_destroy ();
+            hide_destroy ();
             return false;
         });
 
@@ -180,6 +193,18 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
             Planner.event_bus.pane_selected (PaneType.PROJECT,
                 ((Objects.Item) base_object).project_id.to_string ()
             );
+        } else if (base_object.object_type == ObjectType.LABEL) {
+            Planner.event_bus.pane_selected (PaneType.LABEL,
+                ((Objects.Label) base_object).id_string
+            );
+        } else if (base_object.object_type == ObjectType.FILTER) {
+            if (base_object is Objects.Today) {
+                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ()); 
+            } else if (base_object is Objects.Scheduled) {
+                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
+            } else if (base_object is Objects.Pinboard) {
+                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
+            }
         }
 
         hide_destroy ();

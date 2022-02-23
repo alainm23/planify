@@ -491,7 +491,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu.add_item (edit_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         // menu.add_item (move_item);
-        menu.add_item (share_item);
+        // menu.add_item (share_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (delete_item);
 

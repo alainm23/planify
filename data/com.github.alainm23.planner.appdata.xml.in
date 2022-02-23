@@ -35,7 +35,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="3.0.4" date="2021-02-11">
+    <release version="3.0.6" date="2022-02-22">
       <description>
         <p>Planner 3.0 Beta1 is here...</p>
         <ul>

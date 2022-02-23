@@ -20,6 +20,9 @@
 */
 
 public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
+    public bool show_sections { get; construct; }
+
+    private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
 
     public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectRow> projects_hashmap;
@@ -50,8 +53,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
 
     public signal void changed (int64 project_id, int64 section_id);
 
-    public ProjectPicker () {
+    public ProjectPicker (bool show_sections = true) {
         Object (
+            show_sections: show_sections,
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.MOUSE,
@@ -95,23 +99,25 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
         header_box.set_center_widget (title_label);
         header_box.pack_end (done_button, false, false, 0);
 
-        var search_entry = new Gtk.SearchEntry () {
+        search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a project"),
             hexpand = true,
-            margin_start = 12,
-            margin_end = 12,
+            margin_start = 9,
+            margin_end = 9,
             margin_top = 3,
             margin_bottom = 6
         };
 
         unowned Gtk.StyleContext search_entry_context = search_entry.get_style_context ();
         search_entry_context.add_class ("border-radius-6");
+        search_entry_context.add_class ("picker-background");
 
         headerbar.set_custom_title (header_box);
 
         listbox = new Gtk.ListBox () {
             hexpand = true
         };
+        listbox.set_filter_func (filter_func);
         
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("listbox-separator-3");
@@ -145,17 +151,40 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
         add (main_grid);
         add_projects ();
 
+        key_press_event.connect ((event) => {
+            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
+                }
+
+                return false;
+            }
+
+            return true;
+        });
+
         focus_out_event.connect (() => {
             hide_destroy ();
             return false;
         });
 
-         key_release_event.connect ((key) => {
+        key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 hide_destroy ();
             }
 
             return false;
+        });
+
+        search_entry.search_changed.connect (() => {
+            listbox.invalidate_filter ();
         });
 
         cancel_button.clicked.connect (() => {
@@ -187,10 +216,12 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
             projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectRow (project);
             listbox.add (projects_hashmap [project.id_string]);
         }
-
-        foreach (Objects.Section section in Planner.database.sections) {
-            if (projects_hashmap.has_key (section.project_id.to_string ())) {
-                projects_hashmap [section.project_id.to_string ()].add_section (section);
+        
+        if (show_sections) {
+            foreach (Objects.Section section in Planner.database.sections) {
+                if (projects_hashmap.has_key (section.project_id.to_string ())) {
+                    projects_hashmap [section.project_id.to_string ()].add_section (section);
+                }
             }
         }
 
@@ -199,5 +230,10 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
 
     public void popup () {
         show_all ();
+    }
+
+    private bool filter_func (Gtk.ListBoxRow row) {
+        var project = ((Dialogs.ProjectPicker.ProjectRow) row).project;
+        return search_entry.text.down () in project.name.down ();
     }
 }

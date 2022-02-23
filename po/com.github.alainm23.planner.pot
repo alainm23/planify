@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-10 04:56-0500\n"
+"POT-Creation-Date: 2022-02-17 06:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,175 +17,224 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/Util.vala:97 src/Layouts/HeaderItem.vala:186
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:88
-msgid "Projects"
-msgstr ""
-
-#: src/Util.vala:100
-msgid "Setions"
-msgstr ""
-
-#: src/Util.vala:103
-msgid "Items"
-msgstr ""
-
-#: src/Util.vala:106 src/Layouts/HeaderItem.vala:190
-#: src/Dialogs/LabelPicker/LabelPicker.vala:75
-msgid "Labels"
-msgstr ""
-
-#: src/Util.vala:140
-msgid "Berry Red"
-msgstr ""
-
-#: src/Util.vala:141
-msgid "Red"
-msgstr ""
-
-#: src/Util.vala:142
-msgid "Orange"
-msgstr ""
-
-#: src/Util.vala:143
-msgid "Olive Green"
-msgstr ""
-
-#: src/Util.vala:144
-msgid "Yellow"
-msgstr ""
-
-#: src/Util.vala:145
-msgid "Lime Green"
-msgstr ""
-
-#: src/Util.vala:146
-msgid "Green"
-msgstr ""
-
-#: src/Util.vala:147
-msgid "Mint Green"
-msgstr ""
-
-#: src/Util.vala:148
-msgid "Teal"
-msgstr ""
-
-#: src/Util.vala:149
-msgid "Sky Blue"
-msgstr ""
-
-#: src/Util.vala:150
-msgid "Light Blue"
-msgstr ""
-
-#: src/Util.vala:151
-msgid "Blue"
-msgstr ""
-
-#: src/Util.vala:152
-msgid "Grape"
-msgstr ""
-
-#: src/Util.vala:153
-msgid "Violet"
-msgstr ""
-
-#: src/Util.vala:154
-msgid "Lavander"
-msgstr ""
-
-#: src/Util.vala:155
-msgid "Magenta"
-msgstr ""
-
-#: src/Util.vala:156
-msgid "Salmon"
-msgstr ""
-
-#: src/Util.vala:157
-msgid "Charcoal"
-msgstr ""
-
-#: src/Util.vala:158
-msgid "Grey"
-msgstr ""
-
-#: src/Util.vala:159
-msgid "Taupe"
-msgstr ""
-
-#: src/Util.vala:336
-msgid "Light"
-msgstr ""
-
-#: src/Util.vala:339
-msgid "Dark"
-msgstr ""
-
-#: src/Util.vala:342
-msgid "Dark Blue"
-msgstr ""
-
-#: src/Util.vala:501 src/Layouts/FilterPaneRow.vala:83 src/Views/Today.vala:11
+#: src/Util.vala:65 src/Util.vala:389 src/Util.vala:551
+#: src/Layouts/FilterPaneRow.vala:83 src/Views/Today.vala:11
 #: src/Views/Date.vala:68 src/Views/Date.vala:101
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:105
 msgid "Today"
 msgstr ""
 
-#: src/Util.vala:503 src/Dialogs/DateTimePicker/DateTimePicker.vala:108
+#: src/Util.vala:68 src/Util.vala:386 src/MainWindow.vala:327
+#: src/Layouts/FilterPaneRow.vala:86 src/Widgets/TopHeaderProject.vala:55
+#: src/Dialogs/ProjectPicker/ProjectRow.vala:105
+msgid "Inbox"
+msgstr ""
+
+#: src/Util.vala:71 src/Layouts/FilterPaneRow.vala:89 src/Views/Date.vala:101
+#: src/Views/Scheduled/Scheduled.vala:19
+msgid "Scheduled"
+msgstr ""
+
+#: src/Util.vala:74 src/Layouts/FilterPaneRow.vala:92
+#: src/Views/Pinboard.vala:20 src/Views/Pinboard.vala:77
+msgid "Pinboard"
+msgstr ""
+
+#: src/Util.vala:117 src/Layouts/HeaderItem.vala:186
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:92
+msgid "Projects"
+msgstr ""
+
+#: src/Util.vala:120
+msgid "Setions"
+msgstr ""
+
+#: src/Util.vala:123
+msgid "Items"
+msgstr ""
+
+#: src/Util.vala:126 src/Layouts/HeaderItem.vala:190
+#: src/Dialogs/LabelPicker/LabelPicker.vala:77
+msgid "Labels"
+msgstr ""
+
+#: src/Util.vala:129
+msgid "Filters"
+msgstr ""
+
+#: src/Util.vala:168
+msgid "Berry Red"
+msgstr ""
+
+#: src/Util.vala:169
+msgid "Red"
+msgstr ""
+
+#: src/Util.vala:170
+msgid "Orange"
+msgstr ""
+
+#: src/Util.vala:171
+msgid "Olive Green"
+msgstr ""
+
+#: src/Util.vala:172
+msgid "Yellow"
+msgstr ""
+
+#: src/Util.vala:173
+msgid "Lime Green"
+msgstr ""
+
+#: src/Util.vala:174
+msgid "Green"
+msgstr ""
+
+#: src/Util.vala:175
+msgid "Mint Green"
+msgstr ""
+
+#: src/Util.vala:176
+msgid "Teal"
+msgstr ""
+
+#: src/Util.vala:177
+msgid "Sky Blue"
+msgstr ""
+
+#: src/Util.vala:178
+msgid "Light Blue"
+msgstr ""
+
+#: src/Util.vala:179
+msgid "Blue"
+msgstr ""
+
+#: src/Util.vala:180
+msgid "Grape"
+msgstr ""
+
+#: src/Util.vala:181
+msgid "Violet"
+msgstr ""
+
+#: src/Util.vala:182
+msgid "Lavander"
+msgstr ""
+
+#: src/Util.vala:183
+msgid "Magenta"
+msgstr ""
+
+#: src/Util.vala:184
+msgid "Salmon"
+msgstr ""
+
+#: src/Util.vala:185
+msgid "Charcoal"
+msgstr ""
+
+#: src/Util.vala:186
+msgid "Grey"
+msgstr ""
+
+#: src/Util.vala:187
+msgid "Taupe"
+msgstr ""
+
+#: src/Util.vala:364
+msgid "Light"
+msgstr ""
+
+#: src/Util.vala:367
+msgid "Dark"
+msgstr ""
+
+#: src/Util.vala:370
+msgid "Dark Blue"
+msgstr ""
+
+#: src/Util.vala:383
+msgid "None"
+msgstr ""
+
+#: src/Util.vala:392
+msgid "Today + Inbox"
+msgstr ""
+
+#: src/Util.vala:553 src/Dialogs/DateTimePicker/DateTimePicker.vala:108
 msgid "Tomorrow"
 msgstr ""
 
-#: src/Util.vala:505
+#: src/Util.vala:555
 msgid "Yesterday"
 msgstr ""
 
-#: src/Application.vala:134
-msgid "Are you sure you want to reset all?"
-msgstr ""
-
-#: src/Application.vala:135
-msgid ""
-"It process removes all stored information without the possibility of undoing "
-"it."
-msgstr ""
-
-#: src/Application.vala:141 src/Layouts/ItemRow.vala:282
+#: src/Util.vala:788 src/Util.vala:1212 src/Layouts/ItemRow.vala:282
 #: src/Dialogs/Project.vala:214 src/Dialogs/Label.vala:152
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:81
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:85
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:83
-#: src/Objects/Project.vala:410 src/Objects/Label.vala:196
-#: src/Objects/Section.vala:214
+#: src/Objects/Project.vala:416 src/Objects/Label.vala:195
+#: src/Objects/Section.vala:213
 msgid "Cancel"
 msgstr ""
 
-#: src/Application.vala:142
+#: src/Util.vala:789
 msgid "Reset all"
+msgstr ""
+
+#: src/Util.vala:828
+msgid "Welcome to Planner 3"
+msgstr ""
+
+#: src/Util.vala:829
+msgid ""
+"We have detected that you have a Planner 2 configuration started, currently "
+"the v3 database is not compatible with v2, if you wish you can download a "
+"backup in JSON format and migrate your data manually, or you can start with "
+"v3 with a new configuration."
+msgstr ""
+
+#: src/Util.vala:835
+msgid "Create backup"
+msgstr ""
+
+#: src/Util.vala:836
+msgid "Starting over"
+msgstr ""
+
+#: src/Util.vala:1209
+msgid "Save backup file"
+msgstr ""
+
+#: src/Util.vala:1211
+msgid "Save"
+msgstr ""
+
+#: src/Util.vala:1235
+msgid "JSON files"
+msgstr ""
+
+#: src/Util.vala:1240
+msgid "All files"
+msgstr ""
+
+#: src/Application.vala:142
+msgid "Are you sure you want to reset all?"
+msgstr ""
+
+#: src/Application.vala:143
+msgid ""
+"It process removes all stored information without the possibility of undoing "
+"it."
 msgstr ""
 
 #: src/MainWindow.vala:36 src/Views/Welcome.vala:27
 msgid "Planner"
 msgstr ""
 
-#: src/MainWindow.vala:270 src/Layouts/FilterPaneRow.vala:86
-#: src/Widgets/TopHeaderProject.vala:55
-#: src/Dialogs/ProjectPicker/ProjectRow.vala:103
-msgid "Inbox"
-msgstr ""
-
 #: src/Layouts/Sidebar.vala:59
 msgid "Settings"
-msgstr ""
-
-#: src/Layouts/FilterPaneRow.vala:89 src/Views/Date.vala:101
-#: src/Views/Scheduled/Scheduled.vala:19
-msgid "Scheduled"
-msgstr ""
-
-#: src/Layouts/FilterPaneRow.vala:92 src/Views/Pinboard.vala:20
-#: src/Views/Pinboard.vala:77
-msgid "Pinboard"
 msgstr ""
 
 #: src/Layouts/HeaderItem.vala:187 src/Dialogs/Project.vala:208
@@ -210,7 +259,7 @@ msgstr ""
 msgid "Favorites"
 msgstr ""
 
-#: src/Layouts/LabelRow.vala:155 src/Objects/Label.vala:192
+#: src/Layouts/LabelRow.vala:155 src/Objects/Label.vala:191
 msgid "Delete label"
 msgstr ""
 
@@ -222,25 +271,25 @@ msgstr ""
 msgid "Add Task"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:408
+#: src/Layouts/ItemRow.vala:407
 msgid "Task name"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:962 src/Widgets/ScheduleButton.vala:27
+#: src/Layouts/ItemRow.vala:971 src/Widgets/ScheduleButton.vala:27
 #: src/Widgets/ScheduleButton.vala:62
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:91
 msgid "Schedule"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:963
+#: src/Layouts/ItemRow.vala:972
 msgid "Complete"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:964
+#: src/Layouts/ItemRow.vala:973
 msgid "Edit"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:966
+#: src/Layouts/ItemRow.vala:975
 msgid "Delete task"
 msgstr ""
 
@@ -249,8 +298,8 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: src/Layouts/ProjectRow.vala:465 src/Widgets/TopHeaderProject.vala:155
-#: src/Objects/Project.vala:406
+#: src/Layouts/ProjectRow.vala:465 src/Objects/Project.vala:412
+#: src/Objects/Project.vala:519
 msgid "Delete project"
 msgstr ""
 
@@ -262,37 +311,34 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:71
+#: src/Layouts/SectionRow.vala:75
 msgid "(No Section)"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:85 src/Widgets/TopHeaderProject.vala:188
+#: src/Layouts/SectionRow.vala:89 src/Objects/Project.vala:571
 msgid "New section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:482
+#: src/Layouts/SectionRow.vala:531
+msgid "Add task"
+msgstr ""
+
+#: src/Layouts/SectionRow.vala:532
 msgid "Edit section"
 msgstr ""
 
-#. var move_item = new Dialogs.ContextMenu.MenuItemSelector (_("Move section"), true);
-#: src/Layouts/SectionRow.vala:484 src/Objects/Section.vala:210
+#: src/Layouts/SectionRow.vala:533
+msgid "Move section"
+msgstr ""
+
+#: src/Layouts/SectionRow.vala:534 src/Objects/Section.vala:209
 msgid "Delete section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:524
-msgid "No tasks available. Create one by clicking on the '+' button"
-msgstr ""
-
-#: src/Widgets/TopHeaderProject.vala:149
-msgid "Edit project"
-msgstr ""
-
-#: src/Widgets/TopHeaderProject.vala:150
-msgid "Add section"
-msgstr ""
-
-#: src/Widgets/TopHeaderProject.vala:153
-msgid "Show completed"
+#: src/Layouts/SectionRow.vala:595
+msgid ""
+"No tasks available. Create one by dragging the '+' button here or clicking "
+"on this space."
 msgstr ""
 
 #: src/Widgets/PriorityButton.vala:35
@@ -369,7 +415,7 @@ msgstr ""
 msgid "Synchronize with your Todoist Account."
 msgstr ""
 
-#: src/Views/List.vala:39
+#: src/Views/List.vala:46
 msgid "What will you accomplish?"
 msgstr ""
 
@@ -442,18 +488,18 @@ msgstr ""
 msgid "Update label"
 msgstr ""
 
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:73
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:77
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:74
-#: src/Dialogs/LabelPicker/LabelPicker.vala:58
+#: src/Dialogs/LabelPicker/LabelPicker.vala:60
 msgid "Done"
 msgstr ""
 
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:99
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:103
 msgid "Type a project"
 msgstr ""
 
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:46
-#: src/Dialogs/LabelPicker/LabelPicker.vala:67
+#: src/Dialogs/LabelPicker/LabelPicker.vala:69
 msgid "Clear"
 msgstr ""
 
@@ -485,26 +531,38 @@ msgstr ""
 msgid ":"
 msgstr ""
 
-#: src/Dialogs/LabelPicker/LabelPicker.vala:90
+#: src/Dialogs/LabelPicker/LabelPicker.vala:92
 msgid "Search or Create"
 msgstr ""
 
-#: src/Objects/Project.vala:407 src/Objects/Label.vala:193
+#: src/Objects/Project.vala:413 src/Objects/Label.vala:192
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr ""
 
-#: src/Objects/Project.vala:414 src/Objects/Label.vala:200
-#: src/Objects/Section.vala:218
+#: src/Objects/Project.vala:420 src/Objects/Label.vala:199
+#: src/Objects/Section.vala:217
 msgid "Delete"
 msgstr ""
 
-#: src/Objects/Section.vala:204
+#: src/Objects/Project.vala:513
+msgid "Edit project"
+msgstr ""
+
+#: src/Objects/Project.vala:514
+msgid "Add section"
+msgstr ""
+
+#: src/Objects/Project.vala:517
+msgid "Show completed"
+msgstr ""
+
+#: src/Objects/Section.vala:203
 #, c-format
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
-#: src/Objects/Section.vala:206
+#: src/Objects/Section.vala:205
 #, c-format
 msgid "Delete %s with its %d tasks?"
 msgstr ""

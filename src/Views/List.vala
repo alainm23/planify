@@ -11,6 +11,8 @@ public class Views.List : Gtk.EventBox {
         }
     }
 
+    public Gee.HashMap <string, Layouts.SectionRow> sections_map;
+
     public List (Objects.Project project) {
         Object (
             project: project
@@ -18,6 +20,8 @@ public class Views.List : Gtk.EventBox {
     }
 
     construct {
+        sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
+
         var top_project = new Widgets.TopHeaderProject (project);
 
         listbox = new Gtk.ListBox () {
@@ -26,6 +30,9 @@ public class Views.List : Gtk.EventBox {
             selection_mode = Gtk.SelectionMode.SINGLE,
             expand = true
         };
+
+        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, Util.get_default ().SECTIONROW_TARGET_ENTRIES, Gdk.DragAction.MOVE);
+        listbox.drag_data_received.connect (on_drag_section_received);
 
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("listbox-background");
@@ -72,6 +79,7 @@ public class Views.List : Gtk.EventBox {
         add_sections ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+            set_sort_func ();
             children_size_changed ();
             return GLib.Source.REMOVE;
         });
@@ -89,11 +97,13 @@ public class Views.List : Gtk.EventBox {
         });
 
         listbox.add.connect (() => {
-            children_size_changed (); 
+            children_size_changed ();
+            update_projects_position ();
         });
 
         listbox.remove.connect (() => {
-            children_size_changed (); 
+            children_size_changed ();
+            update_projects_position ();
         });
 
         scrolled_window.vadjustment.value_changed.connect (() => {
@@ -102,6 +112,49 @@ public class Views.List : Gtk.EventBox {
             } else {
                 Planner.event_bus.view_header (false);
             }
+        });
+
+        Planner.database.section_moved.connect ((section, old_project_id) => {
+            if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
+                    sections_map [section.id_string].hide_destroy ();
+                    sections_map.unset (section.id_string);
+            }
+
+            if (project.id == section.project_id &&
+                !sections_map.has_key (section.id_string)) {
+                    add_section (section);
+            }
+        });
+
+        Planner.database.section_deleted.connect ((section) => {
+            if (sections_map.has_key (section.id_string)) {
+                sections_map [section.id_string].hide_destroy ();
+                sections_map.unset (section.id_string);
+            }
+        });
+    }
+
+    private void set_sort_func () {
+        listbox.set_sort_func ((row1, row2) => {
+            Objects.Section item1 = ((Layouts.SectionRow) row1).section;
+            Objects.Section item2 = ((Layouts.SectionRow) row2).section;
+
+            return item1.section_order - item2.section_order;
+        });
+
+        listbox.set_sort_func (null);
+    }
+
+    private void update_projects_position () {
+        Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+            GLib.List<weak Gtk.Widget> sections = listbox.get_children ();
+            for (int index = 1; index < sections.length (); index++) {
+                Objects.Section section = ((Layouts.SectionRow) sections.nth_data (index)).section;
+                section.section_order = index;
+                Planner.database.update_child_order (section);
+            }
+
+            return GLib.Source.REMOVE;
         });
     }
 
@@ -126,10 +179,13 @@ public class Views.List : Gtk.EventBox {
 
     private void add_section (Objects.Section section) {
         var row = new Layouts.SectionRow (section);
+        
         row.children_size_changed.connect (() => {
             children_size_changed (); 
         });
+
         listbox.add (row);
+        sections_map [section.id_string] = row;
         listbox.show_all ();
     }
     
@@ -149,5 +205,30 @@ public class Views.List : Gtk.EventBox {
 
     private void children_size_changed () {
         listbox_placeholder_stack.visible_child_name = validate_children () ? "listbox" : "placeholder";
+    }
+
+    private void on_drag_section_received (Gdk.DragContext context, int x, int y,
+        Gtk.SelectionData selection_data, uint target_type, uint time) {
+        Layouts.SectionRow target;
+        Layouts.SectionRow source;
+        Gtk.Allocation alloc;
+
+        target = (Layouts.SectionRow) listbox.get_row_at_y (y);
+        target.get_allocation (out alloc);
+
+        var row = ((Gtk.Widget[]) selection_data.get_data ()) [0];
+        source = (Layouts.SectionRow) row;
+        
+        if (target != null) {
+            source.get_parent ().remove (source);
+
+            if (target.get_index () == 1 && y < (alloc.height / 2)) {
+                listbox.insert (source, target.get_index ());
+            } else {
+                listbox.insert (source, target.get_index () + 1);
+            }
+            
+            listbox.show_all ();
+        }
     }
 }

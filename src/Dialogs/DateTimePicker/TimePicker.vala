@@ -25,6 +25,7 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
     private Gtk.SpinButton hours_spinbutton;
     private Gtk.SpinButton minutes_spinbutton;
     private Gtk.Stack time_stack;
+    private Gtk.Revealer no_time_revealer;
 
     public string format_12 { get; construct; }
     public string format_24 { get; construct; }
@@ -64,19 +65,18 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
         }
     }
 
+    public bool no_time_visible {
+        set {
+            no_time_revealer.reveal_child = value;
+        }
+    }
+
     private string old_string = "";
     private bool changing_time = false;
 
     public signal void time_changed ();
 
-    construct {
-        var time_icon = new Widgets.DynamicIcon ();
-        time_icon.size = 19;
-        time_icon.update_icon_name ("planner-clock");
-
-        var title_label = new Gtk.Label (_("Time"));
-        title_label.get_style_context ().add_class ("font-weight-500");
-        
+    construct {        
         time_button = new Gtk.Button.with_label ("") {
             valign = Gtk.Align.CENTER,
             can_focus = false
@@ -97,9 +97,15 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
         no_time_button.add (close_circle_icon);
         no_time_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        no_time_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            reveal_child = true
+        };
+        no_time_revealer.add (no_time_button);
+
         var time_grid = new Gtk.Grid ();
         time_grid.add (time_button);
-        time_grid.add (no_time_button);
+        time_grid.add (no_time_revealer);
 
         var add_circle_icon = new Widgets.DynamicIcon ();
         add_circle_icon.size = 19;
@@ -124,8 +130,7 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
             margin_start = 3,
             hexpand = true
         };
-        timepicker_box.pack_start (time_icon, false, false, 0);
-        timepicker_box.pack_start (title_label, false, true, 6);
+        
         timepicker_box.pack_end (time_stack, false, false, 0);
 
         /*
@@ -201,16 +206,10 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
         popover.add (pop_grid);
 
         var main_grid = new Gtk.Grid () {
-            hexpand = true,
-            margin = 9,
-            margin_top = 0,
-            margin_bottom = 12
+            hexpand = true
         };
 
         main_grid.add (timepicker_box);
-
-        unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
-        main_grid_context.add_class ("picker-content");
 
         add (main_grid);
 

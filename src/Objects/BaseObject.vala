@@ -21,7 +21,7 @@
 
 public class Objects.BaseObject : GLib.Object {
     public int64 id { get; set; default = Constants.INACTIVE; }
-
+    public string name { get; set; default = ""; }
     public signal void deleted ();
     public signal void updated ();
 
@@ -59,8 +59,56 @@ public class Objects.BaseObject : GLib.Object {
                 return ObjectType.SECTION;
             } else if (this is Objects.Item) {
                 return ObjectType.ITEM;
-            } else {
+            } else if (this is Objects.Label) {
                 return ObjectType.LABEL;
+            } else {
+                return ObjectType.FILTER;
+            }
+        }
+    }
+
+    public string icon_name {
+        get {
+            if (this is Objects.Today) {
+                return "planner-today";
+            } else if (this is Objects.Scheduled) {
+                return "planner-scheduled";
+            } else if (this is Objects.Pinboard) {
+                return "planner-pin-tack";
+            } else {
+                return "";
+            }
+        }
+    }
+
+    public string table_name {
+        get {
+            if (this is Objects.Item) {
+                return "Items";
+            } else if (this is Objects.Section) {
+                return "Sections";
+            } else if (this is Objects.Project) {
+                return "Projects";
+            } else if (this is Objects.Label) {
+                return "Labels";
+            } else {
+                return "";
+            }
+        }
+    }
+
+    public string column_order_name {
+        get {
+            if (this is Objects.Item) {
+                return "child_order";
+            } else if (this is Objects.Section) {
+                return "section_order";
+            } else if (this is Objects.Project) {
+                return "child_order";
+            } else if (this is Objects.Label) {
+                return "item_order";
+            } else {
+                return "";
             }
         }
     }

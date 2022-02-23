@@ -1,5 +1,5 @@
 public class Widgets.LoadingButton : Gtk.Button {
-    public string text { get; construct; }
+    public string text_icon { get; construct; }
     public LoadingButtonType loading_type { get; construct; }
     bool _is_loading;
 
@@ -22,10 +22,10 @@ public class Widgets.LoadingButton : Gtk.Button {
         }
     }
 
-    public LoadingButton (LoadingButtonType loading_type, string text) {
+    public LoadingButton (LoadingButtonType loading_type, string text_icon) {
         Object (
             loading_type: loading_type,
-            text: text
+            text_icon: text_icon
         );
     }
 
@@ -42,11 +42,11 @@ public class Widgets.LoadingButton : Gtk.Button {
         };
 
         if (loading_type == LoadingButtonType.LABEL) {
-            submit_stack.add_named (new Gtk.Label (text), "button");
+            submit_stack.add_named (new Gtk.Label (text_icon), "button");
         } else {
             var icon = new Widgets.DynamicIcon ();
             icon.size = 19;
-            icon.update_icon_name (text);
+            icon.update_icon_name (text_icon);
             submit_stack.add_named (icon, "button");
         }
         

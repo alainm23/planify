@@ -41,7 +41,9 @@ public class Dialogs.ProjectPicker.ProjectRow : Gtk.ListBoxRow {
 
         var projectrow_grid = new Gtk.Grid () {
             column_spacing = 6,
-            margin = 6
+            margin = 6,
+            margin_top = 3,
+            margin_bottom = 3
         };
 
         projectrow_grid.add (icon_project);        

@@ -191,8 +191,19 @@ button:disabled {
     font-weight: 500;
 }
 
-.card {
+.mt-12 {
     margin-top: 24px;
+}
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.card {
     border-radius: 6px;
     padding: 9px 9px 6px 9px;
     background-color: @item_bg_color;

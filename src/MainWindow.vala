@@ -117,8 +117,9 @@ public class MainWindow : Hdy.Window {
         Planner.settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
 
         welcome_view.activated.connect ((index) => {
-            Planner.settings.set_enum ("backend-type", index + 1);
-            init_backend ();
+            if (Planner.settings.set_enum ("backend-type", index + 1)) {
+                init_backend ();
+            }
         });
 
         Timeout.add (main_stack.transition_duration, () => {
@@ -147,6 +148,11 @@ public class MainWindow : Hdy.Window {
         Planner.settings.changed.connect ((key) => {
             if (key == "appearance") {
                 Util.get_default ().update_theme ();
+            } else if (key == "badge-count") {
+                Timeout.add (main_stack.transition_duration, () => {
+                    Services.Badge.get_default ().update_badge ();
+                    return GLib.Source.REMOVE;
+                });
             }
         });
     }
@@ -241,12 +247,20 @@ public class MainWindow : Hdy.Window {
         return project_view;
     }
 
+    public void valid_view_removed (Objects.Project project) {
+        Views.Project? project_view;
+        project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+        if (project_view != null) {
+            project_view.destroy ();
+            go_homepage ();
+        }
+    }
+
     private void init_backend () {
         BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
         if (backend_type == BackendType.LOCAL) {
             Planner.database = Services.Database.get_default ();
             Planner.database.init_database ();
-            // Services.Badge.get_default ().init ();
 
             main_stack.visible_child_name = "main-view";
 
@@ -254,8 +268,7 @@ public class MainWindow : Hdy.Window {
                 create_inbox_project ();
             }
 
-            sidebar.init (backend_type);
-            Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
+            init_local_todoist_backend (backend_type);
         } else if (backend_type == BackendType.TODOIST) {
             Planner.database = Services.Database.get_default ();
             Planner.database.init_database ();
@@ -272,17 +285,13 @@ public class MainWindow : Hdy.Window {
             });
 
             Planner.todoist.first_sync_finished.connect (() => {
-                sidebar.init (backend_type);
-                // Services.Badge.get_default ().init ();
-                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
+                init_local_todoist_backend (backend_type);
             });
 
             main_stack.visible_child_name = "main-view";
 
             if (!Planner.todoist.invalid_token () && !Planner.database.is_database_empty ()) {
-                sidebar.init (backend_type);
-                // Services.Badge.get_default ().init ();
-                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
+                init_local_todoist_backend (backend_type);
 
                 Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
                     Services.Todoist.get_default ().sync_async ();
@@ -293,6 +302,31 @@ public class MainWindow : Hdy.Window {
 
         } else {
             main_stack.visible_child_name = "welcome-view";
+        }
+    }
+
+    public void init_local_todoist_backend (BackendType backend_type) {
+        sidebar.init (backend_type);
+        Services.Badge.get_default ();
+        Services.Notification.get_default ();
+        go_homepage ();
+
+        Planner.database.project_deleted.connect (valid_view_removed);
+    }
+    
+    public void go_homepage () {
+        if (Planner.settings.get_boolean ("homepage-project")) {
+            int64 project_id = Planner.settings.get_int64 ("homepage-project-id");
+            if (Planner.database.get_project (project_id) != null) {
+                Planner.event_bus.pane_selected (PaneType.PROJECT, project_id.to_string ());
+            } else {
+                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
+            }
+        } else {
+            Planner.event_bus.pane_selected (
+                PaneType.FILTER,
+                Util.get_default ().get_filter ().to_string ()
+            );
         }
     }
 

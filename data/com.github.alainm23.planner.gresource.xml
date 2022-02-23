@@ -31,6 +31,8 @@
     <file alias="planner-heart.svg">resources/settings/planner-heart.svg</file>
     <file alias="planner-mail.svg">resources/settings/planner-mail.svg</file>
     <file alias="planner-appearance.svg">resources/settings/planner-appearance.svg</file>
+    <file alias="planner-notification.svg">resources/settings/planner-notification.svg</file>
+    <file alias="planner-home.svg">resources/settings/planner-home.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/planner-calendar-dark.svg</file>
@@ -69,5 +71,7 @@
     <file alias="planner-pinned-activated.svg">resources/planner-pinned-activated.svg</file>
     <file alias="planner-settings-dark.svg">resources/planner-settings-dark.svg</file>
     <file alias="planner-settings-light.svg">resources/planner-settings-light.svg</file>
+    <file alias="planner-bell-light.svg">resources/planner-bell-light.svg</file>
+    <file alias="planner-bell-dark.svg">resources/planner-bell-dark.svg</file>
   </gresource>
 </gresources>

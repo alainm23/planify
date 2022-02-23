@@ -9,6 +9,7 @@ finish-args:
   - "--share=network"
   - "--socket=fallback-x11"
   - "--socket=wayland"
+  - "--filesystem=home"
 
   - "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
 cleanup:

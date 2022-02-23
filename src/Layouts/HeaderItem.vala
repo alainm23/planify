@@ -223,4 +223,22 @@ public class Layouts.HeaderItem : Gtk.EventBox {
             flowbox.show_all ();
         }
     }
+
+    public void init_update_position_project () {
+        listbox.add.connect (update_projects_position);
+        listbox.remove.connect (update_projects_position);
+    }
+
+    private void update_projects_position () {
+        Timeout.add (main_revealer.transition_duration, () => {
+            GLib.List<weak Gtk.Widget> projects = listbox.get_children ();
+            for (int index = 0; index < projects.length (); index++) {
+                Objects.Project project = ((Layouts.ProjectRow) projects.nth_data (index)).project;
+                project.child_order = index + 1;
+                Planner.database.update_child_order (project);
+            }
+
+            return GLib.Source.REMOVE;
+        });
+    }
 }

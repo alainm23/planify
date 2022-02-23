@@ -14,6 +14,7 @@ public class Services.Database : GLib.Object {
     public signal void label_deleted (Objects.Label label);
 
     public signal void section_deleted (Objects.Section section);
+    public signal void section_moved (Objects.Section section, int64 old_project_id);
     
     public signal void item_deleted (Objects.Item item);
     public signal void item_added (Objects.Item item, bool insert = true);
@@ -21,6 +22,9 @@ public class Services.Database : GLib.Object {
 
     public signal void item_label_added (Objects.ItemLabel item_label);
     public signal void item_label_deleted (Objects.ItemLabel item_label);
+
+    public signal void reminder_added (Objects.Reminder reminder);
+    public signal void reminder_deleted (int64 id);
 
     private static Database? _instance;
     public static Database get_default () {
@@ -71,6 +75,17 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    Gee.ArrayList<Objects.Reminder> _reminders = null;
+    public Gee.ArrayList<Objects.Reminder> reminders {
+        get {
+            if (_reminders == null) {
+                _reminders = get_reminders_collection ();
+            }
+
+            return _reminders;
+        }
+    }
+
     construct {
         label_deleted.connect ((label) => {
             if (_labels.remove (label)) {
@@ -93,6 +108,16 @@ public class Services.Database : GLib.Object {
         item_deleted.connect ((item) => {
             if (_items.remove (item)) {
                 debug ("item Removed: %s", item.content);
+            }
+        });
+
+        reminder_deleted.connect ((id) => {
+            foreach (Objects.Reminder reminder in reminders) {
+                if (reminder.id == id) {
+                    if (_reminders.remove (reminder)) {
+                        debug ("Reminder Removed: %s", id.to_string ());
+                    }
+                }
             }
         });
     }
@@ -219,6 +244,24 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Reminders (
+                id                  INTEGER PRIMARY KEY,
+                notify_uid          INTEGER,
+                item_id             INTEGER,
+                service             TEXT,
+                type                TEXT,
+                due                 TEXT,
+                mm_offset           INTEGER,
+                is_deleted          INTEGER,
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
         
         sql = """PRAGMA foreign_keys = ON;""";
         
@@ -259,6 +302,19 @@ public class Services.Database : GLib.Object {
             foreach (var project in projects) {
                 if (project.parent_id == p.id) {
                     return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_subitems (Objects.Item i) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.parent_id == i.id) {
+                    return_value.add (item);
                 }
             }
 
@@ -458,6 +514,19 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
+    public Gee.ArrayList<Objects.Label> get_all_labels_by_search (string search_text) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        lock (_labels) {
+            foreach (var label in labels) {
+                if (search_text.down () in label.name.down ()) {
+                    return_value.add (label);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Objects.Label _fill_label (Sqlite.Statement stmt) {
         Objects.Label return_value = new Objects.Label ();
         return_value.id = stmt.column_int64 (0);
@@ -526,13 +595,20 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Label get_label_by_name (string name) {
+    public Objects.Label get_label_by_name (string name, bool lowercase = false) {
         Objects.Label? return_value = null;
         lock (_labels) {
             foreach (var label in labels) {
-                if (label.name == name) {
-                    return_value = label;
-                    break;
+                if (lowercase) {
+                    if (label.name.down () == name.down ()) {
+                        return_value = label;
+                        break;
+                    }
+                } else {
+                    if (label.name == name) {
+                        return_value = label;
+                        break;
+                    }
                 }
             }
 
@@ -555,6 +631,7 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
         stmt.reset ();
     }
 
@@ -757,6 +834,7 @@ public class Services.Database : GLib.Object {
             foreach (Objects.Item item in section.items) {
                 delete_item (item);
             }
+
             section.deleted ();
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -790,7 +868,44 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
         stmt.reset ();
+    }
+
+    public void move_section (Objects.Section section, int64 old_project_id) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Sections SET project_id=$project_id WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$project_id", section.project_id);
+        set_parameter_int64 (stmt, "$id", section.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET project_id=$project_id WHERE section_id=$section_id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_int64 (stmt, "$project_id", section.project_id);
+            set_parameter_int64 (stmt, "$section_id", section.id);
+            
+            if (stmt.step () == Sqlite.DONE) {
+                foreach (Objects.Item item in section.items) {
+                    item.project_id = section.project_id;
+                }
+
+                section_moved (section, old_project_id);
+            }
+
+            stmt.reset ();
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
     }
 
     /*
@@ -833,10 +948,14 @@ public class Services.Database : GLib.Object {
             item_added (item, insert);
 
             if (insert) {
-                if (item.section_id == Constants.INACTIVE) {
-                    item.project.item_added (item);
+                if (item.parent_id != Constants.INACTIVE) {
+                    item.parent.item_added (item);
                 } else {
-                    item.section.item_added (item);
+                    if (item.section_id == Constants.INACTIVE) {
+                        item.project.item_added (item);
+                    } else {
+                        item.section.item_added (item);
+                    }
                 }
             }
 
@@ -918,7 +1037,7 @@ public class Services.Database : GLib.Object {
         return_value.id = stmt.column_int64 (0);
         return_value.content = stmt.column_text (1);
         return_value.description = stmt.column_text (2);
-        get_due_parameter (return_value, stmt, 3);
+        return_value.due.update_from_json (get_due_parameter (stmt, 3));
         return_value.added_at = stmt.column_text (4);
         return_value.completed_at = stmt.column_text (5);
         return_value.updated_at = stmt.column_text (6);
@@ -1032,6 +1151,10 @@ public class Services.Database : GLib.Object {
         set_parameter_int64 (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Item subitem in item.items) {
+                delete_item (subitem);
+            }
+
             item.deleted ();
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -1085,20 +1208,27 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Items SET checked=$checked, completed_at=$completed_at
-            WHERE id=$id OR parent_id=$parent_id;
+            WHERE id=$id OR parent_id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_bool (stmt, "$checked", item.checked);
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_int64 (stmt, "$id", item.id);
-        set_parameter_int64 (stmt, "$parent_id", item.id);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
+            foreach (Objects.Item subitem in item.items) {
+                subitem.checked = item.checked;
+                subitem.completed_at = item.completed_at;
+                
+                checked_toggled (subitem, old_checked);
+            }
+
             item.updated ();
             item_updated (item, Constants.INACTIVE);
+
             Planner.event_bus.checked_toggled (item, old_checked);
             if (item.project.todoist) {
                 Planner.todoist.complete_item.begin (item, (obj, res) => {
@@ -1110,16 +1240,26 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item_position (Objects.Item item) {
+    public void update_child_order (Objects.BaseObject base_object) {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Items SET child_order=$child_order WHERE id=$id;
-        """;
+            UPDATE %s SET %s=$order WHERE id=$id;
+        """.printf (base_object.table_name, base_object.column_order_name);
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int (stmt, "$child_order", item.child_order);
-        set_parameter_int64 (stmt, "$id", item.id);
+
+        if (base_object is Objects.Item) {
+            set_parameter_int (stmt, "$order", ((Objects.Item) base_object).child_order);
+        } else if (base_object is Objects.Section) {
+            set_parameter_int (stmt, "$order", ((Objects.Section) base_object).section_order);
+        } else if (base_object is Objects.Project) {
+            set_parameter_int (stmt, "$order", ((Objects.Project) base_object).child_order);
+        } else if (base_object is Objects.Label) {
+            set_parameter_int (stmt, "$order", ((Objects.Label) base_object).item_order);
+        }
+
+        set_parameter_int64 (stmt, "$id", base_object.id);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -1159,6 +1299,103 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    // Reminders
+    public void insert_reminder (Objects.Reminder reminder) {
+        Sqlite.Statement stmt;
+        string sql;
+
+        sql = """
+            INSERT OR IGNORE INTO Reminders (id, item_id, due)
+            VALUES ($id, $item_id, $due);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", reminder.id);
+        set_parameter_int64 (stmt, "$item_id", reminder.item_id);
+        set_parameter_str (stmt, "$due", reminder.due.to_string ());
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            reminder.item.reminder_added (reminder);
+            reminder_added (reminder);
+            reminders.add (reminder);
+        }
+
+        stmt.reset ();
+    }
+
+    public Gee.ArrayList<Objects.Reminder> get_reminders_collection () {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT id, item_id, due FROM Reminders;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_reminder (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+    
+    public Objects.Reminder _fill_reminder (Sqlite.Statement stmt) {
+        Objects.Reminder return_value = new Objects.Reminder ();
+        return_value.id = stmt.column_int64 (0);
+        return_value.item_id = stmt.column_int64 (1);
+        return_value.due.update_from_json (get_due_parameter (stmt, 2));
+        return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Reminder> get_reminders_by_item (Objects.Item item) {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+        lock (_reminders) {
+            foreach (var reminder in reminders) {
+                if (reminder.item_id == item.id) {
+                    return_value.add (reminder);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Objects.Reminder get_reminder (int64 id) {
+        Objects.Reminder? return_value = null;
+        lock (_reminders) {
+            foreach (var reminder in reminders) {
+                if (reminder.id == id) {
+                    return_value = reminder;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public void delete_reminder (int64 id) {
+        Sqlite.Statement stmt;
+    
+        sql = """
+            DELETE FROM Reminders WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            reminder_deleted (id);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        
+        stmt.reset ();
+    }
+
     // PARAMENTER REGION
     private void set_parameter_int (Sqlite.Statement? stmt, string par, int val) {
         int par_position = stmt.bind_parameter_index (par);
@@ -1184,7 +1421,7 @@ public class Services.Database : GLib.Object {
     }
 
     Json.Parser parser;
-    private void get_due_parameter (Objects.Item item, Sqlite.Statement stmt, int col) {
+    private Json.Object? get_due_parameter (Sqlite.Statement stmt, int col) {
         if (parser == null) {
             parser = new Json.Parser ();
         }
@@ -1195,7 +1432,7 @@ public class Services.Database : GLib.Object {
             debug (e.message);
         }
 
-        item.due.update_from_json (parser.get_root ().get_object ());
+        return parser.get_root ().get_object ();
     }
 
     public bool column_exists (string table, string column) {

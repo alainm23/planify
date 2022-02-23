@@ -173,7 +173,6 @@ public class Dialogs.MessageDialog : Hdy.Window {
         Gtk.ResponseType response = Gtk.ResponseType.CANCEL) {
         button.clicked.connect (() => {
             default_action (response);
-            hide_destroy ();
         });
         action_grid.add (button);
         action_grid.show_all ();

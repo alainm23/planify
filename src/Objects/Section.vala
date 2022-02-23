@@ -21,10 +21,9 @@
 
 public class Objects.Section : Objects.BaseObject {
     public int64 project_id { get; set; default = 0; }
-    public string name { get; set; default = ""; }
     public string archived_at { get; set; default = ""; }
     public string added_at { get; set; default = ""; }
-    public int section_order { get; set; default = -1; }
+    public int section_order { get; set; default = 0; }
     public bool collapsed { get; set; default = true; }
     public bool is_deleted { get; set; default = true; }
     public bool is_archived { get; set; default = true; }
@@ -240,5 +239,37 @@ public class Objects.Section : Objects.BaseObject {
                 message_dialog.hide_destroy ();
             }
         });
+    }
+
+    public string get_move_section (string uuid, int64 new_project_id) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("section_move");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+            
+            builder.set_member_name ("id");
+            builder.add_int_value (id);
+
+            builder.set_member_name ("project_id");
+            builder.add_int_value (new_project_id);
+
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null); 
     }
 }

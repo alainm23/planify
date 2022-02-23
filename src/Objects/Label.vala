@@ -20,9 +20,8 @@
 */
 
 public class Objects.Label : Objects.BaseObject {
-    public string name { get; set; default = ""; }
     public string color { get; set; default = ""; }
-    public int item_order { get; set; default = 0; }
+    public int item_order { get; set; default = Constants.INACTIVE; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
     public bool todoist { get; set; default = false; }

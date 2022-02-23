@@ -137,6 +137,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
 
     private void project_update_request () {
         project_revealer.reveal_child = false;
+        end_revealer.reveal_child = false;
         
         project_progress.progress_fill_color = Util.get_default ().get_color (project.color);
         project_progress.percentage = project.percentage;

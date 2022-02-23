@@ -35,10 +35,10 @@ public enum ProjectIconStyle {
 }
 
 public enum FilterType {
-    TODAY,
-    INBOX,
-    SCHEDULED,
-    PINBOARD;
+    TODAY = 0,
+    INBOX = 1,
+    SCHEDULED = 2,
+    PINBOARD = 3;
 
     public string to_string () {
         switch (this) {
@@ -53,6 +53,25 @@ public enum FilterType {
 
             case PINBOARD:
                 return "pinboard";
+
+            default:
+                assert_not_reached();
+        }
+    }
+
+    public string get_name () {
+        switch (this) {
+            case TODAY:
+                return _("Today");
+
+            case INBOX:
+                return _("Inbox");
+
+            case SCHEDULED:
+                return _("Scheduled");
+
+            case PINBOARD:
+                return _("Pinboard");
 
             default:
                 assert_not_reached();
@@ -89,7 +108,8 @@ public enum ObjectType {
     PROJECT,
     SECTION,
     ITEM,
-    LABEL;
+    LABEL,
+    FILTER;
 
     public string get_header () {
         switch (this) {
@@ -104,6 +124,9 @@ public enum ObjectType {
 
             case LABEL:
                 return _("Labels");
+
+            case FILTER:
+                return _("Filters");
 
             default:
                 assert_not_reached();
@@ -120,6 +143,10 @@ public class Util : GLib.Object {
         {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
     };
 
+    public Gtk.TargetEntry[] SECTIONROW_TARGET_ENTRIES = {
+        {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
+    };
+
     private static Util? _instance;
     public static Util get_default () {
         if (_instance == null) {
@@ -128,6 +155,7 @@ public class Util : GLib.Object {
 
         return _instance;
     }
+
     /*
     *  Colors Utils
     */
@@ -346,6 +374,28 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    public string get_badge_name () {
+        string returned = "";
+        int badge_count = Planner.settings.get_enum ("badge-count");
+        
+        switch (badge_count) {
+            case 0:
+                returned = _("None");
+                break;
+            case 1:
+                returned = _("Inbox");
+                break;
+            case 2:
+                returned = _("Today");
+                break;
+            case 3:
+                returned = _("Today + Inbox");
+                break;
+        }
+
+        return returned;
+    }
+
     public void update_theme () {
         string _css = """
             @define-color base_color %s;
@@ -377,7 +427,7 @@ public class Util : GLib.Object {
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
             } else if (appearance_mode == 1) {
                 base_color = "#151515";
-                bg_color = "#222222";
+                bg_color = "shade (#151515, 1.4)";
                 item_bg_color = "@bg_color";
                 item_border_color = "#333333";
                 picker_bg = "@base_color";
@@ -565,7 +615,6 @@ public class Util : GLib.Object {
         
         if (!insert) {
             Planner.event_bus.update_inserted_item_map (row);
-            /// items [row.item.id_string] = row;
             row.update_inserted_item ();
         } else {
             row.hide_destroy ();
@@ -685,6 +734,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-tag", true);
                 _dynamic_icons.set ("planner-pinned", true);
                 _dynamic_icons.set ("planner-settings", true);
+                _dynamic_icons.set ("planner-bell", true);
             }
 
             return _dynamic_icons;
@@ -791,6 +841,7 @@ public class Util : GLib.Object {
             if (response == Gtk.ResponseType.CANCEL) {
                 clear_database_query ();
                 Planner.settings.set_string ("version", Constants.VERSION);
+                message_dialog.destroy ();
             } else {
                 export_v2_database ();
             }
@@ -946,7 +997,7 @@ public class Util : GLib.Object {
         return all;
     }
 
-    public bool export_to_json (string path, Sqlite.Database db) {        
+    public bool export_to_json (string path, Sqlite.Database db) {      
         Json.Builder builder = new Json.Builder ();
         bool returned = false;
 
@@ -1189,5 +1240,20 @@ public class Util : GLib.Object {
         filter.add_pattern ("*");
         filter.set_filter_name (_("All files"));
         chooser.add_filter (filter);
+    }
+
+    public FilterType get_filter () {
+        switch (Planner.settings.get_enum ("homepage-item")) {
+            case 0:
+                return FilterType.INBOX;
+            case 1:
+                return FilterType.TODAY;
+            case 2:
+                return FilterType.SCHEDULED;
+            case 3:
+                return FilterType.PINBOARD;
+            default:
+                assert_not_reached();
+        }
     }
 }

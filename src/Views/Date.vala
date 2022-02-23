@@ -154,6 +154,15 @@ public class Views.Date : Gtk.EventBox {
         Planner.database.item_added.connect (valid_add_item);
         Planner.database.item_deleted.connect (valid_delete_item);
         Planner.database.item_updated.connect (valid_update_item);
+        Planner.event_bus.item_moved.connect ((item) => {
+            if (items.has_key (item.id_string)) {
+                items[item.id_string].update_request ();
+            }
+
+            if (overdue_items.has_key (item.id_string)) {
+                items[item.id_string].update_request ();
+            }
+        });
 
         listbox.add.connect (validate_placeholder);
         listbox.remove.connect (validate_placeholder);
@@ -194,6 +203,14 @@ public class Views.Date : Gtk.EventBox {
     }
 
     private void valid_update_item (Objects.Item item) {
+        if (items.has_key (item.id_string)) {
+            items[item.id_string].update_request ();
+        }
+
+        if (overdue_items.has_key (item.id_string)) {
+            overdue_items[item.id_string].update_request ();
+        }
+
         if (items.has_key (item.id_string) && !item.has_due) {
             items[item.id_string].hide_destroy ();
             items.unset (item.id_string);

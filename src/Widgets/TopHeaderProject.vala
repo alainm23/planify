@@ -81,9 +81,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
-            hexpand = true,
-            margin_start = 2,
-            margin_end = 6
+            hexpand = true
         };
 
         projectrow_box.pack_start (icon_progress_stack, false, false, 0);

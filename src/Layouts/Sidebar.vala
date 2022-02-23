@@ -184,6 +184,8 @@ public class Layouts.Sidebar : Gtk.EventBox {
         foreach (Objects.Project project in Planner.database.projects) {
             add_row_project (project);
         }
+
+        projects_header.init_update_position_project ();
     }
 
     private void add_all_favorites () {

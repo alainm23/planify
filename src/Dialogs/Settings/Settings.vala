@@ -82,13 +82,27 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         var general_content = new Dialogs.Settings.SettingsContent (_("General"));
 
+        var homepage_item = new Dialogs.Settings.SettingsItem (
+            "planner-home",
+            _("Home Page"),
+            Util.get_default ().get_filter ().get_name ()
+        );
+
         var appearance_item = new Dialogs.Settings.SettingsItem (
             "planner-appearance",
             _("Appearance"),
             Util.get_default ().get_theme_name ()
         );
 
+        var badge_count_item = new Dialogs.Settings.SettingsItem (
+            "planner-notification",
+            _("Notification settings"),
+            _("Manage your notification settings")
+        );
+
+        general_content.add_child (homepage_item);
         general_content.add_child (appearance_item);
+        general_content.add_child (badge_count_item);
 
         var contact_content = new Dialogs.Settings.SettingsContent (_("Contact us"));
 
@@ -132,6 +146,14 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("appearance");
         });
 
+        badge_count_item.activated.connect (() => {
+            go_setting_view ("notification");
+        });
+
+        homepage_item.activated.connect (() => {
+            go_setting_view ("home-page");
+        });
+
         mail_item.activated.connect (() => {
             try {
                 AppInfo.launch_default_for_uri ("https://github.com/alainm23/planner/issues", null);
@@ -159,6 +181,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         Planner.settings.changed.connect ((key) => {
             if (key == "appearance") {
                 appearance_item.description = Util.get_default ().get_theme_name ();
+            } else if (key == "homepage-item") {
+                homepage_item.description  = Util.get_default ().get_filter ().get_name ();
             }
         });
 
@@ -234,6 +258,208 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         return main_grid;
     }
 
+    private Gtk.Widget get_badge_view () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("Notification settings"));
+
+        var content = new Dialogs.Settings.SettingsContent (_("Badge Count"));
+
+        var none_item = new Gtk.RadioButton.with_label (null, _("None")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
+        var inbox_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Inbox")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_left = 6
+        };
+        
+        var today_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Today")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
+
+        var today_inbox_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Today + Inbox")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6,
+            margin_bottom = 6
+        };
+
+        content.add_child (none_item);
+        content.add_child (inbox_item);
+        content.add_child (today_item);
+        content.add_child (today_inbox_item);
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+        
+        main_grid.add (settings_header);
+        main_grid.add (content);
+
+        int badge = Planner.settings.get_enum ("badge-count");
+        if (badge == 0) {
+            none_item.active = true;
+        } else if (badge == 1) {
+            inbox_item.active = true;
+        } else if (badge == 2) {
+            today_item.active = true;
+        } else if (badge == 3) {
+            today_inbox_item.active = true;
+        }
+
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        settings_header.back_activated.connect (() => {
+            go_setting_view ("settings");
+        });
+
+        none_item.toggled.connect (() => {
+            Planner.settings.set_enum ("badge-count", 0);
+        });
+
+        inbox_item.toggled.connect (() => {
+            Planner.settings.set_enum ("badge-count", 1);
+        });
+
+        today_item.toggled.connect (() => {
+            Planner.settings.set_enum ("badge-count", 2);
+        });
+
+        today_inbox_item.toggled.connect (() => {
+            Planner.settings.set_enum ("badge-count", 3);
+        });
+
+        main_grid.show_all ();
+        return main_grid;
+    }
+
+    private Gtk.Widget get_home_page_view () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("Notification settings"));
+
+        var filters_content = new Dialogs.Settings.SettingsContent (_("Filters"));
+        var projects_content = new Dialogs.Settings.SettingsContent (_("Projects"));
+
+        var inbox_item = new Gtk.RadioButton.with_label (null, _("Inbox")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
+        var today_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Today")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_left = 6
+        };
+        
+        var scheduled_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Scheduled")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
+
+        var pinboard_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Pinboard")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6,
+            margin_bottom = 6
+        };
+
+        if (!Planner.settings.get_boolean ("homepage-project")) {
+            int type = Planner.settings.get_enum ("homepage-item");
+            if (type == 0) {
+                inbox_item.active = true;
+            } else if (type == 1) {
+                today_item.active = true;
+            } else if (type == 2) {
+                scheduled_item.active = true;
+            } else {
+                pinboard_item.active = true;
+            }
+        }
+
+        filters_content.add_child (inbox_item);
+        filters_content.add_child (today_item);
+        filters_content.add_child (scheduled_item);
+        filters_content.add_child (pinboard_item);
+
+        foreach (Objects.Project project in Planner.database.projects) {
+            if (!project.inbox_project) {
+                var project_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, project.name) {
+                    hexpand = true,
+                    margin_top = 3,
+                    margin_start = 6,
+                    margin_bottom = 6
+                };
+
+                projects_content.add_child (project_item);
+
+                project_item.toggled.connect (() => {
+                    Planner.settings.set_boolean ("homepage-project", true);
+                    Planner.settings.set_int64 ("homepage-project-id", project.id);
+                });
+
+                if (Planner.settings.get_boolean ("homepage-project")) {
+                    if (Planner.settings.get_int64 ("homepage-project-id") == project.id) {
+                        project_item.active = true;
+                    }
+                }
+            }
+        }
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+        
+        main_grid.add (settings_header);
+        main_grid.add (filters_content);
+        main_grid.add (projects_content);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        scrolled.add (main_grid);
+
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        settings_header.back_activated.connect (() => {
+            go_setting_view ("settings");
+        });
+
+        inbox_item.toggled.connect (() => {
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_enum ("homepage-item", 0);
+        });
+
+        today_item.toggled.connect (() => {
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_enum ("homepage-item", 1);
+        });
+
+        scheduled_item.toggled.connect (() => {
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_enum ("homepage-item", 2);
+        });
+
+        pinboard_item.toggled.connect (() => {
+            Planner.settings.set_boolean ("homepage-project", false);
+            Planner.settings.set_enum ("homepage-item", 3);
+        });
+
+        scrolled.show_all ();
+        return scrolled;
+    }
+ 
     private void go_setting_view (string view) {
         if (!views.has_key (view)) {
             views[view] = get_setting_view (view);
@@ -250,8 +476,14 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             case "settings":
                 returned = get_settings_view ();
                 break;
+            case "home-page":
+                returned = get_home_page_view ();
+                break;
             case "appearance":
                 returned = get_appearance_view ();
+                break;
+            case "notification":
+            returned = get_badge_view ();
                 break;
         }
 

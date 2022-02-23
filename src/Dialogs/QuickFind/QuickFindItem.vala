@@ -81,6 +81,45 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             main_grid.attach (checked_button, 0, 0, 1, 2);
             main_grid.attach (content_label, 1, 0, 1, 1);
             main_grid.attach (project_label, 1, 1, 1, 1);
+        } else if (base_object is Objects.Label) {
+            Objects.Label label = ((Objects.Label) base_object);
+
+            var widget_color = new Gtk.Grid () {
+                valign = Gtk.Align.CENTER,
+                height_request = 12,
+                width_request = 12
+            };
+    
+            unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
+            widget_color_context.add_class ("label-color");
+            Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
+
+            var name_label = new Gtk.Label (markup_string_with_search (label.name, pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true
+            };
+
+            main_grid.add (widget_color);
+            main_grid.add (name_label);
+        } else if (base_object is Objects.Today || base_object is Objects.Scheduled ||
+            base_object is Objects.Pinboard) {
+
+            var filter_icon = new Gtk.Image () {
+                gicon = new ThemedIcon (base_object.icon_name),
+                pixel_size = 16,
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER
+            };
+
+            var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true
+            };
+
+            main_grid.add (filter_icon);
+            main_grid.add (name_label);
         }
 
         add (main_grid);

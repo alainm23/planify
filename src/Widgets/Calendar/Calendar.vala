@@ -45,16 +45,22 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     public Calendar (bool block_past_days = false) {
         Object (
             block_past_days: block_past_days,
-            orientation: Gtk.Orientation.VERTICAL,
-            height_request: 200
+            orientation: Gtk.Orientation.VERTICAL
         );
     }
 
     construct {
         current_date = new GLib.DateTime.now_local ();
 
-        calendar_header = new Widgets.Calendar.CalendarHeader ();
-        calendar_week = new Widgets.Calendar.CalendarWeek ();
+        calendar_header = new Widgets.Calendar.CalendarHeader () {
+            margin_top = 6
+        };
+
+        calendar_week = new Widgets.Calendar.CalendarWeek () {
+            margin_top = 12,
+            margin_bottom = 6
+        };
+        
         calendar_view = new Widgets.Calendar.CalendarView ();
 
         pack_start (calendar_header);

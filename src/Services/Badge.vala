@@ -29,32 +29,38 @@ public class Services.Badge : GLib.Object {
         return _instance;
     }
 
-    int? _badge_count = null;
     public int badge_count {
         get {
-            if (_badge_count == null) {
-                _badge_count = get_badge_count_size ();
-            }
-
-            return _badge_count;
-        }
-
-        set {
-            _badge_count = value;
+            return get_badge_count_size ();
         }
     }
 
-    public void init () {
+    public bool badge_visible {
+        get {
+            if (Planner.settings.get_enum ("badge-count") == 0) {
+                return false;
+            }
+
+            return badge_count > 0;
+        }
+    }
+
+    construct {
         update_badge ();
+
+        Planner.database.item_added.connect (update_badge);
+        Planner.database.item_deleted.connect (update_badge);
+        Planner.database.item_updated.connect (update_badge);
     }
 
     public void update_badge () {
-        if (badge_visible ()) {
+        update_badge_visible (badge_visible);
+        if (badge_visible) {
             update_badge_count ();
         }
      }
 
-    private bool badge_visible (bool visible = Planner.settings.get_enum ("badge-count") != 0) {
+    private void update_badge_visible (bool visible) {
         Granite.Services.Application.set_badge_visible.begin (visible, (obj, res) => {
             try {
                 Granite.Services.Application.set_badge_visible.end (res);
@@ -62,16 +68,12 @@ public class Services.Badge : GLib.Object {
                 critical (e.message);
             }
         });
-
-        return visible;
     }
 
     private void update_badge_count () {
         Granite.Services.Application.set_badge.begin (badge_count, (obj, res) => {
             try {
-                if (Granite.Services.Application.set_badge.end (res)) {
-                    badge_visible (badge_count > 0);
-                }
+                Granite.Services.Application.set_badge.end (res);
             } catch (GLib.Error e) {
                 critical (e.message);
             }
@@ -79,17 +81,23 @@ public class Services.Badge : GLib.Object {
     }
 
     private int get_badge_count_size () {
-        int count = 0;
+        int returned = 0;
         int badge_count = Planner.settings.get_enum ("badge-count");
-        if (badge_count == 1) {
-            count = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"))
-                .project_count;
-        } else if (badge_count == 2) {
-            count = Planner.database.get_items_by_date (new GLib.DateTime.now_local (), false).size;
-        } else if (badge_count == 3) {
-            
+        if (badge_count == 0) {
+            return returned;
+        }
+        
+        if (badge_count == 1) { // Inbox
+            returned = Planner.database.get_project (
+                Planner.settings.get_int64 ("inbox-project-id")).project_count;
+        } if (badge_count == 2) { // Today
+            returned = Objects.Today.get_default ().today_count;
+        } else if (badge_count == 3) { // Inbox + Today
+            returned = Planner.database.get_project (
+                Planner.settings.get_int64 ("inbox-project-id")).project_count +
+                Objects.Today.get_default ().today_count;
         }
 
-        return count;
+        return returned;
     }
 }

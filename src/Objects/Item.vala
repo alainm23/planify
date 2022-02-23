@@ -51,6 +51,7 @@ public class Objects.Item : Objects.BaseObject {
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
+
     public bool pinned { get; set; default = false; }
     public string pinned_icon {
         get {
@@ -87,6 +88,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Objects.Item? _parent;
+    public Objects.Item parent {
+        get {
+            _parent = Planner.database.get_item (parent_id);
+            return _parent;
+        }
+    }
+
     Objects.Project? _project;
     public Objects.Project project {
         get {
@@ -116,7 +125,25 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items;
+    public Gee.ArrayList<Objects.Item> items {
+        get {
+            _items = Planner.database.get_subitems (this);
+            return _items;
+        }
+    }
+
+    Gee.ArrayList<Objects.Reminder> _reminders;
+    public Gee.ArrayList<Objects.Reminder> reminders {
+        get {
+            _reminders = Planner.database.get_reminders_by_item (this);
+            return _reminders;
+        }
+    }
+
     public signal void item_label_added (Objects.ItemLabel item_label);
+    public signal void item_added (Objects.Item item);
+    public signal void reminder_added (Objects.Reminder reminder);
 
     construct {
         deleted.connect (() => {
@@ -178,11 +205,15 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void set_section (Objects.Section section) {
-        this._section = section;
+        _section = section;
+    }
+
+    public void set_parent (Objects.Item item) {
+        _parent = item;
     }
 
     public void set_project (Objects.Project project) {
-        this._project = project;
+        _project = project;
     }
 
     public override string get_add_json (string temp_id, string uuid) {
@@ -434,7 +465,12 @@ public class Objects.Item : Objects.BaseObject {
             if (temp_id != null) {
                 builder.set_member_name ("project_id");
                 builder.add_int_value (project_id);
-    
+                
+                if (parent_id != Constants.INACTIVE) {
+                    builder.set_member_name ("parent_id");
+                    builder.add_int_value (parent_id);
+                }
+
                 if (section_id != Constants.INACTIVE) {
                     builder.set_member_name ("section_id");
                     builder.add_int_value (section_id);
@@ -515,5 +551,36 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             Planner.database.delete_item (this);
         }
+    }
+
+    public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
+        Objects.Item? return_value = null;
+        lock (_items) {
+            return_value = get_item (new_item.id);
+            if (return_value == null) {
+                new_item.set_parent (this);
+                add_item (new_item);
+                Planner.database.insert_item (new_item, insert);
+                return_value = new_item;
+            }
+            return return_value;
+        }
+    }
+
+    public Objects.Item? get_item (int64 id) {
+        Objects.Item? return_value = null;
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.id == id) {
+                    return_value = item;
+                    break;
+                }
+            }
+        }
+        return return_value;
+    }
+
+    public void add_item (Objects.Item item) {
+        _items.add (item);
     }
 }

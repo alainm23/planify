@@ -100,19 +100,9 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
 
     public void init () {
         if (filter_type == FilterType.TODAY) {
-            GLib.DateTime date = new GLib.DateTime.now_local ();
-            update_count_label (Planner.database.get_items_by_date (date, false).size);
-
-            Planner.database.item_added.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date, false).size);
-            });
-
-            Planner.database.item_deleted.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date, false).size);
-            });
-
-            Planner.database.item_updated.connect (() => {
-                update_count_label (Planner.database.get_items_by_date (date, false).size);
+            update_count_label (Objects.Today.get_default ().today_count);
+            Objects.Today.get_default ().today_count_updated.connect (() => {
+                update_count_label (Objects.Today.get_default ().today_count);
             });
         } else if (filter_type == FilterType.INBOX) {  
             Objects.Project inbox_project = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"));
@@ -122,32 +112,14 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
                 update_count_label (inbox_project.project_count);
             });
         } else if (filter_type == FilterType.SCHEDULED) {
-            update_count_label (Planner.database.get_items_by_scheduled (false).size);
-
-            Planner.database.item_added.connect (() => {
-                update_count_label (Planner.database.get_items_by_scheduled (false).size);
-            });
-
-            Planner.database.item_deleted.connect (() => {
-                update_count_label (Planner.database.get_items_by_scheduled (false).size);
-            });
-
-            Planner.database.item_updated.connect (() => {
-                update_count_label (Planner.database.get_items_by_scheduled (false).size);
+            update_count_label (Objects.Scheduled.get_default ().scheduled_count);
+            Objects.Scheduled.get_default ().scheduled_count_updated.connect (() => {
+                update_count_label (Objects.Scheduled.get_default ().scheduled_count);
             });
         } else if (filter_type == FilterType.PINBOARD) {
-            update_count_label (Planner.database.get_items_pinned (false).size);
-
-            Planner.database.item_added.connect (() => {
-                update_count_label (Planner.database.get_items_pinned (false).size);
-            });
-
-            Planner.database.item_deleted.connect (() => {
-                update_count_label (Planner.database.get_items_pinned (false).size);
-            });
-
-            Planner.database.item_updated.connect (() => {
-                update_count_label (Planner.database.get_items_pinned (false).size);
+            update_count_label (Objects.Pinboard.get_default ().pinboard_count);
+            Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
+                update_count_label (Objects.Pinboard.get_default ().pinboard_count);
             });
         }
     }

@@ -57,7 +57,7 @@ public class Dialogs.ContextMenu.MenuCalendarPicker : Gtk.EventBox {
         menu_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
         menu_button_context.add_class ("transition");
 
-        var calendar = new Widgets.Calendar.Calendar ();
+        var calendar = new Widgets.Calendar.Calendar (true);
 
         var content_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN

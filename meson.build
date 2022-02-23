@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '3.0.4'
+    version: '3.0.6'
 )
 
 gnome = import ('gnome')
@@ -89,6 +89,8 @@ executable (
     'src/Widgets/ItemLabels.vala',
     'src/Widgets/ItemLabelChild.vala',
     'src/Widgets/Placeholder.vala',
+    'src/Widgets/SubItems.vala',
+    'src/Widgets/ReminderButton.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -115,6 +117,9 @@ executable (
     'src/Dialogs/QuickFind/QuickFind.vala',
     'src/Dialogs/QuickFind/QuickFindItem.vala',
     'src/Dialogs/QuickFind/Synapse.vala',
+    
+    'src/Dialogs/ReminderPicker/ReminderPicker.vala',
+    'src/Dialogs/ReminderPicker/ReminderRow.vala',
 
     'src/Dialogs/Settings/Settings.vala',
     'src/Dialogs/Settings/SettingsHeader.vala',
@@ -138,11 +143,15 @@ executable (
     'src/Dialogs/ContextMenu/MenuCalendarPicker.vala',
     'src/Dialogs/ContextMenu/MenuSwitch.vala',
 
+    'src/Dialogs/Shortcuts/Shortcuts.vala',
+    'src/Dialogs/Shortcuts/ShortcutLabel.vala',
+
     'src/Services/EventBus.vala',
     'src/Services/Database.vala',
     'src/Services/Todoist.vala',
     'src/Services/ActionManager.vala',
     'src/Services/Badge.vala',
+    'src/Services/Notification.vala',
 
     'src/Objects/v2.vala',
     'src/Objects/BaseObject.vala',
@@ -153,6 +162,10 @@ executable (
     'src/Objects/Color.vala',
     'src/Objects/DueDate.vala',
     'src/Objects/ItemLabel.vala',
+    'src/Objects/Today.vala',
+    'src/Objects/Pinboard.vala',
+    'src/Objects/Scheduled.vala',
+    'src/Objects/Reminder.vala',
     gresource,
     config_file,
     dependencies: planner_deps,

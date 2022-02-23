@@ -54,6 +54,10 @@ public class Planner : Gtk.Application {
         { null }
     };
 
+    static construct {
+        settings = new Settings ("com.github.alainm23.planner");
+    }
+
     construct {
         application_id = "com.github.alainm23.planner";
         flags |= ApplicationFlags.HANDLES_OPEN;
@@ -64,12 +68,11 @@ public class Planner : Gtk.Application {
         Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
+        add_main_option_entries (PLANNER_OPTIONS);
+
         create_dir_with_parents ("/com.github.alainm23.planner");
 
-        settings = new Settings ("com.github.alainm23.planner");
         event_bus = new Services.EventBus ();
-
-        add_main_option_entries (PLANNER_OPTIONS);
     }
 
     protected override void activate () {

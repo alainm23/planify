@@ -133,7 +133,29 @@ public class Dialogs.DateTimePicker.DateTimePicker : Hdy.Window {
         date_grid.add (next_week_item);
         date_grid.add (calendar_item);
 
+        var time_icon = new Widgets.DynamicIcon () {
+            margin_start = 3
+        };
+        time_icon.size = 19;
+        time_icon.update_icon_name ("planner-clock");
+
+        var time_label = new Gtk.Label (_("Time")) {
+            margin_start = 6
+        };
+        time_label.get_style_context ().add_class ("font-weight-500");
+
         time_picker = new Dialogs.DateTimePicker.TimePicker ();
+
+        var time_picker_grid = new Gtk.Grid () {
+            margin = 9,
+            margin_top = 0
+        };
+        time_picker_grid.add (time_icon);
+        time_picker_grid.add (time_label);
+        time_picker_grid.add (time_picker);
+
+        unowned Gtk.StyleContext time_picker_grid_context = time_picker_grid.get_style_context ();
+        time_picker_grid_context.add_class ("picker-content");
 
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
@@ -141,7 +163,7 @@ public class Dialogs.DateTimePicker.DateTimePicker : Hdy.Window {
         };
         main_grid.add (headerbar);
         main_grid.add (date_grid);
-        main_grid.add (time_picker);
+        main_grid.add (time_picker_grid);
 
         unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
         main_grid_context.add_class ("picker");

@@ -28,7 +28,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_PREFIX = "win.";
     public const string ACTION_QUIT = "action_quit";
     public const string ACTION_PREFERENCES = "action_preferences";
-    // public const string ACTION_SHORTCUTS = "action_shortcuts";
+    public const string ACTION_SHORTCUTS = "action_shortcuts";
     public const string ACTION_ADD_TASK = "action_add_task";
     public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
@@ -39,7 +39,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_SCHEDULED = "action_view_scheduled";
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
-    // public const string ACTION_VIEW_HOME = "action_view_home";
+    public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_ESC = "action_esc";
     // public const string ACTION_SORT_DATE = "action_sort_date";
     // public const string ACTION_SORT_PRIORITY = "action_sort_priority";
@@ -53,7 +53,7 @@ public class Services.ActionManager : Object {
     private const ActionEntry[] ACTION_ENTRIES = {
         { ACTION_QUIT, action_quit },
         { ACTION_PREFERENCES, action_preferences },
-        // { ACTION_SHORTCUTS, action_shortcuts },
+        { ACTION_SHORTCUTS, action_shortcuts },
         { ACTION_ADD_TASK, action_add_task },
         { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
@@ -64,7 +64,7 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_SCHEDULED, action_view_scheduled },
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
-        // { ACTION_VIEW_HOME, action_view_home },
+        { ACTION_VIEW_HOME, action_view_home },
         { ACTION_ESC, action_esc },
         // { ACTION_SORT_DATE, action_sort_date },
         // { ACTION_SORT_PRIORITY, action_sort_priority },
@@ -82,7 +82,7 @@ public class Services.ActionManager : Object {
     static construct {
         action_accelerators.set (ACTION_QUIT, "<Control>q");
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
-        // action_accelerators.set (ACTION_SHORTCUTS, "F1");
+        action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
         action_accelerators.set (ACTION_SYNC_MANUALLY, "<Control>s");
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
@@ -100,7 +100,7 @@ public class Services.ActionManager : Object {
         // typing_accelerators.set (ACTION_SORT_DATE, "d");
         // typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
         // typing_accelerators.set (ACTION_SORT_NAME, "n");
-        // typing_accelerators.set (ACTION_VIEW_HOME, "h");
+        typing_accelerators.set (ACTION_VIEW_HOME, "h");
     }
 
     construct {
@@ -190,5 +190,14 @@ public class Services.ActionManager : Object {
         string content = clipboard.wait_for_text ();
 
         window.add_task_action (content);
+    }
+
+    private void action_shortcuts () {
+        var dialog = new Dialogs.Shortcuts.Shortcuts ();
+        dialog.show_all ();
+    }
+
+    private void action_view_home () {
+        window.go_homepage ();
     }
 }
