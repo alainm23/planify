@@ -100,9 +100,16 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             _("Manage your notification settings")
         );
 
+        var keyboard_shortcuts_item = new Dialogs.Settings.SettingsItem (
+            "planner-keyboard",
+            _("Keyboard shortcuts"),
+            _("Be more productive")
+        );
+
         general_content.add_child (homepage_item);
         general_content.add_child (appearance_item);
         general_content.add_child (badge_count_item);
+        general_content.add_child (keyboard_shortcuts_item);
 
         var contact_content = new Dialogs.Settings.SettingsContent (_("Contact us"));
 
@@ -152,6 +159,11 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         homepage_item.activated.connect (() => {
             go_setting_view ("home-page");
+        });
+
+        keyboard_shortcuts_item.activated.connect (() => {
+            var dialog = new Dialogs.Shortcuts.Shortcuts ();
+            dialog.show_all ();
         });
 
         mail_item.activated.connect (() => {
@@ -341,7 +353,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     }
 
     private Gtk.Widget get_home_page_view () {
-        var settings_header = new Dialogs.Settings.SettingsHeader (_("Notification settings"));
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("Home Page"));
 
         var filters_content = new Dialogs.Settings.SettingsContent (_("Filters"));
         var projects_content = new Dialogs.Settings.SettingsContent (_("Projects"));

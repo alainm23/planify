@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-17 06:59-0500\n"
+"POT-Creation-Date: 2022-02-23 06:52-0500\n"
 "PO-Revision-Date: 2022-02-05 05:17-0500\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Today"
 msgstr "Hoy"
 
-#: src/Util.vala:68 src/Util.vala:386 src/MainWindow.vala:327
+#: src/Util.vala:68 src/Util.vala:386 src/MainWindow.vala:336
 #: src/Layouts/FilterPaneRow.vala:86 src/Widgets/TopHeaderProject.vala:55
 #: src/Dialogs/ProjectPicker/ProjectRow.vala:105
 msgid "Inbox"
@@ -170,7 +170,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/Util.vala:788 src/Util.vala:1212 src/Layouts/ItemRow.vala:282
+#: src/Util.vala:788 src/Util.vala:1213 src/Layouts/ItemRow.vala:331
 #: src/Dialogs/Project.vala:214 src/Dialogs/Label.vala:152
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:85
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:83
@@ -203,19 +203,19 @@ msgstr ""
 msgid "Starting over"
 msgstr ""
 
-#: src/Util.vala:1209
+#: src/Util.vala:1210
 msgid "Save backup file"
 msgstr ""
 
-#: src/Util.vala:1211
+#: src/Util.vala:1212
 msgid "Save"
 msgstr ""
 
-#: src/Util.vala:1235
+#: src/Util.vala:1236
 msgid "JSON files"
 msgstr ""
 
-#: src/Util.vala:1240
+#: src/Util.vala:1241
 msgid "All files"
 msgstr ""
 
@@ -263,33 +263,37 @@ msgstr ""
 msgid "Delete label"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:165
+#: src/Layouts/ItemRow.vala:187
 msgid "Description"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:274 src/Widgets/MagicButton.vala:33
+#: src/Layouts/ItemRow.vala:239
+msgid "Addd subtask"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:323 src/Widgets/MagicButton.vala:33
 msgid "Add Task"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:407
+#: src/Layouts/ItemRow.vala:460
 msgid "Task name"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:971 src/Widgets/ScheduleButton.vala:27
+#: src/Layouts/ItemRow.vala:1048 src/Widgets/ScheduleButton.vala:27
 #: src/Widgets/ScheduleButton.vala:62
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:91
 msgid "Schedule"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:972
+#: src/Layouts/ItemRow.vala:1049
 msgid "Complete"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:973
+#: src/Layouts/ItemRow.vala:1050
 msgid "Edit"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:975
+#: src/Layouts/ItemRow.vala:1052
 msgid "Delete task"
 msgstr ""
 
@@ -315,27 +319,27 @@ msgstr ""
 msgid "(No Section)"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:89 src/Objects/Project.vala:571
+#: src/Layouts/SectionRow.vala:89 src/Objects/Project.vala:575
 msgid "New section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:531
+#: src/Layouts/SectionRow.vala:539
 msgid "Add task"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:532
+#: src/Layouts/SectionRow.vala:540
 msgid "Edit section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:533
+#: src/Layouts/SectionRow.vala:541
 msgid "Move section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:534 src/Objects/Section.vala:209
+#: src/Layouts/SectionRow.vala:542 src/Objects/Section.vala:209
 msgid "Delete section"
 msgstr ""
 
-#: src/Layouts/SectionRow.vala:595
+#: src/Layouts/SectionRow.vala:603
 msgid ""
 "No tasks available. Create one by dragging the '+' button here or clicking "
 "on this space."
@@ -515,19 +519,19 @@ msgstr ""
 msgid "Pick Date"
 msgstr ""
 
-#: src/Dialogs/DateTimePicker/TimePicker.vala:77
+#: src/Dialogs/DateTimePicker/DateTimePicker.vala:142
 msgid "Time"
 msgstr ""
 
-#: src/Dialogs/DateTimePicker/TimePicker.vala:148
+#: src/Dialogs/DateTimePicker/TimePicker.vala:153
 msgid "AM"
 msgstr ""
 
-#: src/Dialogs/DateTimePicker/TimePicker.vala:149
+#: src/Dialogs/DateTimePicker/TimePicker.vala:154
 msgid "PM"
 msgstr ""
 
-#: src/Dialogs/DateTimePicker/TimePicker.vala:188
+#: src/Dialogs/DateTimePicker/TimePicker.vala:193
 msgid ":"
 msgstr ""
 

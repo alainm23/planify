@@ -37,6 +37,18 @@
   ​<releases>
     <release version="3.0.6" date="2022-02-22">
       <description>
+        <p>Planner 3.0 Beta Update</p>
+        <ul>
+          <li>Added support for subtasks.</li>
+          <li>Reminder support added.</li>
+          <li>Added support for application badge.</li>
+          <li>Updated translations.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="3.0.5" date="2022-02-16">
+      <description>
         <p>Planner 3.0 Beta1 is here...</p>
         <ul>
           <li>🚀️ Complete redesign of the UI.</li>

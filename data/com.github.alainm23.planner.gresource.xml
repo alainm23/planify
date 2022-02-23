@@ -33,6 +33,7 @@
     <file alias="planner-appearance.svg">resources/settings/planner-appearance.svg</file>
     <file alias="planner-notification.svg">resources/settings/planner-notification.svg</file>
     <file alias="planner-home.svg">resources/settings/planner-home.svg</file>
+    <file alias="planner-keyboard.svg">resources/settings/planner-keyboard.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/planner-calendar-dark.svg</file>

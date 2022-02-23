@@ -224,7 +224,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         pin_button = new Widgets.PinButton (item);
         pin_button.get_style_context ().add_class ("no-padding");
         
-        reminder_button = new Widgets.ReminderButton (item);
+        reminder_button = new Widgets.ReminderButton (item) {
+            no_show_all = is_creating
+        };
         reminder_button.get_style_context ().add_class ("no-padding");
 
         var add_image = new Widgets.DynamicIcon ();
@@ -649,6 +651,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             is_menu_open = dialog_open;
         });
 
+        reminder_button.dialog_open.connect ((dialog_open) => {
+            is_menu_open = dialog_open;
+        });
+
         item_labels.dialog_open.connect ((dialog_open) => {
             is_menu_open = dialog_open;
         });
@@ -795,6 +801,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         menu_button.no_show_all = false;
         menu_button.show_all ();
+
+        reminder_button.no_show_all = false;
+        reminder_button.show_all ();
 
         edit = false;
     }
