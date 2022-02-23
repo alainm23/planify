@@ -42,8 +42,9 @@ public class Widgets.SubItems : Gtk.EventBox {
         listbox_context.add_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_left = 21,
+            margin_left = 21
         };
+
         listbox_grid.add (listbox);
         
         checked_listbox = new Gtk.ListBox () {
@@ -57,7 +58,7 @@ public class Widgets.SubItems : Gtk.EventBox {
         checked_listbox_context.add_class ("listbox-background");
 
         var checked_listbox_grid = new Gtk.Grid () {
-            margin_left = 21,
+            margin_left = 21
         };
         checked_listbox_grid.add (checked_listbox);
 
@@ -76,9 +77,8 @@ public class Widgets.SubItems : Gtk.EventBox {
         main_grid.add (listbox_grid);
         main_grid.add (checked_revealer);
 
-        main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
-        };
+        main_revealer = new Gtk.Revealer ();
+        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
         main_revealer.add (main_grid);
         
         add (main_revealer);

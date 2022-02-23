@@ -376,7 +376,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin = 3,
             margin_start = 6,
-            margin_end = 6,
+            margin_end = 6
         };
 
         actionbar_box.pack_start (submit_cancel_revealer, false, false, 0);
@@ -395,6 +395,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
         };
+
         main_grid.get_style_context ().add_class ("transition");
         main_grid.add (top_motion_revealer);
         main_grid.add (itemrow_eventbox);
@@ -405,6 +406,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
+        
         main_revealer.add (main_grid);
 
         add (main_revealer);
