@@ -33,7 +33,6 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
             can_focus = false
         };
         today_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
         today_button.add (today_box);
 
         var chevron_left_image = new Widgets.DynamicIcon ();
@@ -104,12 +103,11 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         search_button.clicked.connect (Util.get_default ().open_quick_find);
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 2,
+            margin_start = 16,
             margin_end = 6
         };
 
         header_box.pack_start (today_button, false, true, 0);
-        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
         header_box.pack_end (nav_grid, false, false, 12);
 
@@ -118,7 +116,8 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         carousel = new Hdy.Carousel () {
             interactive = true,
             spacing = 12,
-            margin_top = 12
+            margin_top = 12,
+            margin_start = 24
         };
 
         show_today ();
@@ -132,7 +131,7 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             expand = true,
-            margin_start = 36,
+            margin_start = 16,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
@@ -223,8 +222,12 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         });
 
         magic_button.clicked.connect (() => {
-            date_view.prepare_new_item ();
+            prepare_new_item ();
         });
+    }
+
+    public void prepare_new_item (string content = "") {
+        date_view.prepare_new_item (content);
     }
 
     private void update_date_label () {

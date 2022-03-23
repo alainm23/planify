@@ -1,0 +1,57 @@
+public class Widgets.LoadingButton : Gtk.Button {
+    public string text_icon { get; construct; }
+    public string loading_type { get; construct; }
+    bool _is_loading;
+
+    private Gtk.Stack submit_stack;
+
+    [Description (nick = "Show loading", blurb = "Show loading")]
+    public bool is_loading {
+        get {
+            return _is_loading;
+        }
+
+        set {
+            if (value) {
+                submit_stack.visible_child_name = "spinner";
+            } else {
+                submit_stack.visible_child_name = "button";
+            }
+
+            _is_loading = value;
+        }
+    }
+
+    public LoadingButton (string loading_type, string text_icon) {
+        Object (
+            loading_type: loading_type,
+            text_icon: text_icon
+        );
+    }
+
+    construct {
+        var submit_spinner = new Gtk.Spinner () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+        submit_spinner.get_style_context ().add_class ("submit-spinner");
+        submit_spinner.start ();
+
+        submit_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        if (loading_type == "LABEL") {
+            submit_stack.add_named (new Gtk.Label (text_icon), "button");
+        } else {
+            var icon = new Widgets.DynamicIcon ();
+            icon.size = 19;
+            icon.update_icon_name (text_icon);
+            submit_stack.add_named (icon, "button");
+        }
+        
+        submit_stack.add_named (submit_spinner, "spinner");
+
+        add (submit_stack);
+    }
+}

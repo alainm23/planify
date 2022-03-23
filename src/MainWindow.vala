@@ -55,6 +55,23 @@ public class MainWindow : Hdy.Window {
         unowned Gtk.StyleContext sidebar_header_context = sidebar_header.get_style_context ();
         sidebar_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var settings_image = new Widgets.DynamicIcon () {
+            hexpand = true,
+            halign = Gtk.Align.END
+        };
+        settings_image.size = 19;
+        settings_image.update_icon_name ("planner-settings");
+
+        var settings_button = new Gtk.Button () {
+            can_focus = false,
+            halign = Gtk.Align.END
+        };
+
+        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        settings_button.add (settings_image);
+
+        sidebar_header.pack_end (settings_button);
+
         views_header = new Layouts.ViewHeader () {
             has_subtitle = false,
             show_close_button = true,
@@ -127,6 +144,14 @@ public class MainWindow : Hdy.Window {
             return GLib.Source.REMOVE;
         });
 
+        delete_event.connect (() => {
+            if (Planner.settings.get_boolean ("run-in-background")) {
+                return hide_on_delete ();
+            }
+
+            return false;
+        });
+        
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Planner.database.get_project (int64.parse (id)));
@@ -155,27 +180,45 @@ public class MainWindow : Hdy.Window {
                 });
             }
         });
+
+        settings_button.clicked.connect (() => {
+            var dialog = new Dialogs.Settings.Settings ();
+            dialog.show_all ();
+        });
     }
 
     public void add_task_action (string content = "") {
-        Views.Project? project_view = get_current_project_view ();
-        if (project_view != null) {
-            project_view.prepare_new_item (content);
-        }
-    }
-
-    public Views.Project? get_current_project_view () {
-        Views.Project? project_view = null;
         if (views_stack.visible_child_name.has_prefix ("project")) {
-            project_view = (Views.Project) views_stack.visible_child;
+            Views.Project? project_view = (Views.Project) views_stack.visible_child;
+            if (project_view != null) {
+                project_view.prepare_new_item (content);
+            }
+        } else if (views_stack.visible_child_name.has_prefix ("today-view")) {
+            Views.Today? today_view = (Views.Today) views_stack.visible_child;
+            if (today_view != null) {
+                today_view.prepare_new_item (content);
+            }
+        } else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
+            Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
+            if (scheduled_view != null) {
+                scheduled_view.prepare_new_item (content);
+            }
+        } else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
+            Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
+            if (pinboard_view != null) {
+                pinboard_view.prepare_new_item (content);
+            }
         }
-        return project_view;
     }
 
     public void new_section_action () {
-        Views.Project? project_view = get_current_project_view ();
+        if (!views_stack.visible_child_name.has_prefix ("project")) {
+            return;
+        }
+
+        Views.Project? project_view = (Views.Project) views_stack.visible_child;
         if (project_view != null) {
-            Objects.Section new_section = project_view.project.prepare_new_item ();
+            Objects.Section new_section = project_view.project.prepare_new_section ();
 
             if (project_view.project.todoist) {
                 Planner.todoist.add.begin (new_section, (obj, res) => {
@@ -286,6 +329,11 @@ public class MainWindow : Hdy.Window {
 
             Planner.todoist.first_sync_finished.connect (() => {
                 init_local_todoist_backend (backend_type);
+
+                Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
+                    Services.Todoist.get_default ().run_server ();
+                    return GLib.Source.REMOVE;
+                });
             });
 
             main_stack.visible_child_name = "main-view";
@@ -294,12 +342,15 @@ public class MainWindow : Hdy.Window {
                 init_local_todoist_backend (backend_type);
 
                 Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
-                    Services.Todoist.get_default ().sync_async ();
+                    Services.Todoist.get_default ().run_server ();
                     return GLib.Source.REMOVE;
                 });
             }
         } else if (backend_type == BackendType.CALDAV) {
+            Services.CalDAV.get_default ().start.begin ();
 
+            main_stack.visible_child_name = "main-view";
+            sidebar.init (backend_type);
         } else {
             main_stack.visible_child_name = "welcome-view";
         }
@@ -309,6 +360,8 @@ public class MainWindow : Hdy.Window {
         sidebar.init (backend_type);
         Services.Badge.get_default ();
         Services.Notification.get_default ();
+        Services.CalendarEvents.get_default ();
+
         go_homepage ();
 
         Planner.database.project_deleted.connect (valid_view_removed);

@@ -551,7 +551,7 @@ public class Objects.Project : Objects.BaseObject {
         });
 
         add_section_item.activate_item.connect (() => {
-            Objects.Section new_section = prepare_new_item ();
+            Objects.Section new_section = prepare_new_section ();
 
             if (todoist) {
                 add_section_item.is_loading = true;
@@ -569,7 +569,7 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
-    public Objects.Section prepare_new_item () {
+    public Objects.Section prepare_new_section () {
         Objects.Section new_section = new Objects.Section ();
         new_section.project_id = id;
         new_section.name = _("New section");

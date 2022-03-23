@@ -140,7 +140,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         handle_grid.add (sectionrow_revealer);
         handle_grid.get_style_context ().add_class ("transition");
 
-        sectionrow_eventbox = new Gtk.EventBox ();
+        sectionrow_eventbox = new Gtk.EventBox () {
+            margin_start = 20
+        };
         sectionrow_eventbox.get_style_context ().add_class ("transition");
         sectionrow_eventbox.add (handle_grid);
 
@@ -263,7 +265,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             });            
         }
 
-        listbox.add.connect (() => {
+        listbox.add.connect ((widget) => {
             children_size_changed ();
         });
 
@@ -528,7 +530,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         row.item_added.connect (() => {
             Util.get_default ().item_added (row);
         });
-
+        
         listbox.add (row);
         listbox.show_all ();
     }
@@ -613,6 +615,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         placeholder_grid = new Gtk.Grid () {
             margin = 6,
+            margin_start = 20,
             margin_top = 0
         };
 
@@ -721,7 +724,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         var source_list = (Gtk.ListBox) source_row.parent;
         source_list.remove (source_row);
 
-        listbox.add (source_row);
+        items [source_row.item.id_string] = source_row;
+        listbox.add (items [source_row.item.id_string]);
 
         Planner.event_bus.update_items_position (section.project_id, section.id);
     }

@@ -46,11 +46,33 @@ public class Services.Todoist : GLib.Object {
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
 
+    private uint server_timeout = 0;
+
     public Todoist () {
         session = new Soup.Session ();
         session.ssl_strict = false;
 
         parser = new Json.Parser ();
+
+        var network_monitor = GLib.NetworkMonitor.get_default ();
+        network_monitor.network_changed.connect (() => {
+            if (GLib.NetworkMonitor.get_default ().network_available &&
+                Planner.settings.get_boolean ("todoist-sync-server")) {
+                sync_async ();
+            }
+        });
+    }
+
+    public void run_server () {
+        sync_async ();
+        
+        server_timeout = Timeout.add_seconds (15 * 60, () => {
+            if (Planner.settings.get_boolean ("todoist-sync-server")) {
+                sync_async ();
+            }
+
+            return true;
+        });
     }
 
     public void log_out () {

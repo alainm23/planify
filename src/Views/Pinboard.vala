@@ -47,13 +47,12 @@ public class Views.Pinboard : Gtk.EventBox {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 2,
+            margin_start = 20,
             margin_end = 6
         };
 
         header_box.pack_start (pin_icon, false, false, 0);
         header_box.pack_start (title_label, false, false, 6);
-        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
         var magic_button = new Widgets.MagicButton ();
@@ -87,7 +86,7 @@ public class Views.Pinboard : Gtk.EventBox {
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             expand = true,
-            margin_start = 36,
+            margin_start = 16,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
@@ -148,13 +147,16 @@ public class Views.Pinboard : Gtk.EventBox {
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 
-    public void prepare_new_item () {
+    public void prepare_new_item (string content = "") {
         Planner.event_bus.item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
             Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"))
         );
+
+        row.update_content (content);
         row.update_pinned (true);
+        
         row.item_added.connect (() => {
             item_added (row);
         });

@@ -42,14 +42,13 @@ public class Views.Today : Gtk.EventBox {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 2,
+            margin_start = 20,
             margin_end = 6
         };
 
         header_box.pack_start (today_icon, false, false, 0);
         header_box.pack_start (title_label, false, false, 6);
         header_box.pack_start (date_label, false, false, 0);
-        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
         var magic_button = new Widgets.MagicButton ();
@@ -61,7 +60,7 @@ public class Views.Today : Gtk.EventBox {
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             expand = true,
-            margin_start = 36,
+            margin_start = 16,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
@@ -92,7 +91,7 @@ public class Views.Today : Gtk.EventBox {
         show_all ();
 
         magic_button.clicked.connect (() => {
-            date_view.prepare_new_item ();
+            prepare_new_item ();
         });
     }
 
@@ -101,5 +100,9 @@ public class Views.Today : Gtk.EventBox {
             new GLib.DateTime.now_local ().format (
             Granite.DateTime.get_default_date_format (false, true, false)
         ));
+    }
+
+    public void prepare_new_item (string content = "") {
+        date_view.prepare_new_item (content);
     }
 }

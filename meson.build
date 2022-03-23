@@ -7,7 +7,8 @@ project (
 gnome = import ('gnome')
 i18n = import ('i18n')
 
-add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
+add_project_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
+add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
 gresource = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name () + '.gresource.xml',
@@ -27,7 +28,7 @@ config_file = configure_file(
     configuration : conf_data
 )
 
-# libecal_dep = dependency('libecal-2.0')
+libecal_dep = dependency('libecal-2.0')
 
 planner_deps = [
     dependency('glib-2.0'),
@@ -39,21 +40,20 @@ planner_deps = [
     dependency('json-glib-1.0'),
     dependency('webkit2gtk-4.0'),
     dependency('libhandy-1', version: '>= 0.90.0'),
-    ## libecal_dep,
-    # dependency('libedataserver-1.2'),
-    # dependency('libical-glib'),
-    # dependency('libgdata'),
+    libecal_dep,
+    dependency('libedataserver-1.2'),
+    dependency('libical-glib'),
+    dependency('libgdata'),
     meson.get_compiler ('c').find_library ('m', required : false)
 ]
 
-# if libecal_dep.version().version_compare('>=3.39.2')
-#     add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
-# else
-#     planner_deps += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
-# endif
+if libecal_dep.version().version_compare('>=3.39.2')
+    add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
+else
+    planner_deps += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
+endif
 
-executable (
-    meson.project_name (),
+planner_files = files(
     'src/Util.vala',
     'src/Application.vala',
     'src/MainWindow.vala',
@@ -68,6 +68,7 @@ executable (
     'src/Layouts/SectionRow.vala',
     'src/Layouts/LabelChild.vala',
     'src/Layouts/SectionChild.vala',
+    'src/Layouts/TasklistRow.vala',
 
     'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',
@@ -91,6 +92,9 @@ executable (
     'src/Widgets/Placeholder.vala',
     'src/Widgets/SubItems.vala',
     'src/Widgets/ReminderButton.vala',
+    'src/Widgets/CalendarSourceRow.vala',
+    'src/Widgets/EventsList.vala',
+    'src/Widgets/EventRow.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -152,6 +156,16 @@ executable (
     'src/Services/ActionManager.vala',
     'src/Services/Badge.vala',
     'src/Services/Notification.vala',
+    'src/Services/DBusServer.vala',
+    'src/Services/MigrateV2.vala',
+
+    'src/Services/CalDAV/CalDAV.vala',
+    'src/Services/CalDAV/Util.vala',
+
+    'src/Services/CalendarEvents/CalendarEvents.vala',
+    'src/Services/CalendarEvents/Util.vala',
+    'src/Services/CalendarEvents/DateRange.vala',
+    'src/Services/CalendarEvents/DateIterator.vala',
 
     'src/Objects/v2.vala',
     'src/Objects/BaseObject.vala',
@@ -166,6 +180,55 @@ executable (
     'src/Objects/Pinboard.vala',
     'src/Objects/Scheduled.vala',
     'src/Objects/Reminder.vala',
+)
+
+quick_find_files = files(
+    'quick-add/Util.vala',
+    'quick-add/Application.vala',
+    'quick-add/MainWindow.vala',
+    'quick-add/DBusClient.vala',
+    'quick-add/Database.vala',
+    'quick-add/Todoist.vala',
+
+    'quick-add/Widgets/HyperTextView.vala',
+    'quick-add/Widgets/LoadingButton.vala',
+    'quick-add/Widgets/DynamicIcon.vala',
+    'quick-add/Widgets/PinButton.vala',
+    'quick-add/Widgets/ScheduleButton.vala',
+    'quick-add/Widgets/PriorityButton.vala',
+    'quick-add/Widgets/LabelButton.vala',
+    'quick-add/Widgets/ItemLabels.vala',
+    'quick-add/Widgets/ItemLabelChild.vala',
+    'quick-add/Widgets/ProjectButton.vala',
+    'quick-add/Widgets/IconColorProject.vala',
+
+    'quick-add/Dialogs/ContextMenu/Menu.vala',
+    'quick-add/Dialogs/ContextMenu/MenuItem.vala',
+
+    'quick-add/Dialogs/LabelPicker/LabelPicker.vala',
+    'quick-add/Dialogs/LabelPicker/LabelRow.vala',
+
+    'quick-add/Objects/Item.vala',
+    'quick-add/Objects/DueDate.vala',
+    'quick-add/Objects/ItemLabel.vala',
+    'quick-add/Objects/Label.vala',
+    'quick-add/Objects/Color.vala',
+    'quick-add/Objects/Project.vala',
+    'quick-add/Objects/Section.vala'
+)
+
+executable (
+    meson.project_name (),
+    planner_files,
+    gresource,
+    config_file,
+    dependencies: planner_deps,
+    install: true
+)
+
+executable (
+    'com.github.alainm23.planner.quick-add',
+    quick_find_files,
     gresource,
     config_file,
     dependencies: planner_deps,

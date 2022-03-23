@@ -15,6 +15,9 @@ public class Layouts.Sidebar : Gtk.EventBox {
     public Gee.HashMap <string, Layouts.ProjectRow> projects_hashmap;
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
 
+    public Gee.HashMap <string, Layouts.HeaderItem> collection_hashmap;
+    private Gee.HashMap<E.Source, Layouts.TasklistRow>? source_rows;
+
     construct {
         projects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
         favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
@@ -49,42 +52,15 @@ public class Layouts.Sidebar : Gtk.EventBox {
         projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
         labels_header = new Layouts.HeaderItem (PaneType.LABEL);
 
-        var settings_image = new Widgets.DynamicIcon () {
-            hexpand = true,
-            halign = Gtk.Align.END
-        };
-        settings_image.size = 19;
-        settings_image.update_icon_name ("planner-settings");
-
-        var settings_label = new Gtk.Label (_("Settings"));
-
-        var settings_grid = new Gtk.Grid ();
-
-        settings_grid.add (settings_image);
-        settings_grid.add (settings_label);
-
-        var settings_button = new Gtk.Button () {
-            can_focus = false,
-            halign = Gtk.Align.CENTER,
-            valign = Gtk.Align.END,
-            vexpand = true,
-            margin_bottom = 6
-        };
-
-        settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        settings_button.get_style_context ().add_class ("rotate-animation");
-        settings_button.add (settings_grid);
-
         main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
         };
         
-        main_grid.add (todoist_button);
+        // main_grid.add (todoist_button);
         main_grid.add (listbox_grid);
-        main_grid.add (favorites_header);
-        main_grid.add (projects_header);
-        main_grid.add (labels_header);
-        main_grid.add (settings_button);
+        // main_grid.add (favorites_header);
+        // main_grid.add (projects_header);
+        // main_grid.add (labels_header);
 
         var scrolled_window = new Gtk.ScrolledWindow (null, null) {
             hscrollbar_policy = Gtk.PolicyType.NEVER
@@ -100,11 +76,6 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
         labels_header.add_activated.connect (() => {
             prepare_new_label ();
-        });
-
-        settings_button.clicked.connect (() => {
-            var dialog = new Dialogs.Settings.Settings ();
-            dialog.show_all ();
         });
     }
 
@@ -165,7 +136,49 @@ public class Layouts.Sidebar : Gtk.EventBox {
             add_all_favorites ();
             add_all_labels ();
         } else if (backend_type == BackendType.CALDAV) {
-            
+            listbox.add (inbox);
+            listbox.add (today);
+            listbox.add (scheduled);
+            listbox.add (pinboard);
+
+            Services.CalDAV.get_default ().get_registry.begin ((obj, res) => {
+                E.SourceRegistry registry;
+
+                try {
+                    registry = Services.CalDAV.get_default ().get_registry.end (res);
+                } catch (Error e) {
+                    critical (e.message);
+                    return;
+                }
+
+                add_collection_source (registry.ref_builtin_task_list ());
+                var task_list_collections = registry.list_sources (E.SOURCE_EXTENSION_COLLECTION);
+                task_list_collections.foreach ((collection_source) => {
+                    add_collection_source (collection_source);
+                });
+
+                var default_task_list = registry.default_task_list;
+                var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
+
+                task_lists.foreach ((source) => {
+                    E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+                    if (list.selected == true && source.enabled == true && !source.has_extension (E.SOURCE_EXTENSION_COLLECTION)) {
+                        add_source (source);
+
+                        //  if (last_selected_list == "" && default_task_list == source) {
+                        //      listbox.select_row (source_rows[source]);
+
+                        //  } else if (last_selected_list == source.uid) {
+                        //      listbox.select_row (source_rows[source]);
+                        //  }
+                    }
+                });
+
+                Services.CalDAV.get_default ().task_list_added.connect (add_source);
+                Services.CalDAV.get_default ().task_list_modified.connect (() => {});
+                Services.CalDAV.get_default ().task_list_removed.connect (() => {});
+            }); 
         }
         
         listbox.show_all ();
@@ -211,5 +224,51 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
     private void add_row_label (Objects.Label label) {
         labels_header.add_child (new Layouts.LabelRow (label));
+    }
+
+    private void add_collection_source (E.Source collection_source) {
+        if (collection_hashmap == null) {
+            collection_hashmap = new Gee.HashMap <string, Layouts.HeaderItem> ();
+        }
+
+        E.SourceTaskList collection_source_tasklist_extension = (E.SourceTaskList)collection_source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+        string collection_display_name = CalDAVUtil.get_esource_collection_display_name (collection_source);
+
+        if (collection_hashmap.has_key (collection_display_name) ||
+            !collection_source.enabled ||
+            !collection_source_tasklist_extension.selected) {
+            return;
+        }
+
+        var header_item = new Layouts.HeaderItem (PaneType.TASKLIST, collection_display_name);
+        collection_hashmap [collection_display_name] = header_item;
+
+        main_grid.add (header_item);
+        main_grid.show_all ();
+    }
+
+    private void add_source (E.Source source) {
+        if (source_rows == null) {
+            source_rows = new Gee.HashMap<E.Source, Layouts.TasklistRow> ();
+        }
+
+        if (!source_rows.has_key (source)) {
+            print ("Adding row '%s'\n".printf (source.dup_display_name ()));
+            source_rows[source] = new Layouts.TasklistRow (source);
+            string collection = CalDAVUtil.get_esource_collection_display_name (source);
+
+            if (collection_hashmap.has_key (collection)) {
+                collection_hashmap [collection].add_child (source_rows[source]);
+            } else {
+                var header_item = new Layouts.HeaderItem (PaneType.TASKLIST, collection);
+
+                collection_hashmap [collection] = header_item;
+
+                main_grid.add (collection_hashmap [collection]);
+                collection_hashmap [collection].add_child (source_rows[source]);
+            }
+
+            main_grid.show_all ();
+        }
     }
 }

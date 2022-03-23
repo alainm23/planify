@@ -9,10 +9,9 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
     private Gtk.Stack progress_emoji_stack;
 
     construct {
-        var sidebar_image = new Gtk.Image () {
-            gicon = new ThemedIcon ("view-sidebar-start-symbolic"),
-            pixel_size = 16
-        };
+        var sidebar_image = new Widgets.DynamicIcon ();
+        sidebar_image.size = 19;
+        sidebar_image.update_icon_name ("sidebar-left");
         
         var sidebar_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
@@ -122,9 +121,9 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         Planner.settings.changed.connect ((key) => {
             if (key == "slim-mode") {
                 if (Planner.settings.get_boolean ("slim-mode")) {
-                    sidebar_image.gicon = new ThemedIcon ("view-sidebar-end-symbolic");
+                    sidebar_image.update_icon_name ("sidebar-left");
                 } else {
-                    sidebar_image.gicon = new ThemedIcon ("view-sidebar-start-symbolic");
+                    sidebar_image.update_icon_name ("sidebar-right");
                 }   
             }
         });

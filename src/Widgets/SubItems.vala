@@ -21,6 +21,16 @@ public class Widgets.SubItems : Gtk.EventBox {
         }
     }
 
+    public bool reveal_child {
+        get {
+            return main_revealer.reveal_child;
+        }
+
+        set {
+            main_revealer.reveal_child = value;
+        }
+    }
+
     public SubItems (Objects.Item item_parent) {
         Object (
             item_parent: item_parent
@@ -58,7 +68,7 @@ public class Widgets.SubItems : Gtk.EventBox {
         checked_listbox_context.add_class ("listbox-background");
 
         var checked_listbox_grid = new Gtk.Grid () {
-            margin_left = 21
+            margin_left = 24
         };
         checked_listbox_grid.add (checked_listbox);
 
@@ -84,13 +94,8 @@ public class Widgets.SubItems : Gtk.EventBox {
         add (main_revealer);
 
         if (!is_creating) {
-            add_items ();
+            // add_items ();
         }
-
-        Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
-            return GLib.Source.REMOVE;
-        });
 
         item_parent.item_added.connect (add_item);
 
@@ -187,7 +192,7 @@ public class Widgets.SubItems : Gtk.EventBox {
         });
     }
 
-    private void add_items () {
+    public void add_items () {
         items.clear ();
 
         foreach (unowned Gtk.Widget child in listbox.get_children ()) {
@@ -202,7 +207,10 @@ public class Widgets.SubItems : Gtk.EventBox {
             add_completed_items ();
         }
 
-        main_revealer.reveal_child = has_children;
+        Timeout.add (main_revealer.transition_duration, () => {
+            main_revealer.reveal_child = has_children;
+            return GLib.Source.REMOVE;
+        });
     }
 
     public void add_completed_items () {

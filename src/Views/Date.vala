@@ -8,6 +8,7 @@ public class Views.Date : Gtk.EventBox {
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer overdue_revealer;
     private Gtk.Revealer today_label_revealer;
+    private Widgets.Placeholder listbox_placeholder;
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
@@ -34,11 +35,15 @@ public class Views.Date : Gtk.EventBox {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
+        var event_list = new Widgets.EventsList (is_today_view) {
+            margin_start = 20
+        };
+
         var overdue_label = new Gtk.Label (_("Overdue")) {
             halign = Gtk.Align.START,
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_start = 6,
+            margin_start = 26,
             margin_bottom = 6
         };
         overdue_label.get_style_context ().add_class ("font-bold");
@@ -69,7 +74,7 @@ public class Views.Date : Gtk.EventBox {
             halign = Gtk.Align.START,
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_start = 6,
+            margin_start = 26,
             margin_bottom = 6
         };
         today_label.get_style_context ().add_class ("font-bold");
@@ -97,7 +102,7 @@ public class Views.Date : Gtk.EventBox {
         };
         listbox_grid.add (listbox);
 
-        var listbox_placeholder = new Widgets.Placeholder (
+        listbox_placeholder = new Widgets.Placeholder (
             is_today_view ? _("Today") : _("Scheduled"),
             _("No tasks with this filter at the moment"),
             is_today_view ? "planner-today" : "planner-scheduled");
@@ -115,6 +120,7 @@ public class Views.Date : Gtk.EventBox {
             expand = true
         };
 
+        main_grid.add (event_list);
         main_grid.add (overdue_revealer);
         main_grid.add (today_label_revealer);
         main_grid.add (listbox_stack);
@@ -137,7 +143,10 @@ public class Views.Date : Gtk.EventBox {
                 if (is_today_view) {
                     add_today_items ();
                 } else {
+                    listbox_placeholder.title = Util.get_default ().get_relative_date_from_date (
+                        Util.get_default ().get_format_date (date));
                     add_items (date);
+                    // event_list.date = date;
                 }
             }
         });
@@ -314,13 +323,16 @@ public class Views.Date : Gtk.EventBox {
         return grid;
     }
 
-    public void prepare_new_item () {
+    public void prepare_new_item (string content = "") {
         Planner.event_bus.item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
             Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"))
         );
+        
         row.update_due (Util.get_default ().get_format_date (date));
+        row.update_content (content);
+
         row.item_added.connect (() => {
             item_added (row);
         });

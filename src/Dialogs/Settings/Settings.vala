@@ -80,6 +80,15 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     private Gtk.Widget get_settings_view () {
         var settings_header = new Dialogs.Settings.SettingsHeader (_("Settings"), false);
 
+        var todoist_content = new Dialogs.Settings.SettingsContent (_("Synchronization"));
+        var todoist_item = new Dialogs.Settings.SettingsItem (
+            "planner-cloud",
+            _("Todoist"),
+            Planner.settings.get_string ("todoist-user-email")
+        );
+
+        todoist_content.add_child (todoist_item);
+
         var general_content = new Dialogs.Settings.SettingsContent (_("General"));
 
         var homepage_item = new Dialogs.Settings.SettingsItem (
@@ -106,9 +115,16 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             _("Be more productive")
         );
 
+        var calendar_events_item = new Dialogs.Settings.SettingsItem (
+            "planner-calendar-events",
+            _("Calendar events"),
+            _("Be more productive")
+        );
+
         general_content.add_child (homepage_item);
         general_content.add_child (appearance_item);
         general_content.add_child (badge_count_item);
+        general_content.add_child (calendar_events_item);
         general_content.add_child (keyboard_shortcuts_item);
 
         var contact_content = new Dialogs.Settings.SettingsContent (_("Contact us"));
@@ -116,34 +132,70 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var mail_item = new Dialogs.Settings.SettingsItem (
             "planner-mail",
             _("Contact us"),
-            _("Request a feature or ask us a question.")
+            _("Request a feature or ask us a question")
         );
 
         var twitter_item = new Dialogs.Settings.SettingsItem (
             "planner-annotation-dots",
             _("Twitter"),
-            _("Follow us on.")
+            _("Follow us on")
         );
 
         var support_item = new Dialogs.Settings.SettingsItem (
             "planner-heart",
             _("Support & Credits"),
-            _("Support us.")
+            _("Support us")
         );
 
         contact_content.add_child (mail_item);
         contact_content.add_child (twitter_item);
         contact_content.add_child (support_item);
 
+        var privacy_content = new Dialogs.Settings.SettingsContent (_("Privacy"));
+
+        var privacy_item = new Dialogs.Settings.SettingsItem (
+            "planner-shield-tick",
+            _("Privacy policies"),
+            _("Follow us on")
+        );
+
+        var import_item = new Dialogs.Settings.SettingsItem (
+            "planner-upload",
+            _("Import from Planner 2.0"),
+            _("Follow us on")
+        );
+
+        var delete_data_item = new Dialogs.Settings.SettingsItem (
+            "planner-trash",
+            _("Delete all my app data"),
+            _("Start over again")
+        );
+
+        privacy_content.add_child (privacy_item);
+        // privacy_content.add_child (import_item);
+        privacy_content.add_child (delete_data_item);
+
         var main_grid = new Gtk.Grid () {
             expand = true,
             orientation = Gtk.Orientation.VERTICAL,
             valign = Gtk.Align.START
         };
-        
+
         main_grid.add (settings_header);
+
+        if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
+            main_grid.add (todoist_content);
+        }
+        
         main_grid.add (general_content);
         main_grid.add (contact_content);
+        main_grid.add (privacy_content);
+
+        var main_grid_scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        main_grid_scrolled.add (main_grid);
 
         settings_header.done_activated.connect (() => {
             hide_destroy ();
@@ -161,9 +213,21 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("home-page");
         });
 
+        todoist_item.activated.connect (() => {
+            go_setting_view ("todoist");
+        });
+
+        calendar_events_item.activated.connect (() => {
+            go_setting_view ("calendar-events");
+        });
+
         keyboard_shortcuts_item.activated.connect (() => {
             var dialog = new Dialogs.Shortcuts.Shortcuts ();
             dialog.show_all ();
+        });
+
+        delete_data_item.activated.connect (() => {
+            Util.get_default ().delete_app_data ();
         });
 
         mail_item.activated.connect (() => {
@@ -198,8 +262,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             }
         });
 
-        main_grid.show_all ();
-        return main_grid;
+        main_grid_scrolled.show_all ();
+        return main_grid_scrolled;
     }
 
     private Gtk.Widget get_appearance_view () {
@@ -481,6 +545,223 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         main_stack.set_visible_child_name (view);
     }
 
+    private Gtk.Widget get_todoist_view () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("Todoist"));
+
+        var todoist_avatar = new Hdy.Avatar (64, Planner.settings.get_string ("todoist-user-name"), true) {
+            margin = 3
+        };
+
+        var file = File.new_for_path (Util.get_default ().get_todoist_avatar_path ());
+        if (file.query_exists ()) {
+            todoist_avatar.set_loadable_icon (new FileIcon (file));    
+        }
+
+        var todoist_user = new Gtk.Label (Planner.settings.get_string ("todoist-user-name")) {
+            margin_top = 6
+        };
+
+        var todoist_email = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        todoist_email.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var content = new Dialogs.Settings.SettingsContent (null) {
+            margin_top = 12,
+            margin_bottom = 6
+        };
+
+        var sync_server_label = new Gtk.Label (_("Sync Server"));
+
+        var sync_server_switch = new Gtk.Switch ();
+        sync_server_switch.active = Planner.settings.get_boolean ("todoist-sync-server");
+        sync_server_switch.get_style_context ().add_class ("active-switch");
+
+        var sync_server_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            margin = 3
+        };
+        
+        sync_server_box.pack_start (sync_server_label, false, true, 0);
+        sync_server_box.pack_end (sync_server_switch, false, false, 0);
+
+        content.add_child (sync_server_box);
+
+        var sync_server_description = new Gtk.Label (
+            _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.") // vala-lint=line-length
+        );
+        sync_server_description.halign = Gtk.Align.START;
+        sync_server_description.wrap = true;
+        sync_server_description.margin_start = 16;
+        sync_server_description.margin_end = 16;
+        sync_server_description.xalign = (float) 0.0;
+        sync_server_description.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+        
+        main_grid.add (settings_header);
+        main_grid.add (todoist_avatar);
+        main_grid.add (todoist_user);
+        main_grid.add (todoist_email);
+        main_grid.add (content);
+        main_grid.add (sync_server_description);
+
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        settings_header.back_activated.connect (() => {
+            go_setting_view ("settings");
+        });
+
+        sync_server_switch.notify["active"].connect ((val) => {
+            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+        });
+
+        main_grid.show_all ();
+        return main_grid;
+    }
+
+    private Gtk.Widget get_calendar_events_view () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("Calendar Events"));
+
+        var enabled_content = new Dialogs.Settings.SettingsContent (null);
+
+        var enabled_label = new Gtk.Label (_("Show Calendar Events"));
+
+        var enabled_switch = new Gtk.Switch ();
+        enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
+        enabled_switch.get_style_context ().add_class ("active-switch");
+
+        var enabled_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            margin = 3
+        };
+        
+        enabled_box.pack_start (enabled_label, false, true, 0);
+        enabled_box.pack_end (enabled_switch, false, false, 0);
+
+        enabled_content.add_child (enabled_box);
+
+        var contents_map = new Gee.HashMap <string, Dialogs.Settings.SettingsContent> ();
+        var sources_map = new Gee.HashMap <string, Widgets.CalendarSourceRow> ();
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+        
+        var sources_grid = new Gtk.Grid () {
+            orientation = Gtk.Orientation.VERTICAL
+        };
+
+        var sources_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = Planner.settings.get_boolean ("calendar-enabled")
+        };
+
+        sources_revealer.add (sources_grid);
+
+        main_grid.add (settings_header);
+        main_grid.add (enabled_content);
+        main_grid.add (sources_revealer);
+
+        var scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        scrolled.add (main_grid);
+
+        foreach (E.Source source in Services.CalendarEvents.get_default ().get_all_sources ()) {
+            var location = CalendarEventsUtil.get_source_location (source);
+
+            var source_row = new Widgets.CalendarSourceRow (source);
+            sources_map[source.dup_uid ()] = source_row;
+            source_row.visible_changed.connect (() => {
+                string[] sources_disabled = {};
+
+                foreach (Widgets.CalendarSourceRow item in sources_map.values) {
+                    if (item.source_enabled == false) {
+                        sources_disabled += item.source.dup_uid ();
+                    }
+                }
+
+                Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
+            });
+
+            if (contents_map.has_key (location)) {
+                contents_map[location].add_child (sources_map[source.dup_uid ()]);
+            } else {
+                var c = new Dialogs.Settings.SettingsContent (location);
+                c.add_class ("listbox-separator-3");
+                c.add_class ("p-6");
+
+                contents_map[location] = c;
+
+                sources_grid.add (contents_map[location]);
+                contents_map[location].add_child (sources_map[source.dup_uid ()]);
+            }
+        }
+
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        settings_header.back_activated.connect (() => {
+            go_setting_view ("settings");
+        });
+
+        enabled_switch.notify["active"].connect ((val) => {
+            Planner.settings.set_boolean ("calendar-enabled", enabled_switch.active);
+        });
+
+        Planner.settings.bind ("calendar-enabled", sources_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
+
+        scrolled.show_all ();
+        return scrolled;
+    }
+
+    //  private int sort_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+    //      if (!(lbrow is Widgets.CalendarSource)) {
+    //          return -1;
+    //      }
+    //      var row = (Widgets.CalendarSource) lbrow;
+    //      var before = (Widgets.CalendarSource) lbbefore;
+    //      if (row.source.parent == null || before.source.parent == null) {
+    //          return -1;
+    //      } else if (row.source.parent == before.source.parent) {
+    //          return row.source.display_name.collate (before.source.display_name);
+    //      } else {
+    //          return row.source.parent.collate (before.source.parent);
+    //      }
+    //  }
+
+    //  private void header_update_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+    //      if (!(lbrow is Widgets.CalendarSource)) {
+    //          return;
+    //      }
+
+    //      var row = (Widgets.CalendarSource) lbrow;
+    //      if (lbbefore != null) {
+    //          var before = (Widgets.CalendarSource) lbbefore;
+    //          if (row.source.parent == before.source.parent) {
+    //              row.set_header (null);
+    //              return;
+    //          }
+    //      }
+
+    //      var header_label = new Granite.HeaderLabel (CalendarEventsUtil.get_source_location (row.source)) {
+    //          ellipsize = Pango.EllipsizeMode.END
+    //      };
+    //      header_label.get_style_context ().add_class ("no-padding-left");
+
+    //      row.set_header (header_label);
+    //  }
+
+
     private Gtk.Widget? get_setting_view (string view) {
         Gtk.Widget? returned = null;
 
@@ -495,7 +776,13 @@ public class Dialogs.Settings.Settings : Hdy.Window {
                 returned = get_appearance_view ();
                 break;
             case "notification":
-            returned = get_badge_view ();
+                returned = get_badge_view ();
+                break;
+            case "todoist":
+                returned = get_todoist_view ();
+                break;
+            case "calendar-events":
+                returned = get_calendar_events_view ();
                 break;
         }
 

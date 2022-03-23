@@ -88,9 +88,7 @@ public class Dialogs.MessageDialog : Hdy.Window {
         primary_label = new Gtk.Label (null);
         primary_label.get_style_context ().add_class (Granite.STYLE_CLASS_H3_LABEL);
         primary_label.get_style_context ().add_class ("font-bold");
-        primary_label.max_width_chars = 50;
         primary_label.wrap = true;
-        primary_label.xalign = 0;
         primary_label.halign = Gtk.Align.CENTER;
         primary_label.justify = Gtk.Justification.CENTER;
         primary_label.margin_top = 12;
@@ -98,21 +96,21 @@ public class Dialogs.MessageDialog : Hdy.Window {
         secondary_label = new Gtk.Label (null);
         secondary_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         secondary_label.use_markup = true;
-        secondary_label.max_width_chars = 50;
+        secondary_label.width_request = 225;
         secondary_label.wrap = true;
-        secondary_label.xalign = 0;
         secondary_label.halign = Gtk.Align.CENTER;
         secondary_label.justify = Gtk.Justification.CENTER;
 
         action_grid = new Gtk.Grid () {
             column_spacing = 6,
             column_homogeneous = true,
-            margin_top = 12
+            margin_top = 12,
+            vexpand = true,
+            valign = Gtk.Align.END
         };
 
         var content_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
-            expand = true,
             margin = 24,
             margin_top = 0,
             margin_bottom = 12,
@@ -126,8 +124,7 @@ public class Dialogs.MessageDialog : Hdy.Window {
         content_grid.add (action_grid);
 
         var message_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            width_request = 280
+            orientation = Gtk.Orientation.VERTICAL
         };
 
         message_grid.add (headerbar);
@@ -145,7 +142,7 @@ public class Dialogs.MessageDialog : Hdy.Window {
 
         focus_out_event.connect (() => {
             if (!modal) {
-                hide_destroy ();
+                // hide_destroy ();
             }
             
             return false;

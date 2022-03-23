@@ -12,6 +12,12 @@
         "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
+
+        "--talk-name=org.gnome.evolution.dataserver.AddressBook10",
+        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
+        "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=org.gnome.evolution.dataserver.Subprocess.Backend.*",
+
         "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
     ],
     "cleanup": [
@@ -103,6 +109,75 @@
                     "type": "git",
                     "url": "https://github.com/elementary/granite.git",
                     "tag": "6.2.0"
+                }
+            ]
+        },
+        {
+            "name": "libical",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/cmake"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DICAL_GLIB=true",
+                "-DICAL_GLIB_VAPI=true",
+                "-DGOBJECT_INTROSPECTION=true",
+                "-DICAL_BUILD_DOCS=false"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/libical/libical.git",
+                    "tag": "v3.0.9"
+                }
+            ]
+        },
+        {
+            "name": "evolution-data-server",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/evolution-data-server/*-backends",
+                "/libexec",
+                "/share/dbus-1/services"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "DENABLE_GOOGLE=ON",
+                "DENABLE_VALA_BINDIN-GS=ON",
+                "DENABLE_INTROSPECTION=ON",
+                "DENABLE_GOA=OFF",
+                "DENABLE_CANBERRA=OFF",
+                "DWITH_LIBDB=OFF",
+                "DENABLE_WEATHER=OFF",
+                "DWITH_OPENLDAP=OFF",
+                "DENABLE_INSTALLED_TESTS=OFF",
+                "DENABLE_GTK=OFF",
+                "DENABLE_GTK_DOC=OFF",
+                "DENABLE_EXAMPLES=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/evolution-data-server.git",
+                    "tag": "3.40.2"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "intltool",
+                    "cleanup": [
+                        "*"
+                    ],
+                    "sources": [
+                        {
+                            "type": "archive",
+                            "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                            "md5": "12e517cac2b57a0121cda351570f1e63"
+                        } 
+                    ]
                 }
             ]
         },

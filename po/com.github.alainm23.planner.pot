@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-23 06:52-0500\n"
+"POT-Creation-Date: 2022-03-03 23:27-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: src/Util.vala:68 src/Util.vala:386 src/MainWindow.vala:336
+#: src/Util.vala:68 src/Util.vala:386 src/MainWindow.vala:343
 #: src/Layouts/FilterPaneRow.vala:86 src/Widgets/TopHeaderProject.vala:55
 #: src/Dialogs/ProjectPicker/ProjectRow.vala:105
 msgid "Inbox"
@@ -275,25 +275,25 @@ msgstr ""
 msgid "Add Task"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:460
+#: src/Layouts/ItemRow.vala:462
 msgid "Task name"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1048 src/Widgets/ScheduleButton.vala:27
+#: src/Layouts/ItemRow.vala:1051 src/Widgets/ScheduleButton.vala:27
 #: src/Widgets/ScheduleButton.vala:62
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:91
 msgid "Schedule"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1049
+#: src/Layouts/ItemRow.vala:1052
 msgid "Complete"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1050
+#: src/Layouts/ItemRow.vala:1053
 msgid "Edit"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1052
+#: src/Layouts/ItemRow.vala:1055
 msgid "Delete task"
 msgstr ""
 

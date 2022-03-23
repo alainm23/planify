@@ -57,6 +57,10 @@ button:disabled {
     background: @colorPriorityBackground;
 }
 
+.default_check check {
+    border-radius: 5px;
+}
+
 .priority-color check:checked {
     background-image:
         linear-gradient(
@@ -372,4 +376,20 @@ button:disabled {
 
 .line-through {
     text-decoration: line-through;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+
+.p-6 {
+    padding: 6px;
+}
+
+.hidden-button image {
+    transition: all 150ms ease-in-out; 
+}
+
+.hidden-button.opened image {
+    -gtk-icon-transform: rotate(90deg);
 }

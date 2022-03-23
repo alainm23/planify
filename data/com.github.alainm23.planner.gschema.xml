@@ -67,7 +67,7 @@
         <value nick="caldav" value="3" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
+    <schema path="/com/github/alainm23/planner3/" id="com.github.alainm23.planner3" gettext-domain="com.github.alainm23.planner3">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -294,6 +294,18 @@
             <default>'3.0'</default>
             <summary>The currently installed version.</summary>
             <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+        </key>
+
+        <key name="calendar-enabled" type="b">
+            <default>true</default>
+            <summary>Calendar enabled</summary>
+            <description>Calendar enabled</description>
+        </key>
+
+        <key name="calendar-sources-disabled" type="as">
+            <default>[]</default>
+            <summary></summary>
+            <description></description>
         </key>
     </schema>
 </schemalist>

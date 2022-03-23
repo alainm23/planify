@@ -1,5 +1,6 @@
 public class Layouts.HeaderItem : Gtk.EventBox {
     public PaneType pane_type { get; construct; }
+    public string pane_title { get; construct; }
     public ContainerType container_shape { get; construct; }
     public Gtk.SelectionMode selection_mode { get; construct; }
     public string item_name { get; set; }
@@ -27,11 +28,12 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         }
     }
 
-    public HeaderItem (PaneType pane_type,
+    public HeaderItem (PaneType pane_type, string pane_title = "",
         ContainerType container_shape=ContainerType.LISTBOX,
         Gtk.SelectionMode selection_mode=Gtk.SelectionMode.SINGLE) {
         Object (
             pane_type: pane_type,
+            pane_title: pane_title,
             container_shape: container_shape,
             selection_mode: selection_mode
         );
@@ -192,6 +194,10 @@ public class Layouts.HeaderItem : Gtk.EventBox {
             placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
         } else if (pane_type == PaneType.FAVORITE) {
             item_name = _("Favorites");
+        } else if (pane_type == PaneType.TASKLIST) {
+            item_name = pane_title;
+            add_tooltip = _("Add tasklist");
+            placeholder_message = _("No tasklist available. Create one by clicking on the '+' button");
         }
     }
 

@@ -55,7 +55,7 @@ public class Planner : Gtk.Application {
     };
 
     static construct {
-        settings = new Settings ("com.github.alainm23.planner");
+        settings = new Settings ("com.github.alainm23.planner3");
     }
 
     construct {

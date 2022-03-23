@@ -1159,6 +1159,7 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+        
         stmt.reset ();
     }
 
@@ -1222,7 +1223,6 @@ public class Services.Database : GLib.Object {
             foreach (Objects.Item subitem in item.items) {
                 subitem.checked = item.checked;
                 subitem.completed_at = item.completed_at;
-                
                 checked_toggled (subitem, old_checked);
             }
 

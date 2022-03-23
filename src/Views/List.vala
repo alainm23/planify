@@ -22,7 +22,9 @@ public class Views.List : Gtk.EventBox {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        var top_project = new Widgets.TopHeaderProject (project);
+        var top_project = new Widgets.TopHeaderProject (project) {
+            margin_start = 20
+        };
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -57,7 +59,10 @@ public class Views.List : Gtk.EventBox {
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             expand = true,
-            margin = 36,
+            margin_top = 36,
+            margin_end = 36,
+            margin_start = 16,
+            margin_bottom = 24,
             margin_top = 6
         };
         content.add (top_project);

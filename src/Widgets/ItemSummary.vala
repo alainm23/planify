@@ -5,6 +5,10 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     private Gtk.Label calendar_label;
     private Gtk.Grid calendar_grid;
     private Gtk.Revealer calendar_revealer;
+
+    private Gtk.Label subtasks_label;
+    private Gtk.Revealer subtasks_revealer;
+
     private Gtk.Revealer summary_revealer;
     private Gtk.FlowBox labels_flowbox;
     private Gtk.Revealer flowbox_revealer;
@@ -27,6 +31,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         calendar_label = new Gtk.Label (null) {
             margin = 3
         };
+
         calendar_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         calendar_grid = new Gtk.Grid () {
@@ -40,7 +45,27 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
         calendar_revealer.add (calendar_grid);
-        
+
+        subtasks_label = new Gtk.Label (null) {
+            margin = 3
+        };
+
+        subtasks_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        var subtasks_grid = new Gtk.Grid () {
+            column_spacing = 3,
+            margin_end = 6,
+            valign = Gtk.Align.START
+        };
+
+        subtasks_grid.get_style_context ().add_class ("schedule-grid");
+        subtasks_grid.add (subtasks_label);
+
+        subtasks_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+        subtasks_revealer.add (subtasks_grid);
+
         labels_flowbox = new Gtk.FlowBox () {
             column_spacing = 6,
             row_spacing = 6,
@@ -74,7 +99,9 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         var summary_grid = new Gtk.Grid () {
             valign = Gtk.Align.START
         };
+
         summary_grid.add (calendar_revealer);
+        summary_grid.add (subtasks_revealer);
         summary_grid.add (flowbox_revealer);
 
         unowned Gtk.StyleContext summary_grid_context = summary_grid.get_style_context ();
@@ -107,6 +134,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
 
     public void update_request () {
         update_due_label ();
+        update_subtasks ();
         update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
@@ -146,7 +174,8 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     }
 
     public void check_revealer () {
-        summary_revealer.reveal_child = calendar_revealer.reveal_child || flowbox_revealer.reveal_child;
+        summary_revealer.reveal_child = calendar_revealer.reveal_child ||
+            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
         reveal_child = summary_revealer.reveal_child && !itemrow.edit && !item.checked;
     }
 
@@ -160,5 +189,17 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         }
 
         flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
+    }
+
+    private void update_subtasks () {
+        int completed = 0;
+        foreach (Objects.Item item in item.items) {
+            if (item.checked) {
+                completed++;
+            }
+        }
+
+        subtasks_label.label = "%d/%d".printf (completed, item.items.size);
+        subtasks_revealer.reveal_child = item.items.size > 0;
     }
 }

@@ -22,7 +22,6 @@ public class Dialogs.Settings.SettingsContent : Gtk.EventBox {
         content_grid = new Gtk.Grid () {
             row_spacing = 6,
             orientation = Gtk.Orientation.VERTICAL,
-            height_request = 32,
             hexpand =  true
         };
 
@@ -50,5 +49,10 @@ public class Dialogs.Settings.SettingsContent : Gtk.EventBox {
     public void attach_child (Gtk.Widget child, int left, int top) {
         content_grid.attach (child, left, top);
         content_grid.show_all ();
+    }
+
+    public void add_class (string class_name) {
+        unowned Gtk.StyleContext content_grid_context = content_grid.get_style_context ();
+        content_grid_context.add_class (class_name);
     }
 }

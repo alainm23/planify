@@ -17,8 +17,6 @@
     <file alias="planner-scheduled.svg">resources/planner-scheduled.svg</file>
     <file alias="planner-sidebar-trash.svg">resources/planner-sidebar-trash.svg</file>
     <file alias="planner-pin-tack.svg">resources/planner-pin-tack.svg</file>
-    <file alias="view-sidebar-start-symbolic.svg">resources/view-sidebar-start-symbolic.svg</file>
-    <file alias="view-sidebar-end-symbolic.svg">resources/view-sidebar-end-symbolic.svg</file>
     <file alias="planner-priority-1.svg">resources/planner-priority-1.svg</file>
     <file alias="planner-priority-2.svg">resources/planner-priority-2.svg</file>
     <file alias="planner-priority-3.svg">resources/planner-priority-3.svg</file>
@@ -34,6 +32,11 @@
     <file alias="planner-notification.svg">resources/settings/planner-notification.svg</file>
     <file alias="planner-home.svg">resources/settings/planner-home.svg</file>
     <file alias="planner-keyboard.svg">resources/settings/planner-keyboard.svg</file>
+    <file alias="planner-cloud.svg">resources/settings/planner-cloud.svg</file>
+    <file alias="planner-calendar-events.svg">resources/settings/planner-calendar-events.svg</file>
+    <file alias="planner-shield-tick.svg">resources/settings/planner-shield-tick.svg</file>
+    <file alias="planner-trash.svg">resources/settings/planner-trash.svg</file>
+    <file alias="planner-upload.svg">resources/settings/planner-upload.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/planner-calendar-dark.svg</file>
@@ -74,5 +77,9 @@
     <file alias="planner-settings-light.svg">resources/planner-settings-light.svg</file>
     <file alias="planner-bell-light.svg">resources/planner-bell-light.svg</file>
     <file alias="planner-bell-dark.svg">resources/planner-bell-dark.svg</file>
+    <file alias="sidebar-left-dark.svg">resources/sidebar-left-dark.svg</file>
+    <file alias="sidebar-left-light.svg">resources/sidebar-left-light.svg</file>
+    <file alias="sidebar-right-dark.svg">resources/sidebar-right-dark.svg</file>
+    <file alias="sidebar-right-light.svg">resources/sidebar-right-light.svg</file>
   </gresource>
 </gresources>
