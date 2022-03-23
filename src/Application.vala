@@ -42,7 +42,7 @@ public class Planner : Gtk.Application {
     private static bool clear_database = false;
     private static string lang = "";
 
-    public const OptionEntry[] PLANNER_OPTIONS = {
+    private const OptionEntry[] PLANNER_OPTIONS = {
         { "version", 'v', 0, OptionArg.NONE, ref version,
         "Display version number", null },
         { "reset", 'r', 0, OptionArg.NONE, ref clear_database,
