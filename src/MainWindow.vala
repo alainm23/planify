@@ -167,6 +167,8 @@ public class MainWindow : Hdy.Window {
                 }
             } else if (pane_type == PaneType.LABEL) {
                 add_label_view (id);
+            } else if (pane_type == PaneType.TASKLIST) {
+                add_tasklist_view (sidebar.get_source (id));
             }
         });
 
@@ -290,6 +292,17 @@ public class MainWindow : Hdy.Window {
         return project_view;
     }
 
+    public void add_tasklist_view (E.Source source) {
+        Views.Tasklist? tasklist_view;
+        tasklist_view = (Views.Tasklist) views_stack.get_child_by_name ("tasklist-%s".printf (source.uid));
+        if (tasklist_view == null) {
+            tasklist_view = new Views.Tasklist (source);
+            views_stack.add_named (tasklist_view, "tasklist-%s".printf (source.uid));
+        }
+
+        views_stack.set_visible_child_name ("tasklist-%s".printf (source.uid));
+    }
+
     public void valid_view_removed (Objects.Project project) {
         Views.Project? project_view;
         project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
@@ -358,6 +371,7 @@ public class MainWindow : Hdy.Window {
 
     public void init_local_todoist_backend (BackendType backend_type) {
         sidebar.init (backend_type);
+        
         Services.Badge.get_default ();
         Services.Notification.get_default ();
         Services.CalendarEvents.get_default ();

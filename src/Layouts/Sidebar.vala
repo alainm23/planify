@@ -1,5 +1,6 @@
 public class Layouts.Sidebar : Gtk.EventBox {
     private Gtk.FlowBox listbox;
+    private Gtk.Grid listbox_grid;
 
     private Layouts.FilterPaneRow inbox;
     private Layouts.FilterPaneRow today;
@@ -17,6 +18,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
     public Gee.HashMap <string, Layouts.HeaderItem> collection_hashmap;
     private Gee.HashMap<E.Source, Layouts.TasklistRow>? source_rows;
+    private Gee.HashMap<string, E.Source>? source_uids = null;
 
     construct {
         projects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
@@ -36,7 +38,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("padding-3");
 
-        var listbox_grid = new Gtk.Grid () {
+        listbox_grid = new Gtk.Grid () {
             margin = 6,
             margin_bottom = 6,
             margin_top = 0
@@ -48,6 +50,11 @@ public class Layouts.Sidebar : Gtk.EventBox {
         scheduled = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
         pinboard = new Layouts.FilterPaneRow (FilterType.PINBOARD);
 
+        listbox.add (inbox);
+        listbox.add (today);
+        listbox.add (scheduled);
+        listbox.add (pinboard);
+
         favorites_header = new Layouts.HeaderItem (PaneType.FAVORITE);
         projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
         labels_header = new Layouts.HeaderItem (PaneType.LABEL);
@@ -57,7 +64,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
         };
         
         // main_grid.add (todoist_button);
-        main_grid.add (listbox_grid);
+        // main_grid.add (listbox_grid);
         // main_grid.add (favorites_header);
         // main_grid.add (projects_header);
         // main_grid.add (labels_header);
@@ -91,15 +98,14 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
     public void init (BackendType backend_type) {
         if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
-            listbox.add (inbox);
-            listbox.add (today);
-            listbox.add (scheduled);
-            listbox.add (pinboard);
-
-            inbox.init ();
-            today.init ();
-            scheduled.init ();
-            pinboard.init ();
+            if (backend_type == BackendType.TODOIST) {
+                main_grid.add (todoist_button);
+            }
+        
+            main_grid.add (listbox_grid);
+            main_grid.add (favorites_header);
+            main_grid.add (projects_header);
+            main_grid.add (labels_header);
 
             // Init signals
             Planner.database.project_added.connect (add_row_project);
@@ -135,11 +141,15 @@ public class Layouts.Sidebar : Gtk.EventBox {
             add_all_projects ();
             add_all_favorites ();
             add_all_labels ();
+
+            inbox.init ();
+            today.init ();
+            scheduled.init ();
+            pinboard.init ();
+
+            main_grid.show_all ();
         } else if (backend_type == BackendType.CALDAV) {
-            listbox.add (inbox);
-            listbox.add (today);
-            listbox.add (scheduled);
-            listbox.add (pinboard);
+            main_grid.add (listbox_grid);
 
             Services.CalDAV.get_default ().get_registry.begin ((obj, res) => {
                 E.SourceRegistry registry;
@@ -157,7 +167,9 @@ public class Layouts.Sidebar : Gtk.EventBox {
                     add_collection_source (collection_source);
                 });
 
-                var default_task_list = registry.default_task_list;
+                //  var default_task_list = registry.default_task_list;
+                //  print ("Default: %s\n".printf (default_task_list.uid));
+
                 var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
 
                 task_lists.foreach ((source) => {
@@ -165,23 +177,14 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
                     if (list.selected == true && source.enabled == true && !source.has_extension (E.SOURCE_EXTENSION_COLLECTION)) {
                         add_source (source);
-
-                        //  if (last_selected_list == "" && default_task_list == source) {
-                        //      listbox.select_row (source_rows[source]);
-
-                        //  } else if (last_selected_list == source.uid) {
-                        //      listbox.select_row (source_rows[source]);
-                        //  }
                     }
                 });
 
                 Services.CalDAV.get_default ().task_list_added.connect (add_source);
-                Services.CalDAV.get_default ().task_list_modified.connect (() => {});
-                Services.CalDAV.get_default ().task_list_removed.connect (() => {});
+                Services.CalDAV.get_default ().task_list_modified.connect (update_source);
+                Services.CalDAV.get_default ().task_list_removed.connect (remove_source);
             }); 
         }
-        
-        listbox.show_all ();
     }
 
     private void add_row_project (Objects.Project project) {
@@ -252,9 +255,15 @@ public class Layouts.Sidebar : Gtk.EventBox {
             source_rows = new Gee.HashMap<E.Source, Layouts.TasklistRow> ();
         }
 
-        if (!source_rows.has_key (source)) {
-            print ("Adding row '%s'\n".printf (source.dup_display_name ()));
+        if (source_uids == null) {
+            source_uids = new Gee.HashMap<string, E.Source> ();
+        }
+
+        if (!source_rows.has_key (source) && source.uid != "system-task-list") {
+            print ("Name: %s - %s\n".printf (source.dup_display_name (), source.uid));
             source_rows[source] = new Layouts.TasklistRow (source);
+            source_uids[source.uid] = source;
+
             string collection = CalDAVUtil.get_esource_collection_display_name (source);
 
             if (collection_hashmap.has_key (collection)) {
@@ -270,5 +279,48 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
             main_grid.show_all ();
         }
+    }
+
+    private void update_source (E.Source source) {
+        E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+        if (list.selected != true || source.enabled != true) {
+            remove_source (source);
+        } else if (!source_rows.has_key (source)) {
+            add_source (source);
+        } else {
+            source_rows[source].update_request ();
+
+            //  var task_list_grid = (Tasks.Widgets.TaskListGrid) task_list_grid_stack.get_visible_child ();
+            //  if (task_list_grid != null) {
+            //      task_list_grid.update_request ();
+            //  }
+
+            //  Idle.add (() => {
+            //      listbox.invalidate_sort ();
+            //      listbox.invalidate_headers ();
+
+            //      return Source.REMOVE;
+            //  });
+        }
+    }
+
+    private void remove_source (E.Source source) {
+        if (source_rows.has_key (source)) {
+            source_rows[source].hide_destroy ();
+            source_rows.unset (source);
+        }
+
+        if (source_uids.has_key (source.uid)) {
+            source_uids.unset (source.uid);
+        }
+    }
+
+    public E.Source? get_source (string uid) {
+        if (source_uids.has_key (uid)) {
+            return source_uids[uid];
+        }
+
+        return null;
     }
 }

@@ -409,7 +409,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin = 3,
-            margin_start = 6,
+            margin_start = 24,
             margin_end = 6
         };
 
@@ -539,7 +539,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     private void connect_signals () {
         itemrow_eventbox_eventbox.enter_notify_event.connect ((event) => {
-            hide_subtask_revealer.reveal_child = item.items.size > 0;
+            hide_subtask_revealer.reveal_child = !is_creating && item.items.size > 0;
             // delete_button.get_style_context ().add_class ("closed");
 
             return false;

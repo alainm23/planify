@@ -26,7 +26,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
     private Gtk.Revealer main_revealer;
     private Widgets.ProjectProgress project_progress;
     private Gtk.Grid handle_grid;
-    private Gtk.EventBox projectrow_eventbox;
+    private Gtk.EventBox tasklistrow_eventbox;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
     private Gtk.Revealer top_motion_revealer;
@@ -76,9 +76,11 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         handle_grid = new Gtk.Grid ();
         handle_grid.add (projectrow_grid);
 
-        projectrow_eventbox = new Gtk.EventBox ();
-        projectrow_eventbox.get_style_context ().add_class ("transition");
-        projectrow_eventbox.add (handle_grid);
+        tasklistrow_eventbox = new Gtk.EventBox () {
+            hexpand = true
+        };
+        tasklistrow_eventbox.get_style_context ().add_class ("transition");
+        tasklistrow_eventbox.add (handle_grid);
 
         var top_motion_grid = new Gtk.Grid ();
         top_motion_grid.get_style_context ().add_class ("grid-motion");
@@ -102,7 +104,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
             orientation = Gtk.Orientation.VERTICAL
         };
         main_grid.add (top_motion_revealer);
-        main_grid.add (projectrow_eventbox);
+        main_grid.add (tasklistrow_eventbox);
         main_grid.add (bottom_motion_revealer);
 
         main_revealer = new Gtk.Revealer () {
@@ -116,6 +118,29 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
+        });
+
+        tasklistrow_eventbox.button_press_event.connect ((sender, evt) => {
+            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
+                Timeout.add (Constants.DRAG_TIMEOUT, () => {
+                    if (main_revealer.reveal_child) {
+                        Planner.event_bus.pane_selected (PaneType.TASKLIST, source.dup_uid ());
+                    }
+                    return GLib.Source.REMOVE;
+                });
+            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
+                build_content_menu ();
+            }
+
+            return Gdk.EVENT_PROPAGATE;
+        });
+
+        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            if (pane_type == PaneType.TASKLIST && source.dup_uid () == id) {
+                tasklistrow_eventbox.get_style_context ().add_class ("selectable-item-selected");
+            } else {
+                tasklistrow_eventbox.get_style_context ().remove_class ("selectable-item-selected");
+            }
         });
     }
 
@@ -131,6 +156,43 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         Timeout.add (main_revealer.transition_duration, () => {
             destroy ();
             return GLib.Source.REMOVE;
+        });
+    }
+
+    private void build_content_menu () {
+        var menu = new Dialogs.ContextMenu.Menu ();
+
+        var edit_item = new Dialogs.ContextMenu.MenuItem (("Edit tasklist"), "planner-edit");
+
+        var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
+        var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete tasklist"), "planner-trash");
+        
+        var delete_item_context = delete_item.get_style_context ();
+        delete_item_context.add_class ("menu-item-danger");
+
+        var share_markdown = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-trash");
+        var email_markdown = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-trash");
+
+        share_item.add_item (share_markdown);
+        share_item.add_item (email_markdown);
+
+        menu.add_item (edit_item);
+        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        // menu.add_item (move_item);
+        // menu.add_item (share_item);
+        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        menu.add_item (delete_item);
+
+        menu.popup ();
+
+        delete_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+        });
+
+        edit_item.clicked.connect (() => {
+            menu.hide_destroy ();
+            //  var dialog = new Dialogs.Project (project);
+            //  dialog.show_all ();
         });
     }
 }

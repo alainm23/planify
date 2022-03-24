@@ -113,6 +113,7 @@ planner_files = files(
     'src/Views/Scheduled/ScheduledDay.vala',
     'src/Views/Label.vala',
     'src/Views/Board.vala',
+    'src/Views/Tasklist.vala',
 
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/Project.vala',
