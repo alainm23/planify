@@ -44,19 +44,21 @@ public class Widgets.ColorPopover : Gtk.Popover {
         flowbox_context.add_class ("flowbox-color");
 
         foreach (var entry in Util.get_default ().get_colors ().entries) {
-            Gtk.RadioButton color_radio = new Gtk.RadioButton (radio.get_group ());
-            color_radio.valign = Gtk.Align.START;
-            color_radio.halign = Gtk.Align.START;
-            color_radio.tooltip_text = Util.get_default ().get_color_name (entry.key);
-            color_radio.get_style_context ().add_class ("color-radio");
-            Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
-            colors_hashmap [entry.key] = color_radio;
-            flowbox.add (colors_hashmap [entry.key]);
-
-            color_radio.toggled.connect (() => {
-                selected = entry.key;
-                color_changed (selected);
-            });
+            if (!entry.key.has_prefix ("#")) {
+                Gtk.RadioButton color_radio = new Gtk.RadioButton (radio.get_group ());
+                color_radio.valign = Gtk.Align.START;
+                color_radio.halign = Gtk.Align.START;
+                color_radio.tooltip_text = Util.get_default ().get_color_name (entry.key);
+                color_radio.get_style_context ().add_class ("color-radio");
+                Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
+                colors_hashmap [entry.key] = color_radio;
+                flowbox.add (colors_hashmap [entry.key]);
+    
+                color_radio.toggled.connect (() => {
+                    selected = entry.key;
+                    color_changed (selected);
+                });
+            }
         }
 
         var popover_grid = new Gtk.Grid ();

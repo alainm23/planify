@@ -69,6 +69,7 @@ planner_files = files(
     'src/Layouts/LabelChild.vala',
     'src/Layouts/SectionChild.vala',
     'src/Layouts/TasklistRow.vala',
+    'src/Layouts/TaskRow.vala',
 
     'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',

@@ -16,7 +16,9 @@ public class Layouts.Sidebar : Gtk.EventBox {
     public Gee.HashMap <string, Layouts.ProjectRow> projects_hashmap;
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
 
-    public Gee.HashMap <string, Layouts.HeaderItem> collection_hashmap;
+    private Gee.HashMap <string, Layouts.HeaderItem> collection_hashmap;
+    private Gee.Collection<E.Source>? collection_sources;
+
     private Gee.HashMap<E.Source, Layouts.TasklistRow>? source_rows;
     private Gee.HashMap<string, E.Source>? source_uids = null;
 
@@ -171,7 +173,6 @@ public class Layouts.Sidebar : Gtk.EventBox {
                 //  print ("Default: %s\n".printf (default_task_list.uid));
 
                 var task_lists = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
-
                 task_lists.foreach ((source) => {
                     E.SourceTaskList list = (E.SourceTaskList)source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
 
@@ -234,17 +235,22 @@ public class Layouts.Sidebar : Gtk.EventBox {
             collection_hashmap = new Gee.HashMap <string, Layouts.HeaderItem> ();
         }
 
-        E.SourceTaskList collection_source_tasklist_extension = (E.SourceTaskList)collection_source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
-        string collection_display_name = CalDAVUtil.get_esource_collection_display_name (collection_source);
+        if (collection_sources == null) {
+            collection_sources = new Gee.HashSet<E.Source> (CalDAVUtil.esource_hash_func, CalDAVUtil.esource_equal_func);
+        }
 
-        if (collection_hashmap.has_key (collection_display_name) ||
+        E.SourceTaskList collection_source_tasklist_extension = (E.SourceTaskList) collection_source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+        if (collection_sources.contains (collection_source) ||
             !collection_source.enabled ||
             !collection_source_tasklist_extension.selected) {
             return;
         }
 
-        var header_item = new Layouts.HeaderItem (PaneType.TASKLIST, collection_display_name);
-        collection_hashmap [collection_display_name] = header_item;
+        var header_item = new Layouts.HeaderItem (PaneType.TASKLIST, CalDAVUtil.get_esource_collection_display_name (collection_source));
+        
+        collection_hashmap[collection_source.dup_uid ()] = header_item;
+        collection_sources.add (collection_source);
 
         main_grid.add (header_item);
         main_grid.show_all ();
@@ -259,21 +265,21 @@ public class Layouts.Sidebar : Gtk.EventBox {
             source_uids = new Gee.HashMap<string, E.Source> ();
         }
 
-        if (!source_rows.has_key (source) && source.uid != "system-task-list") {
-            print ("Name: %s - %s\n".printf (source.dup_display_name (), source.uid));
+        if (collection_hashmap == null) {
+            collection_hashmap = new Gee.HashMap <string, Layouts.HeaderItem> ();
+        }
+
+        if (!source_rows.has_key (source)) {
             source_rows[source] = new Layouts.TasklistRow (source);
             source_uids[source.uid] = source;
 
-            string collection = CalDAVUtil.get_esource_collection_display_name (source);
+            string collection = source.parent;
+            print ("Source: %s - Parent: %s - uid: %s\n".printf (source.display_name, source.parent, source.uid));
+            if (collection == "local-stub") {
+                collection = "system-task-list";
+            }
 
-            if (collection_hashmap.has_key (collection)) {
-                collection_hashmap [collection].add_child (source_rows[source]);
-            } else {
-                var header_item = new Layouts.HeaderItem (PaneType.TASKLIST, collection);
-
-                collection_hashmap [collection] = header_item;
-
-                main_grid.add (collection_hashmap [collection]);
+            if (collection_hashmap.has_key (collection) && source.uid != "system-task-list") {
                 collection_hashmap [collection].add_child (source_rows[source]);
             }
 

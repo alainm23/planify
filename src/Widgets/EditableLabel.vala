@@ -85,6 +85,7 @@ public class Widgets.EditableLabel : Gtk.EventBox {
 
         stack = new Gtk.Stack () {
             homogeneous = true,
+            hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
         stack.add (grid);

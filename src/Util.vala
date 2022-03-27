@@ -166,25 +166,64 @@ public class Util : GLib.Object {
             colors = new Gee.HashMap<string, Objects.Color> ();
 
             colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "#b8256f"));
+            colors.set ("#b8256f", new Objects.Color (30, _("Berry Red"), "berry_red"));
+
             colors.set ("red", new Objects.Color (31, _("Red"), "#db4035"));
+            colors.set ("#db4035", new Objects.Color (31, _("Red"), "red"));
+
             colors.set ("orange", new Objects.Color (32, _("Orange"), "#ff9933"));
+            colors.set ("#ff9933", new Objects.Color (32, _("Orange"), "orange"));
+
             colors.set ("yellow", new Objects.Color (33, _("Olive Green"), "#fad000"));
+            colors.set ("#fad000", new Objects.Color (33, _("Olive Green"), "yellow"));
+
             colors.set ("olive_green", new Objects.Color (34, _("Yellow"), "#afb83b"));
+            colors.set ("#afb83b", new Objects.Color (34, _("Yellow"), "olive_green"));
+
             colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "#7ecc49"));
+            colors.set ("#7ecc49", new Objects.Color (35, _("Lime Green"), "lime_green"));
+
             colors.set ("green", new Objects.Color (36, _("Green"), "#299438"));
+            colors.set ("#299438", new Objects.Color (36, _("Green"), "green"));
+
             colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "#6accbc"));
+            colors.set ("#6accbc", new Objects.Color (37, _("Mint Green"), "mint_green"));
+
             colors.set ("teal", new Objects.Color (38, _("Teal"), "#158fad"));
+            colors.set ("#158fad", new Objects.Color (38, _("Teal"), "teal"));
+
             colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "#14aaf5"));
+            colors.set ("#14aaf5", new Objects.Color (39, _("Sky Blue"), "sky_blue"));
+
             colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "#96c3eb"));
+            colors.set ("#96c3eb", new Objects.Color (40, _("Light Blue"), "light_blue"));
+
             colors.set ("blue", new Objects.Color (41, _("Blue"), "#4073ff"));
+            colors.set ("#4073ff", new Objects.Color (41, _("Blue"), "blue"));
+
             colors.set ("grape", new Objects.Color (42, _("Grape"), "#884dff"));
+            colors.set ("#884dff", new Objects.Color (42, _("Grape"), "grape"));
+
             colors.set ("violet", new Objects.Color (43, _("Violet"), "#af38eb"));
+            colors.set ("#af38eb", new Objects.Color (43, _("Violet"), "violet"));
+
             colors.set ("lavender", new Objects.Color (44, _("Lavander"), "#eb96eb"));
+            colors.set ("#eb96eb", new Objects.Color (44, _("Lavander"), "lavender"));
+
             colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#e05194"));
+            colors.set ("#e05194", new Objects.Color (45, _("Magenta"), "magenta"));
+
             colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#ff8d85"));
+            colors.set ("#ff8d85", new Objects.Color (46, _("Salmon"), "salmon"));
+
             colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#808080"));
+            colors.set ("#808080", new Objects.Color (47, _("Charcoal"), "charcoal"));
+
             colors.set ("grey", new Objects.Color (48, _("Grey"), "#b8b8b8"));
+            colors.set ("#b8b8b8", new Objects.Color (48, _("Grey"), "grey"));
+
             colors.set ("taupe", new Objects.Color (49, _("Taupe"), "#ccac93"));
+            colors.set ("#ccac93", new Objects.Color (49, _("Taupe"), "taupe"));
         }
 
         return colors;

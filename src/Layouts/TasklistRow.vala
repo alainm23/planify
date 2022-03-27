@@ -32,6 +32,8 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
     private Gtk.Revealer top_motion_revealer;
     private Gtk.Revealer bottom_motion_revealer;
     
+    public Gee.HashMap<string, ECal.Component> items_added;
+
     public TasklistRow (E.Source source) {
         Object (
             source: source
@@ -41,6 +43,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
     construct {
         get_style_context ().add_class ("selectable-item");
         var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+        items_added = new Gee.HashMap<string, ECal.Component> ();
 
         project_progress = new Widgets.ProjectProgress (18);
         project_progress.enable_subprojects = true;
@@ -72,6 +75,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         };
         projectrow_grid.add (project_progress);
         projectrow_grid.add (name_label);
+        projectrow_grid.add (count_revealer);
 
         handle_grid = new Gtk.Grid ();
         handle_grid.add (projectrow_grid);
@@ -113,6 +117,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         main_revealer.add (main_grid);
 
         add (main_revealer);
+        create_task_list_view ();
         update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -143,6 +148,82 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
             }
         });
     }
+    
+    private void create_task_list_view () {
+        try {
+            Services.CalDAV.get_default ().create_task_list_view (
+                source,
+                "(contains? 'any' '')",
+                on_tasks_added,
+                on_tasks_modified,
+                on_tasks_removed
+            );
+        } catch (Error e) {
+            critical ("Error creating view with query for source %s[%s]: %s", source.display_name, "(contains? 'any' '')", e.message);
+        }
+    }
+
+    private double get_percentage (int a, int b) {
+        return (double) a / (double) b;
+    }
+
+    private void on_tasks_added (Gee.Collection<ECal.Component> tasks) {
+        int task_completed = 0;
+        foreach (ECal.Component task in tasks) {
+            if (!items_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                unowned ICal.Component ical_task = task.get_icalcomponent ();
+                if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                    task_completed++;
+                }
+                items_added[task.get_icalcomponent ().get_uid ()] = task;
+            }
+        }
+
+        project_progress.percentage = get_percentage (task_completed, items_added.size);
+        count_label.label = "%i".printf (items_added.size - task_completed);
+        count_revealer.reveal_child = (items_added.size - task_completed) > 0;
+    }
+
+    private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
+        foreach (ECal.Component task in tasks) {
+            items_added[task.get_icalcomponent ().get_uid ()] = task;
+        }
+
+        int task_completed = 0;
+        foreach (var task in items_added.values) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                task_completed++;
+            }
+        }
+
+        project_progress.percentage = get_percentage (task_completed, items_added.size);
+        count_label.label = "%i".printf (items_added.size - task_completed);
+        count_revealer.reveal_child = (items_added.size - task_completed) > 0;
+    }
+
+    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
+        foreach (unowned ECal.ComponentId cid in cids) {
+            if (cid == null) {
+                continue;
+            } else {
+                items_added.unset (cid.get_uid ());
+            }
+        }
+
+        int task_completed = 0;
+        foreach (var task in items_added.values) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                task_completed++;
+            }
+        }
+
+        project_progress.percentage = get_percentage (task_completed, items_added.size);
+        count_label.label = "%i".printf (items_added.size - task_completed);
+        count_revealer.reveal_child = (items_added.size - task_completed) > 0;
+    }
+
 
     public void update_request () {
         var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
