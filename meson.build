@@ -28,6 +28,8 @@ config_file = configure_file(
     configuration : conf_data
 )
 
+add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
+
 libecal_dep = dependency('libecal-2.0')
 
 planner_deps = [
@@ -44,13 +46,12 @@ planner_deps = [
     dependency('libedataserver-1.2'),
     dependency('libical-glib'),
     dependency('libgdata'),
+    meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi'),
     meson.get_compiler ('c').find_library ('m', required : false)
 ]
 
 if libecal_dep.version().version_compare('>=3.39.2')
     add_project_arguments('--define=HAS_EDS_3_40', language: 'vala')
-else
-    planner_deps += meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi')
 endif
 
 planner_files = files(
@@ -73,7 +74,7 @@ planner_files = files(
 
     'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',
-    'src/Widgets/TodoistSync.vala',
+    'src/Widgets/SyncButton.vala',
     'src/Widgets/ProjectProgress.vala',
     'src/Widgets/EditableLabel.vala',
     'src/Widgets/TopHeaderProject.vala',
@@ -85,6 +86,7 @@ planner_files = files(
     'src/Widgets/PinButton.vala',
     'src/Widgets/IconColorProject.vala',
     'src/Widgets/ItemSummary.vala',
+    'src/Widgets/TaskSummary.vala',
     'src/Widgets/ScheduleButton.vala',
     'src/Widgets/PriorityButton.vala',
     'src/Widgets/LabelButton.vala',
@@ -131,6 +133,7 @@ planner_files = files(
     'src/Dialogs/Settings/SettingsHeader.vala',
     'src/Dialogs/Settings/SettingsContent.vala',
     'src/Dialogs/Settings/SettingsItem.vala',
+    'src/Dialogs/Settings/SettingsCalDAV.vala',
     
     'src/Dialogs/ProjectPicker/ProjectPicker.vala',
     'src/Dialogs/ProjectPicker/ProjectRow.vala',
@@ -163,6 +166,7 @@ planner_files = files(
 
     'src/Services/CalDAV/CalDAV.vala',
     'src/Services/CalDAV/Util.vala',
+    'src/Services/CalDAV/AccountsModel.vala',
 
     'src/Services/CalendarEvents/CalendarEvents.vala',
     'src/Services/CalendarEvents/Util.vala',
@@ -182,6 +186,9 @@ planner_files = files(
     'src/Objects/Pinboard.vala',
     'src/Objects/Scheduled.vala',
     'src/Objects/Reminder.vala',
+    'src/Objects/Task.vala',
+    'src/Objects/SourceTaskList.vala',
+    'src/Objects/Queue.vala'
 )
 
 quick_find_files = files(

@@ -299,8 +299,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         );
         itemrow_eventbox.add (handle_grid);
 
-        var chevron_right_image = new Widgets.DynamicIcon () {
-        };
+        var chevron_right_image = new Widgets.DynamicIcon ();
         chevron_right_image.size = 19;
         chevron_right_image.update_icon_name ("chevron-right");
 
@@ -331,7 +330,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         var top_motion_grid = new Gtk.Grid () {
             margin_top = 6,
-            margin_start = 6,
+            margin_start = 24,
             margin_end = 6,
             height_request = 16
         };
@@ -343,7 +342,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         top_motion_revealer.add (top_motion_grid);
 
         var bottom_motion_grid = new Gtk.Grid () {
-            margin_start = 6,
+            margin_start = 24,
             margin_end = 6,
             margin_top = 6,
             margin_bottom = 6
@@ -705,6 +704,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             is_menu_open = dialog_open;
         });
 
+        priority_button.dialog_open.connect ((dialog_open) => {
+            is_menu_open = dialog_open;
+        });
+
         reminder_button.dialog_open.connect ((dialog_open) => {
             is_menu_open = dialog_open;
         });
@@ -750,7 +753,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 item.priority = priority;
 
                 if (is_creating) {
-                    priority_button.update_request ();
+                    priority_button.update_request (item, null);
                 } else {
                     if (item.project.todoist) {
                         item.update_async (Constants.INACTIVE, hide_loading_button);
@@ -854,8 +857,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
             if (item.project.todoist) {
                 Planner.todoist.add.begin (item, (obj, res) => {
-                    item.id = Planner.todoist.add.end (res);
-                    item_added ();
+                    int64? id = Planner.todoist.add.end (res);
+                    if (id != null) {
+                        item.id = id;
+                        item_added ();
+                    }
                 });
             } else {
                 item.id = Util.get_default ().generate_id ();
@@ -903,8 +909,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         description_textview.set_text (item.description);
                 
         item_summary.update_request ();
-        schedule_button.update_request ();
-        priority_button.update_request ();
+        schedule_button.update_request (item, null);
+        priority_button.update_request (item, null);
         project_button.update_request ();
         pin_button.update_request ();
 
@@ -1116,7 +1122,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item.due.date = date == null ? "" : Util.get_default ().get_todoist_datetime_format (date);
 
         if (is_creating) {
-            schedule_button.update_request ();
+            schedule_button.update_request (item, null);
         } else {
             item.update_async (Constants.INACTIVE, hide_loading_button);
         }
@@ -1176,7 +1182,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (active) {
             if (!edit) {
                 content_label.get_style_context ().add_class ("dim-label");
-                main_grid.get_style_context ().add_class ("complete-animation");
+                itemrow_eventbox.get_style_context ().add_class ("complete-animation");
                 if (Planner.settings.get_boolean ("underline-completed-tasks")) {
                     content_label.get_style_context ().add_class ("line-through");
                 }
@@ -1196,7 +1202,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         } else {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
-                main_grid.get_style_context ().remove_class ("complete-animation");
+                itemrow_eventbox.get_style_context ().remove_class ("complete-animation");
                 content_label.get_style_context ().remove_class ("dim-label");
                 content_label.get_style_context ().remove_class ("line-through");
             } else {

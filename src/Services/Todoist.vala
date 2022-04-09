@@ -224,10 +224,13 @@ public class Services.Todoist : GLib.Object {
     
     public void sync_async () {
         sync_started ();
-        sync.begin ((obj, res) => {
-            sync.end (res);
-            sync_finished ();
-        });
+        // queue.begin ((obj, res) => {
+            // queue.end (res);
+            sync.begin ((obj, res) => {
+                sync.end (res);
+                sync_finished ();
+            });
+        // });
     }
 
     public async void sync () {
@@ -237,6 +240,7 @@ public class Services.Todoist : GLib.Object {
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
+
         try {
             yield parser.load_from_stream_async (yield session.send_async (message));
 
@@ -350,6 +354,294 @@ public class Services.Todoist : GLib.Object {
         }
     }
 
+    /*
+    *   Queue
+    */
+
+    public void queue_async () {
+        queue.begin ((obj, res) => {
+            queue.end (res);
+        });
+    }
+
+    public async void queue () {
+        Gee.ArrayList<Objects.Queue?> queue = Planner.database.get_all_queue ();
+
+        string url = "%s?token=%s&commands=%s".printf (
+            TODOIST_SYNC_URL,
+            Planner.settings.get_string ("todoist-access-token"),
+            get_queue_json (queue)
+        );
+
+        var message = new Soup.Message ("POST", url);
+
+        try {
+            var stream = yield session.send_async (message, null);
+            yield parser.load_from_stream_async (stream);
+
+            // Debug
+            print_root (parser.get_root ());
+
+            var node = parser.get_root ().get_object ();
+            string sync_token = node.get_string_member ("sync_token");
+            Planner.settings.set_string ("todoist-sync-token", sync_token);
+
+            foreach (var q in queue) {
+                var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
+                if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+                    if (q.query == "project_add") {
+                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        Planner.database.update_project_id (q.object_id, id);
+                        Planner.database.remove_CurTempIds (q.object_id);
+                    }
+
+                    if (q.query == "section_add") {
+                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        Planner.database.update_section_id (q.object_id, id);
+                        Planner.database.remove_CurTempIds (q.object_id);
+                    }
+
+                    if (q.query == "item_add") {
+                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        Planner.database.update_item_id (q.object_id, id);
+                        Planner.database.remove_CurTempIds (q.object_id);
+                    }
+
+                    Planner.database.remove_queue (q.uuid);
+                } else {
+                    //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+                    //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+                    //project_added_error (http_code, error_message);
+                }
+            }
+        } catch (Error e) {
+
+        }
+    }
+
+    public string get_queue_json (Gee.ArrayList<Objects.Queue?> queue) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+        foreach (var q in queue) {
+            builder.begin_object ();
+
+            if (q.query == "project_add") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("project_add");
+
+                builder.set_member_name ("temp_id");
+                builder.add_string_value (q.temp_id);
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("name");
+                    builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+                    builder.set_member_name ("color");
+                    builder.add_string_value (get_string_member_by_object (q.args, "color"));
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "project_update") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("project_update");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.set_member_name ("name");
+                    builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+                    builder.set_member_name ("color");
+                    builder.add_string_value (get_string_member_by_object (q.args, "color"));
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "project_delete") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("project_delete");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "section_add") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("section_add");
+
+                builder.set_member_name ("temp_id");
+                builder.add_string_value (q.temp_id);
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("name");
+                    builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+                    builder.set_member_name ("project_id");
+                    if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
+                        builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                    } else {
+                        builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    }
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "section_update") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("section_update");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.set_member_name ("name");
+                    builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "section_delete") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("section_delete");
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("id");
+                    builder.add_int_value (get_int_member_by_object (q.args, "id"));
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "section_move") {
+
+            } else if (q.query == "item_add") {
+                builder.set_member_name ("type");
+                builder.add_string_value ("item_add");
+
+                builder.set_member_name ("temp_id");
+                builder.add_string_value (q.temp_id);
+
+                builder.set_member_name ("uuid");
+                builder.add_string_value (q.uuid);
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    builder.set_member_name ("content");
+                    builder.add_string_value (get_string_member_by_object (q.args, "content"));
+
+                    builder.set_member_name ("priority");
+                    builder.add_int_value (get_int_member_by_object (q.args, "priority"));
+
+                    builder.set_member_name ("project_id");
+                    if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
+                        builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+                    } else {
+                        builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+                    }
+
+                    if (get_type_by_member (q.args, "section_id") == GLib.Type.STRING) {
+                        builder.set_member_name ("section_id");
+                        builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
+                    } else {
+                        if (get_int_member_by_object (q.args, "section_id") != 0) {
+                            builder.set_member_name ("section_id");
+                            builder.add_int_value (get_int_member_by_object (q.args, "section_id"));
+                        }
+                    }
+
+                    if (get_type_by_member (q.args, "parent_id") == GLib.Type.STRING) {
+                        builder.set_member_name ("parent_id");
+                        builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
+                    } else {
+                        if (get_int_member_by_object (q.args, "parent_id") != 0) {
+                            builder.set_member_name ("parent_id");
+                            builder.add_int_value (get_int_member_by_object (q.args, "parent_id"));
+                        }
+                    }
+
+                    builder.end_object ();
+                builder.end_object ();
+            } else if (q.query == "item_update") {
+
+            } else if (q.query == "item_delete") {
+
+            } else if (q.query == "item_move") {
+                
+            } else if (q.query == "item_move_section") {
+
+            } else if (q.query == "item_move_parent") {
+
+            } else if (q.query == "item_complete") {
+
+            } else if (q.query == "item_uncomplete") {
+
+            }
+
+            builder.end_object ();
+        }
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        print ("QUEUE: %s\n".printf (generator.to_data (null)));
+        return generator.to_data (null);
+    }
+
+    public Json.Object get_object_by_string (string object) {
+        var parser = new Json.Parser ();
+
+        try {
+            parser.load_from_data (object, -1);
+        } catch (Error e) {
+            debug (e.message);
+        }
+
+        return parser.get_root ().get_object ();
+    }
+
+    public int64 get_int_member_by_object (string object, string member) {
+        return get_object_by_string (object).get_int_member (member);
+    }
+
+    public string get_string_member_by_object (string object, string member) {
+        return get_object_by_string (object).get_string_member (member);
+    }
+
+    public GLib.Type get_type_by_member (string object, string member) {
+        return get_object_by_string (object).get_member (member).get_value_type ();
+    }
+
     private void add_item_if_not_exists (Json.Node node) {
         if (!node.get_object ().get_null_member ("parent_id")) {
             Objects.Item? item = Planner.database.get_item (node.get_object ().get_int_member ("parent_id"));
@@ -400,17 +692,44 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
                 id = parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_int_member (temp_id);
             } else {
-                // project_added_error (
-                //     temp_id_mapping,
-                //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                //     sync_status.get_object_member (uuid).get_string_member ("error")
-                // );
+                debug_error (
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
             }
         } catch (Error e) {
-            debug (e.message);
+            if (Util.get_default ().is_todoist_error ((int32) message.status_code)) {
+                debug_error (
+                    (int32) message.status_code,
+                    Util.get_default ().get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                debug_error (
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                id = Util.get_default ().generate_id ();
+
+                object.id = id;
+
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = id;
+                queue.temp_id = temp_id;
+                queue.query = object.type_add;
+                queue.args = object.to_json ();
+
+                Planner.database.insert_queue (queue);
+                Planner.database.insert_CurTempIds (object.id, temp_id, object.object_type_string);
+            }
         }
 
         return id;
+    }
+
+    private void debug_error (int status_code, string message) {
+        print ("Code: %d - %s".printf (status_code, message));
     }
 
     public async bool update (Objects.BaseObject object) {
@@ -439,14 +758,31 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
                 success = true;
             } else {
-                // project_updated_error (
-                //     project.id,
-                //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                //     sync_status.get_object_member (uuid).get_string_member ("error")
-                // );
+                debug_error (
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
             }
         } catch (Error e) {
-            debug (e.message);
+            if (Util.get_default ().is_todoist_error ((int32) message.status_code)) {
+                debug_error (
+                    (int32) message.status_code,
+                    Util.get_default ().get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                debug_error (
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = object.id;
+                queue.query = object.type_update;
+                queue.args = object.to_json ();
+
+                Planner.database.insert_queue (queue);
+            }
         }
 
         return success;
@@ -477,14 +813,31 @@ public class Services.Todoist : GLib.Object {
                 Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
                 success = true;
             } else {
-                // project_updated_error (
-                //     project.id,
-                //     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-                //     sync_status.get_object_member (uuid).get_string_member ("error")
-                // );
+                debug_error (
+                    (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+                    sync_status.get_object_member (uuid).get_string_member ("error")
+                );
             }
         } catch (Error e) {
-            debug (e.message);
+            if (Util.get_default ().is_todoist_error ((int32) message.status_code)) {
+                debug_error (
+                    (int32) message.status_code,
+                    Util.get_default ().get_todoist_error ((int32) message.status_code)
+                );
+            } else if ((int32) message.status_code == 0) {
+                debug_error (
+                    (int32) message.status_code,
+                    e.message
+                );
+            } else {
+                var queue = new Objects.Queue ();
+                queue.uuid = uuid;
+                queue.object_id = object.id;
+                queue.query = object.type_delete;
+                queue.args = object.to_json ();
+
+                Planner.database.insert_queue (queue);
+            }
         }
 
         return success;
@@ -546,7 +899,7 @@ public class Services.Todoist : GLib.Object {
     private void print_root (Json.Node root) {
         Json.Generator generator = new Json.Generator ();
         generator.set_root (root);
-        debug (generator.to_data (null) + "\n");
+        debug (generator.to_data (null));
     }
 
     public string get_delete_json (int64 id, string type, string uuid) {

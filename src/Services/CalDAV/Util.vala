@@ -120,4 +120,76 @@ namespace CalDAVUtil {
 
         return 1;
     }
+
+    /**
+     * Converts the given ICal.Time to a GLib.DateTime, represented in the
+     * system timezone.
+     *
+     * All timezone information in the original @date is lost. However, the
+     * {@link GLib.TimeZone} contained in the resulting DateTime is correct,
+     * since there is a well-defined local timezone between both libical and
+     * GLib.
+     */
+     public DateTime ical_to_date_time_local (ICal.Time date) {
+        assert (!date.is_null_time ());
+        var converted = ical_convert_to_local (date);
+        int year, month, day, hour, minute, second;
+        converted.get_date (out year, out month, out day);
+        converted.get_time (out hour, out minute, out second);
+        return new DateTime.local (year, month,
+            day, hour, minute, second);
+    }
+
+    /** Converts the given ICal.Time to the local (or system) timezone
+     */
+     public ICal.Time ical_convert_to_local (ICal.Time time) {
+        var system_tz = ECal.util_get_system_timezone ();
+        return time.convert_to_zone (system_tz);
+    }
+
+    /**
+     * Converts two DateTimes representing a date and a time to one TimeType.
+     *
+     * The first contains the date; its time settings are ignored. The second
+     * one contains the time itself; its date settings are ignored. If the time
+     * is `null`, the resulting TimeType is of `DATE` type; if it is given, the
+     * TimeType is of `DATE-TIME` type.
+     *
+     * This also accepts an optional `timezone` argument. If it is given a
+     * timezone, the resulting TimeType will be relative to the given timezone.
+     * If it is `null`, the resulting TimeType will be "floating" with no
+     * timezone. If the argument is not given, it will default to the system
+     * timezone.
+     */
+     
+    public ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime? time_local,
+        ICal.Timezone? timezone = ECal.util_get_system_timezone ().copy ()) {
+
+        var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
+
+        // Check if it's a date. If so, set is_date to true and fix the time to be sure.
+        // If it's not a date, first thing set is_date to false.
+        // Then, set the timezone.
+        // Then, set the time.
+        if (time_local == null) {
+            // Date type: ensure that everything corresponds to a date
+            result.set_is_date (true);
+            result.set_time (0, 0, 0);
+        } else {
+            // Includes time
+            // Set is_date first (otherwise timezone won't change)
+            result.set_is_date (false);
+
+            // Set timezone for the time to be relative to
+            // (doesn't affect DATE-type times)
+            result.set_timezone (timezone);
+
+            // Set the time with the updated time zone
+            result.set_time (time_local.get_hour (), time_local.get_minute (), time_local.get_second ());
+            debug (result.get_tzid ());
+            debug (result.as_ical_string ());
+        }
+
+        return result;
+    }
 }

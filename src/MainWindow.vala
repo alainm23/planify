@@ -50,27 +50,27 @@ public class MainWindow : Hdy.Window {
         var sidebar_header = new Hdy.HeaderBar () {
             has_subtitle = false,
             show_close_button = true,
-            hexpand = true
+            hexpand = true,
+            spacing = 0
         };
         unowned Gtk.StyleContext sidebar_header_context = sidebar_header.get_style_context ();
         sidebar_header_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        var settings_image = new Widgets.DynamicIcon () {
-            hexpand = true,
-            halign = Gtk.Align.END
-        };
+        var settings_image = new Widgets.DynamicIcon ();
         settings_image.size = 19;
         settings_image.update_icon_name ("planner-settings");
 
         var settings_button = new Gtk.Button () {
-            can_focus = false,
-            halign = Gtk.Align.END
+            can_focus = false
         };
 
         settings_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         settings_button.add (settings_image);
 
+        var sync_button = new Widgets.SyncButton ();
+
         sidebar_header.pack_end (settings_button);
+        sidebar_header.pack_end (sync_button);
 
         views_header = new Layouts.ViewHeader () {
             has_subtitle = false,
@@ -157,7 +157,7 @@ public class MainWindow : Hdy.Window {
                 add_project_view (Planner.database.get_project (int64.parse (id)));
             } else if (pane_type == PaneType.FILTER) {
                 if (id == FilterType.INBOX.to_string ()) {
-                    add_project_view (Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id")));
+                    add_inbox_view ();
                 } else if (id == FilterType.TODAY.to_string ()) {
                     add_today_view ();
                 } else if (id == FilterType.SCHEDULED.to_string ()) {
@@ -278,6 +278,21 @@ public class MainWindow : Hdy.Window {
         label_view.label = Planner.database.get_label (int64.parse (id));
         views_stack.set_visible_child_name ("label-view");
     }
+    
+    private void add_inbox_view () {
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            add_project_view (Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id")));
+        } else if (backend_type == BackendType.CALDAV) {
+            try {
+                var registry = Services.CalDAV.get_default ().get_registry_sync ();
+                add_tasklist_view (registry.default_task_list);
+            } catch (Error e) {
+                warning (e.message);
+            }
+        }
+    }
 
     public Views.Project add_project_view (Objects.Project project) {
         Views.Project? project_view;
@@ -309,6 +324,15 @@ public class MainWindow : Hdy.Window {
         if (project_view != null) {
             project_view.destroy ();
             go_homepage ();
+        }
+    }
+
+    public void valid_tasklist_removed (E.Source source) {
+        Views.Tasklist? tasklist_view;
+        tasklist_view = (Views.Tasklist) views_stack.get_child_by_name ("tasklist-%s".printf (source.uid));
+        if (tasklist_view != null) {
+            tasklist_view.destroy ();
+            add_inbox_view ();
         }
     }
 
@@ -364,6 +388,9 @@ public class MainWindow : Hdy.Window {
 
             main_stack.visible_child_name = "main-view";
             sidebar.init (backend_type);
+
+            sidebar.caldav_finished.connect (go_homepage);
+            sidebar.valid_tasklist_removed.connect (valid_tasklist_removed);
         } else {
             main_stack.visible_child_name = "welcome-view";
         }

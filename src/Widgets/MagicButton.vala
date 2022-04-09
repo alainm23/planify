@@ -33,7 +33,7 @@ public class Widgets.MagicButton : Gtk.Revealer {
             tooltip_markup: Granite.markup_accel_tooltip ({"a"}, _("Add Task")),
             transition_type: Gtk.RevealerTransitionType.CROSSFADE,
             reveal_child: true,
-            margin: 24,
+            margin: 32,
             valign: Gtk.Align.END,
             halign: Gtk.Align.END
         );
@@ -46,8 +46,8 @@ public class Widgets.MagicButton : Gtk.Revealer {
         };
         
         magic_button = new Gtk.Button () {
-            height_request = 38,
-            width_request = 38
+            height_request = 41,
+            width_request = 41
         };
 
         magic_button.add (add_icon);

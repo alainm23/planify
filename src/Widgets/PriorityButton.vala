@@ -38,7 +38,7 @@ public class Widgets.PriorityButton : Gtk.Button {
         projectbutton_grid.add (priority_image);
 
         add (projectbutton_grid);
-        update_request ();
+        update_request (item, task);
 
         clicked.connect (() => {
             var menu = new Dialogs.ContextMenu.Menu ();

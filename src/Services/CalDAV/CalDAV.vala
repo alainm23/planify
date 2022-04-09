@@ -12,7 +12,7 @@ public class Services.CalDAV : Object {
     public delegate void TasksAddedFunc (Gee.Collection<ECal.Component> tasks, E.Source task_list);
     public delegate void TasksModifiedFunc (Gee.Collection<ECal.Component> tasks);
     public delegate void TasksRemovedFunc (SList<ECal.ComponentId?> cids);
-
+    
     private Gee.Future<E.SourceRegistry> registry;
     private HashTable<string, ECal.Client> task_list_client;
     private HashTable<ECal.Client, Gee.Collection<ECal.ClientView>> task_list_client_views;
@@ -513,6 +513,221 @@ public class Services.CalDAV : Object {
             task_list_extension.color = previous_color;
             registry.commit_source_sync (task_list, null);
             throw e;
+        }
+    }
+
+    public async void add_task_list (E.Source task_list, E.Source collection_or_sibling) throws Error {
+        var registry = get_registry_sync ();
+        var task_list_extension = (E.SourceTaskList) task_list.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+        var backend_name = get_collection_backend_name (collection_or_sibling, registry);
+
+        switch (backend_name.down ()) {
+            case "webdav":
+                var collection_source = registry.find_extension (collection_or_sibling, E.SOURCE_EXTENSION_COLLECTION);
+                var collection_source_webdav_session = new E.WebDAVSession (collection_source);
+                var credentials_provider = new E.SourceCredentialsProvider (registry);
+
+                E.NamedParameters credentials;
+                credentials_provider.lookup_sync (collection_source, null, out credentials);
+                collection_source_webdav_session.credentials = credentials;
+
+                var webdav_task_list_uri = yield discover_webdav_server_uri (credentials, collection_source);
+                webdav_task_list_uri.set_path (webdav_task_list_uri.get_path () + "/" + GLib.Uuid.string_random ().up ());
+
+                collection_source_webdav_session.mkcalendar_sync (
+                    webdav_task_list_uri.to_string (false),
+                    task_list.display_name,
+                    null,
+                    task_list_extension.color,
+                    E.WebDAVResourceSupports.TASKS,
+                    null
+                );
+
+                registry.refresh_backend_sync (collection_source.uid, null);
+                break;
+            case "google":
+                var collection_source = registry.find_extension (collection_or_sibling, E.SOURCE_EXTENSION_COLLECTION);
+                var authorizer = (GData.Authorizer) new E.GDataOAuth2Authorizer (collection_source, typeof (GData.TasksService));
+                var gtasks_service = new GData.TasksService (authorizer);
+
+                var gtasks_tasklist = new GData.TasksTasklist (null) {
+                    title = task_list.display_name
+                };
+
+                gtasks_service.insert_tasklist (gtasks_tasklist, null);
+                yield registry.refresh_backend (collection_source.uid, null);
+                break;
+            case "local":
+                task_list.parent = "local-stub";
+                task_list_extension.backend_name = "local";
+
+                registry.commit_source_sync (task_list, null);
+                break;
+            default:
+                throw new TaskModelError.BACKEND_ERROR ("Task list management for '%s' is not supported yet.".printf (backend_name));
+        }
+    }
+
+    private async Soup.URI discover_webdav_server_uri (E.NamedParameters credentials, E.Source collection_source) throws Error {
+        var collection_source_extension = (E.SourceCollection) collection_source.get_extension (E.SOURCE_EXTENSION_COLLECTION);
+
+        Soup.URI? webdav_server_uri = null;
+        GLib.Error? webdav_error = null;
+
+#if HAS_EDS_3_40
+        collection_source.webdav_discover_sources.begin (
+#else
+        E.webdav_discover_sources.begin (
+            collection_source,
+#endif
+            collection_source_extension.calendar_url,
+            E.WebDAVDiscoverSupports.TASKS,
+            credentials,
+            null,
+            (obj, res) => {
+                string webdav_certificate_pem;
+                GLib.TlsCertificateFlags? webdav_certificate_errors;
+                GLib.SList<E.WebDAVDiscoveredSource?> webdav_discovered_sources;
+                GLib.SList<string> webdav_calendar_user_addresses;
+
+                try {
+
+#if HAS_EDS_3_40
+                    collection_source.webdav_discover_sources.end (
+#else
+                    E.webdav_discover_sources_finish (
+                        collection_source,
+#endif
+                        res,
+                        out webdav_certificate_pem,
+                        out webdav_certificate_errors,
+                        out webdav_discovered_sources,
+                        out webdav_calendar_user_addresses
+                    );
+
+                    if (webdav_discovered_sources.length () > 0) {
+                        var webdav_discovered_source = webdav_discovered_sources.nth_data (0);
+                        webdav_server_uri = new Soup.URI (webdav_discovered_source.href.dup ());
+                    }
+
+#if !HAS_EDS_3_40
+                    E.webdav_discover_do_free_discovered_sources ((owned) webdav_discovered_sources);
+#endif
+
+                    if (webdav_server_uri == null) {
+                        throw new TaskModelError.BACKEND_ERROR ("Unable to resolve the WebDAV uri from backend.");
+                    }
+
+                    var uri_dir_path = webdav_server_uri.get_path ();
+                    if (uri_dir_path.has_suffix ("/")) {
+                        uri_dir_path = uri_dir_path.substring (0, uri_dir_path.length - 1);
+                    }
+                    uri_dir_path = uri_dir_path.substring (0, uri_dir_path.last_index_of ("/"));
+                    webdav_server_uri.set_path (uri_dir_path);
+
+                } catch (Error e) {
+                    webdav_error = e;
+                }
+                discover_webdav_server_uri.callback ();
+            }
+        );
+
+        yield;
+
+        if (webdav_error != null) {
+            throw webdav_error;
+        }
+        return webdav_server_uri;
+    }
+
+    public bool is_remove_task_list_supported (E.Source source) {
+        try {
+            var registry = get_registry_sync ();
+            var backend_name = get_collection_backend_name (source, registry);
+
+            switch (backend_name.down ()) {
+                case "webdav": return true;
+                case "google": return !is_gtasks_default_task_list (source, registry);
+                case "local": return source.removable;
+            }
+
+        } catch (Error e) {
+            warning (e.message);
+        }
+        return false;
+    }
+
+    private bool is_gtasks_default_task_list (E.Source task_list, E.SourceRegistry registry) throws Error {
+        var collection_source = registry.find_extension (task_list, E.SOURCE_EXTENSION_COLLECTION);
+        var authorizer = (GData.Authorizer) new E.GDataOAuth2Authorizer (collection_source, typeof (GData.TasksService));
+        var service = new GData.TasksService (authorizer);
+        var id = ((E.SourceResource) task_list.get_extension (
+            E.SOURCE_EXTENSION_RESOURCE
+        )).identity.replace ("gtasks::", "");
+
+        var tasklist = (GData.TasksTasklist) service.query_single_entry (
+            GData.TasksService.get_primary_authorization_domain (),
+            "https://www.googleapis.com/tasks/v1/users/@me/lists/@default",
+            null,
+            typeof (GData.TasksTasklist),
+            null
+        );
+
+        return tasklist.id == id;
+    }
+
+    public async void remove_task_list (E.Source task_list) throws Error {
+        var registry = get_registry_sync ();
+        var backend_name = get_collection_backend_name (task_list, registry);
+
+        switch (backend_name.down ()) {
+            case "webdav":
+                var collection_source = registry.find_extension (task_list, E.SOURCE_EXTENSION_COLLECTION);
+                var collection_source_webdav_session = new E.WebDAVSession (collection_source);
+                var credentials_provider = new E.SourceCredentialsProvider (registry);
+
+                E.NamedParameters credentials;
+                credentials_provider.lookup_sync (collection_source, null, out credentials);
+                collection_source_webdav_session.credentials = credentials;
+
+                var task_list_webdav_extension = (E.SourceWebdav) task_list.get_extension (E.SOURCE_EXTENSION_WEBDAV_BACKEND);
+
+                collection_source_webdav_session.delete_sync (
+                    task_list_webdav_extension.soup_uri.to_string (false),
+                    E.WEBDAV_DEPTH_THIS_AND_CHILDREN,
+                    null,
+                    null
+                );
+
+                registry.refresh_backend_sync (collection_source.uid, null);
+                break;
+            case "google":
+                var collection_source = registry.find_extension (task_list, E.SOURCE_EXTENSION_COLLECTION);
+                var authorizer = (GData.Authorizer) new E.GDataOAuth2Authorizer (collection_source, typeof (GData.TasksService));
+                var service = new GData.TasksService (authorizer);
+                var uri = "https://www.googleapis.com/tasks/v1/users/@me/lists/%s";
+                var id = ((E.SourceResource) task_list.get_extension (
+                    E.SOURCE_EXTENSION_RESOURCE
+                )).identity.replace ("gtasks::", "");
+
+                var tasklist = (GData.TasksTasklist) yield service.query_single_entry_async (
+                    GData.TasksService.get_primary_authorization_domain (),
+                    uri.printf (id),
+                    null,
+                    typeof (GData.TasksTasklist),
+                    null
+                );
+
+                service.delete_tasklist (tasklist, null);
+                yield registry.refresh_backend (collection_source.uid, null);
+                break;
+
+            case "local":
+                task_list.remove_sync (null);
+                break;
+
+            default:
+                throw new TaskModelError.BACKEND_ERROR ("Task list management for '%s' is not supported yet.".printf (backend_name));
         }
     }
 }

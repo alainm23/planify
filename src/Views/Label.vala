@@ -57,7 +57,7 @@ public class Views.Label : Gtk.EventBox {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 2,
+            margin_start = 20,
             margin_end = 6
         };
 

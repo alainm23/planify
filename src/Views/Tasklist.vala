@@ -1,7 +1,6 @@
 public class Views.Tasklist : Gtk.EventBox {
     public E.Source source { get; construct; }
     private ECal.ClientView? view = null;
-    private E.SourceTaskList task_list;
 
     private Widgets.ProjectProgress project_progress;
     private Widgets.EditableLabel name_editable;
@@ -59,7 +58,8 @@ public class Views.Tasklist : Gtk.EventBox {
         progress_button.add (project_progress);
         
         name_editable = new Widgets.EditableLabel ("header-title") {
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            editable = source.dup_uid () != "system-task-list"
         };
 
         var menu_image = new Widgets.DynamicIcon ();
@@ -282,7 +282,7 @@ public class Views.Tasklist : Gtk.EventBox {
     }
 
     public void update_request () {
-        name_editable.text = source.dup_display_name ();
+        name_editable.text = source.dup_uid () == "system-task-list" ? _("Inbox") : source.dup_display_name ();
         project_progress.progress_fill_color = get_task_list_color (source);
         //  Tasks.Application.set_task_color (source, editable_title);
 
@@ -308,8 +308,7 @@ public class Views.Tasklist : Gtk.EventBox {
     }
 
     private void set_view_for_query (string query) {
-        var children = listbox.get_children ();
-        foreach (unowned var child in children) {
+        foreach (unowned var child in listbox.get_children ()) {
             listbox.remove (child);
         }
 
@@ -331,6 +330,14 @@ public class Views.Tasklist : Gtk.EventBox {
     }
 
     private void on_tasks_added (Gee.Collection<ECal.Component> tasks, E.Source source) {
+        if (tasks_map == null) {
+            tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
+        }
+
+        if (tasks_checked == null) {
+            tasks_checked = new Gee.HashMap <string, Layouts.TaskRow> ();
+        }
+        
         Layouts.TaskRow task_row = null;
         var row_index = 0;
 
@@ -342,28 +349,19 @@ public class Views.Tasklist : Gtk.EventBox {
                     string uid = task.get_icalcomponent ().get_uid ();
                     if (CalDAVUtil.calcomponent_equal_func (task_row.task, task) && !task_row.created) {
                         task_row.task = task;
-                        if (!tasks_map.has_key (uid)) {
-                            tasks_map[uid] = task_row;
-                        }
-
+                        tasks_map[uid] = task_row;
+                        task_row.edit = false;
                         break;
                     }
                 }
             }
+
             row_index++;
         } while (task_row != null);
         
         foreach (ECal.Component task in tasks) {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
             string uid = task.get_icalcomponent ().get_uid ();
-
-            if (tasks_map == null) {
-                tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
-            }
-
-            if (tasks_checked == null) {
-                tasks_checked = new Gee.HashMap <string, Layouts.TaskRow> ();
-            }
 
             if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
                 if (!tasks_checked.has_key (uid)) {
@@ -443,9 +441,8 @@ public class Views.Tasklist : Gtk.EventBox {
 
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");
+        delete_item.sensitive = Services.CalDAV.get_default ().is_remove_task_list_supported (source);
 
-        // menu.add_item (edit_item);
-        // menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (show_completed_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (delete_item);
@@ -464,6 +461,66 @@ public class Views.Tasklist : Gtk.EventBox {
 
         delete_item.activate_item.connect (() => {
             menu.hide_destroy ();
+
+            var message_dialog = new Dialogs.MessageDialog (
+                _("Delete “%s”?".printf (source.display_name)),
+                _("The list and all its tasks will be permanently deleted. If you've shared this list, other people will no longer have access."),
+                "dialog-warning"
+            ) {
+                transient_for = (Gtk.Window) get_toplevel ()
+            };
+            message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+            message_dialog.show_all ();
+    
+            var remove_button = new Widgets.LoadingButton (
+                LoadingButtonType.LABEL, _("Delete")) {
+                hexpand = true
+            };
+            remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+            remove_button.get_style_context ().add_class ("border-radius-6");
+            message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+    
+            message_dialog.default_action.connect ((response) => {
+                if (response == Gtk.ResponseType.ACCEPT) {
+                    remove_button.is_loading = true;
+                    Services.CalDAV.get_default ().remove_task_list.begin (source, (obj, res) => {
+                        try {
+                            Services.CalDAV.get_default ().remove_task_list.end (res);
+                            remove_button.is_loading = false;
+                            message_dialog.hide_destroy ();
+                        } catch (Error e) {
+                            message_dialog.hide_destroy ();
+                            critical (e.message);
+                            show_error_dialog (
+                                _("Deleting the task list failed"),
+                                _("The task list registry may be unavailable or unable to be written to."),
+                                e
+                            );
+                        }
+                    });
+                } else {
+                    message_dialog.hide_destroy ();
+                }
+            });
+        });
+    }
+
+    private void show_error_dialog (string primary_text, string secondary_text, Error e) {
+        string error_message = e.message;
+
+        GLib.Idle.add (() => {
+            var error_dialog = new Granite.MessageDialog (
+                primary_text,
+                secondary_text,
+                new ThemedIcon ("dialog-error"),
+                Gtk.ButtonsType.CLOSE
+            );
+
+            error_dialog.show_error_details (error_message);
+            error_dialog.run ();
+            error_dialog.destroy ();
+
+            return GLib.Source.REMOVE;
         });
     }
 }

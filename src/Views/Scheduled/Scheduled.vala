@@ -116,9 +116,19 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         carousel = new Hdy.Carousel () {
             interactive = true,
             spacing = 12,
-            margin_top = 12,
-            margin_start = 24
+            margin = 6,
+            margin_bottom = 0,
+            hexpand = true
         };
+
+        var carousel_grid = new Gtk.Grid () {
+            margin_start = 24,
+            margin_end = 12,
+            margin_top = 12
+        };
+        
+        carousel_grid.get_style_context ().add_class ("scheduled-content");
+        carousel_grid.add (carousel);
 
         show_today ();
 
@@ -127,21 +137,23 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
             expand = true
         };
 
-        date_view.date = new GLib.DateTime.now_local ().add_days (1);
+        date_view.update_date (new GLib.DateTime.now_local ().add_days (1));
 
-        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content = new Gtk.Grid () {
+            orientation = Gtk.Orientation.VERTICAL,
             expand = true,
             margin_start = 16,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
         };
-        content.pack_start (header_box, false, false, 0);
-        content.pack_start (carousel, false, false, 0);
-        content.pack_start (date_view, true, true, 0);
+        content.add (header_box);
+        content.add (carousel_grid);
+        content.add (date_view);
 
         var content_clamp = new Hdy.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            expand = true
         };
 
         content_clamp.add (content);
@@ -163,7 +175,7 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         update_date_label ();
 
         Timeout.add (250, () => {
-            carousel.expand = false;
+            carousel.vexpand = false;
             return GLib.Source.REMOVE;
         });
 
@@ -180,11 +192,15 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
 
             if (index + 1 == (int) carousel.get_n_pages ()) {
                 var grid = new Views.Scheduled.ScheduledHeader (date.add_days (7));
-                grid.date_selected.connect (date_selected);
+                grid.date_selected.connect ((date, scheduled_day) => {
+                    date_selected (date, scheduled_day);
+                });
                 carousel.add (grid);
             } else if (index == 0) {
                 var grid = new Views.Scheduled.ScheduledHeader (date.add_days (-7));
-                grid.date_selected.connect (date_selected);
+                grid.date_selected.connect ((date, scheduled_day) => {
+                    date_selected (date, scheduled_day);
+                });
                 carousel.prepend (grid);
                 position++;
             }
@@ -239,8 +255,8 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         }
     }
 
-    private void date_selected (GLib.DateTime date) {
-        date_view.date = date;
+    private void date_selected (GLib.DateTime date, Views.Scheduled.ScheduledDay? scheduled_day = null) {
+        date_view.update_date (date);
     }
 
     private void show_today () {

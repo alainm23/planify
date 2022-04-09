@@ -1,26 +1,28 @@
 app-id: com.github.alainm23.planner
 runtime: io.elementary.Platform
-runtime-version: "6"
+runtime-version: '6'
 sdk: io.elementary.Sdk
 command: com.github.alainm23.planner
 finish-args:
-  - "--device=dri"
-  - "--share=ipc"
-  - "--share=network"
-  - "--socket=fallback-x11"
-  - "--socket=wayland"
-  - "--filesystem=home"
+  - '--device=dri'
+  - '--share=ipc'
+  - '--share=network'
+  - '--socket=fallback-x11'
+  - '--socket=wayland'
 
+  - '--filesystem=home'
+
+  # EDS DBus interfaces
   - '--talk-name=org.gnome.evolution.dataserver.Calendar8'
   - '--talk-name=org.gnome.evolution.dataserver.Sources5'
 
-  - "--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/"
+  - '--metadata=X-DConf=migrate-path=/com/github/alainm23/planner/'
 cleanup:
-  - "/include"
-  - "/lib/pkgconfig"
-  - "/share/vala"
-  - "*.a"
-  - "*.la"
+  - '/include'
+  - '/lib/pkgconfig'
+  - '/share/vala'
+  - '*.a'
+  - '*.la'
 modules:
   - name: libical
     buildsystem: cmake-ninja
@@ -38,6 +40,16 @@ modules:
       - type: git
         url: https://github.com/libical/libical.git
         tag: v3.0.9
+
+  - name: libgdata
+    buildsystem: meson
+    config-opts:
+      - '-Dalways_build_tests=false'
+      - '-Dgoa=disabled'
+    sources:
+      - type: git
+        url: https://gitlab.gnome.org/GNOME/libgdata.git
+        tag: '0.17.13'
 
   - name: evolution-data-server
     buildsystem: cmake-ninja
@@ -62,7 +74,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/evolution-data-server.git
-        tag: '3.40.2'
+        tag: '3.44.0'
     modules:
       - name: intltool
         cleanup:

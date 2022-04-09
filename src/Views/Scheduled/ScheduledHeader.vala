@@ -1,7 +1,7 @@
 public class Views.Scheduled.ScheduledHeader : Gtk.EventBox {
     public GLib.DateTime date { get; construct; }
 
-    public signal void date_selected (GLib.DateTime date);
+    public signal void date_selected (GLib.DateTime date, Views.Scheduled.ScheduledDay scheduled_day);
     private Gee.HashMap<uint, Views.Scheduled.ScheduledDay> days_map;
 
     public ScheduledHeader (GLib.DateTime date) {
@@ -32,7 +32,7 @@ public class Views.Scheduled.ScheduledHeader : Gtk.EventBox {
         for (int i = 0; i < 7; i++) {
             Views.Scheduled.ScheduledDay scheduled_day = new Views.Scheduled.ScheduledDay (date);
             scheduled_day.clicked.connect (() => {
-                date_selected (scheduled_day.date);
+                date_selected (scheduled_day.date, scheduled_day);
             });
 
             days_map [day_hash (date)] = scheduled_day;

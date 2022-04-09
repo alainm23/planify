@@ -394,6 +394,34 @@ public class Objects.Project : Objects.BaseObject {
         return generator.to_data (null);
     }
 
+    public override string to_json () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (id);
+
+        builder.set_member_name ("name");
+        builder.add_string_value (Util.get_default ().get_encode_text (name));
+
+        builder.set_member_name ("color");
+        builder.add_string_value (color);
+
+        builder.set_member_name ("collapsed");
+        builder.add_boolean_value (collapsed);
+
+        builder.set_member_name ("is_favorite");
+        builder.add_boolean_value (is_favorite);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
     public void delete (bool confirm = true) {
         if (!confirm) {
             if (todoist) {

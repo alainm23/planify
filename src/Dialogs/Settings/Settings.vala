@@ -23,7 +23,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     public string view { get; construct; }
 
     private Gtk.Stack main_stack;
-    public Gee.HashMap <string, Gtk.Widget> views;
+    private Gee.HashMap <string, Gtk.Widget> views;
+    private BackendType backend_type;
 
     public Settings (string view = "settings") {
         Object (
@@ -38,6 +39,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     }
 
     construct {
+        backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
         unowned Gtk.StyleContext main_context = get_style_context ();
         main_context.add_class ("picker");
         transient_for = Planner.instance.main_window;
@@ -80,14 +83,33 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     private Gtk.Widget get_settings_view () {
         var settings_header = new Dialogs.Settings.SettingsHeader (_("Settings"), false);
 
-        var todoist_content = new Dialogs.Settings.SettingsContent (_("Synchronization"));
-        var todoist_item = new Dialogs.Settings.SettingsItem (
-            "planner-cloud",
-            _("Todoist"),
-            Planner.settings.get_string ("todoist-user-email")
-        );
+        var sync_content = new Dialogs.Settings.SettingsContent (_("Synchronization"));
 
-        todoist_content.add_child (todoist_item);
+        if (backend_type == BackendType.TODOIST) {
+            var todoist_item = new Dialogs.Settings.SettingsItem (
+                "planner-cloud",
+                _("Todoist"),
+                Planner.settings.get_string ("todoist-user-email")
+            );
+    
+            sync_content.add_child (todoist_item);
+
+            todoist_item.activated.connect (() => {
+                go_setting_view ("todoist");
+            });
+        } else if (backend_type == BackendType.CALDAV) {
+            var caldav_item = new Dialogs.Settings.SettingsItem (
+                "planner-cloud",
+                _("CalDAV"),
+                _("Tasks")
+            );
+    
+            sync_content.add_child (caldav_item);
+
+            caldav_item.activated.connect (() => {
+                go_setting_view ("caldav");
+            });
+        }
 
         var general_content = new Dialogs.Settings.SettingsContent (_("General"));
 
@@ -118,7 +140,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var calendar_events_item = new Dialogs.Settings.SettingsItem (
             "planner-calendar-events",
             _("Calendar events"),
-            _("Be more productive")
+            _("View your upcoming events")
         );
 
         general_content.add_child (homepage_item);
@@ -175,27 +197,32 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         // privacy_content.add_child (import_item);
         privacy_content.add_child (delete_data_item);
 
-        var main_grid = new Gtk.Grid () {
+        var content_grid = new Gtk.Grid () {
             expand = true,
-            orientation = Gtk.Orientation.VERTICAL,
-            valign = Gtk.Align.START
+            orientation = Gtk.Orientation.VERTICAL
         };
 
-        main_grid.add (settings_header);
-
-        if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
-            main_grid.add (todoist_content);
+        if (backend_type == BackendType.TODOIST || backend_type == BackendType.CALDAV) {
+            content_grid.add (sync_content);
         }
         
-        main_grid.add (general_content);
-        main_grid.add (contact_content);
-        main_grid.add (privacy_content);
+        content_grid.add (general_content);
+        content_grid.add (contact_content);
+        content_grid.add (privacy_content);
 
-        var main_grid_scrolled = new Gtk.ScrolledWindow (null, null) {
+        var scrolled = new Gtk.ScrolledWindow (null, null) {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             expand = true
         };
-        main_grid_scrolled.add (main_grid);
+        scrolled.add (content_grid);
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL
+        };
+
+        main_grid.add (settings_header);
+        main_grid.add (scrolled);
 
         settings_header.done_activated.connect (() => {
             hide_destroy ();
@@ -211,10 +238,6 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         homepage_item.activated.connect (() => {
             go_setting_view ("home-page");
-        });
-
-        todoist_item.activated.connect (() => {
-            go_setting_view ("todoist");
         });
 
         calendar_events_item.activated.connect (() => {
@@ -262,25 +285,65 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             }
         });
 
-        main_grid_scrolled.show_all ();
-        return main_grid_scrolled;
+        main_grid.show_all ();
+        return main_grid;
     }
 
     private Gtk.Widget get_appearance_view () {
         var settings_header = new Dialogs.Settings.SettingsHeader (_("Appearance"));
 
+        var dark_mode_content = new Dialogs.Settings.SettingsContent (null);
+        var dark_mode_label = new Gtk.Label (_("Dark mode"));
+        var dark_mode_switch = new Gtk.Switch ();
+        // enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
+        dark_mode_switch.get_style_context ().add_class ("active-switch");
+        var dark_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            margin = 3
+        };
+        dark_mode_box.pack_start (dark_mode_label, false, true, 0);
+        dark_mode_box.pack_end (dark_mode_switch, false, false, 0);
+        dark_mode_content.add_child (dark_mode_box);
+
+        var system_content = new Dialogs.Settings.SettingsContent (null);
+        var system_content_label = new Gtk.Label (_("Use system settings"));
+        var system_content_switch = new Gtk.Switch ();
+        // enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
+        system_content_switch.get_style_context ().add_class ("active-switch");
+        var system_content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            margin = 3
+        };
+        system_content_box.pack_start (system_content_label, false, true, 0);
+        system_content_box.pack_end (system_content_switch, false, false, 0);
+        system_content.add_child (system_content_box);
+
         var content = new Dialogs.Settings.SettingsContent (null);
+
+        var system_dark_item = new Gtk.RadioButton.with_label (null, _("System default")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
+
+        var system_dark_blue_item = new Gtk.RadioButton.with_label (null, _("System default (Dark Blue)")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 6
+        };
 
         var light_item = new Gtk.RadioButton.with_label (null, _("Light")) {
             hexpand = true,
             margin_top = 3,
             margin_start = 6
         };
+
         var dark_item = new Gtk.RadioButton.with_label_from_widget (light_item, _("Dark")) {
             hexpand = true,
             margin_top = 3,
             margin_left = 6
         };
+
         var dark_blue_item = new Gtk.RadioButton.with_label_from_widget (light_item, _("Dark Blue")) {
             hexpand = true,
             margin_top = 3,
@@ -288,6 +351,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             margin_bottom = 6
         };
 
+        content.add_child (system_dark_item);
+        content.add_child (system_dark_blue_item);
         content.add_child (light_item);
         content.add_child (dark_item);
         content.add_child (dark_blue_item);
@@ -299,6 +364,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         };
         
         main_grid.add (settings_header);
+        // main_grid.add (dark_mode_content);
+        // main_grid.add (system_content);
         main_grid.add (content);
 
         int appearance = Planner.settings.get_enum ("appearance");
@@ -488,21 +555,32 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             }
         }
 
-        var main_grid = new Gtk.Grid () {
+        var content_grid = new Gtk.Grid () {
             expand = true,
             orientation = Gtk.Orientation.VERTICAL,
             valign = Gtk.Align.START
         };
-        
-        main_grid.add (settings_header);
-        main_grid.add (filters_content);
-        main_grid.add (projects_content);
 
         var scrolled = new Gtk.ScrolledWindow (null, null) {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             expand = true
         };
-        scrolled.add (main_grid);
+        scrolled.add (content_grid);
+
+        content_grid.add (filters_content);
+
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            content_grid.add (projects_content);
+        }
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL
+        };
+
+        main_grid.add (settings_header);
+        main_grid.add (scrolled);
 
         settings_header.done_activated.connect (() => {
             hide_destroy ();
@@ -532,8 +610,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             Planner.settings.set_enum ("homepage-item", 3);
         });
 
-        scrolled.show_all ();
-        return scrolled;
+        main_grid.show_all ();
+        return main_grid;
     }
  
     private void go_setting_view (string view) {
@@ -724,44 +802,41 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         return scrolled;
     }
 
-    //  private int sort_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
-    //      if (!(lbrow is Widgets.CalendarSource)) {
-    //          return -1;
-    //      }
-    //      var row = (Widgets.CalendarSource) lbrow;
-    //      var before = (Widgets.CalendarSource) lbbefore;
-    //      if (row.source.parent == null || before.source.parent == null) {
-    //          return -1;
-    //      } else if (row.source.parent == before.source.parent) {
-    //          return row.source.display_name.collate (before.source.display_name);
-    //      } else {
-    //          return row.source.parent.collate (before.source.parent);
-    //      }
-    //  }
+    private Gtk.Widget get_caldav_view () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("CalDAV"));
+        var settings_caldav = new Dialogs.Settings.SettingsCalDAV ();
 
-    //  private void header_update_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
-    //      if (!(lbrow is Widgets.CalendarSource)) {
-    //          return;
-    //      }
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+        
+        main_grid.add (settings_header);
+        main_grid.add (settings_caldav);
 
-    //      var row = (Widgets.CalendarSource) lbrow;
-    //      if (lbbefore != null) {
-    //          var before = (Widgets.CalendarSource) lbbefore;
-    //          if (row.source.parent == before.source.parent) {
-    //              row.set_header (null);
-    //              return;
-    //          }
-    //      }
+        var scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        scrolled.add (main_grid);
 
-    //      var header_label = new Granite.HeaderLabel (CalendarEventsUtil.get_source_location (row.source)) {
-    //          ellipsize = Pango.EllipsizeMode.END
-    //      };
-    //      header_label.get_style_context ().add_class ("no-padding-left");
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
 
-    //      row.set_header (header_label);
-    //  }
+        settings_header.back_activated.connect (() => {
+            if (settings_caldav.visible_child_name == "login") {
+                settings_caldav.visible_child_name = "sources";
+            } else if (settings_caldav.visible_child_name == "sources") {
+                go_setting_view ("settings");
+            }
+        });
 
-
+        scrolled.show_all ();
+        return scrolled;
+    }
+    
     private Gtk.Widget? get_setting_view (string view) {
         Gtk.Widget? returned = null;
 
@@ -769,20 +844,29 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             case "settings":
                 returned = get_settings_view ();
                 break;
+            
             case "home-page":
                 returned = get_home_page_view ();
                 break;
+            
             case "appearance":
                 returned = get_appearance_view ();
                 break;
+            
             case "notification":
                 returned = get_badge_view ();
                 break;
+            
             case "todoist":
                 returned = get_todoist_view ();
                 break;
+            
             case "calendar-events":
                 returned = get_calendar_events_view ();
+                break;
+            
+            case "caldav":
+                returned = get_caldav_view ();
                 break;
         }
 

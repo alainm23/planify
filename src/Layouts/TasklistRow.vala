@@ -134,7 +134,7 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
                     return GLib.Source.REMOVE;
                 });
             } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
-                build_content_menu ();
+                // build_content_menu ();
             }
 
             return Gdk.EVENT_PROPAGATE;
@@ -223,7 +223,6 @@ public class Layouts.TasklistRow : Gtk.ListBoxRow {
         count_label.label = "%i".printf (items_added.size - task_completed);
         count_revealer.reveal_child = (items_added.size - task_completed) > 0;
     }
-
 
     public void update_request () {
         var task_list = (E.SourceTaskList?) source.get_extension (E.SOURCE_EXTENSION_TASK_LIST);

@@ -85,7 +85,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         };
 
         projectrow_box.pack_start (icon_progress_stack, false, false, 0);
-        projectrow_box.pack_start (name_editable, false, false, 6);
+        projectrow_box.pack_start (name_editable, false, true, 6);
         projectrow_box.pack_end (menu_button, false, false, 0);
         projectrow_box.pack_end (search_button, false, false, 0);
 

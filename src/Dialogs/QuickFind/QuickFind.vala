@@ -20,8 +20,14 @@
 */
 
 public class Dialogs.QuickFind.QuickFind : Hdy.Window {
+    private Gee.Map<E.Source, ECal.ClientView> views;
+    private const string QUERY = "(contains? 'any' '')";
+
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
+
+    private Gee.ArrayList<Objects.Task> tasks_array;
+    private Gee.ArrayList<Objects.SourceTaskList> sources_array;
 
     public QuickFind () {
         Object (
@@ -37,9 +43,24 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
     }
 
     construct {
+        views = new Gee.HashMap<E.Source, ECal.ClientView> ();
+        
         unowned Gtk.StyleContext main_context = get_style_context ();
         main_context.add_class ("picker");
         transient_for = Planner.instance.main_window;
+
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        if (backend_type == BackendType.CALDAV) {
+            try {
+                var registry = Services.CalDAV.get_default ().get_registry_sync ();
+                var sources = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
+                sources.foreach ((source) => {
+                    add_task_list (source);
+                });
+            } catch (Error e) {
+                warning (e.message);
+            }
+        }
 
         var headerbar = new Hdy.HeaderBar ();
         headerbar.has_subtitle = false;
@@ -88,38 +109,7 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         add (content_grid);
 
         search_entry.search_changed.connect (() => {
-            if (search_entry.text.strip () != "") {
-                clean_results ();
-
-                Objects.BaseObject[] filters = {
-                    Objects.Today.get_default (),
-                    Objects.Scheduled.get_default (),
-                    Objects.Pinboard.get_default ()
-                };
-                foreach (Objects.BaseObject object in filters) {
-                    if (search_entry.text.down () in object.name.down ()) {
-                        listbox.add (new Dialogs.QuickFind.QuickFindItem (object, search_entry.text));
-                        listbox.show_all ();
-                    }
-                }
-
-                foreach (Objects.Project project in Planner.database.get_all_projects_by_search (search_entry.text)) {
-                    listbox.add (new Dialogs.QuickFind.QuickFindItem (project, search_entry.text));
-                    listbox.show_all ();
-                }
-    
-                foreach (Objects.Item item in Planner.database.get_all_items_by_search (search_entry.text)) {
-                    listbox.add (new Dialogs.QuickFind.QuickFindItem (item, search_entry.text));
-                    listbox.show_all ();
-                }
-
-                foreach (Objects.Label label in Planner.database.get_all_labels_by_search (search_entry.text)) {
-                    listbox.add (new Dialogs.QuickFind.QuickFindItem (label, search_entry.text));
-                    listbox.show_all ();
-                }
-            } else {
-                clean_results ();
-            }
+            search_changed ();
         });
 
         focus_out_event.connect (() => {
@@ -158,6 +148,136 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
+    }
+
+    private void search_changed () {
+        if (search_entry.text.strip () != "") {
+            clean_results ();
+
+            BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+            if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+                search_local_todoist ();
+            } else if (backend_type == BackendType.CALDAV) {
+                search_caldav ();
+            }
+        } else {
+            clean_results ();
+        }
+    }
+
+    private void search_local_todoist () {
+        Objects.BaseObject[] filters = {
+            Objects.Today.get_default (),
+            Objects.Scheduled.get_default (),
+            Objects.Pinboard.get_default ()
+        };
+
+        foreach (Objects.BaseObject object in filters) {
+            if (search_entry.text.down () in object.name.down ()) {
+                listbox.add (new Dialogs.QuickFind.QuickFindItem (object, search_entry.text));
+                listbox.show_all ();
+            }
+        }
+
+        foreach (Objects.Project project in Planner.database.get_all_projects_by_search (search_entry.text)) {
+            listbox.add (new Dialogs.QuickFind.QuickFindItem (project, search_entry.text));
+            listbox.show_all ();
+        }
+
+        foreach (Objects.Item item in Planner.database.get_all_items_by_search (search_entry.text)) {
+            listbox.add (new Dialogs.QuickFind.QuickFindItem (item, search_entry.text));
+            listbox.show_all ();
+        }
+
+        foreach (Objects.Label label in Planner.database.get_all_labels_by_search (search_entry.text)) {
+            listbox.add (new Dialogs.QuickFind.QuickFindItem (label, search_entry.text));
+            listbox.show_all ();
+        }
+    }
+
+    private void search_caldav () {
+        Objects.BaseObject[] filters = {
+            Objects.Today.get_default (),
+            Objects.Scheduled.get_default (),
+            Objects.Pinboard.get_default ()
+        };
+
+        foreach (Objects.BaseObject object in filters) {
+            if (search_entry.text.down () in object.name.down ()) {
+                listbox.add (new Dialogs.QuickFind.QuickFindItem (object, search_entry.text));
+                listbox.show_all ();
+            }
+        }
+
+        foreach (Objects.SourceTaskList source in sources_array) {
+            if (search_entry.text.down () in source.display_name.down ()) {
+                listbox.add (new Dialogs.QuickFind.QuickFindItem (source, search_entry.text));
+                listbox.show_all ();
+            }
+        }
+
+        foreach (Objects.Task task in tasks_array) {
+            if (search_entry.text.down () in task.summary.down () && !task.completed) {
+                listbox.add (new Dialogs.QuickFind.QuickFindItem (task, search_entry.text));
+                listbox.show_all ();
+            }
+        }
+    }
+
+    private void add_task_list (E.Source task_list) {
+        if (!task_list.has_extension (E.SOURCE_EXTENSION_TASK_LIST)) {
+            return;
+        }
+
+        if (sources_array == null) {
+            sources_array = new Gee.ArrayList<Objects.SourceTaskList> ();
+        }
+
+        E.SourceTaskList list = (E.SourceTaskList) task_list.get_extension (E.SOURCE_EXTENSION_TASK_LIST);
+
+        if (list.selected == true && task_list.enabled == true && !task_list.has_extension (E.SOURCE_EXTENSION_COLLECTION)) {
+            sources_array.add (new Objects.SourceTaskList (task_list));
+            add_view (task_list, QUERY);
+        }
+    }
+
+    private void add_view (E.Source source, string query) {
+        try {
+            var view = Services.CalDAV.get_default ().create_task_list_view (
+                source,
+                query,
+                on_tasks_added,
+                on_tasks_modified,
+                on_tasks_removed
+            );
+
+            lock (views) {
+                views.set (source, view);
+            }
+
+        } catch (Error e) {
+            critical (e.message);
+        }
+    }
+
+    private void on_tasks_added (Gee.Collection<ECal.Component> tasks, E.Source source) {
+        if (tasks_array == null) {
+            tasks_array = new Gee.ArrayList<Objects.Task> ();
+        }
+
+        foreach (ECal.Component task in tasks) {
+            if (task != null) {
+                tasks_array.add (new Objects.Task (task, source));
+            }
+        }
+    }
+
+    private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
+
+    }
+
+    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
+
     }
 
     private Gtk.Widget get_placeholder () {
@@ -205,6 +325,14 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
             } else if (base_object is Objects.Pinboard) {
                 Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
             }
+        } else if (base_object.object_type == ObjectType.TASK) {
+            Planner.event_bus.pane_selected (PaneType.TASKLIST,
+                ((Objects.Task) base_object).source.uid
+            );
+        } else if (base_object.object_type == ObjectType.TASK_LIST) {
+            Planner.event_bus.pane_selected (PaneType.TASKLIST,
+                ((Objects.SourceTaskList) base_object).source.uid
+            );
         }
 
         hide_destroy ();

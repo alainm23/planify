@@ -262,6 +262,33 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Queue (
+                uuid       TEXT PRIMARY KEY,
+                object_id  INTEGER,
+                query      TEXT,
+                temp_id    TEXT,
+                args       TEXT,
+                date_added TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS CurTempIds (
+                id          INTEGER PRIMARY KEY,
+                temp_id     TEXT,
+                object      TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
         
         sql = """PRAGMA foreign_keys = ON;""";
         
@@ -1393,6 +1420,290 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
+        stmt.reset ();
+    }
+
+     /*
+        Queue
+    */
+
+    public void insert_queue (Objects.Queue queue) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            INSERT OR IGNORE INTO Queue (uuid, object_id, query, temp_id, args, date_added)
+            VALUES ($uuid, $object_id, $query, $temp_id, $args, $date_added);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$uuid", queue.uuid);
+        set_parameter_int64 (stmt, "$object_id", queue.object_id);
+        set_parameter_str (stmt, "$query", queue.query);
+        set_parameter_str (stmt, "$temp_id", queue.temp_id);
+        set_parameter_str (stmt, "$args", queue.args);
+        set_parameter_str (stmt, "$date_added", queue.date_added);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public Gee.ArrayList<Objects.Queue> get_all_queue () {
+        Gee.ArrayList<Objects.Queue> return_value = new Gee.ArrayList<Objects.Queue> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT * FROM Queue ORDER BY date_added;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_queue (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.Queue _fill_queue (Sqlite.Statement stmt) {
+        Objects.Queue return_value = new Objects.Queue ();
+        return_value.uuid = stmt.column_text (0);
+        return_value.object_id = stmt.column_int64 (1);
+        return_value.query = stmt.column_text (2);
+        return_value.temp_id = stmt.column_text (3);
+        return_value.args = stmt.column_text (4);
+        return_value.date_added = stmt.column_text (5);
+        return return_value;
+    }
+
+    public void insert_CurTempIds (int64 id, string temp_id, string object) { // vala-lint=naming-convention
+        Sqlite.Statement stmt;
+
+        sql = """
+            INSERT OR IGNORE INTO CurTempIds (id, temp_id, object)
+            VALUES ($id, $temp_id, $object);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$temp_id", temp_id);
+        set_parameter_str (stmt, "$object", object);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public bool curTempIds_exists (int64 id) { // vala-lint=naming-convention
+        bool returned = false;
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT COUNT (*) FROM CurTempIds WHERE id = $id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_int (0) > 0;
+        }
+
+        stmt.reset ();
+        return returned;
+    }
+
+    public string get_temp_id (int64 id) {
+        string returned = "";
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT temp_id FROM CurTempIds WHERE id = $id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = stmt.column_text (0);
+        }
+
+        stmt.reset ();
+        return returned;
+    }
+
+    public void update_project_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Projects SET id = $new_id WHERE id = $current_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$new_id", new_id);
+        set_parameter_int64 (stmt, "$current_id", current_id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            Objects.Project? project = Planner.database.get_project (current_id);
+            if (project != null) {
+                project.id = new_id;
+            }
+
+            stmt.reset ();
+
+            sql = """
+                UPDATE Sections SET project_id = $new_id WHERE project_id = $current_id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_int64 (stmt, "$new_id", new_id);
+            set_parameter_int64 (stmt, "$current_id", current_id);
+
+            if (stmt.step () == Sqlite.DONE) {
+                foreach (var section in sections) {
+                    if (section.project_id == current_id) {
+                        section.project_id = new_id;
+                    }
+                }
+
+                stmt.reset ();
+
+                sql = """
+                    UPDATE Items SET project_id = $new_id WHERE project_id = $current_id;
+                """;
+
+                db.prepare_v2 (sql, sql.length, out stmt);
+                set_parameter_int64 (stmt, "$new_id", new_id);
+                set_parameter_int64 (stmt, "$current_id", current_id);
+
+                if (stmt.step () == Sqlite.DONE) {
+                    foreach (var item in items) {
+                        if (item.project_id == current_id) {
+                            item.project_id = new_id;
+                        }
+                    }
+                }
+            }
+        }
+
+        stmt.reset ();
+    }
+
+    public void update_section_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Sections SET id = $new_id WHERE id = $current_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$new_id", new_id);
+        set_parameter_int64 (stmt, "$current_id", current_id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (var section in sections) {
+                if (section.id == current_id) {
+                    section.id = new_id;
+                }
+            }
+
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET section_id = $new_id WHERE section_id = $current_id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_int64 (stmt, "$new_id", new_id);
+            set_parameter_int64 (stmt, "$current_id", current_id);
+
+            if (stmt.step () == Sqlite.DONE) {
+                foreach (var item in items) {
+                    if (item.section_id == current_id) {
+                        item.section_id = new_id;
+                    }
+                }
+            }
+        }
+
+        stmt.reset ();
+    }
+
+    public void update_item_id (int64 current_id, int64 new_id) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Items SET id = $new_id WHERE id = $current_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$new_id", new_id);
+        set_parameter_int64 (stmt, "$current_id", current_id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (var item in items) {
+                if (item.id == current_id) {
+                    item.id = new_id;
+                }
+            }
+
+            stmt.reset ();
+
+            sql = """
+                UPDATE Items SET parent_id = $new_id WHERE parent_id = $current_id;
+            """;
+
+            db.prepare_v2 (sql, sql.length, out stmt);
+            set_parameter_int64 (stmt, "$new_id", new_id);
+            set_parameter_int64 (stmt, "$current_id", current_id);
+
+            if (stmt.step () == Sqlite.DONE) {
+                foreach (var item in items) {
+                    if (item.parent_id == current_id) {
+                        item.parent_id = new_id;
+                    }
+                }
+            }
+        }
+
+        stmt.reset ();
+    }
+
+    public void remove_CurTempIds (int64 id) { // vala-lint=naming-convention
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM CurTempIds WHERE id = $id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public void remove_queue (string uuid) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM Queue WHERE uuid = $uuid;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$uuid", uuid);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
         stmt.reset ();
     }
 

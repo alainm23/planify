@@ -109,6 +109,8 @@ public enum ObjectType {
     SECTION,
     ITEM,
     LABEL,
+    TASK,
+    TASK_LIST,
     FILTER;
 
     public string get_header () {
@@ -120,13 +122,19 @@ public enum ObjectType {
                 return _("Setions");
 
             case ITEM:
-                return _("Items");
+                return _("Tasks");
 
             case LABEL:
                 return _("Labels");
 
             case FILTER:
                 return _("Filters");
+            
+            case TASK:
+                return _("Tasks");
+
+            case TASK_LIST:
+                return _("Lists");
 
             default:
                 assert_not_reached();
@@ -930,5 +938,26 @@ public class Util : GLib.Object {
             default:
                 assert_not_reached();
         }
+    }
+
+    public bool is_todoist_error (int status_code) {
+        return (status_code == 400 || status_code == 401 ||
+            status_code == 403 || status_code == 404 ||
+            status_code == 429 || status_code == 500 ||
+            status_code == 503);
+    }
+
+    public string get_todoist_error (int code) {
+        var messages = new Gee.HashMap<int, string> ();
+
+        messages.set (400, _("The request was incorrect."));
+        messages.set (401, _("Authentication is required, and has failed, or has not yet been provided."));
+        messages.set (403, _("The request was valid, but for something that is forbidden."));
+        messages.set (404, _("The requested resource could not be found."));
+        messages.set (429, _("The user has sent too many requests in a given amount of time."));
+        messages.set (500, _("The request failed due to a server error."));
+        messages.set (503, _("The server is currently unable to handle the request."));
+
+        return messages.get (code);
     }
 }

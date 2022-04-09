@@ -25,8 +25,8 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            resizable: false,
-            height_request: 475
+            resizable: true,
+            height_request: 500
         );
     }
 
@@ -45,7 +45,7 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
             can_focus = false
         };
         done_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        done_button.get_style_context ().add_class ("primary-color");
+        // done_button.get_style_context ().add_class ("primary-color");
 
         var title_label = new Gtk.Label (_("Shortcuts"));
         title_label.get_style_context ().add_class ("h4");
@@ -56,7 +56,7 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
             margin_end = 3
         };
         header_box.set_center_widget (title_label);
-        // header_box.pack_end (done_button, false, false, 0);
+        header_box.pack_end (done_button, false, false, 0);
 
         headerbar.set_custom_title (header_box);
 
@@ -135,29 +135,35 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
             {"h"})
         );
 
-        var main_grid = new Gtk.Grid () {
+        var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             width_request = 300
         };
+        content.add (anywhere_content);
+        content.add (search_content);
+        content.add (windows_content);
+        content.add (navigate_content);
+
+        var content_scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        content_scrolled.add (content);
+
+        var main_grid = new Gtk.Grid () {
+            orientation = Gtk.Orientation.VERTICAL,
+            width_request = 325
+        };
         main_grid.add (headerbar);
-        main_grid.add (anywhere_content);
-        main_grid.add (search_content);
-        main_grid.add (windows_content);
-        main_grid.add (navigate_content);
+        main_grid.add (content_scrolled);
         
         unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
         main_grid_context.add_class ("picker");
 
-        var stack_scrolled = new Gtk.ScrolledWindow (null, null) {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            expand = true
-        };
-        stack_scrolled.add (main_grid);
-
-        add (stack_scrolled);
+        add (main_grid);
 
         focus_out_event.connect (() => {
-            hide_destroy ();
+            // hide_destroy ();
             return false;
         });
 

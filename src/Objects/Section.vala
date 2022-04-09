@@ -185,6 +185,32 @@ public class Objects.Section : Objects.BaseObject {
         return get_update_json (uuid, temp_id);
     }
 
+    public override string to_json () {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (id);
+
+        builder.set_member_name ("project_id");
+        if (Planner.database.curTempIds_exists (project_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (project_id));
+        } else {
+            builder.add_int_value (project_id);
+        }
+        
+        builder.set_member_name ("name");   
+        builder.add_string_value (Util.get_default ().get_encode_text (name));
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+
     public void delete (bool confirm = true) {
         if (!confirm) {
             if (project.todoist) {

@@ -51,6 +51,38 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
+    public string type_add {
+        get {
+            if (this is Objects.Item) {
+                return "item_add";
+            } else if (this is Objects.Project) {
+                return "project_add";
+            } else if (this is Objects.Section) {
+                return "section_add";
+            } else if (this is Objects.Label) {
+                return "label_add";
+            } else {
+                return "";
+            }
+        }
+    }
+
+    public string type_update {
+        get {
+            if (this is Objects.Item) {
+                return "item_update";
+            } else if (this is Objects.Project) {
+                return "project_update";
+            } else if (this is Objects.Section) {
+                return "section_update";
+            } else if (this is Objects.Label) {
+                return "label_update";
+            } else {
+                return "";
+            }
+        }
+    }
+
     public ObjectType object_type {
         get {
             if (this is Objects.Project) {
@@ -61,8 +93,32 @@ public class Objects.BaseObject : GLib.Object {
                 return ObjectType.ITEM;
             } else if (this is Objects.Label) {
                 return ObjectType.LABEL;
+            } else if (this is Objects.Task) {
+                return ObjectType.TASK;
+            } else if (this is Objects.SourceTaskList) {
+                return ObjectType.TASK_LIST;
             } else {
                 return ObjectType.FILTER;
+            }
+        }
+    }
+
+    public string object_type_string {
+        get {
+            if (this is Objects.Project) {
+                return "project";
+            } else if (this is Objects.Section) {
+                return "section";
+            } else if (this is Objects.Item) {
+                return "item";
+            } else if (this is Objects.Label) {
+                return "label";
+            } else if (this is Objects.Task) {
+                return "task";
+            } else if (this is Objects.SourceTaskList) {
+                return "source-task";
+            } else {
+                return "filter";
             }
         }
     }
@@ -118,6 +174,10 @@ public class Objects.BaseObject : GLib.Object {
     }
 
     public virtual string get_add_json (string temp_id, string uuid) {
+        return "";
+    }
+
+    public virtual string to_json () {
         return "";
     }
 }

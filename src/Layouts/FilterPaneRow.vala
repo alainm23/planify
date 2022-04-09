@@ -9,6 +9,8 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private Gtk.Label count_label;
     private Gtk.EventBox content_eventbox;
 
+    public Gee.HashMap<string, ECal.Component> items_added;
+
     public FilterPaneRow (FilterType filter_type) {
         Object (
             filter_type: filter_type,
@@ -104,13 +106,8 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
             Objects.Today.get_default ().today_count_updated.connect (() => {
                 update_count_label (Objects.Today.get_default ().today_count);
             });
-        } else if (filter_type == FilterType.INBOX) {  
-            Objects.Project inbox_project = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"));
-            update_count_label (inbox_project.project_count);
-
-            inbox_project.project_count_updated.connect (() => {
-                update_count_label (inbox_project.project_count);
-            });
+        } else if (filter_type == FilterType.INBOX) {
+            init_inbox_count ();            
         } else if (filter_type == FilterType.SCHEDULED) {
             update_count_label (Objects.Scheduled.get_default ().scheduled_count);
             Objects.Scheduled.get_default ().scheduled_count_updated.connect (() => {
@@ -122,5 +119,88 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
                 update_count_label (Objects.Pinboard.get_default ().pinboard_count);
             });
         }
+    }
+
+    private void init_inbox_count () {
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            Objects.Project inbox_project = Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"));
+            update_count_label (inbox_project.project_count);
+
+            inbox_project.project_count_updated.connect (() => {
+                update_count_label (inbox_project.project_count);
+            });
+        } else if (backend_type == BackendType.CALDAV) {
+            try {
+                var registry = Services.CalDAV.get_default ().get_registry_sync ();
+
+                Services.CalDAV.get_default ().create_task_list_view (
+                    registry.default_task_list,
+                    "(contains? 'any' '')",
+                    on_tasks_added,
+                    on_tasks_modified,
+                    on_tasks_removed
+                );
+            } catch (Error e) {
+                warning (e.message);
+            }
+        }
+    }
+
+    private void on_tasks_added (Gee.Collection<ECal.Component> tasks) {
+        if (items_added == null) {
+            items_added = new Gee.HashMap<string, ECal.Component> ();
+        }
+
+        int task_completed = 0;
+        foreach (ECal.Component task in tasks) {
+            if (!items_added.has_key (task.get_icalcomponent ().get_uid ())) {
+                unowned ICal.Component ical_task = task.get_icalcomponent ();
+                if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                    task_completed++;
+                }
+
+                items_added[task.get_icalcomponent ().get_uid ()] = task;
+            }
+        }
+
+        update_count_label (items_added.size - task_completed);
+    }
+
+    private void on_tasks_modified (Gee.Collection<ECal.Component> tasks) {
+        foreach (ECal.Component task in tasks) {
+            items_added[task.get_icalcomponent ().get_uid ()] = task;
+        }
+
+        int task_completed = 0;
+        foreach (var task in items_added.values) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                task_completed++;
+            }
+        }
+
+        update_count_label (items_added.size - task_completed);
+    }
+
+    private void on_tasks_removed (SList<ECal.ComponentId?> cids) {
+        foreach (unowned ECal.ComponentId cid in cids) {
+            if (cid == null) {
+                continue;
+            } else {
+                items_added.unset (cid.get_uid ());
+            }
+        }
+
+        int task_completed = 0;
+        foreach (var task in items_added.values) {
+            unowned ICal.Component ical_task = task.get_icalcomponent ();
+            if (ical_task.get_status () == ICal.PropertyStatus.COMPLETED) {
+                task_completed++;
+            }
+        }
+
+        update_count_label (items_added.size - task_completed);
     }
 }

@@ -32,8 +32,8 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
     private Widgets.HyperTextView description_textview;
     private Widgets.PriorityButton priority_button;
     //  private Widgets.ItemLabels item_labels;
-    //  private Widgets.ScheduleButton schedule_button;
-    // private Widgets.ItemSummary item_summary;
+    private Widgets.ScheduleButton schedule_button;
+    private Widgets.TaskSummary item_summary;
     private Gtk.Revealer submit_cancel_revealer;
     private Gtk.Button delete_button;
     // private Gtk.Button menu_button;
@@ -59,7 +59,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
                 actionbar_revealer.reveal_child = true;
-                // item_summary.reveal_child = false;
+                item_summary.reveal_child = false;
                 hide_loading_revealer.reveal_child = !is_creating;
 
                 content_entry.grab_focus_without_selecting ();
@@ -83,7 +83,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
                 actionbar_revealer.reveal_child = false;
-                // item_summary.check_revealer ();
+                item_summary.check_revealer (task, this);
                 hide_loading_revealer.reveal_child = false;
 
                 update_request ();
@@ -151,9 +151,9 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
 
         build_content ();
 
-        //  item_summary = new Widgets.ItemSummary (item, this) {
-        //      margin_start = 21
-        //  };
+        item_summary = new Widgets.TaskSummary (task, this) {
+            margin_start = 21
+        };
 
         description_textview = new Widgets.HyperTextView (_("Description")) {
             height_request = 64,
@@ -184,8 +184,8 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         //      sensitive = !item.completed
         //  };
 
-        //  schedule_button = new Widgets.ScheduleButton (item);
-        //  schedule_button.get_style_context ().add_class ("no-padding");
+        schedule_button = new Widgets.ScheduleButton.for_component (task);
+        schedule_button.get_style_context ().add_class ("no-padding");
 
         priority_button = new Widgets.PriorityButton.for_component (task);
         priority_button.get_style_context ().add_class ("no-padding");
@@ -227,7 +227,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
             sensitive = task.get_icalcomponent ().get_status () != ICal.PropertyStatus.COMPLETED
         };
 
-        //  action_grid.pack_start (schedule_button, false, false, 0);
+        action_grid.pack_start (schedule_button, false, false, 0);
         //  action_grid.pack_end (pin_button, false, false, 0);
         //  action_grid.pack_end (reminder_button, false, false, 0);
         action_grid.pack_end (priority_button, false, false, 0);
@@ -255,7 +255,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         };
         handle_grid.get_style_context ().add_class ("transition");
         handle_grid.add (content_top_box);
-        // handle_grid.add (item_summary);
+        handle_grid.add (item_summary);
         handle_grid.add (detail_revealer);
 
         itemrow_eventbox = new Gtk.EventBox ();
@@ -265,8 +265,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         );
         itemrow_eventbox.add (handle_grid);
 
-        var chevron_right_image = new Widgets.DynamicIcon () {
-        };
+        var chevron_right_image = new Widgets.DynamicIcon ();
         chevron_right_image.size = 19;
         chevron_right_image.update_icon_name ("chevron-right");
 
@@ -657,13 +656,13 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
             edit = false;
         });
         
-        //  schedule_button.date_changed.connect ((date) => {
-        //      update_due (date);
-        //  });
+        schedule_button.date_changed.connect ((date) => {
+            update_due (date);
+        });
 
-        //  schedule_button.dialog_open.connect ((dialog_open) => {
-        //      is_menu_open = dialog_open;
-        //  });
+        schedule_button.dialog_open.connect ((dialog_open) => {
+            is_menu_open = dialog_open;
+        });
         
         //  project_button.dialog_open.connect ((dialog_open) => {
         //      is_menu_open = dialog_open;
@@ -845,6 +844,8 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
             Util.get_default ().set_widget_priority (CalDAVUtil.caldav_priority_to_planner (task), checked_button);
             description_textview.set_text ("");
 
+            item_summary.update_request (task, this);
+            schedule_button.update_request (null, task);
             priority_button.update_request (null, task);
         } else if (!is_creating) {
             unowned ICal.Component ical_task = task.get_icalcomponent ();
@@ -863,6 +864,8 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
                 description_textview.set_text ("");
             }
 
+            item_summary.update_request (task, this);
+            schedule_button.update_request (null, task);
             priority_button.update_request (null, task);
 
             content_label.label = ical_task.get_summary () == null ? "" : ical_task.get_summary ();
@@ -878,7 +881,11 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         ical_task.set_description (description_textview.get_text ());
 
         if (is_creating) {
-            add_task ();
+            if (Util.get_default ().is_input_valid (content_entry)) {
+                add_task ();
+            } else {
+                hide_destroy ();
+            }
         } else {
             update_async_timeout ();
         }
@@ -980,7 +987,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         //  menu_button.no_show_all = false;
         //  menu_button.show_all ();
 
-        edit = false;
+        //  edit = false;
     }
 
     public void hide_destroy () {
@@ -1183,13 +1190,31 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
     }
     
     public void update_due (GLib.DateTime? date) {
-        //  item.due.date = date == null ? "" : Util.get_default ().get_todoist_datetime_format (date);
+        unowned ICal.Component ical_task = task.get_icalcomponent ();
+        
+        ICal.Time new_icaltime;
+        if (date == null) {
+            new_icaltime = new ICal.Time.null_time ();
+        } else {
+            var task_tz = ical_task.get_due ().get_timezone ();
+            if (task_tz != null) {
+                // If the task has a timezone, must convert from displayed local time
+                new_icaltime = CalDAVUtil.datetimes_to_icaltime (date, date, ECal.util_get_system_timezone ());
+                new_icaltime.convert_to_zone_inplace (task_tz);
+            } else {
+                // Use floating timezone if no timezone already exists
+                new_icaltime = CalDAVUtil.datetimes_to_icaltime (date, date, null);
+            }
+        }
 
-        //  if (is_creating) {
-        //      schedule_button.update_request ();
-        //  } else {
-        //      item.update_async (Constants.INACTIVE, hide_loading_button);
-        //  }
+        ical_task.set_due (new_icaltime);
+        ical_task.set_dtstart (new_icaltime);
+
+        if (is_creating) {
+            schedule_button.update_request (null, task);
+        } else {
+            update_async ();
+        }
     }
 
     private void activate_menu () {
@@ -1244,7 +1269,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         if (active) {
             if (!edit) {
                 content_label.get_style_context ().add_class ("dim-label");
-                main_grid.get_style_context ().add_class ("complete-animation");
+                itemrow_eventbox.get_style_context ().add_class ("complete-animation");
                 if (Planner.settings.get_boolean ("underline-completed-tasks")) {
                     content_label.get_style_context ().add_class ("line-through");
                 }
@@ -1258,7 +1283,7 @@ public class Layouts.TaskRow : Gtk.ListBoxRow {
         } else {
             if (complete_timeout != 0) {
                 GLib.Source.remove (complete_timeout);
-                main_grid.get_style_context ().remove_class ("complete-animation");
+                itemrow_eventbox.get_style_context ().remove_class ("complete-animation");
                 content_label.get_style_context ().remove_class ("dim-label");
                 content_label.get_style_context ().remove_class ("line-through");
             } else {

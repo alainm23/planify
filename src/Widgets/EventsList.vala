@@ -56,7 +56,7 @@ public class Widgets.EventsList : Gtk.EventBox {
             orientation = Gtk.Orientation.VERTICAL,
             hexpand = true,
             margin_start = 6,
-            margin_bottom = 12
+            margin_bottom = 6
         };
 
         main_grid.add (listbox_grid);
@@ -80,6 +80,12 @@ public class Widgets.EventsList : Gtk.EventBox {
         if (is_today_view) {
             date = new GLib.DateTime.now_local ();
         }
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "calendar-enabled") {
+                main_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
+            }
+        });
 
         notify ["date"].connect (() => {
             if (date != null) {

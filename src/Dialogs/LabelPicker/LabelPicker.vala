@@ -23,6 +23,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     public Objects.Item item { get; construct; }
 
     private Gtk.SearchEntry search_entry;
+    private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
     
     private Gtk.Button cancel_clear_button;
@@ -216,6 +217,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
         label.name = search_entry.text;
 
         if (backend_type == BackendType.TODOIST) {
+            placeholder_stack.visible_child_name = "spinner";
             label.todoist = true;
             Planner.todoist.add.begin (label, (obj, res) => {
                 label.id = Planner.todoist.add.end (res);
@@ -267,7 +269,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label ("Your list of filters will show up here. Create one by entering the name and pressing the Enter key") {
+        var message_label = new Gtk.Label ("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.") {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };
@@ -275,12 +277,26 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
         unowned Gtk.StyleContext message_label_context = message_label.get_style_context ();
         message_label_context.add_class ("dim-label");
         message_label_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        
+        var spinner = new Gtk.Spinner ();
+        spinner.get_style_context ().add_class ("text-color");
+        spinner.start ();
+
+        placeholder_stack = new Gtk.Stack () {
+            expand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            homogeneous = false
+        };
+
+        placeholder_stack.add_named (message_label, "message");
+        placeholder_stack.add_named (spinner, "spinner");
 
         var grid = new Gtk.Grid () {
             margin = 6,
             valign = Gtk.Align.CENTER
         };
-        grid.add (message_label);
+
+        grid.add (placeholder_stack);
         grid.show_all ();
 
         return grid;

@@ -1,21 +1,20 @@
-public class Views.Scheduled.ScheduledDay : Gtk.Button {
+public class Views.Scheduled.ScheduledDay : Gtk.EventBox {
     public GLib.DateTime date { get; construct; }
 
     private Gee.HashMap<string, Gtk.Widget> component_dots;
     private Gtk.Grid dots_grid;
+    private Gtk.Button button;
+
+    public signal void clicked ();
 
     public ScheduledDay (GLib.DateTime date) {
         Object (date: date);
     }
 
     construct {
-        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        get_style_context ().add_class ("scheduled-day");
-        
         var day_name_label = new Gtk.Label (date.format ("%a")) {
             hexpand = true,
-            halign = Gtk.Align.CENTER,
-            margin_top = 3
+            halign = Gtk.Align.CENTER
         };
 
         day_name_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
@@ -52,18 +51,33 @@ public class Views.Scheduled.ScheduledDay : Gtk.Button {
         }
 
         component_dots = new Gee.HashMap<string, Gtk.Widget> ();
+
         dots_grid = new Gtk.Grid () {
             halign = Gtk.Align.CENTER,
-            height_request = 6,
-            margin_top = 3
+            margin_top = 3,
+            margin_bottom = 3
         };
+
+        var button_grid = new Gtk.Grid () {
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+
+        button_grid.add (day_name_label);
+        button_grid.add (day_stack);
+
+        button = new Gtk.Button ();
+        button.add (button_grid);
+
+        button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        // button.get_style_context ().add_class ("scheduled-day");
 
         var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
         };
 
-        main_grid.add (day_name_label);
-        main_grid.add (day_stack);
+        main_grid.add (button);
         main_grid.add (dots_grid);
 
         add (main_grid);
@@ -77,6 +91,10 @@ public class Views.Scheduled.ScheduledDay : Gtk.Button {
                 day_hash (item.due.datetime) != day_hash (date)) {
                 remove_component_dot (item.id_string);
             }
+        });
+
+        button.clicked.connect (() => {
+            clicked ();
         });
     }
 

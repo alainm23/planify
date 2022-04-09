@@ -28,6 +28,12 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         }
     }
 
+    public bool add_action {
+        set {
+            action_revealer.reveal_child = value;
+        }
+    }
+
     public HeaderItem (PaneType pane_type, string pane_title = "",
         ContainerType container_shape=ContainerType.LISTBOX,
         Gtk.SelectionMode selection_mode=Gtk.SelectionMode.SINGLE) {
@@ -61,6 +67,7 @@ public class Layouts.HeaderItem : Gtk.EventBox {
             image = arrow_icon,
             margin_end = 15
         };
+        
         arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         arrow_button.get_style_context ().add_class ("dim-label");
         arrow_button.get_style_context ().add_class ("transparent");
@@ -105,7 +112,7 @@ public class Layouts.HeaderItem : Gtk.EventBox {
 
         var add_image = new Widgets.DynamicIcon ();
         add_image.size = 19;
-        add_image.icon_name = "planner-plus-circle";
+        add_image.update_icon_name ("planner-plus-circle");
         
         var add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
@@ -143,7 +150,7 @@ public class Layouts.HeaderItem : Gtk.EventBox {
 
         action_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child = pane_type != PaneType.FAVORITE
+            reveal_child = true
         };
         action_revealer.add (action_stack);
 

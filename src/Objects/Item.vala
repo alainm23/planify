@@ -529,8 +529,87 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public string to_string () {
-        return "";
+    public override string to_json () {
+        builder.reset ();
+        
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (id);
+
+        builder.set_member_name ("project_id");
+        if (Planner.database.curTempIds_exists (project_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (project_id));
+        } else {
+            builder.add_int_value (project_id);
+        }
+
+        if (section_id != Constants.INACTIVE) {
+            builder.set_member_name ("section_id");
+            if (Planner.database.curTempIds_exists (section_id)) {
+                builder.add_string_value (Planner.database.get_temp_id (section_id));
+            } else {
+                builder.add_int_value (section_id);
+            }
+        }
+
+        if (section_id != Constants.INACTIVE) {
+            builder.set_member_name ("parent_id");
+            if (Planner.database.curTempIds_exists (parent_id)) {
+                builder.add_string_value (Planner.database.get_temp_id (parent_id));
+            } else {
+                builder.add_int_value (parent_id);
+            }
+        }
+
+        builder.set_member_name ("content");
+        builder.add_string_value (Util.get_default ().get_encode_text (content));
+
+        builder.set_member_name ("description");
+        builder.add_string_value (Util.get_default ().get_encode_text (description));
+
+        builder.set_member_name ("priority");
+        if (priority == Constants.INACTIVE) {
+            builder.add_int_value (Constants.PRIORITY_4);
+        } else {
+            builder.add_int_value (priority);
+        }
+
+        //  if (has_due) {
+        //      builder.set_member_name ("due");
+        //      builder.begin_object ();
+
+        //      builder.set_member_name ("date");
+        //      builder.add_string_value (due.date);
+
+        //      builder.set_member_name ("is_recurring");
+        //      builder.add_boolean_value (due.is_recurring);
+
+        //      builder.set_member_name ("string");
+        //      builder.add_string_value (due.text);
+
+        //      builder.set_member_name ("lang");
+        //      builder.add_string_value (due.lang);
+
+        //      builder.end_object ();
+        //  } else {
+        //      builder.set_member_name ("due");
+        //      builder.add_null_value ();
+        //  }
+
+        //  builder.set_member_name ("labels");
+        //      builder.begin_array ();
+        //      foreach (Objects.ItemLabel item_label in labels.values) {
+        //          builder.add_string_value (item_label.label.name);
+        //      }
+        //      builder.end_array ();
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 
     public void delete (Layouts.ItemRow? itemrow = null) {
