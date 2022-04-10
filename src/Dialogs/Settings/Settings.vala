@@ -67,7 +67,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         });
 
         focus_out_event.connect (() => {
-            hide_destroy ();
+            // hide_destroy ();
             return false;
         });
 
@@ -292,45 +292,68 @@ public class Dialogs.Settings.Settings : Hdy.Window {
     private Gtk.Widget get_appearance_view () {
         var settings_header = new Dialogs.Settings.SettingsHeader (_("Appearance"));
 
-        var dark_mode_content = new Dialogs.Settings.SettingsContent (null);
-        var dark_mode_label = new Gtk.Label (_("Dark mode"));
-        var dark_mode_switch = new Gtk.Switch ();
-        // enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
-        dark_mode_switch.get_style_context ().add_class ("active-switch");
-        var dark_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin = 3
-        };
-        dark_mode_box.pack_start (dark_mode_label, false, true, 0);
-        dark_mode_box.pack_end (dark_mode_switch, false, false, 0);
-        dark_mode_content.add_child (dark_mode_box);
-
         var system_content = new Dialogs.Settings.SettingsContent (null);
-        var system_content_label = new Gtk.Label (_("Use system settings"));
+        
+        var system_content_label = new Gtk.Label (_("Use system settings")) {
+            margin_start = 6
+        };
+
         var system_content_switch = new Gtk.Switch ();
-        // enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
+        system_content_switch.active = Planner.settings.get_boolean ("system-appearance");
         system_content_switch.get_style_context ().add_class ("active-switch");
+        
         var system_content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin = 3
         };
+        
         system_content_box.pack_start (system_content_label, false, true, 0);
         system_content_box.pack_end (system_content_switch, false, false, 0);
         system_content.add_child (system_content_box);
 
-        var content = new Dialogs.Settings.SettingsContent (null);
+        var system_description = new Gtk.Label (
+            _("Use the default settings on your system.") // vala-lint=line-length
+        ) {
+            halign = Gtk.Align.START,
+            wrap = true,
+            margin_start = 16,
+            margin_end = 16,
+            xalign = (float) 0.0,
+            margin_bottom = 12,
+            wrap_mode = Pango.WrapMode.CHAR
+        };
+        system_description.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        system_description.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var system_dark_item = new Gtk.RadioButton.with_label (null, _("System default")) {
-            hexpand = true,
-            margin_top = 3,
+        // Dark Mode
+
+        var dark_mode_content = new Dialogs.Settings.SettingsContent (null);
+        
+        var dark_mode_label = new Gtk.Label (_("Dark mode")) {
             margin_start = 6
         };
-
-        var system_dark_blue_item = new Gtk.RadioButton.with_label (null, _("System default (Dark Blue)")) {
+        
+        var dark_mode_switch = new Gtk.Switch ();
+        dark_mode_switch.active = Planner.settings.get_boolean ("dark-mode");
+        dark_mode_switch.get_style_context ().add_class ("active-switch");
+        
+        var dark_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6
+            margin = 3
         };
+        
+        dark_mode_box.pack_start (dark_mode_label, false, true, 0);
+        dark_mode_box.pack_end (dark_mode_switch, false, false, 0);
+        dark_mode_content.add_child (dark_mode_box);
+
+        var dark_mode_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = !Planner.settings.get_boolean ("system-appearance")
+        };
+
+        dark_mode_revealer.add (dark_mode_content);
+
+        var appearance_content = new Dialogs.Settings.SettingsContent (null);
 
         var light_item = new Gtk.RadioButton.with_label (null, _("Light")) {
             hexpand = true,
@@ -348,14 +371,23 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             hexpand = true,
             margin_top = 3,
             margin_start = 6,
-            margin_bottom = 6
+            margin_bottom = 3
         };
 
-        content.add_child (system_dark_item);
-        content.add_child (system_dark_blue_item);
-        content.add_child (light_item);
-        content.add_child (dark_item);
-        content.add_child (dark_blue_item);
+        appearance_content.add_child (dark_item);
+        appearance_content.add_child (dark_blue_item);
+
+        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+        if (Planner.settings.get_boolean ("system-appearance")) {
+            dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        }
+
+        var appearance_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = dark_mode
+        };
+
+        appearance_revealer.add (appearance_content);
 
         var main_grid = new Gtk.Grid () {
             expand = true,
@@ -364,9 +396,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         };
         
         main_grid.add (settings_header);
-        // main_grid.add (dark_mode_content);
-        // main_grid.add (system_content);
-        main_grid.add (content);
+        main_grid.add (system_content);
+        // main_grid.add (system_description);
+        main_grid.add (dark_mode_revealer);
+        main_grid.add (appearance_revealer);
 
         int appearance = Planner.settings.get_enum ("appearance");
         if (appearance == 0) {
@@ -385,16 +418,44 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("settings");
         });
 
-        light_item.toggled.connect (() => {
-            Planner.settings.set_enum ("appearance", 0);
-        });
-
         dark_item.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 1);
         });
 
         dark_blue_item.toggled.connect (() => {
             Planner.settings.set_enum ("appearance", 2);
+        });
+
+        dark_mode_switch.notify["active"].connect ((val) => {
+            // Planner.settings.set_boolean ("system-appearance", false);
+            Planner.settings.set_boolean ("dark-mode", dark_mode_switch.active);
+        });
+
+        system_content_switch.notify["active"].connect ((val) => {
+            Planner.settings.set_boolean ("system-appearance", system_content_switch.active);
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "system-appearance") {
+                system_content_switch.active = Planner.settings.get_boolean ("system-appearance");
+                dark_mode_revealer.reveal_child = !Planner.settings.get_boolean ("system-appearance");
+
+                dark_mode = Planner.settings.get_boolean ("dark-mode");
+                if (Planner.settings.get_boolean ("system-appearance")) {
+                    dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+                }
+                appearance_revealer.reveal_child = dark_mode;
+            } else if (key == "appearance") {
+                
+            } else if (key == "dark-mode") {
+                dark_mode_switch.active = Planner.settings.get_boolean ("dark-mode");
+                
+                dark_mode = Planner.settings.get_boolean ("dark-mode");
+                if (Planner.settings.get_boolean ("system-appearance")) {
+                    dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+                }
+                appearance_revealer.reveal_child = dark_mode;
+            }
         });
 
         main_grid.show_all ();
@@ -671,7 +732,9 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         sync_server_description.margin_start = 16;
         sync_server_description.margin_end = 16;
         sync_server_description.xalign = (float) 0.0;
+        sync_server_description.wrap_mode = Pango.WrapMode.CHAR;
         sync_server_description.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        sync_server_description.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var main_grid = new Gtk.Grid () {
             expand = true,

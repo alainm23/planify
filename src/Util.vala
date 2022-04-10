@@ -454,6 +454,15 @@ public class Util : GLib.Object {
         """;
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
+        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+
+        var granite_settings = Granite.Settings.get_default ();
+
+        if (system_appearance) {
+            dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        }
+
         var provider = new Gtk.CssProvider ();
 
         try {
@@ -464,7 +473,25 @@ public class Util : GLib.Object {
             string picker_bg = "";
             string picker_content_bg = ""; 
 
-            if (appearance_mode == 0) {
+            if (dark_mode) {
+                if (appearance_mode == 1) {
+                    base_color = "#151515";
+                    bg_color = "shade (#151515, 1.4)";
+                    item_bg_color = "@bg_color";
+                    item_border_color = "#333333";
+                    picker_bg = "@base_color";
+                    picker_content_bg = "@bg_color";
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                } else if (appearance_mode == 2) {
+                    base_color = "#0B0B11";
+                    bg_color = "#15151B";
+                    item_bg_color = "@bg_color";
+                    item_border_color = "shade (#333333, 1.35)";
+                    picker_bg = "@base_color";
+                    picker_content_bg = "@bg_color";
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                }
+            } else {
                 base_color = "#ffffff";
                 bg_color = "@SILVER_100";
                 item_bg_color = "@base_color";
@@ -472,22 +499,6 @@ public class Util : GLib.Object {
                 picker_bg = "@bg_color";
                 picker_content_bg = "@base_color";
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-            } else if (appearance_mode == 1) {
-                base_color = "#151515";
-                bg_color = "shade (#151515, 1.4)";
-                item_bg_color = "@bg_color";
-                item_border_color = "#333333";
-                picker_bg = "@base_color";
-                picker_content_bg = "@bg_color";
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-            } else if (appearance_mode == 2) {
-                base_color = "#0B0B11";
-                bg_color = "#15151B";
-                item_bg_color = "@bg_color";
-                item_border_color = "shade (#333333, 1.35)";
-                picker_bg = "@base_color";
-                picker_content_bg = "@bg_color";
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
             }
 
             var CSS = _css.printf (

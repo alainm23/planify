@@ -172,8 +172,25 @@ public class MainWindow : Hdy.Window {
             }
         });
 
+        var granite_settings = Granite.Settings.get_default ();
+        granite_settings.notify["prefers-color-scheme"].connect (() => {
+            if (Planner.settings.get_boolean ("system-appearance")) {
+                Planner.settings.set_boolean (
+                    "dark-mode",
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+                Util.get_default ().update_theme ();
+            }
+        });
+
         Planner.settings.changed.connect ((key) => {
-            if (key == "appearance") {
+            if (key == "system-appearance") {
+                Planner.settings.set_boolean (
+                    "dark-mode",
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+                Util.get_default ().update_theme ();
+            }else if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
             } else if (key == "badge-count") {
                 Timeout.add (main_stack.transition_duration, () => {

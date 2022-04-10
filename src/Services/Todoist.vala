@@ -224,13 +224,13 @@ public class Services.Todoist : GLib.Object {
     
     public void sync_async () {
         sync_started ();
-        // queue.begin ((obj, res) => {
-            // queue.end (res);
-            sync.begin ((obj, res) => {
-                sync.end (res);
+        sync.begin ((obj, res) => {
+            sync.end (res);
+            queue.begin ((obj, res) => {
+                queue.end (res);
                 sync_finished ();
             });
-        // });
+        });
     }
 
     public async void sync () {

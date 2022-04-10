@@ -28,7 +28,6 @@
     </enum>
 
     <enum id="com.github.alainm23.planner.appearance">
-        <value nick="Light" value="0" />
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
     </enum>
@@ -93,9 +92,21 @@
         </key>
 
         <key name="appearance" enum="com.github.alainm23.planner.appearance">
-            <default>"Light"</default>
+            <default>"Dark"</default>
             <summary></summary>
             <description></description>
+        </key>
+
+        <key name="dark-mode" type="b">
+            <default>false</default>
+            <summary>Dark Mode.</summary>
+            <description>Dark Mode.</description>
+        </key>
+
+        <key name="system-appearance" type="b">
+            <default>false</default>
+            <summary>Dark Mode.</summary>
+            <description>Dark Mode.</description>
         </key>
         
         <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
