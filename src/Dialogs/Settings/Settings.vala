@@ -67,7 +67,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         });
 
         focus_out_event.connect (() => {
-            // hide_destroy ();
+            hide_destroy ();
             return false;
         });
 
