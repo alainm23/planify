@@ -207,9 +207,7 @@ public class Dialogs.Project : Hdy.Window {
 
         submit_button = new Widgets.LoadingButton (
             LoadingButtonType.LABEL,
-            is_creating ? _("Add project") : _("Update project")) {
-            sensitive = !is_creating
-        };
+            is_creating ? _("Add project") : _("Update project"));
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.get_style_context ().add_class ("border-radius-6");
 
@@ -265,7 +263,7 @@ public class Dialogs.Project : Hdy.Window {
         });
 
         name_entry.changed.connect (() => {
-            submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
+            // submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
         });
 
         name_entry.activate.connect (add_project);
@@ -282,6 +280,7 @@ public class Dialogs.Project : Hdy.Window {
 
     private void add_project () {
         if (!Util.get_default ().is_input_valid (name_entry)) {
+            hide_destroy ();
             return;
         }
 

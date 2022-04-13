@@ -273,7 +273,7 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    public void update_async_timeout (int64 update_id = Constants.INACTIVE, Widgets.LoadingButton? loading_button = null) {
+    public void update_async_timeout (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
@@ -301,7 +301,7 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    public void update_async (int64 update_id = Constants.INACTIVE, Widgets.LoadingButton? loading_button = null) {
+    public void update_async (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
         if (loading_button != null) {
             loading_button.is_loading = true;
         }
@@ -340,7 +340,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
-        Widgets.LoadingButton? loading_button = null) {
+        Layouts.ItemRow? loading_button = null) {
         foreach (var entry in new_labels.entries) {
             if (!labels.has_key (entry.value.id_string)) {
                 add_label_if_not_exists (entry.value);
@@ -403,6 +403,33 @@ public class Objects.Item : Objects.BaseObject {
     public void delete_item_label (Objects.ItemLabel item_label) {
         _labels.unset (item_label.label_id.to_string ());
         Planner.database.delete_item_label (item_label);
+    }
+
+    public string to_move_json (string type, int64 move_id) {
+        builder.reset ();
+        
+        builder.begin_object ();
+        
+        builder.set_member_name ("id");
+        builder.add_int_value (id);
+
+        builder.set_member_name ("type");
+        builder.add_string_value (type);
+
+        builder.set_member_name (type);
+        if (Planner.database.curTempIds_exists (move_id)) {
+            builder.add_string_value (Planner.database.get_temp_id (move_id));
+        } else {
+            builder.add_int_value (move_id);
+        }
+        
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
     }
 
     public string get_move_item (string uuid, string type, int64 move_id) {
@@ -575,27 +602,27 @@ public class Objects.Item : Objects.BaseObject {
             builder.add_int_value (priority);
         }
 
-        //  if (has_due) {
-        //      builder.set_member_name ("due");
-        //      builder.begin_object ();
+        if (has_due) {
+            builder.set_member_name ("due");
+            builder.begin_object ();
 
-        //      builder.set_member_name ("date");
-        //      builder.add_string_value (due.date);
+            builder.set_member_name ("date");
+            builder.add_string_value (due.date);
 
-        //      builder.set_member_name ("is_recurring");
-        //      builder.add_boolean_value (due.is_recurring);
+            builder.set_member_name ("is_recurring");
+            builder.add_boolean_value (due.is_recurring);
 
-        //      builder.set_member_name ("string");
-        //      builder.add_string_value (due.text);
+            builder.set_member_name ("string");
+            builder.add_string_value (due.text);
 
-        //      builder.set_member_name ("lang");
-        //      builder.add_string_value (due.lang);
+            builder.set_member_name ("lang");
+            builder.add_string_value (due.lang);
 
-        //      builder.end_object ();
-        //  } else {
-        //      builder.set_member_name ("due");
-        //      builder.add_null_value ();
-        //  }
+            builder.end_object ();
+        } else {
+            builder.set_member_name ("due");
+            builder.add_null_value ();
+        }
 
         //  builder.set_member_name ("labels");
         //      builder.begin_array ();

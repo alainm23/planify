@@ -113,8 +113,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public bool is_loading {
         set {
-            hide_loading_revealer.reveal_child = value;
-            hide_loading_button.is_loading = value;
+            if (value) {
+                hide_loading_revealer.reveal_child = value;
+                hide_loading_button.is_loading = value;
+            } else {
+                hide_loading_button.is_loading = value;
+                hide_loading_revealer.reveal_child = edit;
+            }
         }
     }
 
@@ -756,7 +761,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     priority_button.update_request (item, null);
                 } else {
                     if (item.project.todoist) {
-                        item.update_async (Constants.INACTIVE, hide_loading_button);
+                        item.update_async (Constants.INACTIVE, this);
                     } else {
                         item.update_local ();
                     }
@@ -818,7 +823,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             item.update_local_labels (labels);
             item_labels.update_labels ();
         } else {
-            item.update_labels_async (labels, hide_loading_button);
+            item.update_labels_async (labels, this);
         }
     }
 
@@ -840,7 +845,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             item.content = content_entry.get_text ();
             item.description = description_textview.get_text ();
 
-            item.update_async_timeout (update_id, hide_loading_button);       
+            item.update_async_timeout (update_id, this);       
         }
     }
 
@@ -1124,7 +1129,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             schedule_button.update_request (item, null);
         } else {
-            item.update_async (Constants.INACTIVE, hide_loading_button);
+            item.update_async (Constants.INACTIVE, this);
         }
     }
 
@@ -1194,8 +1199,20 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 item.checked = true;
                 item.completed_at = Util.get_default ().get_format_date (
                     new GLib.DateTime.now_local ()).to_string ();
-    
-                Planner.database.checked_toggled (item, old_checked);
+                    
+                if (item.project.todoist) {
+                    checked_button.sensitive = false;
+                    is_loading = true;
+                    Planner.todoist.complete_item.begin (item, (obj, res) => {
+                        if (Planner.todoist.complete_item.end (res)) {
+                            Planner.database.checked_toggled (item, old_checked);
+                            is_loading = false;
+                            checked_button.sensitive = true;
+                        }
+                    });
+                } else {
+                    Planner.database.checked_toggled (item, old_checked);
+                }
                 
                 return GLib.Source.REMOVE;
             });
@@ -1209,7 +1226,19 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 item.checked = false;
                 item.completed_at = "";
 
-                Planner.database.checked_toggled (item, old_checked);
+                if (item.project.todoist) {
+                    checked_button.sensitive = false;
+                    is_loading = true;
+                    Planner.todoist.complete_item.begin (item, (obj, res) => {
+                        if (Planner.todoist.complete_item.end (res)) {
+                            Planner.database.checked_toggled (item, old_checked);
+                            is_loading = false;
+                            checked_button.sensitive = true;
+                        }
+                    });
+                } else {
+                    Planner.database.checked_toggled (item, old_checked);
+                }
             }
         }
     }

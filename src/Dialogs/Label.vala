@@ -145,9 +145,7 @@ public class Dialogs.Label : Hdy.Window {
 
         submit_button = new Widgets.LoadingButton (
             LoadingButtonType.LABEL,
-            is_creating ? _("Add label") : _("Update label")) {
-            sensitive = !is_creating
-        };
+            is_creating ? _("Add label") : _("Update label"));
         submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.get_style_context ().add_class ("border-radius-6");
 
@@ -178,7 +176,7 @@ public class Dialogs.Label : Hdy.Window {
         name_entry.grab_focus ();
         
         name_entry.changed.connect (() => {
-            submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
+            // submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
         });
 
         name_entry.activate.connect (add_label);
@@ -191,6 +189,7 @@ public class Dialogs.Label : Hdy.Window {
 
     private void add_label () {
         if (!Util.get_default ().is_input_valid (name_entry)) {
+            hide_destroy ();
             return;
         }
 

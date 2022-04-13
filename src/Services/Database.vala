@@ -1257,11 +1257,6 @@ public class Services.Database : GLib.Object {
             item_updated (item, Constants.INACTIVE);
 
             Planner.event_bus.checked_toggled (item, old_checked);
-            if (item.project.todoist) {
-                Planner.todoist.complete_item.begin (item, (obj, res) => {
-                    Planner.todoist.complete_item.end (res);
-                });
-            }
         }
 
         stmt.reset ();

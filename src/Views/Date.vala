@@ -41,10 +41,6 @@ public class Views.Date : Gtk.EventBox {
     }
 
     construct {
-        if (is_today_view) {
-            date = new GLib.DateTime.now_local ();
-        }
-
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
         views = new Gee.HashMap<E.Source, ECal.ClientView> ();
@@ -161,6 +157,10 @@ public class Views.Date : Gtk.EventBox {
         main_revealer.add (main_grid);
         
         add (main_revealer);
+        
+        if (is_today_view) {
+            update_date (new GLib.DateTime.now_local ());
+        }
 
         Timeout.add (main_revealer.transition_duration, () => {
             validate_placeholder ();
