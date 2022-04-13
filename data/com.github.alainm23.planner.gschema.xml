@@ -66,7 +66,7 @@
         <value nick="caldav" value="3" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner3/" id="com.github.alainm23.planner3" gettext-domain="com.github.alainm23.planner3">        
+    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
