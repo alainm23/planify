@@ -11,9 +11,13 @@ src/Layouts/ProjectRow.vala
 src/Layouts/ViewHeader.vala
 src/Layouts/SectionRow.vala
 src/Layouts/LabelChild.vala
+src/Layouts/SectionChild.vala
+src/Layouts/TasklistRow.vala
+src/Layouts/TaskRow.vala
 
+src/Widgets/Entry.vala
 src/Widgets/DynamicIcon.vala
-src/Widgets/TodoistSync.vala
+src/Widgets/SyncButton.vala
 src/Widgets/ProjectProgress.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/TopHeaderProject.vala
@@ -25,11 +29,19 @@ src/Widgets/ProjectButton.vala
 src/Widgets/PinButton.vala
 src/Widgets/IconColorProject.vala
 src/Widgets/ItemSummary.vala
+src/Widgets/TaskSummary.vala
 src/Widgets/ScheduleButton.vala
 src/Widgets/PriorityButton.vala
 src/Widgets/LabelButton.vala
 src/Widgets/ItemLabels.vala
 src/Widgets/ItemLabelChild.vala
+src/Widgets/Placeholder.vala
+src/Widgets/SubItems.vala
+src/Widgets/ReminderButton.vala
+src/Widgets/CalendarSourceRow.vala
+src/Widgets/EventsList.vala
+src/Widgets/EventRow.vala
+src/Widgets/Toast.vala
 
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
@@ -47,10 +59,27 @@ src/Views/Scheduled/Scheduled.vala
 src/Views/Scheduled/ScheduledHeader.vala
 src/Views/Scheduled/ScheduledDay.vala
 src/Views/Label.vala
+src/Views/Board.vala
+src/Views/Tasklist.vala
 
 src/Dialogs/TodoistOAuth.vala
 src/Dialogs/Project.vala
 src/Dialogs/Label.vala
+src/Dialogs/MessageDialog.vala
+src/Dialogs/QuickFind/QuickFind.vala
+src/Dialogs/QuickFind/QuickFindItem.vala
+src/Dialogs/QuickFind/Synapse.vala
+
+src/Dialogs/ReminderPicker/ReminderPicker.vala
+src/Dialogs/ReminderPicker/ReminderRow.vala
+
+src/Dialogs/Settings/Settings.vala
+src/Dialogs/Settings/SettingsHeader.vala
+src/Dialogs/Settings/SettingsContent.vala
+src/Dialogs/Settings/SettingsItem.vala
+src/Dialogs/Settings/SettingsCalDAV.vala
+src/Dialogs/Settings/SettingsSelect.vala
+src/Dialogs/Settings/SettingsSwitch.vala
 
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectRow.vala
@@ -67,11 +96,31 @@ src/Dialogs/ContextMenu/MenuItem.vala
 src/Dialogs/ContextMenu/MenuItemSelector.vala
 src/Dialogs/ContextMenu/MenuSeparator.vala
 src/Dialogs/ContextMenu/MenuCalendarPicker.vala
+src/Dialogs/ContextMenu/MenuSwitch.vala
+src/Dialogs/ContextMenu/MenuHeader.vala
+
+src/Dialogs/Shortcuts/Shortcuts.vala
+src/Dialogs/Shortcuts/ShortcutLabel.vala
 
 src/Services/EventBus.vala
 src/Services/Database.vala
 src/Services/Todoist.vala
+src/Services/ActionManager.vala
+src/Services/Badge.vala
+src/Services/Notification.vala
+src/Services/DBusServer.vala
+src/Services/MigrateV2.vala
 
+src/Services/CalDAV/CalDAV.vala
+src/Services/CalDAV/Util.vala
+src/Services/CalDAV/AccountsModel.vala
+
+src/Services/CalendarEvents/CalendarEvents.vala
+src/Services/CalendarEvents/Util.vala
+src/Services/CalendarEvents/DateRange.vala
+src/Services/CalendarEvents/DateIterator.vala
+
+src/Objects/v2.vala
 src/Objects/BaseObject.vala
 src/Objects/Project.vala
 src/Objects/Label.vala
@@ -80,3 +129,10 @@ src/Objects/Item.vala
 src/Objects/Color.vala
 src/Objects/DueDate.vala
 src/Objects/ItemLabel.vala
+src/Objects/Today.vala
+src/Objects/Pinboard.vala
+src/Objects/Scheduled.vala
+src/Objects/Reminder.vala
+src/Objects/Task.vala
+src/Objects/SourceTaskList.vala
+src/Objects/Queue.vala

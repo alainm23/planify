@@ -25,6 +25,11 @@
     </ul>
     <p>* Planner not created by, affiliated with, or supported by Doist</p>
 
+    <p>☁️ Support for CalDAV:</p>
+    <ul>
+      <li>Synchronize your Tasklist.</li>
+    </ul>
+
     <p>💎️ Other features:</p>
     <ul>
       <li>🔍️ Quick Find</li>
@@ -37,12 +42,19 @@
   ​<releases>
     <release version="3.0.7" date="2022-04-13">
       <description>
-        <p>Planner 3.0 Beta Update</p>
+        <p>Planner 3 Beta 2</p>
         <ul>
           <li>CalDAV support.</li>
           <li>Offline support.</li>
           <li>Calendar Events support.</li>
-          <li>.</li>
+          <li>Dark mode respects system preference.</li>
+          <li>Ability to sort projects by name or custom.</li>
+          <li>Import your tasks from Planner 2.</li>
+          <li>Best keyboard shortcuts.</li>
+          <li>Quick Find works with Todoist and CalDAV.</li>
+          <li>Share your projects in markdown and mail.</li>
+          <li>Planner is responsive.</li>
+          <li>Performance and design improvements.</li>
         </ul>
       </description>
     </release>
