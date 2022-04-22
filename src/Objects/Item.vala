@@ -23,7 +23,7 @@ public class Objects.Item : Objects.BaseObject {
     public string content { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
-    public string added_at { get; set; default = ""; }
+    public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
     public int64 section_id { get; set; default = Constants.INACTIVE; }
@@ -74,6 +74,14 @@ public class Objects.Item : Objects.BaseObject {
     public bool has_section {
         get {
             return section_id != Constants.INACTIVE;
+        }
+    }
+
+    GLib.DateTime _added_datetime;
+    public GLib.DateTime added_datetime {
+        get {
+            _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+            return _added_datetime;
         }
     }
 

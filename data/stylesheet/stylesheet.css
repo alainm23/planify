@@ -408,3 +408,11 @@ button:disabled {
     border: 1px solid @menu_separator;
     border-radius: 6px;
 }
+
+.close-button {
+    padding: 3px;
+}
+
+popover {
+    background-color: @bg_color;
+}

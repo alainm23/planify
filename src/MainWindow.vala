@@ -24,6 +24,7 @@ public class MainWindow : Hdy.Window {
     private Gtk.Stack main_stack;
     private Gtk.Stack views_stack;
     private Layouts.ViewHeader views_header;
+    private Hdy.Flap flap_view;
 
     public Services.ActionManager action_manager;
 
@@ -104,18 +105,31 @@ public class MainWindow : Hdy.Window {
             transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
         };
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.attach (views_header, 0, 0);
-        main_grid.attach (views_stack, 0, 1);
+        var views_grid = new Gtk.Grid ();
+        views_grid.attach (views_header, 0, 0);
+        views_grid.attach (views_stack, 0, 1);
 
-        unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
-        main_grid_context.add_class ("main-view");
+        unowned Gtk.StyleContext views_grid_context = views_grid.get_style_context ();
+        views_grid_context.add_class ("main-view");
 
-        var flap_view = new Hdy.Flap () {
-            locked = true,
-            fold_policy = Hdy.FlapFoldPolicy.NEVER
+        var notifications_grid = new Gtk.Grid ();
+        notifications_grid.orientation = Gtk.Orientation.VERTICAL;
+        notifications_grid.margin_bottom = 12;
+        notifications_grid.halign = Gtk.Align.CENTER;
+        notifications_grid.valign = Gtk.Align.END;
+
+        var views_overlay = new Gtk.Overlay ();
+        views_overlay.expand = true;
+        views_overlay.add_overlay (notifications_grid);
+        // views_overlay.add_overlay (multiselect_toolbar);
+        views_overlay.add (views_grid);
+
+        flap_view = new Hdy.Flap () {
+            locked = false,
+            fold_policy = Hdy.FlapFoldPolicy.AUTO,
+            transition_type = Hdy.FlapTransitionType.OVER
         };
-        flap_view.content = main_grid;
+        flap_view.content = views_overlay;
         flap_view.separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         flap_view.flap = sidebar_content;
 
@@ -141,6 +155,7 @@ public class MainWindow : Hdy.Window {
 
         Timeout.add (main_stack.transition_duration, () => {
             init_backend ();
+            flap_view.reveal_flap = true;
             return GLib.Source.REMOVE;
         });
 
@@ -170,6 +185,10 @@ public class MainWindow : Hdy.Window {
             } else if (pane_type == PaneType.TASKLIST) {
                 add_tasklist_view (sidebar.get_source (id));
             }
+
+            if (flap_view.folded) {
+                show_hide_sidebar ();
+            }
         });
 
         var granite_settings = Granite.Settings.get_default ();
@@ -190,7 +209,7 @@ public class MainWindow : Hdy.Window {
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
                 Util.get_default ().update_theme ();
-            }else if (key == "appearance" || key == "dark-mode") {
+            } else if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
             } else if (key == "badge-count") {
                 Timeout.add (main_stack.transition_duration, () => {
@@ -204,6 +223,18 @@ public class MainWindow : Hdy.Window {
             var dialog = new Dialogs.Settings.Settings ();
             dialog.show_all ();
         });
+
+        Planner.event_bus.send_notification.connect ((message, notification_style) => {
+            var notification = new Widgets.Toast (message, notification_style);
+            notifications_grid.add (notification);
+            notifications_grid.show_all ();
+
+            notification.send_notification ();
+        });
+    }
+
+    public void show_hide_sidebar () {
+        flap_view.reveal_flap = !flap_view.reveal_flap;
     }
 
     public void add_task_action (string content = "") {
@@ -259,6 +290,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (today_view, "today-view");
         }
 
+        views_header.project = null;
         views_stack.set_visible_child_name ("today-view");
     }
 
@@ -270,6 +302,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (scheduled_view, "scheduled-view");
         }
 
+        views_header.project = null;
         views_stack.set_visible_child_name ("scheduled-view");
     }
 
@@ -281,6 +314,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (pinboard_view, "pinboard-view");
         }
 
+        views_header.project = null;
         views_stack.set_visible_child_name ("pinboard-view");
     }
 
@@ -292,6 +326,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (label_view, "label-view");
         }
 
+        views_header.project = null;
         label_view.label = Planner.database.get_label (int64.parse (id));
         views_stack.set_visible_child_name ("label-view");
     }

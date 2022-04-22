@@ -428,6 +428,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         } else {
             target_list.insert (source_row, target_row.get_index () + 1);
         }
+
+        if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+            Planner.event_bus.send_notification (
+                _("Project list order changed to <b>Custom Sort Order.</b>"),
+                3500
+            );    
+        }
+
+        Planner.settings.set_enum ("projects-sort-by", 1);
     }
 
     public bool on_drag_motion (Gdk.DragContext context, int x, int y, uint time) {
@@ -460,38 +469,29 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var favorite_item = new Dialogs.ContextMenu.MenuItem (project.is_favorite ? ("Remove from favorites") : ("Add to favorites"), "planner-star");
         var edit_item = new Dialogs.ContextMenu.MenuItem (("Edit project"), "planner-edit");
 
-        // var move_item = new Dialogs.ContextMenu.MenuItemSelector (_("Move"));
         var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
+
+        var share_markdown = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-note");
+        var email_markdown = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-mail");
+
+        share_item.add_item (share_markdown);
+        share_item.add_item (email_markdown);
+
+        var show_completed_item = new Dialogs.ContextMenu.MenuItem (
+            project.show_completed ? _("Hide completed tasks") : _("Show completed tasks"),
+            "planner-check-circle"
+        );
+
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         
         var delete_item_context = delete_item.get_style_context ();
         delete_item_context.add_class ("menu-item-danger");
 
-        var share_markdown = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-trash");
-        var email_markdown = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-trash");
-
-        // foreach (Objects.Project project in Planner.database.projects) {
-        //     if (!project.inbox_project) {
-        //         move_item.add_item (new Dialogs.ProjectSelector.ProjectRow (project, false));
-        //     }
-        // }
-        
-        // if (project.parent_id != Constants.INACTIVE) {
-        //     var no_parent = new Objects.Project ();
-        //     // no_parent.color = 31;
-        //     no_parent.name = _("No parent");
-        //     no_parent.id = Constants.INACTIVE;
-        //     move_item.add_item (new Dialogs.ProjectSelector.ProjectRow (no_parent, false), 0);
-        // }
-
-        share_item.add_item (share_markdown);
-        share_item.add_item (email_markdown);
-
         menu.add_item (favorite_item);
         menu.add_item (edit_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
-        // menu.add_item (move_item);
-        // menu.add_item (share_item);
+        menu.add_item (share_item);
+        menu.add_item (show_completed_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (delete_item);
 
@@ -514,6 +514,22 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu.hide_destroy ();
             var dialog = new Dialogs.Project (project);
             dialog.show_all ();
+        });
+
+        show_completed_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            project.show_completed = !project.show_completed;
+            project.update ();
+        });
+
+        share_markdown.activate_item.connect (() => {
+            menu.hide_destroy ();
+            project.share_markdown ();
+        });
+
+        email_markdown.activate_item.connect (() => {
+            menu.hide_destroy ();
+            project.share_mail ();
         });
 
         // move_item.item_selected.connect ((row) => {

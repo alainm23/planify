@@ -41,6 +41,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
     public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_ESC = "action_esc";
+    public const string ACTION_SHOW_HIDE_SIDEBAR = "action_esc";
     // public const string ACTION_SORT_DATE = "action_sort_date";
     // public const string ACTION_SORT_PRIORITY = "action_sort_priority";
     // public const string ACTION_SORT_NAME = "action_sort_name";
@@ -66,6 +67,7 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
         { ACTION_VIEW_HOME, action_view_home },
         { ACTION_ESC, action_esc },
+        { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
         // { ACTION_SORT_DATE, action_sort_date },
         // { ACTION_SORT_PRIORITY, action_sort_priority },
         // { ACTION_SORT_NAME, action_sort_name },
@@ -101,6 +103,7 @@ public class Services.ActionManager : Object {
         // typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
         // typing_accelerators.set (ACTION_SORT_NAME, "n");
         typing_accelerators.set (ACTION_VIEW_HOME, "h");
+        typing_accelerators.set (ACTION_SHOW_HIDE_SIDEBAR, "m");
     }
 
     construct {
@@ -174,6 +177,10 @@ public class Services.ActionManager : Object {
 
     private void action_esc () {
         Planner.event_bus.item_selected (null);
+    }
+
+    private void action_show_hide_sidebar () {
+        window.show_hide_sidebar ();
     }
 
     private void action_new_section () {

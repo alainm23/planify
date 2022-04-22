@@ -66,6 +66,18 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         menu_button.add (menu_image);
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
 
+        var view_image = new Widgets.DynamicIcon ();
+        view_image.size = 19;
+        view_image.update_icon_name ("planner-settings-sliders");
+        
+        var view_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
+
+        view_button.add (view_image);
+        view_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+
         var search_image = new Widgets.DynamicIcon ();
         search_image.size = 19;
         search_image.update_icon_name ("planner-search");
@@ -79,10 +91,12 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         search_button.clicked.connect (Util.get_default ().open_quick_find);
 
         var end_grid = new Gtk.Grid () {
-            column_spacing = 6
+            column_spacing = 0,
+            margin_end = 6
         };
 
         end_grid.add (search_button);
+        end_grid.add (view_button);
         end_grid.add (menu_button);
 
         end_revealer = new Gtk.Revealer () {
@@ -106,16 +120,23 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         pack_end (end_revealer);
 
         notify["project"].connect (() => {
-            project_update_request ();
-            project.updated.connect (project_update_request);
-            project.project_count_updated.connect (() => {
-                project_progress.percentage = project.percentage;
-            });
-            menu_button.clicked.connect (project.build_content_menu);
+            if (project == null) {
+                project_revealer.reveal_child = false;
+                end_revealer.reveal_child = false;
+            } else {
+                project_update_request ();
+                project.updated.connect (project_update_request);
+                project.project_count_updated.connect (() => {
+                    project_progress.percentage = project.percentage;
+                });
+                
+                menu_button.clicked.connect (project.build_content_menu);
+                view_button.clicked.connect (project.build_view_menu);
+            }
         });
 
         sidebar_button.clicked.connect (() => {
-            Planner.settings.set_boolean ("slim-mode", !Planner.settings.get_boolean ("slim-mode"));
+            Planner.instance.main_window.show_hide_sidebar ();
         });
 
         Planner.settings.changed.connect ((key) => {

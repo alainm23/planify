@@ -4,6 +4,7 @@ public class Views.List : Gtk.EventBox {
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
+    private Gtk.ScrolledWindow scrolled_window;
 
     public bool has_children {
         get {
@@ -74,7 +75,7 @@ public class Views.List : Gtk.EventBox {
 
         content_clamp.add (content);
 
-        var scrolled_window = new Gtk.ScrolledWindow (null, null) {
+        scrolled_window = new Gtk.ScrolledWindow (null, null) {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             expand = true
         };
@@ -196,6 +197,10 @@ public class Views.List : Gtk.EventBox {
     
     public void prepare_new_item (string content = "") {
         inbox_section.prepare_new_item (content);
+        Timeout.add (225, () => {
+            scrolled_window.vadjustment.value = 0;
+            return GLib.Source.REMOVE;
+        });
     }
 
     public bool validate_children () {

@@ -6,7 +6,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public int64 parent_id { get; set; default = Constants.INACTIVE; }
 
     private Gtk.CheckButton checked_button;
-    private Widgets.Entry content_entry;
+    // private Widgets.Entry content_entry;
+    private Widgets.SourceView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     
     private Gtk.Label content_label;
@@ -53,7 +54,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 handle_grid.get_style_context ().add_class ("card");
                 handle_grid.get_style_context ().add_class (is_creating ? "mt-12" : "mt-24");
                 get_style_context ().add_class ("mb-12");
-                content_entry.get_style_context ().add_class ("font-weight-500");
+                content_textview.get_style_context ().add_class ("font-weight-500");
                 hide_subtask_button.margin_top = 27;
 
                 detail_revealer.reveal_child = true;
@@ -63,10 +64,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 item_summary.reveal_child = false;
                 hide_loading_revealer.reveal_child = !is_creating;
 
-                content_entry.grab_focus_without_selecting ();
-                if (content_entry.cursor_position < content_entry.text_length) {
-                    content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);
-                }
+                content_textview.grab_focus ();
+                //  if (content_entry.cursor_position < content_entry.text_length) {
+                //      content_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) content_entry.text_length, false);
+                //  }
 
                 if (complete_timeout != 0) {
                     main_grid.get_style_context ().remove_class ("complete-animation");
@@ -77,7 +78,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 handle_grid.get_style_context ().remove_class ("mt-12");
                 handle_grid.get_style_context ().remove_class ("mt-24");
                 get_style_context ().remove_class ("mb-12");
-                content_entry.get_style_context ().remove_class ("font-weight-500");
+                content_textview.get_style_context ().remove_class ("font-weight-500");
                 hide_subtask_button.margin_top = 3;
 
                 detail_revealer.reveal_child = false;
@@ -476,7 +477,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private void build_content () {
         checked_button = new Gtk.CheckButton () {
             can_focus = false,
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.START,
+            margin_top = 2
         };
         checked_button.get_style_context ().add_class ("priority-color");
 
@@ -495,16 +497,19 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         content_label_revealer.add (content_label);
 
-        content_entry = new Widgets.Entry () {
-            hexpand = true,
-            placeholder_text = _("Task name"),
-            margin_top = 1,
-            editable = !item.completed
-        };
+        //  content_entry = new Widgets.Entry () {
+        //      hexpand = true,
+        //      placeholder_text = _("Task name"),
+        //      margin_top = 1,
+        //      editable = !item.completed
+        //  };
 
-        content_entry.get_style_context ().remove_class ("view");
-        content_entry.get_style_context ().add_class ("content-entry");
-        content_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        content_textview = new Widgets.SourceView ();
+        content_textview.wrap_mode = Gtk.WrapMode.WORD;
+
+        //  content_entry.get_style_context ().remove_class ("view");
+        //  content_entry.get_style_context ().add_class ("content-entry");
+        //  content_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         
         content_entry_revealer = new Gtk.Revealer () {
             valign = Gtk.Align.START,
@@ -512,7 +517,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             transition_duration = 125
         };
 
-        content_entry_revealer.add (content_entry);
+        content_entry_revealer.add (content_textview);
 
         hide_loading_button = new Widgets.LoadingButton (LoadingButtonType.ICON, "chevron-down") {
             valign = Gtk.Align.START,
@@ -587,7 +592,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        content_entry.key_press_event.connect ((key) => {
+        content_textview.key_press_event.connect ((key) => {
             if (Gdk.keyval_name (key.keyval) == "Return") {
                 if (is_creating) {
                     add_item ();
@@ -601,7 +606,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             return false;
         });
 
-        content_entry.focus_out_event.connect (() => {
+        content_textview.focus_out_event.connect (() => {
             if (is_creating && !is_menu_open) {
                 destroy_timeout = Timeout.add (Constants.DESTROY_TIMEOUT, () => {
                     hide_destroy ();
@@ -612,7 +617,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             return false;
         });
 
-        content_entry.focus_in_event.connect (() => {
+        content_textview.focus_in_event.connect (() => {
             if (is_creating && destroy_timeout != 0) {
                 Source.remove (destroy_timeout);
             }
@@ -639,14 +644,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        content_entry.populate_popup.connect ((menu) => {
+        content_textview.populate_popup.connect ((menu) => {
             is_menu_open = true;
             menu.hide.connect (() => {
                 is_menu_open = false;
             });
         });
 
-        content_entry.key_release_event.connect ((key) => {
+        content_textview.key_release_event.connect ((key) => {
             if (key.keyval == 65307) {
                 if (is_creating) {
                     hide_destroy ();
@@ -657,7 +662,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (!is_creating) {
                     update ();
                 } else {
-                    submit_button.sensitive = Util.get_default ().is_input_valid (content_entry);
+                    submit_button.sensitive = Util.get_default ().is_text_valid (content_textview);
                 }
             }
 
@@ -840,9 +845,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void update () {
-        if (item.content != content_entry.get_text () ||
-            item.description != description_textview.get_text ()) {
-            item.content = content_entry.get_text ();
+        if (item.content != content_textview.buffer.text ||
+            item.description != description_textview.buffer.text) {
+            item.content = content_textview.buffer.text;
             item.description = description_textview.get_text ();
 
             item.update_async_timeout (update_id, this);       
@@ -854,10 +859,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             Source.remove (destroy_timeout);
         }
         
-        if (Util.get_default ().is_input_valid (content_entry)) {
+        if (Util.get_default ().is_text_valid (content_textview)) {
             submit_button.is_loading = true;
 
-            item.content = content_entry.get_text ();
+            item.content = content_textview.buffer.text;
             item.description = description_textview.get_text ();
 
             if (item.project.todoist) {
@@ -910,7 +915,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         content_label.label = item.content;
         content_label.tooltip_text = item.content;
-        content_entry.set_text (item.content);
+        content_textview.buffer.text = item.content;
+        // content_entry.set_text (item.content);
         description_textview.set_text (item.description);
                 
         item_summary.update_request ();
@@ -1244,6 +1250,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void update_content (string content = "") {
-        content_entry.set_text (content);
+        content_textview.buffer.text = content;
     }
 }

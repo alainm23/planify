@@ -8,6 +8,7 @@ public class Services.Database : GLib.Object {
     public signal void reset ();
 
     public signal void project_added (Objects.Project project);
+    public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
 
     public signal void label_added (Objects.Label label);
@@ -137,6 +138,13 @@ public class Services.Database : GLib.Object {
         */
 
         add_int_column ("Items", "pinned", 0);
+
+        /*
+        * Planner 3 - beta 2
+        * - Add show_completed (0|1) to Projects
+        */
+
+        add_int_column ("Projects", "show_completed", 0);
     }
 
     private void create_tables () {
@@ -177,7 +185,8 @@ public class Services.Database : GLib.Object {
                 parent_id        INTEGER,
                 collapsed        INTEGER,
                 icon_style       TEXT,
-                emoji            TEXT
+                emoji            TEXT,
+                show_completed   INTEGER
             );
         """;
 
@@ -368,6 +377,7 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 14);
         return_value.icon_style = get_icon_style_by_text (stmt, 15);
         return_value.emoji = stmt.column_text (16);
+        return_value.show_completed = get_parameter_bool (stmt, 17);
         return return_value;
     }
 
@@ -393,10 +403,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, color, todoist, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
-                sort_order, parent_id, collapsed, icon_style, emoji)
+                sort_order, parent_id, collapsed, icon_style, emoji, show_completed)
             VALUES ($id, $name, $color, $todoist, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
-                $sort_order, $parent_id, $collapsed, $icon_style, $emoji);
+                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -417,6 +427,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
+        set_parameter_bool (stmt, "$show_completed", project.show_completed);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -489,7 +500,7 @@ public class Services.Database : GLib.Object {
                 shared=$shared, view_style=$view_style,
                 sort_order=$sort_order,
                 parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
-                emoji=$emoji
+                emoji=$emoji, show_completed=$show_completed
             WHERE id=$id;
         """;
 
@@ -510,10 +521,12 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
+        set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_int64 (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
             project.updated ();
+            project_updated (project);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }

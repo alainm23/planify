@@ -19,4 +19,7 @@ public class Services.EventBus : Object {
     public signal void item_moved (Objects.Item item, int64 old_project_id, int64 old_section_id, int64 old_parent_id = Constants.INACTIVE, bool insert = true);
     public signal void update_items_position (int64 project_id, int64 section_id);
     public signal void update_inserted_item_map (Layouts.ItemRow row);
+
+    // Notifications
+    public signal void send_notification (string message, uint duration = 2500);
 }

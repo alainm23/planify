@@ -85,7 +85,8 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         description_label = new Gtk.Label (null) {
             xalign = 0,
             lines = 1,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            margin_start = 3
         };
         description_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
         description_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
@@ -115,7 +116,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             valign = Gtk.Align.START,
-            margin_top = 3
+            row_spacing = 3
         };
 
         main_grid.add (description_label_revealer);
@@ -130,6 +131,12 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
             check_revealer ();
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "clock-format" || key == "description-preview") {
+                update_request ();
+            }
+        });
     }
 
     public void update_request () {
@@ -138,8 +145,8 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
-        // description_label_revealer.reveal_child = description_label.label.length > 0;
-        // Planner.settings.get_boolean ("description-preview")
+        description_label_revealer.reveal_child = description_label.label.length > 0 && 
+            Planner.settings.get_boolean ("description-preview"); 
     }
 
     public void update_due_label () {
@@ -176,7 +183,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     public void check_revealer () {
         summary_revealer.reveal_child = calendar_revealer.reveal_child ||
             flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
-        reveal_child = summary_revealer.reveal_child && !itemrow.edit && !item.checked;
+        reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) && !itemrow.edit && !item.checked;
     }
 
     private void update_labels () {

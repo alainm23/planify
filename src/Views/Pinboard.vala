@@ -68,7 +68,7 @@ public class Views.Pinboard : Gtk.EventBox {
         listbox_context.add_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 12
+            margin_top = 6
         };
         listbox_grid.add (listbox);
 

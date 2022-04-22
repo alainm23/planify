@@ -131,7 +131,7 @@ public class Views.Label : Gtk.EventBox {
             return GLib.Source.REMOVE;
         });
 
-        notify ["label"].connect (() => {
+        notify["label"].connect (() => {
             if (label != null) {
                 update_request ();
                 add_items ();

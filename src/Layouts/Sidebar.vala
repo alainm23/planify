@@ -61,6 +61,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
         favorites_header.add_action = false;
 
         projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
+
         labels_header = new Layouts.HeaderItem (PaneType.LABEL);
 
         main_grid = new Gtk.Grid () {
@@ -74,6 +75,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
         scrolled_window.add (main_grid);
 
         add (scrolled_window);
+        update_projects_sort ();
 
         projects_header.add_activated.connect (() => {
             prepare_new_project ();
@@ -82,6 +84,31 @@ public class Layouts.Sidebar : Gtk.EventBox {
         labels_header.add_activated.connect (() => {
             prepare_new_label ();
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "projects-sort-by" || key == "projects-ordered") {
+                update_projects_sort ();
+            }
+        });
+    }
+
+    private void update_projects_sort () {
+        if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+            projects_header.set_sort_func (projects_sort_func);
+        } else {
+            projects_header.set_sort_func (null);
+        }
+    }
+
+    private int projects_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+        Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
+        Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
+
+        if (Planner.settings.get_enum ("projects-ordered") == 0) {
+            return project2.name.collate (project1.name);
+        } else {
+            return project1.name.collate (project2.name);
+        }
     }
 
     private void prepare_new_project () {
@@ -103,6 +130,7 @@ public class Layouts.Sidebar : Gtk.EventBox {
 
             // Init signals
             Planner.database.project_added.connect (add_row_project);
+            Planner.database.project_updated.connect (update_projects_sort);
             Planner.database.label_added.connect (add_row_label);
             Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
                 if (old_parent_id == Constants.INACTIVE) {

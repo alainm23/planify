@@ -240,6 +240,12 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "start-week") {
+                show_today ();
+            }
+        });
     }
 
     public void prepare_new_item (string content = "") {

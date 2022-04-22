@@ -42,11 +42,6 @@
     <enum id="com.github.alainm23.planner.start-week">
         <value nick="Sunday" value="0" />
         <value nick="Monday" value="1" />
-        <value nick="Tuesday" value="2" />
-        <value nick="Wednesday" value="3" />
-        <value nick="Thursday" value="4" />
-        <value nick="Friday" value="5" />
-        <value nick="Saturday" value="6" />
     </enum>
 
     <enum id="com.github.alainm23.planner.new-tasks-position">
@@ -66,7 +61,17 @@
         <value nick="caldav" value="3" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
+    <enum id="com.github.alainm23.planner.projects-sort-by">
+        <value nick="Alphabetically" value="0" />
+        <value nick="Custom sort order" value="1" />
+    </enum>
+
+    <enum id="com.github.alainm23.planner.projects-ordered">
+        <value nick="Ascending" value="0" />
+        <value nick="Descending" value="1" />
+    </enum>
+
+    <schema path="/com/github/alainm23/planner3/" id="com.github.alainm23.planner3" gettext-domain="com.github.alainm23.planner3">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -87,6 +92,18 @@
 
         <key name="backend-type" enum="com.github.alainm23.planner.backend-type">
             <default>"none"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="projects-sort-by" enum="com.github.alainm23.planner.projects-sort-by">
+            <default>"Custom sort order"</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="projects-ordered" enum="com.github.alainm23.planner.projects-ordered">
+            <default>"Descending"</default>
             <summary></summary>
             <description></description>
         </key>

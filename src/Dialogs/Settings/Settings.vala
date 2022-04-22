@@ -113,6 +113,12 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         var general_content = new Dialogs.Settings.SettingsContent (_("General"));
 
+        var general_item = new Dialogs.Settings.SettingsItem (
+            "planner-general",
+            _("General settings"),
+            Util.get_default ().get_filter ().get_name ()
+        );
+
         var homepage_item = new Dialogs.Settings.SettingsItem (
             "planner-home",
             _("Home Page"),
@@ -143,6 +149,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             _("View your upcoming events")
         );
 
+        general_content.add_child (general_item);
         general_content.add_child (homepage_item);
         general_content.add_child (appearance_item);
         general_content.add_child (badge_count_item);
@@ -244,6 +251,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("calendar-events");
         });
 
+        general_item.activated.connect (() => {
+            go_setting_view ("general-settings");
+        });
+
         keyboard_shortcuts_item.activated.connect (() => {
             var dialog = new Dialogs.Shortcuts.Shortcuts ();
             dialog.show_all ();
@@ -294,57 +305,19 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         var system_content = new Dialogs.Settings.SettingsContent (null);
         
-        var system_content_label = new Gtk.Label (_("Use system settings")) {
-            margin_start = 6
-        };
+        var system_switch = new Dialogs.Settings.SettingsSwitch (_("Use system settings"));
+        system_switch.active = Planner.settings.get_boolean ("system-appearance");
 
-        var system_content_switch = new Gtk.Switch ();
-        system_content_switch.active = Planner.settings.get_boolean ("system-appearance");
-        system_content_switch.get_style_context ().add_class ("active-switch");
-        
-        var system_content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin = 3
-        };
-        
-        system_content_box.pack_start (system_content_label, false, true, 0);
-        system_content_box.pack_end (system_content_switch, false, false, 0);
-        system_content.add_child (system_content_box);
-
-        var system_description = new Gtk.Label (
-            _("Use the default settings on your system.") // vala-lint=line-length
-        ) {
-            halign = Gtk.Align.START,
-            wrap = true,
-            margin_start = 16,
-            margin_end = 16,
-            xalign = (float) 0.0,
-            margin_bottom = 12,
-            wrap_mode = Pango.WrapMode.CHAR
-        };
-        system_description.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        system_description.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        system_content.add_child (system_switch);
 
         // Dark Mode
 
         var dark_mode_content = new Dialogs.Settings.SettingsContent (null);
         
-        var dark_mode_label = new Gtk.Label (_("Dark mode")) {
-            margin_start = 6
-        };
-        
-        var dark_mode_switch = new Gtk.Switch ();
+        var dark_mode_switch = new Dialogs.Settings.SettingsSwitch (_("Dark mode"));
         dark_mode_switch.active = Planner.settings.get_boolean ("dark-mode");
-        dark_mode_switch.get_style_context ().add_class ("active-switch");
-        
-        var dark_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin = 3
-        };
-        
-        dark_mode_box.pack_start (dark_mode_label, false, true, 0);
-        dark_mode_box.pack_end (dark_mode_switch, false, false, 0);
-        dark_mode_content.add_child (dark_mode_box);
+
+        dark_mode_content.add_child (dark_mode_switch);
 
         var dark_mode_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -358,19 +331,18 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var light_item = new Gtk.RadioButton.with_label (null, _("Light")) {
             hexpand = true,
             margin_top = 3,
-            margin_start = 6
+            margin_start = 3
         };
 
         var dark_item = new Gtk.RadioButton.with_label_from_widget (light_item, _("Dark")) {
             hexpand = true,
             margin_top = 3,
-            margin_left = 6
+            margin_left = 3
         };
 
         var dark_blue_item = new Gtk.RadioButton.with_label_from_widget (light_item, _("Dark Blue")) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6,
+            margin_start = 3,
             margin_bottom = 3
         };
 
@@ -426,18 +398,17 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             Planner.settings.set_enum ("appearance", 2);
         });
 
-        dark_mode_switch.notify["active"].connect ((val) => {
-            // Planner.settings.set_boolean ("system-appearance", false);
-            Planner.settings.set_boolean ("dark-mode", dark_mode_switch.active);
+        dark_mode_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("dark-mode", active);
         });
 
-        system_content_switch.notify["active"].connect ((val) => {
-            Planner.settings.set_boolean ("system-appearance", system_content_switch.active);
+        system_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("system-appearance", active);
         });
 
         Planner.settings.changed.connect ((key) => {
             if (key == "system-appearance") {
-                system_content_switch.active = Planner.settings.get_boolean ("system-appearance");
+                system_switch.active = Planner.settings.get_boolean ("system-appearance");
                 dark_mode_revealer.reveal_child = !Planner.settings.get_boolean ("system-appearance");
 
                 dark_mode = Planner.settings.get_boolean ("dark-mode");
@@ -470,25 +441,22 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var none_item = new Gtk.RadioButton.with_label (null, _("None")) {
             hexpand = true,
             margin_top = 3,
-            margin_start = 6
+            margin_start = 3
         };
         var inbox_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Inbox")) {
             hexpand = true,
-            margin_top = 3,
-            margin_left = 6
+            margin_left = 3
         };
         
         var today_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Today")) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6
+            margin_start = 3
         };
 
         var today_inbox_item = new Gtk.RadioButton.with_label_from_widget (none_item, _("Today + Inbox")) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6,
-            margin_bottom = 6
+            margin_start = 3,
+            margin_bottom = 3
         };
 
         content.add_child (none_item);
@@ -553,25 +521,22 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var inbox_item = new Gtk.RadioButton.with_label (null, _("Inbox")) {
             hexpand = true,
             margin_top = 3,
-            margin_start = 6
+            margin_start = 3
         };
         var today_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Today")) {
             hexpand = true,
-            margin_top = 3,
-            margin_left = 6
+            margin_left = 3
         };
         
         var scheduled_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Scheduled")) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6
+            margin_start = 3
         };
 
         var pinboard_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, _("Pinboard")) {
             hexpand = true,
-            margin_top = 3,
-            margin_start = 6,
-            margin_bottom = 6
+            margin_start = 3,
+            margin_bottom = 3
         };
 
         if (!Planner.settings.get_boolean ("homepage-project")) {
@@ -592,14 +557,17 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         filters_content.add_child (scheduled_item);
         filters_content.add_child (pinboard_item);
 
+        int index = 0;
         foreach (Objects.Project project in Planner.database.projects) {
             if (!project.inbox_project) {
                 var project_item = new Gtk.RadioButton.with_label_from_widget (inbox_item, project.name) {
                     hexpand = true,
-                    margin_top = 3,
-                    margin_start = 6,
-                    margin_bottom = 6
+                    margin_start = 3
                 };
+
+                if (index <= 0) {
+                    project_item.margin_top = 3;
+                }
 
                 projects_content.add_child (project_item);
 
@@ -613,6 +581,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
                         project_item.active = true;
                     }
                 }
+
+                index++;
             }
         }
 
@@ -708,21 +678,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             margin_bottom = 6
         };
 
-        var sync_server_label = new Gtk.Label (_("Sync Server"));
+        var system_switch = new Dialogs.Settings.SettingsSwitch (_("Sync Server"));
+        system_switch.active = Planner.settings.get_boolean ("todoist-sync-server");
 
-        var sync_server_switch = new Gtk.Switch ();
-        sync_server_switch.active = Planner.settings.get_boolean ("todoist-sync-server");
-        sync_server_switch.get_style_context ().add_class ("active-switch");
-
-        var sync_server_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin = 3
-        };
-        
-        sync_server_box.pack_start (sync_server_label, false, true, 0);
-        sync_server_box.pack_end (sync_server_switch, false, false, 0);
-
-        content.add_child (sync_server_box);
+        content.add_child (system_switch);
 
         var sync_server_description = new Gtk.Label (
             _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.") // vala-lint=line-length
@@ -757,8 +716,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("settings");
         });
 
-        sync_server_switch.notify["active"].connect ((val) => {
-            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+        system_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("todoist-sync-server", active);
         });
 
         main_grid.show_all ();
@@ -770,21 +729,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
 
         var enabled_content = new Dialogs.Settings.SettingsContent (null);
 
-        var enabled_label = new Gtk.Label (_("Show Calendar Events"));
-
-        var enabled_switch = new Gtk.Switch ();
+        var enabled_switch = new Dialogs.Settings.SettingsSwitch (_("Use system settings"));
         enabled_switch.active = Planner.settings.get_boolean ("calendar-enabled");
-        enabled_switch.get_style_context ().add_class ("active-switch");
 
-        var enabled_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin = 3
-        };
-        
-        enabled_box.pack_start (enabled_label, false, true, 0);
-        enabled_box.pack_end (enabled_switch, false, false, 0);
-
-        enabled_content.add_child (enabled_box);
+        enabled_content.add_child (enabled_switch);
 
         var contents_map = new Gee.HashMap <string, Dialogs.Settings.SettingsContent> ();
         var sources_map = new Gee.HashMap <string, Widgets.CalendarSourceRow> ();
@@ -800,7 +748,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         };
 
         var sources_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             reveal_child = Planner.settings.get_boolean ("calendar-enabled")
         };
 
@@ -855,8 +803,8 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             go_setting_view ("settings");
         });
 
-        enabled_switch.notify["active"].connect ((val) => {
-            Planner.settings.set_boolean ("calendar-enabled", enabled_switch.active);
+        enabled_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("calendar-enabled", active);
         });
 
         Planner.settings.bind ("calendar-enabled", sources_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
@@ -899,6 +847,124 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         scrolled.show_all ();
         return scrolled;
     }
+
+    private Gtk.Widget get_general_settings () {
+        var settings_header = new Dialogs.Settings.SettingsHeader (_("General Settings"));
+
+        var sort_projects_content = new Dialogs.Settings.SettingsContent (_("Sort projects"));
+
+        Gee.ArrayList<string> sort_list = new Gee.ArrayList<string> ();
+        sort_list.add (_("Alphabetically"));
+        sort_list.add (_("Custom sort order"));
+
+        Gee.ArrayList<string> order_list = new Gee.ArrayList<string> ();
+        order_list.add (_("Ascending"));
+        order_list.add (_("Descending"));
+
+        var sort_projects = new Dialogs.Settings.SettingsSelect (_("Sort by"), sort_list);
+        sort_projects.selected_index = Planner.settings.get_enum ("projects-sort-by");
+
+        var ordered_projects = new Dialogs.Settings.SettingsSelect (_("Ordered"), order_list);
+        ordered_projects.selected_index = Planner.settings.get_enum ("projects-ordered");
+
+        sort_projects_content.add_child (sort_projects);
+        sort_projects_content.add_child (ordered_projects);
+
+        var de_content = new Dialogs.Settings.SettingsContent (_("DE Integration"));
+
+        var run_background_switch = new Dialogs.Settings.SettingsSwitch (_("Run in background"));
+        run_background_switch.active = Planner.settings.get_boolean ("run-in-background");
+        
+        de_content.add_child (run_background_switch);
+
+        var date_time_content = new Dialogs.Settings.SettingsContent (_("Date & Time"));
+
+        Gee.ArrayList<string> clock_list = new Gee.ArrayList<string> ();
+        clock_list.add (_("24h"));
+        clock_list.add (_("12h"));
+
+        var clock_format = new Dialogs.Settings.SettingsSelect (_("Clock Format"), clock_list);
+        clock_format.selected_index = Planner.settings.get_enum ("clock-format");
+
+        Gee.ArrayList<string> week_list = new Gee.ArrayList<string> ();
+        week_list.add (_("Sunday"));
+        week_list.add (_("Monday"));
+
+        var start_week = new Dialogs.Settings.SettingsSelect (_("Start of the week"), week_list);
+        start_week.selected_index = Planner.settings.get_enum ("start-week");
+
+        date_time_content.add_child (clock_format);
+        date_time_content.add_child (start_week);
+
+        var content_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL,
+            valign = Gtk.Align.START
+        };
+
+        var scrolled = new Gtk.ScrolledWindow (null, null) {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            expand = true
+        };
+        scrolled.add (content_grid);
+
+        content_grid.add (sort_projects_content);
+        content_grid.add (de_content);
+        content_grid.add (date_time_content);
+
+        var main_grid = new Gtk.Grid () {
+            expand = true,
+            orientation = Gtk.Orientation.VERTICAL
+        };
+
+        main_grid.add (settings_header);
+        main_grid.add (scrolled);
+
+        settings_header.done_activated.connect (() => {
+            hide_destroy ();
+        });
+
+        settings_header.back_activated.connect (() => {
+            go_setting_view ("settings");
+        });
+
+        sort_projects.activated.connect ((active) => {
+            Planner.settings.set_enum ("projects-sort-by", active);
+        });
+
+        ordered_projects.activated.connect ((active) => {
+            Planner.settings.set_enum ("projects-ordered", active);
+        });
+
+        run_background_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("run-in-background", active);
+        });
+
+        clock_format.activated.connect ((active) => {
+            Planner.settings.set_enum ("clock-format", active);
+        });
+        
+        start_week.activated.connect ((active) => {
+            Planner.settings.set_enum ("start-week", active);
+        });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "projects-sort-by") {
+                sort_projects.selected_index = Planner.settings.get_enum ("projects-sort-by");
+            } else if (key == "projects-ordered") {
+                ordered_projects.selected_index = Planner.settings.get_enum ("projects-ordered");
+            } else if (key == "run-in-background") {
+                run_background_switch.active = Planner.settings.get_boolean ("run-in-background");
+            } else if (key == "clock-format") {
+                clock_format.selected_index = Planner.settings.get_enum ("clock-format");
+            } else if (key == "start-week") {
+                start_week.selected_index = Planner.settings.get_enum ("start-week");
+            }
+        });
+        
+        main_grid.show_all ();
+        return main_grid;
+    }
     
     private Gtk.Widget? get_setting_view (string view) {
         Gtk.Widget? returned = null;
@@ -930,6 +996,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             
             case "caldav":
                 returned = get_caldav_view ();
+                break;
+            
+            case "general-settings":
+                returned = get_general_settings ();
                 break;
         }
 

@@ -45,7 +45,7 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
             can_focus = false
         };
         done_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        // done_button.get_style_context ().add_class ("primary-color");
+        done_button.get_style_context ().add_class ("primary-color");
 
         var title_label = new Gtk.Label (_("Shortcuts"));
         title_label.get_style_context ().add_class ("h4");
@@ -101,6 +101,11 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
         windows_content.add_child (
             new Dialogs.Shortcuts.ShortcutLabel (_("Open preferences"),
             {"Ctrl", ","})
+        );
+
+        windows_content.add_child (
+            new Dialogs.Shortcuts.ShortcutLabel (_("Show/hide sidebar"),
+            {"m"})
         );
 
         windows_content.add_child (
@@ -163,7 +168,7 @@ public class Dialogs.Shortcuts.Shortcuts : Hdy.Window {
         add (main_grid);
 
         focus_out_event.connect (() => {
-            // hide_destroy ();
+            hide_destroy ();
             return false;
         });
 

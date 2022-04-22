@@ -70,6 +70,12 @@ public class Widgets.ScheduleButton : Gtk.Button {
                 dialog_open (false);
             });
         });
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "clock-format") {
+                update_request (item, task);
+            }
+        });
     }
 
     public void update_request (Objects.Item? item = null, ECal.Component? task = null) {

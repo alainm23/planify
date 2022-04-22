@@ -1,6 +1,6 @@
 public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
     public string title { get; construct; }
-    public string icon_name { get; construct; }
+    public string? icon_name { get; construct; }
 
     private Widgets.DynamicIcon menu_icon;
     private Gtk.Label menu_title;
@@ -27,7 +27,7 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
-    public MenuItem (string title, string icon_name) {
+    public MenuItem (string title, string? icon_name) {
         Object (
             title: title,
             icon_name: icon_name,
@@ -43,7 +43,10 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
 
         menu_icon = new Widgets.DynamicIcon ();
         menu_icon.size = 19;
-        menu_icon.update_icon_name (icon_name);
+        if (icon_name != null) {
+            menu_icon.update_icon_name (icon_name);
+        }
+        
 
         menu_title = new Gtk.Label (title);
 
@@ -74,7 +77,9 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
             hexpand = true
         };
 
-        main_grid.add (menu_icon);
+        if (icon_name != null) {
+            main_grid.add (menu_icon);
+        }
         main_grid.add (menu_title);
         main_grid.add (secondary_label);
         main_grid.add (loading_revealer);

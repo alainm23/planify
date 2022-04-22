@@ -46,6 +46,7 @@ planner_deps = [
     dependency('libedataserver-1.2'),
     dependency('libical-glib'),
     dependency('libgdata'),
+    dependency('gtksourceview-4'),
     meson.get_compiler('vala').find_library('libecal-2.0-fixes', dirs: meson.current_source_dir() / 'vapi'),
     meson.get_compiler ('c').find_library ('m', required : false)
 ]
@@ -98,6 +99,7 @@ planner_files = files(
     'src/Widgets/CalendarSourceRow.vala',
     'src/Widgets/EventsList.vala',
     'src/Widgets/EventRow.vala',
+    'src/Widgets/Toast.vala',
 
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
@@ -134,6 +136,8 @@ planner_files = files(
     'src/Dialogs/Settings/SettingsContent.vala',
     'src/Dialogs/Settings/SettingsItem.vala',
     'src/Dialogs/Settings/SettingsCalDAV.vala',
+    'src/Dialogs/Settings/SettingsSelect.vala',
+    'src/Dialogs/Settings/SettingsSwitch.vala',
     
     'src/Dialogs/ProjectPicker/ProjectPicker.vala',
     'src/Dialogs/ProjectPicker/ProjectRow.vala',
@@ -151,6 +155,7 @@ planner_files = files(
     'src/Dialogs/ContextMenu/MenuSeparator.vala',
     'src/Dialogs/ContextMenu/MenuCalendarPicker.vala',
     'src/Dialogs/ContextMenu/MenuSwitch.vala',
+    'src/Dialogs/ContextMenu/MenuHeader.vala',
 
     'src/Dialogs/Shortcuts/Shortcuts.vala',
     'src/Dialogs/Shortcuts/ShortcutLabel.vala',

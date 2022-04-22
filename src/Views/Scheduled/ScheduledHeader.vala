@@ -15,7 +15,7 @@ public class Views.Scheduled.ScheduledHeader : Gtk.EventBox {
         days_map = new Gee.HashMap<uint, Views.Scheduled.ScheduledDay> ();
 
         int day_of_week = date.get_day_of_week ();
-        date = date.add_days (-day_of_week + 1);
+        date = date.add_days (-day_of_week + Planner.settings.get_enum ("start-week"));
 
         Planner.database.item_added.connect (add_component_dots);
         Planner.database.item_deleted.connect (remove_component_dots);

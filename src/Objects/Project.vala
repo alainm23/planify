@@ -26,7 +26,18 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public int sort_order { get; set; default = 0; }
+    int _sort_order = 0;
+    public int sort_order {
+        get {
+            return _sort_order;
+        }
+
+        set {
+            _sort_order = value;
+            sort_order_changed ();
+        }
+    }
+    
     public int child_order { get; set; default = 0; }
     
     string _view_id;
@@ -89,6 +100,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
     public signal void show_completed_changed ();
+    public signal void sort_order_changed ();
 
     int? _project_count = null;
     public int project_count {
@@ -539,10 +551,21 @@ public class Objects.Project : Objects.BaseObject {
         var menu = new Dialogs.ContextMenu.Menu ();
 
         var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
+
         var add_section_item = new Dialogs.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
         
-        var show_completed_item = new Dialogs.ContextMenu.MenuSwitch (
-            _("Show completed"), "planner-check-circle", show_completed);
+        var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
+
+        var share_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-note");
+        var email_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-mail");
+
+        share_item.add_item (share_markdown_item);
+        share_item.add_item (email_markdown_item);
+
+        var show_completed_item = new Dialogs.ContextMenu.MenuItem (
+            show_completed ? _("Hide completed tasks") : _("Show completed tasks"),
+            "planner-check-circle"
+        );
 
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");
@@ -553,8 +576,8 @@ public class Objects.Project : Objects.BaseObject {
         
         menu.add_item (add_section_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        menu.add_item (share_item);
         menu.add_item (show_completed_item);
-
 
         if (!inbox_project) {
             menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
@@ -570,7 +593,9 @@ public class Objects.Project : Objects.BaseObject {
         });
 
         show_completed_item.activate_item.connect (() => {
-            show_completed = show_completed_item.active;
+            menu.hide_destroy ();
+            show_completed = !show_completed;
+            update ();
         });
 
         delete_item.activate_item.connect (() => {
@@ -595,6 +620,98 @@ public class Objects.Project : Objects.BaseObject {
                 menu.hide_destroy ();
             }
         });
+
+        share_markdown_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            share_markdown ();
+        });
+
+        email_markdown_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            share_mail ();
+        });
+    }
+
+    public void build_view_menu () {
+        var menu = new Dialogs.ContextMenu.Menu ();
+
+        var custom_sort_item = new Gtk.RadioButton.with_label (null, _("Custom sort order")) {
+            hexpand = true,
+            margin_top = 3,
+            margin_start = 3
+        };
+
+        var alphabetically_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Alphabetically")) {
+            hexpand = true,
+            margin_left = 3
+        };
+
+        var due_date_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Due date")) {
+            hexpand = true,
+            margin_left = 3
+        };
+
+        var date_added_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Date added")) {
+            hexpand = true,
+            margin_left = 3
+        };
+
+        var priority_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Priority")) {
+            hexpand = true,
+            margin_left = 3,
+            margin_bottom = 3
+        };
+        
+        var sort_content = new Dialogs.Settings.SettingsContent (_("Sort")) {
+            margin = 6,
+            margin_top = 0
+        };
+
+        if (sort_order == 0) {
+            custom_sort_item.active = true;
+        } else if (sort_order == 1) {
+            alphabetically_sort_item.active = true;
+        } else if (sort_order == 2) {
+            due_date_sort_item.active = true;
+        } else if (sort_order == 3) {
+            date_added_sort_item.active = true;
+        } else if (sort_order == 4) {
+            priority_sort_item.active = true;
+        }
+        
+        sort_content.add_child (custom_sort_item);
+        sort_content.add_child (alphabetically_sort_item);
+        sort_content.add_child (due_date_sort_item);
+        sort_content.add_child (date_added_sort_item);
+        sort_content.add_child (priority_sort_item);
+
+        menu.add_item (sort_content);
+        menu.popup ();
+
+        custom_sort_item.toggled.connect (() => {
+            sort_order = 0;
+            update (false);
+        });
+
+        alphabetically_sort_item.toggled.connect (() => {
+            sort_order = 1;
+            update (false);
+        });
+
+        due_date_sort_item.toggled.connect (() => {
+            sort_order = 2;
+            update (false);
+        });
+
+        date_added_sort_item.toggled.connect (() => {
+            sort_order = 3;
+            update (false);
+        });
+
+        priority_sort_item.toggled.connect (() => {
+            sort_order = 4;
+            update (false);
+        });
     }
 
     public Objects.Section prepare_new_section () {
@@ -604,5 +721,54 @@ public class Objects.Project : Objects.BaseObject {
         new_section.activate_name_editable = true;
 
         return new_section;
+    }
+
+    public void share_markdown () {
+        Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
+        Planner.event_bus.send_notification (
+            _("The project was copied to the Clipboard.")
+        );
+    }
+
+    public void share_mail () {
+        string uri = "";
+        uri += "mailto:?subject=%s&body=%s".printf (name, to_markdown ());
+        try {
+            AppInfo.launch_default_for_uri (uri, null);
+        } catch (Error e) {
+            warning ("%s\n", e.message);
+        }
+    }
+
+    private string to_markdown () {
+        string text = "";
+        text += "# %s\n".printf (name);
+
+
+        foreach (Objects.Item item in items) {
+            text += "- [%s] %s\n".printf (item.checked ? "x" : " ", item.content);
+        }
+
+        foreach (Objects.Section section in sections) {
+            text += "\n";
+            text += "## %s\n".printf (section.name);
+
+            foreach (Objects.Item item in section.items) {
+                text += "- [%s]%s%s\n".printf (item.checked ? "x" : " ", get_format_date (item), item.content);
+                foreach (Objects.Item check in item.items) {
+                    text += "  - [%s]%s%s\n".printf (check.checked ? "x" : " ", get_format_date (check), check.content);
+                }
+            }
+        }
+
+        return text;
+    }
+
+    private string get_format_date (Objects.Item item) {
+        if (!item.has_due) {
+            return " ";
+        }
+
+        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
     }
 }

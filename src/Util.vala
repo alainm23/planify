@@ -1,3 +1,8 @@
+public enum NotificationStyle {
+    NORMAL,
+    ERROR
+}
+
 public enum ProjectViewStyle {
     LIST,
     BOARD;
@@ -795,6 +800,9 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-bell", true);
                 _dynamic_icons.set ("sidebar-left", true);
                 _dynamic_icons.set ("sidebar-right", true);
+                _dynamic_icons.set ("planner-mail", true);
+                _dynamic_icons.set ("planner-note", true);
+                _dynamic_icons.set ("planner-settings-sliders", true);
             }
 
             return _dynamic_icons;
@@ -807,6 +815,10 @@ public class Util : GLib.Object {
 
     public bool is_input_valid (Gtk.Entry entry) {
         return entry.get_text_length () > 0;
+    }
+
+    public bool is_text_valid (Gtk.SourceView entry) {
+        return entry.buffer.text.length > 0;
     }
 
     public string get_short_name (string name, int size = Constants.SHORT_NAME_SIZE) {

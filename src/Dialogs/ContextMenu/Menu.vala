@@ -7,7 +7,7 @@ public class Dialogs.ContextMenu.Menu : Hdy.Window {
             destroy_with_parent: true,
             window_position: Gtk.WindowPosition.MOUSE,
             resizable: false,
-            width_request: 296
+            width_request: 325
         );
     }
 

@@ -227,6 +227,10 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         return grid;
     }
 
+    public void set_sort_func (Gtk.ListBoxSortFunc? sort_func) {
+        listbox.set_sort_func (sort_func);
+    }
+
     public void add_child (Gtk.Widget widget) {
         if (container_shape == ContainerType.LISTBOX) {
             listbox.add (widget);

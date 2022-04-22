@@ -11,10 +11,11 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         var color_popover = new Widgets.ColorPopover ();
         color_popover.selected = project.color;
 
-        var project_progress = new Widgets.ProjectProgress (18) {
+        var project_progress = new Widgets.ProjectProgress (21) {
             enable_subprojects = true,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
+            margin_start = 3,
             progress_fill_color = Util.get_default ().get_color (project.color),
             percentage = project.percentage
         };
@@ -66,7 +67,20 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         menu_button.add (menu_image);
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         menu_button.clicked.connect (project.build_content_menu);
+
+        var view_image = new Widgets.DynamicIcon ();
+        view_image.size = 19;
+        view_image.update_icon_name ("planner-settings-sliders");
         
+        var view_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false
+        };
+
+        view_button.add (view_image);
+        view_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        view_button.clicked.connect (project.build_view_menu);
+
         var search_image = new Widgets.DynamicIcon ();
         search_image.size = 19;
         search_image.update_icon_name ("planner-search");
@@ -87,6 +101,7 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         projectrow_box.pack_start (icon_progress_stack, false, false, 0);
         projectrow_box.pack_start (name_editable, false, true, 6);
         projectrow_box.pack_end (menu_button, false, false, 0);
+        projectrow_box.pack_end (view_button, false, false, 0);
         projectrow_box.pack_end (search_button, false, false, 0);
 
         var main_grid = new Gtk.Grid () {
