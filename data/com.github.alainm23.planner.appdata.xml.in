@@ -555,6 +555,7 @@
   <url type="translate">https://github.com/alainm23/planner/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <url type="help">https://useplanner.com/support/</url>
+  <content_rating type="oars-1.1" />
   <custom>
     <value key="x-appcenter-color-primary">#ffffff</value>
     <value key="x-appcenter-color-primary-text">#000000</value>
