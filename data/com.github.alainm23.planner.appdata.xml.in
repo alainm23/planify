@@ -40,7 +40,7 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
-    <release version="3.0.7" date="2022-04-13">
+    <release version="3.0.8" date="2022-04-13">
       <description>
         <p>Planner 3 Beta 2</p>
         <ul>
@@ -555,7 +555,9 @@
   <url type="translate">https://github.com/alainm23/planner/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <url type="help">https://useplanner.com/support/</url>
-  <content_rating type="oars-1.1" />
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+  </content_rating>
   <custom>
     <value key="x-appcenter-color-primary">#ffffff</value>
     <value key="x-appcenter-color-primary-text">#000000</value>
