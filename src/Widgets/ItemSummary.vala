@@ -127,7 +127,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         update_request ();
         check_revealer ();
 
-        labels_flowbox.remove.connect (() => {
+        labels_flowbox.remove.connect ((widget) => {
             flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
             check_revealer ();
         });

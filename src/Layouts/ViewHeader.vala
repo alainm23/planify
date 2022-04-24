@@ -92,7 +92,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
 
         var end_grid = new Gtk.Grid () {
             column_spacing = 0,
-            margin_end = 6
+            margin_end = 0
         };
 
         end_grid.add (search_button);

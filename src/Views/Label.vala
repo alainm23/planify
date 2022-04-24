@@ -1,5 +1,16 @@
 public class Views.Label : Gtk.EventBox {
-    public Objects.Label label { get; set; }
+    Objects.Label _label;
+    public Objects.Label label {
+        get {
+            return _label;
+        }
+
+        set {
+            _label = value;
+            update_request ();
+            add_items ();
+        }
+    }
 
     public Gee.HashMap <string, Layouts.ItemRow> items;
     private Gtk.ListBox listbox;
@@ -129,13 +140,6 @@ public class Views.Label : Gtk.EventBox {
         Timeout.add (listbox_stack.transition_duration, () => {
             validate_placeholder ();
             return GLib.Source.REMOVE;
-        });
-
-        notify["label"].connect (() => {
-            if (label != null) {
-                update_request ();
-                add_items ();
-            }
         });
 
         magic_button.clicked.connect (() => {

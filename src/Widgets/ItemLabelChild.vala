@@ -62,6 +62,10 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             hide_destroy ();
         });
 
+        item_label.label.deleted.connect (() => {
+            hide_destroy ();
+        });
+
         item_label.label.updated.connect (update_request);
     }
 

@@ -185,13 +185,13 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var privacy_item = new Dialogs.Settings.SettingsItem (
             "planner-shield-tick",
             _("Privacy policies"),
-            _("Follow us on")
+            _("We have nothing on you")
         );
 
         var import_item = new Dialogs.Settings.SettingsItem (
             "planner-upload",
             _("Import from Planner 2.0"),
-            _("Follow us on")
+            _("Import your tasks from Planner 2")
         );
 
         var delete_data_item = new Dialogs.Settings.SettingsItem (
@@ -201,7 +201,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         );
 
         privacy_content.add_child (privacy_item);
-        // privacy_content.add_child (import_item);
+        privacy_content.add_child (import_item);
         privacy_content.add_child (delete_data_item);
 
         var content_grid = new Gtk.Grid () {
@@ -286,6 +286,18 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             } catch (Error e) {
                 warning ("%s\n", e.message);
             }
+        });
+
+        privacy_item.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri ("https://useplanner.com/privacy-policy/", null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+        import_item.activated.connect (() => {
+            Services.MigrateV2.get_default ().import_backup ();
         });
 
         Planner.settings.changed.connect ((key) => {

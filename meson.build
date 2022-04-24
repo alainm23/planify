@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '3.0.6'
+    version: '3.0.8'
 )
 
 gnome = import ('gnome')
