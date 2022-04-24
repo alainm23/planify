@@ -248,7 +248,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             can_focus = false,
-            tooltip_text = _("Addd subtask"),
+            tooltip_text = _("Add subtask"),
             margin_top = 1,
             no_show_all = is_creating
         };

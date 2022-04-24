@@ -43,7 +43,7 @@ public class Widgets.PriorityButton : Gtk.Button {
         clicked.connect (() => {
             var menu = new Dialogs.ContextMenu.Menu ();
 
-            var priority_1_item = new Dialogs.ContextMenu.MenuItem (_("Priority 1: hight"), "planner-priority-1");
+            var priority_1_item = new Dialogs.ContextMenu.MenuItem (_("Priority 1: high"), "planner-priority-1");
             var priority_2_item = new Dialogs.ContextMenu.MenuItem (_("Priority 2: medium"), "planner-priority-2");
             var priority_3_item = new Dialogs.ContextMenu.MenuItem (_("Priority 3: low"), "planner-priority-3");
             var priority_4_item = new Dialogs.ContextMenu.MenuItem (_("Priority 4: none"), "planner-flag");

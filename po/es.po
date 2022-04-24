@@ -327,8 +327,8 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:251
-msgid "Addd subtask"
+#: src/Layouts/ItemRow.vala:239
+msgid "Add subtask"
 msgstr ""
 
 #: src/Layouts/ItemRow.vala:364 src/Layouts/TaskRow.vala:324
