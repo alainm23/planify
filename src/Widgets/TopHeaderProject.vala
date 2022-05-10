@@ -151,5 +151,9 @@ public class Widgets.TopHeaderProject : Gtk.EventBox {
         project.project_count_updated.connect (() => {
             project_progress.percentage = project.percentage;
         });
+
+        name_editable.focus_changed.connect (() => {
+            Planner.event_bus.unselect_all ();
+        });
     }
 }

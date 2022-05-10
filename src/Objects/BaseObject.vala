@@ -45,6 +45,8 @@ public class Objects.BaseObject : GLib.Object {
                 return "section_delete";
             } else if (this is Objects.Label) {
                 return "label_delete";
+            } else if (this is Objects.Reminder) {
+                return "reminder_delete";
             } else {
                 return "";
             }
@@ -174,6 +176,10 @@ public class Objects.BaseObject : GLib.Object {
     }
 
     public virtual string get_add_json (string temp_id, string uuid) {
+        return "";
+    }
+
+    public virtual string get_move_json (string uuid, int64 new_project_id) {
         return "";
     }
 

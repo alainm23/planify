@@ -14,7 +14,8 @@ public class Widgets.ScheduleButton : Gtk.Button {
             item: item,
             can_focus: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER,
+            tooltip_text: _("Schedule")
         );
     }
 
@@ -23,7 +24,8 @@ public class Widgets.ScheduleButton : Gtk.Button {
             task: task,
             can_focus: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER,
+            tooltip_text: _("Schedule")
         );
     }
 
@@ -69,12 +71,6 @@ public class Widgets.ScheduleButton : Gtk.Button {
             datetime_picker.destroy.connect (() => {
                 dialog_open (false);
             });
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "clock-format") {
-                update_request (item, task);
-            }
         });
     }
 

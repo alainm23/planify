@@ -20,13 +20,15 @@ public class Views.Board : Gtk.EventBox {
             expand = true,
             max_children_per_line = 1,
             homogeneous = true,
-            orientation = Gtk.Orientation.VERTICAL
+            orientation = Gtk.Orientation.VERTICAL,
+            column_spacing = 24,
+            halign = Gtk.Align.START
         };
 
         var flowbox_grid = new Gtk.Grid () {
             margin = 36,
             margin_top = 12,
-            margin_bottom = 0
+            margin_bottom = 24
         };
 
         flowbox_grid.add (flowbox);
@@ -46,6 +48,7 @@ public class Views.Board : Gtk.EventBox {
 
         add (main_content);
         add_sections ();
+        show_all ();
     }
 
     public void add_sections () {
@@ -59,7 +62,7 @@ public class Views.Board : Gtk.EventBox {
     }
 
     private void add_section (Objects.Section section) {
-        var row = new Layouts.SectionChild (section);
+        var row = new Layouts.SectionBoard (section);
         flowbox.add (row);
         flowbox.show_all ();
     }

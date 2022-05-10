@@ -26,6 +26,7 @@ public class Views.Today : Gtk.EventBox {
 
         menu_button.add (menu_image);
         menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        menu_button.clicked.connect (build_content_menu);
 
         var search_image = new Widgets.DynamicIcon ();
         search_image.size = 19;
@@ -49,6 +50,7 @@ public class Views.Today : Gtk.EventBox {
         header_box.pack_start (today_icon, false, false, 0);
         header_box.pack_start (title_label, false, false, 6);
         header_box.pack_start (date_label, false, false, 0);
+        // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
         var magic_button = new Widgets.MagicButton ();
@@ -93,6 +95,19 @@ public class Views.Today : Gtk.EventBox {
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 20) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
+            }
+        });
+
+        Planner.event_bus.day_changed.connect (() => {
+            date_view.update_date (new GLib.DateTime.now_local ());
+            update_today_label ();
+        });
     }
 
     private void update_today_label () {
@@ -104,5 +119,24 @@ public class Views.Today : Gtk.EventBox {
 
     public void prepare_new_item (string content = "") {
         date_view.prepare_new_item (content);
+    }
+
+    public void build_content_menu () {
+        Planner.event_bus.unselect_all ();
+
+        var menu = new Dialogs.ContextMenu.Menu ();
+
+        var show_completed_item = new Dialogs.ContextMenu.MenuItem (
+            Planner.settings.get_boolean ("show-today-completed") ? _("Hide completed tasks") : _("Show completed tasks"),
+            "planner-check-circle"
+        );
+
+        menu.add_item (show_completed_item);
+        menu.popup ();
+
+        show_completed_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            Planner.settings.set_boolean ("show-today-completed", !Planner.settings.get_boolean ("show-today-completed"));
+        });
     }
 }

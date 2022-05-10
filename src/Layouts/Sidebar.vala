@@ -93,10 +93,22 @@ public class Layouts.Sidebar : Gtk.EventBox {
     }
 
     private void update_projects_sort () {
-        if (Planner.settings.get_enum ("projects-sort-by") == 0) {
-            projects_header.set_sort_func (projects_sort_func);
-        } else {
-            projects_header.set_sort_func (null);
+        BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
+            if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+                projects_header.set_sort_func (projects_sort_func);
+            } else {
+                projects_header.set_sort_func (null);
+            }
+        } else if (backend_type == BackendType.CALDAV) {
+            foreach (var entry in collection_hashmap.entries) {
+                if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+                    entry.value.set_sort_func (tasklist_sort_func);
+                } else {
+                    entry.value.set_sort_func (null);
+                }
+            }
         }
     }
 
@@ -108,6 +120,17 @@ public class Layouts.Sidebar : Gtk.EventBox {
             return project2.name.collate (project1.name);
         } else {
             return project1.name.collate (project2.name);
+        }
+    }
+
+    private int tasklist_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+        E.Source project1 = ((Layouts.TasklistRow) lbrow).source;
+        E.Source project2 = ((Layouts.TasklistRow) lbbefore).source;
+
+        if (Planner.settings.get_enum ("projects-ordered") == 0) {
+            return project2.display_name.collate (project1.display_name);
+        } else {
+            return project1.display_name.collate (project2.display_name);
         }
     }
 
@@ -321,6 +344,8 @@ public class Layouts.Sidebar : Gtk.EventBox {
         } else {
             source_rows[source].update_request ();
         }
+
+        update_projects_sort ();
     }
 
     private void remove_source (E.Source source) {

@@ -1,10 +1,12 @@
 public class Widgets.ItemSummary : Gtk.Revealer {
     public Objects.Item item { get; construct; }
-    public Layouts.ItemRow itemrow { get; construct; }
+    public Layouts.ItemRow? itemrow { get; construct; }
 
-    private Gtk.Label calendar_label;
-    private Gtk.Grid calendar_grid;
-    private Gtk.Revealer calendar_revealer;
+    private Gtk.Label due_label;
+    private Widgets.DynamicIcon today_image;
+    private Gtk.Stack due_stack;
+    private Gtk.Grid due_grid;
+    private Gtk.Revealer due_revealer;
 
     private Gtk.Label subtasks_label;
     private Gtk.Revealer subtasks_revealer;
@@ -13,12 +15,22 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     private Gtk.FlowBox labels_flowbox;
     private Gtk.Revealer flowbox_revealer;
 
+    private Gtk.Label more_label;
+    private Gtk.Grid more_label_grid;
+    private Gtk.Revealer more_label_revealer;
+
     private Gtk.Label description_label;
     private Gtk.Revealer description_label_revealer;
 
     Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
-    public ItemSummary (Objects.Item item, Layouts.ItemRow itemrow) {
+    public uint labels_flowbox_size {
+        get {
+            return labels_flowbox.get_children ().length ();
+        }
+    }
+
+    public ItemSummary (Objects.Item item, Layouts.ItemRow? itemrow = null) {
         Object (
             item: item,
             itemrow: itemrow
@@ -28,23 +40,31 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     construct {
         labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
-        calendar_label = new Gtk.Label (null) {
+        due_label = new Gtk.Label (null) {
             margin = 3
         };
 
-        calendar_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        due_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        
+        today_image = new Widgets.DynamicIcon ();
+        today_image.update_icon_name ("planner-today");
+        today_image.size = 19; 
 
-        calendar_grid = new Gtk.Grid () {
+        due_stack = new Gtk.Stack ();
+        due_stack.add_named (due_label, "due_label");
+        due_stack.add_named (today_image, "today_image");
+
+        due_grid = new Gtk.Grid () {
             column_spacing = 3,
             margin_end = 6,
             valign = Gtk.Align.START
         };
-        calendar_grid.add (calendar_label);
+        due_grid.add (due_stack);
 
-        calendar_revealer = new Gtk.Revealer () {
+        due_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
-        calendar_revealer.add (calendar_grid);
+        due_revealer.add (due_grid);
 
         subtasks_label = new Gtk.Label (null) {
             margin = 3
@@ -70,17 +90,38 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             column_spacing = 6,
             row_spacing = 6,
             homogeneous = false,
-            hexpand = true,
+            hexpand = false,
             halign = Gtk.Align.START,
             valign = Gtk.Align.START,
-            min_children_per_line = 3,
-            max_children_per_line = 20
+            min_children_per_line = itemrow == null ? 1 : 3,
+            max_children_per_line = 20,
+            margin_end = 6,
         };
 
         flowbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
+
         flowbox_revealer.add (labels_flowbox);
+
+        more_label = new Gtk.Label (null) {
+            margin = 3
+        };
+
+        more_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        
+        more_label_grid = new Gtk.Grid () {
+            column_spacing = 3,
+            margin_end = 6,
+            valign = Gtk.Align.START
+        };
+        more_label_grid.add (more_label);
+        more_label_grid.get_style_context ().add_class ("item-label-child");
+
+        more_label_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+        more_label_revealer.add (more_label_grid);
 
         description_label = new Gtk.Label (null) {
             xalign = 0,
@@ -101,9 +142,10 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             valign = Gtk.Align.START
         };
 
-        summary_grid.add (calendar_revealer);
+        summary_grid.add (due_revealer);
         summary_grid.add (subtasks_revealer);
         summary_grid.add (flowbox_revealer);
+        summary_grid.add (more_label_revealer);
 
         unowned Gtk.StyleContext summary_grid_context = summary_grid.get_style_context ();
         summary_grid_context.add_class ("dim-label");
@@ -122,6 +164,11 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         main_grid.add (description_label_revealer);
         main_grid.add (summary_revealer);
 
+        if (itemrow == null) {
+            main_grid.margin_top = 3;
+            main_grid.margin_bottom = 3;
+        }
+
         add (main_grid);
 
         update_request ();
@@ -135,7 +182,12 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         Planner.settings.changed.connect ((key) => {
             if (key == "clock-format" || key == "description-preview") {
                 update_request ();
+                check_revealer ();
             }
+        });
+
+        item.item_added.connect (() => {
+            update_request ();
         });
     }
 
@@ -150,48 +202,90 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     }
 
     public void update_due_label () {
-        calendar_grid.get_style_context ().remove_class ("overdue-grid");
-        calendar_grid.get_style_context ().remove_class ("today-grid");
-        calendar_grid.get_style_context ().remove_class ("schedule-grid");
+        due_grid.get_style_context ().remove_class ("overdue-grid");
+        due_grid.get_style_context ().remove_class ("today-grid");
+        due_grid.get_style_context ().remove_class ("schedule-grid");
 
         if (item.completed) {
-            calendar_label.label = Util.get_default ().get_relative_date_from_date (
+            due_label.label = Util.get_default ().get_relative_date_from_date (
                 Util.get_default ().get_date_from_string (item.completed_at)
             );
-            calendar_grid.get_style_context ().add_class ("completed-grid");
-            calendar_revealer.reveal_child = true;
+            due_grid.get_style_context ().add_class ("completed-grid");
+            due_revealer.reveal_child = true;
             return;
         }
 
         if (item.has_due) {
-            calendar_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
-            calendar_revealer.reveal_child = true;
+            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+            due_revealer.reveal_child = true;
 
             if (Util.get_default ().is_today (item.due.datetime)) {
-                calendar_grid.get_style_context ().add_class ("today-grid");
+                due_grid.get_style_context ().add_class ("today-grid");
+                due_stack.visible_child_name = "today_image";
             } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-                calendar_grid.get_style_context ().add_class ("overdue-grid");
+                due_grid.get_style_context ().add_class ("overdue-grid");
+                due_stack.visible_child_name = "due_label";
             } else {
-                calendar_grid.get_style_context ().add_class ("schedule-grid");
+                due_grid.get_style_context ().add_class ("schedule-grid");
+                due_stack.visible_child_name = "due_label";
             }
+
+            due_stack.show_all ();
         } else {
-            calendar_label.label = "";
-            calendar_revealer.reveal_child = false;
+            due_label.label = "";
+            due_revealer.reveal_child = false;
         }
     }
 
     public void check_revealer () {
-        summary_revealer.reveal_child = calendar_revealer.reveal_child ||
+        if (itemrow != null) {
+            summary_revealer.reveal_child = due_revealer.reveal_child ||
             flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
-        reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) && !itemrow.edit && !item.checked;
+            reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
+            !itemrow.edit && !item.checked;
+        } else {
+            summary_revealer.reveal_child = due_revealer.reveal_child ||
+            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
+            reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) && !item.checked;
+        }
     }
 
     private void update_labels () {
+        int more = 0;
+        int count = 0;
+        string tooltip_text = "";
+        more_label_revealer.reveal_child = false;
+
         foreach (Objects.ItemLabel item_label in item.labels.values) {
             if (!labels.has_key (item_label.id_string)) {
-                labels[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
-                labels_flowbox.add (labels[item_label.id_string]);
-                labels_flowbox.show_all ();
+                if (itemrow == null && labels.size >= 1) {
+                    more++;
+                    more_label.label = "+%d".printf (more);
+                    tooltip_text += "- %s%s".printf (
+                        item_label.label.name,
+                        more + 1 >= item.labels.values.size ? "" : "\n"
+                    );
+                    more_label_grid.tooltip_text = tooltip_text;
+                    more_label_revealer.reveal_child = true;
+                } else {
+                    Util.get_default ().set_widget_color (
+                        Util.get_default ().get_color (item_label.label.color),
+                        more_label_grid
+                    );
+
+                    var item_label_child = new Widgets.ItemLabelChild (item_label);
+
+                    item_label_child.delete_request.connect (() => {
+                        labels.unset (item_label_child.item_label.id_string);
+                        item_label_child.hide_destroy ();
+                    });
+
+                    labels[item_label.id_string] = item_label_child;
+                    labels_flowbox.add (labels[item_label.id_string]);
+                    labels_flowbox.show_all ();
+                }
+
+                count++;
             }
         }
 

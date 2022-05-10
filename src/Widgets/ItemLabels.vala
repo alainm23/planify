@@ -46,7 +46,8 @@ public class Widgets.ItemLabels : Gtk.EventBox {
 
         button_press_event.connect ((sender, evt) => {
             if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                var dialog = new Dialogs.LabelPicker.LabelPicker (item);
+                var dialog = new Dialogs.LabelPicker.LabelPicker ();
+                dialog.item = item;
                 
                 dialog.labels_changed.connect ((labels) => {
                     labels_changed (labels);

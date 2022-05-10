@@ -9,7 +9,8 @@ public class Widgets.LabelButton : Gtk.Button {
             item: item,
             can_focus: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER,
+            tooltip_text: _("Add label(s)")
         );
     }
 
@@ -29,7 +30,8 @@ public class Widgets.LabelButton : Gtk.Button {
         add (button_grid);
 
         clicked.connect (() => {
-            var dialog = new Dialogs.LabelPicker.LabelPicker (item);
+            var dialog = new Dialogs.LabelPicker.LabelPicker ();
+            dialog.item = item;
             
             dialog.labels_changed.connect ((labels) => {
                 labels_changed (labels);

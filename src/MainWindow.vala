@@ -118,10 +118,12 @@ public class MainWindow : Hdy.Window {
         notifications_grid.halign = Gtk.Align.CENTER;
         notifications_grid.valign = Gtk.Align.END;
 
+        var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
+
         var views_overlay = new Gtk.Overlay ();
         views_overlay.expand = true;
         views_overlay.add_overlay (notifications_grid);
-        // views_overlay.add_overlay (multiselect_toolbar);
+        views_overlay.add_overlay (multiselect_toolbar);
         views_overlay.add (views_grid);
 
         flap_view = new Hdy.Flap () {
@@ -143,7 +145,7 @@ public class MainWindow : Hdy.Window {
         main_stack.add_named (flap_view, "main-view");
 
         add (main_stack);
-
+        
         Planner.settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
 
@@ -164,6 +166,36 @@ public class MainWindow : Hdy.Window {
                 return hide_on_delete ();
             }
 
+            return false;
+        });
+
+        key_press_event.connect ((event) => {
+            if (event.keyval == 65507) {
+                Planner.event_bus.ctrl_pressed = true;
+            }
+
+            if (event.keyval == 65513) {
+                Planner.event_bus.alt_pressed = true;
+            }
+
+            return false;
+        });
+        
+        key_release_event.connect ((event) => {
+            if (event.keyval == 65507) {
+                Planner.event_bus.ctrl_pressed = false;
+            }
+
+            if (event.keyval == 65513) {
+                Planner.event_bus.alt_pressed = false;
+            }
+            
+            return false;
+        });
+
+        motion_notify_event.connect ((event) => {
+            Planner.event_bus.x_root = (int) Math.rint (event.x_root);
+            Planner.event_bus.y_root = (int) Math.rint (event.y_root);
             return false;
         });
         
@@ -220,6 +252,12 @@ public class MainWindow : Hdy.Window {
         });
 
         settings_button.clicked.connect (() => {
+            Planner.event_bus.unselect_all ();
+            
+            if (flap_view.folded) {
+                show_hide_sidebar ();
+            }
+            
             var dialog = new Dialogs.Settings.Settings ();
             dialog.show_all ();
         });
@@ -258,6 +296,11 @@ public class MainWindow : Hdy.Window {
             if (pinboard_view != null) {
                 pinboard_view.prepare_new_item (content);
             }
+        } else if (views_stack.visible_child_name.has_prefix ("tasklist")) {
+            Views.Tasklist? tasklist_view = (Views.Tasklist) views_stack.visible_child;
+            if (tasklist_view != null) {
+                tasklist_view.prepare_new_item (content);
+            }
         }
     }
 
@@ -290,7 +333,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (today_view, "today-view");
         }
 
-        views_header.project = null;
+        views_header.view = Objects.Today.get_default ();
         views_stack.set_visible_child_name ("today-view");
     }
 
@@ -302,7 +345,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (scheduled_view, "scheduled-view");
         }
 
-        views_header.project = null;
+        views_header.view = Objects.Scheduled.get_default ();
         views_stack.set_visible_child_name ("scheduled-view");
     }
 
@@ -314,7 +357,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (pinboard_view, "pinboard-view");
         }
 
-        views_header.project = null;
+        views_header.view = Objects.Pinboard.get_default ();
         views_stack.set_visible_child_name ("pinboard-view");
     }
 
@@ -326,7 +369,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (label_view, "label-view");
         }
 
-        views_header.project = null;
+        views_header.view = Planner.database.get_label (int64.parse (id));
         label_view.label = Planner.database.get_label (int64.parse (id));
         views_stack.set_visible_child_name ("label-view");
     }
@@ -354,7 +397,7 @@ public class MainWindow : Hdy.Window {
             views_stack.add_named (project_view, project.view_id);
         }
 
-        views_header.project = project;
+        views_header.view = project;
         views_stack.set_visible_child_name (project.view_id);
         return project_view;
     }
@@ -454,7 +497,8 @@ public class MainWindow : Hdy.Window {
         Services.Badge.get_default ();
         Services.Notification.get_default ();
         Services.CalendarEvents.get_default ();
-
+        Services.TimeMonitor.get_default ();
+        
         go_homepage ();
 
         Planner.database.project_deleted.connect (valid_view_removed);

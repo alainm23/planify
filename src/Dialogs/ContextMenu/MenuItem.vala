@@ -53,7 +53,7 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
         secondary_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.END,
-            margin_end = 6
+            margin_end = 0
         };
 
         unowned Gtk.StyleContext secondary_label_context = secondary_label.get_style_context ();

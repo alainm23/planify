@@ -1,12 +1,12 @@
 public class Layouts.ViewHeader : Hdy.HeaderBar {
-    public Objects.Project project { get; set; }
-    
-    private Gtk.Revealer project_revealer;
+    public Objects.BaseObject view { get; set; }
+
+    private Gtk.Label title_label;
+    private Gtk.Revealer title_revealer;
     private Gtk.Revealer end_revealer;
-    private Widgets.ProjectProgress project_progress;
-    private Gtk.Label name_label;
-    private Gtk.Label emoji_label;
-    private Gtk.Stack progress_emoji_stack;
+
+    private Gtk.Button view_button;
+    private Gtk.Button menu_button;
 
     construct {
         var sidebar_image = new Widgets.DynamicIcon ();
@@ -23,42 +23,29 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         unowned Gtk.StyleContext sidebar_button_context = sidebar_button.get_style_context ();
         sidebar_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-        project_progress = new Widgets.ProjectProgress (16);
-        project_progress.enable_subprojects = true;
-        project_progress.valign = Gtk.Align.CENTER;
-        project_progress.halign = Gtk.Align.CENTER;
-        
-        emoji_label = new Gtk.Label (null) {
-            halign = Gtk.Align.CENTER
+        var start_grid = new Gtk.Grid () {
+            column_spacing = 6
         };
-        
-        unowned Gtk.StyleContext emoji_label_context = emoji_label.get_style_context ();
-        emoji_label_context.add_class ("h4");
-        emoji_label_context.add_class ("opacity-1");
 
-        progress_emoji_stack = new Gtk.Stack ();
-        progress_emoji_stack.add_named (project_progress, "progress");
-        progress_emoji_stack.add_named (emoji_label, "label");
+        start_grid.add (sidebar_button);
 
-        name_label = new Gtk.Label (null);
-        name_label.valign = Gtk.Align.CENTER;
+        title_label = new Gtk.Label (null);
+        title_label.valign = Gtk.Align.CENTER;
 
-        unowned Gtk.StyleContext name_label_context = name_label.get_style_context ();
-        name_label_context.add_class ("h4");
-        name_label_context.add_class ("opacity-1");
+        unowned Gtk.StyleContext title_label_context = title_label.get_style_context ();
+        title_label_context.add_class ("h4");
+        title_label_context.add_class ("opacity-1");
 
-        var project_grid = new Gtk.Grid () {
-            column_spacing = 6,
-            valign = Gtk.Align.CENTER
+        title_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE
         };
-        project_grid.add (progress_emoji_stack);
-        project_grid.add (name_label);
+        title_revealer.add (title_label);
 
         var menu_image = new Widgets.DynamicIcon ();
         menu_image.size = 19;
         menu_image.update_icon_name ("dots-horizontal");
         
-        var menu_button = new Gtk.Button () {
+        menu_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             can_focus = false
         };
@@ -70,7 +57,7 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         view_image.size = 19;
         view_image.update_icon_name ("planner-settings-sliders");
         
-        var view_button = new Gtk.Button () {
+        view_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             can_focus = false
         };
@@ -104,34 +91,29 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         };
         end_revealer.add (end_grid);
 
-        project_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
-        };
-        project_revealer.add (project_grid);
-
-        var start_grid = new Gtk.Grid () {
-            column_spacing = 6
-        };
-
-        start_grid.add (sidebar_button);
-
         pack_start (start_grid);
-        custom_title = project_revealer;
+        custom_title = title_revealer;
         pack_end (end_revealer);
 
-        notify["project"].connect (() => {
-            if (project == null) {
-                project_revealer.reveal_child = false;
-                end_revealer.reveal_child = false;
-            } else {
-                project_update_request ();
-                project.updated.connect (project_update_request);
-                project.project_count_updated.connect (() => {
-                    project_progress.percentage = project.percentage;
-                });
-                
-                menu_button.clicked.connect (project.build_content_menu);
-                view_button.clicked.connect (project.build_view_menu);
+        notify["view"].connect (() => {
+            title_revealer.reveal_child = false;
+            end_revealer.reveal_child = false;
+
+            menu_button.clicked.disconnect (((Objects.Project) view).build_content_menu);
+            view_button.clicked.disconnect (((Objects.Project) view).build_view_menu);
+
+            if (view is Objects.Project) {
+                title_label.label = ((Objects.Project) view).name;
+                menu_button.clicked.connect (((Objects.Project) view).build_content_menu);
+                view_button.clicked.connect (((Objects.Project) view).build_view_menu);
+            } else if (view is Objects.Today) {
+                title_label.label = _("Today");
+            } else if (view is Objects.Scheduled) {
+                title_label.label = _("Scheduled");
+            } else if (view is Objects.Pinboard) {
+                title_label.label = _("Pinboard");
+            } else if (view is Objects.Label) {
+                title_label.label = ((Objects.Label) view).name;
             }
         });
 
@@ -150,24 +132,19 @@ public class Layouts.ViewHeader : Hdy.HeaderBar {
         });
 
         Planner.event_bus.view_header.connect ((reveal_child) => {
-            project_revealer.reveal_child = reveal_child;
+            title_revealer.reveal_child = reveal_child;
             end_revealer.reveal_child = reveal_child;
-        });
-    }
 
-    private void project_update_request () {
-        project_revealer.reveal_child = false;
-        end_revealer.reveal_child = false;
-        
-        project_progress.progress_fill_color = Util.get_default ().get_color (project.color);
-        project_progress.percentage = project.percentage;
-        
-        name_label.label = project.name;
-        emoji_label.label = project.emoji;
-        if (project.icon_style == ProjectIconStyle.PROGRESS) {
-            progress_emoji_stack.visible_child_name = "progress";
-        } else {
-            progress_emoji_stack.visible_child_name = "label";
-        }
+            if (view is Objects.Project) {
+                view_button.visible = true;
+                menu_button.visible = true;
+
+                view_button.show_all ();
+                menu_button.show_all ();
+            } else {
+                view_button.visible = false;
+                menu_button.visible = false;
+            }
+        });
     }
 }

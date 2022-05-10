@@ -51,6 +51,7 @@ public class Services.Badge : GLib.Object {
         Planner.database.item_added.connect (update_badge);
         Planner.database.item_deleted.connect (update_badge);
         Planner.database.item_updated.connect (update_badge);
+        Planner.event_bus.day_changed.connect (update_badge);
     }
 
     public void update_badge () {

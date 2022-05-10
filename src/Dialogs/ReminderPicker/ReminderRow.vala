@@ -55,6 +55,22 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
         var reminder_label = new Gtk.Label (is_creating ? _("Add reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
 
+        var remove_button = new Widgets.LoadingButton (LoadingButtonType.ICON, "planner-close-circle") {
+            can_focus = false
+        };
+        
+        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        remove_button.get_style_context ().add_class ("no-padding");
+
+        var remove_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            reveal_child = false,
+            hexpand = true,
+            halign = Gtk.Align.END
+        };
+        
+        remove_revealer.add (remove_button);
+
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
             margin = 3
@@ -62,6 +78,7 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
         main_grid.add (reminder_image);
         main_grid.add (reminder_label);
+        main_grid.add (remove_revealer);
 
         var reminder_eventbox = new Gtk.EventBox ();
         reminder_eventbox.get_style_context ().add_class ("transition");
@@ -88,6 +105,29 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
                 return Gdk.EVENT_PROPAGATE;
             });
         }
+
+        if (!is_creating) {
+            reminder_eventbox.enter_notify_event.connect ((event) => {
+                remove_revealer.reveal_child = true;
+                return false;
+            });
+    
+            reminder_eventbox.leave_notify_event.connect ((event) => {
+                if (event.detail == Gdk.NotifyType.INFERIOR) {
+                    return false;
+                }
+                
+                if (!remove_button.is_loading) {
+                    remove_revealer.reveal_child = false;
+                }
+
+                return false;
+            });
+        }
+
+        remove_button.clicked.connect (() => {
+            reminder.delete (remove_button);
+        });
     }
 
     public void hide_destroy () {

@@ -9,7 +9,8 @@ public class Widgets.PinButton : Gtk.Button {
             item: item,
             can_focus: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER,
+            tooltip_text: _("Pinned")
         );
     }
 

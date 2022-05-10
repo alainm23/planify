@@ -37,7 +37,6 @@ public class Dialogs.ReminderPicker.ReminderPicker : Hdy.Window {
             item: item,
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.MOUSE,
             resizable: false
         );
     }
@@ -187,10 +186,10 @@ public class Dialogs.ReminderPicker.ReminderPicker : Hdy.Window {
 
         item.reminder_added.connect (add_reminder);
 
-        Planner.database.reminder_deleted.connect ((id) => {
-            if (reminders_map.has_key (id.to_string ())) {
-                reminders_map[id.to_string ()].hide_destroy ();
-                reminders_map.unset (id.to_string ());
+        Planner.database.reminder_deleted.connect ((reminder) => {
+            if (reminders_map.has_key (reminder.id_string)) {
+                reminders_map[reminder.id_string].hide_destroy ();
+                reminders_map.unset (reminder.id_string);
             }
         });
     }
@@ -220,11 +219,11 @@ public class Dialogs.ReminderPicker.ReminderPicker : Hdy.Window {
                 int64? id = Planner.todoist.add.end (res);
                 if (id != null) {
                     reminder.id = id;
-                    Planner.database.insert_reminder (reminder);
                 } else {
                     reminder.id = Util.get_default ().generate_id ();
-                    Planner.database.insert_reminder (reminder);
                 }
+
+                item.add_reminder_if_not_exists (reminder);
 
                 main_stack.visible_child_name = "listbox";
                 cancel_revealer.reveal_child = false;
@@ -306,14 +305,7 @@ public class Dialogs.ReminderPicker.ReminderPicker : Hdy.Window {
     }
 
     public void popup () {
+        move (Planner.event_bus.x_root, Planner.event_bus.y_root);
         show_all ();
-
-        // Gdk.Rectangle rect;
-        // get_allocation (out rect);
-
-        // int root_x, root_y;
-        // get_position (out root_x, out root_y);
-
-        // move (root_x + (rect.width / 3), root_y + (rect.height / 3) + 24);
     }
 }

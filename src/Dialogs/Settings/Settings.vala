@@ -67,7 +67,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         });
 
         focus_out_event.connect (() => {
-            hide_destroy ();
+            // hide_destroy ();
             return false;
         });
 
@@ -101,7 +101,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             var caldav_item = new Dialogs.Settings.SettingsItem (
                 "planner-cloud",
                 _("CalDAV"),
-                _("Tasks")
+                _("Sync your CalDAV account.")
             );
     
             sync_content.add_child (caldav_item);
@@ -116,7 +116,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         var general_item = new Dialogs.Settings.SettingsItem (
             "planner-general",
             _("General settings"),
-            Util.get_default ().get_filter ().get_name ()
+            _("Customize to your liking.")
         );
 
         var homepage_item = new Dialogs.Settings.SettingsItem (
@@ -201,7 +201,11 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         );
 
         privacy_content.add_child (privacy_item);
-        privacy_content.add_child (import_item);
+
+        if (backend_type == BackendType.LOCAL) {
+            privacy_content.add_child (import_item);
+        }
+        
         privacy_content.add_child (delete_data_item);
 
         var content_grid = new Gtk.Grid () {
@@ -256,11 +260,13 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         });
 
         keyboard_shortcuts_item.activated.connect (() => {
+            hide_destroy ();
             var dialog = new Dialogs.Shortcuts.Shortcuts ();
             dialog.show_all ();
         });
 
         delete_data_item.activated.connect (() => {
+            hide_destroy ();
             Util.get_default ().delete_app_data ();
         });
 
@@ -908,6 +914,35 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         date_time_content.add_child (clock_format);
         date_time_content.add_child (start_week);
 
+        var task_content = new Dialogs.Settings.SettingsContent (_("Task settings"));
+
+        Gee.ArrayList<string> ct_list = new Gee.ArrayList<string> ();
+        ct_list.add (_("Instantly"));
+        ct_list.add (_("Wait 2500 milliseconds"));
+
+        var complete_tasks = new Dialogs.Settings.SettingsSelect (_("Complete task"), ct_list);
+        complete_tasks.selected_index = Planner.settings.get_enum ("complete-task");
+        
+        Gee.ArrayList<string> priorities_list = new Gee.ArrayList<string> ();
+        priorities_list.add (_("Priority 1"));
+        priorities_list.add (_("Priority 2"));
+        priorities_list.add (_("Priority 3"));
+        priorities_list.add (_("None"));
+
+        var default_priority = new Dialogs.Settings.SettingsSelect (_("Default priority"), priorities_list);
+        default_priority.selected_index = Planner.settings.get_enum ("default-priority");
+
+        var description_switch = new Dialogs.Settings.SettingsSwitch (_("Description preview"));
+        description_switch.active = Planner.settings.get_boolean ("description-preview");
+
+        var underline_completed_switch = new Dialogs.Settings.SettingsSwitch (_("Underline completed tasks"));
+        underline_completed_switch.active = Planner.settings.get_boolean ("underline-completed-tasks");
+
+        task_content.add_child (complete_tasks);
+        task_content.add_child (default_priority);
+        task_content.add_child (description_switch);
+        task_content.add_child (underline_completed_switch);
+        
         var content_grid = new Gtk.Grid () {
             expand = true,
             orientation = Gtk.Orientation.VERTICAL,
@@ -923,6 +958,7 @@ public class Dialogs.Settings.Settings : Hdy.Window {
         content_grid.add (sort_projects_content);
         content_grid.add (de_content);
         content_grid.add (date_time_content);
+        content_grid.add (task_content);
 
         var main_grid = new Gtk.Grid () {
             expand = true,
@@ -944,6 +980,10 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             Planner.settings.set_enum ("projects-sort-by", active);
         });
 
+        complete_tasks.activated.connect ((active) => {
+            Planner.settings.set_enum ("complete-task", active);
+        });
+
         ordered_projects.activated.connect ((active) => {
             Planner.settings.set_enum ("projects-ordered", active);
         });
@@ -960,6 +1000,18 @@ public class Dialogs.Settings.Settings : Hdy.Window {
             Planner.settings.set_enum ("start-week", active);
         });
 
+        default_priority.activated.connect ((active) => {
+            Planner.settings.set_enum ("default-priority", active);
+        });
+
+        description_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("description-preview", active);
+        });
+
+        underline_completed_switch.activated.connect ((active) => {
+            Planner.settings.set_boolean ("underline-completed-tasks", active);
+        });
+
         Planner.settings.changed.connect ((key) => {
             if (key == "projects-sort-by") {
                 sort_projects.selected_index = Planner.settings.get_enum ("projects-sort-by");
@@ -971,6 +1023,14 @@ public class Dialogs.Settings.Settings : Hdy.Window {
                 clock_format.selected_index = Planner.settings.get_enum ("clock-format");
             } else if (key == "start-week") {
                 start_week.selected_index = Planner.settings.get_enum ("start-week");
+            } else if (key == "complete-task") {
+                complete_tasks.selected_index = Planner.settings.get_enum ("complete-task");
+            } else if (key == "default-priority") {
+                default_priority.selected_index = Planner.settings.get_enum ("default-priority");
+            } else if (key == "description-preview") {
+                description_switch.active = Planner.settings.get_boolean ("description-preview");
+            } else if (key == "underline-completed-tasks") {
+                underline_completed_switch.active = Planner.settings.get_boolean ("underline-completed-tasks");
             }
         });
         

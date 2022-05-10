@@ -25,7 +25,7 @@ public class Services.Database : GLib.Object {
     public signal void item_label_deleted (Objects.ItemLabel item_label);
 
     public signal void reminder_added (Objects.Reminder reminder);
-    public signal void reminder_deleted (int64 id);
+    public signal void reminder_deleted (Objects.Reminder reminder);
 
     private static Database? _instance;
     public static Database get_default () {
@@ -112,13 +112,9 @@ public class Services.Database : GLib.Object {
             }
         });
 
-        reminder_deleted.connect ((id) => {
-            foreach (Objects.Reminder reminder in reminders) {
-                if (reminder.id == id) {
-                    if (_reminders.remove (reminder)) {
-                        debug ("Reminder Removed: %s", id.to_string ());
-                    }
-                }
+        reminder_deleted.connect ((reminder) => {
+            if (_reminders.remove (reminder)) {
+                debug ("Reminder Removed: %s", reminder.id.to_string ());
             }
         });
     }
@@ -1335,6 +1331,7 @@ public class Services.Database : GLib.Object {
     }
 
     // Reminders
+
     public void insert_reminder (Objects.Reminder reminder) {
         Sqlite.Statement stmt;
         string sql;
@@ -1352,9 +1349,9 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         } else {
-            reminder.item.reminder_added (reminder);
             reminder_added (reminder);
             reminders.add (reminder);
+            reminder.item.reminder_added (reminder);
         }
 
         stmt.reset ();
@@ -1412,7 +1409,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public void delete_reminder (int64 id) {
+    public void delete_reminder (Objects.Reminder reminder) {
         Sqlite.Statement stmt;
     
         sql = """
@@ -1420,10 +1417,11 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_int64 (stmt, "$id", reminder.id);
 
         if (stmt.step () == Sqlite.DONE) {
-            reminder_deleted (id);
+            reminder.deleted ();
+            reminder.item.reminder_deleted (reminder);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }

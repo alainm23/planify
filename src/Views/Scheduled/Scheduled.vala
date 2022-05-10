@@ -25,7 +25,7 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
 
         var today_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         today_box.pack_start (scheduled_icon, false, false, 0);
-        today_box.pack_start (title_label, false, false, 6);
+        today_box.pack_start (title_label, false, false, 0);
         today_box.pack_start (date_label, false, false, 0);
 
         var today_button = new Gtk.Button () {
@@ -237,6 +237,10 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
             show_today ();
         });
 
+        Planner.event_bus.day_changed.connect (() => {
+            show_today ();
+        });
+
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
@@ -244,6 +248,14 @@ public class Views.Scheduled.Scheduled : Gtk.EventBox {
         Planner.settings.changed.connect ((key) => {
             if (key == "start-week") {
                 show_today ();
+            }
+        });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 20) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
             }
         });
     }

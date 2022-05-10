@@ -22,6 +22,7 @@
 public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
     public bool show_sections { get; construct; }
 
+    private Gtk.Button cancel_button;
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
 
@@ -51,14 +52,20 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
         }
     }
 
+    public string calcel_text {
+        set {
+            cancel_button.label = value;
+        }
+    }
+
     public signal void changed (int64 project_id, int64 section_id);
+    public signal void cancel_activate ();
 
     public ProjectPicker (bool show_sections = true) {
         Object (
             show_sections: show_sections,
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.MOUSE,
             resizable: false
         );
     }
@@ -82,7 +89,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
         done_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
         done_button.get_style_context ().add_class ("primary-color");
 
-        var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+        cancel_button = new Gtk.Button.with_label (_("Cancel")) {
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER,
             can_focus = false
@@ -188,6 +195,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
         });
 
         cancel_button.clicked.connect (() => {
+            cancel_activate ();
             hide_destroy ();
         });
 
@@ -229,6 +237,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
     }
 
     public void popup () {
+        move (Planner.event_bus.x_root, Planner.event_bus.y_root);
         show_all ();
     }
 

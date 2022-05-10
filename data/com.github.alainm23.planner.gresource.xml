@@ -88,5 +88,11 @@
     <file alias="planner-note-dark.svg">resources/planner-note-dark.svg</file>
     <file alias="planner-settings-sliders-dark.svg">resources/planner-settings-sliders-dark.svg</file>
     <file alias="planner-settings-sliders-light.svg">resources/planner-settings-sliders-light.svg</file>
+  
+    <file alias="planner-list-dark.svg">resources/planner-list-dark.svg</file>
+    <file alias="planner-list-light.svg">resources/planner-list-light.svg</file>
+
+    <file alias="planner-board-light.svg">resources/planner-board-light.svg</file>
+    <file alias="planner-board-dark.svg">resources/planner-board-dark.svg</file>
   </gresource>
 </gresources>

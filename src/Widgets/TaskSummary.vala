@@ -78,14 +78,27 @@ public class Widgets.TaskSummary : Gtk.Revealer {
 
         update_request (task, taskrow);
         check_revealer (task, taskrow);
+
+        Planner.settings.changed.connect ((key) => {
+            if (key == "clock-format" || key == "description-preview") {
+                update_request (task, taskrow);
+            }
+        });
     }
 
     public void update_request (ECal.Component task, Layouts.TaskRow taskrow) {
         update_due_label (task, taskrow);
 
-        // description_label.label = Util.get_default ().line_break_to_space (item.description);
-        // description_label_revealer.reveal_child = description_label.label.length > 0;
-        // Planner.settings.get_boolean ("description-preview")
+        if (task.get_icalcomponent ().get_description () != null) {
+            description_label.label = Util.get_default ().line_break_to_space (
+                task.get_icalcomponent ().get_description ()
+            );
+        } else {
+            description_label.label = Util.get_default ().line_break_to_space ("");
+        }
+
+        description_label_revealer.reveal_child = description_label.label.length > 0 && 
+            Planner.settings.get_boolean ("description-preview"); 
     }
 
     public void update_due_label (ECal.Component task, Layouts.TaskRow taskrow) {
@@ -130,6 +143,7 @@ public class Widgets.TaskSummary : Gtk.Revealer {
         bool checked = task.get_icalcomponent ().get_status () == ICal.PropertyStatus.COMPLETED;
 
         summary_revealer.reveal_child = calendar_revealer.reveal_child;
-        reveal_child = summary_revealer.reveal_child && !taskrow.edit && !checked;
+        reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
+            !taskrow.edit && !checked;
     }
 }
