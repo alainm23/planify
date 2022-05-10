@@ -433,7 +433,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         };
 
         actionbar_box.pack_start (submit_cancel_revealer, false, false, 0);
-        actionbar_box.pack_end (menu_button, false, false, 0);
+        // actionbar_box.pack_end (menu_button, false, false, 0);
         actionbar_box.pack_end (delete_button, false, false, 0);
         actionbar_box.pack_end (project_button, false, false, 0);
 
