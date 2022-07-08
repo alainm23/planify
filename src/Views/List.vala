@@ -83,7 +83,8 @@ public class Views.List : Gtk.EventBox {
 
         add (scrolled_window);
         add_sections ();
-
+        show_all ();
+        
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
             children_size_changed ();

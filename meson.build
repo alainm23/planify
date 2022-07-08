@@ -1,7 +1,7 @@
 project (
     'com.github.alainm23.planner',
     'vala', 'c',
-    version: '3.0.8'
+    version: '3.0.9'
 )
 
 gnome = import ('gnome')
@@ -69,9 +69,10 @@ planner_files = files(
     'src/Layouts/ViewHeader.vala',
     'src/Layouts/SectionRow.vala',
     'src/Layouts/LabelChild.vala',
-    'src/Layouts/SectionChild.vala',
+    'src/Layouts/SectionBoard.vala',
     'src/Layouts/TasklistRow.vala',
     'src/Layouts/TaskRow.vala',
+    'src/Layouts/ItemCard.vala',
 
     'src/Widgets/Entry.vala',
     'src/Widgets/DynamicIcon.vala',
@@ -100,7 +101,8 @@ planner_files = files(
     'src/Widgets/EventsList.vala',
     'src/Widgets/EventRow.vala',
     'src/Widgets/Toast.vala',
-
+    'src/Widgets/MultiSelectToolbar.vala',
+    
     'src/Widgets/Calendar/Calendar.vala',
     'src/Widgets/Calendar/CalendarDay.vala',
     'src/Widgets/Calendar/CalendarHeader.vala',
@@ -123,7 +125,10 @@ planner_files = files(
     'src/Dialogs/TodoistOAuth.vala',
     'src/Dialogs/Project.vala',
     'src/Dialogs/Label.vala',
+    'src/Dialogs/Item.vala',
     'src/Dialogs/MessageDialog.vala',
+    'src/Dialogs/Repeat.vala',
+
     'src/Dialogs/QuickFind/QuickFind.vala',
     'src/Dialogs/QuickFind/QuickFindItem.vala',
     'src/Dialogs/QuickFind/Synapse.vala',
@@ -168,6 +173,7 @@ planner_files = files(
     'src/Services/Notification.vala',
     'src/Services/DBusServer.vala',
     'src/Services/MigrateV2.vala',
+    'src/Services/TimeMonitor.vala',
 
     'src/Services/CalDAV/CalDAV.vala',
     'src/Services/CalDAV/Util.vala',

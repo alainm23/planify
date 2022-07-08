@@ -416,3 +416,17 @@ button:disabled {
 popover {
     background-color: @bg_color;
 }
+
+.padding-6 {
+    padding: 6px;
+}
+
+.priority-button {
+    background-color: alpha (@colorAccent, 0.125);
+    border-radius: 6px;
+    color: @colorAccent;
+    font-weight: bold;
+    border: none;
+    box-shadow: none;
+    padding: 3px 6px;
+}

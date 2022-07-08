@@ -4,6 +4,8 @@ public class Views.Date : Gtk.EventBox {
 
     private Gtk.ListBox overdue_listbox;
     private Gtk.ListBox listbox;
+    private Gtk.ListBox checked_listbox;
+    private Gtk.Revealer checked_revealer;
     private Gtk.Stack listbox_stack;
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer overdue_revealer;
@@ -13,6 +15,7 @@ public class Views.Date : Gtk.EventBox {
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
+    public Gee.HashMap <string, Layouts.ItemRow> items_checked;
     private Gee.Map<E.Source, ECal.ClientView> views;
 
     private Gee.HashMap <string, Objects.Task> tasks_store;    
@@ -43,10 +46,11 @@ public class Views.Date : Gtk.EventBox {
     construct {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
+        items_checked = new Gee.HashMap <string, Layouts.ItemRow> ();
         views = new Gee.HashMap<E.Source, ECal.ClientView> ();
 
         tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
-        overdue_tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();;
+        overdue_tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
 
         BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
         if (backend_type == BackendType.CALDAV) {
@@ -73,6 +77,17 @@ public class Views.Date : Gtk.EventBox {
             margin_bottom = 6
         };
         overdue_label.get_style_context ().add_class ("font-bold");
+        
+        var reschedule_button = new Gtk.Button.with_label (_("Reschedule")) {
+            can_focus = false
+        };
+        reschedule_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        reschedule_button.get_style_context ().add_class ("primary-color");
+        reschedule_button.clicked.connect (open_datetime_picker);
+
+        var overdue_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        overdue_box.pack_start (overdue_label, false, true, 0);
+        overdue_box.pack_end (reschedule_button, false, true, 0);
 
         overdue_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -88,7 +103,7 @@ public class Views.Date : Gtk.EventBox {
             orientation = Gtk.Orientation.VERTICAL,
             margin_bottom = 12
         };
-        overdue_grid.add (overdue_label);
+        overdue_grid.add (overdue_box);
         overdue_grid.add (overdue_listbox);
         
         overdue_revealer = new Gtk.Revealer () {
@@ -123,10 +138,32 @@ public class Views.Date : Gtk.EventBox {
         unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
         listbox_context.add_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid () {
-            valign = Gtk.Align.START
+        checked_listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.SINGLE,
+            expand = true
         };
+
+        unowned Gtk.StyleContext checked_listbox_context = checked_listbox.get_style_context ();
+        checked_listbox_context.add_class ("listbox-background");
+
+        var checked_listbox_grid = new Gtk.Grid ();
+        checked_listbox_grid.add (checked_listbox);
+
+        checked_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+
+        checked_revealer.add (checked_listbox_grid);
+
+        var listbox_grid = new Gtk.Grid () {
+            valign = Gtk.Align.START,
+            orientation = Gtk.Orientation.VERTICAL
+        };
+        
         listbox_grid.add (listbox);
+        listbox_grid.add (checked_revealer);
 
         listbox_placeholder = new Widgets.Placeholder (
             is_today_view ? _("Today") : _("Scheduled"),
@@ -190,6 +227,74 @@ public class Views.Date : Gtk.EventBox {
         listbox.remove.connect (validate_placeholder);
         overdue_listbox.add.connect (validate_placeholder);
         overdue_listbox.remove.connect (validate_placeholder);
+
+        //  Planner.settings.changed.connect ((key) => {
+        //      if (key == "show-today-completed") {
+        //          show_completed_changed ();
+        //      }
+        //  });
+    }
+
+    private void show_completed_changed () {
+        if (Planner.settings.get_boolean ("show-today-completed")) {
+            add_completed_items ();
+        } else {
+            items_checked.clear ();
+
+            foreach (unowned Gtk.Widget child in checked_listbox.get_children ()) {
+                child.destroy ();
+            }
+        }
+
+        // checked_revealer.reveal_child = section.project.show_completed;
+    }
+
+    private void add_completed_items () {
+        items_checked.clear ();
+
+        foreach (unowned Gtk.Widget child in checked_listbox.get_children ()) {
+            child.destroy ();
+        }
+
+        foreach (Objects.Item item in Planner.database.get_items_by_date (new GLib.DateTime.now_local (), true)) {
+            if (item.completed) {
+                add_complete_item (item);
+            }
+        }
+
+        checked_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
+    }
+
+    public void add_complete_item (Objects.Item item) {
+        if (Planner.settings.get_boolean ("show-today-completed") && item.checked) {
+            if (!items_checked.has_key (item.id_string)) {
+                items_checked [item.id_string] = new Layouts.ItemRow (item);
+                checked_listbox.add (items_checked [item.id_string]);
+                checked_listbox.show_all ();
+            }
+        }
+    }
+
+    private void open_datetime_picker () {
+        var datetime_picker = new Dialogs.DateTimePicker.DateTimePicker ();
+        datetime_picker.popup ();
+
+        datetime_picker.date_changed.connect (() => {
+            set_datetime (datetime_picker.datetime);
+        });
+    }
+    
+    public void set_datetime (GLib.DateTime? date) {
+        //  foreach (string key in overdue_items.keys) {
+        //      print ("Item: %s\n".printf (key));
+        //      //  if (overdue_items.has_key (key)) {
+        //      //      overdue_items[key].update_due (date);
+        //      //  }            
+        //  }
+
+        foreach (unowned Gtk.Widget child in overdue_listbox.get_children ()) {
+            ((Layouts.ItemRow) child).update_due (date);
+        }
     }
 
     public void update_date (GLib.DateTime newDate) {
@@ -198,6 +303,7 @@ public class Views.Date : Gtk.EventBox {
 
         if (is_today_view) {
             add_today_items ();
+            // show_completed_changed ();
         } else {
             listbox_placeholder.title = Util.get_default ().get_relative_date_from_date (
                 Util.get_default ().get_format_date (date));
@@ -436,7 +542,8 @@ public class Views.Date : Gtk.EventBox {
             
             row.update_due (Util.get_default ().get_format_date (date));
             row.update_content (content);
-    
+            row.update_priority (Util.get_default ().get_default_priority ());
+
             row.item_added.connect (() => {
                 item_added (row);
             });
@@ -451,6 +558,7 @@ public class Views.Date : Gtk.EventBox {
 
                 row.update_due (Util.get_default ().get_format_date (date));
                 row.update_content (content);
+                row.update_priority (Util.get_default ().get_default_priority ());
 
                 listbox.add (row);
                 listbox.show_all ();

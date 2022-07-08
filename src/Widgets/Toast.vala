@@ -70,12 +70,10 @@ public class Widgets.Toast : Gtk.Revealer {
 
         var notification_frame = new Gtk.Frame (null);
         notification_frame.margin = 9;
+        notification_frame.margin_bottom = 20;
         notification_frame.get_style_context ().add_class (Granite.STYLE_CLASS_CARD);
         notification_frame.add (notification_box);
-        //  if (NotificationStyle.ERROR == notification_type) {
-        //      notification_frame.get_style_context ().add_class ("error");
-        //  }
-
+        
         var notification_overlay = new Gtk.Overlay ();
         notification_overlay.add_overlay (close_revealer);
         notification_overlay.add (notification_frame);
@@ -89,23 +87,6 @@ public class Widgets.Toast : Gtk.Revealer {
 
         close_button.clicked.connect (() => {
             reveal_child = false;
-        });
-
-        notification_eventbox.enter_notify_event.connect ((event) => {
-            if (duration != -1) {
-                close_revealer.reveal_child = true;
-            }
-
-            return true;
-        });
-
-        notification_eventbox.leave_notify_event.connect ((event) => {
-            if (event.detail == Gdk.NotifyType.INFERIOR) {
-                return false;
-            }
-
-            close_revealer.reveal_child = false;
-            return true;
         });
     }
 

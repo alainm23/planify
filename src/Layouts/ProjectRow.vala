@@ -158,7 +158,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         listbox_grid.add (listbox);
 
         listbox_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = project.collapsed
         };
         listbox_revealer.add (listbox_grid);
 
@@ -468,6 +469,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var favorite_item = new Dialogs.ContextMenu.MenuItem (project.is_favorite ? ("Remove from favorites") : ("Add to favorites"), "planner-star");
         var edit_item = new Dialogs.ContextMenu.MenuItem (("Edit project"), "planner-edit");
+        var move_item = new Dialogs.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
+        // var no_parent_item = new Dialogs.ContextMenu.MenuItem (_("No parent"), "chevron-right");
 
         var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
 
@@ -489,6 +492,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         menu.add_item (favorite_item);
         menu.add_item (edit_item);
+        menu.add_item (move_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (share_item);
         menu.add_item (show_completed_item);
@@ -532,17 +536,42 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             project.share_mail ();
         });
 
-        // move_item.item_selected.connect ((row) => {
-        //     menu.hide_destroy ();
+        move_item.activate_item.connect (() => {
+            menu.hide_destroy ();
             
-        //     int64 old_parent_id = project.parent_id;
+            var picker = new Dialogs.ProjectPicker.ProjectPicker (false);
 
-        //     project.parent_id = ((Dialogs.ProjectSelector.ProjectRow) row).project.id;
-        //     Planner.database.update_project (project);
+            if (project.parent_id == Constants.INACTIVE) {
+                picker.calcel_text = _("Cancel");
+            } else {
+                picker.calcel_text = _("No parent");
+            }
+            
+            picker.popup ();
 
-        //     if (project.parent_id != old_parent_id) {
-        //         Planner.event_bus.project_parent_changed (project, old_parent_id);
-        //     }
-        // });
+            picker.changed.connect ((project_id, section_id) => {
+                move_project (project_id);
+            });
+
+            picker.cancel_activate.connect (() => {
+                move_project (Constants.INACTIVE);
+            });
+        });
+    }
+
+    private void move_project (int64 parent_id) {
+        int64 old_parent_id = project.parent_id;
+        project.parent_id = parent_id;
+
+        Planner.database.update_project (project);
+        if (project.todoist) {
+            Planner.todoist.move_project_section.begin (project, parent_id, (obj, res) => {
+                if (Planner.todoist.move_project_section.end (res)) {
+                    if (project.parent_id != old_parent_id) {
+                        Planner.event_bus.project_parent_changed (project, old_parent_id);
+                    }
+                }
+            });
+        }
     }
 }

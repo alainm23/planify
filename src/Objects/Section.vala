@@ -51,6 +51,15 @@ public class Objects.Section : Objects.BaseObject {
     public Gee.ArrayList<Objects.Item> items {
         get {
             _items = Planner.database.get_item_by_baseobject (this);
+            _items.sort ((a, b) => {
+                if (a.child_order > b.child_order) {
+                    return 1;
+                } if (a.child_order == b.child_order) {
+                    return 0;
+                }
+                
+                return -1;
+            });
             return _items;
         }
     }
@@ -267,7 +276,7 @@ public class Objects.Section : Objects.BaseObject {
         });
     }
 
-    public string get_move_section (string uuid, int64 new_project_id) {
+    public override string get_move_json (string uuid, int64 new_project_id) {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();

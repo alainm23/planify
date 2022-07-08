@@ -248,6 +248,7 @@ public class Widgets.SubItems : Gtk.EventBox {
         
         Layouts.ItemRow row = new Layouts.ItemRow.for_parent (item_parent);
         row.update_content (content);
+        row.update_priority (Util.get_default ().get_default_priority ());
 
         row.item_added.connect (() => {
             items [row.item.id_string] = row;

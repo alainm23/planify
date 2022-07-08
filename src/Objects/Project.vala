@@ -3,7 +3,6 @@ public class Objects.Project : Objects.BaseObject {
     public string due_date { get; set; default = ""; }
     public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
-    public ProjectViewStyle view_style { get; set; default = ProjectViewStyle.LIST; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
     public bool todoist { get; set; default = false; }
     public bool inbox_project { get; set; default = false; }
@@ -14,6 +13,18 @@ public class Objects.Project : Objects.BaseObject {
     public bool shared { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
     
+    ProjectViewStyle _view_style = ProjectViewStyle.LIST;
+    public ProjectViewStyle view_style {
+        get {
+            return _view_style;
+        }
+
+        set {
+            _view_style = value;
+            view_style_changed ();
+        }
+    }
+
     bool _show_completed = false;
     public bool show_completed {
         get {
@@ -76,6 +87,15 @@ public class Objects.Project : Objects.BaseObject {
     public Gee.ArrayList<Objects.Item> items {
         get {
             _items = Planner.database.get_item_by_baseobject (this);
+            _items.sort ((a, b) => {
+                if (a.child_order > b.child_order) {
+                    return 1;
+                } if (a.child_order == b.child_order) {
+                    return 0;
+                }
+                
+                return -1;
+            });
             return _items;
         }
     }
@@ -101,6 +121,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void item_added (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
+    public signal void view_style_changed ();
 
     int? _project_count = null;
     public int project_count {
@@ -395,6 +416,14 @@ public class Objects.Project : Objects.BaseObject {
             builder.set_member_name ("is_favorite");
             builder.add_boolean_value (is_favorite);
 
+            if (parent_id != Constants.INACTIVE) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (parent_id);
+            } else {
+                builder.set_member_name ("parent_id");
+                builder.add_null_value ();
+            }
+
             builder.end_object ();
         builder.end_object ();
         builder.end_array ();
@@ -403,6 +432,7 @@ public class Objects.Project : Objects.BaseObject {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
+        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
     }
 
@@ -432,6 +462,43 @@ public class Objects.Project : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public override string get_move_json (string uuid, int64 new_parent_id) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+        builder.begin_object ();
+
+        // Set type
+        builder.set_member_name ("type");
+        builder.add_string_value ("project_move");
+
+        builder.set_member_name ("uuid");
+        builder.add_string_value (uuid);
+
+        builder.set_member_name ("args");
+            builder.begin_object ();
+            
+            builder.set_member_name ("id");
+            builder.add_int_value (id);
+
+            if (new_parent_id != Constants.INACTIVE) {
+                builder.set_member_name ("parent_id");
+                builder.add_int_value (new_parent_id);    
+            } else {
+                builder.set_member_name ("parent_id");
+                builder.add_null_value ();
+            }
+
+            builder.end_object ();
+        builder.end_object ();
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+        
+        return generator.to_data (null); 
     }
 
     public void delete (bool confirm = true) {
@@ -548,6 +615,8 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void build_content_menu () {
+        Planner.event_bus.unselect_all ();
+
         var menu = new Dialogs.ContextMenu.Menu ();
 
         var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
@@ -633,7 +702,20 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void build_view_menu () {
+        Planner.event_bus.unselect_all ();
+
         var menu = new Dialogs.ContextMenu.Menu ();
+
+        var view_content = new Dialogs.Settings.SettingsContent (_("View")) {
+            margin = 6,
+            margin_top = 0
+        };
+
+        var view_as_item = new Dialogs.ContextMenu.MenuItem (
+            view_style == ProjectViewStyle.LIST ?  _("View as Board") : _("View as List"),
+            view_style == ProjectViewStyle.LIST ? "planner-board" : "planner-list");
+
+        view_content.add_child (view_as_item);
 
         var custom_sort_item = new Gtk.RadioButton.with_label (null, _("Custom sort order")) {
             hexpand = true,
@@ -685,6 +767,7 @@ public class Objects.Project : Objects.BaseObject {
         sort_content.add_child (date_added_sort_item);
         sort_content.add_child (priority_sort_item);
 
+        // menu.add_item (view_content);
         menu.add_item (sort_content);
         menu.popup ();
 
@@ -710,6 +793,18 @@ public class Objects.Project : Objects.BaseObject {
 
         priority_sort_item.toggled.connect (() => {
             sort_order = 4;
+            update (false);
+        });
+
+        view_as_item.activate_item.connect (() => {
+            menu.hide_destroy ();
+            
+            if (view_style == ProjectViewStyle.LIST) {
+                view_style = ProjectViewStyle.BOARD;
+            } else {
+                view_style = ProjectViewStyle.LIST;
+            }
+
             update (false);
         });
     }

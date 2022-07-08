@@ -2,6 +2,11 @@
     background-color: @picker_bg;
 }
 
+
+.picker-bg {
+    background-color: @picker_bg;
+}
+
 .picker-background {
     background-color: @picker_content_bg;
 }

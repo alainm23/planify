@@ -9,7 +9,6 @@ namespace Constants {
     public const int ACTIVE = 1;
     public const int INACTIVE = 0;
     public const int UPDATE_TIMEOUT = 1500;
-    public const int COMPLETE_TIMEOUT = 2500;
     public const int DESTROY_TIMEOUT = 750;
     public const int DRAG_TIMEOUT = 225;
     public const int TODOIST_SYNC_TIMEOUT = 2500;

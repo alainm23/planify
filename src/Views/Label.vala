@@ -30,9 +30,9 @@ public class Views.Label : Gtk.EventBox {
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
-            height_request = 16,
-            width_request = 16,
-            margin_start = 3
+            height_request = 13,
+            width_request = 13,
+            margin_start = 6
         };
 
         unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
@@ -73,7 +73,7 @@ public class Views.Label : Gtk.EventBox {
         };
 
         header_box.pack_start (widget_color, false, false, 0);
-        header_box.pack_start (title_label, false, false, 9);
+        header_box.pack_start (title_label, false, false, 11);
         // header_box.pack_end (menu_button, false, false, 0);
         header_box.pack_end (search_button, false, false, 0);
 
@@ -90,7 +90,7 @@ public class Views.Label : Gtk.EventBox {
         listbox_context.add_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 12
+            margin_top = 6
         };
         listbox_grid.add (listbox);
 
@@ -108,7 +108,7 @@ public class Views.Label : Gtk.EventBox {
         var content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
             expand = true,
-            margin_start = 36,
+            margin_start = 16,
             margin_end = 36,
             margin_bottom = 36,
             margin_top = 6
@@ -156,6 +156,14 @@ public class Views.Label : Gtk.EventBox {
 
         listbox.remove.connect (() => {
             validate_placeholder ();
+        });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 20) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
+            }
         });
     }
 

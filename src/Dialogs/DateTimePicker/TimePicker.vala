@@ -26,6 +26,7 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
     private Gtk.SpinButton minutes_spinbutton;
     private Gtk.Stack time_stack;
     private Gtk.Revealer no_time_revealer;
+    private Gtk.Popover popover;
 
     public string format_12 { get; construct; }
     public string format_24 { get; construct; }
@@ -201,7 +202,7 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
         pop_grid.attach (am_pm_modebutton, 3, 0, 1, 1);
         pop_grid.margin = 6;
 
-        var popover = new Gtk.Popover (time_button);
+        popover = new Gtk.Popover (time_button);
         popover.position = Gtk.PositionType.BOTTOM;
         popover.add (pop_grid);
 
@@ -214,52 +215,57 @@ public class Dialogs.DateTimePicker.TimePicker : Gtk.EventBox {
         add (main_grid);
 
         time_button.clicked.connect (() => {
-            // If the mode is changed from 12h to 24h or visa versa, the entry updates on icon press
-            update_text ();
-            changing_time = true;
-
-            if (Util.get_default ().is_clock_format_12h () && time.get_hour () > 12) {
-                hours_spinbutton.set_value (time.get_hour () - 12);
-            } else {
-                hours_spinbutton.set_value (time.get_hour ());
-            }
-
-            if (Util.get_default ().is_clock_format_12h ()) {
-                am_pm_modebutton.no_show_all = false;
-                am_pm_modebutton.show_all ();
-
-                if (time.get_hour () > 12) {
-                    hours_spinbutton.set_value (time.get_hour () - 12);
-                } else if (time.get_hour () == 0) {
-                    hours_spinbutton.set_value (12);
-                } else {
-                    hours_spinbutton.set_value (time.get_hour ());
-                }
-
-                // Make sure that bounds are set correctly
-                hours_spinbutton.set_range (1, 12);
-            } else {
-                am_pm_modebutton.no_show_all = true;
-                am_pm_modebutton.hide ();
-                hours_spinbutton.set_value (time.get_hour ());
-
-                hours_spinbutton.set_range (0, 23);
-            }
-
-            minutes_spinbutton.set_value (time.get_minute ());
-            changing_time = false;
-
-            popover.show_all ();
+            open_time_picker ();
         });
 
         add_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "time-box";
             update_text ();
+            open_time_picker ();
         });
 
         no_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "add-time";
         });
+    }
+
+    private void open_time_picker () {
+        // If the mode is changed from 12h to 24h or visa versa, the entry updates on icon press
+        update_text ();
+        changing_time = true;
+
+        if (Util.get_default ().is_clock_format_12h () && time.get_hour () > 12) {
+            hours_spinbutton.set_value (time.get_hour () - 12);
+        } else {
+            hours_spinbutton.set_value (time.get_hour ());
+        }
+
+        if (Util.get_default ().is_clock_format_12h ()) {
+            am_pm_modebutton.no_show_all = false;
+            am_pm_modebutton.show_all ();
+
+            if (time.get_hour () > 12) {
+                hours_spinbutton.set_value (time.get_hour () - 12);
+            } else if (time.get_hour () == 0) {
+                hours_spinbutton.set_value (12);
+            } else {
+                hours_spinbutton.set_value (time.get_hour ());
+            }
+
+            // Make sure that bounds are set correctly
+            hours_spinbutton.set_range (1, 12);
+        } else {
+            am_pm_modebutton.no_show_all = true;
+            am_pm_modebutton.hide ();
+            hours_spinbutton.set_value (time.get_hour ());
+
+            hours_spinbutton.set_range (0, 23);
+        }
+
+        minutes_spinbutton.set_value (time.get_minute ());
+        changing_time = false;
+
+        popover.show_all ();
     }
 
     private void update_time (bool is_hour) {

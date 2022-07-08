@@ -21,15 +21,19 @@
 
 public class Dialogs.LabelPicker.LabelRow : Gtk.ListBoxRow {
     public Objects.Label label { get; construct; }
-    public bool active { get; construct; }
+
+    public bool active {
+        set {
+            checked_button.active = value;
+        }
+    }
 
     private Gtk.CheckButton checked_button;
     public signal void checked_toggled (Objects.Label label, bool active);
 
-    public LabelRow (Objects.Label label, bool active) {
+    public LabelRow (Objects.Label label) {
         Object (
-            label: label,
-            active: active
+            label: label
         );
     }
 
@@ -42,7 +46,6 @@ public class Dialogs.LabelPicker.LabelRow : Gtk.ListBoxRow {
             label = label.name,
             hexpand = true
         };
-        checked_button.active = active;
 
         checked_button.get_style_context ().add_class ("priority-color");
         Util.get_default ().set_widget_priority (Constants.PRIORITY_4, checked_button);

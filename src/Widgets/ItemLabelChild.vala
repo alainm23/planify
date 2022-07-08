@@ -25,6 +25,8 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
 
+    public signal void delete_request ();
+
     public ItemLabelChild (Objects.ItemLabel item_label) {
         Object (
             item_label: item_label,
@@ -59,11 +61,13 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         });
 
         item_label.deleted.connect (() => {
-            hide_destroy ();
+            delete_request ();
+            // hide_destroy ();
         });
 
         item_label.label.deleted.connect (() => {
-            hide_destroy ();
+            delete_request ();
+            //hide_destroy ();
         });
 
         item_label.label.updated.connect (update_request);

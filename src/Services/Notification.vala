@@ -30,21 +30,12 @@ public class Services.Notification : GLib.Object {
     }
 
     private Gee.HashMap<string, string> reminders;
-    private GLib.TimeSpan time;
 
     construct {
-        time = time_until_tomorrow ();
         regresh ();
-
-        Timeout.add_seconds (((uint) time), () => {
-            time = time_until_tomorrow ();
-            regresh ();
-
-            return true;
-        });
     }
 
-    private void regresh () {
+    public void regresh () {
         if (reminders == null) {
             reminders = new Gee.HashMap<string, string> ();
         } else {
@@ -59,9 +50,9 @@ public class Services.Notification : GLib.Object {
             reminder_added (reminder);
         });
 
-        Planner.database.reminder_deleted.connect ((id) => {
-            if (reminders.has_key (id.to_string ())) {
-                reminders.unset (id.to_string ());
+        Planner.database.reminder_deleted.connect ((reminder) => {
+            if (reminders.has_key (reminder.id_string)) {
+                reminders.unset (reminder.id_string);
             }
         });
     }
@@ -78,8 +69,8 @@ public class Services.Notification : GLib.Object {
                 new Variant.int64 (reminder.item_id)
             );
 
-            Planner.instance.send_notification (reminder.id.to_string (), notification);
-            Planner.database.delete_reminder (reminder.id);
+            Planner.instance.send_notification (reminder.id_string, notification);
+            Planner.database.delete_reminder (reminder);
         } else if (Granite.DateTime.is_same_day (reminder.due.datetime, new GLib.DateTime.now_local ())) {
             var interval = (uint) time_until_now (reminder.due.datetime);
             var uid = "%u-%u".printf (interval, GLib.Random.next_int ());
@@ -128,6 +119,6 @@ public class Services.Notification : GLib.Object {
         );
 
         Planner.instance.send_notification (uid, notification);
-        Planner.database.delete_reminder (reminder.id);
+        Planner.database.delete_reminder (reminder);
     }
 }

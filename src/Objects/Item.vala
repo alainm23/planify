@@ -31,6 +31,7 @@ public class Objects.Item : Objects.BaseObject {
     public int64 parent_id { get; set; default = Constants.INACTIVE; }
     
     public int priority { get; set; default = Constants.INACTIVE; }
+
     public string priority_icon {
         get {
             if (priority == Constants.PRIORITY_1) {
@@ -41,6 +42,34 @@ public class Objects.Item : Objects.BaseObject {
                 return "planner-priority-3";
             } else {
                 return "planner-flag";
+            }
+        }
+    }
+
+    public string priority_color {
+        get {
+            if (priority == Constants.PRIORITY_1) {
+                return "#ff7066";
+            } else if (priority == Constants.PRIORITY_2) {
+                return "#ff9914";
+            } else if (priority == Constants.PRIORITY_3) {
+                return "#5297ff";
+            } else {
+                return "@text_color";
+            }
+        }
+    }
+
+    public string priority_text {
+        get {
+            if (priority == Constants.PRIORITY_1) {
+                return _("Priority 1: high");
+            } else if (priority == Constants.PRIORITY_2) {
+                return _("Priority 2: medium");
+            } else if (priority == Constants.PRIORITY_3) {
+                return _("Priority 3: low");
+            } else {
+                return _("Priority 4: none");
             }
         }
     }
@@ -152,6 +181,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void item_label_added (Objects.ItemLabel item_label);
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
+    public signal void reminder_deleted (Objects.Reminder reminder);
 
     construct {
         deleted.connect (() => {
@@ -371,6 +401,40 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             update_local ();
         }
+    }
+
+    public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder) {
+        Objects.Reminder? return_value = null;
+        lock (_reminders) {
+            return_value = get_reminder (reminder);
+            if (return_value == null) {
+                Planner.database.insert_reminder (reminder);
+                add_reminder (return_value);
+            }
+            return return_value;
+        }
+    }
+
+    private Objects.Reminder? get_reminder (Objects.Reminder reminder) {
+        Objects.Reminder? return_value = null;
+        lock (_reminders) {
+            foreach (var _reminder in _reminders) {
+                if (reminder.due.datetime.compare (_reminder.due.datetime) == 0) {
+                    return_value = _reminder;
+                    break;
+                }
+            }
+        }
+        return return_value;
+    }
+
+    private void add_reminder (Objects.Reminder reminder) {
+        _reminders.add (reminder);
+        reminder_added (reminder);
+    }
+
+    public void delete_reminder (Objects.Reminder reminder) {
+        Planner.database.delete_reminder (reminder);
     }
 
     public Objects.ItemLabel add_label_if_not_exists (Objects.Label label) {

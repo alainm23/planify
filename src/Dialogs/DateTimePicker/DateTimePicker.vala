@@ -57,7 +57,6 @@ public class Dialogs.DateTimePicker.DateTimePicker : Hdy.Window {
         Object (
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.MOUSE,
             resizable: false
         );
     }
@@ -240,14 +239,7 @@ public class Dialogs.DateTimePicker.DateTimePicker : Hdy.Window {
     }
 
     public void popup () {
+        move (Planner.event_bus.x_root, Planner.event_bus.y_root);
         show_all ();
-
-        // Gdk.Rectangle rect;
-        // get_allocation (out rect);
-
-        // int root_x, root_y;
-        // get_position (out root_x, out root_y);
-
-        // move (root_x + (rect.width / 3), root_y + (rect.height / 3) + 24);
     }
 }

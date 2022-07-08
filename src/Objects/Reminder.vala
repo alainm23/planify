@@ -18,6 +18,12 @@ public class Objects.Reminder : Objects.BaseObject {
         }
     }
 
+    construct {
+        deleted.connect (() => {
+            Planner.database.reminder_deleted (this);
+        });
+    }
+
     public override string get_add_json (string temp_id, string uuid) {
         return get_update_json (uuid, temp_id);
     }
@@ -76,5 +82,25 @@ public class Objects.Reminder : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null);
+    }
+
+    public void delete (Widgets.LoadingButton? loading_button = null) {
+        if (item.project.todoist) {
+            if (loading_button != null) {
+                loading_button.is_loading = true;
+            }
+
+            Planner.todoist.delete.begin (this, (obj, res) => {
+                if (Planner.todoist.delete.end (res)) {
+                    Planner.database.delete_reminder (this);
+                } else {
+                    if (loading_button != null) {
+                        loading_button.is_loading = false;
+                    }
+                }
+            });
+        } else {
+            Planner.database.delete_reminder (this);
+        }
     }
 }

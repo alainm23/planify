@@ -20,8 +20,6 @@
 */
 
 public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
-    public Objects.Item item { get; construct; }
-
     private Gtk.SearchEntry search_entry;
     private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
@@ -30,14 +28,24 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     public Gee.HashMap <string, Objects.Label> labels_map;
     public Gee.HashMap <string, Dialogs.LabelPicker.LabelRow> labels_widgets_map;
 
+    public Objects.Item item {
+        set {
+            foreach (var entry in value.labels.entries) {
+                labels_map [entry.key] = entry.value.label;
+            }
+
+            foreach (Objects.Label label in Planner.database.labels) {
+                labels_widgets_map [label.id_string].active = value.labels.has_key (label.id_string);
+            }
+        }
+    }
+
     public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels_map);
 
-    public LabelPicker (Objects.Item item) {
+    public LabelPicker () {
         Object (
-            item: item,
             transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.MOUSE,
             resizable: false
         );
     }
@@ -45,10 +53,6 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     construct {
         labels_map = new Gee.HashMap <string, Objects.Label> ();
         labels_widgets_map = new Gee.HashMap <string, Dialogs.LabelPicker.LabelRow> ();
-
-        foreach (var entry in item.labels.entries) {
-            labels_map [entry.key] = entry.value.label;
-        }
 
         var headerbar = new Hdy.HeaderBar () {
             has_subtitle = false,
@@ -237,7 +241,7 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
 
     private void add_all_labels () {
         foreach (Objects.Label label in Planner.database.labels) {
-            Dialogs.LabelPicker.LabelRow row = new Dialogs.LabelPicker.LabelRow (label, item.labels.has_key (label.id_string));
+            Dialogs.LabelPicker.LabelRow row = new Dialogs.LabelPicker.LabelRow (label);
             row.checked_toggled.connect (checked_toggled);
 
             labels_widgets_map [label.id_string] = row;
@@ -257,15 +261,8 @@ public class Dialogs.LabelPicker.LabelPicker : Hdy.Window {
     }
 
     public void popup () {
+        move (Planner.event_bus.x_root, Planner.event_bus.y_root);
         show_all ();
-
-        // Gdk.Rectangle rect;
-        // get_allocation (out rect);
-
-        // int root_x, root_y;
-        // get_position (out root_x, out root_y);
-
-        // move (root_x + (rect.width / 3), root_y + (rect.height / 3) + 24);
     }
 
     private Gtk.Widget get_placeholder () {

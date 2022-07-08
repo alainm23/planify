@@ -9,13 +9,17 @@
     border: 0.4px solid @menu_separator;
 }
 
+.pane-content-background {
+    background-color: @picker_bg;
+}
+
 .pane-content.danger {
     background-color: #c6262e;
     text-shadow: 0 1px 1px #c6262e;
 }
 
 .pane-listbox-background {
-    background-color: @base_color;
+    background-color: @picker_content_bg;
 }
 
 .listbox-background {

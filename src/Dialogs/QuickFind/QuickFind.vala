@@ -43,6 +43,7 @@ public class Dialogs.QuickFind.QuickFind : Hdy.Window {
     }
 
     construct {
+        Planner.event_bus.unselect_all ();
         views = new Gee.HashMap<E.Source, ECal.ClientView> ();
         
         unowned Gtk.StyleContext main_context = get_style_context ();

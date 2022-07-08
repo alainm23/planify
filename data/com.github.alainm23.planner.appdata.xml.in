@@ -40,6 +40,17 @@
     <binary>com.github.alainm23.planner</binary>
   </provides>
   ​<releases>
+  <release version="3.0.9" date="2022-05-10">
+      <description>
+        <p>Planner 3 Beta 2.1</p>
+        <ul>
+          <li>Multi select toolbar available, hold CTRL and click on tasks.</li>
+          <li>Support for subprojects available.</li>
+          <li>Performance and design improvements.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="3.0.8" date="2022-04-13">
       <description>
         <p>Planner 3 Beta 2</p>

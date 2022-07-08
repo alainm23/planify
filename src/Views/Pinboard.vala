@@ -141,6 +141,14 @@ public class Views.Pinboard : Gtk.EventBox {
         listbox.remove.connect (() => {
             validate_placeholder ();
         });
+
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 20) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
+            }
+        });
     }
 
     private void validate_placeholder () {
@@ -155,6 +163,7 @@ public class Views.Pinboard : Gtk.EventBox {
         );
 
         row.update_content (content);
+        row.update_priority (Util.get_default ().get_default_priority ());
         row.update_pinned (true);
         
         row.item_added.connect (() => {

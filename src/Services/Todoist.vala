@@ -1119,14 +1119,14 @@ public class Services.Todoist : GLib.Object {
         return success;
     }
 
-    public async bool move_section (Objects.Section section, int64 new_project_id) {
+    public async bool move_project_section (Objects.BaseObject base_object, int64 project_id) {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
         string url = "%s?token=%s&commands=%s".printf (
             TODOIST_SYNC_URL,
             Planner.settings.get_string ("todoist-access-token"),
-            section.get_move_section (uuid, new_project_id)
+            base_object.get_move_json (uuid, project_id)
         );
 
         var message = new Soup.Message ("POST", url);
@@ -1166,9 +1166,14 @@ public class Services.Todoist : GLib.Object {
             } else {
                 var queue = new Objects.Queue ();
                 queue.uuid = uuid;
-                queue.object_id = section.id;
-                queue.query = "section_move";
-                queue.args = section.to_json ();
+                queue.object_id = base_object.id;
+                if (base_object is Objects.Project) {
+                    queue.query = "project_move";
+                } else {
+                    queue.query = "section_move";
+                }
+
+                queue.args = base_object.to_json ();
                 success = true;
 
                 Planner.database.insert_queue (queue);

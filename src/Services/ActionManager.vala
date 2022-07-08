@@ -155,8 +155,10 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
-        var dialog = new Dialogs.Project.new ();
-        dialog.show_all ();
+        if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
+            var dialog = new Dialogs.Project.new ();
+            dialog.show_all ();
+        }
     }
 
     private void action_view_inbox () {
@@ -184,7 +186,9 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_section () {
-        window.new_section_action ();
+        if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
+            window.new_section_action ();
+        }
     }
 
     private void action_add_task () {

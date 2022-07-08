@@ -682,6 +682,8 @@ public class Util : GLib.Object {
         } else {
             row.hide_destroy ();
         }
+
+        Planner.event_bus.update_section_sort_func (row.item.project_id, row.item.section_id, false);
     }
 
     public GLib.DateTime get_format_date (GLib.DateTime date) {
@@ -803,6 +805,8 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-mail", true);
                 _dynamic_icons.set ("planner-note", true);
                 _dynamic_icons.set ("planner-settings-sliders", true);
+                _dynamic_icons.set ("planner-list", true);
+                _dynamic_icons.set ("planner-board", true);
             }
 
             return _dynamic_icons;
@@ -837,6 +841,21 @@ public class Util : GLib.Object {
     
     public void open_quick_find () {
         var dialog = new Dialogs.QuickFind.QuickFind ();
+
+        int window_x, window_y;
+        int window_width, width_height;
+
+        Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
+        Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+
+        dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
+        dialog.show_all ();
+    }
+
+    public void open_item_dialog (Objects.Item item) {
+        Planner.event_bus.alt_pressed = false;
+        
+        var dialog = new Dialogs.Item (item);
 
         int window_x, window_y;
         int window_width, width_height;
@@ -983,4 +1002,37 @@ public class Util : GLib.Object {
 
         return messages.get (code);
     }
+
+    public int get_default_priority () {
+        int default_priority = Planner.settings.get_enum ("default-priority");
+        int returned = 1;
+
+        if (default_priority == 0) {
+            returned = 4;
+        } else if (default_priority == 1) {
+            returned = 3;
+        } else if (default_priority == 2) {
+            returned = 2;
+        } else if (default_priority == 3) {
+            returned = 1;
+        }
+
+        return returned;
+    }
+
+    public int to_caldav_priority (int priority) {
+        int returned = 1;
+
+        if (priority == 4) {
+            returned = 1;
+        } else if (priority == 3) {
+            returned = 5;
+        } else if (priority == 2) {
+            returned = 9;
+        } else {
+            returned = 0;
+        }
+
+        return returned;
+    }   
 }

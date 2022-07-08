@@ -62,9 +62,9 @@ public class Widgets.MagicButton : Gtk.Revealer {
             clicked ();
         });
 
-        // Planner.event_bus.magic_button_visible.connect ((visible) => {
-        //     reveal_child = visible;
-        // });
+        Planner.event_bus.magic_button_visible.connect ((visible) => {
+           reveal_child = visible;
+        });
     }
 
     private void build_drag_and_drop () {

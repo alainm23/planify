@@ -277,6 +277,12 @@ public class Views.Tasklist : Gtk.EventBox {
 
     public void prepare_new_item (string content = "") {
         var row = new Layouts.TaskRow.for_source (source);
+
+        row.update_content (content);
+        row.update_priority (Util.get_default ().to_caldav_priority (
+            Util.get_default ().get_default_priority ()
+        ));
+
         listbox.add (row);
         listbox.show_all ();
     }
@@ -435,15 +441,26 @@ public class Views.Tasklist : Gtk.EventBox {
         var menu = new Dialogs.ContextMenu.Menu ();
 
         var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit tasklist"), "planner-edit");
-        
-        var show_completed_item = new Dialogs.ContextMenu.MenuSwitch (
-            _("Show completed"), "planner-check-circle", show_completed);
+
+        var show_completed_item = new Dialogs.ContextMenu.MenuItem (
+            show_completed ? _("Hide completed tasks") : _("Show completed tasks"),
+            "planner-check-circle"
+        );
+
+        var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
+
+        var share_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-note");
+        var email_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-mail");
+
+        share_item.add_item (share_markdown_item);
+        share_item.add_item (email_markdown_item);
 
         var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");
         delete_item.sensitive = Services.CalDAV.get_default ().is_remove_task_list_supported (source);
 
         menu.add_item (show_completed_item);
+        // menu.add_item (share_item);
         menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
         menu.add_item (delete_item);
 
@@ -454,7 +471,8 @@ public class Views.Tasklist : Gtk.EventBox {
         });
 
         show_completed_item.activate_item.connect (() => {
-            show_completed = show_completed_item.active;
+            menu.hide_destroy ();
+            show_completed = !show_completed;
             checked_revealer.reveal_child = show_completed;
             validate_placeholder ();
         });
