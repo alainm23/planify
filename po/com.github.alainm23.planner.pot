@@ -461,7 +461,7 @@ msgid ""
 msgstr ""
 
 #: src/Widgets/PriorityButton.vala:46
-msgid "Priority 1: hight"
+msgid "Priority 1: high"
 msgstr ""
 
 #: src/Widgets/PriorityButton.vala:47
