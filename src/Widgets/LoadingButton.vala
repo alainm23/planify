@@ -29,6 +29,20 @@ public class Widgets.LoadingButton : Gtk.Button {
         );
     }
 
+    public LoadingButton.with_label (string label) {
+        Object (
+            loading_type: LoadingButtonType.LABEL,
+            text_icon: label
+        );
+    }
+
+    public LoadingButton.with_icon (string icon_name) {
+        Object (
+            loading_type: LoadingButtonType.ICON,
+            text_icon: icon_name
+        );
+    }
+
     construct {
         var submit_spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
@@ -38,7 +52,8 @@ public class Widgets.LoadingButton : Gtk.Button {
         submit_spinner.start ();
 
         submit_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            valign = Gtk.Align.CENTER
         };
 
         if (loading_type == LoadingButtonType.LABEL) {
@@ -52,6 +67,6 @@ public class Widgets.LoadingButton : Gtk.Button {
         
         submit_stack.add_named (submit_spinner, "spinner");
 
-        add (submit_stack);
+        child = submit_stack;
     }
 }

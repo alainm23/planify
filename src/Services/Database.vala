@@ -1554,7 +1554,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int64 (stmt, "$current_id", current_id);
 
         if (stmt.step () == Sqlite.DONE) {
-            Objects.Project? project = Planner.database.get_project (current_id);
+            Objects.Project? project = get_project (current_id);
             if (project != null) {
                 project.id = new_id;
             }
@@ -1809,4 +1809,3 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 }
-

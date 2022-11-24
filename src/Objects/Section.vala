@@ -42,7 +42,7 @@ public class Objects.Section : Objects.BaseObject {
     Objects.Project? _project;
     public Objects.Project project {
         get {
-            _project = Planner.database.get_project (project_id);
+            _project = Services.Database.get_default ().get_project (project_id);
             return _project;
         }
     }
@@ -50,7 +50,7 @@ public class Objects.Section : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Planner.database.get_item_by_baseobject (this);
+            _items = Services.Database.get_default ().get_item_by_baseobject (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -68,17 +68,17 @@ public class Objects.Section : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Planner.database.section_deleted (this);
+            Services.Database.get_default ().section_deleted (this);
         });
     }
 
     public Section.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = node.get_object ().get_int_member ("project_id");
+        project_id = int64.parse (node.get_object ().get_string_member ("project_id"));
         name = node.get_object ().get_string_member ("name");
         added_at = node.get_object ().get_string_member ("added_at");
         section_order = (int32) node.get_object ().get_int_member ("section_order");
@@ -102,7 +102,7 @@ public class Objects.Section : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_section (this);
                 add_item (new_item);
-                Planner.database.insert_item (new_item, insert);
+                Services.Database.get_default ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
@@ -134,11 +134,11 @@ public class Objects.Section : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            Planner.database.update_section (this);
+            Services.Database.get_default ().update_section (this);
             if (project.todoist && cloud) {
-                Planner.todoist.update.begin (this, (obj, res) => {
-                    Planner.todoist.update.end (res);
-                });
+                //  Planner.todoist.update.begin (this, (obj, res) => {
+                //      Planner.todoist.update.end (res);
+                //  });
             }
 
             return GLib.Source.REMOVE;
@@ -202,8 +202,8 @@ public class Objects.Section : Objects.BaseObject {
         builder.add_int_value (id);
 
         builder.set_member_name ("project_id");
-        if (Planner.database.curTempIds_exists (project_id)) {
-            builder.add_string_value (Planner.database.get_temp_id (project_id));
+        if (Services.Database.get_default ().curTempIds_exists (project_id)) {
+            builder.add_string_value (Services.Database.get_default ().get_temp_id (project_id));
         } else {
             builder.add_int_value (project_id);
         }
@@ -221,59 +221,59 @@ public class Objects.Section : Objects.BaseObject {
     }
 
     public void delete (bool confirm = true) {
-        if (!confirm) {
-            if (project.todoist) {
-                Planner.todoist.delete.begin (this, (obj, res) => {
-                    Planner.todoist.delete.end (res);
-                    Planner.database.delete_section (this);
-                });
-            } else {
-                Planner.database.delete_section (this);
-            }
+        //  if (!confirm) {
+        //      if (project.todoist) {
+        //          Planner.todoist.delete.begin (this, (obj, res) => {
+        //              Planner.todoist.delete.end (res);
+        //              Services.Database.get_default ().delete_section (this);
+        //          });
+        //      } else {
+        //          Services.Database.get_default ().delete_section (this);
+        //      }
 
-            return;
-        }
+        //      return;
+        //  }
 
-        int tasks = items.size;
-        string message = _("Are you sure you want to delete %s?".printf (Util.get_default ().get_dialog_text (name)));
-        if (tasks > 0) {
-            message = _("Delete %s with its %d tasks?".printf (Util.get_default ().get_dialog_text (name), tasks));
-        }
+        //  int tasks = items.size;
+        //  string message = _("Are you sure you want to delete %s?".printf (Util.get_default ().get_dialog_text (name)));
+        //  if (tasks > 0) {
+        //      message = _("Delete %s with its %d tasks?".printf (Util.get_default ().get_dialog_text (name), tasks));
+        //  }
 
-        var message_dialog = new Dialogs.MessageDialog (
-            _("Delete section"),
-            message,
-            "dialog-warning"
-        );
-        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        message_dialog.show_all ();
+        //  var message_dialog = new Dialogs.MessageDialog (
+        //      _("Delete section"),
+        //      message,
+        //      "dialog-warning"
+        //  );
+        //  message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+        //  message_dialog.show_all ();
 
-        var remove_button = new Widgets.LoadingButton (
-            LoadingButtonType.LABEL, _("Delete")) {
-            hexpand = true
-        };
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        remove_button.get_style_context ().add_class ("border-radius-6");
-        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+        //  var remove_button = new Widgets.LoadingButton (
+        //      LoadingButtonType.LABEL, _("Delete")) {
+        //      hexpand = true
+        //  };
+        //  remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        //  remove_button.get_style_context ().add_class ("border-radius-6");
+        //  message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
-        message_dialog.default_action.connect ((response) => {
-            if (response == Gtk.ResponseType.ACCEPT) {
-                if (project.todoist) {
-                    remove_button.is_loading = true;
-                    Planner.todoist.delete.begin (this, (obj, res) => {
-                        Planner.todoist.delete.end (res);
-                        Planner.database.delete_section (this);
-                        remove_button.is_loading = false;
-                        message_dialog.hide_destroy ();
-                    });
-                } else {
-                    Planner.database.delete_section (this);
-                    message_dialog.hide_destroy ();
-                }
-            } else {
-                message_dialog.hide_destroy ();
-            }
-        });
+        //  message_dialog.default_action.connect ((response) => {
+        //      if (response == Gtk.ResponseType.ACCEPT) {
+        //          if (project.todoist) {
+        //              remove_button.is_loading = true;
+        //              Planner.todoist.delete.begin (this, (obj, res) => {
+        //                  Planner.todoist.delete.end (res);
+        //                  Services.Database.get_default ().delete_section (this);
+        //                  remove_button.is_loading = false;
+        //                  message_dialog.hide_destroy ();
+        //              });
+        //          } else {
+        //              Services.Database.get_default ().delete_section (this);
+        //              message_dialog.hide_destroy ();
+        //          }
+        //      } else {
+        //          message_dialog.hide_destroy ();
+        //      }
+        //  });
     }
 
     public override string get_move_json (string uuid, int64 new_project_id) {

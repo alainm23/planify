@@ -1,4 +1,5 @@
-public class Views.Project : Gtk.EventBox {
+
+public class Views.Project : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
     private Gtk.Stack view_stack;
@@ -13,38 +14,35 @@ public class Views.Project : Gtk.EventBox {
         var magic_button = new Widgets.MagicButton ();
 
         view_stack = new Gtk.Stack () {
-            expand = true,
+            hexpand = true,
+            vexpand = true,
             transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
         };
 
-        var main_content = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            expand = true
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            vexpand = true
         };
 
-        main_content.add (view_stack);
+        content_box.append (view_stack);
 
-        var overlay = new Gtk.Overlay () {
-            expand = true
+        var content_overlay = new Gtk.Overlay () {
+            hexpand = true,
+            vexpand = true
         };
-        overlay.add_overlay (magic_button);
-        overlay.add (main_content);
+        
+        content_overlay.add_overlay (magic_button);
+        content_overlay.child = content_box;
 
-        add (overlay);
-        // update_project_view (project.view_style);
+        attach(content_overlay, 0, 0);
         update_project_view (ProjectViewStyle.LIST);
-        show_all ();
+        show();
 
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
-
-
-        project.view_style_changed.connect (() => {
-            update_project_view (project.view_style);
-        });
     }
-
+    
     private void update_project_view (ProjectViewStyle view_style) {
         if (view_style == ProjectViewStyle.LIST) {
             Views.List? list_view;
@@ -54,12 +52,12 @@ public class Views.Project : Gtk.EventBox {
                 view_stack.add_named (list_view, view_style.to_string ());
             }
         } else if (view_style == ProjectViewStyle.BOARD) {
-            Views.Board? board_view;
-            board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
-            if (board_view == null) {
-                board_view = new Views.Board (project);
-                view_stack.add_named (board_view, view_style.to_string ());
-            }
+            //  Views.Board? board_view;
+            //  board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
+            //  if (board_view == null) {
+            //      board_view = new Views.Board (project);
+            //      view_stack.add_named (board_view, view_style.to_string ());
+            //  }
         }
 
         view_stack.set_visible_child_name (view_style.to_string ());
@@ -73,11 +71,11 @@ public class Views.Project : Gtk.EventBox {
                 list_view.prepare_new_item (content);
             }
         } else {
-            Views.Board? board_view;
-            board_view = (Views.Board) view_stack.get_child_by_name (project.view_style.to_string ());
-            if (board_view != null) {
+            //  Views.Board? board_view;
+            //  board_view = (Views.Board) view_stack.get_child_by_name (project.view_style.to_string ());
+            //  if (board_view != null) {
                 
-            }
+            //  }
         }
     }
 }

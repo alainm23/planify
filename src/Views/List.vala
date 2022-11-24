@@ -1,4 +1,4 @@
-public class Views.List : Gtk.EventBox {
+public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
     private Gtk.ListBox listbox;
@@ -8,7 +8,7 @@ public class Views.List : Gtk.EventBox {
 
     public bool has_children {
         get {
-            return (listbox.get_children ().length () - 1) > 0;
+            return false;
         }
     }
 
@@ -23,73 +23,65 @@ public class Views.List : Gtk.EventBox {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        var top_project = new Widgets.TopHeaderProject (project) {
-            margin_start = 20
-        };
+        var top_project = new Widgets.HeaderProject (project);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
-            activate_on_single_click = true,
-            selection_mode = Gtk.SelectionMode.SINGLE,
-            expand = true
+            selection_mode = Gtk.SelectionMode.NONE,
+            hexpand = true,
+            vexpand = true
         };
 
-        Gtk.drag_dest_set (listbox, Gtk.DestDefaults.ALL, Util.get_default ().SECTIONROW_TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        listbox.drag_data_received.connect (on_drag_section_received);
+        listbox.add_css_class ("listbox-background");
 
-        unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
-        listbox_context.add_class ("listbox-background");
-        listbox_context.add_class ("listbox-separator-12");
-        
         var listbox_grid = new Gtk.Grid ();
-        listbox_grid.add (listbox);
+        listbox_grid.attach (listbox, 0, 0);
 
         var placeholder = new Widgets.Placeholder (
             project.name,
             _("What will you accomplish?"),
             "planner-emoji-happy");
-        
+
         listbox_placeholder_stack = new Gtk.Stack () {
-            expand = true,
+            vexpand = true,
+            hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
         listbox_placeholder_stack.add_named (listbox_grid, "listbox");
         listbox_placeholder_stack.add_named (placeholder, "placeholder");
 
-        var content = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            expand = true,
-            margin_top = 36,
-            margin_end = 36,
-            margin_start = 16,
-            margin_bottom = 24,
-            margin_top = 6
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            vexpand = true
         };
-        content.add (top_project);
-        content.add (listbox_placeholder_stack);
 
-        var content_clamp = new Hdy.Clamp () {
+        content_box.append (top_project);
+        content_box.append (listbox_placeholder_stack);
+
+        var content_clamp = new Adw.Clamp () {
             maximum_size = 720
         };
 
-        content_clamp.add (content);
+        content_clamp.child = content_box;
 
-        scrolled_window = new Gtk.ScrolledWindow (null, null) {
+        scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            expand = true
+            hexpand = true,
+            vexpand = true
         };
-        scrolled_window.add (content_clamp);
+        scrolled_window.child = content_clamp;
 
-        add (scrolled_window);
+        attach (scrolled_window, 0, 0);
         add_sections ();
-        show_all ();
-        
+        show ();
+
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
             children_size_changed ();
             return GLib.Source.REMOVE;
         });
+
 
         project.section_added.connect ((section) => {
             add_section (section);
@@ -103,25 +95,25 @@ public class Views.List : Gtk.EventBox {
             }
         });
 
-        listbox.add.connect (() => {
-            children_size_changed ();
-            update_projects_position ();
-        });
+        //  listbox.add.connect (() => {
+        //      children_size_changed ();
+        //      update_projects_position ();
+        //  });
 
-        listbox.remove.connect (() => {
-            children_size_changed ();
-            update_projects_position ();
-        });
+        //  listbox.remove.connect (() => {
+        //      children_size_changed ();
+        //      update_projects_position ();
+        //  });
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value > 20) {
-                Planner.event_bus.view_header (true);
-            } else {
-                Planner.event_bus.view_header (false);
-            }
-        });
+        //  scrolled_window.vadjustment.value_changed.connect (() => {
+        //      if (scrolled_window.vadjustment.value > 20) {
+        //          Planner.event_bus.view_header (true);
+        //      } else {
+        //          Planner.event_bus.view_header (false);
+        //      }
+        //  });
 
-        Planner.database.section_moved.connect ((section, old_project_id) => {
+        Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
                     sections_map [section.id_string].hide_destroy ();
                     sections_map.unset (section.id_string);
@@ -133,7 +125,7 @@ public class Views.List : Gtk.EventBox {
             }
         });
 
-        Planner.database.section_deleted.connect ((section) => {
+        Services.Database.get_default ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id_string)) {
                 sections_map [section.id_string].hide_destroy ();
                 sections_map.unset (section.id_string);
@@ -153,20 +145,22 @@ public class Views.List : Gtk.EventBox {
     }
 
     private void update_projects_position () {
-        Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-            GLib.List<weak Gtk.Widget> sections = listbox.get_children ();
-            for (int index = 1; index < sections.length (); index++) {
-                Objects.Section section = ((Layouts.SectionRow) sections.nth_data (index)).section;
-                section.section_order = index;
-                Planner.database.update_child_order (section);
-            }
+        //  Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+        //      GLib.List<weak Gtk.Widget> sections = listbox.get_children ();
+        //      for (int index = 1; index < sections.length (); index++) {
+        //          Objects.Section section = ((Layouts.SectionRow) sections.nth_data (index)).section;
+        //          section.section_order = index;
+        //          Services.Database.get_default ().update_child_order (section);
+        //      }
 
-            return GLib.Source.REMOVE;
-        });
+        //      return GLib.Source.REMOVE;
+        //  });
     }
 
-    public void add_sections () {
-        foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+    private void add_sections () {
+        Gtk.Widget child;
+
+        for (child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
             child.destroy ();
         }
 
@@ -181,7 +175,7 @@ public class Views.List : Gtk.EventBox {
         inbox_section.children_size_changed.connect (() => {
             children_size_changed (); 
         });
-        listbox.add (inbox_section);
+        listbox.append (inbox_section);
     }
 
     private void add_section (Objects.Section section) {
@@ -191,11 +185,11 @@ public class Views.List : Gtk.EventBox {
             children_size_changed (); 
         });
 
-        listbox.add (row);
+        listbox.append (row);
         sections_map [section.id_string] = row;
-        listbox.show_all ();
+        listbox.show ();
     }
-    
+
     public void prepare_new_item (string content = "") {
         inbox_section.prepare_new_item (content);
         Timeout.add (225, () => {
@@ -205,7 +199,7 @@ public class Views.List : Gtk.EventBox {
     }
 
     public bool validate_children () {
-        foreach (unowned Gtk.Widget child in listbox.get_children ()) {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox)) {
             if (((Layouts.SectionRow) child).has_children) {
                 return true;
             }
@@ -216,30 +210,5 @@ public class Views.List : Gtk.EventBox {
 
     private void children_size_changed () {
         listbox_placeholder_stack.visible_child_name = validate_children () ? "listbox" : "placeholder";
-    }
-
-    private void on_drag_section_received (Gdk.DragContext context, int x, int y,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        Layouts.SectionRow target;
-        Layouts.SectionRow source;
-        Gtk.Allocation alloc;
-
-        target = (Layouts.SectionRow) listbox.get_row_at_y (y);
-        target.get_allocation (out alloc);
-
-        var row = ((Gtk.Widget[]) selection_data.get_data ()) [0];
-        source = (Layouts.SectionRow) row;
-        
-        if (target != null) {
-            source.get_parent ().remove (source);
-
-            if (target.get_index () == 1 && y < (alloc.height / 2)) {
-                listbox.insert (source, target.get_index ());
-            } else {
-                listbox.insert (source, target.get_index () + 1);
-            }
-            
-            listbox.show_all ();
-        }
     }
 }

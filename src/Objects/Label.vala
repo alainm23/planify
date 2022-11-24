@@ -53,38 +53,38 @@ public class Objects.Label : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Planner.database.label_deleted (this);
+            Services.Database.get_default ().label_deleted (this);
         });
 
-        Planner.database.item_added.connect ((item) => {
+        Services.Database.get_default ().item_added.connect ((item) => {
             if (item.labels.has_key (id_string)) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Planner.database.item_deleted.connect ((item) => {
+        Services.Database.get_default ().item_deleted.connect ((item) => {
             if (item.labels.has_key (id_string)) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Planner.database.item_updated.connect ((item) => {
+        Services.Database.get_default ().item_updated.connect ((item) => {
             if (item.labels.has_key (id_string)) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Planner.database.item_label_added.connect ((item_label) => {
+        Services.Database.get_default ().item_label_added.connect ((item_label) => {
             if (item_label.label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
             }
         });
 
-        Planner.database.item_label_deleted.connect ((item_label) => {
+        Services.Database.get_default ().item_label_deleted.connect ((item_label) => {
             if (item_label.label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
@@ -93,11 +93,11 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     private int update_label_count () {
-        return Planner.database.get_items_by_label (this, false).size;
+        return Services.Database.get_default ().get_items_by_label (this, false).size;
     }
 
     public Label.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
         todoist = true;
     }
@@ -174,52 +174,52 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     public void delete (bool confirm = true) {
-        if (!confirm) {
-            if (todoist) {
-                Planner.todoist.delete.begin (this, (obj, res) => {
-                    Planner.todoist.delete.end (res);
-                    Planner.database.delete_label (this);
-                });
-            } else {
-                Planner.database.delete_label (this);
-            }
+        //  if (!confirm) {
+        //      if (todoist) {
+        //          Planner.todoist.delete.begin (this, (obj, res) => {
+        //              Planner.todoist.delete.end (res);
+        //              Services.Database.get_default ().delete_label (this);
+        //          });
+        //      } else {
+        //          Services.Database.get_default ().delete_label (this);
+        //      }
 
-            return;
-        }
+        //      return;
+        //  }
 
-        var message_dialog = new Dialogs.MessageDialog (
-            _("Delete label"),
-            _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (short_name))),
-            "dialog-warning"
-        );
-        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        message_dialog.show_all ();
+        //  var message_dialog = new Dialogs.MessageDialog (
+        //      _("Delete label"),
+        //      _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (short_name))),
+        //      "dialog-warning"
+        //  );
+        //  message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+        //  message_dialog.show_all ();
 
-        var remove_button = new Widgets.LoadingButton (
-            LoadingButtonType.LABEL, _("Delete")) {
-            hexpand = true
-        };
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        remove_button.get_style_context ().add_class ("border-radius-6");
-        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+        //  var remove_button = new Widgets.LoadingButton (
+        //      LoadingButtonType.LABEL, _("Delete")) {
+        //      hexpand = true
+        //  };
+        //  remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        //  remove_button.get_style_context ().add_class ("border-radius-6");
+        //  message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
 
-        message_dialog.default_action.connect ((response) => {
-            if (response == Gtk.ResponseType.ACCEPT) {
-                if (todoist) {
-                    remove_button.is_loading = true;
-                    Planner.todoist.delete.begin (this, (obj, res) => {
-                        Planner.todoist.delete.end (res);
-                        Planner.database.delete_label (this);
-                        remove_button.is_loading = false;
-                        message_dialog.hide_destroy ();
-                    });
-                } else {
-                    Planner.database.delete_label (this);
-                    message_dialog.hide_destroy ();
-                }
-            } else {
-                message_dialog.hide_destroy ();
-            }
-        });
+        //  message_dialog.default_action.connect ((response) => {
+        //      if (response == Gtk.ResponseType.ACCEPT) {
+        //          if (todoist) {
+        //              remove_button.is_loading = true;
+        //              Planner.todoist.delete.begin (this, (obj, res) => {
+        //                  Planner.todoist.delete.end (res);
+        //                  Services.Database.get_default ().delete_label (this);
+        //                  remove_button.is_loading = false;
+        //                  message_dialog.hide_destroy ();
+        //              });
+        //          } else {
+        //              Services.Database.get_default ().delete_label (this);
+        //              message_dialog.hide_destroy ();
+        //          }
+        //      } else {
+        //          message_dialog.hide_destroy ();
+        //      }
+        //  });
     }
 }

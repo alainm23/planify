@@ -95,10 +95,10 @@ public class Objects.BaseObject : GLib.Object {
                 return ObjectType.ITEM;
             } else if (this is Objects.Label) {
                 return ObjectType.LABEL;
-            } else if (this is Objects.Task) {
-                return ObjectType.TASK;
-            } else if (this is Objects.SourceTaskList) {
-                return ObjectType.TASK_LIST;
+            //  } else if (this is Objects.Task) {
+            //      return ObjectType.TASK;
+            //  } else if (this is Objects.SourceTaskList) {
+            //      return ObjectType.TASK_LIST;
             } else {
                 return ObjectType.FILTER;
             }
@@ -115,10 +115,10 @@ public class Objects.BaseObject : GLib.Object {
                 return "item";
             } else if (this is Objects.Label) {
                 return "label";
-            } else if (this is Objects.Task) {
-                return "task";
-            } else if (this is Objects.SourceTaskList) {
-                return "source-task";
+            //  } else if (this is Objects.Task) {
+            //      return "task";
+            //  } else if (this is Objects.SourceTaskList) {
+            //      return "source-task";
             } else {
                 return "filter";
             }

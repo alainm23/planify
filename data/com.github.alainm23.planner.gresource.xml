@@ -8,6 +8,7 @@
     <file alias="variables.css" compressed="true">stylesheet/variables.css</file>
     <file alias="sidebar.css" compressed="true">stylesheet/sidebar.css</file>
     <file alias="dialog-picker.css" compressed="true">stylesheet/dialog-picker.css</file>
+    <file alias="typography.css" compressed="true">stylesheet/typography.css</file>
   </gresource>
   <gresource prefix="/com/github/alainm23/planner">
     <file alias="index.css" compressed="true">stylesheet/index.css</file>
@@ -88,11 +89,13 @@
     <file alias="planner-note-dark.svg">resources/planner-note-dark.svg</file>
     <file alias="planner-settings-sliders-dark.svg">resources/planner-settings-sliders-dark.svg</file>
     <file alias="planner-settings-sliders-light.svg">resources/planner-settings-sliders-light.svg</file>
-  
     <file alias="planner-list-dark.svg">resources/planner-list-dark.svg</file>
     <file alias="planner-list-light.svg">resources/planner-list-light.svg</file>
-
     <file alias="planner-board-light.svg">resources/planner-board-light.svg</file>
     <file alias="planner-board-dark.svg">resources/planner-board-dark.svg</file>
+    <file alias="color-swatch-dark.svg">resources/color-swatch-dark.svg</file>
+    <file alias="color-swatch-light.svg">resources/color-swatch-light.svg</file>
+    <file alias="emoji-happy-light.svg">resources/emoji-happy-light.svg</file>
+    <file alias="emoji-happy-dark.svg">resources/emoji-happy-dark.svg</file>
   </gresource>
 </gresources>

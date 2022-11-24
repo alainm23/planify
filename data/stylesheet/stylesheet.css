@@ -1,173 +1,85 @@
-textview,
-entry {
-    caret-color: @color_primary;
-}
-
-button:disabled {
-    background: none;
-    border: none;
-    box-shadow: none;        
-}
-
-.border-radius-6 {
-    border-radius: 6px;
-}
-
-.listbox-separator-3 row:not(:first-child) {
-    margin-top: 3px;
-}
-
-.listbox-separator-6 row:not(:first-child) {
-    margin-top: 6px;
-}
-
-.listbox-separator-12 > row:not(:first-child) {
-    margin-top: 12px;
-}
-
-.main-view {
-    background-color: @base_color;
+.font-bold {
+    font-weight: bold;
 }
 
 .no-padding {
     padding: 0;
 }
 
-.action-button image {
-    transition: 0.35s;
+.padding-6 {
+    padding: 6px;
 }
 
-.action-button:hover image {
-    -gtk-icon-transform: scale(1.1);
-}
-
-.todoist-sync-button {
+.padding-3 {
     padding: 3px;
 }
 
-.label-color {
+entry.flat:focus-within {
+    outline-style: none;
+}
+
+.color-radio {
     background: @colorAccent;
-    border: 1px solid alpha (@colorAccent, 0.75);
+    border-color: alpha(#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha(@shadowColor, 0.7),
+        inset 0 0 0 1px alpha(@shadowColor, 0.3),
+        0 1px 0 0 alpha(@colorAccent, 0.3);
+    -gtk-icon-shadow: none;
+    padding: 0;
     border-radius: 50%;
 }
 
-.priority-color check {
-    border-radius: 5px;
-    border-color: @colorPriority;
-    background: @colorPriorityBackground;
+.color-radio radio {
+    box-shadow: none;
 }
 
-.default_check check {
-    border-radius: 5px;
-}
-
-.priority-color check:checked {
-    background-image:
-        linear-gradient(
-            to bottom,
-            shade (
-                #25b84c,
-                1.2
-            ),
-            #25b84c
-        );
-    border-color: shade (#25b84c, 0.9);
-    box-shadow:
-        inset 0 0 0 1px shade (#25b84c, 1.15),
-        inset 0 1px 0 0 shade (#25b84c, 1.3),
-        0 1px 1px 0 shade (@bg_color, 0.85);
-    color: #fff;
-    -gtk-icon-source: -gtk-icontheme("check-active-symbolic");
-    -gtk-icon-shadow: 0 1px 1px shade (#25b84c, 0.85);
-}
-
-.is_loading image {
-    animation: spin 1000ms linear infinite;
+.color-row-picker-selected {
+    background: @colorAccent;
+    border-radius: 50%;
 }
 
 .transition {
     transition: all 115ms ease-in-out;
 }
 
-.hidden-button {
-    background-color: transparent;
-}
-
 .hidden-button image {
-    transition: all 150ms ease-in-out;
-    color: @text_color;
+    transition: all 250ms ease-in-out;
 }
 
 .hidden-button.opened image {
     -gtk-icon-transform: rotate(90deg);
 }
 
-.grid-motion {
-    background-color: @selected_bg_color;
-    border-radius: 6px;
+.button-emoji-picker {
+    border-radius: 50%;
 }
 
-.drag-begin {
-    background-color: @base_color;
-    border: 1px solid @menu_separator;
-    border-radius: 6px;
-    box-shadow: none;
-    padding: 6px;
+.circular-progress-bar {
+    border: 2px solid @colorAccent;
+    border-radius: 50%;
 }
 
-.opacity-1 {
-    opacity: 1;
+.circular-progress-bar-min {
+    border: 1px solid @colorAccent;
+    border-radius: 50%;
 }
 
-.header-title {
-    font-weight:bold;
-    font-size: 14pt;
-    letter-spacing: -0.05em;
+.listbox-separator-3 row:not(:first-child) {
+    margin-top: 3px;
 }
 
-.editable-label entry {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    color: inherit;
-    padding: 0;
+/*
+ * MENU STYLE
+ */
+
+.menu-item-danger:hover {
+    background-color: alpha(#e01b24, 0.25);
 }
 
-.editable-buttons button {
-    border-radius: 6px;
-    padding: 1px;
-}
-
-.editable-buttons label {
-    font-weight: 600;
-}
-
-.color-radio radio,
-.color-radio radio:checked {
-    background-color: @colorAccent;
-    border-color: alpha (#000, 0.3);
-    box-shadow:
-        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
-        inset 0 0 0 1px alpha (@shadowColor, 0.3),
-        0 1px 0 0 alpha (@colorAccent, 0.3);
-    padding: 3px;
-    -gtk-icon-shadow: none;
-}
-
-.color-radio radio:focus {
-    border-color: @colorAccent;
-    box-shadow:
-        inset 0 1px 0 0 alpha (@shadowColor, 0.7),
-        inset 0 0 0 1px alpha (@shadowColor, 0.3),
-        inset 0 0 0 1px alpha (@accentColor, 0.05),
-        0 1px 0 0 alpha (@accentColor, 0.3),
-        0 0 0 1px alpha (@accentColor, 0.25);
-}
-
-.color-radio-dialog radio,
-.color-radio-dialog radio:checked {
-    padding: 6px;
-}
+/*
+ *
+ */
 
 .magic-button {
     border-radius: 50%;
@@ -178,26 +90,48 @@ button:disabled {
     animation: add-animation 0.7s ease-in-out;
 }
 
-.circle-button {
-    border-radius: 50%;
-    padding: 6px;
+.header-title {
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    font-size: 15pt;
 }
 
-.circle-button:hover image {
-    animation: fancy-turn 0.7s ease-in-out;
+.editable-label entry {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    padding: 0;
 }
 
-.rotate-animation:hover image {
-    animation: add-animation 0.7s ease-in-out;
+.listbox-background {
+    background-color: transparent;
+}
+
+.row:hover {
+    background-color: transparent;
 }
 
 .row:selected {
     background-color: transparent;
-    color: @text_color;
 }
 
-.font-bold {
-    font-weight: bold;
+
+.row.activatable:hover {
+    background-color: transparent;
+}
+
+.row.activatable:active {
+    background-color: transparent;
+}
+
+.row.activatable:selected {
+    background-color: transparent;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
 }
 
 .font-weight-500 {
@@ -212,221 +146,7 @@ button:disabled {
     margin-top: 24px;
 }
 
-.mb-12 {
-    margin-bottom: 12px;
-}
-
-.card {
-    border-radius: 6px;
-    padding: 9px 9px 6px 9px;
-    background-color: @item_bg_color;
-}
-
-/* .item.drag-begin {
-    background-color: @bg_color;
-    border: 0.4px solid @item_border_color;
-} */
-
-.submit-spinner {
-    min-width: 12px;
-    min-height: 12px;
-}
-
-.no-selected:selected {
-    background-color: transparent;
-    color: @text_color;
-}
-
-.primary-color {
-    color: @color_primary;
-}
-
-/*
-    Menu
-*/
-
-.menu {
-    padding: 3px;
-}
-
-.menu button:not(:first-child) {
-    margin-top: 3px;
-}
-
-.menu-item {
-    border-radius: 6px;
-    padding: 3px;
-}
-
-.menu-item:hover {
-    background-color: @selected_bg_color;
-}
-
-.menu-item-danger:hover {
-    background-color: alpha (@STRAWBERRY_300, 0.25);
-}
-
-.flowbox-color flowboxchild:selected {
-    background-color: transparent;
-}
-
-.today {
-    background-color: alpha (#fad000, .15);
-    font-weight: 500;
-    border-radius: 3px;
-    padding: 2px 4px;
-    color: #fad000;
-}
-
-.scheduled {
-    background-color: shade (@SILVER_300, 1.1);
-    font-weight: 500;
-    border-radius: 3px;
-    padding: 2px 4px;
-    color: @BLACK_500;
-}
-
-.active-switch slider {
-    min-height: 16px;
-    min-width: 16px;
-}
-
-.content-entry {
-    padding: 0px;
-}
-
-.content-entry:focus {
-    border-color: transparent;
-    box-shadow: none;
-}
-
-.emoji-button {
-    border-radius: 50%;
-}
-
-.dialog-entry {
-    background-color: @bg_color;
-}
-
-.complete-animation {
-    background-color: @bg_color;
-    border-radius: 6px;
-}
-
-.scheduled-day:hover {
-    background-color: @bg_color;
-    border-radius: 6px;
-}
-
-.item-label-child {
-    background-color: alpha (@colorAccent, 0.125);
-    border-radius: 6px;
-    padding: 0px 3px;
-    color: @colorAccent;
-    font-weight: bold;
-}
-
-.today-grid {
-    background-color: alpha (#fad000, 0.125);
-    border-radius: 6px;
-    padding: 0px 3px;
-    color: #fad000;
-    font-weight: bold;
-}
-
-.overdue-grid {
-    background-color: alpha (#fa1955, 0.125);
-    border-radius: 6px;
-    padding: 0px 3px;
-    color: #fa1955;
-    font-weight: bold;
-}
-
-.schedule-grid {
-    background-color: alpha (@item_border_color, 0.45);
-    border-radius: 6px;
-    padding: 0px 3px;
-    color: @text_color;
-    font-weight: bold;
-}
-
-.completed-grid {
-    background-color: alpha (#25b84c, 0.125);
-    border-radius: 6px;
-    padding: 0px 3px;
-    color: #25b84c;
-    font-weight: bold;
-}
-
-.placeholder-drag-motion {
-    box-shadow: 
-        inset 0px 1px 8px -10px #3689e6,
-        inset 0px -1px 6px -15px #3689e6,
-	inset 0px 0px 0px 1.75px alpha (#3689e6, 0.75);
-    color: @text_color;
-    border-radius: 6px;
-    background-color: alpha (#3689e6, 0.1);
-}
-
-.editable-label-focus {
-    background-color: alpha (@color_primary, 0.15);
-    border-radius: 6px;
-    color: @color_primary;
-}
-
-.editable-label-focus image {
-    color: @color_primary;
-}
-
-.planner-switch slider {
-    min-height: 16px;
-    min-width: 16px;
-}
-
-.line-through {
-    text-decoration: line-through;
-}
-
-.no-padding-left {
-    padding-left: 0;
-}
-
-.p-6 {
+.card-selected {
     padding: 6px;
-}
-
-.hidden-button image {
-    transition: all 150ms ease-in-out; 
-}
-
-.hidden-button.opened image {
-    -gtk-icon-transform: rotate(90deg);
-}
-
-.scheduled-content {
-    background-color: @bg_color;
-    border: 1px solid @menu_separator;
-    border-radius: 6px;
-}
-
-.close-button {
-    padding: 3px;
-}
-
-popover {
-    background-color: @bg_color;
-}
-
-.padding-6 {
-    padding: 6px;
-}
-
-.priority-button {
-    background-color: alpha (@colorAccent, 0.125);
-    border-radius: 6px;
-    color: @colorAccent;
-    font-weight: bold;
-    border: none;
-    box-shadow: none;
-    padding: 3px 6px;
+    margin-right: 3px;
 }

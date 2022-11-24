@@ -76,7 +76,7 @@
         <value nick="Wait 2500 milliseconds" value="1" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner3" gettext-domain="com.github.alainm23.planner">        
+    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
         <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -179,16 +179,16 @@
             <description></description>
         </key>
 
-        <key name="window-position" type="(ii)">
-          <default>(-1, -1)</default>
-          <summary>Window position</summary>
-          <description>Most recent window position (x, y)</description>
+        <key name="window-height" type="i">
+            <default>660</default>
+            <summary>Most recent window height</summary>
+            <description>Most recent window height</description>
         </key>
-
-        <key name="window-size" type="(ii)">
-          <default>(1000, 800)</default>
-          <summary>Most recent window size</summary>
-          <description>Most recent window size (width, height)</description>
+        
+        <key name="window-width" type="i">
+            <default>1024</default>
+            <summary>Most recent window width</summary>
+            <description>Most recent window width</description>
         </key>
 
         <key name="project-dialog-size" type="(ii)">

@@ -9,7 +9,7 @@ public class Objects.Reminder : Objects.BaseObject {
     Objects.Item? _item;
     public Objects.Item item {
         get {
-            _item = Planner.database.get_item (item_id);
+            _item = Services.Database.get_default ().get_item (item_id);
             return _item;
         }
 
@@ -20,7 +20,7 @@ public class Objects.Reminder : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Planner.database.reminder_deleted (this);
+            Services.Database.get_default ().reminder_deleted (this);
         });
     }
 
@@ -90,17 +90,17 @@ public class Objects.Reminder : Objects.BaseObject {
                 loading_button.is_loading = true;
             }
 
-            Planner.todoist.delete.begin (this, (obj, res) => {
-                if (Planner.todoist.delete.end (res)) {
-                    Planner.database.delete_reminder (this);
-                } else {
-                    if (loading_button != null) {
-                        loading_button.is_loading = false;
-                    }
-                }
-            });
+            //  Planner.todoist.delete.begin (this, (obj, res) => {
+            //      if (Planner.todoist.delete.end (res)) {
+            //          Services.Database.get_default ().delete_reminder (this);
+            //      } else {
+            //          if (loading_button != null) {
+            //              loading_button.is_loading = false;
+            //          }
+            //      }
+            //  });
         } else {
-            Planner.database.delete_reminder (this);
+            Services.Database.get_default ().delete_reminder (this);
         }
     }
 }

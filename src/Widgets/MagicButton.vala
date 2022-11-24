@@ -19,21 +19,22 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.MagicButton : Gtk.Revealer {
+public class Widgets.MagicButton : Gtk.Grid {
     public Gtk.Button magic_button;
 
     public signal void clicked ();
 
-    private const Gtk.TargetEntry[] MAGICBUTTON_TARGET_ENTRIES = {
-        {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
-    };
+    //  private const Gtk.TargetEntry[] MAGICBUTTON_TARGET_ENTRIES = {
+    //      {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
+    //  };
 
     public MagicButton () {
         Object (
             tooltip_markup: Granite.markup_accel_tooltip ({"a"}, _("Add Task")),
-            transition_type: Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child: true,
-            margin: 32,
+            margin_top: 32,
+            margin_start: 32,
+            margin_end: 32,
+            margin_bottom: 32,
             valign: Gtk.Align.END,
             halign: Gtk.Align.END
         );
@@ -50,72 +51,79 @@ public class Widgets.MagicButton : Gtk.Revealer {
             width_request = 41
         };
 
-        magic_button.add (add_icon);
+        magic_button.child = add_icon;
 
-        magic_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        magic_button.get_style_context ().add_class ("magic-button");
+        magic_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        magic_button.add_css_class ("magic-button");
 
-        add (magic_button);
-        build_drag_and_drop ();
+        var revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = true,
+        };
+
+        revealer.child = magic_button;
+
+        attach (revealer, 0, 0);
+        // build_drag_and_drop ();
 
         magic_button.clicked.connect (() => {
             clicked ();
         });
 
         Planner.event_bus.magic_button_visible.connect ((visible) => {
-           reveal_child = visible;
+            revealer.reveal_child = visible;
         });
     }
 
-    private void build_drag_and_drop () {
-        Gtk.drag_source_set (magic_button, Gdk.ModifierType.BUTTON1_MASK, MAGICBUTTON_TARGET_ENTRIES, Gdk.DragAction.MOVE);
-        magic_button.drag_data_get.connect (on_drag_data_get);
-        magic_button.drag_begin.connect (on_drag_begin);
-        magic_button.drag_end.connect (on_drag_end);
-    }
+    //  private void build_drag_and_drop () {
+    //      Gtk.drag_source_set (magic_button, Gdk.ModifierType.BUTTON1_MASK, MAGICBUTTON_TARGET_ENTRIES, Gdk.DragAction.MOVE);
+    //      magic_button.drag_data_get.connect (on_drag_data_get);
+    //      magic_button.drag_begin.connect (on_drag_begin);
+    //      magic_button.drag_end.connect (on_drag_end);
+    //  }
 
-    private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
-        var magic_button = (Gtk.Button) widget;
+    //  private void on_drag_begin (Gtk.Widget widget, Gdk.DragContext context) {
+    //      var magic_button = (Gtk.Button) widget;
 
-        Gtk.Allocation alloc;
-        magic_button.get_allocation (out alloc);
+    //      Gtk.Allocation alloc;
+    //      magic_button.get_allocation (out alloc);
 
-        var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
-        var cr = new Cairo.Context (surface);
-        cr.set_source_rgba (255, 255, 255, 0);
-        cr.set_line_width (1);
+    //      var surface = new Cairo.ImageSurface (Cairo.Format.ARGB32, alloc.width, alloc.height);
+    //      var cr = new Cairo.Context (surface);
+    //      cr.set_source_rgba (255, 255, 255, 0);
+    //      cr.set_line_width (1);
 
-        cr.move_to (0, 0);
-        cr.line_to (alloc.width, 0);
-        cr.line_to (alloc.width, alloc.height);
-        cr.line_to (0, alloc.height);
-        cr.line_to (0, 0);
-        cr.stroke ();
+    //      cr.move_to (0, 0);
+    //      cr.line_to (alloc.width, 0);
+    //      cr.line_to (alloc.width, alloc.height);
+    //      cr.line_to (0, alloc.height);
+    //      cr.line_to (0, 0);
+    //      cr.stroke ();
 
-        cr.set_source_rgba (255, 255, 255, 0);
-        cr.rectangle (0, 0, alloc.width, alloc.height);
-        cr.fill ();
+    //      cr.set_source_rgba (255, 255, 255, 0);
+    //      cr.rectangle (0, 0, alloc.width, alloc.height);
+    //      cr.fill ();
 
-        magic_button.draw (cr);
+    //      magic_button.draw (cr);
 
-        Gtk.drag_set_icon_surface (context, surface);
-        reveal_child = false;
+    //      Gtk.drag_set_icon_surface (context, surface);
+    //      reveal_child = false;
 
-        Planner.event_bus.magic_button_activated (true);
-    }
+    //      Planner.event_bus.magic_button_activated (true);
+    //  }
 
-    private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
-        Gtk.SelectionData selection_data, uint target_type, uint time) {
-        uchar[] data = new uchar[(sizeof (Gtk.Button))];
-        ((Gtk.Widget[])data)[0] = widget;
+    //  private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
+    //      Gtk.SelectionData selection_data, uint target_type, uint time) {
+    //      uchar[] data = new uchar[(sizeof (Gtk.Button))];
+    //      ((Gtk.Widget[])data)[0] = widget;
 
-        selection_data.set (
-            Gdk.Atom.intern_static_string ("MAGICBUTTON"), 32, data
-        );
-    }
+    //      selection_data.set (
+    //          Gdk.Atom.intern_static_string ("MAGICBUTTON"), 32, data
+    //      );
+    //  }
 
-    public void on_drag_end (Gdk.DragContext context) {
-        reveal_child = true;
-        Planner.event_bus.magic_button_activated (false);
-    }
+    //  public void on_drag_end (Gdk.DragContext context) {
+    //      reveal_child = true;
+    //      Planner.event_bus.magic_button_activated (false);
+    //  }
 }
