@@ -53,6 +53,8 @@ public class Planner : Adw.Application {
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
+
+        Util.get_default ().update_theme ();
     }
 
     public void create_dir_with_parents (string dir) {

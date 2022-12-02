@@ -159,7 +159,7 @@ public class Services.Todoist : GLib.Object {
 
         var message = new Soup.Message ("POST", url);
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream, null);
         } catch (Error e) {
             debug (e.message);
@@ -217,11 +217,11 @@ public class Services.Todoist : GLib.Object {
         }
 
         // Download Profile Image
-        //  if (user_object.get_null_member ("image_id") == false) {
-        //      Util.get_default ().download_profile_image (
-        //          user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
-        //      );
-        //  }
+        if (user_object.get_null_member ("image_id") == false) {
+            Util.get_default ().download_profile_image (
+                user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
+            );
+        }
     }
 
     /*
@@ -248,7 +248,8 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            yield parser.load_from_stream_async (yield session.send_async (message, 1, null));
+            var stream = yield session.send_async (message, GLib.Priority.LOW, null);
+            yield parser.load_from_stream_async (stream, null);
 
             // Debug
             print_root (parser.get_root ());
@@ -384,7 +385,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.LOW, null);
             yield parser.load_from_stream_async (stream);
 
             // Debug
@@ -797,7 +798,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             // Debug
@@ -808,7 +809,7 @@ public class Services.Todoist : GLib.Object {
 
             if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                 Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-                id = parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_int_member (temp_id);
+                id = int64.parse (parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_string_member (temp_id));
             } else {
                 debug_error (
                     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),
@@ -863,7 +864,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             // Debug
@@ -918,7 +919,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             // Debug
@@ -989,7 +990,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             // Debug
@@ -1082,7 +1083,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             print_root (parser.get_root ());
@@ -1141,7 +1142,7 @@ public class Services.Todoist : GLib.Object {
         var message = new Soup.Message ("POST", url);
 
         try {
-            var stream = yield session.send_async (message, 1, null);
+            var stream = yield session.send_async (message, GLib.Priority.HIGH, null);
             yield parser.load_from_stream_async (stream);
 
             print_root (parser.get_root ());

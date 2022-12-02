@@ -129,18 +129,25 @@ public class Services.Database : GLib.Object {
 
     public void patch_database () {
         /*
-        * Planner 3 - Beta 1
-        * - Add pinned (0|1) to Items
-        */
+         * Planner 3 - Beta 1
+         * - Add pinned (0|1) to Items
+         */
 
         add_int_column ("Items", "pinned", 0);
 
         /*
-        * Planner 3 - beta 2
-        * - Add show_completed (0|1) to Projects
-        */
+         * Planner 3 - beta 2
+         * - Add show_completed (0|1) to Projects
+         */
 
         add_int_column ("Projects", "show_completed", 0);
+
+        /*
+         *  Planner 3.10
+         * - Add description to Projects
+         */
+
+        add_text_column ("Projects", "description", "");
     }
 
     private void create_tables () {
@@ -182,7 +189,8 @@ public class Services.Database : GLib.Object {
                 collapsed        INTEGER,
                 icon_style       TEXT,
                 emoji            TEXT,
-                show_completed   INTEGER
+                show_completed   INTEGER,
+                description      TEXT
             );
         """;
 
@@ -316,7 +324,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
         
         sql = """
-            SELECT * FROM Projects ORDER BY child_order;
+            SELECT * FROM Projects WHERE is_deleted = 0 ORDER BY child_order;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -399,10 +407,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, color, todoist, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
-                sort_order, parent_id, collapsed, icon_style, emoji, show_completed)
+                sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description)
             VALUES ($id, $name, $color, $todoist, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
-                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed);
+                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -424,6 +432,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
+        set_parameter_str (stmt, "$description", project.description);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -459,7 +468,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            DELETE FROM Projects WHERE id=$id;
+            UPDATE Projects SET is_deleted = 1 WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -470,13 +479,13 @@ public class Services.Database : GLib.Object {
                 delete_section (section);
             }
 
-            foreach (Objects.Item item in project.items) {
-                delete_item (item);
-            }
+            //  foreach (Objects.Item item in project.items) {
+            //      delete_item (item);
+            //  }
 
-            foreach (Objects.Project subproject in project.subprojects) {
-                delete_project (subproject);
-            }
+            //  foreach (Objects.Project subproject in project.subprojects) {
+            //      delete_project (subproject);
+            //  }
 
             project.deleted ();
         } else {
@@ -496,7 +505,7 @@ public class Services.Database : GLib.Object {
                 shared=$shared, view_style=$view_style,
                 sort_order=$sort_order,
                 parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
-                emoji=$emoji, show_completed=$show_completed
+                emoji=$emoji, show_completed=$show_completed, description=$description
             WHERE id=$id;
         """;
 
@@ -518,6 +527,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
+        set_parameter_str (stmt, "$description", project.description);
         set_parameter_int64 (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -804,7 +814,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
 
         Sqlite.Statement stmt;
-        sql = "SELECT * FROM Sections;";
+        sql = "SELECT * FROM Sections WHERE is_deleted = 0;";
 
         db.prepare_v2 (sql, sql.length, out stmt);
 
@@ -860,7 +870,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            DELETE FROM Sections WHERE id=$id;
+            UPDATE Sections SET is_deleted = 1 WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);

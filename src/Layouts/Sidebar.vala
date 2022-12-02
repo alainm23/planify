@@ -1,5 +1,5 @@
 public class Layouts.Sidebar : Gtk.Grid {
-    private Gtk.FlowBox filters_flowBox;
+    private Gtk.Grid filters_grid;
 
     private Layouts.FilterPaneRow inbox_filter;
     private Layouts.FilterPaneRow today_filter;
@@ -10,24 +10,22 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.HeaderItem local_projects_header;
     private Layouts.HeaderItem todoist_projects_header;
 
-    public Gee.HashMap <string, Layouts.ProjectRow> projects_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap;
 
     public Sidebar () {
         Object();
     }
 
     construct {
-        projects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+        local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+        todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
-        filters_flowBox= new Gtk.FlowBox () {
-            column_spacing = 9,
+        filters_grid= new Gtk.Grid () {
             row_spacing = 9,
+            column_spacing = 9,
             margin_start = 3,
-            margin_end = 3,
-            homogeneous = true,
-            hexpand = true,
-            max_children_per_line = 2,
-            min_children_per_line = 2
+            margin_end = 3
         };
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
@@ -35,10 +33,10 @@ public class Layouts.Sidebar : Gtk.Grid {
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
         pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD);
 
-        filters_flowBox.append (inbox_filter);
-        filters_flowBox.append (today_filter);
-        filters_flowBox.append (scheduled_filter);
-        filters_flowBox.append (pinboard_filter);
+        filters_grid.attach (inbox_filter, 0, 0);
+        filters_grid.attach (today_filter, 1, 0);
+        filters_grid.attach (scheduled_filter, 0, 1);
+        filters_grid.attach (pinboard_filter, 1, 1);
 
         favorites_header = new Layouts.HeaderItem (PaneType.FAVORITE);
         favorites_header.margin_top = 6;
@@ -50,10 +48,13 @@ public class Layouts.Sidebar : Gtk.Grid {
         todoist_projects_header.margin_top = 6;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 9,
-            margin_end = 9
+            margin_start = 16,
+            margin_end = 16,
+            margin_bottom = 16,
+            margin_top = 24
         };
-        content_box.append(filters_flowBox);
+        
+        content_box.append(filters_grid);
         content_box.append(favorites_header);
         content_box.append(local_projects_header);
         content_box.append(todoist_projects_header);
@@ -76,23 +77,23 @@ public class Layouts.Sidebar : Gtk.Grid {
             bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
             
             if (is_logged_in) {
-                
+                prepare_new_project (true);
             } else {
                 Services.Todoist.get_default ().init ();
             }
         });
 
-        filters_flowBox.child_activated.connect ((child) => {
-            select_filter (((Layouts.FilterPaneRow) child).filter_type);
-        });
+        //  filters_grid.child_activated.connect ((child) => {
+        //      select_filter (((Layouts.FilterPaneRow) child).filter_type);
+        //  });
         
-        local_projects_header.row_selected.connect ((row) => {
-            select_project (((Layouts.ProjectRow) row).project);
-        });
+        //  local_projects_header.row_selected.connect ((row) => {
+        //      select_project (((Layouts.ProjectRow) row).project);
+        //  });
 
-        todoist_projects_header.row_selected.connect ((row) => {
-            select_project (((Layouts.ProjectRow) row).project);
-        });
+        //  todoist_projects_header.row_selected.connect ((row) => {
+        //      select_project (((Layouts.ProjectRow) row).project);
+        //  });
     }
 
     public void verify_todoist_account () {
@@ -142,6 +143,11 @@ public class Layouts.Sidebar : Gtk.Grid {
         //      }
         //  });
 
+        inbox_filter.init ();
+        today_filter.init ();
+        scheduled_filter.init ();
+        pinboard_filter.init ();
+                
         add_all_projects ();
         verify_todoist_account ();
     }
@@ -156,20 +162,22 @@ public class Layouts.Sidebar : Gtk.Grid {
 
     private void add_row_project (Objects.Project project) {
         if (!project.inbox_project && project.parent_id == Constants.INACTIVE) {
-            if (!projects_hashmap.has_key (project.id_string)) {
-                projects_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-
-                if (project.todoist) {
-                    todoist_projects_header.add_child (projects_hashmap [project.id_string]);
-                } else {
-                    local_projects_header.add_child (projects_hashmap [project.id_string]);
+            if (project.todoist) {
+                if (!todoist_hashmap.has_key (project.id_string)) {
+                    todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);
+                    todoist_projects_header.add_child (todoist_hashmap [project.id_string]);
+                }
+            } else {
+                if (!local_hashmap.has_key (project.id_string)) {
+                    local_hashmap [project.id_string] = new Layouts.ProjectRow (project);
+                    local_projects_header.add_child (local_hashmap [project.id_string]);
                 }
             }
         }
     }
 
-    private void prepare_new_project () {
-        var dialog = new Dialogs.Project.new ();
+    private void prepare_new_project (bool todoist = false) {
+        var dialog = new Dialogs.Project.new (todoist);
         dialog.show ();
     }
 }

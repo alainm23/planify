@@ -24,22 +24,47 @@ public class MainWindow : Adw.ApplicationWindow {
             hexpand = true,
             decoration_layout = ":"
         };
+        
         sidebar_header.add_css_class ("flat");
 
+        var settings_image = new Widgets.DynamicIcon ();
+        settings_image.size = 24;
+        settings_image.update_icon_name ("planner-settings");
+
+        var settings_button = new Gtk.Button () {
+            can_focus = false
+        };
+
+        settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        settings_button.child = settings_image;
+
+        var sync_button = new Widgets.SyncButton ();
+
+        var sidebar_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        sidebar_buttons.append (sync_button);
+        sidebar_buttons.append (settings_button);
+
+        sidebar_header.pack_end (sidebar_buttons);
+
         sidebar = new Layouts.Sidebar ();
+
+        var sidebar_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
         var sidebar_content = new Gtk.Grid() {
             orientation = Gtk.Orientation.VERTICAL,
             vexpand = true,
             hexpand = false
         };
+
         sidebar_content.attach(sidebar_header, 0, 0);
-        sidebar_content.attach(sidebar, 0, 1);
+        sidebar_content.attach(sidebar_separator, 0, 1);
+        sidebar_content.attach(sidebar, 0, 2);
 
          var views_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true
         };
+
         views_header.add_css_class ("flat");
 
         views_stack = new Gtk.Stack () {
@@ -48,11 +73,15 @@ public class MainWindow : Adw.ApplicationWindow {
             transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
         };
 
+        var views_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
         var views_content = new Gtk.Grid() {
             orientation = Gtk.Orientation.VERTICAL
         };
+
         views_content.attach(views_header, 0, 0);
-        views_content.attach(views_stack, 0, 1);
+        views_content.attach(views_separator, 0, 1);
+        views_content.attach(views_stack, 0, 2);
 
         var flap_view = new Adw.Flap () {
             locked = false,
@@ -86,14 +115,18 @@ public class MainWindow : Adw.ApplicationWindow {
         //  });
 
         Planner.settings.changed.connect ((key) => {
-            if (key == "system-appearance") {
-                Planner.settings.set_boolean (
-                    "dark-mode",
-                    Util.get_default ().is_dark_theme ()
-                );
+            //  if (key == "system-appearance") {
+            //      Planner.settings.set_boolean (
+            //          "dark-mode",
+            //          Util.get_default ().is_dark_theme ()
+            //      );
                 
-                Util.get_default ().update_theme ();
-            } else if (key == "appearance" || key == "dark-mode") {
+            //      Util.get_default ().update_theme ();
+            //  } else if (key == "appearance" || key == "dark-mode") {
+            //      Util.get_default ().update_theme ();
+            //  }
+
+            if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
             }
         });
@@ -103,7 +136,7 @@ public class MainWindow : Adw.ApplicationWindow {
                 add_project_view (Services.Database.get_default ().get_project (int64.parse (id)));
             } else if (pane_type == PaneType.FILTER) {
                 if (id == FilterType.INBOX.to_string ()) {
-                    // add_inbox_view ();
+                    add_inbox_view ();
                 } else if (id == FilterType.TODAY.to_string ()) {
                     // add_today_view ();
                 } else if (id == FilterType.SCHEDULED.to_string ()) {
@@ -117,7 +150,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private void init_backend () {
         Services.Database.get_default().init_database ();
-        
         sidebar.init();
     }
 
@@ -132,5 +164,12 @@ public class MainWindow : Adw.ApplicationWindow {
         // views_header.view = project;
         views_stack.set_visible_child_name (project.view_id);
         return project_view;
+    }
+    
+
+    private void add_inbox_view () {
+        add_project_view (
+            Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"))
+        );
     }
 }

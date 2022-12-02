@@ -625,6 +625,7 @@ public class Objects.Item : Objects.BaseObject {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
+        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
     }
 

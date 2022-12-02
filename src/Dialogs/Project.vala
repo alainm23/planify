@@ -34,11 +34,12 @@ public class Dialogs.Project : Adw.Window {
         }
     }
 
-    public Project.new () {
+    public Project.new (bool todoist = false) {
         var project = new Objects.Project ();
-        project.color = Util.get_default ().get_random_color ();
+        project.color = "blue";
         project.emoji = "🚀️";
         project.id = Constants.INACTIVE;
+        project.todoist = todoist;
 
         Object (
             project: project,
@@ -73,7 +74,6 @@ public class Dialogs.Project : Adw.Window {
 
         var progress_bar = new Widgets.CircularProgressBar (32);
         progress_bar.percentage = 0.64;
-        progress_bar.color = project.color;
 
         var emoji_color_stack = new Gtk.Stack () {
             halign = Gtk.Align.CENTER,
@@ -124,7 +124,6 @@ public class Dialogs.Project : Adw.Window {
         name_emoji_box.append (emoji_switch);
 
         color_picker_row = new Widgets.ColorPickerRow ("none");
-        color_picker_row.selected = project.color;
 
         var color_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0) {
             margin_top = 24,
@@ -174,10 +173,14 @@ public class Dialogs.Project : Adw.Window {
             } else {
                 emoji_color_stack.visible_child_name = "emoji";
             }
+
+            progress_bar.color = project.color;
+            color_picker_row.color = project.color;
             
             return GLib.Source.REMOVE;
         });
 
+        name_entry.entry.activate.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
 
         emoji_chooser.emoji_picked.connect((emoji) => {
@@ -194,14 +197,25 @@ public class Dialogs.Project : Adw.Window {
             }
         });
 
-        color_picker_row.color_changed.connect ((color) => {
-            progress_bar.color = color;
+        color_picker_row.color_changed.connect (() => {
+            progress_bar.color = color_picker_row.color;
         });
 
         emoji_picker_button.clicked.connect (() => {
             if (emoji_switch.active) {
                 emoji_chooser.popup ();
             }
+        });
+
+        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
+        name_entry.entry.add_controller (name_entry_ctrl_key);
+
+        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+
+            return false;
         });
     }
 
@@ -212,7 +226,7 @@ public class Dialogs.Project : Adw.Window {
         }
 
         project.name = name_entry.entry.text;
-        project.color = color_picker_row.selected;
+        project.color = color_picker_row.color;
         project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.emoji = emoji_label.label;
 
@@ -220,21 +234,38 @@ public class Dialogs.Project : Adw.Window {
             submit_button.is_loading = true;
             Services.Database.get_default().update_project (project);
             if (project.todoist) {
-                //  Planner.todoist.update.begin (project, (obj, res) => {
-                //      Planner.todoist.update.end (res);
-                //      submit_button.is_loading = false;
-                //      hide_destroy ();
-                //  });
+                Services.Todoist.get_default ().update.begin (project, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    submit_button.is_loading = false;
+                    hide_destroy ();
+                });
             } else {
                 hide_destroy ();
             }
         } else {
-            project.id = Util.get_default ().generate_id ();
+            if (project.todoist) {
+                submit_button.is_loading = true;
 
-            Services.Database.get_default().insert_project (project);
-            // Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
-            hide_destroy ();
+                Services.Todoist.get_default ().add.begin (project, (obj, res) => {
+                    project.id = Services.Todoist.get_default ().add.end (res);
+                    Services.Database.get_default().insert_project (project);
+                    go_project (project.id_string);
+                });
+
+            } else {
+                project.id = Util.get_default ().generate_id ();
+                Services.Database.get_default().insert_project (project);
+                go_project (project.id_string);
+            }
         }
+    }
+
+    public void go_project (string id_string) {
+        Timeout.add (250, () => {
+            Planner.event_bus.pane_selected (PaneType.PROJECT, id_string);
+            hide_destroy ();   
+            return GLib.Source.REMOVE;
+        });
     }
 
     public void hide_destroy () {

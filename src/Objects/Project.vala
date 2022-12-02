@@ -3,6 +3,7 @@ public class Objects.Project : Objects.BaseObject {
     public string due_date { get; set; default = ""; }
     public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
+    public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
     public bool todoist { get; set; default = false; }
     public bool inbox_project { get; set; default = false; }

@@ -1,6 +1,6 @@
 public class Widgets.ColorPickerRow : Gtk.Grid {
     public string lines { get; construct; }
-    public string selected { get; set; }
+    public string color { get; set; }
 
     public signal void color_changed (string color);
 
@@ -87,9 +87,9 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
                 colors_flowbox.append (colors_hashmap [entry.key]);
                 
                 color_radio.toggled.connect (() => {
-                    selected = entry.key;
-                    color_changed (selected);
-                    Util.get_default ().set_widget_color (Util.get_default ().get_color (selected), color_widget_selected);
+                    color = entry.key;
+                    color_changed (color);
+                    Util.get_default ().set_widget_color (Util.get_default ().get_color (color), color_widget_selected);
                 });
             }
         }
@@ -127,10 +127,10 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
 
         h_box.add_controller (gesture);
 
-        notify["selected"].connect (() => {
-            if (colors_hashmap.has_key (selected)) {
-                colors_hashmap [selected].active = true;
-                Util.get_default ().set_widget_color (Util.get_default ().get_color (selected), color_widget_selected);
+        notify["color"].connect (() => {
+            if (colors_hashmap.has_key (color)) {
+                colors_hashmap [color].active = true;
+                Util.get_default ().set_widget_color (Util.get_default ().get_color (color), color_widget_selected);
             }
         });
     }

@@ -1,7 +1,7 @@
 project(
   'com.github.alainm23.planner',
   'vala', 'c',
-  version: '4.0.2'
+  version: '3.10'
 )
 
 gnome = import('gnome')
@@ -55,7 +55,8 @@ executable(
   'src' / 'Widgets' / 'EditableLabel.vala',
   'src' / 'Widgets' / 'Entries.vala',
   'src' / 'Widgets' / 'Placeholder.vala',
-
+  'src' / 'Widgets' / 'SyncButton.vala',
+  
   'src' / 'Widgets' / 'ContextMenu' / 'MenuItem.vala',
   'src' / 'Widgets' / 'ContextMenu' / 'MenuSeparator.vala',
 

@@ -459,85 +459,88 @@ public class Util : GLib.Object {
         return returned;
     }
 
-    //  public void update_theme () {
-    //      string _css = """
-    //          @define-color base_color %s;
-    //          @define-color bg_color %s;
-    //          @define-color item_bg_color %s;
-    //          @define-color item_border_color %s;
-    //          @define-color picker_bg %s;
-    //          @define-color picker_content_bg %s;
-    //      """;
+    public void update_theme () {
+        //  string _css = """
+        //      @define-color base_color %s;
+        //      @define-color bg_color %s;
+        //      @define-color item_bg_color %s;
+        //      @define-color item_border_color %s;
+        //      @define-color picker_bg %s;
+        //      @define-color picker_content_bg %s;
+        //  """;
 
-    //      int appearance_mode = Planner.settings.get_enum ("appearance");
-    //      bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-    //      bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+        string _css = """
+            @define-color window_bg_color %s;
+            @define-color popover_bg_color %s;
+            @define-color item_border_color %s;
+        """;
 
-    //      var granite_settings = Granite.Settings.get_default ();
+        int appearance_mode = Planner.settings.get_enum ("appearance");
+        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+        // bool system_appearance = Planner.settings.get_boolean ("system-appearance");
 
-    //      if (system_appearance) {
-    //          dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-    //      }
+        //  var granite_settings = Granite.Settings.get_default ();
 
-    //      var provider = new Gtk.CssProvider ();
+        //  if (system_appearance) {
+        //      dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        //  }
 
-    //      try {
-    //          string base_color = "";
-    //          string bg_color = "";
-    //          string item_bg_color = "";
-    //          string item_border_color = "";
-    //          string picker_bg = "";
-    //          string picker_content_bg = ""; 
+        var provider = new Gtk.CssProvider ();
 
-    //          if (dark_mode) {
-    //              if (appearance_mode == 1) {
-    //                  base_color = "#151515";
-    //                  bg_color = "shade (#151515, 1.4)";
-    //                  item_bg_color = "@bg_color";
-    //                  item_border_color = "#333333";
-    //                  picker_bg = "@base_color";
-    //                  picker_content_bg = "@bg_color";
-    //                  Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-    //              } else if (appearance_mode == 2) {
-    //                  base_color = "#0B0B11";
-    //                  bg_color = "#15151B";
-    //                  item_bg_color = "@bg_color";
-    //                  item_border_color = "shade (#333333, 1.35)";
-    //                  picker_bg = "@base_color";
-    //                  picker_content_bg = "@bg_color";
-    //                  Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-    //              }
-    //          } else {
-    //              base_color = "#ffffff";
-    //              bg_color = "@SILVER_100";
-    //              item_bg_color = "@base_color";
-    //              item_border_color = "@menu_separator";
-    //              picker_bg = "@bg_color";
-    //              picker_content_bg = "@base_color";
-    //              Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-    //          }
+        try {
+            string window_bg_color = "";
+            string popover_bg_color = "";
+            //  string item_bg_color = "";
+            string item_border_color = "";
+            //  string picker_bg = "";
+            //  string picker_content_bg = ""; 
 
-    //          var CSS = _css.printf (
-    //              base_color,
-    //              bg_color,
-    //              item_bg_color,
-    //              item_border_color,
-    //              picker_bg,
-    //              picker_content_bg
-    //          );
+            if (dark_mode) {
+                if (appearance_mode == 1) {
+                    window_bg_color = "#151515";
+                    popover_bg_color = "shade (#151515, 1.4)";
+                    //  item_bg_color = "@bg_color";
+                    item_border_color = "#333333";
+                    //  picker_bg = "@base_color";
+                    //  picker_content_bg = "@bg_color";
+                    Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                } else if (appearance_mode == 2) {
+                    window_bg_color = "#0B0B11";
+                    popover_bg_color = "#15151B";
+                    //  item_bg_color = "@bg_color";
+                    item_border_color = "shade(#333333, 1.35)";
+                    //  picker_bg = "@base_color";
+                    //  picker_content_bg = "@bg_color";
+                    Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                }
+            } else {
+                window_bg_color = "#ffffff";
+                popover_bg_color = "#ffffff";
+                //  item_bg_color = "@base_color";
+                item_border_color = "@borders";
+                //  picker_bg = "@bg_color";
+                //  picker_content_bg = "@base_color";
+                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+            }
 
-    //          provider.load_from_data (CSS, CSS.length);
+            var CSS = _css.printf (
+                window_bg_color,
+                popover_bg_color,
+                item_border_color
+            );
 
-    //          Gtk.StyleContext.add_provider_for_screen (
-    //              Gdk.Screen.get_default (), provider,
-    //              Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    //          );
+            provider.load_from_data (CSS.data);
 
-    //          Planner.event_bus.theme_changed ();
-    //      } catch (GLib.Error e) {
-    //          return;
-    //      }
-    //  }
+            Gtk.StyleContext.add_provider_for_display (
+                Gdk.Display.get_default (), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+
+            Planner.event_bus.theme_changed ();
+        } catch (GLib.Error e) {
+            return;
+        }
+    }
 
     /**
     * Replaces all line breaks with a space and
@@ -1054,14 +1057,7 @@ public class Util : GLib.Object {
     */
 
     public bool is_dark_theme () {
-        if (is_flatpak ()) {
-            var granite_settings = Granite.Settings.get_default ();
-            return granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-        } else {
-            var freedesktop_settings = new Settings ("org.gnome.desktop.interface");
-            int color_scheme = (ColorScheme) freedesktop_settings.get_enum ("color-scheme");
-            return color_scheme == ColorScheme.DARK;
-        }
+        return Planner.settings.get_boolean ("dark-mode");
     }
 
     public bool is_flatpak () {
@@ -1073,17 +1069,17 @@ public class Util : GLib.Object {
         return false;
     }
 
-    public void update_theme () {
-        int appearance_mode = Planner.settings.get_enum ("appearance");
-        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+    //  public void update_theme () {
+    //      int appearance_mode = Planner.settings.get_enum ("appearance");
+    //      bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+    //      bool system_appearance = Planner.settings.get_boolean ("system-appearance");
 
-        if (dark_mode) {
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-        } else {
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-        }
-    }
+    //      if (dark_mode) {
+    //          Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+    //      } else {
+    //          Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+    //      }
+    //  }
 
     public List<unowned Gtk.Widget> get_children (Gtk.Widget list) {
         List<unowned Gtk.Widget> response = new List<unowned Gtk.Widget> ();

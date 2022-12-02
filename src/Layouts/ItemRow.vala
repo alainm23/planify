@@ -146,7 +146,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public ItemRow (Objects.Item item) {
         Object (
-            item: item
+            item: item,
+            focusable: false,
+            can_focus: true
         );
     }
 
@@ -156,7 +158,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item.section_id = _item.section_id;
 
         Object (
-            item: item
+            item: item,
+            focusable: false,
+            can_focus: true
         );
     }
 
@@ -165,7 +169,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item.project_id = project.id;
 
         Object (
-            item: item
+            item: item,
+            focusable: false,
+            can_focus: true
         );
     }
 
@@ -177,7 +183,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         
         Object (
             item: item,
-            can_focus: false
+            focusable: false,
+            can_focus: true
         );
     }
 
@@ -188,7 +195,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         Object (
             item: item,
-            can_focus: false
+            can_focus: false,
+            can_focus: true
         );
     }
 
@@ -472,7 +480,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         main_revealer.child = main_grid;
 
         child = main_revealer;
-        //  update_request ();
+        update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
@@ -536,7 +544,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         hide_loading_button = new Widgets.LoadingButton (LoadingButtonType.ICON, "chevron-down") {
             valign = Gtk.Align.START,
-            can_focus = false
+            can_focus = false,
+            margin_end = 3
         };
         hide_loading_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         hide_loading_button.add_css_class ("no-padding");
@@ -581,6 +590,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         handle_grid.add_controller (handle_gesture_click);
 
         handle_gesture_click.pressed.connect ((n_press, x, y) => {
+            handle_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+
             if (Planner.event_bus.ctrl_pressed) {
                 Planner.event_bus.select_item (this);
             } else if (Planner.event_bus.alt_pressed) {
@@ -691,24 +702,24 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     //          });
     //      });
 
-    var description_controller_key = new Gtk.EventControllerKey ();
-    content_textview.add_controller (description_controller_key);
+        var description_controller_key = new Gtk.EventControllerKey ();
+        content_textview.add_controller (description_controller_key);
 
-    description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-        if (keyval == 65307) {
-            if (is_creating) {
-                hide_destroy ();
+        description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                if (is_creating) {
+                    hide_destroy ();
+                } else {
+                    Planner.event_bus.item_selected (null);
+                }
             } else {
-                Planner.event_bus.item_selected (null);
+                if (!is_creating) {
+                    update ();
+                }
             }
-        } else {
-            if (!is_creating) {
-                update ();
-            }
-        }
 
-        return false;
-    });
+            return false;
+        });
 
     //      checked_button.button_release_event.connect (() => {
     //          if (!is_creating) {
@@ -719,13 +730,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     //          return Gdk.EVENT_STOP;
     //      });
 
-        hide_loading_button.clicked.connect (() => {
-            handle_gesture_click.set_state (Gtk.EventSequenceState.NONE);
+        var hide_loading_gesture = new Gtk.GestureClick ();
+        hide_loading_gesture.set_button (1);
+        hide_loading_button.add_controller (hide_loading_gesture);
 
-            Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                edit = false;
-                return GLib.Source.REMOVE;
-            });
+        hide_loading_gesture.pressed.connect (() => {
+            hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            edit = false;
         });
 
     //      schedule_button.date_changed.connect ((date) => {
@@ -861,13 +872,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             item.description = description_textview.get_text ();
 
             if (item.project.todoist) {
-                //  Planner.todoist.add.begin (item, (obj, res) => {
-                //      int64? id = Planner.todoist.add.end (res);
-                //      if (id != null) {
-                //          item.id = id;
-                //          item_added ();
-                //      }
-                //  });
+                Services.Todoist.get_default ().add.begin (item, (obj, res) => {
+                    int64? id = Services.Todoist.get_default ().add.end (res);
+                    if (id != null) {
+                        item.id = id;
+                        item_added ();
+                    }
+                });
             } else {
                 item.id = Util.get_default ().generate_id ();
                 item_added ();
@@ -927,7 +938,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            destroy ();
+            ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
     }
@@ -1317,19 +1328,19 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     //      }
     //  }
 
-    //  public void update_content (string content = "") {
-    //      content_textview.buffer.text = content;
-    //  }
+    public void update_content (string content = "") {
+        content_textview.buffer.text = content;
+    }
 
-    //  public void update_priority (int priority) {
-    //      item.priority = priority;
+    public void update_priority (int priority) {
+        item.priority = priority;
         
-    //      if (is_creating) {
-    //          priority_button.update_request (item, null);
-    //      } else {
-    //          item.update_async (Constants.INACTIVE, this);
-    //      }
-    //  }
+        if (is_creating) {
+            // priority_button.update_request (item, null);
+        } else {
+            // item.update_async (Constants.INACTIVE, this);
+        }
+    }
 
     //  public void update_due (GLib.DateTime? date) {
     //      item.due.date = date == null ? "" : Util.get_default ().get_todoist_datetime_format (date);

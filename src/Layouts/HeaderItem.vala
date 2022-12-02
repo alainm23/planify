@@ -48,7 +48,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
 
-    public signal void row_selected (Gtk.ListBoxRow row);
+    // public signal void row_selected (Gtk.ListBoxRow row);
     public signal void add_activated ();
 
     private bool has_children {
@@ -144,7 +144,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 6,
-            margin_end = 3
+            margin_end = 6
         };
 
         header_box.append (name_label);
@@ -175,16 +175,16 @@ public class Layouts.HeaderItem : Gtk.Grid {
             add_activated ();
         });
 
-        listbox.row_selected.connect ((row) => {
-            if (row != null) {
-                row_selected (row);
-            }
-        });
+        //  listbox.row_selected.connect ((row) => {
+        //      if (row != null) {
+        //          row_selected (row);
+        //      }
+        //  });
     }
 
     private void update_labels () {
         if (pane_type == PaneType.PROJECT) {
-            header_title = "Local Projects";
+            header_title = "On This Computer";
             add_tooltip = _("Add Project");
             placeholder_message = _("No project available. Create one by clicking on the '+' button");
         } else if (pane_type == PaneType.LABEL) {
@@ -226,6 +226,9 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
     public void add_child (Gtk.Widget widget) {
         listbox.append (widget);
-        listbox.show ();
+    }
+
+    public void remove_child (Gtk.Widget widget) {
+        listbox.remove (widget);
     }
 }

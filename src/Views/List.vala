@@ -8,7 +8,7 @@ public class Views.List : Gtk.Grid {
 
     public bool has_children {
         get {
-            return false;
+            return (Util.get_default ().get_children (listbox).length () - 1) > 0;
         }
     }
 
@@ -23,7 +23,10 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        var top_project = new Widgets.HeaderProject (project);
+        var top_project = new Widgets.HeaderProject (project) {
+            margin_start = 24,
+            margin_top = 24
+        };
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -45,6 +48,7 @@ public class Views.List : Gtk.Grid {
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
+            margin_end = 24,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
@@ -78,7 +82,7 @@ public class Views.List : Gtk.Grid {
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
-            children_size_changed ();
+            // children_size_changed ();
             return GLib.Source.REMOVE;
         });
 
@@ -158,9 +162,7 @@ public class Views.List : Gtk.Grid {
     }
 
     private void add_sections () {
-        Gtk.Widget child;
-
-        for (child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
+        for (Gtk.Widget child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
             child.destroy ();
         }
 
@@ -173,7 +175,7 @@ public class Views.List : Gtk.Grid {
     private void add_inbox_section () {
         inbox_section = new Layouts.SectionRow.for_project (project);
         inbox_section.children_size_changed.connect (() => {
-            children_size_changed (); 
+             // children_size_changed (); 
         });
         listbox.append (inbox_section);
     }
@@ -182,7 +184,7 @@ public class Views.List : Gtk.Grid {
         var row = new Layouts.SectionRow (section);
         
         row.children_size_changed.connect (() => {
-            children_size_changed (); 
+            // children_size_changed (); 
         });
 
         listbox.append (row);
@@ -209,6 +211,10 @@ public class Views.List : Gtk.Grid {
     }
 
     private void children_size_changed () {
-        listbox_placeholder_stack.visible_child_name = validate_children () ? "listbox" : "placeholder";
+        if (validate_children ()) {
+            listbox_placeholder_stack.visible_child_name = "listbox";
+        } else {
+            listbox_placeholder_stack.visible_child_name = "placeholder";
+        }
     }
 }
