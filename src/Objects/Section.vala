@@ -66,10 +66,64 @@ public class Objects.Section : Objects.BaseObject {
 
     public signal void item_added (Objects.Item item);
 
+    int? _section_count = null;
+    public int section_count {
+        get {
+            if (_section_count == null) {
+                _section_count = update_section_count ();
+            }
+
+            return _section_count;
+        }
+
+        set {
+            _section_count = value;
+        }
+    }
+
+    public signal void section_count_updated ();
+
     construct {
         deleted.connect (() => {
             Services.Database.get_default ().section_deleted (this);
         });
+
+        Planner.event_bus.checked_toggled.connect ((item) => {
+            if (item.section_id == id) {
+                _section_count = update_section_count ();
+                section_count_updated ();
+            }
+        });
+
+        Services.Database.get_default ().item_deleted.connect ((item) => {
+            if (item.section_id == id) {
+                _section_count = update_section_count ();
+                section_count_updated ();
+            }
+        });
+
+        Services.Database.get_default ().item_added.connect ((item) => {
+            if (item.section_id == id) {
+                _section_count = update_section_count ();
+                section_count_updated ();
+            }
+        });
+
+        //  Planner.event_bus.item_moved.connect ((item, old_project_id, section_id, insert) => {
+        //      if (item.project_id == id || old_project_id == id) {
+        //          _project_count = update_project_count ();
+        //          _percentage = update_percentage ();
+        //          project_count_updated ();
+        //      }
+        //  });
+
+        //  Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
+        //      if (section.project_id == id || old_project_id == id) {
+        //          _project_count = update_project_count ();
+        //          _percentage = update_percentage ();
+        //          project_count_updated ();
+        //      }
+        //  });
     }
 
     public Section.from_json (Json.Node node) {
@@ -306,5 +360,15 @@ public class Objects.Section : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null); 
+    }
+
+    private int update_section_count () {
+        int returned = 0;
+        foreach (Objects.Item item in Services.Database.get_default ().get_item_by_baseobject (this)) {
+            if (!item.checked) {
+                returned++;
+            }
+        }
+        return returned;
     }
 }

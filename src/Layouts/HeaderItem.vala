@@ -48,12 +48,11 @@ public class Layouts.HeaderItem : Gtk.Grid {
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
 
-    // public signal void row_selected (Gtk.ListBoxRow row);
     public signal void add_activated ();
 
     private bool has_children {
         get {
-            return false; // listbox.get_children ().length () > 0;
+            return Util.get_default ().get_children (listbox).length () > 0;
         }
     }
 
@@ -112,9 +111,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         add_button.child = add_image;
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_button.add_css_class ("no-padding");
-        add_button.add_css_class ("action-button");
-
+        add_button.add_css_class ("p3");
         // Loading
         var spinner_loading = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
@@ -144,7 +141,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 6,
-            margin_end = 6
+            margin_end = 3
         };
 
         header_box.append (name_label);
@@ -153,7 +150,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             margin_start = 3,
-            margin_end = 3,
             margin_top = 3,
             margin_bottom = 3
         };
@@ -174,12 +170,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         add_button.clicked.connect (() => {
             add_activated ();
         });
-
-        //  listbox.row_selected.connect ((row) => {
-        //      if (row != null) {
-        //          row_selected (row);
-        //      }
-        //  });
     }
 
     private void update_labels () {
@@ -230,5 +220,9 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
     public void remove_child (Gtk.Widget widget) {
         listbox.remove (widget);
+    }
+
+    public void check_visibility () {
+        content_revealer.reveal_child = has_children;
     }
 }

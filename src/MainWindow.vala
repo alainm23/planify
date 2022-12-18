@@ -28,7 +28,7 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar_header.add_css_class ("flat");
 
         var settings_image = new Widgets.DynamicIcon ();
-        settings_image.size = 24;
+        settings_image.size = 21;
         settings_image.update_icon_name ("planner-settings");
 
         var settings_button = new Gtk.Button () {
@@ -151,6 +151,13 @@ public class MainWindow : Adw.ApplicationWindow {
     private void init_backend () {
         Services.Database.get_default().init_database ();
         sidebar.init();
+
+        if (!Services.Todoist.get_default ().invalid_token ()) {
+            Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
+                Services.Todoist.get_default ().run_server ();
+                return GLib.Source.REMOVE;
+            });
+        }
     }
 
     public Views.Project add_project_view (Objects.Project project) {
@@ -171,5 +178,17 @@ public class MainWindow : Adw.ApplicationWindow {
         add_project_view (
             Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"))
         );
+    }
+
+    public void add_today_view () {
+        Views.Today? today_view;
+        today_view = (Views.Today) views_stack.get_child_by_name ("today-view");
+        if (today_view == null) {
+            today_view = new Views.Today ();
+            views_stack.add_named (today_view, "today-view");
+        }
+
+        // views_header.view = Objects.Today.get_default ();
+        views_stack.set_visible_child_name ("today-view");
     }
 }

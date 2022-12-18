@@ -151,7 +151,7 @@ entry.flat:focus-within {
 }
 
 .card-selected {
-    padding: 6px;
+    padding: 9px;
     margin-right: 3px;
     border: 1px solid @item_border_color;
 }
@@ -162,4 +162,72 @@ entry.flat:focus-within {
 
 .bg-transparent {
     background: transparent;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.complete-animation {
+    background-color: @popover_bg_color;
+    border-radius: 6px;
+}
+
+.action-button {
+    padding: 3px 9px;
+}
+
+.p3 {
+    padding: 3px;
+}
+
+.priority-1-color check {
+    box-shadow: inset 0 0 0 2px #ff7066;
+    background: rgba(255,112,102,0.1);
+}
+
+.priority-2-color check {
+    box-shadow: inset 0 0 0 2px #ff9a14;
+    background: rgba(255,154,20,0.1);
+}
+
+.priority-3-color check {
+    box-shadow: inset 0 0 0 2px #5297ff;
+    background: rgba(82,151,255,0.1);
+}
+
+.priority-4-color check {
+    box-shadow: inset 0 0 0 2px @borders;
+    background: transparent;
+}
+
+.today-grid {
+    background-color: alpha(#16af54, 0.15);
+    border: 1px solid alpha(#16af54, 0.25);
+    border-radius: 6px;
+    color: #16af54;
+    padding: 1px 6px;
+    font-weight: bold;
+}
+
+.upcoming-grid {
+    background-color: @upcoming_bg_color;
+    border: 1px solid @upcoming_bg_color;
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: @upcoming_fg_color;
+    font-weight: bold;
+}
+
+.overdue-grid {
+    background-color: alpha(#fa1955, 0.125);
+    border: 1px solid alpha(#fa1955, 0.25);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: #fa1955;
+    font-weight: bold;
+}
+
+.is_loading image {
+    animation: spin 1000ms linear infinite;
 }

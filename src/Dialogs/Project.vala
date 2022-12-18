@@ -88,14 +88,13 @@ public class Dialogs.Project : Adw.Window {
             hexpand = true,
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER,
-            can_focus = false,
             height_request = 64,
             width_request = 64,
             margin_top = 6
         };
 
         var emoji_chooser = new Gtk.EmojiChooser () {
-            has_arrow = true
+            has_arrow = false
         };
 
         emoji_chooser.set_parent (emoji_picker_button);
@@ -191,6 +190,12 @@ public class Dialogs.Project : Adw.Window {
             if (active) {
                 color_box_revealer.reveal_child = false;
                 emoji_color_stack.visible_child_name = "emoji";
+
+                if (emoji_label.label.strip () == "") {
+                    emoji_label.label = "🚀️";
+                }
+
+                emoji_chooser.popup ();
             } else {
                 color_box_revealer.reveal_child = true;
                 emoji_color_stack.visible_child_name = "color";

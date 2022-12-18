@@ -1,8 +1,5 @@
-@define-color color_primary #3689e6;
-@define-color accent_color @color_primary;
-@define-color base_color #ffffff;
-@define-color bg_color #fafafa;
-@define-color item_bg_color @base_color;
-@define-color item_border_color @menu_separator;
-@define-color picker_bg @bg_color;
-@define-color picker_content_bg @base_color;
+@define-color window_bg_color #ffffff;
+@define-color popover_bg_color #ffffff;
+@define-color item_border_color @borders;
+@define-color upcoming_bg_color #ededef;
+@define-color upcoming_fg_color shade(#ededef, 0);

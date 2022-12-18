@@ -479,13 +479,13 @@ public class Services.Database : GLib.Object {
                 delete_section (section);
             }
 
-            //  foreach (Objects.Item item in project.items) {
-            //      delete_item (item);
-            //  }
+            foreach (Objects.Item item in project.items) {
+                delete_item (item);
+            }
 
-            //  foreach (Objects.Project subproject in project.subprojects) {
-            //      delete_project (subproject);
-            //  }
+            foreach (Objects.Project subproject in project.subprojects) {
+                delete_project (subproject);
+            }
 
             project.deleted ();
         } else {
@@ -1019,7 +1019,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         Sqlite.Statement stmt;
 
-        sql = "SELECT * FROM Items;";
+        sql = "SELECT * FROM Items WHERE is_deleted = 0;";
 
         db.prepare_v2 (sql, sql.length, out stmt);
 
@@ -1190,7 +1190,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            DELETE FROM Items WHERE id=$id;
+            UPDATE Items SET is_deleted = 1 WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1784,6 +1784,10 @@ public class Services.Database : GLib.Object {
     }
 
     public void add_text_column (string table, string column, string default_value) {
+        if (column_exists (table, column)) {
+            return;
+        }
+        
         Sqlite.Statement stmt;
 
         sql = """

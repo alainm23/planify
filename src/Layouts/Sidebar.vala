@@ -12,6 +12,7 @@ public class Layouts.Sidebar : Gtk.Grid {
 
     public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap;
     public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
 
     public Sidebar () {
         Object();
@@ -20,6 +21,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     construct {
         local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
         todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+        favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
         filters_grid= new Gtk.Grid () {
             row_spacing = 9,
@@ -40,6 +42,7 @@ public class Layouts.Sidebar : Gtk.Grid {
 
         favorites_header = new Layouts.HeaderItem (PaneType.FAVORITE);
         favorites_header.margin_top = 6;
+        favorites_header.show_action = false;
 
         local_projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
         local_projects_header.margin_top = 6;
@@ -54,10 +57,10 @@ public class Layouts.Sidebar : Gtk.Grid {
             margin_top = 24
         };
         
-        content_box.append(filters_grid);
-        content_box.append(favorites_header);
-        content_box.append(local_projects_header);
-        content_box.append(todoist_projects_header);
+        content_box.append (filters_grid);
+        content_box.append (favorites_header);
+        content_box.append (local_projects_header);
+        content_box.append (todoist_projects_header);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -67,7 +70,7 @@ public class Layouts.Sidebar : Gtk.Grid {
 
         scrolled_window.child = content_box;
 
-        attach(scrolled_window, 0, 0);
+        attach (scrolled_window, 0, 0);
 
         local_projects_header.add_activated.connect (() => {
             prepare_new_project ();
@@ -134,14 +137,16 @@ public class Layouts.Sidebar : Gtk.Grid {
         //      }
         //  });
 
-        //  Planner.event_bus.favorite_toggled.connect ((project) => {
-        //      if (favorites_hashmap.has_key (project.id_string)) {
-        //          favorites_hashmap [project.id_string].hide_destroy ();
-        //          favorites_hashmap.unset (project.id_string);
-        //      } else {
-        //          add_row_favorite (project);
-        //      }
-        //  });
+        Planner.event_bus.favorite_toggled.connect ((project) => {
+            if (favorites_hashmap.has_key (project.id_string)) {
+                favorites_hashmap [project.id_string].hide_destroy ();
+                favorites_hashmap.unset (project.id_string);
+            } else {
+                add_row_favorite (project);
+            }
+
+            favorites_header.check_visibility ();
+        });
 
         inbox_filter.init ();
         today_filter.init ();
@@ -149,15 +154,34 @@ public class Layouts.Sidebar : Gtk.Grid {
         pinboard_filter.init ();
                 
         add_all_projects ();
+        add_all_favorites ();
+
         verify_todoist_account ();
     }
 
     private void add_all_projects () {
-        foreach (Objects.Project project in Services.Database.get_default().projects) {
+        foreach (Objects.Project project in Services.Database.get_default ().projects) {
             add_row_project (project);
         }
 
         // projects_header.init_update_position_project ();
+    }
+
+    private void add_all_favorites () {
+        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+            add_row_favorite (project);
+        }
+
+        favorites_header.check_visibility ();
+    }
+
+    private void add_row_favorite (Objects.Project project) {
+        if (project.is_favorite) {
+            if (!favorites_hashmap.has_key (project.id_string)) {
+                favorites_hashmap [project.id_string] = new Layouts.ProjectRow (project, false);
+                favorites_header.add_child (favorites_hashmap [project.id_string]);
+            }
+        }
     }
 
     private void add_row_project (Objects.Project project) {

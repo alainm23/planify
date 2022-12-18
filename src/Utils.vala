@@ -299,52 +299,20 @@ public class Util : GLib.Object {
         style_context.add_provider (providers[color], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
-    //  public void set_widget_priority (int priority, Gtk.Widget widget) {
-    //      if (providers == null) {
-    //          providers = new Gee.HashMap<string, Gtk.CssProvider> ();
-    //      }
-
-    //      if (!providers.has_key (priority.to_string ())) {
-    //          string style = """
-    //              @define-color colorPriority %s;
-    //              @define-color colorPriorityBackground %s;
-    //          """.printf (get_priority_color (priority), get_priority_background (priority));
-
-    //          try {
-    //              var style_provider = new Gtk.CssProvider ();
-    //              style_provider.load_from_data (style, style.length);
-
-    //              providers[priority.to_string ()] = style_provider;
-    //          } catch (Error e) {
-    //              critical ("Unable to set color: %s", e.message);
-    //          }
-    //      }
-
-    //      unowned Gtk.StyleContext style_context = widget.get_style_context ();
-    //      style_context.add_provider (providers[priority.to_string ()], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-    //  }
-
-    public string get_priority_color (int priority) {
+    public void set_widget_priority (int priority, Gtk.Widget widget) {
+        widget.remove_css_class ("priority-1-color");
+        widget.remove_css_class ("priority-2-color");
+        widget.remove_css_class ("priority-3-color");
+        widget.remove_css_class ("priority-4-color");
+        
         if (priority == Constants.PRIORITY_1) {
-            return "#ff7066";
+            widget.add_css_class ("priority-1-color");
         } else if (priority == Constants.PRIORITY_2) {
-            return "#ff9a14";
+            widget.add_css_class ("priority-2-color");
         } else if (priority == Constants.PRIORITY_3) {
-            return "#5297ff";
-        } else {
-            return "@item_border_color";
-        }
-    }
-
-    public string get_priority_background (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return "rgba (255, 112, 102, 0.1)";
-        } else if (priority == Constants.PRIORITY_2) {
-            return "rgba (255, 154, 20, 0.1)";
-        } else if (priority == Constants.PRIORITY_3) {
-            return "rgba (82, 151, 255, 0.1)";
-        } else {
-            return "transparent";
+            widget.add_css_class ("priority-3-color");
+        } else if (priority == Constants.PRIORITY_4) {
+            widget.add_css_class ("priority-4-color");
         }
     }
 
@@ -473,6 +441,8 @@ public class Util : GLib.Object {
             @define-color window_bg_color %s;
             @define-color popover_bg_color %s;
             @define-color item_border_color %s;
+            @define-color upcoming_bg_color %s;
+            @define-color upcoming_fg_color %s;
         """;
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
@@ -490,43 +460,41 @@ public class Util : GLib.Object {
         try {
             string window_bg_color = "";
             string popover_bg_color = "";
-            //  string item_bg_color = "";
             string item_border_color = "";
-            //  string picker_bg = "";
-            //  string picker_content_bg = ""; 
+            string upcoming_bg_color = "";
+            string upcoming_fg_color = ""; 
 
             if (dark_mode) {
                 if (appearance_mode == 1) {
                     window_bg_color = "#151515";
-                    popover_bg_color = "shade (#151515, 1.4)";
-                    //  item_bg_color = "@bg_color";
+                    popover_bg_color = "shade(#151515, 1.4)";
                     item_border_color = "#333333";
-                    //  picker_bg = "@base_color";
-                    //  picker_content_bg = "@bg_color";
+                    upcoming_bg_color = "#313234";
+                    upcoming_fg_color = "#ededef";
                     Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
                 } else if (appearance_mode == 2) {
                     window_bg_color = "#0B0B11";
                     popover_bg_color = "#15151B";
-                    //  item_bg_color = "@bg_color";
                     item_border_color = "shade(#333333, 1.35)";
-                    //  picker_bg = "@base_color";
-                    //  picker_content_bg = "@bg_color";
+                    upcoming_bg_color = "#313234";
+                    upcoming_fg_color = "#ededef";
                     Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
                 }
             } else {
                 window_bg_color = "#ffffff";
                 popover_bg_color = "#ffffff";
-                //  item_bg_color = "@base_color";
                 item_border_color = "@borders";
-                //  picker_bg = "@bg_color";
-                //  picker_content_bg = "@base_color";
+                upcoming_bg_color = "#ededef";
+                upcoming_fg_color = "shade(#ededef, 0)";
                 Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
             }
 
             var CSS = _css.printf (
                 window_bg_color,
                 popover_bg_color,
-                item_border_color
+                item_border_color,
+                upcoming_bg_color,
+                upcoming_fg_color
             );
 
             provider.load_from_data (CSS.data);

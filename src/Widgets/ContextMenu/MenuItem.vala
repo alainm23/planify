@@ -1,6 +1,17 @@
-public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
-    public string title { get; construct; }
-    public string? icon { get; construct; }
+public class Widgets.ContextMenu.MenuItem : Gtk.Button {
+    public string title {
+        set {
+            menu_title.label = value;
+        }
+    }
+
+    public string icon {
+        set {
+            if (value != null) {
+                menu_icon.update_icon_name (value);
+            }
+        }
+    }
 
     private Widgets.DynamicIcon menu_icon;
     private Gtk.Label menu_title;
@@ -27,7 +38,7 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
-    public MenuItem (string title, string? icon) {
+    public MenuItem (string title, string icon) {
         Object (
             title: title,
             icon: icon,
@@ -43,12 +54,8 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
             valign = Gtk.Align.CENTER
         };
         menu_icon.size = 19;
-
-        if (icon != null) {
-            menu_icon.update_icon_name (icon);
-        }
         
-        menu_title = new Gtk.Label (title);
+        menu_title = new Gtk.Label (null);
 
         secondary_label = new Gtk.Label (null) {
             hexpand = true,
@@ -76,9 +83,7 @@ public class Dialogs.ContextMenu.MenuItem : Gtk.Button {
             hexpand = true
         };
 
-        if (icon != null) {
-            content_box.append (menu_icon);
-        }
+        content_box.append (menu_icon);
         content_box.append (menu_title);
         content_box.append (secondary_label);
         content_box.append (loading_revealer);

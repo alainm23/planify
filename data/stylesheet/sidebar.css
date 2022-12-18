@@ -19,9 +19,9 @@
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
-    background-color: alpha(#45bf76, 0.15);
-    border: 1px solid alpha(#45bf76, 0.25);
-    color: #45bf76;
+    background-color: alpha(#16af54, 0.15);
+    border: 1px solid alpha(#16af54, 0.25);
+    color: #16af54;
 }
 
 .filter-pane-row-today:selected image {
@@ -29,7 +29,7 @@
 }
 
 .filter-pane-row-today-selected {
-    box-shadow: 0px 0px 3px 1px #45bf76;
+    box-shadow: 0px 0px 3px 1px #16af54;
 }
 
 .filter-pane-row-scheduled {

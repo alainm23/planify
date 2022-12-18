@@ -196,7 +196,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_labels_from_json (Json.Node node) {
-        // update_labels_async (get_labels_from_json (node), null);
+        update_labels_async (get_labels_from_json (node), null);
     }
 
     public Gee.HashMap<string, Objects.Label> get_labels_from_json (Json.Node node) {
@@ -302,9 +302,9 @@ public class Objects.Item : Objects.BaseObject {
 
             Services.Database.get_default ().update_item (this, update_id);
             if (project.todoist) {
-                //  Planner.todoist.update.begin (this, (obj, res) => {
-                //      Planner.todoist.update.end (res);
-                //  });
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                });
             }
 
             return GLib.Source.REMOVE;
@@ -325,12 +325,12 @@ public class Objects.Item : Objects.BaseObject {
             
             Services.Database.get_default ().update_item (this, update_id);
             if (project.todoist) {
-                //  Planner.todoist.update.begin (this, (obj, res) => {
-                //      Planner.todoist.update.end (res);
-                //      if (loading_button != null) {
-                //          loading_button.is_loading = false;
-                //      }
-                //  });
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    if (loading_button != null) {
+                        loading_button.is_loading = false;
+                    }
+                });
             } else {
                 loading_button.is_loading = false;
             }
@@ -339,23 +339,23 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    //  public void update_async (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
-    //      if (loading_button != null) {
-    //          loading_button.is_loading = true;
-    //      }
+    public void update_async (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
+        if (loading_button != null) {
+            loading_button.is_loading = true;
+        }
         
-    //      Services.Database.get_default ().update_item (this, update_id);
-    //      if (project.todoist) {
-    //          Planner.todoist.update.begin (this, (obj, res) => {
-    //              Planner.todoist.update.end (res);
-    //              if (loading_button != null) {
-    //                  loading_button.is_loading = false;
-    //              }
-    //          });
-    //      } else {
-    //          loading_button.is_loading = false;
-    //      }
-    //  }
+        Services.Database.get_default ().update_item (this, update_id);
+        if (project.todoist) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
+                if (loading_button != null) {
+                    loading_button.is_loading = false;
+                }
+            });
+        } else {
+            loading_button.is_loading = false;
+        }
+    }
 
     public void update_local_labels (Gee.HashMap<string, Objects.Label> new_labels) {
         labels.clear ();
@@ -377,31 +377,31 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    //  public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
-    //      Layouts.ItemRow? loading_button = null) {
-    //      foreach (var entry in new_labels.entries) {
-    //          if (!labels.has_key (entry.value.id_string)) {
-    //              add_label_if_not_exists (entry.value);
-    //          }
-    //      }
+    public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
+        Layouts.ItemRow? loading_button = null) {
+        foreach (var entry in new_labels.entries) {
+            if (!labels.has_key (entry.value.id_string)) {
+                add_label_if_not_exists (entry.value);
+            }
+        }
 
-    //      Gee.ArrayList <Objects.ItemLabel> labels_delete = new Gee.ArrayList <Objects.ItemLabel> ();
-    //      foreach (var entry in labels.entries) {
-    //          if (!new_labels.has_key (entry.key)) {
-    //              labels_delete.add (entry.value);
-    //          }
-    //      }
+        Gee.ArrayList <Objects.ItemLabel> labels_delete = new Gee.ArrayList <Objects.ItemLabel> ();
+        foreach (var entry in labels.entries) {
+            if (!new_labels.has_key (entry.key)) {
+                labels_delete.add (entry.value);
+            }
+        }
 
-    //      foreach (Objects.ItemLabel item_label in labels_delete) {
-    //          delete_item_label (item_label);
-    //      }
+        foreach (Objects.ItemLabel item_label in labels_delete) {
+            delete_item_label (item_label);
+        }
 
-    //      if (project.todoist) {
-    //          update_async (Constants.INACTIVE, loading_button);
-    //      } else {
-    //          update_local ();
-    //      }
-    //  }
+        if (project.todoist) {
+            update_async (Constants.INACTIVE, loading_button);
+        } else {
+            update_local ();
+        }
+    }
 
     public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder) {
         Objects.Reminder? return_value = null;
@@ -711,26 +711,6 @@ public class Objects.Item : Objects.BaseObject {
 
         return generator.to_data (null);
     }
-
-    //  public void delete (Layouts.ItemRow? itemrow = null) {
-    //      if (project.todoist) {
-    //          if (itemrow != null) {
-    //              itemrow.is_loading = true;
-    //          }
-
-    //          Planner.todoist.delete.begin (this, (obj, res) => {
-    //              if (Planner.todoist.delete.end (res)) {
-    //                  Services.Database.get_default ().delete_item (this);
-    //              } else {
-    //                  if (itemrow != null) {
-    //                      itemrow.is_loading = false;
-    //                  }
-    //              }
-    //          });
-    //      } else {
-    //          Services.Database.get_default ().delete_item (this);
-    //      }
-    //  }
 
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
         Objects.Item? return_value = null;

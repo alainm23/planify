@@ -621,24 +621,24 @@ public class Objects.Project : Objects.BaseObject {
 
         //  var menu = new Dialogs.ContextMenu.Menu ();
 
-        //  var edit_item = new Dialogs.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
+        //  var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
 
-        //  var add_section_item = new Dialogs.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
+        //  var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
         
-        //  var share_item = new Dialogs.ContextMenu.MenuItemSelector (_("Share"));
+        //  var share_item = new Widgets.ContextMenu.MenuItemSelector (_("Share"));
 
-        //  var share_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Markdown"), "planner-note");
-        //  var email_markdown_item = new Dialogs.ContextMenu.MenuItem (_("Email"), "planner-mail");
+        //  var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Markdown"), "planner-note");
+        //  var email_markdown_item = new Widgets.ContextMenu.MenuItem (_("Email"), "planner-mail");
 
         //  share_item.add_item (share_markdown_item);
         //  share_item.add_item (email_markdown_item);
 
-        //  var show_completed_item = new Dialogs.ContextMenu.MenuItem (
+        //  var show_completed_item = new Widgets.ContextMenu.MenuItem (
         //      show_completed ? _("Hide completed tasks") : _("Show completed tasks"),
         //      "planner-check-circle"
         //  );
 
-        //  var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
+        //  var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         //  delete_item.get_style_context ().add_class ("menu-item-danger");
 
         //  if (!inbox_project) {
@@ -713,7 +713,7 @@ public class Objects.Project : Objects.BaseObject {
         //      margin_top = 0
         //  };
 
-        //  var view_as_item = new Dialogs.ContextMenu.MenuItem (
+        //  var view_as_item = new Widgets.ContextMenu.MenuItem (
         //      view_style == ProjectViewStyle.LIST ?  _("View as Board") : _("View as List"),
         //      view_style == ProjectViewStyle.LIST ? "planner-board" : "planner-list");
 

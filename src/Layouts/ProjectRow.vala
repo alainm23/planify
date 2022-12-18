@@ -38,6 +38,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Gtk.Revealer main_revealer;
 
     private Gtk.Popover menu_popover = null;
+    private Widgets.ContextMenu.MenuItem favorite_item;
 
     public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap;
     
@@ -228,7 +229,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         handle_grid.add_controller (menu_gesture);
 
         menu_gesture.pressed.connect ((n_press, x, y) => {
-            build_context_menu(x, y);
+            build_context_menu (x, y);
         });
 
         var motion_gesture = new Gtk.EventControllerMotion ();
@@ -329,39 +330,29 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             Gtk.Allocation alloc;
             target_widget.get_allocation (out alloc);
 
-            print ("Source: %s\n".printf (picked_widget.project.name));
-            print ("Target: %s\n".printf (target_widget.project.name));
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
-            //  if (picked_widget == target_widget || target_widget == null) {
-            //      return false;
-            //  }
 
-            //  var source_list = (Gtk.ListBox) picked_widget.parent;
-            //  var target_list = (Gtk.ListBox) target_widget.parent;
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
 
-            //  source_list.remove (picked_widget);
+            var source_list = (Gtk.ListBox) picked_widget.parent;
+            var target_list = (Gtk.ListBox) target_widget.parent;
+
+            source_list.remove (picked_widget);
             
-            //  if (target_widget.get_index () == 0) {
-            //      if (y < (alloc.height / 2)) {
-            //          target_list.insert (picked_widget, 0);
-            //      } else {
-            //          target_list.insert (picked_widget, target_widget.get_index () + 1);
-            //      }
-            //  } else {
-            //      target_list.insert (picked_widget, target_widget.get_index () + 1);
-            //  }
+            if (target_widget.get_index () == 0) {
+                if (y < (alloc.height / 2)) {
+                    target_list.insert (picked_widget, 0);
+                } else {
+                    target_list.insert (picked_widget, target_widget.get_index () + 1);
+                }
+            } else {
+                target_list.insert (picked_widget, target_widget.get_index () + 1);
+            }
 
             return true;
-        });
-
-        drop_target.enter.connect ((x, y) => {
-            return Gdk.DragAction.MOVE;
-        });
-
-        drop_target.leave.connect (() => {
-
         });
 
         add_controller (drop_target);
@@ -383,15 +374,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
+            favorite_item.title = project.is_favorite ? ("Remove from favorites") : ("Add to favorites");
+
             menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-            menu_popover.popup();
+            menu_popover.popup ();
             return;
         }
         
-        var favorite_item = new Dialogs.ContextMenu.MenuItem (project.is_favorite ? ("Remove from favorites") : ("Add to favorites"), "planner-star");
-        var edit_item = new Dialogs.ContextMenu.MenuItem (("Edit project"), "planner-edit");
-        var move_item = new Dialogs.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
-        var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
+        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? ("Remove from favorites") : ("Add to favorites"), "planner-star");
+        var edit_item = new Widgets.ContextMenu.MenuItem (("Edit project"), "planner-edit");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -412,6 +405,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
 
         menu_popover.popup();
+
+        favorite_item.clicked.connect (() => {
+            menu_popover.popdown ();
+
+            project.is_favorite = !project.is_favorite;
+            Services.Database.get_default ().update_project (project);
+            Planner.event_bus.favorite_toggled (project);
+            project.update (true);
+        });
 
         edit_item.clicked.connect (() => {
             menu_popover.popdown ();

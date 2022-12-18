@@ -11,7 +11,7 @@ public class Widgets.SyncButton : Gtk.Grid {
 
     construct {
         sync_icon = new Widgets.DynamicIcon ();
-        sync_icon.size = 24;
+        sync_icon.size = 21;
         sync_icon.update_icon_name ("planner-refresh");
 
         var sync_button = new Gtk.Button () {
@@ -50,15 +50,8 @@ public class Widgets.SyncButton : Gtk.Grid {
         });
 
         sync_button.clicked.connect (() => {
-            // Services.Todoist.get_default ().sync_async ();
+            Services.Todoist.get_default ().sync_async ();
         });
-
-        //  Planner.settings.changed.connect ((key) => {
-        //      if (key == "backend-type") {
-        //          main_revealer.reveal_child = (BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST;
-        //          init_signals ();
-        //      }
-        //  });
 
         var network_monitor = GLib.NetworkMonitor.get_default ();
         network_monitor.network_changed.connect (() => {
@@ -77,10 +70,8 @@ public class Widgets.SyncButton : Gtk.Grid {
     }
 
     private void init_signals () {
-        //  if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
-        //      Services.Todoist.get_default ().sync_started.connect (sync_started);
-        //      Services.Todoist.get_default ().sync_finished.connect (sync_finished);
-        //  }
+        Services.Todoist.get_default ().sync_started.connect (sync_started);
+        Services.Todoist.get_default ().sync_finished.connect (sync_finished);
     }
 
     public void sync_started () {
