@@ -25,7 +25,8 @@ public class Views.List : Gtk.Grid {
 
         var top_project = new Widgets.HeaderProject (project) {
             margin_start = 24,
-            margin_top = 24
+            margin_top = 24,
+            margin_end = 16
         };
 
         listbox = new Gtk.ListBox () {
@@ -82,7 +83,6 @@ public class Views.List : Gtk.Grid {
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
-            // children_size_changed ();
             return GLib.Source.REMOVE;
         });
 
@@ -99,23 +99,13 @@ public class Views.List : Gtk.Grid {
             }
         });
 
-        //  listbox.add.connect (() => {
-        //      children_size_changed ();
-        //      update_projects_position ();
-        //  });
-
-        //  listbox.remove.connect (() => {
-        //      children_size_changed ();
-        //      update_projects_position ();
-        //  });
-
-        //  scrolled_window.vadjustment.value_changed.connect (() => {
-        //      if (scrolled_window.vadjustment.value > 20) {
-        //          Planner.event_bus.view_header (true);
-        //      } else {
-        //          Planner.event_bus.view_header (false);
-        //      }
-        //  });
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 50) {
+                Planner.event_bus.view_header (true);
+            } else {
+                Planner.event_bus.view_header (false);
+            }
+        });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
@@ -174,22 +164,12 @@ public class Views.List : Gtk.Grid {
 
     private void add_inbox_section () {
         inbox_section = new Layouts.SectionRow.for_project (project);
-        inbox_section.children_size_changed.connect (() => {
-             // children_size_changed (); 
-        });
         listbox.append (inbox_section);
     }
 
     private void add_section (Objects.Section section) {
-        var row = new Layouts.SectionRow (section);
-        
-        row.children_size_changed.connect (() => {
-            // children_size_changed (); 
-        });
-
-        listbox.append (row);
-        sections_map [section.id_string] = row;
-        listbox.show ();
+        sections_map [section.id_string] = new Layouts.SectionRow (section);
+        listbox.append (sections_map [section.id_string]);
     }
 
     public void prepare_new_item (string content = "") {
@@ -208,13 +188,5 @@ public class Views.List : Gtk.Grid {
         }
 
         return has_children;
-    }
-
-    private void children_size_changed () {
-        if (validate_children ()) {
-            listbox_placeholder_stack.visible_child_name = "listbox";
-        } else {
-            listbox_placeholder_stack.visible_child_name = "placeholder";
-        }
     }
 }

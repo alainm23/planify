@@ -22,11 +22,11 @@
 public class Objects.Section : Objects.BaseObject {
     public int64 project_id { get; set; default = 0; }
     public string archived_at { get; set; default = ""; }
-    public string added_at { get; set; default = ""; }
+    public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public int section_order { get; set; default = 0; }
     public bool collapsed { get; set; default = true; }
-    public bool is_deleted { get; set; default = true; }
-    public bool is_archived { get; set; default = true; }
+    public bool is_deleted { get; set; default = false; }
+    public bool is_archived { get; set; default = false; }
 
     // Tmp
     public bool activate_name_editable { get; set; default = false; }
@@ -190,9 +190,9 @@ public class Objects.Section : Objects.BaseObject {
 
             Services.Database.get_default ().update_section (this);
             if (project.todoist && cloud) {
-                //  Planner.todoist.update.begin (this, (obj, res) => {
-                //      Planner.todoist.update.end (res);
-                //  });
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                });
             }
 
             return GLib.Source.REMOVE;

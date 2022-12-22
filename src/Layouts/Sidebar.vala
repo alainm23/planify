@@ -51,10 +51,10 @@ public class Layouts.Sidebar : Gtk.Grid {
         todoist_projects_header.margin_top = 6;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 16,
-            margin_end = 16,
-            margin_bottom = 16,
-            margin_top = 24
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12,
+            margin_top = 16
         };
         
         content_box.append (filters_grid);
@@ -145,7 +145,7 @@ public class Layouts.Sidebar : Gtk.Grid {
                 add_row_favorite (project);
             }
 
-            favorites_header.check_visibility ();
+            favorites_header.check_visibility (favorites_hashmap.size);
         });
 
         inbox_filter.init ();
@@ -172,7 +172,7 @@ public class Layouts.Sidebar : Gtk.Grid {
             add_row_favorite (project);
         }
 
-        favorites_header.check_visibility ();
+        favorites_header.check_visibility (favorites_hashmap.size);
     }
 
     private void add_row_favorite (Objects.Project project) {

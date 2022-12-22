@@ -3,7 +3,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private Layouts.Sidebar sidebar;
     private Gtk.Stack views_stack;
+    private Adw.Flap flap_view;
+    private Widgets.ProjectViewHeaderBar project_view_headerbar;
+    private Gtk.Button settings_button;
 
+    public Services.ActionManager action_manager;
+    
     public MainWindow (Planner application) {
         Object (
             application: application,
@@ -19,6 +24,8 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     construct {
+        action_manager = new Services.ActionManager (app, this);
+
         var sidebar_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true,
@@ -29,12 +36,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var settings_image = new Widgets.DynamicIcon ();
         settings_image.size = 21;
-        settings_image.update_icon_name ("planner-settings");
+        settings_image.update_icon_name ("planner-settings-sliders");
 
-        var settings_button = new Gtk.Button () {
-            can_focus = false
-        };
-
+        settings_button = new Gtk.Button ();
         settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         settings_button.child = settings_image;
 
@@ -60,10 +64,39 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar_content.attach(sidebar_separator, 0, 1);
         sidebar_content.attach(sidebar, 0, 2);
 
-         var views_header = new Adw.HeaderBar () {
+        var sidebar_image = new Widgets.DynamicIcon ();
+        sidebar_image.size = 19;
+        sidebar_image.update_icon_name ("sidebar-left");
+        
+        var sidebar_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        sidebar_button.child = sidebar_image;
+
+        project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
+
+        var search_image = new Widgets.DynamicIcon ();
+        search_image.size = 19;
+        search_image.update_icon_name ("planner-search");
+        
+        var search_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        search_button.child = search_image;
+        
+        var views_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true
         };
+
+        // views_header.title_widget = view_headerbar;
+        views_header.pack_start (sidebar_button);
+        views_header.pack_start (project_view_headerbar);
+        views_header.pack_end (search_button);
 
         views_header.add_css_class ("flat");
 
@@ -83,7 +116,7 @@ public class MainWindow : Adw.ApplicationWindow {
         views_content.attach(views_separator, 0, 1);
         views_content.attach(views_stack, 0, 2);
 
-        var flap_view = new Adw.Flap () {
+        flap_view = new Adw.Flap () {
             locked = false,
             fold_policy = Adw.FlapFoldPolicy.AUTO,
             transition_type = Adw.FlapTransitionType.OVER
@@ -138,14 +171,33 @@ public class MainWindow : Adw.ApplicationWindow {
                 if (id == FilterType.INBOX.to_string ()) {
                     add_inbox_view ();
                 } else if (id == FilterType.TODAY.to_string ()) {
-                    // add_today_view ();
+                    add_today_view ();
                 } else if (id == FilterType.SCHEDULED.to_string ()) {
                     // add_scheduled_view ();
                 } else if (id == FilterType.PINBOARD.to_string ()) {
-                    // add_pinboard_view ();
+                    add_pinboard_view ();
                 }
-            } 
+            }
+
+            if (flap_view.folded) {
+                show_hide_sidebar ();
+            }
         });
+
+        sidebar_button.clicked.connect (() => {
+            show_hide_sidebar ();
+        });
+
+        search_button.clicked.connect (() => {
+            var dialog = new Dialogs.QuickFind.QuickFind ();
+            dialog.show ();
+        });
+
+        settings_button.clicked.connect (open_menu_app);
+    }
+    
+    public void show_hide_sidebar () {
+        flap_view.reveal_flap = !flap_view.reveal_flap;
     }
 
     private void init_backend () {
@@ -168,7 +220,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (project_view, project.view_id);
         }
 
-        // views_header.view = project;
+        project_view_headerbar.view = project;
         views_stack.set_visible_child_name (project.view_id);
         return project_view;
     }
@@ -188,7 +240,52 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (today_view, "today-view");
         }
 
-        // views_header.view = Objects.Today.get_default ();
+        project_view_headerbar.view = Objects.Today.get_default ();
         views_stack.set_visible_child_name ("today-view");
+    }
+
+    public void add_pinboard_view () {
+        Views.Pinboard? pinboard_view;
+        pinboard_view = (Views.Pinboard) views_stack.get_child_by_name ("pinboard-view");
+        if (pinboard_view == null) {
+            pinboard_view = new Views.Pinboard ();
+            views_stack.add_named (pinboard_view, "pinboard-view");
+        }
+
+        project_view_headerbar.view = Objects.Pinboard.get_default ();
+        views_stack.set_visible_child_name ("pinboard-view");
+    }
+
+    private Gtk.Popover menu_app = null;
+    private void open_menu_app () {
+        if (menu_app != null) {
+            menu_app.popup ();
+            return;
+        }
+
+        var preferences_item = new Gtk.Button.with_label (_("Preferences"));
+        preferences_item.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var keyboard_shortcuts_item = new Gtk.Button.with_label (_("Keyboard shortcuts"));
+        keyboard_shortcuts_item.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var about_item = new Gtk.Button.with_label (_("About Planner"));
+        about_item.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (preferences_item);
+        menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (keyboard_shortcuts_item);
+        menu_box.append (about_item);
+
+        menu_app = new Gtk.Popover () {
+            has_arrow = true,
+            child = menu_box,
+            position = Gtk.PositionType.BOTTOM
+        };
+
+        menu_app.set_parent (settings_button);
+        menu_app.popup();
     }
 }

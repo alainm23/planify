@@ -21,10 +21,8 @@
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     private Gtk.SearchEntry search_entry;
-    private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
     
-    private Gtk.Button cancel_clear_button;
     public Gee.HashMap <string, Objects.Label> labels_map;
     public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map;
 
@@ -50,31 +48,28 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     construct {
+        add_css_class ("popover-contents");
+
         labels_map = new Gee.HashMap <string, Objects.Label> ();
         labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
 
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search or Create"),
             valign = Gtk.Align.CENTER,
-            hexpand = true
+            hexpand = true,
+            margin_top = 8,
+            margin_start = 8,
+            margin_end = 8,
+            margin_bottom = 8
         };
-
-        var search_entry_gesture = new Gtk.GestureClick ();
-        search_entry_gesture.set_button (1);
-        search_entry.add_controller (search_entry_gesture);
-
-        search_entry_gesture.pressed.connect ((n_press, x, y) => {
-            search_entry_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            search_entry.grab_focus ();
-        });
 
         listbox = new Gtk.ListBox () {
             hexpand = true
         };
 
-        // listbox.set_placeholder (get_placeholder ());
         listbox.set_filter_func (filter_func);
         listbox.add_css_class ("listbox-separator-3");
+        listbox.add_css_class ("listbox-background");
         
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -82,6 +77,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             vexpand = true,
             height_request = 175
         };
+
         listbox_scrolled.child = listbox;
 
         var content_grid = new Gtk.Grid () {
@@ -92,7 +88,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         
         content_grid.attach (listbox_scrolled, 0, 0);
 
-        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_grid.append (search_entry);
         main_grid.append (content_grid);
 

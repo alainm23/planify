@@ -57,16 +57,6 @@ public class Widgets.ScheduleButton : Gtk.Button {
         datetime_picker.set_parent (this);
         datetime_picker.popup ();
         
-        //  if (item != null && item.has_due) {
-        //      datetime_picker.datetime = item.due.datetime;
-        //  }
-
-        //  if (task != null && !task.get_icalcomponent ().get_due ().is_null_time ()) {
-        //      datetime_picker.datetime = CalDAVUtil.ical_to_date_time_local (
-        //          task.get_icalcomponent ().get_due ()
-        //      );
-        //  }
-        
         datetime_picker.date_changed.connect (() => {
             date_changed (datetime_picker.datetime);
         });

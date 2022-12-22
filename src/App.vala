@@ -13,6 +13,23 @@ public class Planner : Adw.Application {
             return _instance;
         }
     }
+
+    private static bool silent = false;
+    private static bool version = false;
+    private static bool clear_database = false;
+    private static string lang = "";
+
+    private const OptionEntry[] PLANNER_OPTIONS = {
+        { "version", 'v', 0, OptionArg.NONE, ref version,
+        "Display version number", null },
+        { "reset", 'r', 0, OptionArg.NONE, ref clear_database,
+        "Reset Planner", null },
+        { "silent", 's', 0, OptionArg.NONE, out silent,
+        "Run the Application in background", null },
+        { "lang", 'l', 0, OptionArg.STRING, ref lang,
+        "Open Planner in a specific language", "LANG" },
+        { null }
+    };
     
     static construct {
         settings = new Settings ("com.github.alainm23.planner");
@@ -28,7 +45,7 @@ public class Planner : Adw.Application {
         Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
         Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
-        // add_main_option_entries (PLANNER_OPTIONS);
+        add_main_option_entries (PLANNER_OPTIONS);
 
         create_dir_with_parents ("/com.github.alainm23.planner");
 
@@ -36,14 +53,26 @@ public class Planner : Adw.Application {
     }
 
     protected override void activate () {
+        if (lang != "") {
+            GLib.Environment.set_variable ("LANGUAGE", lang, true);
+        }
+
+        if (version) {
+            print ("%s\n".printf (Constants.VERSION));
+            return;
+        }
+
         main_window = new MainWindow (this);
-        main_window.show ();
 
         Planner.settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("window-width", main_window, "default-width", SettingsBindFlags.DEFAULT);
 
         if (Planner.settings.get_boolean ("window-maximized")) {
             main_window.maximize ();
+        }
+
+        if (!silent) {
+            main_window.show ();
         }
 
         Planner.settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
@@ -55,6 +84,15 @@ public class Planner : Adw.Application {
         );
 
         Util.get_default ().update_theme ();
+
+        if (settings.get_string ("version") != Constants.VERSION) {
+            settings.set_string ("version", Constants.VERSION);
+        }
+
+        if (clear_database) {
+            Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
+                _("It process removes all stored information without the possibility of undoing it."));
+        }
     }
 
     public void create_dir_with_parents (string dir) {

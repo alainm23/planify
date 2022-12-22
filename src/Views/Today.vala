@@ -1,75 +1,156 @@
 public class Views.Today : Gtk.Grid {
-    private Views.Date date_view;
+    private Gtk.ListBox listbox;
+    private Gtk.Revealer today_revealer;
+    private Gtk.ListBox overdue_listbox;
+    private Gtk.Revealer overdue_revealer;
+
     private Gtk.Label date_label;
 
+    public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
+    public Gee.HashMap <string, Layouts.ItemRow> items;
+
+    public GLib.DateTime date { get; set; default = new GLib.DateTime.now_local (); }
+
+    private bool overdue_has_children {
+        get {
+            return overdue_items.size > 0;
+        }
+    }
+
+    private bool today_has_children {
+        get {
+            return items.size > 0;
+        }
+    }
+
     construct {
+        overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
+        items = new Gee.HashMap <string, Layouts.ItemRow> ();
+        
         var today_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("planner-today"),
             pixel_size = 24
         };
 
         var title_label = new Gtk.Label (_("Today"));
-        title_label.get_style_context ().add_class ("header-title");
+        title_label.add_css_class ("header-title");
+
 
         date_label = new Gtk.Label (null) {
             margin_top = 2
         };
 
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
+        date_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
-        var menu_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        menu_button.child = menu_image;
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        menu_button.clicked.connect (build_content_menu);
-
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 19;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        search_button.get_style_context ().add_class (Granite.STYLE_CLASS_FLAT);
-        search_button.child = search_image;
-        search_button.clicked.connect (Util.get_default ().open_quick_find);
-        
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 20,
-            margin_end = 6
+            margin_start = 24,
+            margin_top = 28,
+            margin_bottom = 19
         };
 
         header_box.append (today_icon);
         header_box.append (title_label);
         header_box.append (date_label);
-        // header_box.pack_end (menu_button, false, false, 0);
-        header_box.append (search_button);
 
         var magic_button = new Widgets.MagicButton ();
 
-        date_view = new Views.Date (true) {
-            margin_top = 12
+        var overdue_label = new Gtk.Label (_("Overdue")) {
+            halign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER,
+            hexpand = true
         };
+
+        overdue_label.add_css_class ("font-bold");
+        
+        var reschedule_button = new Gtk.Button.with_label (_("Reschedule")) {
+            hexpand = true,
+            halign = Gtk.Align.END
+        };
+
+        reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 24
+        };
+        overdue_header_box.append (overdue_label);
+        overdue_header_box.append (reschedule_button);
+
+        overdue_listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.SINGLE,
+            hexpand = true,
+            margin_start = 2
+        };
+
+        overdue_listbox.add_css_class ("listbox-background");
+
+        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 24
+        };
+
+        var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_bottom = 12
+        };
+
+        overdue_box.append (overdue_header_box);
+        overdue_box.append (overdue_separator);
+        overdue_box.append (overdue_listbox);
+
+        overdue_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+        overdue_revealer.child = overdue_box;
+
+        var today_label = new Gtk.Label (_("Today")) {
+            halign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER,
+            hexpand = true
+        };
+
+        today_label.add_css_class ("font-bold");
+        
+        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 24
+        };
+
+        today_header_box.append (today_label);
+
+        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 24
+        };
+
+        var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+
+        today_box.append (today_header_box);
+        today_box.append (today_separator);
+
+        today_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+        today_revealer.child = today_box;
+
+        listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.SINGLE,
+            hexpand = true,
+            margin_start = 2
+        };
+
+        listbox.add_css_class ("listbox-background");
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            vexpand = true,
-            margin_start = 16,
-            margin_end = 36,
-            margin_bottom = 36,
-            margin_top = 6
+            vexpand = true
         };
 
         content.append (header_box);
-        content.append (date_view);
+        content.append (overdue_revealer);
+        content.append (today_revealer);
+        content.append (listbox);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 720
@@ -80,47 +161,165 @@ public class Views.Today : Gtk.Grid {
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true,
+            vexpand = true
         };
+
         scrolled_window.child = content_clamp;
 
         var overlay = new Gtk.Overlay () {
             hexpand = true,
-            vexpand = true,
+            vexpand = true
         };
+
         overlay.add_overlay (magic_button);
         overlay.child = scrolled_window;
 
         attach (overlay, 0, 0);
         update_today_label ();
-
-        magic_button.clicked.connect (() => {
-            prepare_new_item ();
-        });
-
-        //  scrolled_window.vadjustment.value_changed.connect (() => {
-        //      if (scrolled_window.vadjustment.value > 20) {
-        //          Planner.event_bus.view_header (true);
-        //      } else {
-        //          Planner.event_bus.view_header (false);
-        //      }
-        //  });
+        add_today_items ();
 
         Planner.event_bus.day_changed.connect (() => {
-            date_view.update_date (new GLib.DateTime.now_local ());
             update_today_label ();
+        });
+
+        Services.Database.get_default ().item_added.connect (valid_add_item);
+        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
+        Services.Database.get_default ().item_updated.connect (valid_update_item);
+
+        Planner.event_bus.item_moved.connect ((item) => {
+            if (items.has_key (item.id_string)) {
+                items[item.id_string].update_request ();
+            }
+
+            if (overdue_items.has_key (item.id_string)) {
+                items[item.id_string].update_request ();
+            }
         });
     }
 
+    private void add_today_items () {
+        items.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
+
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
+            add_item (item);
+        }
+
+        overdue_items.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox) ) {
+            overdue_listbox.remove (child);
+        }
+
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_overdeue_view (false)) {
+            add_overdue_item (item);
+        }
+
+        update_headers ();
+    }
+
+    private void add_item (Objects.Item item) {
+        items [item.id_string] = new Layouts.ItemRow (item);
+        listbox.append (items [item.id_string]);
+        update_headers ();
+    }
+
+    private void add_overdue_item (Objects.Item item) {
+        overdue_items [item.id_string] = new Layouts.ItemRow (item);
+        overdue_listbox.append (overdue_items [item.id_string]);
+        update_headers ();
+    }
+
+    private void valid_add_item (Objects.Item item, bool insert = true) {
+        if (!items.has_key (item.id_string) &&
+            Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            add_item (item);   
+        }
+
+        if (!overdue_items.has_key (item.id_string) &&
+            Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+            add_overdue_item (item);
+        }
+
+        update_headers ();
+    }
+
+    private void valid_delete_item (Objects.Item item) {
+        if (items.has_key (item.id_string)) {
+            items[item.id_string].hide_destroy ();
+            items.unset (item.id_string);
+        }
+
+        if (overdue_items.has_key (item.id_string)) {
+            overdue_items[item.id_string].hide_destroy ();
+            overdue_items.unset (item.id_string);
+        }
+
+        update_headers ();
+    }
+
+    private void valid_update_item (Objects.Item item) {
+        if (items.has_key (item.id_string)) {
+            items[item.id_string].update_request ();
+        }
+
+        if (overdue_items.has_key (item.id_string)) {
+            overdue_items[item.id_string].update_request ();
+        }
+
+        if (items.has_key (item.id_string) && !item.has_due) {
+            items[item.id_string].hide_destroy ();
+            items.unset (item.id_string);
+        }
+
+        if (overdue_items.has_key (item.id_string) && !item.has_due) {
+            overdue_items[item.id_string].hide_destroy ();
+            overdue_items.unset (item.id_string);
+        }
+
+        if (items.has_key (item.id_string) && item.has_due) {
+            if (!Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+                items[item.id_string].hide_destroy ();
+                items.unset (item.id_string);
+            }
+        }
+
+        if (overdue_items.has_key (item.id_string) && item.has_due) {
+            if (!Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+                overdue_items[item.id_string].hide_destroy ();
+                overdue_items.unset (item.id_string);
+            }
+        }
+
+        if (item.has_due) {
+            valid_add_item (item);
+        }
+
+        update_headers ();
+    }
+
     private void update_today_label () {
-        date_label.label = "%s %s".printf (new GLib.DateTime.now_local ().format ("%a"),
-            new GLib.DateTime.now_local ().format (
+        date = new GLib.DateTime.now_local ();
+        date_label.label = "%s %s".printf (date.format ("%a"),
+            date.format (
             Granite.DateTime.get_default_date_format (false, true, false)
         ));
     }
 
     public void prepare_new_item (string content = "") {
-        date_view.prepare_new_item (content);
+    }
+
+    private void update_headers () {
+        if (overdue_has_children) {
+            overdue_revealer.reveal_child = true;
+            today_revealer.reveal_child = today_has_children;
+        } else {
+            overdue_revealer.reveal_child = false;
+            today_revealer.reveal_child = false;
+        }
     }
 
     public void build_content_menu () {

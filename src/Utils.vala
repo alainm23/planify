@@ -851,30 +851,24 @@ public class Util : GLib.Object {
         //  dialog.show_all ();
     }
 
-    //  public void clear_database (string title, string message) {
-    //      var message_dialog = new Dialogs.MessageDialog (
-    //          title,
-    //          message,
-    //          "dialog-warning"
-    //      ) {
-    //          modal = true
-    //      };
-        
-    //      message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-    //      message_dialog.add_default_action (_("Reset all"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+    public void clear_database (string title, string message) {
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        title, message);
 
-    //      message_dialog.show_all ();
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Reset all"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
 
-    //      message_dialog.default_action.connect ((response) => {
-    //          if (response == Gtk.ResponseType.ACCEPT) {
-    //              clear_database_query ();
-    //              reset_settings ();
-    //              Planner.instance.main_window.destroy ();
-    //          } else {
-    //              message_dialog.hide_destroy ();
-    //          }
-    //      });
-    //  }
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                clear_database_query ();
+                reset_settings ();
+                Planner.instance.main_window.destroy ();
+            }
+        });
+    }
 
     public void clear_database_query () {
         string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";

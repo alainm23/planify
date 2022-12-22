@@ -112,7 +112,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         add_button.add_css_class ("p3");
-        // Loading
+
         var spinner_loading = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
@@ -222,7 +222,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         listbox.remove (widget);
     }
 
-    public void check_visibility () {
-        content_revealer.reveal_child = has_children;
+    public void check_visibility (int size) {
+        content_revealer.reveal_child = size > 0;
     }
 }

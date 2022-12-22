@@ -101,22 +101,22 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
     
     public void init () {
         if (filter_type == FilterType.TODAY) {
-            //  update_count_label (Objects.Today.get_default ().today_count);
-            //  Objects.Today.get_default ().today_count_updated.connect (() => {
-            //      update_count_label (Objects.Today.get_default ().today_count);
-            //  });
+            update_count_label (Objects.Today.get_default ().today_count);
+            Objects.Today.get_default ().today_count_updated.connect (() => {
+                update_count_label (Objects.Today.get_default ().today_count);
+            });
         } else if (filter_type == FilterType.INBOX) {
             init_inbox_count ();            
         } else if (filter_type == FilterType.SCHEDULED) {
-            //  update_count_label (Objects.Scheduled.get_default ().scheduled_count);
-            //  Objects.Scheduled.get_default ().scheduled_count_updated.connect (() => {
-            //      update_count_label (Objects.Scheduled.get_default ().scheduled_count);
-            //  });
+            update_count_label (Objects.Scheduled.get_default ().scheduled_count);
+            Objects.Scheduled.get_default ().scheduled_count_updated.connect (() => {
+                update_count_label (Objects.Scheduled.get_default ().scheduled_count);
+            });
         } else if (filter_type == FilterType.PINBOARD) {
-            //  update_count_label (Objects.Pinboard.get_default ().pinboard_count);
-            //  Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
-            //      update_count_label (Objects.Pinboard.get_default ().pinboard_count);
-            //  });
+            update_count_label (Objects.Pinboard.get_default ().pinboard_count);
+            Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
+                update_count_label (Objects.Pinboard.get_default ().pinboard_count);
+            });
         }
     }
     private void init_inbox_count () {

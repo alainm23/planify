@@ -36,6 +36,7 @@ executable(
   'src/Services/Database.vala',
   'src/Services/EventBus.vala',
   'src/Services/Todoist.vala',
+  'src/Services/ActionManager.vala',
 
   'src/Layouts/Sidebar.vala',
   'src/Layouts/FilterPaneRow.vala',
@@ -63,6 +64,8 @@ executable(
   'src/Widgets/LabelButton.vala',
   'src/Widgets/ItemLabels.vala',
   'src/Widgets/ItemLabelChild.vala',
+  'src/Widgets/ProjectViewHeaderBar.vala',
+  'src/Widgets/IconColorProject.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -103,6 +106,12 @@ executable(
 
   'src/Dialogs/Project.vala',
   'src/Dialogs/TodoistOAuth.vala',
+
+  'src/Dialogs/QuickFind/QuickFind.vala',
+  'src/Dialogs/QuickFind/QuickFindItem.vala',
+  'src/Dialogs/QuickFind/Synapse.vala',
+
+  'src/Dialogs/Preferences/PreferencesWindow.vala',
 
   asresources,
   config_file,

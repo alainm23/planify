@@ -74,8 +74,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
 
-        // var calendar_item = new Widgets.DateTimePicker.CalendarPicker (_("Pick Date"));
-        var calendar_item = new Widgets.Calendar.Calendar (false);
+        var calendar_item = new Widgets.Calendar.Calendar (true);
 
         var date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
@@ -139,17 +138,20 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         calendar_item.selection_changed.connect ((date) => {
-            set_date (date);
+            _datetime = Util.get_default ().get_format_date (date);
         });
 
         time_picker.time_changed.connect (() => {
-            set_date (datetime);
+            _datetime = Util.get_default ().get_format_date (datetime);
+        });
+
+        closed.connect (() => {
+            date_changed ();
         });
     }
 
     private void set_date (DateTime date) {
         _datetime = Util.get_default ().get_format_date (date);
-        date_changed ();
     }
 
     private GLib.DateTime add_date_time (GLib.DateTime date, GLib.DateTime time) {

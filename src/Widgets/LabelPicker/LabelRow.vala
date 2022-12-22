@@ -54,8 +54,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             column_spacing = 6,
             margin_top = 3,
             margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_end = 3
         };
 
         main_grid.attach (checked_button, 0, 0);

@@ -45,6 +45,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.Button hide_subtask_button;
     private Gtk.Revealer hide_subtask_revealer;
     private Gtk.Box main_grid;
+    private Widgets.ContextMenu.MenuItem no_date_item;
     //  private Gtk.EventBox itemrow_eventbox_eventbox;
     
     bool _edit = false;
@@ -450,8 +451,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_button.child = menu_image;
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         
-        // menu_button.clicked.connect (build_context_menu);
-
         menu_button_revealer = new Gtk.Revealer () {
             reveal_child = !is_creating
         };
@@ -808,12 +807,19 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
+        var menu_handle_gesture = new Gtk.GestureClick ();
+        menu_handle_gesture.set_button (3);
+        handle_grid.add_controller (menu_handle_gesture);
+
+        menu_handle_gesture.pressed.connect ((n_press, x, y) => {
+            build_handle_context_menu (x, y);
+        });
+
         var menu_gesture = new Gtk.GestureClick ();
-        menu_gesture.set_button (3);
-        handle_grid.add_controller (menu_gesture);
+        menu_button.add_controller (menu_gesture);
 
         menu_gesture.pressed.connect ((n_press, x, y) => {
-            build_context_menu (x, y);
+            build_button_context_menu (x, y);
         });
     }
 
@@ -910,7 +916,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         // item_labels.update_labels ();
 
         if (!edit) {
-            // item_summary.check_revealer ();
+            item_summary.check_revealer ();
         }
     }
 
@@ -932,8 +938,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    private void build_context_menu (double x, double y) {
+    private void build_handle_context_menu (double x, double y) {
         if (menu_popover != null) {
+            if (item.has_due) {
+                no_date_item.show ();
+            } else {
+                no_date_item.hide ();
+            }
+
             menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_popover.popup();
             return;
@@ -945,7 +957,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
-        var no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
 
         var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
         var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
@@ -1055,6 +1067,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
     }
 
+    private void build_button_context_menu (double x, double y) {
+        
+    }
+
     //  private void build_context_menu () {
     //      Planner.event_bus.unselect_all ();
     //      var menu = new Dialogs.ContextMenu.Menu ();
@@ -1158,7 +1174,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void update_due (GLib.DateTime? datetime) {
+        string old_date = "%s".printf (item.due.date);
         item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+
+        if (old_date == item.due.date) {
+            return;
+        }
 
         if (is_creating) {
             schedule_button.update_from_item (item);

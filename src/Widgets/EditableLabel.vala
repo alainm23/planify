@@ -77,7 +77,6 @@ public class Widgets.EditableLabel : Gtk.Grid {
         };
 
         stack = new Gtk.Stack () {
-            hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 

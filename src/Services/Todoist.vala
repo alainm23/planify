@@ -789,19 +789,18 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         int64? id = null;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             object.get_add_json (temp_id, uuid)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             parser.load_from_data ((string) stream.get_data ());
-            // parser.load_from_data ((string) message.response_body.flatten ().data);
-
+            
             // Debug
             print_root (parser.get_root ());
 
