@@ -95,7 +95,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             valign = Gtk.Align.START,
             min_children_per_line = itemrow == null ? 1 : 3,
             max_children_per_line = 20,
-            margin_end = 6,
+            margin_end = 6
         };
 
         flowbox_revealer = new Gtk.Revealer () {
@@ -115,6 +115,7 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             margin_end = 6,
             valign = Gtk.Align.START
         };
+        
         more_label_grid.add (more_label);
         more_label_grid.get_style_context ().add_class ("item-label-child");
 

@@ -73,12 +73,12 @@ public class Objects.Section : Objects.BaseObject {
     }
 
     public Section.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = node.get_object ().get_int_member ("project_id");
+        project_id = int64.parse (node.get_object ().get_string_member ("project_id"));
         name = node.get_object ().get_string_member ("name");
         added_at = node.get_object ().get_string_member ("added_at");
         section_order = (int32) node.get_object ().get_int_member ("section_order");

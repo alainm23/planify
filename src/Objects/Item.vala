@@ -190,7 +190,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public Item.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
         update_local_labels (get_labels_from_json (node));
     }
@@ -209,7 +209,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = node.get_object ().get_int_member ("project_id");
+        project_id = int64.parse (node.get_object ().get_string_member ("project_id"));
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
         checked = node.get_object ().get_boolean_member ("checked");
@@ -218,13 +218,13 @@ public class Objects.Item : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
 
         if (!node.get_object ().get_null_member ("section_id")) {
-            section_id = node.get_object ().get_int_member ("section_id");
+            section_id = int64.parse (node.get_object ().get_string_member ("section_id"));
         } else{
             section_id = Constants.INACTIVE;
         }
 
         if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = node.get_object ().get_int_member ("parent_id");
+            parent_id = int64.parse (node.get_object ().get_string_member ("parent_id"));
         } else {
             parent_id = Constants.INACTIVE;
         }

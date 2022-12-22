@@ -198,7 +198,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public Project.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
         todoist = true;
     }
@@ -227,7 +227,7 @@ public class Objects.Project : Objects.BaseObject {
         }
         
         if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = node.get_object ().get_int_member ("parent_id");
+            parent_id = int64.parse (node.get_object ().get_string_member ("parent_id"));
         } else {
             parent_id = Constants.INACTIVE;
         }

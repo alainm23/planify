@@ -97,7 +97,7 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     public Label.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
         todoist = true;
     }
