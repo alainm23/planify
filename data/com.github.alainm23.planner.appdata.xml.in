@@ -39,7 +39,14 @@
   <provides>
     <binary>com.github.alainm23.planner</binary>
   </provides>
-  ​<releases>
+  <releases>
+      <release version="3.0.10" date="2022-12-10">
+      <description>
+        <ul>
+          <li>Fixed error when syncing with Todoist.</li>
+        </ul>
+      </description>
+    </release>
   <release version="3.0.9" date="2022-05-10">
       <description>
         <p>Planner 3 Beta 2.1</p>
