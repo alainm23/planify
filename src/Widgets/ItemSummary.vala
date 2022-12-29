@@ -22,7 +22,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
     private Gtk.Revealer description_label_revealer;
 
     private Gtk.Revealer revealer;
-    // Gee.HashMap<string, Widgets.ItemLabelChild> labels;
+    Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
     public uint labels_flowbox_size {
         get {
@@ -44,7 +44,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
     }
 
     construct {
-        // labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
+        labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
         due_label = new Gtk.Label (null);
 
@@ -185,22 +185,26 @@ public class Widgets.ItemSummary : Gtk.Grid {
         //      check_revealer ();
         //  });
 
-        //  Planner.settings.changed.connect ((key) => {
-        //      if (key == "clock-format" || key == "description-preview") {
-        //          update_request ();
-        //          check_revealer ();
-        //      }
-        //  });
+        Planner.settings.changed.connect ((key) => {
+            if (key == "clock-format" || key == "description-preview") {
+                update_request ();
+                check_revealer ();
+            }
+        });
 
-        //  item.item_added.connect (() => {
-        //      update_request ();
-        //  });
+        item.item_added.connect (() => {
+            update_request ();
+        });
+
+        item.item_label_deleted.connect ((item_label) => {
+            remove_item_label (item_label);
+        });
     }
 
     public void update_request () {
         update_due_label ();
-        // update_subtasks ();
-        // update_labels ();
+        update_subtasks ();
+        update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
         description_label_revealer.reveal_child = description_label.label.length > 0 && 
@@ -252,45 +256,46 @@ public class Widgets.ItemSummary : Gtk.Grid {
     }
 
     private void update_labels () {
-        //  int more = 0;
-        //  int count = 0;
-        //  string tooltip_text = "";
-        //  more_label_revealer.reveal_child = false;
+        int more = 0;
+        int count = 0;
+        string tooltip_text = "";
+        more_label_revealer.reveal_child = false;
 
-        //  foreach (Objects.ItemLabel item_label in item.labels.values) {
-        //      if (!labels.has_key (item_label.id_string)) {
-        //          if (itemrow == null && labels.size >= 1) {
-        //              more++;
-        //              more_label.label = "+%d".printf (more);
-        //              tooltip_text += "- %s%s".printf (
-        //                  item_label.label.name,
-        //                  more + 1 >= item.labels.values.size ? "" : "\n"
-        //              );
-        //              more_label_grid.tooltip_text = tooltip_text;
-        //              more_label_revealer.reveal_child = true;
-        //          } else {
-        //              Util.get_default ().set_widget_color (
-        //                  Util.get_default ().get_color (item_label.label.color),
-        //                  more_label_grid
-        //              );
+        foreach (Objects.ItemLabel item_label in item.labels.values) {
+            if (!labels.has_key (item_label.id_string)) {
+                if (itemrow == null && labels.size >= 1) {
+                    more++;
+                    more_label.label = "+%d".printf (more);
+                    tooltip_text += "- %s%s".printf (
+                        item_label.label.name,
+                        more + 1 >= item.labels.values.size ? "" : "\n"
+                    );
+                    more_label_grid.tooltip_text = tooltip_text;
+                    more_label_revealer.reveal_child = true;
+                } else {
+                    Util.get_default ().set_widget_color (
+                        Util.get_default ().get_color (item_label.label.color),
+                        more_label_grid
+                    );
 
-        //              var item_label_child = new Widgets.ItemLabelChild (item_label);
+                    labels[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
+                    labels_flowbox.append (labels[item_label.id_string]);
+                }
 
-        //              item_label_child.delete_request.connect (() => {
-        //                  labels.unset (item_label_child.item_label.id_string);
-        //                  item_label_child.hide_destroy ();
-        //              });
+                count++;
+            }
+        }
 
-        //              labels[item_label.id_string] = item_label_child;
-        //              labels_flowbox.add (labels[item_label.id_string]);
-        //              labels_flowbox.show_all ();
-        //          }
+        flowbox_revealer.reveal_child = labels.size > 0;
+    }
 
-        //          count++;
-        //      }
-        //  }
+    public void remove_item_label (Objects.ItemLabel item_label) {
+        if (labels.has_key (item_label.id_string)) {
+            labels_flowbox.remove (labels[item_label.id_string]);
+            labels.unset (item_label.id_string);
+        }
 
-        //  flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
+        flowbox_revealer.reveal_child = labels.size > 0;
     }
 
     private void update_subtasks () {

@@ -304,7 +304,7 @@ public class Util : GLib.Object {
         widget.remove_css_class ("priority-2-color");
         widget.remove_css_class ("priority-3-color");
         widget.remove_css_class ("priority-4-color");
-        
+
         if (priority == Constants.PRIORITY_1) {
             widget.add_css_class ("priority-1-color");
         } else if (priority == Constants.PRIORITY_2) {
@@ -428,15 +428,6 @@ public class Util : GLib.Object {
     }
 
     public void update_theme () {
-        //  string _css = """
-        //      @define-color base_color %s;
-        //      @define-color bg_color %s;
-        //      @define-color item_bg_color %s;
-        //      @define-color item_border_color %s;
-        //      @define-color picker_bg %s;
-        //      @define-color picker_content_bg %s;
-        //  """;
-
         string _css = """
             @define-color window_bg_color %s;
             @define-color popover_bg_color %s;
@@ -457,57 +448,53 @@ public class Util : GLib.Object {
 
         var provider = new Gtk.CssProvider ();
 
-        try {
-            string window_bg_color = "";
-            string popover_bg_color = "";
-            string item_border_color = "";
-            string upcoming_bg_color = "";
-            string upcoming_fg_color = ""; 
+        string window_bg_color = "";
+        string popover_bg_color = "";
+        string item_border_color = "";
+        string upcoming_bg_color = "";
+        string upcoming_fg_color = ""; 
 
-            if (dark_mode) {
-                if (appearance_mode == 1) {
-                    window_bg_color = "#151515";
-                    popover_bg_color = "shade(#151515, 1.4)";
-                    item_border_color = "#333333";
-                    upcoming_bg_color = "#313234";
-                    upcoming_fg_color = "#ededef";
-                    Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
-                } else if (appearance_mode == 2) {
-                    window_bg_color = "#0B0B11";
-                    popover_bg_color = "#15151B";
-                    item_border_color = "shade(#333333, 1.35)";
-                    upcoming_bg_color = "#313234";
-                    upcoming_fg_color = "#ededef";
-                    Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
-                }
-            } else {
-                window_bg_color = "#ffffff";
-                popover_bg_color = "#ffffff";
-                item_border_color = "@borders";
-                upcoming_bg_color = "#ededef";
-                upcoming_fg_color = "shade(#ededef, 0)";
-                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+        if (dark_mode) {
+            if (appearance_mode == 1) {
+                window_bg_color = "#151515";
+                popover_bg_color = "shade(#151515, 1.4)";
+                item_border_color = "#333333";
+                upcoming_bg_color = "#313234";
+                upcoming_fg_color = "#ededef";
+                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+            } else if (appearance_mode == 2) {
+                window_bg_color = "#0B0B11";
+                popover_bg_color = "#15151B";
+                item_border_color = "shade(#333333, 1.35)";
+                upcoming_bg_color = "#313234";
+                upcoming_fg_color = "#ededef";
+                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
             }
-
-            var CSS = _css.printf (
-                window_bg_color,
-                popover_bg_color,
-                item_border_color,
-                upcoming_bg_color,
-                upcoming_fg_color
-            );
-
-            provider.load_from_data (CSS.data);
-
-            Gtk.StyleContext.add_provider_for_display (
-                Gdk.Display.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-
-            Planner.event_bus.theme_changed ();
-        } catch (GLib.Error e) {
-            return;
+        } else {
+            window_bg_color = "#ffffff";
+            popover_bg_color = "#ffffff";
+            item_border_color = "@borders";
+            upcoming_bg_color = "#ededef";
+            upcoming_fg_color = "shade(#ededef, 0)";
+            Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
         }
+
+        var CSS = _css.printf (
+            window_bg_color,
+            popover_bg_color,
+            item_border_color,
+            upcoming_bg_color,
+            upcoming_fg_color
+        );
+
+        provider.load_from_data (CSS.data);
+
+        Gtk.StyleContext.add_provider_for_display (
+            Gdk.Display.get_default (), provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
+
+        Planner.event_bus.theme_changed ();
     }
 
     /**
@@ -665,6 +652,7 @@ public class Util : GLib.Object {
             row.hide_destroy ();
         }
 
+        Planner.event_bus.send_notification (create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
         Planner.event_bus.update_section_sort_func (row.item.project_id, row.item.section_id, false);
     }
 
@@ -791,6 +779,9 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-board", true);
                 _dynamic_icons.set ("color-swatch", true);
                 _dynamic_icons.set ("emoji-happy", true);
+                _dynamic_icons.set ("planner-clipboard", true);
+                _dynamic_icons.set ("planner-copy", true);
+                _dynamic_icons.set ("planner-rotate", true);
             }
 
             return _dynamic_icons;
@@ -956,7 +947,7 @@ public class Util : GLib.Object {
             case 3:
                 return FilterType.PINBOARD;
             default:
-                assert_not_reached();
+                assert_not_reached ();
         }
     }
 
@@ -1051,5 +1042,13 @@ public class Util : GLib.Object {
         }
 
         return response;
+    }
+
+    public Adw.Toast create_toast (string title, uint timeout = 2, Adw.ToastPriority priority = Adw.ToastPriority.NORMAL) {
+        var toast = new Adw.Toast (title);
+        toast.timeout = timeout;
+        toast.priority = priority;
+
+        return toast;
     }
 }

@@ -42,11 +42,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var labelrow_grid = new Gtk.Grid () {
-            column_spacing = 6,
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            column_spacing = 6
         };
         labelrow_grid.attach (name_label, 0, 0);
 
@@ -63,10 +59,6 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
 
-        item_label.deleted.connect (() => {
-            delete_request ();
-        });
-
         item_label.label.deleted.connect (() => {
             delete_request ();
         });
@@ -77,5 +69,13 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     public void update_request () {
         name_label.label = item_label.label.name;
         Util.get_default ().set_widget_color (Util.get_default ().get_color (item_label.label.color), this);
+    }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            ((Gtk.ListBox) parent).remove (this);
+            return GLib.Source.REMOVE;
+        });
     }
 }

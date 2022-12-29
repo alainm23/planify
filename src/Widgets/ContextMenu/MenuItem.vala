@@ -8,12 +8,16 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     public string icon {
         set {
             if (value != null) {
+                menu_icon_revealer.reveal_child = true;
                 menu_icon.update_icon_name (value);
+            } else {
+                menu_icon_revealer.reveal_child = false;
             }
         }
     }
 
     private Widgets.DynamicIcon menu_icon;
+    private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.Label secondary_label;
     private Gtk.Revealer loading_revealer;
@@ -38,7 +42,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
-    public MenuItem (string title, string icon) {
+    public MenuItem (string title, string? icon = null) {
         Object (
             title: title,
             icon: icon,
@@ -53,9 +57,18 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         menu_icon = new Widgets.DynamicIcon () {
             valign = Gtk.Align.CENTER
         };
+
         menu_icon.size = 19;
+
+        menu_icon_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            reveal_child = true
+        };
         
+        menu_icon_revealer.child = menu_icon;
+
         menu_title = new Gtk.Label (null);
+        menu_title.use_markup = true;
 
         secondary_label = new Gtk.Label (null) {
             hexpand = true,
@@ -63,8 +76,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             margin_end = 0
         };
 
-        unowned Gtk.StyleContext secondary_label_context = secondary_label.get_style_context ();
-        secondary_label_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        secondary_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var loading_spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
@@ -76,13 +88,14 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
         };
+
         loading_revealer.child = loading_spinner;
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
         };
 
-        content_box.append (menu_icon);
+        content_box.append (menu_icon_revealer);
         content_box.append (menu_title);
         content_box.append (secondary_label);
         content_box.append (loading_revealer);

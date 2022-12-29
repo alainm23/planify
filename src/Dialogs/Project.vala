@@ -108,6 +108,7 @@ public class Dialogs.Project : Adw.Window {
         emoji_switch.active = project.icon_style == ProjectIconStyle.EMOJI;
 
         name_entry = new Widgets.EntryRow ();
+        name_entry.entry.placeholder_text = _("Give your project a name");
         name_entry.entry.text = project.name;
 
         var name_emoji_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0) {
@@ -164,7 +165,6 @@ public class Dialogs.Project : Adw.Window {
         content_box.append (submit_button);
 
         content = content_box;
-        name_entry.grab_focus ();
 
         Timeout.add (emoji_color_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
@@ -175,6 +175,8 @@ public class Dialogs.Project : Adw.Window {
 
             progress_bar.color = project.color;
             color_picker_row.color = project.color;
+            
+            name_entry.grab_focus ();
             
             return GLib.Source.REMOVE;
         });
@@ -237,20 +239,20 @@ public class Dialogs.Project : Adw.Window {
 
         if (!is_creating) {
             submit_button.is_loading = true;
-            Services.Database.get_default().update_project (project);
             if (project.todoist) {
                 Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default().update_project (project);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
             } else {
+                Services.Database.get_default().update_project (project);
                 hide_destroy ();
             }
         } else {
             if (project.todoist) {
                 submit_button.is_loading = true;
-
                 Services.Todoist.get_default ().add.begin (project, (obj, res) => {
                     project.id = Services.Todoist.get_default ().add.end (res);
                     Services.Database.get_default().insert_project (project);

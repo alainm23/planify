@@ -14,6 +14,10 @@
     padding: 3px;
 }
 
+.border-radius-6 {
+    border-radius: 6px;
+}
+
 entry.flat:focus-within {
     outline-style: none;
 }
@@ -32,6 +36,12 @@ entry.flat:focus-within {
 
 .color-radio radio {
     box-shadow: none;
+}
+
+.color-label-widget {
+    background: alpha(@colorAccent, 0.75);
+    border: 1px solid @colorAccent;
+    border-radius: 50%;
 }
 
 .color-row-picker-selected {
@@ -256,4 +266,38 @@ entry.flat:focus-within {
     background: @colorAccent;
     border: 1px solid alpha(@colorAccent, 0.75);
     border-radius: 50%;
+}
+
+.quickfind-item {
+    border-radius: 6px;
+}
+
+.quickfind-item:selected {
+    background: @shade_color;
+    color: @text_color;
+}
+
+.item-label-child {
+    background-color: alpha(@colorAccent, 0.125);
+    border: 1px solid alpha(@colorAccent, 0.25);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: @colorAccent;
+    font-weight: bold;
+}
+
+.button-outline {
+    background: alpha(@item_border_color, 0.25);
+    border: 1px solid @item_border_color;
+    padding: 0px 12px;
+    margin: 0px;
+    border-radius: 6px;
+}
+
+.button-labels-box {
+    background: alpha(@item_border_color, 0.25);
+    border: 1px solid @item_border_color;
+    padding: 0px 6px;
+    margin: 0px;
+    border-radius: 24px;
 }

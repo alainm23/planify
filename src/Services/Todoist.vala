@@ -153,11 +153,11 @@ public class Services.Todoist : GLib.Object {
 
     public async void first_sync (string token) {
         string url = TODOIST_SYNC_URL;
-        url = url + "?token=" + token;
-        url = url + "&sync_token=" + "*";
+        url = url + "?sync_token=" + "*";
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -242,11 +242,11 @@ public class Services.Todoist : GLib.Object {
 
     public async void sync () {
         string url = TODOIST_SYNC_URL;
-        url = url + "?token=" + Planner.settings.get_string ("todoist-access-token");
-        url = url + "&sync_token=" + Planner.settings.get_string ("todoist-sync-token");
+        url = url + "?sync_token=" + Planner.settings.get_string ("todoist-sync-token");
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
@@ -314,7 +314,7 @@ public class Services.Todoist : GLib.Object {
                 // Sections
                 unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
                 foreach (unowned Json.Node _node in sections.get_elements ()) {
-                    Objects.Section? section = Services.Database.get_default ().get_section (_node.get_object ().get_int_member ("id"));
+                    Objects.Section? section = Services.Database.get_default ().get_section (int64.parse (_node.get_object ().get_string_member ("id")));
                     if (section != null) {
                         if (_node.get_object ().get_boolean_member ("is_deleted")) {
                             Services.Database.get_default ().delete_section (section);
@@ -330,7 +330,7 @@ public class Services.Todoist : GLib.Object {
                 // Items
                 unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
                 foreach (unowned Json.Node _node in items.get_elements ()) {
-                    Objects.Item? item = Services.Database.get_default ().get_item (_node.get_object ().get_int_member ("id"));
+                    Objects.Item? item = Services.Database.get_default ().get_item (int64.parse (_node.get_object ().get_string_member ("id")));
                     if (item != null) {
                         if (_node.get_object ().get_boolean_member ("is_deleted")) {
                             Services.Database.get_default ().delete_item (item);
@@ -376,13 +376,13 @@ public class Services.Todoist : GLib.Object {
     public async void queue () {
         Gee.ArrayList<Objects.Queue?> queue = Services.Database.get_default ().get_all_queue ();
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             get_queue_json (queue)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
@@ -399,19 +399,19 @@ public class Services.Todoist : GLib.Object {
                 var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
                 if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
                     if (q.query == "project_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        var id = int64.parse (node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id));
                         Services.Database.get_default ().update_project_id (q.object_id, id);
                         Services.Database.get_default ().remove_CurTempIds (q.object_id);
                     }
 
                     if (q.query == "section_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        var id = int64.parse (node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id));
                         Services.Database.get_default ().update_section_id (q.object_id, id);
                         Services.Database.get_default ().remove_CurTempIds (q.object_id);
                     }
 
                     if (q.query == "item_add") {
-                        var id = node.get_object_member ("temp_id_mapping").get_int_member (q.temp_id);
+                        var id = int64.parse (node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id));
                         Services.Database.get_default ().update_item_id (q.object_id, id);
                         Services.Database.get_default ().remove_CurTempIds (q.object_id);
                     }
@@ -855,13 +855,13 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             object.get_update_json (uuid)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -910,13 +910,13 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             get_delete_json (object.id, object.type_delete, uuid)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -981,13 +981,13 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete")
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1074,13 +1074,13 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             item.get_move_item (uuid, type, id)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1133,13 +1133,13 @@ public class Services.Todoist : GLib.Object {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 
-        string url = "%s?token=%s&commands=%s".printf (
+        string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
-            Planner.settings.get_string ("todoist-access-token"),
             base_object.get_move_json (uuid, project_id)
         );
 
         var message = new Soup.Message ("POST", url);
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);

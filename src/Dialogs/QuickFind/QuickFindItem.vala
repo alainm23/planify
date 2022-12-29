@@ -33,8 +33,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
     }
 
     construct {
-        //  unowned Gtk.StyleContext main_context = get_style_context ();
-        //  main_context.add_class ("quickfind-item");
+        add_css_class ("quickfind-item");
 
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,

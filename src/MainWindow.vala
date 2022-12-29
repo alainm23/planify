@@ -5,6 +5,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Gtk.Stack views_stack;
     private Adw.Flap flap_view;
     private Widgets.ProjectViewHeaderBar project_view_headerbar;
+    private Widgets.LabelsHeader labels_header;
     private Gtk.Button settings_button;
 
     public Services.ActionManager action_manager;
@@ -87,13 +88,15 @@ public class MainWindow : Adw.ApplicationWindow {
 
         search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         search_button.child = search_image;
-        
+
+        labels_header = new Widgets.LabelsHeader ();
+
         var views_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true
         };
 
-        // views_header.title_widget = view_headerbar;
+        views_header.title_widget = labels_header;
         views_header.pack_start (sidebar_button);
         views_header.pack_start (project_view_headerbar);
         views_header.pack_end (search_button);
@@ -108,20 +111,23 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var views_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-        var views_content = new Gtk.Grid() {
+        var views_content = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL
         };
 
-        views_content.attach(views_header, 0, 0);
-        views_content.attach(views_separator, 0, 1);
-        views_content.attach(views_stack, 0, 2);
+        views_content.attach (views_header, 0, 0);
+        views_content.attach (views_separator, 0, 1);
+        views_content.attach (views_stack, 0, 2);
+
+        var toast_overlay = new Adw.ToastOverlay ();
+        toast_overlay.child = views_content;
 
         flap_view = new Adw.Flap () {
             locked = false,
             fold_policy = Adw.FlapFoldPolicy.AUTO,
             transition_type = Adw.FlapTransitionType.OVER
         };
-        flap_view.content = views_content;
+        flap_view.content = toast_overlay;
         flap_view.separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         flap_view.flap = sidebar_content;
 
@@ -177,6 +183,8 @@ public class MainWindow : Adw.ApplicationWindow {
                 } else if (id == FilterType.PINBOARD.to_string ()) {
                     add_pinboard_view ();
                 }
+            } else if (pane_type == PaneType.LABEL) {
+                add_label_view (id);
             }
 
             if (flap_view.folded) {
@@ -194,6 +202,10 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         settings_button.clicked.connect (open_menu_app);
+
+        Planner.event_bus.send_notification.connect ((toast) => {
+            toast_overlay.add_toast (toast);
+        });
     }
     
     public void show_hide_sidebar () {
@@ -203,13 +215,18 @@ public class MainWindow : Adw.ApplicationWindow {
     private void init_backend () {
         Services.Database.get_default().init_database ();
         sidebar.init();
+        labels_header.init ();
 
+        go_homepage ();
+        
         if (!Services.Todoist.get_default ().invalid_token ()) {
             Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
                 Services.Todoist.get_default ().run_server ();
                 return GLib.Source.REMOVE;
             });
         }
+
+        Services.Database.get_default ().project_deleted.connect (valid_view_removed);
     }
 
     public Views.Project add_project_view (Objects.Project project) {
@@ -256,6 +273,35 @@ public class MainWindow : Adw.ApplicationWindow {
         views_stack.set_visible_child_name ("pinboard-view");
     }
 
+    private void add_label_view (string id) {
+        Views.Label? label_view;
+        label_view = (Views.Label) views_stack.get_child_by_name ("label-view");
+        if (label_view == null) {
+            label_view = new Views.Label ();
+            views_stack.add_named (label_view, "label-view");
+        }
+
+        project_view_headerbar.view = Services.Database.get_default ().get_label (int64.parse (id));
+        label_view.label = Services.Database.get_default ().get_label (int64.parse (id));
+        views_stack.set_visible_child_name ("label-view");
+    }
+
+    public void go_homepage () {
+        Planner.event_bus.pane_selected (
+            PaneType.FILTER,
+            Util.get_default ().get_filter ().to_string ()
+        );
+    }
+
+    public void valid_view_removed (Objects.Project project) {
+        Views.Project? project_view;
+        project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
+        if (project_view != null) {
+            views_stack.remove (project_view);
+            go_homepage ();
+        }
+    }
+
     private Gtk.Popover menu_app = null;
     private void open_menu_app () {
         if (menu_app != null) {
@@ -263,14 +309,9 @@ public class MainWindow : Adw.ApplicationWindow {
             return;
         }
 
-        var preferences_item = new Gtk.Button.with_label (_("Preferences"));
-        preferences_item.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var keyboard_shortcuts_item = new Gtk.Button.with_label (_("Keyboard shortcuts"));
-        keyboard_shortcuts_item.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var about_item = new Gtk.Button.with_label (_("About Planner"));
-        about_item.add_css_class (Granite.STYLE_CLASS_FLAT);
+        var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
+        var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
+        var about_item = new Widgets.ContextMenu.MenuItem (_("About Planner"));
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -287,5 +328,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
         menu_app.set_parent (settings_button);
         menu_app.popup();
+
+        preferences_item.clicked.connect (() => {
+            menu_app.popdown ();
+
+            var dialog = new Dialogs.Preferences.PreferencesWindow ();
+            dialog.show ();
+        });
     }
 }

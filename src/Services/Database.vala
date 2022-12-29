@@ -12,6 +12,7 @@ public class Services.Database : GLib.Object {
     public signal void project_deleted (Objects.Project project);
 
     public signal void label_added (Objects.Label label);
+    public signal void label_updated (Objects.Label label);
     public signal void label_deleted (Objects.Label label);
 
     public signal void section_deleted (Objects.Section section);
@@ -701,6 +702,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             label.updated ();
+            label_updated (label);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
@@ -1210,6 +1212,7 @@ public class Services.Database : GLib.Object {
     }
 
     public void update_item (Objects.Item item, int64 update_id = Constants.INACTIVE) {
+        item.updated_at = new GLib.DateTime.now_local ().to_string ();
         Sqlite.Statement stmt;
 
         sql = """

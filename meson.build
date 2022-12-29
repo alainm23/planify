@@ -44,6 +44,7 @@ executable(
   'src/Layouts/ProjectRow.vala',
   'src/Layouts/SectionRow.vala',
   'src/Layouts/ItemRow.vala',
+  'src/Layouts/LabelRow.vala',
   
   'src/Widgets/DynamicIcon.vala',
   'src/Widgets/ColorPickerRow.vala',
@@ -66,6 +67,7 @@ executable(
   'src/Widgets/ItemLabelChild.vala',
   'src/Widgets/ProjectViewHeaderBar.vala',
   'src/Widgets/IconColorProject.vala',
+  'src/Widgets/LabelsHeader.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -87,6 +89,7 @@ executable(
   'src/Views/Date.vala',
   'src/Views/Today.vala',
   'src/Views/Pinboard.vala',
+  'src/Views/Label.vala',
 
   'src/Objects/BaseObject.vala',
   'src/Objects/Color.vala',
@@ -105,6 +108,7 @@ executable(
   'src/Objects/Today.vala',
 
   'src/Dialogs/Project.vala',
+  'src/Dialogs/Label.vala',
   'src/Dialogs/TodoistOAuth.vala',
 
   'src/Dialogs/QuickFind/QuickFind.vala',

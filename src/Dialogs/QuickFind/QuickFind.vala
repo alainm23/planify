@@ -27,11 +27,10 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         Object (
             transient_for: Planner.instance.main_window,
             deletable: false,
-            title: _("Quick Find"),
             modal: true,
+            margin_bottom: 128,
             width_request: 375,
-            height_request: 275,
-            margin_bottom: 128
+            height_request: 275
         );
     }
 
@@ -78,43 +77,44 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             search_changed ();
         });
 
-        //var controller_focus = new Gtk.EventControllerFocus ();
-        // add_controller (controller_focus);
-        //  focus_out_event.connect (() => {
-        //      hide_destroy ();
-        //      return false;
-        //  });
+        var controller_key = new Gtk.EventControllerKey ();
+        content.add_controller (controller_key);
 
-        //   key_release_event.connect ((key) => {
-        //      if (key.keyval == 65307) {
-        //          hide_destroy ();
-        //      }
+        controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+                        
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                row_activated (listbox.get_selected_row ());
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    if (search_entry.cursor_position < search_entry.text.length) {
+                        search_entry.set_position (search_entry.text.length);
+                    }
+                }
 
-        //      return false;
-        //  });
+                return false;
+            }
 
-        //  key_press_event.connect ((event) => {
-        //      var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
-
-        //      if (key == "Up" || key == "Down") {
-        //          return false;
-        //      } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-        //          row_activated (listbox.get_selected_row ());
-        //          return false;
-        //      } else {
-        //          if (!search_entry.has_focus) {
-        //              search_entry.grab_focus ();
-        //              search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-        //          }
-
-        //          return false;
-        //      }
-
-        //      return true;
-        //  });
+            return true;
+        });
 
         listbox.row_activated.connect ((row) => {
             row_activated (row);
+        });
+
+        var search_entry_ctrl_key = new Gtk.EventControllerKey ();
+        search_entry.add_controller (search_entry_ctrl_key);
+
+        search_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+
+            return false;
         });
     }
 
@@ -173,16 +173,13 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             margin_bottom = 6
         };
         
-        message_label.add_css_class ("dim-label");
-        message_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-
         var placeholder_grid = new Gtk.Grid () {
             hexpand = true,
             vexpand = true,
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24,
+            margin_bottom = 24
         };
 
         placeholder_grid.attach (message_label, 0, 0);

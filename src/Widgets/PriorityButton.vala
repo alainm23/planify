@@ -16,16 +16,6 @@ public class Widgets.PriorityButton : Gtk.Button {
         );
     }
 
-    //  public PriorityButton.for_component (ECal.Component task) {
-    //      Object (
-    //          task: task,
-    //          can_focus: false,
-    //          valign: Gtk.Align.CENTER,
-    //          halign: Gtk.Align.CENTER,
-    //          tooltip_text: _("Set the priority")
-    //      );
-    //  }
-
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
         add_css_class ("p3");
@@ -101,21 +91,5 @@ public class Widgets.PriorityButton : Gtk.Button {
     
     public void update_from_item (Objects.Item item) {
         priority_image.update_icon_name (item.priority_icon);
-
-        //  if (task != null) {
-        //      int priority = task.get_priority ();
-
-        //      if (priority <= 0) {
-        //          priority_image.update_icon_name ("planner-flag");
-        //      } else if (priority >= 1 && priority <= 4) {
-        //          priority_image.update_icon_name ("planner-priority-1");
-        //      } else if (priority == 5) {
-        //          priority_image.update_icon_name ("planner-priority-2");
-        //      } else if (priority > 5 && priority <= 9) {
-        //          priority_image.update_icon_name ("planner-priority-3");
-        //      } else {
-        //          priority_image.update_icon_name ("planner-flag");
-        //      }
-        //  }
     }
 }

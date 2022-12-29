@@ -238,18 +238,6 @@
             <summary>Run in background</summary>
             <description>Let Planner run in background and send notifications</description>
         </key>
-
-        <key name="homepage-project" type="b">
-            <default>false</default>
-            <summary>homepage-project</summary>
-            <description>homepage-project</description>
-        </key>
-
-        <key name="homepage-project-id" type="x">
-            <default>0</default>
-            <summary>homepage-project</summary>
-            <description>homepage-project</description>
-        </key>
         
         <key name="homepage-item" enum="com.github.alainm23.planner.pane-view">
             <default>"Inbox"</default>

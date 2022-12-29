@@ -90,7 +90,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
         
         listbox.set_placeholder (get_placeholder ());
-        
         listbox.add_css_class(Granite.STYLE_CLASS_CARD);
         listbox.add_css_class("padding-3");
 

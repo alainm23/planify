@@ -114,6 +114,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    GLib.DateTime _updated_datetime;
+    public GLib.DateTime updated_datetime {
+        get {
+            _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+            return _updated_datetime;
+        }
+    }
+
     Json.Builder _builder;
     public Json.Builder builder {
         get {
@@ -179,6 +187,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public signal void item_label_added (Objects.ItemLabel item_label);
+    public signal void item_label_deleted (Objects.ItemLabel item_label);
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
@@ -300,11 +309,13 @@ public class Objects.Item : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            Services.Database.get_default ().update_item (this, update_id);
             if (project.todoist) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default ().update_item (this, update_id);
                 });
+            } else {
+                Services.Database.get_default ().update_item (this, update_id);
             }
 
             return GLib.Source.REMOVE;
@@ -323,15 +334,16 @@ public class Objects.Item : Objects.BaseObject {
                 loading_button.is_loading = true;
             }
             
-            Services.Database.get_default ().update_item (this, update_id);
             if (project.todoist) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default ().update_item (this, update_id);
                     if (loading_button != null) {
                         loading_button.is_loading = false;
                     }
                 });
             } else {
+                Services.Database.get_default ().update_item (this, update_id);
                 loading_button.is_loading = false;
             }
 
@@ -344,15 +356,16 @@ public class Objects.Item : Objects.BaseObject {
             loading_button.is_loading = true;
         }
         
-        Services.Database.get_default ().update_item (this, update_id);
         if (project.todoist) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
+                Services.Database.get_default ().update_item (this, update_id);
                 if (loading_button != null) {
                     loading_button.is_loading = false;
                 }
             });
         } else {
+            Services.Database.get_default ().update_item (this, update_id);
             loading_button.is_loading = false;
         }
     }
@@ -365,7 +378,6 @@ public class Objects.Item : Objects.BaseObject {
             item_label.id = Util.get_default ().generate_id ();
             item_label.label_id = entry.value.id;
             item_label.item_id = id;
-
             _labels [item_label.label_id.to_string ()] = item_label;
         }
     }
@@ -379,9 +391,11 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
         Layouts.ItemRow? loading_button = null) {
+        bool update = false;
         foreach (var entry in new_labels.entries) {
             if (!labels.has_key (entry.value.id_string)) {
                 add_label_if_not_exists (entry.value);
+                update = true;
             }
         }
 
@@ -394,6 +408,11 @@ public class Objects.Item : Objects.BaseObject {
 
         foreach (Objects.ItemLabel item_label in labels_delete) {
             delete_item_label (item_label);
+            update = true;
+        }
+
+        if (!update) {
+            return;
         }
 
         if (project.todoist) {
@@ -475,6 +494,7 @@ public class Objects.Item : Objects.BaseObject {
     public void delete_item_label (Objects.ItemLabel item_label) {
         _labels.unset (item_label.label_id.to_string ());
         Services.Database.get_default ().delete_item_label (item_label);
+        item_label_deleted (item_label);
     }
 
     public string to_move_json (string type, int64 move_id) {
@@ -741,5 +761,55 @@ public class Objects.Item : Objects.BaseObject {
 
     public void add_item (Objects.Item item) {
         _items.add (item);
+    }
+
+    public void copy_clipboard () {
+        Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+        clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
+        Planner.event_bus.send_notification (
+            Util.get_default ().create_toast (_("Task copied to clipboard"))
+        );
+    }
+
+    public void duplicate () {
+        var new_item = new Objects.Item ();
+        new_item.content = "[%s] %s".printf (_("Diplicate"), content);
+        new_item.description = description;
+        new_item.pinned = pinned;
+        new_item.due = due;
+        new_item.priority = priority;
+        new_item.project_id = project_id;
+        new_item.section_id = section_id;
+
+        if (project.todoist) {
+            Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
+                int64? id = Services.Todoist.get_default ().add.end (res);
+                if (id != null) {
+                    new_item.id = id;
+                    insert_duplicate (new_item);
+                }
+            });
+        } else {
+            new_item.id = Util.get_default ().generate_id ();
+            insert_duplicate (new_item);
+        }
+    }
+
+    public void insert_duplicate (Objects.Item new_item) {
+        if (new_item.section_id != Constants.INACTIVE) {
+            Services.Database.get_default ().get_section (new_item.section_id)
+                .add_item_if_not_exists (new_item);
+        } else {
+            Services.Database.get_default ().get_project (new_item.project_id)
+                .add_item_if_not_exists (new_item);
+        }
+    }
+
+    private string get_format_date (Objects.Item item) {
+        if (!item.has_due) {
+            return " ";
+        }
+
+        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
     }
 }

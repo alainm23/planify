@@ -21,13 +21,17 @@
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     private Gtk.SearchEntry search_entry;
+    private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
     
     public Gee.HashMap <string, Objects.Label> labels_map;
     public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map;
 
+    public Objects.Item _item;
     public Objects.Item item {
         set {
+            _item = value;
+
             foreach (var entry in value.labels.entries) {
                 labels_map [entry.key] = entry.value.label;
             }
@@ -35,6 +39,16 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             foreach (Objects.Label label in Services.Database.get_default ().labels) {
                 labels_widgets_map [label.id_string].active = value.labels.has_key (label.id_string);
             }
+        }
+
+        get {
+            return _item;
+        }
+    }
+
+    public bool is_loading {
+        set {
+            placeholder_stack.visible_child_name = value ? "spinner" : "message";
         }
     }
 
@@ -67,6 +81,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             hexpand = true
         };
 
+        listbox.set_placeholder (get_placeholder ());
         listbox.set_filter_func (filter_func);
         listbox.add_css_class ("listbox-separator-3");
         listbox.add_css_class ("listbox-background");
@@ -95,138 +110,133 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         child = main_grid;
         add_all_labels ();
 
-        //  key_press_event.connect ((event) => {
-        //      var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
+        var controller_key = new Gtk.EventControllerKey ();
+        main_grid.add_controller (controller_key);
 
-        //      if (key == "Up" || key == "Down") {
-        //          return false;
-        //      } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-        //          return false;
-        //      } else {
-        //          if (!search_entry.has_focus) {
-        //              search_entry.grab_focus ();
-        //              search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-        //          }
+        controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+                        
+            if (key == "Up" || key == "Down") {
+                return false;
+            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+                return false;
+            } else {
+                if (!search_entry.has_focus) {
+                    search_entry.grab_focus ();
+                    if (search_entry.cursor_position < search_entry.text.length) {
+                        search_entry.set_position (search_entry.text.length);
+                    }
+                }
 
-        //          return false;
-        //      }
+                return false;
+            }
 
-        //      return true;
-        //  });
+            return true;
+        });
 
-        //  focus_out_event.connect (() => {
-        //      labels_changed (labels_map);
-        //      hide_destroy ();
-        //      return false;
-        //  });
+        search_entry.search_changed.connect (() => {
+            listbox.invalidate_filter ();
+        });
 
-        //  key_release_event.connect ((key) => {
-        //      if (key.keyval == 65307) {
-        //          hide_destroy ();
-        //      }
+        search_entry.activate.connect (() => {
+            if (search_entry.text.length > 0) {
+                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true);
+                if (label != null) {
+                    if (labels_widgets_map.has_key (label.id_string)) {
+                        labels_widgets_map [label.id_string].update_checked_toggled ();
+                    }
+                } else {
+                    add_assign_label ();
+                }
+            }
+        });
 
-        //      return false;
-        //  });
-
-        //  closed.connect (() => {
-        //      labels_changed (labels_map);
-        //  });
-
-        //  cancel_clear_button.clicked.connect (() => {
-        //      labels_map.clear ();
-        //      labels_changed (labels_map);
-        //      hide_destroy ();
-        //  });
-
-        //  search_entry.search_changed.connect (() => {
-        //      listbox.invalidate_filter ();
-        //  });
-
-        //  search_entry.activate.connect (() => {
-        //      if (Util.get_default ().is_input_valid (search_entry)) {
-        //          Objects.Label label = Planner.database.get_label_by_name (search_entry.text, true);
-        //          if (label != null) {
-        //              if (labels_widgets_map.has_key (label.id_string)) {
-        //                  labels_widgets_map [label.id_string].update_checked_toggled ();
-        //              }
-        //          } else {
-        //              add_assign_label ();
-        //          }
-        //      }
-        //  });
+        Services.Database.get_default ().label_added.connect ((label) => {
+            add_label (label);
+        });
     }
 
     private void add_assign_label () {
-        //  BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        var label = new Objects.Label ();
+        label.color = Util.get_default ().get_random_color ();
+        label.name = search_entry.text;
 
-        //  var label = new Objects.Label ();
-        //  label.color = Util.get_default ().get_random_color ();
-        //  label.name = search_entry.text;
+        if (item.project.todoist) {
+            is_loading = true;
+            label.todoist = true;
+            Services.Todoist.get_default ().add.begin (label, (obj, res) => {
+                label.id = Services.Todoist.get_default ().add.end (res);
+                Services.Database.get_default ().insert_label (label);
+                checked_toggled (label, true);
+                
+                popdown ();
+                is_loading = false;
+                search_entry.text = "";
+            });
+        } else {
+            label.id = Util.get_default ().generate_id ();
+            Services.Database.get_default ().insert_label (label);
 
-        //  if (backend_type == BackendType.TODOIST) {
-        //      placeholder_stack.visible_child_name = "spinner";
-        //      label.todoist = true;
-        //      Planner.todoist.add.begin (label, (obj, res) => {
-        //          label.id = Planner.todoist.add.end (res);
-        //          Planner.database.insert_label (label);
-        //          checked_toggled (label, true);
-        //          labels_changed (labels_map);
-        //          hide_destroy ();
-        //      });
-        //  } else if (backend_type == BackendType.LOCAL) {
-        //      label.id = Util.get_default ().generate_id ();
-        //      Planner.database.insert_label (label);
-        //      checked_toggled (label, true);
-        //      labels_changed (labels_map);
-        //      hide_destroy ();
-        //  }
+            popdown ();
+            is_loading = false;
+            search_entry.text = "";
+        }
     }
 
     private void add_all_labels () {
         foreach (Objects.Label label in Services.Database.get_default ().labels) {
-            var row = new Widgets.LabelPicker.LabelRow (label);
-            row.checked_toggled.connect (checked_toggled);
-
-            labels_widgets_map [label.id_string] = row;
-            listbox.append (row);
+            add_label (label);
         }
-
-        //  listbox.show_all ();
     }
 
-    //  private Gtk.Widget get_placeholder () {
-    //      var message_label = new Gtk.Label ("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.") {
-    //          wrap = true,
-    //          justify = Gtk.Justification.CENTER
-    //      };
+    private void add_label (Objects.Label label) {
+        var row = new Widgets.LabelPicker.LabelRow (label);
+        row.checked_toggled.connect (checked_toggled);
+
+        labels_widgets_map [label.id_string] = row;
+        listbox.append (row);
+    }
+
+    private Gtk.Widget get_placeholder () {
+        var message_label = new Gtk.Label ("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.") {
+            wrap = true,
+            justify = Gtk.Justification.CENTER
+        };
         
-    //      unowned Gtk.StyleContext message_label_context = message_label.get_style_context ();
-    //      message_label_context.add_class ("dim-label");
-    //      message_label_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        message_label.add_css_class ("dim-label");
+        message_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
-    //      var spinner = new Gtk.Spinner ();
-    //      spinner.get_style_context ().add_class ("text-color");
-    //      spinner.start ();
+        var spinner = new Gtk.Spinner () {
+            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.CENTER,
+            height_request = 32,
+            width_request = 32
+        };
 
-    //      placeholder_stack = new Gtk.Stack () {
-    //          expand = true,
-    //          transition_type = Gtk.StackTransitionType.CROSSFADE,
-    //          homogeneous = false
-    //      };
+        spinner.get_style_context ().add_class ("text-color");
+        spinner.start ();
 
-    //      placeholder_stack.add_named (message_label, "message");
-    //      placeholder_stack.add_named (spinner, "spinner");
+        placeholder_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
 
-    //      var grid = new Gtk.Grid () {
-    //          margin = 6,
-    //          valign = Gtk.Align.CENTER
-    //      };
+        placeholder_stack.add_named (message_label, "message");
+        placeholder_stack.add_named (spinner, "spinner");
 
-    //      grid.add (placeholder_stack);
-    //      grid.show_all ();
+        var grid = new Gtk.Grid () {
+            margin_top = 6,
+            margin_bottom = 6,
+            margin_start = 6,
+            margin_end = 6,
+            valign = Gtk.Align.CENTER
+        };
 
-    //      return grid;
-    //  }
+        grid.attach (placeholder_stack, 0, 0);
+
+        return grid;
+    }
 
     private void checked_toggled (Objects.Label label, bool active) {
         if (active) {

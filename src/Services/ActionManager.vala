@@ -32,6 +32,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_ADD_TASK = "action_add_task";
     public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
+    public const string ACTION_OPEN_LABELS = "action_open_labels";
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
     public const string ACTION_NEW_SECTION = "action_new_section";
@@ -58,6 +59,7 @@ public class Services.ActionManager : Object {
         { ACTION_ADD_TASK, action_add_task },
         { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
+        { ACTION_OPEN_LABELS, action_open_labels },
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
         { ACTION_NEW_SECTION, action_new_section },
@@ -86,6 +88,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
         action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
+        action_accelerators.set (ACTION_OPEN_LABELS, "<Control>l");
         action_accelerators.set (ACTION_SYNC_MANUALLY, "<Control>s");
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
@@ -210,6 +213,10 @@ public class Services.ActionManager : Object {
     }
 
     private void action_view_home () {
-        // window.go_homepage ();
+        window.go_homepage ();
+    }
+
+    private void action_open_labels () {
+        Planner.event_bus.open_labels ();
     }
 }

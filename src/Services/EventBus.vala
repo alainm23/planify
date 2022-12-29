@@ -21,9 +21,10 @@ public class Services.EventBus : Object {
     public signal void update_inserted_item_map (Layouts.ItemRow row);
     public signal void update_section_sort_func (int64 project_id, int64 section_id, bool active);
     public signal void day_changed ();
+    public signal void open_labels ();
     
     // Notifications
-    public signal void send_notification (string message, uint duration = 2500);
+    public signal void send_notification (Adw.Toast toast);
 
     // Multi Select
     public bool ctrl_pressed = false;
