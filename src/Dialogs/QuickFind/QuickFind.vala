@@ -47,6 +47,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             margin_top = 3
         };
 
+        search_entry.add_css_class ("border-radius-9");
+
         headerbar.title_widget = search_entry;
 
         listbox = new Gtk.ListBox ();

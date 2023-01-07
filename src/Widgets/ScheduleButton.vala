@@ -48,18 +48,18 @@ public class Widgets.ScheduleButton : Gtk.Button {
     private void open_datetime_picker () {
         if (datetime_picker == null) {
             datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
+            datetime_picker.set_parent (this);
+                    
+            datetime_picker.date_changed.connect (() => {
+                date_changed (datetime_picker.datetime);
+            });
         }
 
         if (datetime != null) {
             datetime_picker.datetime = datetime;
         }
 
-        datetime_picker.set_parent (this);
         datetime_picker.popup ();
-        
-        datetime_picker.date_changed.connect (() => {
-            date_changed (datetime_picker.datetime);
-        });
     }
 
     public void update_from_item (Objects.Item item) {

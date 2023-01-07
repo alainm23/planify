@@ -1,11 +1,12 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
+    private Widgets.HyperTextView description_textview;
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
     private Gtk.ScrolledWindow scrolled_window;
-
+    
     public bool has_children {
         get {
             return (Util.get_default ().get_children (listbox).length () - 1) > 0;
@@ -28,6 +29,26 @@ public class Views.List : Gtk.Grid {
             margin_top = 24,
             margin_end = 16
         };
+
+        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
+            left_margin = 6,
+            right_margin = 6,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR,
+            hexpand = true
+        };
+
+        description_textview.remove_css_class ("view");
+
+        var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 24,
+            margin_top = 12,
+            margin_end = 24
+        };
+        
+        description_box.append (description_textview);
+        description_box.add_css_class ("description-box");
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -62,6 +83,7 @@ public class Views.List : Gtk.Grid {
         };
 
         content_box.append (top_project);
+        content_box.append (description_box);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -78,14 +100,13 @@ public class Views.List : Gtk.Grid {
         scrolled_window.child = content_clamp;
 
         attach (scrolled_window, 0, 0);
+        update_request ();
         add_sections ();
-        show ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
             return GLib.Source.REMOVE;
         });
-
 
         project.section_added.connect ((section) => {
             add_section (section);
@@ -124,6 +145,11 @@ public class Views.List : Gtk.Grid {
                 sections_map [section.id_string].hide_destroy ();
                 sections_map.unset (section.id_string);
             }
+        });
+
+        description_textview.updated.connect (() => {
+            project.description = description_textview.get_text ();
+            project.update (false);
         });
     }
 
@@ -188,5 +214,9 @@ public class Views.List : Gtk.Grid {
         }
 
         return has_children;
+    }
+
+    public void update_request () {
+        description_textview.set_text (project.description);
     }
 }

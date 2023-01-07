@@ -45,6 +45,7 @@ public class Services.Todoist : GLib.Object {
     
     public signal void first_sync_started ();
     public signal void first_sync_finished ();
+    public signal void first_sync_progress (double value);
 
     private uint server_timeout = 0;
 
@@ -102,12 +103,7 @@ public class Services.Todoist : GLib.Object {
 
     public void init () {
         if (invalid_token ()) {
-            var todoist_oauth = new Dialogs.TodoistOAuth ();
-            
-            //  todoist_oauth.destroy.connect (() => {
-            //      oauth_closed (invalid_token ());
-            //  });
-            
+            var todoist_oauth = new Dialogs.TodoistOAuth ();            
             todoist_oauth.show ();
         }
     }
@@ -120,44 +116,43 @@ public class Services.Todoist : GLib.Object {
         return !invalid_token ();
     }
 
-    public void get_todoist_token (string url) {
-        new Thread<void*> ("get_todoist_token", () => {
-            try {
-                string code = url.split ("=") [1];
-                string response = "";
+    public async void get_todoist_token (string url) {
+        string CODE = url.split ("=") [1];
+        CODE = CODE.split ("&") [0];
 
-                string command = "curl \"https://todoist.com/oauth/access_token\" ";
-                command = command + "-d \"client_id=b0dd7d3714314b1dbbdab9ee03b6b432\" ";
-                command = command + "-d \"client_secret=a86dfeb12139459da3e5e2a8c197c678\" ";
-                command = command + "-d \"code=" + code + "\"";
+        string URL = "https://todoist.com/oauth/access_token?client_id=%s&client_secret=%s&code=%s".printf (
+            Constants.TODOIST_CLIENT_ID,
+            Constants.TODOIST_CLIENT_SECRET,
+            CODE
+        );
+        
+        var message = new Soup.Message ("POST", URL);
 
-                Process.spawn_command_line_sync (command, out response);
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            parser.load_from_data ((string) stream.get_data ());
+            
+            // Debug
+            print_root (parser.get_root ());
 
-                parser.load_from_data (response, -1);
+            var root = parser.get_root ().get_object ();
+            var token = root.get_string_member ("access_token");
 
-                var root = parser.get_root ().get_object ();
-                var token = root.get_string_member ("access_token");
+            yield first_sync (token);
+        } catch (Error e) {
 
-                first_sync_started ();
-                first_sync.begin (token, (obj, res) => {
-                    first_sync.end (res);
-                    first_sync_finished ();
-                });
-            } catch (Error e) {
-                debug (e.message);
-            }
-
-            return null;
-        });
+        }
     }
 
     public async void first_sync (string token) {
+        first_sync_started ();
+
         string url = TODOIST_SYNC_URL;
         url = url + "?sync_token=" + "*";
         url = url + "&resource_types=" + "[\"all\"]";
 
         var message = new Soup.Message ("POST", url);
-        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
+        message.request_headers.append ("Authorization", "Bearer %s".printf (token));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -165,7 +160,8 @@ public class Services.Todoist : GLib.Object {
 
             // Debug
             print_root (parser.get_root ());
-
+            first_sync_progress (0.15);
+            
             Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
             Planner.settings.set_string ("todoist-access-token", token);
             Planner.settings.set_boolean ("todoist-sync-server", true);
@@ -183,11 +179,14 @@ public class Services.Todoist : GLib.Object {
             Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
             Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
 
+
             // Create Labels
             unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
             foreach (unowned Json.Node _node in labels.get_elements ()) {
                 Services.Database.get_default ().insert_label (new Objects.Label.from_json (_node));
             }
+
+            first_sync_progress (0.35);
 
             // Create Projects
             unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
@@ -202,11 +201,15 @@ public class Services.Todoist : GLib.Object {
                 }
             }
 
+            first_sync_progress (0.50);
+
             // Create Sections
             unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
             foreach (unowned Json.Node _node in sections.get_elements ()) {
                 add_section_if_not_exists (_node);
             }
+
+            first_sync_progress (0.75);
 
             // Create Items
             unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
@@ -214,12 +217,17 @@ public class Services.Todoist : GLib.Object {
                 add_item_if_not_exists (_node);
             }
 
+            first_sync_progress (0.85);
+
             // Download Profile Image
             if (user_object.get_null_member ("image_id") == false) {
                 Util.get_default ().download_profile_image (
                     user_object.get_string_member ("image_id"), user_object.get_string_member ("avatar_s640")
                 );
             }
+
+            first_sync_progress (1);
+            first_sync_finished ();
         } catch (Error e) {
             debug (e.message);
         }

@@ -5,7 +5,7 @@ public class Objects.Project : Objects.BaseObject {
     public string emoji { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
-    public bool todoist { get; set; default = false; }
+    public BackendType backend_type { get; set; default = BackendType.NONE; }
     public bool inbox_project { get; set; default = false; }
     public bool team_inbox { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -201,7 +201,7 @@ public class Objects.Project : Objects.BaseObject {
     public Project.from_json (Json.Node node) {
         id = int64.parse (node.get_object ().get_string_member ("id"));
         update_from_json (node);
-        todoist = true;
+        backend_type = BackendType.TODOIST;
     }
 
     public void update_from_json (Json.Node node) {
@@ -255,11 +255,13 @@ public class Objects.Project : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            Services.Database.get_default ().update_project (this);
-            if (todoist && cloud) {
-                //  Planner.todoist.update.begin (this, (obj, res) => {
-                //      Planner.todoist.update.end (res);
-                //  });
+            if (backend_type == BackendType.TODOIST && cloud) {
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default ().update_project (this);
+                });
+            } else {
+                Services.Database.get_default ().update_project (this);
             }
 
             return GLib.Source.REMOVE;
@@ -271,14 +273,17 @@ public class Objects.Project : Objects.BaseObject {
             loading_button.is_loading = true;
         }
         
-        Services.Database.get_default ().update_project (this);
-        if (todoist) {
-            //  Planner.todoist.update.begin (this, (obj, res) => {
-            //      Planner.todoist.update.end (res);
-            //      if (loading_button != null) {
-            //          loading_button.is_loading = false;
-            //      }
-            //  });
+        if (backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
+                Services.Database.get_default ().update_project (this);
+
+                if (loading_button != null) {
+                    loading_button.is_loading = false;
+                }
+            });
+        } else {
+            Services.Database.get_default ().update_project (this);
         }
     }
 
@@ -558,8 +563,9 @@ public class Objects.Project : Objects.BaseObject {
         _________________________________
             ID: %s
             NAME: %s
+            DESCRIPTION: %s
             COLOR: %s
-            TODOIST: %s
+            BACKEND TYPE: %s
             INBOX: %s
             TEAM INBOX: %s
             CHILD ORDER: %i
@@ -576,8 +582,9 @@ public class Objects.Project : Objects.BaseObject {
         """.printf (
             id.to_string (),
             name,
+            description,
             color,
-            todoist.to_string (),
+            backend_type.to_string (),
             inbox_project.to_string (),
             team_inbox.to_string (),
             child_order,

@@ -38,14 +38,14 @@ public class Widgets.LabelButton : Gtk.Button {
 
             if (labels_picker == null) {
                 labels_picker = new Widgets.LabelPicker.LabelPicker ();
-
+                labels_picker.set_parent (this);
+                
                 labels_picker.closed.connect (() => {
                     labels_changed (labels_picker.labels_map);
                 });
             }
 
             labels_picker.item = item;
-            labels_picker.set_parent (this);
             labels_picker.popup ();
         });
     }

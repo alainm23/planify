@@ -159,10 +159,9 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
-        //  if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
-        //      var dialog = new Dialogs.Project.new ();
-        //      dialog.show_all ();
-        //  }
+        // TODO: Update Backend Type instance default by user
+        var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
+        dialog.show ();
     }
 
     private void action_view_inbox () {
@@ -200,11 +199,17 @@ public class Services.ActionManager : Object {
     }
 
     private void action_add_task_paste () {
-        //  Gdk.Display display = Gdk.Display.get_default ();
-        //  Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-        //  string content = clipboard.wait_for_text ();
+        Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+        add_task_paste (clipboard);
+    }
 
-        //  window.add_task_action (content);
+    private async void add_task_paste (Gdk.Clipboard clipboard) {
+        try {
+            string content = yield clipboard.read_text_async (null);
+            window.add_task_action (content);   
+        } catch (GLib.Error error) {
+            debug (error.message);
+        }
     }
 
     private void action_shortcuts () {

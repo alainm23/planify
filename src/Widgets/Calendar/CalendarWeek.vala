@@ -32,7 +32,10 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         orientation = Gtk.Orientation.HORIZONTAL;
         homogeneous = true;
         valign = Gtk.Align.CENTER;
-        margin_start = 6;
+        margin_start = 12;
+        margin_top = 12;
+        margin_bottom = 6;
+        margin_end = 12;
         
         label_monday = new Gtk.Label (_("Mo"));
         label_monday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);

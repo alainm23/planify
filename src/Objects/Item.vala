@@ -309,7 +309,7 @@ public class Objects.Item : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            if (project.todoist) {
+            if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
@@ -334,7 +334,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading_button.is_loading = true;
             }
             
-            if (project.todoist) {
+            if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
@@ -356,7 +356,7 @@ public class Objects.Item : Objects.BaseObject {
             loading_button.is_loading = true;
         }
         
-        if (project.todoist) {
+        if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_item (this, update_id);
@@ -415,7 +415,7 @@ public class Objects.Item : Objects.BaseObject {
             return;
         }
 
-        if (project.todoist) {
+        if (project.backend_type == BackendType.TODOIST) {
             update_async (Constants.INACTIVE, loading_button);
         } else {
             update_local ();
@@ -781,7 +781,7 @@ public class Objects.Item : Objects.BaseObject {
         new_item.project_id = project_id;
         new_item.section_id = section_id;
 
-        if (project.todoist) {
+        if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
                 int64? id = Services.Todoist.get_default ().add.end (res);
                 if (id != null) {

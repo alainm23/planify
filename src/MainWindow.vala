@@ -142,31 +142,31 @@ public class MainWindow : Adw.ApplicationWindow {
             return GLib.Source.REMOVE;
         });
 
-        //  var granite_settings = Granite.Settings.get_default ();
-        //  granite_settings.notify["prefers-color-scheme"].connect (() => {
-        //      if (Planner.settings.get_boolean ("system-appearance")) {
-        //          Planner.settings.set_boolean (
-        //              "dark-mode",
-        //              granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
-        //          );
-        //          Util.get_default ().update_theme ();
-        //      }
-        //  });
+        var granite_settings = Granite.Settings.get_default ();
+        granite_settings.notify["prefers-color-scheme"].connect (() => {
+            if (Planner.settings.get_boolean ("system-appearance")) {
+                Planner.settings.set_boolean (
+                    "dark-mode",
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
+                Util.get_default ().update_theme ();
+            }
+        });
 
         Planner.settings.changed.connect ((key) => {
-            //  if (key == "system-appearance") {
-            //      Planner.settings.set_boolean (
-            //          "dark-mode",
-            //          Util.get_default ().is_dark_theme ()
-            //      );
-                
-            //      Util.get_default ().update_theme ();
-            //  } else if (key == "appearance" || key == "dark-mode") {
-            //      Util.get_default ().update_theme ();
-            //  }
-
-            if (key == "appearance" || key == "dark-mode") {
+            if (key == "system-appearance") {
+                Planner.settings.set_boolean (
+                    "dark-mode",
+                    granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+                );
                 Util.get_default ().update_theme ();
+            } else if (key == "appearance" || key == "dark-mode") {
+                Util.get_default ().update_theme ();
+            } else if (key == "badge-count") {
+                //  Timeout.add (main_stack.transition_duration, () => {
+                //      Services.Badge.get_default ().update_badge ();
+                //      return GLib.Source.REMOVE;
+                //  });
             }
         });
 
@@ -213,20 +213,40 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void init_backend () {
-        Services.Database.get_default().init_database ();
+        Services.Database.get_default ().init_database ();
+
+        if (Services.Database.get_default ().is_database_empty ()) {
+            create_inbox_project ();
+        }
+
         sidebar.init();
         labels_header.init ();
 
+        Services.Notification.get_default ();
+        Services.TimeMonitor.get_default ();
+    
         go_homepage ();
-        
+
+        Services.Database.get_default ().project_deleted.connect (valid_view_removed);
+
         if (!Services.Todoist.get_default ().invalid_token ()) {
             Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
                 Services.Todoist.get_default ().run_server ();
                 return GLib.Source.REMOVE;
             });
         }
+    }
 
-        Services.Database.get_default ().project_deleted.connect (valid_view_removed);
+    private void create_inbox_project () {
+        Objects.Project inbox_project = new Objects.Project ();
+        inbox_project.id = Util.get_default ().generate_id ();
+        inbox_project.name = _("Inbox");
+        inbox_project.inbox_project = true;
+        inbox_project.color = "blue";
+        
+        if (Services.Database.get_default ().insert_project (inbox_project)) {
+            Planner.settings.set_int64 ("inbox-project-id", inbox_project.id);
+        }
     }
 
     public Views.Project add_project_view (Objects.Project project) {
@@ -299,6 +319,35 @@ public class MainWindow : Adw.ApplicationWindow {
         if (project_view != null) {
             views_stack.remove (project_view);
             go_homepage ();
+        }
+    }
+
+    public void add_task_action (string content = "") {
+        if (views_stack.visible_child_name.has_prefix ("project")) {
+            Views.Project? project_view = (Views.Project) views_stack.visible_child;
+            if (project_view != null) {
+                project_view.prepare_new_item (content);
+            }
+        } else if (views_stack.visible_child_name.has_prefix ("today-view")) {
+            //  Views.Today? today_view = (Views.Today) views_stack.visible_child;
+            //  if (today_view != null) {
+            //      today_view.prepare_new_item (content);
+            //  }
+        } else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
+            //  Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
+            //  if (scheduled_view != null) {
+            //      scheduled_view.prepare_new_item (content);
+            //  }
+        } else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
+            //  Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
+            //  if (pinboard_view != null) {
+            //      pinboard_view.prepare_new_item (content);
+            //  }
+        } else if (views_stack.visible_child_name.has_prefix ("tasklist")) {
+            //  Views.Tasklist? tasklist_view = (Views.Tasklist) views_stack.visible_child;
+            //  if (tasklist_view != null) {
+            //      tasklist_view.prepare_new_item (content);
+            //  }
         }
     }
 

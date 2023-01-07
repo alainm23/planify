@@ -35,12 +35,13 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {        
-        add_css_class ("border-radius-6");
+        add_css_class ("selectable-item");
+        add_css_class ("transition");
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
-            height_request = 16,
-            width_request = 16
+            height_request = 12,
+            width_request = 12
         };
 
         unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
@@ -144,6 +145,8 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         });
 
         trash_button.clicked.connect (() => {
+            Planner.event_bus.close_labels ();
+            
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
             _("Delete label"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (label.short_name))));
 
@@ -171,6 +174,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         });
 
         edit_button.clicked.connect (() => {
+            Planner.event_bus.close_labels ();
             var dialog = new Dialogs.Label (label);
             dialog.show ();
         });

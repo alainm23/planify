@@ -189,7 +189,7 @@ public class Objects.Section : Objects.BaseObject {
             update_timeout_id = 0;
 
             Services.Database.get_default ().update_section (this);
-            if (project.todoist && cloud) {
+            if (project.backend_type == BackendType.TODOIST && cloud) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                 });

@@ -46,6 +46,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
             label = label.name,
             hexpand = true
         };
+        checked_button.add_css_class ("checkbutton-label");
 
         checked_button.add_css_class ("priority-color");
         Util.get_default ().set_widget_priority (Constants.PRIORITY_4, checked_button);

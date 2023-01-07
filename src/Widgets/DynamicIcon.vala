@@ -23,10 +23,8 @@ public class Widgets.DynamicIcon : Gtk.Grid {
             generate_icon ();
         });
 
-        Planner.settings.changed.connect ((key) => {
-            if (key == "appearance" || key == "dark-mode") {
-                generate_icon ();
-            }
+        Planner.event_bus.theme_changed.connect (() => {
+            generate_icon ();
         });
     }
 
@@ -40,7 +38,10 @@ public class Widgets.DynamicIcon : Gtk.Grid {
             return;
         }
 
-        bool dark_mode = Util.get_default().is_dark_theme ();
+        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+        if (Planner.settings.get_boolean ("system-appearance")) {
+            dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        }
         
         if (Util.get_default ().is_dynamic_icon (icon_name)) {
             icon.gicon = new ThemedIcon ("%s-%s".printf (

@@ -1,3 +1,11 @@
+.pane-content {
+    background: @popover_bg_color;
+} 
+
+.pane-content > list {
+    background: @popover_bg_color;
+} 
+
 .filter-pane-row-inbox {
     padding: 3px;
     border-radius: 6px;

@@ -37,6 +37,8 @@ executable(
   'src/Services/EventBus.vala',
   'src/Services/Todoist.vala',
   'src/Services/ActionManager.vala',
+  'src/Services/Notification.vala',
+  'src/Services/TimeMonitor.vala',
 
   'src/Layouts/Sidebar.vala',
   'src/Layouts/FilterPaneRow.vala',
@@ -48,9 +50,7 @@ executable(
   
   'src/Widgets/DynamicIcon.vala',
   'src/Widgets/ColorPickerRow.vala',
-  'src/Widgets/EntryRow.vala',
   'src/Widgets/LoadingButton.vala',
-  'src/Widgets/SwitchRow.vala',
   'src/Widgets/CircularProgressBar.vala',
   'src/Widgets/MagicButton.vala',
   'src/Widgets/HeaderProject.vala',
@@ -68,6 +68,7 @@ executable(
   'src/Widgets/ProjectViewHeaderBar.vala',
   'src/Widgets/IconColorProject.vala',
   'src/Widgets/LabelsHeader.vala',
+  'src/Widgets/ReminderButton.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -80,6 +81,9 @@ executable(
 
   'src/Widgets/LabelPicker/LabelPicker.vala',
   'src/Widgets/LabelPicker/LabelRow.vala',
+
+  'src/Widgets/ReminderPicker/ReminderPicker.vala',
+  'src/Widgets/ReminderPicker/ReminderRow.vala',
   
   'src/Widgets/ContextMenu/MenuItem.vala',
   'src/Widgets/ContextMenu/MenuSeparator.vala',
@@ -110,6 +114,8 @@ executable(
   'src/Dialogs/Project.vala',
   'src/Dialogs/Label.vala',
   'src/Dialogs/TodoistOAuth.vala',
+  'src/Dialogs/ProjectPicker/ProjectPicker.vala',
+  'src/Dialogs/ProjectPicker/ProjectPickerRow.vala',
 
   'src/Dialogs/QuickFind/QuickFind.vala',
   'src/Dialogs/QuickFind/QuickFindItem.vala',

@@ -436,7 +436,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (project.todoist) {
+                    if (project.backend_type == BackendType.TODOIST) {
                         //  remove_button.is_loading = true;
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);

@@ -3,7 +3,7 @@ public class Widgets.LabelsHeader : Gtk.Grid {
 
     private Gtk.Box labels_box;
     private Gtk.Stack stack;
-    private Gtk.ListBox listbox;
+    private Layouts.HeaderItem labels_content;
     private Gtk.Popover popover = null;
 
     public bool has_labels {
@@ -49,41 +49,42 @@ public class Widgets.LabelsHeader : Gtk.Grid {
         stack.add_named (placeholder_button, "placeholder");
         stack.add_named (labels_button, "labels");
 
-        listbox = new Gtk.ListBox () {
-            hexpand = true
-        };
-        
-        listbox.add_css_class ("listbox-background");
+        labels_content = new Layouts.HeaderItem (_("Labels"));
+        labels_content.add_tooltip = _("Add label");
+        labels_content.placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
+        labels_content.card = false;
 
-        listbox.row_activated.connect ((row) => {
-            popover.popdown ();
+        labels_content.row_activated.connect ((row) => {
+            if (popover != null) {
+                popover.popdown ();
+            }
+
             Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
 
         attach (stack, 0, 0);
-
-        //  Services.Database.get_default ().label_added.connect ((label) => {
-        //      var row = new Layouts.LabelRow (label);
-        //      listbox.append (row);
-        //  });
 
         placeholder_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (true);
             dialog.show ();
         });
 
-        labels_button.clicked.connect (open_labels_popover);
-        Planner.event_bus.open_labels.connect (open_labels_popover);
-        
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        add_controller (motion_gesture);
+        labels_content.add_activated.connect (() => {
+            if (popover != null) {
+                popover.popdown ();
+            }
 
-        motion_gesture.enter.connect (() => {
-            opacity = 1;
+            var dialog = new Dialogs.Label.new (true);
+            dialog.show ();
         });
 
-        motion_gesture.leave.connect (() => {
-            opacity = 0.5;
+        labels_button.clicked.connect (open_labels_popover);
+        Planner.event_bus.open_labels.connect (open_labels_popover);
+
+        Planner.event_bus.close_labels.connect (() => {
+            if (popover != null) {
+                popover.popdown ();
+            }
         });
 
         Services.Database.get_default ().label_added.connect (add_label);
@@ -101,8 +102,8 @@ public class Widgets.LabelsHeader : Gtk.Grid {
         if (!labels_widgets_map.has_key (label.id_string)) {
             if (labels_widgets_map.size < 10) {
                 var grid = new Gtk.Grid () {
-                    height_request = 16,
-                    width_request = 16,
+                    height_request = 6,
+                    width_request = 21,
                     tooltip_text = label.name,
                     valign = Gtk.Align.CENTER,
                     halign = Gtk.Align.CENTER
@@ -115,7 +116,7 @@ public class Widgets.LabelsHeader : Gtk.Grid {
             }
             
             var row = new Layouts.LabelRow (label);
-            listbox.append (row);
+            labels_content.add_child (row);
         }
 
         stack.visible_child_name = has_labels ? "labels" : "placeholder";
@@ -144,14 +145,13 @@ public class Widgets.LabelsHeader : Gtk.Grid {
         }
 
         var popover_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        popover_box.margin_top = popover_box.margin_bottom = 3;
-        popover_box.append (listbox);
+        popover_box.width_request = 275;
+        popover_box.append (labels_content);
 
         popover = new Gtk.Popover () {
             has_arrow = false,
             child = popover_box,
-            position = Gtk.PositionType.BOTTOM,
-            width_request = 275
+            position = Gtk.PositionType.BOTTOM
         };
 
         popover.set_parent (this);

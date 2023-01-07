@@ -100,10 +100,29 @@ public enum FilterType {
 }
 
 public enum BackendType {
-    NONE = 0,
-    LOCAL = 1,
-    TODOIST = 2,
-    CALDAV = 3;
+    NONE,
+    LOCAL,
+    TODOIST,
+    CALDAV;
+
+    public string to_string () {
+        switch (this) {
+            case NONE:
+                return "none";
+
+            case LOCAL:
+                return "local";
+
+            case TODOIST:
+                return "todoist";
+
+            case CALDAV:
+                return "caldav";
+
+            default:
+                assert_not_reached();
+        }
+    }
 }
 
 public enum PaneType {
@@ -112,11 +131,6 @@ public enum PaneType {
     PROJECT,
     LABEL,
     TASKLIST
-}
-
-public enum ContainerType {
-    LISTBOX,
-    FLOWBOX
 }
 
 public enum LoadingButtonType {
@@ -163,18 +177,6 @@ public enum ObjectType {
 }
 
 public class Util : GLib.Object {
-    //  public Gtk.TargetEntry[] MAGICBUTTON_TARGET_ENTRIES = {
-    //      {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
-    //  };
-
-    //  public Gtk.TargetEntry[] ITEMROW_TARGET_ENTRIES = {
-    //      {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
-    //  };
-
-    //  public Gtk.TargetEntry[] SECTIONROW_TARGET_ENTRIES = {
-    //      {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
-    //  };
-
     private static Util? _instance;
     public static Util get_default () {
         if (_instance == null) {
@@ -438,13 +440,13 @@ public class Util : GLib.Object {
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
         bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        // bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
 
-        //  var granite_settings = Granite.Settings.get_default ();
+        var granite_settings = Granite.Settings.get_default ();
 
-        //  if (system_appearance) {
-        //      dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-        //  }
+        if (system_appearance) {
+            dark_mode = granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+        }
 
         var provider = new Gtk.CssProvider ();
 
@@ -782,6 +784,8 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-clipboard", true);
                 _dynamic_icons.set ("planner-copy", true);
                 _dynamic_icons.set ("planner-rotate", true);
+                _dynamic_icons.set ("planner-section", true);
+                _dynamic_icons.set ("unordered-list", true);
             }
 
             return _dynamic_icons;
@@ -876,7 +880,7 @@ public class Util : GLib.Object {
 
     public void reset_settings () {
         var schema_source = GLib.SettingsSchemaSource.get_default ();
-        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
+        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planit", true);
 
         foreach (string key in schema.list_keys ()) {
             Planner.settings.reset (key);
@@ -1021,19 +1025,7 @@ public class Util : GLib.Object {
     
         return false;
     }
-
-    //  public void update_theme () {
-    //      int appearance_mode = Planner.settings.get_enum ("appearance");
-    //      bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-    //      bool system_appearance = Planner.settings.get_boolean ("system-appearance");
-
-    //      if (dark_mode) {
-    //          Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-    //      } else {
-    //          Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-    //      }
-    //  }
-
+    
     public List<unowned Gtk.Widget> get_children (Gtk.Widget list) {
         List<unowned Gtk.Widget> response = new List<unowned Gtk.Widget> ();
 

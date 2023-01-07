@@ -40,14 +40,17 @@ public class Layouts.Sidebar : Gtk.Grid {
         filters_grid.attach (scheduled_filter, 0, 1);
         filters_grid.attach (pinboard_filter, 1, 1);
 
-        favorites_header = new Layouts.HeaderItem (PaneType.FAVORITE);
+        favorites_header = new Layouts.HeaderItem (_("Favorites"));
+        favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
         favorites_header.margin_top = 6;
         favorites_header.show_action = false;
 
-        local_projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
+        local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
+        local_projects_header.add_tooltip = _("Add Project");
+        local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         local_projects_header.margin_top = 6;
 
-        todoist_projects_header = new Layouts.HeaderItem (PaneType.PROJECT);
+        todoist_projects_header = new Layouts.HeaderItem (null);
         todoist_projects_header.margin_top = 6;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -71,32 +74,27 @@ public class Layouts.Sidebar : Gtk.Grid {
         scrolled_window.child = content_box;
 
         attach (scrolled_window, 0, 0);
+        update_projects_sort ();
 
         local_projects_header.add_activated.connect (() => {
-            prepare_new_project ();
+            prepare_new_project (BackendType.LOCAL);
         });
 
         todoist_projects_header.add_activated.connect (() => {
             bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
             
             if (is_logged_in) {
-                prepare_new_project (true);
+                prepare_new_project (BackendType.TODOIST);
             } else {
                 Services.Todoist.get_default ().init ();
             }
         });
 
-        //  filters_grid.child_activated.connect ((child) => {
-        //      select_filter (((Layouts.FilterPaneRow) child).filter_type);
-        //  });
-        
-        //  local_projects_header.row_selected.connect ((row) => {
-        //      select_project (((Layouts.ProjectRow) row).project);
-        //  });
-
-        //  todoist_projects_header.row_selected.connect ((row) => {
-        //      select_project (((Layouts.ProjectRow) row).project);
-        //  });
+        Planner.settings.changed.connect ((key) => {
+            if (key == "projects-sort-by" || key == "projects-ordered") {
+                update_projects_sort ();
+            }
+        });
     }
 
     public void verify_todoist_account () {
@@ -121,21 +119,25 @@ public class Layouts.Sidebar : Gtk.Grid {
     }
 
     public void init () {
-        Services.Database.get_default().project_added.connect (add_row_project);
-        // Planner.database.project_updated.connect (update_projects_sort);
-        //  Planner.database.label_added.connect (add_row_label);
-        //  Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
-        //      if (old_parent_id == Constants.INACTIVE) {
-        //          if (projects_hashmap.has_key (project.id_string)) {
-        //              projects_hashmap [project.id_string].hide_destroy ();
-        //              projects_hashmap.unset (project.id_string);
-        //          }
-        //      }
+        Services.Database.get_default ().project_added.connect (add_row_project);
+        Services.Database.get_default ().project_updated.connect (update_projects_sort);
+        Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
+            if (old_parent_id == Constants.INACTIVE) {
+                if (local_hashmap.has_key (project.id_string)) {
+                    local_hashmap [project.id_string].hide_destroy ();
+                    local_hashmap.unset (project.id_string);
+                }
 
-        //      if (project.parent_id == Constants.INACTIVE) {
-        //          add_row_project (project);
-        //      }
-        //  });
+                if (todoist_hashmap.has_key (project.id_string)) {
+                    todoist_hashmap [project.id_string].hide_destroy ();
+                    todoist_hashmap.unset (project.id_string);
+                }
+            }
+
+            if (project.parent_id == Constants.INACTIVE) {
+                add_row_project (project);
+            }
+        });
 
         Planner.event_bus.favorite_toggled.connect ((project) => {
             if (favorites_hashmap.has_key (project.id_string)) {
@@ -186,12 +188,12 @@ public class Layouts.Sidebar : Gtk.Grid {
 
     private void add_row_project (Objects.Project project) {
         if (!project.inbox_project && project.parent_id == Constants.INACTIVE) {
-            if (project.todoist) {
+            if (project.backend_type == BackendType.TODOIST) {
                 if (!todoist_hashmap.has_key (project.id_string)) {
                     todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);
                     todoist_projects_header.add_child (todoist_hashmap [project.id_string]);
                 }
-            } else {
+            } else if (project.backend_type == BackendType.LOCAL) {
                 if (!local_hashmap.has_key (project.id_string)) {
                     local_hashmap [project.id_string] = new Layouts.ProjectRow (project);
                     local_projects_header.add_child (local_hashmap [project.id_string]);
@@ -200,8 +202,29 @@ public class Layouts.Sidebar : Gtk.Grid {
         }
     }
 
-    private void prepare_new_project (bool todoist = false) {
-        var dialog = new Dialogs.Project.new (todoist);
+    private void prepare_new_project (BackendType backend_type) {
+        var dialog = new Dialogs.Project.new (backend_type);
         dialog.show ();
+    }
+
+    private void update_projects_sort () {
+        if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+            local_projects_header.set_sort_func (projects_sort_func);
+            todoist_projects_header.set_sort_func (projects_sort_func);
+        } else {
+            local_projects_header.set_sort_func (null);
+            todoist_projects_header.set_sort_func (null);
+        }
+    }
+
+    private int projects_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+        Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
+        Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
+
+        if (Planner.settings.get_enum ("projects-ordered") == 0) {
+            return project2.name.collate (project1.name);
+        } else {
+            return project1.name.collate (project2.name);
+        }
     }
 }

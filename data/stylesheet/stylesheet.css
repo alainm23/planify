@@ -18,8 +18,16 @@
     border-radius: 6px;
 }
 
+.border-radius-9 {
+    border-radius: 9px;
+}
+
 entry.flat:focus-within {
     outline-style: none;
+}
+
+.color-primary {
+    color: #1e63ec;
 }
 
 .color-radio {
@@ -30,7 +38,7 @@ entry.flat:focus-within {
         inset 0 0 0 1px alpha(@shadowColor, 0.3),
         0 1px 0 0 alpha(@colorAccent, 0.3);
     -gtk-icon-shadow: none;
-    padding: 0;
+    padding: 3px;
     border-radius: 50%;
 }
 
@@ -38,10 +46,17 @@ entry.flat:focus-within {
     box-shadow: none;
 }
 
+.color-radio radio:checked {
+    background: transparent;
+    color: #fff;
+    -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
+    -gtk-icon-shadow: 0 1px 1px shade(#fff, 0.85);
+}
+
 .color-label-widget {
     background: alpha(@colorAccent, 0.75);
     border: 1px solid @colorAccent;
-    border-radius: 50%;
+    border-radius: 6px;
 }
 
 .color-row-picker-selected {
@@ -297,7 +312,17 @@ entry.flat:focus-within {
 .button-labels-box {
     background: alpha(@item_border_color, 0.25);
     border: 1px solid @item_border_color;
+    padding: 0 12px;
+    margin: 0;
+    border-radius: 6px;
+}
+
+.description-box {
+    background: alpha(@item_border_color, 0.25);
     padding: 0px 6px;
-    margin: 0px;
-    border-radius: 24px;
+    border-radius: 6px;
+}
+
+.checkbutton-label label {
+    margin-left: 6px;
 }

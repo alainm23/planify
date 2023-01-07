@@ -85,20 +85,20 @@ public class Objects.Reminder : Objects.BaseObject {
     }
 
     public void delete (Widgets.LoadingButton? loading_button = null) {
-        if (item.project.todoist) {
+        if (item.project.backend_type == BackendType.TODOIST) {
             if (loading_button != null) {
                 loading_button.is_loading = true;
             }
 
-            //  Planner.todoist.delete.begin (this, (obj, res) => {
-            //      if (Planner.todoist.delete.end (res)) {
-            //          Services.Database.get_default ().delete_reminder (this);
-            //      } else {
-            //          if (loading_button != null) {
-            //              loading_button.is_loading = false;
-            //          }
-            //      }
-            //  });
+            Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                if (Services.Todoist.get_default ().delete.end (res)) {
+                    Services.Database.get_default ().delete_reminder (this);
+                } else {
+                    if (loading_button != null) {
+                        loading_button.is_loading = false;
+                    }
+                }
+            });
         } else {
             Services.Database.get_default ().delete_reminder (this);
         }

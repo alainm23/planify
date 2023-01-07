@@ -22,7 +22,7 @@
 public class Dialogs.Label : Adw.Window {
     public Objects.Label label { get; construct; }
 
-    private Widgets.EntryRow name_entry;
+    private Adw.EntryRow name_entry;
     private Widgets.ColorPickerRow color_picker_row;
     private Widgets.LoadingButton submit_button;
 
@@ -67,36 +67,32 @@ public class Dialogs.Label : Adw.Window {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        name_entry = new Widgets.EntryRow ("none");
-        name_entry.entry.placeholder_text = _("Give your label a name");
-        name_entry.entry.text = label.name;
+        name_entry = new Adw.EntryRow ();
+        name_entry.title = _("Give your label a name");
+        name_entry.text = label.name;
 
-        var name_emoji_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 24,
-            margin_end = 12,
-            margin_start = 12
-        };
-
-        name_emoji_box.add_css_class ("card");
-        name_emoji_box.add_css_class ("padding-6");
-
-        name_emoji_box.append (name_entry);
-
-        color_picker_row = new Widgets.ColorPickerRow ("none");
-
-        var color_box = new Gtk.Box(Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 24,
+        var name_group = new Adw.PreferencesGroup () {
             margin_end = 12,
             margin_start = 12,
-            margin_bottom = 3
+            margin_top = 12
         };
 
-        color_box.add_css_class ("card");
-        color_box.add_css_class ("padding-6");
+        name_group.add (name_entry);
 
-        color_box.append (color_picker_row);
+        color_picker_row = new Widgets.ColorPickerRow ();
 
-        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add project") : _("Update project")) {
+        var color_group = new Gtk.Grid () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 24,
+            margin_bottom = 1,
+            valign = Gtk.Align.START
+        };
+
+        color_group.add_css_class (Granite.STYLE_CLASS_CARD);
+        color_group.attach (color_picker_row, 0, 0);
+        
+        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add label") : _("Update label")) {
             vexpand = true,
             hexpand = true,
             margin_bottom = 12,
@@ -111,8 +107,8 @@ public class Dialogs.Label : Adw.Window {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         
         content_box.append (headerbar);
-        content_box.append (name_emoji_box);
-        content_box.append (color_box);
+        content_box.append (name_group);
+        content_box.append (color_group);
         content_box.append (submit_button);
 
         content = content_box;
@@ -123,11 +119,11 @@ public class Dialogs.Label : Adw.Window {
             return GLib.Source.REMOVE;
         });
 
-        name_entry.entry.activate.connect (add_update_project);
+        name_entry.entry_activated.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
 
         var name_entry_ctrl_key = new Gtk.EventControllerKey ();
-        name_entry.entry.add_controller (name_entry_ctrl_key);
+        name_entry.add_controller (name_entry_ctrl_key);
 
         name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
@@ -139,12 +135,12 @@ public class Dialogs.Label : Adw.Window {
     }
 
     private void add_update_project () {
-        if (!Util.get_default ().is_input_valid (name_entry.entry)) {
+        if (name_entry.text.length <= 0) {
             hide_destroy ();
             return;
         }
 
-        label.name = name_entry.entry.text;
+        label.name = name_entry.text;
         label.color = color_picker_row.color;
 
         if (!is_creating) {

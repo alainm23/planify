@@ -134,21 +134,21 @@ public class Services.Database : GLib.Object {
          * - Add pinned (0|1) to Items
          */
 
-        add_int_column ("Items", "pinned", 0);
+        // add_int_column ("Items", "pinned", 0);
 
         /*
-         * Planner 3 - beta 2
+         * Planner 3 - Beta 2
          * - Add show_completed (0|1) to Projects
          */
 
-        add_int_column ("Projects", "show_completed", 0);
+        // add_int_column ("Projects", "show_completed", 0);
 
         /*
          *  Planner 3.10
          * - Add description to Projects
          */
 
-        add_text_column ("Projects", "description", "");
+        // add_text_column ("Projects", "description", "");
     }
 
     private void create_tables () {
@@ -176,7 +176,7 @@ public class Services.Database : GLib.Object {
                 id               INTEGER PRIMARY KEY,
                 name             TEXT NOT NULL,
                 color            TEXT,
-                todoist          INTEGER,
+                backend_type     TEXT,
                 inbox_project    INTEGER,
                 team_inbox       INTEGER,
                 child_order      INTEGER,
@@ -368,7 +368,7 @@ public class Services.Database : GLib.Object {
         return_value.id = stmt.column_int64 (0);
         return_value.name = stmt.column_text (1);
         return_value.color = stmt.column_text (2);
-        return_value.todoist = get_parameter_bool (stmt, 3);
+        return_value.backend_type = get_backend_type_by_text (stmt, 3);
         return_value.inbox_project = get_parameter_bool (stmt, 4);
         return_value.team_inbox = get_parameter_bool (stmt, 5);
         return_value.child_order = stmt.column_int (6);
@@ -383,6 +383,7 @@ public class Services.Database : GLib.Object {
         return_value.icon_style = get_icon_style_by_text (stmt, 15);
         return_value.emoji = stmt.column_text (16);
         return_value.show_completed = get_parameter_bool (stmt, 17);
+        return_value.description = stmt.column_text (18);
         return return_value;
     }
 
@@ -402,14 +403,26 @@ public class Services.Database : GLib.Object {
         return ProjectIconStyle.PROGRESS;
     }
 
+    private BackendType get_backend_type_by_text (Sqlite.Statement stmt, int col) {
+        if (stmt.column_text (col) == "local") {
+            return BackendType.LOCAL;
+        } else if (stmt.column_text (col) == "todoist") {
+            return BackendType.TODOIST;
+        } else if (stmt.column_text (col) == "caldav") {
+            return BackendType.CALDAV;
+        } else {
+            return BackendType.NONE;
+        }
+    }
+
     public bool insert_project (Objects.Project project) {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Projects (id, name, color, todoist, inbox_project,
+            INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description)
-            VALUES ($id, $name, $color, $todoist, $inbox_project, $team_inbox,
+            VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description);
         """;
@@ -418,7 +431,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int64 (stmt, "$id", project.id);
         set_parameter_str (stmt, "$name", project.name);
         set_parameter_str (stmt, "$color", project.color);
-        set_parameter_bool (stmt, "$todoist", project.todoist);
+        set_parameter_str (stmt, "$backend_type", project.backend_type.to_string ());
         set_parameter_bool (stmt, "$inbox_project", project.inbox_project);
         set_parameter_bool (stmt, "$team_inbox", project.team_inbox);
         set_parameter_int (stmt, "$child_order", project.child_order);
@@ -499,7 +512,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Projects SET name=$name, color=$color, todoist=$todoist,
+            UPDATE Projects SET name=$name, color=$color, backend_type=$backend_type,
                 inbox_project=$inbox_project, team_inbox=$team_inbox,
                 child_order=$child_order, is_deleted=$is_deleted,
                 is_archived=$is_archived, is_favorite=$is_favorite,
@@ -513,7 +526,7 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$name", project.name);
         set_parameter_str (stmt, "$color", project.color);
-        set_parameter_bool (stmt, "$todoist", project.todoist);
+        set_parameter_str (stmt, "$backend_type", project.backend_type.to_string ());
         set_parameter_bool (stmt, "$inbox_project", project.inbox_project);
         set_parameter_bool (stmt, "$team_inbox", project.team_inbox);
         set_parameter_int (stmt, "$child_order", project.child_order);

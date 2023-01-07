@@ -52,14 +52,9 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     construct {
         current_date = new GLib.DateTime.now_local ();
 
-        calendar_header = new Widgets.Calendar.CalendarHeader () {
-            margin_top = 6
-        };
+        calendar_header = new Widgets.Calendar.CalendarHeader ();
 
-        calendar_week = new Widgets.Calendar.CalendarWeek () {
-            margin_top = 12,
-            margin_bottom = 6
-        };
+        calendar_week = new Widgets.Calendar.CalendarWeek ();
         
         calendar_view = new Widgets.Calendar.CalendarView ();
 

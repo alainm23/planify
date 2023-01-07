@@ -418,10 +418,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             if (active) {
                 hide_revealer.reveal_child = false;
                 placeholder_revealer.reveal_child = false;
-                // name_menu_grid.get_style_context ().add_class ("editable-label-focus");
             } else {
                 placeholder_revealer.reveal_child = true;
-                // name_menu_grid.get_style_context ().remove_class ("editable-label-focus");
             }
         });
 
@@ -698,7 +696,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (section.project.todoist) {
+                    if (section.project.backend_type == BackendType.TODOIST) {
                         //  remove_button.is_loading = true;
                         Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);

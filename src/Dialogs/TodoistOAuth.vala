@@ -33,8 +33,8 @@ public class Dialogs.TodoistOAuth : Adw.Window {
             // window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true,
             title: _("Todoist Sync"),
-            height_request: 500,
-            width_request: 425
+            height_request: 575,
+            width_request: 475
         );
     }
 
@@ -53,32 +53,60 @@ public class Dialogs.TodoistOAuth : Adw.Window {
         container_grid.append (info_label);
 
         webview = new WebKit.WebView ();
+        webview.zoom_level = 0.75;
         webview.vexpand = true;
         webview.hexpand = true;
 
         // WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
         // WebKit.WebContext.get_default ().set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
 
-        var scrolled = new Gtk.ScrolledWindow ();
-        scrolled.child = webview;
-
         webview.load_uri (OAUTH_OPEN_URL);
 
+        var sync_image = new Widgets.DynamicIcon () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+
+        sync_image.update_icon_name ("planner-cloud");
+        sync_image.size = 128;
+
         // Loading
-        var spinner_loading = new Gtk.Spinner ();
-        spinner_loading.valign = Gtk.Align.CENTER;
-        spinner_loading.halign = Gtk.Align.CENTER;
-        spinner_loading.width_request = 50;
-        spinner_loading.height_request = 50;
-        spinner_loading.start ();
-        
+        var progress_bar = new Gtk.ProgressBar () {
+            margin_top = 6
+        };
+
+        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes."));
+        sync_label.wrap = true;
+        sync_label.justify = Gtk.Justification.CENTER;
+        sync_label.margin_top = 12;
+        sync_label.margin_start = 12;
+        sync_label.margin_end = 12;
+
+        var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 24,
+            margin_start = 64,
+            margin_end = 64
+        };
+        sync_box.append (sync_image);
+        sync_box.append (progress_bar);
+        sync_box.append (sync_label);
+
         var stack = new Gtk.Stack ();
         stack.vexpand = true;
         stack.hexpand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        stack.add_named (scrolled, "web_view");
-        stack.add_named (spinner_loading, "spinner-view");
+        stack.add_named (webview, "web_view");
+        stack.add_named (sync_box, "spinner-view");
+
+        var scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = Gtk.PolicyType.NEVER
+        };
+
+        scrolled.child = stack;
 
         var header = new Adw.HeaderBar ();
         header.add_css_class (Granite.STYLE_CLASS_FLAT);
@@ -86,7 +114,7 @@ public class Dialogs.TodoistOAuth : Adw.Window {
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_grid.append (header);
-        main_grid.append (stack);
+        main_grid.append (scrolled);
 
         content = main_grid;
 
@@ -95,20 +123,18 @@ public class Dialogs.TodoistOAuth : Adw.Window {
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (STATE) in redirect_uri)) {
                 info_label.label = _("Synchronizing… Wait a moment please.");
-                webview.stop_loading ();
-                Services.Todoist.get_default ().get_todoist_token (redirect_uri);
+                get_todoist_token (redirect_uri);
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
                 debug ("access_denied");
-                destroy ();
+                hide_destroy ();
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
                 info_label.label = _("Please enter your credentials…");
                 spinner.stop ();
                 spinner.hide ();
-
                 return;
             }
 
@@ -116,7 +142,6 @@ public class Dialogs.TodoistOAuth : Adw.Window {
                 info_label.label = _("Loading…");
                 spinner.start ();
                 spinner.show ();
-
                 return;
             }
 
@@ -139,7 +164,28 @@ public class Dialogs.TodoistOAuth : Adw.Window {
         });
 
         Services.Todoist.get_default ().first_sync_finished.connect (() => {
-            destroy ();
+            Planner.event_bus.send_notification (
+                Util.get_default ().create_toast (_("Tasks synced successfully"))
+            );
+
+            hide_destroy ();
         });
+
+        Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
+            progress_bar.fraction = progress;
+        });
+    }
+
+    public void hide_destroy () {
+        hide ();
+
+        Timeout.add (500, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private async void get_todoist_token (string redirect_uri) {
+        yield Services.Todoist.get_default ().get_todoist_token (redirect_uri);
     }
 }

@@ -97,14 +97,15 @@
     <file alias="color-swatch-light.svg">resources/color-swatch-light.svg</file>
     <file alias="emoji-happy-light.svg">resources/emoji-happy-light.svg</file>
     <file alias="emoji-happy-dark.svg">resources/emoji-happy-dark.svg</file>
-
     <file alias="planner-clipboard-light.svg">resources/planner-clipboard-light.svg</file>
     <file alias="planner-clipboard-dark.svg">resources/planner-clipboard-dark.svg</file>
-
     <file alias="planner-copy-light.svg">resources/planner-copy-light.svg</file>
     <file alias="planner-copy-dark.svg">resources/planner-copy-dark.svg</file>
-
     <file alias="planner-rotate-light.svg">resources/planner-rotate-light.svg</file>
     <file alias="planner-rotate-dark.svg">resources/planner-rotate-dark.svg</file>
+    <file alias="planner-section-light.svg">resources/planner-section-light.svg</file>
+    <file alias="planner-section-dark.svg">resources/planner-section-dark.svg</file>
+    <file alias="unordered-list-dark.svg">resources/unordered-list-dark.svg</file>
+    <file alias="unordered-list-light.svg">resources/unordered-list-light.svg</file>
   </gresource>
 </gresources>

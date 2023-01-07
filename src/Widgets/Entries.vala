@@ -75,11 +75,27 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     }
  
     construct {
+        buffer.changed.connect (changed_timeout);
+
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
 
         gesture.enter.connect (handle_focus_in);
         gesture.leave.connect (update_on_leave);
+
+        gesture.enter.connect (() => {
+            if (buffer_get_text () == placeholder_text) {
+                buffer.text = "";
+                opacity = 1;
+            }
+        });
+
+        gesture.leave.connect (() => {
+            if (buffer_get_text () == "") {
+                buffer.text = placeholder_text;
+                opacity = 0.7;
+            }
+        });
     }
 
     private void handle_focus_in () {
@@ -102,9 +118,27 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
     public void set_text (string text) {
         buffer.text = text;
+        if (buffer_get_text () == "") {
+            buffer.text = placeholder_text;
+            opacity = 0.7;
+        } else {
+            opacity = 1;
+        }
     }
 
     public string get_text () {
-        return buffer_get_text ();
+        return buffer_get_text () == placeholder_text ? "" : buffer_get_text ();
+    }
+
+    private void changed_timeout () {
+        if (changed_timeout_id != 0) {
+            Source.remove (changed_timeout_id);
+        }
+
+        changed_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
+            changed_timeout_id = 0;
+            updated ();
+            return GLib.Source.REMOVE;
+        });
     }
 }

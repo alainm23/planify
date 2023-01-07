@@ -76,20 +76,22 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var calendar_item = new Widgets.Calendar.Calendar (true);
 
-        var date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true
+        var left_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            margin_top = 6,
+            margin_end = 9
         };
 
-        date_box.append (today_item);
-        date_box.append (tomorrow_item);
-        date_box.append (next_week_item);
-        date_box.append (calendar_item);
+        left_box.append (today_item);
+        left_box.append (tomorrow_item);
+        left_box.append (next_week_item);
+        left_box.append (no_date_item);
 
         var time_icon = new Widgets.DynamicIcon () {
             margin_start = 3
         };
 
-        time_icon.size = 19;
+        time_icon.size = 21;
         time_icon.update_icon_name ("planner-clock");
 
         var time_label = new Gtk.Label (_("Time")) {
@@ -113,12 +115,24 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         time_box.append (time_label);
         time_box.append (time_picker);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var right_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            margin_start = 6
+        };
+
+        right_box.append (calendar_item);
+        right_box.append (time_box);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             width_request = 225
         };
         
-        content_box.append (date_box);
-        content_box.append (time_box);
+        content_box.append (left_box);
+        content_box.append (new Gtk.Separator (Gtk.Orientation.VERTICAL) {
+            margin_top = 6,
+            margin_bottom = 6
+        });
+        content_box.append (right_box);
 
         child = content_box;
 
@@ -134,6 +148,11 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         next_week_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ().add_days (7));
+            popdown ();
+        });
+
+        no_date_item.activate_item.connect (() => {
+            _datetime = null;
             popdown ();
         });
 

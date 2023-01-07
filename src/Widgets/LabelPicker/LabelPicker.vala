@@ -161,7 +161,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         label.color = Util.get_default ().get_random_color ();
         label.name = search_entry.text;
 
-        if (item.project.todoist) {
+        if (item.project.backend_type == BackendType.TODOIST) {
             is_loading = true;
             label.todoist = true;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {

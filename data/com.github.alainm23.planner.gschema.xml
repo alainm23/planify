@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <enum id="com.github.alainm23.planner.badge-count">
+    <enum id="com.github.alainm23.planit.badge-count">
         <value nick="None" value="0" />
         <value nick="Inbox" value="1" />
         <value nick="Today" value="2" />
         <value nick="Today + Inbox" value="3" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.pane-view">
+    <enum id="com.github.alainm23.planit.pane-view">
         <value nick="Inbox" value="0" />
         <value nick="Today" value="1" />
         <value nick="Scheduled" value="2" />
@@ -16,7 +16,7 @@
         <value nick="All Tasks" value="5" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.button-layout">
+    <enum id="com.github.alainm23.planit.button-layout">
         <value nick="elementary" value="0" />
         <value nick="Ubuntu" value="1" />
         <value nick="Windows" value="2" />
@@ -27,99 +27,99 @@
         <value nick="Close Only Right" value="7" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.appearance">
+    <enum id="com.github.alainm23.planit.appearance">
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.default-priority">
+    <enum id="com.github.alainm23.planit.default-priority">
         <value nick="Priority 1" value="0" />
         <value nick="Priority 2" value="1" />
         <value nick="Priority 3" value="2" />
         <value nick="None" value="3" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.start-week">
+    <enum id="com.github.alainm23.planit.start-week">
         <value nick="Sunday" value="0" />
         <value nick="Monday" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.new-tasks-position">
+    <enum id="com.github.alainm23.planit.new-tasks-position">
         <value nick="Top" value="0" />
         <value nick="Bottom" value="-1" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.clock-format">
+    <enum id="com.github.alainm23.planit.clock-format">
         <value nick="24h" value="0" />
         <value nick="12h" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.backend-type">
+    <enum id="com.github.alainm23.planit.backend-type">
         <value nick="none" value="0" />
         <value nick="local" value="1" />
         <value nick="todoist" value="2" />
         <value nick="caldav" value="3" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.projects-sort-by">
+    <enum id="com.github.alainm23.planit.projects-sort-by">
         <value nick="Alphabetically" value="0" />
         <value nick="Custom sort order" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.projects-ordered">
+    <enum id="com.github.alainm23.planit.projects-ordered">
         <value nick="Ascending" value="0" />
         <value nick="Descending" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.planner.complete-task">
+    <enum id="com.github.alainm23.planit.complete-task">
         <value nick="Instantly" value="0" />
         <value nick="Wait 2500 milliseconds" value="1" />
     </enum>
 
-    <schema path="/com/github/alainm23/planner/" id="com.github.alainm23.planner" gettext-domain="com.github.alainm23.planner">        
-        <key name="badge-count" enum="com.github.alainm23.planner.badge-count">
+    <schema path="/com/github/alainm23/planit/" id="com.github.alainm23.planit" gettext-domain="com.github.alainm23.planit">        
+        <key name="badge-count" enum="com.github.alainm23.planit.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
 
-        <key name="new-tasks-position" enum="com.github.alainm23.planner.new-tasks-position">
+        <key name="new-tasks-position" enum="com.github.alainm23.planit.new-tasks-position">
             <default>"Bottom"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
 
-        <key name="clock-format" enum="com.github.alainm23.planner.clock-format">
+        <key name="clock-format" enum="com.github.alainm23.planit.clock-format">
             <default>"24h"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="backend-type" enum="com.github.alainm23.planner.backend-type">
+        <key name="backend-type" enum="com.github.alainm23.planit.backend-type">
             <default>"none"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="projects-sort-by" enum="com.github.alainm23.planner.projects-sort-by">
+        <key name="projects-sort-by" enum="com.github.alainm23.planit.projects-sort-by">
             <default>"Custom sort order"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="projects-ordered" enum="com.github.alainm23.planner.projects-ordered">
+        <key name="projects-ordered" enum="com.github.alainm23.planit.projects-ordered">
             <default>"Descending"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="complete-task" enum="com.github.alainm23.planner.complete-task">
+        <key name="complete-task" enum="com.github.alainm23.planit.complete-task">
             <default>"Wait 2500 milliseconds"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="appearance" enum="com.github.alainm23.planner.appearance">
+        <key name="appearance" enum="com.github.alainm23.planit.appearance">
             <default>"Dark"</default>
             <summary></summary>
             <description></description>
@@ -132,24 +132,24 @@
         </key>
 
         <key name="system-appearance" type="b">
-            <default>false</default>
+            <default>true</default>
             <summary>Dark Mode.</summary>
             <description>Dark Mode.</description>
         </key>
         
-        <key name="button-layout" enum="com.github.alainm23.planner.button-layout">
+        <key name="button-layout" enum="com.github.alainm23.planit.button-layout">
             <default>"elementary"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
         </key>
 
-        <key name="default-priority" enum="com.github.alainm23.planner.default-priority">
+        <key name="default-priority" enum="com.github.alainm23.planit.default-priority">
             <default>"None"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
         </key>
 
-        <key name="start-week" enum="com.github.alainm23.planner.start-week">
+        <key name="start-week" enum="com.github.alainm23.planit.start-week">
             <default>"Monday"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
@@ -229,17 +229,17 @@
 
         <key name="run-on-startup" type="b">
             <default>false</default>
-            <summary>Run Planner on startup</summary>
-            <description>Whether Planner should run on startup</description>
+            <summary>Run planit on startup</summary>
+            <description>Whether planit should run on startup</description>
         </key>
 
         <key name="run-in-background" type="b">
             <default>false</default>
             <summary>Run in background</summary>
-            <description>Let Planner run in background and send notifications</description>
+            <description>Let planit run in background and send notifications</description>
         </key>
         
-        <key name="homepage-item" enum="com.github.alainm23.planner.pane-view">
+        <key name="homepage-item" enum="com.github.alainm23.planit.pane-view">
             <default>"Inbox"</default>
             <summary>homepage-item</summary>
             <description>homepage-item</description>
@@ -320,7 +320,7 @@
         <key name="version" type="s">
             <default>'3.0'</default>
             <summary>The currently installed version.</summary>
-            <description>The currently installed version of Planner, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+            <description>The currently installed version of planit, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
 
         <key name="calendar-enabled" type="b">

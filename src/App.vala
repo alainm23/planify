@@ -32,7 +32,7 @@ public class Planner : Adw.Application {
     };
     
     static construct {
-        settings = new Settings ("com.github.alainm23.planner");
+        settings = new Settings ("com.github.alainm23.planit");
     }
 
     construct {

@@ -1,9 +1,6 @@
 
 
 public class Layouts.HeaderItem : Gtk.Grid {
-    public PaneType pane_type { get; construct; }
-    public string pane_title { get; construct; }
-
     public string _header_title;
     public string header_title {
         get {
@@ -45,10 +42,12 @@ public class Layouts.HeaderItem : Gtk.Grid {
     private Gtk.ListBox listbox;
     private Gtk.Button add_button;
     private Gtk.Stack action_stack;
+    private Gtk.Grid content_grid;
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
 
     public signal void add_activated ();
+    public signal void row_activated (Gtk.Widget widget);
 
     private bool has_children {
         get {
@@ -67,11 +66,35 @@ public class Layouts.HeaderItem : Gtk.Grid {
             action_revealer.reveal_child = value;
         }
     }
+
+    public bool reveal_child {
+        set {
+            content_revealer.reveal_child = value;
+        }
+    }
+
+    public bool card {
+        set {
+            if (value) {
+
+            } else {
+                content_grid.remove_css_class (Granite.STYLE_CLASS_CARD);
+                content_grid.remove_css_class ("pane-content");
+            }
+        }
+    }
+
+    public bool separator_space {
+        set {
+            if (value) {
+                listbox.add_css_class ("listbox-separator-3");
+            }
+        }
+    }
     
-    public HeaderItem (PaneType pane_type, string pane_title = "") {
+    public HeaderItem (string? header_title) {
         Object (
-            pane_type: pane_type,
-            pane_title: pane_title
+            header_title: header_title
         );
     }
 
@@ -83,16 +106,20 @@ public class Layouts.HeaderItem : Gtk.Grid {
         name_label.add_css_class (Granite.STYLE_CLASS_H4_LABEL);
         name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var content_grid = new Gtk.Grid ();
-
         listbox = new Gtk.ListBox () {
             hexpand = true
         };
         
         listbox.set_placeholder (get_placeholder ());
-        listbox.add_css_class(Granite.STYLE_CLASS_CARD);
-        listbox.add_css_class("padding-3");
+        listbox.add_css_class ("bg-transparent");
 
+        content_grid = new Gtk.Grid () {
+            margin_end = 1
+        };
+
+        content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        content_grid.add_css_class ("pane-content");
+        content_grid.add_css_class ("padding-3");
         content_grid.attach (listbox, 0, 0, 1, 1);
 
         var add_image = new Widgets.DynamicIcon () {
@@ -158,36 +185,20 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
         content_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = pane_type != PaneType.FAVORITE
+            reveal_child = true
         };
 
         content_revealer.child = content_box;
 
         attach(content_revealer, 0, 0);
-        update_labels ();
 
         add_button.clicked.connect (() => {
             add_activated ();
         });
-    }
 
-    private void update_labels () {
-        if (pane_type == PaneType.PROJECT) {
-            header_title = "On This Computer";
-            add_tooltip = _("Add Project");
-            placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        } else if (pane_type == PaneType.LABEL) {
-            header_title = _("Labels");
-            add_tooltip = _("Add label");
-            placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
-        } else if (pane_type == PaneType.FAVORITE) {
-            header_title = _("Favorites");
-            placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
-        } else if (pane_type == PaneType.TASKLIST) {
-            header_title = pane_title;
-            add_tooltip = _("Add tasklist");
-            placeholder_message = _("No tasklist available. Create one by clicking on the '+' button");
-        }
+        listbox.row_activated.connect ((row) => {
+            row_activated (row);
+        });
     }
 
     private Gtk.Widget get_placeholder () {
@@ -207,7 +218,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
 
         content_box.append (placeholder_label);
-        content_box.show ();
 
         return content_box;
     }
@@ -223,5 +233,9 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
     public void check_visibility (int size) {
         content_revealer.reveal_child = size > 0;
+    }
+
+    public void set_sort_func (Gtk.ListBoxSortFunc? sort_func) {
+        listbox.set_sort_func (sort_func);
     }
 }
