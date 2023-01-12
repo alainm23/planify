@@ -23,20 +23,19 @@ public class Services.EventBus : Object {
     public signal void day_changed ();
     public signal void open_labels ();
     public signal void close_labels ();
+    public signal void inbox_project_changed ();
+    public signal void paste_action (int64 project_id, string content);
     
     // Notifications
     public signal void send_notification (Adw.Toast toast);
 
     // Multi Select
-    public bool ctrl_pressed = false;
-    public bool alt_pressed = false;
+    public bool multi_select_enabled = false;
+    public signal void show_multi_select (bool enabled);
     public signal void unselect_all ();
-    public signal void ctrl_press ();
-    public signal void ctrl_release ();
     public signal void select_item (Layouts.ItemRow itemrow);
-    public signal void magic_button_visible (bool active);
+    public signal void unselect_item (Layouts.ItemRow itemrow);
 
-    //Mouse position
-    public int x_root = 0;
-    public int y_root = 0;
+
+    public signal void magic_button_visible (bool active);
 }

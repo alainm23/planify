@@ -1,25 +1,24 @@
 public class Widgets.LabelsHeader : Gtk.Grid {
-    public Gee.HashMap <string, Gtk.Grid> labels_widgets_map;
+    public Gee.ArrayList<Gtk.Overlay> labels_widgets;
 
     private Gtk.Box labels_box;
     private Gtk.Stack stack;
-    private Layouts.HeaderItem labels_content;
     private Gtk.Popover popover = null;
 
     public bool has_labels {
         get {
-            return labels_widgets_map.size > 0;
+            return labels_widgets.size > 0;
         }
     }
 
     public LabelsHeader () {
         Object (
-            opacity: 0.75
+            tooltip_text: _("Filter by Labels")
         );
     }
 
     construct {
-        labels_widgets_map = new Gee.HashMap <string, Gtk.Grid> ();
+        labels_widgets = new Gee.ArrayList<Gtk.Overlay> ();
 
         var placeholder_button = new Gtk.Button.with_label (_("No label available, click to add one…")) {
             valign = Gtk.Align.CENTER,
@@ -31,25 +30,103 @@ public class Widgets.LabelsHeader : Gtk.Grid {
 
         labels_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
-        var labels_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
-        };
-
-        labels_button.add_css_class ("button-labels-box");
-        labels_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        labels_button.child = labels_box;
-
         stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            vhomogeneous = false,
+            hhomogeneous = false
         };
 
         stack.add_named (placeholder_button, "placeholder");
-        stack.add_named (labels_button, "labels");
+        stack.add_named (labels_box, "labels");
 
-        labels_content = new Layouts.HeaderItem (_("Labels"));
+        attach (stack, 0, 0);
+
+        placeholder_button.clicked.connect (() => {
+            var dialog = new Dialogs.Label.new (true);
+            dialog.show ();
+        });
+
+        Planner.event_bus.open_labels.connect (open_labels_popover);
+
+        Planner.event_bus.close_labels.connect (() => {
+            if (popover != null) {
+                popover.popdown ();
+            }
+        });
+
+        Services.Database.get_default ().label_added.connect (init);
+        Services.Database.get_default ().label_deleted.connect (remove_label);
+        Services.Database.get_default ().label_updated .connect (update_label);
+
+        var click_gesture = new Gtk.GestureClick ();
+        click_gesture.set_button (1);
+        labels_box.add_controller (click_gesture);
+
+        click_gesture.pressed.connect (() => {
+            open_labels_popover ();
+        });
+    }
+
+    public void init () {
+        if (labels_widgets.size > 0) {
+            labels_box.remove (labels_widgets[0]);
+        }
+
+        labels_widgets.clear ();
+
+        foreach (Objects.Label label in Services.Database.get_default ().labels) {
+            add_preview_label (label);
+        }
+    }
+
+    private void add_preview_label (Objects.Label label) {
+        if (labels_widgets.size < 10) {
+            var grid = new Gtk.Grid () {
+                height_request = 16,
+                width_request = 16,
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER
+            };
+
+            grid.add_css_class ("color-label-widget");
+            Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), grid);
+            
+            Gtk.Overlay grid_overlay = new Gtk.Overlay ();
+            grid_overlay.child = grid;
+            
+            if (labels_widgets.size <= 0) {
+                labels_box.append (grid_overlay);
+            } else {
+                grid.margin_start = labels_widgets.size * 8;
+                Gtk.Overlay preview_overlay = labels_widgets [labels_widgets.size - 1];
+                preview_overlay.add_overlay (grid_overlay);
+            }
+
+            labels_widgets.add (grid_overlay);
+            labels_box.margin_end = labels_widgets.size * 7;
+        }
+
+        stack.visible_child_name = has_labels ? "labels" : "placeholder";
+    }
+
+    private void remove_label (Objects.Label label) {
+        init ();
+        stack.visible_child_name = has_labels ? "labels" : "placeholder";
+    }
+
+    private void update_label (Objects.Label label) {
+        init ();
+    }
+
+    private void open_labels_popover () {
+        if (popover != null) {
+            popover.popup ();
+            return;
+        }
+
+        var labels_content = new Layouts.HeaderItem (_("Labels"));
         labels_content.add_tooltip = _("Add label");
         labels_content.placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
         labels_content.card = false;
@@ -61,14 +138,6 @@ public class Widgets.LabelsHeader : Gtk.Grid {
 
             Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
-
-        attach (stack, 0, 0);
-
-        placeholder_button.clicked.connect (() => {
-            var dialog = new Dialogs.Label.new (true);
-            dialog.show ();
-        });
-
         labels_content.add_activated.connect (() => {
             if (popover != null) {
                 popover.popdown ();
@@ -78,71 +147,10 @@ public class Widgets.LabelsHeader : Gtk.Grid {
             dialog.show ();
         });
 
-        labels_button.clicked.connect (open_labels_popover);
-        Planner.event_bus.open_labels.connect (open_labels_popover);
-
-        Planner.event_bus.close_labels.connect (() => {
-            if (popover != null) {
-                popover.popdown ();
-            }
-        });
-
-        Services.Database.get_default ().label_added.connect (add_label);
-        Services.Database.get_default ().label_deleted.connect (remove_label);
-        Services.Database.get_default ().label_updated .connect (update_label);
-    }
-
-    public void init () {
-        foreach (Objects.Label label in Services.Database.get_default ().labels) {
-            add_label (label);
-        }
-    }
-
-    private void add_label (Objects.Label label) {
-        if (!labels_widgets_map.has_key (label.id_string)) {
-            if (labels_widgets_map.size < 10) {
-                var grid = new Gtk.Grid () {
-                    height_request = 6,
-                    width_request = 21,
-                    tooltip_text = label.name,
-                    valign = Gtk.Align.CENTER,
-                    halign = Gtk.Align.CENTER
-                };
-    
-                grid.add_css_class ("color-label-widget");
-                Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), grid);
-                labels_box.append (grid);
-                labels_widgets_map.set (label.id_string, grid);
-            }
-            
+        Services.Database.get_default ().label_added.connect ((label) => {
             var row = new Layouts.LabelRow (label);
             labels_content.add_child (row);
-        }
-
-        stack.visible_child_name = has_labels ? "labels" : "placeholder";
-    }
-
-    private void remove_label (Objects.Label label) {
-        if (labels_widgets_map.has_key (label.id_string)) {
-            labels_box.remove (labels_widgets_map[label.id_string]);
-            labels_widgets_map.unset (label.id_string);
-        }
-
-        stack.visible_child_name = has_labels ? "labels" : "placeholder";
-    }
-
-    private void update_label (Objects.Label label) {
-        if (labels_widgets_map.has_key (label.id_string)) {
-            labels_widgets_map[label.id_string].tooltip_text = label.name;
-            Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), labels_widgets_map[label.id_string]);
-        }
-    }
-
-    private void open_labels_popover () {
-        if (popover != null) {
-            popover.popup ();
-            return;
-        }
+        });
 
         var popover_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         popover_box.width_request = 275;
@@ -156,5 +164,10 @@ public class Widgets.LabelsHeader : Gtk.Grid {
 
         popover.set_parent (this);
         popover.popup ();
+
+        foreach (Objects.Label label in Services.Database.get_default ().labels) {    
+            var row = new Layouts.LabelRow (label);
+            labels_content.add_child (row);
+        }
     }
 }

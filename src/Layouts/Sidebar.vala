@@ -95,6 +95,11 @@ public class Layouts.Sidebar : Gtk.Grid {
                 update_projects_sort ();
             }
         });
+
+        Planner.event_bus.inbox_project_changed.connect (() => {
+            add_all_projects ();
+            add_all_favorites ();
+        });
     }
 
     public void verify_todoist_account () {
@@ -121,6 +126,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     public void init () {
         Services.Database.get_default ().project_added.connect (add_row_project);
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
+
         Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
             if (old_parent_id == Constants.INACTIVE) {
                 if (local_hashmap.has_key (project.id_string)) {

@@ -25,8 +25,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             margin_start = 9,
             margin_end = 9,
             vexpand = true,
-            hexpand = true,
-            selection_mode = Gtk.SelectionMode.NONE
+            hexpand = true
         };
 
         var radio = new Gtk.CheckButton ();
@@ -47,6 +46,11 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
                 color_radio.toggled.connect (() => {
                     color = entry.key;
                     color_changed (color);
+                });
+
+                colors_flowbox.child_activated.connect ((child) => {
+                    // color = entry.key;
+                    // color_changed (color);
                 });
             }
         }

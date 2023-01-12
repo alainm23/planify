@@ -164,10 +164,6 @@ public class Dialogs.TodoistOAuth : Adw.Window {
         });
 
         Services.Todoist.get_default ().first_sync_finished.connect (() => {
-            Planner.event_bus.send_notification (
-                Util.get_default ().create_toast (_("Tasks synced successfully"))
-            );
-
             hide_destroy ();
         });
 

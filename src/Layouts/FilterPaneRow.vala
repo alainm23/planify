@@ -63,6 +63,12 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         add_controller (select_gesture);
 
         select_gesture.pressed.connect (() => {
+            add_css_class ("selected");
+            Timeout.add (1000, () => {
+                remove_css_class ("selected"); 
+                return GLib.Source.REMOVE;
+            });
+
             Planner.event_bus.pane_selected (PaneType.FILTER, filter_type.to_string ());
         });
 
@@ -71,10 +77,17 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
                 get_style_context ().add_class (
                     "filter-pane-row-%s-selected".printf (filter_type.to_string ())
                 );
+
+                add_css_class ("selected");
+                Timeout.add (1000, () => {
+                    remove_css_class ("selected"); 
+                    return GLib.Source.REMOVE;
+                });
             } else {
                 get_style_context ().remove_class (
                     "filter-pane-row-%s-selected".printf (filter_type.to_string ())
                 );
+                remove_css_class ("selected"); 
             }
         });
     }
@@ -124,6 +137,11 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         update_count_label (inbox_project.project_count);
 
         inbox_project.project_count_updated.connect (() => {
+            update_count_label (inbox_project.project_count);
+        });
+
+        Planner.event_bus.inbox_project_changed.connect (() => {
+            inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"));
             update_count_label (inbox_project.project_count);
         });
     }

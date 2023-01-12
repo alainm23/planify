@@ -15,7 +15,7 @@
     color: #1e63ec;
 }
 
-.filter-pane-row-inbox:selected image {
+.filter-pane-row-inbox.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
@@ -32,7 +32,7 @@
     color: #16af54;
 }
 
-.filter-pane-row-today:selected image {
+.filter-pane-row-today.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
@@ -49,7 +49,7 @@
     color: #9d59e0;
 }
 
-.filter-pane-row-scheduled:selected image {
+.filter-pane-row-scheduled.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
@@ -66,7 +66,7 @@
     color: #7e8087;
 }
 
-.filter-pane-row-pinboard:selected image {
+.filter-pane-row-pinboard.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 

@@ -22,6 +22,7 @@
 */
 
 public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
+    private Widgets.ContextMenu.MenuItem no_date_item;
     private Widgets.DateTimePicker.TimePicker time_picker;
 
     private GLib.DateTime _datetime = null;
@@ -44,10 +45,17 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         set {
             _datetime = value;
+
             if (Util.get_default ().has_time (_datetime)) {
                 time_picker.time = _datetime;
                 time_picker.has_time = true;
             }
+        }
+    }
+
+    public bool visible_no_date {
+        set {
+            no_date_item.visible = value;
         }
     }
 
@@ -67,7 +75,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
 
         var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (

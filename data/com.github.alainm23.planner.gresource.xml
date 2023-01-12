@@ -7,7 +7,6 @@
     <file alias="stylesheet.css" compressed="true">stylesheet/stylesheet.css</file>
     <file alias="variables.css" compressed="true">stylesheet/variables.css</file>
     <file alias="sidebar.css" compressed="true">stylesheet/sidebar.css</file>
-    <file alias="dialog-picker.css" compressed="true">stylesheet/dialog-picker.css</file>
     <file alias="typography.css" compressed="true">stylesheet/typography.css</file>
   </gresource>
   <gresource prefix="/com/github/alainm23/planner">

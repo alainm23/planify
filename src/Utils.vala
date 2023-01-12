@@ -436,6 +436,7 @@ public class Util : GLib.Object {
             @define-color item_border_color %s;
             @define-color upcoming_bg_color %s;
             @define-color upcoming_fg_color %s;
+            @define-color selected_color %s;
         """;
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
@@ -455,6 +456,7 @@ public class Util : GLib.Object {
         string item_border_color = "";
         string upcoming_bg_color = "";
         string upcoming_fg_color = ""; 
+        string selected_color = "";
 
         if (dark_mode) {
             if (appearance_mode == 1) {
@@ -463,6 +465,7 @@ public class Util : GLib.Object {
                 item_border_color = "#333333";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
+                selected_color = "@popover_bg_color";
                 Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
             } else if (appearance_mode == 2) {
                 window_bg_color = "#0B0B11";
@@ -470,6 +473,7 @@ public class Util : GLib.Object {
                 item_border_color = "shade(#333333, 1.35)";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
+                selected_color = "@popover_bg_color";
                 Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
             }
         } else {
@@ -478,6 +482,7 @@ public class Util : GLib.Object {
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
+            selected_color = "alpha(@shade_color, 0.65)";
             Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
         }
 
@@ -486,7 +491,8 @@ public class Util : GLib.Object {
             popover_bg_color,
             item_border_color,
             upcoming_bg_color,
-            upcoming_fg_color
+            upcoming_fg_color,
+            selected_color
         );
 
         provider.load_from_data (CSS.data);

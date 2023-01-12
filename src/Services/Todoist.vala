@@ -44,7 +44,7 @@ public class Services.Todoist : GLib.Object {
     public signal void sync_finished ();
     
     public signal void first_sync_started ();
-    public signal void first_sync_finished ();
+    public signal void first_sync_finished (int64 inbox_proinbox_project_idject);
     public signal void first_sync_progress (double value);
 
     private uint server_timeout = 0;
@@ -174,11 +174,9 @@ public class Services.Todoist : GLib.Object {
 
             // Set Inbox
             int64 inbox_project_id = int64.parse (user_object.get_string_member ("inbox_project_id"));
-            Planner.settings.set_int64 ("inbox-project-id", inbox_project_id);
             Planner.settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
             Planner.settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
             Planner.settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
-
 
             // Create Labels
             unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
@@ -227,7 +225,7 @@ public class Services.Todoist : GLib.Object {
             }
 
             first_sync_progress (1);
-            first_sync_finished ();
+            first_sync_finished (inbox_project_id);
         } catch (Error e) {
             debug (e.message);
         }
@@ -914,6 +912,7 @@ public class Services.Todoist : GLib.Object {
 
         return success;
     }
+
     public async bool delete (Objects.BaseObject object) {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;

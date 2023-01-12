@@ -77,18 +77,14 @@ public class Widgets.EditableLabel : Gtk.Grid {
         };
 
         stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            hexpand = true
         };
 
         stack.add_child (grid);
         stack.add_child (entry);
 
-        var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
-        };
-        main_grid.attach (stack, 0, 0);
-
-        attach (main_grid, 0, 0);
+        attach (stack, 0, 0);
 
         bind_property ("text", title, "label");
 

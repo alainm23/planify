@@ -69,6 +69,7 @@ executable(
   'src/Widgets/IconColorProject.vala',
   'src/Widgets/LabelsHeader.vala',
   'src/Widgets/ReminderButton.vala',
+  'src/Widgets/MultiSelectToolbar.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',

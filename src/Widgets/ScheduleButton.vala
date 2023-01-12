@@ -55,7 +55,9 @@ public class Widgets.ScheduleButton : Gtk.Button {
             });
         }
 
+        datetime_picker.visible_no_date = false;
         if (datetime != null) {
+            datetime_picker.visible_no_date = true;
             datetime_picker.datetime = datetime;
         }
 

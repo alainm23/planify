@@ -35,7 +35,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     private Gtk.Box sectionrow_grid;
     private Gtk.Label count_label;
     private Gtk.Revealer count_revealer;
-    private Gtk.Grid placeholder_grid;
     private Gtk.Revealer placeholder_revealer;
 
     private Gtk.Popover menu_popover = null;
@@ -116,40 +115,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         };
 
         count_revealer.child = count_label;
-
-        var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 19;
-        chevron_right_image.update_icon_name ("chevron-right"); 
-
-        hide_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false,
-            margin_top = 3
-        };
-
-        hide_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        hide_button.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        hide_button.add_css_class ("no-padding");
-        hide_button.add_css_class ("hidden-button");
-        hide_button.child = chevron_right_image;
-
-        if (section.collapsed) {
-            hide_button.add_css_class ("opened");
-        }
         
-        var menu_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            halign = Gtk.Align.END
+        menu_loading_button = new Widgets.LoadingButton.with_icon ("dots-horizontal", 19) {
+            valign = Gtk.Align.CENTER
         };
-
-        menu_stack.add_named (count_revealer, "count");
-        menu_stack.add_named (hide_button, "hide_button");
+        menu_loading_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         sectionrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         sectionrow_grid.add_css_class ("transition");
         sectionrow_grid.append (name_editable);
-        sectionrow_grid.append (menu_stack);
-        // sectionrow_grid.append (name_menu_grid);
+        sectionrow_grid.append (menu_loading_button);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_start = 6,
@@ -157,10 +132,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             margin_end = 6
         };
 
-        var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 18
-        };
- 
+        var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         v_box.append (sectionrow_grid);
         v_box.append (separator);
 
@@ -205,7 +177,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         checked_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = section.project.show_completed
+            reveal_child = true
         };
 
         checked_revealer.child = checked_listbox_grid;
@@ -219,7 +191,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         bottom_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child =  section.collapsed
+            reveal_child =  true
         };
 
         bottom_revealer.child = bottom_grid;
@@ -241,7 +213,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         
         add_items ();
         show_completed_changed ();
-        build_drag_and_drop ();
+        // build_drag_and_drop ();
 
         Timeout.add (content_revealer.transition_duration, () => {
             content_revealer.reveal_child = true;
@@ -272,22 +244,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             });            
         }
 
-        //  listbox.add.connect ((widget) => {
-        //      children_size_changed ();
-        //  });
-
-        //  listbox.remove.connect (() => {
-        //      children_size_changed ();
-        //  });
-
-        //  checked_listbox.add.connect (() => {
-        //      children_size_changed ();
-        //  });
-
-        //  checked_listbox.remove.connect (() => {
-        //      children_size_changed ();
-        //  });
-
         var edit_gesture = new Gtk.GestureClick ();
         edit_gesture.set_button (1);
         handle_grid.add_controller (edit_gesture);
@@ -307,18 +263,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         handle_grid.add_controller (menu_gesture);
 
         menu_gesture.pressed.connect ((n_press, x, y) => {
-            build_context_menu (x, y);
+            build_context_menu (x, y, this);
         });
 
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        handle_grid.add_controller (motion_gesture);
+        var menu_2_gesture = new Gtk.GestureClick ();
+        menu_loading_button.add_controller (menu_2_gesture);
 
-        motion_gesture.enter.connect (() => {
-            menu_stack.visible_child_name = "hide_button";
-        });
-
-        motion_gesture.leave.connect (() => {
-            menu_stack.visible_child_name = "count";
+        menu_2_gesture.pressed.connect ((n_press, x, y) => {
+            build_context_menu (x, y, menu_loading_button);
         });
 
         Planner.event_bus.checked_toggled.connect ((item, old_checked) => {
@@ -429,25 +381,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             update_sort ();
         });
 
-        var hide_button_gesture = new Gtk.GestureClick ();
-        hide_button_gesture.set_button (1);
-        hide_button.add_controller (hide_button_gesture);
-
-        hide_button_gesture.pressed.connect (() => {
-            hide_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            section.collapsed = !section.collapsed;
-            bottom_revealer.reveal_child = section.collapsed;
-            
-            if (section.collapsed) {
-                hide_button.get_style_context ().add_class ("opened");
-            } else {
-                hide_button.get_style_context ().remove_class ("opened");
-            }
-
-            section.update (false);
-        });
-
         Planner.event_bus.update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
                 if (value) {
@@ -555,14 +488,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     public void prepare_new_item (string content = "") {
         Planner.event_bus.item_selected (null);
 
-        section.collapsed = true;
-        bottom_revealer.reveal_child = section.collapsed;
-        if (section.collapsed) {
-            hide_button.get_style_context ().add_class ("opened");
-        }
-
-        section.update (false);
-
         Layouts.ItemRow row;
         if (is_inbox_section) {
             row = new Layouts.ItemRow.for_project (section.project);
@@ -636,8 +561,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         });
     }
 
-    private void build_context_menu (double x, double y) {
+    private void build_context_menu (double x, double y, Gtk.Widget parent) {
         if (menu_popover != null) {
+            menu_popover.set_parent (parent);
             menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_popover.popup();
             return;
@@ -663,9 +589,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             position = Gtk.PositionType.BOTTOM
         };
 
-        menu_popover.set_parent (this);
+        menu_popover.set_parent (parent);
         menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-
         menu_popover.popup();
 
         add_item.clicked.connect (() => {
@@ -794,6 +719,5 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         sectionrow_grid.remove_css_class ("card");
         opacity = 1;
         on_drag = false;
-        bottom_revealer.reveal_child =  section.collapsed;
     }
 }

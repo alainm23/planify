@@ -20,7 +20,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
     }
 
     construct {
-        var circular_progress_bar = new Widgets.CircularProgressBar (12);
+        var circular_progress_bar = new Widgets.CircularProgressBar (10);
         circular_progress_bar.percentage = project.percentage;
         circular_progress_bar.color = project.color;
 
@@ -54,7 +54,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         name_editable.text = project.inbox_project ? _("Inbox") : project.name;
 
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
+        menu_image.size = 21;
         menu_image.update_icon_name ("dots-horizontal");
         
         menu_button = new Gtk.Button () {
@@ -67,7 +67,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var view_image = new Widgets.DynamicIcon ();
-        view_image.size = 19;
+        view_image.size = 21;
         view_image.update_icon_name ("planner-settings-sliders");
         
         view_button = new Gtk.Button () {
@@ -150,6 +150,8 @@ public class Widgets.HeaderProject : Gtk.Grid {
             "planner-check-circle"
         );
 
+        var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
+
         var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
 
         var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "planner-clipboard");
@@ -166,6 +168,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         
         menu_box.append (add_section_item);
         menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (filter_by_tags);
         menu_box.append (select_item);
         menu_box.append (paste_item);
         menu_box.append (show_completed_item);
@@ -214,6 +217,26 @@ public class Widgets.HeaderProject : Gtk.Grid {
                 project.add_section_if_not_exists (new_section);
                 context_menu.popdown ();
             }
+        });
+
+        paste_item.clicked.connect (() => {
+            context_menu.popdown ();
+            Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+
+            clipboard.read_text_async.begin (null, (obj, res) => {
+                try {
+                    string content = clipboard.read_text_async.end (res);
+                    Planner.event_bus.paste_action (project.id, content);
+                } catch (GLib.Error error) {
+                    debug (error.message);
+                }
+            });
+        });
+
+        select_item.clicked.connect (() => {
+            context_menu.popdown ();
+            Planner.event_bus.multi_select_enabled = true;
+            Planner.event_bus.show_multi_select (true);
         });
     }
 

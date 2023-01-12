@@ -91,17 +91,26 @@ public class MainWindow : Adw.ApplicationWindow {
 
         labels_header = new Widgets.LabelsHeader ();
 
+        var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
+
         var views_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true
         };
 
-        views_header.title_widget = labels_header;
         views_header.pack_start (sidebar_button);
         views_header.pack_start (project_view_headerbar);
+        views_header.title_widget = multiselect_toolbar;
         views_header.pack_end (search_button);
-
+        views_header.pack_end (labels_header);
         views_header.add_css_class ("flat");
+
+        Planner.event_bus.show_multi_select.connect ((active) => {
+            sidebar_button.visible = !active;
+            project_view_headerbar.visible = !active;
+            search_button.visible = !active;
+            labels_header.visible = !active;
+        });
 
         views_stack = new Gtk.Stack () {
             hexpand = true,
@@ -229,6 +238,21 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.Database.get_default ().project_deleted.connect (valid_view_removed);
 
+        Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            _("Tasks synced successfully"), _("Do you want to use Todoist as your default task storage?"));
+
+            dialog.body_use_markup = true;
+            dialog.add_response ("cancel", _("Cancel"));
+            dialog.add_response ("ok", _("Ok"));
+            dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
+            dialog.show ();
+
+            dialog.response.connect ((response) => {
+                change_todoist_default (response == "ok", inbox_project_id);
+            });
+        });
+
         if (!Services.Todoist.get_default ().invalid_token ()) {
             Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
                 Services.Todoist.get_default ().run_server ();
@@ -240,6 +264,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private void create_inbox_project () {
         Objects.Project inbox_project = new Objects.Project ();
         inbox_project.id = Util.get_default ().generate_id ();
+        inbox_project.backend_type = BackendType.LOCAL;
         inbox_project.name = _("Inbox");
         inbox_project.inbox_project = true;
         inbox_project.color = "blue";
@@ -348,6 +373,51 @@ public class MainWindow : Adw.ApplicationWindow {
             //  if (tasklist_view != null) {
             //      tasklist_view.prepare_new_item (content);
             //  }
+        }
+    }
+
+    public void new_section_action () {
+        if (!views_stack.visible_child_name.has_prefix ("project")) {
+            return;
+        }
+
+        Views.Project? project_view = (Views.Project) views_stack.visible_child;
+        if (project_view != null) {
+            Objects.Section new_section = project_view.project.prepare_new_section ();
+
+            if (project_view.project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
+                    new_section.id = Services.Todoist.get_default ().add.end (res);
+                    project_view.project.add_section_if_not_exists (new_section);
+                });
+            } else {
+                new_section.id = Util.get_default ().generate_id ();
+                project_view.project.add_section_if_not_exists (new_section);
+            }
+        }
+    }
+
+    private void change_todoist_default (bool use_todoist, int64 inbox_project_id) {
+        if (use_todoist) {
+            var old_inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"));
+            old_inbox_project.inbox_project = false;
+            old_inbox_project.update ();
+
+            var new_inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
+            new_inbox_project.inbox_project = true;
+            old_inbox_project.update ();
+
+            Planner.settings.set_int64 ("inbox-project-id", inbox_project_id);
+            Planner.event_bus.inbox_project_changed ();
+
+            if (views_stack.visible_child_name == old_inbox_project.view_id) {
+                add_project_view (new_inbox_project);
+            }
+        } else {
+            var inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
+            inbox_project.inbox_project = false;
+            inbox_project.update ();
+            Planner.event_bus.inbox_project_changed ();
         }
     }
 

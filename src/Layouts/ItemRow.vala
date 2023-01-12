@@ -8,7 +8,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.CheckButton checked_button;
     private Widgets.SourceView content_textview;
     private Gtk.Revealer hide_loading_revealer;
-    
+
+    private Gtk.CheckButton select_checkbutton;
+    private Gtk.Revealer select_revealer;
+
     private Gtk.Label content_label;
 
     private Gtk.Revealer content_label_revealer;
@@ -99,15 +102,22 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    //  public bool item_selected {
-    //      set {
-    //          if (value) {
-    //              itemrow_eventbox.get_style_context ().add_class ("complete-animation");
-    //          } else {
-    //              itemrow_eventbox.get_style_context ().remove_class ("complete-animation");
-    //          }
-    //      }
-    //  }
+    private bool _is_row_selected = false;
+    public bool is_row_selected {
+        set {
+            _is_row_selected = value;
+
+            if (value) {
+                main_grid.add_css_class ("complete-animation");
+            } else {
+                main_grid.remove_css_class ("complete-animation");
+            }
+        }
+
+        get {
+            return _is_row_selected;
+        }
+    }
 
     public bool reveal {
         set {
@@ -212,7 +222,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
 
         checked_button = new Gtk.CheckButton () {
-            can_focus = false,
             valign = Gtk.Align.CENTER
         };
 
@@ -261,6 +270,19 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             valign = Gtk.Align.START
         };
         hide_loading_revealer.child = hide_loading_button;
+
+        select_checkbutton = new Gtk.CheckButton () {
+            valign = Gtk.Align.CENTER,
+            margin_end = 6
+        };
+
+        select_checkbutton.add_css_class ("circular-check");
+
+        select_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+
+        select_revealer.child = select_checkbutton;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.CENTER,
@@ -395,8 +417,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         hide_subtask_revealer.child = hide_subtask_button;
 
         var itemrow_eventbox_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        itemrow_eventbox_box.append (hide_subtask_revealer);
+        // itemrow_eventbox_box.append (hide_subtask_revealer);
         itemrow_eventbox_box.append (handle_grid);
+        itemrow_eventbox_box.append (select_revealer);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add Task")) {
             can_focus = false
@@ -528,28 +551,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void connect_signals () {
-    //      itemrow_eventbox_eventbox.enter_notify_event.connect ((event) => {
-    //          hide_subtask_revealer.reveal_child = !is_creating && item.items.size > 0;
-    //          return false;
-    //      });
-
-    //      itemrow_eventbox_eventbox.leave_notify_event.connect ((event) => {
-    //          if (event.detail == Gdk.NotifyType.INFERIOR) {
-    //              return false;
-    //          }
-
-    //          hide_subtask_revealer.reveal_child = false;
-    //          return false;
-    //      });
-
         var handle_gesture_click = new Gtk.GestureClick ();
         handle_grid.add_controller (handle_gesture_click);
 
         handle_gesture_click.pressed.connect ((n_press, x, y) => {
-            if (Planner.event_bus.ctrl_pressed) {
-                Planner.event_bus.select_item (this);
-            } else if (Planner.event_bus.alt_pressed) {
-                Util.get_default ().open_item_dialog (item);                    
+            if (Planner.event_bus.multi_select_enabled) {
+                select_checkbutton.active = !select_checkbutton.active;
+                selected_toggled (select_checkbutton.active);             
             } else {
                 Planner.event_bus.unselect_all ();
 
@@ -668,11 +676,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 
-            if (!is_creating) {
+            if (is_creating == false && is_row_selected == false) {
                 checked_button.active = !checked_button.active;
                 checked_toggled (checked_button.active);
             }
-        });
+        });    
 
         var hide_loading_gesture = new Gtk.GestureClick ();
         hide_loading_gesture.set_button (1);
@@ -767,6 +775,32 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_gesture.pressed.connect ((n_press, x, y) => {
             build_button_context_menu (x, y);
         });
+
+        var multiselect_gesture = new Gtk.GestureClick ();
+        multiselect_gesture.set_button (1);
+        select_checkbutton.add_controller (multiselect_gesture);
+
+        multiselect_gesture.pressed.connect (() => {
+            multiselect_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            select_checkbutton.active = !select_checkbutton.active;
+            selected_toggled (select_checkbutton.active);
+        });    
+
+        Planner.event_bus.show_multi_select.connect ((active) => {
+            select_revealer.reveal_child = active;
+
+            if (!active) {
+                select_checkbutton.active = false;
+            }
+        });
+    }
+
+    private void selected_toggled (bool active) {
+        if (select_checkbutton.active) {
+            Planner.event_bus.select_item (this);
+        } else {
+            Planner.event_bus.unselect_item (this);
+        }
     }
 
     private void update () {
@@ -1174,9 +1208,28 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public void delete_request () {
+    public void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
 
+        if (undo) {
+            delete_undo ();
+        } else {
+            if (item.project.backend_type == BackendType.TODOIST) {
+                is_loading = true;
+                Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
+                    if (Services.Todoist.get_default ().delete.end (res)) {
+                        Services.Database.get_default ().delete_item (item);
+                    } else {
+                        is_loading = false;
+                    }
+                });
+            } else {
+                Services.Database.get_default ().delete_item (item);
+            }
+        }
+    }
+
+    private void delete_undo () {
         var toast = new Adw.Toast (_("The task was deleted"));
         toast.button_label = _("Undo");
         toast.priority = Adw.ToastPriority.HIGH;

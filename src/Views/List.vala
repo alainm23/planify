@@ -25,9 +25,8 @@ public class Views.List : Gtk.Grid {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
         var top_project = new Widgets.HeaderProject (project) {
-            margin_start = 24,
-            margin_top = 24,
-            margin_end = 16
+            margin_start = 6,
+            margin_top = 24
         };
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
@@ -42,9 +41,9 @@ public class Views.List : Gtk.Grid {
         description_textview.remove_css_class ("view");
 
         var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 24,
+            margin_start = 6,
             margin_top = 12,
-            margin_end = 24
+            margin_end = 6
         };
         
         description_box.append (description_textview);
@@ -70,7 +69,6 @@ public class Views.List : Gtk.Grid {
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
             hexpand = true,
-            margin_end = 24,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
@@ -79,7 +77,8 @@ public class Views.List : Gtk.Grid {
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            margin_bottom = 24
         };
 
         content_box.append (top_project);
@@ -150,6 +149,12 @@ public class Views.List : Gtk.Grid {
         description_textview.updated.connect (() => {
             project.description = description_textview.get_text ();
             project.update (false);
+        });
+
+        Planner.event_bus.paste_action.connect ((project_id, content) => {
+            if (project.id == project_id) {
+                prepare_new_item (content);
+            }
         });
     }
 

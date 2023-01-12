@@ -75,7 +75,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
         circular_progress_bar = new Widgets.CircularProgressBar (10);
-        circular_progress_bar.percentage = 0.64;
+        circular_progress_bar.percentage = project.percentage;
         circular_progress_bar.color = project.color;
 
         emoji_label = new Gtk.Label (project.emoji) {

@@ -98,7 +98,6 @@ public class Services.ActionManager : Object {
         // action_accelerators.set (ACTION_OPEN_NEW_PROJECT_WINDOW, "<Control>w");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
-        // typing_accelerators.set (ACTION_ADD_TASK_TOP, "q");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
@@ -189,27 +188,24 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_section () {
-        //  if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
-        //      window.new_section_action ();
-        //  }
+        window.new_section_action ();
     }
 
     private void action_add_task () {
-        // window.add_task_action ();
+        window.add_task_action ();
     }
 
     private void action_add_task_paste () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-        add_task_paste (clipboard);
-    }
 
-    private async void add_task_paste (Gdk.Clipboard clipboard) {
-        try {
-            string content = yield clipboard.read_text_async (null);
-            window.add_task_action (content);   
-        } catch (GLib.Error error) {
-            debug (error.message);
-        }
+        clipboard.read_text_async.begin (null, (obj, res) => {
+            try {
+                string content = clipboard.read_text_async.end (res);
+                window.add_task_action (content);
+            } catch (GLib.Error error) {
+                debug (error.message);
+            }
+        });
     }
 
     private void action_shortcuts () {

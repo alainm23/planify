@@ -96,7 +96,7 @@
         </key>
 
         <key name="backend-type" enum="com.github.alainm23.planit.backend-type">
-            <default>"none"</default>
+            <default>"local"</default>
             <summary></summary>
             <description></description>
         </key>

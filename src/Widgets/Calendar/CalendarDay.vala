@@ -38,7 +38,11 @@ public class Widgets.Calendar.CalendarDay : Gtk.Grid {
 
         label = new Gtk.Label (null) {
             height_request = 16,
-            width_request = 16
+            width_request = 16,
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
 
         var image = new Gtk.Image ();
