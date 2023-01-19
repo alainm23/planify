@@ -1,8 +1,12 @@
 public class Views.Today : Gtk.Grid {
+    private Widgets.EventsList event_list;
+
     private Gtk.ListBox listbox;
     private Gtk.Revealer today_revealer;
     private Gtk.ListBox overdue_listbox;
     private Gtk.Revealer overdue_revealer;
+    private Gtk.Revealer event_list_revealer;
+    private Gtk.Grid listbox_grid;
 
     private Gtk.Label date_label;
 
@@ -29,7 +33,7 @@ public class Views.Today : Gtk.Grid {
         
         var today_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("planner-today"),
-            pixel_size = 24
+            pixel_size = 32
         };
 
         var title_label = new Gtk.Label (_("Today"));
@@ -45,14 +49,27 @@ public class Views.Today : Gtk.Grid {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 24,
-            margin_top = 28,
-            margin_bottom = 19
+            margin_top = 28
         };
 
         header_box.append (today_icon);
         header_box.append (title_label);
         header_box.append (date_label);
+
+        event_list = new Widgets.EventsList.for_day (date) {
+            margin_top = 12
+        };
+
+        event_list_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = event_list.has_items
+        };
+
+        event_list_revealer.child = event_list;
+        
+        event_list.change.connect (() => {
+            event_list_revealer.reveal_child = event_list.has_items;
+        });
 
         var magic_button = new Widgets.MagicButton ();
 
@@ -72,7 +89,7 @@ public class Views.Today : Gtk.Grid {
         reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 24
+            margin_start = 3
         };
         overdue_header_box.append (overdue_label);
         overdue_header_box.append (reschedule_button);
@@ -81,23 +98,28 @@ public class Views.Today : Gtk.Grid {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true,
-            margin_start = 2
+            hexpand = true
         };
 
         overdue_listbox.add_css_class ("listbox-background");
 
+        var overdue_listbox_grid = new Gtk.Grid () {
+            margin_top = 6
+        };
+
+        overdue_listbox_grid.attach (overdue_listbox, 0, 0);
+
         var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 24
+            margin_start = 3
         };
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_bottom = 12
+            margin_top = 12
         };
 
         overdue_box.append (overdue_header_box);
         overdue_box.append (overdue_separator);
-        overdue_box.append (overdue_listbox);
+        overdue_box.append (overdue_listbox_grid);
 
         overdue_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
@@ -113,17 +135,18 @@ public class Views.Today : Gtk.Grid {
         today_label.add_css_class ("font-bold");
         
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 24
+            margin_start = 3
         };
 
         today_header_box.append (today_label);
 
         var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 24
+            margin_start = 3
         };
 
-        var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-
+        var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12
+        };
         today_box.append (today_header_box);
         today_box.append (today_separator);
 
@@ -136,11 +159,16 @@ public class Views.Today : Gtk.Grid {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true,
-            margin_start = 2
+            hexpand = true
         };
 
         listbox.add_css_class ("listbox-background");
+
+        listbox_grid = new Gtk.Grid () {
+            margin_top = 6
+        };
+
+        listbox_grid.attach (listbox, 0, 0);
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -148,9 +176,10 @@ public class Views.Today : Gtk.Grid {
         };
 
         content.append (header_box);
+        content.append (event_list_revealer);
         content.append (overdue_revealer);
         content.append (today_revealer);
-        content.append (listbox);
+        content.append (listbox_grid);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 720
@@ -316,9 +345,11 @@ public class Views.Today : Gtk.Grid {
         if (overdue_has_children) {
             overdue_revealer.reveal_child = true;
             today_revealer.reveal_child = today_has_children;
+            listbox_grid.margin_top = 6;
         } else {
             overdue_revealer.reveal_child = false;
             today_revealer.reveal_child = false;
+            listbox_grid.margin_top = 12;
         }
     }
 

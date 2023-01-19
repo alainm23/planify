@@ -186,7 +186,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     private void add_row_favorite (Objects.Project project) {
         if (project.is_favorite) {
             if (!favorites_hashmap.has_key (project.id_string)) {
-                favorites_hashmap [project.id_string] = new Layouts.ProjectRow (project, false);
+                favorites_hashmap [project.id_string] = new Layouts.ProjectRow (project, false, false);
                 favorites_header.add_child (favorites_hashmap [project.id_string]);
             }
         }

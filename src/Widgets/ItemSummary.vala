@@ -89,7 +89,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
 
         var reminder_image = new Widgets.DynamicIcon ();
         reminder_image.size = 19;
-        reminder_image.valign = Gtk.Align.START;
+        reminder_image.valign = Gtk.Align.CENTER;
         reminder_image.update_icon_name ("planner-bell");
         reminder_image.margin_end = 6;
 
@@ -101,7 +101,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
 
         var description_image = new Widgets.DynamicIcon ();
         description_image.size = 19;
-        description_image.valign = Gtk.Align.START;
+        description_image.valign = Gtk.Align.CENTER;
         description_image.update_icon_name ("planner-note");
         description_image.margin_end = 6;
 
@@ -272,12 +272,12 @@ public class Widgets.ItemSummary : Gtk.Grid {
             flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
             reminder_revealer.reveal_child || description_revealer.reveal_child;
             revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
-            !itemrow.edit && !item.checked;
+            !itemrow.edit;
         } else {
             summary_revealer.reveal_child = due_revealer.reveal_child ||
             flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
             reminder_revealer.reveal_child || description_revealer.reveal_child;
-            revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) && !item.checked;
+            revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child);
         }
     }
 

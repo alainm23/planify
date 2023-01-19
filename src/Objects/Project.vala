@@ -152,6 +152,20 @@ public class Objects.Project : Objects.BaseObject {
 
     public signal void project_count_updated ();
 
+    Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
+    public Gee.HashMap <string, Objects.Label> label_filter {
+        get {
+            return _label_filter;
+        }
+
+        set {
+            _label_filter = value;
+            label_filter_change ();
+        }
+    }
+
+    public signal void label_filter_change ();
+
     construct {
         deleted.connect (() => {
             Services.Database.get_default ().project_deleted (this);
@@ -245,6 +259,17 @@ public class Objects.Project : Objects.BaseObject {
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
             ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
+    }
+
+    public void update_no_timeout () {
+        if (backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
+                Services.Database.get_default ().update_project (this);
+            });
+        } else if (backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().update_project (this);
+        }
     }
 
     public void update (bool cloud=true) {

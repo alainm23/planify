@@ -22,6 +22,7 @@
 public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Objects.Project project { get; construct; }
     public bool show_subprojects { get; construct; }
+    public bool drag_n_drop { get; construct; }
     
     private Widgets.CircularProgressBar circular_progress_bar;
     private Gtk.Label emoji_label;
@@ -33,6 +34,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     public Gtk.Grid handle_grid;
     private Gtk.Revealer listbox_revealer;
     private Gtk.Stack progress_emoji_stack;
+    private Gtk.Label due_label;
+    private Gtk.Stack menu_stack;
 
     public Gtk.Box main_content;
     public Gtk.Revealer main_revealer;
@@ -60,10 +63,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         }
     }
 
-    public ProjectRow (Objects.Project project, bool show_subprojects = true) {
+    public ProjectRow (Objects.Project project, bool show_subprojects = true, bool drag_n_drop = true) {
         Object (
             project: project,
             show_subprojects: show_subprojects,
+            drag_n_drop: drag_n_drop,
             focusable: false
         );
     }
@@ -122,16 +126,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         arrow_button.add_css_class ("no-padding");
         arrow_button.add_css_class (project.collapsed ? "opened" : "");
 
-        var menu_stack = new Gtk.Stack () {
+        menu_stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE,
             halign = Gtk.Align.END
         };
 
-        var due_label = new Gtk.Label (null);
+        due_label = new Gtk.Label (null);
         due_label.use_markup = true;
         due_label.valign = Gtk.Align.CENTER;
         due_label.halign = Gtk.Align.CENTER;
-        due_label.get_style_context ().add_class ("pane-due-button");
+        due_label.add_css_class ("pane-due-button");
+        due_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         if (project.due_date != "") {
             menu_stack.add_named (due_label, "due_label");
@@ -180,9 +185,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
-        // main_grid.append (top_motion_revealer);
         main_content.append (handle_grid);
-        // main_grid.append (bottom_motion_revealer);
         main_content.append (listbox_revealer);
 
         main_revealer = new Gtk.Revealer () {
@@ -192,7 +195,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
-        build_drag_and_drop ();
+
+        if (drag_n_drop) {
+            build_drag_and_drop ();
+        }
 
         if (show_subprojects) {
             add_subprojects ();
@@ -324,6 +330,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drop_target.preload = true;
 
         drop_target.on_drop.connect ((value, x, y) => {
+            if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+                Planner.event_bus.send_notification (
+                    Util.get_default ().create_toast (_("Project list order changed to Custom Sort Order."))
+                );
+            }
+
+            Planner.settings.set_enum ("projects-sort-by", 1);
+
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
             
@@ -472,6 +486,21 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         circular_progress_bar.color = project.color;
         emoji_label.label = project.emoji;
         name_label.label = project.name;
+
+        check_due_date ();
+    }
+
+    private void check_due_date () {
+        if (project.due_date != "") {
+            var datetime = Util.get_default ().get_date_from_string (project.due_date);
+            due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
+        }
+
+        // Workaround to fix small bug when collapsing/expanding project - this causes save and would
+        // hide currently hovered arrow
+        if (menu_stack.visible_child_name != "arrow_button") {
+            menu_stack.visible_child_name = project.due_date == "" ? "count_revealer" : "due_label";
+        }
     }
 
     private void add_subprojects () {

@@ -82,7 +82,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
 
-        var calendar_item = new Widgets.Calendar.Calendar (true);
+        var calendar_item = new Widgets.Calendar.Calendar (false);
 
         var left_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,

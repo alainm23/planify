@@ -27,6 +27,7 @@ public class Objects.Scheduled : Objects.BaseObject {
 
     construct {
         name = _("Scheduled");
+        keywords = "%s;%s".printf (_("scheduled"), _("upcoming"));
 
         Services.Database.get_default ().item_added.connect (() => {
             _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;

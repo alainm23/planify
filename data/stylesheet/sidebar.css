@@ -1,17 +1,12 @@
-.pane-content {
-    background: @popover_bg_color;
-} 
-
-.pane-content > list {
-    background: @popover_bg_color;
-} 
+.sidebar {
+    background: @sidebar_bg_color;
+}
 
 .filter-pane-row-inbox {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
     background-color: alpha(#1e63ec, 0.15);
-    border: 1px solid alpha(#1e63ec, 0.25);
     color: #1e63ec;
 }
 
@@ -28,7 +23,6 @@
     border-radius: 6px;
     transition: all 220ms ease-in-out;
     background-color: alpha(#16af54, 0.15);
-    border: 1px solid alpha(#16af54, 0.25);
     color: #16af54;
 }
 
@@ -45,7 +39,6 @@
     border-radius: 6px;
     transition: all 220ms ease-in-out;
     background-color: alpha(#9d59e0, 0.15);
-    border: 1px solid alpha(#9d59e0, 0.25);
     color: #9d59e0;
 }
 
@@ -62,7 +55,6 @@
     border-radius: 6px;
     transition: all 220ms ease-in-out;
     background-color: alpha(#7e8087, 0.15);
-    border: 1px solid alpha(#7e8087, 0.25);
     color: #7e8087;
 }
 

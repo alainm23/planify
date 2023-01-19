@@ -102,7 +102,7 @@ public class Dialogs.Label : Adw.Window {
             valign = Gtk.Align.END
         };
 
-        submit_button.sensitive = false;
+        submit_button.sensitive = !is_creating;
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -135,7 +135,9 @@ public class Dialogs.Label : Adw.Window {
         });
 
         name_entry.changed.connect (() => {
-            submit_button.sensitive = !is_duplicate (name_entry.text);
+            if (is_creating) {
+                submit_button.sensitive = !is_duplicate (name_entry.text);
+            }
         });
     }
 
@@ -150,7 +152,7 @@ public class Dialogs.Label : Adw.Window {
             return;
         }
 
-        if (is_duplicate (name_entry.text)) {
+        if (is_creating && is_duplicate (name_entry.text)) {
             hide_destroy ();
             return; 
         }

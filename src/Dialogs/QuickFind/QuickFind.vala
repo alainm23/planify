@@ -133,11 +133,16 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         Objects.BaseObject[] filters = {
             Objects.Today.get_default (),
             Objects.Scheduled.get_default (),
-            Objects.Pinboard.get_default ()
+            Objects.Pinboard.get_default (),
+            new Objects.Priority (Constants.PRIORITY_1),
+            new Objects.Priority (Constants.PRIORITY_2),
+            new Objects.Priority (Constants.PRIORITY_3),
+            new Objects.Priority (Constants.PRIORITY_4),
+            Objects.Completed.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {
-            if (search_entry.text.down () in object.name.down ()) {
+            if (search_entry.text.down () in object.name.down () || search_entry.text.down () in object.keywords.down ()) {
                 var row = new Dialogs.QuickFind.QuickFindItem (object, search_entry.text);
                 listbox.append (row);
                 items.add (row);
@@ -209,6 +214,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
                 Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
             } else if (base_object is Objects.Pinboard) {
                 Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
+            } else if (base_object is Objects.Priority) {
+                Objects.Priority priority = ((Objects.Priority) base_object);
+                Planner.event_bus.pane_selected (PaneType.FILTER, priority.view_id);
+            } else if (base_object is Objects.Completed) {
+                Objects.Completed completed = ((Objects.Completed) base_object);
+                Planner.event_bus.pane_selected (PaneType.FILTER, completed.view_id);
             }
         }
 

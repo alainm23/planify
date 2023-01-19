@@ -255,7 +255,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
             return;
         }
 
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "planner-priority-2");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");
         
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
         delete_item.get_style_context ().add_class ("menu-item-danger");

@@ -1,181 +1,3 @@
-public enum ColorScheme {
-    /**
-     * The user has not expressed a color scheme preference. Apps should decide on a color scheme on their own.
-     */
-    NO_PREFERENCE,
-    /**
-     * The user prefers apps to use a dark color scheme.
-     */
-    DARK,
-    /**
-     * The user prefers a light color scheme.
-     */
-    LIGHT
-}
-
-public enum NotificationStyle {
-    NORMAL,
-    ERROR
-}
-
-public enum ProjectViewStyle {
-    LIST,
-    BOARD;
-
-    public string to_string () {
-        switch (this) {
-            case LIST:
-                return "list";
-
-            case BOARD:
-                return "board";
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum ProjectIconStyle {
-    PROGRESS,
-    EMOJI;
-
-    public string to_string () {
-        switch (this) {
-            case PROGRESS:
-                return "progress";
-
-            case EMOJI:
-                return "emoji";
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum FilterType {
-    TODAY = 0,
-    INBOX = 1,
-    SCHEDULED = 2,
-    PINBOARD = 3;
-
-    public string to_string () {
-        switch (this) {
-            case TODAY:
-                return "today";
-
-            case INBOX:
-                return "inbox";
-
-            case SCHEDULED:
-                return "scheduled";
-
-            case PINBOARD:
-                return "pinboard";
-
-            default:
-                assert_not_reached();
-        }
-    }
-
-    public string get_name () {
-        switch (this) {
-            case TODAY:
-                return _("Today");
-
-            case INBOX:
-                return _("Inbox");
-
-            case SCHEDULED:
-                return _("Scheduled");
-
-            case PINBOARD:
-                return _("Pinboard");
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum BackendType {
-    NONE,
-    LOCAL,
-    TODOIST,
-    CALDAV;
-
-    public string to_string () {
-        switch (this) {
-            case NONE:
-                return "none";
-
-            case LOCAL:
-                return "local";
-
-            case TODOIST:
-                return "todoist";
-
-            case CALDAV:
-                return "caldav";
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum PaneType {
-    FILTER,
-    FAVORITE,
-    PROJECT,
-    LABEL,
-    TASKLIST
-}
-
-public enum LoadingButtonType {
-    LABEL,
-    ICON
-}
-
-public enum ObjectType {
-    PROJECT,
-    SECTION,
-    ITEM,
-    LABEL,
-    TASK,
-    TASK_LIST,
-    FILTER;
-
-    public string get_header () {
-        switch (this) {
-            case PROJECT:
-                return _("Projects");
-
-            case SECTION:
-                return _("Setions");
-
-            case ITEM:
-                return _("Tasks");
-
-            case LABEL:
-                return _("Labels");
-
-            case FILTER:
-                return _("Filters");
-            
-            case TASK:
-                return _("Tasks");
-
-            case TASK_LIST:
-                return _("Lists");
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
 public class Util : GLib.Object {
     private static Util? _instance;
     public static Util get_default () {
@@ -433,6 +255,7 @@ public class Util : GLib.Object {
         string _css = """
             @define-color window_bg_color %s;
             @define-color popover_bg_color %s;
+            @define-color sidebar_bg_color %s;
             @define-color item_border_color %s;
             @define-color upcoming_bg_color %s;
             @define-color upcoming_fg_color %s;
@@ -453,6 +276,7 @@ public class Util : GLib.Object {
 
         string window_bg_color = "";
         string popover_bg_color = "";
+        string sidebar_bg_color = "";
         string item_border_color = "";
         string upcoming_bg_color = "";
         string upcoming_fg_color = ""; 
@@ -462,6 +286,7 @@ public class Util : GLib.Object {
             if (appearance_mode == 1) {
                 window_bg_color = "#151515";
                 popover_bg_color = "shade(#151515, 1.4)";
+                sidebar_bg_color = "#1e1e1e";
                 item_border_color = "#333333";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
@@ -470,6 +295,7 @@ public class Util : GLib.Object {
             } else if (appearance_mode == 2) {
                 window_bg_color = "#0B0B11";
                 popover_bg_color = "#15151B";
+                sidebar_bg_color = "#15161b";
                 item_border_color = "shade(#333333, 1.35)";
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
@@ -479,6 +305,7 @@ public class Util : GLib.Object {
         } else {
             window_bg_color = "#ffffff";
             popover_bg_color = "#ffffff";
+            sidebar_bg_color = "#fafafa";
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
@@ -489,6 +316,7 @@ public class Util : GLib.Object {
         var CSS = _css.printf (
             window_bg_color,
             popover_bg_color,
+            sidebar_bg_color,
             item_border_color,
             upcoming_bg_color,
             upcoming_fg_color,
@@ -733,6 +561,14 @@ public class Util : GLib.Object {
                 return 30;
             }
         }
+    }
+
+    public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
+        if (date == null) {
+            date = new GLib.DateTime.now_local ();
+        }
+
+        return new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
     }
 
     public bool is_current_month (GLib.DateTime date) {
@@ -1048,5 +884,48 @@ public class Util : GLib.Object {
         toast.priority = priority;
 
         return toast;
+    }
+
+    public string get_priority_title (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return _("Priority 1: high");
+        } else if (priority == Constants.PRIORITY_2) {
+            return _("Priority 2: medium");
+        } else if (priority == Constants.PRIORITY_3) {
+            return _("Priority 3: low");
+        } else if (priority == Constants.PRIORITY_4) {
+            return _("Priority 4: none");
+        } else {
+            return _("Priority 4: none");
+        }
+    }
+
+    public string get_priority_icon (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return "planner-priority-1";
+        } else if (priority == Constants.PRIORITY_2) {
+            return "planner-priority-2";
+        } else if (priority == Constants.PRIORITY_3) {
+            return "planner-priority-3";
+        } else if (priority == Constants.PRIORITY_4) {
+            return "planner-flag";
+        } else {
+            return "planner-flag";
+        }
+    }
+
+    private Gee.HashMap<string, Objects.Priority> priority_views;
+    public Objects.Priority get_priority_filter (string view_id) {
+        if (priority_views == null) {
+            priority_views = new Gee.HashMap<string, Objects.Priority> ();
+        }
+
+        if (priority_views.has_key (view_id)) {
+            return priority_views[view_id];
+        } else {
+            int priority = int.parse (view_id.split ("-")[1]);
+            priority_views[view_id] = new Objects.Priority (priority);
+            return priority_views[view_id];
+        }
     }
 }

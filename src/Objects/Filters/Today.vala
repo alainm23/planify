@@ -43,6 +43,7 @@ public class Objects.Today : Objects.BaseObject {
 
     construct {
         name = _("Today");
+        keywords = _("today");
 
         Services.Database.get_default ().item_added.connect (() => {
             _today_count = Services.Database.get_default ().get_items_by_date (

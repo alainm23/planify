@@ -20,7 +20,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
     }
 
     construct {
-        var circular_progress_bar = new Widgets.CircularProgressBar (10);
+        var circular_progress_bar = new Widgets.CircularProgressBar (11);
         circular_progress_bar.percentage = project.percentage;
         circular_progress_bar.color = project.color;
 
@@ -35,7 +35,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
 
         var inbox_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("planner-inbox"),
-            pixel_size = 24
+            pixel_size = 32
         };
 
         var icon_progress_stack = new Gtk.Stack () {
@@ -123,7 +123,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         project.updated.connect (() => {
             name_editable.text = project.name;
             
-            circular_progress_bar.color = Util.get_default ().get_color (project.color);
+            circular_progress_bar.color = project.color;
             circular_progress_bar.percentage = project.percentage;
             
             emoji_label.label = project.emoji;
@@ -143,7 +143,9 @@ public class Widgets.HeaderProject : Gtk.Grid {
         }
 
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-        
+
+        var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
+
         var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
         show_completed_item = new Widgets.ContextMenu.MenuItem (
             project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
@@ -164,11 +166,13 @@ public class Widgets.HeaderProject : Gtk.Grid {
 
         if (!project.inbox_project) {
             menu_box.append (edit_item);
+            
         }
-        
-        menu_box.append (add_section_item);
+
+        menu_box.append (schedule_item);
         menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
-        menu_box.append (filter_by_tags);
+        // menu_box.append (filter_by_tags);
+        menu_box.append (add_section_item);
         menu_box.append (select_item);
         menu_box.append (paste_item);
         menu_box.append (show_completed_item);
@@ -192,6 +196,36 @@ public class Widgets.HeaderProject : Gtk.Grid {
 
             var dialog = new Dialogs.Project (project);
             dialog.show ();
+        });
+
+        schedule_item.activate_item.connect (() => {
+            context_menu.popdown ();
+
+            var dialog = new Dialogs.DatePicker (_("When?"));
+            dialog.clear = project.due_date != "";
+            dialog.show ();
+
+            dialog.date_changed.connect (() => {
+                if (dialog.datetime == null) {
+                    project.due_date = "";
+                } else {
+                    project.due_date = dialog.datetime.to_string ();
+                }
+                
+                project.update_no_timeout ();
+            });
+        });
+
+        filter_by_tags.activate_item.connect (() => {
+            context_menu.popdown ();
+            
+            var dialog = new Dialogs.LabelPicker ();
+            dialog.labels = project.label_filter;
+            dialog.show ();
+
+            dialog.labels_changed.connect ((labels) => {
+                project.label_filter = labels;
+            });
         });
 
         show_completed_item.activate_item.connect (() => {

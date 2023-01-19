@@ -102,6 +102,21 @@ entry.flat:focus-within {
     margin-top: 3px;
 }
 
+.listbox-separator-6 row:not(:first-child) {
+    margin-top: 6px;
+}
+
+.listbox-separator-9 row:not(:first-child) {
+    margin-top: 9px;
+}
+
+.listbox-separator-12 row:not(:first-child) {
+    margin-top: 12px;
+}
+
+.listbox-separator-24 row:not(:first-child) {
+    margin-top: 24px;
+}
 /*
  * MENU STYLE
  */
@@ -234,6 +249,10 @@ entry.flat:focus-within {
     background: transparent;
 }
 
+.priority-color {
+    padding: 0;
+}
+
 .priority-color check:checked {
     background-image:
         linear-gradient(to bottom,
@@ -252,28 +271,33 @@ entry.flat:focus-within {
 
 .today-grid {
     background-color: alpha(#16af54, 0.15);
-    border: 1px solid alpha(#16af54, 0.25);
     border-radius: 6px;
     color: #16af54;
-    padding: 1px 6px;
+    padding: 3px 6px;
     font-weight: bold;
 }
 
 .upcoming-grid {
     background-color: @upcoming_bg_color;
-    border: 1px solid @upcoming_bg_color;
     border-radius: 6px;
-    padding: 1px 6px;
+    padding: 3px 6px;
     color: @upcoming_fg_color;
     font-weight: bold;
 }
 
 .overdue-grid {
     background-color: alpha(#fa1955, 0.125);
-    border: 1px solid alpha(#fa1955, 0.25);
     border-radius: 6px;
-    padding: 1px 6px;
+    padding: 3px 6px;
     color: #fa1955;
+    font-weight: bold;
+}
+
+.completed-grid {
+    background-color: alpha(#1e63ec, 0.15);
+    border-radius: 6px;
+    color: #1e63ec;
+    padding: 3px 6px;
     font-weight: bold;
 }
 
@@ -287,7 +311,6 @@ entry.flat:focus-within {
 
 .label-color {
     background: @colorAccent;
-    border: 1px solid alpha(@colorAccent, 0.75);
     border-radius: 50%;
 }
 
@@ -302,16 +325,14 @@ entry.flat:focus-within {
 
 .item-label-child {
     background-color: alpha(@colorAccent, 0.125);
-    border: 1px solid alpha(@colorAccent, 0.25);
     border-radius: 6px;
-    padding: 1px 6px;
+    padding: 3px 6px;
     color: @colorAccent;
     font-weight: bold;
 }
 
 .button-outline {
     background: alpha(@item_border_color, 0.25);
-    border: 1px solid @item_border_color;
     padding: 0px 12px;
     margin: 0px;
     border-radius: 6px;
@@ -319,7 +340,6 @@ entry.flat:focus-within {
 
 .button-labels-box {
     background: alpha(@item_border_color, 0.25);
-    border: 1px solid @item_border_color;
     padding: 0px 17px 0px 6px;
     margin: 0;
     border-radius: 12px;
@@ -342,4 +362,12 @@ entry.flat:focus-within {
 .small-button {
     font-size: 0.85em;
     padding: 0px 12px;
+}
+
+.pane-due-button {
+    background-color: @upcoming_bg_color;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: @upcoming_fg_color;
+    font-weight: bold;
 }

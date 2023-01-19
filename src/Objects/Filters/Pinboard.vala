@@ -27,6 +27,7 @@ public class Objects.Pinboard : Objects.BaseObject {
 
     construct {
         name = ("Pinboard");
+        keywords = _("pinboard");
 
         Services.Database.get_default ().item_added.connect (() => {
             _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;

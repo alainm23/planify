@@ -79,7 +79,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
             } else {
                 content_grid.remove_css_class (Granite.STYLE_CLASS_CARD);
-                content_grid.remove_css_class ("pane-content");
+                // content_grid.remove_css_class ("pane-content");
             }
         }
     }
@@ -118,7 +118,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
 
         content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
-        content_grid.add_css_class ("pane-content");
+        // content_grid.add_css_class ("pane-content");
         content_grid.add_css_class ("padding-3");
         content_grid.attach (listbox, 0, 0, 1, 1);
 

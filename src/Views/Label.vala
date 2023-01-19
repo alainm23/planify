@@ -37,7 +37,9 @@ public class Views.Label : Gtk.Grid {
         unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
         widget_color_context.add_class ("label-color");
 
-        title_label = new Gtk.Label (null);
+        title_label = new Gtk.Label (null) {
+            margin_bottom = 3
+        };
         title_label.get_style_context ().add_class ("header-title");
 
         var menu_image = new Widgets.DynamicIcon ();
@@ -45,10 +47,10 @@ public class Views.Label : Gtk.Grid {
         menu_image.update_icon_name ("dots-horizontal");
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER,
             hexpand = true,
             margin_top = 28,
-            margin_start = 24
+            margin_start = 3
         };
 
         header_box.append (widget_color);

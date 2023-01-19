@@ -46,7 +46,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         if (base_object is Objects.Project) {
             Objects.Project project = ((Objects.Project) base_object);
 
-            var icon_project = new Widgets.IconColorProject (16);
+            var icon_project = new Widgets.IconColorProject (19);
             icon_project.project = project;
 
             var name_label = new Gtk.Label (markup_string_with_search (project.name, pattern)) {
@@ -88,8 +88,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             var widget_color = new Gtk.Grid () {
                 valign = Gtk.Align.CENTER,
-                height_request = 12,
-                width_request = 12
+                height_request = 16,
+                width_request = 16
             };
     
             unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
@@ -107,14 +107,47 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         } else if (base_object is Objects.Today || base_object is Objects.Scheduled ||
             base_object is Objects.Pinboard) {
 
-            var filter_icon = new Gtk.Image () {
-                gicon = new ThemedIcon (base_object.icon_name),
-                pixel_size = 16,
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER
+            var filter_icon = new Widgets.DynamicIcon () {
+                valign = Gtk.Align.CENTER
             };
+            filter_icon.size = 19;
+            filter_icon.update_icon_name (base_object.icon_name);
 
             var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true
+            };
+
+            main_grid.attach (filter_icon, 0, 0);
+            main_grid.attach (name_label, 1, 0);
+        } else if (base_object is Objects.Priority) {
+            Objects.Priority priority = ((Objects.Priority) base_object);
+
+            var priority_icon = new Widgets.DynamicIcon () {
+                valign = Gtk.Align.CENTER
+            };
+            priority_icon.size = 19;
+            priority_icon.update_icon_name (Util.get_default ().get_priority_icon (priority.priority));
+
+            var name_label = new Gtk.Label (markup_string_with_search (priority.name, pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true
+            };
+
+            main_grid.attach (priority_icon, 0, 0);
+            main_grid.attach (name_label, 1, 0);
+        } else if (base_object is Objects.Completed) {
+            Objects.Completed completed = ((Objects.Completed) base_object);
+
+            var filter_icon = new Widgets.DynamicIcon () {
+                valign = Gtk.Align.CENTER
+            };
+            filter_icon.size = 19;
+            filter_icon.update_icon_name ("planner-completed");
+
+            var name_label = new Gtk.Label (markup_string_with_search (completed.name, pattern)) {
                 ellipsize = Pango.EllipsizeMode.END,
                 xalign = 0,
                 use_markup = true

@@ -14,7 +14,7 @@ public class Views.Pinboard : Gtk.Grid {
 
         var pin_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("planner-pin-tack"),
-            pixel_size = 24
+            pixel_size = 32
         };
 
         var title_label = new Gtk.Label (_("Pinboard"));
@@ -31,29 +31,15 @@ public class Views.Pinboard : Gtk.Grid {
 
         menu_button.child = menu_image;
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 19;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        search_button.child = search_image;
-        search_button.clicked.connect (Util.get_default ().open_quick_find);
         
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_top = 28,
-            margin_start = 24
+            margin_top = 28
         };
 
         header_box.append (pin_icon);
         header_box.append (title_label);
-        // header_box.append (search_button);
 
         var magic_button = new Widgets.MagicButton ();
 
@@ -61,14 +47,13 @@ public class Views.Pinboard : Gtk.Grid {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true,
-            margin_start = 2
+            hexpand = true
         };
 
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 20
+            margin_top = 12
         };
 
         listbox_grid.attach (listbox, 0, 0);
@@ -79,7 +64,8 @@ public class Views.Pinboard : Gtk.Grid {
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
             vexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            margin_start = 6
         };
 
         listbox_stack.add_named (listbox_grid, "listbox");

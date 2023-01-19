@@ -61,6 +61,7 @@ public class MainWindow : Adw.ApplicationWindow {
             hexpand = false
         };
 
+        sidebar_content.add_css_class ("sidebar");
         sidebar_content.attach(sidebar_header, 0, 0);
         sidebar_content.attach(sidebar_separator, 0, 1);
         sidebar_content.attach(sidebar, 0, 2);
@@ -188,9 +189,13 @@ public class MainWindow : Adw.ApplicationWindow {
                 } else if (id == FilterType.TODAY.to_string ()) {
                     add_today_view ();
                 } else if (id == FilterType.SCHEDULED.to_string ()) {
-                    // add_scheduled_view ();
+                    add_scheduled_view ();
                 } else if (id == FilterType.PINBOARD.to_string ()) {
                     add_pinboard_view ();
+                } else if (id.has_prefix ("priority")) {
+                    add_priority_view (id);
+                } else if (id == "completed-view") {
+                    add_completed_view ();
                 }
             } else if (pane_type == PaneType.LABEL) {
                 add_label_view (id);
@@ -306,6 +311,18 @@ public class MainWindow : Adw.ApplicationWindow {
         views_stack.set_visible_child_name ("today-view");
     }
 
+    public void add_scheduled_view () {
+        Views.Scheduled.Scheduled? scheduled_view;
+        scheduled_view = (Views.Scheduled.Scheduled) views_stack.get_child_by_name ("scheduled-view");
+        if (scheduled_view == null) {
+            scheduled_view = new Views.Scheduled.Scheduled ();
+            views_stack.add_named (scheduled_view, "scheduled-view");
+        }
+
+        project_view_headerbar.view = Objects.Scheduled.get_default ();
+        views_stack.set_visible_child_name ("scheduled-view");
+    }
+
     public void add_pinboard_view () {
         Views.Pinboard? pinboard_view;
         pinboard_view = (Views.Pinboard) views_stack.get_child_by_name ("pinboard-view");
@@ -316,6 +333,32 @@ public class MainWindow : Adw.ApplicationWindow {
 
         project_view_headerbar.view = Objects.Pinboard.get_default ();
         views_stack.set_visible_child_name ("pinboard-view");
+    }
+
+    public void add_priority_view (string view_id) {
+        Views.Filter? filter_view;
+        filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
+        if (filter_view == null) {
+            filter_view = new Views.Filter ();
+            views_stack.add_named (filter_view, "priority-view");
+        }
+
+        // project_view_headerbar.view = Objects.Pinboard.get_default ();
+        filter_view.filter = Util.get_default ().get_priority_filter (view_id);
+        views_stack.set_visible_child_name ("priority-view");
+    }
+
+    private void add_completed_view () {
+        Views.Filter? filter_view;
+        filter_view = (Views.Filter) views_stack.get_child_by_name ("completed-view");
+        if (filter_view == null) {
+            filter_view = new Views.Filter ();
+            views_stack.add_named (filter_view, "completed-view");
+        }
+
+        // project_view_headerbar.view = Objects.Pinboard.get_default ();
+        filter_view.filter = Objects.Completed.get_default ();
+        views_stack.set_visible_child_name ("completed-view");
     }
 
     private void add_label_view (string id) {

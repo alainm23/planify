@@ -8,6 +8,7 @@ gnome = import('gnome')
 i18n = import('i18n')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
+add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
 asresources = gnome.compile_resources (
     'as-resources', 'data/' + meson.project_name () + '.gresource.xml',
@@ -32,6 +33,7 @@ executable(
   'src/App.vala',
   'src/MainWindow.vala',
   'src/Utils.vala',
+  'src/Enum.vala',
 
   'src/Services/Database.vala',
   'src/Services/EventBus.vala',
@@ -39,6 +41,11 @@ executable(
   'src/Services/ActionManager.vala',
   'src/Services/Notification.vala',
   'src/Services/TimeMonitor.vala',
+
+  'src/Services/CalendarEvents/CalendarEvents.vala',
+  'src/Services/CalendarEvents/DateIterator.vala',
+  'src/Services/CalendarEvents/DateRange.vala',
+  'src/Services/CalendarEvents/Util.vala',
 
   'src/Layouts/Sidebar.vala',
   'src/Layouts/FilterPaneRow.vala',
@@ -70,6 +77,8 @@ executable(
   'src/Widgets/LabelsHeader.vala',
   'src/Widgets/ReminderButton.vala',
   'src/Widgets/MultiSelectToolbar.vala',
+  'src/Widgets/EventsList.vala',
+  'src/Widgets/EventRow.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -95,6 +104,12 @@ executable(
   'src/Views/Today.vala',
   'src/Views/Pinboard.vala',
   'src/Views/Label.vala',
+  'src/Views/Filter.vala',
+  
+  'src/Views/Scheduled/Scheduled.vala',
+  'src/Views/Scheduled/ScheduledDay.vala',
+  'src/Views/Scheduled/ScheduledRange.vala',
+  'src/Views/Scheduled/ScheduledMonth.vala',
 
   'src/Objects/BaseObject.vala',
   'src/Objects/Color.vala',
@@ -102,22 +117,25 @@ executable(
   'src/Objects/Item.vala',
   'src/Objects/ItemLabel.vala',
   'src/Objects/Label.vala',
-  'src/Objects/Pinboard.vala',
   'src/Objects/Project.vala',
   'src/Objects/Queue.vala',
   'src/Objects/Reminder.vala',
-  'src/Objects/Scheduled.vala',
   'src/Objects/Section.vala',
-  # 'src/Objects/SourceTaskList.vala',
-  # 'src/Objects/Task.vala',
-  'src/Objects/Today.vala',
+
+  'src/Objects/Filters/Pinboard.vala',
+  'src/Objects/Filters/Scheduled.vala',
+  'src/Objects/Filters/Today.vala',
+  'src/Objects/Filters/Priority.vala',
+  'src/Objects/Filters/Completed.vala',
 
   'src/Dialogs/Project.vala',
   'src/Dialogs/Label.vala',
   'src/Dialogs/TodoistOAuth.vala',
   'src/Dialogs/ProjectPicker/ProjectPicker.vala',
   'src/Dialogs/ProjectPicker/ProjectPickerRow.vala',
-
+  'src/Dialogs/DatePicker.vala',
+  'src/Dialogs/LabelPicker.vala',
+  
   'src/Dialogs/QuickFind/QuickFind.vala',
   'src/Dialogs/QuickFind/QuickFindItem.vala',
   'src/Dialogs/QuickFind/Synapse.vala',
@@ -135,6 +153,9 @@ executable(
     dependency('webkit2gtk-5.0'),
     dependency('granite-7'),
     dependency('json-glib-1.0'),
+    dependency('libecal-2.0', version: '>= 3.45.1'),
+    dependency('libedataserver-1.2', version: '>= 3.45.1'),
+    dependency('libical-glib'),
     meson.get_compiler('c').find_library('m', required : false)
   ],
   install: true

@@ -25,12 +25,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     
     private Gtk.Popover menu_popover = null;
     private Widgets.ContextMenu.MenuItem more_information_item;
-    //  private Gtk.Revealer top_motion_revealer;
-    //  private Gtk.Revealer bottom_motion_revealer;
-    //  private Gtk.EventBox itemrow_eventbox;
     private Gtk.Button cancel_button;
     private Gtk.Revealer actionbar_revealer;
-    //  public Widgets.ProjectButton project_button;
     private Widgets.LoadingButton hide_loading_button;
     private Widgets.LoadingButton submit_button;
     private Widgets.HyperTextView description_textview;
@@ -41,7 +37,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Widgets.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Widgets.ReminderButton reminder_button;
-    //  private Gtk.Button add_button;
+
     private Gtk.Revealer submit_cancel_revealer;
     private Gtk.Button delete_button;
     private Gtk.Button menu_button;
@@ -52,7 +48,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer hide_subtask_revealer;
     private Gtk.Box main_grid;
     private Widgets.ContextMenu.MenuItem no_date_item;
-    //  private Gtk.EventBox itemrow_eventbox_eventbox;
     
     bool _edit = false;
     public bool edit {
@@ -63,13 +58,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 handle_grid.add_css_class ("card");
                 handle_grid.add_css_class ("card-selected");
                 handle_grid.add_css_class (is_creating ? "mt-12" : "mt-24");
-                handle_grid.add_css_class ("mb-12");
+                main_grid.add_css_class ("mb-12");
                 hide_subtask_button.margin_top = 27;
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
-                actionbar_revealer.reveal_child = true;
+                actionbar_revealer.reveal_child = !item.completed;
                 item_summary.reveal_child = false;
                 hide_loading_revealer.reveal_child = !is_creating;
 
@@ -84,7 +79,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 handle_grid.remove_css_class ("card-selected");
                 handle_grid.remove_css_class ("mt-12");
                 handle_grid.remove_css_class ("mt-24");
-                handle_grid.remove_css_class ("mb-12");
+                main_grid.remove_css_class ("mb-12");
                 hide_subtask_button.margin_top = 3;
 
                 detail_revealer.reveal_child = false;
@@ -150,7 +145,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
     public int64 update_id { get; set; default = Util.get_default ().generate_id (); }
-    public bool is_menu_open { get; set; default = false; }
+    public bool on_drag = false;
 
     public signal void item_added ();
 
@@ -245,6 +240,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         content_textview = new Widgets.SourceView ();
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
         content_textview.buffer.text = item.content;
+        content_textview.editable = !item.completed;
 
         content_textview.remove_css_class ("view");
 
@@ -298,12 +294,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         content_top_box.append (hide_loading_revealer);
 
         item_summary = new Widgets.ItemSummary (item, this) {
-            margin_start = 32
+            margin_start = 24
         };
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
-            left_margin = 32,
+            left_margin = 24,
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,
@@ -334,26 +330,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         reminder_button = new Widgets.ReminderButton (item) {
             visible = !is_creating
         };
-        //  var add_image = new Widgets.DynamicIcon ();
-        //  add_image.size = 19;
-        //  add_image.update_icon_name ("planner-plus-circle");
-        
-        //  add_button = new Gtk.Button () {
-        //      valign = Gtk.Align.CENTER,
-        //      can_focus = false,
-        //      tooltip_text = _("Add subtask"),
-        //      margin_top = 1,
-        //      no_show_all = is_creating
-        //  };
-
-        //  add_button.add (add_image);
-
-        //  unowned Gtk.StyleContext add_button_context = add_button.get_style_context ();
-        //  add_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        //  add_button_context.add_class ("no-padding");
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_start = 27,
+            margin_start = 20,
             margin_top = 6,
             hexpand = true,
             sensitive = !item.completed
@@ -495,13 +474,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_top = 6,
             margin_bottom = 6,
-            margin_start = 22,
+            margin_start = 6,
             margin_end = 6
         };
 
         actionbar_box.append (submit_cancel_revealer);
         actionbar_box.append (project_delete_menu_box);
-
         actionbar_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
@@ -535,14 +513,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 edit = true;
             }
 
-            //  if (!item.checked) {
-            //      Gtk.drag_source_set (this, Gdk.ModifierType.BUTTON1_MASK, Util.get_default ().ITEMROW_TARGET_ENTRIES, Gdk.DragAction.MOVE);
-            //      drag_begin.connect (on_drag_begin);
-            //      drag_data_get.connect (on_drag_data_get);
-            //      drag_end.connect (clear_indicator);
-                
-            //      build_drag_and_drop (false);     
-            //  }
+            if (!item.checked) {                
+                build_drag_and_drop ();     
+            }
 
             return GLib.Source.REMOVE;
         });
@@ -560,9 +533,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 selected_toggled (select_checkbutton.active);             
             } else {
                 Planner.event_bus.unselect_all ();
-
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                    if (main_revealer.reveal_child) {
+                    if (!on_drag) {
                         Planner.event_bus.item_selected (item.id);
                     }
 
@@ -632,24 +604,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 }
             }
         });
-    //      content_textview.focus_out_event.connect (() => {
-    //          if (is_creating && !is_menu_open) {
-    //              destroy_timeout = Timeout.add (Constants.DESTROY_TIMEOUT, () => {
-    //                  hide_destroy ();
-    //                  return GLib.Source.REMOVE;
-    //              });
-    //          }
 
-    //          return false;
-    //      });
-
-    //      content_textview.focus_in_event.connect (() => {
-    //          if (is_creating && destroy_timeout != 0) {
-    //              Source.remove (destroy_timeout);
-    //          }
-        
-    //          return false;
-    //      });
 
         submit_button.clicked.connect (() => {
             add_item ();
@@ -722,26 +677,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             delete_request ();
         });
 
-    //      Planner.event_bus.magic_button_activated.connect ((value) => {
-    //          if (!item.checked) {
-    //              build_drag_and_drop (value);
-    //          }
-    //      });
-
-    //      add_button.clicked.connect (() => {
-    //          subitems.prepare_new_item ();
-    //      });
-
-    //      hide_subtask_button.clicked.connect (() => {
-    //          subitems.reveal_child = !subitems.reveal_child;
-
-    //          if (subitems.reveal_child) {
-    //              subitems.add_items ();
-    //              hide_subtask_button.get_style_context ().add_class ("opened");
-    //          } else {
-    //              hide_subtask_button.get_style_context ().remove_class ("opened");
-    //          }
-    //      });
 
         Planner.event_bus.checked_toggled.connect ((i) => {
             if (item.id == i.parent_id) {
@@ -766,7 +701,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         handle_grid.add_controller (menu_handle_gesture);
 
         menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            build_handle_context_menu (x, y);
+            if (!item.completed) {
+                build_handle_context_menu (x, y);
+            }
         });
 
         var menu_gesture = new Gtk.GestureClick ();
@@ -878,7 +815,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item_summary.update_request ();
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
-        // project_button.update_request ();
         pin_button.update_request ();
         
         if (!edit) {
@@ -925,8 +861,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
 
-        var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
-        var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
+        // var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
+        // var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
 
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
@@ -943,8 +879,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             menu_box.append (no_date_item);
         }
         menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
-        menu_box.append (labels_item);
-        menu_box.append (reminders_item);
+        // menu_box.append (labels_item);
+        // menu_box.append (reminders_item);
         menu_box.append (move_item);
         menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
         menu_box.append (complete_item);
@@ -963,25 +899,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
 
         menu_handle_popover.popup();
-
-        //  labels_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-
-        //      var dialog = new Dialogs.LabelPicker.LabelPicker ();
-        //      dialog.item = item;
-            
-        //      dialog.labels_changed.connect ((labels) => {
-        //          update_labels (labels);
-        //      });
-
-        //      dialog.popup ();
-        //  });
-
-        //  reminders_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      var dialog = new Dialogs.ReminderPicker.ReminderPicker (item);
-        //      dialog.popup ();
-        //  });
 
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
@@ -1305,5 +1222,81 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         Services.Database.get_default ().update_item (item);
         Planner.event_bus.item_moved (item, old_project_id, old_section_id);
         // project_button.update_request ();
+    }
+
+    private void build_drag_and_drop () {
+        var drag_source = new Gtk.DragSource ();
+        drag_source.set_actions (Gdk.DragAction.MOVE);
+        
+        drag_source.prepare.connect ((source, x, y) => {
+            return new Gdk.ContentProvider.for_value (this);
+        });
+
+        drag_source.drag_begin.connect ((source, drag) => {
+            var paintable = new Gtk.WidgetPaintable (handle_grid);
+            source.set_icon (paintable, 0, 0);
+            drag_begin ();
+        });
+        
+        drag_source.drag_end.connect ((source, drag, delete_data) => {
+            drag_end ();
+        });
+
+        drag_source.drag_cancel.connect ((source, drag, reason) => {
+            drag_end ();
+            return false;
+        });
+
+        add_controller (drag_source);
+
+        var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
+        drop_target.preload = true;
+
+        drop_target.on_drop.connect ((value, x, y) => {
+
+            var picked_widget = (Layouts.ItemRow) value;
+            var target_widget = this;
+            
+            Gtk.Allocation alloc;
+            target_widget.get_allocation (out alloc);
+
+            picked_widget.drag_end ();
+            target_widget.drag_end ();
+
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+
+            var source_list = (Gtk.ListBox) picked_widget.parent;
+            var target_list = (Gtk.ListBox) target_widget.parent;
+
+            source_list.remove (picked_widget);
+            
+            if (target_widget.get_index () == 0) {
+                if (y < (alloc.height / 2)) {
+                    target_list.insert (picked_widget, 0);
+                } else {
+                    target_list.insert (picked_widget, target_widget.get_index () + 1);
+                }
+            } else {
+                target_list.insert (picked_widget, target_widget.get_index () + 1);
+            }
+
+            return true;
+        });
+
+        add_controller (drop_target);
+    }
+
+    public void drag_begin () {
+        handle_grid.add_css_class ("card");
+        on_drag = true;
+        opacity = 0.3;
+    }
+
+    public void drag_end () {
+        handle_grid.remove_css_class ("card");
+        on_drag = false;
+        opacity = 1;
     }
 }

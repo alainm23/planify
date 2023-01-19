@@ -134,21 +134,23 @@ public class Services.Database : GLib.Object {
          * - Add pinned (0|1) to Items
          */
 
-        // add_int_column ("Items", "pinned", 0);
+        add_int_column ("Items", "pinned", 0);
 
         /*
          * Planner 3 - Beta 2
          * - Add show_completed (0|1) to Projects
          */
 
-        // add_int_column ("Projects", "show_completed", 0);
+        add_int_column ("Projects", "show_completed", 0);
 
         /*
          *  Planner 3.10
          * - Add description to Projects
+         * - Add due date to Projects
          */
 
-        // add_text_column ("Projects", "description", "");
+        add_text_column ("Projects", "description", "");
+        add_text_column ("Projects", "due_date", "");
     }
 
     private void create_tables () {
@@ -191,7 +193,8 @@ public class Services.Database : GLib.Object {
                 icon_style       TEXT,
                 emoji            TEXT,
                 show_completed   INTEGER,
-                description      TEXT
+                description      TEXT,
+                due_date         TEXT
             );
         """;
 
@@ -384,6 +387,7 @@ public class Services.Database : GLib.Object {
         return_value.emoji = stmt.column_text (16);
         return_value.show_completed = get_parameter_bool (stmt, 17);
         return_value.description = stmt.column_text (18);
+        return_value.due_date = stmt.column_text (19);
         return return_value;
     }
 
@@ -421,10 +425,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
-                sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description)
+                sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
-                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description);
+                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -447,6 +451,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$emoji", project.emoji);
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_str (stmt, "$description", project.description);
+        set_parameter_str (stmt, "$due_date", project.due_date);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -519,7 +524,7 @@ public class Services.Database : GLib.Object {
                 shared=$shared, view_style=$view_style,
                 sort_order=$sort_order,
                 parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
-                emoji=$emoji, show_completed=$show_completed, description=$description
+                emoji=$emoji, show_completed=$show_completed, description=$description, due_date=$due_date
             WHERE id=$id;
         """;
 
@@ -542,6 +547,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$emoji", project.emoji);
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_str (stmt, "$description", project.description);
+        set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_int64 (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1129,6 +1135,32 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_by_date_range (GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (valid_item_by_date_range (item, start_date, end_date, checked)) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_by_month (GLib.DateTime date, bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (valid_item_by_month (item, date, checked)) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_pinned (bool checked = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -1137,6 +1169,38 @@ public class Services.Database : GLib.Object {
                     return_value.add (item);
                 }
             }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_by_priority (int priority, bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.priority == priority && item.checked == checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_completed () {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return_value.sort ((a, b) => {
+                var completed_a = Util.get_default ().get_date_from_string (a.completed_at);
+                var completed_b = Util.get_default ().get_date_from_string (b.completed_at);
+                return completed_b.compare (completed_a);
+            });
 
             return return_value;
         }
@@ -1168,13 +1232,31 @@ public class Services.Database : GLib.Object {
 
             return return_value;
         }
-    
     }
 
     public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
         return (item.has_due &&
             item.checked == checked &&
             Granite.DateTime.is_same_day (item.due.datetime, date));
+    }
+
+    public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
+        if (!item.has_due) {
+            return false;
+        }
+
+        var date = Util.get_default ().get_format_date (item.due.datetime);
+        var start = Util.get_default ().get_format_date (start_date);
+        var end = Util.get_default ().get_format_date (end_date);
+
+        return (item.checked == checked &&
+            date.compare (start) >= 0 && date.compare (end) <= 0);
+    }
+
+    public bool valid_item_by_month (Objects.Item item, GLib.DateTime date, bool checked = true) {
+        return (item.has_due &&
+            item.checked == checked && item.due.datetime.get_month () == date.get_month () &&
+            item.due.datetime.get_year () == date.get_year ());
     }
 
     public Gee.ArrayList<Objects.Item> get_items_by_overdeue_view (bool checked = true) {

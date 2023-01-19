@@ -25,7 +25,7 @@ public class Services.EventBus : Object {
     public signal void close_labels ();
     public signal void inbox_project_changed ();
     public signal void paste_action (int64 project_id, string content);
-    
+
     // Notifications
     public signal void send_notification (Adw.Toast toast);
 

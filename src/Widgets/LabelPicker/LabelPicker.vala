@@ -85,6 +85,13 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         listbox.set_filter_func (filter_func);
         listbox.add_css_class ("listbox-separator-3");
         listbox.add_css_class ("listbox-background");
+
+        var listbox_grid = new Gtk.Grid () {
+            margin_start = 3,
+            margin_end = 3
+        };
+
+        listbox_grid.attach (listbox, 0, 0);
         
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -93,7 +100,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             height_request = 175
         };
 
-        listbox_scrolled.child = listbox;
+        listbox_scrolled.child = listbox_grid;
 
         var content_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,

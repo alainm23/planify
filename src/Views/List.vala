@@ -2,6 +2,12 @@ public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
     private Widgets.HyperTextView description_textview;
+
+    private Widgets.DynamicIcon due_image;
+    private Gtk.Label due_label;
+    private Gtk.Revealer due_revealer;
+    private Gtk.Revealer label_filter_revealer;
+
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
@@ -25,8 +31,8 @@ public class Views.List : Gtk.Grid {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
         var top_project = new Widgets.HeaderProject (project) {
-            margin_start = 6,
-            margin_top = 24
+            margin_top = 24,
+            margin_bottom = 6
         };
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
@@ -41,13 +47,16 @@ public class Views.List : Gtk.Grid {
         description_textview.remove_css_class ("view");
 
         var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 6,
-            margin_top = 12,
-            margin_end = 6
+            margin_top = 6,
+            margin_end = 12
         };
         
         description_box.append (description_textview);
         description_box.add_css_class ("description-box");
+
+        due_revealer = build_due_date_widget ();
+
+        // label_filter_revealer = build_label_filter_widget ();
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -82,6 +91,7 @@ public class Views.List : Gtk.Grid {
         };
 
         content_box.append (top_project);
+        content_box.append (due_revealer);
         content_box.append (description_box);
         content_box.append (listbox_placeholder_stack);
 
@@ -156,6 +166,10 @@ public class Views.List : Gtk.Grid {
                 prepare_new_item (content);
             }
         });
+
+        project.updated.connect (() => {
+            update_request ();
+        });
     }
 
     private void set_sort_func () {
@@ -223,5 +237,77 @@ public class Views.List : Gtk.Grid {
 
     public void update_request () {
         description_textview.set_text (project.description);
+        update_duedate ();
+    }
+
+    private void update_duedate () {
+        due_image.update_icon_name ("planner-calendar");
+        due_revealer.reveal_child = false;
+
+        if (project.due_date != "") {
+            var datetime = Util.get_default ().get_date_from_string (project.due_date);
+            due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
+
+            if (Util.get_default ().is_today (datetime)) {
+                due_image.update_icon_name ("planner-today");
+            } else {
+                due_image.update_icon_name ("planner-calendar");
+            }
+
+            due_revealer.reveal_child = true;
+        }
+    }
+
+    private Gtk.Revealer build_due_date_widget () {
+        due_image = new Widgets.DynamicIcon ();
+        due_image.update_icon_name ("planner-calendar");
+        due_image.size = 19;        
+
+        due_label = new Gtk.Label (_("Schedule")) {
+            xalign = 0
+        };
+
+        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            margin_top = 6,
+            margin_bottom = 6,
+            margin_start = 3
+        };
+        due_box.append (due_image);
+        due_box.append (due_label);
+
+        var due_date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 6,
+            margin_end = 12
+        };
+        
+        due_date_box.append (due_box);
+        due_date_box.add_css_class ("description-box");
+
+        var due_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+        due_revealer.child = due_date_box;
+
+        var gesture = new Gtk.GestureClick ();
+        gesture.set_button (1);
+        due_date_box.add_controller (gesture);
+
+        gesture.pressed.connect ((n_press, x, y) => {
+            var dialog = new Dialogs.DatePicker (_("When?"));
+            dialog.clear = project.due_date != "";
+            dialog.show ();
+
+            dialog.date_changed.connect (() => {
+                if (dialog.datetime == null) {
+                    project.due_date = "";
+                } else {
+                    project.due_date = dialog.datetime.to_string ();
+                }
+                
+                project.update (false);
+            });
+        });
+
+        return due_revealer;
     }
 }

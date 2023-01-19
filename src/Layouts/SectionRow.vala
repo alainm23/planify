@@ -22,7 +22,6 @@
 public class Layouts.SectionRow : Gtk.ListBoxRow {
     public Objects.Section section { get; construct; }
 
-    private Gtk.Button hide_button;
     private Gtk.Revealer hide_revealer;
     private Gtk.Revealer bottom_revealer;
     private Widgets.EditableLabel name_editable;
@@ -94,7 +93,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         name_editable = new Widgets.EditableLabel (("New section"), false) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_start = 6,
             margin_top = 3
         };
 
@@ -127,12 +125,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         sectionrow_grid.append (menu_loading_button);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 6,
             margin_bottom = 6,
             margin_end = 6
         };
 
-        var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_start = 3
+        };
         v_box.append (sectionrow_grid);
         v_box.append (separator);
 

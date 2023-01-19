@@ -123,8 +123,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             margin_bottom = 12
         };
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.add_css_class ("no-padding");
-        submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
