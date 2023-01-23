@@ -62,15 +62,6 @@ public class Objects.Reminder : Objects.BaseObject {
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
-            builder.set_member_name ("is_recurring");
-            builder.add_boolean_value (due.is_recurring);
-
-            builder.set_member_name ("string");
-            builder.add_string_value (due.text);
-
-            builder.set_member_name ("lang");
-            builder.add_string_value (due.lang);
-
             builder.end_object ();
 
             builder.end_object ();

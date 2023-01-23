@@ -678,12 +678,12 @@ public class Objects.Project : Objects.BaseObject {
         //  }
         
         //  menu.add_item (add_section_item);
-        //  menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        //  menu.add_item (new Widgets.ContextMenu.MenuSeparator ());
         //  menu.add_item (share_item);
         //  menu.add_item (show_completed_item);
 
         //  if (!inbox_project) {
-        //      menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
+        //      menu.add_item (new Widgets.ContextMenu.MenuSeparator ());
         //      menu.add_item (delete_item);
         //  }
 

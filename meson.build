@@ -28,11 +28,25 @@ config_file = configure_file(
     configuration : conf_data
 )
 
-executable(
-  meson.project_name(),
+planner_deps = [
+  dependency('glib-2.0'),
+  dependency('gee-0.8', version: '>=0.8.5'),
+  dependency('gtk4'),
+  dependency('sqlite3'),
+  dependency('libadwaita-1'),
+  dependency('webkit2gtk-5.0'),
+  dependency('granite-7'),
+  dependency('json-glib-1.0'),
+  dependency('libecal-2.0', version: '>= 3.45.1'),
+  dependency('libedataserver-1.2', version: '>= 3.45.1'),
+  dependency('libical-glib'),
+  meson.get_compiler('c').find_library('m', required : false)
+]
+
+planner_files = files(
   'src/App.vala',
   'src/MainWindow.vala',
-  'src/Utils.vala',
+  'src/Util.vala',
   'src/Enum.vala',
 
   'src/Services/Database.vala',
@@ -41,6 +55,7 @@ executable(
   'src/Services/ActionManager.vala',
   'src/Services/Notification.vala',
   'src/Services/TimeMonitor.vala',
+  'src/Services/DBusServer.vala',
 
   'src/Services/CalendarEvents/CalendarEvents.vala',
   'src/Services/CalendarEvents/DateIterator.vala',
@@ -97,6 +112,7 @@ executable(
   
   'src/Widgets/ContextMenu/MenuItem.vala',
   'src/Widgets/ContextMenu/MenuSeparator.vala',
+  'src/Widgets/ContextMenu/MenuItemPicker.vala',
 
   'src/Views/Project.vala',
   'src/Views/List.vala',
@@ -121,7 +137,7 @@ executable(
   'src/Objects/Queue.vala',
   'src/Objects/Reminder.vala',
   'src/Objects/Section.vala',
-
+  
   'src/Objects/Filters/Pinboard.vala',
   'src/Objects/Filters/Scheduled.vala',
   'src/Objects/Filters/Today.vala',
@@ -135,32 +151,56 @@ executable(
   'src/Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'src/Dialogs/DatePicker.vala',
   'src/Dialogs/LabelPicker.vala',
+  'src/Dialogs/RepeatConfig.vala',
   
   'src/Dialogs/QuickFind/QuickFind.vala',
   'src/Dialogs/QuickFind/QuickFindItem.vala',
   'src/Dialogs/QuickFind/Synapse.vala',
 
   'src/Dialogs/Preferences/PreferencesWindow.vala',
+)
 
+quick_find_files = files(
+    'quick-add/App.vala',
+    'quick-add/MainWindow.vala',
+    'quick-add/Util.vala',
+    'src/Enum.vala',
+
+    'quick-add/Objects/BaseObject.vala',
+    'quick-add/Objects/Color.vala',
+    'quick-add/Objects/DueDate.vala',
+    'quick-add/Objects/Item.vala',
+    'quick-add/Objects/Project.vala',
+    'quick-add/Objects/Queue.vala',
+
+    'quick-add/Services/EventBus.vala',
+    'quick-add/Services/Database.vala',
+    'quick-add/Services/DBusClient.vala',
+    'quick-add/Services/Todoist.vala',
+
+    'quick-add/Widgets/DynamicIcon.vala',
+    'quick-add/Widgets/LoadingButton.vala',
+    'quick-add/Widgets/HyperTextView.vala',
+)
+
+executable(
+  meson.project_name(),
+  planner_files,
   asresources,
   config_file,
-  dependencies: [
-    dependency('glib-2.0'),
-    dependency('gee-0.8', version: '>=0.8.5'),
-    dependency('gtk4'),
-    dependency('sqlite3'),
-    dependency('libadwaita-1'),
-    dependency('webkit2gtk-5.0'),
-    dependency('granite-7'),
-    dependency('json-glib-1.0'),
-    dependency('libecal-2.0', version: '>= 3.45.1'),
-    dependency('libedataserver-1.2', version: '>= 3.45.1'),
-    dependency('libical-glib'),
-    meson.get_compiler('c').find_library('m', required : false)
-  ],
+  dependencies: planner_deps,
   install: true
 )
+
+executable (
+    'com.github.alainm23.planner.quick-add',
+    quick_find_files,
+    asresources,
+    config_file,
+    dependencies: planner_deps,
+    install: true
+)
+
 subdir('data')
 # subdir('po')
-
 meson.add_install_script('build-aux/meson'/ 'post_install.py')

@@ -263,7 +263,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (complete_item);
-        menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
         menu_picker = new Gtk.Popover () {

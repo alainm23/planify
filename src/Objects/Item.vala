@@ -76,7 +76,6 @@ public class Objects.Item : Objects.BaseObject {
 
     public int child_order { get; set; default = Constants.INACTIVE; }
     public int day_order { get; set; default = Constants.INACTIVE; }
-    public int due_is_recurring { get; set; default = Constants.INACTIVE; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
@@ -616,15 +615,6 @@ public class Objects.Item : Objects.BaseObject {
                 builder.set_member_name ("date");
                 builder.add_string_value (due.date);
 
-                builder.set_member_name ("is_recurring");
-                builder.add_boolean_value (due.is_recurring);
-
-                builder.set_member_name ("string");
-                builder.add_string_value (due.text);
-
-                builder.set_member_name ("lang");
-                builder.add_string_value (due.lang);
-
                 builder.end_object ();
             } else {
                 builder.set_member_name ("due");
@@ -701,15 +691,6 @@ public class Objects.Item : Objects.BaseObject {
 
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
-
-            builder.set_member_name ("is_recurring");
-            builder.add_boolean_value (due.is_recurring);
-
-            builder.set_member_name ("string");
-            builder.add_string_value (due.text);
-
-            builder.set_member_name ("lang");
-            builder.add_string_value (due.lang);
 
             builder.end_object ();
         } else {

@@ -27,6 +27,11 @@ public class MainWindow : Adw.ApplicationWindow {
     construct {
         action_manager = new Services.ActionManager (app, this);
 
+        Services.DBusServer.get_default ().item_added.connect ((id) => {
+            var item = Services.Database.get_default ().get_item_by_id (id);
+            Services.Database.get_default ().add_item (item);
+        });
+
         var sidebar_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true,
@@ -172,11 +177,6 @@ public class MainWindow : Adw.ApplicationWindow {
                 Util.get_default ().update_theme ();
             } else if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
-            } else if (key == "badge-count") {
-                //  Timeout.add (main_stack.transition_duration, () => {
-                //      Services.Badge.get_default ().update_badge ();
-                //      return GLib.Source.REMOVE;
-                //  });
             }
         });
 
@@ -287,7 +287,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (project_view, project.view_id);
         }
 
-        project_view_headerbar.view = project;
+        project_view_headerbar.update_view (project);
         views_stack.set_visible_child_name (project.view_id);
         return project_view;
     }
@@ -307,7 +307,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (today_view, "today-view");
         }
 
-        project_view_headerbar.view = Objects.Today.get_default ();
+        project_view_headerbar.update_view (Objects.Today.get_default ());
         views_stack.set_visible_child_name ("today-view");
     }
 
@@ -319,7 +319,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (scheduled_view, "scheduled-view");
         }
 
-        project_view_headerbar.view = Objects.Scheduled.get_default ();
+        project_view_headerbar.update_view (Objects.Scheduled.get_default ());
         views_stack.set_visible_child_name ("scheduled-view");
     }
 
@@ -331,7 +331,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (pinboard_view, "pinboard-view");
         }
 
-        project_view_headerbar.view = Objects.Pinboard.get_default ();
+        project_view_headerbar.update_view (Objects.Pinboard.get_default ());
         views_stack.set_visible_child_name ("pinboard-view");
     }
 
@@ -343,7 +343,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (filter_view, "priority-view");
         }
 
-        // project_view_headerbar.view = Objects.Pinboard.get_default ();
+        project_view_headerbar.update_view (Util.get_default ().get_priority_filter (view_id));
         filter_view.filter = Util.get_default ().get_priority_filter (view_id);
         views_stack.set_visible_child_name ("priority-view");
     }
@@ -356,7 +356,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (filter_view, "completed-view");
         }
 
-        // project_view_headerbar.view = Objects.Pinboard.get_default ();
+        project_view_headerbar.update_view (Objects.Completed.get_default ());
         filter_view.filter = Objects.Completed.get_default ();
         views_stack.set_visible_child_name ("completed-view");
     }
@@ -369,7 +369,7 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (label_view, "label-view");
         }
 
-        project_view_headerbar.view = Services.Database.get_default ().get_label (int64.parse (id));
+        project_view_headerbar.update_view (Services.Database.get_default ().get_label (int64.parse (id)));
         label_view.label = Services.Database.get_default ().get_label (int64.parse (id));
         views_stack.set_visible_child_name ("label-view");
     }
@@ -478,7 +478,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (preferences_item);
-        menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (keyboard_shortcuts_item);
         menu_box.append (about_item);
 

@@ -420,13 +420,13 @@ public class Util : GLib.Object {
         } else if (is_tomorrow (datetime)) {
             returned = _("Tomorrow");
         } else if (is_yesterday (datetime)) {
-            return _("Yesterday");
+            returned = _("Yesterday");
         } else {
             returned = get_default_date_format_from_date (datetime);
         }
 
         if (has_time (datetime)) {
-            returned += " " + datetime.format (get_default_time_format ());
+            returned = "%s %s".printf (returned, datetime.format (get_default_time_format ()));
         }
 
         return returned;
@@ -470,6 +470,37 @@ public class Util : GLib.Object {
         return false;
     }
 
+    public GLib.DateTime next_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
+        GLib.DateTime returned = datetime;
+
+        if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
+            returned = returned.add_days (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            returned = returned.add_days (duedate.recurrency_interval * 7);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
+            returned = returned.add_months (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
+            returned = returned.add_years (duedate.recurrency_interval);
+        }
+
+        return returned;
+    }
+
+    public string next_x_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
+        string[] list = {"", ""};
+        GLib.DateTime _datetime = datetime;
+
+        for (int i = 0; i < 1; i++) {
+            _datetime = next_recurrency (_datetime, duedate);
+            string text = Util.get_default ().get_default_date_format_from_date (_datetime);
+            list[i] = text;
+        }
+
+        list[1] = "…";
+
+        return string.joinv (", ", list);
+    }
+
     public void item_added (Layouts.ItemRow row) {
         bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
 
@@ -492,6 +523,11 @@ public class Util : GLib.Object {
         Planner.event_bus.update_section_sort_func (row.item.project_id, row.item.section_id, false);
     }
 
+
+    public GLib.DateTime get_today_format_date () {
+        return get_format_date (new DateTime.now_local ());
+    }
+
     public GLib.DateTime get_format_date (GLib.DateTime date) {
         return new DateTime.local (
             date.get_year (),
@@ -504,11 +540,12 @@ public class Util : GLib.Object {
     }
 
     public string get_default_date_format_from_date (GLib.DateTime date) {
-        return date.format (Granite.DateTime.get_default_date_format (
+        var format = date.format (Granite.DateTime.get_default_date_format (
             false,
             true,
             date.get_year () != new GLib.DateTime.now_local ().get_year ()
         ));
+        return format;
     }
 
     public string get_todoist_datetime_format (GLib.DateTime date) {

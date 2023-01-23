@@ -579,7 +579,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         menu_box.append (add_item);
         menu_box.append (edit_item);
         menu_box.append (move_item);
-        menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
         menu_popover = new Gtk.Popover () {

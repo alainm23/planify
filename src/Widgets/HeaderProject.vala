@@ -170,7 +170,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         }
 
         menu_box.append (schedule_item);
-        menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         // menu_box.append (filter_by_tags);
         menu_box.append (add_section_item);
         menu_box.append (select_item);
@@ -178,7 +178,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         menu_box.append (show_completed_item);
         
         if (!project.inbox_project) {
-            menu_box.append (new Dialogs.ContextMenu.MenuSeparator ());
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (delete_item);
         }
 

@@ -1011,29 +1011,33 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$pinned", item.pinned);
 
         if (stmt.step () == Sqlite.DONE) {
-            items.add (item);
-            item_added (item, insert);
-
-            if (insert) {
-                if (item.parent_id != Constants.INACTIVE) {
-                    item.parent.item_added (item);
-                } else {
-                    if (item.section_id == Constants.INACTIVE) {
-                        item.project.item_added (item);
-                    } else {
-                        item.section.item_added (item);
-                    }
-                }
-            }
-
-            item.insert_local_labels ();
-            Planner.event_bus.update_items_position (item.project_id, item.section_id);
+            add_item (item, insert);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
         stmt.reset ();
         return stmt.step () == Sqlite.DONE;
+    }
+
+    public void add_item (Objects.Item item, bool insert = true) {
+        items.add (item);
+        item_added (item, insert);
+
+        if (insert) {
+            if (item.parent_id != Constants.INACTIVE) {
+                item.parent.item_added (item);
+            } else {
+                if (item.section_id == Constants.INACTIVE) {
+                    item.project.item_added (item);
+                } else {
+                    item.section.item_added (item);
+                }
+            }
+        }
+
+        item.insert_local_labels ();
+        Planner.event_bus.update_items_position (item.project_id, item.section_id);
     }
 
     public Gee.ArrayList<Objects.Item> get_items_collection () {
@@ -1063,6 +1067,23 @@ public class Services.Database : GLib.Object {
 
             return return_value;
         }
+    }
+
+    public Objects.Item get_item_by_id (int64 id) {
+        Objects.Item returned = new Objects.Item ();
+        Sqlite.Statement stmt;
+
+        sql = "SELECT * FROM Items WHERE id = $id LIMIT 1;";
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_int64 (stmt, "$id", id);
+
+        if (stmt.step () == Sqlite.ROW) {
+            returned = _fill_item (stmt);
+        }
+
+        stmt.reset ();
+        return returned;
     }
 
     public Gee.ArrayList<Objects.Item> get_item_by_baseobject (Objects.BaseObject object) {

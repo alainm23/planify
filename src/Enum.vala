@@ -175,3 +175,47 @@ public enum ObjectType {
         }
     }
 }
+
+public enum RecurrencyType {
+    EVERY_DAY,
+    EVERY_WEEK,
+    EVERY_MONTH,
+    EVERY_YEAR,
+    NONE;
+
+    public string to_friendly_string(int? interval = null) {
+        switch (this) {   
+            case NONE:
+                return _("Don't Repeat");
+            case EVERY_DAY:
+                if (interval == null || interval == 0) {
+                    return _("Every day");
+                } else {
+                    return GLib.ngettext ("Every day", "Every %d days", interval).printf (interval);
+                }
+            case EVERY_WEEK:
+                if (interval == null || interval == 0) {
+                    return _("Every week");
+                } else {
+                    return GLib.ngettext ("Every week", "Every %d weeks", interval).printf (interval);
+                }
+
+            case EVERY_MONTH:
+                if (interval == null || interval == 0) {
+                    return _("Every month");
+                } else {
+                    return GLib.ngettext ("Every month", "Every %d months", interval).printf (interval);
+                }
+            
+            case EVERY_YEAR:
+                if (interval == null || interval == 0) {
+                    return _("Every year");
+                } else {
+                    return GLib.ngettext ("Every year", "Every %d years", interval).printf (interval);
+                }
+                
+            default:
+                assert_not_reached();
+        }
+    }
+}
