@@ -27,7 +27,13 @@ public class Dialogs.RepeatConfig : Adw.Window {
     public Objects.DueDate duedate {
         set {
             recurrency_interval.value = value.recurrency_interval;
-            recurrency_combobox.active = (int) value.recurrency_type;
+
+            if (value.recurrency_type == RecurrencyType.NONE) {
+                recurrency_combobox.active = 0;
+            } else {
+                recurrency_combobox.active = (int) value.recurrency_type;
+            }
+            
             update_repeat_label ();
         }
     }
@@ -80,6 +86,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
             margin_end = 6,
             margin_bottom = 6
         };
+        
         recurrency_combobox.append_text (_("Day(s)"));
         recurrency_combobox.append_text (_("Week(s)"));
         recurrency_combobox.append_text (_("Month(s)"));
