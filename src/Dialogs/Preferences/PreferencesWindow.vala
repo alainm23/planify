@@ -13,7 +13,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
     construct {
         add (get_general_page ());
-        add (get_calendar_event_page ());
+        add (get_accounts_page ());
+        // add (get_calendar_event_page ());
     }
 
     private Adw.PreferencesPage get_general_page () {
@@ -313,6 +314,58 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         page.name = "calendar-events";
         page.icon_name = "x-office-calendar-symbolic";
 
+        var default_group = new Adw.PreferencesGroup ();
+
+        var enabled_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Planner.settings.get_boolean ("calendar-enabled")
+        };
+
+        var enabled_row = new Adw.ActionRow ();
+        enabled_row.title = _("Show Calendar Events");
+        enabled_row.set_activatable_widget (enabled_switch);
+        enabled_row.add_suffix (enabled_switch);
+
+        default_group.add (enabled_row);
+
+        var listbox = new Gtk.ListBox ();
+
+        var sources_group = new Adw.PreferencesGroup ();
+        sources_group.add (listbox);
+
+        var sources_map = new Gee.HashMap <string, Widgets.CalendarSourceRow> ();
+        var event_model = new Services.CalendarEvents (new GLib.DateTime.now_local ());
+
+        foreach (E.Source source in event_model.get_all_sources ()) {
+            var source_row = new Widgets.CalendarSourceRow (source);
+            source_row.visible_changed.connect (() => {
+                string[] sources_disabled = {};
+
+                foreach (Widgets.CalendarSourceRow item in sources_map.values) {
+                    if (item.source_enabled == false) {
+                        sources_disabled += item.source.dup_uid ();
+                    }
+                }
+
+                Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
+            });
+
+            sources_map[source.dup_uid ()] = source_row;
+            listbox.append (sources_map[source.dup_uid ()]);
+        }
+
+        page.add (default_group);
+        page.add (sources_group);
+
+        return page;
+    }
+
+    private Adw.PreferencesPage get_accounts_page () {
+        var page = new Adw.PreferencesPage ();
+        page.title = _("Accounts");
+        page.name = "accounts";
+        page.icon_name = "org.gnome.Settings-users-symbolic";
+        
         return page;
     }
 }

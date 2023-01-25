@@ -169,6 +169,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-rotate", true);
                 _dynamic_icons.set ("planner-section", true);
                 _dynamic_icons.set ("unordered-list", true);
+                _dynamic_icons.set ("menu", true);
             }
 
             return _dynamic_icons;

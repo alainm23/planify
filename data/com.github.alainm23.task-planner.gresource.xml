@@ -108,5 +108,7 @@
     <file alias="planner-section-dark.svg">resources/planner-section-dark.svg</file>
     <file alias="unordered-list-dark.svg">resources/unordered-list-dark.svg</file>
     <file alias="unordered-list-light.svg">resources/unordered-list-light.svg</file>
+    <file alias="menu-dark.svg">resources/menu-dark.svg</file>
+    <file alias="menu-light.svg">resources/menu-light.svg</file>
   </gresource>
 </gresources>

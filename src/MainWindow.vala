@@ -25,6 +25,10 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     construct {
+        if (Constants.PRODUCTION == "false") {
+            add_css_class ("devel");
+        }
+
         action_manager = new Services.ActionManager (app, this);
 
         Services.DBusServer.get_default ().item_added.connect ((id) => {
@@ -42,7 +46,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var settings_image = new Widgets.DynamicIcon ();
         settings_image.size = 21;
-        settings_image.update_icon_name ("planner-settings-sliders");
+        settings_image.update_icon_name ("menu");
 
         settings_button = new Gtk.Button ();
         settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
@@ -126,13 +130,28 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var views_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-        var views_content = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
+        var devel_infobar = new Gtk.InfoBar ();
+        devel_infobar.set_message_type (Gtk.MessageType.WARNING);
+        devel_infobar.show_close_button = true;
+        devel_infobar.revealed = Constants.PRODUCTION == "false";
+
+        var devel_label = new Gtk.Label (_("You are running an early stage development version. Be aware it is a work in progress and far from complete yet.")) {
+            wrap = true
         };
 
-        views_content.attach (views_header, 0, 0);
-        views_content.attach (views_separator, 0, 1);
-        views_content.attach (views_stack, 0, 2);
+        devel_infobar.response.connect (() => {
+            devel_infobar.revealed = false;
+        });
+
+        devel_label.set_natural_wrap_mode (Gtk.NaturalWrapMode.NONE);
+        devel_label.add_css_class ("warning");
+        devel_infobar.add_child (devel_label);
+
+        var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        views_content.append (views_header);
+        views_content.append (views_separator);
+        views_content.append (devel_infobar);
+        views_content.append (views_stack);
 
         var toast_overlay = new Adw.ToastOverlay ();
         toast_overlay.child = views_content;
@@ -497,5 +516,24 @@ public class MainWindow : Adw.ApplicationWindow {
             var dialog = new Dialogs.Preferences.PreferencesWindow ();
             dialog.show ();
         });
+
+        about_item.clicked.connect (about_dialog);
+    }
+
+    private void about_dialog () {
+        var dialog = new Adw.AboutWindow () {
+            transient_for = (Gtk.Window) Planner.instance.main_window,
+            modal = true
+        };
+
+        dialog.show ();
+
+        dialog.application_icon = "com.github.alainm23.planner";
+        dialog.application_name = "Task Planner";
+        dialog.version = Constants.VERSION;
+        dialog.developer_name = "Alain Meza H.";
+        dialog.website = "https://github.com/alainm23/planner";
+        dialog.developers = { "Alain" };
+        dialog.issue_url = "https://github.com/alainm23/planner/issues";
     }
 }

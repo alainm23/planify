@@ -7,6 +7,8 @@ project(
 gnome = import('gnome')
 i18n = import('i18n')
 
+base_id = 'com.github.alainm23.task-planner'
+
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
@@ -16,10 +18,28 @@ asresources = gnome.compile_resources (
     c_name: 'as'
 )
 
+if get_option('production') == false
+  profile = 'devel'
+  vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+  if vcs_tag == ''
+    version_suffix = '-devel'
+  else
+    version_suffix = '-@0@'.format(vcs_tag)
+  endif
+  application_id = '@0@.@1@'.format(base_id, profile)
+  production = 'false'
+else
+  profile = ''
+  version_suffix = ''
+  application_id = base_id
+  production = 'true'
+endif
+
 conf_data = configuration_data()
-conf_data.set_quoted('PROJECT_NAME', meson.project_name())
-conf_data.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf_data.set_quoted('PROJECT_NAME', application_id)
+conf_data.set_quoted('GETTEXT_PACKAGE', application_id)
 conf_data.set_quoted('VERSION', meson.project_version())
+conf_data.set_quoted('PRODUCTION', production)
 conf_data.set_quoted('PREFIX', get_option('prefix'))
 conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
 config_file = configure_file(
@@ -94,6 +114,7 @@ planner_files = files(
   'src/Widgets/MultiSelectToolbar.vala',
   'src/Widgets/EventsList.vala',
   'src/Widgets/EventRow.vala',
+  'src/Widgets/CalendarSourceRow.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -184,7 +205,7 @@ quick_find_files = files(
 )
 
 executable(
-  meson.project_name(),
+  application_id,
   planner_files,
   asresources,
   config_file,
