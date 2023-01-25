@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-[DBus (name = "com.github.alainm23.planner")]
+[DBus (name = "com.github.alainm23.task-planner")]
 public interface DBusClientInterface : Object {
     public abstract void add_item (int64 id) throws Error;
 }
@@ -36,8 +36,8 @@ public class DBusClient : Object {
         try {
             interface = Bus.get_proxy_sync (
                 BusType.SESSION,
-                "com.github.alainm23.planner",
-                "/com/github/alainm23/planner");
+                "com.github.alainm23.task-planner",
+                "/com/github/alainm23/task-planner");
         } catch (IOError e) {
             error ("Monitor Indicator DBus: %s\n", e.message);
         }

@@ -1,13 +1,13 @@
 [Desktop Entry]
-Name=Planner
-GenericName=Planner
+Name=Task Planner
+GenericName=Task Planner
 Comment=Never worry about forgetting things again
 Categories=Utility;Office;ProjectManagement;Calendar;
-Exec=com.github.alainm23.planner
-Icon=com.github.alainm23.planner
+Exec=com.github.alainm23.task-planner
+Icon=com.github.alainm23.task-planner
 Terminal=false
 Type=Application
 StartupNotify=true
-X-GNOME-Gettext-Domain=planner
+X-GNOME-Gettext-Domain=task-planner
 Keywords=development;task;tasks;project;todo;event;events;calendar;todoist;
 X-GNOME-UsesNotifications=true

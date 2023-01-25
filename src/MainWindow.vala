@@ -14,14 +14,14 @@ public class MainWindow : Adw.ApplicationWindow {
         Object (
             application: application,
             app: application,
-            icon_name: "com.github.alainm23.planner",
+            icon_name: "com.github.alainm23.task-planner",
             title: _("Planner")
         );
     }
 
     static construct {
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-        default_theme.add_resource_path ("/com/github/alainm23/planner");
+        default_theme.add_resource_path ("/com/github/alainm23/task-planner");
     }
 
     construct {

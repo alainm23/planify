@@ -32,11 +32,11 @@ public class Planner : Adw.Application {
     };
     
     static construct {
-        settings = new Settings ("com.github.alainm23.planit");
+        settings = new Settings ("com.github.alainm23.task-planner");
     }
 
     construct {
-        application_id = "com.github.alainm23.planner";
+        application_id = "com.github.alainm23.task-planner";
         flags |= ApplicationFlags.HANDLES_OPEN;
 
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -47,7 +47,7 @@ public class Planner : Adw.Application {
 
         add_main_option_entries (PLANNER_OPTIONS);
 
-        create_dir_with_parents ("/com.github.alainm23.planner");
+        create_dir_with_parents ("/com.github.alainm23.task-planner");
 
         event_bus = new Services.EventBus ();
     }
@@ -78,7 +78,7 @@ public class Planner : Adw.Application {
         Planner.settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
 
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/alainm23/planner/index.css");
+        provider.load_from_resource ("/com/github/alainm23/task-planner/index.css");
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );

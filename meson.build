@@ -1,5 +1,5 @@
 project(
-  'com.github.alainm23.planner',
+  'com.github.alainm23.task-planner',
   'vala', 'c',
   version: '3.10'
 )
@@ -193,7 +193,7 @@ executable(
 )
 
 executable (
-    'com.github.alainm23.planner.quick-add',
+    'com.github.alainm23.task-planner.quick-add',
     quick_find_files,
     asresources,
     config_file,

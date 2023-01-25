@@ -121,7 +121,7 @@ public class Services.Database : GLib.Object {
     }
 
     public void init_database () {
-        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.task-planner/database.db";
 
         create_tables ();
         patch_database ();

@@ -18,7 +18,7 @@ public class QuickAdd : Adw.Application {
     }
 
     construct {
-        application_id = "com.github.alainm23.planner.quick-add";
+        application_id = "com.github.alainm23.task-planner.quick-add";
         flags |= ApplicationFlags.HANDLES_OPEN;
 
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -33,7 +33,7 @@ public class QuickAdd : Adw.Application {
         main_window.show ();
         
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/alainm23/planner/index.css");
+        provider.load_from_resource ("/com/github/alainm23/task-planner/index.css");
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );

@@ -1,7 +1,7 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/github/alainm23/planner/stylesheet">
+  <gresource prefix="/com/github/alainm23/task-planner/stylesheet">
     <file alias="animations.css" compressed="true">stylesheet/animations.css</file>
     <file alias="calendar.css" compressed="true">stylesheet/calendar.css</file>
     <file alias="stylesheet.css" compressed="true">stylesheet/stylesheet.css</file>
@@ -9,7 +9,7 @@
     <file alias="sidebar.css" compressed="true">stylesheet/sidebar.css</file>
     <file alias="typography.css" compressed="true">stylesheet/typography.css</file>
   </gresource>
-  <gresource prefix="/com/github/alainm23/planner">
+  <gresource prefix="/com/github/alainm23/task-planner">
     <file alias="index.css" compressed="true">stylesheet/index.css</file>
 
     <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>

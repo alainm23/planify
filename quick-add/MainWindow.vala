@@ -9,8 +9,8 @@ public class MainWindow : Adw.ApplicationWindow {
     public MainWindow (QuickAdd application) {
         Object (
             application: application,
-            icon_name: "com.github.alainm23.planner",
-            title: _("Planner - Quick Add"),
+            icon_name: "com.github.alainm23.task-planner",
+            title: _("Task Planner - Quick Add"),
             width_request: 500,
             resizable: false
         );
@@ -18,7 +18,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
     static construct {
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-        default_theme.add_resource_path ("/com/github/alainm23/planner");
+        default_theme.add_resource_path ("/com/github/alainm23/task-planner");
     }
 
     construct {
