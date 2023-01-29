@@ -1,0 +1,7 @@
+@define-color window_bg_color #ffffff;
+@define-color popover_bg_color #ffffff;
+@define-color sidebar_bg_color #fafafa;
+@define-color item_border_color @borders;
+@define-color upcoming_bg_color #ededef;
+@define-color upcoming_fg_color shade(#ededef, 0);
+@define-color selected_color alpha(@shade_color, 0.65);

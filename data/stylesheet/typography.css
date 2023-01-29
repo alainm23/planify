@@ -1,0 +1,38 @@
+.h1,
+.title-1 {
+    font-size: 24pt;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+.h2,
+.title-2 {
+    font-weight: 300;
+    font-size: 18pt;
+    letter-spacing: -0.05em;
+}
+
+.h3,
+.title-3 {
+    font-size: 11pt;
+}
+
+label.h4,
+.h4 label,
+.heading,
+.title-4,
+.title-4 label {
+    font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+
+.small-label {
+    font-size: 0.85em;
+}
+
+.dim-label,
+:visited {
+    opacity: 0.75;
+}

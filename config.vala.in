@@ -1,0 +1,22 @@
+namespace Constants {
+    public const string GETTEXT_PACKAGE = @GETTEXT_PACKAGE@;
+    public const string PROJECT_NAME = @PROJECT_NAME@;
+    public const string VERSION = @VERSION@;
+    public const string INSTALL_PREFIX = @PREFIX@;
+    public const string DATADIR = @DATADIR@;
+    public const string TODOIST_CLIENT_ID = "b0dd7d3714314b1dbbdab9ee03b6b432";
+    public const string TODOIST_CLIENT_SECRET = "a86dfeb12139459da3e5e2a8c197c678";
+    public const string TODOIST_SCOPE = "data:read_write,data:delete,project:delete";
+    public const string PRODUCTION = @PRODUCTION@;
+    public const int ACTIVE = 1;
+    public const int INACTIVE = 0;
+    public const int UPDATE_TIMEOUT = 1500;
+    public const int DESTROY_TIMEOUT = 750;
+    public const int DRAG_TIMEOUT = 225;
+    public const int TODOIST_SYNC_TIMEOUT = 2500;
+    public const int SHORT_NAME_SIZE = 20;
+    public const int PRIORITY_1 = 4;
+    public const int PRIORITY_2 = 3;
+    public const int PRIORITY_3 = 2;
+    public const int PRIORITY_4 = 1;
+}

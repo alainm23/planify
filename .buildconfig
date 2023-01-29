@@ -1,0 +1,10 @@
+[default]
+name=Default
+runtime=host
+config-opts=
+run-opts=
+prefix=/home/alain/.cache/gnome-builder/install/planner/host
+app-id=
+postbuild=
+prebuild=
+default=true

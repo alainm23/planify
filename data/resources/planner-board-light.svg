@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="24"
+   height="24"
+   fill="none"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg8"
+   sodipodi:docname="planner-board-light.svg"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs12" />
+  <sodipodi:namedview
+     id="namedview10"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="22.083333"
+     inkscape:cx="12"
+     inkscape:cy="12.022642"
+     inkscape:window-width="1366"
+     inkscape:window-height="707"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg8" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M5.75 19.2502H18.25C18.8023 19.2502 19.25 18.8025 19.25 18.2502V5.75C19.25 5.19772 18.8023 4.75 18.25 4.75H5.75C5.19772 4.75 4.75 5.19772 4.75 5.75V18.2502C4.75 18.8025 5.19772 19.2502 5.75 19.2502Z"
+     id="path2"
+     style="stroke:#666666;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M9.25 5V19"
+     id="path4"
+     style="stroke:#666666;stroke-opacity:1" />
+  <path
+     stroke="currentColor"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     stroke-width="1.5"
+     d="M14.75 5V19"
+     id="path6"
+     style="stroke:#666666;stroke-opacity:1" />
+</svg>

@@ -1,0 +1,373 @@
+
+check {
+    min-height: 12px;
+    min-width: 12px;
+    -gtk-icon-size: 12px;
+    padding: 3px;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.padding-6 {
+    padding: 6px;
+}
+
+.padding-3 {
+    padding: 3px;
+}
+
+.border-radius-6 {
+    border-radius: 6px;
+}
+
+.border-radius-9 {
+    border-radius: 9px;
+}
+
+entry.flat:focus-within {
+    outline-style: none;
+}
+
+.color-primary {
+    color: #1e63ec;
+}
+
+.color-radio {
+    background: @colorAccent;
+    border-color: alpha(#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha(@shadowColor, 0.7),
+        inset 0 0 0 1px alpha(@shadowColor, 0.3),
+        0 1px 0 0 alpha(@colorAccent, 0.3);
+    -gtk-icon-shadow: none;
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.color-radio radio {
+    box-shadow: none;
+}
+
+.color-radio radio:checked {
+    background: transparent;
+    color: #fff;
+    -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
+    -gtk-icon-shadow: 0 1px 1px shade(#fff, 0.85);
+}
+
+.color-label-widget {
+    background: @colorAccent;
+    border: 1px solid @colorAccent;
+    border-radius: 50%;
+}
+
+.color-row-picker-selected {
+    background: @colorAccent;
+    border-radius: 50%;
+}
+
+.transition {
+    transition: all 115ms ease-in-out;
+}
+
+.hidden-button image {
+    transition: all 250ms ease-in-out;
+}
+
+.hidden-button.opened image {
+    -gtk-icon-transform: rotate(90deg);
+}
+
+.button-emoji-picker {
+    border-radius: 50%;
+}
+
+.circular-progress-bar {
+    border: 2px solid @colorAccent;
+    border-radius: 50%;
+}
+
+.circular-progress-bar-min {
+    border: 1px solid @colorAccent;
+    border-radius: 50%;
+}
+
+.listbox-separator-3 row:not(:first-child) {
+    margin-top: 3px;
+}
+
+.listbox-separator-6 row:not(:first-child) {
+    margin-top: 6px;
+}
+
+.listbox-separator-9 row:not(:first-child) {
+    margin-top: 9px;
+}
+
+.listbox-separator-12 row:not(:first-child) {
+    margin-top: 12px;
+}
+
+.listbox-separator-24 row:not(:first-child) {
+    margin-top: 24px;
+}
+/*
+ * MENU STYLE
+ */
+
+.menu-item-danger:hover {
+    background-color: alpha(#e01b24, 0.25);
+}
+
+/*
+ *
+ */
+
+.magic-button {
+    border-radius: 50%;
+    padding: 6px;
+}
+
+.magic-button:hover image {
+    animation: add-animation 0.7s ease-in-out;
+}
+
+.header-title {
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    font-size: 15pt;
+}
+
+.editable-label entry {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    outline: none;
+    color: inherit;
+    padding: 0;
+}
+
+.listbox-background {
+    background-color: transparent;
+}
+
+.row:hover {
+    background-color: transparent;
+}
+
+.row:selected {
+    background-color: transparent;
+}
+
+
+.row.activatable:hover {
+    background-color: transparent;
+}
+
+.row.activatable:active {
+    background-color: transparent;
+}
+
+.row.activatable:selected {
+    background-color: transparent;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.mt-12 {
+    margin-top: 24px;
+}
+
+.mt-24 {
+    margin-top: 24px;
+}
+
+.card-selected {
+    padding: 9px;
+    margin-right: 3px;
+    border: 1px solid @item_border_color;
+}
+
+.card-border {
+    border: 1px solid @item_border_color;
+}
+
+.bg-transparent {
+    background: transparent;
+}
+
+.line-through {
+    text-decoration: line-through;
+}
+
+.complete-animation {
+    background-color: @selected_color;
+    border-radius: 6px;
+}
+
+.action-button {
+    padding: 3px 9px;
+}
+
+.p3 {
+    padding: 3px;
+}
+
+.priority-1-color check {
+    box-shadow: inset 0 0 0 1px #ff7066;
+    background: rgba(255, 112, 102, 0.1);
+}
+
+.priority-2-color check {
+    box-shadow: inset 0 0 0 1px #ff9a14;
+    background: rgba(255, 154, 20, 0.1);
+}
+
+.priority-3-color check {
+    box-shadow: inset 0 0 0 1px #5297ff;
+    background: rgba(82, 151, 255, 0.1);
+}
+
+.priority-4-color check {
+    box-shadow: inset 0 0 0 2px @borders;
+    background: transparent;
+}
+
+.priority-color {
+    padding: 0;
+}
+
+.priority-color check:checked {
+    background-image:
+        linear-gradient(to bottom,
+            shade(#1e63ec,
+                1.2),
+            #1e63ec);
+    border-color: shade(#1e63ec, 0.9);
+    box-shadow:
+        inset 0 0 0 1px shade(#1e63ec, 1.15),
+        inset 0 1px 0 0 shade(#1e63ec, 1.3),
+        0 1px 1px 0 shade(@bg_color, 0.85);
+    color: #fff;
+    -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
+    -gtk-icon-shadow: 0 1px 1px shade(#1e63ec, 0.85);
+}
+
+.today-grid {
+    background-color: alpha(#16af54, 0.15);
+    border-radius: 6px;
+    color: #16af54;
+    padding: 3px 6px;
+    font-weight: bold;
+}
+
+.upcoming-grid {
+    background-color: @upcoming_bg_color;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: @upcoming_fg_color;
+    font-weight: bold;
+}
+
+.overdue-grid {
+    background-color: alpha(#fa1955, 0.125);
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: #fa1955;
+    font-weight: bold;
+}
+
+.completed-grid {
+    background-color: alpha(#1e63ec, 0.15);
+    border-radius: 6px;
+    color: #1e63ec;
+    padding: 3px 6px;
+    font-weight: bold;
+}
+
+.is_loading image {
+    animation: spin 1000ms linear infinite;
+}
+
+.popover-contents contents {
+    padding: 0;
+}
+
+.label-color {
+    background: @colorAccent;
+    border-radius: 50%;
+}
+
+.quickfind-item {
+    border-radius: 6px;
+}
+
+.quickfind-item:selected {
+    background: @shade_color;
+    color: @text_color;
+}
+
+.item-label-child {
+    background-color: alpha(@colorAccent, 0.125);
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: @colorAccent;
+    font-weight: bold;
+}
+
+.button-outline {
+    background: alpha(@item_border_color, 0.25);
+    padding: 0px 12px;
+    margin: 0px;
+    border-radius: 6px;
+}
+
+.button-labels-box {
+    background: alpha(@item_border_color, 0.25);
+    padding: 0px 17px 0px 6px;
+    margin: 0;
+    border-radius: 12px;
+}
+
+.description-box {
+    background: alpha(@item_border_color, 0.25);
+    padding: 0px 6px;
+    border-radius: 6px;
+}
+
+.checkbutton-label label {
+    margin-left: 6px;
+}
+
+.circular-check check {
+    border-radius: 50%;
+}
+
+.small-button {
+    font-size: 0.85em;
+    padding: 0px 12px;
+}
+
+.pane-due-button {
+    background-color: @upcoming_bg_color;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: @upcoming_fg_color;
+    font-weight: bold;
+}
