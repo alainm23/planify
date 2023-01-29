@@ -62,8 +62,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
         sidebar = new Layouts.Sidebar ();
 
-        var sidebar_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-
         var sidebar_content = new Gtk.Grid() {
             orientation = Gtk.Orientation.VERTICAL,
             vexpand = true,
@@ -72,8 +70,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         sidebar_content.add_css_class ("sidebar");
         sidebar_content.attach(sidebar_header, 0, 0);
-        sidebar_content.attach(sidebar_separator, 0, 1);
-        sidebar_content.attach(sidebar, 0, 2);
+        sidebar_content.attach(sidebar, 0, 1);
 
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
@@ -128,8 +125,6 @@ public class MainWindow : Adw.ApplicationWindow {
             transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
         };
 
-        var views_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-
         var devel_infobar = new Gtk.InfoBar ();
         devel_infobar.set_message_type (Gtk.MessageType.WARNING);
         devel_infobar.show_close_button = true;
@@ -149,7 +144,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         views_content.append (views_header);
-        views_content.append (views_separator);
         views_content.append (devel_infobar);
         views_content.append (views_stack);
 
@@ -162,7 +156,6 @@ public class MainWindow : Adw.ApplicationWindow {
             transition_type = Adw.FlapTransitionType.OVER
         };
         flap_view.content = toast_overlay;
-        flap_view.separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
         flap_view.flap = sidebar_content;
 
         set_content (flap_view);
