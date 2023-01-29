@@ -1,10 +1,4 @@
 <div align="center">
-  <a href="https://www.patreon.com/alainm23"><img src="https://img.shields.io/badge/patreon-donate-orange.svg?logo=patreon" alt="Planner on Patreon"></a>
-  [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://github.com/alainm23/planner/blob/master/LICENSE)
-  [![Donate](https://img.shields.io/badge/PayPal-Donate-gray.svg?style=flat&logo=paypal&colorA=0071bb&logoColor=fff)](https://www.paypal.me/alainm23)
-</div>
-
-<div align="center">
   <span align="center"> <img width="80" height="80" class="center" src="https://github.com/alainm23/planner/blob/master/data/icons/128/com.github.alainm23.planner.svg" alt="Icon"></span>
   <h1 align="center">Task Planner</h1>
   <h3 align="center">Never worry about forgetting things again</h3>
