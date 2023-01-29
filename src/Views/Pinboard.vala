@@ -148,7 +148,7 @@ public class Views.Pinboard : Gtk.Grid {
         Planner.event_bus.item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"))
+            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
         );
 
         row.update_content (content);
@@ -170,7 +170,7 @@ public class Views.Pinboard : Gtk.Grid {
             row.update_inserted_item ();
         }
 
-        if (row.item.section_id != Constants.INACTIVE) {
+        if (row.item.section_id != "") {
             Services.Database.get_default ().get_section (row.item.section_id)
                 .add_item_if_not_exists (row.item);
         } else {

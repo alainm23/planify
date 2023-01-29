@@ -16,24 +16,24 @@ public class Services.EventBus : Object {
     public signal void theme_changed ();
     public signal void delete_row_project (Objects.Project project);
     public signal void pane_selected (PaneType panel_type, string id);
-    public signal void item_selected (int64? id);
+    public signal void item_selected (string? id);
     public signal void task_selected (string? uid);
     public signal void avatar_downloaded ();
     public signal void view_header (bool view);
     public signal void magic_button_activated (bool activated);
-    public signal void project_picker_changed (int64 project_id);
-    public signal void project_parent_changed (Objects.Project project, int64 old_parent_id);
+    public signal void project_picker_changed (string project_id);
+    public signal void project_parent_changed (Objects.Project project, string old_parent_id);
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
-    public signal void item_moved (Objects.Item item, int64 old_project_id, int64 old_section_id, int64 old_parent_id = Constants.INACTIVE, bool insert = true);
-    public signal void update_items_position (int64 project_id, int64 section_id);
+    public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "", bool insert = true);
+    public signal void update_items_position (string project_id, string section_id);
     public signal void update_inserted_item_map (Layouts.ItemRow row);
-    public signal void update_section_sort_func (int64 project_id, int64 section_id, bool active);
+    public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
     public signal void open_labels ();
     public signal void close_labels ();
     public signal void inbox_project_changed ();
-    public signal void paste_action (int64 project_id, string content);
+    public signal void paste_action (string project_id, string content);
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);

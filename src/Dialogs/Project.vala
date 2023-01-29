@@ -31,7 +31,7 @@ public class Dialogs.Project : Adw.Window {
 
     public bool is_creating {
         get {
-            return project.id == Constants.INACTIVE;
+            return project.id == "";
         }
     }
 
@@ -39,7 +39,7 @@ public class Dialogs.Project : Adw.Window {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
-        project.id = Constants.INACTIVE;
+        project.id = "";
         project.backend_type = backend_type;
 
         Object (

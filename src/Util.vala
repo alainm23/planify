@@ -174,7 +174,7 @@ public class Util : GLib.Object {
         );
     }
 
-    public int64 generate_id (int len=10) {
+    public string generate_id (int len=10) {
         string allowed_characters = "0123456789";
 
         var password_builder = new StringBuilder ();
@@ -187,7 +187,7 @@ public class Util : GLib.Object {
             return generate_id ();
         }
 
-        return int64.parse (password_builder.str);
+        return password_builder.str;
     }
 
     public string generate_string () {
@@ -504,7 +504,7 @@ public class Util : GLib.Object {
     public void item_added (Layouts.ItemRow row) {
         bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
 
-        if (row.item.section_id != Constants.INACTIVE) {
+        if (row.item.section_id != "") {
             Services.Database.get_default ().get_section (row.item.section_id)
                 .add_item_if_not_exists (row.item, insert);
         } else {
@@ -965,5 +965,66 @@ public class Util : GLib.Object {
             priority_views[view_id] = new Objects.Priority (priority);
             return priority_views[view_id];
         }
+    }
+
+    public void change_default_inbox () {
+        var default_inbox = (DefaultInboxProject) Planner.settings.get_enum ("default-inbox");
+        Objects.Project inbox_project = null;
+
+        if (default_inbox == DefaultInboxProject.LOCAL) {
+            var todoist_inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("todoist-inbox-project-id")
+            );
+            if (todoist_inbox_project != null) {
+                todoist_inbox_project.inbox_project = false;
+                todoist_inbox_project.update ();
+            }
+
+            inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("local-inbox-project-id")
+            );
+            if (inbox_project != null) {
+                inbox_project.inbox_project = true;
+                inbox_project.update ();
+            } else {
+                inbox_project = create_inbox_project ();
+            }
+        } else if (default_inbox == DefaultInboxProject.TODOIST) {
+            var local_inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("local-inbox-project-id")
+            );
+            
+            if (local_inbox_project != null) {
+                local_inbox_project.inbox_project = false;
+                local_inbox_project.update ();
+            }
+
+            inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("todoist-inbox-project-id")
+            );
+            if (inbox_project != null) {
+                inbox_project.inbox_project = true;
+                inbox_project.update ();
+            }
+        }
+
+        Planner.settings.set_string ("inbox-project-id", inbox_project.id);
+        Planner.event_bus.inbox_project_changed ();
+    }
+
+    public Objects.Project create_inbox_project () {
+        Objects.Project inbox_project = new Objects.Project ();
+        inbox_project.id = Util.get_default ().generate_id ();
+        inbox_project.backend_type = BackendType.LOCAL;
+        inbox_project.name = _("Inbox");
+        inbox_project.inbox_project = true;
+        inbox_project.color = "blue";
+        
+        if (Services.Database.get_default ().insert_project (inbox_project)) {
+            Planner.settings.set_string ("inbox-project-id", inbox_project.id);
+            Planner.settings.set_string ("local-inbox-project-id", inbox_project.id);
+        }
+
+        return inbox_project;
     }
 }

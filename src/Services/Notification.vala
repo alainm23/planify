@@ -66,7 +66,7 @@ public class Services.Notification : GLib.Object {
 
             notification.set_default_action_and_target_value (
                 "app.show-item",
-                new Variant.int64 (reminder.item_id)
+                new Variant.string (reminder.item_id)
             );
 
             Planner.instance.send_notification (reminder.id_string, notification);
@@ -88,7 +88,7 @@ public class Services.Notification : GLib.Object {
         return dt.difference (now) / TimeSpan.SECOND;
     }
 
-    public void queue_reminder_notification (int64 reminder_id, string uid) {
+    public void queue_reminder_notification (string reminder_id, string uid) {
         if (reminders.values.contains (uid) == false) {
             return;
         }
@@ -101,7 +101,7 @@ public class Services.Notification : GLib.Object {
 
         notification.set_default_action_and_target_value (
             "app.show-item",
-            new Variant.int64 (reminder.item_id)
+            new Variant.string (reminder.item_id)
         );
 
         Planner.instance.send_notification (uid, notification);

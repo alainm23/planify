@@ -1,5 +1,5 @@
 public class Objects.Project : Objects.BaseObject {
-    public int64 parent_id { get; set; default = 0; }
+    public string parent_id { get; set; default = ""; }
     public string due_date { get; set; default = ""; }
     public string color { get; set; default = ""; }
     public string emoji { get; set; default = ""; }
@@ -213,7 +213,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public Project.from_json (Json.Node node) {
-        id = int64.parse (node.get_object ().get_string_member ("id"));
+        id = node.get_object ().get_string_member ("id");
         update_from_json (node);
         backend_type = BackendType.TODOIST;
     }
@@ -242,9 +242,9 @@ public class Objects.Project : Objects.BaseObject {
         }
         
         if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = int64.parse (node.get_object ().get_string_member ("parent_id"));
+            parent_id = node.get_object ().get_string_member ("parent_id");
         } else {
-            parent_id = Constants.INACTIVE;
+            parent_id = "";
         }
 
         if (node.get_object ().has_member ("team_inbox") && !node.get_object ().get_null_member ("team_inbox")) {
@@ -325,7 +325,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public Objects.Project? get_subproject (int64 id) {
+    public Objects.Project? get_subproject (string id) {
         Objects.Project? return_value = null;
         lock (_subprojects) {
             foreach (var project in subprojects) {
@@ -356,7 +356,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public Objects.Section? get_section (int64 id) {
+    public Objects.Section? get_section (string id) {
         Objects.Section? return_value = null;
         lock (_sections) {
             foreach (var section in sections) {
@@ -390,7 +390,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public Objects.Item? get_item (int64 id) {
+    public Objects.Item? get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
             foreach (var item in items) {
@@ -433,7 +433,7 @@ public class Objects.Project : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             builder.set_member_name ("name");
@@ -448,9 +448,9 @@ public class Objects.Project : Objects.BaseObject {
             builder.set_member_name ("is_favorite");
             builder.add_boolean_value (is_favorite);
 
-            if (parent_id != Constants.INACTIVE) {
+            if (parent_id != "") {
                 builder.set_member_name ("parent_id");
-                builder.add_int_value (parent_id);
+                builder.add_string_value (parent_id);
             } else {
                 builder.set_member_name ("parent_id");
                 builder.add_null_value ();
@@ -473,7 +473,7 @@ public class Objects.Project : Objects.BaseObject {
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("name");
         builder.add_string_value (Util.get_default ().get_encode_text (name));
@@ -512,7 +512,7 @@ public class Objects.Project : Objects.BaseObject {
             builder.begin_object ();
             
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             if (new_parent_id != Constants.INACTIVE) {
                 builder.set_member_name ("parent_id");
@@ -531,56 +531,6 @@ public class Objects.Project : Objects.BaseObject {
         generator.set_root (root);
         
         return generator.to_data (null); 
-    }
-
-    public void delete (bool confirm = true) {
-        //  if (!confirm) {
-        //      if (todoist) {
-        //          Planner.todoist.delete.begin (this, (obj, res) => {
-        //              Planner.todoist.delete.end (res);
-        //              Services.Database.get_default ().delete_project (this);
-        //          });
-        //      } else {
-        //          Services.Database.get_default ().delete_project (this);
-        //      }
-
-        //      return;
-        //  }
-        
-        //  var message_dialog = new Dialogs.MessageDialog (
-        //      _("Delete project"),
-        //      _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (short_name))),
-        //      "dialog-warning"
-        //  );
-        //  message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        //  message_dialog.show_all ();
-
-        //  var remove_button = new Widgets.LoadingButton (
-        //      LoadingButtonType.LABEL, _("Delete")) {
-        //      hexpand = true
-        //  };
-        //  remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        //  remove_button.get_style_context ().add_class ("border-radius-6");
-        //  message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-
-        //  message_dialog.default_action.connect ((response) => {
-        //      if (response == Gtk.ResponseType.ACCEPT) {
-        //          if (todoist) {
-        //              remove_button.is_loading = true;
-        //              Planner.todoist.delete.begin (this, (obj, res) => {
-        //                  Planner.todoist.delete.end (res);
-        //                  Services.Database.get_default ().delete_project (this);
-        //                  remove_button.is_loading = false;
-        //                  message_dialog.hide_destroy ();
-        //              });
-        //          } else {
-        //              Services.Database.get_default ().delete_project (this);
-        //              message_dialog.hide_destroy ();
-        //          }
-        //      } else {
-        //          message_dialog.hide_destroy ();
-        //      }
-        //  });
     }
 
     public string to_string () {       
@@ -646,201 +596,6 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         return ((double) items_checked / (double) items_total);
-    }
-
-    public void build_content_menu () {
-        //  Planner.event_bus.unselect_all ();
-
-        //  var menu = new Dialogs.ContextMenu.Menu ();
-
-        //  var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit project"), "planner-edit");
-
-        //  var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add section"), "planner-plus-circle");
-        
-        //  var share_item = new Widgets.ContextMenu.MenuItemSelector (_("Share"));
-
-        //  var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Markdown"), "planner-note");
-        //  var email_markdown_item = new Widgets.ContextMenu.MenuItem (_("Email"), "planner-mail");
-
-        //  share_item.add_item (share_markdown_item);
-        //  share_item.add_item (email_markdown_item);
-
-        //  var show_completed_item = new Widgets.ContextMenu.MenuItem (
-        //      show_completed ? _("Hide completed tasks") : _("Show completed tasks"),
-        //      "planner-check-circle"
-        //  );
-
-        //  var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
-        //  delete_item.get_style_context ().add_class ("menu-item-danger");
-
-        //  if (!inbox_project) {
-        //      menu.add_item (edit_item);
-        //  }
-        
-        //  menu.add_item (add_section_item);
-        //  menu.add_item (new Widgets.ContextMenu.MenuSeparator ());
-        //  menu.add_item (share_item);
-        //  menu.add_item (show_completed_item);
-
-        //  if (!inbox_project) {
-        //      menu.add_item (new Widgets.ContextMenu.MenuSeparator ());
-        //      menu.add_item (delete_item);
-        //  }
-
-        //  menu.popup ();
-
-        //  edit_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      var dialog = new Dialogs.Project (this);
-        //      dialog.show_all ();
-        //  });
-
-        //  show_completed_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      show_completed = !show_completed;
-        //      update ();
-        //  });
-
-        //  delete_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      this.delete ();
-        //  });
-
-        //  add_section_item.activate_item.connect (() => {
-        //      Objects.Section new_section = prepare_new_section ();
-
-        //      if (todoist) {
-        //          add_section_item.is_loading = true;
-        //          Planner.todoist.add.begin (new_section, (obj, res) => {
-        //              new_section.id = Planner.todoist.add.end (res);
-        //              add_section_if_not_exists (new_section);
-        //              add_section_item.is_loading = false;                    
-        //              menu.hide_destroy ();
-        //          });
-        //      } else {
-        //          new_section.id = Util.get_default ().generate_id ();
-        //          add_section_if_not_exists (new_section);
-        //          menu.hide_destroy ();
-        //      }
-        //  });
-
-        //  share_markdown_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      share_markdown ();
-        //  });
-
-        //  email_markdown_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      share_mail ();
-        //  });
-    }
-
-    public void build_view_menu () {
-        //  Planner.event_bus.unselect_all ();
-
-        //  var menu = new Dialogs.ContextMenu.Menu ();
-
-        //  var view_content = new Dialogs.Settings.SettingsContent (_("View")) {
-        //      margin = 6,
-        //      margin_top = 0
-        //  };
-
-        //  var view_as_item = new Widgets.ContextMenu.MenuItem (
-        //      view_style == ProjectViewStyle.LIST ?  _("View as Board") : _("View as List"),
-        //      view_style == ProjectViewStyle.LIST ? "planner-board" : "planner-list");
-
-        //  view_content.add_child (view_as_item);
-
-        //  var custom_sort_item = new Gtk.RadioButton.with_label (null, _("Custom sort order")) {
-        //      hexpand = true,
-        //      margin_top = 3,
-        //      margin_start = 3
-        //  };
-
-        //  var alphabetically_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Alphabetically")) {
-        //      hexpand = true,
-        //      margin_left = 3
-        //  };
-
-        //  var due_date_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Due date")) {
-        //      hexpand = true,
-        //      margin_left = 3
-        //  };
-
-        //  var date_added_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Date added")) {
-        //      hexpand = true,
-        //      margin_left = 3
-        //  };
-
-        //  var priority_sort_item = new Gtk.RadioButton.with_label_from_widget (custom_sort_item, _("Priority")) {
-        //      hexpand = true,
-        //      margin_left = 3,
-        //      margin_bottom = 3
-        //  };
-        
-        //  var sort_content = new Dialogs.Settings.SettingsContent (_("Sort")) {
-        //      margin = 6,
-        //      margin_top = 0
-        //  };
-
-        //  if (sort_order == 0) {
-        //      custom_sort_item.active = true;
-        //  } else if (sort_order == 1) {
-        //      alphabetically_sort_item.active = true;
-        //  } else if (sort_order == 2) {
-        //      due_date_sort_item.active = true;
-        //  } else if (sort_order == 3) {
-        //      date_added_sort_item.active = true;
-        //  } else if (sort_order == 4) {
-        //      priority_sort_item.active = true;
-        //  }
-        
-        //  sort_content.add_child (custom_sort_item);
-        //  sort_content.add_child (alphabetically_sort_item);
-        //  sort_content.add_child (due_date_sort_item);
-        //  sort_content.add_child (date_added_sort_item);
-        //  sort_content.add_child (priority_sort_item);
-
-        //  // menu.add_item (view_content);
-        //  menu.add_item (sort_content);
-        //  menu.popup ();
-
-        //  custom_sort_item.toggled.connect (() => {
-        //      sort_order = 0;
-        //      update (false);
-        //  });
-
-        //  alphabetically_sort_item.toggled.connect (() => {
-        //      sort_order = 1;
-        //      update (false);
-        //  });
-
-        //  due_date_sort_item.toggled.connect (() => {
-        //      sort_order = 2;
-        //      update (false);
-        //  });
-
-        //  date_added_sort_item.toggled.connect (() => {
-        //      sort_order = 3;
-        //      update (false);
-        //  });
-
-        //  priority_sort_item.toggled.connect (() => {
-        //      sort_order = 4;
-        //      update (false);
-        //  });
-
-        //  view_as_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-            
-        //      if (view_style == ProjectViewStyle.LIST) {
-        //          view_style = ProjectViewStyle.BOARD;
-        //      } else {
-        //          view_style = ProjectViewStyle.LIST;
-        //      }
-
-        //      update (false);
-        //  });
     }
 
     public Objects.Section prepare_new_section () {

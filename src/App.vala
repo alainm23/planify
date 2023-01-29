@@ -62,6 +62,11 @@ public class Planner : Adw.Application {
             return;
         }
 
+        if (main_window != null) {
+            main_window.show ();
+            return;
+        }
+
         main_window = new MainWindow (this);
 
         Planner.settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);

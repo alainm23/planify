@@ -26,9 +26,9 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public int64 section_id { get; set; default = Constants.INACTIVE; }
-    public int64 project_id { get; set; default = Constants.INACTIVE; }
-    public int64 parent_id { get; set; default = Constants.INACTIVE; }
+    public string section_id { get; set; default = ""; }
+    public string project_id { get; set; default = ""; }
+    public string parent_id { get; set; default = ""; }
     
     public int priority { get; set; default = Constants.INACTIVE; }
 
@@ -101,7 +101,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_section {
         get {
-            return section_id != Constants.INACTIVE;
+            return section_id != "";
         }
     }
 
@@ -198,7 +198,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public Item.from_json (Json.Node node) {
-        id = int64.parse (node.get_object ().get_string_member ("id"));
+        id = node.get_object ().get_string_member ("id");
         update_from_json (node);
         update_local_labels (get_labels_from_json (node));
     }
@@ -217,7 +217,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = int64.parse (node.get_object ().get_string_member ("project_id"));
+        project_id = node.get_object ().get_string_member ("project_id");
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
         checked = node.get_object ().get_boolean_member ("checked");
@@ -226,15 +226,15 @@ public class Objects.Item : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
 
         if (!node.get_object ().get_null_member ("section_id")) {
-            section_id = int64.parse (node.get_object ().get_string_member ("section_id"));
+            section_id = node.get_object ().get_string_member ("section_id");
         } else{
-            section_id = Constants.INACTIVE;
+            section_id = "";
         }
 
         if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = int64.parse (node.get_object ().get_string_member ("parent_id"));
+            parent_id = node.get_object ().get_string_member ("parent_id");
         } else {
-            parent_id = Constants.INACTIVE;
+            parent_id = "";
         }
 
         if (!node.get_object ().get_null_member ("completed_at")) {
@@ -283,7 +283,7 @@ public class Objects.Item : Objects.BaseObject {
             builder.begin_object ();
 
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             builder.end_object ();
         builder.end_object ();
@@ -472,7 +472,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Objects.ItemLabel? get_label (int64 id) {
+    public Objects.ItemLabel? get_label (string id) {
         Objects.ItemLabel? return_value = null;
         lock (_labels) {
             foreach (var entry in labels.entries) {
@@ -496,13 +496,13 @@ public class Objects.Item : Objects.BaseObject {
         item_label_deleted (item_label);
     }
 
-    public string to_move_json (string type, int64 move_id) {
+    public string to_move_json (string type, string move_id) {
         builder.reset ();
         
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("type");
         builder.add_string_value (type);
@@ -511,7 +511,7 @@ public class Objects.Item : Objects.BaseObject {
         if (Services.Database.get_default ().curTempIds_exists (move_id)) {
             builder.add_string_value (Services.Database.get_default ().get_temp_id (move_id));
         } else {
-            builder.add_int_value (move_id);
+            builder.add_string_value (move_id);
         }
         
         builder.end_object ();
@@ -523,7 +523,7 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public string get_move_item (string uuid, string type, int64 move_id) {
+    public string get_move_item (string uuid, string type, string move_id) {
         builder.reset ();
 
         builder.begin_array ();
@@ -539,10 +539,10 @@ public class Objects.Item : Objects.BaseObject {
             builder.begin_object ();
 
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             builder.set_member_name (type);
-            builder.add_int_value (move_id);
+            builder.add_string_value (move_id);
             
             builder.end_object ();
         builder.end_object ();
@@ -577,21 +577,21 @@ public class Objects.Item : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             if (temp_id != null) {
                 builder.set_member_name ("project_id");
-                builder.add_int_value (project_id);
+                builder.add_string_value (project_id);
                 
-                if (parent_id != Constants.INACTIVE) {
+                if (parent_id != "") {
                     builder.set_member_name ("parent_id");
-                    builder.add_int_value (parent_id);
+                    builder.add_string_value (parent_id);
                 }
 
-                if (section_id != Constants.INACTIVE) {
+                if (section_id != "") {
                     builder.set_member_name ("section_id");
-                    builder.add_int_value (section_id);
+                    builder.add_string_value (section_id);
                 }
             }
 
@@ -645,30 +645,30 @@ public class Objects.Item : Objects.BaseObject {
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("project_id");
         if (Services.Database.get_default ().curTempIds_exists (project_id)) {
             builder.add_string_value (Services.Database.get_default ().get_temp_id (project_id));
         } else {
-            builder.add_int_value (project_id);
+            builder.add_string_value (project_id);
         }
 
-        if (section_id != Constants.INACTIVE) {
+        if (section_id != "") {
             builder.set_member_name ("section_id");
             if (Services.Database.get_default ().curTempIds_exists (section_id)) {
                 builder.add_string_value (Services.Database.get_default ().get_temp_id (section_id));
             } else {
-                builder.add_int_value (section_id);
+                builder.add_string_value (section_id);
             }
         }
 
-        if (section_id != Constants.INACTIVE) {
+        if (section_id != "") {
             builder.set_member_name ("parent_id");
             if (Services.Database.get_default ().curTempIds_exists (parent_id)) {
                 builder.add_string_value (Services.Database.get_default ().get_temp_id (parent_id));
             } else {
-                builder.add_int_value (parent_id);
+                builder.add_string_value (parent_id);
             }
         }
 
@@ -727,7 +727,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Objects.Item? get_item (int64 id) {
+    public Objects.Item? get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
             foreach (var item in items) {
@@ -764,7 +764,7 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                int64? id = Services.Todoist.get_default ().add.end (res);
+                string? id = Services.Todoist.get_default ().add.end (res);
                 if (id != null) {
                     new_item.id = id;
                     insert_duplicate (new_item);
@@ -777,7 +777,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void insert_duplicate (Objects.Item new_item) {
-        if (new_item.section_id != Constants.INACTIVE) {
+        if (new_item.section_id != "") {
             Services.Database.get_default ().get_section (new_item.section_id)
                 .add_item_if_not_exists (new_item);
         } else {

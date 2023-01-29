@@ -114,25 +114,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         cal.notify["color"].connect (set_color);
 
         update_timelabel ();
-        check_visible ();
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "calendar-sources-disabled") {
-                check_visible ();
-            }
-        });
-    }
-
-    private void check_visible () {
-        bool returned = true;
-
-        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
-            if (cal.ref_source ().uid == uid) {
-                returned = false;
-            }
-        }
-
-        main_revealer.reveal_child = returned;
     }
 
     private void update_timelabel () {

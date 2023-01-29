@@ -26,7 +26,7 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
     public bool is_creating {
         get {
-            return reminder.id == Constants.INACTIVE;
+            return reminder.id == "";
         }
     }
 

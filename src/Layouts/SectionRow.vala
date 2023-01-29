@@ -40,7 +40,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     public bool is_inbox_section {
         get {
-            return section.id == Constants.INACTIVE;
+            return section.id == "";
         }
     }
 
@@ -53,7 +53,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     public bool is_creating {
         get {
-            return section.id == Constants.INACTIVE;
+            return section.id == "";
         }
     }
 
@@ -73,7 +73,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
     public SectionRow.for_project (Objects.Project project) {
         var section = new Objects.Section ();
-        section.id = Constants.INACTIVE;
+        section.id = "";
         section.project_id = project.id;
         section.name = _("(No Section)");
 
@@ -274,7 +274,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
         Planner.event_bus.checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id &&
-                item.parent_id == Constants.INACTIVE) {
+                item.parent_id == "") {
                 if (!old_checked) {
                     if (items.has_key (item.id_string)) {
                         items [item.id_string].hide_destroy ();
@@ -338,7 +338,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
 
             if (item.project_id == section.project_id && item.section_id == section.id &&
-                item.parent_id == Constants.INACTIVE) {
+                item.parent_id == "") {
                 add_item (item);
             }
         });

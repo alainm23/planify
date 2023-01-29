@@ -39,9 +39,7 @@ public class Widgets.CalendarSourceRow : Gtk.ListBoxRow {
     construct {
         E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
 
-        checked_button = new Gtk.CheckButton.with_label (source.dup_display_name ()) {
-            active = !get_source_visible ()
-        };
+        checked_button = new Gtk.CheckButton.with_label (source.dup_display_name ());
         // checked_button.add_css_class ("default_check");
 
         var source_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -53,18 +51,6 @@ public class Widgets.CalendarSourceRow : Gtk.ListBoxRow {
         checked_button.toggled.connect (() => {
             visible_changed ();
         });
-    }
-
-    private bool get_source_visible () {
-        bool returned = false;
-
-        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
-            if (source.dup_uid () == uid) {
-                return true;
-            }
-        }
-
-        return returned;
     }
 
     private void style_calendar_color (string color) {

@@ -152,7 +152,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_sync_manually () {
-        if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
+        if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
     }

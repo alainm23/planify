@@ -99,6 +99,21 @@ public class Layouts.Sidebar : Gtk.Grid {
         Planner.event_bus.inbox_project_changed.connect (() => {
             add_all_projects ();
             add_all_favorites ();
+
+            var default_inbox = (DefaultInboxProject) Planner.settings.get_enum ("default-inbox");
+            if (default_inbox == DefaultInboxProject.LOCAL) {
+                string id = Planner.settings.get_string ("local-inbox-project-id");
+                if (local_hashmap.has_key (id)) {
+                    local_hashmap [id].hide_destroy ();
+                    local_hashmap.unset (id);
+                }
+            } else if (default_inbox == DefaultInboxProject.TODOIST) {
+                string id = Planner.settings.get_string ("todoist-inbox-project-id");
+                if (todoist_hashmap.has_key (id)) {
+                    todoist_hashmap [id].hide_destroy ();
+                    todoist_hashmap.unset (id);
+                }
+            }
         });
     }
 
@@ -106,7 +121,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
         
         if (is_logged_in) {
-            todoist_projects_header.header_title = Planner.settings.get_string ("todoist-user-email");
+            todoist_projects_header.header_title = _("Todoist");
             todoist_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         } else {
             todoist_projects_header.header_title = _("Todoist");
@@ -128,7 +143,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
 
         Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
-            if (old_parent_id == Constants.INACTIVE) {
+            if (old_parent_id == "") {
                 if (local_hashmap.has_key (project.id_string)) {
                     local_hashmap [project.id_string].hide_destroy ();
                     local_hashmap.unset (project.id_string);
@@ -140,7 +155,7 @@ public class Layouts.Sidebar : Gtk.Grid {
                 }
             }
 
-            if (project.parent_id == Constants.INACTIVE) {
+            if (project.parent_id == "") {
                 add_row_project (project);
             }
         });
@@ -193,7 +208,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     }
 
     private void add_row_project (Objects.Project project) {
-        if (!project.inbox_project && project.parent_id == Constants.INACTIVE) {
+        if (!project.inbox_project && project.parent_id == "") {
             if (project.backend_type == BackendType.TODOIST) {
                 if (!todoist_hashmap.has_key (project.id_string)) {
                     todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);

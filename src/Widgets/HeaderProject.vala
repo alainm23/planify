@@ -98,6 +98,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
 
         Timeout.add (icon_progress_stack.transition_duration, () => {
             icon_progress_stack.visible_child_name = project.inbox_project ? "icon" : "color";
+            name_editable.text = project.inbox_project ? _("Inbox") : project.name;
             
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
                 progress_emoji_stack.visible_child_name = "progress";

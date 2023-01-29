@@ -16,17 +16,6 @@
         <value nick="All Tasks" value="5" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.button-layout">
-        <value nick="elementary" value="0" />
-        <value nick="Ubuntu" value="1" />
-        <value nick="Windows" value="2" />
-        <value nick="macOS" value="3" />
-        <value nick="Minimize Left" value="4" />
-        <value nick="Minimize Right" value="5" />
-        <value nick="Close Only Left" value="6" />
-        <value nick="Close Only Right" value="7" />
-    </enum>
-
     <enum id="com.github.alainm23.task-planner.appearance">
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
@@ -54,11 +43,9 @@
         <value nick="12h" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.backend-type">
-        <value nick="none" value="0" />
-        <value nick="local" value="1" />
-        <value nick="todoist" value="2" />
-        <value nick="caldav" value="3" />
+    <enum id="com.github.alainm23.task-planner.default-inbox">
+        <value nick="local" value="0" />
+        <value nick="todoist" value="1" />
     </enum>
 
     <enum id="com.github.alainm23.task-planner.projects-sort-by">
@@ -76,7 +63,7 @@
         <value nick="Wait 2500 milliseconds" value="1" />
     </enum>
 
-    <schema path="/com/github/alainm23/planit/" id="com.github.alainm23.task-planner" gettext-domain="com.github.alainm23.task-planner">        
+    <schema path="/com/github/alainm23/task-planner/" id="com.github.alainm23.task-planner" gettext-domain="com.github.alainm23.task-planner">        
         <key name="badge-count" enum="com.github.alainm23.task-planner.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
@@ -95,7 +82,7 @@
             <description></description>
         </key>
 
-        <key name="backend-type" enum="com.github.alainm23.task-planner.backend-type">
+        <key name="default-inbox" enum="com.github.alainm23.task-planner.default-inbox">
             <default>"local"</default>
             <summary></summary>
             <description></description>
@@ -135,12 +122,6 @@
             <default>true</default>
             <summary>Dark Mode.</summary>
             <description>Dark Mode.</description>
-        </key>
-        
-        <key name="button-layout" enum="com.github.alainm23.task-planner.button-layout">
-            <default>"elementary"</default>
-            <summary>Order the buttons on the title bar</summary>
-            <description>Order the buttons on the title bar</description>
         </key>
 
         <key name="default-priority" enum="com.github.alainm23.task-planner.default-priority">
@@ -191,18 +172,6 @@
             <description>Most recent window width</description>
         </key>
 
-        <key name="project-dialog-size" type="(ii)">
-          <default>(583, 725)</default>
-          <summary>Most recent window size</summary>
-          <description>Most recent window size (width, height)</description>
-        </key>
-
-        <key name="project-dialog-position" type="(ii)">
-          <default>(699, 47)</default>
-          <summary>Most recent window size</summary>
-          <description>Most recent window size (width, height)</description>
-        </key>
-
         <key name="pane-position" type="i">
             <default>225</default>
             <summary>Most recent pane position</summary>
@@ -221,8 +190,14 @@
             <description>Underline completed tasks.</description>
         </key>
 
-        <key name="inbox-project-id" type="x">
-            <default>0</default>
+        <key name="inbox-project-id" type="s">
+            <default>""</default>
+            <summary>Inbox Project ID</summary>
+            <description>Inbox Project ID</description>
+        </key>
+
+        <key name="local-inbox-project-id" type="s">
+            <default>""</default>
             <summary>Inbox Project ID</summary>
             <description>Inbox Project ID</description>
         </key>
@@ -305,6 +280,12 @@
             <description>Todoist user is premium</description>
         </key>
 
+        <key name="todoist-inbox-project-id" type="s">
+            <default>""</default>
+            <summary>Todoist Inbox Project ID</summary>
+            <description>Todoist Inbox Project ID</description>
+        </key>
+
         <key name="slim-mode" type="b">
             <default>true</default>
             <summary>Slim Mode</summary>
@@ -327,12 +308,6 @@
             <default>true</default>
             <summary>Calendar enabled</summary>
             <description>Calendar enabled</description>
-        </key>
-
-        <key name="calendar-sources-disabled" type="as">
-            <default>[]</default>
-            <summary></summary>
-            <description></description>
         </key>
     </schema>
 </schemalist>

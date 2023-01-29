@@ -28,14 +28,14 @@ public class Dialogs.Label : Adw.Window {
 
     public bool is_creating {
         get {
-            return label.id == Constants.INACTIVE;
+            return label.id == "";
         }
     }
 
     public Label.new (bool todoist = false) {
         var label = new Objects.Label ();
         label.color = "blue";
-        label.id = Constants.INACTIVE;
+        label.id = "";
         label.todoist = todoist;
 
         Object (

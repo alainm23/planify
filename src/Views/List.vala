@@ -35,7 +35,7 @@ public class Views.List : Gtk.Grid {
             margin_bottom = 6
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description")) {
             left_margin = 6,
             right_margin = 6,
             top_margin = 6,

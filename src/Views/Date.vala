@@ -576,7 +576,7 @@ public class Views.Date : Gtk.Grid {
             row.update_inserted_item ();
         }
 
-        if (row.item.section_id != Constants.INACTIVE) {
+        if (row.item.section_id != "") {
             Services.Database.get_default ().get_section (row.item.section_id)
                 .add_item_if_not_exists (row.item);
         } else {

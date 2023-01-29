@@ -1,9 +1,9 @@
 public class Layouts.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
 
-    public int64 project_id { get; set; default = Constants.INACTIVE; }
-    public int64 section_id { get; set; default = Constants.INACTIVE; }
-    public int64 parent_id { get; set; default = Constants.INACTIVE; }
+    public string project_id { get; set; default = ""; }
+    public string section_id { get; set; default = ""; }
+    public string parent_id { get; set; default = ""; }
 
     private Gtk.CheckButton checked_button;
     private Widgets.SourceView content_textview;
@@ -131,7 +131,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public bool is_creating {
         get {
-            return item.id == Constants.INACTIVE;
+            return item.id == "";
         }
     }
 
@@ -149,7 +149,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
-    public int64 update_id { get; set; default = Util.get_default ().generate_id (); }
+    public int64 update_id { get; set; default = int64.parse (Util.get_default ().generate_id ()); }
     public bool on_drag = false;
 
     public signal void item_added ();
@@ -302,7 +302,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             margin_start = 24
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description")) {
             height_request = 64,
             left_margin = 24,
             right_margin = 6,
@@ -769,7 +769,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                int64? id = Services.Todoist.get_default ().add.end (res);
+                string? id = Services.Todoist.get_default ().add.end (res);
                 if (id != null) {
                     item.id = id;
                     item_added ();
@@ -1358,7 +1358,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
     }
 
-    public void move (int64 project_id, int64 section_id) {
+    public void move (string project_id, string section_id) {
         if (is_creating) {
             item.project_id = project_id;
             item.section_id = section_id;
@@ -1368,9 +1368,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (item.project.backend_type == BackendType.TODOIST) {
                     is_loading = true;
 
-                    int64 move_id = project_id;
+                    string move_id = project_id;
                     string move_type = "project_id";
-                    if (section_id != Constants.INACTIVE) {
+                    if (section_id != "") {
                         move_type = "section_id";
                         move_id = section_id;
                     }
@@ -1390,9 +1390,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    private void move_item (int64 project_id, int64 section_id) {
-        int64 old_project_id = item.project_id;
-        int64 old_section_id = item.section_id;
+    private void move_item (string project_id, string section_id) {
+        string old_project_id = item.project_id;
+        string old_section_id = item.section_id;
 
         item.project_id = project_id;
         item.section_id = section_id;

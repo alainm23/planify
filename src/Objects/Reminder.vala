@@ -1,6 +1,6 @@
 public class Objects.Reminder : Objects.BaseObject {
     public int64 notify_uid { get; set; default = Constants.INACTIVE; }
-    public int64 item_id { get; set; default = Constants.INACTIVE; }
+    public string item_id { get; set; default = ""; }
     public string service { get; set; default = ""; }
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public int mm_offset { get; set; default = Constants.INACTIVE; }
@@ -50,11 +50,11 @@ public class Objects.Reminder : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             builder.set_member_name ("item_id");
-            builder.add_int_value (item_id);
+            builder.add_string_value (item_id);
 
             builder.set_member_name ("due");
             builder.begin_object ();

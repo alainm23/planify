@@ -133,7 +133,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         }
     }
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"));
+        Objects.Project inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
         update_count_label (inbox_project.project_count);
 
         inbox_project.project_count_updated.connect (() => {
@@ -141,7 +141,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         });
 
         Planner.event_bus.inbox_project_changed.connect (() => {
-            inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"));
+            inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
             update_count_label (inbox_project.project_count);
         });
     }

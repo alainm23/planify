@@ -20,7 +20,7 @@
 */
 
 public class Objects.Section : Objects.BaseObject {
-    public int64 project_id { get; set; default = 0; }
+    public string project_id { get; set; default = ""; }
     public string archived_at { get; set; default = ""; }
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public int section_order { get; set; default = 0; }
@@ -127,12 +127,12 @@ public class Objects.Section : Objects.BaseObject {
     }
 
     public Section.from_json (Json.Node node) {
-        id = int64.parse (node.get_object ().get_string_member ("id"));
+        id = node.get_object ().get_string_member ("id");
         update_from_json (node);
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = int64.parse (node.get_object ().get_string_member ("project_id"));
+        project_id = node.get_object ().get_string_member ("project_id");
         name = node.get_object ().get_string_member ("name");
         added_at = node.get_object ().get_string_member ("added_at");
         section_order = (int32) node.get_object ().get_int_member ("section_order");
@@ -163,7 +163,7 @@ public class Objects.Section : Objects.BaseObject {
         }
     }
 
-    public Objects.Item? get_item (int64 id) {
+    public Objects.Item? get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
             foreach (var item in items) {
@@ -221,12 +221,12 @@ public class Objects.Section : Objects.BaseObject {
             
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             if (temp_id != null) {
                 builder.set_member_name ("project_id");
-                builder.add_int_value (project_id);
+                builder.add_string_value (project_id);
             }
 
             builder.set_member_name ("name");
@@ -253,13 +253,13 @@ public class Objects.Section : Objects.BaseObject {
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("project_id");
         if (Services.Database.get_default ().curTempIds_exists (project_id)) {
             builder.add_string_value (Services.Database.get_default ().get_temp_id (project_id));
         } else {
-            builder.add_int_value (project_id);
+            builder.add_string_value (project_id);
         }
         
         builder.set_member_name ("name");   
@@ -346,7 +346,7 @@ public class Objects.Section : Objects.BaseObject {
             builder.begin_object ();
             
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             builder.set_member_name ("project_id");
             builder.add_int_value (new_project_id);

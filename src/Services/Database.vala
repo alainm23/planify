@@ -16,7 +16,7 @@ public class Services.Database : GLib.Object {
     public signal void label_deleted (Objects.Label label);
 
     public signal void section_deleted (Objects.Section section);
-    public signal void section_moved (Objects.Section section, int64 old_project_id);
+    public signal void section_moved (Objects.Section section, string old_project_id);
     
     public signal void item_deleted (Objects.Item item);
     public signal void item_added (Objects.Item item, bool insert = true);
@@ -158,7 +158,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Labels (
-                id              INTEGER PRIMARY KEY,
+                id              TEXT PRIMARY KEY,
                 name            TEXT,
                 color           TEXT,
                 item_order      INTEGER,
@@ -175,7 +175,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Projects (
-                id               INTEGER PRIMARY KEY,
+                id               TEXT PRIMARY KEY,
                 name             TEXT NOT NULL,
                 color            TEXT,
                 backend_type     TEXT,
@@ -188,7 +188,7 @@ public class Services.Database : GLib.Object {
                 shared           INTEGER,
                 view_style       TEXT,
                 sort_order       INTEGER,
-                parent_id        INTEGER,
+                parent_id        TEXT,
                 collapsed        INTEGER,
                 icon_style       TEXT,
                 emoji            TEXT,
@@ -204,11 +204,11 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Sections (
-                id              INTEGER PRIMARY KEY,
+                id              TEXT PRIMARY KEY,
                 name            TEXT,
                 archived_at     TEXT,
                 added_at        TEXT,
-                project_id      INTEGER,
+                project_id      TEXT,
                 section_order   INTEGER,
                 collapsed       INTEGER,
                 is_deleted      INTEGER,
@@ -223,16 +223,16 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Items (
-                id                  INTEGER PRIMARY KEY,
+                id                  TEXT PRIMARY KEY,
                 content             TEXT NOT NULL,
                 description         TEXT,
                 due                 TEXT,
                 added_at            TEXT,
                 completed_at        TEXT,
                 updated_at          TEXT,
-                section_id          INTEGER,
-                project_id          INTEGER,
-                parent_id           INTEGER,
+                section_id          TEXT,
+                project_id          TEXT,
+                parent_id           TEXT,
                 priority            INTEGER,
                 child_order         INTEGER,
                 checked             INTEGER,
@@ -249,9 +249,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Items_Labels (
-                id              INTEGER PRIMARY KEY,
-                item_id         INTEGER,
-                label_id        INTEGER,
+                id              TEXT PRIMARY KEY,
+                item_id         TEXT,
+                label_id        TEXT,
                 CONSTRAINT unique_items_labels UNIQUE (item_id, label_id),
                 FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE,
                 FOREIGN KEY (label_id) REFERENCES Labels (id) ON DELETE CASCADE
@@ -264,9 +264,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Reminders (
-                id                  INTEGER PRIMARY KEY,
+                id                  TEXT PRIMARY KEY,
                 notify_uid          INTEGER,
-                item_id             INTEGER,
+                item_id             TEXT,
                 service             TEXT,
                 type                TEXT,
                 due                 TEXT,
@@ -283,7 +283,7 @@ public class Services.Database : GLib.Object {
         sql = """
             CREATE TABLE IF NOT EXISTS Queue (
                 uuid       TEXT PRIMARY KEY,
-                object_id  INTEGER,
+                object_id  TEXT,
                 query      TEXT,
                 temp_id    TEXT,
                 args       TEXT,
@@ -297,7 +297,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS CurTempIds (
-                id          INTEGER PRIMARY KEY,
+                id          TEXT PRIMARY KEY,
                 temp_id     TEXT,
                 object      TEXT
             );
@@ -368,7 +368,7 @@ public class Services.Database : GLib.Object {
 
     public Objects.Project _fill_project (Sqlite.Statement stmt) {
         Objects.Project return_value = new Objects.Project ();
-        return_value.id = stmt.column_int64 (0);
+        return_value.id = stmt.column_text (0);
         return_value.name = stmt.column_text (1);
         return_value.color = stmt.column_text (2);
         return_value.backend_type = get_backend_type_by_text (stmt, 3);
@@ -381,7 +381,7 @@ public class Services.Database : GLib.Object {
         return_value.shared = get_parameter_bool (stmt, 10);
         return_value.view_style = get_view_style_by_text (stmt, 11);
         return_value.sort_order = stmt.column_int (12);
-        return_value.parent_id = stmt.column_int64 (13);
+        return_value.parent_id = stmt.column_text (13);
         return_value.collapsed = get_parameter_bool (stmt, 14);
         return_value.icon_style = get_icon_style_by_text (stmt, 15);
         return_value.emoji = stmt.column_text (16);
@@ -432,7 +432,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", project.id);
+        set_parameter_str (stmt, "$id", project.id);
         set_parameter_str (stmt, "$name", project.name);
         set_parameter_str (stmt, "$color", project.color);
         set_parameter_str (stmt, "$backend_type", project.backend_type.to_string ());
@@ -445,7 +445,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
         set_parameter_int (stmt, "$sort_order", project.sort_order);
-        set_parameter_int64 (stmt, "$parent_id", project.parent_id);
+        set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
@@ -469,7 +469,7 @@ public class Services.Database : GLib.Object {
         return stmt.step () == Sqlite.DONE;
     }
 
-    public Objects.Project get_project (int64 id) {
+    public Objects.Project get_project (string id) {
         Objects.Project? return_value = null;
         lock (_projects) {
             foreach (var project in projects) {
@@ -482,7 +482,7 @@ public class Services.Database : GLib.Object {
             return return_value;
         }
     }
-
+    
     public void delete_project (Objects.Project project) {
         Sqlite.Statement stmt;
 
@@ -491,7 +491,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", project.id);
+        set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
             foreach (Objects.Section section in project.sections) {
@@ -541,14 +541,14 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$shared", project.shared);
         set_parameter_str (stmt, "$view_style", project.view_style.to_string ());
         set_parameter_int (stmt, "$sort_order", project.sort_order);
-        set_parameter_int64 (stmt, "$parent_id", project.parent_id);
+        set_parameter_str (stmt, "$parent_id", project.parent_id);
         set_parameter_bool (stmt, "$collapsed", project.collapsed);
         set_parameter_str (stmt, "$icon_style", project.icon_style.to_string ());
         set_parameter_str (stmt, "$emoji", project.emoji);
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
-        set_parameter_int64 (stmt, "$id", project.id);
+        set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
             project.updated ();
@@ -595,7 +595,7 @@ public class Services.Database : GLib.Object {
 
     public Objects.Label _fill_label (Sqlite.Statement stmt) {
         Objects.Label return_value = new Objects.Label ();
-        return_value.id = stmt.column_int64 (0);
+        return_value.id = stmt.column_text (0);
         return_value.name = stmt.column_text (1);
         return_value.color = stmt.column_text (2);
         return_value.item_order = stmt.column_int (3);
@@ -614,7 +614,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", label.id);
+        set_parameter_str (stmt, "$id", label.id);
         set_parameter_str (stmt, "$name", label.name);
         set_parameter_str (stmt, "$color", label.color);
         set_parameter_int (stmt, "$item_order", label.item_order);
@@ -633,7 +633,7 @@ public class Services.Database : GLib.Object {
         return stmt.step () == Sqlite.DONE;
     }
 
-    public bool label_exists (int64 id) {
+    public bool label_exists (string id) {
         bool return_value = false;
         lock (_labels) {
             foreach (var label in _labels) {
@@ -647,7 +647,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Label get_label (int64 id) {
+    public Objects.Label get_label (string id) {
         Objects.Label? return_value = null;
         lock (_labels) {
             foreach (var label in labels) {
@@ -690,7 +690,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", label.id);
+        set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () == Sqlite.DONE) {
             label.deleted ();
@@ -717,7 +717,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
         set_parameter_bool (stmt, "$todoist", label.todoist);
-        set_parameter_int64 (stmt, "$id", label.id);
+        set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () == Sqlite.DONE) {
             label.updated ();
@@ -740,13 +740,13 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
 
         while (stmt.step () == Sqlite.ROW) {
             Objects.ItemLabel item_label = new Objects.ItemLabel ();
-            item_label.id = stmt.column_int64 (0);
-            item_label.item_id = stmt.column_int64 (1);
-            item_label.label_id = stmt.column_int64 (2);
+            item_label.id = stmt.column_text (0);
+            item_label.item_id = stmt.column_text (1);
+            item_label.label_id = stmt.column_text (2);
             return_value [item_label.label_id.to_string ()] = item_label;
         }
         stmt.reset ();
@@ -762,9 +762,9 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item_label.id);
-        set_parameter_int64 (stmt, "$item_id", item_label.item_id);
-        set_parameter_int64 (stmt, "$label_id", item_label.label_id);
+        set_parameter_str (stmt, "$id", item_label.id);
+        set_parameter_str (stmt, "$item_id", item_label.item_id);
+        set_parameter_str (stmt, "$label_id", item_label.label_id);
 
         if (stmt.step () == Sqlite.DONE) {
             item_label_added (item_label);
@@ -783,7 +783,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item_label.id);
+        set_parameter_str (stmt, "$id", item_label.id);
 
         if (stmt.step () == Sqlite.DONE) {
             item_label.deleted ();
@@ -810,11 +810,11 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", section.id);
+        set_parameter_str (stmt, "$id", section.id);
         set_parameter_str (stmt, "$name", section.name);
         set_parameter_str (stmt, "$archived_at", section.archived_at);
         set_parameter_str (stmt, "$added_at", section.added_at);
-        set_parameter_int64 (stmt, "$project_id", section.project_id);
+        set_parameter_str (stmt, "$project_id", section.project_id);
         set_parameter_int (stmt, "$section_order", section.section_order);
         set_parameter_bool (stmt, "$collapsed", section.collapsed);
         set_parameter_bool (stmt, "$is_deleted", section.is_deleted);
@@ -859,7 +859,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Section get_section (int64 id) {
+    public Objects.Section get_section (string id) {
         Objects.Section? return_value = null;
         lock (_sections) {
             foreach (var section in sections) {
@@ -875,11 +875,11 @@ public class Services.Database : GLib.Object {
 
     public Objects.Section _fill_section (Sqlite.Statement stmt) {
         Objects.Section return_value = new Objects.Section ();
-        return_value.id = stmt.column_int64 (0);
+        return_value.id = stmt.column_text (0);
         return_value.name = stmt.column_text (1);
         return_value.archived_at = stmt.column_text (2);
         return_value.added_at = stmt.column_text (3);
-        return_value.project_id = stmt.column_int64 (4);
+        return_value.project_id = stmt.column_text (4);
         return_value.section_order = stmt.column_int (5);
         return_value.collapsed = get_parameter_bool (stmt, 6);
         return_value.is_deleted = get_parameter_bool (stmt, 7);
@@ -895,7 +895,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", section.id);
+        set_parameter_str (stmt, "$id", section.id);
 
         if (stmt.step () == Sqlite.DONE) {
             foreach (Objects.Item item in section.items) {
@@ -923,12 +923,12 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$name", section.name);
         set_parameter_str (stmt, "$archived_at", section.archived_at);
         set_parameter_str (stmt, "$added_at", section.added_at);
-        set_parameter_int64 (stmt, "$project_id", section.project_id);
+        set_parameter_str (stmt, "$project_id", section.project_id);
         set_parameter_int (stmt, "$section_order", section.section_order);
         set_parameter_bool (stmt, "$collapsed", section.collapsed);
         set_parameter_bool (stmt, "$is_deleted", section.is_deleted);
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
-        set_parameter_int64 (stmt, "$id", section.id);
+        set_parameter_str (stmt, "$id", section.id);
 
         if (stmt.step () == Sqlite.DONE) {
             section.updated ();
@@ -939,7 +939,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void move_section (Objects.Section section, int64 old_project_id) {
+    public void move_section (Objects.Section section, string old_project_id) {
         Sqlite.Statement stmt;
 
         sql = """
@@ -947,8 +947,8 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$project_id", section.project_id);
-        set_parameter_int64 (stmt, "$id", section.id);
+        set_parameter_str (stmt, "$project_id", section.project_id);
+        set_parameter_str (stmt, "$id", section.id);
 
         if (stmt.step () == Sqlite.DONE) {
             stmt.reset ();
@@ -958,8 +958,8 @@ public class Services.Database : GLib.Object {
             """;
 
             db.prepare_v2 (sql, sql.length, out stmt);
-            set_parameter_int64 (stmt, "$project_id", section.project_id);
-            set_parameter_int64 (stmt, "$section_id", section.id);
+            set_parameter_str (stmt, "$project_id", section.project_id);
+            set_parameter_str (stmt, "$section_id", section.id);
             
             if (stmt.step () == Sqlite.DONE) {
                 foreach (Objects.Item item in section.items) {
@@ -992,16 +992,16 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
         set_parameter_str (stmt, "$content", item.content);
         set_parameter_str (stmt, "$description", item.description);
         set_parameter_str (stmt, "$due", item.due.to_string ());
         set_parameter_str (stmt, "$added_at", item.added_at);
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$updated_at", item.updated_at);
-        set_parameter_int64 (stmt, "$section_id", item.section_id);
-        set_parameter_int64 (stmt, "$project_id", item.project_id);
-        set_parameter_int64 (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$section_id", item.section_id);
+        set_parameter_str (stmt, "$project_id", item.project_id);
+        set_parameter_str (stmt, "$parent_id", item.parent_id);
         set_parameter_int (stmt, "$priority", item.priority);
         set_parameter_int (stmt, "$child_order", item.child_order);
         set_parameter_bool (stmt, "$checked", item.checked);
@@ -1025,10 +1025,10 @@ public class Services.Database : GLib.Object {
         item_added (item, insert);
 
         if (insert) {
-            if (item.parent_id != Constants.INACTIVE) {
+            if (item.parent_id != "") {
                 item.parent.item_added (item);
             } else {
-                if (item.section_id == Constants.INACTIVE) {
+                if (item.section_id == "") {
                     item.project.item_added (item);
                 } else {
                     item.section.item_added (item);
@@ -1055,7 +1055,7 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
-    public Objects.Item get_item (int64 id) {
+    public Objects.Item get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
             foreach (var item in items) {
@@ -1091,13 +1091,13 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (var item in items) {
                 if (object is Objects.Project) {
-                    if (item.project_id == object.id && item.section_id == Constants.INACTIVE && item.parent_id == Constants.INACTIVE) {
+                    if (item.project_id == object.id && item.section_id == "" && item.parent_id == "") {
                         return_value.add (item);
                     }
                 }
                 
                 if (object is Objects.Section) {
-                    if (item.section_id == object.id && item.parent_id == Constants.INACTIVE) {
+                    if (item.section_id == object.id && item.parent_id == "") {
                         return_value.add (item);
                     }
                 }
@@ -1122,16 +1122,16 @@ public class Services.Database : GLib.Object {
 
     public Objects.Item _fill_item (Sqlite.Statement stmt) {
         Objects.Item return_value = new Objects.Item ();
-        return_value.id = stmt.column_int64 (0);
+        return_value.id = stmt.column_text (0);
         return_value.content = stmt.column_text (1);
         return_value.description = stmt.column_text (2);
         return_value.due.update_from_json (get_due_parameter (stmt, 3));
         return_value.added_at = stmt.column_text (4);
         return_value.completed_at = stmt.column_text (5);
         return_value.updated_at = stmt.column_text (6);
-        return_value.section_id = stmt.column_int64 (7);
-        return_value.project_id = stmt.column_int64 (8);
-        return_value.parent_id = stmt.column_int64 (9);
+        return_value.section_id = stmt.column_text (7);
+        return_value.project_id = stmt.column_text (8);
+        return_value.parent_id = stmt.column_text (9);
         return_value.priority = stmt.column_int (10);
         return_value.child_order = stmt.column_int (11);
         return_value.checked = get_parameter_bool (stmt, 12);
@@ -1312,7 +1312,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
             foreach (Objects.Item subitem in item.items) {
@@ -1348,9 +1348,9 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$added_at", item.added_at);
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$updated_at", item.updated_at);
-        set_parameter_int64 (stmt, "$section_id", item.section_id);
-        set_parameter_int64 (stmt, "$project_id", item.project_id);
-        set_parameter_int64 (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$section_id", item.section_id);
+        set_parameter_str (stmt, "$project_id", item.project_id);
+        set_parameter_str (stmt, "$parent_id", item.parent_id);
         set_parameter_int (stmt, "$priority", item.priority);
         set_parameter_int (stmt, "$child_order", item.child_order);
         set_parameter_bool (stmt, "$checked", item.checked);
@@ -1358,7 +1358,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$day_order", item.day_order);
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
             item.updated ();
@@ -1380,7 +1380,7 @@ public class Services.Database : GLib.Object {
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_bool (stmt, "$checked", item.checked);
         set_parameter_str (stmt, "$completed_at", item.completed_at);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -1419,7 +1419,7 @@ public class Services.Database : GLib.Object {
             set_parameter_int (stmt, "$order", ((Objects.Label) base_object).item_order);
         }
 
-        set_parameter_int64 (stmt, "$id", base_object.id);
+        set_parameter_str (stmt, "$id", base_object.id);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -1437,6 +1437,19 @@ public class Services.Database : GLib.Object {
         lock (_projects) {
             foreach (var project in projects) {
                 if (search_text.down () in project.name.down ()) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Project> get_all_projects_by_todoist () {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.backend_type == BackendType.TODOIST) {
                     return_value.add (project);
                 }
             }
@@ -1471,8 +1484,8 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", reminder.id);
-        set_parameter_int64 (stmt, "$item_id", reminder.item_id);
+        set_parameter_str (stmt, "$id", reminder.id);
+        set_parameter_str (stmt, "$item_id", reminder.item_id);
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
 
         if (stmt.step () != Sqlite.DONE) {
@@ -1505,8 +1518,8 @@ public class Services.Database : GLib.Object {
     
     public Objects.Reminder _fill_reminder (Sqlite.Statement stmt) {
         Objects.Reminder return_value = new Objects.Reminder ();
-        return_value.id = stmt.column_int64 (0);
-        return_value.item_id = stmt.column_int64 (1);
+        return_value.id = stmt.column_text (0);
+        return_value.item_id = stmt.column_text (1);
         return_value.due.update_from_json (get_due_parameter (stmt, 2));
         return return_value;
     }
@@ -1524,7 +1537,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Reminder get_reminder (int64 id) {
+    public Objects.Reminder get_reminder (string id) {
         Objects.Reminder? return_value = null;
         lock (_reminders) {
             foreach (var reminder in reminders) {
@@ -1546,7 +1559,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", reminder.id);
+        set_parameter_str (stmt, "$id", reminder.id);
 
         if (stmt.step () == Sqlite.DONE) {
             reminder.deleted ();
@@ -1572,7 +1585,7 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$uuid", queue.uuid);
-        set_parameter_int64 (stmt, "$object_id", queue.object_id);
+        set_parameter_str (stmt, "$object_id", queue.object_id);
         set_parameter_str (stmt, "$query", queue.query);
         set_parameter_str (stmt, "$temp_id", queue.temp_id);
         set_parameter_str (stmt, "$args", queue.args);
@@ -1605,7 +1618,7 @@ public class Services.Database : GLib.Object {
     public Objects.Queue _fill_queue (Sqlite.Statement stmt) {
         Objects.Queue return_value = new Objects.Queue ();
         return_value.uuid = stmt.column_text (0);
-        return_value.object_id = stmt.column_int64 (1);
+        return_value.object_id = stmt.column_text (1);
         return_value.query = stmt.column_text (2);
         return_value.temp_id = stmt.column_text (3);
         return_value.args = stmt.column_text (4);
@@ -1613,7 +1626,7 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
-    public void insert_CurTempIds (int64 id, string temp_id, string object) { // vala-lint=naming-convention
+    public void insert_CurTempIds (string id, string temp_id, string object) { // vala-lint=naming-convention
         Sqlite.Statement stmt;
 
         sql = """
@@ -1622,7 +1635,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
         set_parameter_str (stmt, "$temp_id", temp_id);
         set_parameter_str (stmt, "$object", object);
 
@@ -1633,7 +1646,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public bool curTempIds_exists (int64 id) { // vala-lint=naming-convention
+    public bool curTempIds_exists (string id) { // vala-lint=naming-convention
         bool returned = false;
         Sqlite.Statement stmt;
 
@@ -1642,7 +1655,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
 
         if (stmt.step () == Sqlite.ROW) {
             returned = stmt.column_int (0) > 0;
@@ -1652,7 +1665,7 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public string get_temp_id (int64 id) {
+    public string get_temp_id (string id) {
         string returned = "";
         Sqlite.Statement stmt;
 
@@ -1661,7 +1674,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
 
         if (stmt.step () == Sqlite.ROW) {
             returned = stmt.column_text (0);
@@ -1671,7 +1684,7 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
-    public void update_project_id (int64 current_id, int64 new_id) {
+    public void update_project_id (string current_id, string new_id) {
         Sqlite.Statement stmt;
 
         sql = """
@@ -1679,8 +1692,8 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$new_id", new_id);
-        set_parameter_int64 (stmt, "$current_id", current_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$current_id", current_id);
 
         if (stmt.step () == Sqlite.DONE) {
             Objects.Project? project = get_project (current_id);
@@ -1695,8 +1708,8 @@ public class Services.Database : GLib.Object {
             """;
 
             db.prepare_v2 (sql, sql.length, out stmt);
-            set_parameter_int64 (stmt, "$new_id", new_id);
-            set_parameter_int64 (stmt, "$current_id", current_id);
+            set_parameter_str (stmt, "$new_id", new_id);
+            set_parameter_str (stmt, "$current_id", current_id);
 
             if (stmt.step () == Sqlite.DONE) {
                 foreach (var section in sections) {
@@ -1712,8 +1725,8 @@ public class Services.Database : GLib.Object {
                 """;
 
                 db.prepare_v2 (sql, sql.length, out stmt);
-                set_parameter_int64 (stmt, "$new_id", new_id);
-                set_parameter_int64 (stmt, "$current_id", current_id);
+                set_parameter_str (stmt, "$new_id", new_id);
+                set_parameter_str (stmt, "$current_id", current_id);
 
                 if (stmt.step () == Sqlite.DONE) {
                     foreach (var item in items) {
@@ -1728,7 +1741,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_section_id (int64 current_id, int64 new_id) {
+    public void update_section_id (string current_id, string new_id) {
         Sqlite.Statement stmt;
 
         sql = """
@@ -1736,8 +1749,8 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$new_id", new_id);
-        set_parameter_int64 (stmt, "$current_id", current_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$current_id", current_id);
 
         if (stmt.step () == Sqlite.DONE) {
             foreach (var section in sections) {
@@ -1753,8 +1766,8 @@ public class Services.Database : GLib.Object {
             """;
 
             db.prepare_v2 (sql, sql.length, out stmt);
-            set_parameter_int64 (stmt, "$new_id", new_id);
-            set_parameter_int64 (stmt, "$current_id", current_id);
+            set_parameter_str (stmt, "$new_id", new_id);
+            set_parameter_str (stmt, "$current_id", current_id);
 
             if (stmt.step () == Sqlite.DONE) {
                 foreach (var item in items) {
@@ -1768,7 +1781,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item_id (int64 current_id, int64 new_id) {
+    public void update_item_id (string current_id, string new_id) {
         Sqlite.Statement stmt;
 
         sql = """
@@ -1776,8 +1789,8 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$new_id", new_id);
-        set_parameter_int64 (stmt, "$current_id", current_id);
+        set_parameter_str (stmt, "$new_id", new_id);
+        set_parameter_str (stmt, "$current_id", current_id);
 
         if (stmt.step () == Sqlite.DONE) {
             foreach (var item in items) {
@@ -1793,8 +1806,8 @@ public class Services.Database : GLib.Object {
             """;
 
             db.prepare_v2 (sql, sql.length, out stmt);
-            set_parameter_int64 (stmt, "$new_id", new_id);
-            set_parameter_int64 (stmt, "$current_id", current_id);
+            set_parameter_str (stmt, "$new_id", new_id);
+            set_parameter_str (stmt, "$current_id", current_id);
 
             if (stmt.step () == Sqlite.DONE) {
                 foreach (var item in items) {
@@ -1834,6 +1847,44 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$uuid", uuid);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public void clear_queue () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM Queue;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public void clear_cur_temp_ids () {
+        Sqlite.Statement stmt;
+        string sql;
+        int res;
+
+        sql = """
+            DELETE FROM CurTempIds;
+        """;
+
+        res = db.prepare_v2 (sql, -1, out stmt);
+        assert (res == Sqlite.OK);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());

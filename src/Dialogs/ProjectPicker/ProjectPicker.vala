@@ -38,7 +38,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         }
     }
 
-    public signal void changed (int64 project_id);
+    public signal void changed (string project_id);
 
     public ProjectPicker () {
         Object (

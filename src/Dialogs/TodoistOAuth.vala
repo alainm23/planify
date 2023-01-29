@@ -41,7 +41,7 @@ public class Dialogs.TodoistOAuth : Adw.Window {
     construct {
         OAUTH_OPEN_URL = OAUTH_OPEN_URL.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, STATE);
 
-        var info_label = new Gtk.Label (_("Loading…"));
+        var info_label = new Gtk.Label (_("Loading"));
 
         var spinner = new Gtk.Spinner ();
         spinner.add_css_class ("text-color");
@@ -122,7 +122,7 @@ public class Dialogs.TodoistOAuth : Adw.Window {
             var redirect_uri = webview.get_uri ();
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (STATE) in redirect_uri)) {
-                info_label.label = _("Synchronizing… Wait a moment please.");
+                info_label.label = _("Synchronizing. Wait a moment please.");
                 get_todoist_token (redirect_uri);
             }
 
@@ -132,14 +132,14 @@ public class Dialogs.TodoistOAuth : Adw.Window {
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
-                info_label.label = _("Please enter your credentials…");
+                info_label.label = _("Please enter your credentials");
                 spinner.stop ();
                 spinner.hide ();
                 return;
             }
 
             if (load_event == WebKit.LoadEvent.STARTED) {
-                info_label.label = _("Loading…");
+                info_label.label = _("Loading");
                 spinner.start ();
                 spinner.show ();
                 return;

@@ -14,7 +14,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
     construct {
         add (get_general_page ());
         add (get_accounts_page ());
-        // add (get_calendar_event_page ());
     }
 
     private Adw.PreferencesPage get_general_page () {
@@ -64,6 +63,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         run_background_row.add_suffix (run_background_switch);
 
         de_group.add (run_background_row);
+
+        var calendar_events_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Planner.settings.get_boolean ("calendar-enabled")
+        };
+
+        var calendar_events_row = new Adw.ActionRow ();
+        calendar_events_row.title = _("Calendar Events");
+        calendar_events_row.set_activatable_widget (calendar_events_switch);
+        calendar_events_row.add_suffix (calendar_events_switch);
+
+        de_group.add (calendar_events_row);
 
         var datetime_group = new Adw.PreferencesGroup ();
         datetime_group.title = _("Date and Time");
@@ -139,7 +150,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         underline_completed_row.set_activatable_widget (underline_completed_switch);
         underline_completed_row.add_suffix (underline_completed_switch);
 
-        tasks_group.add (underline_completed_row);
+        // tasks_group.add (underline_completed_row);
 
         page.add (general_group);
         page.add (de_group);
@@ -156,6 +167,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         run_background_switch.notify["active"].connect (() => {
             Planner.settings.set_boolean ("run-in-background", run_background_switch.active);
+        });
+
+        calendar_events_switch.notify["active"].connect (() => {
+            Planner.settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
         });
 
         clock_format_row.notify["selected"].connect (() => {
@@ -308,64 +323,246 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         page.add (dark_modes_group);
     }
 
-    private Adw.PreferencesPage get_calendar_event_page () {
-        var page = new Adw.PreferencesPage ();
-        page.title = _("Calendar Events");
-        page.name = "calendar-events";
-        page.icon_name = "x-office-calendar-symbolic";
-
-        var default_group = new Adw.PreferencesGroup ();
-
-        var enabled_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("calendar-enabled")
-        };
-
-        var enabled_row = new Adw.ActionRow ();
-        enabled_row.title = _("Show Calendar Events");
-        enabled_row.set_activatable_widget (enabled_switch);
-        enabled_row.add_suffix (enabled_switch);
-
-        default_group.add (enabled_row);
-
-        var listbox = new Gtk.ListBox ();
-
-        var sources_group = new Adw.PreferencesGroup ();
-        sources_group.add (listbox);
-
-        var sources_map = new Gee.HashMap <string, Widgets.CalendarSourceRow> ();
-        var event_model = new Services.CalendarEvents (new GLib.DateTime.now_local ());
-
-        foreach (E.Source source in event_model.get_all_sources ()) {
-            var source_row = new Widgets.CalendarSourceRow (source);
-            source_row.visible_changed.connect (() => {
-                string[] sources_disabled = {};
-
-                foreach (Widgets.CalendarSourceRow item in sources_map.values) {
-                    if (item.source_enabled == false) {
-                        sources_disabled += item.source.dup_uid ();
-                    }
-                }
-
-                Planner.settings.set_strv ("calendar-sources-disabled", sources_disabled);
-            });
-
-            sources_map[source.dup_uid ()] = source_row;
-            listbox.append (sources_map[source.dup_uid ()]);
-        }
-
-        page.add (default_group);
-        page.add (sources_group);
-
-        return page;
-    }
-
     private Adw.PreferencesPage get_accounts_page () {
         var page = new Adw.PreferencesPage ();
         page.title = _("Accounts");
         page.name = "accounts";
         page.icon_name = "org.gnome.Settings-users-symbolic";
+
+        var default_group = new Adw.PreferencesGroup () {
+            visible = Services.Todoist.get_default ().is_logged_in ()
+        };
+
+        var inbox_project_model = new Gtk.StringList (null);
+        inbox_project_model.append (_("On This Computer"));
+        inbox_project_model.append (_("Todoist"));
+
+        var inbox_project_row = new Adw.ComboRow ();
+        inbox_project_row.title = _("Default Inbox Project");
+        inbox_project_row.model = inbox_project_model;
+        inbox_project_row.selected = Planner.settings.get_enum ("default-inbox");
+
+        default_group.add (inbox_project_row);
+
+        // Todoist
+        var todoist_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Todoist.get_default ().is_logged_in ()
+        };
+
+        var todoist_setting_image = new Widgets.DynamicIcon ();
+        todoist_setting_image.size = 19;
+        todoist_setting_image.update_icon_name ("applications-system-symbolic");
+
+        var todoist_setting_button = new Gtk.Button () {
+            margin_end = 6,
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+        todoist_setting_button.child = todoist_setting_image;
+        todoist_setting_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var todoist_setting_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = Services.Todoist.get_default ().is_logged_in ()
+        };
         
+        todoist_setting_revealer.child = todoist_setting_button;
+
+        var todoist_row = new Adw.ActionRow ();
+        todoist_row.icon_name = "planner-todoist";
+        todoist_row.title = _("Todoist");
+        todoist_row.subtitle = _("Synchronize with your Todoist Account");
+        todoist_row.add_suffix (todoist_setting_revealer);
+        todoist_row.add_suffix (todoist_switch);
+
+        // Google Tasks
+        var google_tasks_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = false,
+            sensitive = false
+        };
+
+        var google_tasks_image = new Widgets.DynamicIcon ();
+        google_tasks_image.size = 19;
+        google_tasks_image.update_icon_name ("applications-system-symbolic");
+
+        var google_tasks_button = new Gtk.Button () {
+            margin_end = 6,
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+        google_tasks_button.child = google_tasks_image;
+        google_tasks_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var google_tasks_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = false
+        };
+        
+        google_tasks_revealer.child = google_tasks_button;
+
+        var google_row = new Adw.ActionRow ();
+        google_row.icon_name = "google";
+        google_row.title = _("Google Tasks");
+        google_row.subtitle = _("Synchronize with your Google Account");
+        google_row.add_suffix (google_tasks_revealer);
+        google_row.add_suffix (google_tasks_switch);
+            
+        var accounts_group = new Adw.PreferencesGroup ();
+        accounts_group.title = _("Accounts");
+
+        accounts_group.add (todoist_row);
+        accounts_group.add (google_row);
+
+        page.add (default_group);
+        page.add (accounts_group);
+
+        var todoist_switch_gesture = new Gtk.GestureClick ();
+        todoist_switch_gesture.set_button (1);
+        todoist_switch.add_controller (todoist_switch_gesture);
+
+        todoist_switch_gesture.pressed.connect (() => {
+            todoist_switch.active = !todoist_switch.active;
+
+            if (todoist_switch.active) {
+                todoist_switch.active = false;
+                Services.Todoist.get_default ().init ();
+            } else {
+                confirm_log_out (todoist_switch);
+            }
+        });
+
+        Services.Todoist.get_default ().first_sync_finished.connect (() => {
+            todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
+            todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
+        });
+
+        Services.Todoist.get_default ().log_out.connect (() => {
+            todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
+            todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
+        });
+
+        todoist_setting_button.clicked.connect (() => {
+            present_subpage (get_todoist_view ());
+            can_navigate_back = true;
+        });
+
+        inbox_project_row.notify["selected"].connect (() => {
+            Planner.settings.set_enum ("default-inbox", (int) inbox_project_row.selected);
+            Util.get_default ().change_default_inbox ();
+        });
+
         return page;
+    }
+
+    private void confirm_log_out (Gtk.Switch todoist_switch) {
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        _("Sign off"), _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings."));
+
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                Services.Todoist.get_default ().remove_items ();
+            } else {
+                todoist_switch.active = true;
+            }
+        });
+    }
+
+    private Gtk.Widget get_todoist_view () {
+        var settings_header_box = new Widgets.SettingsHeader (_("Todoist"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
+
+        settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var todoist_avatar = new Adw.Avatar (84, Planner.settings.get_string ("todoist-user-name"), true);
+
+        var file = File.new_for_path (Util.get_default ().get_todoist_avatar_path ());
+        if (file.query_exists ()) {
+            // todoist_avatar.set_loadable_icon (new FileIcon (file));    
+        }
+
+        var todoist_user = new Gtk.Label (Planner.settings.get_string ("todoist-user-name")) {
+            margin_top = 12
+        };
+        todoist_user.add_css_class ("title-1");
+
+        var todoist_email = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        todoist_email.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 64
+        };
+        user_box.append (todoist_avatar);
+        user_box.append (todoist_user);
+        user_box.append (todoist_email);
+
+        var default_group = new Adw.PreferencesGroup ();
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 400,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = default_group;
+
+        var sync_server_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Planner.settings.get_boolean ("todoist-sync-server")
+        };
+
+        var sync_server_row = new Adw.ActionRow ();
+        sync_server_row.title = _("Sync Server");
+        sync_server_row.subtitle = _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.");
+        sync_server_row.set_activatable_widget (sync_server_switch);
+        sync_server_row.add_suffix (sync_server_switch);
+
+        var last_sync_date = new GLib.DateTime.from_iso8601 (
+            Planner.settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
+        );
+
+        var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
+            last_sync_date
+        ));
+        
+        var last_sync_row = new Adw.ActionRow ();
+        last_sync_row.activatable = false;
+        last_sync_row.title = _("Last Sync");
+        last_sync_row.add_suffix (last_sync_label);
+
+        default_group.add (sync_server_row);
+        default_group.add (last_sync_row);
+
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (user_box);
+        main_content.append (content_clamp);
+
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        sync_server_row.notify["active"].connect (() => {
+            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+        });
+
+        return main_content;
     }
 }

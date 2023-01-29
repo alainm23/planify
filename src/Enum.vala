@@ -1,15 +1,6 @@
 public enum ColorScheme {
-    /**
-     * The user has not expressed a color scheme preference. Apps should decide on a color scheme on their own.
-     */
     NO_PREFERENCE,
-    /**
-     * The user prefers apps to use a dark color scheme.
-     */
     DARK,
-    /**
-     * The user prefers a light color scheme.
-     */
     LIGHT
 }
 
@@ -218,4 +209,9 @@ public enum RecurrencyType {
                 assert_not_reached();
         }
     }
+}
+
+public enum DefaultInboxProject {
+    LOCAL,
+    TODOIST
 }

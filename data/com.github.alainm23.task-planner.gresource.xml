@@ -11,6 +11,7 @@
   </gresource>
   <gresource prefix="/com/github/alainm23/task-planner">
     <file alias="index.css" compressed="true">stylesheet/index.css</file>
+    <file alias="shortcuts.ui" compressed="true">ui/shortcuts.ui</file>
 
     <file alias="planner-inbox.svg">resources/planner-inbox.svg</file>
     <file alias="planner-today.svg">resources/planner-today.svg</file>
@@ -22,6 +23,7 @@
     <file alias="planner-priority-3.svg">resources/planner-priority-3.svg</file>
     <file alias="planner-clock.svg">resources/planner-clock.svg</file>
     <file alias="planner-todoist.svg">resources/planner-todoist.svg</file>
+    <file alias="google.svg">resources/google.svg</file>
     <file alias="planner-emoji-happy.svg">resources/planner-emoji-happy.svg</file>
     <file alias="planner-label.svg">resources/planner-label.svg</file>
     <file alias="planner-completed.svg">resources/planner-completed.svg</file>

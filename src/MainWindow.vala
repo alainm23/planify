@@ -166,6 +166,7 @@ public class MainWindow : Adw.ApplicationWindow {
         flap_view.flap = sidebar_content;
 
         set_content (flap_view);
+        set_hide_on_close (Planner.settings.get_boolean ("run-in-background"));
 
         Planner.settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
         Planner.settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
@@ -196,12 +197,14 @@ public class MainWindow : Adw.ApplicationWindow {
                 Util.get_default ().update_theme ();
             } else if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
+            } else if (key == "run-in-background") {
+                set_hide_on_close (Planner.settings.get_boolean ("run-in-background"));
             }
         });
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT) {
-                add_project_view (Services.Database.get_default ().get_project (int64.parse (id)));
+                add_project_view (Services.Database.get_default ().get_project (id));
             } else if (pane_type == PaneType.FILTER) {
                 if (id == FilterType.INBOX.to_string ()) {
                     add_inbox_view ();
@@ -239,6 +242,10 @@ public class MainWindow : Adw.ApplicationWindow {
         Planner.event_bus.send_notification.connect ((toast) => {
             toast_overlay.add_toast (toast);
         });
+
+        Planner.event_bus.inbox_project_changed.connect (() => {
+            add_inbox_view ();
+        });
     }
     
     public void show_hide_sidebar () {
@@ -249,7 +256,7 @@ public class MainWindow : Adw.ApplicationWindow {
         Services.Database.get_default ().init_database ();
 
         if (Services.Database.get_default ().is_database_empty ()) {
-            create_inbox_project ();
+            Util.get_default ().create_inbox_project ();
         }
 
         sidebar.init();
@@ -264,7 +271,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
-            _("Tasks synced successfully"), _("Do you want to use Todoist as your default task storage?"));
+            _("Tasks synced successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
 
             dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));
@@ -285,19 +292,6 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
-    private void create_inbox_project () {
-        Objects.Project inbox_project = new Objects.Project ();
-        inbox_project.id = Util.get_default ().generate_id ();
-        inbox_project.backend_type = BackendType.LOCAL;
-        inbox_project.name = _("Inbox");
-        inbox_project.inbox_project = true;
-        inbox_project.color = "blue";
-        
-        if (Services.Database.get_default ().insert_project (inbox_project)) {
-            Planner.settings.set_int64 ("inbox-project-id", inbox_project.id);
-        }
-    }
-
     public Views.Project add_project_view (Objects.Project project) {
         Views.Project? project_view;
         project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
@@ -314,7 +308,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private void add_inbox_view () {
         add_project_view (
-            Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"))
+            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
         );
     }
 
@@ -388,8 +382,8 @@ public class MainWindow : Adw.ApplicationWindow {
             views_stack.add_named (label_view, "label-view");
         }
 
-        project_view_headerbar.update_view (Services.Database.get_default ().get_label (int64.parse (id)));
-        label_view.label = Services.Database.get_default ().get_label (int64.parse (id));
+        project_view_headerbar.update_view (Services.Database.get_default ().get_label (id));
+        label_view.label = Services.Database.get_default ().get_label (id);
         views_stack.set_visible_child_name ("label-view");
     }
 
@@ -459,9 +453,9 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
-    private void change_todoist_default (bool use_todoist, int64 inbox_project_id) {
+    private void change_todoist_default (bool use_todoist, string inbox_project_id) {
         if (use_todoist) {
-            var old_inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_int64 ("inbox-project-id"));
+            var old_inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
             old_inbox_project.inbox_project = false;
             old_inbox_project.update ();
 
@@ -469,17 +463,13 @@ public class MainWindow : Adw.ApplicationWindow {
             new_inbox_project.inbox_project = true;
             old_inbox_project.update ();
 
-            Planner.settings.set_int64 ("inbox-project-id", inbox_project_id);
+            Planner.settings.set_string ("inbox-project-id", inbox_project_id);
+            Planner.settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
             Planner.event_bus.inbox_project_changed ();
 
             if (views_stack.visible_child_name == old_inbox_project.view_id) {
                 add_project_view (new_inbox_project);
             }
-        } else {
-            var inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
-            inbox_project.inbox_project = false;
-            inbox_project.update ();
-            Planner.event_bus.inbox_project_changed ();
         }
     }
 
@@ -518,6 +508,20 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         about_item.clicked.connect (about_dialog);
+
+        keyboard_shortcuts_item.clicked.connect (() => {
+            menu_app.popdown ();
+            
+            try {
+                var build = new Gtk.Builder ();
+                build.add_from_resource ("/com/github/alainm23/task-planner/shortcuts.ui");
+                var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-task-planner");
+                window.set_transient_for (this);
+                window.show ();
+            } catch (Error e) {
+                warning ("Failed to open shortcuts window: %s\n", e.message);
+            }
+        });
     }
 
     private void about_dialog () {

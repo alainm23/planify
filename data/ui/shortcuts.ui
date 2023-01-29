@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <object class="GtkShortcutsWindow" id="shortcuts-task-planner">
+    <property name="modal">1</property>
+    <child>
+      <object class="GtkShortcutsSection" id="shortcuts">
+        <property name="section-name">shortcuts</property>
+        <property name="max-height">12</property>
+        <child>
+          <object class="GtkShortcutsGroup" id="used-anywhere">
+            <property name="title" translatable="yes" context="shortcut window">Used anywhere</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="create-task">
+                <property name="accelerator">a</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a new task</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="paste-task">
+                <property name="accelerator">&lt;ctrl&gt;v</property>
+                <property name="title" translatable="yes" context="shortcut window">Paste plain text to create new task</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="create-project">
+                <property name="accelerator">p</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a new project</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="create-section">
+                <property name="accelerator">s</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a new section in a project</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup" id="search">
+            <property name="title" translatable="yes" context="shortcut window">Search</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="quick-find">
+                <property name="accelerator">&lt;ctrl&gt;f</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Quick Find</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup" id="control-windows">
+            <property name="title" translatable="yes" context="shortcut window">Control windows</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="quit">
+                <property name="accelerator">&lt;ctrl&gt;q</property>
+                <property name="title" translatable="yes" context="shortcut window">Quit</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="open-preferences">
+                <property name="accelerator">&lt;ctrl&gt;.</property>
+                <property name="title" translatable="yes" context="shortcut window">Open preferences</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="show-hide-sidebar">
+                <property name="accelerator">m</property>
+                <property name="title" translatable="yes" context="shortcut window">Show/hide Sidebar</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="keyboard-shortcuts">
+                <property name="accelerator">F1</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Keyboard Shortcuts</property>
+              </object>
+            </child>
+          </object>
+        </child>
+
+        <child>
+          <object class="GtkShortcutsGroup" id="navigate">
+            <property name="title" translatable="yes" context="shortcut window">Navigate</property>
+            <child>
+              <object class="GtkShortcutsShortcut" id="inbox">
+                <property name="accelerator">&lt;ctrl&gt;1</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Inbox</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="today">
+                <property name="accelerator">&lt;ctrl&gt;2</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Today</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="scheduled">
+                <property name="accelerator">&lt;ctrl&gt;3</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Scheduled</property>
+              </object>
+            </child>
+
+            <child>
+              <object class="GtkShortcutsShortcut" id="pinboard">
+                <property name="accelerator">&lt;ctrl&gt;4</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Pinboard</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

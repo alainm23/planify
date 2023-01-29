@@ -97,7 +97,7 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     public Label.from_json (Json.Node node) {
-        id = int64.parse (node.get_object ().get_string_member ("id"));
+        id = node.get_object ().get_string_member ("id");
         update_from_json (node);
         todoist = true;
     }
@@ -147,7 +147,7 @@ public class Objects.Label : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             builder.set_member_name ("name");

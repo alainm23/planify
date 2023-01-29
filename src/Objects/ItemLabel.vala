@@ -1,6 +1,6 @@
 public class Objects.ItemLabel : Objects.BaseObject {
-    public int64 item_id { get; set; default = Constants.INACTIVE; }
-    public int64 label_id { get; set; default = Constants.INACTIVE; }
+    public string item_id { get; set; default = ""; }
+    public string label_id { get; set; default = ""; }
 
     Objects.Label? _label = null;
     public Objects.Label label {
