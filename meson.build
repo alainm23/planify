@@ -1,7 +1,7 @@
 project(
   'com.github.alainm23.task-planner',
   'vala', 'c',
-  version: '3.10'
+  version: '4.0'
 )
 
 gnome = import('gnome')
