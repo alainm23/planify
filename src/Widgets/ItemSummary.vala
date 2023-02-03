@@ -1,15 +1,15 @@
-public class Widgets.ItemSummary : Gtk.Revealer {
+public class Widgets.ItemSummary : Gtk.Grid {
     public Objects.Item item { get; construct; }
     public Layouts.ItemRow? itemrow { get; construct; }
 
     private Gtk.Label due_label;
-    private Widgets.DynamicIcon today_image;
-    private Gtk.Stack due_stack;
     private Gtk.Grid due_grid;
     private Gtk.Revealer due_revealer;
 
     private Gtk.Label subtasks_label;
     private Gtk.Revealer subtasks_revealer;
+
+    private Gtk.Revealer reminder_revealer;
 
     private Gtk.Revealer summary_revealer;
     private Gtk.FlowBox labels_flowbox;
@@ -21,12 +21,20 @@ public class Widgets.ItemSummary : Gtk.Revealer {
 
     private Gtk.Label description_label;
     private Gtk.Revealer description_label_revealer;
+    private Gtk.Revealer description_revealer;
 
+    private Gtk.Revealer revealer;
     Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
     public uint labels_flowbox_size {
         get {
-            return labels_flowbox.get_children ().length ();
+            return Util.get_default ().get_children (labels_flowbox).length ();
+        }
+    }
+
+    public bool reveal_child {
+        set {
+            revealer.reveal_child = value;
         }
     }
 
@@ -40,37 +48,30 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     construct {
         labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
-        due_label = new Gtk.Label (null) {
-            margin = 3
-        };
-
-        due_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        due_label = new Gtk.Label (null);
+        due_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
-        today_image = new Widgets.DynamicIcon ();
-        today_image.update_icon_name ("planner-today");
-        today_image.size = 19; 
-
-        due_stack = new Gtk.Stack ();
-        due_stack.add_named (due_label, "due_label");
-        due_stack.add_named (today_image, "today_image");
-
         due_grid = new Gtk.Grid () {
             column_spacing = 3,
             margin_end = 6,
             valign = Gtk.Align.START
         };
-        due_grid.add (due_stack);
+
+        due_grid.attach (due_label, 0, 0);
 
         due_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
-        due_revealer.add (due_grid);
+        due_revealer.child = due_grid;
 
         subtasks_label = new Gtk.Label (null) {
-            margin = 3
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
 
-        subtasks_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        subtasks_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var subtasks_grid = new Gtk.Grid () {
             column_spacing = 3,
@@ -78,13 +79,37 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             valign = Gtk.Align.START
         };
 
-        subtasks_grid.get_style_context ().add_class ("schedule-grid");
-        subtasks_grid.add (subtasks_label);
+        subtasks_grid.add_css_class ("schedule-grid");
+        subtasks_grid.attach (subtasks_label, 0, 0);
 
         subtasks_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
-        subtasks_revealer.add (subtasks_grid);
+        subtasks_revealer.child = subtasks_grid;
+
+        var reminder_image = new Widgets.DynamicIcon ();
+        reminder_image.size = 19;
+        reminder_image.valign = Gtk.Align.CENTER;
+        reminder_image.update_icon_name ("planner-bell");
+        reminder_image.margin_end = 6;
+
+        reminder_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+
+        reminder_revealer.child = reminder_image;
+
+        var description_image = new Widgets.DynamicIcon ();
+        description_image.size = 19;
+        description_image.valign = Gtk.Align.CENTER;
+        description_image.update_icon_name ("planner-note");
+        description_image.margin_end = 6;
+
+        description_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+
+        description_revealer.child = description_image;
 
         labels_flowbox = new Gtk.FlowBox () {
             column_spacing = 6,
@@ -102,82 +127,85 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
 
-        flowbox_revealer.add (labels_flowbox);
+        flowbox_revealer.child = labels_flowbox;
 
         more_label = new Gtk.Label (null) {
-            margin = 3
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3
         };
 
-        more_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        more_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
         more_label_grid = new Gtk.Grid () {
             column_spacing = 3,
             margin_end = 6,
             valign = Gtk.Align.START
         };
-        more_label_grid.add (more_label);
-        more_label_grid.get_style_context ().add_class ("item-label-child");
+        more_label_grid.attach (more_label, 0, 0);
+        more_label_grid.add_css_class ("item-label-child");
 
         more_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
-        more_label_revealer.add (more_label_grid);
+        more_label_revealer.child = more_label_grid;
 
         description_label = new Gtk.Label (null) {
             xalign = 0,
             lines = 1,
             ellipsize = Pango.EllipsizeMode.END,
-            margin_start = 3
+            margin_start = 3,
+            margin_bottom = 3
         };
-        description_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        description_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        description_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         description_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = false
         };
-        description_label_revealer.add (description_label);
+        description_label_revealer.child = description_label;
         
-        var summary_grid = new Gtk.Grid () {
+        var summary_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             valign = Gtk.Align.START
         };
 
-        summary_grid.add (due_revealer);
-        summary_grid.add (subtasks_revealer);
-        summary_grid.add (flowbox_revealer);
-        summary_grid.add (more_label_revealer);
+        summary_grid.append (due_revealer);
+        summary_grid.append (subtasks_revealer);
+        summary_grid.append (reminder_revealer);
+        summary_grid.append (description_revealer);
+        summary_grid.append (flowbox_revealer);
+        summary_grid.append (more_label_revealer);
 
-        unowned Gtk.StyleContext summary_grid_context = summary_grid.get_style_context ();
-        summary_grid_context.add_class ("dim-label");
+        summary_grid.add_css_class ("dim-label");
 
         summary_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
-        summary_revealer.add (summary_grid);
+        summary_revealer.child = summary_grid;
 
-        var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            valign = Gtk.Align.START,
-            row_spacing = 3
+        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = Gtk.Align.START
         };
 
-        main_grid.add (description_label_revealer);
-        main_grid.add (summary_revealer);
+        main_grid.append (description_label_revealer);
+        main_grid.append (summary_revealer);
 
         if (itemrow == null) {
             main_grid.margin_top = 3;
             main_grid.margin_bottom = 3;
         }
 
-        add (main_grid);
+        revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+
+        revealer.child = main_grid;
+
+        attach (revealer, 0, 0);
 
         update_request ();
         check_revealer ();
-
-        labels_flowbox.remove.connect ((widget) => {
-            flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
-            check_revealer ();
-        });
 
         Planner.settings.changed.connect ((key) => {
             if (key == "clock-format" || key == "description-preview") {
@@ -189,28 +217,34 @@ public class Widgets.ItemSummary : Gtk.Revealer {
         item.item_added.connect (() => {
             update_request ();
         });
+
+        item.item_label_deleted.connect ((item_label) => {
+            remove_item_label (item_label);
+        });
     }
 
     public void update_request () {
         update_due_label ();
+        update_reminders ();
         update_subtasks ();
         update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
+        description_revealer.reveal_child = item.description.length > 0 && Planner.settings.get_boolean ("description-preview") == false; 
         description_label_revealer.reveal_child = description_label.label.length > 0 && 
             Planner.settings.get_boolean ("description-preview"); 
     }
 
     public void update_due_label () {
-        due_grid.get_style_context ().remove_class ("overdue-grid");
-        due_grid.get_style_context ().remove_class ("today-grid");
-        due_grid.get_style_context ().remove_class ("schedule-grid");
+        due_grid.remove_css_class ("overdue-grid");
+        due_grid.remove_css_class ("today-grid");
+        due_grid.remove_css_class ("upcoming-grid");
 
         if (item.completed) {
             due_label.label = Util.get_default ().get_relative_date_from_date (
                 Util.get_default ().get_date_from_string (item.completed_at)
             );
-            due_grid.get_style_context ().add_class ("completed-grid");
+            due_grid.add_css_class ("completed-grid");
             due_revealer.reveal_child = true;
             return;
         }
@@ -220,17 +254,12 @@ public class Widgets.ItemSummary : Gtk.Revealer {
             due_revealer.reveal_child = true;
 
             if (Util.get_default ().is_today (item.due.datetime)) {
-                due_grid.get_style_context ().add_class ("today-grid");
-                due_stack.visible_child_name = "today_image";
+                due_grid.add_css_class ("today-grid");
             } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-                due_grid.get_style_context ().add_class ("overdue-grid");
-                due_stack.visible_child_name = "due_label";
+                due_grid.add_css_class ("overdue-grid");
             } else {
-                due_grid.get_style_context ().add_class ("schedule-grid");
-                due_stack.visible_child_name = "due_label";
+                due_grid.add_css_class ("upcoming-grid");
             }
-
-            due_stack.show_all ();
         } else {
             due_label.label = "";
             due_revealer.reveal_child = false;
@@ -240,13 +269,15 @@ public class Widgets.ItemSummary : Gtk.Revealer {
     public void check_revealer () {
         if (itemrow != null) {
             summary_revealer.reveal_child = due_revealer.reveal_child ||
-            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
-            reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
-            !itemrow.edit && !item.checked;
+            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
+            reminder_revealer.reveal_child || description_revealer.reveal_child;
+            revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
+            !itemrow.edit;
         } else {
             summary_revealer.reveal_child = due_revealer.reveal_child ||
-            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child;
-            reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) && !item.checked;
+            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
+            reminder_revealer.reveal_child || description_revealer.reveal_child;
+            revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child);
         }
     }
 
@@ -273,23 +304,24 @@ public class Widgets.ItemSummary : Gtk.Revealer {
                         more_label_grid
                     );
 
-                    var item_label_child = new Widgets.ItemLabelChild (item_label);
-
-                    item_label_child.delete_request.connect (() => {
-                        labels.unset (item_label_child.item_label.id_string);
-                        item_label_child.hide_destroy ();
-                    });
-
-                    labels[item_label.id_string] = item_label_child;
-                    labels_flowbox.add (labels[item_label.id_string]);
-                    labels_flowbox.show_all ();
+                    labels[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
+                    labels_flowbox.append (labels[item_label.id_string]);
                 }
 
                 count++;
             }
         }
 
-        flowbox_revealer.reveal_child = labels_flowbox.get_children ().length () > 0;
+        flowbox_revealer.reveal_child = labels.size > 0;
+    }
+
+    public void remove_item_label (Objects.ItemLabel item_label) {
+        if (labels.has_key (item_label.id_string)) {
+            labels_flowbox.remove (labels[item_label.id_string]);
+            labels.unset (item_label.id_string);
+        }
+
+        flowbox_revealer.reveal_child = labels.size > 0;
     }
 
     private void update_subtasks () {
@@ -302,5 +334,9 @@ public class Widgets.ItemSummary : Gtk.Revealer {
 
         subtasks_label.label = "%d/%d".printf (completed, item.items.size);
         subtasks_revealer.reveal_child = item.items.size > 0;
+    }
+
+    private void update_reminders () {
+        reminder_revealer.reveal_child = item.reminders.size > 0;
     }
 }

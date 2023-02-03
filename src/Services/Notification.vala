@@ -42,15 +42,15 @@ public class Services.Notification : GLib.Object {
             reminders.clear ();
         }
 
-        foreach (var reminder in Planner.database.reminders) {
+        foreach (var reminder in Services.Database.get_default ().reminders) {
             reminder_added (reminder);
         }
 
-        Planner.database.reminder_added.connect ((reminder) => {
+        Services.Database.get_default ().reminder_added.connect ((reminder) => {
             reminder_added (reminder);
         });
 
-        Planner.database.reminder_deleted.connect ((reminder) => {
+        Services.Database.get_default ().reminder_deleted.connect ((reminder) => {
             if (reminders.has_key (reminder.id_string)) {
                 reminders.unset (reminder.id_string);
             }
@@ -61,16 +61,16 @@ public class Services.Notification : GLib.Object {
         if (reminder.due.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
             var notification = new GLib.Notification (reminder.item.project.short_name);
             notification.set_body (reminder.item.content);
-            notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
+            notification.set_icon (new ThemedIcon ("com.github.alainm23.task-planner"));
             notification.set_priority (GLib.NotificationPriority.URGENT);
 
             notification.set_default_action_and_target_value (
                 "app.show-item",
-                new Variant.int64 (reminder.item_id)
+                new Variant.string (reminder.item_id)
             );
 
             Planner.instance.send_notification (reminder.id_string, notification);
-            Planner.database.delete_reminder (reminder);
+            Services.Database.get_default ().delete_reminder (reminder);
         } else if (Granite.DateTime.is_same_day (reminder.due.datetime, new GLib.DateTime.now_local ())) {
             var interval = (uint) time_until_now (reminder.due.datetime);
             var uid = "%u-%u".printf (interval, GLib.Random.next_int ());
@@ -88,37 +88,23 @@ public class Services.Notification : GLib.Object {
         return dt.difference (now) / TimeSpan.SECOND;
     }
 
-    private TimeSpan time_until_tomorrow () {
-        var now = new DateTime.now_local ();
-        var tomorrow = new DateTime.local (
-            now.add_days (1).get_year (),
-            now.add_days (1).get_month (),
-            now.add_days (1).get_day_of_month (),
-            0,
-            0,
-            0
-        );
-
-        return tomorrow.difference (now) / TimeSpan.SECOND;
-    }
-
-    public void queue_reminder_notification (int64 reminder_id, string uid) {
+    public void queue_reminder_notification (string reminder_id, string uid) {
         if (reminders.values.contains (uid) == false) {
             return;
         }
 
-        var reminder = Planner.database.get_reminder (reminder_id);
+        var reminder = Services.Database.get_default ().get_reminder (reminder_id);
         var notification = new GLib.Notification (reminder.item.project.short_name);
         notification.set_body (reminder.item.content);
-        notification.set_icon (new ThemedIcon ("com.github.alainm23.planner"));
+        notification.set_icon (new ThemedIcon ("com.github.alainm23.task-planner"));
         notification.set_priority (GLib.NotificationPriority.URGENT);
 
         notification.set_default_action_and_target_value (
             "app.show-item",
-            new Variant.int64 (reminder.item_id)
+            new Variant.string (reminder.item_id)
         );
 
         Planner.instance.send_notification (uid, notification);
-        Planner.database.delete_reminder (reminder);
+        Services.Database.get_default ().delete_reminder (reminder);
     }
 }

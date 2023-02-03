@@ -40,15 +40,12 @@ public class Widgets.CalendarSourceRow : Gtk.ListBoxRow {
         E.SourceCalendar cal = (E.SourceCalendar)source.get_extension (E.SOURCE_EXTENSION_CALENDAR);
 
         checked_button = new Gtk.CheckButton.with_label (source.dup_display_name ());
-        checked_button.can_focus = false;
-        checked_button.active = !get_source_visible ();
-        checked_button.get_style_context ().add_class ("default_check");
+        // checked_button.add_css_class ("default_check");
 
         var source_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        source_box.append (checked_button);
 
-        source_box.pack_start (checked_button, false, false, 0);
-
-        add (source_box);
+        child = source_box;
 
         style_calendar_color (cal.dup_color ());
         checked_button.toggled.connect (() => {
@@ -56,31 +53,16 @@ public class Widgets.CalendarSourceRow : Gtk.ListBoxRow {
         });
     }
 
-    private bool get_source_visible () {
-        bool returned = false;
-
-        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
-            if (source.dup_uid () == uid) {
-                return true;
-            }
-        }
-
-        return returned;
-    }
-
     private void style_calendar_color (string color) {
-        string style = """
-                @define-color colorAccent %s;
-                @define-color accent_color %s;
-            """.printf (color.slice (0, 7), color.slice (0, 7));
+        print ("COLOR: %s\n".printf (color));
+        //  string style = """
+        //          @define-color colorAccent %s;
+        //          @define-color accent_color %s;
+        //      """.printf (color.slice (0, 7), color.slice (0, 7));
 
-        var style_provider = new Gtk.CssProvider ();
+        //  var style_provider = new Gtk.CssProvider ();
 
-        try {
-            style_provider.load_from_data (style, style.length);
-            checked_button.get_style_context ().add_provider (style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-        } catch (Error e) {
-            warning ("Could not create CSS Provider: %s\nStylesheet:\n%s", e.message, style);
-        }
+        //  style_provider.load_from_data (style.data);
+        //  checked_button.get_style_context ().add_provider (style_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 }

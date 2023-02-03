@@ -38,15 +38,19 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
     }
 
     construct {
+        hexpand = true;
         orientation = Gtk.Orientation.HORIZONTAL;
         valign = Gtk.Align.CENTER;
-        
+        margin_top = 6;
+        margin_end = 6;
+        margin_start = 6;
+
         month_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB")));
-        month_label.get_style_context ().add_class ("font-bold");
+        month_label.add_css_class ("font-bold");
         
         year_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%Y")));
-        year_label.get_style_context ().add_class ("font-bold");
-        year_label.get_style_context ().add_class ("primary-color");
+        year_label.add_css_class ("font-bold");
+        year_label.add_css_class ("primary-color");
 
         var chevron_left_image = new Widgets.DynamicIcon ();
         chevron_left_image.size = 19;
@@ -57,9 +61,9 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
             can_focus = false
         };
 
-        left_button.add (chevron_left_image);
-        left_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        left_button.get_style_context ().add_class ("no-padding");
+        left_button.child = chevron_left_image;
+        left_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        // left_button.add_css_class ("no-padding");
 
         var chevron_right_image = new Widgets.DynamicIcon ();
         chevron_right_image.size = 19;
@@ -70,26 +74,26 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
             can_focus = false
         };
 
-        right_button.add (chevron_right_image);
-        right_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        right_button.get_style_context ().add_class ("no-padding");
+        right_button.child = chevron_right_image;
+        right_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        // right_button.add_css_class ("no-padding");
 
-        var date_grid = new Gtk.Grid () {
-            column_spacing = 6
-        };
-        date_grid.add (month_label);
-        date_grid.add (year_label);
+        var date_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        date_grid.append (month_label);
+        date_grid.append (year_label);
 
         center_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            hexpand = true
         };
-        center_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        center_button.can_focus = false;
-        center_button.add (date_grid);
 
-        pack_start (center_button, false, false, 0);
-        pack_end (right_button, false, false, 6);
-        pack_end (left_button, false, false, 0);
+        center_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        center_button.can_focus = false;
+        center_button.child = date_grid;
+
+        append (center_button);
+        append (left_button);
+        append (right_button);
         
         left_button.clicked.connect (() => {
             left_clicked ();

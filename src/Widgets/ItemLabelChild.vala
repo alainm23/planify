@@ -35,24 +35,23 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     }
 
     construct {     
-        get_style_context ().add_class ("item-label-child");
+        add_css_class ("item-label-child");
         
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var labelrow_grid = new Gtk.Grid () {
-            column_spacing = 6,
-            margin = 3
+            column_spacing = 6
         };
-        labelrow_grid.add (name_label);
+        labelrow_grid.attach (name_label, 0, 0);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
         };
-        main_revealer.add (labelrow_grid);
+        main_revealer.child = labelrow_grid;
 
-        add (main_revealer);
+        child = main_revealer;
         update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -60,14 +59,8 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
 
-        item_label.deleted.connect (() => {
-            delete_request ();
-            // hide_destroy ();
-        });
-
         item_label.label.deleted.connect (() => {
             delete_request ();
-            //hide_destroy ();
         });
 
         item_label.label.updated.connect (update_request);
@@ -81,7 +74,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            destroy ();
+            ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
     }

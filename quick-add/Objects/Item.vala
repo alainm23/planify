@@ -19,12 +19,11 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Item : GLib.Object {
-    public int64 id { get; set; default = Constants.INACTIVE; }
+public class Objects.Item : Objects.BaseObject {
     public string content { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
-    public string added_at { get; set; default = ""; }
+    public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
     public int64 section_id { get; set; default = Constants.INACTIVE; }
@@ -32,6 +31,7 @@ public class Objects.Item : GLib.Object {
     public int64 parent_id { get; set; default = Constants.INACTIVE; }
     
     public int priority { get; set; default = Constants.INACTIVE; }
+
     public string priority_icon {
         get {
             if (priority == Constants.PRIORITY_1) {
@@ -46,17 +46,36 @@ public class Objects.Item : GLib.Object {
         }
     }
 
-    string _id_string;
-    public string id_string {
+    public string priority_color {
         get {
-            _id_string = id.to_string ();
-            return _id_string;
+            if (priority == Constants.PRIORITY_1) {
+                return "#ff7066";
+            } else if (priority == Constants.PRIORITY_2) {
+                return "#ff9914";
+            } else if (priority == Constants.PRIORITY_3) {
+                return "#5297ff";
+            } else {
+                return "@text_color";
+            }
+        }
+    }
+
+    public string priority_text {
+        get {
+            if (priority == Constants.PRIORITY_1) {
+                return _("Priority 1: high");
+            } else if (priority == Constants.PRIORITY_2) {
+                return _("Priority 2: medium");
+            } else if (priority == Constants.PRIORITY_3) {
+                return _("Priority 3: low");
+            } else {
+                return _("Priority 4: none");
+            }
         }
     }
 
     public int child_order { get; set; default = Constants.INACTIVE; }
     public int day_order { get; set; default = Constants.INACTIVE; }
-    public int due_is_recurring { get; set; default = Constants.INACTIVE; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
@@ -86,6 +105,22 @@ public class Objects.Item : GLib.Object {
         }
     }
 
+    GLib.DateTime _added_datetime;
+    public GLib.DateTime added_datetime {
+        get {
+            _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
+            return _added_datetime;
+        }
+    }
+
+    GLib.DateTime _updated_datetime;
+    public GLib.DateTime updated_datetime {
+        get {
+            _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+            return _updated_datetime;
+        }
+    }
+
     Json.Builder _builder;
     public Json.Builder builder {
         get {
@@ -97,19 +132,6 @@ public class Objects.Item : GLib.Object {
         }
     }
 
-    Gee.HashMap<string, Objects.ItemLabel> _labels = null;
-    public Gee.HashMap<string, Objects.ItemLabel> labels {
-        get {
-            if (_labels == null) {
-                _labels = new Gee.HashMap<string, Objects.ItemLabel> ();
-            }
-            return _labels;
-        }
-        set {
-            _labels = value;
-        }
-    }
-
     Objects.Project? _project;
     public Objects.Project project {
         get {
@@ -118,15 +140,15 @@ public class Objects.Item : GLib.Object {
         }
     }
 
-    Objects.Section? _section;
-    public Objects.Section section {
-        get {
-            _section = Services.Database.get_default ().get_section (section_id);
-            return _section;
-        }
+    construct {
+
     }
 
-    public string get_add_json (string uuid, string? temp_id = null) {
+    public override string get_add_json (string temp_id, string uuid) {
+        return get_update_json (uuid, temp_id);
+    }
+
+    public override string get_update_json (string uuid, string? temp_id = null) {
         builder.reset ();
 
         builder.begin_array ();
@@ -167,10 +189,10 @@ public class Objects.Item : GLib.Object {
             }
 
             builder.set_member_name ("content");
-            builder.add_string_value (QuickAddUtil.get_encode_text (content));
+            builder.add_string_value (Util.get_default ().get_encode_text (content));
 
             builder.set_member_name ("description");
-            builder.add_string_value (QuickAddUtil.get_encode_text (description));
+            builder.add_string_value (Util.get_default ().get_encode_text (description));
 
             builder.set_member_name ("priority");
             if (priority == Constants.INACTIVE) {
@@ -186,28 +208,16 @@ public class Objects.Item : GLib.Object {
                 builder.set_member_name ("date");
                 builder.add_string_value (due.date);
 
-                builder.set_member_name ("is_recurring");
-                builder.add_boolean_value (due.is_recurring);
-
-                builder.set_member_name ("string");
-                builder.add_string_value (due.text);
-
-                builder.set_member_name ("lang");
-                builder.add_string_value (due.lang);
-
                 builder.end_object ();
             } else {
                 builder.set_member_name ("due");
                 builder.add_null_value ();
             }
 
-            //  builder.set_member_name ("labels");
-            //      builder.begin_array ();
-            //      foreach (Objects.ItemLabel item_label in labels.values) {
-            //          builder.add_string_value (item_label.label.name);
-            //      }
-            //      builder.end_array ();
-            //  builder.end_object ();
+            builder.set_member_name ("labels");
+                builder.begin_array ();
+                builder.end_array ();
+            builder.end_object ();
         builder.end_object ();
         builder.end_array ();
 
@@ -215,23 +225,7 @@ public class Objects.Item : GLib.Object {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
+        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
-    }
-
-    public string to_string () {
-        return "";
-    }
-
-    public void update_local_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        labels.clear ();
-
-        foreach (var entry in new_labels.entries) {
-            Objects.ItemLabel item_label = new Objects.ItemLabel ();
-            item_label.id = QuickAddUtil.generate_id ();
-            item_label.label_id = entry.value.id;
-            item_label.item_id = id;
-
-            _labels [item_label.label_id.to_string ()] = item_label;
-        }
     }
 }

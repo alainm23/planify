@@ -19,119 +19,129 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.TodoistOAuth : Hdy.Window {
+public class Dialogs.TodoistOAuth : Adw.Window {
     private WebKit.WebView webview;
     private string OAUTH_OPEN_URL = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s"; // vala-lint=line-length
     private string STATE = Util.get_default ().generate_string ();
 
     public TodoistOAuth () {
         Object (
-            transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
+            transient_for: (Gtk.Window) Planner.instance.main_window,
             deletable: true,
-            resizable: true,
+            // resizable: true,
             destroy_with_parent: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
+            // window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true,
             title: _("Todoist Sync"),
-            height_request: 720,
-            width_request: 600
+            height_request: 575,
+            width_request: 475
         );
     }
 
     construct {
         OAUTH_OPEN_URL = OAUTH_OPEN_URL.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, STATE);
-        
-        unowned Gtk.StyleContext dialog_context = get_style_context ();
-        dialog_context.add_class (Gtk.STYLE_CLASS_VIEW);
-        dialog_context.add_class ("app");
 
-        var info_label = new Gtk.Label (_("Loading…"));
+        var info_label = new Gtk.Label (_("Loading"));
 
         var spinner = new Gtk.Spinner ();
-        spinner.get_style_context ().add_class ("text-color");
+        spinner.add_css_class ("text-color");
         spinner.start ();
 
-        var container_grid = new Gtk.Grid ();
-        container_grid.border_width = 6;
-        container_grid.column_spacing = 6;
+        var container_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         container_grid.valign = Gtk.Align.CENTER;
-        container_grid.add (spinner);
-        container_grid.add (info_label);
+        container_grid.append (spinner);
+        container_grid.append (info_label);
 
         webview = new WebKit.WebView ();
-        webview.expand = true;
-        WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
-        WebKit.WebContext.get_default ().set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
+        webview.zoom_level = 0.75;
+        webview.vexpand = true;
+        webview.hexpand = true;
 
-        var scrolled = new Gtk.ScrolledWindow (null, null);
-        scrolled.add (webview);
+        // WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
+        // WebKit.WebContext.get_default ().set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
 
         webview.load_uri (OAUTH_OPEN_URL);
 
-        // Alert
-        var alert_view = new Granite.Widgets.AlertView (
-            _("Network Is Not Available"),
-            _("Connect to the Internet to connect with Todoist"),
-            "network-error"
-        );
+        var sync_image = new Widgets.DynamicIcon () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+
+        sync_image.update_icon_name ("planner-cloud");
+        sync_image.size = 128;
 
         // Loading
-        var spinner_loading = new Gtk.Spinner ();
-        spinner_loading.valign = Gtk.Align.CENTER;
-        spinner_loading.halign = Gtk.Align.CENTER;
-        spinner_loading.width_request = 50;
-        spinner_loading.height_request = 50;
-        spinner_loading.active = true;
-        spinner_loading.start ();
-        
+        var progress_bar = new Gtk.ProgressBar () {
+            margin_top = 6
+        };
+
+        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes."));
+        sync_label.wrap = true;
+        sync_label.justify = Gtk.Justification.CENTER;
+        sync_label.margin_top = 12;
+        sync_label.margin_start = 12;
+        sync_label.margin_end = 12;
+
+        var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 24,
+            margin_start = 64,
+            margin_end = 64
+        };
+        sync_box.append (sync_image);
+        sync_box.append (progress_bar);
+        sync_box.append (sync_label);
+
         var stack = new Gtk.Stack ();
-        stack.expand = true;
+        stack.vexpand = true;
+        stack.hexpand = true;
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
-        stack.add_named (scrolled, "web_view");
-        stack.add_named (alert_view, "error_view");
-        stack.add_named (spinner_loading, "spinner-view");
+        stack.add_named (webview, "web_view");
+        stack.add_named (sync_box, "spinner-view");
 
-        var header = new Hdy.HeaderBar ();
-        header.has_subtitle = false;
-        header.show_close_button = true;
-        header.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        header.set_custom_title (container_grid);
+        var scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = Gtk.PolicyType.NEVER
+        };
 
-        var main_grid = new Gtk.Grid ();
-        main_grid.orientation = Gtk.Orientation.VERTICAL;
-        main_grid.add (header);
-        main_grid.add (stack);
+        scrolled.child = stack;
 
-        add (main_grid);
+        var header = new Adw.HeaderBar ();
+        header.add_css_class (Granite.STYLE_CLASS_FLAT);
+        header.title_widget = container_grid;
+
+        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_grid.append (header);
+        main_grid.append (scrolled);
+
+        content = main_grid;
 
         webview.load_changed.connect ((load_event) => {
             var redirect_uri = webview.get_uri ();
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (STATE) in redirect_uri)) {
-                info_label.label = _("Synchronizing… Wait a moment please.");
-                webview.stop_loading ();
-                Planner.todoist.get_todoist_token (redirect_uri);
+                info_label.label = _("Synchronizing. Wait a moment please.");
+                get_todoist_token (redirect_uri);
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
                 debug ("access_denied");
-                destroy ();
+                hide_destroy ();
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
-                info_label.label = _("Please enter your credentials…");
+                info_label.label = _("Please enter your credentials");
                 spinner.stop ();
                 spinner.hide ();
-
                 return;
             }
 
             if (load_event == WebKit.LoadEvent.STARTED) {
-                info_label.label = _("Loading…");
+                info_label.label = _("Loading");
                 spinner.start ();
                 spinner.show ();
-
                 return;
             }
 
@@ -149,12 +159,29 @@ public class Dialogs.TodoistOAuth : Hdy.Window {
             return true;
         });
 
-        Planner.todoist.first_sync_started.connect (() => {
+        Services.Todoist.get_default ().first_sync_started.connect (() => {
             stack.visible_child_name = "spinner-view";
         });
 
-        Planner.todoist.first_sync_finished.connect (() => {
-            destroy ();
+        Services.Todoist.get_default ().first_sync_finished.connect (() => {
+            hide_destroy ();
         });
+
+        Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
+            progress_bar.fraction = progress;
+        });
+    }
+
+    public void hide_destroy () {
+        hide ();
+
+        Timeout.add (500, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private async void get_todoist_token (string redirect_uri) {
+        yield Services.Todoist.get_default ().get_todoist_token (redirect_uri);
     }
 }

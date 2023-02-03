@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class Services.CalendarEvents : Object  {
+ public class Services.CalendarEvents : Object  {
     /* The data_range is the range of dates for which this model is storing
     * data.
     *
@@ -26,7 +26,7 @@ public class Services.CalendarEvents : Object  {
     public CalendarEventsUtil.DateRange data_range { get; private set; }
 
     /* The first day of the month */
-    public GLib.DateTime month_start { get; set; }
+    public GLib.DateTime month_start { get; construct; }
 
     /* The number of weeks to show in this model */
     public int num_weeks { get; private set; default = 6; }
@@ -48,15 +48,19 @@ public class Services.CalendarEvents : Object  {
     private static CalendarEvents? _instance;
     public static CalendarEvents get_default () {
         if (_instance == null) {
-            _instance = new CalendarEvents ();
+            _instance = new CalendarEvents (new GLib.DateTime.now_local ());
         }
 
         return _instance;
     }
 
-    construct {
-        open.begin ();
+    public CalendarEvents (GLib.DateTime month_start) {
+        Object(
+            month_start: month_start
+        );
+    }
 
+    construct {
         source_client = new HashTable<string, ECal.Client> (str_hash, str_equal);
         source_components = new HashTable<E.Source, Gee.TreeMultiMap<string, ECal.Component> > (CalendarEventsUtil.source_hash_func, CalendarEventsUtil.source_equal_func);
         source_view = new HashTable<string, ECal.ClientView> (str_hash, str_equal);
@@ -66,9 +70,10 @@ public class Services.CalendarEvents : Object  {
             week_starts_on = (GLib.DateWeekday) (week_start - 1);
         }
 
-        month_start = CalendarEventsUtil.get_start_of_month ();
+        // month_start = CalendarEventsUtil.get_start_of_month ();
         compute_ranges ();
-        notify["month-start"].connect (on_parameter_changed);
+        // notify["month-start"].connect (on_parameter_changed);
+        open.begin ();
     }
 
     private async void open () {
@@ -130,13 +135,18 @@ public class Services.CalendarEvents : Object  {
         source_components.remove (source);
     }
 
-    public void change_month (int relative) {
-        month_start = month_start.add_months (relative);
-    }
+    //  public void update_month_start (GLib.DateTime _month_start) {
+    //      month_start = _month_start;
+    //      on_parameter_changed ();
+    //  }
 
-    public void change_year (int relative) {
-        month_start = month_start.add_years (relative);
-    }
+    //  public void change_month (int relative) {
+    //      month_start = month_start.add_months (relative);
+    //  }
+
+    //  public void change_year (int relative) {
+    //      month_start = month_start.add_years (relative);
+    //  }
 
     /* --- Helper Methods ---// */
 
@@ -176,7 +186,7 @@ public class Services.CalendarEvents : Object  {
         data_range = new CalendarEventsUtil.DateRange (data_range_first, data_range_last);
         num_weeks = data_range.to_list ().size / 7;
 
-        debug (@"Date ranges: ($data_range_first <= $month_start < $month_end <= $data_range_last)");
+        print (@"Date ranges: ($data_range_first <= $month_start < $month_end <= $data_range_last)");
     }
 
     private void load_source (E.Source source) {
@@ -266,6 +276,7 @@ public class Services.CalendarEvents : Object  {
         debug (@"Received $(objects.length()) added component(s) for source '%s'", source.dup_display_name ());
         var components = source_components.get (source);
         var added_components = new Gee.ArrayList<ECal.Component> ((Gee.EqualDataFunc<ECal.Component>?) CalendarEventsUtil.calcomponent_equal_func);
+        
         objects.foreach ((comp) => {
             unowned string uid = comp.get_uid ();
             client.generate_instances_for_object_sync (comp, (time_t) data_range.first_dt.to_unix (), (time_t) data_range.last_dt.to_unix (), null, (comp, start, end) => {

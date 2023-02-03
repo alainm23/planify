@@ -27,8 +27,6 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     private Gtk.Revealer count_revealer;
     private Gtk.Revealer main_revealer;
     private Gtk.Grid widget_color;
-    private Gtk.Grid handle_grid;
-    private Gtk.EventBox labelrow_eventbox;
 
     public LabelRow (Objects.Label label) {
         Object (
@@ -36,9 +34,10 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         );
     }
 
-    construct {
-        get_style_context ().add_class ("selectable-item");
-        
+    construct {        
+        add_css_class ("selectable-item");
+        add_css_class ("transition");
+
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
             height_request = 12,
@@ -55,39 +54,63 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         count_label = new Gtk.Label (label.label_count.to_string ()) {
             hexpand = true,
             halign = Gtk.Align.END,
-            margin_end = 6
+            margin_end = 3
         };
+
         count_label.get_style_context ().add_class ("dim-label");
         count_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         count_revealer = new Gtk.Revealer () {
             reveal_child = int.parse (count_label.label) > 0
         };
+
         count_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-        count_revealer.add (count_label);
+        count_revealer.child = count_label;
 
-        var labelrow_grid = new Gtk.Grid () {
-            column_spacing = 6,
-            margin = 3
+        var edit_image = new Widgets.DynamicIcon ();
+        edit_image.size = 19;
+        edit_image.update_icon_name ("planner-edit");
+
+        var edit_button = new Gtk.Button ();
+        edit_button.child = edit_image;
+        edit_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        edit_button.add_css_class ("no-padding");
+
+        var trash_image = new Widgets.DynamicIcon ();
+        trash_image.size = 19;
+        trash_image.update_icon_name ("planner-trash");
+
+        var trash_button = new Gtk.Button ();
+        trash_button.child = trash_image;
+        trash_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        trash_button.add_css_class ("no-padding");
+
+        var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        buttons_box.append (edit_button);
+        buttons_box.append (trash_button);
+
+        var buttons_box_revealer = new Gtk.Revealer ();
+        buttons_box_revealer.transition_type = Gtk.RevealerTransitionType.SWING_RIGHT;
+        buttons_box_revealer.child = buttons_box;
+        
+        var labelrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
         };
-        labelrow_grid.add (widget_color);
-        labelrow_grid.add (name_label);
 
-        handle_grid = new Gtk.Grid ();
-        handle_grid.add (labelrow_grid);
-        handle_grid.add (count_revealer);
-
-        labelrow_eventbox = new Gtk.EventBox ();
-        labelrow_eventbox.get_style_context ().add_class ("transition");
-        labelrow_eventbox.add (handle_grid);
+        labelrow_grid.append (widget_color);
+        labelrow_grid.append (name_label);
+        labelrow_grid.append (count_revealer);
+        labelrow_grid.append (buttons_box_revealer);
 
         main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
-        main_revealer.add (labelrow_eventbox);
+        main_revealer.child = labelrow_grid;
 
-        add (main_revealer);
-
+        child = main_revealer;
         update_request ();
         
         Timeout.add (main_revealer.transition_duration, () => {
@@ -103,34 +126,57 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             hide_destroy ();
         });
 
-        labelrow_eventbox.button_press_event.connect ((sender, evt) => {
-            if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-                Timeout.add (120, () => {
-                    if (main_revealer.reveal_child) {
-                        Planner.event_bus.pane_selected (PaneType.LABEL, label.id_string);
-                    }
-                    return GLib.Source.REMOVE;
-                });
-                return false;
-            } else if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 3) {
-                build_content_menu ();
-                return false;
-            }
-
-            return false;
-        });
-
-        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            if (pane_type == PaneType.LABEL && label.id_string == id) {
-                labelrow_eventbox.get_style_context ().add_class ("selectable-item-selected");
-            } else {
-                labelrow_eventbox.get_style_context ().remove_class ("selectable-item-selected");
-            }
-        });
-
         label.label_count_updated.connect (() => {
             count_label.label = label.label_count.to_string ();
             count_revealer.reveal_child = int.parse (count_label.label) > 0;
+        });
+
+        var motion_gesture = new Gtk.EventControllerMotion ();
+        add_controller (motion_gesture);
+
+        motion_gesture.enter.connect (() => {
+            buttons_box_revealer.reveal_child = true;
+            count_revealer.reveal_child = false;
+        });
+
+        motion_gesture.leave.connect (() => {
+            buttons_box_revealer.reveal_child = false;
+            count_revealer.reveal_child = int.parse (count_label.label) > 0;
+        });
+
+        trash_button.clicked.connect (() => {
+            Planner.event_bus.close_labels ();
+            
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            _("Delete label"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (label.short_name))));
+
+            dialog.body_use_markup = true;
+            dialog.add_response ("cancel", _("Cancel"));
+            dialog.add_response ("delete", _("Delete"));
+            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+            dialog.show ();
+
+            dialog.response.connect ((response) => {
+                if (response == "delete") {
+                    if (label.todoist) {
+                        //  remove_button.is_loading = true;
+                        Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
+                            Services.Todoist.get_default ().delete.end (res);
+                            Services.Database.get_default ().delete_label (label);
+                            // remove_button.is_loading = false;
+                            // message_dialog.hide_destroy ();
+                        });
+                    } else {
+                        Services.Database.get_default ().delete_label (label);
+                    }
+                }
+            });
+        });
+
+        edit_button.clicked.connect (() => {
+            Planner.event_bus.close_labels ();
+            var dialog = new Dialogs.Label (label);
+            dialog.show ();
         });
     }
 
@@ -142,36 +188,8 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            destroy ();
+            ((Gtk.ListBox) parent).remove (this);
             return GLib.Source.REMOVE;
-        });
-    }
-
-    private void build_content_menu () {
-        var menu = new Dialogs.ContextMenu.Menu ();
-
-        var edit_item = new Dialogs.ContextMenu.MenuItem (("Edit label"), "planner-edit");
-
-        var delete_item = new Dialogs.ContextMenu.MenuItem (_("Delete label"), "planner-trash");
-    
-        var delete_item_context = delete_item.get_style_context ();
-        delete_item_context.add_class ("menu-item-danger");
-
-        menu.add_item (edit_item);
-        menu.add_item (new Dialogs.ContextMenu.MenuSeparator ());
-        menu.add_item (delete_item);
-
-        menu.popup ();
-
-        delete_item.activate_item.connect (() => {
-            menu.hide_destroy ();
-            label.delete ();
-        });
-
-        edit_item.clicked.connect (() => {
-            menu.hide_destroy ();
-            var dialog = new Dialogs.Label (label);
-            dialog.show_all ();
         });
     }
 }

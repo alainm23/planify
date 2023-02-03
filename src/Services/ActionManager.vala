@@ -32,6 +32,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_ADD_TASK = "action_add_task";
     public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
+    public const string ACTION_OPEN_LABELS = "action_open_labels";
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
     public const string ACTION_NEW_SECTION = "action_new_section";
@@ -58,6 +59,7 @@ public class Services.ActionManager : Object {
         { ACTION_ADD_TASK, action_add_task },
         { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
+        { ACTION_OPEN_LABELS, action_open_labels },
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
         { ACTION_NEW_SECTION, action_new_section },
@@ -86,6 +88,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
         action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
+        action_accelerators.set (ACTION_OPEN_LABELS, "<Control>l");
         action_accelerators.set (ACTION_SYNC_MANUALLY, "<Control>s");
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
@@ -95,7 +98,6 @@ public class Services.ActionManager : Object {
         // action_accelerators.set (ACTION_OPEN_NEW_PROJECT_WINDOW, "<Control>w");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
-        // typing_accelerators.set (ACTION_ADD_TASK_TOP, "q");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
@@ -140,25 +142,25 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
-        var dialog = new Dialogs.Settings.Settings ();
-        dialog.show_all ();
+        var dialog = new Dialogs.Preferences.PreferencesWindow ();
+        dialog.show ();
     }
 
     private void action_open_search () {
-        Util.get_default ().open_quick_find ();
+        var dialog = new Dialogs.QuickFind.QuickFind ();
+        dialog.show ();
     }
 
     private void action_sync_manually () {
-        if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
+        if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
     }
 
     private void action_new_project () {
-        if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
-            var dialog = new Dialogs.Project.new ();
-            dialog.show_all ();
-        }
+        // TODO: Update Backend Type instance default by user
+        var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
+        dialog.show ();
     }
 
     private void action_view_inbox () {
@@ -186,9 +188,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_section () {
-        if ((BackendType) Planner.settings.get_enum ("backend-type") != BackendType.CALDAV) {
-            window.new_section_action ();
-        }
+        window.new_section_action ();
     }
 
     private void action_add_task () {
@@ -196,19 +196,28 @@ public class Services.ActionManager : Object {
     }
 
     private void action_add_task_paste () {
-        Gdk.Display display = Gdk.Display.get_default ();
-        Gtk.Clipboard clipboard = Gtk.Clipboard.get_for_display (display, Gdk.SELECTION_CLIPBOARD);
-        string content = clipboard.wait_for_text ();
+        Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
-        window.add_task_action (content);
+        clipboard.read_text_async.begin (null, (obj, res) => {
+            try {
+                string content = clipboard.read_text_async.end (res);
+                window.add_task_action (content);
+            } catch (GLib.Error error) {
+                debug (error.message);
+            }
+        });
     }
 
     private void action_shortcuts () {
-        var dialog = new Dialogs.Shortcuts.Shortcuts ();
-        dialog.show_all ();
+        //  var dialog = new Gtk.ShortcutsWindow ();
+        //  dialog.show ();
     }
 
     private void action_view_home () {
         window.go_homepage ();
+    }
+
+    private void action_open_labels () {
+        Planner.event_bus.open_labels ();
     }
 }

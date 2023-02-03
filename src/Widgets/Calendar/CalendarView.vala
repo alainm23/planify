@@ -27,12 +27,15 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
     public CalendarView () {
         orientation = Gtk.Orientation.VERTICAL;
+        margin_start = 12;
+        margin_end = 12;
 
         days_arraylist = new Gee.ArrayList<Widgets.Calendar.CalendarDay> ();
 
-        days_grid = new Gtk.Grid ();
-        days_grid.column_homogeneous = true;
-        days_grid.row_homogeneous = true;
+        days_grid = new Gtk.Grid () {
+            column_homogeneous = true,
+            row_homogeneous = true
+        };
 
         var col = 0;
         var row = 0;
@@ -48,11 +51,11 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
                 col = 0;
             }
 
-            day.no_show_all = true;
+            day.visible = false;
             days_arraylist.add (day);
         }
 
-        pack_end (days_grid);
+        append (days_grid);
     }
 
     public void fill_grid_days (int start_day,
@@ -73,13 +76,11 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
             var item = days_arraylist [i];
             item.sensitive = true;
             item.visible = true;
-            item.no_show_all = false;
 
-            item.get_style_context ().remove_class ("calendar-today");
+            item.remove_css_class ("calendar-today");
 
             if (i < start_day || i >= max_day + start_day) {
                 item.visible = false;
-                item.no_show_all = true;
             } else {
                 if (day_number < _current_day) {
                     if (block_past_days && is_current_month) {
@@ -107,13 +108,12 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
         }
 
         clear_style ();
-        days_grid.show_all ();
     }
 
     private void clear_style () {
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
-            item.get_style_context ().remove_class ("calendar-day-selected");
+            item.remove_css_class ("calendar-day-selected");
         }
     }
     private void day_selected_style (int day) {
@@ -121,7 +121,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
         for (int i = 0; i < 42; i++) {
             var day_item = days_arraylist [i];
-            day_item.get_style_context ().remove_class ("calendar-day-selected");
+            day_item.remove_css_class ("calendar-day-selected");
         }
     }
 }

@@ -1,4 +1,4 @@
-public class Widgets.SyncButton : Gtk.EventBox {
+public class Widgets.SyncButton : Gtk.Grid {
     private Gtk.Revealer main_revealer;
     private Widgets.DynamicIcon sync_icon;
     private Gtk.Stack stack;
@@ -11,7 +11,7 @@ public class Widgets.SyncButton : Gtk.EventBox {
 
     construct {
         sync_icon = new Widgets.DynamicIcon ();
-        sync_icon.size = 19;
+        sync_icon.size = 21;
         sync_icon.update_icon_name ("planner-refresh");
 
         var sync_button = new Gtk.Button () {
@@ -19,10 +19,8 @@ public class Widgets.SyncButton : Gtk.EventBox {
             can_focus = false
         };
 
-        sync_button.add (sync_icon);
-
-        unowned Gtk.StyleContext sync_button_context = sync_button.get_style_context ();
-        sync_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
+        sync_button.child = sync_icon;
+        sync_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var error_image = new Gtk.Image () {
             gicon = new ThemedIcon ("dialog-warning-symbolic"),
@@ -40,12 +38,12 @@ public class Widgets.SyncButton : Gtk.EventBox {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
         };
         
-        main_revealer.add (stack);
+        main_revealer.child = stack;
 
-        add (main_revealer);
+        attach (main_revealer, 0, 0);
 
         Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = reveal_child = (BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST;
+            main_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
             network_available ();
             init_signals ();
             return GLib.Source.REMOVE;
@@ -53,13 +51,6 @@ public class Widgets.SyncButton : Gtk.EventBox {
 
         sync_button.clicked.connect (() => {
             Services.Todoist.get_default ().sync_async ();
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "backend-type") {
-                main_revealer.reveal_child = (BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST;
-                init_signals ();
-            }
         });
 
         var network_monitor = GLib.NetworkMonitor.get_default ();
@@ -79,19 +70,15 @@ public class Widgets.SyncButton : Gtk.EventBox {
     }
 
     private void init_signals () {
-        if ((BackendType) Planner.settings.get_enum ("backend-type") == BackendType.TODOIST) {
-            Services.Todoist.get_default ().sync_started.connect (sync_started);
-            Services.Todoist.get_default ().sync_finished.connect (sync_finished);
-        }
+        Services.Todoist.get_default ().sync_started.connect (sync_started);
+        Services.Todoist.get_default ().sync_finished.connect (sync_finished);
     }
 
     public void sync_started () {
-        unowned Gtk.StyleContext sync_icon_context = sync_icon.get_style_context ();
-        sync_icon_context.add_class ("is_loading");
+        sync_icon.add_css_class ("is_loading");
     }
     
     public void sync_finished () {
-        unowned Gtk.StyleContext sync_icon_context = sync_icon.get_style_context ();
-        sync_icon_context.remove_class ("is_loading");
+        sync_icon.remove_css_class ("is_loading");
     }
 }

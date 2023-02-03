@@ -1,165 +1,4 @@
-public enum NotificationStyle {
-    NORMAL,
-    ERROR
-}
-
-public enum ProjectViewStyle {
-    LIST,
-    BOARD;
-
-    public string to_string () {
-        switch (this) {
-            case LIST:
-                return "list";
-
-            case BOARD:
-                return "board";
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum ProjectIconStyle {
-    PROGRESS,
-    EMOJI;
-
-    public string to_string () {
-        switch (this) {
-            case PROGRESS:
-                return "progress";
-
-            case EMOJI:
-                return "emoji";
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum FilterType {
-    TODAY = 0,
-    INBOX = 1,
-    SCHEDULED = 2,
-    PINBOARD = 3;
-
-    public string to_string () {
-        switch (this) {
-            case TODAY:
-                return "today";
-
-            case INBOX:
-                return "inbox";
-
-            case SCHEDULED:
-                return "scheduled";
-
-            case PINBOARD:
-                return "pinboard";
-
-            default:
-                assert_not_reached();
-        }
-    }
-
-    public string get_name () {
-        switch (this) {
-            case TODAY:
-                return _("Today");
-
-            case INBOX:
-                return _("Inbox");
-
-            case SCHEDULED:
-                return _("Scheduled");
-
-            case PINBOARD:
-                return _("Pinboard");
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
-public enum BackendType {
-    NONE = 0,
-    LOCAL = 1,
-    TODOIST = 2,
-    CALDAV = 3;
-}
-
-public enum PaneType {
-    FILTER,
-    FAVORITE,
-    PROJECT,
-    LABEL,
-    TASKLIST
-}
-
-public enum ContainerType {
-    LISTBOX,
-    FLOWBOX
-}
-
-public enum LoadingButtonType {
-    LABEL,
-    ICON
-}
-
-public enum ObjectType {
-    PROJECT,
-    SECTION,
-    ITEM,
-    LABEL,
-    TASK,
-    TASK_LIST,
-    FILTER;
-
-    public string get_header () {
-        switch (this) {
-            case PROJECT:
-                return _("Projects");
-
-            case SECTION:
-                return _("Setions");
-
-            case ITEM:
-                return _("Tasks");
-
-            case LABEL:
-                return _("Labels");
-
-            case FILTER:
-                return _("Filters");
-            
-            case TASK:
-                return _("Tasks");
-
-            case TASK_LIST:
-                return _("Lists");
-
-            default:
-                assert_not_reached();
-        }
-    }
-}
-
 public class Util : GLib.Object {
-    public Gtk.TargetEntry[] MAGICBUTTON_TARGET_ENTRIES = {
-        {"MAGICBUTTON", Gtk.TargetFlags.SAME_APP, 0}
-    };
-
-    public Gtk.TargetEntry[] ITEMROW_TARGET_ENTRIES = {
-        {"ITEMROW", Gtk.TargetFlags.SAME_APP, 0}
-    };
-
-    public Gtk.TargetEntry[] SECTIONROW_TARGET_ENTRIES = {
-        {"SECTIONROW", Gtk.TargetFlags.SAME_APP, 0}
-    };
-
     private static Util? _instance;
     public static Util get_default () {
         if (_instance == null) {
@@ -274,14 +113,10 @@ public class Util : GLib.Object {
                 @define-color accent_color %s;
             """.printf (color, color);
 
-            try {
-                var style_provider = new Gtk.CssProvider ();
-                style_provider.load_from_data (style, style.length);
+            var style_provider = new Gtk.CssProvider ();
+            style_provider.load_from_data (style.data);
 
-                providers[color] = style_provider;
-            } catch (Error e) {
-                critical ("Unable to set color: %s", e.message);
-            }
+            providers[color] = style_provider;
         }
 
         unowned Gtk.StyleContext style_context = widget.get_style_context ();
@@ -289,51 +124,19 @@ public class Util : GLib.Object {
     }
 
     public void set_widget_priority (int priority, Gtk.Widget widget) {
-        if (providers == null) {
-            providers = new Gee.HashMap<string, Gtk.CssProvider> ();
-        }
+        widget.remove_css_class ("priority-1-color");
+        widget.remove_css_class ("priority-2-color");
+        widget.remove_css_class ("priority-3-color");
+        widget.remove_css_class ("priority-4-color");
 
-        if (!providers.has_key (priority.to_string ())) {
-            string style = """
-                @define-color colorPriority %s;
-                @define-color colorPriorityBackground %s;
-            """.printf (get_priority_color (priority), get_priority_background (priority));
-
-            try {
-                var style_provider = new Gtk.CssProvider ();
-                style_provider.load_from_data (style, style.length);
-
-                providers[priority.to_string ()] = style_provider;
-            } catch (Error e) {
-                critical ("Unable to set color: %s", e.message);
-            }
-        }
-
-        unowned Gtk.StyleContext style_context = widget.get_style_context ();
-        style_context.add_provider (providers[priority.to_string ()], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-    }
-
-    public string get_priority_color (int priority) {
         if (priority == Constants.PRIORITY_1) {
-            return "#ff7066";
+            widget.add_css_class ("priority-1-color");
         } else if (priority == Constants.PRIORITY_2) {
-            return "#ff9a14";
+            widget.add_css_class ("priority-2-color");
         } else if (priority == Constants.PRIORITY_3) {
-            return "#5297ff";
-        } else {
-            return "@item_border_color";
-        }
-    }
-
-    public string get_priority_background (int priority) {
-        if (priority == Constants.PRIORITY_1) {
-            return "rgba (255, 112, 102, 0.1)";
-        } else if (priority == Constants.PRIORITY_2) {
-            return "rgba (255, 154, 20, 0.1)";
-        } else if (priority == Constants.PRIORITY_3) {
-            return "rgba (82, 151, 255, 0.1)";
-        } else {
-            return "transparent";
+            widget.add_css_class ("priority-3-color");
+        } else if (priority == Constants.PRIORITY_4) {
+            widget.add_css_class ("priority-4-color");
         }
     }
 
@@ -351,7 +154,7 @@ public class Util : GLib.Object {
             }, (obj, res) => {
                 try {
                     if (file_from_uri.copy_async.end (res)) {
-                        Planner.event_bus.avatar_downloaded ();
+                        // Planner.event_bus.avatar_downloaded ();
                     }
                 } catch (Error e) {
                     debug ("Error: %s\n", e.message);
@@ -366,12 +169,12 @@ public class Util : GLib.Object {
 
     public string get_todoist_avatar_path () {
         return GLib.Path.build_filename (
-            Environment.get_user_data_dir () + "/com.github.alainm23.planner",
+            Environment.get_user_data_dir () + "/com.github.alainm23.task-planner",
             Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
         );
     }
 
-    public int64 generate_id (int len=10) {
+    public string generate_id (int len=10) {
         string allowed_characters = "0123456789";
 
         var password_builder = new StringBuilder ();
@@ -384,7 +187,7 @@ public class Util : GLib.Object {
             return generate_id ();
         }
 
-        return int64.parse (password_builder.str);
+        return password_builder.str;
     }
 
     public string generate_string () {
@@ -450,12 +253,13 @@ public class Util : GLib.Object {
 
     public void update_theme () {
         string _css = """
-            @define-color base_color %s;
-            @define-color bg_color %s;
-            @define-color item_bg_color %s;
+            @define-color window_bg_color %s;
+            @define-color popover_bg_color %s;
+            @define-color sidebar_bg_color %s;
             @define-color item_border_color %s;
-            @define-color picker_bg %s;
-            @define-color picker_content_bg %s;
+            @define-color upcoming_bg_color %s;
+            @define-color upcoming_fg_color %s;
+            @define-color selected_color %s;
         """;
 
         int appearance_mode = Planner.settings.get_enum ("appearance");
@@ -470,62 +274,63 @@ public class Util : GLib.Object {
 
         var provider = new Gtk.CssProvider ();
 
-        try {
-            string base_color = "";
-            string bg_color = "";
-            string item_bg_color = "";
-            string item_border_color = "";
-            string picker_bg = "";
-            string picker_content_bg = ""; 
+        string window_bg_color = "";
+        string popover_bg_color = "";
+        string sidebar_bg_color = "";
+        string item_border_color = "";
+        string upcoming_bg_color = "";
+        string upcoming_fg_color = ""; 
+        string selected_color = "";
 
-            if (dark_mode) {
-                if (appearance_mode == 1) {
-                    base_color = "#151515";
-                    bg_color = "shade (#151515, 1.4)";
-                    item_bg_color = "@bg_color";
-                    item_border_color = "#333333";
-                    picker_bg = "@base_color";
-                    picker_content_bg = "@bg_color";
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                } else if (appearance_mode == 2) {
-                    base_color = "#0B0B11";
-                    bg_color = "#15151B";
-                    item_bg_color = "@bg_color";
-                    item_border_color = "shade (#333333, 1.35)";
-                    picker_bg = "@base_color";
-                    picker_content_bg = "@bg_color";
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                }
-            } else {
-                base_color = "#ffffff";
-                bg_color = "@SILVER_100";
-                item_bg_color = "@base_color";
-                item_border_color = "@menu_separator";
-                picker_bg = "@bg_color";
-                picker_content_bg = "@base_color";
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+        if (dark_mode) {
+            if (appearance_mode == 1) {
+                window_bg_color = "#151515";
+                popover_bg_color = "shade(#151515, 1.4)";
+                sidebar_bg_color = "#1e1e1e";
+                item_border_color = "#333333";
+                upcoming_bg_color = "#313234";
+                upcoming_fg_color = "#ededef";
+                selected_color = "@popover_bg_color";
+                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+            } else if (appearance_mode == 2) {
+                window_bg_color = "#0B0B11";
+                popover_bg_color = "#15151B";
+                sidebar_bg_color = "#15161b";
+                item_border_color = "shade(#333333, 1.35)";
+                upcoming_bg_color = "#313234";
+                upcoming_fg_color = "#ededef";
+                selected_color = "@popover_bg_color";
+                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
             }
-
-            var CSS = _css.printf (
-                base_color,
-                bg_color,
-                item_bg_color,
-                item_border_color,
-                picker_bg,
-                picker_content_bg
-            );
-
-            provider.load_from_data (CSS, CSS.length);
-
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-
-            Planner.event_bus.theme_changed ();
-        } catch (GLib.Error e) {
-            return;
+        } else {
+            window_bg_color = "#ffffff";
+            popover_bg_color = "#ffffff";
+            sidebar_bg_color = "#fafafa";
+            item_border_color = "@borders";
+            upcoming_bg_color = "#ededef";
+            upcoming_fg_color = "shade(#ededef, 0)";
+            selected_color = "alpha(@shade_color, 0.65)";
+            Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
         }
+
+        var CSS = _css.printf (
+            window_bg_color,
+            popover_bg_color,
+            sidebar_bg_color,
+            item_border_color,
+            upcoming_bg_color,
+            upcoming_fg_color,
+            selected_color
+        );
+
+        provider.load_from_data (CSS.data);
+
+        Gtk.StyleContext.add_provider_for_display (
+            Gdk.Display.get_default (), provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
+
+        Planner.event_bus.theme_changed ();
     }
 
     /**
@@ -615,13 +420,13 @@ public class Util : GLib.Object {
         } else if (is_tomorrow (datetime)) {
             returned = _("Tomorrow");
         } else if (is_yesterday (datetime)) {
-            return _("Yesterday");
+            returned = _("Yesterday");
         } else {
             returned = get_default_date_format_from_date (datetime);
         }
 
         if (has_time (datetime)) {
-            returned += " " + datetime.format (get_default_time_format ());
+            returned = "%s %s".printf (returned, datetime.format (get_default_time_format ()));
         }
 
         return returned;
@@ -665,14 +470,45 @@ public class Util : GLib.Object {
         return false;
     }
 
+    public GLib.DateTime next_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
+        GLib.DateTime returned = datetime;
+
+        if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
+            returned = returned.add_days (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            returned = returned.add_days (duedate.recurrency_interval * 7);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
+            returned = returned.add_months (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
+            returned = returned.add_years (duedate.recurrency_interval);
+        }
+
+        return returned;
+    }
+
+    public string next_x_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
+        string[] list = {"", ""};
+        GLib.DateTime _datetime = datetime;
+
+        for (int i = 0; i < 1; i++) {
+            _datetime = next_recurrency (_datetime, duedate);
+            string text = Util.get_default ().get_default_date_format_from_date (_datetime);
+            list[i] = text;
+        }
+
+        list[1] = "…";
+
+        return string.joinv (", ", list);
+    }
+
     public void item_added (Layouts.ItemRow row) {
         bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
 
-        if (row.item.section_id != Constants.INACTIVE) {
-            Planner.database.get_section (row.item.section_id)
+        if (row.item.section_id != "") {
+            Services.Database.get_default ().get_section (row.item.section_id)
                 .add_item_if_not_exists (row.item, insert);
         } else {
-            Planner.database.get_project (row.item.project_id)
+            Services.Database.get_default ().get_project (row.item.project_id)
                 .add_item_if_not_exists (row.item, insert);
         }
         
@@ -683,7 +519,13 @@ public class Util : GLib.Object {
             row.hide_destroy ();
         }
 
+        Planner.event_bus.send_notification (create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
         Planner.event_bus.update_section_sort_func (row.item.project_id, row.item.section_id, false);
+    }
+
+
+    public GLib.DateTime get_today_format_date () {
+        return get_format_date (new DateTime.now_local ());
     }
 
     public GLib.DateTime get_format_date (GLib.DateTime date) {
@@ -698,11 +540,12 @@ public class Util : GLib.Object {
     }
 
     public string get_default_date_format_from_date (GLib.DateTime date) {
-        return date.format (Granite.DateTime.get_default_date_format (
+        var format = date.format (Granite.DateTime.get_default_date_format (
             false,
             true,
             date.get_year () != new GLib.DateTime.now_local ().get_year ()
         ));
+        return format;
     }
 
     public string get_todoist_datetime_format (GLib.DateTime date) {
@@ -757,6 +600,14 @@ public class Util : GLib.Object {
         }
     }
 
+    public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
+        if (date == null) {
+            date = new GLib.DateTime.now_local ();
+        }
+
+        return new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+    }
+
     public bool is_current_month (GLib.DateTime date) {
         var now = new GLib.DateTime.now_local ();
 
@@ -807,6 +658,14 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-settings-sliders", true);
                 _dynamic_icons.set ("planner-list", true);
                 _dynamic_icons.set ("planner-board", true);
+                _dynamic_icons.set ("color-swatch", true);
+                _dynamic_icons.set ("emoji-happy", true);
+                _dynamic_icons.set ("planner-clipboard", true);
+                _dynamic_icons.set ("planner-copy", true);
+                _dynamic_icons.set ("planner-rotate", true);
+                _dynamic_icons.set ("planner-section", true);
+                _dynamic_icons.set ("unordered-list", true);
+                _dynamic_icons.set ("menu", true);
             }
 
             return _dynamic_icons;
@@ -821,7 +680,7 @@ public class Util : GLib.Object {
         return entry.get_text_length () > 0;
     }
 
-    public bool is_text_valid (Gtk.SourceView entry) {
+    public bool is_text_valid (Widgets.SourceView entry) {
         return entry.buffer.text.length > 0;
     }
 
@@ -840,60 +699,54 @@ public class Util : GLib.Object {
     }
     
     public void open_quick_find () {
-        var dialog = new Dialogs.QuickFind.QuickFind ();
+        //  var dialog = new Dialogs.QuickFind.QuickFind ();
 
-        int window_x, window_y;
-        int window_width, width_height;
+        //  int window_x, window_y;
+        //  int window_width, width_height;
 
-        Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
-        Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+        //  Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
+        //  Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
 
-        dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
-        dialog.show_all ();
+        //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
+        //  dialog.show_all ();
     }
 
     public void open_item_dialog (Objects.Item item) {
-        Planner.event_bus.alt_pressed = false;
+        //  Planner.event_bus.alt_pressed = false;
         
-        var dialog = new Dialogs.Item (item);
+        //  var dialog = new Dialogs.Item (item);
 
-        int window_x, window_y;
-        int window_width, width_height;
+        //  int window_x, window_y;
+        //  int window_width, width_height;
 
-        Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
-        Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+        //  Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
+        //  Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
 
-        dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
-        dialog.show_all ();
+        //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
+        //  dialog.show_all ();
     }
 
     public void clear_database (string title, string message) {
-        var message_dialog = new Dialogs.MessageDialog (
-            title,
-            message,
-            "dialog-warning"
-        ) {
-            modal = true
-        };
-        
-        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        message_dialog.add_default_action (_("Reset all"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        title, message);
 
-        message_dialog.show_all ();
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Reset all"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
 
-        message_dialog.default_action.connect ((response) => {
-            if (response == Gtk.ResponseType.ACCEPT) {
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
                 clear_database_query ();
                 reset_settings ();
                 Planner.instance.main_window.destroy ();
-            } else {
-                message_dialog.hide_destroy ();
             }
         });
     }
 
     public void clear_database_query () {
-        string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planner/database.db";
+        string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.task-planner/database.db";
         File db_file = File.new_for_path (db_path);
 
         if (db_file.query_exists ()) {
@@ -907,65 +760,65 @@ public class Util : GLib.Object {
 
     public void reset_settings () {
         var schema_source = GLib.SettingsSchemaSource.get_default ();
-        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planner", true);
+        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planit", true);
 
         foreach (string key in schema.list_keys ()) {
             Planner.settings.reset (key);
         }
     }
 
-    public void open_migrate_message () {
-        var message_dialog = new Dialogs.MessageDialog (
-            _("Welcome to Planner 3"),
-            _("We have detected that you have a Planner 2 configuration started, currently the v3 database is not compatible with v2, if you wish you can download a backup in JSON format and migrate your data manually, or you can start with v3 with a new configuration."),
-            "dialog-warning"
-        ) {
-            modal = true
-        };
+    //  public void open_migrate_message () {
+    //      var message_dialog = new Dialogs.MessageDialog (
+    //          _("Welcome to Planner 3"),
+    //          _("We have detected that you have a Planner 2 configuration started, currently the v3 database is not compatible with v2, if you wish you can download a backup in JSON format and migrate your data manually, or you can start with v3 with a new configuration."),
+    //          "dialog-warning"
+    //      ) {
+    //          modal = true
+    //      };
         
-        message_dialog.add_default_action (_("Create backup"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        message_dialog.add_default_action (_("Starting over"), Gtk.ResponseType.CANCEL);
+    //      message_dialog.add_default_action (_("Create backup"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_SUGGESTED_ACTION);
+    //      message_dialog.add_default_action (_("Starting over"), Gtk.ResponseType.CANCEL);
 
-        message_dialog.show_all ();
+    //      message_dialog.show_all ();
 
-        message_dialog.default_action.connect ((response) => {
-            if (response == Gtk.ResponseType.CANCEL) {
-                clear_database_query ();
-                Planner.settings.set_string ("version", Constants.VERSION);
-                message_dialog.destroy ();
-            } else {
-                Services.MigrateV2.get_default ().export_v2_database ();
-            }
-        });
-    }
+    //      message_dialog.default_action.connect ((response) => {
+    //          if (response == Gtk.ResponseType.CANCEL) {
+    //              clear_database_query ();
+    //              Planner.settings.set_string ("version", Constants.VERSION);
+    //              message_dialog.destroy ();
+    //          } else {
+    //              Services.MigrateV2.get_default ().export_v2_database ();
+    //          }
+    //      });
+    //  }
 
-    public void delete_app_data () {
-        var message_dialog = new Dialogs.MessageDialog (
-            _("Delete all data app"),
-            _("Are you sure that you would like to delete all of your data app? Once deleted, it cannot be restored. You will need to restart the app for the change to take place."),
-            "dialog-warning"
-        );
-        message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        message_dialog.show_all ();
+    //  public void delete_app_data () {
+    //      var message_dialog = new Dialogs.MessageDialog (
+    //          _("Delete all data app"),
+    //          _("Are you sure that you would like to delete all of your data app? Once deleted, it cannot be restored. You will need to restart the app for the change to take place."),
+    //          "dialog-warning"
+    //      );
+    //      message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
+    //      message_dialog.show_all ();
     
-        var remove_button = new Widgets.LoadingButton (
-            LoadingButtonType.LABEL, _("Delete")) {
-            hexpand = true
-        };
-        remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        remove_button.get_style_context ().add_class ("border-radius-6");
-        message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
+    //      var remove_button = new Widgets.LoadingButton (
+    //          LoadingButtonType.LABEL, _("Delete")) {
+    //          hexpand = true
+    //      };
+    //      remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
+    //      remove_button.get_style_context ().add_class ("border-radius-6");
+    //      message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
     
-        message_dialog.default_action.connect ((response) => {
-            if (response == Gtk.ResponseType.ACCEPT) {
-                clear_database_query ();
-                reset_settings ();
-                Planner.instance.main_window.destroy ();
-            } else {
-                message_dialog.hide_destroy ();
-            }
-        });
-    }
+    //      message_dialog.default_action.connect ((response) => {
+    //          if (response == Gtk.ResponseType.ACCEPT) {
+    //              clear_database_query ();
+    //              reset_settings ();
+    //              Planner.instance.main_window.destroy ();
+    //          } else {
+    //              message_dialog.hide_destroy ();
+    //          }
+    //      });
+    //  }
 
     public FilterType get_filter () {
         switch (Planner.settings.get_enum ("homepage-item")) {
@@ -978,7 +831,7 @@ public class Util : GLib.Object {
             case 3:
                 return FilterType.PINBOARD;
             default:
-                assert_not_reached();
+                assert_not_reached ();
         }
     }
 
@@ -1034,5 +887,144 @@ public class Util : GLib.Object {
         }
 
         return returned;
-    }   
+    }
+
+    /*
+    *   Theme Utils
+    */
+
+    public bool is_dark_theme () {
+        return Planner.settings.get_boolean ("dark-mode");
+    }
+
+    public bool is_flatpak () {
+        var is_flatpak = Environment.get_variable ("FLATPAK_ID");
+        if (is_flatpak != null) {
+            return true;
+        }
+    
+        return false;
+    }
+    
+    public List<unowned Gtk.Widget> get_children (Gtk.Widget list) {
+        List<unowned Gtk.Widget> response = new List<unowned Gtk.Widget> ();
+
+        for (Gtk.Widget child = list.get_first_child (); child != null; child = list.get_next_sibling ()) {
+            response.append (child);
+        }
+
+        return response;
+    }
+
+    public Adw.Toast create_toast (string title, uint timeout = 2, Adw.ToastPriority priority = Adw.ToastPriority.NORMAL) {
+        var toast = new Adw.Toast (title);
+        toast.timeout = timeout;
+        toast.priority = priority;
+
+        return toast;
+    }
+
+    public string get_priority_title (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return _("Priority 1: high");
+        } else if (priority == Constants.PRIORITY_2) {
+            return _("Priority 2: medium");
+        } else if (priority == Constants.PRIORITY_3) {
+            return _("Priority 3: low");
+        } else if (priority == Constants.PRIORITY_4) {
+            return _("Priority 4: none");
+        } else {
+            return _("Priority 4: none");
+        }
+    }
+
+    public string get_priority_icon (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return "planner-priority-1";
+        } else if (priority == Constants.PRIORITY_2) {
+            return "planner-priority-2";
+        } else if (priority == Constants.PRIORITY_3) {
+            return "planner-priority-3";
+        } else if (priority == Constants.PRIORITY_4) {
+            return "planner-flag";
+        } else {
+            return "planner-flag";
+        }
+    }
+
+    private Gee.HashMap<string, Objects.Priority> priority_views;
+    public Objects.Priority get_priority_filter (string view_id) {
+        if (priority_views == null) {
+            priority_views = new Gee.HashMap<string, Objects.Priority> ();
+        }
+
+        if (priority_views.has_key (view_id)) {
+            return priority_views[view_id];
+        } else {
+            int priority = int.parse (view_id.split ("-")[1]);
+            priority_views[view_id] = new Objects.Priority (priority);
+            return priority_views[view_id];
+        }
+    }
+
+    public void change_default_inbox () {
+        var default_inbox = (DefaultInboxProject) Planner.settings.get_enum ("default-inbox");
+        Objects.Project inbox_project = null;
+
+        if (default_inbox == DefaultInboxProject.LOCAL) {
+            var todoist_inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("todoist-inbox-project-id")
+            );
+            if (todoist_inbox_project != null) {
+                todoist_inbox_project.inbox_project = false;
+                todoist_inbox_project.update ();
+            }
+
+            inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("local-inbox-project-id")
+            );
+            if (inbox_project != null) {
+                inbox_project.inbox_project = true;
+                inbox_project.update ();
+            } else {
+                inbox_project = create_inbox_project ();
+            }
+        } else if (default_inbox == DefaultInboxProject.TODOIST) {
+            var local_inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("local-inbox-project-id")
+            );
+            
+            if (local_inbox_project != null) {
+                local_inbox_project.inbox_project = false;
+                local_inbox_project.update ();
+            }
+
+            inbox_project = Services.Database.get_default ().get_project (
+                Planner.settings.get_string ("todoist-inbox-project-id")
+            );
+            if (inbox_project != null) {
+                inbox_project.inbox_project = true;
+                inbox_project.update ();
+            }
+        }
+
+        Planner.settings.set_string ("inbox-project-id", inbox_project.id);
+        Planner.event_bus.inbox_project_changed ();
+    }
+
+    public Objects.Project create_inbox_project () {
+        Objects.Project inbox_project = new Objects.Project ();
+        inbox_project.id = Util.get_default ().generate_id ();
+        inbox_project.backend_type = BackendType.LOCAL;
+        inbox_project.name = _("Inbox");
+        inbox_project.inbox_project = true;
+        inbox_project.color = "blue";
+        
+        if (Services.Database.get_default ().insert_project (inbox_project)) {
+            Planner.settings.set_string ("inbox-project-id", inbox_project.id);
+            Planner.settings.set_string ("local-inbox-project-id", inbox_project.id);
+        }
+
+        return inbox_project;
+    }
 }

@@ -1,137 +1,179 @@
-public class Views.Scheduled.ScheduledDay : Gtk.EventBox {
+public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     public GLib.DateTime date { get; construct; }
 
-    private Gee.HashMap<string, Gtk.Widget> component_dots;
-    private Gtk.Grid dots_grid;
-    private Gtk.Button button;
+    private Widgets.EventsList event_list;
+    private Gtk.ListBox listbox;
+    private Gtk.Revealer listbox_revealer;
+    private Gtk.Revealer event_list_revealer;
 
-    public signal void clicked ();
+    private Gee.HashMap <string, Layouts.ItemRow> items;
+
+    private bool has_items {
+        get {
+            return items.size > 0;
+        }
+    }
 
     public ScheduledDay (GLib.DateTime date) {
-        Object (date: date);
+        Object (
+            date: date
+        );
     }
 
     construct {
-        var day_name_label = new Gtk.Label (date.format ("%a")) {
+        add_css_class ("selectable-item");
+        add_css_class ("transition");
+
+        items = new Gee.HashMap <string, Layouts.ItemRow> ();
+
+        var day_label = new Gtk.Label (date.format ("%a").up (1) + date.format ("%a").substring (1)) {
+            halign = Gtk.Align.START
+        };
+        day_label.add_css_class ("font-bold");
+
+        var date_format_label = new Gtk.Label (
+            Util.get_default ().get_default_date_format_from_date (date)
+        ) {
+            halign = Gtk.Align.START
+        };
+
+        date_format_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            hexpand = true
+        };
+
+        title_box.append (day_label);
+        title_box.append (date_format_label);
+
+        event_list = new Widgets.EventsList.for_day (date) {
             hexpand = true,
-            halign = Gtk.Align.CENTER
+            valign = Gtk.Align.START,
+            margin_top = 6
         };
 
-        day_name_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        event_list_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = event_list.has_items
+        };
 
-        var day_label = new Gtk.Label (date.get_day_of_month ().to_string ()) {
+        event_list_revealer.child = event_list;
+        
+        event_list.change.connect (() => {
+            event_list_revealer.reveal_child = event_list.has_items;
+        });
+
+        listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.SINGLE,
+            hexpand = true
+        };
+
+        listbox.add_css_class ("listbox-background");
+
+        var listbox_grid = new Gtk.Grid () {
+            margin_top = 6
+        };
+        listbox_grid.attach (listbox, 0, 0);
+
+        listbox_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = has_items
+        };
+
+        listbox_revealer.child = listbox_grid;
+
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            halign = Gtk.Align.CENTER
+            valign = Gtk.Align.START,
+            margin_bottom = 32
         };
 
-        var today_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("planner-today"),
-            pixel_size = 19
-        };
-
-        var day_stack = new Gtk.Stack () {
-            expand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
-        };
-
-        day_stack.add_named (day_label, "day");
-        day_stack.add_named (today_icon, "icon");
-
-        if (Util.get_default ().is_today (date)) {
-            Timeout.add (day_stack.transition_duration, () => {
-                day_stack.visible_child_name = "icon";
-                return GLib.Source.REMOVE;
-            });
-        } else if (Util.get_default ().is_overdue (date)) {
-            day_name_label.get_style_context ().remove_class (Gtk.STYLE_CLASS_DIM_LABEL);
-            day_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-        } else {
-            day_name_label.get_style_context ().remove_class (Gtk.STYLE_CLASS_DIM_LABEL);
-            day_label.get_style_context ().add_class ("font-bold");
-        }
-
-        component_dots = new Gee.HashMap<string, Gtk.Widget> ();
-
-        dots_grid = new Gtk.Grid () {
-            halign = Gtk.Align.CENTER,
-            margin_top = 3,
+        content.append (title_box);
+        
+        content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 6,
             margin_bottom = 3
-        };
+        });
+        
+        content.append (event_list_revealer);
+        content.append (listbox_revealer);
 
-        var button_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            valign = Gtk.Align.START
-        };
+        child = content;
 
-        button_grid.add (day_name_label);
-        button_grid.add (day_stack);
+        add_items ();
 
-        button = new Gtk.Button ();
-        button.add (button_grid);
-
-        button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        // button.get_style_context ().add_class ("scheduled-day");
-
-        var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            valign = Gtk.Align.START
-        };
-
-        main_grid.add (button);
-        main_grid.add (dots_grid);
-
-        add (main_grid);
-
-        Planner.database.item_updated.connect ((item) => {
-            if (has_component (item.id_string) && (!item.has_due || item.checked)) {
-                remove_component_dot (item.id_string);
-            }
-
-            if (has_component (item.id_string) && item.has_due &&
-                day_hash (item.due.datetime) != day_hash (date)) {
-                remove_component_dot (item.id_string);
-            }
+        Timeout.add (listbox_revealer.transition_duration, () => {
+            listbox_revealer.reveal_child = has_items;
+            return GLib.Source.REMOVE;
         });
 
-        button.clicked.connect (() => {
-            clicked ();
+        Services.Database.get_default ().item_added.connect (valid_add_item);
+        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
+        Services.Database.get_default ().item_updated.connect (valid_update_item);
+
+        Planner.event_bus.item_moved.connect ((item) => {
+            if (items.has_key (item.id_string)) {
+                items[item.id_string].update_request ();
+            }
         });
     }
 
-    public void add_component_dot (Objects.Item item) {
-        if (component_dots.size >= 3) {
-            return;
-        }
-
-        var component_uid = item.id_string;
-        if (!component_dots.has_key (component_uid)) {
-            var event_dot = new Gtk.Image ();
-            event_dot.gicon = new ThemedIcon ("pager-checked-symbolic");
-            event_dot.pixel_size = 6;
-
-            unowned Gtk.StyleContext style_context = event_dot.get_style_context ();
-            style_context.add_class (Granite.STYLE_CLASS_ACCENT);
-            Util.get_default ().set_widget_color (Util.get_default ().get_color (item.project.color), event_dot);
-
-            component_dots[component_uid] = event_dot;
-            dots_grid.add (event_dot);
-            dots_grid.show_all ();
+    private void add_items () {
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
+            add_item (item);
         }
     }
 
-    public void remove_component_dot (string id) {
-        var dot = component_dots[id];
-        if (dot != null) {
-            dot.destroy ();
-            component_dots.unset (id);
+    private void add_item (Objects.Item item) {
+        if (!items.has_key (item.id_string)) {
+            items [item.id_string] = new Layouts.ItemRow (item);
+            listbox.append (items [item.id_string]);
         }
     }
 
-    public bool has_component (string id) {
-        return component_dots.has_key (id);
+    private void valid_add_item (Objects.Item item) {
+        if (!items.has_key (item.id_string) &&
+            Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            items [item.id_string] = new Layouts.ItemRow (item);
+            listbox.append (items [item.id_string]);
+        }
+
+        listbox_revealer.reveal_child = has_items;
     }
 
-    private uint day_hash (GLib.DateTime date) {
-        return date.get_year () * 10000 + date.get_month () * 100 + date.get_day_of_month ();
+    private void valid_delete_item (Objects.Item item) {
+        if (items.has_key (item.id_string)) {
+            items[item.id_string].hide_destroy ();
+            items.unset (item.id_string);
+        }
+
+        listbox_revealer.reveal_child = has_items;
+    }
+
+    private void valid_update_item (Objects.Item item) {
+        if (items.has_key (item.id_string)) {
+            items[item.id_string].update_request ();
+        }
+
+        if (items.has_key (item.id_string) && !item.has_due) {
+            items[item.id_string].hide_destroy ();
+            items.unset (item.id_string);
+        }
+
+
+        if (items.has_key (item.id_string) && item.has_due) {
+            if (!Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+                items[item.id_string].hide_destroy ();
+                items.unset (item.id_string);
+            }
+        }
+
+        if (item.has_due) {
+            valid_add_item (item);
+        }
+
+        listbox_revealer.reveal_child = has_items;
     }
 }

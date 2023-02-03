@@ -1,4 +1,6 @@
-public class Widgets.Placeholder : Gtk.EventBox {
+
+
+public class Widgets.Placeholder : Gtk.Grid {
     private Widgets.DynamicIcon placeholder_image;
     private Gtk.Label title_label;
     private Gtk.Label description_label;
@@ -42,7 +44,8 @@ public class Widgets.Placeholder : Gtk.EventBox {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };
-        placeholder_image.size = 64;
+
+        placeholder_image.size = 84;
 
         title_label = new Gtk.Label (null) {
             wrap = true
@@ -60,13 +63,15 @@ public class Widgets.Placeholder : Gtk.EventBox {
             row_spacing = 6,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_bottom = 64
+            margin_bottom = 64,
+            vexpand = true,
+            hexpand = true
         };
 
-        main_grid.add (placeholder_image);
-        main_grid.add (title_label);
-        main_grid.add (description_label);
+        main_grid.attach (placeholder_image, 0, 0);
+        main_grid.attach (title_label, 0, 1);
+        main_grid.attach (description_label, 0, 2);
 
-        add (main_grid);
+        attach (main_grid, 0, 0);
     }
 }

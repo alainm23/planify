@@ -1,8 +1,15 @@
-public class Widgets.DynamicIcon : Gtk.EventBox {
+public class Widgets.DynamicIcon : Gtk.Grid {
     public string icon_name { get; set; default = null; }
     public int size { get; set; default = 16; }
     
     private Gtk.Image icon;
+
+    public DynamicIcon () {
+        Object(
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER
+        );
+    }
 
     construct {
         icon = new Gtk.Image () {
@@ -10,7 +17,7 @@ public class Widgets.DynamicIcon : Gtk.EventBox {
             valign = Gtk.Align.CENTER
         };
 
-        add (icon);
+        attach (icon, 0, 0, 1, 1);
 
         notify["size"].connect (() => {
             generate_icon ();

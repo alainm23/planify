@@ -1,4 +1,4 @@
-public class Widgets.IconColorProject : Gtk.EventBox {
+public class Widgets.IconColorProject : Gtk.Grid {
     public Objects.Project project { get; set; }
     public int pixel_size { get; construct; }
 
@@ -36,7 +36,7 @@ public class Widgets.IconColorProject : Gtk.EventBox {
         stack.add_named (widget_color, "color");
         stack.add_named (inbox_icon, "icon");
 
-        add (stack);
+        attach (stack, 0, 0);
 
         notify["project"].connect (() => {
             if (project != null) {

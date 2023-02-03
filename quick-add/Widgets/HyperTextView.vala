@@ -20,21 +20,24 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     construct {
         buffer.changed.connect (changed_timeout);
 
-        focus_in_event.connect (() => {
+        var gesture = new Gtk.EventControllerFocus ();
+        add_controller (gesture);
+
+        gesture.enter.connect (() => {
             if (buffer_get_text () == placeholder_text) {
                 buffer.text = "";
                 opacity = 1;
             }
-            return false;
         });
 
-        focus_out_event.connect (() => {
+        gesture.leave.connect (() => {
             if (buffer_get_text () == "") {
                 buffer.text = placeholder_text;
                 opacity = 0.7;
             }
-            return false;
         });
+
+        set_text ("");
     }
 
     private string buffer_get_text () {
@@ -60,7 +63,7 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     public string get_text () {
         return buffer_get_text () == placeholder_text ? "" : buffer_get_text ();
     }
-    
+
     private void changed_timeout () {
         if (changed_timeout_id != 0) {
             Source.remove (changed_timeout_id);

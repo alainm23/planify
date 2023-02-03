@@ -20,7 +20,6 @@
 */
 
 public class Widgets.EventRow : Gtk.ListBoxRow {
-    public GLib.DateTime date { get; construct; }
     public unowned ICal.Component component { get; construct; }
     public unowned E.SourceCalendar cal { get; construct; }
     public E.Source source { get; set; }
@@ -34,15 +33,17 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     private Gtk.Grid color_grid;
     private Gtk.Label time_label;
 
-    public EventRow (GLib.DateTime date, ICal.Component component, E.Source source) {
+    public EventRow (ICal.Component component, E.Source source) {
         Object (
-            date: date,
             component: component,
             cal: (E.SourceCalendar?) source.get_extension (E.SOURCE_EXTENSION_CALENDAR)
         );
     }
 
     construct {
+        add_css_class ("selectable-item");
+        add_css_class ("transition");
+
         var dt_start = component.get_dtstart ();
         end_time = CalendarEventsUtil.ical_to_date_time (component.get_dtend ());
         
@@ -77,7 +78,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             width_chars = 7
         };
-        time_label.get_style_context ().add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+        time_label.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
         time_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var name_label = new Gtk.Label (component.get_summary ()) {
@@ -90,47 +91,29 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         };
         name_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var grid = new Gtk.Grid ();
-        grid.column_spacing = 6;
-        grid.margin_top = 3;
-        grid.margin_bottom = 3;
+        var grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_top = 3,
+            margin_bottom = 3
+        };
+
         if (!is_allday) {
-            grid.add (time_label);
+            grid.append (time_label);
         }
         
-        grid.add (color_grid);
-        grid.add (name_label);
+        grid.append (color_grid);
+        grid.append (name_label);
 
-        main_revealer = new Gtk.Revealer ();
-        main_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-        main_revealer.add (grid);
-        main_revealer.reveal_child = false;
+        main_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+        main_revealer.child = grid;
 
-        add (main_revealer);
+        child = main_revealer;
 
         set_color ();
         cal.notify["color"].connect (set_color);
 
         update_timelabel ();
-        check_visible ();
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "calendar-sources-disabled") {
-                check_visible ();
-            }
-        });
-    }
-
-    private void check_visible () {
-        bool returned = true;
-
-        foreach (var uid in Planner.settings.get_strv ("calendar-sources-disabled")) {
-            if (cal.ref_source ().uid == uid) {
-                returned = false;
-            }
-        }
-
-        main_revealer.reveal_child = returned;
     }
 
     private void update_timelabel () {
@@ -151,20 +134,16 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
         var provider = new Gtk.CssProvider ();
 
-        try {
-            var colored_css = color_css.printf (
-                component.get_uid (),
-                color
-            );
+        var colored_css = color_css.printf (
+            component.get_uid (),
+            color
+        );
 
-            provider.load_from_data (colored_css, colored_css.length);
+        provider.load_from_data (colored_css.data);
 
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
-        } catch (GLib.Error e) {
-            return;
-        }
+        Gtk.StyleContext.add_provider_for_display (
+            Gdk.Display.get_default (), provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        );
     }
 }

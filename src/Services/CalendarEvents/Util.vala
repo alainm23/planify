@@ -98,28 +98,28 @@
 
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
     public void set_component_calendar_color (E.SourceSelectable selectable, Gtk.Widget widget) {
-        if (providers == null) {
-            providers = new Gee.HashMap<string, Gtk.CssProvider> ();
-        }
+        //  if (providers == null) {
+        //      providers = new Gee.HashMap<string, Gtk.CssProvider> ();
+        //  }
 
-        var color = selectable.dup_color ();
-        if (!providers.has_key (color)) {
-            string style = """
-                @define-color accent_color %s;
-            """.printf (color);
+        //  var color = selectable.dup_color ();
+        //  if (!providers.has_key (color)) {
+        //      string style = """
+        //          @define-color accent_color %s;
+        //      """.printf (color);
 
-            try {
-                var style_provider = new Gtk.CssProvider ();
-                style_provider.load_from_data (style, style.length);
+        //      try {
+        //          var style_provider = new Gtk.CssProvider ();
+        //          style_provider.load_from_data (style, style.length);
 
-                providers[color] = style_provider;
-            } catch (Error e) {
-                critical ("Unable to set calendar color: %s", e.message);
-            }
-        }
+        //          providers[color] = style_provider;
+        //      } catch (Error e) {
+        //          critical ("Unable to set calendar color: %s", e.message);
+        //      }
+        //  }
 
-        unowned Gtk.StyleContext style_context = widget.get_style_context ();
-        style_context.add_provider (providers[color], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+        //  unowned Gtk.StyleContext style_context = widget.get_style_context ();
+        //  style_context.add_provider (providers[color], Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
     }
 
     /*
@@ -205,6 +205,28 @@
         }
 
         return false;
+    }
+
+    public bool calcomp_is_on_month (ECal.Component comp, GLib.DateTime date) {
+        /* We want to be relative to the local timezone */
+        unowned ICal.Component? icomp = comp.get_icalcomponent ();
+        ICal.Time? start_time = icomp.get_dtstart ();
+        ICal.Time? due_time = icomp.get_due ();
+        ICal.Time? end_time = icomp.get_dtend ();
+
+        if (due_time != null && !due_time.is_null_time ()) {
+            // RFC 2445 Section 4.8.2.3: The property DUE
+            // can only be specified in a "VTODO" calendar
+            // component. Therefore we are dealing with a
+            // task here:
+            end_time = due_time;
+
+            if (start_time == null || start_time.is_null_time ()) {
+                start_time = due_time;
+            }
+        }
+
+        return date.get_month () == start_time.get_month () && date.get_year () == start_time.get_year ();
     }
 
     /* Returns true if 'a' and 'b' are the same E.Source */

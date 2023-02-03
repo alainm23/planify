@@ -1,13 +1,12 @@
 public class Widgets.LabelButton : Gtk.Button {
     public Objects.Item item { get; construct; }
 
+    private Widgets.LabelPicker.LabelPicker labels_picker = null;
     public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
-    public signal void dialog_open (bool value);
 
     public LabelButton (Objects.Item item) {
         Object (
             item: item,
-            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add label(s)")
@@ -15,7 +14,8 @@ public class Widgets.LabelButton : Gtk.Button {
     }
 
     construct {
-        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("p3");
 
         var tag_image = new Widgets.DynamicIcon ();
         tag_image.size = 19;
@@ -25,24 +25,28 @@ public class Widgets.LabelButton : Gtk.Button {
             column_spacing = 6,
             valign = Gtk.Align.CENTER
         };
-        button_grid.add (tag_image);
+        button_grid.attach (tag_image, 0, 0);
 
-        add (button_grid);
+        child = button_grid;
 
-        clicked.connect (() => {
-            var dialog = new Dialogs.LabelPicker.LabelPicker ();
-            dialog.item = item;
-            
-            dialog.labels_changed.connect ((labels) => {
-                labels_changed (labels);
-            });
+        var gesture = new Gtk.GestureClick ();
+        gesture.set_button (1);
+        add_controller (gesture);
 
-            dialog_open (true);
-            dialog.popup ();
+        gesture.pressed.connect ((n_press, x, y) => {
+            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 
-            dialog.destroy.connect (() => {
-                dialog_open (false);
-            });
+            if (labels_picker == null) {
+                labels_picker = new Widgets.LabelPicker.LabelPicker ();
+                labels_picker.set_parent (this);
+                
+                labels_picker.closed.connect (() => {
+                    labels_changed (labels_picker.labels_map);
+                });
+            }
+
+            labels_picker.item = item;
+            labels_picker.popup ();
         });
     }
 }

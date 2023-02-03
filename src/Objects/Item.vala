@@ -26,9 +26,9 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public int64 section_id { get; set; default = Constants.INACTIVE; }
-    public int64 project_id { get; set; default = Constants.INACTIVE; }
-    public int64 parent_id { get; set; default = Constants.INACTIVE; }
+    public string section_id { get; set; default = ""; }
+    public string project_id { get; set; default = ""; }
+    public string parent_id { get; set; default = ""; }
     
     public int priority { get; set; default = Constants.INACTIVE; }
 
@@ -76,7 +76,6 @@ public class Objects.Item : Objects.BaseObject {
 
     public int child_order { get; set; default = Constants.INACTIVE; }
     public int day_order { get; set; default = Constants.INACTIVE; }
-    public int due_is_recurring { get; set; default = Constants.INACTIVE; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
@@ -102,7 +101,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_section {
         get {
-            return section_id != Constants.INACTIVE;
+            return section_id != "";
         }
     }
 
@@ -111,6 +110,14 @@ public class Objects.Item : Objects.BaseObject {
         get {
             _added_datetime = new GLib.DateTime.from_iso8601 (added_at, new GLib.TimeZone.local ());
             return _added_datetime;
+        }
+    }
+
+    GLib.DateTime _updated_datetime;
+    public GLib.DateTime updated_datetime {
+        get {
+            _updated_datetime = new GLib.DateTime.from_iso8601 (updated_at, new GLib.TimeZone.local ());
+            return _updated_datetime;
         }
     }
 
@@ -128,7 +135,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Item? _parent;
     public Objects.Item parent {
         get {
-            _parent = Planner.database.get_item (parent_id);
+            _parent = Services.Database.get_default ().get_item (parent_id);
             return _parent;
         }
     }
@@ -136,7 +143,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Project? _project;
     public Objects.Project project {
         get {
-            _project = Planner.database.get_project (project_id);
+            _project = Services.Database.get_default ().get_project (project_id);
             return _project;
         }
     }
@@ -144,7 +151,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Section? _section;
     public Objects.Section section {
         get {
-            _section = Planner.database.get_section (section_id);
+            _section = Services.Database.get_default ().get_section (section_id);
             return _section;
         }
     }
@@ -153,7 +160,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.HashMap<string, Objects.ItemLabel> labels {
         get {
             if (_labels == null) {
-                _labels = Planner.database.get_labels_by_item (this);
+                _labels = Services.Database.get_default ().get_labels_by_item (this);
             }
             return _labels;
         }
@@ -165,7 +172,7 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Planner.database.get_subitems (this);
+            _items = Services.Database.get_default ().get_subitems (this);
             return _items;
         }
     }
@@ -173,24 +180,25 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Reminder> _reminders;
     public Gee.ArrayList<Objects.Reminder> reminders {
         get {
-            _reminders = Planner.database.get_reminders_by_item (this);
+            _reminders = Services.Database.get_default ().get_reminders_by_item (this);
             return _reminders;
         }
     }
 
     public signal void item_label_added (Objects.ItemLabel item_label);
+    public signal void item_label_deleted (Objects.ItemLabel item_label);
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
 
     construct {
         deleted.connect (() => {
-            Planner.database.item_deleted (this);
+            Services.Database.get_default ().item_deleted (this);
         });
     }
 
     public Item.from_json (Json.Node node) {
-        id = node.get_object ().get_int_member ("id");
+        id = node.get_object ().get_string_member ("id");
         update_from_json (node);
         update_local_labels (get_labels_from_json (node));
     }
@@ -202,14 +210,14 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.HashMap<string, Objects.Label> get_labels_from_json (Json.Node node) {
         Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Planner.database.get_label_by_name (element.get_string ());
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string ());
             return_value [label.id_string] = label;
         }
         return return_value;
     }
 
     public void update_from_json (Json.Node node) {
-        project_id = node.get_object ().get_int_member ("project_id");
+        project_id = node.get_object ().get_string_member ("project_id");
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
         checked = node.get_object ().get_boolean_member ("checked");
@@ -218,15 +226,15 @@ public class Objects.Item : Objects.BaseObject {
         added_at = node.get_object ().get_string_member ("added_at");
 
         if (!node.get_object ().get_null_member ("section_id")) {
-            section_id = node.get_object ().get_int_member ("section_id");
+            section_id = node.get_object ().get_string_member ("section_id");
         } else{
-            section_id = Constants.INACTIVE;
+            section_id = "";
         }
 
         if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = node.get_object ().get_int_member ("parent_id");
+            parent_id = node.get_object ().get_string_member ("parent_id");
         } else {
-            parent_id = Constants.INACTIVE;
+            parent_id = "";
         }
 
         if (!node.get_object ().get_null_member ("completed_at")) {
@@ -275,7 +283,7 @@ public class Objects.Item : Objects.BaseObject {
             builder.begin_object ();
 
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             builder.end_object ();
         builder.end_object ();
@@ -289,7 +297,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_local () {
-        Planner.database.update_item (this, Constants.INACTIVE);
+        Services.Database.get_default ().update_item (this, Constants.INACTIVE);
     }
 
     public void update (int64 update_id = Constants.INACTIVE) {
@@ -300,11 +308,13 @@ public class Objects.Item : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            Planner.database.update_item (this, update_id);
-            if (project.todoist) {
-                Planner.todoist.update.begin (this, (obj, res) => {
-                    Planner.todoist.update.end (res);
+            if (project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default ().update_item (this, update_id);
                 });
+            } else {
+                Services.Database.get_default ().update_item (this, update_id);
             }
 
             return GLib.Source.REMOVE;
@@ -323,15 +333,16 @@ public class Objects.Item : Objects.BaseObject {
                 loading_button.is_loading = true;
             }
             
-            Planner.database.update_item (this, update_id);
-            if (project.todoist) {
-                Planner.todoist.update.begin (this, (obj, res) => {
-                    Planner.todoist.update.end (res);
+            if (project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default ().update_item (this, update_id);
                     if (loading_button != null) {
                         loading_button.is_loading = false;
                     }
                 });
             } else {
+                Services.Database.get_default ().update_item (this, update_id);
                 loading_button.is_loading = false;
             }
 
@@ -344,15 +355,16 @@ public class Objects.Item : Objects.BaseObject {
             loading_button.is_loading = true;
         }
         
-        Planner.database.update_item (this, update_id);
-        if (project.todoist) {
-            Planner.todoist.update.begin (this, (obj, res) => {
-                Planner.todoist.update.end (res);
+        if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
+                Services.Database.get_default ().update_item (this, update_id);
                 if (loading_button != null) {
                     loading_button.is_loading = false;
                 }
             });
         } else {
+            Services.Database.get_default ().update_item (this, update_id);
             loading_button.is_loading = false;
         }
     }
@@ -365,7 +377,6 @@ public class Objects.Item : Objects.BaseObject {
             item_label.id = Util.get_default ().generate_id ();
             item_label.label_id = entry.value.id;
             item_label.item_id = id;
-
             _labels [item_label.label_id.to_string ()] = item_label;
         }
     }
@@ -373,15 +384,17 @@ public class Objects.Item : Objects.BaseObject {
     public void insert_local_labels () {
         foreach (var entry in labels.entries) {
             entry.value.item_id = id;
-            Planner.database.insert_item_label (entry.value);
+            Services.Database.get_default ().insert_item_label (entry.value);
         }
     }
 
     public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
         Layouts.ItemRow? loading_button = null) {
+        bool update = false;
         foreach (var entry in new_labels.entries) {
             if (!labels.has_key (entry.value.id_string)) {
                 add_label_if_not_exists (entry.value);
+                update = true;
             }
         }
 
@@ -394,9 +407,14 @@ public class Objects.Item : Objects.BaseObject {
 
         foreach (Objects.ItemLabel item_label in labels_delete) {
             delete_item_label (item_label);
+            update = true;
         }
 
-        if (project.todoist) {
+        if (!update) {
+            return;
+        }
+
+        if (project.backend_type == BackendType.TODOIST) {
             update_async (Constants.INACTIVE, loading_button);
         } else {
             update_local ();
@@ -408,7 +426,7 @@ public class Objects.Item : Objects.BaseObject {
         lock (_reminders) {
             return_value = get_reminder (reminder);
             if (return_value == null) {
-                Planner.database.insert_reminder (reminder);
+                Services.Database.get_default ().insert_reminder (reminder);
                 add_reminder (return_value);
             }
             return return_value;
@@ -434,7 +452,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_reminder (Objects.Reminder reminder) {
-        Planner.database.delete_reminder (reminder);
+        Services.Database.get_default ().delete_reminder (reminder);
     }
 
     public Objects.ItemLabel add_label_if_not_exists (Objects.Label label) {
@@ -447,14 +465,14 @@ public class Objects.Item : Objects.BaseObject {
                 return_value.item_id = id;
                 return_value.label_id = label.id;
 
-                Planner.database.insert_item_label (return_value);
+                Services.Database.get_default ().insert_item_label (return_value);
                 add_item_label (return_value);
             }
             return return_value;
         }
     }
 
-    public Objects.ItemLabel? get_label (int64 id) {
+    public Objects.ItemLabel? get_label (string id) {
         Objects.ItemLabel? return_value = null;
         lock (_labels) {
             foreach (var entry in labels.entries) {
@@ -474,25 +492,26 @@ public class Objects.Item : Objects.BaseObject {
 
     public void delete_item_label (Objects.ItemLabel item_label) {
         _labels.unset (item_label.label_id.to_string ());
-        Planner.database.delete_item_label (item_label);
+        Services.Database.get_default ().delete_item_label (item_label);
+        item_label_deleted (item_label);
     }
 
-    public string to_move_json (string type, int64 move_id) {
+    public string to_move_json (string type, string move_id) {
         builder.reset ();
         
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("type");
         builder.add_string_value (type);
 
         builder.set_member_name (type);
-        if (Planner.database.curTempIds_exists (move_id)) {
-            builder.add_string_value (Planner.database.get_temp_id (move_id));
+        if (Services.Database.get_default ().curTempIds_exists (move_id)) {
+            builder.add_string_value (Services.Database.get_default ().get_temp_id (move_id));
         } else {
-            builder.add_int_value (move_id);
+            builder.add_string_value (move_id);
         }
         
         builder.end_object ();
@@ -504,7 +523,7 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public string get_move_item (string uuid, string type, int64 move_id) {
+    public string get_move_item (string uuid, string type, string move_id) {
         builder.reset ();
 
         builder.begin_array ();
@@ -520,10 +539,10 @@ public class Objects.Item : Objects.BaseObject {
             builder.begin_object ();
 
             builder.set_member_name ("id");
-            builder.add_int_value (id);
+            builder.add_string_value (id);
 
             builder.set_member_name (type);
-            builder.add_int_value (move_id);
+            builder.add_string_value (move_id);
             
             builder.end_object ();
         builder.end_object ();
@@ -558,21 +577,21 @@ public class Objects.Item : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             if (temp_id != null) {
                 builder.set_member_name ("project_id");
-                builder.add_int_value (project_id);
+                builder.add_string_value (project_id);
                 
-                if (parent_id != Constants.INACTIVE) {
+                if (parent_id != "") {
                     builder.set_member_name ("parent_id");
-                    builder.add_int_value (parent_id);
+                    builder.add_string_value (parent_id);
                 }
 
-                if (section_id != Constants.INACTIVE) {
+                if (section_id != "") {
                     builder.set_member_name ("section_id");
-                    builder.add_int_value (section_id);
+                    builder.add_string_value (section_id);
                 }
             }
 
@@ -596,15 +615,6 @@ public class Objects.Item : Objects.BaseObject {
                 builder.set_member_name ("date");
                 builder.add_string_value (due.date);
 
-                builder.set_member_name ("is_recurring");
-                builder.add_boolean_value (due.is_recurring);
-
-                builder.set_member_name ("string");
-                builder.add_string_value (due.text);
-
-                builder.set_member_name ("lang");
-                builder.add_string_value (due.lang);
-
                 builder.end_object ();
             } else {
                 builder.set_member_name ("due");
@@ -625,6 +635,7 @@ public class Objects.Item : Objects.BaseObject {
         Json.Node root = builder.get_root ();
         generator.set_root (root);
 
+        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
     }
 
@@ -634,30 +645,30 @@ public class Objects.Item : Objects.BaseObject {
         builder.begin_object ();
         
         builder.set_member_name ("id");
-        builder.add_int_value (id);
+        builder.add_string_value (id);
 
         builder.set_member_name ("project_id");
-        if (Planner.database.curTempIds_exists (project_id)) {
-            builder.add_string_value (Planner.database.get_temp_id (project_id));
+        if (Services.Database.get_default ().curTempIds_exists (project_id)) {
+            builder.add_string_value (Services.Database.get_default ().get_temp_id (project_id));
         } else {
-            builder.add_int_value (project_id);
+            builder.add_string_value (project_id);
         }
 
-        if (section_id != Constants.INACTIVE) {
+        if (section_id != "") {
             builder.set_member_name ("section_id");
-            if (Planner.database.curTempIds_exists (section_id)) {
-                builder.add_string_value (Planner.database.get_temp_id (section_id));
+            if (Services.Database.get_default ().curTempIds_exists (section_id)) {
+                builder.add_string_value (Services.Database.get_default ().get_temp_id (section_id));
             } else {
-                builder.add_int_value (section_id);
+                builder.add_string_value (section_id);
             }
         }
 
-        if (section_id != Constants.INACTIVE) {
+        if (section_id != "") {
             builder.set_member_name ("parent_id");
-            if (Planner.database.curTempIds_exists (parent_id)) {
-                builder.add_string_value (Planner.database.get_temp_id (parent_id));
+            if (Services.Database.get_default ().curTempIds_exists (parent_id)) {
+                builder.add_string_value (Services.Database.get_default ().get_temp_id (parent_id));
             } else {
-                builder.add_int_value (parent_id);
+                builder.add_string_value (parent_id);
             }
         }
 
@@ -681,15 +692,6 @@ public class Objects.Item : Objects.BaseObject {
             builder.set_member_name ("date");
             builder.add_string_value (due.date);
 
-            builder.set_member_name ("is_recurring");
-            builder.add_boolean_value (due.is_recurring);
-
-            builder.set_member_name ("string");
-            builder.add_string_value (due.text);
-
-            builder.set_member_name ("lang");
-            builder.add_string_value (due.lang);
-
             builder.end_object ();
         } else {
             builder.set_member_name ("due");
@@ -711,26 +713,6 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public void delete (Layouts.ItemRow? itemrow = null) {
-        if (project.todoist) {
-            if (itemrow != null) {
-                itemrow.is_loading = true;
-            }
-
-            Planner.todoist.delete.begin (this, (obj, res) => {
-                if (Planner.todoist.delete.end (res)) {
-                    Planner.database.delete_item (this);
-                } else {
-                    if (itemrow != null) {
-                        itemrow.is_loading = false;
-                    }
-                }
-            });
-        } else {
-            Planner.database.delete_item (this);
-        }
-    }
-
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
         Objects.Item? return_value = null;
         lock (_items) {
@@ -738,14 +720,14 @@ public class Objects.Item : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_parent (this);
                 add_item (new_item);
-                Planner.database.insert_item (new_item, insert);
+                Services.Database.get_default ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
         }
     }
 
-    public Objects.Item? get_item (int64 id) {
+    public Objects.Item? get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
             foreach (var item in items) {
@@ -760,5 +742,55 @@ public class Objects.Item : Objects.BaseObject {
 
     public void add_item (Objects.Item item) {
         _items.add (item);
+    }
+
+    public void copy_clipboard () {
+        Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+        clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
+        Planner.event_bus.send_notification (
+            Util.get_default ().create_toast (_("Task copied to clipboard"))
+        );
+    }
+
+    public void duplicate () {
+        var new_item = new Objects.Item ();
+        new_item.content = "[%s] %s".printf (_("Diplicate"), content);
+        new_item.description = description;
+        new_item.pinned = pinned;
+        new_item.due = due;
+        new_item.priority = priority;
+        new_item.project_id = project_id;
+        new_item.section_id = section_id;
+
+        if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
+                string? id = Services.Todoist.get_default ().add.end (res);
+                if (id != null) {
+                    new_item.id = id;
+                    insert_duplicate (new_item);
+                }
+            });
+        } else {
+            new_item.id = Util.get_default ().generate_id ();
+            insert_duplicate (new_item);
+        }
+    }
+
+    public void insert_duplicate (Objects.Item new_item) {
+        if (new_item.section_id != "") {
+            Services.Database.get_default ().get_section (new_item.section_id)
+                .add_item_if_not_exists (new_item);
+        } else {
+            Services.Database.get_default ().get_project (new_item.project_id)
+                .add_item_if_not_exists (new_item);
+        }
+    }
+
+    private string get_format_date (Objects.Item item) {
+        if (!item.has_due) {
+            return " ";
+        }
+
+        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
     }
 }

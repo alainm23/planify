@@ -15,8 +15,9 @@ public class Widgets.PinButton : Gtk.Button {
     }
 
     construct {
-        get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
+        add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("p3");
+        
         pinned_image = new Widgets.DynamicIcon ();
         pinned_image.size = 19;
 
@@ -24,13 +25,18 @@ public class Widgets.PinButton : Gtk.Button {
             column_spacing = 6,
             valign = Gtk.Align.CENTER
         };
-        projectbutton_grid.add (pinned_image);
+        projectbutton_grid.attach (pinned_image, 0, 0);
 
-        add (projectbutton_grid);
+        child = projectbutton_grid;
 
         update_request ();
 
-        clicked.connect (() => {
+        var gesture = new Gtk.GestureClick ();
+        gesture.set_button (1);
+        add_controller (gesture);
+
+        gesture.pressed.connect ((n_press, x, y) => {
+            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             changed ();
         });
     }

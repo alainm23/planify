@@ -1,120 +1,91 @@
-.planner-sidebar {
-    background-color: @picker_bg;
-}
-
-.pane-content {
-    padding: 3px;
-    background-color: @picker_content_bg;
-    border-radius: 6px;
-    border: 0.4px solid @menu_separator;
-}
-
-.pane-content-background {
-    background-color: @picker_bg;
-}
-
-.pane-content.danger {
-    background-color: #c6262e;
-    text-shadow: 0 1px 1px #c6262e;
-}
-
-.pane-listbox-background {
-    background-color: @picker_content_bg;
-}
-
-.listbox-background {
-    background-color: @base_color;
-}
-
-.selectable-item {
-    border-radius: 6px;
-    transition: all 220ms ease-in-out;
-}
-
-.selectable-item:selected {
-    background-color: transparent;
-    color: @text_color;
-    font-weight: bold;
-}
-
-.selectable-item-selected {
-    background-color: @selected_bg_color;
-    border-radius: 6px;
-    color: @selected_fg_color;
-}
-
-.selectable-item:selected image {
-    animation: fancy-turn 0.7s ease-in-out;
-}
-
-.selectable-item label {
-    font-weight: 500;
+.sidebar {
+    background: @sidebar_bg_color;
 }
 
 .filter-pane-row-inbox {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
-    background-color: alpha (@color_primary, .15);
-    color: @color_primary;
+    background-color: alpha(#1e63ec, 0.15);
+    color: #1e63ec;
 }
 
-.filter-pane-row-inbox:selected image {
+.filter-pane-row-inbox.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
 .filter-pane-row-inbox-selected {
-    box-shadow: 0px 0px 3px 1px @color_primary;
+    box-shadow: 0px 0px 3px 1px #1e63ec;
 }
 
 .filter-pane-row-today {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
-    background-color: alpha (#fad000, .15);
-    color: #fad000;
+    background-color: alpha(#16af54, 0.15);
+    color: #16af54;
 }
 
-.filter-pane-row-today:selected image {
+.filter-pane-row-today.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
 .filter-pane-row-today-selected {
-    box-shadow: 0px 0px 3px 1px #fad000;
+    box-shadow: 0px 0px 3px 1px #16af54;
 }
 
 .filter-pane-row-scheduled {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
-    background-color: alpha (#fa1955, .15);
-    color: #fa1955;
+    background-color: alpha(#9d59e0, 0.15);
+    color: #9d59e0;
 }
 
-.filter-pane-row-scheduled-selected {
-    box-shadow: 0px 0px 3px 1px #fa1955;
-}
-
-.filter-pane-row-scheduled:selected image {
+.filter-pane-row-scheduled.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.padding-3 {
-    padding: 3px;
+.filter-pane-row-scheduled-selected {
+    box-shadow: 0px 0px 3px 1px #9d59e0;
 }
 
 .filter-pane-row-pinboard {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
-    background-color: alpha (#7e8087, .15);
+    background-color: alpha(#7e8087, 0.15);
     color: #7e8087;
+}
+
+.filter-pane-row-pinboard.selected image {
+    animation: fancy-turn 0.7s ease-in-out;
 }
 
 .filter-pane-row-pinboard-selected {
     box-shadow: 0px 0px 3px 1px #7e8087;
 }
 
-.filter-pane-row-pinboard:selected image {
-    animation: fancy-turn 0.7s ease-in-out;
+.selectable-item {
+    padding: 0;
+    border-radius: 12px;
+    transition: all 220ms ease-in-out;
+    background-color: transparent;
+}
+
+.selectable-item:hover {
+    background-color: transparent;
+}
+
+.selectable-item:selected {
+    background-color: transparent;
+}
+
+/* .selectable-item:focus:focus-visible {
+    outline: none;
+} */
+
+.selectable-item-selected {
+    background-color: @shade_color;
+    border-radius: 9px;
 }

@@ -19,312 +19,314 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Project : Hdy.Window {
-    public string color_selected { get; set; }
+public class Dialogs.Project : Adw.Window {
     public Objects.Project project { get; construct; }
+    public bool backend_picker { get; construct; }
 
-    private Widgets.Entry name_entry;
+    private Adw.EntryRow name_entry;
+    private Widgets.ColorPickerRow color_picker_row;
     private Widgets.LoadingButton submit_button;
-    private Granite.ModeSwitch iconstyle_switch;
-    private Widgets.Entry emoji_entry;
+    private Gtk.Switch emoji_switch;
+    private Gtk.Label emoji_label;
 
     public bool is_creating {
         get {
-            return project.id == Constants.INACTIVE;
+            return project.id == "";
         }
     }
 
-    public Project.new () {
+    public Project.new (BackendType backend_type, bool backend_picker = false) {
         var project = new Objects.Project ();
-        project.color = Util.get_default ().get_random_color ();
+        project.color = "blue";
         project.emoji = "🚀️";
-        project.id = Constants.INACTIVE;
+        project.id = "";
+        project.backend_type = backend_type;
 
         Object (
             project: project,
+            backend_picker: backend_picker,
             deletable: true,
             resizable: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: true
+            modal: true,
+            title: _("New Project"),
+            width_request: 320,
+            height_request: 400,
+            transient_for: (Gtk.Window) Planner.instance.main_window
         );
     }
 
     public Project (Objects.Project project) {
         Object (
             project: project,
+            backend_picker: false,
             deletable: true,
             resizable: true,
-            window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
-            modal: true
+            modal: true,
+            title: _("Edit Project"),
+            width_request: 320,
+            height_request: 400,
+            transient_for: (Gtk.Window) Planner.instance.main_window
         );
     }
 
     construct {
-        unowned Gtk.StyleContext dialog_context = get_style_context ();
-        dialog_context.add_class (Gtk.STYLE_CLASS_VIEW);
-        dialog_context.add_class ("planner-dialog");
-        dialog_context.remove_class ("background");
+        var headerbar = new Adw.HeaderBar ();
+        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        transient_for = Planner.instance.main_window;
+        emoji_label = new Gtk.Label (project.emoji);
 
-        var headerbar = new Hdy.HeaderBar ();
-        headerbar.has_subtitle = false;
-        headerbar.show_close_button = false;
-        headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+        var progress_bar = new Widgets.CircularProgressBar (32);
+        progress_bar.percentage = 0.64;
 
-        emoji_entry = new Widgets.Entry () {
-            overwrite_mode = true
-        };
-
-        var progress = new Widgets.ProjectProgress (48) {
-            valign = Gtk.Align.CENTER,
+        var emoji_color_stack = new Gtk.Stack () {
             halign = Gtk.Align.CENTER,
-            progress_fill_color = Util.get_default ().get_color (project.color),
-            percentage = 0.65
+            valign = Gtk.Align.CENTER,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        var label = new Gtk.Label (project.emoji);
+        emoji_color_stack.add_named (emoji_label, "emoji");
+        emoji_color_stack.add_named (progress_bar, "color");
 
-        var preview_stack = new Gtk.Stack () {
+        var emoji_picker_button = new Gtk.Button () {
             hexpand = true,
-            homogeneous = false,
-            halign = Gtk.Align.CENTER
-        };
-
-        preview_stack.add_named (progress, "progress");
-        preview_stack.add_named (label, "emoji");
-
-        var preview_button = new Gtk.Button () {
+            halign = Gtk.Align.CENTER,
+            valign = Gtk.Align.CENTER,
             height_request = 64,
             width_request = 64,
-            can_focus = true,
-            margin = 12
-        };
-        preview_button.add (preview_stack);
-        preview_button.get_style_context ().add_class ("h1");
-        preview_button.get_style_context ().add_class ("emoji-button");
-
-        var picker_stack = new Gtk.Stack () {
-            hexpand = true,
-            homogeneous = false,
-            halign = Gtk.Align.CENTER
+            margin_top = 6
         };
 
-        picker_stack.add_named (preview_button, "emoji-button");
-        picker_stack.add_named (emoji_entry, "emoji-entry");
-
-        iconstyle_switch = new Granite.ModeSwitch.from_icon_name ("media-record-symbolic", "face-smile-symbolic") {
-            halign = Gtk.Align.CENTER
+        var emoji_chooser = new Gtk.EmojiChooser () {
+            has_arrow = false
         };
-        iconstyle_switch.primary_icon_tooltip_text = _("Progress");
-        iconstyle_switch.secondary_icon_tooltip_text = _("Emoji");
 
-        name_entry = new Widgets.Entry () {
-            margin = 12,
-            margin_top = 24,
-            placeholder_text = _("Project name")
-        };
+        emoji_chooser.set_parent (emoji_picker_button);
+
+        emoji_picker_button.child = emoji_color_stack;
+        
+        emoji_picker_button.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
+        emoji_picker_button.add_css_class ("button-emoji-picker");
+
+        name_entry = new Adw.EntryRow ();
+        name_entry.title = _("Give your project a name");
         name_entry.text = project.name;
-        name_entry.get_style_context ().add_class ("border-radius-6");
-        name_entry.get_style_context ().add_class ("dialog-entry");
 
-        var radio = new Gtk.RadioButton (null);
-        var colors_hashmap = new Gee.HashMap <string, Gtk.RadioButton> ();
+        var emoji_icon = new Widgets.DynamicIcon ();
+        emoji_icon.size = 21;
+        emoji_icon.update_icon_name ("emoji-happy");
 
-        var flowbox = new Gtk.FlowBox () {
-            column_spacing = 12,
-            row_spacing = 12,
-            border_width = 6,
-            max_children_per_line = 10,
-            min_children_per_line = 8,
-            expand = true,
+        emoji_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER
+        };
+        emoji_switch.active = project.icon_style == ProjectIconStyle.EMOJI;
+
+        var emoji_switch_row = new Adw.ActionRow ();
+        emoji_switch_row.title = _("Use Emoji");
+        emoji_switch_row.set_activatable_widget (emoji_switch);
+        emoji_switch_row.add_prefix (emoji_icon);
+        emoji_switch_row.add_suffix (emoji_switch);
+
+        var name_group = new Adw.PreferencesGroup () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 24
+        };
+
+        name_group.add (name_entry);
+        name_group.add (emoji_switch_row);
+
+        var backend_model = new Gtk.StringList (null);
+        backend_model.append (_("On This Computer"));
+        backend_model.append (_("Todoist"));
+
+        var backend_row = new Adw.ComboRow ();
+        backend_row.title = _("Source");
+        backend_row.model = backend_model;
+
+        var backend_group = new Adw.PreferencesGroup () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 24,
+            margin_bottom = 1
+        };
+
+        backend_group.add (backend_row);
+
+        var backend_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = backend_picker && Services.Todoist.get_default ().is_logged_in ()
+        };
+
+        backend_revealer.child = backend_group;
+
+        color_picker_row = new Widgets.ColorPickerRow ();
+
+        var color_group = new Gtk.Grid () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 24,
+            margin_bottom = 1,
             valign = Gtk.Align.START
         };
 
-        unowned Gtk.StyleContext flowbox_context = flowbox.get_style_context ();
-        flowbox_context.add_class ("flowbox-color");
+        color_group.add_css_class (Granite.STYLE_CLASS_CARD);
+        color_group.attach (color_picker_row, 0, 0);
 
-        foreach (var entry in Util.get_default ().get_colors ().entries) {
-            if (!entry.key.has_prefix ("#")) {
-                Gtk.RadioButton color_radio = new Gtk.RadioButton (radio.get_group ());
-                color_radio.valign = Gtk.Align.CENTER;
-                color_radio.halign = Gtk.Align.CENTER;
-                color_radio.tooltip_text = Util.get_default ().get_color_name (entry.key);
-                color_radio.get_style_context ().add_class ("color-radio");
-                Util.get_default ().set_widget_color (Util.get_default ().get_color (entry.key), color_radio);
-                colors_hashmap [entry.key] = color_radio;
-                flowbox.add (colors_hashmap [entry.key]);
-
-                color_radio.toggled.connect (() => {
-                    color_selected = entry.key;
-                    progress.progress_fill_color = Util.get_default ().get_color (color_selected);
-                });
-            }
-        }
-
-        color_selected = project.color;
-        if (colors_hashmap.has_key (color_selected)) {
-            colors_hashmap [color_selected].active = true;
-        }
-
-        var flowbox_grid = new Gtk.Grid () {
-            margin = 12,
-            margin_top = 0,
-            valign = Gtk.Align.START,
-            vexpand = false
+        var color_box_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = project.icon_style == ProjectIconStyle.PROGRESS
         };
-        flowbox_grid.add (flowbox);
 
-        unowned Gtk.StyleContext flowbox_grid_context = flowbox_grid.get_style_context ();
-        flowbox_grid_context.add_class ("picker-content");
+        color_box_revealer.child = color_group;
 
-        var list_radio = new Gtk.RadioButton (null);
-        list_radio.image = new Gtk.Image.from_icon_name ("projectview-list-symbolic", Gtk.IconSize.DND);
-        list_radio.tooltip_text = _("Grab the whole screen");
-
-        var board_radio = new Gtk.RadioButton.from_widget (list_radio);
-        board_radio.image = new Gtk.Image.from_icon_name ("projectview-board-symbolic", Gtk.IconSize.DND);
-        board_radio.tooltip_text = _("Grab the current window");
-
-        var radio_grid = new Gtk.Grid () {
-            halign = Gtk.Align.CENTER,
-            column_spacing = 18,
-            hexpand = true
-        };
-        radio_grid.add (list_radio);
-        radio_grid.add (board_radio);
-
-        var main_radio_grid = new Gtk.Grid () {
-            margin = 12,
-            margin_top = 0,
-            valign = Gtk.Align.START,
-            vexpand = false
-        };
-        main_radio_grid.add (radio_grid);
-
-        unowned Gtk.StyleContext main_radio_grid_context = main_radio_grid.get_style_context ();
-        main_radio_grid_context.add_class ("picker-content");
-
-        submit_button = new Widgets.LoadingButton (
-            LoadingButtonType.LABEL,
-            is_creating ? _("Add project") : _("Update project"));
-        submit_button.get_style_context ().add_class (Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.get_style_context ().add_class ("border-radius-6");
-
-        var cancel_button = new Gtk.Button.with_label (_("Cancel"));
-        cancel_button.get_style_context ().add_class ("border-radius-6");
-
-        var submit_cancel_grid = new Gtk.Grid () {
-            column_spacing = 12,
-            column_homogeneous = true,
-            margin = 12,
+        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add project") : _("Update project")) {
             vexpand = true,
+            hexpand = true,
+            margin_bottom = 12,
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 24,
             valign = Gtk.Align.END
         };
-        submit_cancel_grid.add (cancel_button);
-        submit_cancel_grid.add (submit_button);
 
-        var content_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
-        };
+        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
-        content_grid.add (headerbar);
-        content_grid.add (picker_stack);
-        content_grid.add (iconstyle_switch);
-        content_grid.add (name_entry);
-        content_grid.add (flowbox_grid);
-        // content_grid.add (main_radio_grid);
-        content_grid.add (submit_cancel_grid);
-
-        add (content_grid);
-        name_entry.grab_focus ();
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         
-        Timeout.add (preview_stack.transition_duration, () => {
+        content_box.append (headerbar);
+        content_box.append (emoji_picker_button);
+        content_box.append (name_group);
+        content_box.append (backend_revealer);
+        content_box.append (color_box_revealer);
+        content_box.append (submit_button);
+
+        content = content_box;
+
+        Timeout.add (emoji_color_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
-                preview_stack.visible_child_name = "progress";
-                iconstyle_switch.active = false;
+                emoji_color_stack.visible_child_name = "color";
             } else {
-                preview_stack.visible_child_name = "emoji";
-                iconstyle_switch.active = true;
+                emoji_color_stack.visible_child_name = "emoji";
             }
+
+            progress_bar.color = project.color;
+            color_picker_row.color = project.color;
+
+            if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+                backend_row.selected = 0;
+            } else if (project.backend_type == BackendType.TODOIST) {
+                backend_row.selected = 1;
+            }
+
+            name_entry.grab_focus ();
             
             return GLib.Source.REMOVE;
         });
 
-        preview_button.clicked.connect (() => {
-            if (preview_stack.visible_child_name == "emoji") {
-                emoji_entry.grab_focus ();
-                emoji_entry.insert_emoji ();
+        name_entry.entry_activated.connect (add_update_project);
+        submit_button.clicked.connect (add_update_project);
+
+        emoji_chooser.emoji_picked.connect((emoji) => {
+            emoji_label.label = emoji;
+        });
+
+        emoji_switch.notify["active"].connect (() => {
+            if (emoji_switch.active) {
+                color_box_revealer.reveal_child = false;
+                emoji_color_stack.visible_child_name = "emoji";
+
+                if (emoji_label.label.strip () == "") {
+                    emoji_label.label = "🚀️";
+                }
+
+                emoji_chooser.popup ();
+            } else {
+                color_box_revealer.reveal_child = true;
+                emoji_color_stack.visible_child_name = "color";
             }
         });
 
-        emoji_entry.changed.connect (() => {
-            label.label = emoji_entry.text;
+        color_picker_row.color_changed.connect (() => {
+            progress_bar.color = color_picker_row.color;
         });
 
-        name_entry.changed.connect (() => {
-            // submit_button.sensitive = Util.get_default ().is_input_valid (name_entry);
+        emoji_picker_button.clicked.connect (() => {
+            if (emoji_switch.active) {
+                emoji_chooser.popup ();
+            }
         });
 
-        name_entry.activate.connect (add_project);
-        submit_button.clicked.connect (add_project);
+        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
+        name_entry.add_controller (name_entry_ctrl_key);
 
-        cancel_button.clicked.connect (() => {
-            hide_destroy ();
+        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+
+            return false;
         });
 
-        iconstyle_switch.notify["active"].connect (() => {
-            preview_stack.visible_child_name = iconstyle_switch.active ? "emoji" : "progress";
+        backend_row.notify["selected"].connect (() => {
+            if (backend_row.selected == 0) {
+                project.backend_type = BackendType.LOCAL;
+            } else if (backend_row.selected == 1) {
+                project.backend_type = BackendType.TODOIST;
+            }
         });
     }
 
-    private void add_project () {
-        if (!Util.get_default ().is_input_valid (name_entry)) {
+    private void add_update_project () {
+        if (name_entry.text.length <= 0) {
             hide_destroy ();
             return;
         }
 
-        if (!is_creating) {
-            project.color = color_selected;
-            project.name = name_entry.text;
-            project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
-            project.emoji = emoji_entry.text;
+        project.name = name_entry.text;
+        project.color = color_picker_row.color;
+        project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
+        project.emoji = emoji_label.label;
 
+        if (!is_creating) {
             submit_button.is_loading = true;
-            Planner.database.update_project (project);
-            if (project.todoist) {
-                Planner.todoist.update.begin (project, (obj, res) => {
-                    Planner.todoist.update.end (res);
+            if (project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().update.begin (project, (obj, res) => {
+                    Services.Todoist.get_default ().update.end (res);
+                    Services.Database.get_default().update_project (project);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
-            } else {
+            } else if (project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default().update_project (project);
                 hide_destroy ();
             }
         } else {
-            BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
-
-            project.color = color_selected;
-            project.name = name_entry.text;
-            project.icon_style = iconstyle_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
-            project.emoji = emoji_entry.text;
-
-            if (backend_type == BackendType.TODOIST) {
-                project.todoist = true;
+            if (project.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
-                Planner.todoist.add.begin (project, (obj, res) => {
-                    project.id = Planner.todoist.add.end (res);
-                    Planner.database.insert_project (project);
-                    Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
-                    hide_destroy ();
+                Services.Todoist.get_default ().add.begin (project, (obj, res) => {
+                    project.id = Services.Todoist.get_default ().add.end (res);
+                    Services.Database.get_default().insert_project (project);
+                    go_project (project.id_string);
                 });
-            } else if (backend_type == BackendType.LOCAL) {
+
+            } else if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
                 project.id = Util.get_default ().generate_id ();
-                Planner.database.insert_project (project);
-                Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
-                hide_destroy ();
+                project.backend_type = BackendType.LOCAL;
+                Services.Database.get_default().insert_project (project);
+                go_project (project.id_string);
             }
         }
+    }
+
+    public void go_project (string id_string) {
+        Timeout.add (250, () => {
+            Planner.event_bus.send_notification (
+                Util.get_default ().create_toast (_("Project added successfully!"))
+            );    
+            Planner.event_bus.pane_selected (PaneType.PROJECT, id_string);
+            hide_destroy ();   
+            return GLib.Source.REMOVE;
+        });
     }
 
     public void hide_destroy () {

@@ -1,24 +1,57 @@
-public class Layouts.HeaderItem : Gtk.EventBox {
-    public PaneType pane_type { get; construct; }
-    public string pane_title { get; construct; }
-    public ContainerType container_shape { get; construct; }
-    public Gtk.SelectionMode selection_mode { get; construct; }
-    public string item_name { get; set; }
-    public string add_tooltip { get; set; }
-    public string placeholder_message { get; set; }
+
+
+public class Layouts.HeaderItem : Gtk.Grid {
+    public string _header_title;
+    public string header_title {
+        get {
+            return _header_title;
+        }
+
+        set {
+            _header_title = value;
+            name_label.label = _header_title;
+        }
+    }
+
+    public string _add_tooltip;
+    public string add_tooltip {
+        get {
+            return _add_tooltip;
+        }
+
+        set {
+            _add_tooltip = value;
+            add_button.tooltip_text = value;
+        }
+    }
+    
+    public string _placeholder_message;
+    public string placeholder_message {
+        get {
+            return _placeholder_message;
+        }
+
+        set {
+            _placeholder_message = value;
+            placeholder_label.label = _placeholder_message;
+        }
+    }
 
     private Gtk.Label name_label;
+    private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
-    private Gtk.FlowBox flowbox;
+    private Gtk.Button add_button;
     private Gtk.Stack action_stack;
+    private Gtk.Grid content_grid;
     private Gtk.Revealer action_revealer;
-    private Gtk.Revealer main_revealer;
+    private Gtk.Revealer content_revealer;
 
     public signal void add_activated ();
+    public signal void row_activated (Gtk.Widget widget);
 
     private bool has_children {
         get {
-            return listbox.get_children ().length () > 0;
+            return Util.get_default ().get_children (listbox).length () > 0;
         }
     }
 
@@ -28,120 +61,96 @@ public class Layouts.HeaderItem : Gtk.EventBox {
         }
     }
 
-    public bool add_action {
+    public bool show_action {
         set {
             action_revealer.reveal_child = value;
         }
     }
 
-    public HeaderItem (PaneType pane_type, string pane_title = "",
-        ContainerType container_shape=ContainerType.LISTBOX,
-        Gtk.SelectionMode selection_mode=Gtk.SelectionMode.SINGLE) {
+    public bool reveal_child {
+        set {
+            content_revealer.reveal_child = value;
+        }
+    }
+
+    public bool card {
+        set {
+            if (value) {
+
+            } else {
+                content_grid.remove_css_class (Granite.STYLE_CLASS_CARD);
+                // content_grid.remove_css_class ("pane-content");
+            }
+        }
+    }
+
+    public bool separator_space {
+        set {
+            if (value) {
+                listbox.add_css_class ("listbox-separator-3");
+            }
+        }
+    }
+    
+    public HeaderItem (string? header_title) {
         Object (
-            pane_type: pane_type,
-            pane_title: pane_title,
-            container_shape: container_shape,
-            selection_mode: selection_mode
+            header_title: header_title
         );
     }
 
     construct {
-        update_labels ();
-
-        name_label = new Gtk.Label (item_name) {
-            margin_start = 12,
+        name_label = new Gtk.Label (null) {
             halign = Gtk.Align.START
         };
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_H4_LABEL);
 
-        var arrow_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("pan-end-symbolic"),
-            pixel_size = 13
+        name_label.add_css_class (Granite.STYLE_CLASS_H4_LABEL);
+        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        listbox = new Gtk.ListBox () {
+            hexpand = true
         };
         
-        var arrow_button = new Gtk.Button () {
+        listbox.set_placeholder (get_placeholder ());
+        listbox.add_css_class ("bg-transparent");
+
+        content_grid = new Gtk.Grid () {
+            margin_end = 1
+        };
+
+        content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        // content_grid.add_css_class ("pane-content");
+        content_grid.add_css_class ("padding-3");
+        content_grid.attach (listbox, 0, 0, 1, 1);
+
+        var add_image = new Widgets.DynamicIcon () {
             valign = Gtk.Align.CENTER,
-            hexpand = true,
-            halign = Gtk.Align.END,
-            can_focus = false,
-            image = arrow_icon,
-            margin_end = 15
+            halign = Gtk.Align.CENTER,
         };
-        
-        arrow_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        arrow_button.get_style_context ().add_class ("dim-label");
-        arrow_button.get_style_context ().add_class ("transparent");
-        arrow_button.get_style_context ().add_class ("hidden-button");
-        arrow_button.get_style_context ().add_class ("no-padding");
-
-        var content_grid = new Gtk.Grid () {
-            margin = 9,
-            margin_top = 0
-        };
-
-        if (container_shape == ContainerType.LISTBOX) {
-            listbox = new Gtk.ListBox () {
-                hexpand = true,
-                selection_mode = selection_mode
-            };
-            listbox.set_placeholder (get_placeholder ());
-            
-            unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
-            listbox_context.add_class ("pane-content");
-            listbox_context.add_class ("listbox-separator-3");
-
-            content_grid.add (listbox);
-        } else {
-            flowbox = new Gtk.FlowBox () {
-                selection_mode = selection_mode,
-                column_spacing = 6,
-                row_spacing = 6,
-                homogeneous = false,
-                hexpand = true,
-                min_children_per_line = 3,
-                max_children_per_line = 3
-            }; 
-            
-            // flowbox.set_placeholder (get_placeholder ());
-
-            unowned Gtk.StyleContext flowbox_context = flowbox.get_style_context ();
-            flowbox_context.add_class ("pane-content");
-            
-            content_grid.add (flowbox);
-        }
-
-        var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 19;
+        add_image.size = 21;
         add_image.update_icon_name ("planner-plus-circle");
-        
-        var add_button = new Gtk.Button () {
+
+        add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            tooltip_text = add_tooltip,
-            margin_top = 1
+            can_focus = false
         };
 
-        add_button.add (add_image);
+        add_button.child = add_image;
 
-        unowned Gtk.StyleContext add_button_context = add_button.get_style_context ();
-        add_button_context.add_class (Gtk.STYLE_CLASS_FLAT);
-        add_button_context.add_class ("no-padding");
-        add_button_context.add_class ("action-button");
+        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_button.add_css_class ("p3");
 
-        // Loading
         var spinner_loading = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            active = true
+            spinning = true
         };
-        spinner_loading.start ();
         
+        spinner_loading.start ();
+
         action_stack = new Gtk.Stack () {
             halign = Gtk.Align.END,
             hexpand = true,
             valign = Gtk.Align.CENTER,
-            margin_start = 3,
-            margin_end = 12,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
@@ -152,110 +161,81 @@ public class Layouts.HeaderItem : Gtk.EventBox {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             reveal_child = true
         };
-        action_revealer.add (action_stack);
 
-        var header_grid = new Gtk.Grid () {
-            hexpand = true
-        };
-        header_grid.add (name_label);
-        header_grid.add (action_revealer);
-        
-        var main_grid = new Gtk.Grid () {
+        action_revealer.child = action_stack;
+
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            orientation = Gtk.Orientation.VERTICAL
+            margin_start = 6,
+            margin_end = 3
         };
-        main_grid.add (header_grid);
-        main_grid.add (content_grid);
 
-        main_revealer = new Gtk.Revealer () {
+        header_box.append (name_label);
+        header_box.append (action_revealer);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            margin_start = 3,
+            margin_top = 3,
+            margin_bottom = 3
+        };
+
+        content_box.append (header_box);
+        content_box.append (content_grid);
+
+        content_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = pane_type != PaneType.FAVORITE
+            reveal_child = true
         };
-        main_revealer.add (main_grid);
 
-        add (main_revealer);
+        content_revealer.child = content_box;
+
+        attach(content_revealer, 0, 0);
 
         add_button.clicked.connect (() => {
             add_activated ();
         });
 
-        if (pane_type == PaneType.FAVORITE) {
-            listbox.add.connect (() => {
-                main_revealer.reveal_child = has_children;
-            });
-
-            listbox.remove.connect (() => {
-                main_revealer.reveal_child = has_children;
-            });
-        }
-    }
-
-    private void update_labels () {
-        if (pane_type == PaneType.PROJECT) {
-            item_name = _("Projects");
-            add_tooltip = _("Add project");
-            placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        } else if (pane_type == PaneType.LABEL) {
-            item_name = _("Labels");
-            add_tooltip = _("Add label");
-            placeholder_message = _("Your list of filters will show up here. Create one by clicking on the '+' button");
-        } else if (pane_type == PaneType.FAVORITE) {
-            item_name = _("Favorites");
-        } else if (pane_type == PaneType.TASKLIST) {
-            item_name = pane_title;
-            add_tooltip = _("Add tasklist");
-            placeholder_message = _("No tasklist available. Create one by clicking on the '+' button");
-        }
+        listbox.row_activated.connect ((row) => {
+            row_activated (row);
+        });
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (placeholder_message) {
+        placeholder_label = new Gtk.Label (null) {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };
         
-        unowned Gtk.StyleContext message_label_context = message_label.get_style_context ();
-        message_label_context.add_class ("dim-label");
-        message_label_context.add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        placeholder_label.add_css_class ("dim-label");
+        placeholder_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var grid = new Gtk.Grid () {
-            margin = 6
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 12,
+            margin_bottom = 12,
+            margin_start = 12,
+            margin_end = 12,
         };
-        grid.add (message_label);
-        grid.show_all ();
 
-        return grid;
+        content_box.append (placeholder_label);
+
+        return content_box;
+    }
+
+
+    public void add_child (Gtk.Widget widget) {
+        listbox.append (widget);
+    }
+
+    public void remove_child (Gtk.Widget widget) {
+        listbox.remove (widget);
+    }
+
+    public void check_visibility (int size) {
+        content_revealer.reveal_child = size > 0;
     }
 
     public void set_sort_func (Gtk.ListBoxSortFunc? sort_func) {
         listbox.set_sort_func (sort_func);
-    }
-
-    public void add_child (Gtk.Widget widget) {
-        if (container_shape == ContainerType.LISTBOX) {
-            listbox.add (widget);
-            listbox.show_all ();
-        } else {
-            flowbox.insert (widget, -1);
-            flowbox.show_all ();
-        }
-    }
-
-    public void init_update_position_project () {
-        listbox.add.connect (update_projects_position);
-        listbox.remove.connect (update_projects_position);
-    }
-
-    private void update_projects_position () {
-        Timeout.add (main_revealer.transition_duration, () => {
-            GLib.List<weak Gtk.Widget> projects = listbox.get_children ();
-            for (int index = 0; index < projects.length (); index++) {
-                Objects.Project project = ((Layouts.ProjectRow) projects.nth_data (index)).project;
-                project.child_order = index + 1;
-                Planner.database.update_child_order (project);
-            }
-
-            return GLib.Source.REMOVE;
-        });
     }
 }

@@ -4,4 +4,3 @@ i18n.gettext(meson.project_name(),
 )
 
 subdir('extra')
-# subdir('quick-add')

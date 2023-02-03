@@ -7,7 +7,7 @@
    version="1.1"
    id="svg4"
    sodipodi:docname="planner-today.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -17,19 +17,20 @@
   <sodipodi:namedview
      id="namedview6"
      pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="22.083333"
-     inkscape:cx="5.8867925"
-     inkscape:cy="15.781132"
+     inkscape:zoom="19.583333"
+     inkscape:cx="12"
+     inkscape:cy="12"
      inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:window-height="699"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg4" />
   <path
@@ -37,7 +38,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M12 4.75L13.75 10.25H19.25L14.75 13.75L16.25 19.25L12 15.75L7.75 19.25L9.25 13.75L4.75 10.25H10.25L12 4.75Z"
+     d="M19.25 12.25v-3.5a2 2 0 0 0-2-2H6.75a2 2 0 0 0-2 2v8.5a2 2 0 0 0 2 2h4.5m3.5-1.5 1.5 1.5c.75-2.25 3-3.5 3-3.5M8 4.75v3.5m8-3.5v3.5m-8.25 2.5h8.5"
      id="path2"
-     style="stroke:#ffaa00;stroke-opacity:1;fill:#ffaa00;fill-opacity:1;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
+     style="stroke:#45bf76;stroke-opacity:1;fill:#45bf76;fill-opacity:0.15000001" />
 </svg>

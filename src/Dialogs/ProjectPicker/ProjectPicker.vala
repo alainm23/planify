@@ -19,14 +19,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
-    public bool show_sections { get; construct; }
-
-    private Gtk.Button cancel_button;
+public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     private Gtk.SearchEntry search_entry;
+    private Gtk.ListBox inbox_listbox;
     private Gtk.ListBox listbox;
 
-    public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectRow> projects_hashmap;
+    public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> projects_hashmap;
 
     Objects.Project _project;
     public Objects.Project project {
@@ -36,213 +34,143 @@ public class Dialogs.ProjectPicker.ProjectPicker : Hdy.Window {
 
         set {
             _project = value;
-            Planner.event_bus.project_picker_changed (_project.id, Constants.INACTIVE);
+            Planner.event_bus.project_picker_changed (_project.id);
         }
     }
 
-    Objects.Section _section;
-    public Objects.Section section {
-        get {
-            return _section;
-        }
+    public signal void changed (string project_id);
 
-        set {
-            _section = value;
-            Planner.event_bus.project_picker_changed (_section.project_id, _section.id);
-        }
-    }
-
-    public string calcel_text {
-        set {
-            cancel_button.label = value;
-        }
-    }
-
-    public signal void changed (int64 project_id, int64 section_id);
-    public signal void cancel_activate ();
-
-    public ProjectPicker (bool show_sections = true) {
+    public ProjectPicker () {
         Object (
-            show_sections: show_sections,
-            transient_for: (Gtk.Window) Planner.instance.main_window.get_toplevel (),
-            destroy_with_parent: true,
-            resizable: false
+            deletable: true,
+            resizable: true,
+            modal: true,
+            title: _("Move"),
+            width_request: 320,
+            height_request: 450,
+            transient_for: (Gtk.Window) Planner.instance.main_window
         );
     }
 
     construct {
-        projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectRow> ();
+        projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> ();
 
-        var headerbar = new Hdy.HeaderBar () {
-            has_subtitle = false,
-            show_close_button = false,
-            hexpand = true
-        };
-        headerbar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        headerbar.get_style_context ().add_class ("default-decoration");
-
-        var done_button = new Gtk.Button.with_label (_("Done")) {
-            halign = Gtk.Align.CENTER,
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        done_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        done_button.get_style_context ().add_class ("primary-color");
-
-        cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            halign = Gtk.Align.CENTER,
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        cancel_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var title_label = new Gtk.Label (_("Projects"));
-        title_label.get_style_context ().add_class ("h4");
-
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true
-        };
-        header_box.pack_start (cancel_button, false, false, 0);
-        header_box.set_center_widget (title_label);
-        header_box.pack_end (done_button, false, false, 0);
+        var headerbar = new Adw.HeaderBar ();
+        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a project"),
             hexpand = true,
-            margin_start = 9,
-            margin_end = 9,
-            margin_top = 3,
+            margin_start = 12,
+            margin_end = 12
+        };
+
+        search_entry.add_css_class ("border-radius-9");
+
+        inbox_listbox = new Gtk.ListBox () {
+            hexpand = true,
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
             margin_bottom = 6
         };
 
-        unowned Gtk.StyleContext search_entry_context = search_entry.get_style_context ();
-        search_entry_context.add_class ("border-radius-6");
-        search_entry_context.add_class ("picker-background");
+        inbox_listbox.add_css_class ("listbox-background");
+        inbox_listbox.add_css_class ("listbox-separator-3");
 
-        headerbar.set_custom_title (header_box);
+        var inbox_listbox_grid = new Gtk.Grid () {
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12
+        };
+        
+        inbox_listbox_grid.attach (inbox_listbox, 0, 0);
+        inbox_listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
         listbox = new Gtk.ListBox () {
-            hexpand = true
+            hexpand = true,
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
         };
-        listbox.set_filter_func (filter_func);
         
-        unowned Gtk.StyleContext listbox_context = listbox.get_style_context ();
-        listbox_context.add_class ("listbox-separator-3");
-        listbox_context.add_class ("listbox-background");
+        listbox.set_filter_func (filter_func);
+        listbox.add_css_class ("listbox-background");
+        listbox.add_css_class ("listbox-separator-3");
+
+        var listbox_scrolled = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER
+        };
+
+        listbox_scrolled.child = listbox;
 
         var listbox_grid = new Gtk.Grid () {
-            margin = 6,
-            margin_top = 0
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12
         };
 
-        listbox_grid.add (listbox);
+        listbox_grid.attach (listbox_scrolled, 0, 0);
+        listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+
+        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Move")) {
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
+        };
+        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
         
-        var listbox_scrolled = new Gtk.ScrolledWindow (null, null) {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            expand = true,
-            height_request = 210
-        };
-        listbox_scrolled.add (listbox_grid);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.append (headerbar);
+        content_box.append (search_entry);
+        content_box.append (inbox_listbox_grid);
+        content_box.append (listbox_grid);
+        content_box.append (submit_button);
 
-        var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            width_request = 225
-        };
-        main_grid.add (headerbar);
-        main_grid.add (search_entry);
-        main_grid.add (listbox_scrolled);
-
-        unowned Gtk.StyleContext main_grid_context = main_grid.get_style_context ();
-        main_grid_context.add_class ("view");
-
-        add (main_grid);
+        content = content_box;
         add_projects ();
-
-        key_press_event.connect ((event) => {
-            var key = Gdk.keyval_name (event.keyval).replace ("KP_", "");
-
-            if (key == "Up" || key == "Down") {
-                return false;
-            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-                return false;
-            } else {
-                if (!search_entry.has_focus) {
-                    search_entry.grab_focus ();
-                    search_entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, 0, false);
-                }
-
-                return false;
-            }
-
-            return true;
-        });
-
-        focus_out_event.connect (() => {
-            hide_destroy ();
-            return false;
-        });
-
-        key_release_event.connect ((key) => {
-            if (key.keyval == 65307) {
-                hide_destroy ();
-            }
-
-            return false;
-        });
 
         search_entry.search_changed.connect (() => {
             listbox.invalidate_filter ();
         });
 
-        cancel_button.clicked.connect (() => {
-            cancel_activate ();
-            hide_destroy ();
+        Planner.event_bus.project_picker_changed.connect ((project_id) => {
+            _project = Services.Database.get_default ().get_project (project_id);
         });
 
-        done_button.clicked.connect (() => {
-            changed (project.id, section.id);
+        submit_button.clicked.connect (() => {
+            changed (project.id);
             hide_destroy ();
-        });
-
-        Planner.event_bus.project_picker_changed.connect ((project_id, section_id) => {
-            _project = Planner.database.get_project (project_id);
-            _section = Planner.database.get_section (section_id);
         });
     }
 
-    private void hide_destroy () {
+    private void add_projects () {
+        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+            projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
+            
+            if (project.inbox_project) {
+                inbox_listbox.append (projects_hashmap [project.id_string]);
+            } else {
+                listbox.append (projects_hashmap [project.id_string]);
+            }
+        }
+    }
+
+    private bool filter_func (Gtk.ListBoxRow row) {
+        var project = ((Dialogs.ProjectPicker.ProjectPickerRow) row).project;
+        return search_entry.text.down () in project.name.down ();
+    }
+
+    public void hide_destroy () {
         hide ();
 
         Timeout.add (500, () => {
             destroy ();
             return GLib.Source.REMOVE;
         });
-    }
-
-    private void add_projects () {
-        foreach (Objects.Project project in Planner.database.projects) {
-            projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectRow (project);
-            listbox.add (projects_hashmap [project.id_string]);
-        }
-        
-        if (show_sections) {
-            foreach (Objects.Section section in Planner.database.sections) {
-                if (projects_hashmap.has_key (section.project_id.to_string ())) {
-                    projects_hashmap [section.project_id.to_string ()].add_section (section);
-                }
-            }
-        }
-
-        listbox.show_all ();
-    }
-
-    public void popup () {
-        move (Planner.event_bus.x_root, Planner.event_bus.y_root);
-        show_all ();
-    }
-
-    private bool filter_func (Gtk.ListBoxRow row) {
-        var project = ((Dialogs.ProjectPicker.ProjectRow) row).project;
-        return search_entry.text.down () in project.name.down ();
     }
 }

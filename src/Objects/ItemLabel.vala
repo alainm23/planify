@@ -1,12 +1,12 @@
 public class Objects.ItemLabel : Objects.BaseObject {
-    public int64 item_id { get; set; default = Constants.INACTIVE; }
-    public int64 label_id { get; set; default = Constants.INACTIVE; }
+    public string item_id { get; set; default = ""; }
+    public string label_id { get; set; default = ""; }
 
     Objects.Label? _label = null;
     public Objects.Label label {
         get {
             if (_label == null) {
-                _label = Planner.database.get_label (label_id);
+                _label = Services.Database.get_default ().get_label (label_id);
             }
             return _label;
         }
@@ -16,7 +16,7 @@ public class Objects.ItemLabel : Objects.BaseObject {
     public Objects.Item item {
         get {
             if (_item == null) {
-                _item = Planner.database.get_item (item_id);
+                _item = Services.Database.get_default ().get_item (item_id);
             }
             return _item;
         }

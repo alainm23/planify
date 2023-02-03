@@ -1,5 +1,4 @@
-public class Widgets.EditableLabel : Gtk.EventBox {
-    public string title_style { get; construct; }
+public class Widgets.EditableLabel : Gtk.Grid {
     public string placeholder_text { get; construct; }
     public bool auto_focus { get; construct; }
 
@@ -32,7 +31,7 @@ public class Widgets.EditableLabel : Gtk.EventBox {
             } else {
                 entry.grab_focus_without_selecting ();
                 if (entry.cursor_position < entry.text_length) {
-                    entry.move_cursor (Gtk.MovementStep.BUFFER_ENDS, (int32) entry.text_length, false);
+                    entry.set_position ((int32) entry.text_length);
                 }
             }
         } else {
@@ -51,22 +50,15 @@ public class Widgets.EditableLabel : Gtk.EventBox {
         }
     }
 
-    public EditableLabel (string title_style, string placeholder_text = "", bool auto_focus = true) {
+    public EditableLabel (string placeholder_text = "", bool auto_focus = true) {
         Object (
-            title_style: title_style,
             placeholder_text: placeholder_text,
             auto_focus: auto_focus
         );
     }
 
     construct {
-        unowned Gtk.StyleContext style_context = get_style_context ();
-        style_context.add_class ("editable-label");
-
-        valign = Gtk.Align.CENTER;
-        events |= Gdk.EventMask.ENTER_NOTIFY_MASK;
-        events |= Gdk.EventMask.LEAVE_NOTIFY_MASK;
-        events |= Gdk.EventMask.BUTTON_PRESS_MASK;
+        add_css_class ("editable-label");
 
         title = new Gtk.Label (null) {
             ellipsize = Pango.EllipsizeMode.END,
@@ -77,40 +69,31 @@ public class Widgets.EditableLabel : Gtk.EventBox {
             valign = Gtk.Align.CENTER,
             column_spacing = 12
         };
-        grid.add (title);
+
+        grid.attach (title, 0, 0);
 
         entry = new Widgets.Entry () {
             placeholder_text = placeholder_text
         };
 
         stack = new Gtk.Stack () {
-            homogeneous = true,
-            hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            transition_type = Gtk.StackTransitionType.CROSSFADE,
+            hexpand = true
         };
-        stack.add (grid);
-        stack.add (entry);
 
-        unowned Gtk.StyleContext stack_context = stack.get_style_context ();
-        stack_context.add_class (title_style);
+        stack.add_child (grid);
+        stack.add_child (entry);
 
-
-        var main_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
-        };
-        main_grid.add (stack);
-
-        add (main_grid);
+        attach (stack, 0, 0);
 
         bind_property ("text", title, "label");
 
         if (auto_focus) {
-            button_press_event.connect ((event) => {
-                editing (true);
-                return Gdk.EVENT_PROPAGATE;
-            });
+            var gesture_click = new Gtk.GestureClick ();
+            gesture_click.set_button (1);
+            add_controller (gesture_click);
 
-            grab_focus.connect (() => {
+            gesture_click.pressed.connect (() => {
                 editing (true);
             });
         }
@@ -121,31 +104,28 @@ public class Widgets.EditableLabel : Gtk.EventBox {
             }
         });
 
-        entry.focus_out_event.connect ((event) => {
+        var gesture = new Gtk.EventControllerFocus ();
+        entry.add_controller (gesture);
+
+        gesture.enter.connect (handle_focus_in);
+        gesture.leave.connect (update_on_leave);
+        
+        gesture.leave.connect (() => {
             if (stack.visible_child == entry && !entry_menu_opened) {
                 editing (false);
             }
-            return Gdk.EVENT_PROPAGATE;
         });
-
-        entry.populate_popup.connect ((menu) => {
-            entry_menu_opened = true;
-            menu.hide.connect (() => {
-                entry_menu_opened = false;
-            });
-        });
-
-        entry.focus_in_event.connect (handle_focus_in);
-        entry.focus_out_event.connect (update_on_leave);
     }
 
-    private bool handle_focus_in (Gdk.EventFocus event) {
+    public void add_style (string style) {
+        stack.add_css_class (style);
+    }
+
+    private void handle_focus_in () {
         Planner.event_bus.disconnect_typing_accel ();
-        return false;
     }
 
-    public bool update_on_leave () {
+    public void update_on_leave () {
         Planner.event_bus.connect_typing_accel ();
-        return false;
     }
 }

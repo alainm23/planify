@@ -1,311 +1,105 @@
-public class Views.Scheduled.Scheduled : Gtk.EventBox {
-    private Gtk.Label date_label;
+public class Views.Scheduled.Scheduled : Gtk.Grid {
+    public Gee.HashMap <string, Layouts.ItemRow> items;
 
-    private GLib.DateTime date;
-    private Views.Date date_view;
-    private Hdy.Carousel carousel;
-    private Views.Scheduled.ScheduledHeader grid_center;
-    private Views.Scheduled.ScheduledHeader grid_left;
-    private Views.Scheduled.ScheduledHeader grid_right;
-    private uint position;
-    private int rel_postion;
+    private Gtk.ListBox listbox;
 
     construct {
+        items = new Gee.HashMap <string, Layouts.ItemRow> ();
+
         var scheduled_icon = new Gtk.Image () {
             gicon = new ThemedIcon ("planner-scheduled"),
-            pixel_size = 24
+            pixel_size = 32
         };
 
         var title_label = new Gtk.Label (_("Scheduled"));
-        title_label.get_style_context ().add_class ("header-title");
+        title_label.add_css_class ("header-title");
 
-        date_label = new Gtk.Label (null) {
-            margin_top = 2
+        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            valign = Gtk.Align.START,
+            hexpand = true,
+            margin_top = 28
         };
 
-        var today_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        today_box.pack_start (scheduled_icon, false, false, 0);
-        today_box.pack_start (title_label, false, false, 0);
-        today_box.pack_start (date_label, false, false, 0);
+        header_box.append (scheduled_icon);
+        header_box.append (title_label);
 
-        var today_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        today_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        today_button.add (today_box);
-
-        var chevron_left_image = new Widgets.DynamicIcon ();
-        chevron_left_image.size = 19;
-        chevron_left_image.update_icon_name ("chevron-left");
-        
-        var chevron_left_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        chevron_left_button.add (chevron_left_image);
-        chevron_left_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var calendar_image = new Widgets.DynamicIcon ();
-        calendar_image.size = 19;
-        calendar_image.update_icon_name ("planner-calendar");
-        
-        var calendar_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        calendar_button.add (calendar_image);
-        calendar_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 19;
-        chevron_right_image.update_icon_name ("chevron-right");
-        
-        var chevron_right_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        chevron_right_button.add (chevron_right_image);
-        chevron_right_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var nav_grid = new Gtk.Grid () {
-            valign = Gtk.Align.CENTER
-        };
-        nav_grid.add (chevron_left_button);
-        nav_grid.add (calendar_button);
-        nav_grid.add (chevron_right_button);
-
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
-        
-        var menu_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        menu_button.add (menu_image);
-        menu_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 19;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-        search_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-        search_button.add (search_image);
-        search_button.clicked.connect (Util.get_default ().open_quick_find);
-
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 16,
-            margin_end = 6
-        };
-
-        header_box.pack_start (today_button, false, true, 0);
-        header_box.pack_end (search_button, false, false, 0);
-        header_box.pack_end (nav_grid, false, false, 12);
-
-        var magic_button = new Widgets.MagicButton ();
-
-        carousel = new Hdy.Carousel () {
-            interactive = true,
-            spacing = 12,
-            margin = 6,
-            margin_bottom = 0,
+        listbox = new Gtk.ListBox () {
+            valign = Gtk.Align.START,
+            activate_on_single_click = true,
+            selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true
         };
 
-        var carousel_grid = new Gtk.Grid () {
-            margin_start = 24,
-            margin_end = 12,
-            margin_top = 12
+        listbox.add_css_class ("listbox-background");
+
+        var listbox_grid = new Gtk.Grid () {
+            margin_top = 24,
+            margin_start = 3
         };
-        
-        carousel_grid.get_style_context ().add_class ("scheduled-content");
-        carousel_grid.add (carousel);
+        listbox_grid.attach (listbox, 0, 0);
 
-        show_today ();
-
-        date_view = new Views.Date () {
-            margin_top = 12,
-            expand = true
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            vexpand = true
         };
 
-        date_view.update_date (new GLib.DateTime.now_local ().add_days (1));
+        content.append (header_box);
+        content.append (listbox_grid);
 
-        var content = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            expand = true,
-            margin_start = 16,
-            margin_end = 36,
-            margin_bottom = 36,
-            margin_top = 6
-        };
-        content.add (header_box);
-        content.add (carousel_grid);
-        content.add (date_view);
-
-        var content_clamp = new Hdy.Clamp () {
-            maximum_size = 720,
-            expand = true
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 720
         };
 
-        content_clamp.add (content);
+        content_clamp.child = content;
 
-        var scrolled_window = new Gtk.ScrolledWindow (null, null) {
+        var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            expand = true
+            hexpand = true,
+            vexpand = true
         };
-        scrolled_window.add (content_clamp);
+
+        scrolled_window.child = content_clamp;
 
         var overlay = new Gtk.Overlay () {
-            expand = true
+            hexpand = true,
+            vexpand = true
         };
-        overlay.add_overlay (magic_button);
-        overlay.add (scrolled_window);
 
-        add (overlay);
-        show_all ();
-        update_date_label ();
+        overlay.child = scrolled_window;
 
-        Timeout.add (250, () => {
-            carousel.vexpand = false;
-            return GLib.Source.REMOVE;
-        });
-
-        carousel.page_changed.connect ((index) => {
-            if (position > index) {
-                rel_postion--;
-                position--;
-                date = date.add_days (-7);
-            } else if (position < index) {
-                rel_postion++;
-                position++;
-                date = date.add_days (7);
-            }
-
-            if (index + 1 == (int) carousel.get_n_pages ()) {
-                var grid = new Views.Scheduled.ScheduledHeader (date.add_days (7));
-                grid.date_selected.connect ((date, scheduled_day) => {
-                    date_selected (date, scheduled_day);
-                });
-                carousel.add (grid);
-            } else if (index == 0) {
-                var grid = new Views.Scheduled.ScheduledHeader (date.add_days (-7));
-                grid.date_selected.connect ((date, scheduled_day) => {
-                    date_selected (date, scheduled_day);
-                });
-                carousel.prepend (grid);
-                position++;
-            }
-
-            update_date_label ();
-        });
-
-        chevron_left_button.clicked.connect (() => {
-            carousel.switch_child ((int) carousel.get_position () - 1, carousel.get_animation_duration ());
-        });
-
-        chevron_right_button.clicked.connect (() => {
-            carousel.switch_child ((int) carousel.get_position () + 1, carousel.get_animation_duration ());
-        });
-
-        calendar_button.clicked.connect (() => {
-            var menu = new Dialogs.ContextMenu.Menu ();
-
-            var calendar = new Widgets.Calendar.Calendar () {
-                expand = true
-            };
-
-            menu.add_item (calendar);
-
-            menu.popup ();
-
-            calendar.selection_changed.connect ((date) => {
-                menu.hide_destroy ();
-                date_selected (date);
-            });
-        });
-
-        today_button.clicked.connect (() => {
-            show_today ();
-        });
-
-        Planner.event_bus.day_changed.connect (() => {
-            show_today ();
-        });
-
-        magic_button.clicked.connect (() => {
-            prepare_new_item ();
-        });
-
-        Planner.settings.changed.connect ((key) => {
-            if (key == "start-week") {
-                show_today ();
-            }
-        });
-
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value > 20) {
-                Planner.event_bus.view_header (true);
-            } else {
-                Planner.event_bus.view_header (false);
-            }
-        });
+        attach (overlay, 0, 0);
+        add_days ();
     }
 
-    public void prepare_new_item (string content = "") {
-        date_view.prepare_new_item (content);
-    }
+    private void add_days () {
+        var date = new GLib.DateTime.now_local ();
+        var month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        var remaining_days = month_days - date.add_days (7).get_day_of_month ();
+        var days_to_iterate = 7;
 
-    private void update_date_label () {
-        int day_of_week = date.get_day_of_week ();
-        GLib.DateTime _date = date.add_days (-1 * (day_of_week - 1));
-        date_label.label = _date.format ("%B");
-        if (_date.get_year () != new GLib.DateTime.now_local ().get_year ()) {
-            date_label.label = date_label.label + " %s".printf (_date.format ("%Y"));
-        }
-    }
-
-    private void date_selected (GLib.DateTime date, Views.Scheduled.ScheduledDay? scheduled_day = null) {
-        date_view.update_date (date);
-    }
-
-    private void show_today () {
-        date = new GLib.DateTime.now_local ();
-        carousel.no_show_all = true;
-        
-        foreach (unowned Gtk.Widget grid in carousel.get_children ()) {
-            carousel.remove (grid);
+        if (remaining_days >= 1 && remaining_days <= 3) {
+            days_to_iterate += remaining_days;
         }
 
-        grid_center = new Views.Scheduled.ScheduledHeader (date);
-        grid_center.date_selected.connect (date_selected);
-        
-        date = date.add_days (-7);
-        grid_left = new Views.Scheduled.ScheduledHeader (date);
-        grid_left.date_selected.connect (date_selected);
+        for (int i = 0; i < days_to_iterate; i++) {
+            date = date.add_days (1);
 
-        date = date.add_days (14);
-        grid_right = new Views.Scheduled.ScheduledHeader (date);
-        grid_right.date_selected.connect (date_selected);
+            var row = new Views.Scheduled.ScheduledDay (date);
+            listbox.append (row);
+        }
 
-        carousel.add (grid_left);
-        carousel.add (grid_center);
-        carousel.add (grid_right);
+        month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        remaining_days = month_days - date.get_day_of_month ();
 
-        carousel.scroll_to (grid_center);
+        if (remaining_days > 3) {
+            var row = new Views.Scheduled.ScheduledRange (date.add_days (1), date.add_days (remaining_days));
+            listbox.append (row);
+        }
 
-        position = 1;
-        rel_postion = 0;
-        date = date.add_days (-7);
-
-        carousel.no_show_all = false;
+        for (int i = 0; i < 4; i++) {
+            date = date.add_months (1);
+            var row = new Views.Scheduled.ScheduledMonth (date);
+            listbox.append (row);
+        }
     }
 }
