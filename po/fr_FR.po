@@ -55,7 +55,7 @@ msgstr "Projets"
 
 #: src/Util.vala:127
 msgid "Setions"
-msgstr "Sessions"
+msgstr "Sections"
 
 #: src/Util.vala:130 src/Util.vala:139 src/Dialogs/Settings/Settings.vala:104
 msgid "Tasks"
@@ -200,7 +200,7 @@ msgstr "Tout réinitialiser"
 
 #: src/Util.vala:900
 msgid "Welcome to Planner 3"
-msgstr "Bienvenue dans Planificateur 3"
+msgstr "Bienvenue dans Planner 3"
 
 #: src/Util.vala:901
 msgid ""
@@ -209,7 +209,7 @@ msgid ""
 "backup in JSON format and migrate your data manually, or you can start with "
 "v3 with a new configuration."
 msgstr ""
-"Nous avons détecté que vous avez une configuration Planificateur 2 en "
+"Nous avons détecté que vous avez une configuration Planner 2 en "
 "cours ; actuellement la base de données de la version 3 n'est pas compatible "
 "avec la version 2, si vous le souhaitez vous pouvez télécharger une "
 "sauvegarde au format JSON et migrer votre base de données manuellement, ou "
@@ -286,7 +286,7 @@ msgstr ""
 
 #: src/MainWindow.vala:37 src/Views/Welcome.vala:27
 msgid "Planner"
-msgstr "Planificateur"
+msgstr "Planner"
 
 #: src/Layouts/Sidebar.vala:353
 msgid "Creating a new task list failed"
@@ -808,11 +808,11 @@ msgstr "Nous n'avons rien sur vous"
 
 #: src/Dialogs/Settings/Settings.vala:193
 msgid "Import from Planner 2.0"
-msgstr "Importer depuis Planificateur 2.0"
+msgstr "Importer depuis Planner 2.0"
 
 #: src/Dialogs/Settings/Settings.vala:194
 msgid "Import your tasks from Planner 2"
-msgstr "Importez-vos tâches depuis Planificateur 2"
+msgstr "Importez-vos tâches depuis Planner 2"
 
 #: src/Dialogs/Settings/Settings.vala:199
 msgid "Delete all my app data"
@@ -844,7 +844,7 @@ msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
-"Activez ce paramètre pour que Planificateur se synchronise automatiquement "
+"Activez ce paramètre pour que Planner se synchronise automatiquement "
 "avec votre compte Todoist toutes les 15 minutes."
 
 #: src/Dialogs/Settings/Settings.vala:740
@@ -1097,7 +1097,7 @@ msgstr "Enregistrer"
 
 #: src/Services/MigrateV2.vala:522
 msgid "Open Planner file"
-msgstr "Ouvrir le fichier Planificateur"
+msgstr "Ouvrir le fichier Planner"
 
 #: src/Services/MigrateV2.vala:524
 msgid "Open"
