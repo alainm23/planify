@@ -63,123 +63,123 @@ msgstr "Tarefas"
 #: src/Util.vala:133 src/Layouts/HeaderItem.vala:199
 #: src/Dialogs/LabelPicker/LabelPicker.vala:78
 msgid "Labels"
-msgstr ""
+msgstr "Etiquetas"
 
 #: src/Util.vala:136 src/Dialogs/Settings/Settings.vala:530
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: src/Util.vala:142
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #: src/Util.vala:181 src/Util.vala:182
 msgid "Berry Red"
-msgstr ""
+msgstr "Frutas Vermelhas"
 
 #: src/Util.vala:184 src/Util.vala:185
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: src/Util.vala:187 src/Util.vala:188
 msgid "Orange"
-msgstr ""
+msgstr "Laranja"
 
 #: src/Util.vala:190 src/Util.vala:191
 msgid "Olive Green"
-msgstr ""
+msgstr "Verde Oliva"
 
 #: src/Util.vala:193 src/Util.vala:194
 msgid "Yellow"
-msgstr ""
+msgstr "Amarelo"
 
 #: src/Util.vala:196 src/Util.vala:197
 msgid "Lime Green"
-msgstr ""
+msgstr "Verde Lima"
 
 #: src/Util.vala:199 src/Util.vala:200
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: src/Util.vala:202 src/Util.vala:203
 msgid "Mint Green"
-msgstr ""
+msgstr "Verde Hortelã"
 
 #: src/Util.vala:205 src/Util.vala:206
 msgid "Teal"
-msgstr ""
+msgstr "Azul Petróleo"
 
 #: src/Util.vala:208 src/Util.vala:209
 msgid "Sky Blue"
-msgstr ""
+msgstr "Azul Celeste"
 
 #: src/Util.vala:211 src/Util.vala:212
 msgid "Light Blue"
-msgstr ""
+msgstr "Azul Claro"
 
 #: src/Util.vala:214 src/Util.vala:215
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: src/Util.vala:217 src/Util.vala:218
 msgid "Grape"
-msgstr ""
+msgstr "Uva"
 
 #: src/Util.vala:220 src/Util.vala:221
 msgid "Violet"
-msgstr ""
+msgstr "Violeta"
 
 #: src/Util.vala:223 src/Util.vala:224
 msgid "Lavander"
-msgstr ""
+msgstr "Lavanda"
 
 #: src/Util.vala:226 src/Util.vala:227
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Util.vala:229 src/Util.vala:230
 msgid "Salmon"
-msgstr ""
+msgstr "Salmão"
 
 #: src/Util.vala:232 src/Util.vala:233
 msgid "Charcoal"
-msgstr ""
+msgstr "Carvão"
 
 #: src/Util.vala:235 src/Util.vala:236
 msgid "Grey"
-msgstr ""
+msgstr "Cinza"
 
 #: src/Util.vala:238 src/Util.vala:239
 msgid "Taupe"
-msgstr ""
+msgstr "Taupe"
 
 #: src/Util.vala:416 src/Dialogs/Settings/Settings.vala:343
 msgid "Light"
-msgstr ""
+msgstr "Claro"
 
 #: src/Util.vala:419 src/Dialogs/Settings/Settings.vala:349
 msgid "Dark"
-msgstr ""
+msgstr "Escuro"
 
 #: src/Util.vala:422 src/Dialogs/Settings/Settings.vala:355
 msgid "Dark Blue"
-msgstr ""
+msgstr "Azul Escuro"
 
 #: src/Util.vala:435 src/Dialogs/Settings/Settings.vala:453
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: src/Util.vala:444 src/Dialogs/Settings/Settings.vala:468
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Hoje + Caixa de Entrada"
 
 #: src/Util.vala:616 src/Dialogs/DateTimePicker/DateTimePicker.vala:108
 msgid "Tomorrow"
-msgstr ""
+msgstr "Amanhã"
 
 #: src/Util.vala:618
 msgid "Yesterday"
-msgstr ""
+msgstr "Ontem"
 
 #: src/Util.vala:860 src/Util.vala:929 src/Layouts/ItemRow.vala:371
 #: src/Layouts/TaskRow.vala:331 src/Views/Tasklist.vala:472
@@ -195,11 +195,11 @@ msgstr "Cancelar"
 
 #: src/Util.vala:861
 msgid "Reset all"
-msgstr ""
+msgstr "Reiniciar tudo"
 
 #: src/Util.vala:900
 msgid "Welcome to Planner 3"
-msgstr ""
+msgstr "Bem-vindo ao Planner 3"
 
 #: src/Util.vala:901
 msgid ""
@@ -208,18 +208,22 @@ msgid ""
 "backup in JSON format and migrate your data manually, or you can start with "
 "v3 with a new configuration."
 msgstr ""
+"Detectamos que você tem uma configuração do Planner 2 iniciada, "
+"atualmente o banco de dados v3 não é compatível com o v2, "
+"se você desejar pode baixar um backup em formato JSON e migrar seus dados manualmente, "
+"ou você pode começar com o v3 com uma nova configuração."
 
 #: src/Util.vala:907
 msgid "Create backup"
-msgstr ""
+msgstr "Criar backup"
 
 #: src/Util.vala:908
 msgid "Starting over"
-msgstr ""
+msgstr "Recomeçar de novo"
 
 #: src/Util.vala:925
 msgid "Delete all data app"
-msgstr ""
+msgstr "Apagar todos os dados do aplicativo"
 
 #: src/Util.vala:926
 msgid ""
@@ -227,164 +231,169 @@ msgid ""
 "deleted, it cannot be restored. You will need to restart the app for the "
 "change to take place."
 msgstr ""
+"Você tem certeza de que gostaria de excluir todos os seus aplicativos de dados? "
+"Uma vez apagados, não podem ser restaurados. "
+"Você precisará reiniciar o aplicativo para que a mudança ocorra."
 
 #: src/Util.vala:933 src/Views/Tasklist.vala:476 src/Objects/Project.vala:460
 #: src/Objects/Label.vala:199 src/Objects/Section.vala:243
 msgid "Delete"
-msgstr ""
+msgstr "Excluir"
 
 #: src/Util.vala:976
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A solicitação estava incorreta."
 
 #: src/Util.vala:977
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
+"A autenticação é necessária ou falhou, ou ainda não foi fornecida."
 
 #: src/Util.vala:978
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "O pedido era válido, mas para algo proibido."
 
 #: src/Util.vala:979
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "O recurso solicitado não foi encontrado."
 
 #: src/Util.vala:980
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "O usuário enviou muitos pedidos em um determinado período de tempo."
 
 #: src/Util.vala:981
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "O pedido falhou devido a um erro no servidor."
 
 #: src/Util.vala:982
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "O servidor atualmente não é capaz de atender à solicitação."
 
 #: src/Application.vala:143
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Você tem certeza de que quer reiniciar tudo?"
 
 #: src/Application.vala:144
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr ""
+"O processo remove todas as informações armazenadas sem a possibilidade de desfazê-las."
 
 #: src/MainWindow.vala:37 src/Views/Welcome.vala:27
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/Layouts/Sidebar.vala:353
 msgid "Creating a new task list failed"
-msgstr ""
+msgstr "Criação de uma nova lista de tarefas falhou"
 
 #: src/Layouts/Sidebar.vala:354 src/Layouts/TaskRow.vala:904
 #: src/Views/Tasklist.vala:209 src/Views/Tasklist.vala:496
 msgid "The task list registry may be unavailable or unable to be written to."
-msgstr ""
+msgstr "O registro da lista de tarefas pode não estar disponível ou não pode ser escrito."
 
 #: src/Layouts/Sidebar.vala:361
 msgid "New list"
-msgstr ""
+msgstr "Nova lista"
 
 #: src/Layouts/HeaderItem.vala:196 src/Dialogs/Project.vala:210
 msgid "Add project"
-msgstr ""
+msgstr "Adicionar projeto"
 
 #: src/Layouts/HeaderItem.vala:197
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'."
 
 #: src/Layouts/HeaderItem.vala:200 src/Dialogs/Label.vala:148
 msgid "Add label"
-msgstr ""
+msgstr "Adicionar etiqueta"
 
 #: src/Layouts/HeaderItem.vala:201
 msgid ""
 "Your list of filters will show up here. Create one by clicking on the '+' "
 "button"
-msgstr ""
+msgstr "Sua lista de filtros aparecerá aqui. Crie um, clicando no botão '+'."
 
 #: src/Layouts/HeaderItem.vala:203
 msgid "Favorites"
-msgstr ""
+msgstr "Favoritos"
 
 #: src/Layouts/HeaderItem.vala:206
 msgid "Add tasklist"
-msgstr ""
+msgstr "Adicionar lista de tarefas"
 
 #: src/Layouts/HeaderItem.vala:207
 msgid "No tasklist available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Não há uma lista de tarefas disponível. Crie uma clicando no botão '+'."
 
 #: src/Layouts/LabelRow.vala:155 src/Objects/Label.vala:191
 msgid "Delete label"
-msgstr ""
+msgstr "Apagar etiqueta"
 
 #: src/Layouts/ItemRow.vala:198 src/Layouts/TaskRow.vala:158
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: src/Layouts/ItemRow.vala:239
 msgid "Add subtask"
-msgstr ""
+msgstr "Adicionar subtarefa"
 
 #: src/Layouts/ItemRow.vala:364 src/Layouts/TaskRow.vala:324
 #: src/Widgets/MagicButton.vala:33
 msgid "Add Task"
-msgstr ""
+msgstr "Adicionar tarefa"
 
 #: src/Layouts/ItemRow.vala:1145 src/Layouts/TaskRow.vala:1223
 #: src/Widgets/ScheduleButton.vala:37 src/Widgets/ScheduleButton.vala:84
 #: src/Dialogs/DateTimePicker/DateTimePicker.vala:91
 msgid "Schedule"
-msgstr ""
+msgstr "Horário"
 
 #: src/Layouts/ItemRow.vala:1146 src/Layouts/TaskRow.vala:1224
 msgid "Complete"
-msgstr ""
+msgstr "Completo"
 
 #: src/Layouts/ItemRow.vala:1147 src/Layouts/TaskRow.vala:1225
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/Layouts/ItemRow.vala:1149 src/Layouts/TaskRow.vala:1227
 msgid "Delete task"
-msgstr ""
+msgstr "Apagar tarefa"
 
 #: src/Layouts/ProjectRow.vala:434
 msgid "Project list order changed to <b>Custom Sort Order.</b>"
-msgstr ""
+msgstr "Ordem da lista de projetos alterada para <b>Ordem de Classificação Personalizada.</b>"
 
 #: src/Layouts/ProjectRow.vala:472 src/Layouts/TasklistRow.vala:247
 #: src/Objects/Project.vala:557
 msgid "Share"
-msgstr ""
+msgstr "Compartilhar"
 
 #: src/Layouts/ProjectRow.vala:474 src/Layouts/TasklistRow.vala:253
 #: src/Objects/Project.vala:559
 msgid "Markdown"
-msgstr ""
+msgstr "Remarcação"
 
 #: src/Layouts/ProjectRow.vala:475 src/Layouts/TasklistRow.vala:254
 #: src/Objects/Project.vala:560
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: src/Layouts/ProjectRow.vala:481 src/Objects/Project.vala:566
 msgid "Hide completed tasks"
-msgstr ""
+msgstr "Ocultar tarefas concluídas"
 
 #: src/Layouts/ProjectRow.vala:481 src/Objects/Project.vala:566
 msgid "Show completed tasks"
-msgstr ""
+msgstr "Mostrar tarefas concluídas"
 
 #: src/Layouts/ProjectRow.vala:485 src/Views/Tasklist.vala:442
 #: src/Objects/Project.vala:452 src/Objects/Project.vala:570
 msgid "Delete project"
-msgstr ""
+msgstr "Excluir projeto"
 
 #: src/Layouts/SectionRow.vala:75
 msgid "(No Section)"
