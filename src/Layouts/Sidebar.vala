@@ -57,7 +57,7 @@ public class Layouts.Sidebar : Gtk.Grid {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 16
+            margin_top = 3
         };
         
         content_box.append (filters_grid);

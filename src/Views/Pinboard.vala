@@ -35,7 +35,7 @@ public class Views.Pinboard : Gtk.Grid {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_top = 28
+            margin_top = 1
         };
 
         header_box.append (pin_icon);

@@ -1215,14 +1215,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        string old_date = item.due.date;
         item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+        print ("Date: %s\n".printf (item.due.date));
 
-        if (old_date == item.due.date) {
-            return;
-        }
 
-        if (item.due.date == null) {
+        if (item.due.date == "") {
             item.due.reset ();
         }
 

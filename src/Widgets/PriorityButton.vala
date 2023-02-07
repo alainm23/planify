@@ -62,7 +62,7 @@ public class Widgets.PriorityButton : Gtk.Button {
         priority_picker = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM
+            position = Gtk.PositionType.TOP
         };
 
         priority_picker.set_parent (this);

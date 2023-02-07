@@ -49,7 +49,7 @@ public class Views.Label : Gtk.Grid {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_top = 28,
+            margin_top = 1,
             margin_start = 3
         };
 

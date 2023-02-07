@@ -57,7 +57,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     public LabelPicker () {
         Object (
             has_arrow: false,
-            position: Gtk.PositionType.BOTTOM
+            position: Gtk.PositionType.TOP
         );
     }
 

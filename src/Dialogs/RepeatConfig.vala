@@ -24,6 +24,14 @@ public class Dialogs.RepeatConfig : Adw.Window {
     private Gtk.ComboBoxText recurrency_combobox;
     private Gtk.Label repeat_label;
 
+    private Gtk.CheckButton mo_button;
+    private Gtk.CheckButton tu_button;
+    private Gtk.CheckButton we_button;
+    private Gtk.CheckButton th_button;
+    private Gtk.CheckButton fr_button;
+    private Gtk.CheckButton sa_button;
+    private Gtk.CheckButton su_button;
+
     public Objects.DueDate duedate {
         set {
             recurrency_interval.value = value.recurrency_interval;
@@ -104,6 +112,38 @@ public class Dialogs.RepeatConfig : Adw.Window {
         repeat_box.append (recurrency_combobox);
         repeat_box.add_css_class ("card");
 
+        mo_button = new Gtk.CheckButton.with_label (_("Monday"));        
+        tu_button = new Gtk.CheckButton.with_label (_("Tuesday"));        
+        we_button = new Gtk.CheckButton.with_label (_("Wednesday"));        
+        th_button = new Gtk.CheckButton.with_label (_("Thursday"));        
+        fr_button = new Gtk.CheckButton.with_label (_("Friday"));        
+        sa_button = new Gtk.CheckButton.with_label (_("Saturday"));
+        su_button = new Gtk.CheckButton.with_label (_("Sunday"));
+
+        var weeks_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            hexpand = true,
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12,
+            homogeneous = true
+        };
+        weeks_box.append (mo_button);
+        weeks_box.append (tu_button);
+        weeks_box.append (we_button);
+        weeks_box.append (th_button);
+        weeks_box.append (fr_button);
+        weeks_box.append (sa_button);
+        weeks_box.append (su_button);
+
+        weeks_box.add_css_class ("padding-6");
+        weeks_box.add_css_class ("card");
+
+        var weeks_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = false,
+            child = weeks_box
+        };
+
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
             margin_top = 12,
             margin_start = 12,
@@ -121,6 +161,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
         content_box.append (headerbar);
         content_box.append (repeat_preview_box);
         content_box.append (repeat_box);
+        content_box.append (weeks_revealer);
         content_box.append (submit_button);
 
         content = content_box;
@@ -131,6 +172,12 @@ public class Dialogs.RepeatConfig : Adw.Window {
         });
 
         recurrency_combobox.changed.connect (() => {
+            if ((RecurrencyType) this.recurrency_combobox.get_active() == RecurrencyType.EVERY_WEEK) {
+                weeks_revealer.reveal_child = true;
+            } else {
+                weeks_revealer.reveal_child = false;
+            }
+
             update_repeat_label ();
         });
 
@@ -144,8 +191,32 @@ public class Dialogs.RepeatConfig : Adw.Window {
         duedate.is_recurring = true;
         duedate.recurrency_type = (RecurrencyType) this.recurrency_combobox.get_active();
         duedate.recurrency_interval = (int) recurrency_interval.value;
+
+        if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            duedate.recurrency_weeks = get_recurrency_weeks ();
+        } else {
+            duedate.recurrency_weeks = "";
+        }
+
+        print ("Weeks: %s\n".printf (duedate.recurrency_weeks));
+
         changed (duedate);
         hide_destroy ();
+    }
+
+    private string get_recurrency_weeks () {
+        string[] arr = {};
+        int index = -1;
+
+        if (this.mo_button.active) {
+            arr[index++] = "mo";
+        }
+
+        if (this.tu_button.active) {
+            arr[index++] = "tu";
+        }
+
+        return string.joinv (", ", arr);
     }
 
     private void update_repeat_label () {

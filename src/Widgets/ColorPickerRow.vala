@@ -25,7 +25,8 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             margin_start = 9,
             margin_end = 9,
             vexpand = true,
-            hexpand = true
+            hexpand = true,
+            selection_mode = Gtk.SelectionMode.NONE
         };
 
         var radio = new Gtk.CheckButton ();

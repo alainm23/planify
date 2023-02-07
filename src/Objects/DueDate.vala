@@ -1,6 +1,7 @@
 public class Objects.DueDate : GLib.Object {
     public string date { get; set; default = ""; }
     public string timezone { get; set; default = ""; }
+    public string recurrency_weeks { get; set; default = ""; }
     public bool is_recurring { get; set; default = false; }
     public RecurrencyType recurrency_type { get; set; default = RecurrencyType.NONE; }
     public int recurrency_interval { get; set; default = 0; }

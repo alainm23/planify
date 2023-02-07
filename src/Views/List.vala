@@ -31,7 +31,6 @@ public class Views.List : Gtk.Grid {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
         var top_project = new Widgets.HeaderProject (project) {
-            margin_top = 24,
             margin_bottom = 6
         };
 

@@ -34,7 +34,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         Object (
             item: item,
             has_arrow: false,
-            position: Gtk.PositionType.BOTTOM
+            position: Gtk.PositionType.TOP
         );
     }
 

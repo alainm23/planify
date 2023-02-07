@@ -122,7 +122,8 @@ public class MainWindow : Adw.ApplicationWindow {
         views_stack = new Gtk.Stack () {
             hexpand = true,
             vexpand = true,
-            transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+            transition_type = Gtk.StackTransitionType.SLIDE_RIGHT,
+            transition_duration = 125
         };
 
         var devel_infobar = new Gtk.InfoBar ();
