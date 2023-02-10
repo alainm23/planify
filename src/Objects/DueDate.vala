@@ -17,6 +17,12 @@ public class Objects.DueDate : GLib.Object {
         }
     }
 
+    public bool has_weeks {
+        get {
+            return recurrency_weeks != "";
+        }
+    }
+
     public DueDate.from_json (Json.Object object) {
         update_from_json (object);
     }
@@ -47,6 +53,10 @@ public class Objects.DueDate : GLib.Object {
         if (object.has_member ("recurrency_interval")) {
             recurrency_interval = int.parse (object.get_string_member ("recurrency_interval"));
         }
+
+        if (object.has_member ("recurrency_weeks")) {
+            recurrency_weeks = object.get_string_member ("recurrency_weeks");
+        }
     }
 
     public void reset () {
@@ -76,6 +86,9 @@ public class Objects.DueDate : GLib.Object {
         builder.set_member_name ("recurrency_interval");
         builder.add_string_value (recurrency_interval.to_string ());
 
+        builder.set_member_name ("recurrency_weeks");
+        builder.add_string_value (recurrency_weeks);
+
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
@@ -88,6 +101,7 @@ public class Objects.DueDate : GLib.Object {
     public bool is_recurrency_equal (Objects.DueDate duedate) {
         return ((int) recurrency_type == (int) duedate.recurrency_type &&
         recurrency_interval == duedate.recurrency_interval &&
+        recurrency_weeks == duedate.recurrency_weeks &&
         is_recurring == duedate.is_recurring);
     }
 

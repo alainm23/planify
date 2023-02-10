@@ -476,7 +476,11 @@ public class Util : GLib.Object {
         if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
             returned = returned.add_days (duedate.recurrency_interval);
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
-            returned = returned.add_days (duedate.recurrency_interval * 7);
+            if (duedate.recurrency_weeks == "") {
+                returned = returned.add_days (duedate.recurrency_interval * 7);
+            } else {
+                returned = next_recurrency_week (datetime, duedate, true);
+            }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
             returned = returned.add_months (duedate.recurrency_interval);
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
@@ -486,19 +490,87 @@ public class Util : GLib.Object {
         return returned;
     }
 
-    public string next_x_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
-        string[] list = {"", ""};
-        GLib.DateTime _datetime = datetime;
+    public int get_next_day_of_week_from_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate) {
+        string[] weeks = duedate.recurrency_weeks.split (",");
+        int day_of_week = datetime.get_day_of_week ();
+        int index = 0;
 
-        for (int i = 0; i < 1; i++) {
-            _datetime = next_recurrency (_datetime, duedate);
-            string text = Util.get_default ().get_default_date_format_from_date (_datetime);
-            list[i] = text;
+        for (int i = 0; i < weeks.length ; i++) {
+            if (day_of_week <= int.parse (weeks[i])) {
+                index = i;
+                break;
+            }
+        }
+        
+        if (index > weeks.length - 1) {
+            index = 0;
         }
 
-        list[1] = "…";
+        return int.parse (weeks[index]);
+    }
 
-        return string.joinv (", ", list);
+    public GLib.DateTime next_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate, bool user = false) {
+        string[] weeks = duedate.recurrency_weeks.split (","); // [1, 2, 3]
+        int day_of_week = datetime.get_day_of_week (); // 2
+        int days = 0;
+        int next_day = 0;
+        int index = 0;
+        int recurrency_interval = 0;
+
+        for (int i = 0; i < weeks.length ; i++) {
+            if (day_of_week < int.parse (weeks[i])) {
+                index = i;
+                break;
+            }
+        }
+
+        next_day = int.parse (weeks[index]);
+
+        if (day_of_week < next_day){
+            days = next_day - day_of_week;
+        } else {
+            days = 7 - (day_of_week - next_day);
+        }
+
+        if (user && index == 0) {
+            recurrency_interval = (duedate.recurrency_interval - 1) * 7;
+        }
+
+        return datetime.add_days (days).add_days (recurrency_interval);
+    }
+
+    public string get_recurrency_weeks (Objects.DueDate duedate) {
+        string returned = "";
+
+        if (duedate.recurrency_weeks.contains ("1")) {
+            returned += _("Mo,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("2")) {
+            returned += _("Tu,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("3")) {
+            returned += _("We,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("4")) {
+            returned += _("Th,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("5")) {
+            returned += _("Fr,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("6")) {
+            returned += _("Sa,");
+        }
+
+        if (duedate.recurrency_weeks.contains ("7")) {
+            returned += _("Su,");
+        }
+
+        return returned.slice (0, -1);
     }
 
     public void item_added (Layouts.ItemRow row) {

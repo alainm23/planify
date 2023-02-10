@@ -41,6 +41,16 @@ public class Dialogs.RepeatConfig : Adw.Window {
             } else {
                 recurrency_combobox.active = (int) value.recurrency_type;
             }
+
+            if (value.recurrency_type == RecurrencyType.EVERY_WEEK) {
+                mo_button.active = value.recurrency_weeks.contains ("1");
+                tu_button.active = value.recurrency_weeks.contains ("2");
+                we_button.active = value.recurrency_weeks.contains ("3");
+                th_button.active = value.recurrency_weeks.contains ("4");
+                fr_button.active = value.recurrency_weeks.contains ("5");
+                sa_button.active = value.recurrency_weeks.contains ("6");
+                su_button.active = value.recurrency_weeks.contains ("7");
+            }
             
             update_repeat_label ();
         }
@@ -198,25 +208,47 @@ public class Dialogs.RepeatConfig : Adw.Window {
             duedate.recurrency_weeks = "";
         }
 
-        print ("Weeks: %s\n".printf (duedate.recurrency_weeks));
-
         changed (duedate);
         hide_destroy ();
     }
 
     private string get_recurrency_weeks () {
-        string[] arr = {};
-        int index = -1;
+        string returned = "";
 
         if (this.mo_button.active) {
-            arr[index++] = "mo";
+            returned += "1,";
         }
 
         if (this.tu_button.active) {
-            arr[index++] = "tu";
+            returned += "2,";
         }
 
-        return string.joinv (", ", arr);
+
+        if (this.we_button.active) {
+            returned += "3,";
+        }
+
+
+        if (this.th_button.active) {
+            returned += "4,";
+        }
+
+
+        if (this.fr_button.active) {
+            returned += "5,";
+        }
+
+
+        if (this.sa_button.active) {
+            returned += "6,";
+        }
+
+
+        if (this.su_button.active) {
+            returned += "7,";
+        }
+
+        return returned.slice (0, -1);
     }
 
     private void update_repeat_label () {

@@ -1055,6 +1055,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_DAY;
             duedate.recurrency_interval = 1;
+
             set_recurrency (duedate);
         });
 
@@ -1065,6 +1066,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
             duedate.recurrency_interval = 1;
+
             set_recurrency (duedate);
         });
 
@@ -1075,6 +1077,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
             duedate.recurrency_interval = 1;
+
             set_recurrency (duedate);
         });
 
@@ -1085,6 +1088,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
             duedate.recurrency_interval = 1;
+
             set_recurrency (duedate);
         });
 
@@ -1095,6 +1099,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             duedate.is_recurring = false;
             duedate.recurrency_type = RecurrencyType.NONE;
             duedate.recurrency_interval = 0;
+
             set_recurrency (duedate);
         });
 
@@ -1216,8 +1221,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public void update_due (GLib.DateTime? datetime) {
         item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
-        print ("Date: %s\n".printf (item.due.date));
-
 
         if (item.due.date == "") {
             item.due.reset ();
@@ -1235,16 +1238,40 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             return;
         }
 
-        if (!item.has_due) {
-            item.due.date = Util.get_default ().get_todoist_datetime_format (
-                Util.get_default ().get_today_format_date ()
-            );
+        if (duedate.recurrency_type == RecurrencyType.EVERY_DAY ||
+            duedate.recurrency_type == RecurrencyType.EVERY_MONTH || 
+            duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
+            if (!item.has_due) {
+                item.due.date = Util.get_default ().get_todoist_datetime_format (
+                    Util.get_default ().get_today_format_date ()
+                );
+            }
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            if (duedate.has_weeks) {
+                var today = Util.get_default ().get_today_format_date ();
+                int day_of_week = today.get_day_of_week ();
+                int next_day = Util.get_default ().get_next_day_of_week_from_recurrency_week (today, duedate);
+                GLib.DateTime due_date = null;
+
+                if (day_of_week == next_day) {
+                    due_date = today;
+                } else {
+                    due_date =  Util.get_default ().next_recurrency_week (today, duedate);
+                }
+
+                item.due.date = Util.get_default ().get_todoist_datetime_format (due_date);
+            } else {
+                item.due.date = Util.get_default ().get_todoist_datetime_format (
+                    Util.get_default ().get_today_format_date ()
+                );
+            }
         }
 
         item.due.is_recurring = duedate.is_recurring;
         item.due.recurrency_type = duedate.recurrency_type;
         item.due.recurrency_interval = duedate.recurrency_interval;
-        
+        item.due.recurrency_weeks = duedate.recurrency_weeks;
+
         if (is_creating) {
             schedule_button.update_from_item (item);
         } else {

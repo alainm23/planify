@@ -2,7 +2,6 @@ public class Widgets.ScheduleButton : Gtk.Button {
     private Gtk.Label due_label;
 
     private Gtk.Label repeat_label;
-    private Gtk.Revealer repeat_revealer;
     
     private Gtk.Box schedule_box;
     private Widgets.DynamicIcon due_image;
@@ -23,7 +22,7 @@ public class Widgets.ScheduleButton : Gtk.Button {
 
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_css_class ("p3");
+        add_css_class ("toolbar-button");
 
         due_image = new Widgets.DynamicIcon ();
         due_image.update_icon_name ("planner-calendar");
@@ -33,22 +32,10 @@ public class Widgets.ScheduleButton : Gtk.Button {
             xalign = 0
         };
 
-        repeat_label = new Gtk.Label (null) {
-            xalign = 0
-        };
-
-        repeat_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        repeat_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-
-        repeat_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
-        };
-        repeat_revealer.child = repeat_label;
 
         schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         schedule_box.append (due_image);
         schedule_box.append (due_label);
-        schedule_box.append (repeat_revealer);
 
         set_child (schedule_box);
 
@@ -83,8 +70,8 @@ public class Widgets.ScheduleButton : Gtk.Button {
 
     public void update_from_item (Objects.Item item) {
         due_label.label = _("Schedule");
+        tooltip_text = _("Schedule");
         repeat_label.label = "";
-        repeat_revealer.reveal_child = false;
 
         due_image.update_icon_name ("planner-calendar");
         datetime = null;
@@ -101,11 +88,7 @@ public class Widgets.ScheduleButton : Gtk.Button {
 
             if (item.due.is_recurring) {
                 due_image.update_icon_name ("planner-repeat");
-                due_label.label = item.due.to_friendly_string ();
-                repeat_label.label = "- %s".printf (
-                    Util.get_default ().next_x_recurrency (datetime, item.due)
-                );
-                repeat_revealer.reveal_child = true;
+                due_label.label = "%s (%s)".printf (item.due.to_friendly_string (), Util.get_default ().get_recurrency_weeks (item.due));
             } else {  
                 due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
     

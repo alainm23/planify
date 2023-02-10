@@ -225,6 +225,10 @@ entry.flat:focus-within {
     padding: 3px 9px;
 }
 
+.toolbar-button {
+    padding: 3px 9px 3px 6px;
+}
+
 .p3 {
     padding: 3px;
 }
