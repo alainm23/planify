@@ -39,7 +39,7 @@ msgstr ""
 
 #: src/MainWindow.vala:483
 msgid "Preferences"
-msgstr ""
+msgstr "Preferencias"
 
 #: src/MainWindow.vala:484
 msgid "Keyboard shortcuts"
