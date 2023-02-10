@@ -12,40 +12,40 @@ msgstr ""
 msgid "Planner"
 msgstr ""
 
-#: src/MainWindow.vala:138
+#: src/MainWindow.vala:134
 msgid ""
 "You are running an early stage development version. Be aware it is a work in "
 "progress and far from complete yet."
 msgstr ""
 
-#: src/MainWindow.vala:274
+#: src/MainWindow.vala:268
 msgid "Tasks synced successfully"
 msgstr ""
 
-#: src/MainWindow.vala:274
+#: src/MainWindow.vala:268
 msgid "Do you want to use Todoist as your default Inbox Project?"
 msgstr ""
 
-#: src/MainWindow.vala:277 src/Util.vala:734 src/Layouts/ProjectRow.vala:450
+#: src/MainWindow.vala:271 src/Util.vala:806 src/Layouts/ProjectRow.vala:450
 #: src/Layouts/SectionRow.vala:616 src/Layouts/ItemRow.vala:414
 #: src/Layouts/LabelRow.vala:154 src/Widgets/MultiSelectToolbar.vala:303
 #: src/Dialogs/Preferences/PreferencesWindow.vala:464
 msgid "Cancel"
 msgstr ""
 
-#: src/MainWindow.vala:278
+#: src/MainWindow.vala:272
 msgid "Ok"
 msgstr ""
 
-#: src/MainWindow.vala:483
+#: src/MainWindow.vala:477
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/MainWindow.vala:484
+#: src/MainWindow.vala:478
 msgid "Keyboard shortcuts"
 msgstr ""
 
-#: src/MainWindow.vala:485
+#: src/MainWindow.vala:479
 msgid "About Planner"
 msgstr ""
 
@@ -145,8 +145,9 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: src/Util.vala:241 src/Util.vala:1018 src/Enum.vala:79
+#: src/Util.vala:241 src/Util.vala:1091 src/Enum.vala:79
 #: src/Layouts/FilterPaneRow.vala:100 src/Widgets/HeaderProject.vala:54
+#: src/Widgets/HeaderProject.vala:101
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:80
 msgid "Inbox"
 msgstr ""
@@ -188,60 +189,88 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: src/Util.vala:522
+#: src/Util.vala:546
+msgid "Mo,"
+msgstr ""
+
+#: src/Util.vala:550
+msgid "Tu,"
+msgstr ""
+
+#: src/Util.vala:554
+msgid "We,"
+msgstr ""
+
+#: src/Util.vala:558
+msgid "Th,"
+msgstr ""
+
+#: src/Util.vala:562
+msgid "Fr,"
+msgstr ""
+
+#: src/Util.vala:566
+msgid "Sa,"
+msgstr ""
+
+#: src/Util.vala:570
+msgid "Su,"
+msgstr ""
+
+#: src/Util.vala:594
 #, c-format
 msgid "Task added to <b>%s</b>"
 msgstr ""
 
-#: src/Util.vala:735
+#: src/Util.vala:807
 msgid "Reset all"
 msgstr ""
 
-#: src/Util.vala:848
+#: src/Util.vala:920
 msgid "The request was incorrect."
 msgstr ""
 
-#: src/Util.vala:849
+#: src/Util.vala:921
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
 
-#: src/Util.vala:850
+#: src/Util.vala:922
 msgid "The request was valid, but for something that is forbidden."
 msgstr ""
 
-#: src/Util.vala:851
+#: src/Util.vala:923
 msgid "The requested resource could not be found."
 msgstr ""
 
-#: src/Util.vala:852
+#: src/Util.vala:924
 msgid "The user has sent too many requests in a given amount of time."
 msgstr ""
 
-#: src/Util.vala:853
+#: src/Util.vala:925
 msgid "The request failed due to a server error."
 msgstr ""
 
-#: src/Util.vala:854
+#: src/Util.vala:926
 msgid "The server is currently unable to handle the request."
 msgstr ""
 
-#: src/Util.vala:929 src/Widgets/PriorityButton.vala:50
+#: src/Util.vala:1001 src/Widgets/PriorityButton.vala:50
 #: src/Widgets/MultiSelectToolbar.vala:181 src/Objects/Item.vala:66
 msgid "Priority 1: high"
 msgstr ""
 
-#: src/Util.vala:931 src/Widgets/PriorityButton.vala:51
+#: src/Util.vala:1003 src/Widgets/PriorityButton.vala:51
 #: src/Widgets/MultiSelectToolbar.vala:182 src/Objects/Item.vala:68
 msgid "Priority 2: medium"
 msgstr ""
 
-#: src/Util.vala:933 src/Widgets/PriorityButton.vala:52
+#: src/Util.vala:1005 src/Widgets/PriorityButton.vala:52
 #: src/Widgets/MultiSelectToolbar.vala:183 src/Objects/Item.vala:70
 msgid "Priority 3: low"
 msgstr ""
 
-#: src/Util.vala:935 src/Util.vala:937 src/Widgets/PriorityButton.vala:53
+#: src/Util.vala:1007 src/Util.vala:1009 src/Widgets/PriorityButton.vala:53
 #: src/Widgets/MultiSelectToolbar.vala:184 src/Objects/Item.vala:72
 msgid "Priority 4: none"
 msgstr ""
@@ -397,7 +426,7 @@ msgstr ""
 msgid "Delete section"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:305 src/Views/List.vala:38
+#: src/Layouts/ItemRow.vala:305 src/Views/List.vala:37
 msgid "Add a description"
 msgstr ""
 
@@ -442,16 +471,16 @@ msgstr ""
 msgid "Not available"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1291
+#: src/Layouts/ItemRow.vala:1315
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1328
+#: src/Layouts/ItemRow.vala:1352
 msgid "The task was deleted"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1329
+#: src/Layouts/ItemRow.vala:1353
 msgid "Undo"
 msgstr ""
 
@@ -459,79 +488,79 @@ msgstr ""
 msgid "Delete label"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:140
+#: src/Widgets/HeaderProject.vala:141
 msgid "Hide Completed Tasks"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:140
+#: src/Widgets/HeaderProject.vala:141
 msgid "Show completed tasks"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:145 src/Dialogs/Project.vala:65
+#: src/Widgets/HeaderProject.vala:146 src/Dialogs/Project.vala:65
 msgid "Edit Project"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:147 src/Widgets/HeaderProject.vala:204
-#: src/Views/List.vala:296
+#: src/Widgets/HeaderProject.vala:148 src/Widgets/HeaderProject.vala:205
+#: src/Views/List.vala:295
 msgid "When?"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:149
+#: src/Widgets/HeaderProject.vala:150
 msgid "Add Section"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:151
+#: src/Widgets/HeaderProject.vala:152
 msgid "Hide completed tasks"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:151
+#: src/Widgets/HeaderProject.vala:152
 msgid "Show Completed Tasks"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:155 src/Widgets/LabelsHeader.vala:16
+#: src/Widgets/HeaderProject.vala:156 src/Widgets/LabelsHeader.vala:16
 msgid "Filter by Labels"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:157
+#: src/Widgets/HeaderProject.vala:158
 msgid "Select"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:159
+#: src/Widgets/HeaderProject.vala:160
 msgid "Paste"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:161
+#: src/Widgets/HeaderProject.vala:162
 msgid "Delete Project"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:283
+#: src/Widgets/HeaderProject.vala:284
 #: src/Dialogs/Preferences/PreferencesWindow.vala:46
 msgid "Sort by"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:292
+#: src/Widgets/HeaderProject.vala:293
 #: src/Dialogs/Preferences/PreferencesWindow.vala:32
 msgid "Custom sort order"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:297
+#: src/Widgets/HeaderProject.vala:298
 #: src/Dialogs/Preferences/PreferencesWindow.vala:31
 msgid "Alphabetically"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:301
+#: src/Widgets/HeaderProject.vala:302
 msgid "Due date"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:305
+#: src/Widgets/HeaderProject.vala:306
 msgid "Date added"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:309
+#: src/Widgets/HeaderProject.vala:310
 msgid "Priority"
 msgstr ""
 
-#: src/Widgets/HeaderProject.vala:373 src/Objects/Project.vala:604
+#: src/Widgets/HeaderProject.vala:374 src/Objects/Project.vala:604
 msgid "New section"
 msgstr ""
 
@@ -550,9 +579,9 @@ msgid ""
 "mode will be synced when you reconnect"
 msgstr ""
 
-#: src/Widgets/ScheduleButton.vala:20 src/Widgets/ScheduleButton.vala:32
-#: src/Widgets/ScheduleButton.vala:85 src/Widgets/MultiSelectToolbar.vala:58
-#: src/Views/List.vala:266
+#: src/Widgets/ScheduleButton.vala:19 src/Widgets/ScheduleButton.vala:31
+#: src/Widgets/ScheduleButton.vala:72 src/Widgets/ScheduleButton.vala:73
+#: src/Widgets/MultiSelectToolbar.vala:58 src/Views/List.vala:265
 msgid "Schedule"
 msgstr ""
 
@@ -586,7 +615,9 @@ msgstr ""
 msgid "Add reminder(s)"
 msgstr ""
 
-#: src/Widgets/MultiSelectToolbar.vala:49 src/Dialogs/RepeatConfig.vala:107
+#: src/Widgets/MultiSelectToolbar.vala:49
+#: src/Widgets/DateTimePicker/DateTimePicker.vala:130
+#: src/Dialogs/RepeatConfig.vala:157
 msgid "Done"
 msgstr ""
 
@@ -617,12 +648,12 @@ msgid "Back"
 msgstr ""
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
-#: src/Widgets/Calendar/CalendarHeader.vala:48
+#: src/Widgets/Calendar/CalendarHeader.vala:45
 msgid "%OB"
 msgstr ""
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
-#: src/Widgets/Calendar/CalendarHeader.vala:51
+#: src/Widgets/Calendar/CalendarHeader.vala:48
 msgid "%Y"
 msgstr ""
 
@@ -659,7 +690,11 @@ msgstr ""
 msgid "Next week"
 msgstr ""
 
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:105
+#: src/Widgets/DateTimePicker/DateTimePicker.vala:85
+msgid "Choose a date"
+msgstr ""
+
+#: src/Widgets/DateTimePicker/DateTimePicker.vala:109
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:209
 msgid "Time"
 msgstr ""
@@ -692,7 +727,7 @@ msgstr ""
 msgid "Add reminder"
 msgstr ""
 
-#: src/Views/List.vala:75
+#: src/Views/List.vala:74
 msgid "What will you accomplish?"
 msgstr ""
 
@@ -852,24 +887,54 @@ msgstr ""
 msgid "Filter"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:48
+#: src/Dialogs/RepeatConfig.vala:66
 msgid "Repeat"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:90
+#: src/Dialogs/RepeatConfig.vala:108
 msgid "Day(s)"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:91
+#: src/Dialogs/RepeatConfig.vala:109
 msgid "Week(s)"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:92
+#: src/Dialogs/RepeatConfig.vala:110
 msgid "Month(s)"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:93
+#: src/Dialogs/RepeatConfig.vala:111
 msgid "Year(s)"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:125
+#: src/Dialogs/Preferences/PreferencesWindow.vala:95
+msgid "Monday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:126
+msgid "Tuesday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:127
+msgid "Wednesday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:128
+msgid "Thursday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:129
+msgid "Friday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:130
+msgid "Saturday"
+msgstr ""
+
+#: src/Dialogs/RepeatConfig.vala:131
+#: src/Dialogs/Preferences/PreferencesWindow.vala:94
+msgid "Sunday"
 msgstr ""
 
 #: src/Dialogs/QuickFind/QuickFind.vala:44
@@ -923,14 +988,6 @@ msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:87
 msgid "Clock Format"
-msgstr ""
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:94
-msgid "Sunday"
-msgstr ""
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:95
-msgid "Monday"
 msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:98
