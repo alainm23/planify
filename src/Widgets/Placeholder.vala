@@ -5,16 +5,6 @@ public class Widgets.Placeholder : Gtk.Grid {
     private Gtk.Label title_label;
     private Gtk.Label description_label;
 
-    public string? title {
-        set {
-            title_label.label = value;
-        }
-
-        get {
-            return title_label.label;
-        }
-    }
-
     public string description {
         set {
             description_label.label = value;
@@ -31,9 +21,8 @@ public class Widgets.Placeholder : Gtk.Grid {
         }
     }
 
-    public Placeholder (string? title, string description, string icon) {
+    public Placeholder (string description, string icon) {
         Object (
-            title: title,
             description: description,
             icon: icon
         );
@@ -44,19 +33,16 @@ public class Widgets.Placeholder : Gtk.Grid {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };
-
-        placeholder_image.size = 84;
-
-        title_label = new Gtk.Label (null) {
-            wrap = true
-        };
-        title_label.get_style_context ().add_class ("h2");
-        title_label.get_style_context ().add_class ("font-bold");
+        placeholder_image.add_css_class ("icon-dropshadow");
+        placeholder_image.size = 64;
+        placeholder_image.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         description_label = new Gtk.Label (null) {
-            wrap = true
+            wrap = true,
+            max_width_chars = 24,
+            justify = Gtk.Justification.CENTER
         };
-        description_label.get_style_context ().add_class ("dim-label");
+        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var main_grid = new Gtk.Grid () {
             orientation = Gtk.Orientation.VERTICAL,
@@ -69,7 +55,6 @@ public class Widgets.Placeholder : Gtk.Grid {
         };
 
         main_grid.attach (placeholder_image, 0, 0);
-        main_grid.attach (title_label, 0, 1);
         main_grid.attach (description_label, 0, 2);
 
         attach (main_grid, 0, 0);

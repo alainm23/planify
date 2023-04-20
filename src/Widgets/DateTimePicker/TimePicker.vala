@@ -81,8 +81,7 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
 
     construct {  
         time_button = new Gtk.Button.with_label ("") {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
+            valign = Gtk.Align.CENTER
         };
 
         time_button.add_css_class ("time-button-picker");
@@ -94,8 +93,7 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
         
         var no_time_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            can_focus = false
+            halign = Gtk.Align.CENTER
         };
 
         no_time_button.child = close_circle_icon;
@@ -119,8 +117,7 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
 
         var add_time_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.END,
-            can_focus = false
+            halign = Gtk.Align.END
         };
 
         add_time_button.child = add_circle_icon;

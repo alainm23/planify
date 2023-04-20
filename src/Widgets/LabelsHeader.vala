@@ -44,7 +44,7 @@ public class Widgets.LabelsHeader : Gtk.Grid {
         attach (stack, 0, 0);
 
         placeholder_button.clicked.connect (() => {
-            var dialog = new Dialogs.Label.new (true);
+            var dialog = new Dialogs.Label.new (BackendType.LOCAL);
             dialog.show ();
         });
 
@@ -138,12 +138,13 @@ public class Widgets.LabelsHeader : Gtk.Grid {
 
             Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
+        
         labels_content.add_activated.connect (() => {
             if (popover != null) {
                 popover.popdown ();
             }
 
-            var dialog = new Dialogs.Label.new (true);
+            var dialog = new Dialogs.Label.new (BackendType.LOCAL);
             dialog.show ();
         });
 

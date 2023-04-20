@@ -46,6 +46,7 @@ public class Services.Todoist : GLib.Object {
     public signal void first_sync_progress (double value);
 
     public signal void log_out ();
+    public signal void log_in ();
 
     private uint server_timeout = 0;
 
@@ -91,11 +92,22 @@ public class Services.Todoist : GLib.Object {
            Services.Database.get_default ().delete_project (project);
         }
 
+        // Delete all labels;
+        foreach (var label in Services.Database.get_default ().get_all_labels_by_todoist ()) {
+            Services.Database.get_default ().delete_label (label);
+        }
+        
         // Clear Queue
         Services.Database.get_default ().clear_queue ();
 
         // Clear CurTempIds
         Services.Database.get_default ().clear_cur_temp_ids ();
+
+        // Check Inbox Project
+        if (Planner.settings.get_enum ("default-inbox") == 1) {
+            Planner.settings.set_enum ("default-inbox", 0);
+            Util.get_default ().change_default_inbox ();
+        }
 
         // Remove server_timeout
         Source.remove (server_timeout);
@@ -230,6 +242,7 @@ public class Services.Todoist : GLib.Object {
 
             first_sync_progress (1);
             first_sync_finished (inbox_project_id);
+            log_in ();
             Planner.settings.set_string ("todoist-last-sync", new GLib.DateTime.now_local ().to_string ());
         } catch (Error e) {
             debug (e.message);

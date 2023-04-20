@@ -30,7 +30,7 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        var top_project = new Widgets.HeaderProject (project) {
+        var top_project = new Widgets.ProjectHeader (project) {
             margin_bottom = 6
         };
 
@@ -69,10 +69,9 @@ public class Views.List : Gtk.Grid {
         var listbox_grid = new Gtk.Grid ();
         listbox_grid.attach (listbox, 0, 0);
 
-        var placeholder = new Widgets.Placeholder (
-            project.name,
-            _("What will you accomplish?"),
-            "planner-emoji-happy");
+        var listbox_placeholder = new Widgets.Placeholder (
+            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+        );
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -81,7 +80,7 @@ public class Views.List : Gtk.Grid {
         };
 
         listbox_placeholder_stack.add_named (listbox_grid, "listbox");
-        listbox_placeholder_stack.add_named (placeholder, "placeholder");
+        listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -89,9 +88,9 @@ public class Views.List : Gtk.Grid {
             margin_bottom = 24
         };
 
-        content_box.append (top_project);
+        // content_box.append (top_project);
         content_box.append (due_revealer);
-        content_box.append (description_box);
+        // content_box.append (description_box);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -113,6 +112,7 @@ public class Views.List : Gtk.Grid {
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             set_sort_func ();
+            check_placeholder ();
             return GLib.Source.REMOVE;
         });
 
@@ -128,13 +128,13 @@ public class Views.List : Gtk.Grid {
             }
         });
 
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value > 50) {
-                Planner.event_bus.view_header (true);
-            } else {
-                Planner.event_bus.view_header (false);
-            }
-        });
+        //  scrolled_window.vadjustment.value_changed.connect (() => {
+        //      if (scrolled_window.vadjustment.value > 50) {
+        //          Planner.event_bus.view_header (true);
+        //      } else {
+        //          Planner.event_bus.view_header (false);
+        //      }
+        //  });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
@@ -169,6 +169,16 @@ public class Views.List : Gtk.Grid {
         project.updated.connect (() => {
             update_request ();
         });
+
+        project.project_count_updated.connect (() => {
+            check_placeholder ();
+        });
+
+        Planner.event_bus.new_item_deleted.connect ((project_id) => {
+            if (project.id == project_id) {
+                check_placeholder ();
+            }
+        });
     }
 
     private void set_sort_func () {
@@ -195,6 +205,14 @@ public class Views.List : Gtk.Grid {
         //  });
     }
 
+    private void check_placeholder () {
+        if (project.project_count > 0) {
+            listbox_placeholder_stack.visible_child_name = "listbox";
+        } else {
+            listbox_placeholder_stack.visible_child_name = "placeholder";
+        }
+    }
+
     private void add_sections () {
         for (Gtk.Widget child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
             child.destroy ();
@@ -217,6 +235,7 @@ public class Views.List : Gtk.Grid {
     }
 
     public void prepare_new_item (string content = "") {
+        listbox_placeholder_stack.visible_child_name = "listbox";
         inbox_section.prepare_new_item (content);
         Timeout.add (225, () => {
             scrolled_window.vadjustment.value = 0;
@@ -293,7 +312,12 @@ public class Views.List : Gtk.Grid {
 
         gesture.pressed.connect ((n_press, x, y) => {
             var dialog = new Dialogs.DatePicker (_("When?"));
-            dialog.clear = project.due_date != "";
+
+            if (project.due_date != "") {
+                dialog.datetime = Util.get_default ().get_date_from_string (project.due_date);
+                dialog.clear = true;
+            }
+
             dialog.show ();
 
             dialog.date_changed.connect (() => {

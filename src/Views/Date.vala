@@ -163,11 +163,10 @@ public class Views.Date : Gtk.Grid {
         
         listbox_grid.append (listbox);
         listbox_grid.append (checked_revealer);
-
-        listbox_placeholder = new Widgets.Placeholder (
-            is_today_view ? _("Today") : _("Scheduled"),
-            _("No tasks with this filter at the moment"),
-            is_today_view ? "planner-today" : "planner-scheduled");
+        
+        var listbox_placeholder = new Widgets.Placeholder (
+            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+        );
 
         listbox_stack = new Gtk.Stack () {
             vexpand = true,
@@ -305,8 +304,6 @@ public class Views.Date : Gtk.Grid {
             add_today_items ();
             // show_completed_changed ();
         } else {
-            listbox_placeholder.title = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_format_date (date));
             add_items (date);
         }
     }

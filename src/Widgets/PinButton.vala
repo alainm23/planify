@@ -16,8 +16,7 @@ public class Widgets.PinButton : Gtk.Button {
 
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_css_class ("p3");
-        
+                
         pinned_image = new Widgets.DynamicIcon ();
         pinned_image.size = 19;
 

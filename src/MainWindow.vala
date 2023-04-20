@@ -6,7 +6,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Adw.Flap flap_view;
     private Widgets.ProjectViewHeaderBar project_view_headerbar;
     private Widgets.LabelsHeader labels_header;
-    private Gtk.Button settings_button;
+    private Gtk.MenuButton settings_button;
 
     public Services.ActionManager action_manager;
     
@@ -48,8 +48,9 @@ public class MainWindow : Adw.ApplicationWindow {
         settings_image.size = 21;
         settings_image.update_icon_name ("menu");
 
-        settings_button = new Gtk.Button ();
+        settings_button = new Gtk.MenuButton ();
         settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        settings_button.popover = build_menu_app ();
         settings_button.child = settings_image;
 
         var sync_button = new Widgets.SyncButton ();
@@ -74,7 +75,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
-        sidebar_image.update_icon_name ("sidebar-left");
+        if (Planner.settings.get_boolean ("slim-mode")) {
+            sidebar_image.update_icon_name ("sidebar-left");
+        } else {
+            sidebar_image.update_icon_name ("sidebar-right");
+        }
         
         var sidebar_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER
@@ -144,8 +149,8 @@ public class MainWindow : Adw.ApplicationWindow {
         devel_infobar.add_child (devel_label);
 
         var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        views_content.append (views_header);
-        views_content.append (devel_infobar);
+        // views_content.append (views_header);
+        // views_content.append (devel_infobar);
         views_content.append (views_stack);
 
         var toast_overlay = new Adw.ToastOverlay ();
@@ -193,6 +198,12 @@ public class MainWindow : Adw.ApplicationWindow {
                 Util.get_default ().update_theme ();
             } else if (key == "run-in-background") {
                 set_hide_on_close (Planner.settings.get_boolean ("run-in-background"));
+            } else if (key == "slim-mode") {
+                if (Planner.settings.get_boolean ("slim-mode")) {
+                    sidebar_image.update_icon_name ("sidebar-left");
+                } else {
+                    sidebar_image.update_icon_name ("sidebar-right");
+                }   
             }
         });
 
@@ -230,8 +241,6 @@ public class MainWindow : Adw.ApplicationWindow {
             var dialog = new Dialogs.QuickFind.QuickFind ();
             dialog.show ();
         });
-
-        settings_button.clicked.connect (open_menu_app);
 
         Planner.event_bus.send_notification.connect ((toast) => {
             toast_overlay.add_toast (toast);
@@ -467,13 +476,7 @@ public class MainWindow : Adw.ApplicationWindow {
         }
     }
 
-    private Gtk.Popover menu_app = null;
-    private void open_menu_app () {
-        if (menu_app != null) {
-            menu_app.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
         var about_item = new Widgets.ContextMenu.MenuItem (_("About Planner"));
@@ -485,17 +488,14 @@ public class MainWindow : Adw.ApplicationWindow {
         menu_box.append (keyboard_shortcuts_item);
         menu_box.append (about_item);
 
-        menu_app = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = true,
             child = menu_box,
             position = Gtk.PositionType.BOTTOM
         };
 
-        menu_app.set_parent (settings_button);
-        menu_app.popup();
-
         preferences_item.clicked.connect (() => {
-            menu_app.popdown ();
+            popover.popdown ();
 
             var dialog = new Dialogs.Preferences.PreferencesWindow ();
             dialog.show ();
@@ -504,7 +504,7 @@ public class MainWindow : Adw.ApplicationWindow {
         about_item.clicked.connect (about_dialog);
 
         keyboard_shortcuts_item.clicked.connect (() => {
-            menu_app.popdown ();
+            popover.popdown ();
             
             try {
                 var build = new Gtk.Builder ();
@@ -516,6 +516,8 @@ public class MainWindow : Adw.ApplicationWindow {
                 warning ("Failed to open shortcuts window: %s\n", e.message);
             }
         });
+
+        return popover;
     }
 
     private void about_dialog () {

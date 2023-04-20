@@ -8,8 +8,6 @@ public class Views.Today : Gtk.Grid {
     private Gtk.Revealer event_list_revealer;
     private Gtk.Grid listbox_grid;
 
-    private Gtk.Label date_label;
-
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
 
@@ -31,30 +29,7 @@ public class Views.Today : Gtk.Grid {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
         
-        var today_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("planner-today"),
-            pixel_size = 32
-        };
-
-        var title_label = new Gtk.Label (_("Today"));
-        title_label.add_css_class ("header-title");
-
-
-        date_label = new Gtk.Label (null) {
-            margin_top = 2
-        };
-
-        date_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.START,
-            hexpand = true,
-            margin_top = 1
-        };
-
-        header_box.append (today_icon);
-        header_box.append (title_label);
-        header_box.append (date_label);
+        var headerbar = new Widgets.FilterHeader (Objects.Today.get_default ());
 
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12
@@ -88,9 +63,7 @@ public class Views.Today : Gtk.Grid {
 
         reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 3
-        };
+        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         overdue_header_box.append (overdue_label);
         overdue_header_box.append (reschedule_button);
 
@@ -109,9 +82,7 @@ public class Views.Today : Gtk.Grid {
 
         overdue_listbox_grid.attach (overdue_listbox, 0, 0);
 
-        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3
-        };
+        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 12
@@ -134,15 +105,11 @@ public class Views.Today : Gtk.Grid {
 
         today_label.add_css_class ("font-bold");
         
-        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 3
-        };
+        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 
         today_header_box.append (today_label);
 
-        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3
-        };
+        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
         var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12
@@ -175,7 +142,6 @@ public class Views.Today : Gtk.Grid {
             vexpand = true
         };
 
-        content.append (header_box);
         content.append (event_list_revealer);
         content.append (overdue_revealer);
         content.append (today_revealer);
@@ -195,20 +161,20 @@ public class Views.Today : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var overlay = new Gtk.Overlay () {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        overlay.add_overlay (magic_button);
-        overlay.child = scrolled_window;
+        content_box.append (headerbar);
+        content_box.append (scrolled_window);
 
-        attach (overlay, 0, 0);
-        update_today_label ();
+        attach (content_box, 0, 0);
+        headerbar.update_today_label ();
         add_today_items ();
 
         Planner.event_bus.day_changed.connect (() => {
-            update_today_label ();
+            headerbar.update_today_label ();
         });
 
         Services.Database.get_default ().item_added.connect (valid_add_item);
@@ -223,6 +189,10 @@ public class Views.Today : Gtk.Grid {
             if (overdue_items.has_key (item.id_string)) {
                 items[item.id_string].update_request ();
             }
+        });
+
+        headerbar.prepare_new_item.connect (() => {
+            prepare_new_item ();
         });
     }
 
@@ -328,14 +298,6 @@ public class Views.Today : Gtk.Grid {
         }
 
         update_headers ();
-    }
-
-    private void update_today_label () {
-        date = new GLib.DateTime.now_local ();
-        date_label.label = "%s %s".printf (date.format ("%a"),
-            date.format (
-            Granite.DateTime.get_default_date_format (false, true, false)
-        ));
     }
 
     public void prepare_new_item (string content = "") {

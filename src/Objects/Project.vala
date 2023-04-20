@@ -97,6 +97,7 @@ public class Objects.Project : Objects.BaseObject {
                 
                 return -1;
             });
+            
             return _items;
         }
     }

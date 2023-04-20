@@ -353,23 +353,31 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
+            var position = 0;
 
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y < (alloc.height / 2)) {
-                    target_list.insert (picked_widget, 0);
-                } else {
-                    target_list.insert (picked_widget, target_widget.get_index () + 1);
+                if (y > (alloc.height / 2)) {
+                    position = target_widget.get_index () + 1;
                 }
             } else {
-                target_list.insert (picked_widget, target_widget.get_index () + 1);
+                position = target_widget.get_index () + 1;
             }
+
+            target_list.insert (picked_widget, position);
+            update_projects_child_order (target_list);
 
             return true;
         });
 
         add_controller (drop_target);
+    }
+
+    private void update_projects_child_order (Gtk.ListBox listbox) {
+        //  listbox.selected_foreach ((row) => {
+
+        //  });
     }
 
     public void drag_begin () {
@@ -455,14 +463,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             dialog.response.connect ((response) => {
                 if (response == "delete") {
                     if (project.backend_type == BackendType.TODOIST) {
-                        //  remove_button.is_loading = true;
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
                             Services.Database.get_default ().delete_project (project);
-                            // remove_button.is_loading = false;
-                            // message_dialog.hide_destroy ();
                         });
-                    } else {
+                    } else if (project.backend_type == BackendType.LOCAL) {
                         Services.Database.get_default ().delete_project (project);
                     }
                 }

@@ -158,7 +158,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (label.todoist) {
+                    if (label.backend_type == BackendType.TODOIST) {
                         //  remove_button.is_loading = true;
                         Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
@@ -166,7 +166,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
                             // remove_button.is_loading = false;
                             // message_dialog.hide_destroy ();
                         });
-                    } else {
+                    } else if (label.backend_type == BackendType.LOCAL) {
                         Services.Database.get_default ().delete_label (label);
                     }
                 }

@@ -55,9 +55,9 @@ public class Util : GLib.Object {
             @define-color selected_color %s;
         """;
 
-        int appearance_mode = QuickAdd.settings.get_enum ("appearance");
-        bool dark_mode = QuickAdd.settings.get_boolean ("dark-mode");
-        bool system_appearance = QuickAdd.settings.get_boolean ("system-appearance");
+        int appearance_mode = Planner.settings.get_enum ("appearance");
+        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
+        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
 
         var granite_settings = Granite.Settings.get_default ();
 
@@ -271,7 +271,7 @@ public class Util : GLib.Object {
     }
 
     public bool is_clock_format_12h () {
-        return QuickAdd.settings.get_string ("clock-format").contains ("12h");
+        return Planner.settings.get_string ("clock-format").contains ("12h");
     }
 
     public string get_calendar_icon (GLib.DateTime date) {
@@ -376,5 +376,59 @@ public class Util : GLib.Object {
         messages.set (503, _("The server is currently unable to handle the request."));
 
         return messages.get (code);
+    }
+
+    /*
+        Calendar Utils
+    */
+
+    public int get_days_of_month (int index, int year_nav) {
+        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) { // vala-lint=line-length
+            return 31;
+        } else {
+            if (index == 2) {
+                if (year_nav % 4 == 0) {
+                    return 29;
+                } else {
+                    return 28;
+                }
+            } else {
+                return 30;
+            }
+        }
+    }
+
+    public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
+        if (date == null) {
+            date = new GLib.DateTime.now_local ();
+        }
+
+        return new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+    }
+
+    public bool is_current_month (GLib.DateTime date) {
+        var now = new GLib.DateTime.now_local ();
+
+        if (date.get_year () == now.get_year ()) {
+            if (date.get_month () == now.get_month ()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public string get_todoist_datetime_format (GLib.DateTime date) {
+        string returned = "";
+
+        if (has_time (date)) {
+            returned = date.format ("%F") + "T" + date.format ("%T");
+        } else {
+            returned = date.format ("%F");
+        }
+
+        return returned;
     }
 }

@@ -54,7 +54,8 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
         content_box.append (title_label);
 
         content_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = true
         };
 
         content_revealer.child = content_box;
@@ -62,12 +63,12 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
         attach (content_revealer, 0, 0);
 
         Planner.event_bus.view_header.connect ((reveal_child) => {
-            content_revealer.reveal_child = reveal_child;
+            // content_revealer.reveal_child = reveal_child;
         });
     }
 
     public void update_view (Objects.BaseObject view) {
-        content_revealer.reveal_child = false;
+        // content_revealer.reveal_child = false;
 
         disconnect (project_count_updated);
         disconnect (project_updated);
@@ -88,24 +89,6 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
             circular_progress_bar.percentage = project.percentage;
             circular_progress_bar.color = project.color;
             emoji_label.label = project.emoji;
-
-            //  project_count_updated = project.project_count_updated.connect (() => {
-            //      circular_progress_bar.percentage = project.percentage;
-            //  });
-    
-            //  project_updated = project.updated.connect (() => {
-            //      title_label.label = project.name;
-                
-            //      circular_progress_bar.color = Util.get_default ().get_color (project.color);
-            //      circular_progress_bar.percentage = project.percentage;
-                
-            //      emoji_label.label = project.emoji;
-            //      if (project.icon_style == ProjectIconStyle.PROGRESS) {
-            //          progress_emoji_stack.visible_child_name = "progress";
-            //      } else {
-            //          progress_emoji_stack.visible_child_name = "label";
-            //      }
-            //  });
         } else if (view is Objects.Today) {
             title_label.label = _("Today");
             icon_progress_stack.visible_child_name = "icon";

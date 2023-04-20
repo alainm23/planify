@@ -1,10 +1,8 @@
-public class Widgets.HeaderProject : Gtk.Grid {
+public class Widgets.ProjectHeader : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Button menu_button;
-    private Gtk.Popover context_menu = null;
-    private Gtk.Button view_button;
-    private Gtk.Popover view_menu = null;
+    private Gtk.MenuButton menu_button;
+    private Gtk.MenuButton view_button;
     private Widgets.ContextMenu.MenuItem show_completed_item;
 
     private Gtk.CheckButton custom_sort_item;
@@ -13,7 +11,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
     private Gtk.CheckButton date_added_sort_item;
     private Gtk.CheckButton priority_sort_item;
 
-    public HeaderProject (Objects.Project project) {
+    public ProjectHeader (Objects.Project project) {
         Object (
             project: project
         );
@@ -57,10 +55,11 @@ public class Widgets.HeaderProject : Gtk.Grid {
         menu_image.size = 21;
         menu_image.update_icon_name ("dots-horizontal");
         
-        menu_button = new Gtk.Button () {
+        menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            halign = Gtk.Align.END
+            halign = Gtk.Align.END,
+            popover = build_context_menu ()
         };
 
         menu_button.child = menu_image;
@@ -70,8 +69,9 @@ public class Widgets.HeaderProject : Gtk.Grid {
         view_image.size = 21;
         view_image.update_icon_name ("planner-settings-sliders");
         
-        view_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
+        view_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+            popover = build_view_menu ()
         };
 
         view_button.child = view_image;
@@ -114,9 +114,6 @@ public class Widgets.HeaderProject : Gtk.Grid {
             project.update ();
         });
 
-        menu_button.clicked.connect (build_context_menu);
-        view_button.clicked.connect (build_view_menu);
-
         project.project_count_updated.connect (() => {
             circular_progress_bar.percentage = project.percentage;
         });
@@ -136,13 +133,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         });
     }
 
-    private void build_context_menu () {
-        if (context_menu != null) {
-            show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
-            context_menu.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_context_menu () {
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 
         var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
@@ -183,24 +174,21 @@ public class Widgets.HeaderProject : Gtk.Grid {
             menu_box.append (delete_item);
         }
 
-        context_menu = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = false,
-            child = menu_box,
-            position = Gtk.PositionType.BOTTOM
+            position = Gtk.PositionType.BOTTOM,
+            child = menu_box
         };
 
-        context_menu.set_parent (menu_button);
-        context_menu.popup ();
-
         edit_item.activate_item.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
 
             var dialog = new Dialogs.Project (project);
             dialog.show ();
         });
 
         schedule_item.activate_item.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
 
             var dialog = new Dialogs.DatePicker (_("When?"));
             dialog.clear = project.due_date != "";
@@ -218,7 +206,7 @@ public class Widgets.HeaderProject : Gtk.Grid {
         });
 
         filter_by_tags.activate_item.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
             
             var dialog = new Dialogs.LabelPicker ();
             dialog.labels = project.label_filter;
@@ -230,10 +218,12 @@ public class Widgets.HeaderProject : Gtk.Grid {
         });
 
         show_completed_item.activate_item.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
 
             project.show_completed = !project.show_completed;
             project.update ();
+
+            show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
         });
 
         add_section_item.activate_item.connect (() => {
@@ -245,17 +235,17 @@ public class Widgets.HeaderProject : Gtk.Grid {
                     new_section.id = Services.Todoist.get_default ().add.end (res);
                     project.add_section_if_not_exists (new_section);
                     add_section_item.is_loading = false;                    
-                    context_menu.popdown ();
+                    popover.popdown ();
                 });
             } else {
                 new_section.id = Util.get_default ().generate_id ();
                 project.add_section_if_not_exists (new_section);
-                context_menu.popdown ();
+                popover.popdown ();
             }
         });
 
         paste_item.clicked.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
             Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
             clipboard.read_text_async.begin (null, (obj, res) => {
@@ -269,18 +259,15 @@ public class Widgets.HeaderProject : Gtk.Grid {
         });
 
         select_item.clicked.connect (() => {
-            context_menu.popdown ();
+            popover.popdown ();
             Planner.event_bus.multi_select_enabled = true;
             Planner.event_bus.show_multi_select (true);
         });
+
+        return popover;
     }
 
-    private void build_view_menu () {
-        if (view_menu != null) {
-            view_menu.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_view_menu () {
         var sort_by_label = new Gtk.Label (_("Sort by")) {
             halign = Gtk.Align.START,
             margin_start = 6,
@@ -321,14 +308,11 @@ public class Widgets.HeaderProject : Gtk.Grid {
         menu_box.append (date_added_sort_item);
         menu_box.append (priority_sort_item);
 
-        view_menu = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
             position = Gtk.PositionType.BOTTOM
         };
-
-        view_menu.set_parent (view_button);
-        view_menu.popup ();
 
         if (project.sort_order == 0) {
             custom_sort_item.active = true;
@@ -366,6 +350,8 @@ public class Widgets.HeaderProject : Gtk.Grid {
             project.sort_order = 4;
             project.update (false);
         });
+
+        return popover;
     }
 
     public Objects.Section prepare_new_section () {

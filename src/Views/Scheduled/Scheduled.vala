@@ -6,22 +6,7 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var scheduled_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("planner-scheduled"),
-            pixel_size = 32
-        };
-
-        var title_label = new Gtk.Label (_("Scheduled"));
-        title_label.add_css_class ("header-title");
-
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.START,
-            hexpand = true,
-            margin_top = 1
-        };
-
-        header_box.append (scheduled_icon);
-        header_box.append (title_label);
+        var headerbar = new Widgets.FilterHeader (Objects.Scheduled.get_default ());
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -33,8 +18,7 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 24,
-            margin_start = 3
+            margin_top = 12
         };
         listbox_grid.attach (listbox, 0, 0);
 
@@ -43,7 +27,6 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
             vexpand = true
         };
 
-        content.append (header_box);
         content.append (listbox_grid);
 
         var content_clamp = new Adw.Clamp () {
@@ -60,14 +43,15 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var overlay = new Gtk.Overlay () {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        overlay.child = scrolled_window;
+        content_box.append (headerbar);
+        content_box.append (scrolled_window);
 
-        attach (overlay, 0, 0);
+        attach (content_box, 0, 0);
         add_days ();
     }
 

@@ -1,22 +1,19 @@
-public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
-    public Objects.Project project { get; construct; }
+public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
+    public Objects.Section section { get; construct; }
     
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
     private Widgets.IconColorProject icon_project;
 
-    public ProjectPickerRow (Objects.Project project) {
+    public SectionPickerRow (Objects.Section section) {
         Object (
-            project: project
+            section: section
         );
     }
 
     construct {
         add_css_class ("selectable-item");
         add_css_class ("transition");
-
-        icon_project = new Widgets.IconColorProject (21);
-        icon_project.project = project;
 
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
@@ -40,12 +37,11 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         selected_revealer.child = selected_icon;
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
         };
-        content_box.append (icon_project);        
         content_box.append (name_label);
         content_box.append (selected_revealer);
 
@@ -68,16 +64,15 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         add_controller (select_gesture);
 
         select_gesture.pressed.connect (() => {
-            Planner.event_bus.project_picker_changed (project.id);
+            Planner.event_bus.section_picker_changed (section.id);
         });
 
-        Planner.event_bus.project_picker_changed.connect ((id) => {
-            selected_revealer.reveal_child = project.id == id;
+        Planner.event_bus.section_picker_changed.connect ((type, id) => {
+            selected_revealer.reveal_child = section.id == id;
         });
     }
 
     public void update_request () {
-        name_label.label = project.inbox_project ? _("Inbox") : project.name;
-        icon_project.update_request ();
+        name_label.label = section.name;
     }
 }

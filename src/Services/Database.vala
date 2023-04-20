@@ -164,7 +164,7 @@ public class Services.Database : GLib.Object {
                 item_order      INTEGER,
                 is_deleted      INTEGER,
                 is_favorite     INTEGER,
-                todoist         INTEGER,
+                backend_type    TEXT,
                 CONSTRAINT unique_label UNIQUE (name)
             );
         """;
@@ -348,9 +348,9 @@ public class Services.Database : GLib.Object {
                     return_value.add (project);
                 }
             }
-
-            return return_value;
         }
+        
+        return return_value;
     }
 
     public Gee.ArrayList<Objects.Item> get_subitems (Objects.Item i) {
@@ -361,9 +361,9 @@ public class Services.Database : GLib.Object {
                     return_value.add (item);
                 }
             }
-
-            return return_value;
         }
+
+        return return_value;
     }
 
     public Objects.Project _fill_project (Sqlite.Statement stmt) {
@@ -418,6 +418,20 @@ public class Services.Database : GLib.Object {
             return BackendType.NONE;
         }
     }
+
+    public int next_project_child_order (BackendType backend_type) {
+        int child_order = 0;
+
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.backend_type == backend_type && !project.is_deleted) {
+                    child_order++;
+                }
+            }
+
+            return child_order;
+        }
+    } 
 
     public bool insert_project (Objects.Project project) {
         Sqlite.Statement stmt;
@@ -487,7 +501,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Projects SET is_deleted = 1 WHERE id=$id;
+            DELETE FROM Projects WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -510,6 +524,27 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
+        stmt.reset ();
+    }
+
+    public void delete_project_db (Objects.Project project) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM Projects WHERE id=$id;
+            DELETE FROM Items WHERE project_id=$item_project_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", project.id);
+        set_parameter_str (stmt, "$section_project_id", project.id);
+        set_parameter_str (stmt, "$item_project_id", project.id);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
         stmt.reset ();
     }
 
@@ -601,7 +636,7 @@ public class Services.Database : GLib.Object {
         return_value.item_order = stmt.column_int (3);
         return_value.is_deleted = get_parameter_bool (stmt, 4);
         return_value.is_favorite = get_parameter_bool (stmt, 5);
-        return_value.todoist = get_parameter_bool (stmt, 6);
+        return_value.backend_type = get_backend_type_by_text (stmt, 6);
         return return_value;
     }
 
@@ -609,8 +644,8 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite, todoist)
-            VALUES ($id, $name, $color, $item_order, $is_deleted, $is_favorite, $todoist);
+            INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite, backend_type)
+            VALUES ($id, $name, $color, $item_order, $is_deleted, $is_favorite, $backend_type);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -620,7 +655,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$item_order", label.item_order);
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
-        set_parameter_bool (stmt, "$todoist", label.todoist);
+        set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
 
         if (stmt.step () == Sqlite.DONE) {
             labels.add (label);
@@ -716,7 +751,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$item_order", label.item_order);
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
-        set_parameter_bool (stmt, "$todoist", label.todoist);
+        set_parameter_str (stmt, "$todoist", label.backend_type.to_string ());
         set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -854,9 +889,9 @@ public class Services.Database : GLib.Object {
                     return_value.add (section);
                 }
             }
-
-            return return_value;
         }
+
+        return return_value;
     }
 
     public Objects.Section get_section (string id) {
@@ -891,7 +926,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Sections SET is_deleted = 1 WHERE id=$id;
+            DELETE FROM Sections WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -906,6 +941,7 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
         stmt.reset ();
     }
 
@@ -1102,9 +1138,9 @@ public class Services.Database : GLib.Object {
                     }
                 }
             }
-
-            return return_value;
         }
+
+        return return_value;
     }
 
     public Gee.ArrayList<Objects.Item> get_items_by_project (Objects.Project project) {
@@ -1308,7 +1344,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Items SET is_deleted = 1 WHERE id=$id;
+            DELETE FROM Items WHERE id=$id;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1451,6 +1487,19 @@ public class Services.Database : GLib.Object {
             foreach (var project in projects) {
                 if (project.backend_type == BackendType.TODOIST) {
                     return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Label> get_all_labels_by_todoist () {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        lock (_labels) {
+            foreach (var label in labels) {
+                if (label.backend_type == BackendType.TODOIST) {
+                    return_value.add (label);
                 }
             }
 

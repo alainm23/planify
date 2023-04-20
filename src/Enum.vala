@@ -212,6 +212,6 @@ public enum RecurrencyType {
 }
 
 public enum DefaultInboxProject {
-    LOCAL,
-    TODOIST
+    LOCAL = 0,
+    TODOIST = 1
 }

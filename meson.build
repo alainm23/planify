@@ -54,7 +54,7 @@ planner_deps = [
   dependency('gtk4'),
   dependency('sqlite3'),
   dependency('libadwaita-1'),
-  dependency('webkit2gtk-5.0'),
+  dependency('webkitgtk-6.0'),
   dependency('granite-7'),
   dependency('json-glib-1.0'),
   dependency('libecal-2.0', version: '>= 3.45.1'),
@@ -89,13 +89,16 @@ planner_files = files(
   'src/Layouts/SectionRow.vala',
   'src/Layouts/ItemRow.vala',
   'src/Layouts/LabelRow.vala',
+  'src/Layouts/SectionBoard.vala',
+  'src/Layouts/ItemBoard.vala',
   
   'src/Widgets/DynamicIcon.vala',
   'src/Widgets/ColorPickerRow.vala',
   'src/Widgets/LoadingButton.vala',
   'src/Widgets/CircularProgressBar.vala',
   'src/Widgets/MagicButton.vala',
-  'src/Widgets/HeaderProject.vala',
+  'src/Widgets/FilterHeader.vala',
+  'src/Widgets/ProjectHeader.vala',
   'src/Widgets/EditableLabel.vala',
   'src/Widgets/Entries.vala',
   'src/Widgets/Placeholder.vala',
@@ -116,6 +119,7 @@ planner_files = files(
   'src/Widgets/EventRow.vala',
   'src/Widgets/CalendarSourceRow.vala',
   'src/Widgets/SettingsHeader.vala',
+  'src/Widgets/SubItems.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -138,6 +142,7 @@ planner_files = files(
 
   'src/Views/Project.vala',
   'src/Views/List.vala',
+  'src/Views/Board.vala',
   'src/Views/Date.vala',
   'src/Views/Today.vala',
   'src/Views/Pinboard.vala',
@@ -166,11 +171,16 @@ planner_files = files(
   'src/Objects/Filters/Priority.vala',
   'src/Objects/Filters/Completed.vala',
 
+  'src/Models/ItemList.vala',
+
   'src/Dialogs/Project.vala',
   'src/Dialogs/Label.vala',
+  'src/Dialogs/Item.vala',
   'src/Dialogs/TodoistOAuth.vala',
   'src/Dialogs/ProjectPicker/ProjectPicker.vala',
   'src/Dialogs/ProjectPicker/ProjectPickerRow.vala',
+  'src/Dialogs/ProjectPicker/SectionPickerRow.vala',
+
   'src/Dialogs/DatePicker.vala',
   'src/Dialogs/LabelPicker.vala',
   'src/Dialogs/RepeatConfig.vala',
@@ -203,6 +213,20 @@ quick_find_files = files(
     'quick-add/Widgets/DynamicIcon.vala',
     'quick-add/Widgets/LoadingButton.vala',
     'quick-add/Widgets/HyperTextView.vala',
+    'quick-add/Widgets/ScheduleButton.vala',
+
+    'src/Widgets/DateTimePicker/DateTimePicker.vala',
+    'src/Widgets/DateTimePicker/TimePicker.vala',
+
+    'src/Widgets/ContextMenu/MenuItem.vala',
+    'src/Widgets/ContextMenu/MenuSeparator.vala',
+    'src/Widgets/ContextMenu/MenuItemPicker.vala',
+
+    'src/Widgets/Calendar/Calendar.vala',
+    'src/Widgets/Calendar/CalendarDay.vala',
+    'src/Widgets/Calendar/CalendarHeader.vala',
+    'src/Widgets/Calendar/CalendarView.vala',
+    'src/Widgets/Calendar/CalendarWeek.vala',
 )
 
 executable(
@@ -225,4 +249,11 @@ executable (
 
 subdir('data')
 subdir('po')
+
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true,
+)
+
 meson.add_install_script('build-aux/meson'/ 'post_install.py')

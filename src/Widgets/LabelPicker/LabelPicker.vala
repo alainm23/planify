@@ -170,7 +170,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
         if (item.project.backend_type == BackendType.TODOIST) {
             is_loading = true;
-            label.todoist = true;
+            label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                 label.id = Services.Todoist.get_default ().add.end (res);
                 Services.Database.get_default ().insert_label (label);
@@ -182,6 +182,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             });
         } else {
             label.id = Util.get_default ().generate_id ();
+            label.backend_type = BackendType.LOCAL;
             Services.Database.get_default ().insert_label (label);
 
             popdown ();

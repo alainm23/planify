@@ -400,23 +400,22 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         if (section.project.show_completed) {
             add_completed_items ();
         } else {
-            items_checked.clear ();
-
-            for (Gtk.Widget child = checked_listbox.get_first_child (); child != null; child = checked_listbox.get_next_sibling ()) {
-                checked_listbox.remove (child);
+            foreach (Layouts.ItemRow row in items_checked.values) {
+                row.hide_destroy ();
             }
+
+            items_checked.clear ();
         }
 
         checked_revealer.reveal_child = section.project.show_completed;
     }
 
-
     public void add_completed_items () {
-        items_checked.clear ();
-
-        for (Gtk.Widget child = checked_listbox.get_first_child (); child != null; child = checked_listbox.get_next_sibling ()) {
-            checked_listbox.remove (child);
+        foreach (Layouts.ItemRow row in items_checked.values) {
+            row.hide_destroy ();
         }
+
+        items_checked.clear ();
 
         foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
             add_complete_item (item);
@@ -428,7 +427,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             if (!items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string] = new Layouts.ItemRow (item);
                 checked_listbox.append (items_checked [item.id_string]);
-                checked_listbox.show ();
             }
         }
     }
@@ -480,7 +478,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         if (!item.checked && !items.has_key (item.id_string)) {
             items [item.id_string] = new Layouts.ItemRow (item);
             listbox.append (items [item.id_string]);
-            listbox.show ();
         }
     }
 
@@ -506,8 +503,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         } else {
             listbox.append (row);
         }
-        
-        listbox.show ();
     }
 
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {

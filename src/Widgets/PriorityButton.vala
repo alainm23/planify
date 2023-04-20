@@ -1,15 +1,15 @@
-public class Widgets.PriorityButton : Gtk.Button {
+public class Widgets.PriorityButton : Gtk.Grid {
     // public Objects.Item item { get; construct set; }
     // public ECal.Component task { get; construct set; }
 
     private Widgets.DynamicIcon priority_image;
+    private Gtk.MenuButton button; 
     private Gtk.Popover priority_picker = null;
 
     public signal void changed (int priority);
 
     public PriorityButton () {
         Object (
-            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Set the priority")
@@ -17,8 +17,10 @@ public class Widgets.PriorityButton : Gtk.Button {
     }
 
     construct {
-        add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_css_class ("p3");
+        button = new Gtk.MenuButton ();
+        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        open_picker ();
 
         priority_image = new Widgets.DynamicIcon ();
         priority_image.size = 19;
@@ -28,25 +30,13 @@ public class Widgets.PriorityButton : Gtk.Button {
         };
         projectbutton_box.append (priority_image);
 
-        child = projectbutton_box;
-        // update_request (item, task);
-
-        var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
-        add_controller (gesture);
-
-        gesture.pressed.connect ((n_press, x, y) => {
-            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            open_picker ();
-        });
+        button.child = projectbutton_box;
+        attach (button, 0, 0);
+        
+        open_picker ();
     }
 
     public void open_picker () {
-        if (priority_picker != null) {
-            priority_picker.popup ();
-            return;
-        }
-
         var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: high"), "planner-priority-1");
         var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "planner-priority-2");
         var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: low"), "planner-priority-3");
@@ -65,8 +55,7 @@ public class Widgets.PriorityButton : Gtk.Button {
             position = Gtk.PositionType.TOP
         };
 
-        priority_picker.set_parent (this);
-        priority_picker.popup();
+        button.popover = priority_picker;
 
         priority_1_item.clicked.connect (() => {
             priority_picker.popdown ();

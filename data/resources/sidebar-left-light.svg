@@ -5,47 +5,40 @@
    fill="none"
    viewBox="0 0 24 24"
    version="1.1"
-   id="svg8"
-   sodipodi:docname="dashboard.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   id="svg4"
+   sodipodi:docname="sidebar.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs12" />
+     id="defs8" />
   <sodipodi:namedview
-     id="namedview10"
+     id="namedview6"
      pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
      showgrid="false"
-     inkscape:zoom="22.083333"
+     inkscape:zoom="19.583333"
      inkscape:cx="12"
-     inkscape:cy="12.022642"
+     inkscape:cy="12"
      inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:window-height="699"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg8" />
+     inkscape:current-layer="svg4" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      stroke-width="1.5"
-     d="M4.75 6.75C4.75 5.64543 5.64543 4.75 6.75 4.75H17.25C18.3546 4.75 19.25 5.64543 19.25 6.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V6.75Z"
+     d="M12.75 4.75h4.5a2 2 0 0 1 2 2v10.5a2 2 0 0 1-2 2h-4.5m-8-2V6.75a2 2 0 0 1 2-2h2.5v14.5h-2.5a2 2 0 0 1-2-2Z"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.70795"
-     d="M 9.75,5.7109614 V 19"
-     id="path4"
      style="stroke:#666666;stroke-opacity:1" />
 </svg>

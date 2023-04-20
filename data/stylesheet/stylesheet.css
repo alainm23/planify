@@ -1,4 +1,3 @@
-
 check {
     min-height: 12px;
     min-width: 12px;
@@ -41,8 +40,7 @@ entry.flat:focus-within {
 .color-radio {
     background: @colorAccent;
     border-color: alpha(#000, 0.3);
-    box-shadow:
-        inset 0 1px 0 0 alpha(@shadowColor, 0.7),
+    box-shadow: inset 0 1px 0 0 alpha(@shadowColor, 0.7),
         inset 0 0 0 1px alpha(@shadowColor, 0.3),
         0 1px 0 0 alpha(@colorAccent, 0.3);
     -gtk-icon-shadow: none;
@@ -165,7 +163,6 @@ entry.flat:focus-within {
     background-color: transparent;
 }
 
-
 .row.activatable:hover {
     background-color: transparent;
 }
@@ -258,16 +255,10 @@ entry.flat:focus-within {
 }
 
 .priority-color check:checked {
-    background-image:
-        linear-gradient(to bottom,
-            shade(#1e63ec,
-                1.2),
-            #1e63ec);
+    background-image: linear-gradient(to bottom, shade(#1e63ec, 1.2), #1e63ec);
     border-color: shade(#1e63ec, 0.9);
-    box-shadow:
-        inset 0 0 0 1px shade(#1e63ec, 1.15),
-        inset 0 1px 0 0 shade(#1e63ec, 1.3),
-        0 1px 1px 0 shade(@bg_color, 0.85);
+    box-shadow: inset 0 0 0 1px shade(#1e63ec, 1.15),
+        inset 0 1px 0 0 shade(#1e63ec, 1.3), 0 1px 1px 0 shade(@bg_color, 0.85);
     color: #fff;
     -gtk-icon-source: -gtk-icontheme("emblem-ok-symbolic");
     -gtk-icon-shadow: 0 1px 1px shade(#1e63ec, 0.85);
@@ -374,4 +365,32 @@ entry.flat:focus-within {
     padding: 3px 6px;
     color: @upcoming_fg_color;
     font-weight: bold;
+}
+
+.icon-dropshadow,
+.icon-dropshadow image {
+    animation-name: breathing;
+    animation-duration: 3s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-delay: 0s;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+
+.calendar {
+    background: transparent;
+    border: none;
+}
+
+.calendar header {
+    border: none;
+}
+
+.day-name {
+    font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }

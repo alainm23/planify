@@ -436,6 +436,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         Services.Todoist.get_default ().first_sync_finished.connect (() => {
             todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
             todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
+
+            Timeout.add (250, () => {
+                destroy ();
+                return GLib.Source.REMOVE;
+            });
         });
 
         Services.Todoist.get_default ().log_out.connect (() => {

@@ -129,11 +129,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
 
         flowbox_revealer.child = labels_flowbox;
 
-        more_label = new Gtk.Label (null) {
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3
-        };
+        more_label = new Gtk.Label (null);
 
         more_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         
@@ -192,8 +188,8 @@ public class Widgets.ItemSummary : Gtk.Grid {
         main_grid.append (summary_revealer);
 
         if (itemrow == null) {
-            main_grid.margin_top = 3;
-            main_grid.margin_bottom = 3;
+            //  main_grid.margin_top = 3;
+            main_grid.margin_bottom = 6;
         }
 
         revealer = new Gtk.Revealer () {
@@ -226,7 +222,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
     public void update_request () {
         update_due_label ();
         update_reminders ();
-        update_subtasks ();
+        // update_subtasks ();
         update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
@@ -269,13 +265,13 @@ public class Widgets.ItemSummary : Gtk.Grid {
     public void check_revealer () {
         if (itemrow != null) {
             summary_revealer.reveal_child = due_revealer.reveal_child ||
-            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
+            flowbox_revealer.reveal_child || // subtasks_revealer.reveal_child ||
             reminder_revealer.reveal_child || description_revealer.reveal_child;
             revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child) &&
             !itemrow.edit;
         } else {
             summary_revealer.reveal_child = due_revealer.reveal_child ||
-            flowbox_revealer.reveal_child || subtasks_revealer.reveal_child ||
+            flowbox_revealer.reveal_child || // subtasks_revealer.reveal_child ||
             reminder_revealer.reveal_child || description_revealer.reveal_child;
             revealer.reveal_child = (description_label_revealer.reveal_child || summary_revealer.reveal_child);
         }

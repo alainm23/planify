@@ -17,7 +17,6 @@ public class Views.Label : Gtk.Grid {
     private Gtk.Grid widget_color;
     private Gtk.Label title_label;
     private Gtk.Stack listbox_stack;
-    private Widgets.Placeholder listbox_placeholder;
 
     private bool has_items {
         get {
@@ -27,6 +26,22 @@ public class Views.Label : Gtk.Grid {
 
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
+
+        var sidebar_image = new Widgets.DynamicIcon ();
+        sidebar_image.size = 19;
+
+        if (Planner.settings.get_boolean ("slim-mode")) {
+            sidebar_image.update_icon_name ("sidebar-left");
+        } else {
+            sidebar_image.update_icon_name ("sidebar-right");
+        }
+        
+        var sidebar_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        sidebar_button.child = sidebar_image;
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
@@ -42,21 +57,68 @@ public class Views.Label : Gtk.Grid {
         };
         title_label.get_style_context ().add_class ("header-title");
 
+        // Menu Button
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
+        menu_image.size = 21;
         menu_image.update_icon_name ("dots-horizontal");
-
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        
+        var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
-            hexpand = true,
-            margin_top = 1,
-            margin_start = 3
+            halign = Gtk.Align.CENTER
+            // popover = build_context_menu ()
         };
 
-        header_box.append (widget_color);
-        header_box.append (title_label);
+        menu_button.child = menu_image;
+        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var magic_button = new Widgets.MagicButton ();
+        // Add Button
+        var add_image = new Widgets.DynamicIcon ();
+        add_image.size = 21;
+        add_image.update_icon_name ("planner-plus-circle");
+        
+        var add_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            tooltip_text = _("Add Tasks")
+        };
+
+        add_button.child = add_image;
+        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        // Search Icon
+        var search_image = new Widgets.DynamicIcon ();
+        search_image.size = 19;
+        search_image.update_icon_name ("planner-search");
+        
+        var search_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        search_button.child = search_image;
+
+        var headerbar = new Adw.HeaderBar () {
+            title_widget = new Gtk.Label (null),
+            hexpand = true
+        };
+
+        headerbar.add_css_class ("flat");
+        headerbar.pack_start (sidebar_button);
+        headerbar.pack_start (widget_color);
+        headerbar.pack_start (title_label);
+        headerbar.pack_end (menu_button);
+        headerbar.pack_end (search_button);
+        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3,
+            margin_end = 3,
+            opacity = 0
+        });
+        // headerbar.pack_end (add_button);
+        //  headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+        //      margin_start = 3,
+        //      margin_end = 3,
+        //      opacity = 0
+        //  });
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -73,8 +135,9 @@ public class Views.Label : Gtk.Grid {
 
         listbox_grid.attach (listbox, 0, 0);
 
-        listbox_placeholder = new Widgets.Placeholder (
-            null, _("No tasks with this label at the moment"), "planner-label");
+        var listbox_placeholder = new Widgets.Placeholder (
+            _("No to-dos for this filter yet."), "planner-check-circle"
+        );
 
         listbox_stack = new Gtk.Stack () {
             vexpand = true,
@@ -85,15 +148,12 @@ public class Views.Label : Gtk.Grid {
         listbox_stack.add_named (listbox_grid, "listbox");
         listbox_stack.add_named (listbox_placeholder, "placeholder");
 
+
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            vexpand = true,
-            margin_start = 16,
-            margin_end = 36,
-            margin_bottom = 36,
-            margin_top = 6
+            vexpand = true
         };
-        content.append (header_box);
+
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -105,18 +165,20 @@ public class Views.Label : Gtk.Grid {
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true,
+            vexpand = true
         };
+
         scrolled_window.child = content_clamp;
 
-        var overlay = new Gtk.Overlay () {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            vexpand = true,
+            vexpand = true
         };
-        // overlay.add_overlay (magic_button);
-        overlay.child = scrolled_window;
 
-        attach (overlay, 0, 0);
+        content_box.append (headerbar);
+        content_box.append (scrolled_window);
+
+        attach (content_box, 0, 0);
 
         Timeout.add (listbox_stack.transition_duration, () => {
             validate_placeholder ();
@@ -133,6 +195,19 @@ public class Views.Label : Gtk.Grid {
             } else {
                 Planner.event_bus.view_header (false);
             }
+        });
+
+        add_button.clicked.connect (() => {
+            // prepare_new_item ();
+        });
+
+        search_button.clicked.connect (() => {
+            var dialog = new Dialogs.QuickFind.QuickFind ();
+            dialog.show ();
+        });
+
+        sidebar_button.clicked.connect (() => {
+            Planner._instance.main_window.show_hide_sidebar ();
         });
     }
 
@@ -188,7 +263,6 @@ public class Views.Label : Gtk.Grid {
 
     public void update_request () { 
         title_label.label = label.name;
-        listbox_placeholder.title = label.name;
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
     }
 }

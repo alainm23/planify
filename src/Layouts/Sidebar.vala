@@ -115,12 +115,35 @@ public class Layouts.Sidebar : Gtk.Grid {
                 }
             }
         });
+
+        Services.Todoist.get_default ().log_in.connect (() => {
+            todoist_projects_header.reveal = true;
+        });
+
+        Services.Todoist.get_default ().log_out.connect (() => {
+            todoist_projects_header.reveal = false;
+        });
+
+        Services.Database.get_default ().project_deleted.connect ((project) => {
+            if (favorites_hashmap.has_key (project.id)) {
+                favorites_hashmap.unset (project.id);
+            }
+
+            if (local_hashmap.has_key (project.id)) {
+                local_hashmap.unset (project.id);
+            }
+
+            if (todoist_hashmap.has_key (project.id)) {
+                todoist_hashmap.unset (project.id);
+            }
+        });
     }
 
     public void verify_todoist_account () {
         bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
         
         if (is_logged_in) {
+            todoist_projects_header.reveal = true;
             todoist_projects_header.header_title = _("Todoist");
             todoist_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         } else {
@@ -168,14 +191,16 @@ public class Layouts.Sidebar : Gtk.Grid {
                 add_row_favorite (project);
             }
 
-            favorites_header.check_visibility (favorites_hashmap.size);
+            favorites_header.reveal = favorites_hashmap.size > 0;
         });
 
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
         pinboard_filter.init ();
-                
+        
+        local_projects_header.reveal = true;
+
         add_all_projects ();
         add_all_favorites ();
 
@@ -195,7 +220,7 @@ public class Layouts.Sidebar : Gtk.Grid {
             add_row_favorite (project);
         }
 
-        favorites_header.check_visibility (favorites_hashmap.size);
+        favorites_header.reveal = favorites_hashmap.size > 0;
     }
 
     private void add_row_favorite (Objects.Project project) {

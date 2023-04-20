@@ -6,7 +6,9 @@ public class MainWindow : Adw.ApplicationWindow {
     private Widgets.LoadingButton submit_button;
     private Widgets.HyperTextView description_textview;
 
-    public MainWindow (QuickAdd application) {
+    private Widgets.ScheduleButton schedule_button;
+
+    public MainWindow (Planner application) {
         Object (
             application: application,
             icon_name: "com.github.alainm23.task-planner",
@@ -59,6 +61,17 @@ public class MainWindow : Adw.ApplicationWindow {
 
         description_textview.remove_css_class ("view");
 
+        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+            margin_start = 31,
+            margin_top = 6,
+            margin_bottom = 6,
+            hexpand = true
+        };
+
+        schedule_button = new Widgets.ScheduleButton ();
+
+        action_box.append (schedule_button);
+
         var quick_add_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 12,
             margin_bottom = 12,
@@ -70,7 +83,7 @@ public class MainWindow : Adw.ApplicationWindow {
         quick_add_content.append (content_box);
         quick_add_content.append (description_textview);
         // quick_add_content.add (item_labels);
-        // quick_add_content.add (action_box);
+        quick_add_content.append (action_box);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add Task"));
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
@@ -103,8 +116,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var granite_settings = Granite.Settings.get_default ();
         granite_settings.notify["prefers-color-scheme"].connect (() => {
-            if (QuickAdd.settings.get_boolean ("system-appearance")) {
-                QuickAdd.settings.set_boolean (
+            if (Planner.settings.get_boolean ("system-appearance")) {
+                Planner.settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -112,9 +125,9 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        QuickAdd.settings.changed.connect ((key) => {
+        Planner.settings.changed.connect ((key) => {
             if (key == "system-appearance") {
-                QuickAdd.settings.set_boolean (
+                Planner.settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -127,6 +140,20 @@ public class MainWindow : Adw.ApplicationWindow {
         content_entry.activate.connect (add_item);
         submit_button.clicked.connect (add_item);
         cancel_button.clicked.connect (hide_destroy);
+
+        schedule_button.date_changed.connect ((datetime) => {
+            update_due (datetime);
+        });
+    }
+
+    public void update_due (GLib.DateTime? datetime) {
+        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+
+        if (item.due.date == "") {
+            item.due.reset ();
+        }
+
+        schedule_button.update_from_item (item);
     }
 
     private void add_item () {        
@@ -137,7 +164,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
-        item.project_id = QuickAdd.settings.get_int64 ("inbox-project-id");
+        item.project_id = Planner.settings.get_int64 ("inbox-project-id");
         
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;

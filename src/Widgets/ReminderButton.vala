@@ -1,15 +1,12 @@
-public class Widgets.ReminderButton : Gtk.Button {
+public class Widgets.ReminderButton : Gtk.Grid {
     public Objects.Item item { get; construct; }
 
     private Gtk.Label badge_label;
     private Gtk.Revealer badge_revealer;
 
-    private Widgets.ReminderPicker.ReminderPicker reminder_picker;
-
     public ReminderButton (Objects.Item item) {
         Object (
             item: item,
-            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add reminder(s)")
@@ -17,12 +14,11 @@ public class Widgets.ReminderButton : Gtk.Button {
     }
 
     construct {
-        add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_css_class ("p3");
+        var reminder_picker = new Widgets.ReminderPicker.ReminderPicker (item);
 
-        var button_image = new Widgets.DynamicIcon ();
-        button_image.size = 19;
-        button_image.update_icon_name ("planner-bell");
+        var bell_image = new Widgets.DynamicIcon ();
+        bell_image.size = 19;
+        bell_image.update_icon_name ("planner-bell");
 
         badge_label = new Gtk.Label (null);
         badge_label.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
@@ -37,26 +33,18 @@ public class Widgets.ReminderButton : Gtk.Button {
             valign = Gtk.Align.CENTER
         };
 
-        button_grid.append (button_image);
+        button_grid.append (bell_image);
         button_grid.append (badge_revealer);
 
-        child = button_grid;
+        var button = new Gtk.MenuButton () {
+            child = button_grid,
+            popover = reminder_picker
+        };
+
+        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        attach (button, 0, 0);
         update_request ();
-
-        var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
-        add_controller (gesture);
-
-        gesture.pressed.connect ((n_press, x, y) => {
-            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            if (reminder_picker == null) {
-                reminder_picker = new Widgets.ReminderPicker.ReminderPicker (item);
-                reminder_picker.set_parent (this);
-            }
-            
-            reminder_picker.popup ();
-        });
 
         item.reminder_added.connect (() => {
             update_request ();

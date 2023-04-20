@@ -37,6 +37,16 @@ public class Layouts.HeaderItem : Gtk.Grid {
         }
     }
 
+    public bool reveal {
+        get {
+            return content_revealer.reveal_child;
+        }
+
+        set {
+            content_revealer.reveal_child = value;
+        }
+    }
+
     private Gtk.Label name_label;
     private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
@@ -118,7 +128,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
 
         content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
-        // content_grid.add_css_class ("pane-content");
         content_grid.add_css_class ("padding-3");
         content_grid.attach (listbox, 0, 0, 1, 1);
 
@@ -184,8 +193,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         content_box.append (content_grid);
 
         content_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = true
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
 
         content_revealer.child = content_box;

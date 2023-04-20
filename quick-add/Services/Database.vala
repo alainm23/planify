@@ -1,7 +1,6 @@
 public class Services.Database : GLib.Object {
     private Sqlite.Database db;
     private string db_path;
-    private string errormsg;
     private string sql;
 
     public signal void opened ();

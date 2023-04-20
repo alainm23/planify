@@ -1,20 +1,20 @@
-public class QuickAdd : Adw.Application {
+public class Planner : Adw.Application {
     public MainWindow main_window;
 
     public static GLib.Settings settings;
 
-    public static QuickAdd _instance = null;
-    public static QuickAdd instance {
+    public static Planner _instance = null;
+    public static Planner instance {
         get {
             if (_instance == null) {
-                _instance = new QuickAdd ();
+                _instance = new Planner ();
             }
             return _instance;
         }
     }
     
     static construct {
-        settings = new Settings ("com.github.alainm23.planit");
+        settings = new Settings ("com.github.alainm23.task-planner");
     }
 
     construct {
@@ -42,7 +42,7 @@ public class QuickAdd : Adw.Application {
     }
 
     public static int main (string[] args) {
-        QuickAdd app = QuickAdd.instance;
+        Planner app = Planner.instance;
         return app.run (args);
     }
 }

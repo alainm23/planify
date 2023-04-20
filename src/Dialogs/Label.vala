@@ -32,11 +32,11 @@ public class Dialogs.Label : Adw.Window {
         }
     }
 
-    public Label.new (bool todoist = false) {
+    public Label.new (BackendType backend_type = BackendType.LOCAL) {
         var label = new Objects.Label ();
         label.color = "blue";
         label.id = "";
-        label.todoist = todoist;
+        label.backend_type = backend_type;
 
         Object (
             label: label,
@@ -162,19 +162,19 @@ public class Dialogs.Label : Adw.Window {
 
         if (!is_creating) {
             submit_button.is_loading = true;
-            if (label.todoist) {
+            if (label.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (label, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default().update_label (label);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
-            } else {
+            } else if (label.backend_type == BackendType.LOCAL) {
                 Services.Database.get_default().update_label (label);
                 hide_destroy ();
             }
         } else {
-            if (label.todoist) {
+            if (label.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                     label.id = Services.Todoist.get_default ().add.end (res);
@@ -182,7 +182,7 @@ public class Dialogs.Label : Adw.Window {
                     hide_destroy ();
                 });
 
-            } else {
+            } else if (label.backend_type == BackendType.LOCAL) {
                 label.id = Util.get_default ().generate_id ();
                 Services.Database.get_default().insert_label (label);
                 hide_destroy ();

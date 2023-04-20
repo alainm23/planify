@@ -24,7 +24,7 @@ public class Objects.Label : Objects.BaseObject {
     public int item_order { get; set; default = Constants.INACTIVE; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
-    public bool todoist { get; set; default = false; }
+    public BackendType backend_type { get; set; default = BackendType.NONE; }
 
     int? _label_count = null;
     public int label_count {
@@ -99,7 +99,7 @@ public class Objects.Label : Objects.BaseObject {
     public Label.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_json (node);
-        todoist = true;
+        backend_type = BackendType.TODOIST;
     }
 
     public void update_from_json (Json.Node node) {

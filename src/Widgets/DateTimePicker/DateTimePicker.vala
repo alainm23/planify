@@ -64,7 +64,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     public DateTimePicker () {
         Object (
             has_arrow: false,
-            position: Gtk.PositionType.TOP
+            position: Gtk.PositionType.BOTTOM
         );
     }
 

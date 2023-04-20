@@ -28,36 +28,92 @@ public class Views.Filter : Gtk.Grid {
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
+        var sidebar_image = new Widgets.DynamicIcon ();
+        sidebar_image.size = 19;
+
+        if (Planner.settings.get_boolean ("slim-mode")) {
+            sidebar_image.update_icon_name ("sidebar-left");
+        } else {
+            sidebar_image.update_icon_name ("sidebar-right");
+        }
+        
+        var sidebar_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        sidebar_button.child = sidebar_image;
+
         filter_icon = new Widgets.DynamicIcon () {
             valign = Gtk.Align.CENTER
         };
-        filter_icon.size = 32;
+        filter_icon.size = 24;
 
         title_label = new Gtk.Label (null);
-        title_label.add_css_class ("header-title");
+        title_label.add_css_class ("font-bold");
 
+        // Menu Button
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
+        menu_image.size = 21;
         menu_image.update_icon_name ("dots-horizontal");
         
-        var menu_button = new Gtk.Button () {
+        var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
-            can_focus = false
+            halign = Gtk.Align.CENTER
+            // popover = build_context_menu ()
         };
 
         menu_button.child = menu_image;
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        // Add Button
+        var add_image = new Widgets.DynamicIcon ();
+        add_image.size = 21;
+        add_image.update_icon_name ("planner-plus-circle");
         
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.START,
-            hexpand = true,
-            margin_top = 1
+        var add_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            tooltip_text = _("Add Tasks")
         };
 
-        header_box.append (filter_icon);
-        header_box.append (title_label);
+        add_button.child = add_image;
+        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var magic_button = new Widgets.MagicButton ();
+        // Search Icon
+        var search_image = new Widgets.DynamicIcon ();
+        search_image.size = 19;
+        search_image.update_icon_name ("planner-search");
+        
+        var search_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        search_button.child = search_image;
+
+        var headerbar = new Adw.HeaderBar () {
+            title_widget = new Gtk.Label (null),
+            hexpand = true
+        };
+
+        headerbar.add_css_class ("flat");
+        headerbar.pack_start (sidebar_button);
+        headerbar.pack_start (filter_icon);
+        headerbar.pack_start (title_label);
+        headerbar.pack_end (menu_button);
+        headerbar.pack_end (search_button);
+        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3,
+            margin_end = 3,
+            opacity = 0
+        });
+        headerbar.pack_end (add_button);
+        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3,
+            margin_end = 3,
+            opacity = 0
+        });
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -75,7 +131,8 @@ public class Views.Filter : Gtk.Grid {
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Widgets.Placeholder (
-            _("Pinboard"), _("No tasks with this filter at the moment"), "planner-pin-tack");
+            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+        );
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
@@ -91,7 +148,6 @@ public class Views.Filter : Gtk.Grid {
             vexpand = true
         };
 
-        content.append (header_box);
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -108,24 +164,20 @@ public class Views.Filter : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var overlay = new Gtk.Overlay () {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        // overlay.add_overlay (magic_button);
-        overlay.child = scrolled_window;
+        content_box.append (headerbar);
+        content_box.append (scrolled_window);
 
-        attach (overlay, 0, 0);
+        attach (content_box, 0, 0);
         add_items ();
 
         Timeout.add (listbox_stack.transition_duration, () => {
-            // validate_placeholder ();
+            validate_placeholder ();
             return GLib.Source.REMOVE;
-        });
-
-        magic_button.clicked.connect (() => {
-            // prepare_new_item ();
         });
 
         Services.Database.get_default ().item_added.connect (valid_add_item);
@@ -139,13 +191,18 @@ public class Views.Filter : Gtk.Grid {
             }
         });
 
-        //  scrolled_window.vadjustment.value_changed.connect (() => {
-        //      if (scrolled_window.vadjustment.value > 20) {
-        //          Planner.event_bus.view_header (true);
-        //      } else {
-        //          Planner.event_bus.view_header (false);
-        //      }
-        //  });
+        add_button.clicked.connect (() => {
+            // prepare_new_item ();
+        });
+
+        search_button.clicked.connect (() => {
+            var dialog = new Dialogs.QuickFind.QuickFind ();
+            dialog.show ();
+        });
+
+        sidebar_button.clicked.connect (() => {
+            Planner._instance.main_window.show_hide_sidebar ();
+        });
     }
 
     private void update_request () {
@@ -154,12 +211,10 @@ public class Views.Filter : Gtk.Grid {
             filter_icon.update_icon_name (Util.get_default ().get_priority_icon (priority.priority));
             title_label.label = priority.name;
             listbox.set_header_func (null);
-            listbox_stack.margin_start = 3;
         } else if (filter is Objects.Completed) {
             filter_icon.update_icon_name ("planner-completed");
             title_label.label = _("Completed");
             listbox.set_header_func (header_completed_function);
-            listbox_stack.margin_start = 6;
         }
     }
 
@@ -199,6 +254,8 @@ public class Views.Filter : Gtk.Grid {
                 add_item (item);   
             }
         }
+
+        validate_placeholder ();
     }
 
     private void valid_delete_item (Objects.Item item) {
@@ -206,6 +263,8 @@ public class Views.Filter : Gtk.Grid {
             items[item.id_string].hide_destroy ();
             items.unset (item.id_string);
         }
+
+        validate_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {
@@ -231,6 +290,8 @@ public class Views.Filter : Gtk.Grid {
     
             valid_add_item (item);
         }
+
+        validate_placeholder ();
     }
 
     private void valid_checked_item (Objects.Item item, bool old_checked) {
@@ -253,6 +314,8 @@ public class Views.Filter : Gtk.Grid {
                 }
             }
         }
+
+        validate_placeholder ();
     }
 
     private void header_completed_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
@@ -287,5 +350,9 @@ public class Views.Filter : Gtk.Grid {
         header_box.append (header_separator);
 
         row.set_header (header_box);
+    }
+
+    private void validate_placeholder () {
+        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 }

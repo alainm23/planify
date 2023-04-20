@@ -21,7 +21,8 @@ public class Services.EventBus : Object {
     public signal void avatar_downloaded ();
     public signal void view_header (bool view);
     public signal void magic_button_activated (bool activated);
-    public signal void project_picker_changed (string project_id);
+    public signal void project_picker_changed (string id);
+    public signal void section_picker_changed (string id);
     public signal void project_parent_changed (Objects.Project project, string old_parent_id);
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
@@ -34,6 +35,7 @@ public class Services.EventBus : Object {
     public signal void close_labels ();
     public signal void inbox_project_changed ();
     public signal void paste_action (string project_id, string content);
+    public signal void new_item_deleted (string project_id);
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);

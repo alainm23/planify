@@ -12,34 +12,7 @@ public class Views.Pinboard : Gtk.Grid {
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var pin_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("planner-pin-tack"),
-            pixel_size = 32
-        };
-
-        var title_label = new Gtk.Label (_("Pinboard"));
-        title_label.add_css_class ("header-title");
-
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
-        
-        var menu_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false
-        };
-
-        menu_button.child = menu_image;
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.START,
-            hexpand = true,
-            margin_top = 1
-        };
-
-        header_box.append (pin_icon);
-        header_box.append (title_label);
+        var headerbar = new Widgets.FilterHeader (Objects.Pinboard.get_default ());
 
         var magic_button = new Widgets.MagicButton ();
 
@@ -59,13 +32,13 @@ public class Views.Pinboard : Gtk.Grid {
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Widgets.Placeholder (
-            _("Pinboard"), _("No tasks with this filter at the moment"), "planner-pin-tack");
+            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+        );
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,
             vexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_start = 6
+            transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
         listbox_stack.add_named (listbox_grid, "listbox");
@@ -76,7 +49,6 @@ public class Views.Pinboard : Gtk.Grid {
             vexpand = true
         };
 
-        content.append (header_box);
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -93,15 +65,15 @@ public class Views.Pinboard : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var overlay = new Gtk.Overlay () {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        overlay.add_overlay (magic_button);
-        overlay.child = scrolled_window;
+        content_box.append (headerbar);
+        content_box.append (scrolled_window);
 
-        attach (overlay, 0, 0);
+        attach (content_box, 0, 0);
         add_items ();
 
         Timeout.add (listbox_stack.transition_duration, () => {
