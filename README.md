@@ -1,5 +1,5 @@
 <div align="center">
-  <span align="center"> <img width="80" height="80" class="center" src="https://github.com/alainm23/planner/blob/master/data/icons/128/com.github.alainm23.planner.svg" alt="Icon"></span>
+  <span align="center"> <img width="80" height="80" class="center" src="https://github.com/alainm23/planner/blob/master/data/icons/128/com.github.alainm23.task-planner.svg" alt="Icon"></span>
   <h1 align="center">Task Planner</h1>
   <h3 align="center">Never worry about forgetting things again</h3>
 </div>
