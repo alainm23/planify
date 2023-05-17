@@ -1942,7 +1942,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    // PARAMENTER REGION
+    // PARAMETER REGION
     private void set_parameter_int (Sqlite.Statement? stmt, string par, int val) {
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_int (par_position, val);

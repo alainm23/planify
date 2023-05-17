@@ -144,7 +144,7 @@ public enum ObjectType {
                 return _("Projects");
 
             case SECTION:
-                return _("Setions");
+                return _("Sections");
 
             case ITEM:
                 return _("Tasks");
