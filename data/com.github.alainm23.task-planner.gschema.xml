@@ -29,8 +29,9 @@
     </enum>
 
     <enum id="com.github.alainm23.task-planner.start-week">
-        <value nick="Sunday" value="0" />
-        <value nick="Monday" value="1" />
+        <value nick="Saturday" value="0" />
+        <value nick="Sunday" value="1" />
+        <value nick="Monday" value="2" />
     </enum>
 
     <enum id="com.github.alainm23.task-planner.new-tasks-position">
