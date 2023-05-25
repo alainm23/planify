@@ -1,9 +1,0 @@
-export declare const getHmrHref: (versionId: string, fileName: string, testUrl: string) => string;
-export declare const setQueryString: (url: string, qsKey: string, qsValue: string) => string;
-export declare const setHmrQueryString: (url: string, versionId: string) => string;
-export declare const updateCssUrlValue: (versionId: string, fileName: string, oldCss: string) => string;
-export declare const isLinkStylesheet: (elm: Element) => boolean;
-export declare const isTemplate: (elm: Element) => boolean;
-export declare const setHmrAttr: (elm: Element, versionId: string) => void;
-export declare const hasShadowRoot: (elm: Element) => boolean;
-export declare const isElement: (elm: Element) => boolean;

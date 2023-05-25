@@ -1,8 +1,0 @@
-{
-  "name": "@stencil/core/dev-server/client",
-  "version": "2.22.3",
-  "description": "Stencil Dev Server Client.",
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "private": true
-}

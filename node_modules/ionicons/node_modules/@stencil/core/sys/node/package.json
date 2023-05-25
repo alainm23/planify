@@ -1,8 +1,0 @@
-{
-  "name": "@stencil/core/sys/node",
-  "version": "2.22.3",
-  "description": "Stencil Node System.",
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "private": true
-}

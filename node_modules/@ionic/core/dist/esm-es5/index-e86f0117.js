@@ -1,4 +1,0 @@
-import{__spreadArray}from"tslib";
-/*!
- * (C) Ionic http://ionicframework.com - MIT License
- */var printIonWarning=function(r){var n=[];for(var o=1;o<arguments.length;o++){n[o-1]=arguments[o]}return console.warn.apply(console,__spreadArray(["[Ionic Warning]: ".concat(r)],n,false))};var printIonError=function(r){var n=[];for(var o=1;o<arguments.length;o++){n[o-1]=arguments[o]}return console.error.apply(console,__spreadArray(["[Ionic Error]: ".concat(r)],n,false))};var printRequiredElementError=function(r){var n=[];for(var o=1;o<arguments.length;o++){n[o-1]=arguments[o]}return console.error("<".concat(r.tagName.toLowerCase(),"> must be used inside ").concat(n.join(" or "),"."))};export{printIonError as a,printRequiredElementError as b,printIonWarning as p};

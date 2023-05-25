@@ -1,8 +1,0 @@
-{
-  "name": "ionicons/components",
-  "description": "Ionicons custom element.",
-  "main": "./index.cjs.js",
-  "module": "./index.js",
-  "types": "./index.d.ts",
-  "private": true
-}
