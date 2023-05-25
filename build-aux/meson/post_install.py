@@ -9,5 +9,5 @@ datadir = os.path.join(prefix, 'share')
 # Packaging tools define DESTDIR and this isn't needed for them
 if 'DESTDIR' not in os.environ:
     print('Updating package icon cache...')
-    subprocess.call(['gtk-update-icon-cache', '-qtf',
+    subprocess.call(['gtk4-update-icon-cache', '-qtf',
                      os.path.join(datadir, 'gnome-builder', 'icons', 'hicolor')])
