@@ -1,4 +1,4 @@
-public class Widgets.ScheduleButton : Gtk.Button {
+public class Widgets.ScheduleButton : Gtk.Grid {
     private Gtk.Label due_label;
 
     private Gtk.Label repeat_label;
@@ -21,52 +21,73 @@ public class Widgets.ScheduleButton : Gtk.Button {
     }
 
     construct {
-        add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_css_class ("toolbar-button");
+        datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
 
         due_image = new Widgets.DynamicIcon ();
         due_image.update_icon_name ("planner-calendar");
         due_image.size = 19;        
 
         due_label = new Gtk.Label (_("Schedule")) {
-            xalign = 0
+            xalign = 0,
+            use_markup = true
         };
-
 
         schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         schedule_box.append (due_image);
         schedule_box.append (due_label);
 
-        set_child (schedule_box);
+        var button = new Gtk.MenuButton () {
+            child = schedule_box,
+            popover = datetime_picker
+        };
 
-        var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
-        add_controller (gesture);
+        button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        gesture.pressed.connect ((n_press, x, y) => {
-            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            open_datetime_picker ();
+        attach (button, 0, 0);
+
+        datetime_picker.date_changed.connect (() => {
+            date_changed (datetime_picker.datetime);
         });
+
+        datetime_picker.show.connect (() => {
+            datetime_picker.visible_no_date = false;
+
+            if (datetime != null) {
+                datetime_picker.visible_no_date = true;
+                datetime_picker.datetime = datetime;
+            }
+        });
+
+        //  set_child (schedule_box);
+
+        //  var gesture = new Gtk.GestureClick ();
+        //  gesture.set_button (1);
+        //  add_controller (gesture);
+
+        //  gesture.pressed.connect ((n_press, x, y) => {
+        //      gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+        //      open_datetime_picker ();
+        //  });
     }
 
-    private void open_datetime_picker () {
-        if (datetime_picker == null) {
-            datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
-            datetime_picker.set_parent (this);
+    //  private void open_datetime_picker () {
+    //      if (datetime_picker == null) {
+    //          datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
+    //          datetime_picker.set_parent (this);
                     
-            datetime_picker.date_changed.connect (() => {
-                date_changed (datetime_picker.datetime);
-            });
-        }
+    //          datetime_picker.date_changed.connect (() => {
+    //              date_changed (datetime_picker.datetime);
+    //          });
+    //      }
 
-        datetime_picker.visible_no_date = false;
-        if (datetime != null) {
-            datetime_picker.visible_no_date = true;
-            datetime_picker.datetime = datetime;
-        }
+    //      datetime_picker.visible_no_date = false;
+    //      if (datetime != null) {
+    //          datetime_picker.visible_no_date = true;
+    //          datetime_picker.datetime = datetime;
+    //      }
 
-        datetime_picker.popup ();
-    }
+    //      datetime_picker.popup ();
+    //  }
 
     public void update_from_item (Objects.Item item) {
         due_label.label = _("Schedule");
@@ -77,6 +98,8 @@ public class Widgets.ScheduleButton : Gtk.Button {
         datetime = null;
 
         if (item.has_due) {
+            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+
             datetime = new GLib.DateTime.local (
                 item.due.datetime.get_year (),
                 item.due.datetime.get_month (),
@@ -85,20 +108,23 @@ public class Widgets.ScheduleButton : Gtk.Button {
                 item.due.datetime.get_minute (),
                 item.due.datetime.get_second ()
             );
+            
+            if (Util.get_default ().is_today (item.due.datetime)) {
+                due_image.update_icon_name ("planner-today");
+            } else if (Util.get_default ().is_overdue (item.due.datetime)) {
+
+            } else {
+                due_image.update_icon_name ("planner-scheduled");
+            }
 
             if (item.due.is_recurring) {
                 due_image.update_icon_name ("planner-repeat");
-                due_label.label = "%s (%s)".printf (item.due.to_friendly_string (), Util.get_default ().get_recurrency_weeks (item.due));
-            } else {  
-                due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
-    
-                if (Util.get_default ().is_today (item.due.datetime)) {
-                    due_image.update_icon_name ("planner-today");
-                } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-
-                } else {
-                    due_image.update_icon_name ("planner-scheduled");
-                }
+                due_label.label += " <small>%s</small>".printf (
+                    Util.get_default ().get_recurrency_weeks (
+                        item.due.recurrency_type, item.due.recurrency_interval,
+                        item.due.recurrency_weeks
+                    )
+                ); 
             }
         }
     }

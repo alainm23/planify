@@ -181,11 +181,8 @@ public class _CircularProgressBar : Gtk.DrawingArea {
     }
 
     public void draw (DrawingArea da, Cairo.Context cr, int width, int height) {
-        int w,h;
         int delta;
         Gdk.RGBA color;
-        Pango.Layout layout;
-        Pango.FontDescription desc;
         
         cr.save ();
 

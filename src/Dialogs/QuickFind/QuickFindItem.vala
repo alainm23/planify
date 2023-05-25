@@ -63,7 +63,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             var checked_button = new Gtk.CheckButton () {
                 valign = Gtk.Align.CENTER
             };
-            checked_button.get_style_context ().add_class ("priority-color");
+            checked_button.add_css_class ("priority-color");
             Util.get_default ().set_widget_priority (item.priority, checked_button);
 
             var content_label = new Gtk.Label (markup_string_with_search (item.content, pattern)) {
@@ -77,8 +77,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 xalign = 0
             };
 
-            project_label.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
-            project_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+            project_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+            project_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
             main_grid.attach (checked_button, 0, 0, 1, 2);
             main_grid.attach (content_label, 1, 0, 1, 1);
@@ -92,8 +92,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 width_request = 16
             };
     
-            unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
-            widget_color_context.add_class ("label-color");
+            widget_color.add_css_class ("label-color");
             Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
 
             var name_label = new Gtk.Label (markup_string_with_search (label.name, pattern)) {

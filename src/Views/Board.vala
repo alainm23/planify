@@ -24,6 +24,17 @@ public class Views.Board : Gtk.Grid {
             halign = Gtk.Align.START
         };
 
+        flowbox.set_sort_func ((child1, child2) => {
+            Layouts.SectionBoard item1 = ((Layouts.SectionBoard) child1);
+            Layouts.SectionBoard item2 = ((Layouts.SectionBoard) child2);
+
+            if (item1.is_inbox_section) {
+                return 0;
+            }
+
+            return item1.section.section_order - item2.section.section_order;
+        });
+
         var flowbox_grid = new Gtk.Grid () {
             vexpand = true,
             margin_top = 12,
@@ -56,6 +67,10 @@ public class Views.Board : Gtk.Grid {
                     return GLib.Source.REMOVE;
                 });
             }
+        });
+
+        project.section_sort_order_changed.connect (() => {
+            flowbox.invalidate_sort ();
         });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {

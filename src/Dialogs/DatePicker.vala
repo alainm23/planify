@@ -97,6 +97,7 @@ public class Dialogs.DatePicker : Adw.Window {
         };
 
         calendar_item.add_css_class ("calendar");
+        calendar_item.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var calendar_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,

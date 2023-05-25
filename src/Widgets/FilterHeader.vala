@@ -3,8 +3,15 @@ public class Widgets.FilterHeader : Gtk.Grid {
 
     private Gtk.Label date_label;
     private Gtk.Revealer date_label_revealer;
+    private Gtk.Button add_button;
 
     public signal void prepare_new_item ();
+
+    public bool visible_add_button {
+        set {
+            add_button.visible = value;
+        }
+    }
 
     public FilterHeader (Objects.BaseObject view) {
         Object (
@@ -77,7 +84,7 @@ public class Widgets.FilterHeader : Gtk.Grid {
         add_image.size = 21;
         add_image.update_icon_name ("planner-plus-circle");
         
-        var add_button = new Gtk.Button () {
+        add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             tooltip_text = _("Add Tasks")
@@ -116,11 +123,6 @@ public class Widgets.FilterHeader : Gtk.Grid {
             opacity = 0
         });
         headerbar.pack_end (add_button);
-        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3,
-            margin_end = 3,
-            opacity = 0
-        });
 
         attach(headerbar, 0, 0);
 

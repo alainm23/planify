@@ -1,0 +1,9 @@
+{
+  "name": "@stencil/core/internal",
+  "version": "2.22.3",
+  "description": "Stencil internals only to be imported by the Stencil Compiler. Breaking changes can and will happen at any time.",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "private": true,
+  "sideEffects": false
+}

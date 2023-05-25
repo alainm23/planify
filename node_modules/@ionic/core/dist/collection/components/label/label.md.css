@@ -1,0 +1,251 @@
+:host-context(.item) {
+  /**
+   * @prop --color: Color of the label. This property is only available when using `ion-label` inside of an `ion-item`.
+   */
+  --color: initial;
+  display: block;
+  color: var(--color);
+  font-family: var(--ion-font-family, inherit);
+  font-size: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+:host(.ion-color) {
+  color: var(--ion-color-base);
+}
+
+:host(.ion-text-wrap),
+:host([text-wrap]) {
+  white-space: normal;
+}
+
+:host-context(.item-interactive-disabled:not(.item-multiple-inputs)) {
+  cursor: default;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+:host-context(.item-input) {
+  flex: initial;
+  max-width: 200px;
+  pointer-events: none;
+}
+
+:host-context(.item-textarea) {
+  align-self: baseline;
+}
+
+:host(.label-fixed) {
+  flex: 0 0 100px;
+  width: 100px;
+  min-width: 100px;
+  max-width: 200px;
+}
+
+:host(.label-stacked),
+:host(.label-floating) {
+  margin-bottom: 0;
+  align-self: stretch;
+  width: auto;
+  max-width: 100%;
+}
+
+:host(.label-no-animate.label-floating) {
+  transition: none;
+}
+
+::slotted(*) h1,
+::slotted(*) h2,
+::slotted(*) h3,
+::slotted(*) h4,
+::slotted(*) h5,
+::slotted(*) h6 {
+  text-overflow: inherit;
+  overflow: inherit;
+}
+
+:host(.ion-text-wrap),
+:host([text-wrap]) {
+  line-height: 1.5;
+}
+
+/**
+ * When translating the label, we need to use translateY
+ * instead of translate3d due to a WebKit bug: https://bugs.webkit.org/show_bug.cgi?id=215731
+ */
+:host(.label-stacked),
+:host(.label-floating) {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  /* stylelint-disable property-disallowed-list */
+  transform-origin: top left;
+  /* stylelint-enable property-disallowed-list */
+}
+
+:host(.label-stacked.label-rtl),
+:host(.label-floating.label-rtl) {
+  /* stylelint-disable property-disallowed-list */
+  transform-origin: top right;
+  /* stylelint-enable property-disallowed-list */
+}
+
+:host(.label-stacked) {
+  transform: translateY(50%) scale(0.75);
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host(.label-floating) {
+  transform: translateY(96%);
+  transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:host-context(.ion-focused).label-floating,
+:host-context(.item-has-focus).label-floating,
+:host-context(.item-has-placeholder:not(.item-input)).label-floating,
+:host-context(.item-has-value).label-floating {
+  transform: translateY(50%) scale(0.75);
+}
+
+/**
+ * When translating the label inside of an ion-item with `fill="outline"`,
+ * add pseudo-elements to imitate fieldset-like padding without shifting the label
+ */
+:host-context(.item-fill-outline.ion-focused).label-floating,
+:host-context(.item-fill-outline.item-has-focus).label-floating,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input)).label-floating,
+:host-context(.item-fill-outline.item-has-value).label-floating {
+  transform: translateY(-6px) scale(0.75);
+  position: relative;
+  max-width: min-content;
+  background-color: var(--ion-item-background, var(--ion-background-color, #fff));
+  overflow: visible;
+  z-index: 3;
+}
+:host-context(.item-fill-outline.ion-focused).label-floating::before, :host-context(.item-fill-outline.ion-focused).label-floating::after,
+:host-context(.item-fill-outline.item-has-focus).label-floating::before,
+:host-context(.item-fill-outline.item-has-focus).label-floating::after,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input)).label-floating::before,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input)).label-floating::after,
+:host-context(.item-fill-outline.item-has-value).label-floating::before,
+:host-context(.item-fill-outline.item-has-value).label-floating::after {
+  position: absolute;
+  width: 4px;
+  height: 100%;
+  background-color: var(--ion-item-background, var(--ion-background-color, #fff));
+  content: "";
+}
+:host-context(.item-fill-outline.ion-focused).label-floating::before,
+:host-context(.item-fill-outline.item-has-focus).label-floating::before,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input)).label-floating::before,
+:host-context(.item-fill-outline.item-has-value).label-floating::before {
+  /* stylelint-disable property-disallowed-list */
+  left: calc(-1 * 4px);
+  /* stylelint-enable property-disallowed-list */
+}
+:host-context(.item-fill-outline.ion-focused).label-floating::after,
+:host-context(.item-fill-outline.item-has-focus).label-floating::after,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input)).label-floating::after,
+:host-context(.item-fill-outline.item-has-value).label-floating::after {
+  /* stylelint-disable property-disallowed-list */
+  right: calc(-1 * 4px);
+  /* stylelint-enable property-disallowed-list */
+}
+
+:host-context(.item-fill-outline.ion-focused.item-has-start-slot).label-floating,
+:host-context(.item-fill-outline.item-has-focus.item-has-start-slot).label-floating,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input).item-has-start-slot).label-floating,
+:host-context(.item-fill-outline.item-has-value.item-has-start-slot).label-floating {
+  transform: translateX(-32px) translateY(-6px) scale(0.75);
+}
+
+:host-context(.item-fill-outline.ion-focused.item-has-start-slot).label-floating.label-rtl,
+:host-context(.item-fill-outline.item-has-focus.item-has-start-slot).label-floating.label-rtl,
+:host-context(.item-fill-outline.item-has-placeholder:not(.item-input).item-has-start-slot).label-floating.label-rtl,
+:host-context(.item-fill-outline.item-has-value.item-has-start-slot).label-floating.label-rtl {
+  transform: translateX(calc(-1 * -32px)) translateY(-6px) scale(0.75);
+}
+
+:host-context(.ion-focused).label-stacked:not(.ion-color),
+:host-context(.ion-focused).label-floating:not(.ion-color),
+:host-context(.item-has-focus).label-stacked:not(.ion-color),
+:host-context(.item-has-focus).label-floating:not(.ion-color) {
+  color: var(--ion-color-primary, #3880ff);
+}
+
+:host-context(.ion-focused.ion-color).label-stacked:not(.ion-color),
+:host-context(.ion-focused.ion-color).label-floating:not(.ion-color),
+:host-context(.item-has-focus.ion-color).label-stacked:not(.ion-color),
+:host-context(.item-has-focus.ion-color).label-floating:not(.ion-color) {
+  color: var(--ion-color-contrast);
+}
+
+:host-context(.item-fill-solid.ion-focused.ion-color).label-stacked:not(.ion-color),
+:host-context(.item-fill-solid.ion-focused.ion-color).label-floating:not(.ion-color),
+:host-context(.item-fill-outline.ion-focused.ion-color).label-stacked:not(.ion-color),
+:host-context(.item-fill-outline.ion-focused.ion-color).label-floating:not(.ion-color),
+:host-context(.item-fill-solid.item-has-focus.ion-color).label-stacked:not(.ion-color),
+:host-context(.item-fill-solid.item-has-focus.ion-color).label-floating:not(.ion-color),
+:host-context(.item-fill-outline.item-has-focus.ion-color).label-stacked:not(.ion-color),
+:host-context(.item-fill-outline.item-has-focus.ion-color).label-floating:not(.ion-color) {
+  color: var(--ion-color-base);
+}
+
+:host-context(.ion-invalid.ion-touched).label-stacked:not(.ion-color),
+:host-context(.ion-invalid.ion-touched).label-floating:not(.ion-color) {
+  color: var(--highlight-color-invalid);
+}
+
+::slotted(*) h1 {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 2px;
+  font-size: 24px;
+  font-weight: normal;
+}
+
+::slotted(*) h2 {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+::slotted(*) h3,
+::slotted(*) h4,
+::slotted(*) h5,
+::slotted(*) h6 {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+}
+
+::slotted(*) p {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 2px;
+  font-size: 14px;
+  line-height: 20px;
+  text-overflow: inherit;
+  overflow: inherit;
+}
+
+::slotted(p) {
+  color: var(--ion-color-step-600, #666666);
+}
+
+:host(.in-item-color)::slotted(p) {
+  color: inherit;
+}

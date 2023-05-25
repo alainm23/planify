@@ -1,0 +1,52 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { createImageLoader } from './image_loader';
+/**
+ * Name and URL tester for Cloudinary.
+ */
+export const cloudinaryLoaderInfo = {
+    name: 'Cloudinary',
+    testUrl: isCloudinaryUrl
+};
+const CLOUDINARY_LOADER_REGEX = /https?\:\/\/[^\/]+\.cloudinary\.com\/.+/;
+/**
+ * Tests whether a URL is from Cloudinary CDN.
+ */
+function isCloudinaryUrl(url) {
+    return CLOUDINARY_LOADER_REGEX.test(url);
+}
+/**
+ * Function that generates an ImageLoader for Cloudinary and turns it into an Angular provider.
+ *
+ * @param path Base URL of your Cloudinary images
+ * This URL should match one of the following formats:
+ * https://res.cloudinary.com/mysite
+ * https://mysite.cloudinary.com
+ * https://subdomain.mysite.com
+ * @returns Set of providers to configure the Cloudinary loader.
+ *
+ * @publicApi
+ */
+export const provideCloudinaryLoader = createImageLoader(createCloudinaryUrl, ngDevMode ?
+    [
+        'https://res.cloudinary.com/mysite', 'https://mysite.cloudinary.com',
+        'https://subdomain.mysite.com'
+    ] :
+    undefined);
+function createCloudinaryUrl(path, config) {
+    // Cloudinary image URLformat:
+    // https://cloudinary.com/documentation/image_transformations#transformation_url_structure
+    // Example of a Cloudinary image URL:
+    // https://res.cloudinary.com/mysite/image/upload/c_scale,f_auto,q_auto,w_600/marketing/tile-topics-m.png
+    let params = `f_auto,q_auto`; // sets image format and quality to "auto"
+    if (config.width) {
+        params += `,w_${config.width}`;
+    }
+    return `${path}/image/upload/${params}/${config.src}`;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xvdWRpbmFyeV9sb2FkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9jb21tb24vc3JjL2RpcmVjdGl2ZXMvbmdfb3B0aW1pemVkX2ltYWdlL2ltYWdlX2xvYWRlcnMvY2xvdWRpbmFyeV9sb2FkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLGlCQUFpQixFQUFxQyxNQUFNLGdCQUFnQixDQUFDO0FBRXJGOztHQUVHO0FBQ0gsTUFBTSxDQUFDLE1BQU0sb0JBQW9CLEdBQW9CO0lBQ25ELElBQUksRUFBRSxZQUFZO0lBQ2xCLE9BQU8sRUFBRSxlQUFlO0NBQ3pCLENBQUM7QUFFRixNQUFNLHVCQUF1QixHQUFHLHlDQUF5QyxDQUFDO0FBQzFFOztHQUVHO0FBQ0gsU0FBUyxlQUFlLENBQUMsR0FBVztJQUNsQyxPQUFPLHVCQUF1QixDQUFDLElBQUksQ0FBQyxHQUFHLENBQUMsQ0FBQztBQUMzQyxDQUFDO0FBRUQ7Ozs7Ozs7Ozs7O0dBV0c7QUFDSCxNQUFNLENBQUMsTUFBTSx1QkFBdUIsR0FBRyxpQkFBaUIsQ0FDcEQsbUJBQW1CLEVBQ25CLFNBQVMsQ0FBQyxDQUFDO0lBQ1A7UUFDRSxtQ0FBbUMsRUFBRSwrQkFBK0I7UUFDcEUsOEJBQThCO0tBQy9CLENBQUMsQ0FBQztJQUNILFNBQVMsQ0FBQyxDQUFDO0FBRW5CLFNBQVMsbUJBQW1CLENBQUMsSUFBWSxFQUFFLE1BQXlCO0lBQ2xFLDhCQUE4QjtJQUM5QiwwRkFBMEY7SUFDMUYscUNBQXFDO0lBQ3JDLHlHQUF5RztJQUN6RyxJQUFJLE1BQU0sR0FBRyxlQUFlLENBQUMsQ0FBRSwwQ0FBMEM7SUFDekUsSUFBSSxNQUFNLENBQUMsS0FBSyxFQUFFO1FBQ2hCLE1BQU0sSUFBSSxNQUFNLE1BQU0sQ0FBQyxLQUFLLEVBQUUsQ0FBQztLQUNoQztJQUNELE9BQU8sR0FBRyxJQUFJLGlCQUFpQixNQUFNLElBQUksTUFBTSxDQUFDLEdBQUcsRUFBRSxDQUFDO0FBQ3hELENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBsaWNlbnNlXG4gKiBDb3B5cmlnaHQgR29vZ2xlIExMQyBBbGwgUmlnaHRzIFJlc2VydmVkLlxuICpcbiAqIFVzZSBvZiB0aGlzIHNvdXJjZSBjb2RlIGlzIGdvdmVybmVkIGJ5IGFuIE1JVC1zdHlsZSBsaWNlbnNlIHRoYXQgY2FuIGJlXG4gKiBmb3VuZCBpbiB0aGUgTElDRU5TRSBmaWxlIGF0IGh0dHBzOi8vYW5ndWxhci5pby9saWNlbnNlXG4gKi9cblxuaW1wb3J0IHtjcmVhdGVJbWFnZUxvYWRlciwgSW1hZ2VMb2FkZXJDb25maWcsIEltYWdlTG9hZGVySW5mb30gZnJvbSAnLi9pbWFnZV9sb2FkZXInO1xuXG4vKipcbiAqIE5hbWUgYW5kIFVSTCB0ZXN0ZXIgZm9yIENsb3VkaW5hcnkuXG4gKi9cbmV4cG9ydCBjb25zdCBjbG91ZGluYXJ5TG9hZGVySW5mbzogSW1hZ2VMb2FkZXJJbmZvID0ge1xuICBuYW1lOiAnQ2xvdWRpbmFyeScsXG4gIHRlc3RVcmw6IGlzQ2xvdWRpbmFyeVVybFxufTtcblxuY29uc3QgQ0xPVURJTkFSWV9MT0FERVJfUkVHRVggPSAvaHR0cHM/XFw6XFwvXFwvW15cXC9dK1xcLmNsb3VkaW5hcnlcXC5jb21cXC8uKy87XG4vKipcbiAqIFRlc3RzIHdoZXRoZXIgYSBVUkwgaXMgZnJvbSBDbG91ZGluYXJ5IENETi5cbiAqL1xuZnVuY3Rpb24gaXNDbG91ZGluYXJ5VXJsKHVybDogc3RyaW5nKTogYm9vbGVhbiB7XG4gIHJldHVybiBDTE9VRElOQVJZX0xPQURFUl9SRUdFWC50ZXN0KHVybCk7XG59XG5cbi8qKlxuICogRnVuY3Rpb24gdGhhdCBnZW5lcmF0ZXMgYW4gSW1hZ2VMb2FkZXIgZm9yIENsb3VkaW5hcnkgYW5kIHR1cm5zIGl0IGludG8gYW4gQW5ndWxhciBwcm92aWRlci5cbiAqXG4gKiBAcGFyYW0gcGF0aCBCYXNlIFVSTCBvZiB5b3VyIENsb3VkaW5hcnkgaW1hZ2VzXG4gKiBUaGlzIFVSTCBzaG91bGQgbWF0Y2ggb25lIG9mIHRoZSBmb2xsb3dpbmcgZm9ybWF0czpcbiAqIGh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL215c2l0ZVxuICogaHR0cHM6Ly9teXNpdGUuY2xvdWRpbmFyeS5jb21cbiAqIGh0dHBzOi8vc3ViZG9tYWluLm15c2l0ZS5jb21cbiAqIEByZXR1cm5zIFNldCBvZiBwcm92aWRlcnMgdG8gY29uZmlndXJlIHRoZSBDbG91ZGluYXJ5IGxvYWRlci5cbiAqXG4gKiBAcHVibGljQXBpXG4gKi9cbmV4cG9ydCBjb25zdCBwcm92aWRlQ2xvdWRpbmFyeUxvYWRlciA9IGNyZWF0ZUltYWdlTG9hZGVyKFxuICAgIGNyZWF0ZUNsb3VkaW5hcnlVcmwsXG4gICAgbmdEZXZNb2RlID9cbiAgICAgICAgW1xuICAgICAgICAgICdodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9teXNpdGUnLCAnaHR0cHM6Ly9teXNpdGUuY2xvdWRpbmFyeS5jb20nLFxuICAgICAgICAgICdodHRwczovL3N1YmRvbWFpbi5teXNpdGUuY29tJ1xuICAgICAgICBdIDpcbiAgICAgICAgdW5kZWZpbmVkKTtcblxuZnVuY3Rpb24gY3JlYXRlQ2xvdWRpbmFyeVVybChwYXRoOiBzdHJpbmcsIGNvbmZpZzogSW1hZ2VMb2FkZXJDb25maWcpIHtcbiAgLy8gQ2xvdWRpbmFyeSBpbWFnZSBVUkxmb3JtYXQ6XG4gIC8vIGh0dHBzOi8vY2xvdWRpbmFyeS5jb20vZG9jdW1lbnRhdGlvbi9pbWFnZV90cmFuc2Zvcm1hdGlvbnMjdHJhbnNmb3JtYXRpb25fdXJsX3N0cnVjdHVyZVxuICAvLyBFeGFtcGxlIG9mIGEgQ2xvdWRpbmFyeSBpbWFnZSBVUkw6XG4gIC8vIGh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL215c2l0ZS9pbWFnZS91cGxvYWQvY19zY2FsZSxmX2F1dG8scV9hdXRvLHdfNjAwL21hcmtldGluZy90aWxlLXRvcGljcy1tLnBuZ1xuICBsZXQgcGFyYW1zID0gYGZfYXV0byxxX2F1dG9gOyAgLy8gc2V0cyBpbWFnZSBmb3JtYXQgYW5kIHF1YWxpdHkgdG8gXCJhdXRvXCJcbiAgaWYgKGNvbmZpZy53aWR0aCkge1xuICAgIHBhcmFtcyArPSBgLHdfJHtjb25maWcud2lkdGh9YDtcbiAgfVxuICByZXR1cm4gYCR7cGF0aH0vaW1hZ2UvdXBsb2FkLyR7cGFyYW1zfS8ke2NvbmZpZy5zcmN9YDtcbn1cbiJdfQ==

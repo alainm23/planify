@@ -27,6 +27,7 @@ public class Services.EventBus : Object {
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "", bool insert = true);
+    public signal void item_section_moved (Layouts.ItemRow itemrow, string old_section_id);
     public signal void update_items_position (string project_id, string section_id);
     public signal void update_inserted_item_map (Layouts.ItemRow row);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
@@ -36,6 +37,8 @@ public class Services.EventBus : Object {
     public signal void inbox_project_changed ();
     public signal void paste_action (string project_id, string content);
     public signal void new_item_deleted (string project_id);
+    public signal void update_labels_position ();
+    public signal void section_sort_order_changed (string project_id);
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);
@@ -47,6 +50,7 @@ public class Services.EventBus : Object {
     public signal void select_item (Layouts.ItemRow itemrow);
     public signal void unselect_item (Layouts.ItemRow itemrow);
 
-
     public signal void magic_button_visible (bool active);
+    public signal void item_drag_begin (Objects.Item item);
+    public signal void item_drag_end (Objects.Item item);
 }

@@ -51,7 +51,7 @@ public class Widgets.LoadingButton : Gtk.Button {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };
-        submit_spinner.get_style_context ().add_class ("submit-spinner");
+        submit_spinner.add_css_class ("submit-spinner");
         submit_spinner.start ();
 
         submit_stack = new Gtk.Stack () {

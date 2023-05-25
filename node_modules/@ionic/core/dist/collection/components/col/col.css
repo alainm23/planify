@@ -1,0 +1,68 @@
+:host {
+  /**
+   * @prop --ion-grid-columns: The number of total Columns in the Grid
+   * @prop --ion-grid-column-padding: Padding for the Column
+   * @prop --ion-grid-column-padding-xs: Padding for the Column on xs screens and up
+   * @prop --ion-grid-column-padding-sm: Padding for the Column on sm screens and up
+   * @prop --ion-grid-column-padding-md: Padding for the Column on md screens and up
+   * @prop --ion-grid-column-padding-lg: Padding for the Column on lg screens and up
+   * @prop --ion-grid-column-padding-xl: Padding for the Column on xl screens and up
+   */
+  -webkit-padding-start: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  padding-inline-start: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  -webkit-padding-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  padding-inline-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  padding-top: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  padding-bottom: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 5px));
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  box-sizing: border-box;
+  position: relative;
+  flex-basis: 0;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 100%;
+  min-height: 1px;
+}
+@media (min-width: 576px) {
+  :host {
+    -webkit-padding-start: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+    padding-inline-start: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+    -webkit-padding-end: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+    padding-inline-end: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+    padding-top: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+    padding-bottom: var(--ion-grid-column-padding-sm, var(--ion-grid-column-padding, 5px));
+  }
+}
+@media (min-width: 768px) {
+  :host {
+    -webkit-padding-start: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+    padding-inline-start: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+    -webkit-padding-end: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+    padding-inline-end: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+    padding-top: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+    padding-bottom: var(--ion-grid-column-padding-md, var(--ion-grid-column-padding, 5px));
+  }
+}
+@media (min-width: 992px) {
+  :host {
+    -webkit-padding-start: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+    padding-inline-start: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+    -webkit-padding-end: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+    padding-inline-end: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+    padding-top: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+    padding-bottom: var(--ion-grid-column-padding-lg, var(--ion-grid-column-padding, 5px));
+  }
+}
+@media (min-width: 1200px) {
+  :host {
+    -webkit-padding-start: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+    padding-inline-start: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+    -webkit-padding-end: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+    padding-inline-end: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+    padding-top: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+    padding-bottom: var(--ion-grid-column-padding-xl, var(--ion-grid-column-padding, 5px));
+  }
+}

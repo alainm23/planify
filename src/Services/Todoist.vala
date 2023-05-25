@@ -1156,7 +1156,7 @@ public class Services.Todoist : GLib.Object {
         return success;
     }
 
-    public async bool move_project_section (Objects.BaseObject base_object, int64 project_id) {
+    public async bool move_project_section (Objects.BaseObject base_object, string project_id) {
         string uuid = Util.get_default ().generate_string ();
         bool success = false;
 

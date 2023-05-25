@@ -1,0 +1,132 @@
+:host {
+  /**
+   * @prop --background: Background of the popover
+   * @prop --box-shadow: Box shadow of the popover
+   *
+   * @prop --min-width: Minimum width of the popover
+   * @prop --width: Width of the popover
+   * @prop --max-width: Maximum width of the popover
+   *
+   * @prop --min-height: Minimum height of the popover
+   * @prop --height: Height of the popover
+   * @prop --max-height: Maximum height of the popover
+   *
+   * @prop --backdrop-opacity: Opacity of the backdrop
+   *
+   * @prop --offset-x: The amount to move the popover by on the x-axis
+   * @prop --offset-y: The amount to move the popover by on the y-axis
+   */
+  --background: var(--ion-background-color, #fff);
+  --min-width: 0;
+  --min-height: 0;
+  --max-width: auto;
+  --height: auto;
+  --offset-x: 0px;
+  --offset-y: 0px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  color: var(--ion-text-color, #000);
+  z-index: 1001;
+}
+
+/**
+ * With nested popovers, only the popover that
+ * was first presented has a popover. This is the
+ * parent popover and allows us to easily
+ * track all nested popovers from a single backdrop.
+ * As a result, nested popovers do not have backdrops
+ * and their container should not be clickable.
+ * This ensures that users can click the parent backdrop
+ * while still interacting with the nested popover inner
+ * content.
+ */
+:host(.popover-nested) {
+  pointer-events: none;
+}
+
+:host(.popover-nested) .popover-wrapper {
+  pointer-events: auto;
+}
+
+:host(.overlay-hidden) {
+  display: none;
+}
+
+.popover-wrapper {
+  opacity: 0;
+  z-index: 10;
+}
+
+.popover-content {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  background: var(--background);
+  box-shadow: var(--box-shadow);
+  overflow: auto;
+  z-index: 10;
+}
+
+.popover-viewport {
+  --ion-safe-area-top: 0px;
+  --ion-safe-area-right: 0px;
+  --ion-safe-area-bottom: 0px;
+  --ion-safe-area-left: 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+:host(.popover-nested.popover-side-left) {
+  --offset-x: 5px;
+}
+
+:host(.popover-nested.popover-side-right) {
+  --offset-x: -5px;
+}
+
+:host(.popover-nested.popover-side-start) {
+  --offset-x: 5px;
+}
+:host-context([dir=rtl]):host(.popover-nested.popover-side-start), :host-context([dir=rtl]).popover-nested.popover-side-start {
+  --offset-x: -5px;
+}
+
+:host(.popover-nested.popover-side-end) {
+  --offset-x: -5px;
+}
+:host-context([dir=rtl]):host(.popover-nested.popover-side-end), :host-context([dir=rtl]).popover-nested.popover-side-end {
+  --offset-x: 5px;
+}
+
+:host {
+  --width: 250px;
+  --max-height: 90%;
+  --box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+}
+
+.popover-content {
+  border-radius: 4px;
+  transform-origin: left top;
+}
+[dir=rtl] .popover-content, :host-context([dir=rtl]) .popover-content {
+  transform-origin: right top;
+}
+
+.popover-viewport {
+  transition-delay: 100ms;
+}

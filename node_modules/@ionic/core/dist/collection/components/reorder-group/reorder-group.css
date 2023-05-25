@@ -1,0 +1,34 @@
+.reorder-list-active > * {
+  display: block;
+  transition: transform 300ms;
+  will-change: transform;
+}
+
+.reorder-enabled {
+  user-select: none;
+}
+
+.reorder-enabled ion-reorder {
+  display: block;
+  cursor: grab;
+  pointer-events: all;
+  touch-action: none;
+}
+
+.reorder-selected,
+.reorder-selected ion-reorder {
+  cursor: grabbing;
+}
+
+.reorder-selected {
+  position: relative;
+  /* stylelint-disable-next-line declaration-no-important */
+  transition: none !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.reorder-visible ion-reorder .reorder-icon {
+  transform: translate3d(0,  0,  0);
+}

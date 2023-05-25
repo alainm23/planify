@@ -32,10 +32,10 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             halign = Gtk.Align.START,
             margin_start = 3
         };
-
+        title_label.ellipsize = Pango.EllipsizeMode.END;
         title_label.add_css_class ("font-bold");
 
-        count_label = new Gtk.Label ("2") {
+        count_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.START,
             margin_start = 3
@@ -49,7 +49,8 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             margin_start = 3,
             margin_end = 3,
             margin_top = 3,
-            margin_bottom = 3
+            margin_bottom = 3,
+            width_request = 100
         };
         main_grid.attach (title_label, 0, 0, 1, 1);
         main_grid.attach (title_image, 1, 0, 1, 1);
@@ -74,7 +75,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
-                get_style_context ().add_class (
+                add_css_class (
                     "filter-pane-row-%s-selected".printf (filter_type.to_string ())
                 );
 
@@ -84,7 +85,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
                     return GLib.Source.REMOVE;
                 });
             } else {
-                get_style_context ().remove_class (
+                remove_css_class (
                     "filter-pane-row-%s-selected".printf (filter_type.to_string ())
                 );
                 remove_css_class ("selected"); 
@@ -105,6 +106,9 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
             title_image.update_icon_name ("planner-pin-tack");
+        } else if (filter_type == FilterType.FILTER) {
+            title_label.label = _("Labels");
+            title_image.update_icon_name ("planner-tag-icon");
         }
     }
 
@@ -129,6 +133,11 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             update_count_label (Objects.Pinboard.get_default ().pinboard_count);
             Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
                 update_count_label (Objects.Pinboard.get_default ().pinboard_count);
+            });
+        } else if (filter_type == FilterType.FILTER) {
+            update_count_label(Objects.Filters.Labels.get_default ().count);
+            Objects.Filters.Labels.get_default ().count_updated.connect (() => {
+                update_count_label (Objects.Filters.Labels.get_default ().count);
             });
         }
     }

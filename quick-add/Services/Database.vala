@@ -334,19 +334,4 @@ public class Services.Database : GLib.Object {
     private bool get_parameter_bool (Sqlite.Statement stmt, int col) {
         return stmt.column_int (col) == Constants.ACTIVE;
     }
-
-    Json.Parser parser;
-    private Json.Object? get_due_parameter (Sqlite.Statement stmt, int col) {
-        if (parser == null) {
-            parser = new Json.Parser ();
-        }
-                
-        try {
-            parser.load_from_data (stmt.column_text (col), -1);
-        } catch (Error e) {
-            debug (e.message);
-        }
-
-        return parser.get_root ().get_object ();
-    }
 }

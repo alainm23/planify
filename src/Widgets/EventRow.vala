@@ -71,15 +71,15 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         color_grid.height_request = 12;
         color_grid.valign = Gtk.Align.CENTER;
         color_grid.halign = Gtk.Align.CENTER;
-        color_grid.get_style_context ().add_class ("event-%s".printf (component.get_uid ()));
+        color_grid.add_css_class ("event-%s".printf (component.get_uid ()));
 
         time_label = new Gtk.Label (null) {
             xalign = 0,
             valign = Gtk.Align.CENTER,
             width_chars = 7
         };
-        time_label.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
-        time_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        time_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        time_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var name_label = new Gtk.Label (component.get_summary ()) {
             valign = Gtk.Align.CENTER,
@@ -89,7 +89,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
             wrap_mode = Pango.WrapMode.WORD_CHAR,
             margin_start = 3
         };
-        name_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,

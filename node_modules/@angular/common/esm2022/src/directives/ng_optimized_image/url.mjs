@@ -1,0 +1,42 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+// Converts a string that represents a URL into a URL class instance.
+export function getUrl(src, win) {
+    // Don't use a base URL is the URL is absolute.
+    return isAbsoluteUrl(src) ? new URL(src) : new URL(src, win.location.href);
+}
+// Checks whether a URL is absolute (i.e. starts with `http://` or `https://`).
+export function isAbsoluteUrl(src) {
+    return /^https?:\/\//.test(src);
+}
+// Given a URL, extract the hostname part.
+// If a URL is a relative one - the URL is returned as is.
+export function extractHostname(url) {
+    return isAbsoluteUrl(url) ? (new URL(url)).hostname : url;
+}
+export function isValidPath(path) {
+    const isString = typeof path === 'string';
+    if (!isString || path.trim() === '') {
+        return false;
+    }
+    // Calling new URL() will throw if the path string is malformed
+    try {
+        const url = new URL(path);
+        return true;
+    }
+    catch {
+        return false;
+    }
+}
+export function normalizePath(path) {
+    return path.endsWith('/') ? path.slice(0, -1) : path;
+}
+export function normalizeSrc(src) {
+    return src.startsWith('/') ? src.slice(1) : src;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXJsLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vcGFja2FnZXMvY29tbW9uL3NyYy9kaXJlY3RpdmVzL25nX29wdGltaXplZF9pbWFnZS91cmwudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgscUVBQXFFO0FBQ3JFLE1BQU0sVUFBVSxNQUFNLENBQUMsR0FBVyxFQUFFLEdBQVc7SUFDN0MsK0NBQStDO0lBQy9DLE9BQU8sYUFBYSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxJQUFJLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxHQUFHLENBQUMsR0FBRyxFQUFFLEdBQUcsQ0FBQyxRQUFRLENBQUMsSUFBSSxDQUFDLENBQUM7QUFDN0UsQ0FBQztBQUVELCtFQUErRTtBQUMvRSxNQUFNLFVBQVUsYUFBYSxDQUFDLEdBQVc7SUFDdkMsT0FBTyxjQUFjLENBQUMsSUFBSSxDQUFDLEdBQUcsQ0FBQyxDQUFDO0FBQ2xDLENBQUM7QUFFRCwwQ0FBMEM7QUFDMUMsMERBQTBEO0FBQzFELE1BQU0sVUFBVSxlQUFlLENBQUMsR0FBVztJQUN6QyxPQUFPLGFBQWEsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxJQUFJLEdBQUcsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLENBQUMsR0FBRyxDQUFDO0FBQzVELENBQUM7QUFFRCxNQUFNLFVBQVUsV0FBVyxDQUFDLElBQWE7SUFDdkMsTUFBTSxRQUFRLEdBQUcsT0FBTyxJQUFJLEtBQUssUUFBUSxDQUFDO0lBRTFDLElBQUksQ0FBQyxRQUFRLElBQUksSUFBSSxDQUFDLElBQUksRUFBRSxLQUFLLEVBQUUsRUFBRTtRQUNuQyxPQUFPLEtBQUssQ0FBQztLQUNkO0lBRUQsK0RBQStEO0lBQy9ELElBQUk7UUFDRixNQUFNLEdBQUcsR0FBRyxJQUFJLEdBQUcsQ0FBQyxJQUFJLENBQUMsQ0FBQztRQUMxQixPQUFPLElBQUksQ0FBQztLQUNiO0lBQUMsTUFBTTtRQUNOLE9BQU8sS0FBSyxDQUFDO0tBQ2Q7QUFDSCxDQUFDO0FBRUQsTUFBTSxVQUFVLGFBQWEsQ0FBQyxJQUFZO0lBQ3hDLE9BQU8sSUFBSSxDQUFDLFFBQVEsQ0FBQyxHQUFHLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQyxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsSUFBSSxDQUFDO0FBQ3ZELENBQUM7QUFFRCxNQUFNLFVBQVUsWUFBWSxDQUFDLEdBQVc7SUFDdEMsT0FBTyxHQUFHLENBQUMsVUFBVSxDQUFDLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUMsQ0FBQyxHQUFHLENBQUM7QUFDbEQsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG4vLyBDb252ZXJ0cyBhIHN0cmluZyB0aGF0IHJlcHJlc2VudHMgYSBVUkwgaW50byBhIFVSTCBjbGFzcyBpbnN0YW5jZS5cbmV4cG9ydCBmdW5jdGlvbiBnZXRVcmwoc3JjOiBzdHJpbmcsIHdpbjogV2luZG93KTogVVJMIHtcbiAgLy8gRG9uJ3QgdXNlIGEgYmFzZSBVUkwgaXMgdGhlIFVSTCBpcyBhYnNvbHV0ZS5cbiAgcmV0dXJuIGlzQWJzb2x1dGVVcmwoc3JjKSA/IG5ldyBVUkwoc3JjKSA6IG5ldyBVUkwoc3JjLCB3aW4ubG9jYXRpb24uaHJlZik7XG59XG5cbi8vIENoZWNrcyB3aGV0aGVyIGEgVVJMIGlzIGFic29sdXRlIChpLmUuIHN0YXJ0cyB3aXRoIGBodHRwOi8vYCBvciBgaHR0cHM6Ly9gKS5cbmV4cG9ydCBmdW5jdGlvbiBpc0Fic29sdXRlVXJsKHNyYzogc3RyaW5nKTogYm9vbGVhbiB7XG4gIHJldHVybiAvXmh0dHBzPzpcXC9cXC8vLnRlc3Qoc3JjKTtcbn1cblxuLy8gR2l2ZW4gYSBVUkwsIGV4dHJhY3QgdGhlIGhvc3RuYW1lIHBhcnQuXG4vLyBJZiBhIFVSTCBpcyBhIHJlbGF0aXZlIG9uZSAtIHRoZSBVUkwgaXMgcmV0dXJuZWQgYXMgaXMuXG5leHBvcnQgZnVuY3Rpb24gZXh0cmFjdEhvc3RuYW1lKHVybDogc3RyaW5nKTogc3RyaW5nIHtcbiAgcmV0dXJuIGlzQWJzb2x1dGVVcmwodXJsKSA/IChuZXcgVVJMKHVybCkpLmhvc3RuYW1lIDogdXJsO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gaXNWYWxpZFBhdGgocGF0aDogdW5rbm93bik6IGJvb2xlYW4ge1xuICBjb25zdCBpc1N0cmluZyA9IHR5cGVvZiBwYXRoID09PSAnc3RyaW5nJztcblxuICBpZiAoIWlzU3RyaW5nIHx8IHBhdGgudHJpbSgpID09PSAnJykge1xuICAgIHJldHVybiBmYWxzZTtcbiAgfVxuXG4gIC8vIENhbGxpbmcgbmV3IFVSTCgpIHdpbGwgdGhyb3cgaWYgdGhlIHBhdGggc3RyaW5nIGlzIG1hbGZvcm1lZFxuICB0cnkge1xuICAgIGNvbnN0IHVybCA9IG5ldyBVUkwocGF0aCk7XG4gICAgcmV0dXJuIHRydWU7XG4gIH0gY2F0Y2gge1xuICAgIHJldHVybiBmYWxzZTtcbiAgfVxufVxuXG5leHBvcnQgZnVuY3Rpb24gbm9ybWFsaXplUGF0aChwYXRoOiBzdHJpbmcpOiBzdHJpbmcge1xuICByZXR1cm4gcGF0aC5lbmRzV2l0aCgnLycpID8gcGF0aC5zbGljZSgwLCAtMSkgOiBwYXRoO1xufVxuXG5leHBvcnQgZnVuY3Rpb24gbm9ybWFsaXplU3JjKHNyYzogc3RyaW5nKTogc3RyaW5nIHtcbiAgcmV0dXJuIHNyYy5zdGFydHNXaXRoKCcvJykgPyBzcmMuc2xpY2UoMSkgOiBzcmM7XG59XG4iXX0=

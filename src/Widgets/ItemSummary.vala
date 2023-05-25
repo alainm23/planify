@@ -26,12 +26,6 @@ public class Widgets.ItemSummary : Gtk.Grid {
     private Gtk.Revealer revealer;
     Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
-    public uint labels_flowbox_size {
-        get {
-            return Util.get_default ().get_children (labels_flowbox).length ();
-        }
-    }
-
     public bool reveal_child {
         set {
             revealer.reveal_child = value;
@@ -166,10 +160,10 @@ public class Widgets.ItemSummary : Gtk.Grid {
             valign = Gtk.Align.START
         };
 
-        summary_grid.append (due_revealer);
-        summary_grid.append (subtasks_revealer);
-        summary_grid.append (reminder_revealer);
-        summary_grid.append (description_revealer);
+        // summary_grid.append (due_revealer);
+        // summary_grid.append (subtasks_revealer);
+        // summary_grid.append (reminder_revealer);
+        // summary_grid.append (description_revealer);
         summary_grid.append (flowbox_revealer);
         summary_grid.append (more_label_revealer);
 
@@ -220,8 +214,8 @@ public class Widgets.ItemSummary : Gtk.Grid {
     }
 
     public void update_request () {
-        update_due_label ();
-        update_reminders ();
+        // update_due_label ();
+        // update_reminders ();
         // update_subtasks ();
         update_labels ();
 

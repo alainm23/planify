@@ -47,6 +47,12 @@ public class Layouts.HeaderItem : Gtk.Grid {
         }
     }
 
+    public Gtk.ListBox items {
+        get {
+            return listbox;
+        }
+    }
+
     private Gtk.Label name_label;
     private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
@@ -55,6 +61,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
     private Gtk.Grid content_grid;
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
+    private Gtk.Revealer separator_revealer;
 
     public signal void add_activated ();
     public signal void row_activated (Gtk.Widget widget);
@@ -77,6 +84,12 @@ public class Layouts.HeaderItem : Gtk.Grid {
         }
     }
 
+    public bool show_separator {
+        set {
+            separator_revealer.reveal_child = value;
+        }
+    }
+
     public bool reveal_child {
         set {
             content_revealer.reveal_child = value;
@@ -86,7 +99,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
     public bool card {
         set {
             if (value) {
-
+                content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
             } else {
                 content_grid.remove_css_class (Granite.STYLE_CLASS_CARD);
                 // content_grid.remove_css_class ("pane-content");
@@ -182,6 +195,18 @@ public class Layouts.HeaderItem : Gtk.Grid {
         header_box.append (name_label);
         header_box.append (action_revealer);
 
+        var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 3,
+            margin_start = 3,
+            margin_bottom = 3
+        };
+
+        separator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+        };
+
+        separator_revealer.child = separator;
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             margin_start = 3,
@@ -190,6 +215,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
 
         content_box.append (header_box);
+        content_box.append (separator_revealer);
         content_box.append (content_grid);
 
         content_revealer = new Gtk.Revealer () {
@@ -245,5 +271,13 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
     public void set_sort_func (Gtk.ListBoxSortFunc? sort_func) {
         listbox.set_sort_func (sort_func);
+    }
+
+    public void set_filter_func (Gtk.ListBoxFilterFunc? filter_func) {
+        listbox.set_filter_func (filter_func);
+    }
+
+    public void invalidate_filter () {
+        listbox.invalidate_filter ();
     }
 }

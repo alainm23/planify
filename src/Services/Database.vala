@@ -353,6 +353,19 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
+    public Gee.ArrayList<Objects.Project> get_projects_by_backend_type (BackendType backend_type) {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.backend_type == backend_type) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_subitems (Objects.Item i) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -615,6 +628,19 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
+    public Gee.ArrayList<Objects.Label> get_labels_by_backend_type (BackendType backend_type) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        lock (_labels) {
+            foreach (var label in labels) {
+                if (label.backend_type == backend_type) {
+                    return_value.add (label);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Label> get_all_labels_by_search (string search_text) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         lock (_labels) {
@@ -741,7 +767,7 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Labels SET name=$name, color=$color, item_order=$item_order,
-                is_deleted=$is_deleted, is_favorite=$is_favorite, todoist=$todoist
+                is_deleted=$is_deleted, is_favorite=$is_favorite, backend_type=$backend_type
             WHERE id=$id;
         """;
 
@@ -751,7 +777,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$item_order", label.item_order);
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
-        set_parameter_str (stmt, "$todoist", label.backend_type.to_string ());
+        set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
         set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1148,6 +1174,19 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.project_id == project.id) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_checked_by_project (Objects.Project project) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.project_id == project.id && item.checked) {
                     return_value.add (item);
                 }
             }

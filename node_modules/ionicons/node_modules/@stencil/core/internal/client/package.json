@@ -1,0 +1,8 @@
+{
+  "name": "@stencil/core/internal/client",
+  "version": "2.22.3",
+  "description": "Stencil internal client platform to be imported by the Stencil Compiler and internal runtime. Breaking changes can and will happen at any time.",
+  "main": "./index.js",
+  "private": true,
+  "sideEffects": false
+}

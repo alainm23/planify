@@ -33,7 +33,7 @@ public class Widgets.SettingsHeader : Gtk.Grid {
         back_button.child = back_grid;
 
         var title_label = new Gtk.Label (title_header);
-        title_label.get_style_context ().add_class (Granite.STYLE_CLASS_TITLE_LABEL);
+        title_label.add_css_class (Granite.STYLE_CLASS_TITLE_LABEL);
 
         var content_box = new Gtk.CenterBox () {
             hexpand = true,

@@ -1,0 +1,75 @@
+:host {
+  -webkit-padding-start: 16px;
+  padding-inline-start: 16px;
+  -webkit-padding-end: 16px;
+  padding-inline-end: 16px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  height: 200px;
+  outline: none;
+  font-size: 22px;
+  scroll-snap-type: y mandatory;
+  /**
+   * Need to explicitly set overflow-x: hidden
+   * for older implementations of scroll snapping.
+   */
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  text-align: center;
+}
+
+/**
+ * Hide scrollbars on Chrome and Safari
+ */
+:host::-webkit-scrollbar {
+  display: none;
+}
+
+:host .picker-item {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  width: 100%;
+  height: 34px;
+  border: 0px;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font-family: var(--ion-font-family, inherit);
+  font-size: inherit;
+  line-height: 34px;
+  text-align: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden;
+  scroll-snap-align: center;
+}
+
+:host .picker-item-empty,
+:host .picker-item.picker-item-disabled {
+  scroll-snap-align: none;
+  cursor: default;
+}
+
+:host .picker-item.picker-item-disabled {
+  opacity: 0.4;
+}
+
+:host(.picker-column-active) .picker-item.picker-item-active {
+  color: var(--ion-color-base);
+}
+
+@media (any-hover: hover) {
+  :host(:focus) {
+    outline: none;
+    background: rgba(var(--ion-color-base-rgb), 0.2);
+  }
+}

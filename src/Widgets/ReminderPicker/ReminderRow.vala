@@ -47,7 +47,7 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     }
 
     construct {
-        get_style_context ().add_class ("row");
+        add_css_class ("row");
 
         var reminder_image = new Widgets.DynamicIcon ();
         reminder_image.size = 21;
@@ -60,8 +60,8 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             halign = Gtk.Align.END
         };
         
-        remove_button.get_style_context ().add_class (Granite.STYLE_CLASS_FLAT);
-        remove_button.get_style_context ().add_class ("no-padding");
+        remove_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        remove_button.add_css_class ("no-padding");
         
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,

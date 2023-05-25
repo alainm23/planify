@@ -1,0 +1,319 @@
+:host {
+  /**
+   * @prop --background: Background of the action sheet group
+   * @prop --color: Color of the action sheet text
+   *
+   * @prop --min-width: Minimum width of the action sheet
+   * @prop --width: Width of the action sheet
+   * @prop --max-width: Maximum width of the action sheet
+   *
+   * @prop --min-height: Minimum height of the action sheet
+   * @prop --height: height of the action sheet
+   * @prop --max-height: Maximum height of the action sheet
+   *
+   * @prop --backdrop-opacity: Opacity of the backdrop
+   *
+   * @prop --button-background: Background of the action sheet button
+   * @prop --button-background-activated: Background of the action sheet button when pressed. Note: setting this will interfere with the Material Design ripple.
+   * @prop --button-background-activated-opacity: Opacity of the action sheet button background when pressed
+   * @prop --button-background-hover: Background of the action sheet button on hover
+   * @prop --button-background-hover-opacity: Opacity of the action sheet button background on hover
+   * @prop --button-background-focused: Background of the action sheet button when tabbed to
+   * @prop --button-background-focused-opacity: Opacity of the action sheet button background when tabbed to
+   * @prop --button-background-selected: Background of the selected action sheet button
+   * @prop --button-background-selected-opacity: Opacity of the selected action sheet button background
+   *
+   * @prop --button-color: Color of the action sheet button
+   * @prop --button-color-activated: Color of the action sheet button when pressed
+   * @prop --button-color-hover: Color of the action sheet button on hover
+   * @prop --button-color-focused: Color of the action sheet button when tabbed to
+   * @prop --button-color-selected: Color of the selected action sheet button
+   */
+  --color: initial;
+  --button-color-activated: var(--button-color);
+  --button-color-focused: var(--button-color);
+  --button-color-hover: var(--button-color);
+  --button-color-selected: var(--button-color);
+  --min-width: auto;
+  --width: 100%;
+  --max-width: 500px;
+  --min-height: auto;
+  --height: auto;
+  --max-height: calc(100% - (var(--ion-safe-area-top) + var(--ion-safe-area-bottom)));
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+  position: fixed;
+  outline: none;
+  font-family: var(--ion-font-family, inherit);
+  touch-action: none;
+  user-select: none;
+  z-index: 1001;
+}
+
+:host(.overlay-hidden) {
+  display: none;
+}
+
+.action-sheet-wrapper {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform: translate3d(0,  100%,  0);
+  display: block;
+  position: absolute;
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.action-sheet-button {
+  display: block;
+  position: relative;
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: var(--button-background);
+  color: var(--button-color);
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.action-sheet-button-inner {
+  display: flex;
+  position: relative;
+  flex-flow: row nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.action-sheet-container {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+  height: 100%;
+  max-height: 100vh;
+}
+
+.action-sheet-group {
+  flex-shrink: 2;
+  overscroll-behavior-y: contain;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  pointer-events: all;
+  background: var(--background);
+}
+
+.action-sheet-group::-webkit-scrollbar {
+  display: none;
+}
+
+.action-sheet-group-cancel {
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.action-sheet-button::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  content: "";
+  opacity: 0;
+}
+
+.action-sheet-selected {
+  color: var(--button-color-selected);
+}
+.action-sheet-selected::after {
+  background: var(--button-background-selected);
+  opacity: var(--button-background-selected-opacity);
+}
+
+.action-sheet-button.ion-activated {
+  color: var(--button-color-activated);
+}
+.action-sheet-button.ion-activated::after {
+  background: var(--button-background-activated);
+  opacity: var(--button-background-activated-opacity);
+}
+
+.action-sheet-button.ion-focused {
+  color: var(--button-color-focused);
+}
+.action-sheet-button.ion-focused::after {
+  background: var(--button-background-focused);
+  opacity: var(--button-background-focused-opacity);
+}
+
+@media (any-hover: hover) {
+  .action-sheet-button:hover {
+    color: var(--button-color-hover);
+  }
+  .action-sheet-button:hover::after {
+    background: var(--button-background-hover);
+    opacity: var(--button-background-hover-opacity);
+  }
+}
+:host {
+  --background: var(--ion-overlay-background-color, var(--ion-color-step-100, #f9f9f9));
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+  --button-background: linear-gradient(0deg, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08), rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08) 50%, transparent 50%) bottom/100% 1px no-repeat transparent;
+  --button-background-activated: var(--ion-text-color, #000);
+  --button-background-activated-opacity: .08;
+  --button-background-hover: currentColor;
+  --button-background-hover-opacity: .04;
+  --button-background-focused: currentColor;
+  --button-background-focused-opacity: .12;
+  --button-background-selected: var(--ion-color-step-150, var(--ion-background-color, #fff));
+  --button-background-selected-opacity: 1;
+  --button-color: var(--ion-color-primary, #3880ff);
+  --color: var(--ion-color-step-400, #999999);
+  text-align: center;
+}
+
+.action-sheet-wrapper {
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  margin-top: var(--ion-safe-area-top, 0);
+  margin-bottom: var(--ion-safe-area-bottom, 0);
+}
+
+.action-sheet-container {
+  -webkit-padding-start: 8px;
+  padding-inline-start: 8px;
+  -webkit-padding-end: 8px;
+  padding-inline-end: 8px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.action-sheet-group {
+  border-radius: 13px;
+  margin-bottom: 8px;
+}
+
+.action-sheet-group:first-child {
+  margin-top: 10px;
+}
+
+.action-sheet-group:last-child {
+  margin-bottom: 10px;
+}
+
+@supports (backdrop-filter: blur(0)) {
+  :host(.action-sheet-translucent) .action-sheet-group {
+    background-color: transparent;
+    backdrop-filter: saturate(280%) blur(20px);
+  }
+  :host(.action-sheet-translucent) .action-sheet-title,
+  :host(.action-sheet-translucent) .action-sheet-button {
+    background-color: transparent;
+    background-image: linear-gradient(0deg, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8), rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8) 100%), linear-gradient(0deg, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4), rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.4) 50%, rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.8) 50%);
+    background-repeat: no-repeat;
+    /* stylelint-disable-next-line all */
+    background-position: top, bottom;
+    background-size: 100% calc(100% - 1px), 100% 1px;
+    backdrop-filter: saturate(120%);
+  }
+  :host(.action-sheet-translucent) .action-sheet-button.ion-activated {
+    background-color: rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.7);
+    background-image: none;
+  }
+  :host(.action-sheet-translucent) .action-sheet-cancel {
+    background: var(--button-background-selected);
+  }
+}
+.action-sheet-title {
+  background: linear-gradient(0deg, rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08), rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.08) 50%, transparent 50%) bottom/100% 1px no-repeat transparent;
+}
+
+.action-sheet-title {
+  -webkit-padding-start: 10px;
+  padding-inline-start: 10px;
+  -webkit-padding-end: 10px;
+  padding-inline-end: 10px;
+  padding-top: 14px;
+  padding-bottom: 13px;
+  color: var(--color, var(--ion-color-step-400, #999999));
+  font-size: 13px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.action-sheet-title.action-sheet-has-sub-title {
+  font-weight: 600;
+}
+
+.action-sheet-sub-title {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 6px;
+  padding-bottom: 0;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.action-sheet-button {
+  -webkit-padding-start: 18px;
+  padding-inline-start: 18px;
+  -webkit-padding-end: 18px;
+  padding-inline-end: 18px;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  height: 56px;
+  font-size: 20px;
+  contain: strict;
+}
+
+.action-sheet-button .action-sheet-icon {
+  -webkit-margin-end: 0.3em;
+  margin-inline-end: 0.3em;
+  font-size: 28px;
+  pointer-events: none;
+}
+
+.action-sheet-button:last-child {
+  background-image: none;
+}
+
+.action-sheet-selected {
+  font-weight: bold;
+}
+
+.action-sheet-cancel {
+  font-weight: 600;
+}
+.action-sheet-cancel::after {
+  background: var(--button-background-selected);
+  opacity: var(--button-background-selected-opacity);
+}
+
+.action-sheet-destructive,
+.action-sheet-destructive.ion-activated,
+.action-sheet-destructive.ion-focused {
+  color: var(--ion-color-danger, #eb445a);
+}
+
+@media (any-hover: hover) {
+  .action-sheet-destructive:hover {
+    color: var(--ion-color-danger, #eb445a);
+  }
+}

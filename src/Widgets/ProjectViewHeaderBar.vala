@@ -25,7 +25,7 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
             halign = Gtk.Align.CENTER
         };
 
-        emoji_label.get_style_context ().add_class ("header-title");
+        emoji_label.add_css_class ("header-title");
 
         progress_emoji_stack = new Gtk.Stack ();
         progress_emoji_stack.add_named (circular_progress_bar, "progress");

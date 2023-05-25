@@ -1,0 +1,28 @@
+:host {
+  --background: transparent;
+  --color: inherit;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--color);
+}
+
+:host(.ion-color) {
+  background: var(--ion-color-base);
+  color: var(--ion-color-contrast);
+}
+
+:host {
+  -webkit-padding-start: 16px;
+  padding-inline-start: 16px;
+  -webkit-padding-end: 16px;
+  padding-inline-end: 16px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+::slotted(ion-card-title:not(:first-child)),
+::slotted(ion-card-subtitle:not(:first-child)) {
+  margin-top: 8px;
+}

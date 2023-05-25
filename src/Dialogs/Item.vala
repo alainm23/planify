@@ -23,7 +23,7 @@ public class Dialogs.Item : Adw.Window {
     public Objects.Item item { get; construct; }
 
     private Gtk.CheckButton checked_button;
-    private Widgets.SourceView content_textview;
+    private Widgets.Entry content_entry;
     private Widgets.HyperTextView description_textview;
 
     public bool is_creating {
@@ -38,8 +38,8 @@ public class Dialogs.Item : Adw.Window {
             transient_for: (Gtk.Window) Planner.instance.main_window,
             deletable: true,
             resizable: true,
-            modal: true,
-            width_request: 675,
+            modal: false,
+            width_request: 600,
             height_request: 400
         );
     }
@@ -54,8 +54,8 @@ public class Dialogs.Item : Adw.Window {
             transient_for: (Gtk.Window) Planner.instance.main_window,
             deletable: true,
             resizable: true,
-            modal: true,
-            width_request: 675,
+            modal: false,
+            width_request: 600,
             height_request: 400
         );
     }
@@ -69,8 +69,8 @@ public class Dialogs.Item : Adw.Window {
             transient_for: (Gtk.Window) Planner.instance.main_window,
             deletable: true,
             resizable: true,
-            modal: true,
-            width_request: 675,
+            modal: false,
+            width_request: 600,
             height_request: 400
         );
     }
@@ -86,8 +86,8 @@ public class Dialogs.Item : Adw.Window {
             transient_for: (Gtk.Window) Planner.instance.main_window,
             deletable: true,
             resizable: true,
-            modal: true,
-            width_request: 675,
+            modal: false,
+            width_request: 600,
             height_request: 400
         );
     }
@@ -103,7 +103,7 @@ public class Dialogs.Item : Adw.Window {
             deletable: true,
             resizable: true,
             modal: true,
-            width_request: 675,
+            width_request: 600,
             height_request: 400
         );
     }
@@ -138,12 +138,11 @@ public class Dialogs.Item : Adw.Window {
         sidebar_content_box.append (new Gtk.Label ("Sidebar"));
         sidebar_content_box.add_css_class ("sidebar");
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };        
         content_box.append (view_content_box);
-        content_box.append (sidebar_content_box);
         
         content = content_box;
         update_request ();
@@ -151,20 +150,20 @@ public class Dialogs.Item : Adw.Window {
 
     private Gtk.Widget build_view_widget () {
         checked_button = new Gtk.CheckButton () {
-            valign = Gtk.Align.START
+            valign = Gtk.Align.CENTER
         };
 
         checked_button.add_css_class ("priority-color");
 
-        content_textview = new Widgets.SourceView () {
+        content_entry = new Widgets.Entry () {
             hexpand = true,
-            valign = Gtk.Align.START
+            valign = Gtk.Align.START,
+            placeholder_text = _("Task Name")
         };
-        content_textview.wrap_mode = Gtk.WrapMode.WORD;
-        content_textview.editable = !item.completed;
-        content_textview.remove_css_class ("view");
+        content_entry.editable = !item.completed;
+        content_entry.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
             margin_start = 12,
@@ -172,7 +171,7 @@ public class Dialogs.Item : Adw.Window {
         };
 
         content_box.append (checked_button);
-        content_box.append (content_textview);
+        content_box.append (content_entry);
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
@@ -208,7 +207,7 @@ public class Dialogs.Item : Adw.Window {
         //      content_label.remove_css_class ("line-through");
         //  }
 
-        content_textview.buffer.text = item.content;
+        content_entry.text = item.content;
         description_textview.set_text (item.description);
                 
         //  item_summary.update_request ();

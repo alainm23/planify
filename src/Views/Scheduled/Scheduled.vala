@@ -30,7 +30,9 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
         content.append (listbox_grid);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content;

@@ -329,7 +329,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         drop_target.preload = true;
 
-        drop_target.on_drop.connect ((value, x, y) => {
+        drop_target.drop.connect ((value, x, y) => {
             if (Planner.settings.get_enum ("projects-sort-by") == 0) {
                 Planner.event_bus.send_notification (
                     Util.get_default ().create_toast (_("Project list order changed to Custom Sort Order."))
@@ -375,9 +375,19 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void update_projects_child_order (Gtk.ListBox listbox) {
-        //  listbox.selected_foreach ((row) => {
+        unowned Layouts.ProjectRow? project_row = null;
+        var row_index = 0;
 
-        //  });
+        do {
+            project_row = (Layouts.ProjectRow) listbox.get_row_at_index (row_index);
+
+            if (project_row != null) {
+                project_row.project.child_order = row_index;
+                Services.Database.get_default ().update_project (project_row.project);
+            }
+
+            row_index++;
+        } while (project_row != null);
     }
 
     public void drag_begin () {
@@ -409,11 +419,18 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
+        var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share");
+        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "planner-mail");
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
         menu_box.append (edit_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (move_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (share_markdown_item);
+        menu_box.append (share_email_item);
 
         if (project.id != Planner.settings.get_string ("todoist-inbox-project-id") &&
         project.id != Planner.settings.get_string ("local-inbox-project-id")) {
@@ -472,6 +489,16 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     }
                 }
             });
+        });
+
+        share_markdown_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            project.share_markdown ();
+        });
+
+        share_email_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            project.share_mail ();
         });
     }
 

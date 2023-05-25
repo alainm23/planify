@@ -1,0 +1,26 @@
+:host {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+:host(.in-toolbar-color),
+:host(.in-toolbar-color) .breadcrumbs-collapsed-indicator ion-icon {
+  color: var(--ion-color-contrast);
+}
+
+:host(.in-toolbar-color) .breadcrumbs-collapsed-indicator {
+  background: rgba(var(--ion-color-contrast-rgb), 0.11);
+}
+
+:host(.in-toolbar) {
+  -webkit-padding-start: 20px;
+  padding-inline-start: 20px;
+  -webkit-padding-end: 20px;
+  padding-inline-end: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  justify-content: center;
+}

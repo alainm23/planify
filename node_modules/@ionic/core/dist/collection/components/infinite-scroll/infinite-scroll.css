@@ -1,0 +1,8 @@
+ion-infinite-scroll {
+  display: none;
+  width: 100%;
+}
+
+.infinite-scroll-enabled {
+  display: block;
+}

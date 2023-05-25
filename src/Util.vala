@@ -539,38 +539,46 @@ public class Util : GLib.Object {
         return datetime.add_days (days).add_days (recurrency_interval);
     }
 
-    public string get_recurrency_weeks (Objects.DueDate duedate) {
-        string returned = "";
+    public string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
+        string recurrency_weeks) {
+        string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
-        if (duedate.recurrency_weeks.contains ("1")) {
-            returned += _("Mo,");
+        if (recurrency_type == RecurrencyType.EVERY_WEEK &&
+            recurrency_weeks.split (",").length > 0) {
+            string weeks = "";
+            if (recurrency_weeks.contains ("1")) {
+                weeks += _("Mo,");
+            }
+    
+            if (recurrency_weeks.contains ("2")) {
+                weeks += _("Tu,");
+            }
+    
+            if (recurrency_weeks.contains ("3")) {
+                weeks += _("We,");
+            }
+    
+            if (recurrency_weeks.contains ("4")) {
+                weeks += _("Th,");
+            }
+    
+            if (recurrency_weeks.contains ("5")) {
+                weeks += _("Fr,");
+            }
+    
+            if (recurrency_weeks.contains ("6")) {
+                weeks += _("Sa,");
+            }
+    
+            if (recurrency_weeks.contains ("7")) {
+                weeks += _("Su,");
+            }
+    
+            weeks = weeks.slice (0, -1);
+            returned = "%s (%s)".printf (returned, weeks);
         }
 
-        if (duedate.recurrency_weeks.contains ("2")) {
-            returned += _("Tu,");
-        }
-
-        if (duedate.recurrency_weeks.contains ("3")) {
-            returned += _("We,");
-        }
-
-        if (duedate.recurrency_weeks.contains ("4")) {
-            returned += _("Th,");
-        }
-
-        if (duedate.recurrency_weeks.contains ("5")) {
-            returned += _("Fr,");
-        }
-
-        if (duedate.recurrency_weeks.contains ("6")) {
-            returned += _("Sa,");
-        }
-
-        if (duedate.recurrency_weeks.contains ("7")) {
-            returned += _("Su,");
-        }
-
-        return returned.slice (0, -1);
+        return returned;
     }
 
     public void item_added (Layouts.ItemRow row) {
@@ -738,6 +746,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-section", true);
                 _dynamic_icons.set ("unordered-list", true);
                 _dynamic_icons.set ("menu", true);
+                _dynamic_icons.set ("share", true);
             }
 
             return _dynamic_icons;
@@ -978,12 +987,21 @@ public class Util : GLib.Object {
         return false;
     }
     
-    public List<unowned Gtk.Widget> get_children (Gtk.Widget list) {
-        List<unowned Gtk.Widget> response = new List<unowned Gtk.Widget> ();
+    public List<Gtk.ListBoxRow> get_children (Gtk.ListBox list) {
+        List<Gtk.ListBoxRow> response = new List<Gtk.ListBoxRow> ();
 
-        for (Gtk.Widget child = list.get_first_child (); child != null; child = list.get_next_sibling ()) {
-            response.append (child);
-        }
+        Gtk.ListBoxRow item_row = null;
+        var row_index = 0;
+
+        do {
+            item_row = list.get_row_at_index (row_index);
+
+            if (item_row != null) {
+                response.append (item_row);
+            }
+
+            row_index++;
+        } while (item_row != null);
 
         return response;
     }
@@ -1098,5 +1116,90 @@ public class Util : GLib.Object {
         }
 
         return inbox_project;
+    }
+
+    public string get_markup_format (string _text) {
+        var text = get_dialog_text (_text);
+
+        Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
+        Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+                
+        Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
+        Regex bold_regex = /\*\*(.*?)\*\*/;
+        Regex italic_regex = /\*(.*?)\*/;
+
+        MatchInfo info;
+        try {
+            List<string> urls = new List<string>();
+            if (url_regex.match (text, 0, out info)) {
+                do {
+                    var url = info.fetch_named ("url");
+                    urls.append (url);
+                } while (info.next ());
+            }
+            List<string> emails = new List<string>();
+            if (mailto_regex.match (text, 0, out info)) {
+                do {
+                    var email = info.fetch_named ("mailto");
+                    emails.append (email);
+                } while (info.next ());
+            }
+            Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
+            if (bold_regex.match (text, 0, out info)) {
+                do {
+                    bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown>();
+            if (italic_regex.match (text, 0, out info)) {
+                do {
+                    italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+            Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown>();
+            if (italic_bold_regex.match (text, 0, out info)) {
+                do {
+                    italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            var converted = text;
+            urls.foreach ((url) => {
+                var urlEncoded = url.replace ("&", "&amp;");
+                var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
+                converted = converted.replace (url, urlAsLink);
+            });
+            emails.foreach ((email) => {
+                var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
+                converted = converted.replace (email, emailAsLink);
+            });
+            foreach (RegexMarkdown m in italic_bold) {
+                string format = "<i><b>"+m.text+"</b></i>";
+                converted = converted.replace (m.match, format);
+            }
+            foreach (RegexMarkdown m in bolds_01) {
+                string format = "<b>"+m.text+"</b>";
+                converted = converted.replace (m.match, format);
+            }
+            foreach (RegexMarkdown m in italics_01) {
+                string format = "<i>"+m.text+"</i>";
+                converted = converted.replace (m.match, format);
+            }
+
+            return converted;
+        } catch (GLib.RegexError ex) {
+            return text;
+        }
+    }
+}
+
+public class RegexMarkdown {
+    public string match { get; set; }
+    public string text { get; set; }
+    public string extra { get; set; }
+    public RegexMarkdown (string match, string text, string extra="") {
+        this.match = match;
+        this.text = text;
+        this.extra = extra;
     }
 }

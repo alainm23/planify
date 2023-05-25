@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@ionic/angular": "^7.0.5"
+  }
+}

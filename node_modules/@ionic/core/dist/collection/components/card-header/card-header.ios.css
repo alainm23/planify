@@ -1,0 +1,31 @@
+:host {
+  --background: transparent;
+  --color: inherit;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  background: var(--background);
+  color: var(--color);
+}
+
+:host(.ion-color) {
+  background: var(--ion-color-base);
+  color: var(--ion-color-contrast);
+}
+
+:host {
+  -webkit-padding-start: 20px;
+  padding-inline-start: 20px;
+  -webkit-padding-end: 20px;
+  padding-inline-end: 20px;
+  padding-top: 20px;
+  padding-bottom: 16px;
+  flex-direction: column-reverse;
+}
+
+@supports (backdrop-filter: blur(0)) {
+  :host(.card-header-translucent) {
+    background-color: rgba(var(--ion-background-color-rgb, 255, 255, 255), 0.9);
+    backdrop-filter: saturate(180%) blur(30px);
+  }
+}

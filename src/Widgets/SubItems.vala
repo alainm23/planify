@@ -58,9 +58,7 @@ public class Widgets.SubItems : Gtk.Grid {
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
         };
-
-        unowned Gtk.StyleContext checked_listbox_context = checked_listbox.get_style_context ();
-        checked_listbox_context.add_class ("listbox-background");
+        checked_listbox.add_css_class ("listbox-background");
 
         var checked_listbox_grid = new Gtk.Grid ();
 

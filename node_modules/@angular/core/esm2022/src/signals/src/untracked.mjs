@@ -1,0 +1,26 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { setActiveConsumer } from './graph';
+/**
+ * Execute an arbitrary function in a non-reactive (non-tracking) context. The executed function
+ * can, optionally, return a value.
+ *
+ * @developerPreview
+ */
+export function untracked(nonReactiveReadsFn) {
+    const prevConsumer = setActiveConsumer(null);
+    // We are not trying to catch any particular errors here, just making sure that the consumers
+    // stack is restored in case of errors.
+    try {
+        return nonReactiveReadsFn();
+    }
+    finally {
+        setActiveConsumer(prevConsumer);
+    }
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidW50cmFja2VkLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vLi4vLi4vLi4vLi4vLi4vcGFja2FnZXMvY29yZS9zcmMvc2lnbmFscy9zcmMvdW50cmFja2VkLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7R0FNRztBQUVILE9BQU8sRUFBQyxpQkFBaUIsRUFBQyxNQUFNLFNBQVMsQ0FBQztBQUUxQzs7Ozs7R0FLRztBQUNILE1BQU0sVUFBVSxTQUFTLENBQUksa0JBQTJCO0lBQ3RELE1BQU0sWUFBWSxHQUFHLGlCQUFpQixDQUFDLElBQUksQ0FBQyxDQUFDO0lBQzdDLDZGQUE2RjtJQUM3Rix1Q0FBdUM7SUFDdkMsSUFBSTtRQUNGLE9BQU8sa0JBQWtCLEVBQUUsQ0FBQztLQUM3QjtZQUFTO1FBQ1IsaUJBQWlCLENBQUMsWUFBWSxDQUFDLENBQUM7S0FDakM7QUFDSCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuaW8vbGljZW5zZVxuICovXG5cbmltcG9ydCB7c2V0QWN0aXZlQ29uc3VtZXJ9IGZyb20gJy4vZ3JhcGgnO1xuXG4vKipcbiAqIEV4ZWN1dGUgYW4gYXJiaXRyYXJ5IGZ1bmN0aW9uIGluIGEgbm9uLXJlYWN0aXZlIChub24tdHJhY2tpbmcpIGNvbnRleHQuIFRoZSBleGVjdXRlZCBmdW5jdGlvblxuICogY2FuLCBvcHRpb25hbGx5LCByZXR1cm4gYSB2YWx1ZS5cbiAqXG4gKiBAZGV2ZWxvcGVyUHJldmlld1xuICovXG5leHBvcnQgZnVuY3Rpb24gdW50cmFja2VkPFQ+KG5vblJlYWN0aXZlUmVhZHNGbjogKCkgPT4gVCk6IFQge1xuICBjb25zdCBwcmV2Q29uc3VtZXIgPSBzZXRBY3RpdmVDb25zdW1lcihudWxsKTtcbiAgLy8gV2UgYXJlIG5vdCB0cnlpbmcgdG8gY2F0Y2ggYW55IHBhcnRpY3VsYXIgZXJyb3JzIGhlcmUsIGp1c3QgbWFraW5nIHN1cmUgdGhhdCB0aGUgY29uc3VtZXJzXG4gIC8vIHN0YWNrIGlzIHJlc3RvcmVkIGluIGNhc2Ugb2YgZXJyb3JzLlxuICB0cnkge1xuICAgIHJldHVybiBub25SZWFjdGl2ZVJlYWRzRm4oKTtcbiAgfSBmaW5hbGx5IHtcbiAgICBzZXRBY3RpdmVDb25zdW1lcihwcmV2Q29uc3VtZXIpO1xuICB9XG59XG4iXX0=

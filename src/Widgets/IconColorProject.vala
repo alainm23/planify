@@ -26,8 +26,7 @@ public class Widgets.IconColorProject : Gtk.Grid {
             halign = Gtk.Align.CENTER
         };
 
-        unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
-        widget_color_context.add_class ("label-color");
+        widget_color.add_css_class ("label-color");
 
         stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE

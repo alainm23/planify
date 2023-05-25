@@ -221,7 +221,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             width_request = 32
         };
 
-        spinner.get_style_context ().add_class ("text-color");
+        spinner.add_css_class ("text-color");
         spinner.start ();
 
         placeholder_stack = new Gtk.Stack () {

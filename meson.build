@@ -120,6 +120,8 @@ planner_files = files(
   'src/Widgets/CalendarSourceRow.vala',
   'src/Widgets/SettingsHeader.vala',
   'src/Widgets/SubItems.vala',
+  'src/Widgets/LabelChild.vala',
+  'src/Widgets/LabelsSummary.vala',
 
   'src/Widgets/Calendar/Calendar.vala',
   'src/Widgets/Calendar/CalendarDay.vala',
@@ -148,6 +150,7 @@ planner_files = files(
   'src/Views/Pinboard.vala',
   'src/Views/Label.vala',
   'src/Views/Filter.vala',
+  'src/Views/Filters.vala',
   
   'src/Views/Scheduled/Scheduled.vala',
   'src/Views/Scheduled/ScheduledDay.vala',
@@ -170,6 +173,7 @@ planner_files = files(
   'src/Objects/Filters/Today.vala',
   'src/Objects/Filters/Priority.vala',
   'src/Objects/Filters/Completed.vala',
+  'src/Objects/Filters/Labels.vala',
 
   'src/Models/ItemList.vala',
 
@@ -177,6 +181,8 @@ planner_files = files(
   'src/Dialogs/Label.vala',
   'src/Dialogs/Item.vala',
   'src/Dialogs/TodoistOAuth.vala',
+  'src/Dialogs/ProjectDescription.vala',
+  'src/Dialogs/ManageSectionOrder.vala',
   'src/Dialogs/ProjectPicker/ProjectPicker.vala',
   'src/Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'src/Dialogs/ProjectPicker/SectionPickerRow.vala',

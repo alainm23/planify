@@ -1,0 +1,78 @@
+{
+  "name": "ionicons",
+  "version": "7.1.0",
+  "description": "Premium icons for Ionic.",
+  "files": [
+    "components/",
+    "dist/",
+    "icons/"
+  ],
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "unpkg": "dist/ionicons.js",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "scripts": {
+    "build": "tsc -p scripts/tsconfig.json && npm run build.files && npm run build.component && npm run collection.copy",
+    "build.files": "node scripts/build.js",
+    "build.component": "stencil build",
+    "collection.copy": "node scripts/collection-copy.js",
+    "start": "stencil build --dev --watch --serve",
+    "test": "npm run test.spec",
+    "test.spec": "stencil test --spec"
+  },
+  "dependencies": {
+    "@stencil/core": "^2.18.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.26.1",
+    "@types/fs-extra": "^9.0.6",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/svgo": "^1.3.3",
+    "fs-extra": "^9.1.0",
+    "jest": "^26.6.3",
+    "jest-cli": "^26.6.3",
+    "lerna": "^6.0.3",
+    "puppeteer": "^10.4.0",
+    "semver": "^7.3.8",
+    "serve": "^14.0.1",
+    "svgo": "1.3.2",
+    "typescript": "^4.1.3"
+  },
+  "keywords": [
+    "icon pack",
+    "ionic",
+    "icon",
+    "svg",
+    "mobile",
+    "web component",
+    "component",
+    "custom element",
+    "material design",
+    "ios"
+  ],
+  "homepage": "http://ionicons.com/",
+  "author": {
+    "name": "Ben Sperry",
+    "web": "https://twitter.com/benjsperry"
+  },
+  "contributors": [
+    {
+      "name": "Adam Bradley",
+      "web": "http://twitter.com/adamdbradley"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ionic-team/ionicons.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ionic-team/ionicons/issues"
+  },
+  "license": "MIT",
+  "sideEffects": [
+    "icons/imports/"
+  ]
+}

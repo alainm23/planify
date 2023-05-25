@@ -81,7 +81,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };
-        loading_spinner.get_style_context ().add_class ("submit-spinner");
+        loading_spinner.add_css_class ("submit-spinner");
         loading_spinner.start ();
 
         loading_revealer = new Gtk.Revealer () {

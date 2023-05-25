@@ -1,0 +1,3 @@
+:host(.ion-color) {
+  color: var(--ion-color-base);
+}

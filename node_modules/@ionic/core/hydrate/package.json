@@ -1,0 +1,6 @@
+{
+  "name": "@ionic/core/hydrate",
+  "description": "Ionic component hydration app.",
+  "main": "index.js",
+  "types": "index.d.ts"
+}

@@ -49,7 +49,9 @@ public enum FilterType {
     TODAY = 0,
     INBOX = 1,
     SCHEDULED = 2,
-    PINBOARD = 3;
+    PINBOARD = 3,
+    LABEL = 4,
+    FILTER = 5;
 
     public string to_string () {
         switch (this) {
@@ -64,6 +66,12 @@ public enum FilterType {
 
             case PINBOARD:
                 return "pinboard";
+
+            case LABEL:
+                return "label";
+
+            case FILTER:
+                return "filter";
 
             default:
                 assert_not_reached();
@@ -91,6 +99,7 @@ public enum FilterType {
 }
 
 public enum BackendType {
+    ALL,
     NONE,
     LOCAL,
     TODOIST,
@@ -98,6 +107,9 @@ public enum BackendType {
 
     public string to_string () {
         switch (this) {
+            case ALL:
+                return "all";
+
             case NONE:
                 return "none";
 
@@ -182,27 +194,27 @@ public enum RecurrencyType {
                 if (interval == null || interval == 0) {
                     return _("Every day");
                 } else {
-                    return GLib.ngettext ("Every day", "Every %d days", interval).printf (interval);
+                    return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
                 }
             case EVERY_WEEK:
                 if (interval == null || interval == 0) {
                     return _("Every week");
                 } else {
-                    return GLib.ngettext ("Every week", "Every %d weeks", interval).printf (interval);
+                    return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
                 }
 
             case EVERY_MONTH:
                 if (interval == null || interval == 0) {
                     return _("Every month");
                 } else {
-                    return GLib.ngettext ("Every month", "Every %d months", interval).printf (interval);
+                    return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
                 }
             
             case EVERY_YEAR:
                 if (interval == null || interval == 0) {
                     return _("Every year");
                 } else {
-                    return GLib.ngettext ("Every year", "Every %d years", interval).printf (interval);
+                    return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
                 }
                 
             default:
@@ -214,4 +226,22 @@ public enum RecurrencyType {
 public enum DefaultInboxProject {
     LOCAL = 0,
     TODOIST = 1
+}
+
+public enum PickerType {
+    PROJECTS,
+    SECTIONS;
+
+    public string to_string () {
+        switch (this) {
+            case PROJECTS:
+                return "projects";
+
+            case SECTIONS:
+                return "sections";
+
+            default:
+                assert_not_reached();
+        }
+    }
 }

@@ -18,6 +18,7 @@
     <file alias="planner-scheduled.svg">resources/planner-scheduled.svg</file>
     <file alias="planner-sidebar-trash.svg">resources/planner-sidebar-trash.svg</file>
     <file alias="planner-pin-tack.svg">resources/planner-pin-tack.svg</file>
+    <file alias="planner-tag-icon.svg">resources/planner-tag-icon.svg</file>
     <file alias="planner-priority-1.svg">resources/planner-priority-1.svg</file>
     <file alias="planner-priority-2.svg">resources/planner-priority-2.svg</file>
     <file alias="planner-priority-3.svg">resources/planner-priority-3.svg</file>
@@ -112,5 +113,9 @@
     <file alias="unordered-list-light.svg">resources/unordered-list-light.svg</file>
     <file alias="menu-dark.svg">resources/menu-dark.svg</file>
     <file alias="menu-light.svg">resources/menu-light.svg</file>
+    <file alias="ordered-list-dark.svg">resources/ordered-list-dark.svg</file>
+    <file alias="ordered-list-light.svg">resources/ordered-list-light.svg</file>
+    <file alias="share-light.svg">resources/share-light.svg</file>
+    <file alias="share-dark.svg">resources/share-dark.svg</file>
   </gresource>
 </gresources>

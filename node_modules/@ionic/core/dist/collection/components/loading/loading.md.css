@@ -1,0 +1,86 @@
+:host {
+  /**
+   * @prop --background: Background of the loading dialog
+   *
+   * @prop --min-width: Minimum width of the loading dialog
+   * @prop --width: Width of the loading dialog
+   * @prop --max-width: Maximum width of the loading dialog
+   *
+   * @prop --min-height: Minimum height of the loading dialog
+   * @prop --height: Height of the loading dialog
+   * @prop --max-height: Maximum height of the loading dialog
+   *
+   * @prop --spinner-color: Color of the loading spinner
+   *
+   * @prop --backdrop-opacity: Opacity of the backdrop
+   */
+  --min-width: auto;
+  --width: auto;
+  --min-height: auto;
+  --height: auto;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  font-family: var(--ion-font-family, inherit);
+  contain: strict;
+  touch-action: none;
+  user-select: none;
+  z-index: 1001;
+}
+
+:host(.overlay-hidden) {
+  display: none;
+}
+
+.loading-wrapper {
+  display: flex;
+  align-items: inherit;
+  justify-content: inherit;
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  background: var(--background);
+  opacity: 0;
+  z-index: 10;
+}
+
+ion-spinner {
+  color: var(--spinner-color);
+}
+
+:host {
+  --background: var(--ion-color-step-50, #f2f2f2);
+  --max-width: 280px;
+  --max-height: 90%;
+  --spinner-color: var(--ion-color-primary, #3880ff);
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+  color: var(--ion-color-step-850, #262626);
+  font-size: 14px;
+}
+
+.loading-wrapper {
+  border-radius: 2px;
+  -webkit-padding-start: 24px;
+  padding-inline-start: 24px;
+  -webkit-padding-end: 24px;
+  padding-inline-end: 24px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  box-shadow: 0 16px 20px rgba(0, 0, 0, 0.4);
+}
+
+.loading-spinner + .loading-content {
+  -webkit-margin-start: 16px;
+  margin-inline-start: 16px;
+}

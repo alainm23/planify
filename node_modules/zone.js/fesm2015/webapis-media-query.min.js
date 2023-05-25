@@ -1,0 +1,6 @@
+"use strict";
+/**
+ * @license Angular v<unknown>
+ * (c) 2010-2022 Google LLC. https://angular.io/
+ * License: MIT
+ */Zone.__load_patch("mediaQuery",((e,t,n)=>{function a(e){n.patchMethod(e,"addListener",(e=>(a,r)=>{const o=r.length>0?r[0]:null;if("function"==typeof o){const r=t.current.wrap(o,"MediaQuery");return o[n.symbol("mediaQueryCallback")]=r,e.call(a,r)}return e.apply(a,r)}))}function r(e){n.patchMethod(e,"removeListener",(e=>(t,a)=>{const r=a.length>0?a[0]:null;if("function"==typeof r){const o=r[n.symbol("mediaQueryCallback")];return o?e.call(t,o):e.apply(t,a)}return e.apply(t,a)}))}if(e.MediaQueryList){const t=e.MediaQueryList.prototype;a(t),r(t)}else e.matchMedia&&n.patchMethod(e,"matchMedia",(e=>(t,n)=>{const o=e.apply(t,n);if(o){const e=Object.getPrototypeOf(o);e&&e.addListener?(a(e),r(e),a(o),r(o)):o.addListener&&(a(o),r(o))}return o}))}));

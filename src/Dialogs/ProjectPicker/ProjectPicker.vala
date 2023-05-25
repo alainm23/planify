@@ -20,11 +20,15 @@
 */
 
 public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
+    public BackendType backend_type { get; construct; }
+    public PickerType picker_type { get; construct; }
+
     private Gtk.SearchEntry search_entry;
-    private Gtk.ListBox inbox_listbox;
-    private Gtk.ListBox local_listbox;
-    private Gtk.ListBox todoist_listbox;
     private Gtk.ListBox sections_listbox;
+
+    private Layouts.HeaderItem inbox_group;
+    private Layouts.HeaderItem local_group;
+    private Layouts.HeaderItem todoist_group;
 
     public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> projects_hashmap;
 
@@ -59,8 +63,10 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
 
     public signal void changed (string type, string id);
 
-    public ProjectPicker () {
+    public ProjectPicker (PickerType picker_type = PickerType.PROJECTS, BackendType backend_type = BackendType.ALL) {
         Object (
+            picker_type: picker_type,
+            backend_type: backend_type,
             deletable: true,
             resizable: true,
             modal: true,
@@ -80,29 +86,11 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a search"),
             hexpand = true,
-            margin_start = 12,
-            margin_end = 12
+            margin_start = 16,
+            margin_end = 16
         };
 
         search_entry.add_css_class ("border-radius-9");
-
-        var projects_button = new Gtk.ToggleButton.with_label (_("Projects")) {
-            active = true
-        };
-        var sections_button = new Gtk.ToggleButton.with_label (_("Sections"));
-        sections_button.set_group (projects_button);
-
-        var mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
-            homogeneous = true
-        };
-
-        mode_box.add_css_class (Granite.STYLE_CLASS_LINKED);
-        mode_box.append (projects_button);
-        mode_box.append (sections_button);
 
         var main_stack = new Gtk.Stack () {
             hexpand = true,
@@ -110,8 +98,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
         };
 
-        main_stack.add_named (build_projects_view (), "projects-view");
-        main_stack.add_named (build_sections_view (), "sections-view");
+        main_stack.add_named (build_projects_view (), "projects");
+        main_stack.add_named (build_sections_view (), "sections");
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Move")) {
             margin_top = 12,
@@ -124,17 +112,20 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
         content_box.append (search_entry);
-        content_box.append (mode_box);
         content_box.append (main_stack);
         content_box.append (submit_button);
 
         content = content_box;
-
         add_projects ();
 
+        Timeout.add (Constants.DRAG_TIMEOUT, () => {
+            main_stack.visible_child_name = picker_type.to_string ();
+            return GLib.Source.REMOVE;
+        });
+
         search_entry.search_changed.connect (() => {
-            local_listbox.invalidate_filter ();
-            todoist_listbox.invalidate_filter ();
+            local_group.invalidate_filter ();
+            todoist_group.invalidate_filter ();
         });
 
         Planner.event_bus.project_picker_changed.connect ((id) => {
@@ -145,17 +136,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             _section = Services.Database.get_default ().get_section (id);
         });
 
-        projects_button.toggled.connect (() => {
-            main_stack.visible_child_name = "projects-view";
-        });
-
-        sections_button.toggled.connect (() => {
-            main_stack.visible_child_name = "sections-view";
-        });
-
         submit_button.clicked.connect (() => {
-            if (main_stack.visible_child_name == "projects-view") {
-                print ("Project ID: %s\n".printf (project.id));
+            if (main_stack.visible_child_name == "projects") {
                 changed ("project", project.id);
             } else {
                 string id = "";
@@ -163,7 +145,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
                     id = section.id;
                 }
 
-                print ("Section ID: %s\n".printf (id));
                 changed ("section", id);
             }
 
@@ -172,89 +153,35 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     }
 
     private Gtk.Widget build_projects_view () {
-        inbox_listbox = new Gtk.ListBox () {
-            hexpand = true,
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
-        };
+        inbox_group = new Layouts.HeaderItem (null);
+        inbox_group.show_action = false;
 
-        inbox_listbox.add_css_class ("listbox-background");
-        inbox_listbox.add_css_class ("listbox-separator-3");
+        local_group = new Layouts.HeaderItem (_("On this Computer"));
+        local_group.show_action = false;
 
-        var inbox_listbox_grid = new Gtk.Grid () {
-            margin_top = 12,
+        todoist_group = new Layouts.HeaderItem (_("Todoist"));
+        todoist_group.show_action = false;
+
+        if (backend_type == BackendType.ALL) {
+            inbox_group.reveal = true;
+            local_group.reveal = true;
+            todoist_group.reveal = true;
+        } else if (backend_type == BackendType.LOCAL) {
+            local_group.reveal = true;
+        } else if (backend_type == BackendType.TODOIST) {
+            todoist_group.reveal = true;
+        }
+
+        local_group.set_filter_func (filter_func);
+        todoist_group.set_filter_func (filter_func);
+        
+        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12
         };
-        
-        inbox_listbox_grid.attach (inbox_listbox, 0, 0);
-        inbox_listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
-
-        var local_header = new Granite.HeaderLabel (_("On this Computer")) {
-            margin_start = 6
-        };
-
-        local_listbox = new Gtk.ListBox () {
-            hexpand = true,
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
-        };
-        
-        local_listbox.set_filter_func (filter_func);
-        local_listbox.add_css_class ("listbox-background");
-        local_listbox.add_css_class ("listbox-separator-3");
-
-        var local_listbox_card = new Gtk.Grid ();
-
-        local_listbox_card.attach (local_listbox, 0, 0);
-        local_listbox_card.add_css_class (Granite.STYLE_CLASS_CARD);
-
-        var local_listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 6,
-            margin_start = 12,
-            margin_end = 12
-        };
-        local_listbox_box.append (local_header);
-        local_listbox_box.append (local_listbox_card);
-
-        // Todoist
-
-        var todoist_header = new Granite.HeaderLabel (_("Todoist")) {
-            margin_start = 6
-        };
-
-        todoist_listbox = new Gtk.ListBox () {
-            hexpand = true,
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
-        };
-        
-        todoist_listbox.set_filter_func (filter_func);
-        todoist_listbox.add_css_class ("listbox-background");
-        todoist_listbox.add_css_class ("listbox-separator-3");
-
-        var todoist_listbox_grid = new Gtk.Grid ();
-        todoist_listbox_grid.attach (todoist_listbox, 0, 0);
-        todoist_listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
-
-        var todoist_listbox_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 6,
-            margin_start = 12,
-            margin_end = 12
-        };
-        todoist_listbox_box.append (todoist_header);
-        todoist_listbox_box.append (todoist_listbox_grid);
-        
-        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        scrolled_box.append (inbox_listbox_grid);
-        scrolled_box.append (local_listbox_box);
-        scrolled_box.append (todoist_listbox_box);
+        scrolled_box.append (inbox_group);
+        scrolled_box.append (local_group);
+        scrolled_box.append (todoist_group);
 
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -304,12 +231,12 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
             
             if (project.inbox_project) {
-                inbox_listbox.append (projects_hashmap [project.id_string]);
+                inbox_group.add_child (projects_hashmap [project.id_string]);
             } else {
                 if (project.backend_type == BackendType.LOCAL) {
-                    local_listbox.append (projects_hashmap [project.id_string]);
+                    local_group.add_child (projects_hashmap [project.id_string]);
                 } else if (project.backend_type == BackendType.TODOIST) {
-                    todoist_listbox.append (projects_hashmap [project.id_string]);
+                    todoist_group.add_child (projects_hashmap [project.id_string]);
                 }
             }
         }

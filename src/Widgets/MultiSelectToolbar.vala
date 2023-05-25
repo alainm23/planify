@@ -39,7 +39,8 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
     public MultiSelectToolbar () {
         Object (
             hexpand: true,
-            halign: Gtk.Align.CENTER
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.END
         );
     }
 
@@ -49,7 +50,8 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         var done_button = new Widgets.LoadingButton.with_label (_("Done")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_start = 24
+            margin_start = 12,
+            margin_end = 6
         };
 
         done_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
@@ -68,7 +70,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         schedule_box.append (schedule_label);
 
         schedule_button = new Gtk.Button ();
-        schedule_button.get_style_context ().add_class (Granite.STYLE_CLASS_FLAT);
+        schedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         schedule_button.child = schedule_box;
 
         var label_image = new Widgets.DynamicIcon ();
@@ -85,7 +87,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         priority_button = new Gtk.Button ();
 
-        priority_button.get_style_context ().add_class (Granite.STYLE_CLASS_FLAT);
+        priority_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         priority_button.child = priority_image;
 
         var menu_image = new Widgets.DynamicIcon ();
@@ -96,8 +98,17 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         menu_button.child = menu_image;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            margin_start = 12,
+            margin_end = 12,
+            margin_top = 12,
+            margin_bottom = 12
+        };
         content_box.valign = Gtk.Align.CENTER;
+        content_box.halign = Gtk.Align.CENTER;
+        content_box.add_css_class (Granite.STYLE_CLASS_CARD);
+        content_box.add_css_class ("padding-6");
+        content_box.add_css_class (Granite.STYLE_CLASS_VIEW);
 
         content_box.append (schedule_button);
         content_box.append (label_button);
@@ -107,8 +118,9 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         content_box.append (done_button);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child = false
+            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            reveal_child = false,
+            hexpand = true
         };
 
         main_revealer.child = content_box;
@@ -258,7 +270,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");
         
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
-        delete_item.get_style_context ().add_class ("menu-item-danger");
+        delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;

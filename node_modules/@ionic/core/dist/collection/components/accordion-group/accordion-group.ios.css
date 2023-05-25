@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+:host(.accordion-group-expand-inset) {
+  -webkit-margin-start: 16px;
+  margin-inline-start: 16px;
+  -webkit-margin-end: 16px;
+  margin-inline-end: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+:host(.accordion-group-expand-inset) ::slotted(ion-accordion.accordion-expanding),
+:host(.accordion-group-expand-inset) ::slotted(ion-accordion.accordion-expanded) {
+  border-bottom: none;
+}

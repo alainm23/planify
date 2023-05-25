@@ -208,7 +208,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
 
         var time_label = new Gtk.Label (_("Time"));
 
-        time_label.get_style_context ().add_class ("font-bold");
+        time_label.add_css_class ("font-bold");
 
         time_picker = new Widgets.DateTimePicker.TimePicker () {
             hexpand = true,

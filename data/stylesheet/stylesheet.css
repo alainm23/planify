@@ -155,6 +155,11 @@ entry.flat:focus-within {
     background-color: transparent;
 }
 
+.row {
+    border-radius: 9px;
+    transition: all 115ms ease-in-out;
+}
+
 .row:hover {
     background-color: transparent;
 }
@@ -197,6 +202,9 @@ entry.flat:focus-within {
 
 .card-selected {
     padding: 9px;
+    padding-top: 3px;
+    padding-right: 3px;
+    padding-bottom: 0px;
     margin-right: 3px;
     border: 1px solid @item_border_color;
 }
@@ -393,4 +401,8 @@ entry.flat:focus-within {
     opacity: 0.8;
     padding-bottom: 0.5em;
     padding-top: 0.5em;
+}
+
+.circular-check {
+    padding: 0;
 }

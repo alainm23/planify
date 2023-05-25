@@ -96,7 +96,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
             margin_top = 6,
             margin_bottom = 6
         };
-        recurrency_interval.get_style_context ().add_class ("popover-spinbutton");
+        recurrency_interval.add_css_class ("popover-spinbutton");
 
         recurrency_combobox = new Gtk.ComboBoxText () {
             hexpand = true,
@@ -191,6 +191,35 @@ public class Dialogs.RepeatConfig : Adw.Window {
             update_repeat_label ();
         });
 
+        mo_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        tu_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        we_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        th_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        fr_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        sa_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+        su_button.toggled.connect (() => {
+            update_repeat_label ();
+        });
+
+
         submit_button.clicked.connect (() => {
             set_repeat ();
         });
@@ -248,12 +277,16 @@ public class Dialogs.RepeatConfig : Adw.Window {
             returned += "7,";
         }
 
-        return returned.slice (0, -1);
+        if (returned.split (",").length > 0) {
+            return returned.slice (0, -1);
+        }
+
+        return returned;
     }
 
     private void update_repeat_label () {
         RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.get_active();
-        string label = selected_option.to_friendly_string ((int) recurrency_interval.value);
+        string label = Util.get_default ().get_recurrency_weeks (selected_option, (int)  recurrency_interval.value, get_recurrency_weeks ());
         repeat_label.label = label;
     }
 

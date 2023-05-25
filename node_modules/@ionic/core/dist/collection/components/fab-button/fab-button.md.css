@@ -1,0 +1,283 @@
+:host {
+  /**
+   * @prop --background: Background of the button
+   * @prop --background-activated: Background of the button when pressed. Note: setting this will interfere with the Material Design ripple.
+   * @prop --background-activated-opacity: Opacity of the button background when pressed
+   * @prop --background-focused: Background of the button when focused with the tab key
+   * @prop --background-focused-opacity: Opacity of the button background when focused with the tab key
+   * @prop --background-hover: Background of the button on hover
+   * @prop --background-hover-opacity: Opacity of the button background on hover
+   *
+   * @prop --color: Text color of the button
+   * @prop --color-activated: Text color of the button when pressed
+   * @prop --color-focused: Text color of the button when focused with the tab key
+   * @prop --color-hover: Text color of the button on hover
+   *
+   * @prop --transition: Transition of the button
+   *
+   * @prop --close-icon-font-size: Font size of the close icon
+   *
+   * @prop --border-radius: Border radius of the button
+   * @prop --border-width: Border width of the button
+   * @prop --border-style: Border style of the button
+   * @prop --border-color: Border color of the button
+   *
+   * @prop --ripple-color: Color of the button ripple effect
+   *
+   * @prop --box-shadow: Box shadow of the button
+   *
+   * @prop --padding-top: Top padding of the button
+   * @prop --padding-end: Right padding if direction is left-to-right, and left padding if direction is right-to-left of the button
+   * @prop --padding-bottom: Bottom padding of the button
+   * @prop --padding-start: Left padding if direction is left-to-right, and right padding if direction is right-to-left of the button
+   */
+  --color-activated: var(--color);
+  --color-focused: var(--color);
+  --color-hover: var(--color);
+  --background-hover: var(--ion-color-primary-contrast, #fff);
+  --background-hover-opacity: .08;
+  --transition: background-color, opacity 100ms linear;
+  --ripple-color: currentColor;
+  --border-radius: 50%;
+  --border-width: 0;
+  --border-style: none;
+  --border-color: initial;
+  --padding-top: 0;
+  --padding-end: 0;
+  --padding-bottom: 0;
+  --padding-start: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: block;
+  width: 56px;
+  height: 56px;
+  font-size: 14px;
+  text-align: center;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+  font-kerning: none;
+}
+
+.button-native {
+  border-radius: var(--border-radius);
+  -webkit-padding-start: var(--padding-start);
+  padding-inline-start: var(--padding-start);
+  -webkit-padding-end: var(--padding-end);
+  padding-inline-end: var(--padding-end);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  color: inherit;
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: var(--transform);
+  transition: var(--transition);
+  border-width: var(--border-width);
+  border-style: var(--border-style);
+  border-color: var(--border-color);
+  outline: none;
+  background: var(--background);
+  background-clip: padding-box;
+  color: var(--color);
+  box-shadow: var(--box-shadow);
+  contain: strict;
+  cursor: pointer;
+  overflow: hidden;
+  z-index: 0;
+  appearance: none;
+  box-sizing: border-box;
+}
+
+::slotted(ion-icon) {
+  line-height: 1;
+}
+
+.button-native::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: absolute;
+  content: "";
+  opacity: 0;
+}
+
+.button-inner {
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  position: absolute;
+  flex-flow: row nowrap;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  transition: all ease-in-out 300ms;
+  transition-property: transform, opacity;
+  z-index: 1;
+}
+
+:host(.fab-button-disabled) {
+  cursor: default;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (any-hover: hover) {
+  :host(:hover) .button-native {
+    color: var(--color-hover);
+  }
+  :host(:hover) .button-native::after {
+    background: var(--background-hover);
+    opacity: var(--background-hover-opacity);
+  }
+}
+:host(.ion-focused) .button-native {
+  color: var(--color-focused);
+}
+:host(.ion-focused) .button-native::after {
+  background: var(--background-focused);
+  opacity: var(--background-focused-opacity);
+}
+
+:host(.ion-activated) .button-native {
+  color: var(--color-activated);
+}
+:host(.ion-activated) .button-native::after {
+  background: var(--background-activated);
+  opacity: var(--background-activated-opacity);
+}
+
+::slotted(ion-icon) {
+  line-height: 1;
+}
+
+:host(.fab-button-small) {
+  -webkit-margin-start: 8px;
+  margin-inline-start: 8px;
+  -webkit-margin-end: 8px;
+  margin-inline-end: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 40px;
+  height: 40px;
+}
+
+.close-icon {
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+  height: 100%;
+  transform: scale(0.4) rotateZ(-45deg);
+  transition: all ease-in-out 300ms;
+  transition-property: transform, opacity;
+  font-size: var(--close-icon-font-size);
+  opacity: 0;
+  z-index: 1;
+}
+
+:host(.fab-button-close-active) .close-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+
+:host(.fab-button-close-active) .button-inner {
+  transform: scale(0.4) rotateZ(45deg);
+  opacity: 0;
+}
+
+ion-ripple-effect {
+  color: var(--ripple-color);
+}
+
+@supports (backdrop-filter: blur(0)) {
+  :host(.fab-button-translucent) .button-native {
+    backdrop-filter: var(--backdrop-filter);
+  }
+}
+:host(.ion-color) .button-native {
+  background: var(--ion-color-base);
+  color: var(--ion-color-contrast);
+}
+
+:host {
+  --background: var(--ion-color-primary, #3880ff);
+  --background-activated: transparent;
+  --background-focused: currentColor;
+  --background-hover: currentColor;
+  --background-activated-opacity: 0;
+  --background-focused-opacity: .24;
+  --background-hover-opacity: .08;
+  --color: var(--ion-color-primary-contrast, #fff);
+  --box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+  --transition: box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1), background-color 280ms cubic-bezier(0.4, 0, 0.2, 1), color 280ms cubic-bezier(0.4, 0, 0.2, 1), opacity 15ms linear 30ms, transform 270ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  --close-icon-font-size: 24px;
+}
+
+:host(.ion-activated) {
+  --box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 12px 17px 2px rgba(0, 0, 0, 0.14), 0 5px 22px 4px rgba(0, 0, 0, 0.12);
+}
+
+::slotted(ion-icon) {
+  font-size: 24px;
+}
+
+:host(.fab-button-in-list) {
+  --color: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.54);
+  --color-activated: rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.54);
+  --color-focused: var(--color-activated);
+  --background: var(--ion-color-light, #f4f5f8);
+  --background-activated: transparent;
+  --background-focused: var(--ion-color-light-shade, #d7d8da);
+  --background-hover: var(--ion-color-light-tint, #f5f6f9);
+}
+
+:host(.fab-button-in-list) ::slotted(ion-icon) {
+  font-size: 18px;
+}
+
+:host(.ion-color.ion-focused) .button-native {
+  color: var(--ion-color-contrast);
+}
+:host(.ion-color.ion-focused) .button-native::after {
+  background: var(--ion-color-contrast);
+}
+
+:host(.ion-color.ion-activated) .button-native {
+  color: var(--ion-color-contrast);
+}
+:host(.ion-color.ion-activated) .button-native::after {
+  background: transparent;
+}
+
+@media (any-hover: hover) {
+  :host(.ion-color:hover) .button-native {
+    color: var(--ion-color-contrast);
+  }
+  :host(.ion-color:hover) .button-native::after {
+    background: var(--ion-color-contrast);
+  }
+}

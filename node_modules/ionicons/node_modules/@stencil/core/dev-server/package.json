@@ -1,0 +1,8 @@
+{
+  "name": "@stencil/core/dev-server",
+  "version": "2.22.3",
+  "description": "Stencil Development Server which communicates with the Stencil Compiler.",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "private": true
+}

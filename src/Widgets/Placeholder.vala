@@ -2,7 +2,6 @@
 
 public class Widgets.Placeholder : Gtk.Grid {
     private Widgets.DynamicIcon placeholder_image;
-    private Gtk.Label title_label;
     private Gtk.Label description_label;
 
     public string description {

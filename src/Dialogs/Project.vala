@@ -286,7 +286,6 @@ public class Dialogs.Project : Adw.Window {
         project.color = color_picker_row.color;
         project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.emoji = emoji_label.label;
-        project.child_order = Services.Database.get_default ().next_project_child_order (project.backend_type);
 
         if (!is_creating) {
             submit_button.is_loading = true;
@@ -302,6 +301,7 @@ public class Dialogs.Project : Adw.Window {
                 hide_destroy ();
             }
         } else {
+            project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
             if (project.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (project, (obj, res) => {

@@ -64,7 +64,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     public DateTimePicker () {
         Object (
             has_arrow: false,
-            position: Gtk.PositionType.BOTTOM
+            position: Gtk.PositionType.RIGHT
         );
     }
 
@@ -85,19 +85,37 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "planner-scheduled");
 
         var items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            margin_top = 6,
-            margin_end = 9
+            hexpand = true
         };
 
         items_box.append (today_item);
         items_box.append (tomorrow_item);
         items_box.append (next_week_item);
         items_box.append (no_date_item);
-        items_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        items_box.append (date_item);
+        items_box.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        var calendar_view = new Widgets.Calendar.Calendar (true);
+        var calendar_item_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            margin_top = 6
+        };
+        calendar_item_box.add_css_class (Granite.STYLE_CLASS_CARD);
+        calendar_item_box.append (date_item);
+        
+        var menu_items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true
+        };
+
+        menu_items_box.append (items_box);
+        menu_items_box.append (calendar_item_box);
+
+        // var calendar_view = new Widgets.Calendar.Calendar (true);
+        var calendar_view = new Gtk.Calendar ();
+        calendar_view.add_css_class ("calendar");
+        calendar_view.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        var calendar_grid = new Gtk.Grid ();
+        calendar_grid.attach (calendar_view, 0, 0);
+        calendar_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
         var time_icon = new Widgets.DynamicIcon () {
             margin_start = 3
@@ -109,7 +127,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var time_label = new Gtk.Label (_("Time")) {
             margin_start = 6
         };
-        time_label.get_style_context ().add_class ("font-weight-500");
+        time_label.add_css_class ("font-weight-500");
 
         time_picker = new Widgets.DateTimePicker.TimePicker () {
             hexpand = true,
@@ -118,27 +136,25 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            margin_start = 7,
-            margin_end = 6,
-            margin_top = 3
+            margin_top = 6
         };
 
         time_box.append (time_icon);
         time_box.append (time_label);
         time_box.append (time_picker);
+        time_box.add_css_class (Granite.STYLE_CLASS_CARD);
 
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
             margin_top = 12,
             margin_bottom = 3
         };
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.add_css_class ("small-button");
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
-        calendar_box.append (calendar_view);
+        calendar_box.append (calendar_grid);
         calendar_box.append (time_box);
         calendar_box.append (submit_button);
 
@@ -150,7 +166,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             hhomogeneous = true
         };
 
-        content_stack.add_named (items_box, "items");
+        content_stack.add_named (menu_items_box, "items");
         content_stack.add_named (calendar_box, "calendar");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -180,8 +196,12 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             date_changed ();
         });
 
-        calendar_view.selection_changed.connect ((date) => {
-            _datetime = Util.get_default ().get_format_date (date);
+        //  calendar_view.selection_changed.connect ((date) => {
+        //      _datetime = Util.get_default ().get_format_date (date);
+        //  });
+
+        calendar_view.day_selected.connect (() => {
+            _datetime = Util.get_default ().get_format_date (calendar_view.get_date ());
         });
 
         time_picker.time_changed.connect (() => {

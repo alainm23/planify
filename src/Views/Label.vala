@@ -43,19 +43,27 @@ public class Views.Label : Gtk.Grid {
         sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         sidebar_button.child = sidebar_image;
 
+        var back_image = new Widgets.DynamicIcon ();
+        back_image.size = 19;
+        back_image.update_icon_name ("chevron-left");
+
+        var back_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER
+        };
+
+        back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        back_button.child = back_image;
+
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
-            height_request = 16,
-            width_request = 16
+            height_request = 12,
+            width_request = 12
         };
 
-        unowned Gtk.StyleContext widget_color_context = widget_color.get_style_context ();
-        widget_color_context.add_class ("label-color");
+        widget_color.add_css_class ("label-color");
 
-        title_label = new Gtk.Label (null) {
-            margin_bottom = 3
-        };
-        title_label.get_style_context ().add_class ("header-title");
+        title_label = new Gtk.Label (null);
+        title_label.add_css_class ("font-bold");
 
         // Menu Button
         var menu_image = new Widgets.DynamicIcon ();
@@ -104,7 +112,7 @@ public class Views.Label : Gtk.Grid {
 
         headerbar.add_css_class ("flat");
         headerbar.pack_start (sidebar_button);
-        headerbar.pack_start (widget_color);
+        headerbar.pack_start (back_button);
         headerbar.pack_start (title_label);
         headerbar.pack_end (menu_button);
         headerbar.pack_end (search_button);
@@ -157,7 +165,9 @@ public class Views.Label : Gtk.Grid {
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content;
@@ -199,6 +209,10 @@ public class Views.Label : Gtk.Grid {
 
         add_button.clicked.connect (() => {
             // prepare_new_item ();
+        });
+
+        back_button.clicked.connect (() => {
+            Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
         });
 
         search_button.clicked.connect (() => {

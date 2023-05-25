@@ -138,7 +138,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         description_row.set_activatable_widget (description_switch);
         description_row.add_suffix (description_switch);
 
-        tasks_group.add (description_row);
+        // tasks_group.add (description_row);
 
         var underline_completed_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
@@ -504,7 +504,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         todoist_user.add_css_class ("title-1");
 
         var todoist_email = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
-        todoist_email.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
+        todoist_email.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 64

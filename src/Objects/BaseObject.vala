@@ -176,7 +176,7 @@ public class Objects.BaseObject : GLib.Object {
         return "";
     }
 
-    public virtual string get_move_json (string uuid, int64 new_project_id) {
+    public virtual string get_move_json (string uuid, string new_project_id) {
         return "";
     }
 

@@ -315,7 +315,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         drop_target.preload = true;
 
-        drop_target.on_drop.connect ((value, x, y) => {
+        drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
             
@@ -348,11 +348,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         });
 
         add_controller (drop_target);
-    }
-
-    private void disable_drag_and_drop () {
-        remove_controller (drag_source);
-        remove_controller (drop_target);
     }
 
     public void drag_begin () {

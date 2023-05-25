@@ -65,7 +65,7 @@ public class Views.Today : Gtk.Grid {
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         overdue_header_box.append (overdue_label);
-        overdue_header_box.append (reschedule_button);
+        // overdue_header_box.append (reschedule_button);
 
         overdue_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -148,7 +148,9 @@ public class Views.Today : Gtk.Grid {
         content.append (listbox_grid);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content;

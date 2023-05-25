@@ -330,7 +330,7 @@ public class Objects.Section : Objects.BaseObject {
         //  });
     }
 
-    public override string get_move_json (string uuid, int64 new_project_id) {
+    public override string get_move_json (string uuid, string new_project_id) {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();
@@ -349,7 +349,7 @@ public class Objects.Section : Objects.BaseObject {
             builder.add_string_value (id);
 
             builder.set_member_name ("project_id");
-            builder.add_int_value (new_project_id);
+            builder.add_string_value (new_project_id);
 
             builder.end_object ();
         builder.end_object ();

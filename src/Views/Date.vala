@@ -98,8 +98,7 @@ public class Views.Date : Gtk.Grid {
             hexpand = true
         };
 
-        unowned Gtk.StyleContext overdue_listbox_context = overdue_listbox.get_style_context ();
-        overdue_listbox_context.add_class ("listbox-background");
+        overdue_listbox.add_css_class ("listbox-background");
 
         var overdue_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_bottom = 12
@@ -119,7 +118,7 @@ public class Views.Date : Gtk.Grid {
             margin_start = 26,
             margin_bottom = 6
         };
-        today_label.get_style_context ().add_class ("font-bold");
+        today_label.add_css_class ("font-bold");
 
         today_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN

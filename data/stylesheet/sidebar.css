@@ -50,7 +50,7 @@
     box-shadow: 0px 0px 3px 1px #9d59e0;
 }
 
-.filter-pane-row-pinboard {
+.filter-pane-row-filter {
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
@@ -58,11 +58,11 @@
     color: #7e8087;
 }
 
-.filter-pane-row-pinboard.selected image {
+.filter-pane-row-filter.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.filter-pane-row-pinboard-selected {
+.filter-pane-row-filter-selected {
     box-shadow: 0px 0px 3px 1px #7e8087;
 }
 
@@ -88,4 +88,9 @@
 .selectable-item-selected {
     background-color: @shade_color;
     border-radius: 9px;
+}
+
+.drop-css {
+    border-radius: 9px;
+    transition: all 220ms ease-in-out;
 }

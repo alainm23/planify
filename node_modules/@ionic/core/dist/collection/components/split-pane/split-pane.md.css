@@ -1,0 +1,92 @@
+:host {
+  /**
+   * @prop --border: Border between panes
+   * @prop --side-min-width: Minimum width of the side pane. Does not apply when split pane is collapsed.
+   * @prop --side-max-width: Maximum width of the side pane. Does not apply when split pane is collapsed.
+   * @prop --side-width: Width of the side pane. Does not apply when split pane is collapsed.
+   */
+  --side-width: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  contain: strict;
+}
+
+/**
+ * Do not pass CSS Variables down on larger
+ * screens as we want them to affect the outer
+ * `ion-menu` rather than the inner content
+ */
+::slotted(ion-menu.menu-pane-visible) {
+  flex: 0 1 auto;
+  width: var(--side-width);
+  min-width: var(--side-min-width);
+  max-width: var(--side-max-width);
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side),
+:host(.split-pane-visible) ::slotted(.split-pane-main) {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: relative;
+  /* stylelint-disable-next-line declaration-no-important */
+  box-shadow: none !important;
+  z-index: 0;
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-main) {
+  flex: 1;
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side:not(ion-menu)),
+:host(.split-pane-visible) ::slotted(ion-menu.split-pane-side.menu-enabled) {
+  display: flex;
+  flex-shrink: 0;
+}
+
+::slotted(.split-pane-side:not(ion-menu)) {
+  display: none;
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side) {
+  order: -1;
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]) {
+  order: 1;
+}
+
+:host {
+  --border: 1px solid var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+  --side-min-width: 270px;
+  --side-max-width: 28%;
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side) {
+  -webkit-border-start: 0;
+  border-inline-start: 0;
+  -webkit-border-end: var(--border);
+  border-inline-end: var(--border);
+  border-top: 0;
+  border-bottom: 0;
+  min-width: var(--side-min-width);
+  max-width: var(--side-max-width);
+}
+
+:host(.split-pane-visible) ::slotted(.split-pane-side[side=end]) {
+  -webkit-border-start: var(--border);
+  border-inline-start: var(--border);
+  -webkit-border-end: 0;
+  border-inline-end: 0;
+  border-top: 0;
+  border-bottom: 0;
+  min-width: var(--side-min-width);
+  max-width: var(--side-max-width);
+}

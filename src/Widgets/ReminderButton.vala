@@ -21,7 +21,7 @@ public class Widgets.ReminderButton : Gtk.Grid {
         bell_image.update_icon_name ("planner-bell");
 
         badge_label = new Gtk.Label (null);
-        badge_label.get_style_context ().add_class (Granite.STYLE_CLASS_DIM_LABEL);
+        badge_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         badge_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT

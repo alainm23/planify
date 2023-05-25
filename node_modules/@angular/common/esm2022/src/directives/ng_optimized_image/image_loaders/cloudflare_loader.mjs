@@ -1,0 +1,30 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { createImageLoader } from './image_loader';
+/**
+ * Function that generates an ImageLoader for [Cloudflare Image
+ * Resizing](https://developers.cloudflare.com/images/image-resizing/) and turns it into an Angular
+ * provider. Note: Cloudflare has multiple image products - this provider is specifically for
+ * Cloudflare Image Resizing; it will not work with Cloudflare Images or Cloudflare Polish.
+ *
+ * @param path Your domain name, e.g. https://mysite.com
+ * @returns Provider that provides an ImageLoader function
+ *
+ * @publicApi
+ */
+export const provideCloudflareLoader = createImageLoader(createCloudflareUrl, ngDevMode ? ['https://<ZONE>/cdn-cgi/image/<OPTIONS>/<SOURCE-IMAGE>'] : undefined);
+function createCloudflareUrl(path, config) {
+    let params = `format=auto`;
+    if (config.width) {
+        params += `,width=${config.width}`;
+    }
+    // Cloudflare image URLs format:
+    // https://developers.cloudflare.com/images/image-resizing/url-format/
+    return `${path}/cdn-cgi/image/${params}/${config.src}`;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY2xvdWRmbGFyZV9sb2FkZXIuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9jb21tb24vc3JjL2RpcmVjdGl2ZXMvbmdfb3B0aW1pemVkX2ltYWdlL2ltYWdlX2xvYWRlcnMvY2xvdWRmbGFyZV9sb2FkZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxFQUFDLGlCQUFpQixFQUFvQixNQUFNLGdCQUFnQixDQUFDO0FBRXBFOzs7Ozs7Ozs7O0dBVUc7QUFDSCxNQUFNLENBQUMsTUFBTSx1QkFBdUIsR0FBRyxpQkFBaUIsQ0FDcEQsbUJBQW1CLEVBQ25CLFNBQVMsQ0FBQyxDQUFDLENBQUMsQ0FBQyx1REFBdUQsQ0FBQyxDQUFDLENBQUMsQ0FBQyxTQUFTLENBQUMsQ0FBQztBQUV2RixTQUFTLG1CQUFtQixDQUFDLElBQVksRUFBRSxNQUF5QjtJQUNsRSxJQUFJLE1BQU0sR0FBRyxhQUFhLENBQUM7SUFDM0IsSUFBSSxNQUFNLENBQUMsS0FBSyxFQUFFO1FBQ2hCLE1BQU0sSUFBSSxVQUFVLE1BQU0sQ0FBQyxLQUFLLEVBQUUsQ0FBQztLQUNwQztJQUNELGdDQUFnQztJQUNoQyxzRUFBc0U7SUFDdEUsT0FBTyxHQUFHLElBQUksa0JBQWtCLE1BQU0sSUFBSSxNQUFNLENBQUMsR0FBRyxFQUFFLENBQUM7QUFDekQsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQGxpY2Vuc2VcbiAqIENvcHlyaWdodCBHb29nbGUgTExDIEFsbCBSaWdodHMgUmVzZXJ2ZWQuXG4gKlxuICogVXNlIG9mIHRoaXMgc291cmNlIGNvZGUgaXMgZ292ZXJuZWQgYnkgYW4gTUlULXN0eWxlIGxpY2Vuc2UgdGhhdCBjYW4gYmVcbiAqIGZvdW5kIGluIHRoZSBMSUNFTlNFIGZpbGUgYXQgaHR0cHM6Ly9hbmd1bGFyLmlvL2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQge2NyZWF0ZUltYWdlTG9hZGVyLCBJbWFnZUxvYWRlckNvbmZpZ30gZnJvbSAnLi9pbWFnZV9sb2FkZXInO1xuXG4vKipcbiAqIEZ1bmN0aW9uIHRoYXQgZ2VuZXJhdGVzIGFuIEltYWdlTG9hZGVyIGZvciBbQ2xvdWRmbGFyZSBJbWFnZVxuICogUmVzaXppbmddKGh0dHBzOi8vZGV2ZWxvcGVycy5jbG91ZGZsYXJlLmNvbS9pbWFnZXMvaW1hZ2UtcmVzaXppbmcvKSBhbmQgdHVybnMgaXQgaW50byBhbiBBbmd1bGFyXG4gKiBwcm92aWRlci4gTm90ZTogQ2xvdWRmbGFyZSBoYXMgbXVsdGlwbGUgaW1hZ2UgcHJvZHVjdHMgLSB0aGlzIHByb3ZpZGVyIGlzIHNwZWNpZmljYWxseSBmb3JcbiAqIENsb3VkZmxhcmUgSW1hZ2UgUmVzaXppbmc7IGl0IHdpbGwgbm90IHdvcmsgd2l0aCBDbG91ZGZsYXJlIEltYWdlcyBvciBDbG91ZGZsYXJlIFBvbGlzaC5cbiAqXG4gKiBAcGFyYW0gcGF0aCBZb3VyIGRvbWFpbiBuYW1lLCBlLmcuIGh0dHBzOi8vbXlzaXRlLmNvbVxuICogQHJldHVybnMgUHJvdmlkZXIgdGhhdCBwcm92aWRlcyBhbiBJbWFnZUxvYWRlciBmdW5jdGlvblxuICpcbiAqIEBwdWJsaWNBcGlcbiAqL1xuZXhwb3J0IGNvbnN0IHByb3ZpZGVDbG91ZGZsYXJlTG9hZGVyID0gY3JlYXRlSW1hZ2VMb2FkZXIoXG4gICAgY3JlYXRlQ2xvdWRmbGFyZVVybCxcbiAgICBuZ0Rldk1vZGUgPyBbJ2h0dHBzOi8vPFpPTkU+L2Nkbi1jZ2kvaW1hZ2UvPE9QVElPTlM+LzxTT1VSQ0UtSU1BR0U+J10gOiB1bmRlZmluZWQpO1xuXG5mdW5jdGlvbiBjcmVhdGVDbG91ZGZsYXJlVXJsKHBhdGg6IHN0cmluZywgY29uZmlnOiBJbWFnZUxvYWRlckNvbmZpZykge1xuICBsZXQgcGFyYW1zID0gYGZvcm1hdD1hdXRvYDtcbiAgaWYgKGNvbmZpZy53aWR0aCkge1xuICAgIHBhcmFtcyArPSBgLHdpZHRoPSR7Y29uZmlnLndpZHRofWA7XG4gIH1cbiAgLy8gQ2xvdWRmbGFyZSBpbWFnZSBVUkxzIGZvcm1hdDpcbiAgLy8gaHR0cHM6Ly9kZXZlbG9wZXJzLmNsb3VkZmxhcmUuY29tL2ltYWdlcy9pbWFnZS1yZXNpemluZy91cmwtZm9ybWF0L1xuICByZXR1cm4gYCR7cGF0aH0vY2RuLWNnaS9pbWFnZS8ke3BhcmFtc30vJHtjb25maWcuc3JjfWA7XG59XG4iXX0=

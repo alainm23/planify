@@ -752,15 +752,21 @@ public class Objects.Item : Objects.BaseObject {
         );
     }
 
-    public void duplicate () {
+    public Objects.Item generate_copy () {
         var new_item = new Objects.Item ();
-        new_item.content = "[%s] %s".printf (_("Diplicate"), content);
+        new_item.id = Util.get_default ().generate_id ();
+        new_item.content = content;
         new_item.description = description;
         new_item.pinned = pinned;
         new_item.due = due;
         new_item.priority = priority;
-        new_item.project_id = project_id;
-        new_item.section_id = section_id;
+
+        return new_item;
+    }
+
+    public void duplicate () {
+        var new_item = generate_copy ();
+        new_item.content = "[%s] %s".printf (_("Diplicate"), content);
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
@@ -792,5 +798,25 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+    }
+
+    public void delete_item (Layouts.ItemRow? itemrow = null) {
+        if (project.backend_type == BackendType.TODOIST) {
+            if (itemrow != null) {
+                itemrow.is_loading = true;
+            }
+
+            Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                if (Services.Todoist.get_default ().delete.end (res)) {
+                    Services.Database.get_default ().delete_item (this);
+                } else {
+                    if (itemrow != null) {
+                        itemrow.is_loading = false;
+                    }
+                }
+            });
+        } else {
+            Services.Database.get_default ().delete_item (this);
+        }
     }
 }

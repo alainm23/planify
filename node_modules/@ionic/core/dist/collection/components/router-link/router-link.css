@@ -1,0 +1,29 @@
+:host {
+  /**
+   * @prop --background: Background of the router link
+   * @prop --color: Text color of the router link
+   */
+  --background: transparent;
+  --color: var(--ion-color-primary, #3880ff);
+  background: var(--background);
+  color: var(--color);
+}
+
+:host(.ion-color) {
+  color: var(--ion-color-base);
+}
+
+a {
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  color: inherit;
+}

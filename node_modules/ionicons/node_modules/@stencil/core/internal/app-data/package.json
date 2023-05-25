@@ -1,0 +1,15 @@
+{
+  "name": "@stencil/core/internal/app-data",
+  "version": "2.22.3",
+  "description": "Used for default app data and build conditionals within builds.",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "type": "module",
+  "private": true,
+  "sideEffects": false
+}

@@ -90,39 +90,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 19;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
-        };
-
-        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        search_button.child = search_image;
-
-        labels_header = new Widgets.LabelsHeader ();
-
         var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
-
-        var views_header = new Adw.HeaderBar () {
-            title_widget = new Gtk.Label (null),
-            hexpand = true
-        };
-
-        views_header.pack_start (sidebar_button);
-        views_header.pack_start (project_view_headerbar);
-        views_header.title_widget = multiselect_toolbar;
-        views_header.pack_end (search_button);
-        views_header.pack_end (labels_header);
-        views_header.add_css_class ("flat");
-
-        Planner.event_bus.show_multi_select.connect ((active) => {
-            sidebar_button.visible = !active;
-            project_view_headerbar.visible = !active;
-            search_button.visible = !active;
-            labels_header.visible = !active;
-        });
 
         views_stack = new Gtk.Stack () {
             hexpand = true,
@@ -149,12 +117,15 @@ public class MainWindow : Adw.ApplicationWindow {
         devel_infobar.add_child (devel_label);
 
         var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        // views_content.append (views_header);
-        // views_content.append (devel_infobar);
         views_content.append (views_stack);
+        // views_content.append (multiselect_toolbar);
+
+        var views_overlay = new Gtk.Overlay ();
+        views_overlay.child = views_content;
+        views_overlay.add_overlay (multiselect_toolbar);
 
         var toast_overlay = new Adw.ToastOverlay ();
-        toast_overlay.child = views_content;
+        toast_overlay.child = views_overlay;
 
         flap_view = new Adw.Flap () {
             locked = false,
@@ -219,6 +190,8 @@ public class MainWindow : Adw.ApplicationWindow {
                     add_scheduled_view ();
                 } else if (id == FilterType.PINBOARD.to_string ()) {
                     add_pinboard_view ();
+                } else if (id == FilterType.FILTER.to_string ()) {
+                    add_filters_view ();
                 } else if (id.has_prefix ("priority")) {
                     add_priority_view (id);
                 } else if (id == "completed-view") {
@@ -235,11 +208,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
         sidebar_button.clicked.connect (() => {
             show_hide_sidebar ();
-        });
-
-        search_button.clicked.connect (() => {
-            var dialog = new Dialogs.QuickFind.QuickFind ();
-            dialog.show ();
         });
 
         Planner.event_bus.send_notification.connect ((toast) => {
@@ -349,6 +317,18 @@ public class MainWindow : Adw.ApplicationWindow {
 
         project_view_headerbar.update_view (Objects.Pinboard.get_default ());
         views_stack.set_visible_child_name ("pinboard-view");
+    }
+
+    public void add_filters_view () {
+        Views.Filters? filters_view;
+        filters_view = (Views.Filters) views_stack.get_child_by_name ("filters-view");
+        if (filters_view == null) {
+            filters_view = new Views.Filters ();
+            views_stack.add_named (filters_view, "filters-view");
+        }
+
+        project_view_headerbar.update_view (Objects.Pinboard.get_default ());
+        views_stack.set_visible_child_name ("filters-view");
     }
 
     public void add_priority_view (string view_id) {

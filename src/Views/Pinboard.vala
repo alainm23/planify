@@ -2,10 +2,11 @@ public class Views.Pinboard : Gtk.Grid {
     public Gee.HashMap <string, Layouts.ItemRow> items;
     private Gtk.ListBox listbox;
     private Gtk.Stack listbox_stack;
+    private Gtk.ScrolledWindow scrolled_window;
 
     private bool has_items {
         get {
-            return Util.get_default ().get_children (listbox).length () > 0;
+            return items.size > 0;
         }
     }
 
@@ -13,8 +14,6 @@ public class Views.Pinboard : Gtk.Grid {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
         var headerbar = new Widgets.FilterHeader (Objects.Pinboard.get_default ());
-
-        var magic_button = new Widgets.MagicButton ();
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -52,12 +51,14 @@ public class Views.Pinboard : Gtk.Grid {
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content;
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
+        scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true
@@ -81,10 +82,6 @@ public class Views.Pinboard : Gtk.Grid {
             return GLib.Source.REMOVE;
         });
 
-        magic_button.clicked.connect (() => {
-            prepare_new_item ();
-        });
-
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
@@ -95,28 +92,17 @@ public class Views.Pinboard : Gtk.Grid {
             }
         });
 
-        //  listbox.add.connect (() => {
-        //      validate_placeholder ();
-        //  });
-
-        //  listbox.remove.connect (() => {
-        //      validate_placeholder ();
-        //  });
-
-        scrolled_window.vadjustment.value_changed.connect (() => {
-            if (scrolled_window.vadjustment.value > 20) {
-                Planner.event_bus.view_header (true);
-            } else {
-                Planner.event_bus.view_header (false);
-            }
+        headerbar.prepare_new_item.connect (() => {
+            prepare_new_item ();
         });
     }
 
     private void validate_placeholder () {
-        // listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 
     public void prepare_new_item (string content = "") {
+        listbox_stack.visible_child_name = "listbox";
         Planner.event_bus.item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
@@ -131,7 +117,16 @@ public class Views.Pinboard : Gtk.Grid {
             item_added (row);
         });
 
-        listbox.append (row);
+        row.widget_destroyed.connect (() => {
+            validate_placeholder ();
+        });
+
+        listbox.insert (row, 0);
+
+        Timeout.add (225, () => {
+            scrolled_window.vadjustment.value = 0;
+            return GLib.Source.REMOVE;
+        });
     }
 
     private void item_added (Layouts.ItemRow row) {
@@ -166,6 +161,8 @@ public class Views.Pinboard : Gtk.Grid {
         if (!items.has_key (item.id_string) && item.pinned && !item.checked) {
             add_item (item);   
         }
+
+        validate_placeholder ();
     }
 
     private void valid_delete_item (Objects.Item item) {
@@ -173,6 +170,8 @@ public class Views.Pinboard : Gtk.Grid {
             items[item.id_string].hide_destroy ();
             items.unset (item.id_string);
         }
+
+        validate_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {

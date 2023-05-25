@@ -1,12 +1,10 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
-    private Widgets.HyperTextView description_textview;
-
+    private Gtk.Label description_label;
     private Widgets.DynamicIcon due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
-    private Gtk.Revealer label_filter_revealer;
 
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
@@ -34,23 +32,24 @@ public class Views.List : Gtk.Grid {
             margin_bottom = 6
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description")) {
-            left_margin = 6,
-            right_margin = 6,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true
+        description_label = new Gtk.Label (_("Add a description")) {
+            halign = Gtk.Align.START,
+            margin_top = 6,
+            margin_bottom = 6,
+            margin_start = 6,
+            margin_end = 6,
+            use_markup = true,
+            wrap = true
         };
-
-        description_textview.remove_css_class ("view");
+        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        description_label.label = Util.get_default ().get_markup_format (project.description);
 
         var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 6,
-            margin_end = 12
+            margin_end = 6
         };
         
-        description_box.append (description_textview);
+        description_box.append (description_label);
         description_box.add_css_class ("description-box");
 
         due_revealer = build_due_date_widget ();
@@ -65,6 +64,17 @@ public class Views.List : Gtk.Grid {
         };
 
         listbox.add_css_class ("listbox-background");
+
+        listbox.set_sort_func ((row1, row2) => {
+            Layouts.SectionRow item1 = ((Layouts.SectionRow) row1);
+            Layouts.SectionRow item2 = ((Layouts.SectionRow) row2);
+
+            if (item1.is_inbox_section) {
+                return 0;
+            }
+
+            return item1.section.section_order - item2.section.section_order;
+        });
 
         var listbox_grid = new Gtk.Grid ();
         listbox_grid.attach (listbox, 0, 0);
@@ -88,13 +98,17 @@ public class Views.List : Gtk.Grid {
             margin_bottom = 24
         };
 
-        // content_box.append (top_project);
-        content_box.append (due_revealer);
-        // content_box.append (description_box);
+        if (!project.is_inbox_project) {
+            content_box.append (due_revealer);
+            content_box.append (description_box);
+        }
+
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content_box;
@@ -111,7 +125,6 @@ public class Views.List : Gtk.Grid {
         add_sections ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-            set_sort_func ();
             check_placeholder ();
             return GLib.Source.REMOVE;
         });
@@ -128,13 +141,9 @@ public class Views.List : Gtk.Grid {
             }
         });
 
-        //  scrolled_window.vadjustment.value_changed.connect (() => {
-        //      if (scrolled_window.vadjustment.value > 50) {
-        //          Planner.event_bus.view_header (true);
-        //      } else {
-        //          Planner.event_bus.view_header (false);
-        //      }
-        //  });
+        project.section_sort_order_changed.connect (() => {
+            listbox.invalidate_sort ();
+        });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
@@ -153,11 +162,8 @@ public class Views.List : Gtk.Grid {
                 sections_map [section.id_string].hide_destroy ();
                 sections_map.unset (section.id_string);
             }
-        });
 
-        description_textview.updated.connect (() => {
-            project.description = description_textview.get_text ();
-            project.update (false);
+            check_placeholder ();
         });
 
         Planner.event_bus.paste_action.connect ((project_id, content) => {
@@ -179,34 +185,27 @@ public class Views.List : Gtk.Grid {
                 check_placeholder ();
             }
         });
-    }
 
-    private void set_sort_func () {
-        listbox.set_sort_func ((row1, row2) => {
-            Objects.Section item1 = ((Layouts.SectionRow) row1).section;
-            Objects.Section item2 = ((Layouts.SectionRow) row2).section;
+        var description_gesture = new Gtk.GestureClick ();
+        description_box.add_controller (description_gesture);
 
-            return item1.section_order - item2.section_order;
+        description_gesture.pressed.connect ((n_press, x, y) => {
+            var dialog = new Dialogs.ProjectDescription (project);
+            dialog.show ();
         });
 
-        listbox.set_sort_func (null);
-    }
-
-    private void update_projects_position () {
-        //  Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-        //      GLib.List<weak Gtk.Widget> sections = listbox.get_children ();
-        //      for (int index = 1; index < sections.length (); index++) {
-        //          Objects.Section section = ((Layouts.SectionRow) sections.nth_data (index)).section;
-        //          section.section_order = index;
-        //          Services.Database.get_default ().update_child_order (section);
-        //      }
-
-        //      return GLib.Source.REMOVE;
-        //  });
+        project.show_completed_changed.connect (() => {
+            check_placeholder ();
+        });
     }
 
     private void check_placeholder () {
-        if (project.project_count > 0) {
+        int count = project.project_count + sections_map.size;
+        if (project.show_completed) {
+            count = count + project.items_checked.size;
+        }
+
+        if (count > 0) {
             listbox_placeholder_stack.visible_child_name = "listbox";
         } else {
             listbox_placeholder_stack.visible_child_name = "placeholder";
@@ -214,10 +213,6 @@ public class Views.List : Gtk.Grid {
     }
 
     private void add_sections () {
-        for (Gtk.Widget child = listbox.get_first_child (); child != null; child = listbox.get_next_sibling ()) {
-            child.destroy ();
-        }
-
         add_inbox_section ();
         foreach (Objects.Section section in project.sections) {
             add_section (section);
@@ -230,8 +225,12 @@ public class Views.List : Gtk.Grid {
     }
 
     private void add_section (Objects.Section section) {
-        sections_map [section.id_string] = new Layouts.SectionRow (section);
-        listbox.append (sections_map [section.id_string]);
+        if (!sections_map.has_key (section.id)) {
+            sections_map [section.id] = new Layouts.SectionRow (section);
+            listbox.append (sections_map [section.id]);
+        }
+
+        check_placeholder ();
     }
 
     public void prepare_new_item (string content = "") {
@@ -254,7 +253,14 @@ public class Views.List : Gtk.Grid {
     }
 
     public void update_request () {
-        description_textview.set_text (project.description);
+        description_label.remove_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        string description = Util.get_default ().get_markup_format (project.description);
+        if (description.strip () == "") {
+            description = _("Add a description");
+            description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        }
+
+        description_label.label = description;
         update_duedate ();
     }
 
@@ -295,7 +301,7 @@ public class Views.List : Gtk.Grid {
 
         var due_date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 6,
-            margin_end = 12
+            margin_end = 6
         };
         
         due_date_box.append (due_box);

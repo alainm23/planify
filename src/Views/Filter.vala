@@ -151,7 +151,9 @@ public class Views.Filter : Gtk.Grid {
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content_clamp.child = content;
@@ -335,7 +337,7 @@ public class Views.Filter : Gtk.Grid {
         var header_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
             Util.get_default ().get_date_from_string (row.item.completed_at)
         ));
-        header_label.get_style_context ().add_class ("font-bold");
+        header_label.add_css_class ("font-bold");
         header_label.halign = Gtk.Align.START;
 
         var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {

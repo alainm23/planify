@@ -1,0 +1,44 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host button {
+  border-radius: 8px;
+  -webkit-padding-start: 12px;
+  padding-inline-start: 12px;
+  -webkit-padding-end: 12px;
+  padding-inline-end: 12px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  -webkit-margin-start: 2px;
+  margin-inline-start: 2px;
+  -webkit-margin-end: 2px;
+  margin-inline-end: 2px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  position: relative;
+  transition: 150ms color ease-in-out;
+  border: none;
+  background: var(--ion-color-step-300, #edeef0);
+  color: var(--ion-text-color, #000);
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  appearance: none;
+  overflow: hidden;
+}
+
+:host(.time-active) #time-button,
+:host(.date-active) #date-button {
+  color: var(--ion-color-base);
+}
+
+:host(.datetime-button-disabled) {
+  pointer-events: none;
+}
+
+:host(.datetime-button-disabled) button {
+  opacity: 0.4;
+}

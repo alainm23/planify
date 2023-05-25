@@ -5,6 +5,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.FilterPaneRow today_filter;
     private Layouts.FilterPaneRow scheduled_filter;
     private Layouts.FilterPaneRow pinboard_filter;
+    private Layouts.FilterPaneRow filters_filter;
     
     private Layouts.HeaderItem favorites_header;
     private Layouts.HeaderItem local_projects_header;
@@ -27,18 +28,21 @@ public class Layouts.Sidebar : Gtk.Grid {
             row_spacing = 9,
             column_spacing = 9,
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            column_homogeneous = true,
+            row_homogeneous = true
         };
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
         pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD);
+        filters_filter = new Layouts.FilterPaneRow (FilterType.FILTER);
 
         filters_grid.attach (inbox_filter, 0, 0);
         filters_grid.attach (today_filter, 1, 0);
         filters_grid.attach (scheduled_filter, 0, 1);
-        filters_grid.attach (pinboard_filter, 1, 1);
+        filters_grid.attach (filters_filter, 1, 1);
 
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
@@ -198,6 +202,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         today_filter.init ();
         scheduled_filter.init ();
         pinboard_filter.init ();
+        filters_filter.init ();
         
         local_projects_header.reveal = true;
 

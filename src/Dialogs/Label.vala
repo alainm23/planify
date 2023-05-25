@@ -162,7 +162,7 @@ public class Dialogs.Label : Adw.Window {
 
         if (!is_creating) {
             submit_button.is_loading = true;
-            if (label.backend_type == BackendType.TODOIST) {
+            if (label.backend_type == BackendType.TODOIST) { 
                 Services.Todoist.get_default ().update.begin (label, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default().update_label (label);
@@ -174,6 +174,7 @@ public class Dialogs.Label : Adw.Window {
                 hide_destroy ();
             }
         } else {
+            label.item_order = Services.Database.get_default ().get_labels_by_backend_type (label.backend_type).size;
             if (label.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {

@@ -1,0 +1,15 @@
+{
+  "name": "@stencil/core/mock-doc",
+  "version": "2.22.3",
+  "description": "Mock window, document and DOM outside of a browser environment.",
+  "main": "./index.cjs",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "type": "module",
+  "private": true,
+  "sideEffects": false
+}

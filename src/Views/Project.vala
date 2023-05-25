@@ -78,7 +78,8 @@ public class Views.Project : Gtk.Grid {
         var view_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             homogeneous = true,
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            sensitive = false
         };
 
         view_mode_box.add_css_class (Granite.STYLE_CLASS_LINKED);
@@ -235,8 +236,8 @@ public class Views.Project : Gtk.Grid {
     private Widgets.ContextMenu.MenuItem show_completed_item;
     private Gtk.Popover build_context_menu () {
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-
         var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
+        var description_item = new Widgets.ContextMenu.MenuItem (_("Description"), "planner-note");
 
         var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
         show_completed_item = new Widgets.ContextMenu.MenuItem (
@@ -256,12 +257,13 @@ public class Views.Project : Gtk.Grid {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
-        if (!project.inbox_project) {
+        if (!project.is_inbox_project) {
             menu_box.append (edit_item);
+            menu_box.append (description_item);
+            menu_box.append (schedule_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         }
 
-        menu_box.append (schedule_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         // menu_box.append (filter_by_tags);
         menu_box.append (add_section_item);
         menu_box.append (select_item);
@@ -283,6 +285,12 @@ public class Views.Project : Gtk.Grid {
             popover.popdown ();
 
             var dialog = new Dialogs.Project (project);
+            dialog.show ();
+        });
+
+        description_item.activate_item.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ProjectDescription (project);
             dialog.show ();
         });
 
@@ -371,6 +379,7 @@ public class Views.Project : Gtk.Grid {
         new_section.project_id = project.id;
         new_section.name = _("New section");
         new_section.activate_name_editable = true;
+        new_section.section_order = project.sections.size;
 
         return new_section;
     }

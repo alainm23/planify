@@ -1,0 +1,162 @@
+:host {
+  /**
+   * @prop --background: Background of the modal content
+   *
+   * @prop --border-color: Border color of the modal content
+   * @prop --border-radius: Border radius of the modal content
+   * @prop --border-width: Border width of the modal content
+   * @prop --border-style: Border style of the modal content
+   *
+   * @prop --min-width: Minimum width of the modal
+   * @prop --width: Width of the modal
+   * @prop --max-width: Maximum width of the modal
+   *
+   * @prop --min-height: Minimum height of the modal
+   * @prop --height: Height of the modal
+   * @prop --max-height: Maximum height of the modal
+   *
+   * @prop --backdrop-opacity: Opacity of the backdrop
+   */
+  --width: 100%;
+  --min-width: auto;
+  --max-width: auto;
+  --height: 100%;
+  --min-height: auto;
+  --max-height: auto;
+  --overflow: hidden;
+  --border-radius: 0;
+  --border-width: 0;
+  --border-style: none;
+  --border-color: transparent;
+  --background: var(--ion-background-color, #fff);
+  --box-shadow: none;
+  --backdrop-opacity: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  color: var(--ion-text-color, #000);
+  contain: strict;
+}
+
+.modal-wrapper,
+ion-backdrop {
+  pointer-events: auto;
+}
+
+:host(.overlay-hidden) {
+  display: none;
+}
+
+.modal-wrapper,
+.modal-shadow {
+  border-radius: var(--border-radius);
+  width: var(--width);
+  min-width: var(--min-width);
+  max-width: var(--max-width);
+  height: var(--height);
+  min-height: var(--min-height);
+  max-height: var(--max-height);
+  border-width: var(--border-width);
+  border-style: var(--border-style);
+  border-color: var(--border-color);
+  background: var(--background);
+  box-shadow: var(--box-shadow);
+  overflow: var(--overflow);
+  z-index: 10;
+}
+
+.modal-shadow {
+  position: absolute;
+  background: transparent;
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+  :host {
+    --width: 600px;
+    --height: 500px;
+    --ion-safe-area-top: 0px;
+    --ion-safe-area-bottom: 0px;
+    --ion-safe-area-right: 0px;
+    --ion-safe-area-left: 0px;
+  }
+}
+@media only screen and (min-width: 768px) and (min-height: 768px) {
+  :host {
+    --width: 600px;
+    --height: 600px;
+  }
+}
+.modal-handle {
+  left: 0px;
+  right: 0px;
+  top: 5px;
+  border-radius: 8px;
+  -webkit-margin-start: auto;
+  margin-inline-start: auto;
+  -webkit-margin-end: auto;
+  margin-inline-end: auto;
+  position: absolute;
+  width: 36px;
+  height: 5px;
+  /**
+   * This allows the handle to appear
+   * on top of user content in WebKit.
+   */
+  transform: translateZ(0);
+  border: 0;
+  background: var(--ion-color-step-350, #c0c0be);
+  cursor: pointer;
+  z-index: 11;
+}
+.modal-handle::before {
+  /**
+   * Adds a 4px tap area to the perimeter
+   * of the handle.
+   */
+  -webkit-padding-start: 4px;
+  padding-inline-start: 4px;
+  -webkit-padding-end: 4px;
+  padding-inline-end: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  position: absolute;
+  width: 36px;
+  height: 5px;
+  transform: translate(-50%, -50%);
+  content: "";
+}
+
+/**
+ * Ensure that the sheet modal does not
+ * completely cover the content.
+ */
+:host(.modal-sheet) {
+  --height: calc(100% - (var(--ion-safe-area-top) + 10px));
+}
+
+:host(.modal-sheet) .modal-wrapper,
+:host(.modal-sheet) .modal-shadow {
+  position: absolute;
+  bottom: 0;
+}
+
+:host {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.32);
+}
+
+@media only screen and (min-width: 768px) and (min-height: 600px) {
+  :host {
+    --border-radius: 2px;
+    --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+  }
+}
+.modal-wrapper {
+  transform: translate3d(0,  40px,  0);
+  opacity: 0.01;
+}

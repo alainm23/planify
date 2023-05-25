@@ -1,0 +1,4 @@
+var __spreadArray=this&&this.__spreadArray||function(r,e,n){if(n||arguments.length===2)for(var a=0,o=e.length,t;a<o;a++){if(t||!(a in e)){if(!t)t=Array.prototype.slice.call(e,0,a);t[a]=e[a]}}return r.concat(t||Array.prototype.slice.call(e))};
+/*!
+ * (C) Ionic http://ionicframework.com - MIT License
+ */System.register([],(function(r){"use strict";return{execute:function(){var e=r("p",(function(r){var e=[];for(var n=1;n<arguments.length;n++){e[n-1]=arguments[n]}return console.warn.apply(console,__spreadArray(["[Ionic Warning]: ".concat(r)],e,false))}));var n=r("a",(function(r){var e=[];for(var n=1;n<arguments.length;n++){e[n-1]=arguments[n]}return console.error.apply(console,__spreadArray(["[Ionic Error]: ".concat(r)],e,false))}));var a=r("b",(function(r){var e=[];for(var n=1;n<arguments.length;n++){e[n-1]=arguments[n]}return console.error("<".concat(r.tagName.toLowerCase(),"> must be used inside ").concat(e.join(" or "),"."))}))}}}));

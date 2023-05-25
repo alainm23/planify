@@ -1,0 +1,46 @@
+:host {
+  /**
+   * @prop --background: Background of the segment button
+   */
+  --ripple-color: currentColor;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  position: relative;
+  align-items: stretch;
+  justify-content: center;
+  width: 100%;
+  background: var(--background);
+  font-family: var(--ion-font-family, inherit);
+  text-align: center;
+  contain: paint;
+  user-select: none;
+}
+
+:host(.segment-scrollable) {
+  justify-content: start;
+  width: auto;
+  overflow-x: auto;
+}
+
+:host(.segment-scrollable::-webkit-scrollbar) {
+  display: none;
+}
+
+:host {
+  --background: transparent;
+}
+
+:host(.in-toolbar) {
+  /**
+   * Segment should inherit the
+   * height of the toolbar.
+   * Note: --min-height is initially
+   * set on ion-toolbar, not ion-segment
+   */
+  min-height: var(--min-height);
+}
+
+:host(.segment-scrollable) ::slotted(ion-segment-button) {
+  min-width: auto;
+}

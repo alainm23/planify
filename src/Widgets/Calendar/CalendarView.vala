@@ -90,7 +90,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
                 if (_current_day != -1 && (i + 1) == _current_day + start_day) {
                     if (is_current_month) {
-                        item.get_style_context ().add_class ("calendar-today");
+                        item.add_css_class ("calendar-today");
                     }
                 }
 

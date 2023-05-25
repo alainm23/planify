@@ -31,26 +31,6 @@ public class Widgets.LabelButton : Gtk.Grid {
 
         attach (button, 0, 0);
 
-        //  var gesture = new Gtk.GestureClick ();
-        //  gesture.set_button (1);
-        //  add_controller (gesture);
-
-        //  gesture.pressed.connect ((n_press, x, y) => {
-        //      gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-        //      if (labels_picker == null) {
-                
-        //          labels_picker.set_parent (this);
-                
-        //          labels_picker.closed.connect (() => {
-        //              labels_changed (labels_picker.labels_map);
-        //          });
-        //      }
-
-        //      labels_picker.item = item;
-        //      labels_picker.popup ();
-        //  });
-
         labels_picker.show.connect (() => {
             labels_picker.item = item;
         });

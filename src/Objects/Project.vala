@@ -76,6 +76,12 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    public bool is_inbox_project {
+        get {
+            return id == Planner.settings.get_string ("inbox-project-id");
+        }
+    }
+
     Gee.ArrayList<Objects.Section> _sections;
     public Gee.ArrayList<Objects.Section> sections {
         get {
@@ -102,6 +108,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _items_checked;
+    public Gee.ArrayList<Objects.Item> items_checked {
+        get {
+            _items = Services.Database.get_default ().get_items_checked_by_project (this);
+            return _items;
+        }
+    }
+
     Gee.ArrayList<Objects.Project> _subprojects;
     public Gee.ArrayList<Objects.Project> subprojects {
         get {
@@ -123,6 +137,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void item_added (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
+    public signal void section_sort_order_changed ();
     public signal void view_style_changed ();
 
     int? _project_count = null;
@@ -497,7 +512,7 @@ public class Objects.Project : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public override string get_move_json (string uuid, int64 new_parent_id) {
+    public override string get_move_json (string uuid, string new_parent_id) {
         var builder = new Json.Builder ();
         builder.begin_array ();
         builder.begin_object ();
@@ -515,9 +530,9 @@ public class Objects.Project : Objects.BaseObject {
             builder.set_member_name ("id");
             builder.add_string_value (id);
 
-            if (new_parent_id != Constants.INACTIVE) {
+            if (new_parent_id != "") {
                 builder.set_member_name ("parent_id");
-                builder.add_int_value (new_parent_id);    
+                builder.add_string_value (new_parent_id);    
             } else {
                 builder.set_member_name ("parent_id");
                 builder.add_null_value ();
@@ -609,10 +624,11 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void share_markdown () {
-        //  Gtk.Clipboard.get_default (Planner.instance.main_window.get_display ()).set_text (to_markdown (), -1);
-        //  Planner.event_bus.send_notification (
-        //      _("The project was copied to the Clipboard.")
-        //  );
+        Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+        clipboard.set_text (to_markdown ());
+        Planner.event_bus.send_notification (
+            Util.get_default ().create_toast (_("The project was copied to the Clipboard."))
+        );
     }
 
     public void share_mail () {
