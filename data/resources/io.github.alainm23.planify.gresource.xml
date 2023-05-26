@@ -1,7 +1,7 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/com/github/alainm23/planify/stylesheet">
+  <gresource prefix="/io/github/alainm23/planify/stylesheet">
     <file alias="animations.css" compressed="true">resources/stylesheet/animations.css</file>
     <file alias="calendar.css" compressed="true">resources/stylesheet/calendar.css</file>
     <file alias="stylesheet.css" compressed="true">resources/stylesheet/stylesheet.css</file>
@@ -9,7 +9,7 @@
     <file alias="sidebar.css" compressed="true">resources/stylesheet/sidebar.css</file>
     <file alias="typography.css" compressed="true">resources/stylesheet/typography.css</file>
   </gresource>
-  <gresource prefix="/com/github/alainm23/planify">
+  <gresource prefix="/io/github/alainm23/planify">
     <file alias="index.css" compressed="true">resources/stylesheet/index.css</file>
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
 

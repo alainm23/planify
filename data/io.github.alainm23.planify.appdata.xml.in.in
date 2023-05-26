@@ -36,7 +36,7 @@
     </ul>
   </description>
   <provides>
-    <binary>com.github.alainm23.planify</binary>
+    <binary>io.github.alainm23.planify</binary>
   </provides>
   ​<releases>
     <release version="4.0" date="2023-05-26">

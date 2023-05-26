@@ -1,5 +1,5 @@
 project(
-  'com.github.alainm23.planify',
+  'io.github.alainm23.planify',
   'vala', 'c',
   version: '4.0'
 )
@@ -15,7 +15,7 @@ add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 ############
 
 asresources = gnome.compile_resources (
-    'as-resources', 'data/resources/com.github.alainm23.planify.gresource.xml',
+    'as-resources', 'data/resources/io.github.alainm23.planify.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
@@ -30,10 +30,10 @@ if profile == 'development'
   find_program('git')
   rev_txt = run_command('git','rev-parse','--short','HEAD').stdout().strip()
   rev = '-@0@'.format(rev_txt)
-  application_id = 'com.github.alainm23.planify.Devel'
+  application_id = 'io.github.alainm23.planify.Devel'
 else
   rev = ''
-  application_id = 'com.github.alainm23.planify'
+  application_id = 'io.github.alainm23.planify'
 endif
 
 ############

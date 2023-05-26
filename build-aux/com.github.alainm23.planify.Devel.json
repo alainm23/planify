@@ -1,9 +1,9 @@
 {
-    "app-id" : "com.github.alainm23.planify.Devel",
+    "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
     "runtime-version": "44",
     "sdk" : "org.gnome.Sdk",
-    "command" : "com.github.alainm23.planify",
+    "command" : "io.github.alainm23.planify",
     "tags" : [
         "devel"
     ],
@@ -16,7 +16,7 @@
         "--socket=session-bus",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
-        "--metadata=X-DConf=migrate-path=/com/github/alainm23/planify/"
+        "--metadata=X-DConf=migrate-path=/io/github/alainm23/planify/"
     ],
     "x-run-args" : [
         "--debug"

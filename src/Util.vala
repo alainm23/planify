@@ -169,7 +169,7 @@ public class Util : GLib.Object {
 
     public string get_todoist_avatar_path () {
         return GLib.Path.build_filename (
-            Environment.get_user_data_dir () + "/com.github.alainm23.planify",
+            Environment.get_user_data_dir () + "/io.github.alainm23.planify",
             Planner.settings.get_string ("todoist-user-image-id") + ".jpg"
         );
     }
@@ -827,7 +827,7 @@ public class Util : GLib.Object {
     }
 
     public void clear_database_query () {
-        string db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planify/database.db";
+        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
         File db_file = File.new_for_path (db_path);
 
         if (db_file.query_exists ()) {

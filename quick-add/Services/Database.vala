@@ -26,7 +26,7 @@ public class Services.Database : GLib.Object {
     }
 
     construct {
-        db_path = Environment.get_user_data_dir () + "/com.github.alainm23.planify/database.db";
+        db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
         Sqlite.Database.open (db_path, out db);
     }
 

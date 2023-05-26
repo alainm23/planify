@@ -14,11 +14,11 @@ public class Planner : Adw.Application {
     }
     
     static construct {
-        settings = new Settings ("com.github.alainm23.planify");
+        settings = new Settings ("io.github.alainm23.planify");
     }
 
     construct {
-        application_id = "com.github.alainm23.planify.quick-add";
+        application_id = "io.github.alainm23.planify.quick-add";
         flags |= ApplicationFlags.HANDLES_OPEN;
 
         Intl.setlocale (LocaleCategory.ALL, "");
@@ -33,7 +33,7 @@ public class Planner : Adw.Application {
         main_window.show ();
         
         var provider = new Gtk.CssProvider ();
-        provider.load_from_resource ("/com/github/alainm23/planify/index.css");
+        provider.load_from_resource ("/io/github/alainm23/planify/index.css");
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
