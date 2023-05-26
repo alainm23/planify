@@ -769,7 +769,7 @@ public class Util : GLib.Object {
         string returned = name;
         
         if (name.length > size) {
-            returned = name.substring (0, size) + "…";
+            returned = name.substring (0, size) + "...";
         }
 
         return returned;

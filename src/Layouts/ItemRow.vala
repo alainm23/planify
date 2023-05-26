@@ -1135,7 +1135,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (("Copy to clipboard"), "planner-clipboard");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (("Repeat…"), "planner-rotate");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (("Repeat"), "planner-rotate");
 
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
         more_information_item.add_css_class ("small-label");

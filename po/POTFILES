@@ -1,3 +1,6 @@
+# List of source files containing translatable strings.
+# Please keep this file sorted alphabetically.
+
 src/App.vala
 src/MainWindow.vala
 src/Util.vala
@@ -23,13 +26,16 @@ src/Layouts/ProjectRow.vala
 src/Layouts/SectionRow.vala
 src/Layouts/ItemRow.vala
 src/Layouts/LabelRow.vala
+src/Layouts/SectionBoard.vala
+src/Layouts/ItemBoard.vala
 
 src/Widgets/DynamicIcon.vala
 src/Widgets/ColorPickerRow.vala
 src/Widgets/LoadingButton.vala
 src/Widgets/CircularProgressBar.vala
 src/Widgets/MagicButton.vala
-src/Widgets/HeaderProject.vala
+src/Widgets/FilterHeader.vala
+src/Widgets/ProjectHeader.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/Entries.vala
 src/Widgets/Placeholder.vala
@@ -50,6 +56,9 @@ src/Widgets/EventsList.vala
 src/Widgets/EventRow.vala
 src/Widgets/CalendarSourceRow.vala
 src/Widgets/SettingsHeader.vala
+src/Widgets/SubItems.vala
+src/Widgets/LabelChild.vala
+src/Widgets/LabelsSummary.vala
 
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
@@ -72,11 +81,13 @@ src/Widgets/ContextMenu/MenuItemPicker.vala
 
 src/Views/Project.vala
 src/Views/List.vala
+src/Views/Board.vala
 src/Views/Date.vala
 src/Views/Today.vala
 src/Views/Pinboard.vala
 src/Views/Label.vala
 src/Views/Filter.vala
+src/Views/Filters.vala
 
 src/Views/Scheduled/Scheduled.vala
 src/Views/Scheduled/ScheduledDay.vala
@@ -99,12 +110,20 @@ src/Objects/Filters/Scheduled.vala
 src/Objects/Filters/Today.vala
 src/Objects/Filters/Priority.vala
 src/Objects/Filters/Completed.vala
+src/Objects/Filters/Labels.vala
+
+src/Models/ItemList.vala
 
 src/Dialogs/Project.vala
 src/Dialogs/Label.vala
+src/Dialogs/Item.vala
 src/Dialogs/TodoistOAuth.vala
+src/Dialogs/ProjectDescription.vala
+src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
+src/Dialogs/ProjectPicker/SectionPickerRow.vala
+
 src/Dialogs/DatePicker.vala
 src/Dialogs/LabelPicker.vala
 src/Dialogs/RepeatConfig.vala

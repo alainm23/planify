@@ -14,7 +14,7 @@ public class MainWindow : Adw.ApplicationWindow {
         Object (
             application: application,
             app: application,
-            icon_name: "com.github.alainm23.task-planner",
+            icon_name: Constants.APPLICATION_ID,
             title: _("Planner")
         );
     }
@@ -25,7 +25,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     construct {
-        if (Constants.PRODUCTION == "false") {
+        if (Constants.PROFILE == "development") {  
             add_css_class ("devel");
         }
 
@@ -102,7 +102,7 @@ public class MainWindow : Adw.ApplicationWindow {
         var devel_infobar = new Gtk.InfoBar ();
         devel_infobar.set_message_type (Gtk.MessageType.WARNING);
         devel_infobar.show_close_button = true;
-        devel_infobar.revealed = Constants.PRODUCTION == "false";
+        devel_infobar.revealed = Constants.PROFILE == "development";
 
         var devel_label = new Gtk.Label (_("You are running an early stage development version. Be aware it is a work in progress and far from complete yet.")) {
             wrap = true
@@ -508,7 +508,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         dialog.show ();
 
-        dialog.application_icon = "com.github.alainm23.planner";
+        dialog.application_icon = "com.github.alainm23.task-planner";
         dialog.application_name = "Task Planner";
         dialog.version = Constants.VERSION;
         dialog.developer_name = "Alain Meza H.";

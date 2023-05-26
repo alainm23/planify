@@ -20,7 +20,7 @@ public class Widgets.LabelsHeader : Gtk.Grid {
     construct {
         labels_widgets = new Gee.ArrayList<Gtk.Overlay> ();
 
-        var placeholder_button = new Gtk.Button.with_label (_("No label available, click to add one…")) {
+        var placeholder_button = new Gtk.Button.with_label (_("No label available, click to add one")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };

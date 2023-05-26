@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2021 Alain M. <alain23@protonmail.com> -->
 <component type="desktop">
-  <id>com.github.alainm23.task-planner</id>
+  <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Task Planner</name>

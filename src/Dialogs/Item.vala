@@ -173,7 +173,7 @@ public class Dialogs.Item : Adw.Window {
         content_box.append (checked_button);
         content_box.append (content_entry);
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description")) {
             height_request = 64,
             left_margin = 39,
             right_margin = 6,

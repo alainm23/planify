@@ -1,0 +1,148 @@
+{
+    "app-id" : "com.github.alainm23.task-planner.Devel",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "master",
+    "sdk" : "org.gnome.Sdk",
+    "command" : "com.github.alainm23.task-planner",
+    "tags" : [
+        "devel"
+    ],
+    "finish-args" : [
+        "--device=dri",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+
+        "--filesystem=home",
+
+        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
+        "--talk-name=org.gnome.evolution.dataserver.Sources5",
+
+        "--metadata=X-DConf=migrate-path=/com/github/alainm23/task-planner/"
+    ],
+    "x-run-args" : [
+        "--debug"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules" : [
+        {
+            "name": "intltool",
+            "cleanup": [ "*" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
+        {
+            "name": "granite",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/elementary/granite.git",
+                    "tag": "7.2.0"
+                }
+            ]
+        },
+        {
+            "name": "libical",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/cmake"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DGOBJECT_INTROSPECTION=true",
+                "-DICAL_GLIB_VAPI=true",
+                "-DICAL_GLIB=true",
+                "-DICAL_BUILD_DOCS=false",
+                "-DWITH_CXX_BINDINGS=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/libical/libical/releases/download/v3.0.16/libical-3.0.16.tar.gz",
+                    "sha256": "b44705dd71ca4538c86fb16248483ab4b48978524fb1da5097bd76aa2e0f0c33",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1637,
+                        "url-template": "https://github.com/libical/libical/releases/download/v$version/libical-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "evolution-data-server",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/evolution-data-server/*-backends",
+                "/libexec",
+                "/share/dbus-1/services"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_FILE_LOCKING=fcntl",
+                "-DENABLE_DOT_LOCKING=OFF",
+                "-DENABLE_OAUTH2=ON",
+                "-DENABLE_CANBERRA=OFF",
+                "-DENABLE_GTK=ON",
+                "-DENABLE_UOA=OFF",
+                "-DENABLE_GOA=OFF",
+                "-DENABLE_GOOGLE=OFF",
+                "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_INTROSPECTION=ON",
+                "-DENABLE_VALA_BINDINGS=ON",
+                "-DENABLE_INSTALLED_TESTS=OFF",
+                "-DENABLE_GTK_DOC=OFF",
+                "-DWITH_PRIVATE_DOCS=OFF",
+                "-DWITH_PHONENUMBER=OFF",
+                "-DWITH_SYSTEMDUSERUNITDIR=OFF",
+                "-DWITH_LIBDB=OFF",
+                "-DWITH_OPENLDAP=OFF",
+                "-DENABLE_WEATHER=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/evolution-data-server/3.48/evolution-data-server-3.48.1.tar.xz",
+                    "sha256": "5ce62c1e67f2789342a7f4a035b102f74e62ed85f60e81a5b7f3e04165404dff",
+                    "x-checker-data": {
+                        "type": "gnome",
+                        "name": "evolution-data-server"
+                    }
+                }
+            ]
+        },
+        {
+            "name" : "task-planner",
+            "builddir" : true,
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dtracing=true",
+                "-Dprofile=development"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/alainm23/planner.git"
+                }
+            ]
+        }
+    ]
+}
