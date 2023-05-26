@@ -13,6 +13,7 @@
         "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
+        "--socket=session-bus",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
         "--metadata=X-DConf=migrate-path=/com/github/alainm23/planify/"
