@@ -4,10 +4,10 @@
   <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name>Task Planner</name>
+  <name>Planify</name>
   <summary>Never worry about forgetting things again</summary>
   <description>
-    <p>🚀️ Planner 3 is here...</p>
+    <p>🚀️ Planify is here...</p>
     <ul>
       <li>🚀️ Complete redesign of the UI.</li>
       <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
@@ -23,7 +23,7 @@
       <li>Synchronize your Projects, Task and Sections thanks to Todoist.</li>
       <li>Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.</li>
     </ul>
-    <p>* Planner not created by, affiliated with, or supported by Doist</p>
+    <p>* Planify not created by, affiliated with, or supported by Doist</p>
 
     <p>☁️ Support for CalDAV:</p>
     <ul>
@@ -37,7 +37,7 @@
     </ul>
   </description>
   <provides>
-    <binary>com.github.alainm23.task-planner</binary>
+    <binary>com.github.alainm23.planify</binary>
   </provides>
   ​<releases>
   <release version="3.0.9" date="2022-05-10">
@@ -554,10 +554,10 @@
   </releases>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/alainm23/task-planner/master/data/screenshot/screenshot-01.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/resources/screenshot/screenshot-01.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/task-planner/master/data/screenshot/screenshot-02.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/resources/screenshot/screenshot-02.png</image>
     </screenshot>
   </screenshots>
   <developer_name>Alain M.</developer_name>

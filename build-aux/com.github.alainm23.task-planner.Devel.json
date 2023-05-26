@@ -1,9 +1,9 @@
 {
-    "app-id" : "com.github.alainm23.task-planner.Devel",
+    "app-id" : "com.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "master",
+    "runtime-version": "44",
     "sdk" : "org.gnome.Sdk",
-    "command" : "com.github.alainm23.task-planner",
+    "command" : "com.github.alainm23.planify",
     "tags" : [
         "devel"
     ],
@@ -19,7 +19,7 @@
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
 
-        "--metadata=X-DConf=migrate-path=/com/github/alainm23/task-planner/"
+        "--metadata=X-DConf=migrate-path=/com/github/alainm23/planify/"
     ],
     "x-run-args" : [
         "--debug"
@@ -115,7 +115,8 @@
                 "-DWITH_SYSTEMDUSERUNITDIR=OFF",
                 "-DWITH_LIBDB=OFF",
                 "-DWITH_OPENLDAP=OFF",
-                "-DENABLE_WEATHER=OFF"
+                "-DENABLE_WEATHER=OFF",
+                "-DENABLE_OAUTH2_WEBKITGTK4=OFF"
             ],
             "sources": [
                 {
@@ -130,7 +131,7 @@
             ]
         },
         {
-            "name" : "task-planner",
+            "name" : "planify",
             "builddir" : true,
             "buildsystem" : "meson",
             "config-opts" : [

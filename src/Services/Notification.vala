@@ -61,7 +61,7 @@ public class Services.Notification : GLib.Object {
         if (reminder.due.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
             var notification = new GLib.Notification (reminder.item.project.short_name);
             notification.set_body (reminder.item.content);
-            notification.set_icon (new ThemedIcon ("com.github.alainm23.task-planner"));
+            notification.set_icon (new ThemedIcon ("com.github.alainm23.planify"));
             notification.set_priority (GLib.NotificationPriority.URGENT);
 
             notification.set_default_action_and_target_value (
@@ -96,7 +96,7 @@ public class Services.Notification : GLib.Object {
         var reminder = Services.Database.get_default ().get_reminder (reminder_id);
         var notification = new GLib.Notification (reminder.item.project.short_name);
         notification.set_body (reminder.item.content);
-        notification.set_icon (new ThemedIcon ("com.github.alainm23.task-planner"));
+        notification.set_icon (new ThemedIcon ("com.github.alainm23.planify"));
         notification.set_priority (GLib.NotificationPriority.URGENT);
 
         notification.set_default_action_and_target_value (

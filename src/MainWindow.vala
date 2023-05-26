@@ -15,13 +15,13 @@ public class MainWindow : Adw.ApplicationWindow {
             application: application,
             app: application,
             icon_name: Constants.APPLICATION_ID,
-            title: _("Planner")
+            title: _("Planify")
         );
     }
 
     static construct {
         weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-        default_theme.add_resource_path ("/com/github/alainm23/task-planner");
+        default_theme.add_resource_path ("/com/github/alainm23/planify");
     }
 
     construct {
@@ -488,8 +488,8 @@ public class MainWindow : Adw.ApplicationWindow {
             
             try {
                 var build = new Gtk.Builder ();
-                build.add_from_resource ("/com/github/alainm23/task-planner/shortcuts.ui");
-                var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-task-planner");
+                build.add_from_resource ("/com/github/alainm23/planify/shortcuts.ui");
+                var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-planify");
                 window.set_transient_for (this);
                 window.show ();
             } catch (Error e) {
@@ -508,8 +508,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         dialog.show ();
 
-        dialog.application_icon = "com.github.alainm23.task-planner";
-        dialog.application_name = "Task Planner";
+        dialog.application_icon = "com.github.alainm23.planify";
+        dialog.application_name = "Planify";
         dialog.version = Constants.VERSION;
         dialog.developer_name = "Alain Meza H.";
         dialog.website = "https://github.com/alainm23/planner";

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
-    <enum id="com.github.alainm23.task-planner.badge-count">
+    <enum id="com.github.alainm23.planify.badge-count">
         <value nick="None" value="0" />
         <value nick="Inbox" value="1" />
         <value nick="Today" value="2" />
         <value nick="Today + Inbox" value="3" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.pane-view">
+    <enum id="com.github.alainm23.planify.pane-view">
         <value nick="Inbox" value="0" />
         <value nick="Today" value="1" />
         <value nick="Scheduled" value="2" />
@@ -16,98 +16,98 @@
         <value nick="All Tasks" value="5" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.appearance">
+    <enum id="com.github.alainm23.planify.appearance">
         <value nick="Dark" value="1" />
         <value nick="Dark Blue" value="2" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.default-priority">
+    <enum id="com.github.alainm23.planify.default-priority">
         <value nick="Priority 1" value="0" />
         <value nick="Priority 2" value="1" />
         <value nick="Priority 3" value="2" />
         <value nick="None" value="3" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.start-week">
+    <enum id="com.github.alainm23.planify.start-week">
         <value nick="Saturday" value="0" />
         <value nick="Sunday" value="1" />
         <value nick="Monday" value="2" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.new-tasks-position">
+    <enum id="com.github.alainm23.planify.new-tasks-position">
         <value nick="Top" value="0" />
         <value nick="Bottom" value="-1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.clock-format">
+    <enum id="com.github.alainm23.planify.clock-format">
         <value nick="24h" value="0" />
         <value nick="12h" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.default-inbox">
+    <enum id="com.github.alainm23.planify.default-inbox">
         <value nick="local" value="0" />
         <value nick="todoist" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.projects-sort-by">
+    <enum id="com.github.alainm23.planify.projects-sort-by">
         <value nick="Alphabetically" value="0" />
         <value nick="Custom sort order" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.projects-ordered">
+    <enum id="com.github.alainm23.planify.projects-ordered">
         <value nick="Ascending" value="0" />
         <value nick="Descending" value="1" />
     </enum>
 
-    <enum id="com.github.alainm23.task-planner.complete-task">
+    <enum id="com.github.alainm23.planify.complete-task">
         <value nick="Instantly" value="0" />
         <value nick="Wait 2500 milliseconds" value="1" />
     </enum>
 
-    <schema path="/com/github/alainm23/task-planner/" id="com.github.alainm23.task-planner" gettext-domain="com.github.alainm23.task-planner">        
-        <key name="badge-count" enum="com.github.alainm23.task-planner.badge-count">
+    <schema path="/com/github/alainm23/planify/" id="com.github.alainm23.planify" gettext-domain="com.github.alainm23.planify">        
+        <key name="badge-count" enum="com.github.alainm23.planify.badge-count">
             <default>"None"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
 
-        <key name="new-tasks-position" enum="com.github.alainm23.task-planner.new-tasks-position">
+        <key name="new-tasks-position" enum="com.github.alainm23.planify.new-tasks-position">
             <default>"Bottom"</default>
             <summary>Choose which items should be counted for the badge on the application icon</summary>
             <description>Choose which items should be counted for the badge on the application icon</description>
         </key>
 
-        <key name="clock-format" enum="com.github.alainm23.task-planner.clock-format">
+        <key name="clock-format" enum="com.github.alainm23.planify.clock-format">
             <default>"24h"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="default-inbox" enum="com.github.alainm23.task-planner.default-inbox">
+        <key name="default-inbox" enum="com.github.alainm23.planify.default-inbox">
             <default>"local"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="projects-sort-by" enum="com.github.alainm23.task-planner.projects-sort-by">
+        <key name="projects-sort-by" enum="com.github.alainm23.planify.projects-sort-by">
             <default>"Custom sort order"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="projects-ordered" enum="com.github.alainm23.task-planner.projects-ordered">
+        <key name="projects-ordered" enum="com.github.alainm23.planify.projects-ordered">
             <default>"Descending"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="complete-task" enum="com.github.alainm23.task-planner.complete-task">
+        <key name="complete-task" enum="com.github.alainm23.planify.complete-task">
             <default>"Wait 2500 milliseconds"</default>
             <summary></summary>
             <description></description>
         </key>
 
-        <key name="appearance" enum="com.github.alainm23.task-planner.appearance">
+        <key name="appearance" enum="com.github.alainm23.planify.appearance">
             <default>"Dark"</default>
             <summary></summary>
             <description></description>
@@ -125,13 +125,13 @@
             <description>Dark Mode.</description>
         </key>
 
-        <key name="default-priority" enum="com.github.alainm23.task-planner.default-priority">
+        <key name="default-priority" enum="com.github.alainm23.planify.default-priority">
             <default>"None"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
         </key>
 
-        <key name="start-week" enum="com.github.alainm23.task-planner.start-week">
+        <key name="start-week" enum="com.github.alainm23.planify.start-week">
             <default>"Monday"</default>
             <summary>Order the buttons on the title bar</summary>
             <description>Order the buttons on the title bar</description>
@@ -215,7 +215,7 @@
             <description>Let planit run in background and send notifications</description>
         </key>
         
-        <key name="homepage-item" enum="com.github.alainm23.task-planner.pane-view">
+        <key name="homepage-item" enum="com.github.alainm23.planify.pane-view">
             <default>"Inbox"</default>
             <summary>homepage-item</summary>
             <description>homepage-item</description>
