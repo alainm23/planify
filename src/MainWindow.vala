@@ -459,7 +459,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
-        var about_item = new Widgets.ContextMenu.MenuItem (_("About Planner"));
+        var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;

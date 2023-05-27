@@ -9,10 +9,9 @@
     <p>🚀️ Planify is here...</p>
     <ul>
       <li>🚀️ Complete redesign of the UI.</li>
-      <li>🤚️ Drag and Order arrived: Sort your tasks wherever you want.</li>
-      <li>💯️ Progress indicator for each project.</li>
+      <li>🤚️ Drag and Order: Sort your tasks wherever you want.</li>
+      <li>💯️ Progress And Emoji indicator for each project.</li>
       <li>💪️ Be more productive and organize your tasks by 'Sections'.</li>
-      <li>💎️ Magic Button: Drag and Drop and create your tasks wherever you want.</li>
       <li>🌙️ Better integration with the dark theme.</li>
       <li>🎉️ and much more.</li>
     </ul>
@@ -24,15 +23,11 @@
     </ul>
     <p>* Planify not created by, affiliated with, or supported by Doist</p>
 
-    <p>☁️ Support for CalDAV:</p>
-    <ul>
-      <li>Synchronize your Tasklist.</li>
-    </ul>
-
     <p>💎️ Other features:</p>
     <ul>
       <li>🔍️ Quick Find</li>
       <li>🌙️ Night mode</li>
+      <li>⏰️ Reminders</li>
     </ul>
   </description>
   <provides>
@@ -41,12 +36,7 @@
   ​<releases>
     <release version="4.0" date="2023-05-26">
       <description>
-        <p>Planner 3 Beta 2.1</p>
-        <ul>
-          <li>Multi select toolbar available, hold CTRL and click on tasks.</li>
-          <li>Support for subprojects available.</li>
-          <li>Performance and design improvements.</li>
-        </ul>
+        <p>Initial release</p>
       </description>
     </release>
   </releases>

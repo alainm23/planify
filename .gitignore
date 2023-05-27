@@ -1,7 +1,9 @@
 *~
 build/
 builddir/
-build-aux/flatpak/repo
-build-aux/flatpak/.flatpak-builder
+build-aux/build-dir
+build-aux/flatpak_build
+build-aux/.flatpak-builder
+build-aux/io.github.alainm23.planify.Devel.flatpak
 .flatpak-builder/
 
