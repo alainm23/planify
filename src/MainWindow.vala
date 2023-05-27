@@ -31,10 +31,10 @@ public class MainWindow : Adw.ApplicationWindow {
 
         action_manager = new Services.ActionManager (app, this);
 
-        Services.DBusServer.get_default ().item_added.connect ((id) => {
-            var item = Services.Database.get_default ().get_item_by_id (id);
-            Services.Database.get_default ().add_item (item);
-        });
+        //  Services.DBusServer.get_default ().item_added.connect ((id) => {
+        //      var item = Services.Database.get_default ().get_item_by_id (id);
+        //      Services.Database.get_default ().add_item (item);
+        //  });
 
         var sidebar_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
