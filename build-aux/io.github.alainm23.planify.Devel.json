@@ -14,7 +14,9 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
-        "--talk-name=org.gnome.evolution.dataserver.Sources5"
+        "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=io.github.alainm23.planify",
+        "--own-name=io.github.alainm23.planify"
     ],
     "x-run-args" : [
         "--debug"
