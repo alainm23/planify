@@ -96,7 +96,7 @@ public class Planner : Adw.Application {
 
         if (clear_database) {
             Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-                _("It process removes all stored information without the possibility of undoing it."));
+                _("The process removes all stored information without the possibility of undoing it."));
         }
     }
 
