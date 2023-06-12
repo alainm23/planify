@@ -57,7 +57,7 @@ To install, use `ninja install`, then execute with `io.github.alainm23.planify`
 ## Support
 If you like Planify and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
 
-## Bitcoin
+### Bitcoin
 `
 bc1qt5v3q9hgtv9uvmld53hr6j0sdlmgalnc5y2kf5uqqextp84ke26seqg2dz
 `
