@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-02 09:13+0300\n"
-"PO-Revision-Date: 2023-06-02 09:14+0300\n"
+"PO-Revision-Date: 2023-06-02 22:02+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -528,7 +528,7 @@ msgstr "Bu Bilgisayarda"
 
 #: src/Layouts/Sidebar.vala:53
 msgid "Add Project"
-msgstr "Proje ekle"
+msgstr "Proje Ekle"
 
 #: src/Layouts/Sidebar.vala:54 src/Layouts/Sidebar.vala:152
 msgid "No project available. Create one by clicking on the '+' button"
@@ -797,13 +797,13 @@ msgstr "Ara veya Oluştur"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
-msgstr "Anımsatıcılar"
+msgstr "Hatırlatıcılar"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:94
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:225
 #: src/Widgets/ReminderPicker/ReminderRow.vala:56
 msgid "Add reminder"
-msgstr "Anımsatıcı ekle"
+msgstr "Hatırlatıcı ekle"
 
 #: src/Views/Date.vala:72 src/Views/Today.vala:51
 msgid "Overdue"
@@ -929,7 +929,7 @@ msgstr "Proje adı"
 
 #: src/Dialogs/Project.vala:124
 msgid "Use Emoji"
-msgstr "Emoji Kullan"
+msgstr "Emoji kullan"
 
 #: src/Dialogs/Project.vala:143
 msgid "Source"
@@ -937,7 +937,7 @@ msgstr "Kaynak"
 
 #: src/Dialogs/Project.vala:182
 msgid "Add project"
-msgstr "Proje ekle"
+msgstr "Proje Ekle"
 
 #: src/Dialogs/Project.vala:182
 msgid "Update project"
@@ -1027,7 +1027,7 @@ msgstr "Ağ Kullanılamıyor"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:87
 msgid "Type a search"
-msgstr "Aramamak için yazınız"
+msgstr "Aramak için yazınız"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:159
 msgid "On this Computer"
