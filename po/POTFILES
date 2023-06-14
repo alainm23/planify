@@ -2,63 +2,63 @@
 # Please keep this file sorted alphabetically.
 
 src/App.vala
+src/Enum.vala
 src/MainWindow.vala
 src/Util.vala
-src/Enum.vala
 
-src/Services/Database.vala
-src/Services/EventBus.vala
-src/Services/Todoist.vala
 src/Services/ActionManager.vala
+src/Services/Database.vala
+src/Services/DBusServer.vala
+src/Services/EventBus.vala
 src/Services/Notification.vala
 src/Services/TimeMonitor.vala
-src/Services/DBusServer.vala
+src/Services/Todoist.vala
 
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
 src/Services/CalendarEvents/DateRange.vala
 src/Services/CalendarEvents/Util.vala
 
-src/Layouts/Sidebar.vala
 src/Layouts/FilterPaneRow.vala
 src/Layouts/HeaderItem.vala
-src/Layouts/ProjectRow.vala
-src/Layouts/SectionRow.vala
+src/Layouts/ItemBoard.vala
 src/Layouts/ItemRow.vala
 src/Layouts/LabelRow.vala
+src/Layouts/ProjectRow.vala
 src/Layouts/SectionBoard.vala
-src/Layouts/ItemBoard.vala
+src/Layouts/SectionRow.vala
+src/Layouts/Sidebar.vala
 
-src/Widgets/DynamicIcon.vala
-src/Widgets/ColorPickerRow.vala
-src/Widgets/LoadingButton.vala
+src/Widgets/CalendarSourceRow.vala
 src/Widgets/CircularProgressBar.vala
-src/Widgets/MagicButton.vala
-src/Widgets/FilterHeader.vala
-src/Widgets/ProjectHeader.vala
+src/Widgets/ColorPickerRow.vala
+src/Widgets/DynamicIcon.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/Entries.vala
-src/Widgets/Placeholder.vala
-src/Widgets/SyncButton.vala
-src/Widgets/ScheduleButton.vala
-src/Widgets/PriorityButton.vala
-src/Widgets/ItemSummary.vala
-src/Widgets/PinButton.vala
-src/Widgets/LabelButton.vala
-src/Widgets/ItemLabels.vala
-src/Widgets/ItemLabelChild.vala
-src/Widgets/ProjectViewHeaderBar.vala
-src/Widgets/IconColorProject.vala
-src/Widgets/LabelsHeader.vala
-src/Widgets/ReminderButton.vala
-src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala
 src/Widgets/EventRow.vala
-src/Widgets/CalendarSourceRow.vala
+src/Widgets/FilterHeader.vala
+src/Widgets/IconColorProject.vala
+src/Widgets/ItemLabelChild.vala
+src/Widgets/ItemLabels.vala
+src/Widgets/ItemSummary.vala
+src/Widgets/LabelButton.vala
+src/Widgets/LabelChild.vala
+src/Widgets/LabelsHeader.vala
+src/Widgets/LabelsSummary.vala
+src/Widgets/LoadingButton.vala
+src/Widgets/MagicButton.vala
+src/Widgets/MultiSelectToolbar.vala
+src/Widgets/PinButton.vala
+src/Widgets/Placeholder.vala
+src/Widgets/PriorityButton.vala
+src/Widgets/ProjectHeader.vala
+src/Widgets/ProjectViewHeaderBar.vala
+src/Widgets/ReminderButton.vala
+src/Widgets/ScheduleButton.vala
 src/Widgets/SettingsHeader.vala
 src/Widgets/SubItems.vala
-src/Widgets/LabelChild.vala
-src/Widgets/LabelsSummary.vala
+src/Widgets/SyncButton.vala
 
 src/Widgets/Calendar/Calendar.vala
 src/Widgets/Calendar/CalendarDay.vala
@@ -76,18 +76,18 @@ src/Widgets/ReminderPicker/ReminderPicker.vala
 src/Widgets/ReminderPicker/ReminderRow.vala
 
 src/Widgets/ContextMenu/MenuItem.vala
-src/Widgets/ContextMenu/MenuSeparator.vala
 src/Widgets/ContextMenu/MenuItemPicker.vala
+src/Widgets/ContextMenu/MenuSeparator.vala
 
-src/Views/Project.vala
-src/Views/List.vala
 src/Views/Board.vala
 src/Views/Date.vala
-src/Views/Today.vala
-src/Views/Pinboard.vala
-src/Views/Label.vala
 src/Views/Filter.vala
 src/Views/Filters.vala
+src/Views/Label.vala
+src/Views/List.vala
+src/Views/Pinboard.vala
+src/Views/Project.vala
+src/Views/Today.vala
 
 src/Views/Scheduled/Scheduled.vala
 src/Views/Scheduled/ScheduledDay.vala
@@ -105,28 +105,29 @@ src/Objects/Queue.vala
 src/Objects/Reminder.vala
 src/Objects/Section.vala
 
-src/Objects/Filters/Pinboard.vala
-src/Objects/Filters/Scheduled.vala
-src/Objects/Filters/Today.vala
-src/Objects/Filters/Priority.vala
 src/Objects/Filters/Completed.vala
 src/Objects/Filters/Labels.vala
+src/Objects/Filters/Pinboard.vala
+src/Objects/Filters/Priority.vala
+src/Objects/Filters/Scheduled.vala
+src/Objects/Filters/Today.vala
 
 src/Models/ItemList.vala
 
-src/Dialogs/Project.vala
-src/Dialogs/Label.vala
+src/Dialogs/DatePicker.vala
 src/Dialogs/Item.vala
-src/Dialogs/TodoistOAuth.vala
-src/Dialogs/ProjectDescription.vala
+src/Dialogs/Label.vala
+src/Dialogs/LabelPicker.vala
 src/Dialogs/ManageSectionOrder.vala
+src/Dialogs/Project.vala
+src/Dialogs/ProjectDescription.vala
+src/Dialogs/RepeatConfig.vala
+src/Dialogs/TodoistOAuth.vala
+
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
 src/Dialogs/ProjectPicker/SectionPickerRow.vala
 
-src/Dialogs/DatePicker.vala
-src/Dialogs/LabelPicker.vala
-src/Dialogs/RepeatConfig.vala
 
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala

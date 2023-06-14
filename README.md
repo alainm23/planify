@@ -1,5 +1,5 @@
 <div align="center">
-  <span align="center"> <img width="80" height="80" class="center" src="https://raw.githubusercontent.com/alainm23/planner/master/data/icons/hicolor/scalable/apps/com.github.alainm23.task-planner.svg" alt="Icon"></span>
+  <span align="center"> <img width="80" height="80" class="center" src="https://raw.githubusercontent.com/alainm23/planify/86c817a8a45278a0022b078c08082ed1f7fddf88/data/icons/hicolor/scalable/apps/io.github.alainm23.planify.svg" alt="Icon"></span>
   <h1 align="center">Planify</h1>
   <h3 align="center">Never worry about forgetting things again</h3>
 </div>
@@ -57,4 +57,12 @@ To install, use `ninja install`, then execute with `io.github.alainm23.planify`
 ## Support
 If you like Planify and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
 
+### Bitcoin
+`
+bc1qt5v3q9hgtv9uvmld53hr6j0sdlmgalnc5y2kf5uqqextp84ke26seqg2dz
+`
+### Bitcoin Lightning
+`
+lnbc1pjg094dpp5y8n2pcjnvg2kmvzs4z6s20ppcakjmwl0zaarkjha6f5a0yxr2s6sdqqcqzzgxqyz5vqrzjqwnvuc0u4txn35cafc7w94gxvq5p3cu9dd95f7hlrh0fvs46wpvhdqgmacm2nkd6acqqqqryqqqqthqqpyrzjqw8c7yfutqqy3kz8662fxutjvef7q2ujsxtt45csu0k688lkzu3ldqgmacm2nkd6acqqqqryqqqqthqqpysp5utl35xr980vwlg87quxzg6uvjpwvqpxf8d5wx7an8vgfafagxems9qypqsqqlcjz4y8zr2vf6q3yp9lq7p73z6d7k328a9p9e0mdaq4jm0s3gc9sprzh5ktnzt8dx50p8x989tnrcqrqvnjh5w9dcywfzzhnaa0jwcpw58358
+`
 Made with 💗 in Perú
