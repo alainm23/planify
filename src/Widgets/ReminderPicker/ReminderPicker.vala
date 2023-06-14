@@ -243,7 +243,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label _("Your list of reminders will show up here. Add one by clicking the button.") {
+        var message_label = new Gtk.Label (_("Your list of reminders will show up here. Add one by clicking the button.")) {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };

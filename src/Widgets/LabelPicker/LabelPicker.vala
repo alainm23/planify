@@ -206,7 +206,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label _("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.") {
+        var message_label = new Gtk.Label (_("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.")) {
             wrap = true,
             justify = Gtk.Justification.CENTER
         };
