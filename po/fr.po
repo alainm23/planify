@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-26 11:00-0500\n"
-"PO-Revision-Date: 2023-02-04 00:51+0100\n"
+"PO-Revision-Date: 2023-06-11 20:44+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 
 #: src/App.vala:98
 msgid "Are you sure you want to reset all?"
@@ -203,39 +203,32 @@ msgid "Yesterday"
 msgstr "Hier"
 
 #: src/Util.vala:550
-#, fuzzy
 msgid "Mo,"
-msgstr "Lun"
+msgstr "Lun,"
 
 #: src/Util.vala:554
-#, fuzzy
 msgid "Tu,"
-msgstr "Mar"
+msgstr "Mar,"
 
 #: src/Util.vala:558
-#, fuzzy
 msgid "We,"
-msgstr "Mer"
+msgstr "Mer,"
 
 #: src/Util.vala:562
-#, fuzzy
 msgid "Th,"
-msgstr "Jeu"
+msgstr "Jeu,"
 
 #: src/Util.vala:566
-#, fuzzy
 msgid "Fr,"
-msgstr "Ven"
+msgstr "Ven,"
 
 #: src/Util.vala:570
-#, fuzzy
 msgid "Sa,"
-msgstr "Sa"
+msgstr "Sa,"
 
 #: src/Util.vala:574
-#, fuzzy
 msgid "Su,"
-msgstr "Di"
+msgstr "Di,"
 
 #: src/Util.vala:602
 #, c-format
@@ -312,7 +305,6 @@ msgid "Projects"
 msgstr "Projets"
 
 #: src/Enum.vala:159
-#, fuzzy
 msgid "Sections"
 msgstr "Sections"
 
@@ -339,44 +331,40 @@ msgid "Don't Repeat"
 msgstr "Ne pas répéter"
 
 #: src/Enum.vala:195 src/Enum.vala:197
-#, fuzzy
 msgid "Every day"
 msgstr "Chaque jour"
 
 #: src/Enum.vala:197
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d days"
-msgstr "Chaque jour"
+msgstr "Tous les %d jours"
 
 #: src/Enum.vala:201 src/Enum.vala:203
-#, fuzzy
 msgid "Every week"
 msgstr "Chaque semaine"
 
 #: src/Enum.vala:203
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d weeks"
-msgstr "Chaque semaine"
+msgstr "Toutes les %d semaines"
 
 #: src/Enum.vala:208 src/Enum.vala:210
-#, fuzzy
 msgid "Every month"
 msgstr "Chaque mois"
 
 #: src/Enum.vala:210
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d months"
-msgstr "Chaque mois"
+msgstr "Tous les %d mois"
 
 #: src/Enum.vala:215 src/Enum.vala:217
-#, fuzzy
 msgid "Every year"
 msgstr "Chaque année"
 
 #: src/Enum.vala:217
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d years"
-msgstr "Chaque année"
+msgstr "Toutes les %d années"
 
 #: src/Services/CalendarEvents/Util.vala:264
 msgid "On this computer"
@@ -438,7 +426,7 @@ msgstr "Partager"
 
 #: src/Layouts/ProjectRow.vala:423
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Envoyer par courriel"
 
 #: src/Layouts/ProjectRow.vala:472 src/Layouts/SectionRow.vala:629
 #: src/Layouts/LabelRow.vala:142 src/Layouts/SectionBoard.vala:494
@@ -461,25 +449,22 @@ msgstr "(Pas de section)"
 #: src/Layouts/SectionRow.vala:571 src/Layouts/ItemRow.vala:489
 #: src/Layouts/SectionBoard.vala:432 src/Widgets/MagicButton.vala:33
 msgid "Add Task"
-msgstr "Ajouter une tâche"
+msgstr "Ajouter la tâche"
 
 #: src/Layouts/SectionRow.vala:572 src/Layouts/SectionBoard.vala:433
-#, fuzzy
 msgid "Edit Section"
-msgstr "Éditer la section"
+msgstr "Modifier la section"
 
 #: src/Layouts/SectionRow.vala:573 src/Layouts/SectionBoard.vala:434
-#, fuzzy
 msgid "Move Section"
 msgstr "Déplacer la section"
 
 #: src/Layouts/SectionRow.vala:574 src/Layouts/SectionBoard.vala:435
 #: src/Dialogs/ManageSectionOrder.vala:32
 msgid "Manage Section Order"
-msgstr ""
+msgstr "Gérer l’ordre des sections"
 
 #: src/Layouts/SectionRow.vala:575 src/Layouts/SectionBoard.vala:436
-#, fuzzy
 msgid "Delete Section"
 msgstr "Supprimer la section"
 
@@ -512,9 +497,8 @@ msgid "Move"
 msgstr "Déplacer"
 
 #: src/Layouts/ItemRow.vala:1012
-#, fuzzy
 msgid "Move to Section"
-msgstr "Déplacer la section"
+msgstr "Déplacer vers la section"
 
 #: src/Layouts/ItemRow.vala:1014
 msgid "Complete"
@@ -554,14 +538,13 @@ msgid "Undo"
 msgstr "Annuler"
 
 #: src/Layouts/ItemRow.vala:1588
-#, fuzzy
 msgid "Move tasks"
-msgstr "Google Tasks"
+msgstr "Déplacer les tâches"
 
 #: src/Layouts/ItemRow.vala:1588
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to move your task to <b>%s</b>?"
-msgstr "Êtes-vous sûr de vouloir supprimer <b>%s</b> ?"
+msgstr "Êtes-vous sûr de vouloir déplacer vos tâches vers <b>%s</b> ?"
 
 #: src/Layouts/LabelRow.vala:142
 msgid "Delete label"
@@ -569,9 +552,8 @@ msgstr "Supprimer l’étiquette"
 
 #: src/Widgets/FilterHeader.vala:90 src/Views/Project.vala:97
 #: src/Views/Label.vala:90 src/Views/Filter.vala:77 src/Views/Filters.vala:53
-#, fuzzy
 msgid "Add Tasks"
-msgstr "Ajouter une tâche"
+msgstr "Ajouter des tâches"
 
 #: src/Widgets/ProjectHeader.vala:137 src/Views/Project.vala:238
 #: src/Dialogs/Project.vala:65
@@ -683,16 +665,15 @@ msgstr "Définir la priorité"
 
 #: src/Widgets/PinButton.vala:13
 msgid "Pinned"
-msgstr "Épinglé"
+msgstr "Épingler"
 
 #: src/Widgets/LabelButton.vala:14
 msgid "Add label(s)"
 msgstr "Ajout d’étiquette(s)"
 
 #: src/Widgets/LabelsHeader.vala:23
-#, fuzzy
 msgid "No label available, click to add one"
-msgstr "Aucune étiquette disponible, cliquez pour en ajouter une…"
+msgstr "Aucune étiquette disponible, cliquez pour en ajouter une"
 
 #: src/Widgets/LabelsHeader.vala:130 src/Dialogs/Label.vala:95
 msgid "Add label"
@@ -745,7 +726,7 @@ msgstr "Retour"
 
 #: src/Widgets/LabelChild.vala:39
 msgid "All"
-msgstr ""
+msgstr "Tout"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:45
@@ -792,7 +773,7 @@ msgstr "Semaine suivante"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:85
 msgid "Choose a date"
-msgstr ""
+msgstr "Choisir une date"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:127
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:209
@@ -815,7 +796,7 @@ msgstr ":"
 
 #: src/Widgets/LabelPicker/LabelPicker.vala:71 src/Dialogs/LabelPicker.vala:71
 msgid "Search or Create"
-msgstr "Chercher ou Créer"
+msgstr "Chercher ou créer"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
@@ -829,21 +810,20 @@ msgstr "Ajouter un rappel"
 
 #: src/Views/Project.vala:64
 msgid "List View"
-msgstr ""
+msgstr "Vue en liste"
 
 #: src/Views/Project.vala:72
 msgid "Board View"
-msgstr ""
+msgstr "Vue en tableau"
 
 #: src/Views/Project.vala:240
-#, fuzzy
 msgid "Description"
-msgstr "Visualisation de la description"
+msgstr "Description"
 
 #: src/Views/List.vala:83 src/Views/Date.vala:167 src/Views/Pinboard.vala:34
 #: src/Views/Filter.vala:134
 msgid "Press 'a' or tap the plus button to create a new to-do"
-msgstr ""
+msgstr "Taper 'a' ou cliquez sur le bouton Plus pour créer une nouvelle tâche"
 
 #. views = new Gee.HashMap<E.Source, ECal.ClientView> ();
 #. tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
@@ -872,23 +852,20 @@ msgid "Reschedule"
 msgstr "Reprogrammer"
 
 #: src/Views/Label.vala:147
-#, fuzzy
 msgid "No to-dos for this filter yet."
-msgstr "Pas de tâches avec ce filtre pour l’instant"
+msgstr "Pas de tâches avec ce filtre pour l’instant."
 
 #: src/Views/Filter.vala:218 src/Objects/Filters/Completed.vala:37
 msgid "Completed"
 msgstr "Complétée"
 
 #: src/Views/Filters.vala:82
-#, fuzzy
 msgid "Labels: On This Computer"
-msgstr "Sur cet ordinateur"
+msgstr "Étiquettes : sur cet ordinateur"
 
 #: src/Views/Filters.vala:88
-#, fuzzy
 msgid "Labels: Todoist"
-msgstr "Todoist"
+msgstr "Étiquettes : Todoist"
 
 #: src/Objects/Item.vala:751
 msgid "Task copied to clipboard"
@@ -899,9 +876,8 @@ msgid "Diplicate"
 msgstr "Dupliquer"
 
 #: src/Objects/Project.vala:630
-#, fuzzy
 msgid "The project was copied to the Clipboard."
-msgstr "Tâche copiée dans le presse-papiers"
+msgstr "Projet copié vers le presse-papiers."
 
 #: src/Objects/Filters/Pinboard.vala:30
 msgid "pinboard"
@@ -932,7 +908,6 @@ msgid "logbook"
 msgstr "journal de bord"
 
 #: src/Objects/Filters/Labels.vala:38
-#, fuzzy
 msgid "labels"
 msgstr "Étiquettes"
 
@@ -954,7 +929,7 @@ msgstr "Source"
 
 #: src/Dialogs/Project.vala:182
 msgid "Add project"
-msgstr "Ajouter un projet"
+msgstr "Ajouter le projet"
 
 #: src/Dialogs/Project.vala:182
 msgid "Update project"
@@ -962,7 +937,7 @@ msgstr "Mettre le projet à jour"
 
 #: src/Dialogs/Project.vala:325
 msgid "Project added successfully!"
-msgstr "Projet ajouté avec succès"
+msgstr "Projet ajouté avec succès !"
 
 #: src/Dialogs/Label.vala:46
 msgid "New Label"
@@ -981,9 +956,8 @@ msgid "Update label"
 msgstr "Mettre à jour l’étiquette"
 
 #: src/Dialogs/Item.vala:161
-#, fuzzy
 msgid "Task Name"
-msgstr "Nom de tâche"
+msgstr "Nom de la tâche"
 
 #. resizable: true,
 #. window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
@@ -1012,29 +986,24 @@ msgid "Network Is Not Available"
 msgstr "Réseau Indisponible"
 
 #: src/Dialogs/ProjectDescription.vala:34
-#, fuzzy
 msgid "Project Description"
-msgstr "Ajouter une description"
+msgstr "Description du projet"
 
 #: src/Dialogs/ManageSectionOrder.vala:69
-#, fuzzy
 msgid "Update"
-msgstr "Mise à jour le"
+msgstr "Mettre à jour"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:87
-#, fuzzy
 msgid "Type a search"
-msgstr "Tapez un projet"
+msgstr "Tapez une recherche"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:159
-#, fuzzy
 msgid "On this Computer"
 msgstr "Sur cet ordinateur"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:247
-#, fuzzy
 msgid "No Section"
-msgstr "(Pas de section)"
+msgstr "Aucune section"
 
 #: src/Dialogs/LabelPicker.vala:110
 msgid "Filter"
@@ -1067,23 +1036,23 @@ msgstr "Lundi"
 
 #: src/Dialogs/RepeatConfig.vala:126
 msgid "Tuesday"
-msgstr ""
+msgstr "Mardi"
 
 #: src/Dialogs/RepeatConfig.vala:127
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercredi"
 
 #: src/Dialogs/RepeatConfig.vala:128
 msgid "Thursday"
-msgstr ""
+msgstr "Jeudi"
 
 #: src/Dialogs/RepeatConfig.vala:129
 msgid "Friday"
-msgstr ""
+msgstr "Vendredi"
 
 #: src/Dialogs/RepeatConfig.vala:130
 msgid "Saturday"
-msgstr ""
+msgstr "Samedi"
 
 #: src/Dialogs/RepeatConfig.vala:131
 #: src/Dialogs/Preferences/PreferencesWindow.vala:94
@@ -1159,7 +1128,7 @@ msgstr "Instantanément"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Wait 2500 milliseconds"
-msgstr "Attendre 2500 millisecondes"
+msgstr "Attendre 2500 millisec."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:112
 msgid "Complete task"
