@@ -425,6 +425,8 @@ public class Services.Database : GLib.Object {
             return BackendType.LOCAL;
         } else if (stmt.column_text (col) == "todoist") {
             return BackendType.TODOIST;
+        } else if (stmt.column_text (col) == "google-tasks") {
+            return BackendType.GOOGLE_TASKS;
         } else if (stmt.column_text (col) == "caldav") {
             return BackendType.CALDAV;
         } else {

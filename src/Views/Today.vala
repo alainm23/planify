@@ -7,6 +7,8 @@ public class Views.Today : Gtk.Grid {
     private Gtk.Revealer overdue_revealer;
     private Gtk.Revealer event_list_revealer;
     private Gtk.Grid listbox_grid;
+    private Gtk.ScrolledWindow scrolled_window;
+    private Gtk.Stack listbox_placeholder_stack;
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
@@ -147,15 +149,28 @@ public class Views.Today : Gtk.Grid {
         content.append (today_revealer);
         content.append (listbox_grid);
 
+        var listbox_placeholder = new Widgets.Placeholder (
+            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+        );
+
+        listbox_placeholder_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+
+        listbox_placeholder_stack.add_named (content, "listbox");
+        listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
+
         var content_clamp = new Adw.Clamp () {
             maximum_size = 720,
             margin_start = 12,
             margin_end = 12
         };
 
-        content_clamp.child = content;
+        content_clamp.child = listbox_placeholder_stack;
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
+        scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true
@@ -174,6 +189,11 @@ public class Views.Today : Gtk.Grid {
         attach (content_box, 0, 0);
         headerbar.update_today_label ();
         add_today_items ();
+
+        Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+            check_placeholder ();
+            return GLib.Source.REMOVE;
+        });
 
         Planner.event_bus.day_changed.connect (() => {
             headerbar.update_today_label ();
@@ -196,6 +216,14 @@ public class Views.Today : Gtk.Grid {
         headerbar.prepare_new_item.connect (() => {
             prepare_new_item ();
         });
+    }
+
+    private void check_placeholder () {
+        if (overdue_has_children || today_has_children) {
+            listbox_placeholder_stack.visible_child_name = "listbox";
+        } else {
+            listbox_placeholder_stack.visible_child_name = "placeholder";
+        }
     }
 
     private void add_today_items () {
@@ -226,12 +254,14 @@ public class Views.Today : Gtk.Grid {
         items [item.id_string] = new Layouts.ItemRow (item);
         listbox.append (items [item.id_string]);
         update_headers ();
+        check_placeholder ();
     }
 
     private void add_overdue_item (Objects.Item item) {
         overdue_items [item.id_string] = new Layouts.ItemRow (item);
         overdue_listbox.append (overdue_items [item.id_string]);
         update_headers ();
+        check_placeholder ();
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -246,6 +276,7 @@ public class Views.Today : Gtk.Grid {
         }
 
         update_headers ();
+        check_placeholder ();
     }
 
     private void valid_delete_item (Objects.Item item) {
@@ -260,6 +291,7 @@ public class Views.Today : Gtk.Grid {
         }
 
         update_headers ();
+        check_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {
@@ -300,9 +332,69 @@ public class Views.Today : Gtk.Grid {
         }
 
         update_headers ();
+        check_placeholder ();
     }
 
     public void prepare_new_item (string content = "") {
+        listbox_placeholder_stack.visible_child_name = "listbox";
+        Timeout.add (225, () => {
+            scrolled_window.vadjustment.value = 0;
+            return GLib.Source.REMOVE;
+        });
+
+        Planner.event_bus.item_selected (null);
+
+        var row = new Layouts.ItemRow.for_project (
+            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
+        );
+
+        row.update_due (Util.get_default ().get_format_date (date));
+        row.update_content (content);
+        row.update_priority (Util.get_default ().get_default_priority ());
+
+        row.item_added.connect (() => {
+            item_added (row);
+        });
+
+        row.widget_destroyed.connect (() => {
+            check_placeholder ();
+        });
+
+        if (today_has_children) {
+            listbox.insert (row, 0);
+        } else {
+            listbox.append (row);
+        }
+    }
+
+    private void item_added (Layouts.ItemRow row) {
+        bool insert = true;
+        if (row.item.has_due) {
+            insert = !Util.get_default ().is_same_day (date, row.item.due.datetime);
+        }
+
+        if (!insert) {
+            if (!items.has_key (row.item.id_string)) {
+                items [row.item.id_string] = row;
+            }
+
+            row.update_inserted_item ();
+        }
+
+        if (row.item.section_id != "") {
+            Services.Database.get_default ().get_section (row.item.section_id)
+                .add_item_if_not_exists (row.item);
+        } else {
+            Services.Database.get_default ().get_project (row.item.project_id)
+                .add_item_if_not_exists (row.item);
+        }
+
+        update_headers ();
+        check_placeholder ();
+
+        if (insert) {
+            row.hide_destroy ();
+        }
     }
 
     private void update_headers () {

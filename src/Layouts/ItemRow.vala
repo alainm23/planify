@@ -486,7 +486,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_eventbox_box.append (repeat_image_revealer);
         itemrow_eventbox_box.append (select_revealer);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add Task"));
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Save"));
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         submit_button.add_css_class ("border-radius-6");

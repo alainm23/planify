@@ -110,6 +110,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var complete_tasks_row = new Adw.ComboRow ();
         complete_tasks_row.title = _("Complete task");
+        complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option.");
         complete_tasks_row.model = complete_tasks_model;
         complete_tasks_row.selected = Planner.settings.get_enum ("complete-task");
 
@@ -379,8 +380,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         // Google Tasks
         var google_tasks_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = false,
-            sensitive = false
+            active = Services.GoogleTasks.get_default ().is_logged_in ()
         };
 
         var google_tasks_image = new Widgets.DynamicIcon ();
@@ -397,7 +397,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var google_tasks_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child = false
+            reveal_child = Services.GoogleTasks.get_default ().is_logged_in ()
         };
         
         google_tasks_revealer.child = google_tasks_button;
@@ -429,7 +429,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
                 todoist_switch.active = false;
                 Services.Todoist.get_default ().init ();
             } else {
-                confirm_log_out (todoist_switch);
+                confirm_log_out (todoist_switch, BackendType.TODOIST);
+            }
+        });
+
+        var google_switch_gesture = new Gtk.GestureClick ();
+        google_switch_gesture.set_button (1);
+        google_tasks_switch.add_controller (google_switch_gesture);
+
+        google_switch_gesture.pressed.connect (() => {
+            google_tasks_switch.active = !google_tasks_switch.active;
+
+            if (google_tasks_switch.active) {
+                google_tasks_switch.active = false;
+                Services.GoogleTasks.get_default ().init ();
+            } else {
+                confirm_log_out (google_tasks_switch, BackendType.GOOGLE_TASKS);
             }
         });
 
@@ -443,13 +458,33 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             });
         });
 
+        Services.GoogleTasks.get_default ().first_sync_finished.connect (() => {
+            google_tasks_revealer.reveal_child = Services.GoogleTasks.get_default ().is_logged_in ();
+            google_tasks_switch.active = Services.GoogleTasks.get_default ().is_logged_in ();
+
+            Timeout.add (250, () => {
+                destroy ();
+                return GLib.Source.REMOVE;
+            });
+        });
+
         Services.Todoist.get_default ().log_out.connect (() => {
             todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
             todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
         });
 
+        Services.GoogleTasks.get_default ().log_out.connect (() => {
+            google_tasks_revealer.reveal_child = Services.GoogleTasks.get_default ().is_logged_in ();
+            google_tasks_switch.active = Services.GoogleTasks.get_default ().is_logged_in ();
+        });
+
         todoist_setting_button.clicked.connect (() => {
             present_subpage (get_todoist_view ());
+            can_navigate_back = true;
+        });
+
+        google_tasks_button.clicked.connect (() => {
+            present_subpage (get_google_view ());
             can_navigate_back = true;
         });
 
@@ -461,9 +496,17 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         return page;
     }
 
-    private void confirm_log_out (Gtk.Switch todoist_switch) {
+    private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
+        string message = "";
+        
+        if (backend_type == BackendType.TODOIST) {
+            message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");    
+        } else if  (backend_type == BackendType.GOOGLE_TASKS) {
+            message = _("Are you sure you want to remove the Google Tasks sync? This action will delete all your tasks and settings.");
+        }
+
         var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
-        _("Sign off"), _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings."));
+        _("Sign off"), message);
 
         dialog.body_use_markup = true;
         dialog.add_response ("cancel", _("Cancel"));
@@ -473,9 +516,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
-                Services.Todoist.get_default ().remove_items ();
+                if (backend_type == BackendType.TODOIST) {
+                    Services.Todoist.get_default ().remove_items ();
+                } else if  (backend_type == BackendType.GOOGLE_TASKS) {
+                    Services.GoogleTasks.get_default ().remove_items ();
+                }
             } else {
-                todoist_switch.active = true;
+                switch_widget.active = true;
             }
         });
     }
@@ -493,7 +540,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var todoist_avatar = new Adw.Avatar (84, Planner.settings.get_string ("todoist-user-name"), true);
 
-        var file = File.new_for_path (Util.get_default ().get_todoist_avatar_path ());
+        var file = File.new_for_path (Util.get_default ().get_avatar_path ("todoist-user"));
         if (file.query_exists ()) {
             // todoist_avatar.set_loadable_icon (new FileIcon (file));    
         }
@@ -512,6 +559,97 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         user_box.append (todoist_avatar);
         user_box.append (todoist_user);
         user_box.append (todoist_email);
+
+        var default_group = new Adw.PreferencesGroup ();
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 400,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = default_group;
+
+        var sync_server_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Planner.settings.get_boolean ("todoist-sync-server")
+        };
+
+        var sync_server_row = new Adw.ActionRow ();
+        sync_server_row.title = _("Sync Server");
+        sync_server_row.subtitle = _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.");
+        sync_server_row.set_activatable_widget (sync_server_switch);
+        sync_server_row.add_suffix (sync_server_switch);
+
+        var last_sync_date = new GLib.DateTime.from_iso8601 (
+            Planner.settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
+        );
+
+        var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
+            last_sync_date
+        ));
+        
+        var last_sync_row = new Adw.ActionRow ();
+        last_sync_row.activatable = false;
+        last_sync_row.title = _("Last Sync");
+        last_sync_row.add_suffix (last_sync_label);
+
+        default_group.add (sync_server_row);
+        default_group.add (last_sync_row);
+
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (user_box);
+        main_content.append (content_clamp);
+
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        sync_server_row.notify["active"].connect (() => {
+            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+        });
+
+        return main_content;
+    }
+
+    private Gtk.Widget get_google_view () {
+        var settings_header_box = new Widgets.SettingsHeader (_("Google Tasks"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
+
+        settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+        var avatar = new Adw.Avatar (84, Planner.settings.get_string ("google-user-name"), true);
+
+        var file = File.new_for_path (Util.get_default ().get_avatar_path ("google-user"));
+        if (file.query_exists ()) {
+            // todoist_avatar.set_loadable_icon (new FileIcon (file));    
+        }
+
+        var user_label = new Gtk.Label (Planner.settings.get_string ("google-user-name")) {
+            margin_top = 12
+        };
+        user_label.add_css_class ("title-1");
+
+        var email_label = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        email_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+
+        var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 64
+        };
+        user_box.append (avatar);
+        user_box.append (user_label);
+        user_box.append (email_label);
 
         var default_group = new Adw.PreferencesGroup ();
 

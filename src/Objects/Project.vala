@@ -234,6 +234,12 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = BackendType.TODOIST;
     }
 
+    public Project.from_google_tasklist_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        update_from_google_tasklist_json (node);
+        backend_type = BackendType.GOOGLE_TASKS;
+    }
+
     public void update_from_json (Json.Node node) {
         name = node.get_object ().get_string_member ("name");
 
@@ -275,6 +281,10 @@ public class Objects.Project : Objects.BaseObject {
 
         view_style = node.get_object ().get_string_member ("view_style") == "board" ?
             ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
+    }
+
+    public void update_from_google_tasklist_json (Json.Node node) {
+        name = node.get_object ().get_string_member ("title");
     }
 
     public void update_no_timeout () {

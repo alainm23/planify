@@ -103,6 +103,7 @@ public enum BackendType {
     NONE,
     LOCAL,
     TODOIST,
+    GOOGLE_TASKS,
     CALDAV;
 
     public string to_string () {
@@ -118,6 +119,9 @@ public enum BackendType {
 
             case TODOIST:
                 return "todoist";
+            
+            case GOOGLE_TASKS:
+                return "google-tasks";
 
             case CALDAV:
                 return "caldav";

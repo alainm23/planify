@@ -62,11 +62,16 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
     }
 
     public void update () {
-        for (Gtk.Widget child = get_first_child (); child != null; child = get_next_sibling ()) {
-            remove (child);
-        }
+        remove (label_sunday);
+        remove (label_monday);
+        remove (label_tuesday);
+        remove (label_wednesday);
+        remove (label_thursday);
+        remove (label_friday);
+        remove (label_saturday);
 
         var start_week = Planner.settings.get_enum ("start-week");
+        
         if (start_week == 0) {
             append (label_sunday);
             append (label_monday);
@@ -83,46 +88,6 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
             append (label_friday);
             append (label_saturday);
             append (label_sunday);
-        } else if (start_week == 2) {
-            append (label_tuesday);
-            append (label_wednesday);
-            append (label_thursday);
-            append (label_friday);
-            append (label_saturday);
-            append (label_sunday);
-            append (label_monday);
-        } else if (start_week == 3) {
-            append (label_wednesday);
-            append (label_thursday);
-            append (label_friday);
-            append (label_saturday);
-            append (label_sunday);
-            append (label_monday);
-            append (label_tuesday);
-        } else if (start_week == 4) {
-            append (label_thursday);
-            append (label_friday);
-            append (label_saturday);
-            append (label_sunday);
-            append (label_monday);
-            append (label_tuesday);
-            append (label_wednesday);
-        } else if (start_week == 5) {
-            append (label_friday);
-            append (label_saturday);
-            append (label_sunday);
-            append (label_monday);
-            append (label_tuesday);
-            append (label_wednesday);
-            append (label_thursday);
-        } else if (start_week == 6) {
-            append (label_saturday);
-            append (label_sunday);
-            append (label_monday);
-            append (label_tuesday);
-            append (label_wednesday);
-            append (label_thursday);
-            append (label_friday);
         }
     }
 }

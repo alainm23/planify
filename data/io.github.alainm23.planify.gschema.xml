@@ -29,9 +29,8 @@
     </enum>
 
     <enum id="io.github.alainm23.planify.start-week">
-        <value nick="Saturday" value="0" />
-        <value nick="Sunday" value="1" />
-        <value nick="Monday" value="2" />
+        <value nick="Sunday" value="0" />
+        <value nick="Monday" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.new-tasks-position">
@@ -102,7 +101,7 @@
         </key>
 
         <key name="complete-task" enum="io.github.alainm23.planify.complete-task">
-            <default>"Wait 2500 milliseconds"</default>
+            <default>"Instantly"</default>
             <summary></summary>
             <description></description>
         </key>
@@ -309,6 +308,30 @@
             <default>true</default>
             <summary>Calendar enabled</summary>
             <description>Calendar enabled</description>
+        </key>
+
+        <key name="google-access-token" type="s">
+            <default>""</default>
+            <summary>Google User Access Token</summary>
+            <description>Google User Access Token</description>
+        </key>
+
+        <key name="google-refresh-token" type="s">
+            <default>""</default>
+            <summary>Google User Refresh Token</summary>
+            <description>Google User Refresh Token</description>
+        </key>
+
+        <key name="google-user-name" type="s">
+            <default>""</default>
+            <summary>Google User Name</summary>
+            <description>Google User Name</description>
+        </key>
+
+        <key name="google-user-email" type="s">
+            <default>""</default>
+            <summary>Google User Email</summary>
+            <description>Google User Email</description>
         </key>
     </schema>
 </schemalist>

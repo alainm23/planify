@@ -10,20 +10,10 @@ public class Views.Date : Gtk.Grid {
     private Gtk.Revealer main_revealer;
     private Gtk.Revealer overdue_revealer;
     private Gtk.Revealer today_label_revealer;
-    private Widgets.Placeholder listbox_placeholder;
-    // private Widgets.EventsList event_list;
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
     public Gee.HashMap <string, Layouts.ItemRow> items_checked;
-    // private Gee.Map<E.Source, ECal.ClientView> views;
-
-    // private Gee.HashMap <string, Objects.Task> tasks_store;    
-    // public Gee.HashMap <string, Layouts.TaskRow> tasks_map;
-    // public Gee.HashMap <string, Layouts.TaskRow> overdue_tasks_map;
-
-    //  private E.SourceRegistry registry;
-    //  private const string QUERY = "AND (NOT is-completed?) (has-start?)";
 
     private bool overdue_has_children {
         get {
@@ -47,27 +37,6 @@ public class Views.Date : Gtk.Grid {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items_checked = new Gee.HashMap <string, Layouts.ItemRow> ();
-        // views = new Gee.HashMap<E.Source, ECal.ClientView> ();
-
-        //  tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
-        //  overdue_tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
-
-        //  BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
-        //  if (backend_type == BackendType.CALDAV) {
-        //      try {
-        //          registry = Services.CalDAV.get_default ().get_registry_sync ();
-        //          var sources = registry.list_sources (E.SOURCE_EXTENSION_TASK_LIST);
-        //          sources.foreach ((source) => {
-        //              add_task_list (source);
-        //          });
-        //      } catch (Error e) {
-        //          warning (e.message);
-        //      }
-        //  }
-
-        //  event_list = new Widgets.EventsList (is_today_view) {
-        //      margin_start = 20
-        //  };
 
         var overdue_label = new Gtk.Label (_("Overdue")) {
             halign = Gtk.Align.START,

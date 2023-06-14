@@ -10,9 +10,11 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.HeaderItem favorites_header;
     private Layouts.HeaderItem local_projects_header;
     private Layouts.HeaderItem todoist_projects_header;
+    private Layouts.HeaderItem google_projects_header;
 
     public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap;
     public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap;
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
 
     public Sidebar () {
@@ -22,6 +24,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     construct {
         local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
         todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+        google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> (); 
         favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
         filters_grid= new Gtk.Grid () {
@@ -57,6 +60,9 @@ public class Layouts.Sidebar : Gtk.Grid {
         todoist_projects_header = new Layouts.HeaderItem (null);
         todoist_projects_header.margin_top = 6;
 
+        google_projects_header = new Layouts.HeaderItem (null);
+        google_projects_header.margin_top = 6;
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
@@ -68,6 +74,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         content_box.append (favorites_header);
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
+        content_box.append (google_projects_header);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -128,6 +135,14 @@ public class Layouts.Sidebar : Gtk.Grid {
             todoist_projects_header.reveal = false;
         });
 
+        Services.GoogleTasks.get_default ().log_in.connect (() => {
+            google_projects_header.reveal = true;
+        });
+
+        Services.GoogleTasks.get_default ().log_out.connect (() => {
+            google_projects_header.reveal = false;
+        });
+
         Services.Database.get_default ().project_deleted.connect ((project) => {
             if (favorites_hashmap.has_key (project.id)) {
                 favorites_hashmap.unset (project.id);
@@ -156,6 +171,18 @@ public class Layouts.Sidebar : Gtk.Grid {
         }
     }
 
+    public void verify_google_account () {
+        bool is_logged_in = Services.GoogleTasks.get_default ().is_logged_in ();
+        
+        if (is_logged_in) {
+            google_projects_header.reveal = true;
+            google_projects_header.header_title = _("Google Tasks");
+            google_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
+        } else {
+            google_projects_header.header_title = _("Google Tasks");
+            google_projects_header.placeholder_message = _("No account available, Sync one by clicking the '+' button");
+        }
+    }
 
     public void select_project (Objects.Project project) {
         Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
@@ -210,14 +237,16 @@ public class Layouts.Sidebar : Gtk.Grid {
         add_all_favorites ();
 
         verify_todoist_account ();
+        verify_google_account ();
     }
 
     private void add_all_projects () {
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
+            print ("Name: %s\n".printf (project.name));
+            print ("Backend: %s\n".printf (project.backend_type.to_string ()));
+
             add_row_project (project);
         }
-
-        // projects_header.init_update_position_project ();
     }
 
     private void add_all_favorites () {
@@ -243,6 +272,11 @@ public class Layouts.Sidebar : Gtk.Grid {
                 if (!todoist_hashmap.has_key (project.id_string)) {
                     todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);
                     todoist_projects_header.add_child (todoist_hashmap [project.id_string]);
+                }
+            } else if (project.backend_type == BackendType.GOOGLE_TASKS) {
+                if (!google_hashmap.has_key (project.id_string)) {
+                    google_hashmap [project.id_string] = new Layouts.ProjectRow (project);
+                    google_projects_header.add_child (google_hashmap [project.id_string]);
                 }
             } else if (project.backend_type == BackendType.LOCAL) {
                 if (!local_hashmap.has_key (project.id_string)) {

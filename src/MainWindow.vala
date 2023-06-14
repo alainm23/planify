@@ -99,26 +99,8 @@ public class MainWindow : Adw.ApplicationWindow {
             transition_duration = 125
         };
 
-        var devel_infobar = new Gtk.InfoBar ();
-        devel_infobar.set_message_type (Gtk.MessageType.WARNING);
-        devel_infobar.show_close_button = true;
-        devel_infobar.revealed = Constants.PROFILE == "development";
-
-        var devel_label = new Gtk.Label (_("You are running an early stage development version. Be aware it is a work in progress and far from complete yet.")) {
-            wrap = true
-        };
-
-        devel_infobar.response.connect (() => {
-            devel_infobar.revealed = false;
-        });
-
-        devel_label.set_natural_wrap_mode (Gtk.NaturalWrapMode.NONE);
-        devel_label.add_css_class ("warning");
-        devel_infobar.add_child (devel_label);
-
         var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         views_content.append (views_stack);
-        // views_content.append (multiselect_toolbar);
 
         var views_overlay = new Gtk.Overlay ();
         views_overlay.child = views_content;
@@ -228,6 +210,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         if (Services.Database.get_default ().is_database_empty ()) {
             Util.get_default ().create_inbox_project ();
+            Util.get_default ().create_tutorial_project ();
+            Util.get_default ().create_default_labels ();
         }
 
         sidebar.init();
@@ -393,10 +377,10 @@ public class MainWindow : Adw.ApplicationWindow {
                 project_view.prepare_new_item (content);
             }
         } else if (views_stack.visible_child_name.has_prefix ("today-view")) {
-            //  Views.Today? today_view = (Views.Today) views_stack.visible_child;
-            //  if (today_view != null) {
-            //      today_view.prepare_new_item (content);
-            //  }
+            Views.Today? today_view = (Views.Today) views_stack.visible_child;
+            if (today_view != null) {
+                today_view.prepare_new_item (content);
+            }
         } else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
             //  Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
             //  if (scheduled_view != null) {
