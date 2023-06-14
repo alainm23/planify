@@ -1,49 +1,54 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Brazilian Portuguese translation for io.github.alainm23.planify
+# Copyright (C) 2023 io.github.alainm23.planify
 # This file is distributed under the same license as the io.github.alainm23.planify package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Fúlvio Leo <fulviokaldas@outlook.com>, 2023.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-05-26 11:00-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2023-06-04 16:50-0300\n"
+"Last-Translator: Fúlvio Leo <fulviokaldas@outlook.com>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Gtranslator 42.0\n"
 
 #: src/App.vala:98
 msgid "Are you sure you want to reset all?"
-msgstr ""
+msgstr "Você tem certeza que quer reiniciar tudo?"
 
 #: src/App.vala:99
 msgid ""
 "It process removes all stored information without the possibility of undoing "
 "it."
 msgstr ""
+"Este processo remove todas as informações armazenadas sem a possibilidade de "
+"desfazer."
 
 #: src/MainWindow.vala:18
 msgid "Planner"
-msgstr ""
+msgstr "Planner"
 
 #: src/MainWindow.vala:107
 msgid ""
 "You are running an early stage development version. Be aware it is a work in "
 "progress and far from complete yet."
 msgstr ""
+"Você está executando uma versão de desenvolvimento em estágio inicial. "
+"Esteja ciente de que é um trabalho em andamento e ainda está longe de ser "
+"concluído."
 
 #: src/MainWindow.vala:245
 msgid "Tasks synced successfully"
-msgstr ""
+msgstr "Tarefas sincronizadas com sucesso"
 
 #: src/MainWindow.vala:245
 msgid "Do you want to use Todoist as your default Inbox Project?"
-msgstr ""
+msgstr "Você quer usar o Todoist como sua Caixa de Entrada de Projetos padrão?"
 
 #: src/MainWindow.vala:248 src/Util.vala:815 src/Layouts/ProjectRow.vala:475
 #: src/Layouts/SectionRow.vala:632 src/Layouts/ItemRow.vala:495
@@ -51,126 +56,126 @@ msgstr ""
 #: src/Layouts/SectionBoard.vala:497 src/Widgets/MultiSelectToolbar.vala:315
 #: src/Dialogs/Preferences/PreferencesWindow.vala:469
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/MainWindow.vala:249
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/MainWindow.vala:460
 msgid "Preferences"
-msgstr ""
+msgstr "Preferências"
 
 #: src/MainWindow.vala:461
 msgid "Keyboard shortcuts"
-msgstr ""
+msgstr "Atalhos de teclado"
 
 #: src/MainWindow.vala:462
 msgid "About Planner"
-msgstr ""
+msgstr "Sobre o Planner"
 
 #: src/Util.vala:20 src/Util.vala:21
 msgid "Berry Red"
-msgstr ""
+msgstr "Vermelho Baga"
 
 #: src/Util.vala:23 src/Util.vala:24
 msgid "Red"
-msgstr ""
+msgstr "Vermelho"
 
 #: src/Util.vala:26 src/Util.vala:27
 msgid "Orange"
-msgstr ""
+msgstr "Laranja"
 
 #: src/Util.vala:29 src/Util.vala:30
 msgid "Olive Green"
-msgstr ""
+msgstr "Verde Oliva"
 
 #: src/Util.vala:32 src/Util.vala:33
 msgid "Yellow"
-msgstr ""
+msgstr "Amarelo"
 
 #: src/Util.vala:35 src/Util.vala:36
 msgid "Lime Green"
-msgstr ""
+msgstr "Verde Limão"
 
 #: src/Util.vala:38 src/Util.vala:39
 msgid "Green"
-msgstr ""
+msgstr "Verde"
 
 #: src/Util.vala:41 src/Util.vala:42
 msgid "Mint Green"
-msgstr ""
+msgstr "Verde Menta"
 
 #: src/Util.vala:44 src/Util.vala:45
 msgid "Teal"
-msgstr ""
+msgstr "Cerceta"
 
 #: src/Util.vala:47 src/Util.vala:48
 msgid "Sky Blue"
-msgstr ""
+msgstr "Azul Céu"
 
 #: src/Util.vala:50 src/Util.vala:51
 msgid "Light Blue"
-msgstr ""
+msgstr "Azul claro"
 
 #: src/Util.vala:53 src/Util.vala:54
 msgid "Blue"
-msgstr ""
+msgstr "Azul"
 
 #: src/Util.vala:56 src/Util.vala:57
 msgid "Grape"
-msgstr ""
+msgstr "Verde Uva"
 
 #: src/Util.vala:59 src/Util.vala:60
 msgid "Violet"
-msgstr ""
+msgstr "Violeta"
 
 #: src/Util.vala:62 src/Util.vala:63
 msgid "Lavander"
-msgstr ""
+msgstr "Lavanda"
 
 #: src/Util.vala:65 src/Util.vala:66
 msgid "Magenta"
-msgstr ""
+msgstr "Magenta"
 
 #: src/Util.vala:68 src/Util.vala:69
 msgid "Salmon"
-msgstr ""
+msgstr "Salmão"
 
 #: src/Util.vala:71 src/Util.vala:72
 msgid "Charcoal"
-msgstr ""
+msgstr "Carvão"
 
 #: src/Util.vala:74 src/Util.vala:75
 msgid "Grey"
-msgstr ""
+msgstr "Cinza"
 
 #: src/Util.vala:77 src/Util.vala:78
 msgid "Taupe"
-msgstr ""
+msgstr "Taupe"
 
 #: src/Util.vala:219
 msgid "Light"
-msgstr ""
+msgstr "Claro"
 
 #: src/Util.vala:222 src/Dialogs/Preferences/PreferencesWindow.vala:241
 msgid "Dark"
-msgstr ""
+msgstr "Escuro"
 
 #: src/Util.vala:225 src/Dialogs/Preferences/PreferencesWindow.vala:249
 msgid "Dark Blue"
-msgstr ""
+msgstr "Azul Escuro"
 
 #: src/Util.vala:238 src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: src/Util.vala:241 src/Util.vala:1109 src/Enum.vala:87
 #: src/Layouts/FilterPaneRow.vala:101 src/Widgets/ProjectHeader.vala:52
 #: src/Widgets/ProjectHeader.vala:101
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:80
 msgid "Inbox"
-msgstr ""
+msgstr "Caixa de Entrada"
 
 #: src/Util.vala:244 src/Util.vala:419 src/Enum.vala:84
 #: src/Layouts/FilterPaneRow.vala:98 src/Layouts/ItemRow.vala:1001
@@ -179,209 +184,209 @@ msgstr ""
 #: src/Views/Today.vala:100 src/Objects/Filters/Today.vala:45
 #: src/Dialogs/DatePicker.vala:64
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #: src/Util.vala:247
 msgid "Today + Inbox"
-msgstr ""
+msgstr "Hoje + Caixa de Entrada"
 
 #: src/Util.vala:421 src/Layouts/ItemRow.vala:1004
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:75
 #: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
-msgstr ""
+msgstr "Amanhã"
 
 #: src/Util.vala:423
 msgid "Yesterday"
-msgstr ""
+msgstr "Ontem"
 
 #: src/Util.vala:550
 msgid "Mo,"
-msgstr ""
+msgstr "Seg,"
 
 #: src/Util.vala:554
 msgid "Tu,"
-msgstr ""
+msgstr "Ter,"
 
 #: src/Util.vala:558
 msgid "We,"
-msgstr ""
+msgstr "Qua,"
 
 #: src/Util.vala:562
 msgid "Th,"
-msgstr ""
+msgstr "Qui"
 
 #: src/Util.vala:566
 msgid "Fr,"
-msgstr ""
+msgstr "Sex,"
 
 #: src/Util.vala:570
 msgid "Sa,"
-msgstr ""
+msgstr "Sáb,"
 
 #: src/Util.vala:574
 msgid "Su,"
-msgstr ""
+msgstr "Dom,"
 
 #: src/Util.vala:602
 #, c-format
 msgid "Task added to <b>%s</b>"
-msgstr ""
+msgstr "Tarefas adicionadas a <b>%s</b>"
 
 #: src/Util.vala:816
 msgid "Reset all"
-msgstr ""
+msgstr "Reiniciar tudo"
 
 #: src/Util.vala:929
 msgid "The request was incorrect."
-msgstr ""
+msgstr "A requisição foi incorreta."
 
 #: src/Util.vala:930
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr ""
+msgstr "Autenticação é requerida, mas falhou ou não foi provida ainda."
 
 #: src/Util.vala:931
 msgid "The request was valid, but for something that is forbidden."
-msgstr ""
+msgstr "A requisição foi válida, mas por algum motivo é proibida."
 
 #: src/Util.vala:932
 msgid "The requested resource could not be found."
-msgstr ""
+msgstr "O recurso requerido não pôde ser encontrado."
 
 #: src/Util.vala:933
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
+msgstr "O usuário mandou muitas requisições em um dado período de tempo."
 
 #: src/Util.vala:934
 msgid "The request failed due to a server error."
-msgstr ""
+msgstr "A requisição falhou devido a um erro de servidor."
 
 #: src/Util.vala:935
 msgid "The server is currently unable to handle the request."
-msgstr ""
+msgstr "O servidor não pode processar a requisição no momento."
 
 #: src/Util.vala:1019 src/Widgets/PriorityButton.vala:40
 #: src/Widgets/MultiSelectToolbar.vala:193 src/Objects/Item.vala:66
 msgid "Priority 1: high"
-msgstr ""
+msgstr "Prioridade 1: alta"
 
 #: src/Util.vala:1021 src/Widgets/PriorityButton.vala:41
 #: src/Widgets/MultiSelectToolbar.vala:194 src/Objects/Item.vala:68
 msgid "Priority 2: medium"
-msgstr ""
+msgstr "Prioridade 2: média"
 
 #: src/Util.vala:1023 src/Widgets/PriorityButton.vala:42
 #: src/Widgets/MultiSelectToolbar.vala:195 src/Objects/Item.vala:70
 msgid "Priority 3: low"
-msgstr ""
+msgstr "Prioridade 3: baixa"
 
 #: src/Util.vala:1025 src/Util.vala:1027 src/Widgets/PriorityButton.vala:43
 #: src/Widgets/MultiSelectToolbar.vala:196 src/Objects/Item.vala:72
 msgid "Priority 4: none"
-msgstr ""
+msgstr "Prioridade 4: nenhuma"
 
 #: src/Enum.vala:90 src/Layouts/FilterPaneRow.vala:104
 #: src/Widgets/FilterHeader.vala:59 src/Widgets/ProjectViewHeaderBar.vala:97
 #: src/Objects/Filters/Scheduled.vala:29
 msgid "Scheduled"
-msgstr ""
+msgstr "Agendado"
 
 #: src/Enum.vala:93 src/Layouts/FilterPaneRow.vala:107
 #: src/Widgets/FilterHeader.vala:62 src/Widgets/ProjectViewHeaderBar.vala:101
 msgid "Pinboard"
-msgstr ""
+msgstr "Quadro de anúncios"
 
 #: src/Enum.vala:156
 msgid "Projects"
-msgstr ""
+msgstr "Projetos"
 
 #: src/Enum.vala:159
 msgid "Sections"
-msgstr ""
+msgstr "Seções"
 
 #: src/Enum.vala:162 src/Enum.vala:171
 msgid "Tasks"
-msgstr ""
+msgstr "Tarefas"
 
 #: src/Enum.vala:165 src/Layouts/FilterPaneRow.vala:110
 #: src/Widgets/LabelsHeader.vala:129 src/Views/Filters.vala:28
 #: src/Objects/Filters/Labels.vala:37 src/Dialogs/LabelPicker.vala:57
 msgid "Labels"
-msgstr ""
+msgstr "Rótulos"
 
 #: src/Enum.vala:168
 msgid "Filters"
-msgstr ""
+msgstr "Filtros"
 
 #: src/Enum.vala:174
 msgid "Lists"
-msgstr ""
+msgstr "Listas"
 
 #: src/Enum.vala:192
 msgid "Don't Repeat"
-msgstr ""
+msgstr "Não Repita"
 
 #: src/Enum.vala:195 src/Enum.vala:197
 msgid "Every day"
-msgstr ""
+msgstr "Todo dia"
 
 #: src/Enum.vala:197
 #, c-format
 msgid "Every %d days"
-msgstr ""
+msgstr "A cada %d dias"
 
 #: src/Enum.vala:201 src/Enum.vala:203
 msgid "Every week"
-msgstr ""
+msgstr "Toda semana"
 
 #: src/Enum.vala:203
 #, c-format
 msgid "Every %d weeks"
-msgstr ""
+msgstr "A cada %d semanas"
 
 #: src/Enum.vala:208 src/Enum.vala:210
 msgid "Every month"
-msgstr ""
+msgstr "Todo mês"
 
 #: src/Enum.vala:210
 #, c-format
 msgid "Every %d months"
-msgstr ""
+msgstr "A cada %d meses"
 
 #: src/Enum.vala:215 src/Enum.vala:217
 msgid "Every year"
-msgstr ""
+msgstr "Todo ano"
 
 #: src/Enum.vala:217
 #, c-format
 msgid "Every %d years"
-msgstr ""
+msgstr "A cada %d anos"
 
 #: src/Services/CalendarEvents/Util.vala:264
 msgid "On this computer"
-msgstr ""
+msgstr "Neste computador"
 
 #: src/Layouts/Sidebar.vala:47
 msgid "Favorites"
-msgstr ""
+msgstr "Favoritos"
 
 #: src/Layouts/Sidebar.vala:48
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Nenhum favorito disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/Sidebar.vala:52 src/Dialogs/Project.vala:139
 #: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "On This Computer"
-msgstr ""
+msgstr "Neste Computador"
 
 #: src/Layouts/Sidebar.vala:53
 msgid "Add Project"
-msgstr ""
+msgstr "Adicionar Projeto"
 
 #: src/Layouts/Sidebar.vala:54 src/Layouts/Sidebar.vala:152
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr ""
+msgstr "Nenhum projeto disponível. Crie um clicando no botão '+'"
 
 #: src/Layouts/Sidebar.vala:151 src/Layouts/Sidebar.vala:154
 #: src/Dialogs/Project.vala:140
@@ -390,37 +395,38 @@ msgstr ""
 #: src/Dialogs/Preferences/PreferencesWindow.vala:374
 #: src/Dialogs/Preferences/PreferencesWindow.vala:484
 msgid "Todoist"
-msgstr ""
+msgstr "Todoist"
 
 #: src/Layouts/Sidebar.vala:155
 msgid "No account available, Sync one by clicking the '+' button"
-msgstr ""
+msgstr "Nenhuma conta disponível. Sincronize uma clicando no botão '+'"
 
 #: src/Layouts/ProjectRow.vala:335
 msgid "Project list order changed to Custom Sort Order."
 msgstr ""
+"Ordem da lista de projetos alterada para Ordem de Classificação Personalizada"
 
 #: src/Layouts/ProjectRow.vala:418
 msgid "Move to project"
-msgstr ""
+msgstr "Mover para projeto"
 
 #: src/Layouts/ProjectRow.vala:419 src/Layouts/ProjectRow.vala:472
 msgid "Delete project"
-msgstr ""
+msgstr "Deletar projeto"
 
 #: src/Layouts/ProjectRow.vala:422
 msgid "Share"
-msgstr ""
+msgstr "Compartilhar"
 
 #: src/Layouts/ProjectRow.vala:423
 msgid "Send by e-mail"
-msgstr ""
+msgstr "Enviar por e-mail"
 
 #: src/Layouts/ProjectRow.vala:472 src/Layouts/SectionRow.vala:629
 #: src/Layouts/LabelRow.vala:142 src/Layouts/SectionBoard.vala:494
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
-msgstr ""
+msgstr "Você tem certeza que quer deletar <b>%s</b>?"
 
 #: src/Layouts/ProjectRow.vala:476 src/Layouts/SectionRow.vala:633
 #: src/Layouts/LabelRow.vala:146 src/Layouts/SectionBoard.vala:498
@@ -428,52 +434,52 @@ msgstr ""
 #: src/Widgets/MultiSelectToolbar.vala:316
 #: src/Dialogs/Preferences/PreferencesWindow.vala:470
 msgid "Delete"
-msgstr ""
+msgstr "Deletar"
 
 #: src/Layouts/SectionRow.vala:77 src/Layouts/SectionBoard.vala:52
 msgid "(No Section)"
-msgstr ""
+msgstr "(Sem seção)"
 
 #: src/Layouts/SectionRow.vala:571 src/Layouts/ItemRow.vala:489
 #: src/Layouts/SectionBoard.vala:432 src/Widgets/MagicButton.vala:33
 msgid "Add Task"
-msgstr ""
+msgstr "Adicionar Tarefa"
 
 #: src/Layouts/SectionRow.vala:572 src/Layouts/SectionBoard.vala:433
 msgid "Edit Section"
-msgstr ""
+msgstr "Editar Seção"
 
 #: src/Layouts/SectionRow.vala:573 src/Layouts/SectionBoard.vala:434
 msgid "Move Section"
-msgstr ""
+msgstr "Mover Seção"
 
 #: src/Layouts/SectionRow.vala:574 src/Layouts/SectionBoard.vala:435
 #: src/Dialogs/ManageSectionOrder.vala:32
 msgid "Manage Section Order"
-msgstr ""
+msgstr "Gerenciar Ordem de Seção"
 
 #: src/Layouts/SectionRow.vala:575 src/Layouts/SectionBoard.vala:436
 msgid "Delete Section"
-msgstr ""
+msgstr "Deletar Seção"
 
 #: src/Layouts/SectionRow.vala:629 src/Layouts/SectionBoard.vala:494
 msgid "Delete section"
-msgstr ""
+msgstr "Deletar Seção"
 
 #: src/Layouts/ItemRow.vala:366 src/Views/List.vala:35 src/Views/List.vala:259
 #: src/Dialogs/Item.vala:176 src/Dialogs/ProjectDescription.vala:42
 msgid "Add a description"
-msgstr ""
+msgstr "Adicionar uma descrição"
 
 #: src/Layouts/ItemRow.vala:407
 msgid "Add subtask"
-msgstr ""
+msgstr "Adicionar subtarefa"
 
 #: src/Layouts/ItemRow.vala:1007
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:78
 #: src/Dialogs/DatePicker.vala:77
 msgid "No Date"
-msgstr ""
+msgstr "Sem Data"
 
 #. var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
 #. var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
@@ -482,154 +488,154 @@ msgstr ""
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:73
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:104
 msgid "Move"
-msgstr ""
+msgstr "Mover"
 
 #: src/Layouts/ItemRow.vala:1012
 msgid "Move to Section"
-msgstr ""
+msgstr "Mover para Seção"
 
 #: src/Layouts/ItemRow.vala:1014
 msgid "Complete"
-msgstr ""
+msgstr "Completar"
 
 #: src/Layouts/ItemRow.vala:1015
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/Layouts/ItemRow.vala:1017
 msgid "Delete task"
-msgstr ""
+msgstr "Deletar tarefa"
 
 #: src/Layouts/ItemRow.vala:1119
 msgid "Added at"
-msgstr ""
+msgstr "Adicionado em"
 
 #: src/Layouts/ItemRow.vala:1120
 msgid "Updated at"
-msgstr ""
+msgstr "Atualizado em"
 
 #: src/Layouts/ItemRow.vala:1122
 msgid "Not available"
-msgstr ""
+msgstr "Não disponível"
 
 #: src/Layouts/ItemRow.vala:1489 src/Layouts/ItemBoard.vala:265
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr ""
+msgstr "Concluído. Próxima ocorrência: %s"
 
 #: src/Layouts/ItemRow.vala:1515
 msgid "The task was deleted"
-msgstr ""
+msgstr "A tarefa foi deletada"
 
 #: src/Layouts/ItemRow.vala:1516
 msgid "Undo"
-msgstr ""
+msgstr "Desfazer"
 
 #: src/Layouts/ItemRow.vala:1588
 msgid "Move tasks"
-msgstr ""
+msgstr "Mover tarefas"
 
 #: src/Layouts/ItemRow.vala:1588
 #, c-format
 msgid "Are you sure you want to move your task to <b>%s</b>?"
-msgstr ""
+msgstr "Você tem certeza que quer mover sua tarefa para <b>%s</b>?"
 
 #: src/Layouts/LabelRow.vala:142
 msgid "Delete label"
-msgstr ""
+msgstr "Deletar rótulo"
 
 #: src/Widgets/FilterHeader.vala:90 src/Views/Project.vala:97
 #: src/Views/Label.vala:90 src/Views/Filter.vala:77 src/Views/Filters.vala:53
 msgid "Add Tasks"
-msgstr ""
+msgstr "Adicionar Tarefas"
 
 #: src/Widgets/ProjectHeader.vala:137 src/Views/Project.vala:238
 #: src/Dialogs/Project.vala:65
 msgid "Edit Project"
-msgstr ""
+msgstr "Editar Projeto"
 
 #: src/Widgets/ProjectHeader.vala:139 src/Widgets/ProjectHeader.vala:193
 #: src/Views/Project.vala:239 src/Views/Project.vala:300
 #: src/Views/List.vala:320
 msgid "When?"
-msgstr ""
+msgstr "Quando?"
 
 #: src/Widgets/ProjectHeader.vala:141 src/Views/Project.vala:242
 msgid "Add Section"
-msgstr ""
+msgstr "Adicionar Seção"
 
 #: src/Widgets/ProjectHeader.vala:143 src/Views/Project.vala:244
 msgid "Hide completed tasks"
-msgstr ""
+msgstr "Esconder tarefas concluídas"
 
 #: src/Widgets/ProjectHeader.vala:143 src/Views/Project.vala:244
 msgid "Show Completed Tasks"
-msgstr ""
+msgstr "Mostrar Tarefas Concluídas"
 
 #: src/Widgets/ProjectHeader.vala:147 src/Widgets/LabelsHeader.vala:16
 #: src/Views/Project.vala:248
 msgid "Filter by Labels"
-msgstr ""
+msgstr "Filtrar por Rótulos"
 
 #: src/Widgets/ProjectHeader.vala:149 src/Views/Project.vala:250
 msgid "Select"
-msgstr ""
+msgstr "Selecionar"
 
 #: src/Widgets/ProjectHeader.vala:151 src/Views/Project.vala:252
 msgid "Paste"
-msgstr ""
+msgstr "Colar"
 
 #: src/Widgets/ProjectHeader.vala:153 src/Views/Project.vala:254
 msgid "Delete Project"
-msgstr ""
+msgstr "Deletar Projeto"
 
 #: src/Widgets/ProjectHeader.vala:226 src/Views/Project.vala:333
 msgid "Hide Completed Tasks"
-msgstr ""
+msgstr "Esconder Tarefas Concluídas"
 
 #: src/Widgets/ProjectHeader.vala:226 src/Views/Project.vala:333
 msgid "Show completed tasks"
-msgstr ""
+msgstr "Mostrar tarefas concluídas"
 
 #: src/Widgets/ProjectHeader.vala:271
 #: src/Dialogs/Preferences/PreferencesWindow.vala:46
 msgid "Sort by"
-msgstr ""
+msgstr "Ordenar por"
 
 #: src/Widgets/ProjectHeader.vala:280
 #: src/Dialogs/Preferences/PreferencesWindow.vala:32
 msgid "Custom sort order"
-msgstr ""
+msgstr "Ordem de classificação personalizada"
 
 #: src/Widgets/ProjectHeader.vala:285
 #: src/Dialogs/Preferences/PreferencesWindow.vala:31
 msgid "Alphabetically"
-msgstr ""
+msgstr "Alfabeticamente"
 
 #: src/Widgets/ProjectHeader.vala:289
 msgid "Due date"
-msgstr ""
+msgstr "Data de vencimento"
 
 #: src/Widgets/ProjectHeader.vala:293
 msgid "Date added"
-msgstr ""
+msgstr "Dados adicionados"
 
 #: src/Widgets/ProjectHeader.vala:297
 msgid "Priority"
-msgstr ""
+msgstr "Prioridade"
 
 #: src/Widgets/ProjectHeader.vala:360 src/Views/Project.vala:380
 #: src/Objects/Project.vala:620
 msgid "New section"
-msgstr ""
+msgstr "Nova seção"
 
 #: src/Widgets/SyncButton.vala:65
 msgid "Sync"
-msgstr ""
+msgstr "Sincronizar"
 
 #: src/Widgets/SyncButton.vala:68
 msgid "Offline mode is on"
-msgstr ""
+msgstr "O modo offline está ativado"
 
 #: src/Widgets/SyncButton.vala:68
 msgid ""
@@ -637,176 +643,181 @@ msgid ""
 "internet. Changes you make in offline\n"
 "mode will be synced when you reconnect"
 msgstr ""
+"Parece que você não está conectado a internet.\n"
+"As mudanças que você fez no modo offline\n"
+"serão sincronizadas quando você reconectar"
 
 #: src/Widgets/ScheduleButton.vala:19 src/Widgets/ScheduleButton.vala:30
 #: src/Widgets/ScheduleButton.vala:93 src/Widgets/ScheduleButton.vala:94
 #: src/Widgets/MultiSelectToolbar.vala:60 src/Views/List.vala:290
 msgid "Schedule"
-msgstr ""
+msgstr "Agendar"
 
 #: src/Widgets/PriorityButton.vala:15
 msgid "Set the priority"
-msgstr ""
+msgstr "Definir a prioridade"
 
 #: src/Widgets/PinButton.vala:13
 msgid "Pinned"
-msgstr ""
+msgstr "Fixado"
 
 #: src/Widgets/LabelButton.vala:14
 msgid "Add label(s)"
-msgstr ""
+msgstr "Adicionar rótulo(s)"
 
 #: src/Widgets/LabelsHeader.vala:23
 msgid "No label available, click to add one"
-msgstr ""
+msgstr "Nenhum rótulo disponível, clique para adicionar um"
 
 #: src/Widgets/LabelsHeader.vala:130 src/Dialogs/Label.vala:95
 msgid "Add label"
-msgstr ""
+msgstr "Adicionar rótulo"
 
 #: src/Widgets/LabelsHeader.vala:131
 msgid ""
 "Your list of filters will show up here. Create one by clicking on the '+' "
 "button"
 msgstr ""
+"Sua lista de filtros irá aparecer aqui. Crie uma clicando clicando no botão "
+"'+'"
 
 #: src/Widgets/ReminderButton.vala:12
 msgid "Add reminder(s)"
-msgstr ""
+msgstr "Adicionar lembrete(s)"
 
 #: src/Widgets/MultiSelectToolbar.vala:50
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:147
 #: src/Dialogs/ProjectDescription.vala:62 src/Dialogs/DatePicker.vala:111
 #: src/Dialogs/RepeatConfig.vala:157
 msgid "Done"
-msgstr ""
+msgstr "Feita"
 
 #: src/Widgets/MultiSelectToolbar.vala:270
 msgid "Mask as Completed"
-msgstr ""
+msgstr "Marcar como concluída"
 
 #: src/Widgets/MultiSelectToolbar.vala:303
 msgid "Delete To-Do"
-msgstr ""
+msgstr "Deletar To-Do"
 
 #: src/Widgets/MultiSelectToolbar.vala:304
 msgid "Are you sure you want to delete this to-do?"
-msgstr ""
+msgstr "Você tem certeza que quer deletar este to-do?"
 
 #: src/Widgets/MultiSelectToolbar.vala:306
 #, c-format
 msgid "Delete %d To-Dos"
-msgstr ""
+msgstr "Deletar %d To-Dos"
 
 #: src/Widgets/MultiSelectToolbar.vala:307
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
-msgstr ""
+msgstr "Você tem certeza que quer deletar esses %d to-dos?"
 
 #: src/Widgets/SettingsHeader.vala:21
 msgid "Back"
-msgstr ""
+msgstr "Voltar"
 
 #: src/Widgets/LabelChild.vala:39
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:35
 #: src/Widgets/Calendar/CalendarHeader.vala:45
 msgid "%OB"
-msgstr ""
+msgstr "%OB"
 
 #: src/Widgets/Calendar/CalendarHeader.vala:36
 #: src/Widgets/Calendar/CalendarHeader.vala:48
 msgid "%Y"
-msgstr ""
+msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:40
 msgid "Mo"
-msgstr ""
+msgstr "Seg"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:43
 msgid "Tu"
-msgstr ""
+msgstr "Ter"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:46
 msgid "We"
-msgstr ""
+msgstr "Qua"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:49
 msgid "Th"
-msgstr ""
+msgstr "Qui"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:52
 msgid "Fr"
-msgstr ""
+msgstr "Sex"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:55
 msgid "Sa"
-msgstr ""
+msgstr "Sáb"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:58
 msgid "Su"
-msgstr ""
+msgstr "Dom"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: src/Dialogs/DatePicker.vala:71
 msgid "Next week"
-msgstr ""
+msgstr "Próxima semana"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:85
 msgid "Choose a date"
-msgstr ""
+msgstr "Escolha uma data"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:127
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:209
 msgid "Time"
-msgstr ""
+msgstr "Tempo"
 
 #. / TRANSLATORS: this will only show up when 12-hours clock is in use
 #: src/Widgets/DateTimePicker/TimePicker.vala:153
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #. / TRANSLATORS: this will only show up when 12-hours clock is in use
 #: src/Widgets/DateTimePicker/TimePicker.vala:158
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: src/Widgets/DateTimePicker/TimePicker.vala:187
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: src/Widgets/LabelPicker/LabelPicker.vala:71 src/Dialogs/LabelPicker.vala:71
 msgid "Search or Create"
-msgstr ""
+msgstr "Procure ou Crie"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
-msgstr ""
+msgstr "Lembretes"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:94
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:225
 #: src/Widgets/ReminderPicker/ReminderRow.vala:56
 msgid "Add reminder"
-msgstr ""
+msgstr "Adicionar lembrete"
 
 #: src/Views/Project.vala:64
 msgid "List View"
-msgstr ""
+msgstr "Exibição de Lista"
 
 #: src/Views/Project.vala:72
 msgid "Board View"
-msgstr ""
+msgstr "Exibição de Quadro"
 
 #: src/Views/Project.vala:240
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: src/Views/List.vala:83 src/Views/Date.vala:167 src/Views/Pinboard.vala:34
 #: src/Views/Filter.vala:134
 msgid "Press 'a' or tap the plus button to create a new to-do"
-msgstr ""
+msgstr "Pressione 'a'ou toque no botão mais para criar um novo to-do"
 
 #. views = new Gee.HashMap<E.Source, ECal.ClientView> ();
 #. tasks_map = new Gee.HashMap <string, Layouts.TaskRow> ();
@@ -828,370 +839,377 @@ msgstr ""
 #. };
 #: src/Views/Date.vala:72 src/Views/Today.vala:51
 msgid "Overdue"
-msgstr ""
+msgstr "Atrasado"
 
 #: src/Views/Date.vala:81 src/Views/Today.vala:59
 msgid "Reschedule"
-msgstr ""
+msgstr "Reagendar"
 
 #: src/Views/Label.vala:147
 msgid "No to-dos for this filter yet."
-msgstr ""
+msgstr "Nenhum to_do para este filtro ainda."
 
 #: src/Views/Filter.vala:218 src/Objects/Filters/Completed.vala:37
 msgid "Completed"
-msgstr ""
+msgstr "Concluído"
 
 #: src/Views/Filters.vala:82
 msgid "Labels: On This Computer"
-msgstr ""
+msgstr "Rótulos: Neste Computador"
 
 #: src/Views/Filters.vala:88
 msgid "Labels: Todoist"
-msgstr ""
+msgstr "Rótulos: Todoist"
 
 #: src/Objects/Item.vala:751
 msgid "Task copied to clipboard"
-msgstr ""
+msgstr "Tarefa copiada para a área de transferência"
 
 #: src/Objects/Item.vala:769
 msgid "Diplicate"
-msgstr ""
+msgstr "Duplicar"
 
 #: src/Objects/Project.vala:630
 msgid "The project was copied to the Clipboard."
-msgstr ""
+msgstr "Este projeto foi copiado para a Área de Transferência."
 
 #: src/Objects/Filters/Pinboard.vala:30
 msgid "pinboard"
-msgstr ""
+msgstr "Quadro de fixados"
 
 #: src/Objects/Filters/Scheduled.vala:30
 msgid "scheduled"
-msgstr ""
+msgstr "agendar"
 
 #: src/Objects/Filters/Scheduled.vala:30
 msgid "upcoming"
-msgstr ""
+msgstr "por vir"
 
 #: src/Objects/Filters/Today.vala:46
 msgid "today"
-msgstr ""
+msgstr "hoje"
 
 #: src/Objects/Filters/Priority.vala:46
 msgid "priority"
-msgstr ""
+msgstr "prioridade"
 
 #: src/Objects/Filters/Completed.vala:38
 msgid "completed"
-msgstr ""
+msgstr "concluído"
 
 #: src/Objects/Filters/Completed.vala:38
 msgid "logbook"
-msgstr ""
+msgstr "Registro de eventos"
 
 #: src/Objects/Filters/Labels.vala:38
 msgid "labels"
-msgstr ""
+msgstr "rótulos"
 
 #: src/Dialogs/Project.vala:51
 msgid "New Project"
-msgstr ""
+msgstr "Novo Projeto"
 
 #: src/Dialogs/Project.vala:111
 msgid "Give your project a name"
-msgstr ""
+msgstr "Dê um nome ao seu projeto"
 
 #: src/Dialogs/Project.vala:124
 msgid "Use Emoji"
-msgstr ""
+msgstr "Use Emoji"
 
 #: src/Dialogs/Project.vala:143
 msgid "Source"
-msgstr ""
+msgstr "Fonte"
 
 #: src/Dialogs/Project.vala:182
 msgid "Add project"
-msgstr ""
+msgstr "Adicionar projeto"
 
 #: src/Dialogs/Project.vala:182
 msgid "Update project"
-msgstr ""
+msgstr "Atualizar projeto"
 
 #: src/Dialogs/Project.vala:325
 msgid "Project added successfully!"
-msgstr ""
+msgstr "Projeto adicionado com sucesso!"
 
 #: src/Dialogs/Label.vala:46
 msgid "New Label"
-msgstr ""
+msgstr "Novo Rótulo"
 
 #: src/Dialogs/Label.vala:59
 msgid "Edit Label"
-msgstr ""
+msgstr "Editar Rótulo"
 
 #: src/Dialogs/Label.vala:71
 msgid "Give your label a name"
-msgstr ""
+msgstr "Dê um nome ao seu rótulo"
 
 #: src/Dialogs/Label.vala:95
 msgid "Update label"
-msgstr ""
+msgstr "Atualizar rótulo"
 
 #: src/Dialogs/Item.vala:161
 msgid "Task Name"
-msgstr ""
+msgstr "Nome da Tarefa"
 
 #. resizable: true,
 #. window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
 #: src/Dialogs/TodoistOAuth.vala:35
 msgid "Todoist Sync"
-msgstr ""
+msgstr "Sincronizar todoist"
 
 #: src/Dialogs/TodoistOAuth.vala:44 src/Dialogs/TodoistOAuth.vala:142
 msgid "Loading"
-msgstr ""
+msgstr "Carregando"
 
 #: src/Dialogs/TodoistOAuth.vala:78
 msgid "Planner is sync your tasks, this may take a few minutes."
 msgstr ""
+"Planner está sincronizando suas tarefas, isso pode levar alguns minutos."
 
 #: src/Dialogs/TodoistOAuth.vala:125
 msgid "Synchronizing. Wait a moment please."
-msgstr ""
+msgstr "Sincronizando. Aguarde um momento, por favor."
 
 #: src/Dialogs/TodoistOAuth.vala:135
 msgid "Please enter your credentials"
-msgstr ""
+msgstr "Insira suas credenciais"
 
 #: src/Dialogs/TodoistOAuth.vala:155
 msgid "Network Is Not Available"
-msgstr ""
+msgstr "A Internet Não Está Disponível"
 
 #: src/Dialogs/ProjectDescription.vala:34
 msgid "Project Description"
-msgstr ""
+msgstr "Descrição do Projeto"
 
 #: src/Dialogs/ManageSectionOrder.vala:69
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:87
 msgid "Type a search"
-msgstr ""
+msgstr "Digite uma busca"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:159
 msgid "On this Computer"
-msgstr ""
+msgstr "Neste computador"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:247
 msgid "No Section"
-msgstr ""
+msgstr "Nenhuma Seção"
 
 #: src/Dialogs/LabelPicker.vala:110
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/Dialogs/RepeatConfig.vala:66
 msgid "Repeat"
-msgstr ""
+msgstr "Repetir"
 
 #: src/Dialogs/RepeatConfig.vala:108
 msgid "Day(s)"
-msgstr ""
+msgstr "Dia(s)"
 
 #: src/Dialogs/RepeatConfig.vala:109
 msgid "Week(s)"
-msgstr ""
+msgstr "Semana(s)"
 
 #: src/Dialogs/RepeatConfig.vala:110
 msgid "Month(s)"
-msgstr ""
+msgstr "Mês(es)"
 
 #: src/Dialogs/RepeatConfig.vala:111
 msgid "Year(s)"
-msgstr ""
+msgstr "Ano(s)"
 
 #: src/Dialogs/RepeatConfig.vala:125
 #: src/Dialogs/Preferences/PreferencesWindow.vala:95
 msgid "Monday"
-msgstr ""
+msgstr "Segunda-feira"
 
 #: src/Dialogs/RepeatConfig.vala:126
 msgid "Tuesday"
-msgstr ""
+msgstr "Terça-feira"
 
 #: src/Dialogs/RepeatConfig.vala:127
 msgid "Wednesday"
-msgstr ""
+msgstr "Quarta-feira"
 
 #: src/Dialogs/RepeatConfig.vala:128
 msgid "Thursday"
-msgstr ""
+msgstr "Quinta-feira"
 
 #: src/Dialogs/RepeatConfig.vala:129
 msgid "Friday"
-msgstr ""
+msgstr "Sexta-feita"
 
 #: src/Dialogs/RepeatConfig.vala:130
 msgid "Saturday"
-msgstr ""
+msgstr "Sábado"
 
 #: src/Dialogs/RepeatConfig.vala:131
 #: src/Dialogs/Preferences/PreferencesWindow.vala:94
 msgid "Sunday"
-msgstr ""
+msgstr "Domingo"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:44
 msgid "Quick Find"
-msgstr ""
+msgstr "Busca Rápida"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:172
 msgid "Quickly switch projects and views, find tasks, search by labels."
 msgstr ""
+"Alterne rapidamente projetos e visualizações, encontre tarefas, busque por "
+"rótulos."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:21
 #: src/Dialogs/Preferences/PreferencesWindow.vala:28
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:35
 msgid "Sort projects"
-msgstr ""
+msgstr "Classificar projetos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:42
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendente"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:43
 msgid "Descending"
-msgstr ""
+msgstr "Descendente"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:53
 msgid "DE Integration"
-msgstr ""
+msgstr "Integração DE"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:61
 msgid "Run in background"
-msgstr ""
+msgstr "Executar em segundo plano"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:73
 msgid "Calendar Events"
-msgstr ""
+msgstr "Eventos de Calendário"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:80
 msgid "Date and Time"
-msgstr ""
+msgstr "Data e Tempo"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:83
 msgid "24h"
-msgstr ""
+msgstr "24h"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:84
 msgid "12h"
-msgstr ""
+msgstr "12h"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:87
 msgid "Clock Format"
-msgstr ""
+msgstr "Formato de Relógio"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:98
 msgid "Start of the week"
-msgstr ""
+msgstr "Começo da semana"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:105
 msgid "Task settings"
-msgstr ""
+msgstr "Configurações da tarefa"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
 msgid "Instantly"
-msgstr ""
+msgstr "Imediatamente"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:109
 msgid "Wait 2500 milliseconds"
-msgstr ""
+msgstr "Aguarde 2500 milisegundos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:112
 msgid "Complete task"
-msgstr ""
+msgstr "Concluir tarefa"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:119
 msgid "Priority 1"
-msgstr ""
+msgstr "Prioridade 1"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:120
 msgid "Priority 2"
-msgstr ""
+msgstr "Prioridade 2"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Priority 3"
-msgstr ""
+msgstr "Prioridade 3"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:125
 msgid "Default priority"
-msgstr ""
+msgstr "Prioridade padrão"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
 msgid "Description preview"
-msgstr ""
+msgstr "Pré-visualização da descrição"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:149
 msgid "Underline completed tasks"
-msgstr ""
+msgstr "Sublinhar tarefas concluídas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:205
 msgid "Appearance"
-msgstr ""
+msgstr "Aparência"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:213
 msgid "Use system settings"
-msgstr ""
+msgstr "Usar as configurações do sistema"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Dark mode"
-msgstr ""
+msgstr "Modo escuro"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:328
 #: src/Dialogs/Preferences/PreferencesWindow.vala:413
 msgid "Accounts"
-msgstr ""
+msgstr "Contas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:341
 msgid "Default Inbox Project"
-msgstr ""
+msgstr "Caixa de Entrada de Projetos padrão"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:375
 msgid "Synchronize with your Todoist Account"
-msgstr ""
+msgstr "Sincronize com sua Conta Todoist"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:407
 msgid "Google Tasks"
-msgstr ""
+msgstr "Google Tasks"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:408
 msgid "Synchronize with your Google Account"
-msgstr ""
+msgstr "Sincronize com sua Conta do Google"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:466
 msgid "Sign off"
-msgstr ""
+msgstr "Sair"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:466
 msgid ""
 "Are you sure you want to remove the Todoist sync? This action will delete "
 "all your tasks and settings."
 msgstr ""
+"Você tem certeza que deseja remover a sincronização do Todoist? Esta ação "
+"irá deletar todas as suas tarefas e configurações."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:533
 msgid "Sync Server"
-msgstr ""
+msgstr "Sincronizar Servidor"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:534
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
 msgstr ""
+"Ative esta configuração para que o Planner sincronize automaticamente com "
+"sua conta Todoist a cada 15 minutos."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:548
 msgid "Last Sync"
-msgstr ""
+msgstr "Última Sincronização"
