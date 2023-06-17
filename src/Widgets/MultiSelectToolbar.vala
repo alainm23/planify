@@ -160,6 +160,10 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         label_button.clicked.connect (open_labels_picker);
         priority_button.clicked.connect (open_priority_picker);
         menu_button.clicked.connect (open_menu);
+
+        Planner.event_bus.unselect_all.connect (() => {
+            unselect_all ();
+        });
     }
 
     private void open_datetime_picker () {

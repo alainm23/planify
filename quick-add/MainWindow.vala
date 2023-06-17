@@ -6,13 +6,11 @@ public class MainWindow : Adw.ApplicationWindow {
     private Widgets.LoadingButton submit_button;
     private Widgets.HyperTextView description_textview;
 
-    private Widgets.ScheduleButton schedule_button;
-
     public MainWindow (Planner application) {
         Object (
             application: application,
             icon_name: "io.github.alainm23.planify",
-            title: _("Task Planner - Quick Add"),
+            title: _("Planify - Quick Add"),
             width_request: 500,
             resizable: false
         );
@@ -67,10 +65,6 @@ public class MainWindow : Adw.ApplicationWindow {
             margin_bottom = 6,
             hexpand = true
         };
-
-        schedule_button = new Widgets.ScheduleButton ();
-
-        action_box.append (schedule_button);
 
         var quick_add_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 12,
@@ -141,19 +135,6 @@ public class MainWindow : Adw.ApplicationWindow {
         submit_button.clicked.connect (add_item);
         cancel_button.clicked.connect (hide_destroy);
 
-        schedule_button.date_changed.connect ((datetime) => {
-            update_due (datetime);
-        });
-    }
-
-    public void update_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
-
-        if (item.due.date == "") {
-            item.due.reset ();
-        }
-
-        schedule_button.update_from_item (item);
     }
 
     private void add_item () {        

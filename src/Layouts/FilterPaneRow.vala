@@ -23,7 +23,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
 
         title_image = new Widgets.DynamicIcon () {
             hexpand = true,
-            halign = Gtk.Align.END
+            halign = Gtk.Align.START
         };
         title_image.size = 19;
 
@@ -37,12 +37,11 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
 
         count_label = new Gtk.Label (null) {
             hexpand = true,
-            halign = Gtk.Align.START,
-            margin_start = 3
+            halign = Gtk.Align.END,
+            margin_end = 3
         };
 
-        count_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        count_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        count_label.add_css_class ("font-bold");
 
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
@@ -52,9 +51,14 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             margin_bottom = 3,
             width_request = 100
         };
-        main_grid.attach (title_label, 0, 0, 1, 1);
-        main_grid.attach (title_image, 1, 0, 1, 1);
-        main_grid.attach (count_label, 0, 1, 2, 2);
+
+        //  main_grid.attach (title_label, 0, 0, 1, 1);
+        //  main_grid.attach (title_image, 1, 0, 1, 1);
+        //  main_grid.attach (count_label, 0, 1, 2, 2);
+
+        main_grid.attach (title_image, 0, 0, 1, 1);
+        main_grid.attach (count_label, 1, 0, 1, 1);
+        main_grid.attach (title_label, 0, 1, 2, 2);
 
         attach (main_grid, 0, 0);
         build_filter_data ();

@@ -39,10 +39,16 @@ public class Views.Today : Gtk.Grid {
 
         event_list_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = event_list.has_items
+            reveal_child = event_list.has_items,
+            child = event_list
         };
 
-        event_list_revealer.child = event_list;
+        var event_list_clamp = new Adw.Clamp () {
+            maximum_size = 720,
+            margin_start = 12,
+            margin_end = 12,
+            child = event_list_revealer
+        };
         
         event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
@@ -144,7 +150,6 @@ public class Views.Today : Gtk.Grid {
             vexpand = true
         };
 
-        content.append (event_list_revealer);
         content.append (overdue_revealer);
         content.append (today_revealer);
         content.append (listbox_grid);
@@ -165,10 +170,9 @@ public class Views.Today : Gtk.Grid {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 720,
             margin_start = 12,
-            margin_end = 12
+            margin_end = 12,
+            child = listbox_placeholder_stack
         };
-
-        content_clamp.child = listbox_placeholder_stack;
 
         scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
@@ -184,6 +188,7 @@ public class Views.Today : Gtk.Grid {
         };
 
         content_box.append (headerbar);
+        content_box.append (event_list_clamp);
         content_box.append (scrolled_window);
 
         attach (content_box, 0, 0);

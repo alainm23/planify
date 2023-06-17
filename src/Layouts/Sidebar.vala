@@ -4,7 +4,6 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.FilterPaneRow inbox_filter;
     private Layouts.FilterPaneRow today_filter;
     private Layouts.FilterPaneRow scheduled_filter;
-    private Layouts.FilterPaneRow pinboard_filter;
     private Layouts.FilterPaneRow filters_filter;
     
     private Layouts.HeaderItem favorites_header;
@@ -37,10 +36,16 @@ public class Layouts.Sidebar : Gtk.Grid {
         };
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
+        inbox_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>1"}, _("Inbox"));
+
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
+        today_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>2"}, _("Today"));
+
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
-        pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD);
+        scheduled_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>3"}, _("Scheduled"));
+
         filters_filter = new Layouts.FilterPaneRow (FilterType.FILTER);
+        filters_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>4"}, _("Labels"));
 
         filters_grid.attach (inbox_filter, 0, 0);
         filters_grid.attach (today_filter, 1, 0);
@@ -53,7 +58,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         favorites_header.show_action = false;
 
         local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
-        local_projects_header.add_tooltip = _("Add Project");
+        local_projects_header.add_tooltip = Granite.markup_accel_tooltip ({"p"}, _("Add Project"));
         local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         local_projects_header.margin_top = 6;
 
@@ -228,7 +233,6 @@ public class Layouts.Sidebar : Gtk.Grid {
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
-        pinboard_filter.init ();
         filters_filter.init ();
         
         local_projects_header.reveal = true;

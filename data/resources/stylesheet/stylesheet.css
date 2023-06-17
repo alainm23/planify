@@ -406,3 +406,15 @@ entry.flat:focus-within {
 .circular-check {
     padding: 0;
 }
+
+.dark-grid {
+    background-color: #151515;
+    border-radius: 9px;
+    border: 2px solid #333333;
+}
+
+.dark-blue-grid {
+    background-color: #0B0B11;
+    border-radius: 9px;
+    border: 2px solid shade(#333333, 1.35);
+}

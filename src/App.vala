@@ -14,20 +14,18 @@ public class Planner : Adw.Application {
         }
     }
 
-    private static bool silent = false;
+    private static bool run_in_background = false;
     private static bool version = false;
     private static bool clear_database = false;
     private static string lang = "";
 
+    private Xdp.Portal? portal = null;
+
     private const OptionEntry[] PLANNER_OPTIONS = {
-        { "version", 'v', 0, OptionArg.NONE, ref version,
-        "Display version number", null },
-        { "reset", 'r', 0, OptionArg.NONE, ref clear_database,
-        "Reset Planner", null },
-        { "silent", 's', 0, OptionArg.NONE, out silent,
-        "Run the Application in background", null },
-        { "lang", 'l', 0, OptionArg.STRING, ref lang,
-        "Open Planner in a specific language", "LANG" },
+        { "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
+        { "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planner", null },
+        { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
+        { "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planner in a specific language", "LANG" },
         { null }
     };
     
@@ -53,6 +51,27 @@ public class Planner : Adw.Application {
     }
 
     protected override void activate () {
+        Services.Notification.get_default ();
+        Services.TimeMonitor.get_default ();
+
+        if (run_in_background) {
+            run_in_background = false;
+            hold ();
+
+            ask_for_background.begin ((obj, res) => {
+                if (!ask_for_background.end (res)) {
+                    release ();
+                }
+            });
+
+            return;
+        }
+
+        if (get_windows () != null) {
+            get_windows ().data.present (); // present window if app is already running
+            return;
+        }
+
         if (lang != "") {
             GLib.Environment.set_variable ("LANGUAGE", lang, true);
         }
@@ -62,11 +81,11 @@ public class Planner : Adw.Application {
             return;
         }
 
-        if (main_window != null) {
-            main_window.show ();
-            return;
-        }
+        init_gui ();
+        main_window.show ();
+    }
 
+    void init_gui () {
         main_window = new MainWindow (this);
 
         Planner.settings.bind ("window-height", main_window, "default-height", SettingsBindFlags.DEFAULT);
@@ -74,10 +93,6 @@ public class Planner : Adw.Application {
 
         if (Planner.settings.get_boolean ("window-maximized")) {
             main_window.maximize ();
-        }
-
-        if (!silent) {
-            main_window.show ();
         }
 
         Planner.settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
@@ -97,6 +112,31 @@ public class Planner : Adw.Application {
         if (clear_database) {
             Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
                 _("The process removes all stored information without the possibility of undoing it."));
+        }
+    }
+
+    public async bool ask_for_background () {
+        const string[] DAEMON_COMMAND = { "io.github.alainm23.planify", "--background" };
+        if (portal == null) {
+            portal = new Xdp.Portal ();
+        }
+
+        string reason = _(
+            "Calendar will automatically start when this device turns on " +
+            "and run when its window is closed so that it can send event notifications."
+        );
+        var command = new GenericArray<unowned string> (2);
+        foreach (unowned var arg in DAEMON_COMMAND) {
+            command.add (arg);
+        }
+
+        var window = Xdp.parent_new_gtk (active_window);
+
+        try {
+            return yield portal.request_background (window, reason, command, AUTOSTART, null);
+        } catch (Error e) {
+            warning ("Error during portal request: %s", e.message);
+            return e is IOError.FAILED;
         }
     }
 

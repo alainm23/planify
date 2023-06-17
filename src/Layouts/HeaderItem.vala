@@ -21,7 +21,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
         set {
             _add_tooltip = value;
-            add_button.tooltip_text = value;
+            add_button.tooltip_markup = value;
         }
     }
     

@@ -57,6 +57,7 @@ config_file = configure_file(
 )
 
 subdir('src')
+# subdir('quick-add')
 subdir('data')
 subdir('po')
 

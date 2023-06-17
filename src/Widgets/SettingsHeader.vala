@@ -30,6 +30,7 @@ public class Widgets.SettingsHeader : Gtk.Grid {
         };
 
         back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        back_button.add_css_class ("no-padding");
         back_button.child = back_grid;
 
         var title_label = new Gtk.Label (title_header);

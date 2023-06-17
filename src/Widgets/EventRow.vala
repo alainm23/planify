@@ -28,8 +28,6 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
     public GLib.DateTime? end_time { get; private set; }
     public bool is_allday { get; private set; default = false; }
 
-    private Gtk.Revealer main_revealer;
-
     private Gtk.Grid color_grid;
     private Gtk.Label time_label;
 
@@ -103,12 +101,17 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
         grid.append (color_grid);
         grid.append (name_label);
 
-        main_revealer = new Gtk.Revealer () {
+        var main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
         };
         main_revealer.child = grid;
 
         child = main_revealer;
+
+        Timeout.add (main_revealer.transition_duration, () => {
+            main_revealer.reveal_child = true;
+            return GLib.Source.REMOVE;
+        });
 
         set_color ();
         cal.notify["color"].connect (set_color);

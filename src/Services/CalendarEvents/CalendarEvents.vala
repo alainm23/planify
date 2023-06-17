@@ -70,9 +70,7 @@
             week_starts_on = (GLib.DateWeekday) (week_start - 1);
         }
 
-        // month_start = CalendarEventsUtil.get_start_of_month ();
         compute_ranges ();
-        // notify["month-start"].connect (on_parameter_changed);
         open.begin ();
     }
 
@@ -134,19 +132,6 @@
         components_removed (source, components);
         source_components.remove (source);
     }
-
-    //  public void update_month_start (GLib.DateTime _month_start) {
-    //      month_start = _month_start;
-    //      on_parameter_changed ();
-    //  }
-
-    //  public void change_month (int relative) {
-    //      month_start = month_start.add_months (relative);
-    //  }
-
-    //  public void change_year (int relative) {
-    //      month_start = month_start.add_years (relative);
-    //  }
 
     /* --- Helper Methods ---// */
 

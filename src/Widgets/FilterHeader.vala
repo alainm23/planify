@@ -87,11 +87,12 @@ public class Widgets.FilterHeader : Gtk.Grid {
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            tooltip_text = _("Add Tasks")
+            tooltip_text = _("Add To-Do")
         };
 
         add_button.child = add_image;
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
         // Search Icon
         var search_image = new Widgets.DynamicIcon ();
@@ -104,6 +105,7 @@ public class Widgets.FilterHeader : Gtk.Grid {
 
         search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         search_button.child = search_image;
+        search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
 
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),

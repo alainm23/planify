@@ -6,26 +6,105 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             deletable: true,
             destroy_with_parent: true,
             modal: true,
-            height_request: 500,
-            width_request: 360
+            default_width: 450,
+            height_request: 500
         );
     }
 
     construct {
-        add (get_general_page ());
-        add (get_accounts_page ());
+        add (get_preferences_home ());
+        // add (get_accounts_page ());
     }
 
-    private Adw.PreferencesPage get_general_page () {
+    private Adw.PreferencesPage get_preferences_home () {
         var page = new Adw.PreferencesPage ();
-        page.title = _("General");
-        page.name = "general";
+        page.title = _("Preferences");
+        page.name = "preferences";
         page.icon_name = "applications-system-symbolic";
 
-        build_appearance (page);
+        // Accounts
+        var general_group = new Adw.PreferencesGroup ();
+
+        var accounts_row = new Adw.ActionRow ();
+        accounts_row.activatable = true;
+        accounts_row.add_prefix (generateIcon ("planner-cloud"));
+        accounts_row.add_suffix (generateIcon ("chevron-right-light", 24));
+        accounts_row.title = _("Accounts");
+        accounts_row.subtitle = _("Sync your favorite to-do providers.");
+
+        accounts_row.activated.connect (() => {
+            present_subpage (get_accounts_page ());
+            can_navigate_back = true;
+        });
+
+        var general_row = new Adw.ActionRow ();
+        general_row.activatable = true;
+        general_row.add_prefix (generateIcon ("planner-general"));
+        general_row.add_suffix (generateIcon ("chevron-right-light", 24));
+        general_row.title = _("General");
+        general_row.subtitle = _("Customize to your liking.");
+
+        general_row.activated.connect (() => {
+            present_subpage (get_general_page ());
+            can_navigate_back = true;
+        });
+
+        general_group.add (accounts_row);
+        general_group.add (general_row);
+        page.add (general_group);
+
+        // Personalization
+        var personalization_group = new Adw.PreferencesGroup ();
+        personalization_group.title = _("Personalization");
+
+        var appearance_row = new Adw.ActionRow ();
+        appearance_row.activatable = true;
+        appearance_row.add_prefix (generateIcon ("planner-appearance"));
+        appearance_row.add_suffix (generateIcon ("chevron-right-light", 24));
+        appearance_row.title = _("Appearance");
+        appearance_row.subtitle = Util.get_default ().get_theme_name ();
+
+        appearance_row.activated.connect (() => {
+            present_subpage (get_appearance_page ());
+            can_navigate_back = true;
+        });
+
+        personalization_group.add (appearance_row);
+        page.add (personalization_group);
+
+        // Support Group
+        var support_group = new Adw.PreferencesGroup ();
+        support_group.title = _("Support");
+
+        var tutorial_row = new Adw.ActionRow ();
+        tutorial_row.activatable = true;
+        tutorial_row.add_prefix (generateIcon ("light-bulb"));
+        tutorial_row.add_suffix (generateIcon ("chevron-right-light", 24));
+        tutorial_row.title = _("Create Tutorial Project");
+        tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
+
+        support_group.add (tutorial_row);
+        page.add (support_group);
+
+        tutorial_row.activated.connect (() => {
+            Util.get_default ().create_tutorial_project ();
+            add_toast (Util.get_default ().create_toast (_("A tutorial project has been created.")));
+        });
+
+        return page;
+    }
+
+    private Gtk.Widget get_general_page () {
+        var settings_header_box = new Widgets.SettingsHeader (_("General"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
 
         var general_group = new Adw.PreferencesGroup ();
-        general_group.title = _("General");
+        general_group.title = _("Sort Settings");
 
         var sort_projects_model = new Gtk.StringList (null);
         sort_projects_model.append (_("Alphabetically"));
@@ -153,10 +232,35 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         // tasks_group.add (underline_completed_row);
 
-        page.add (general_group);
-        page.add (de_group);
-        page.add (datetime_group);
-        page.add (tasks_group);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        content_box.append (general_group);
+        content_box.append (de_group);
+        content_box.append (datetime_group);
+        content_box.append (tasks_group);
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 600,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = content_box;
+
+        var scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hexpand = true,
+            vexpand = true
+        };
+        scrolled_window.child = content_clamp;
+
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (scrolled_window);
 
         sort_projects_row.notify["selected"].connect (() => {
             Planner.settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
@@ -198,12 +302,23 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             Planner.settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
         });
 
-        return page;
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        return main_content;
     }
 
-    private void build_appearance (Adw.PreferencesPage page) {
+    private Gtk.Widget get_appearance_page () {
+        var settings_header_box = new Widgets.SettingsHeader (_("Appearance"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
+
         var appearance_group = new Adw.PreferencesGroup ();
-        appearance_group.title = _("Appearance");
 
         var system_appearance_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
@@ -234,21 +349,41 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         dark_mode_group.add (dark_mode_row);
 
         var light_check = new Gtk.CheckButton ();
-
+    
         var dark_check = new Gtk.CheckButton ();
         dark_check.set_group (light_check);
+        
+        var dark_grid = new Gtk.Grid () {
+            height_request = 24,
+            width_request = 24,
+            halign = Gtk.Align.CENTER,
+            valign = Gtk.Align.CENTER
+        };
+
+        dark_grid.add_css_class ("dark-grid");
 
         var dark_item_row = new Adw.ActionRow ();
         dark_item_row.title = _("Dark");
         dark_item_row.set_activatable_widget (dark_check);
+        dark_item_row.add_prefix (dark_grid);
         dark_item_row.add_suffix (dark_check);
 
         var dark_blue_check = new Gtk.CheckButton ();
         dark_blue_check.set_group (light_check);
 
+        var dark_blue_grid = new Gtk.Grid () {
+            height_request = 24,
+            width_request = 24,
+            halign = Gtk.Align.CENTER,
+            valign = Gtk.Align.CENTER
+        };
+
+        dark_blue_grid.add_css_class ("dark-blue-grid");
+
         var dark_blue_item_row = new Adw.ActionRow ();
         dark_blue_item_row.title = _("Dark Blue");
         dark_blue_item_row.set_activatable_widget (dark_blue_check);
+        dark_blue_item_row.add_prefix (dark_blue_grid);
         dark_blue_item_row.add_suffix (dark_blue_check);
 
         bool dark_mode = Planner.settings.get_boolean ("dark-mode");
@@ -262,6 +397,28 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         dark_modes_group.add (dark_item_row);
         dark_modes_group.add (dark_blue_item_row);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        content_box.append (appearance_group);
+        content_box.append (dark_mode_group);
+        content_box.append (dark_modes_group);
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 600,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = content_box;
+
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (content_clamp);
 
         int appearance = Planner.settings.get_enum ("appearance");
         if (appearance == 0) {
@@ -319,16 +476,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
         });
 
-        page.add (appearance_group);
-        page.add (dark_mode_group);
-        page.add (dark_modes_group);
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        return main_content;
     }
 
-    private Adw.PreferencesPage get_accounts_page () {
-        var page = new Adw.PreferencesPage ();
-        page.title = _("Accounts");
-        page.name = "accounts";
-        page.icon_name = "org.gnome.Settings-users-symbolic";
+    private Gtk.Widget get_accounts_page () {
+        var settings_header_box = new Widgets.SettingsHeader (_("Accounts"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
 
         var default_group = new Adw.PreferencesGroup () {
             visible = Services.Todoist.get_default ().is_logged_in ()
@@ -413,10 +575,28 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         accounts_group.title = _("Accounts");
 
         accounts_group.add (todoist_row);
-        accounts_group.add (google_row);
+        // accounts_group.add (google_row);
 
-        page.add (default_group);
-        page.add (accounts_group);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        content_box.append (default_group);
+        content_box.append (accounts_group);
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 600,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = content_box;
+
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (content_clamp);
 
         var todoist_switch_gesture = new Gtk.GestureClick ();
         todoist_switch_gesture.set_button (1);
@@ -493,7 +673,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             Util.get_default ().change_default_inbox ();
         });
 
-        return page;
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        return main_content;
     }
 
     private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
@@ -536,13 +720,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             hexpand = true
         };
 
-        settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
-
         var todoist_avatar = new Adw.Avatar (84, Planner.settings.get_string ("todoist-user-name"), true);
 
         var file = File.new_for_path (Util.get_default ().get_avatar_path ("todoist-user"));
         if (file.query_exists ()) {
-            // todoist_avatar.set_loadable_icon (new FileIcon (file));    
+            var image = new Gtk.Image.from_file (file.get_path ());
+            todoist_avatar.custom_image = image.get_paintable ();
         }
 
         var todoist_user = new Gtk.Label (Planner.settings.get_string ("todoist-user-name")) {
@@ -554,7 +737,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         todoist_email.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 64
+            margin_top = 24
         };
         user_box.append (todoist_avatar);
         user_box.append (todoist_user);
@@ -563,7 +746,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var default_group = new Adw.PreferencesGroup ();
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 400,
+            maximum_size = 600,
             margin_top = 24,
             margin_start = 24,
             margin_end = 24
@@ -627,7 +810,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             hexpand = true
         };
 
-        settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
+        // settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var avatar = new Adw.Avatar (84, Planner.settings.get_string ("google-user-name"), true);
 
@@ -707,5 +890,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
         return main_content;
+    }
+
+    private Gtk.Widget generateIcon (string icon_name, int size = 32) {
+        var icon = new Widgets.DynamicIcon ();
+        icon.size = size;
+        icon.update_icon_name (icon_name);
+        return icon;
     }
 }

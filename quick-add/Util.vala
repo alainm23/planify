@@ -122,8 +122,6 @@ public class Util : GLib.Object {
             Gdk.Display.get_default (), provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
-
-        Services.EventBus.get_default ().theme_changed ();
     }
 
         /*

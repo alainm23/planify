@@ -142,60 +142,77 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
+        Planner.event_bus.unselect_all ();
+
         var dialog = new Dialogs.Preferences.PreferencesWindow ();
         dialog.show ();
     }
 
     private void action_open_search () {
+        Planner.event_bus.unselect_all ();
+
         var dialog = new Dialogs.QuickFind.QuickFind ();
         dialog.show ();
     }
 
     private void action_sync_manually () {
+        Planner.event_bus.unselect_all ();
+
         if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
     }
 
     private void action_new_project () {
+        Planner.event_bus.unselect_all ();
+
         // TODO: Update Backend Type instance default by user
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
         dialog.show ();
     }
 
     private void action_view_inbox () {
+        Planner.event_bus.unselect_all ();
         Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
     }
 
     private void action_view_today () {
+        Planner.event_bus.unselect_all ();
         Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ());
     }
 
     private void action_view_scheduled () {
+        Planner.event_bus.unselect_all ();
         Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ());
     }
 
     private void action_view_pinboard () {
-        Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
+        Planner.event_bus.unselect_all ();
+        Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
     }
 
     private void action_esc () {
+        Planner.event_bus.unselect_all ();
         Planner.event_bus.item_selected (null);
     }
 
     private void action_show_hide_sidebar () {
+        Planner.event_bus.unselect_all ();
         window.show_hide_sidebar ();
     }
 
     private void action_new_section () {
+        Planner.event_bus.unselect_all ();
         window.new_section_action ();
     }
 
     private void action_add_task () {
+        Planner.event_bus.unselect_all ();
         window.add_task_action ();
     }
 
     private void action_add_task_paste () {
+        Planner.event_bus.unselect_all ();
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
         clipboard.read_text_async.begin (null, (obj, res) => {
@@ -209,15 +226,18 @@ public class Services.ActionManager : Object {
     }
 
     private void action_shortcuts () {
+        Planner.event_bus.unselect_all ();
         //  var dialog = new Gtk.ShortcutsWindow ();
         //  dialog.show ();
     }
 
     private void action_view_home () {
+        Planner.event_bus.unselect_all ();
         window.go_homepage ();
     }
 
     private void action_open_labels () {
+        Planner.event_bus.unselect_all ();
         Planner.event_bus.open_labels ();
     }
 }

@@ -1,3 +1,5 @@
+libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
+
 deps = [
   dependency('glib-2.0'),
   dependency('gee-0.8', version: '>=0.8.5'),
@@ -10,6 +12,7 @@ deps = [
   dependency('libecal-2.0', version: '>= 3.45.1'),
   dependency('libedataserver-1.2', version: '>= 3.45.1'),
   dependency('libical-glib'),
+  libportal_dep,
   meson.get_compiler('c').find_library('m', required : false)
 ]
 

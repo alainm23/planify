@@ -48,10 +48,16 @@ public class MainWindow : Adw.ApplicationWindow {
         settings_image.size = 21;
         settings_image.update_icon_name ("menu");
 
+        var settings_popover = build_menu_app ();
+
         settings_button = new Gtk.MenuButton ();
         settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        settings_button.popover = build_menu_app ();
+        settings_button.popover = settings_popover;
         settings_button.child = settings_image;
+
+        settings_popover.show.connect (() => {
+            Planner.event_bus.unselect_all ();
+        });
 
         var sync_button = new Widgets.SyncButton ();
 
@@ -87,6 +93,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
         sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         sidebar_button.child = sidebar_image;
+        sidebar_button.tooltip_markup = Granite.markup_accel_tooltip ({"m"}, _("Toggle Sidebar"));
 
         project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
@@ -161,6 +168,8 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
         Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+            Planner.event_bus.unselect_all ();
+            
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Services.Database.get_default ().get_project (id));
             } else if (pane_type == PaneType.FILTER) {
@@ -217,8 +226,8 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar.init();
         labels_header.init ();
 
-        Services.Notification.get_default ();
-        Services.TimeMonitor.get_default ();
+        //  Services.Notification.get_default ();
+        //  Services.TimeMonitor.get_default ();
     
         go_homepage ();
 
@@ -442,7 +451,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private Gtk.Popover build_menu_app () {
         var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
+        preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
+
         var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
+        keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
+
         var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

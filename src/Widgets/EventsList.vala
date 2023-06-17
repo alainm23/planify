@@ -117,7 +117,6 @@ public class Widgets.EventsList : Gtk.Grid {
     }
 
     private void add_events () {
-        // event_model.update_month_start (CalendarEventsUtil.get_start_of_month (start_date));
         event_model.components_added.connect (add_event_model);
         event_model.components_removed.connect (remove_event_model);
     }
