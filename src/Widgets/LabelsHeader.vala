@@ -48,9 +48,9 @@ public class Widgets.LabelsHeader : Gtk.Grid {
             dialog.show ();
         });
 
-        Planner.event_bus.open_labels.connect (open_labels_popover);
+        Services.EventBus.get_default ().open_labels.connect (open_labels_popover);
 
-        Planner.event_bus.close_labels.connect (() => {
+        Services.EventBus.get_default ().close_labels.connect (() => {
             if (popover != null) {
                 popover.popdown ();
             }
@@ -136,7 +136,7 @@ public class Widgets.LabelsHeader : Gtk.Grid {
                 popover.popdown ();
             }
 
-            Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
         
         labels_content.add_activated.connect (() => {

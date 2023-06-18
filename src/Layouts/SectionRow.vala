@@ -276,7 +276,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             });
         });
 
-        Planner.event_bus.checked_toggled.connect ((item, old_checked) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id &&
                 item.parent_id == "") {
                 if (!old_checked) {
@@ -328,7 +328,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.event_bus.item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
             if (old_project_id == section.project_id && old_section_id == section.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();
@@ -347,17 +347,17 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.event_bus.update_items_position.connect ((project_id, section_id) => {
+        Services.EventBus.get_default ().update_items_position.connect ((project_id, section_id) => {
             if (section.project_id == project_id && section.id == section_id) {
             }
         });
 
-        Planner.event_bus.magic_button_activated.connect ((value) => {
+        Services.EventBus.get_default ().magic_button_activated.connect ((value) => {
             if (!is_inbox_section) {
             }
         });
 
-        Planner.event_bus.update_inserted_item_map.connect ((row) => {
+        Services.EventBus.get_default ().update_inserted_item_map.connect ((row) => {
             if (row.item.project_id == section.project_id &&
                 row.item.section_id == section.id) {
                 items [row.item.id_string] = row;
@@ -366,7 +366,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         });
 
         name_editable.focus_changed.connect ((active) => {
-            Planner.event_bus.unselect_all ();
+            Services.EventBus.get_default ().unselect_all ();
 
             if (active) {
                 hide_revealer.reveal_child = false;
@@ -382,7 +382,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             update_sort ();
         });
 
-        Planner.event_bus.update_section_sort_func.connect ((project_id, section_id, value) => {
+        Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
                 if (value) {
                     update_sort ();
@@ -397,19 +397,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             count_revealer.reveal_child = int.parse (count_label.label) > 0;
         });
 
-        Planner.event_bus.item_drag_begin.connect ((item) => {
+        Services.EventBus.get_default ().item_drag_begin.connect ((item) => {
             if (item.project_id == section.project_id) {
                 check_drop_widget ();
             }
         });
 
-        Planner.event_bus.item_drag_end.connect ((item) => {
+        Services.EventBus.get_default ().item_drag_end.connect ((item) => {
             if (item.project_id == section.project_id) {
                 drop_widget_revealer.reveal_child = false;
             }
         });
 
-        Planner.event_bus.item_section_moved.connect ((itemrow, old_section_id) => {
+        Services.EventBus.get_default ().item_section_moved.connect ((itemrow, old_section_id) => {
             if (itemrow.item.project_id == section.project_id && section.id == itemrow.item.section_id) {
                 if (!items.has_key (itemrow.item.id)) {
                     items [itemrow.item.id] = itemrow;
@@ -494,7 +494,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
     }
 
     public void prepare_new_item (string content = "") {
-        Planner.event_bus.item_selected (null);
+        Services.EventBus.get_default ().item_selected (null);
 
         Layouts.ItemRow row;
         if (is_inbox_section) {
@@ -683,7 +683,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             listbox.append (picked_widget);
-            Planner.event_bus.item_section_moved (picked_widget, old_section_id);
+            Services.EventBus.get_default ().item_section_moved (picked_widget, old_section_id);
             update_items_item_order (listbox);
             
             return true;

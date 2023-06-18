@@ -58,7 +58,7 @@ public class Services.Database : GLib.Object {
 
     public Objects.Project _fill_project (Sqlite.Statement stmt) {
         Objects.Project return_value = new Objects.Project ();
-        return_value.id = stmt.column_int64 (0);
+        return_value.id = stmt.column_text (0);
         return_value.name = stmt.column_text (1);
         return_value.color = stmt.column_text (2);
         return_value.backend_type = get_backend_type_by_text (stmt, 3);
@@ -107,7 +107,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Project get_project (int64 id) {
+    public Objects.Project get_project (string id) {
         Objects.Project? return_value = null;
         lock (_projects) {
             foreach (var project in projects) {
@@ -138,16 +138,16 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", item.id);
+        set_parameter_str (stmt, "$id", item.id);
         set_parameter_str (stmt, "$content", item.content);
         set_parameter_str (stmt, "$description", item.description);
         set_parameter_str (stmt, "$due", item.due.to_string ());
         set_parameter_str (stmt, "$added_at", item.added_at);
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$updated_at", item.updated_at);
-        set_parameter_int64 (stmt, "$section_id", item.section_id);
-        set_parameter_int64 (stmt, "$project_id", item.project_id);
-        set_parameter_int64 (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$section_id", item.section_id);
+        set_parameter_str (stmt, "$project_id", item.project_id);
+        set_parameter_str (stmt, "$parent_id", item.parent_id);
         set_parameter_int (stmt, "$priority", item.priority);
         set_parameter_int (stmt, "$child_order", item.child_order);
         set_parameter_bool (stmt, "$checked", item.checked);
@@ -178,7 +178,7 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$uuid", queue.uuid);
-        set_parameter_int64 (stmt, "$object_id", queue.object_id);
+        set_parameter_str (stmt, "$object_id", queue.object_id);
         set_parameter_str (stmt, "$query", queue.query);
         set_parameter_str (stmt, "$temp_id", queue.temp_id);
         set_parameter_str (stmt, "$args", queue.args);
@@ -211,7 +211,7 @@ public class Services.Database : GLib.Object {
     public Objects.Queue _fill_queue (Sqlite.Statement stmt) {
         Objects.Queue return_value = new Objects.Queue ();
         return_value.uuid = stmt.column_text (0);
-        return_value.object_id = stmt.column_int64 (1);
+        return_value.object_id = stmt.column_text (1);
         return_value.query = stmt.column_text (2);
         return_value.temp_id = stmt.column_text (3);
         return_value.args = stmt.column_text (4);
@@ -219,7 +219,7 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
-    public void insert_CurTempIds (int64 id, string temp_id, string object) { // vala-lint=naming-convention
+    public void insert_CurTempIds (string id, string temp_id, string object) { // vala-lint=naming-convention
         Sqlite.Statement stmt;
 
         sql = """
@@ -228,7 +228,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
         set_parameter_str (stmt, "$temp_id", temp_id);
         set_parameter_str (stmt, "$object", object);
 

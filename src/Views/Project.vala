@@ -13,7 +13,7 @@ public class Views.Project : Gtk.Grid {
     construct {
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");
@@ -122,7 +122,7 @@ public class Views.Project : Gtk.Grid {
 
         headerbar.add_css_class ("flat");
         headerbar.pack_start (sidebar_button);
-        if (project.id == Planner.settings.get_string ("inbox-project-id")) {
+        if (project.id == Services.Settings.get_default ().settings.get_string ("inbox-project-id")) {
             headerbar.pack_start (inbox_icon);
         }
         headerbar.pack_start (title_label);
@@ -361,7 +361,7 @@ public class Views.Project : Gtk.Grid {
             clipboard.read_text_async.begin (null, (obj, res) => {
                 try {
                     string content = clipboard.read_text_async.end (res);
-                    Planner.event_bus.paste_action (project.id, content);
+                    Services.EventBus.get_default ().paste_action (project.id, content);
                 } catch (GLib.Error error) {
                     debug (error.message);
                 }
@@ -370,8 +370,8 @@ public class Views.Project : Gtk.Grid {
 
         select_item.clicked.connect (() => {
             popover.popdown ();
-            Planner.event_bus.multi_select_enabled = true;
-            Planner.event_bus.show_multi_select (true);
+            Services.EventBus.get_default ().multi_select_enabled = true;
+            Services.EventBus.get_default ().show_multi_select (true);
         });
 
         return popover;

@@ -223,7 +223,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         select_gesture.pressed.connect (() => {
             Timeout.add (Constants.DRAG_TIMEOUT, () => {
                 if (!on_drag) {
-                    Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
+                    Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
                 }
 
                 return GLib.Source.REMOVE;
@@ -266,7 +266,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             project.update ();
         });
 
-        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id_string == id) {
                 handle_grid.add_css_class ("selectable-item-selected");
             } else {
@@ -287,7 +287,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             add_subproject (subproject);
         });
 
-        Planner.event_bus.project_parent_changed.connect ((subproject, old_parent_id) => {
+        Services.EventBus.get_default ().project_parent_changed.connect ((subproject, old_parent_id) => {
             if (old_parent_id == project.id) {
                 if (subprojects_hashmap.has_key (subproject.id_string)) {
                     subprojects_hashmap [subproject.id_string].hide_destroy ();
@@ -330,13 +330,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drop_target.preload = true;
 
         drop_target.drop.connect ((value, x, y) => {
-            if (Planner.settings.get_enum ("projects-sort-by") == 0) {
-                Planner.event_bus.send_notification (
+            if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 0) {
+                Services.EventBus.get_default ().send_notification (
                     Util.get_default ().create_toast (_("Project list order changed to Custom Sort Order."))
                 );
             }
 
-            Planner.settings.set_enum ("projects-sort-by", 1);
+            Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 1);
 
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
@@ -432,8 +432,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 
-        if (project.id != Planner.settings.get_string ("todoist-inbox-project-id") &&
-        project.id != Planner.settings.get_string ("local-inbox-project-id")) {
+        if (project.id != Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id") &&
+        project.id != Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (delete_item);
         }
@@ -454,7 +454,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             project.is_favorite = !project.is_favorite;
             Services.Database.get_default ().update_project (project);
-            Planner.event_bus.favorite_toggled (project);
+            Services.EventBus.get_default ().favorite_toggled (project);
             project.update (true);
         });
 

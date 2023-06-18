@@ -321,10 +321,10 @@ public class Dialogs.Project : Adw.Window {
 
     public void go_project (string id_string) {
         Timeout.add (250, () => {
-            Planner.event_bus.send_notification (
+            Services.EventBus.get_default ().send_notification (
                 Util.get_default ().create_toast (_("Project added successfully!"))
             );    
-            Planner.event_bus.pane_selected (PaneType.PROJECT, id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id_string);
             hide_destroy ();   
             return GLib.Source.REMOVE;
         });

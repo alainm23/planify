@@ -124,7 +124,7 @@ public class Widgets.SubItems : Gtk.Grid {
             }
         });
 
-        Planner.event_bus.item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
             if (old_parent_id == item_parent.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();
@@ -142,7 +142,7 @@ public class Widgets.SubItems : Gtk.Grid {
             }
         });
 
-        Planner.event_bus.checked_toggled.connect ((item, old_checked) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.parent.id == item_parent.id) {
                 if (!old_checked) {
                     if (items.has_key (item.id_string)) {
@@ -233,7 +233,7 @@ public class Widgets.SubItems : Gtk.Grid {
     }
 
     public void prepare_new_item (string content = "") {
-        Planner.event_bus.item_selected (null);
+        Services.EventBus.get_default ().item_selected (null);
         main_revealer.reveal_child = true;
 
         Layouts.ItemRow row = new Layouts.ItemRow.for_parent (item_parent);

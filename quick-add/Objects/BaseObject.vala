@@ -20,7 +20,7 @@
 */
 
 public class Objects.BaseObject : GLib.Object {
-    public int64 id { get; set; default = Constants.INACTIVE; }
+    public string id { get; set; default = ""; }
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
     public signal void deleted ();

@@ -149,7 +149,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
     }
 
     public void checked_toggled (bool active, uint? time = null) {
-        Planner.event_bus.unselect_all ();
+        Services.EventBus.get_default ().unselect_all ();
         bool old_checked = item.checked;
 
         if (active) {
@@ -183,7 +183,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
     private void complete_item (bool old_checked, uint? time = null) {
         uint timeout = 2500;
-        if (Planner.settings.get_enum ("complete-task") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
 
@@ -193,7 +193,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
         if (timeout > 0) {
             content_label.add_css_class ("dim-label");
-            if (Planner.settings.get_boolean ("underline-completed-tasks")) {
+            if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
             }
         }
@@ -265,7 +265,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
 
-        Planner.event_bus.send_notification (toast);
+        Services.EventBus.get_default ().send_notification (toast);
     }
 
     public void update_request () {
@@ -273,9 +273,9 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
 
-            if (item.completed && Planner.settings.get_boolean ("underline-completed-tasks")) {
+            if (item.completed && Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
-            } else if (item.completed && !Planner.settings.get_boolean ("underline-completed-tasks")) {
+            } else if (item.completed && !Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.remove_css_class ("line-through");
             }
         }

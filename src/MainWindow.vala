@@ -31,10 +31,10 @@ public class MainWindow : Adw.ApplicationWindow {
 
         action_manager = new Services.ActionManager (app, this);
 
-        //  Services.DBusServer.get_default ().item_added.connect ((id) => {
-        //      var item = Services.Database.get_default ().get_item_by_id (id);
-        //      Services.Database.get_default ().add_item (item);
-        //  });
+        Services.DBusServer.get_default ().item_added.connect ((id) => {
+            var item = Services.Database.get_default ().get_item_by_id (id);
+            Services.Database.get_default ().add_item (item);
+        });
 
         var sidebar_header = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
@@ -56,7 +56,7 @@ public class MainWindow : Adw.ApplicationWindow {
         settings_button.child = settings_image;
 
         settings_popover.show.connect (() => {
-            Planner.event_bus.unselect_all ();
+            Services.EventBus.get_default ().unselect_all ();
         });
 
         var sync_button = new Widgets.SyncButton ();
@@ -75,13 +75,24 @@ public class MainWindow : Adw.ApplicationWindow {
             hexpand = false
         };
 
+        var b = new Gtk.Button.with_label (_("Background"));
+
         sidebar_content.add_css_class ("sidebar");
         sidebar_content.attach(sidebar_header, 0, 0);
         sidebar_content.attach(sidebar, 0, 1);
+        sidebar_content.attach(b, 0, 2);
+
+        b.clicked.connect (() => {
+            Planner.instance.ask_for_background.begin ((obj, res) => {
+                if (!Planner.instance.ask_for_background.end (res)) {
+    
+                }
+            });
+        });
 
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");
@@ -125,10 +136,10 @@ public class MainWindow : Adw.ApplicationWindow {
         flap_view.flap = sidebar_content;
 
         set_content (flap_view);
-        set_hide_on_close (Planner.settings.get_boolean ("run-in-background"));
+        set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
-        Planner.settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
-        Planner.settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
+        Services.Settings.get_default ().settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
+        Services.Settings.get_default ().settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
 
         Timeout.add (250, () => {
             init_backend ();
@@ -138,8 +149,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var granite_settings = Granite.Settings.get_default ();
         granite_settings.notify["prefers-color-scheme"].connect (() => {
-            if (Planner.settings.get_boolean ("system-appearance")) {
-                Planner.settings.set_boolean (
+            if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
+                Services.Settings.get_default ().settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -147,9 +158,9 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "system-appearance") {
-                Planner.settings.set_boolean (
+                Services.Settings.get_default ().settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -157,9 +168,9 @@ public class MainWindow : Adw.ApplicationWindow {
             } else if (key == "appearance" || key == "dark-mode") {
                 Util.get_default ().update_theme ();
             } else if (key == "run-in-background") {
-                set_hide_on_close (Planner.settings.get_boolean ("run-in-background"));
+                set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
             } else if (key == "slim-mode") {
-                if (Planner.settings.get_boolean ("slim-mode")) {
+                if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
                     sidebar_image.update_icon_name ("sidebar-left");
                 } else {
                     sidebar_image.update_icon_name ("sidebar-right");
@@ -167,8 +178,8 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
-            Planner.event_bus.unselect_all ();
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
+            Services.EventBus.get_default ().unselect_all ();
             
             if (pane_type == PaneType.PROJECT) {
                 add_project_view (Services.Database.get_default ().get_project (id));
@@ -201,11 +212,11 @@ public class MainWindow : Adw.ApplicationWindow {
             show_hide_sidebar ();
         });
 
-        Planner.event_bus.send_notification.connect ((toast) => {
+        Services.EventBus.get_default ().send_notification.connect ((toast) => {
             toast_overlay.add_toast (toast);
         });
 
-        Planner.event_bus.inbox_project_changed.connect (() => {
+        Services.EventBus.get_default ().inbox_project_changed.connect (() => {
             add_inbox_view ();
         });
     }
@@ -226,8 +237,8 @@ public class MainWindow : Adw.ApplicationWindow {
         sidebar.init();
         labels_header.init ();
 
-        //  Services.Notification.get_default ();
-        //  Services.TimeMonitor.get_default ();
+        Services.Notification.get_default ();
+        Services.TimeMonitor.get_default ();
     
         go_homepage ();
 
@@ -272,7 +283,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private void add_inbox_view () {
         add_project_view (
-            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
+            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
         );
     }
 
@@ -364,7 +375,7 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     public void go_homepage () {
-        Planner.event_bus.pane_selected (
+        Services.EventBus.get_default ().pane_selected (
             PaneType.FILTER,
             Util.get_default ().get_filter ().to_string ()
         );
@@ -431,7 +442,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
     private void change_todoist_default (bool use_todoist, string inbox_project_id) {
         if (use_todoist) {
-            var old_inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
+            var old_inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
             old_inbox_project.inbox_project = false;
             old_inbox_project.update ();
 
@@ -439,9 +450,9 @@ public class MainWindow : Adw.ApplicationWindow {
             new_inbox_project.inbox_project = true;
             old_inbox_project.update ();
 
-            Planner.settings.set_string ("inbox-project-id", inbox_project_id);
-            Planner.settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
-            Planner.event_bus.inbox_project_changed ();
+            Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project_id);
+            Services.Settings.get_default ().settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
+            Services.EventBus.get_default ().inbox_project_changed ();
 
             if (views_stack.visible_child_name == old_inbox_project.view_id) {
                 add_project_view (new_inbox_project);

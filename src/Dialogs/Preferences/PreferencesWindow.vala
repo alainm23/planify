@@ -113,7 +113,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var sort_projects_row = new Adw.ComboRow ();
         sort_projects_row.title = _("Sort projects");
         sort_projects_row.model = sort_projects_model;
-        sort_projects_row.selected = Planner.settings.get_enum ("projects-sort-by");
+        sort_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
 
         general_group.add (sort_projects_row);
 
@@ -124,7 +124,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var sort_order_projects_row = new Adw.ComboRow ();
         sort_order_projects_row.title = _("Sort by");
         sort_order_projects_row.model = sort_order_projects_model;
-        sort_order_projects_row.selected = Planner.settings.get_enum ("projects-ordered");
+        sort_order_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
 
         general_group.add (sort_order_projects_row);
 
@@ -133,7 +133,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var run_background_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("run-in-background")
+            active = Services.Settings.get_default ().settings.get_boolean ("run-in-background")
         };
 
         var run_background_row = new Adw.ActionRow ();
@@ -145,7 +145,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var calendar_events_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("calendar-enabled")
+            active = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled")
         };
 
         var calendar_events_row = new Adw.ActionRow ();
@@ -165,7 +165,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var clock_format_row = new Adw.ComboRow ();
         clock_format_row.title = _("Clock Format");
         clock_format_row.model = clock_format_model;
-        clock_format_row.selected = Planner.settings.get_enum ("clock-format");
+        clock_format_row.selected = Services.Settings.get_default ().settings.get_enum ("clock-format");
 
         datetime_group.add (clock_format_row);
 
@@ -176,7 +176,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var start_week_row = new Adw.ComboRow ();
         start_week_row.title = _("Start of the week");
         start_week_row.model = start_week_model;
-        start_week_row.selected = Planner.settings.get_enum ("start-week");
+        start_week_row.selected = Services.Settings.get_default ().settings.get_enum ("start-week");
 
         datetime_group.add (start_week_row);
 
@@ -191,7 +191,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         complete_tasks_row.title = _("Complete task");
         complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option.");
         complete_tasks_row.model = complete_tasks_model;
-        complete_tasks_row.selected = Planner.settings.get_enum ("complete-task");
+        complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
 
         tasks_group.add (complete_tasks_row);
 
@@ -204,13 +204,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var default_priority_row = new Adw.ComboRow ();
         default_priority_row.title = _("Default priority");
         default_priority_row.model = default_priority_model;
-        default_priority_row.selected = Planner.settings.get_enum ("default-priority");
+        default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
 
         tasks_group.add (default_priority_row);
 
         var description_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("description-preview")
+            active = Services.Settings.get_default ().settings.get_boolean ("description-preview")
         };
 
         var description_row = new Adw.ActionRow ();
@@ -222,7 +222,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var underline_completed_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("underline-completed-tasks")
+            active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
         };
 
         var underline_completed_row = new Adw.ActionRow ();
@@ -263,43 +263,43 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         main_content.append (scrolled_window);
 
         sort_projects_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
         });
 
         sort_order_projects_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("projects-ordered", (int) sort_order_projects_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("projects-ordered", (int) sort_order_projects_row.selected);
         });
 
         run_background_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("run-in-background", run_background_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
         });
 
         calendar_events_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("calendar-enabled", calendar_events_switch.active);
         });
 
         clock_format_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("clock-format", (int) clock_format_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("clock-format", (int) clock_format_row.selected);
         });
         
         start_week_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("start-week", (int) start_week_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("start-week", (int) start_week_row.selected);
         });
         
         complete_tasks_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
         });
 
         default_priority_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("default-priority", (int) default_priority_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("default-priority", (int) default_priority_row.selected);
         });
         
         description_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("description-preview", description_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("description-preview", description_switch.active);
         });
         
         underline_completed_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
         });
 
         settings_header_box.back_activated.connect (() => {
@@ -322,7 +322,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var system_appearance_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("system-appearance")
+            active = Services.Settings.get_default ().settings.get_boolean ("system-appearance")
         };
 
         var system_appearance_row = new Adw.ActionRow ();
@@ -333,12 +333,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         appearance_group.add (system_appearance_row);
 
         var dark_mode_group = new Adw.PreferencesGroup () {
-            visible = !Planner.settings.get_boolean ("system-appearance")
+            visible = !Services.Settings.get_default ().settings.get_boolean ("system-appearance")
         };
 
         var dark_mode_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("dark-mode")
+            active = Services.Settings.get_default ().settings.get_boolean ("dark-mode")
         };
 
         var dark_mode_row = new Adw.ActionRow ();
@@ -386,8 +386,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         dark_blue_item_row.add_prefix (dark_blue_grid);
         dark_blue_item_row.add_suffix (dark_blue_check);
 
-        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        if (Planner.settings.get_boolean ("system-appearance")) {
+        bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+        if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
             dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         }
 
@@ -420,7 +420,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         main_content.append (settings_header);
         main_content.append (content_clamp);
 
-        int appearance = Planner.settings.get_enum ("appearance");
+        int appearance = Services.Settings.get_default ().settings.get_enum ("appearance");
         if (appearance == 0) {
             light_check.active = true;
         } else if (appearance == 1) {
@@ -430,19 +430,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         }
 
         system_appearance_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("system-appearance", system_appearance_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("system-appearance", system_appearance_switch.active);
         });
 
         dark_mode_switch.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("dark-mode", dark_mode_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("dark-mode", dark_mode_switch.active);
         });
         
         dark_check.toggled.connect (() => {
-            Planner.settings.set_enum ("appearance", 1);
+            Services.Settings.get_default ().settings.set_enum ("appearance", 1);
         });
         
         dark_blue_check.toggled.connect (() => {
-            Planner.settings.set_enum ("appearance", 2);
+            Services.Settings.get_default ().settings.set_enum ("appearance", 2);
         });
 
         dark_item_row.activated.connect (() => {
@@ -453,22 +453,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             dark_blue_check.active = true;
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "system-appearance") {
-                system_appearance_switch.active = Planner.settings.get_boolean ("system-appearance");
-                dark_mode_group.visible = !Planner.settings.get_boolean ("system-appearance");
+                system_appearance_switch.active = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
+                dark_mode_group.visible = !Services.Settings.get_default ().settings.get_boolean ("system-appearance");
 
-                dark_mode = Planner.settings.get_boolean ("dark-mode");
-                if (Planner.settings.get_boolean ("system-appearance")) {
+                dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+                if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
                     dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
                 }
                 
                 dark_modes_group.visible = dark_mode;
             } else if (key == "dark-mode") {
-                dark_mode_switch.active = Planner.settings.get_boolean ("dark-mode");
+                dark_mode_switch.active = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
                 
-                dark_mode = Planner.settings.get_boolean ("dark-mode");
-                if (Planner.settings.get_boolean ("system-appearance")) {
+                dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+                if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
                     dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
                 }
 
@@ -503,7 +503,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         var inbox_project_row = new Adw.ComboRow ();
         inbox_project_row.title = _("Default Inbox Project");
         inbox_project_row.model = inbox_project_model;
-        inbox_project_row.selected = Planner.settings.get_enum ("default-inbox");
+        inbox_project_row.selected = Services.Settings.get_default ().settings.get_enum ("default-inbox");
 
         default_group.add (inbox_project_row);
 
@@ -669,7 +669,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
         inbox_project_row.notify["selected"].connect (() => {
-            Planner.settings.set_enum ("default-inbox", (int) inbox_project_row.selected);
+            Services.Settings.get_default ().settings.set_enum ("default-inbox", (int) inbox_project_row.selected);
             Util.get_default ().change_default_inbox ();
         });
 
@@ -720,7 +720,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             hexpand = true
         };
 
-        var todoist_avatar = new Adw.Avatar (84, Planner.settings.get_string ("todoist-user-name"), true);
+        var todoist_avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("todoist-user-name"), true);
 
         var file = File.new_for_path (Util.get_default ().get_avatar_path ("todoist-user"));
         if (file.query_exists ()) {
@@ -728,12 +728,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             todoist_avatar.custom_image = image.get_paintable ();
         }
 
-        var todoist_user = new Gtk.Label (Planner.settings.get_string ("todoist-user-name")) {
+        var todoist_user = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-name")) {
             margin_top = 12
         };
         todoist_user.add_css_class ("title-1");
 
-        var todoist_email = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        var todoist_email = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
         todoist_email.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -756,7 +756,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var sync_server_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("todoist-sync-server")
+            active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
         };
 
         var sync_server_row = new Adw.ActionRow ();
@@ -766,7 +766,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         sync_server_row.add_suffix (sync_server_switch);
 
         var last_sync_date = new GLib.DateTime.from_iso8601 (
-            Planner.settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
+            Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
         );
 
         var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
@@ -795,7 +795,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
         sync_server_row.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
         });
 
         return main_content;
@@ -812,19 +812,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         // settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var avatar = new Adw.Avatar (84, Planner.settings.get_string ("google-user-name"), true);
+        var avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("google-user-name"), true);
 
         var file = File.new_for_path (Util.get_default ().get_avatar_path ("google-user"));
         if (file.query_exists ()) {
             // todoist_avatar.set_loadable_icon (new FileIcon (file));    
         }
 
-        var user_label = new Gtk.Label (Planner.settings.get_string ("google-user-name")) {
+        var user_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("google-user-name")) {
             margin_top = 12
         };
         user_label.add_css_class ("title-1");
 
-        var email_label = new Gtk.Label (Planner.settings.get_string ("todoist-user-email"));
+        var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
         email_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -847,7 +847,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var sync_server_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
-            active = Planner.settings.get_boolean ("todoist-sync-server")
+            active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
         };
 
         var sync_server_row = new Adw.ActionRow ();
@@ -857,7 +857,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         sync_server_row.add_suffix (sync_server_switch);
 
         var last_sync_date = new GLib.DateTime.from_iso8601 (
-            Planner.settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
+            Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
         );
 
         var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
@@ -886,7 +886,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
         sync_server_row.notify["active"].connect (() => {
-            Planner.settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+            Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
         });
 
         return main_content;

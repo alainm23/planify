@@ -1101,7 +1101,7 @@ public class Services.Database : GLib.Object {
         }
 
         item.insert_local_labels ();
-        Planner.event_bus.update_items_position (item.project_id, item.section_id);
+        Services.EventBus.get_default ().update_items_position (item.project_id, item.section_id);
     }
 
     public Gee.ArrayList<Objects.Item> get_items_collection () {
@@ -1133,14 +1133,14 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Item get_item_by_id (int64 id) {
+    public Objects.Item get_item_by_id (string id) {
         Objects.Item returned = new Objects.Item ();
         Sqlite.Statement stmt;
 
         sql = "SELECT * FROM Items WHERE id = $id LIMIT 1;";
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
 
         if (stmt.step () == Sqlite.ROW) {
             returned = _fill_item (stmt);
@@ -1471,7 +1471,7 @@ public class Services.Database : GLib.Object {
             item.updated ();
             item_updated (item, Constants.INACTIVE);
 
-            Planner.event_bus.checked_toggled (item, old_checked);
+            Services.EventBus.get_default ().checked_toggled (item, old_checked);
         }
 
         stmt.reset ();

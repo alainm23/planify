@@ -212,7 +212,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         //      });            
         //  }
         
-        Planner.event_bus.checked_toggled.connect ((item, old_checked) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id &&
                 item.parent_id == "") {
                 if (!old_checked) {
@@ -264,7 +264,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             check_inbox_visible ();
         });
 
-        Planner.event_bus.item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
             if (old_project_id == section.project_id && old_section_id == section.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();
@@ -285,7 +285,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             check_inbox_visible ();
         });
 
-        Planner.event_bus.update_items_position.connect ((project_id, section_id) => {
+        Services.EventBus.get_default ().update_items_position.connect ((project_id, section_id) => {
             if (section.project_id == project_id && section.id == section_id) {
                 // update_items_position ();
             }
@@ -297,7 +297,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             update_sort ();
         });
 
-        Planner.event_bus.update_section_sort_func.connect ((project_id, section_id, value) => {
+        Services.EventBus.get_default ().update_section_sort_func.connect ((project_id, section_id, value) => {
             if (section.project_id == project_id && section.id == section_id) {
                 if (value) {
                     update_sort ();

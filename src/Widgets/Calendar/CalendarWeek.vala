@@ -70,7 +70,7 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         remove (label_friday);
         remove (label_saturday);
 
-        var start_week = Planner.settings.get_enum ("start-week");
+        var start_week = Services.Settings.get_default ().settings.get_enum ("start-week");
         
         if (start_week == 0) {
             append (label_sunday);

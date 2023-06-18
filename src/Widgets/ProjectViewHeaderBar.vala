@@ -62,7 +62,7 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
 
         attach (content_revealer, 0, 0);
 
-        Planner.event_bus.view_header.connect ((reveal_child) => {
+        Services.EventBus.get_default ().view_header.connect ((reveal_child) => {
             // content_revealer.reveal_child = reveal_child;
         });
     }

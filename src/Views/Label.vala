@@ -30,7 +30,7 @@ public class Views.Label : Gtk.Grid {
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
 
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");
@@ -203,9 +203,9 @@ public class Views.Label : Gtk.Grid {
 
         scrolled_window.vadjustment.value_changed.connect (() => {
             if (scrolled_window.vadjustment.value > 50) {
-                Planner.event_bus.view_header (true);
+                Services.EventBus.get_default ().view_header (true);
             } else {
-                Planner.event_bus.view_header (false);
+                Services.EventBus.get_default ().view_header (false);
             }
         });
 
@@ -214,7 +214,7 @@ public class Views.Label : Gtk.Grid {
         });
 
         back_button.clicked.connect (() => {
-            Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
         });
 
         search_button.clicked.connect (() => {

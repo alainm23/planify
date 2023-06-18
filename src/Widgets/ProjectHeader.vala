@@ -251,7 +251,7 @@ public class Widgets.ProjectHeader : Gtk.Grid {
             clipboard.read_text_async.begin (null, (obj, res) => {
                 try {
                     string content = clipboard.read_text_async.end (res);
-                    Planner.event_bus.paste_action (project.id, content);
+                    Services.EventBus.get_default ().paste_action (project.id, content);
                 } catch (GLib.Error error) {
                     debug (error.message);
                 }
@@ -260,8 +260,8 @@ public class Widgets.ProjectHeader : Gtk.Grid {
 
         select_item.clicked.connect (() => {
             popover.popdown ();
-            Planner.event_bus.multi_select_enabled = true;
-            Planner.event_bus.show_multi_select (true);
+            Services.EventBus.get_default ().multi_select_enabled = true;
+            Services.EventBus.get_default ().show_multi_select (true);
         });
 
         return popover;

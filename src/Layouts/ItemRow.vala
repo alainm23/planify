@@ -238,7 +238,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         parent_id = item.parent_id;
 
         if (is_creating) {
-            Planner.event_bus.update_section_sort_func (project_id, section_id, false);
+            Services.EventBus.get_default ().update_section_sort_func (project_id, section_id, false);
         }
 
         checked_button = new Gtk.CheckButton () {
@@ -611,14 +611,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         handle_grid.add_controller (handle_gesture_click);
 
         handle_gesture_click.pressed.connect ((n_press, x, y) => {
-            if (Planner.event_bus.multi_select_enabled) {
+            if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                Planner.event_bus.unselect_all ();
+                Services.EventBus.get_default ().unselect_all ();
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
                     if (!on_drag) {
-                        Planner.event_bus.item_selected (item.id);
+                        Services.EventBus.get_default ().item_selected (item.id);
                     }
 
                     return GLib.Source.REMOVE;
@@ -626,7 +626,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.event_bus.item_selected.connect ((id) => {
+        Services.EventBus.get_default ().item_selected.connect ((id) => {
             if (item.id == id) {
                 if (!edit) {
                     edit = true;
@@ -658,10 +658,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         content_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 if (is_creating) {
-                    Planner.event_bus.new_item_deleted (item.project_id);
+                    Services.EventBus.get_default ().new_item_deleted (item.project_id);
                     hide_destroy ();
                 } else {
-                    Planner.event_bus.item_selected (null);
+                    Services.EventBus.get_default ().item_selected (null);
                 }
             } else {
                 if (!is_creating) {
@@ -678,10 +678,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 if (is_creating) {
-                    Planner.event_bus.new_item_deleted (item.project_id);
+                    Services.EventBus.get_default ().new_item_deleted (item.project_id);
                     hide_destroy ();
                 } else {
-                    Planner.event_bus.item_selected (null);
+                    Services.EventBus.get_default ().item_selected (null);
                 }
             } else {
                 if (!is_creating) {
@@ -697,7 +697,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         cancel_button.clicked.connect (() => {
             if (is_creating) {
-                Planner.event_bus.new_item_deleted (item.project_id);
+                Services.EventBus.get_default ().new_item_deleted (item.project_id);
                 hide_destroy ();
             }
         });
@@ -761,7 +761,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
 
 
-        Planner.event_bus.checked_toggled.connect ((i) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((i) => {
             if (item.id == i.parent_id) {
                 item_summary.update_request ();
             }
@@ -773,7 +773,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "underline-completed-tasks") {
                 update_request ();
             }
@@ -806,7 +806,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             selected_toggled (select_checkbutton.active);
         });    
 
-        Planner.event_bus.show_multi_select.connect ((active) => {
+        Services.EventBus.get_default ().show_multi_select.connect ((active) => {
             select_revealer.reveal_child = active;
 
             if (!active) {
@@ -826,9 +826,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     private void selected_toggled (bool active) {
         if (select_checkbutton.active) {
-            Planner.event_bus.select_item (this);
+            Services.EventBus.get_default ().select_item (this);
         } else {
-            Planner.event_bus.unselect_item (this);
+            Services.EventBus.get_default ().unselect_item (this);
         }
     }
 
@@ -848,7 +848,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
         
         if (!Util.get_default ().is_text_valid (content_textview)) {
-            Planner.event_bus.new_item_deleted (item.project_id);
+            Services.EventBus.get_default ().new_item_deleted (item.project_id);
             hide_destroy ();
             return;
         }
@@ -891,9 +891,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
 
-            if (item.completed && Planner.settings.get_boolean ("underline-completed-tasks")) {
+            if (item.completed && Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
-            } else if (item.completed && !Planner.settings.get_boolean ("underline-completed-tasks")) {
+            } else if (item.completed && !Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.remove_css_class ("line-through");
             }
         }
@@ -1296,7 +1296,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void checked_toggled (bool active, uint? time = null) {
-        Planner.event_bus.unselect_all ();
+        Services.EventBus.get_default ().unselect_all ();
         bool old_checked = item.checked;
 
         if (active) {
@@ -1331,7 +1331,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     private void complete_item (bool old_checked, uint? time = null) {
         uint timeout = 2500;
-        if (Planner.settings.get_enum ("complete-task") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
         }
 
@@ -1342,7 +1342,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (timeout > 0 && !edit) {
             content_label.add_css_class ("dim-label");
             handle_grid.add_css_class ("complete-animation");
-            if (Planner.settings.get_boolean ("underline-completed-tasks")) {
+            if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
                 content_label.add_css_class ("line-through");
             }
         }
@@ -1489,7 +1489,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
         var toast = Util.get_default ().create_toast (title, 3);
 
-        Planner.event_bus.send_notification (toast);
+        Services.EventBus.get_default ().send_notification (toast);
     }
 
     public void update_labels (Gee.HashMap <string, Objects.Label> labels) {
@@ -1517,7 +1517,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
-        Planner.event_bus.send_notification (toast);
+        Services.EventBus.get_default ().send_notification (toast);
 
         uint delete_timeout = 0;
         delete_timeout = Timeout.add (toast.timeout * 1000, () => {
@@ -1624,7 +1624,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item.section_id = section_id;
 
         Services.Database.get_default ().update_item (item);
-        Planner.event_bus.item_moved (item, old_project_id, old_section_id);
+        Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id);
     }
 
     private void build_drag_and_drop () {
@@ -1727,7 +1727,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
 
             target_list.insert (picked_widget, position);
-            Planner.event_bus.item_section_moved (picked_widget, old_section_id);
+            Services.EventBus.get_default ().item_section_moved (picked_widget, old_section_id);
             update_items_item_order (target_list);
 
             return true;
@@ -1762,7 +1762,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         on_drag = true;
         opacity = 0.3;
         
-        Planner.event_bus.item_drag_begin (item);
+        Services.EventBus.get_default ().item_drag_begin (item);
     }
 
     public void drag_end () {
@@ -1770,6 +1770,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         on_drag = false;
         opacity = 1;
 
-        Planner.event_bus.item_drag_end (item);
+        Services.EventBus.get_default ().item_drag_end (item);
     }
 }

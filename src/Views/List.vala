@@ -166,7 +166,7 @@ public class Views.List : Gtk.Grid {
             check_placeholder ();
         });
 
-        Planner.event_bus.paste_action.connect ((project_id, content) => {
+        Services.EventBus.get_default ().paste_action.connect ((project_id, content) => {
             if (project.id == project_id) {
                 prepare_new_item (content);
             }
@@ -180,7 +180,7 @@ public class Views.List : Gtk.Grid {
             check_placeholder ();
         });
 
-        Planner.event_bus.new_item_deleted.connect ((project_id) => {
+        Services.EventBus.get_default ().new_item_deleted.connect ((project_id) => {
             if (project.id == project_id) {
                 check_placeholder ();
             }

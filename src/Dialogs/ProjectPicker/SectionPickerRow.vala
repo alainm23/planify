@@ -84,10 +84,10 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             add_controller (select_gesture);
             
             select_gesture.pressed.connect (() => {
-                Planner.event_bus.section_picker_changed (section.id);
+                Services.EventBus.get_default ().section_picker_changed (section.id);
             });
     
-            Planner.event_bus.section_picker_changed.connect ((type, id) => {
+            Services.EventBus.get_default ().section_picker_changed.connect ((type, id) => {
                 selected_revealer.reveal_child = section.id == id;
             });
         }

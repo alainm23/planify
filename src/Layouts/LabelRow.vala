@@ -136,7 +136,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         });
 
         trash_button.clicked.connect (() => {
-            Planner.event_bus.close_labels ();
+            Services.EventBus.get_default ().close_labels ();
             
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
             _("Delete label"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (label.short_name))));
@@ -162,7 +162,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         });
 
         edit_button.clicked.connect (() => {
-            Planner.event_bus.close_labels ();
+            Services.EventBus.get_default ().close_labels ();
             var dialog = new Dialogs.Label (label);
             dialog.show ();
         });

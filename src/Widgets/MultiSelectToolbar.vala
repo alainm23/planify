@@ -127,7 +127,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         attach (main_revealer, 0, 0);
 
-        Planner.event_bus.select_item.connect ((row) => {
+        Services.EventBus.get_default ().select_item.connect ((row) => {
             if (items_selected.has_key (row.item.id_string)) {
                 items_selected.unset (row.item.id_string);
                 row.is_row_selected = false;
@@ -139,7 +139,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
             check_select_bar ();
         });
 
-        Planner.event_bus.unselect_item.connect ((row) => {
+        Services.EventBus.get_default ().unselect_item.connect ((row) => {
             if (items_selected.has_key (row.item.id_string)) {
                 items_selected.unset (row.item.id_string);
                 row.is_row_selected = false;
@@ -148,7 +148,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
             check_select_bar ();
         });
 
-        Planner.event_bus.show_multi_select.connect ((value) => {
+        Services.EventBus.get_default ().show_multi_select.connect ((value) => {
             main_revealer.reveal_child = value;
         });
 
@@ -161,7 +161,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         priority_button.clicked.connect (open_priority_picker);
         menu_button.clicked.connect (open_menu);
 
-        Planner.event_bus.unselect_all.connect (() => {
+        Services.EventBus.get_default ().unselect_all.connect (() => {
             unselect_all ();
         });
     }
@@ -335,11 +335,11 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
     private void check_select_bar () {
         if (items_selected.size > 0) {
-            Planner.event_bus.magic_button_visible (false);
-            Planner.event_bus.disconnect_typing_accel ();
+            Services.EventBus.get_default ().magic_button_visible (false);
+            Services.EventBus.get_default ().disconnect_typing_accel ();
         } else {
-            Planner.event_bus.magic_button_visible (true);
-            Planner.event_bus.connect_typing_accel ();
+            Services.EventBus.get_default ().magic_button_visible (true);
+            Services.EventBus.get_default ().connect_typing_accel ();
         }
     }
 
@@ -350,9 +350,9 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         items_selected.clear ();
         main_revealer.reveal_child = false;
-        Planner.event_bus.magic_button_visible (true);
-        Planner.event_bus.connect_typing_accel ();
-        Planner.event_bus.show_multi_select (false);
-        Planner.event_bus.multi_select_enabled = false;
+        Services.EventBus.get_default ().magic_button_visible (true);
+        Services.EventBus.get_default ().connect_typing_accel ();
+        Services.EventBus.get_default ().show_multi_select (false);
+        Services.EventBus.get_default ().multi_select_enabled = false;
     }
 }

@@ -74,10 +74,10 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
                 return GLib.Source.REMOVE;
             });
 
-            Planner.event_bus.pane_selected (PaneType.FILTER, filter_type.to_string ());
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter_type.to_string ());
         });
 
-        Planner.event_bus.pane_selected.connect ((pane_type, id) => {
+        Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
                 add_css_class (
                     "filter-pane-row-%s-selected".printf (filter_type.to_string ())
@@ -146,15 +146,15 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         }
     }
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
+        Objects.Project inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
         update_count_label (inbox_project.project_count);
 
         inbox_project.project_count_updated.connect (() => {
             update_count_label (inbox_project.project_count);
         });
 
-        Planner.event_bus.inbox_project_changed.connect (() => {
-            inbox_project = Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"));
+        Services.EventBus.get_default ().inbox_project_changed.connect (() => {
+            inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
             update_count_label (inbox_project.project_count);
         });
     }

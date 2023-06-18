@@ -198,28 +198,28 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         var base_object = ((Dialogs.QuickFind.QuickFindItem) row).base_object;
 
         if (base_object.object_type == ObjectType.PROJECT) {
-            Planner.event_bus.pane_selected (PaneType.PROJECT, base_object.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, base_object.id_string);
         } else if (base_object.object_type == ObjectType.ITEM) {
-            Planner.event_bus.pane_selected (PaneType.PROJECT,
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
                 ((Objects.Item) base_object).project_id.to_string ()
             );
         } else if (base_object.object_type == ObjectType.LABEL) {
-            Planner.event_bus.pane_selected (PaneType.LABEL,
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL,
                 ((Objects.Label) base_object).id_string
             );
         } else if (base_object.object_type == ObjectType.FILTER) {
             if (base_object is Objects.Today) {
-                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ()); 
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ()); 
             } else if (base_object is Objects.Scheduled) {
-                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
             } else if (base_object is Objects.Pinboard) {
-                Planner.event_bus.pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
             } else if (base_object is Objects.Priority) {
                 Objects.Priority priority = ((Objects.Priority) base_object);
-                Planner.event_bus.pane_selected (PaneType.FILTER, priority.view_id);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, priority.view_id);
             } else if (base_object is Objects.Completed) {
                 Objects.Completed completed = ((Objects.Completed) base_object);
-                Planner.event_bus.pane_selected (PaneType.FILTER, completed.view_id);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, completed.view_id);
             }
         }
 

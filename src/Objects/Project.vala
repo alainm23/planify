@@ -78,7 +78,7 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_inbox_project {
         get {
-            return id == Planner.settings.get_string ("inbox-project-id");
+            return id == Services.Settings.get_default ().settings.get_string ("inbox-project-id");
         }
     }
 
@@ -187,7 +187,7 @@ public class Objects.Project : Objects.BaseObject {
             Services.Database.get_default ().project_deleted (this);
         });
 
-        Planner.event_bus.checked_toggled.connect ((item) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -211,7 +211,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Planner.event_bus.item_moved.connect ((item, old_project_id, section_id, insert) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id, insert) => {
             if (item.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -636,7 +636,7 @@ public class Objects.Project : Objects.BaseObject {
     public void share_markdown () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text (to_markdown ());
-        Planner.event_bus.send_notification (
+        Services.EventBus.get_default ().send_notification (
             Util.get_default ().create_toast (_("The project was copied to the Clipboard."))
         );
     }

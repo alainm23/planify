@@ -122,10 +122,10 @@ public class Widgets.EditableLabel : Gtk.Grid {
     }
 
     private void handle_focus_in () {
-        Planner.event_bus.disconnect_typing_accel ();
+        Services.EventBus.get_default ().disconnect_typing_accel ();
     }
 
     public void update_on_leave () {
-        Planner.event_bus.connect_typing_accel ();
+        Services.EventBus.get_default ().connect_typing_accel ();
     }
 }

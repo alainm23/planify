@@ -26,9 +26,9 @@ public class Objects.Item : Objects.BaseObject {
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
-    public int64 section_id { get; set; default = Constants.INACTIVE; }
-    public int64 project_id { get; set; default = Constants.INACTIVE; }
-    public int64 parent_id { get; set; default = Constants.INACTIVE; }
+    public string section_id { get; set; default = ""; }
+    public string project_id { get; set; default = ""; }
+    public string parent_id { get; set; default = ""; }
     
     public int priority { get; set; default = Constants.INACTIVE; }
 
@@ -101,7 +101,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_section {
         get {
-            return section_id != Constants.INACTIVE;
+            return section_id != "";
         }
     }
 
@@ -170,21 +170,21 @@ public class Objects.Item : Objects.BaseObject {
 
             if (temp_id == null) {
                 builder.set_member_name ("id");
-                builder.add_int_value (id);
+                builder.add_string_value (id);
             }
 
             if (temp_id != null) {
                 builder.set_member_name ("project_id");
-                builder.add_int_value (project_id);
+                builder.add_string_value (project_id);
                 
-                if (parent_id != Constants.INACTIVE) {
+                if (parent_id != "") {
                     builder.set_member_name ("parent_id");
-                    builder.add_int_value (parent_id);
+                    builder.add_string_value (parent_id);
                 }
 
-                if (section_id != Constants.INACTIVE) {
+                if (section_id != "") {
                     builder.set_member_name ("section_id");
-                    builder.add_int_value (section_id);
+                    builder.add_string_value (section_id);
                 }
             }
 

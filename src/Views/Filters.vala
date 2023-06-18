@@ -12,7 +12,7 @@ public class Views.Filters : Gtk.Grid {
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
 
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");
@@ -149,11 +149,11 @@ public class Views.Filters : Gtk.Grid {
         });
 
         labels_local_header.row_activated.connect ((row) => {
-            Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
 
         labels_todoist_header.row_activated.connect ((row) => {
-            Planner.event_bus.pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
 
         Services.Database.get_default ().label_added.connect ((label) => {

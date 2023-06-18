@@ -181,7 +181,7 @@ public class Views.Date : Gtk.Grid {
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
-        Planner.event_bus.item_moved.connect ((item) => {
+        Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items[item.id_string].update_request ();
             }
@@ -196,7 +196,7 @@ public class Views.Date : Gtk.Grid {
         // overdue_listbox.add.connect (validate_placeholder);
         // overdue_listbox.remove.connect (validate_placeholder);
 
-        //  Planner.settings.changed.connect ((key) => {
+        //  Services.Settings.get_default ().settings.changed.connect ((key) => {
         //      if (key == "show-today-completed") {
         //          show_completed_changed ();
         //      }
@@ -204,7 +204,7 @@ public class Views.Date : Gtk.Grid {
     }
 
     private void show_completed_changed () {
-        if (Planner.settings.get_boolean ("show-today-completed")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("show-today-completed")) {
             add_completed_items ();
         } else {
             items_checked.clear ();
@@ -230,11 +230,11 @@ public class Views.Date : Gtk.Grid {
             }
         }
 
-        checked_revealer.reveal_child = Planner.settings.get_boolean ("show-today-completed");
+        checked_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("show-today-completed");
     }
 
     public void add_complete_item (Objects.Item item) {
-        if (Planner.settings.get_boolean ("show-today-completed") && item.checked) {
+        if (Services.Settings.get_default ().settings.get_boolean ("show-today-completed") && item.checked) {
             if (!items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string] = new Layouts.ItemRow (item);
                 checked_listbox.append (items_checked [item.id_string]);
@@ -372,7 +372,7 @@ public class Views.Date : Gtk.Grid {
             listbox.remove (child);
         }
 
-        //  BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        //  BackendType backend_type = (BackendType) Services.Settings.get_default ().settings.get_enum ("backend-type");
         //  if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
         //      foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
         //          add_item (item);
@@ -494,12 +494,12 @@ public class Views.Date : Gtk.Grid {
     }
 
     public void prepare_new_item (string content = "") {
-        //  BackendType backend_type = (BackendType) Planner.settings.get_enum ("backend-type");
+        //  BackendType backend_type = (BackendType) Services.Settings.get_default ().settings.get_enum ("backend-type");
         //  if (backend_type == BackendType.LOCAL || backend_type == BackendType.TODOIST) {
-        //      Planner.event_bus.item_selected (null);
+        //      Services.EventBus.get_default ().item_selected (null);
 
         //      var row = new Layouts.ItemRow.for_project (
-        //          Planner.database.get_project (Planner.settings.get_int64 ("inbox-project-id"))
+        //          Planner.database.get_project (Services.Settings.get_default ().settings.get_int64 ("inbox-project-id"))
         //      );
             
         //      row.update_due (Util.get_default ().get_format_date (date));

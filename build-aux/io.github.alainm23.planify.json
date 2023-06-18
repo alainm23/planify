@@ -1,0 +1,125 @@
+{
+    "app-id": "io.github.alainm23.planify",
+    "runtime": "org.gnome.Platform",
+    "runtime-version": "44",
+    "sdk": "org.gnome.Sdk",
+    "command": "io.github.alainm23.planify",
+    "finish-args": [
+        "--device=dri",
+        "--share=ipc",
+        "--share=network",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--talk-name=org.gnome.evolution.dataserver.Calendar8",
+        "--talk-name=org.gnome.evolution.dataserver.Sources5"
+    ],
+    "cleanup": [
+        "/include",
+        "/lib/pkgconfig",
+        "/man",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man",
+        "/share/pkgconfig",
+        "*.la",
+        "*.a"
+    ],
+    "modules": [
+        "shared-modules/intltool/intltool-0.51.json",
+        {
+            "name": "granite",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/elementary/granite.git",
+                    "tag": "7.2.0"
+                }
+            ]
+        },
+        {
+            "name": "libical",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/cmake"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_INSTALL_LIBDIR=/app/lib",
+                "-DBUILD_SHARED_LIBS=ON",
+                "-DGOBJECT_INTROSPECTION=true",
+                "-DICAL_GLIB_VAPI=true",
+                "-DICAL_GLIB=true",
+                "-DICAL_BUILD_DOCS=false",
+                "-DWITH_CXX_BINDINGS=false"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/libical/libical/releases/download/v3.0.16/libical-3.0.16.tar.gz",
+                    "sha256": "b44705dd71ca4538c86fb16248483ab4b48978524fb1da5097bd76aa2e0f0c33",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1637,
+                        "url-template": "https://github.com/libical/libical/releases/download/v$version/libical-$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "evolution-data-server",
+            "buildsystem": "cmake-ninja",
+            "cleanup": [
+                "/lib/evolution-data-server/*-backends",
+                "/libexec",
+                "/share/dbus-1/services"
+            ],
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DENABLE_FILE_LOCKING=fcntl",
+                "-DENABLE_DOT_LOCKING=OFF",
+                "-DENABLE_OAUTH2=ON",
+                "-DENABLE_CANBERRA=OFF",
+                "-DENABLE_GTK=ON",
+                "-DENABLE_UOA=OFF",
+                "-DENABLE_GOA=OFF",
+                "-DENABLE_GOOGLE=OFF",
+                "-DENABLE_EXAMPLES=OFF",
+                "-DENABLE_INTROSPECTION=ON",
+                "-DENABLE_VALA_BINDINGS=ON",
+                "-DENABLE_INSTALLED_TESTS=OFF",
+                "-DENABLE_GTK_DOC=OFF",
+                "-DWITH_PRIVATE_DOCS=OFF",
+                "-DWITH_PHONENUMBER=OFF",
+                "-DWITH_SYSTEMDUSERUNITDIR=OFF",
+                "-DWITH_LIBDB=OFF",
+                "-DWITH_OPENLDAP=OFF",
+                "-DENABLE_WEATHER=OFF",
+                "-DENABLE_OAUTH2_WEBKITGTK4=OFF"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/evolution-data-server/3.48/evolution-data-server-3.48.2.tar.xz",
+                    "sha256": "1f3243df12b4f1d3298c9977d6221a6565fd279efc984e1ccf255245d04cffd5",
+                    "x-checker-data": {
+                        "type": "gnome",
+                        "name": "evolution-data-server"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "planify",
+            "builddir": true,
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/alainm23/planner.git",
+                    "commit": "696fb7ab3c66ea4a14a5167cb5b44e9444294ecb"
+                }
+            ]
+        }
+    ]
+}

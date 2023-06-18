@@ -6,7 +6,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private Widgets.LoadingButton submit_button;
     private Widgets.HyperTextView description_textview;
 
-    public MainWindow (Planner application) {
+    public MainWindow (QuickAdd application) {
         Object (
             application: application,
             icon_name: "io.github.alainm23.planify",
@@ -110,8 +110,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var granite_settings = Granite.Settings.get_default ();
         granite_settings.notify["prefers-color-scheme"].connect (() => {
-            if (Planner.settings.get_boolean ("system-appearance")) {
-                Planner.settings.set_boolean (
+            if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
+                Services.Settings.get_default ().settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -119,9 +119,9 @@ public class MainWindow : Adw.ApplicationWindow {
             }
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "system-appearance") {
-                Planner.settings.set_boolean (
+                Services.Settings.get_default ().settings.set_boolean (
                     "dark-mode",
                     granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
                 );
@@ -145,12 +145,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
-        item.project_id = Planner.settings.get_int64 ("inbox-project-id");
+        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
         
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                int64? id = Services.Todoist.get_default ().add.end (res);
+                string? id = Services.Todoist.get_default ().add.end (res);
                 if (id != null) {
                     item.id = id;
                     add_item_db (item);
@@ -169,7 +169,7 @@ public class MainWindow : Adw.ApplicationWindow {
         }  
     }
 
-    private void send_interface_id (int64 id) {
+    private void send_interface_id (string id) {
         try {
             DBusClient.get_default ().interface.add_item (id);
         } catch (Error e) {

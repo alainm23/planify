@@ -197,7 +197,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
         update_request ();
         check_revealer ();
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "clock-format" || key == "description-preview") {
                 update_request ();
                 check_revealer ();
@@ -220,9 +220,9 @@ public class Widgets.ItemSummary : Gtk.Grid {
         update_labels ();
 
         description_label.label = Util.get_default ().line_break_to_space (item.description);
-        description_revealer.reveal_child = item.description.length > 0 && Planner.settings.get_boolean ("description-preview") == false; 
+        description_revealer.reveal_child = item.description.length > 0 && Services.Settings.get_default ().settings.get_boolean ("description-preview") == false; 
         description_label_revealer.reveal_child = description_label.label.length > 0 && 
-            Planner.settings.get_boolean ("description-preview"); 
+            Services.Settings.get_default ().settings.get_boolean ("description-preview"); 
     }
 
     public void update_due_label () {

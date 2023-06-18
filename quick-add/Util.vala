@@ -8,7 +8,7 @@ public class Util : GLib.Object {
         return _instance;
     }
 
-    public int64 generate_id (int len=10) {
+    public string generate_id (int len=10) {
         string allowed_characters = "0123456789";
 
         var password_builder = new StringBuilder ();
@@ -21,7 +21,7 @@ public class Util : GLib.Object {
             return generate_id ();
         }
 
-        return int64.parse (password_builder.str);
+        return password_builder.str;
     }
 
     public string generate_string () {
@@ -55,9 +55,9 @@ public class Util : GLib.Object {
             @define-color selected_color %s;
         """;
 
-        int appearance_mode = Planner.settings.get_enum ("appearance");
-        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+        int appearance_mode = Services.Settings.get_default ().settings.get_enum ("appearance");
+        bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+        bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
 
         var granite_settings = Granite.Settings.get_default ();
 
@@ -269,7 +269,7 @@ public class Util : GLib.Object {
     }
 
     public bool is_clock_format_12h () {
-        return Planner.settings.get_string ("clock-format").contains ("12h");
+        return Services.Settings.get_default ().settings.get_string ("clock-format").contains ("12h");
     }
 
     public string get_calendar_icon (GLib.DateTime date) {

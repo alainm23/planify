@@ -31,7 +31,7 @@ public class Views.Filter : Gtk.Grid {
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
 
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");
@@ -187,9 +187,9 @@ public class Views.Filter : Gtk.Grid {
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
-        Planner.event_bus.checked_toggled.connect (valid_checked_item);
+        Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
 
-        Planner.event_bus.item_moved.connect ((item) => {
+        Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items[item.id_string].update_request ();
             }

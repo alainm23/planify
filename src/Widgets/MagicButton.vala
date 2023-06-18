@@ -70,7 +70,7 @@ public class Widgets.MagicButton : Gtk.Grid {
             clicked ();
         });
 
-        Planner.event_bus.magic_button_visible.connect ((visible) => {
+        Services.EventBus.get_default ().magic_button_visible.connect ((visible) => {
             revealer.reveal_child = visible;
         });
     }
@@ -109,7 +109,7 @@ public class Widgets.MagicButton : Gtk.Grid {
     //      Gtk.drag_set_icon_surface (context, surface);
     //      reveal_child = false;
 
-    //      Planner.event_bus.magic_button_activated (true);
+    //      Services.EventBus.get_default ().magic_button_activated (true);
     //  }
 
     //  private void on_drag_data_get (Gtk.Widget widget, Gdk.DragContext context,
@@ -124,6 +124,6 @@ public class Widgets.MagicButton : Gtk.Grid {
 
     //  public void on_drag_end (Gdk.DragContext context) {
     //      reveal_child = true;
-    //      Planner.event_bus.magic_button_activated (false);
+    //      Services.EventBus.get_default ().magic_button_activated (false);
     //  }
 }

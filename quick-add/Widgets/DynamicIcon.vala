@@ -38,8 +38,8 @@ public class Widgets.DynamicIcon : Gtk.Grid {
             return;
         }
 
-        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        if (Planner.settings.get_boolean ("system-appearance")) {
+        bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+        if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
             dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         }
         

@@ -128,6 +128,22 @@
             ]
         },
         {
+            "name" : "libportal",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dbackends=['gtk4']",
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/flatpak/libportal.git",
+                    "tag": "0.6"
+                }
+            ]
+        },
+        {
             "name" : "planify",
             "builddir" : true,
             "buildsystem" : "meson",

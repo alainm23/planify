@@ -201,9 +201,9 @@ public class Dialogs.Item : Adw.Window {
         Util.get_default ().set_widget_priority (item.priority, checked_button);
         checked_button.active = item.completed;
 
-        //  if (item.completed && Planner.settings.get_boolean ("underline-completed-tasks")) {
+        //  if (item.completed && Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
         //      content_label.add_css_class ("line-through");
-        //  } else if (item.completed && !Planner.settings.get_boolean ("underline-completed-tasks")) {
+        //  } else if (item.completed && !Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
         //      content_label.remove_css_class ("line-through");
         //  }
 

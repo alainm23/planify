@@ -23,7 +23,7 @@ public class Widgets.FilterHeader : Gtk.Grid {
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;
 
-        if (Planner.settings.get_boolean ("slim-mode")) {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
         } else {
             sidebar_image.update_icon_name ("sidebar-right");

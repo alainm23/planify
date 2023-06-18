@@ -200,7 +200,7 @@ public class Views.Today : Gtk.Grid {
             return GLib.Source.REMOVE;
         });
 
-        Planner.event_bus.day_changed.connect (() => {
+        Services.EventBus.get_default ().day_changed.connect (() => {
             headerbar.update_today_label ();
         });
 
@@ -208,7 +208,7 @@ public class Views.Today : Gtk.Grid {
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
-        Planner.event_bus.item_moved.connect ((item) => {
+        Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items[item.id_string].update_request ();
             }
@@ -347,10 +347,10 @@ public class Views.Today : Gtk.Grid {
             return GLib.Source.REMOVE;
         });
 
-        Planner.event_bus.item_selected (null);
+        Services.EventBus.get_default ().item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
+            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
         );
 
         row.update_due (Util.get_default ().get_format_date (date));
@@ -415,12 +415,12 @@ public class Views.Today : Gtk.Grid {
     }
 
     public void build_content_menu () {
-        //  Planner.event_bus.unselect_all ();
+        //  Services.EventBus.get_default ().unselect_all ();
 
         //  var menu = new Dialogs.ContextMenu.Menu ();
 
         //  var show_completed_item = new Dialogs.ContextMenu.MenuItem (
-        //      Planner.settings.get_boolean ("show-today-completed") ? _("Hide completed tasks") : _("Show completed tasks"),
+        //      Services.Settings.get_default ().settings.get_boolean ("show-today-completed") ? _("Hide completed tasks") : _("Show completed tasks"),
         //      "planner-check-circle"
         //  );
 
@@ -429,7 +429,7 @@ public class Views.Today : Gtk.Grid {
 
         //  show_completed_item.activate_item.connect (() => {
         //      menu.hide_destroy ();
-        //      Planner.settings.set_boolean ("show-today-completed", !Planner.settings.get_boolean ("show-today-completed"));
+        //      Services.Settings.get_default ().settings.set_boolean ("show-today-completed", !Services.Settings.get_default ().settings.get_boolean ("show-today-completed"));
         //  });
     }
 }

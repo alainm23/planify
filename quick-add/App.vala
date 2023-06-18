@@ -1,22 +1,16 @@
-public class Planner : Adw.Application {
+public class QuickAdd : Adw.Application {
     public MainWindow main_window;
 
-    public static GLib.Settings settings;
-
-    public static Planner _instance = null;
-    public static Planner instance {
+    public static QuickAdd _instance = null;
+    public static QuickAdd instance {
         get {
             if (_instance == null) {
-                _instance = new Planner ();
+                _instance = new QuickAdd ();
             }
             return _instance;
         }
     }
     
-    static construct {
-        settings = new Settings ("io.github.alainm23.planify");
-    }
-
     construct {
         application_id = "io.github.alainm23.planify.quick-add";
         flags |= ApplicationFlags.HANDLES_OPEN;
@@ -42,7 +36,7 @@ public class Planner : Adw.Application {
     }
 
     public static int main (string[] args) {
-        Planner app = Planner.instance;
+        QuickAdd app = QuickAdd.instance;
         return app.run (args);
     }
 }

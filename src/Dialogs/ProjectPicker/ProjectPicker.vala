@@ -40,7 +40,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
 
         set {
             _project = value;
-            Planner.event_bus.project_picker_changed (_project.id);
+            Services.EventBus.get_default ().project_picker_changed (_project.id);
         }
     }
 
@@ -57,7 +57,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
                 _id = _section.id;
             }
 
-            Planner.event_bus.section_picker_changed (_id);
+            Services.EventBus.get_default ().section_picker_changed (_id);
         }
     }
 
@@ -128,11 +128,11 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             todoist_group.invalidate_filter ();
         });
 
-        Planner.event_bus.project_picker_changed.connect ((id) => {
+        Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             _project = Services.Database.get_default ().get_project (id);
         });
 
-        Planner.event_bus.section_picker_changed.connect ((id) => {
+        Services.EventBus.get_default ().section_picker_changed.connect ((id) => {
             _section = Services.Database.get_default ().get_section (id);
         });
 

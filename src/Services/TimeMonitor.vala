@@ -22,7 +22,7 @@ public class Services.TimeMonitor : Object {
         }
         
         timeout_id = Timeout.add_seconds (interval + 60, () => {
-            Planner.event_bus.day_changed ();
+            Services.EventBus.get_default ().day_changed ();
             Services.Notification.get_default ().regresh ();
             add_timeout ();
             return false;

@@ -106,25 +106,25 @@ public class Layouts.Sidebar : Gtk.Grid {
             }
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "projects-sort-by" || key == "projects-ordered") {
                 update_projects_sort ();
             }
         });
 
-        Planner.event_bus.inbox_project_changed.connect (() => {
+        Services.EventBus.get_default ().inbox_project_changed.connect (() => {
             add_all_projects ();
             add_all_favorites ();
 
-            var default_inbox = (DefaultInboxProject) Planner.settings.get_enum ("default-inbox");
+            var default_inbox = (DefaultInboxProject) Services.Settings.get_default ().settings.get_enum ("default-inbox");
             if (default_inbox == DefaultInboxProject.LOCAL) {
-                string id = Planner.settings.get_string ("local-inbox-project-id");
+                string id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
                 if (local_hashmap.has_key (id)) {
                     local_hashmap [id].hide_destroy ();
                     local_hashmap.unset (id);
                 }
             } else if (default_inbox == DefaultInboxProject.TODOIST) {
-                string id = Planner.settings.get_string ("todoist-inbox-project-id");
+                string id = Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id");
                 if (todoist_hashmap.has_key (id)) {
                     todoist_hashmap [id].hide_destroy ();
                     todoist_hashmap.unset (id);
@@ -190,18 +190,18 @@ public class Layouts.Sidebar : Gtk.Grid {
     }
 
     public void select_project (Objects.Project project) {
-        Planner.event_bus.pane_selected (PaneType.PROJECT, project.id_string);
+        Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
     }
 
     public void select_filter (FilterType filter_type) {
-        Planner.event_bus.pane_selected (PaneType.FILTER, filter_type.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter_type.to_string ());
     }
 
     public void init () {
         Services.Database.get_default ().project_added.connect (add_row_project);
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
 
-        Planner.event_bus.project_parent_changed.connect ((project, old_parent_id) => {
+        Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
             if (old_parent_id == "") {
                 if (local_hashmap.has_key (project.id_string)) {
                     local_hashmap [project.id_string].hide_destroy ();
@@ -219,7 +219,7 @@ public class Layouts.Sidebar : Gtk.Grid {
             }
         });
 
-        Planner.event_bus.favorite_toggled.connect ((project) => {
+        Services.EventBus.get_default ().favorite_toggled.connect ((project) => {
             if (favorites_hashmap.has_key (project.id_string)) {
                 favorites_hashmap [project.id_string].hide_destroy ();
                 favorites_hashmap.unset (project.id_string);
@@ -297,7 +297,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     }
 
     private void update_projects_sort () {
-        if (Planner.settings.get_enum ("projects-sort-by") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 0) {
             local_projects_header.set_sort_func (projects_sort_func);
             todoist_projects_header.set_sort_func (projects_sort_func);
         } else {
@@ -310,7 +310,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
         Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
 
-        if (Planner.settings.get_enum ("projects-ordered") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("projects-ordered") == 0) {
             return project2.name.collate (project1.name);
         } else {
             return project1.name.collate (project2.name);

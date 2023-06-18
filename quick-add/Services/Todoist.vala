@@ -40,10 +40,10 @@ public class Services.Todoist : GLib.Object {
         parser = new Json.Parser ();
     }
 
-    public async int64? add (Objects.BaseObject object) {
+    public async string? add (Objects.BaseObject object) {
         string temp_id = Util.get_default ().generate_string ();
         string uuid = Util.get_default ().generate_string ();
-        int64? id = null;
+        string? id = null;
 
         string url = "%s?commands=%s".printf (
             TODOIST_SYNC_URL,
@@ -51,7 +51,7 @@ public class Services.Todoist : GLib.Object {
         );
 
         var message = new Soup.Message ("POST", url);
-        message.request_headers.append ("Authorization", "Bearer %s".printf (Planner.settings.get_string ("todoist-access-token")));
+        message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -64,8 +64,8 @@ public class Services.Todoist : GLib.Object {
             var uuid_member = sync_status.get_member (uuid);
 
             if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-                Planner.settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-                id = int64.parse (parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_string_member (temp_id));
+                Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+                id = parser.get_root ().get_object ().get_object_member ("temp_id_mapping").get_string_member (temp_id);
             } else {
                 debug_error (
                     (int32) sync_status.get_object_member (uuid).get_int_member ("http_code"),

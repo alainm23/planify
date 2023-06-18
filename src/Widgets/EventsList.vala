@@ -105,13 +105,13 @@ public class Widgets.EventsList : Gtk.Grid {
         add_events ();
         
         Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
+            main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
             return GLib.Source.REMOVE;
         });
 
-        Planner.settings.changed.connect ((key) => {
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "calendar-enabled") {
-                main_revealer.reveal_child = Planner.settings.get_boolean ("calendar-enabled");
+                main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
             }
         });
     }

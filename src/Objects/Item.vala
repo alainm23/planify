@@ -747,7 +747,7 @@ public class Objects.Item : Objects.BaseObject {
     public void copy_clipboard () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
-        Planner.event_bus.send_notification (
+        Services.EventBus.get_default ().send_notification (
             Util.get_default ().create_toast (_("Task copied to clipboard"))
         );
     }

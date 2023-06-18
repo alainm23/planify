@@ -154,7 +154,7 @@ public class Util : GLib.Object {
             }, (obj, res) => {
                 try {
                     if (file_from_uri.copy_async.end (res)) {
-                        // Planner.event_bus.avatar_downloaded ();
+                        // Services.EventBus.get_default ().avatar_downloaded ();
                     }
                 } catch (Error e) {
                     debug ("Error: %s\n", e.message);
@@ -211,7 +211,7 @@ public class Util : GLib.Object {
 
     public string get_theme_name () {
         string returned = "";
-        int appearance_mode = Planner.settings.get_enum ("appearance");
+        int appearance_mode = Services.Settings.get_default ().settings.get_enum ("appearance");
         
         switch (appearance_mode) {
             case 0:
@@ -230,7 +230,7 @@ public class Util : GLib.Object {
 
     public string get_badge_name () {
         string returned = "";
-        int badge_count = Planner.settings.get_enum ("badge-count");
+        int badge_count = Services.Settings.get_default ().settings.get_enum ("badge-count");
         
         switch (badge_count) {
             case 0:
@@ -261,9 +261,9 @@ public class Util : GLib.Object {
             @define-color selected_color %s;
         """;
 
-        int appearance_mode = Planner.settings.get_enum ("appearance");
-        bool dark_mode = Planner.settings.get_boolean ("dark-mode");
-        bool system_appearance = Planner.settings.get_boolean ("system-appearance");
+        int appearance_mode = Services.Settings.get_default ().settings.get_enum ("appearance");
+        bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+        bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
 
         var granite_settings = Granite.Settings.get_default ();
 
@@ -329,7 +329,7 @@ public class Util : GLib.Object {
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
 
-        Planner.event_bus.theme_changed ();
+        Services.EventBus.get_default ().theme_changed ();
     }
 
     /**
@@ -592,14 +592,14 @@ public class Util : GLib.Object {
         }
         
         if (!insert) {
-            Planner.event_bus.update_inserted_item_map (row);
+            Services.EventBus.get_default ().update_inserted_item_map (row);
             row.update_inserted_item ();
         } else {
             row.hide_destroy ();
         }
 
-        Planner.event_bus.send_notification (create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
-        Planner.event_bus.update_section_sort_func (row.item.project_id, row.item.section_id, false);
+        Services.EventBus.get_default ().send_notification (create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
+        Services.EventBus.get_default ().update_section_sort_func (row.item.project_id, row.item.section_id, false);
     }
 
 
@@ -775,7 +775,7 @@ public class Util : GLib.Object {
     }
 
     public bool is_clock_format_12h () {
-        return Planner.settings.get_string ("clock-format").contains ("12h");
+        return Services.Settings.get_default ().settings.get_string ("clock-format").contains ("12h");
     }
     
     public void open_quick_find () {
@@ -784,23 +784,23 @@ public class Util : GLib.Object {
         //  int window_x, window_y;
         //  int window_width, width_height;
 
-        //  Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
-        //  Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+        //  Services.Settings.get_default ().settings.get ("window-position", "(ii)", out window_x, out window_y);
+        //  Services.Settings.get_default ().settings.get ("window-size", "(ii)", out window_width, out width_height);
 
         //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
         //  dialog.show_all ();
     }
 
     public void open_item_dialog (Objects.Item item) {
-        //  Planner.event_bus.alt_pressed = false;
+        //  Services.EventBus.get_default ().alt_pressed = false;
         
         //  var dialog = new Dialogs.Item (item);
 
         //  int window_x, window_y;
         //  int window_width, width_height;
 
-        //  Planner.settings.get ("window-position", "(ii)", out window_x, out window_y);
-        //  Planner.settings.get ("window-size", "(ii)", out window_width, out width_height);
+        //  Services.Settings.get_default ().settings.get ("window-position", "(ii)", out window_x, out window_y);
+        //  Services.Settings.get_default ().settings.get ("window-size", "(ii)", out window_width, out width_height);
 
         //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
         //  dialog.show_all ();
@@ -843,7 +843,7 @@ public class Util : GLib.Object {
         SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planit", true);
 
         foreach (string key in schema.list_keys ()) {
-            Planner.settings.reset (key);
+            Services.Settings.get_default ().settings.reset (key);
         }
     }
 
@@ -864,7 +864,7 @@ public class Util : GLib.Object {
     //      message_dialog.default_action.connect ((response) => {
     //          if (response == Gtk.ResponseType.CANCEL) {
     //              clear_database_query ();
-    //              Planner.settings.set_string ("version", Constants.VERSION);
+    //              Services.Settings.get_default ().settings.set_string ("version", Constants.VERSION);
     //              message_dialog.destroy ();
     //          } else {
     //              Services.MigrateV2.get_default ().export_v2_database ();
@@ -901,7 +901,7 @@ public class Util : GLib.Object {
     //  }
 
     public FilterType get_filter () {
-        switch (Planner.settings.get_enum ("homepage-item")) {
+        switch (Services.Settings.get_default ().settings.get_enum ("homepage-item")) {
             case 0:
                 return FilterType.INBOX;
             case 1:
@@ -937,7 +937,7 @@ public class Util : GLib.Object {
     }
 
     public int get_default_priority () {
-        int default_priority = Planner.settings.get_enum ("default-priority");
+        int default_priority = Services.Settings.get_default ().settings.get_enum ("default-priority");
         int returned = 1;
 
         if (default_priority == 0) {
@@ -974,7 +974,7 @@ public class Util : GLib.Object {
     */
 
     public bool is_dark_theme () {
-        return Planner.settings.get_boolean ("dark-mode");
+        return Services.Settings.get_default ().settings.get_boolean ("dark-mode");
     }
 
     public bool is_flatpak () {
@@ -1057,12 +1057,12 @@ public class Util : GLib.Object {
     }
 
     public void change_default_inbox () {
-        var default_inbox = (DefaultInboxProject) Planner.settings.get_enum ("default-inbox");
+        var default_inbox = (DefaultInboxProject) Services.Settings.get_default ().settings.get_enum ("default-inbox");
         Objects.Project inbox_project = null;
 
         if (default_inbox == DefaultInboxProject.LOCAL) {
             var todoist_inbox_project = Services.Database.get_default ().get_project (
-                Planner.settings.get_string ("todoist-inbox-project-id")
+                Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id")
             );
             if (todoist_inbox_project != null) {
                 todoist_inbox_project.inbox_project = false;
@@ -1070,7 +1070,7 @@ public class Util : GLib.Object {
             }
 
             inbox_project = Services.Database.get_default ().get_project (
-                Planner.settings.get_string ("local-inbox-project-id")
+                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
             );
             if (inbox_project != null) {
                 inbox_project.inbox_project = true;
@@ -1080,7 +1080,7 @@ public class Util : GLib.Object {
             }
         } else if (default_inbox == DefaultInboxProject.TODOIST) {
             var local_inbox_project = Services.Database.get_default ().get_project (
-                Planner.settings.get_string ("local-inbox-project-id")
+                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
             );
             
             if (local_inbox_project != null) {
@@ -1089,7 +1089,7 @@ public class Util : GLib.Object {
             }
 
             inbox_project = Services.Database.get_default ().get_project (
-                Planner.settings.get_string ("todoist-inbox-project-id")
+                Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id")
             );
             if (inbox_project != null) {
                 inbox_project.inbox_project = true;
@@ -1097,8 +1097,8 @@ public class Util : GLib.Object {
             }
         }
 
-        Planner.settings.set_string ("inbox-project-id", inbox_project.id);
-        Planner.event_bus.inbox_project_changed ();
+        Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project.id);
+        Services.EventBus.get_default ().inbox_project_changed ();
     }
 
     public Objects.Project create_inbox_project () {
@@ -1110,8 +1110,8 @@ public class Util : GLib.Object {
         inbox_project.color = "blue";
         
         if (Services.Database.get_default ().insert_project (inbox_project)) {
-            Planner.settings.set_string ("inbox-project-id", inbox_project.id);
-            Planner.settings.set_string ("local-inbox-project-id", inbox_project.id);
+            Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project.id);
+            Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
         }
 
         return inbox_project;

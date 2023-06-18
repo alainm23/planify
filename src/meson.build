@@ -29,6 +29,8 @@ sources = files(
   'Services/ActionManager.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
+  'Services/Settings.vala',
+  'Services/DBusServer.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',

@@ -68,10 +68,10 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         add_controller (select_gesture);
 
         select_gesture.pressed.connect (() => {
-            Planner.event_bus.project_picker_changed (project.id);
+            Services.EventBus.get_default ().project_picker_changed (project.id);
         });
 
-        Planner.event_bus.project_picker_changed.connect ((id) => {
+        Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             selected_revealer.reveal_child = project.id == id;
         });
     }

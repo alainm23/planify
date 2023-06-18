@@ -3,6 +3,7 @@ quick_find_sources = files(
     'MainWindow.vala',
     'Util.vala',
     'Enum.vala',
+    'ObjectsPatch.vala',
 
     'Objects/BaseObject.vala',
     'Objects/Color.vala',
@@ -11,14 +12,15 @@ quick_find_sources = files(
     'Objects/Project.vala',
     'Objects/Queue.vala',
 
+    'Services/Settings.vala',
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/DBusClient.vala',
     'Services/Todoist.vala',
-
+    
     'Widgets/DynamicIcon.vala',
-    'Widgets/LoadingButton.vala',
     'Widgets/HyperTextView.vala',
+    'Widgets/LoadingButton.vala',
 )
 
 executable(

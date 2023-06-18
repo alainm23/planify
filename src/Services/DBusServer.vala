@@ -30,7 +30,7 @@ public class Services.DBusServer : Object {
         return instance.once (() => { return new DBusServer (); });
     }
 
-    public signal void item_added (int64 id);
+    public signal void item_added (string id);
 
     construct {
         Bus.own_name (
@@ -43,7 +43,7 @@ public class Services.DBusServer : Object {
         );
     }
 
-    public void add_item (int64 id) throws IOError, DBusError {
+    public void add_item (string id) throws IOError, DBusError {
         item_added (id);
     }
     

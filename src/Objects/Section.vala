@@ -88,7 +88,7 @@ public class Objects.Section : Objects.BaseObject {
             Services.Database.get_default ().section_deleted (this);
         });
 
-        Planner.event_bus.checked_toggled.connect ((item) => {
+        Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.section_id == id) {
                 _section_count = update_section_count ();
                 section_count_updated ();
@@ -109,7 +109,7 @@ public class Objects.Section : Objects.BaseObject {
             }
         });
 
-        //  Planner.event_bus.item_moved.connect ((item, old_project_id, section_id, insert) => {
+        //  Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id, insert) => {
         //      if (item.project_id == id || old_project_id == id) {
         //          _project_count = update_project_count ();
         //          _percentage = update_percentage ();

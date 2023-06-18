@@ -86,7 +86,7 @@ public class Views.Pinboard : Gtk.Grid {
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
-        Planner.event_bus.item_moved.connect ((item) => {
+        Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items[item.id_string].update_request ();
             }
@@ -103,10 +103,10 @@ public class Views.Pinboard : Gtk.Grid {
 
     public void prepare_new_item (string content = "") {
         listbox_stack.visible_child_name = "listbox";
-        Planner.event_bus.item_selected (null);
+        Services.EventBus.get_default ().item_selected (null);
 
         var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Planner.settings.get_string ("inbox-project-id"))
+            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
         );
 
         row.update_content (content);

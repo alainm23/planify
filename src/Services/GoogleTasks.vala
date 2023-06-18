@@ -79,8 +79,8 @@ public class Services.GoogleTasks : GLib.Object {
             var access_token = root.get_string_member ("access_token");
             var refresh_token = root.get_string_member ("refresh_token");
 
-            Planner.settings.set_string ("google-access-token", access_token);
-            Planner.settings.set_string ("google-refresh-token", refresh_token);
+            Services.Settings.get_default ().settings.set_string ("google-access-token", access_token);
+            Services.Settings.get_default ().settings.set_string ("google-refresh-token", refresh_token);
 
             first_sync_started ();
 
@@ -108,8 +108,8 @@ public class Services.GoogleTasks : GLib.Object {
 
             if (!parser.get_root ().get_object ().has_member ("error")) {
                 var user_object = parser.get_root ().get_object ();
-                Planner.settings.set_string ("google-user-name", user_object.get_string_member ("name"));
-                Planner.settings.set_string ("google-user-email", user_object.get_string_member ("email"));
+                Services.Settings.get_default ().settings.set_string ("google-user-name", user_object.get_string_member ("name"));
+                Services.Settings.get_default ().settings.set_string ("google-user-email", user_object.get_string_member ("email"));
 
                 // Download Profile Image
                 if (user_object.get_null_member ("picture") == false) {
@@ -150,11 +150,11 @@ public class Services.GoogleTasks : GLib.Object {
                     //      Services.Database.get_default ().update_project (project);
 
                     //      if (project.parent_id != old_parent_id) {
-                    //          Planner.event_bus.project_parent_changed (project, old_parent_id);
+                    //          Services.EventBus.get_default ().project_parent_changed (project, old_parent_id);
                     //      }
 
                     //      if (project.is_favorite != old_is_favorite) {
-                    //          Planner.event_bus.favorite_toggled (project);
+                    //          Services.EventBus.get_default ().favorite_toggled (project);
                     //      }
                     //  }
                 } else {
@@ -167,7 +167,7 @@ public class Services.GoogleTasks : GLib.Object {
     }
 
     public bool invalid_token () {
-        return Planner.settings.get_string ("google-access-token").strip () == "";
+        return Services.Settings.get_default ().settings.get_string ("google-access-token").strip () == "";
     }
 
     public void init () {
@@ -178,10 +178,10 @@ public class Services.GoogleTasks : GLib.Object {
     }
 
     public void remove_items () {
-        Planner.settings.set_string ("google-access-token", "");
-        Planner.settings.set_string ("google-refresh-token", "");
-        Planner.settings.set_string ("google-user-email", "");
-        Planner.settings.set_string ("google-user-name", "");
+        Services.Settings.get_default ().settings.set_string ("google-access-token", "");
+        Services.Settings.get_default ().settings.set_string ("google-refresh-token", "");
+        Services.Settings.get_default ().settings.set_string ("google-user-email", "");
+        Services.Settings.get_default ().settings.set_string ("google-user-name", "");
 
         log_out ();
     }
