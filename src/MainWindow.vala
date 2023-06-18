@@ -75,20 +75,9 @@ public class MainWindow : Adw.ApplicationWindow {
             hexpand = false
         };
 
-        var b = new Gtk.Button.with_label (_("Background"));
-
         sidebar_content.add_css_class ("sidebar");
         sidebar_content.attach(sidebar_header, 0, 0);
         sidebar_content.attach(sidebar, 0, 1);
-        sidebar_content.attach(b, 0, 2);
-
-        b.clicked.connect (() => {
-            Planner.instance.ask_for_background.begin ((obj, res) => {
-                if (!Planner.instance.ask_for_background.end (res)) {
-    
-                }
-            });
-        });
 
         var sidebar_image = new Widgets.DynamicIcon ();
         sidebar_image.size = 19;

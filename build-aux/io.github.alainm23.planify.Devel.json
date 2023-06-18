@@ -16,6 +16,8 @@
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5",
         "--talk-name=io.github.alainm23.planify",
+        "--talk-name=io.github.alainm23.planify.quick-add",
+        "--own-name=io.github.alainm23.planify.quick-add",
         "--own-name=io.github.alainm23.planify"
     ],
     "x-run-args" : [

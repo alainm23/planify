@@ -138,10 +138,24 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         var run_background_row = new Adw.ActionRow ();
         run_background_row.title = _("Run in background");
+        run_background_row.subtitle = _("Let Planify run in background and send notifications.");
         run_background_row.set_activatable_widget (run_background_switch);
         run_background_row.add_suffix (run_background_switch);
 
         de_group.add (run_background_row);
+
+        var run_on_startup_switch = new Gtk.Switch () {
+            valign = Gtk.Align.CENTER,
+            active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup")
+        };
+
+        var run_on_startup_row = new Adw.ActionRow ();
+        run_on_startup_row.title = _("Run on startup");
+        run_on_startup_row.subtitle = _("Whether Planify should run on startup.");
+        run_on_startup_row.set_activatable_widget (run_on_startup_switch);
+        run_on_startup_row.add_suffix (run_on_startup_switch);
+
+        de_group.add (run_on_startup_row);
 
         var calendar_events_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER,
@@ -272,6 +286,26 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         run_background_switch.notify["active"].connect (() => {
             Services.Settings.get_default ().settings.set_boolean ("run-in-background", run_background_switch.active);
+        });
+
+        run_on_startup_switch.notify["active"].connect (() => {
+            if (run_on_startup_switch.active) {
+                Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+                    if (Planner.instance.ask_for_background.end (res)) {
+                        Services.Settings.get_default ().settings.set_boolean ("run-on-startup", true);
+                    } else {
+                        Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+                    }
+                });
+            } else {
+                Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+                    if (Planner.instance.ask_for_background.end (res)) {
+                        Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+                    } else {
+                        Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+                    }
+                });
+            }
         });
 
         calendar_events_switch.notify["active"].connect (() => {

@@ -25,9 +25,19 @@
         "*.a"
     ],
     "modules": [
-        "shared-modules/intltool/intltool-0.51.json",
         {
-            "name": "granite",
+            "name": "intltool",
+            "cleanup": [ "*" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
+        {
+            "name": "granite-7",
             "buildsystem": "meson",
             "sources": [
                 {
@@ -110,14 +120,29 @@
             ]
         },
         {
+            "name" : "libportal",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dbackends=['gtk4']",
+                "-Ddocs=false",
+                "-Dtests=false"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/flatpak/libportal.git",
+                    "tag": "0.6"
+                }
+            ]
+        },
+        {
             "name": "planify",
             "builddir": true,
             "buildsystem": "meson",
-            "sources": [
+            "sources" : [
                 {
-                    "type": "git",
-                    "url": "https://github.com/alainm23/planner.git",
-                    "commit": "696fb7ab3c66ea4a14a5167cb5b44e9444294ecb"
+                    "type" : "git",
+                    "url" : "https://github.com/alainm23/planner.git"
                 }
             ]
         }

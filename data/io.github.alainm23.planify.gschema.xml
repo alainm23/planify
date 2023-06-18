@@ -204,14 +204,14 @@
 
         <key name="run-on-startup" type="b">
             <default>false</default>
-            <summary>Run planit on startup</summary>
-            <description>Whether planit should run on startup</description>
+            <summary>Run Planify on startup</summary>
+            <description>Whether Planify should run on startup</description>
         </key>
 
         <key name="run-in-background" type="b">
             <default>false</default>
             <summary>Run in background</summary>
-            <description>Let planit run in background and send notifications</description>
+            <description>Let Planify run in background and send notifications</description>
         </key>
         
         <key name="homepage-item" enum="io.github.alainm23.planify.pane-view">

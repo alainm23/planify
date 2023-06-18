@@ -88,7 +88,7 @@ public class Planner : Adw.Application {
         }
     }
 
-    public async bool ask_for_background () {
+    public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
         const string[] DAEMON_COMMAND = { "io.github.alainm23.planify", "--background" };
         if (portal == null) {
             portal = new Xdp.Portal ();
@@ -106,7 +106,7 @@ public class Planner : Adw.Application {
         var window = Xdp.parent_new_gtk (active_window);
 
         try {
-            return yield portal.request_background (window, reason, command, AUTOSTART, null);
+            return yield portal.request_background (window, reason, command, flags, null);
         } catch (Error e) {
             warning ("Error during portal request: %s", e.message);
             return e is IOError.FAILED;
