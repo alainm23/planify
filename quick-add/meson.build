@@ -21,6 +21,10 @@ quick_find_sources = files(
     'Widgets/DynamicIcon.vala',
     'Widgets/HyperTextView.vala',
     'Widgets/LoadingButton.vala',
+    'Widgets/ProjectPickerRow.vala',
+    'Widgets/IconColorProject.vala',
+    'Widgets/HeaderItem.vala',
+    'Widgets/ProjectPicker.vala'
 )
 
 executable(

@@ -79,7 +79,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         content_box.append (favorites_header);
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
-        content_box.append (google_projects_header);
+        // content_box.append (google_projects_header);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,

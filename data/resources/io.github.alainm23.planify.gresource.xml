@@ -44,6 +44,7 @@
     <file alias="planner-general.svg">resources/icons/settings/planner-general.svg</file>
     <file alias="planner-upload.svg">resources/icons/settings/planner-upload.svg</file>
     <file alias="light-bulb.svg">resources/icons/settings/light-bulb.svg</file>
+    <file alias="archive-plus.svg">resources/icons/settings/archive-plus.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/icons/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/icons/planner-calendar-dark.svg</file>

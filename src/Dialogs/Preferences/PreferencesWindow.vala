@@ -1,5 +1,6 @@
 public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
-    
+    private string QUICK_ADD_COMMAND = "flatpak run --command=io.github.alainm23.planify.quick-add io.github.alainm23.planify";
+
     public PreferencesWindow () {
         Object (
             transient_for: (Gtk.Window) Planner.instance.main_window,
@@ -13,7 +14,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
     construct {
         add (get_preferences_home ());
-        // add (get_accounts_page ());
     }
 
     private Adw.PreferencesPage get_preferences_home () {
@@ -54,9 +54,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         page.add (general_group);
 
         // Personalization
-        var personalization_group = new Adw.PreferencesGroup ();
-        personalization_group.title = _("Personalization");
-
         var appearance_row = new Adw.ActionRow ();
         appearance_row.activatable = true;
         appearance_row.add_prefix (generateIcon ("planner-appearance"));
@@ -69,7 +66,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             can_navigate_back = true;
         });
 
+        var quick_add_row = new Adw.ActionRow ();
+        quick_add_row.activatable = true;
+        quick_add_row.add_prefix (generateIcon ("archive-plus"));
+        quick_add_row.add_suffix (generateIcon ("chevron-right-light", 24));
+        quick_add_row.title = _("Quick Add");
+        quick_add_row.subtitle = _("Adding To-Dos From Anywhere.");
+
+        quick_add_row.activated.connect (() => {
+            present_subpage (get_quick_add_page ());
+            can_navigate_back = true;
+        });
+
+        var personalization_group = new Adw.PreferencesGroup ();
         personalization_group.add (appearance_row);
+        personalization_group.add (quick_add_row);
+
         page.add (personalization_group);
 
         // Support Group
@@ -714,37 +726,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         return main_content;
     }
 
-    private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
-        string message = "";
-        
-        if (backend_type == BackendType.TODOIST) {
-            message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");    
-        } else if  (backend_type == BackendType.GOOGLE_TASKS) {
-            message = _("Are you sure you want to remove the Google Tasks sync? This action will delete all your tasks and settings.");
-        }
-
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
-        _("Sign off"), message);
-
-        dialog.body_use_markup = true;
-        dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("delete", _("Delete"));
-        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
-
-        dialog.response.connect ((response) => {
-            if (response == "delete") {
-                if (backend_type == BackendType.TODOIST) {
-                    Services.Todoist.get_default ().remove_items ();
-                } else if  (backend_type == BackendType.GOOGLE_TASKS) {
-                    Services.GoogleTasks.get_default ().remove_items ();
-                }
-            } else {
-                switch_widget.active = true;
-            }
-        });
-    }
-
     private Gtk.Widget get_todoist_view () {
         var settings_header_box = new Widgets.SettingsHeader (_("Todoist"));
 
@@ -924,6 +905,112 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
         return main_content;
+    }
+
+    private Gtk.Widget get_quick_add_page () {
+        var settings_header_box = new Widgets.SettingsHeader (_("Quick Add"));
+
+        var settings_header = new Gtk.HeaderBar () {
+            title_widget = settings_header_box,
+            show_title_buttons = false,
+            hexpand = true
+        };
+
+        var detail_row = new Adw.ActionRow ();
+        detail_row.title = _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.");
+
+        var detail_group = new Adw.PreferencesGroup ();
+        detail_group.add (detail_row);
+
+        var set_custom_row = new Adw.ActionRow ();
+        set_custom_row.title = _("Set a custom shortcut in System Settings");
+        set_custom_row.subtitle = _("Head to System Settings → Keyboard → Shortcuts → Custom, then add a new shortcut with the following:");
+
+        var set_custom_group = new Adw.PreferencesGroup ();
+        set_custom_group.add (set_custom_row);        
+
+        var copy_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {
+            valign = CENTER
+        };
+        copy_button.add_css_class ("flat");
+
+        var command_entry = new Adw.ActionRow ();
+        command_entry.add_suffix (copy_button);
+        command_entry.title = QUICK_ADD_COMMAND;
+        command_entry.add_css_class ("small-label");
+        command_entry.add_css_class ("monospace");
+
+        var command_group = new Adw.PreferencesGroup ();
+        command_group.add (command_entry);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        content_box.append (detail_group);
+        content_box.append (set_custom_group);
+        content_box.append (command_group);
+
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 400,
+            margin_top = 24,
+            margin_start = 24,
+            margin_end = 24
+        };
+
+        content_clamp.child = content_box;
+        
+        var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            hexpand = true
+        };
+
+        main_content.append (settings_header);
+        main_content.append (content_clamp);
+
+        copy_button.clicked.connect (() => {
+            Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
+            clipboard.set_text (QUICK_ADD_COMMAND);
+            add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard.")));
+        });
+
+        settings_header_box.back_activated.connect (() => {
+            close_subpage ();
+        });
+
+        return main_content;
+    }
+
+    private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
+        string message = "";
+        
+        if (backend_type == BackendType.TODOIST) {
+            message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");    
+        } else if  (backend_type == BackendType.GOOGLE_TASKS) {
+            message = _("Are you sure you want to remove the Google Tasks sync? This action will delete all your tasks and settings.");
+        }
+
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        _("Sign off"), message);
+
+        dialog.body_use_markup = true;
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                if (backend_type == BackendType.TODOIST) {
+                    Services.Todoist.get_default ().remove_items ();
+                } else if  (backend_type == BackendType.GOOGLE_TASKS) {
+                    Services.GoogleTasks.get_default ().remove_items ();
+                }
+            } else {
+                switch_widget.active = true;
+            }
+        });
     }
 
     private Gtk.Widget generateIcon (string icon_name, int size = 32) {

@@ -230,7 +230,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
             projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
             
-            if (project.inbox_project) {
+            if (project.is_inbox_project) {
                 inbox_group.add_child (projects_hashmap [project.id_string]);
             } else {
                 if (project.backend_type == BackendType.LOCAL) {

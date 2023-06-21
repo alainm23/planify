@@ -13,18 +13,28 @@ public class QuickAdd : Adw.Application {
     
     construct {
         application_id = "io.github.alainm23.planify.quick-add";
-        flags |= ApplicationFlags.HANDLES_OPEN;
-
-        Intl.setlocale (LocaleCategory.ALL, "");
-        string langpack_dir = Path.build_filename (Constants.INSTALL_PREFIX, "share", "locale");
-        Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, langpack_dir);
-        Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
-        Intl.textdomain (Constants.GETTEXT_PACKAGE);
+        flags |= ApplicationFlags.FLAGS_NONE;
     }
 
     protected override void activate () {
         main_window = new MainWindow (this);
         main_window.show ();
+        
+        var quit_action = new SimpleAction ("quit", null);
+
+        add_action (quit_action);
+        set_accels_for_action ("app.quit", {"Escape"});
+
+        quit_action.activate.connect (() => {
+            if (main_window != null) {
+                main_window.hide ();
+
+                Timeout.add (500, () => {
+                    main_window.destroy ();
+                    return GLib.Source.REMOVE;
+                });
+            }
+        });
         
         var provider = new Gtk.CssProvider ();
         provider.load_from_resource ("/io/github/alainm23/planify/index.css");

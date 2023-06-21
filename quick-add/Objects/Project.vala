@@ -27,5 +27,11 @@ public class Objects.Project : Objects.BaseObject {
     
     public int child_order { get; set; default = 0; }
     
+    public bool is_inbox_project {
+        get {
+            return id == Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        }
+    }
+    
     construct {}
 }

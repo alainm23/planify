@@ -121,6 +121,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Project> get_projects_by_backend_type (BackendType backend_type) {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.backend_type == backend_type) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+    
     /*
         Items
     */

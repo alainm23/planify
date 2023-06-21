@@ -418,3 +418,11 @@ entry.flat:focus-within {
     border-radius: 9px;
     border: 2px solid shade(#333333, 1.35);
 }
+
+.popover-no-content > contents {
+    padding: 0;
+}
+
+.fancy-turn-animation {
+    animation: fancy-turn 0.7s ease-in-out;
+}
