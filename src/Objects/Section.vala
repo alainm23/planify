@@ -85,8 +85,12 @@ public class Objects.Section : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().section_deleted (this);
+            Idle.add (() => {
+                Services.Database.get_default ().section_deleted (this);
+                return false;
+            });
         });
+        
 
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.section_id == id) {

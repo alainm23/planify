@@ -193,7 +193,10 @@ public class Objects.Item : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().item_deleted (this);
+            Idle.add (() => {
+                Services.Database.get_default ().item_deleted (this);
+                return false;
+            });
         });
     }
 

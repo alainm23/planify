@@ -96,6 +96,7 @@ public class Widgets.ProjectPicker : Gtk.Popover {
         }
 
         search_entry.search_changed.connect(() => {
+            scrolled_window.vadjustment.value = 0;
             listbox.invalidate_filter ();
             stack.visible_child_name = search_entry.text.length > 0 ? "search" : "projects";
         });

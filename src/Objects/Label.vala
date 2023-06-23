@@ -53,7 +53,10 @@ public class Objects.Label : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().label_deleted (this);
+            Idle.add (() => {
+                Services.Database.get_default ().label_deleted (this);
+                return false;
+            });
         });
 
         Services.Database.get_default ().item_added.connect ((item) => {

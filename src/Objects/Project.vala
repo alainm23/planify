@@ -184,7 +184,10 @@ public class Objects.Project : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().project_deleted (this);
+            Idle.add (() => {
+                Services.Database.get_default ().project_deleted (this);
+                return false;
+            });
         });
 
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {

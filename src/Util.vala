@@ -820,8 +820,21 @@ public class Util : GLib.Object {
             if (response == "delete") {
                 clear_database_query ();
                 reset_settings ();
-                Planner.instance.main_window.destroy ();
+                show_alert_destroy ();
             }
+        });
+    }
+
+    public void show_alert_destroy () {
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        null, _("Process completed, you need to start Planify again."));
+
+        dialog.modal = true;
+        dialog.add_response ("ok", _("Ok"));
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            Planner.instance.main_window.destroy ();
         });
     }
 

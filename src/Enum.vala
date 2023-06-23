@@ -1,251 +1,251 @@
 public enum ColorScheme {
-    NO_PREFERENCE,
-    DARK,
-    LIGHT
+	NO_PREFERENCE,
+	DARK,
+	LIGHT
 }
 
 public enum NotificationStyle {
-    NORMAL,
-    ERROR
+	NORMAL,
+	ERROR
 }
 
 public enum ProjectViewStyle {
-    LIST,
-    BOARD;
+	LIST,
+	BOARD;
 
-    public string to_string () {
-        switch (this) {
-            case LIST:
-                return "list";
+	public string to_string () {
+		switch (this) {
+		case LIST:
+			return "list";
 
-            case BOARD:
-                return "board";
+		case BOARD:
+			return "board";
 
-            default:
-                assert_not_reached();
-        }
-    }
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum ProjectIconStyle {
-    PROGRESS,
-    EMOJI;
+	PROGRESS,
+	EMOJI;
 
-    public string to_string () {
-        switch (this) {
-            case PROGRESS:
-                return "progress";
+	public string to_string () {
+		switch (this) {
+		case PROGRESS:
+			return "progress";
 
-            case EMOJI:
-                return "emoji";
+		case EMOJI:
+			return "emoji";
 
-            default:
-                assert_not_reached();
-        }
-    }
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum FilterType {
-    TODAY = 0,
-    INBOX = 1,
-    SCHEDULED = 2,
-    PINBOARD = 3,
-    LABEL = 4,
-    FILTER = 5;
+	TODAY = 0,
+	INBOX = 1,
+	SCHEDULED = 2,
+	PINBOARD = 3,
+	LABEL = 4,
+	FILTER = 5;
 
-    public string to_string () {
-        switch (this) {
-            case TODAY:
-                return "today";
+	public string to_string () {
+		switch (this) {
+		case TODAY:
+			return "today";
 
-            case INBOX:
-                return "inbox";
+		case INBOX:
+			return "inbox";
 
-            case SCHEDULED:
-                return "scheduled";
+		case SCHEDULED:
+			return "scheduled";
 
-            case PINBOARD:
-                return "pinboard";
+		case PINBOARD:
+			return "pinboard";
 
-            case LABEL:
-                return "label";
+		case LABEL:
+			return "label";
 
-            case FILTER:
-                return "filter";
+		case FILTER:
+			return "filter";
 
-            default:
-                assert_not_reached();
-        }
-    }
+		default:
+			assert_not_reached();
+		}
+	}
 
-    public string get_name () {
-        switch (this) {
-            case TODAY:
-                return _("Today");
+	public string get_name () {
+		switch (this) {
+		case TODAY:
+			return _("Today");
 
-            case INBOX:
-                return _("Inbox");
+		case INBOX:
+			return _("Inbox");
 
-            case SCHEDULED:
-                return _("Scheduled");
+		case SCHEDULED:
+			return _("Scheduled");
 
-            case PINBOARD:
-                return _("Pinboard");
+		case PINBOARD:
+			return _("Pinboard");
 
-            default:
-                assert_not_reached();
-        }
-    }
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum BackendType {
-    ALL,
-    NONE,
-    LOCAL,
-    TODOIST,
-    GOOGLE_TASKS,
-    CALDAV;
+	ALL,
+	NONE,
+	LOCAL,
+	TODOIST,
+	GOOGLE_TASKS,
+	CALDAV;
 
-    public string to_string () {
-        switch (this) {
-            case ALL:
-                return "all";
+	public string to_string () {
+		switch (this) {
+		case ALL:
+			return "all";
 
-            case NONE:
-                return "none";
+		case NONE:
+			return "none";
 
-            case LOCAL:
-                return "local";
+		case LOCAL:
+			return "local";
 
-            case TODOIST:
-                return "todoist";
-            
-            case GOOGLE_TASKS:
-                return "google-tasks";
+		case TODOIST:
+			return "todoist";
 
-            case CALDAV:
-                return "caldav";
+		case GOOGLE_TASKS:
+			return "google-tasks";
 
-            default:
-                assert_not_reached();
-        }
-    }
+		case CALDAV:
+			return "caldav";
+
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum PaneType {
-    FILTER,
-    FAVORITE,
-    PROJECT,
-    LABEL,
-    TASKLIST
+	FILTER,
+	FAVORITE,
+	PROJECT,
+	LABEL,
+	TASKLIST
 }
 
 public enum LoadingButtonType {
-    LABEL,
-    ICON
+	LABEL,
+	ICON
 }
 
 public enum ObjectType {
-    PROJECT,
-    SECTION,
-    ITEM,
-    LABEL,
-    TASK,
-    TASK_LIST,
-    FILTER;
+	PROJECT,
+	SECTION,
+	ITEM,
+	LABEL,
+	TASK,
+	TASK_LIST,
+	FILTER;
 
-    public string get_header () {
-        switch (this) {
-            case PROJECT:
-                return _("Projects");
+	public string get_header () {
+		switch (this) {
+		case PROJECT:
+			return _("Projects");
 
-            case SECTION:
-                return _("Sections");
+		case SECTION:
+			return _("Sections");
 
-            case ITEM:
-                return _("Tasks");
+		case ITEM:
+			return _("Tasks");
 
-            case LABEL:
-                return _("Labels");
+		case LABEL:
+			return _("Labels");
 
-            case FILTER:
-                return _("Filters");
-            
-            case TASK:
-                return _("Tasks");
+		case FILTER:
+			return _("Filters");
 
-            case TASK_LIST:
-                return _("Lists");
+		case TASK:
+			return _("Tasks");
 
-            default:
-                assert_not_reached();
-        }
-    }
+		case TASK_LIST:
+			return _("Lists");
+
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum RecurrencyType {
-    EVERY_DAY,
-    EVERY_WEEK,
-    EVERY_MONTH,
-    EVERY_YEAR,
-    NONE;
+	EVERY_DAY,
+	EVERY_WEEK,
+	EVERY_MONTH,
+	EVERY_YEAR,
+	NONE;
 
-    public string to_friendly_string(int? interval = null) {
-        switch (this) {   
-            case NONE:
-                return _("Don't Repeat");
-            case EVERY_DAY:
-                if (interval == null || interval == 0) {
-                    return _("Every day");
-                } else {
-                    return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
-                }
-            case EVERY_WEEK:
-                if (interval == null || interval == 0) {
-                    return _("Every week");
-                } else {
-                    return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
-                }
+	public string to_friendly_string(int? interval = null) {
+		switch (this) {
+		case NONE:
+			return _("Don't Repeat");
+		case EVERY_DAY:
+			if (interval == null || interval == 0) {
+				return _("Every day");
+			} else {
+				return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
+			}
+		case EVERY_WEEK:
+			if (interval == null || interval == 0) {
+				return _("Every week");
+			} else {
+				return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
+			}
 
-            case EVERY_MONTH:
-                if (interval == null || interval == 0) {
-                    return _("Every month");
-                } else {
-                    return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
-                }
-            
-            case EVERY_YEAR:
-                if (interval == null || interval == 0) {
-                    return _("Every year");
-                } else {
-                    return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
-                }
-                
-            default:
-                assert_not_reached();
-        }
-    }
+		case EVERY_MONTH:
+			if (interval == null || interval == 0) {
+				return _("Every month");
+			} else {
+				return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
+			}
+
+		case EVERY_YEAR:
+			if (interval == null || interval == 0) {
+				return _("Every year");
+			} else {
+				return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
+			}
+
+		default:
+			assert_not_reached();
+		}
+	}
 }
 
 public enum DefaultInboxProject {
-    LOCAL = 0,
-    TODOIST = 1
+	LOCAL = 0,
+	TODOIST = 1
 }
 
 public enum PickerType {
-    PROJECTS,
-    SECTIONS;
+	PROJECTS,
+	SECTIONS;
 
-    public string to_string () {
-        switch (this) {
-            case PROJECTS:
-                return "projects";
+	public string to_string () {
+		switch (this) {
+		case PROJECTS:
+			return "projects";
 
-            case SECTIONS:
-                return "sections";
+		case SECTIONS:
+			return "sections";
 
-            default:
-                assert_not_reached();
-        }
-    }
+		default:
+			assert_not_reached();
+		}
+	}
 }

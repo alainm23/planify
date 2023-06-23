@@ -481,8 +481,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (response == "delete") {
                     if (project.backend_type == BackendType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Database.get_default ().delete_project (project);
+                            if (Services.Todoist.get_default ().delete.end (res)) {
+                                Services.Database.get_default ().delete_project (project);
+                            }
                         });
                     } else if (project.backend_type == BackendType.LOCAL) {
                         Services.Database.get_default ().delete_project (project);
