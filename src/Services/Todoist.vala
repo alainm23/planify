@@ -89,10 +89,7 @@ public class Services.Todoist : GLib.Object {
 
         // Delete all projects, sections and items
         foreach (var project in Services.Database.get_default ().get_all_projects_by_todoist ()) {
-            Idle.add (() => {
-                Services.Database.get_default ().delete_project (project);
-                return false;
-            });
+            Services.Database.get_default ().delete_project (project);
         }
 
         // Delete all labels;
