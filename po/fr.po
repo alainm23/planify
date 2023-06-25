@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-23 20:36-0500\n"
-"PO-Revision-Date: 2023-06-11 20:44+0200\n"
+"PO-Revision-Date: 2023-06-25 20:00+0200\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: \n"
 "Language: fr_FR\n"
@@ -23,7 +23,6 @@ msgid "Are you sure you want to reset all?"
 msgstr "Êtes-vous sûr de vouloir tout réinitialiser ?"
 
 #: src/App.vala:87 src/Dialogs/Preferences/PreferencesWindow.vala:121
-#, fuzzy
 msgid ""
 "The process removes all stored information without the possibility of "
 "undoing it."
@@ -36,6 +35,8 @@ msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
+"Planify démarrera automatiquement à l’allumage de cet appareil et continuera "
+"à s’exécuter à la fermeture de sa fenêtre pour envoyer des notifications."
 
 #: src/Enum.vala:84 src/Util.vala:243 src/Util.vala:418
 #: src/Layouts/FilterPaneRow.vala:102 src/Layouts/ItemRow.vala:1001
@@ -135,11 +136,11 @@ msgstr "Toutes les %d années"
 
 #: src/MainWindow.vala:18
 msgid "Planify"
-msgstr ""
+msgstr "Planify"
 
 #: src/MainWindow.vala:96
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "Basculer la barre latérale"
 
 #: src/MainWindow.vala:238
 msgid "Tasks synced successfully"
@@ -173,9 +174,8 @@ msgid "Keyboard shortcuts"
 msgstr "Raccourcis clavier"
 
 #: src/MainWindow.vala:459
-#, fuzzy
 msgid "About Planify"
-msgstr "À propos de Planner"
+msgstr "À propos de Planify"
 
 #: src/Util.vala:20 src/Util.vala:21
 msgid "Berry Red"
@@ -326,7 +326,7 @@ msgstr "Tout réinitialiser"
 
 #: src/Util.vala:830
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "Processus achevé, vous devez redémarrer Planify."
 
 #: src/Util.vala:941
 msgid "The request was incorrect."
@@ -381,20 +381,22 @@ msgstr "Priorité 4 : Aucune"
 
 #: src/Util.vala:1139
 msgid "Meet Planify"
-msgstr ""
+msgstr "Découvrir Planify"
 
 #: src/Util.vala:1148
 msgid "Tap this to-do"
-msgstr ""
+msgstr "Cliquez sur cette tâche"
 
 #: src/Util.vala:1149
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 "Completed to-dos are collected al the bottom of your project."
 msgstr ""
+"Vous êtes en train de consulter une tâche. Marquez-la comme accomplie en "
+"cliquant sur la case à cocher sur la gauche. Les tâches accomplies "
+"apparaîtront en bas de votre projet."
 
 #: src/Util.vala:1154
-#, fuzzy
 msgid "Create a new to-do"
 msgstr "Créer une nouvelle tâche"
 
@@ -403,39 +405,47 @@ msgid ""
 "Now it's your turn, tap the '+' button at the top of your project, enter any "
 "pending and tap the blue 'Save' button."
 msgstr ""
+"Maintenant c’est à vous : cliquez sur le bouton '+' au-dessus de votre "
+"projet, saisissez un contenu et cliquez sur le bouton « Enregistrer »."
 
 #: src/Util.vala:1160
 msgid "Plan this to-do by today or later"
-msgstr ""
+msgstr "Planifier cette tâche pour aujourd’hui ou plus tard"
 
 #: src/Util.vala:1161
 msgid "Tap the calendar button at the bottom to decide when to do this to-do."
 msgstr ""
+"Cliquez sur l’icône de calendrier en bas de votre tâche pour décider d’une "
+"date d’échéance."
 
 #: src/Util.vala:1166
 msgid "Reorder yours to-dos"
-msgstr ""
+msgstr "Réorganiser vos tâches"
 
 #: src/Util.vala:1167
 msgid ""
 "To reorder your list, tap amd hold a to-do, then drag it to where it shpuld "
 "go."
 msgstr ""
+"Pour réorganiser votre liste, cliquez sur une tâche et maintenez, puis "
+"faites la glisser où vous le souhaitez."
 
 #: src/Util.vala:1172
-#, fuzzy
 msgid "Create a project"
-msgstr "Créer un nouveau projet"
+msgstr "Créer un projet"
 
 #: src/Util.vala:1173
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"Organisez mieux vos tâches ! Allez dans le volet latéral gauche et cliquez "
+"sur le bouton '+' dans la section « Sur cet ordinateur » pour ajouter vos "
+"propres projets."
 
 #: src/Util.vala:1178
 msgid "You’re done!"
-msgstr ""
+msgstr "C’est terminé !"
 
 #: src/Util.vala:1179
 msgid ""
@@ -447,51 +457,63 @@ msgid ""
 "\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"C’est tout ce dont vous avez besoin pour débuter. Vous pouvez maintenant "
+"ajouter vos propres projets et tâches.\n"
+"\n"
+"Vous pouvez revenir à ce projet plus tard pour découvrir les fonctionnalités "
+"avancées ci-dessous…\n"
+"\n"
+"Nous espérons que vous aurez plaisir à utiliser Planify !"
 
 #: src/Util.vala:1195
 msgid "Tune your setup"
-msgstr ""
+msgstr "Personnaliser votre installation"
 
 #: src/Util.vala:1203
-#, fuzzy
 msgid "Show your calendar events"
-msgstr "Événements de calendrier"
+msgstr "Affichez vos événements de calendrier"
 
 #: src/Util.vala:1204
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 Calendar Events to turn ir on."
 msgstr ""
+"Vous pouvez afficher les événements de votre calendrier système dans "
+"Planify. Allez dans « Préférences » → « Événements du calendrier » pour "
+"activer cette option."
 
 #: src/Util.vala:1210
 msgid "Enable synchronization with third-party service."
-msgstr ""
+msgstr "Activez la synchronisation avec des services tiers."
 
 #: src/Util.vala:1211
 msgid ""
 "Planify not only creates tasks locally, it can also synchronize your "
 "Todoist, Google Tasks and CalDAV accounts. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"Planify ne crée pas seulement des tâches localement, il peut aussi "
+"synchroniser vos comptes Todoist, Google Tasks et CalDAV. Allez dans "
+"« Préférences » → « Comptes »."
 
 #: src/Util.vala:1222
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️ Travail"
 
 #: src/Util.vala:1228
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️ École"
 
 #: src/Util.vala:1234
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️ Délégué"
 
 #: src/Util.vala:1240
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️ Maison"
 
 #: src/Util.vala:1246
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️ À suivre"
 
 #: src/Services/CalendarEvents/Util.vala:264
 msgid "On this computer"
@@ -693,7 +715,7 @@ msgstr "Google Tasks"
 #: src/Views/Filters.vala:58 src/Views/Label.vala:90 src/Views/Label.vala:95
 #: src/Views/Project.vala:97 src/Views/Project.vala:102
 msgid "Add To-Do"
-msgstr ""
+msgstr "Ajouter une tâche"
 
 #: src/Widgets/FilterHeader.vala:108 src/Views/Filter.vala:95
 #: src/Views/Filters.vala:71 src/Views/Label.vala:108
@@ -782,7 +804,7 @@ msgstr "Modifier le projet"
 #: src/Views/List.vala:320 src/Views/Project.vala:242
 #: src/Views/Project.vala:303
 msgid "When?"
-msgstr "Quand ?"
+msgstr "Échéance ?"
 
 #: src/Widgets/ProjectHeader.vala:141 src/Views/Project.vala:245
 msgid "Add Section"
@@ -946,13 +968,12 @@ msgstr "Chercher ou créer"
 
 #: src/Widgets/LabelPicker/LabelPicker.vala:209
 #: src/Dialogs/LabelPicker.vala:153
-#, fuzzy
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
-"Votre liste de filtres apparaîtra ici. Créez-en une en cliquant sur le "
-"bouton ’+’"
+"Votre liste de filtres apparaîtra ici. Créez-en une en saisissant le nom et "
+"en pressant la touche Entrée."
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
@@ -965,12 +986,11 @@ msgid "Add reminder"
 msgstr "Ajouter un rappel"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:246
-#, fuzzy
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the button."
 msgstr ""
-"Votre liste de filtres apparaîtra ici. Créez-en une en cliquant sur le "
-"bouton ’+’"
+"Votre liste de rappels apparaîtra ici. Ajoutez-en une en cliquant sur le "
+"bouton."
 
 #: src/Views/Date.vala:41 src/Views/Today.vala:59
 msgid "Overdue"
@@ -983,7 +1003,7 @@ msgstr "Reprogrammer"
 #: src/Views/Date.vala:136 src/Views/Filter.vala:136 src/Views/List.vala:83
 #: src/Views/Pinboard.vala:34 src/Views/Today.vala:158
 msgid "Press 'a' or tap the plus button to create a new to-do"
-msgstr "Taper 'a' ou cliquez sur le bouton Plus pour créer une nouvelle tâche"
+msgstr "Tapez 'a' ou cliquez sur le bouton + pour créer une nouvelle tâche"
 
 #: src/Views/Filter.vala:220 src/Objects/Filters/Completed.vala:37
 msgid "Completed"
@@ -1219,7 +1239,7 @@ msgstr "Comptes"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:33
 msgid "Sync your favorite to-do providers."
-msgstr ""
+msgstr "Synchronisez vos fournisseurs de tâches favoris."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:44
 #: src/Dialogs/Preferences/PreferencesWindow.vala:128
@@ -1228,7 +1248,7 @@ msgstr "Général"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:45
 msgid "Customize to your liking."
-msgstr ""
+msgstr "Customisez selon vos envies."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:61
 #: src/Dialogs/Preferences/PreferencesWindow.vala:378
@@ -1237,46 +1257,42 @@ msgstr "Apparence"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:73
 #: src/Dialogs/Preferences/PreferencesWindow.vala:930
-#, fuzzy
 msgid "Quick Add"
-msgstr "Recherche rapide"
+msgstr "Ajout rapide"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:74
 msgid "Adding To-Dos From Anywhere."
-msgstr ""
+msgstr "Ajouter des tâches depuis n’importe quel endroit."
 
 #. Support Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:89
-#, fuzzy
 msgid "Support"
-msgstr "Soutenez-nous"
+msgstr "Aide"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:95
-#, fuzzy
 msgid "Create Tutorial Project"
-msgstr "Créer un nouveau projet"
+msgstr "Créer un projet tutoriel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:96
 msgid "Learn the app step by step with a short tutorial project."
 msgstr ""
+"Faites le tour pas à pas de l’application avec un court projet tutoriel."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:102
 msgid "Privacy"
 msgstr "Vie privée"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:108
-#, fuzzy
 msgid "Delete Planify Data"
-msgstr "Supprimer toutes les données de mon appli"
+msgstr "Supprimer les données de Planify"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:115
 msgid "A tutorial project has been created."
-msgstr ""
+msgstr "Un projet tutoriel a été créé"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:137
-#, fuzzy
 msgid "Sort Settings"
-msgstr "Paramètres"
+msgstr "Paramètres de tri"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:144
 msgid "Sort projects"
@@ -1301,15 +1317,15 @@ msgstr "Exécuter en arrière-plan"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:171
 msgid "Let Planify run in background and send notifications."
 msgstr ""
+"Laisser Planify s’exécuter en arrière-plan et envoyer des notifications."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:183
-#, fuzzy
 msgid "Run on startup"
-msgstr "Aller à la page de départ"
+msgstr "Lancer au démarrage"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:184
 msgid "Whether Planify should run on startup."
-msgstr ""
+msgstr "Indique si Planify devrait se lancer au démarrage."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:196
 msgid "Calendar Events"
@@ -1337,7 +1353,7 @@ msgstr "Début de la semaine"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:228
 msgid "Task settings"
-msgstr "Paramètres de la tâche"
+msgstr "Paramètres des tâches"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Instantly"
@@ -1349,12 +1365,14 @@ msgstr "Attendre 2500 millisec."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:235
 msgid "Complete task"
-msgstr "Terminer la tâche"
+msgstr "Accomplissement des tâches"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:236
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option."
 msgstr ""
+"Marquer vos tâches comme accomplies instantanément ou attendre 2500 "
+"millisecondes avec l’option annuler."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:243
 msgid "Priority 1"
@@ -1424,21 +1442,25 @@ msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
+"Utilisez l’ajout rapide pour créer des tâches depuis n’importe quel endroit "
+"sur votre bureau, avec une combinaison de touches. Vous n’aurez même pas à "
+"quitter l’application que vous étiez en train d’utiliser."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:945
 msgid "Set a custom shortcut in System Settings"
-msgstr ""
+msgstr "Définissez un raccourci personnalisé dans les paramètres Système"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:946
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
+"Allez dans Paramètres système → Clavier → Raccourcis → Personnalisé, et "
+"ajoutez un nouveau raccourci avec la commande suivante :"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:994
-#, fuzzy
 msgid "The command was copied to the clipboard."
-msgstr "Projet copié vers le presse-papiers."
+msgstr "La commande a été copiée vers le presse-papiers."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1008
 msgid ""
@@ -1449,13 +1471,12 @@ msgstr ""
 "supprimera toutes vos tâches et paramètres."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1010
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the Google Tasks sync? This action will "
 "delete all your tasks and settings."
 msgstr ""
-"Êtes-vous sûr de vouloir supprimer la synchronisation Todoist ? Cette action "
-"supprimera toutes vos tâches et paramètres."
+"Êtes-vous sûr de vouloir supprimer la synchronisation Google Tasks ? Cette "
+"action supprimera toutes vos tâches et paramètres."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1014
 msgid "Sign off"
