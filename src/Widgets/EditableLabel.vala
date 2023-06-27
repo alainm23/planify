@@ -1,131 +1,131 @@
 public class Widgets.EditableLabel : Gtk.Grid {
-    public string placeholder_text { get; construct; }
-    public bool auto_focus { get; construct; }
+	public string placeholder_text { get; construct; }
+	public bool auto_focus { get; construct; }
 
-    public signal void focus_changed (bool active);
-    public signal void changed ();
+	public signal void focus_changed (bool active);
+	public signal void changed ();
 
-    private Gtk.Label title;
-    private Widgets.Entry entry;
-    private Gtk.Stack stack;
-    private Gtk.Grid grid;
+	private Gtk.Label title;
+	private Widgets.Entry entry;
+	private Gtk.Stack stack;
+	private Gtk.Grid grid;
 
-    public string text { get; set; }
-    public bool entry_menu_opened { get; set; default = false; }
+	public string text { get; set; }
+	public bool entry_menu_opened { get; set; default = false; }
 
-    public bool is_editing {
-        get {
-            return stack.visible_child == entry;
-        }
-    }
+	public bool is_editing {
+		get {
+			return stack.visible_child == entry;
+		}
+	}
 
-    public void editing (bool value, bool grab_focus = false) {
-        focus_changed (value);
-            
-        if (value) {
-            entry.text = text;
-            stack.set_visible_child (entry);
+	public void editing (bool value, bool grab_focus = false) {
+		focus_changed (value);
 
-            if (grab_focus) {
-                entry.grab_focus ();
-            } else {
-                entry.grab_focus_without_selecting ();
-                if (entry.cursor_position < entry.text_length) {
-                    entry.set_position ((int32) entry.text_length);
-                }
-            }
-        } else {
-            if (entry.text.strip () != "" && text != entry.text) {
-                text = entry.text;
-                changed ();
-            }
+		if (value) {
+			entry.text = text;
+			stack.set_visible_child (entry);
 
-            stack.set_visible_child (grid);
-        }
-    }
+			if (grab_focus) {
+				entry.grab_focus ();
+			} else {
+				entry.grab_focus_without_selecting ();
+				if (entry.cursor_position < entry.text_length) {
+					entry.set_position ((int32) entry.text_length);
+				}
+			}
+		} else {
+			if (entry.text.strip () != "" && text != entry.text) {
+				text = entry.text;
+				changed ();
+			}
 
-    public bool editable {
-        set {
-            entry.editable = value;
-        }
-    }
+			stack.set_visible_child (grid);
+		}
+	}
 
-    public EditableLabel (string placeholder_text = "", bool auto_focus = true) {
-        Object (
-            placeholder_text: placeholder_text,
-            auto_focus: auto_focus
-        );
-    }
+	public bool editable {
+		set {
+			entry.editable = value;
+		}
+	}
 
-    construct {
-        add_css_class ("editable-label");
+	public EditableLabel (string placeholder_text = "", bool auto_focus = true) {
+		Object (
+			placeholder_text: placeholder_text,
+			auto_focus: auto_focus
+			);
+	}
 
-        title = new Gtk.Label (null) {
-            ellipsize = Pango.EllipsizeMode.END,
-            xalign = 0
-        };
+	construct {
+		add_css_class ("editable-label");
 
-        grid = new Gtk.Grid () {
-            valign = Gtk.Align.CENTER,
-            column_spacing = 12
-        };
+		title = new Gtk.Label (null) {
+			ellipsize = Pango.EllipsizeMode.END,
+			xalign = 0
+		};
 
-        grid.attach (title, 0, 0);
+		grid = new Gtk.Grid () {
+			valign = Gtk.Align.CENTER,
+			column_spacing = 12
+		};
 
-        entry = new Widgets.Entry () {
-            placeholder_text = placeholder_text
-        };
+		grid.attach (title, 0, 0);
 
-        stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE,
-            hexpand = true
-        };
+		entry = new Widgets.Entry () {
+			placeholder_text = placeholder_text
+		};
 
-        stack.add_child (grid);
-        stack.add_child (entry);
+		stack = new Gtk.Stack () {
+			transition_type = Gtk.StackTransitionType.CROSSFADE,
+			hexpand = true
+		};
 
-        attach (stack, 0, 0);
+		stack.add_child (grid);
+		stack.add_child (entry);
 
-        bind_property ("text", title, "label");
+		attach (stack, 0, 0);
 
-        if (auto_focus) {
-            var gesture_click = new Gtk.GestureClick ();
-            gesture_click.set_button (1);
-            add_controller (gesture_click);
+		bind_property ("text", title, "label");
 
-            gesture_click.pressed.connect (() => {
-                editing (true);
-            });
-        }
+		if (auto_focus) {
+			var gesture_click = new Gtk.GestureClick ();
+			gesture_click.set_button (1);
+			add_controller (gesture_click);
 
-        entry.activate.connect (() => {
-            if (stack.visible_child == entry) {
-                editing (false);
-            }
-        });
+			gesture_click.pressed.connect (() => {
+				editing (true);
+			});
+		}
 
-        var gesture = new Gtk.EventControllerFocus ();
-        entry.add_controller (gesture);
+		entry.activate.connect (() => {
+			if (stack.visible_child == entry) {
+				editing (false);
+			}
+		});
 
-        gesture.enter.connect (handle_focus_in);
-        gesture.leave.connect (update_on_leave);
-        
-        gesture.leave.connect (() => {
-            if (stack.visible_child == entry && !entry_menu_opened) {
-                editing (false);
-            }
-        });
-    }
+		var gesture = new Gtk.EventControllerFocus ();
+		entry.add_controller (gesture);
 
-    public void add_style (string style) {
-        stack.add_css_class (style);
-    }
+		gesture.enter.connect (handle_focus_in);
+		gesture.leave.connect (update_on_leave);
 
-    private void handle_focus_in () {
-        Services.EventBus.get_default ().disconnect_typing_accel ();
-    }
+		gesture.leave.connect (() => {
+			if (stack.visible_child == entry && !entry_menu_opened) {
+				editing (false);
+			}
+		});
+	}
 
-    public void update_on_leave () {
-        Services.EventBus.get_default ().connect_typing_accel ();
-    }
+	public void add_style (string style) {
+		stack.add_css_class (style);
+	}
+
+	private void handle_focus_in () {
+		Services.EventBus.get_default ().disconnect_typing_accel ();
+	}
+
+	public void update_on_leave () {
+		Services.EventBus.get_default ().connect_typing_accel ();
+	}
 }

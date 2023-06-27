@@ -37,7 +37,7 @@ public class Widgets.Entry : Gtk.Entry {
     }
 }
 
-public class Widgets.SourceView : Gtk.TextView/*GtkSource.View*/ {
+public class Widgets.SourceView : Gtk.TextView {
     construct {
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);

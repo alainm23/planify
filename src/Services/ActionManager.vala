@@ -43,11 +43,6 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_ESC = "action_esc";
     public const string ACTION_SHOW_HIDE_SIDEBAR = "action_esc";
-    // public const string ACTION_SORT_DATE = "action_sort_date";
-    // public const string ACTION_SORT_PRIORITY = "action_sort_priority";
-    // public const string ACTION_SORT_NAME = "action_sort_name";
-    // public const string ACTION_OPEN_NEW_PROJECT_WINDOW = "action_open_new_project_window";
-    
     
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
     public static Gee.MultiMap<string, string> typing_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -70,10 +65,6 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_HOME, action_view_home },
         { ACTION_ESC, action_esc },
         { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
-        // { ACTION_SORT_DATE, action_sort_date },
-        // { ACTION_SORT_PRIORITY, action_sort_priority },
-        // { ACTION_SORT_NAME, action_sort_name },
-        // { ACTION_OPEN_NEW_PROJECT_WINDOW, action_open_new_project_window },
     };
 
     public ActionManager (Planner app, MainWindow window) {
@@ -95,15 +86,11 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>3");
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>4");
         action_accelerators.set (ACTION_ESC, "Escape");
-        // action_accelerators.set (ACTION_OPEN_NEW_PROJECT_WINDOW, "<Control>w");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
         typing_accelerators.set (ACTION_NEW_SECTION, "s");
-        // typing_accelerators.set (ACTION_SORT_DATE, "d");
-        // typing_accelerators.set (ACTION_SORT_PRIORITY, "r");
-        // typing_accelerators.set (ACTION_SORT_NAME, "n");
         typing_accelerators.set (ACTION_VIEW_HOME, "h");
         typing_accelerators.set (ACTION_SHOW_HIDE_SIDEBAR, "m");
     }

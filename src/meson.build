@@ -77,6 +77,7 @@ sources = files(
   'Widgets/SubItems.vala',
   'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
+  'Widgets/SectionsOrderPopover.vala',
 
   'Widgets/Calendar/Calendar.vala',
   'Widgets/Calendar/CalendarDay.vala',

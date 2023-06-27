@@ -426,3 +426,12 @@ entry.flat:focus-within {
 .fancy-turn-animation {
     animation: fancy-turn 0.7s ease-in-out;
 }
+
+.pb-6 {
+    padding-bottom: 6px;
+}
+
+.switch-min slider {
+    min-height: 16px;
+    min-width: 16px;
+}

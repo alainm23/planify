@@ -162,7 +162,9 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         menu_button.clicked.connect (open_menu);
 
         Services.EventBus.get_default ().unselect_all.connect (() => {
-            unselect_all ();
+            if (items_selected.size > 0) {
+                unselect_all ();
+            }
         });
     }
 
@@ -350,7 +352,6 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         items_selected.clear ();
         main_revealer.reveal_child = false;
-        Services.EventBus.get_default ().magic_button_visible (true);
         Services.EventBus.get_default ().connect_typing_accel ();
         Services.EventBus.get_default ().show_multi_select (false);
         Services.EventBus.get_default ().multi_select_enabled = false;

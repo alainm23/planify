@@ -746,6 +746,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("unordered-list", true);
                 _dynamic_icons.set ("menu", true);
                 _dynamic_icons.set ("share", true);
+                _dynamic_icons.set ("dropdown", true);
             }
 
             return _dynamic_icons;

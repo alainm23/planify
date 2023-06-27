@@ -119,5 +119,7 @@
     <file alias="ordered-list-light.svg">resources/icons/ordered-list-light.svg</file>
     <file alias="share-light.svg">resources/icons/share-light.svg</file>
     <file alias="share-dark.svg">resources/icons/share-dark.svg</file>
+    <file alias="dropdown-dark.svg">resources/icons/dropdown-dark.svg</file>
+    <file alias="dropdown-light.svg">resources/icons/dropdown-light.svg</file>
   </gresource>
 </gresources>

@@ -61,7 +61,8 @@ public class Views.Project : Gtk.Grid {
             active = true,
             child = list_image,
             valign = Gtk.Align.CENTER,
-            tooltip_text = _("List View")
+            tooltip_text = _("List View"),
+            active = project.view_style == ProjectViewStyle.LIST
         };
 
         list_button.add_css_class (Granite.STYLE_CLASS_FLAT);
@@ -69,7 +70,8 @@ public class Views.Project : Gtk.Grid {
         var board_button = new Gtk.ToggleButton () {
             child = board_image,
             valign = Gtk.Align.CENTER,
-            tooltip_text = _("Board View")
+            tooltip_text = _("Board View"),
+            active = project.view_style == ProjectViewStyle.BOARD
         };
 
         board_button.set_group (list_button);
@@ -78,8 +80,7 @@ public class Views.Project : Gtk.Grid {
         var view_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             homogeneous = true,
-            valign = Gtk.Align.CENTER,
-            sensitive = false
+            valign = Gtk.Align.CENTER
         };
 
         view_mode_box.add_css_class (Granite.STYLE_CLASS_LINKED);
@@ -101,7 +102,6 @@ public class Views.Project : Gtk.Grid {
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
-
         // Search Icon
         var search_image = new Widgets.DynamicIcon ();
         search_image.size = 19;
@@ -115,6 +115,20 @@ public class Views.Project : Gtk.Grid {
         search_button.child = search_image;
         search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
         
+        // Search Icon
+        var sections_image = new Widgets.DynamicIcon ();
+        sections_image.size = 19;
+        sections_image.update_icon_name ("dropdown");
+
+        var sections_order_popover = new Widgets.SectionsOrderPopover (project);
+
+        var sections_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+            child = sections_image,
+            popover = sections_order_popover
+        };
+        sections_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
             hexpand = true
@@ -128,6 +142,7 @@ public class Views.Project : Gtk.Grid {
         headerbar.pack_start (title_label);
         headerbar.pack_end (menu_button);
         headerbar.pack_end (search_button);
+        headerbar.pack_end (sections_button);
         headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_start = 3,
             margin_end = 3,
@@ -168,7 +183,7 @@ public class Views.Project : Gtk.Grid {
         content_overlay.child = content_box;
 
         attach(content_overlay, 0, 0);
-        update_project_view (ProjectViewStyle.LIST);
+        update_project_view (project.view_style);
         show();
 
         add_button.clicked.connect (() => {
@@ -205,6 +220,12 @@ public class Views.Project : Gtk.Grid {
                 list_view = new Views.List (project);
                 view_stack.add_named (list_view, view_style.to_string ());
             }
+
+            Views.Board? board_view;
+            board_view = (Views.Board) view_stack.get_child_by_name ("board");
+            if (list_view != null) {
+                view_stack.remove (board_view);
+            }
         } else if (view_style == ProjectViewStyle.BOARD) {
             Views.Board? board_view;
             board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
@@ -212,10 +233,15 @@ public class Views.Project : Gtk.Grid {
                 board_view = new Views.Board (project);
                 view_stack.add_named (board_view, view_style.to_string ());
             }
+
+            Views.List? list_view;
+            list_view = (Views.List) view_stack.get_child_by_name ("list");
+            if (list_view != null) {
+                view_stack.remove (list_view);
+            }
         }
 
         view_stack.set_visible_child_name (view_style.to_string ());
-        
         project.view_style = view_style;
         project.update (false);
     }
