@@ -13,7 +13,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
     public ScheduleButton () {
         Object (
-            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Schedule")

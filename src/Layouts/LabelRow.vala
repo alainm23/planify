@@ -201,7 +201,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.LabelRow), Gdk.DragAction.MOVE);
         drop_target.preload = true;
 
-        drop_target.on_drop.connect ((target, value, x, y) => {
+        drop_target.drop.connect ((target, value, x, y) => {
             var picked_widget = (Layouts.LabelRow) value;
             var target_widget = this;
             

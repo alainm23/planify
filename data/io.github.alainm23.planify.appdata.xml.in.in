@@ -51,6 +51,17 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   ​<releases>
+    <release version="4.1.1" date="2023-06-27">
+      <description>
+        <ul>
+          <li>Bug #1019 fixed.</li>
+          <li>Chinese translations thanks to @Fr4nk1in-USTC.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Bug fixes and performance improvement.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.1" date="2023-06-23">
       <description>
         <p>Planify 4.1 here it is!</p>

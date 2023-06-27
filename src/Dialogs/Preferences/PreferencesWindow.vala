@@ -320,23 +320,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		run_on_startup_switch.notify["active"].connect (() => {
-			if (run_on_startup_switch.active) {
-				Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-					if (Planner.instance.ask_for_background.end (res)) {
-						Services.Settings.get_default ().settings.set_boolean ("run-on-startup", true);
-					} else {
-						Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-					}
-				});
-			} else {
-				Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-					if (Planner.instance.ask_for_background.end (res)) {
-						Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-					} else {
-						Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-					}
-				});
-			}
+			Services.Settings.get_default ().settings.set_boolean ("run-on-startup", run_on_startup_switch.active);
 		});
 
 		calendar_events_switch.notify["active"].connect (() => {

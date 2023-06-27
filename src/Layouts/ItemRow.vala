@@ -403,7 +403,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
             tooltip_text = _("Add subtask"),
             margin_top = 1,
             visible = !is_creating
@@ -650,6 +649,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 }
                 
                 return Gdk.EVENT_STOP;
+            } else if (keyval == 65289) {
+                description_textview.grab_focus ();
+                return Gdk.EVENT_STOP;
             }
 
             return false;
@@ -663,7 +665,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 } else {
                     Services.EventBus.get_default ().item_selected (null);
                 }
-            } else {
+            } else { 
                 if (!is_creating) {
                     update ();
                 } else {
@@ -683,13 +685,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 } else {
                     Services.EventBus.get_default ().item_selected (null);
                 }
+            } else if (keyval == 65289) {
+                schedule_button.grab_focus ();
             } else {
                 if (!is_creating) {
                     update ();
                 }
             }
         });
-
 
         submit_button.clicked.connect (() => {
             add_item ();

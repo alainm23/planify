@@ -131,7 +131,8 @@ public class Views.Project : Gtk.Grid {
 
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
-            hexpand = true
+            hexpand = true,
+            decoration_layout = ":close"
         };
 
         headerbar.add_css_class ("flat");
@@ -142,18 +143,18 @@ public class Views.Project : Gtk.Grid {
         headerbar.pack_start (title_label);
         headerbar.pack_end (menu_button);
         headerbar.pack_end (search_button);
-        headerbar.pack_end (sections_button);
+        // headerbar.pack_end (sections_button);
         headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_start = 3,
             margin_end = 3,
             opacity = 0
         });
-        headerbar.pack_end (view_mode_box);
-        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3,
-            margin_end = 3,
-            opacity = 0
-        });
+        //  headerbar.pack_end (view_mode_box);
+        //  headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+        //      margin_start = 3,
+        //      margin_end = 3,
+        //      opacity = 0
+        //  });
         headerbar.pack_end (add_button);
         headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_start = 3,
@@ -183,7 +184,7 @@ public class Views.Project : Gtk.Grid {
         content_overlay.child = content_box;
 
         attach(content_overlay, 0, 0);
-        update_project_view (project.view_style);
+        update_project_view (ProjectViewStyle.LIST);
         show();
 
         add_button.clicked.connect (() => {

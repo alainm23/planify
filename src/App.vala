@@ -108,7 +108,7 @@ public class Planner : Adw.Application {
 		try {
 			return yield portal.request_background (window, reason, command, flags, null);
 		} catch (Error e) {
-			warning ("Error during portal request: %s", e.message);
+			print ("Error during portal request: %s".printf (e.message));
 			return e is IOError.FAILED;
 		}
 	}

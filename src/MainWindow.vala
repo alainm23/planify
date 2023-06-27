@@ -158,6 +158,25 @@ public class MainWindow : Adw.ApplicationWindow {
 				Util.get_default ().update_theme ();
 			} else if (key == "run-in-background") {
 				set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
+			} else if (key == "run-on-startup") {
+				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+				if (active) {
+					Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+						if (Planner.instance.ask_for_background.end (res)) {
+							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", true);
+						} else {
+							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+						}
+					});
+				} else {
+					Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+						if (Planner.instance.ask_for_background.end (res)) {
+							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+						} else {
+							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
+						}
+					});
+				}
 			} else if (key == "slim-mode") {
 				if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
 					sidebar_image.update_icon_name ("sidebar-left");

@@ -109,7 +109,8 @@ public class Widgets.FilterHeader : Gtk.Grid {
 
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
-            hexpand = true
+            hexpand = true,
+            decoration_layout = ":close"
         };
 
         headerbar.add_css_class ("flat");
