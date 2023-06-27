@@ -409,7 +409,7 @@ msgstr ""
 
 #: src/Util.vala:1167
 msgid ""
-"To reorder your list, tap amd hold a to-do, then drag it to where it shpuld "
+"To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
 
