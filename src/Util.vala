@@ -592,7 +592,7 @@ public class Util : GLib.Object {
         }
         
         if (!insert) {
-            Services.EventBus.get_default ().update_inserted_item_map (row);
+            Services.EventBus.get_default ().update_inserted_item_map (row, "");
             row.update_inserted_item ();
         } else {
             row.hide_destroy ();
@@ -1339,3 +1339,4 @@ public class RegexMarkdown {
         this.extra = extra;
     }
 }
+

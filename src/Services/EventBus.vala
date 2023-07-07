@@ -17,6 +17,8 @@ public class Services.EventBus : Object {
     public signal void delete_row_project (Objects.Project project);
     public signal void pane_selected (PaneType panel_type, string id);
     public signal void item_selected (string? id);
+    public signal void open_item (Objects.Item item);
+    public signal void close_item_view ();
     public signal void task_selected (string? uid);
     public signal void avatar_downloaded ();
     public signal void view_header (bool view);
@@ -29,7 +31,7 @@ public class Services.EventBus : Object {
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "", bool insert = true);
     public signal void item_section_moved (Layouts.ItemRow itemrow, string old_section_id);
     public signal void update_items_position (string project_id, string section_id);
-    public signal void update_inserted_item_map (Layouts.ItemRow row);
+    public signal void update_inserted_item_map (Layouts.ItemRow row, string old_section_id);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
     public signal void open_labels ();

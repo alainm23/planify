@@ -51,7 +51,7 @@ public class Views.Pinboard : Gtk.Grid {
         content.append (listbox_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720,
+            maximum_size = 1024,
             margin_start = 12,
             margin_end = 12
         };

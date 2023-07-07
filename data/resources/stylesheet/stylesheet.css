@@ -435,3 +435,12 @@ entry.flat:focus-within {
     min-height: 16px;
     min-width: 16px;
 }
+
+.task-view {
+    background: @popover_bg_color;
+}
+
+.close-button {
+    border-radius: 50%;
+    padding: 0px;
+}

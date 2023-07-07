@@ -44,7 +44,7 @@ public class Views.Today : Gtk.Grid {
         };
 
         var event_list_clamp = new Adw.Clamp () {
-            maximum_size = 720,
+            maximum_size = 1024,
             margin_start = 12,
             margin_end = 12,
             child = event_list_revealer
@@ -168,7 +168,7 @@ public class Views.Today : Gtk.Grid {
         listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720,
+            maximum_size = 1024,
             margin_start = 12,
             margin_end = 12,
             child = listbox_placeholder_stack

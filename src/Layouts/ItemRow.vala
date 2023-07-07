@@ -1373,7 +1373,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                             checked_button.sensitive = true;
                         }
                     });
-                } else {
+                } else if (item.project.backend_type == BackendType.LOCAL) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                 }   
             }
@@ -1730,7 +1730,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
 
             target_list.insert (picked_widget, position);
-            Services.EventBus.get_default ().item_section_moved (picked_widget, old_section_id);
+            Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id);
             update_items_item_order (target_list);
 
             return true;

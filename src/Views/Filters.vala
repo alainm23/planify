@@ -103,7 +103,7 @@ public class Views.Filters : Gtk.Grid {
         content.append (labels_todoist_header);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720,
+            maximum_size = 1024,
             margin_start = 12,
             margin_end = 12
         };

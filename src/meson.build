@@ -46,6 +46,7 @@ sources = files(
   'Layouts/LabelRow.vala',
   'Layouts/SectionBoard.vala',
   'Layouts/ItemBoard.vala',
+  'Layouts/ItemView.vala',
   
   'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',
@@ -138,6 +139,7 @@ sources = files(
   'Dialogs/Item.vala',
   'Dialogs/TodoistOAuth.vala',
   'Dialogs/GoogleOAuth.vala',
+  'Dialogs/WhatsNew.vala',
   'Dialogs/ProjectDescription.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',

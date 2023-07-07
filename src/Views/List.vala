@@ -106,7 +106,7 @@ public class Views.List : Gtk.Grid {
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
-            maximum_size = 720,
+            maximum_size = 1024,
             margin_start = 12,
             margin_end = 12
         };

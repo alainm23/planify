@@ -183,9 +183,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
 
         listbox.row_selected.connect ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
-
-            var dialog = new Dialogs.Item (item);
-            dialog.show ();
         });
 
         name_editable.changed.connect (() => {

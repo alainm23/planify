@@ -20,7 +20,6 @@ public class Views.Board : Gtk.Grid {
             max_children_per_line = 1,
             homogeneous = true,
             orientation = Gtk.Orientation.VERTICAL,
-            column_spacing = 24,
             halign = Gtk.Align.START
         };
 

@@ -37,6 +37,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private Gtk.DragSource drag_source;
 	private Gtk.DropTarget drop_target;
 
+    public bool on_drag = false;
+
 	public ItemBoard (Objects.Item item) {
 		Object (
 			item: item,
@@ -113,8 +115,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
 			margin_top = 6,
 			margin_start = 6,
-			margin_end = 6,
-			margin_bottom = 6
+			margin_end = 6
 		};
 
 		content_box.append (checked_button);
@@ -180,7 +181,12 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			child = footer_box
 		};
 
-		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 3,
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
+        };
 		handle_grid.append (content_box);
 		handle_grid.append (description_label_revealer);
 		handle_grid.append (flowbox_revealer);
@@ -217,6 +223,25 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_button.active = !checked_button.active;
 			checked_toggled (checked_button.active);
 		});
+
+        var handle_gesture_click = new Gtk.GestureClick ();
+        handle_grid.add_controller (handle_gesture_click);
+
+		handle_gesture_click.pressed.connect ((n_press, x, y) => {
+            if (Services.EventBus.get_default ().multi_select_enabled) {
+                // select_checkbutton.active = !select_checkbutton.active;
+                // selected_toggled (select_checkbutton.active);
+            } else {
+                Services.EventBus.get_default ().unselect_all ();
+                Timeout.add (Constants.DRAG_TIMEOUT, () => {
+                    if (!on_drag) {
+                        Services.EventBus.get_default ().open_item (item);
+                    }
+
+                    return GLib.Source.REMOVE;
+                });
+            }
+        });
 	}
 
 	public void checked_toggled (bool active, uint? time = null) {
@@ -489,13 +514,19 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	}
 
 	public void drag_begin () {
-		// handle_grid.add_css_class ("card");
-		// opacity = 0.3;
+        handle_grid.add_css_class ("card");
+        on_drag = true;
+        opacity = 0.3;
+
+        Services.EventBus.get_default ().item_drag_begin (item);
 	}
 
 	public void drag_end () {
-		// handle_grid.remove_css_class ("card");
-		// opacity = 1;
+        handle_grid.remove_css_class ("card");
+        on_drag = false;
+        opacity = 1;
+
+        Services.EventBus.get_default ().item_drag_end (item);
 	}
 
 	public void hide_destroy () {

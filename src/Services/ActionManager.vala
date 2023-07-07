@@ -181,6 +181,7 @@ public class Services.ActionManager : Object {
     private void action_esc () {
         Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().item_selected (null);
+        Services.EventBus.get_default ().close_item_view ();
     }
 
     private void action_show_hide_sidebar () {
