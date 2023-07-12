@@ -224,7 +224,7 @@ public class Views.Project : Gtk.Grid {
 
 			Views.Board? board_view;
 			board_view = (Views.Board) view_stack.get_child_by_name ("board");
-			if (list_view != null) {
+			if (board_view != null) {
 				view_stack.remove (board_view);
 			}
 		} else if (view_style == ProjectViewStyle.BOARD) {

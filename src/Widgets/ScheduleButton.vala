@@ -91,7 +91,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public void update_from_item (Objects.Item item) {
         due_label.label = _("Schedule");
         tooltip_text = _("Schedule");
-        repeat_label.label = "";
+        // repeat_label.label = "";
 
         due_image.update_icon_name ("planner-calendar");
         datetime = null;

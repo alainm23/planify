@@ -9,9 +9,6 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
     private Gtk.Label emoji_label;
     private Widgets.CircularProgressBar circular_progress_bar;
 
-    private ulong project_count_updated;
-    private ulong project_updated;
-
     public ProjectViewHeaderBar () {
         Object (
             valign: Gtk.Align.CENTER
@@ -69,9 +66,6 @@ public class Widgets.ProjectViewHeaderBar : Gtk.Grid {
 
     public void update_view (Objects.BaseObject view) {
         // content_revealer.reveal_child = false;
-
-        disconnect (project_count_updated);
-        disconnect (project_updated);
 
         if (view is Objects.Project) {
             var project = ((Objects.Project) view);

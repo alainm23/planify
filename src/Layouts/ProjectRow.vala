@@ -124,7 +124,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         arrow_button.add_css_class ("transparent");
         arrow_button.add_css_class ("hidden-button");
         arrow_button.add_css_class ("no-padding");
-        arrow_button.add_css_class (project.collapsed ? "opened" : "");
+
+        if (project.collapsed) {
+            arrow_button.add_css_class ("opened");
+        }
 
         menu_stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE,
