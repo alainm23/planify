@@ -1,5 +1,6 @@
 public class Layouts.ItemRow : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
+    public bool board { get; construct; }
 
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
@@ -69,8 +70,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             if (value) {
                 handle_grid.add_css_class ("card");
                 handle_grid.add_css_class ("card-selected");
-                handle_grid.add_css_class (is_creating ? "mt-12" : "mt-24");
-                main_grid.add_css_class ("mb-12");
+
+                if (!board) {
+                    handle_grid.add_css_class (is_creating ? "mt-12" : "mt-24");
+                    main_grid.add_css_class ("mb-12");
+                }
+
                 hide_subtask_button.margin_top = 27;
 
                 detail_revealer.reveal_child = true;
@@ -80,7 +85,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 item_summary.reveal_child = false;
                 labels_summary.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
-                hide_loading_revealer.reveal_child = true;
+
+                if (!board) {
+                    hide_loading_revealer.reveal_child = true;
+                }
 
                 // Due labels
                 due_label_revealer.reveal_child = false;
@@ -177,6 +185,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public ItemRow (Objects.Item item) {
         Object (
             item: item,
+            board: false,
+            focusable: false,
+            can_focus: true
+        );
+    }
+
+    public ItemRow.for_board (Objects.Item item) {
+        Object (
+            item: item,
+            board: true,
             focusable: false,
             can_focus: true
         );
@@ -189,6 +207,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         Object (
             item: item,
+            board: false,
             focusable: false,
             can_focus: true
         );
@@ -200,6 +219,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         Object (
             item: item,
+            board: false,
             focusable: false,
             can_focus: true
         );
@@ -213,6 +233,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         
         Object (
             item: item,
+            board: false,
             focusable: false,
             can_focus: true
         );
@@ -225,6 +246,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         Object (
             item: item,
+            board: false,
             focusable: false,
             can_focus: true
         );
@@ -369,12 +391,22 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,
+            margin_bottom = board ? 12 : 0,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
             editable = !item.completed
         };
 
         description_textview.remove_css_class ("view");
+
+        var description_scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            vscrollbar_policy = board ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER,
+            height_request = board ? 96 : -1,
+            hexpand = true,
+            vexpand = true,
+            child = description_textview
+        };
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
@@ -436,7 +468,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 
-        details_grid.append (description_textview);
+        details_grid.append (description_scrolled_window);
         details_grid.append (item_labels);
         details_grid.append (action_box);
 
@@ -631,7 +663,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     edit = true;
                 }
             } else {
-                if (edit) {
+                if (edit && !board) {
                     edit = false;
                 }
             }
@@ -645,7 +677,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (is_creating) {
                     add_item ();
                 } else {
-                    edit = false;
+                    if (!board) {
+                        edit = false;
+                    }
                 }
                 
                 return Gdk.EVENT_STOP;
@@ -728,7 +762,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             if (is_creating) {
                 hide_destroy ();
             } else {
-                edit = false;
+                if (!board) {
+                    edit = false;
+                }
             }
         });
 
@@ -1505,6 +1541,33 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void delete_request (bool undo = true) {
+        if (board) {
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+			                                    _("Delete to-do"), _("Are you sure you want to delete this to-do?"));
+
+			dialog.body_use_markup = true;
+			dialog.add_response ("cancel", _("Cancel"));
+			dialog.add_response ("delete", _("Delete"));
+			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			dialog.show ();
+
+			dialog.response.connect ((response) => {
+				if (response == "delete") {
+					if (item.project.backend_type == BackendType.TODOIST) {
+						Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
+							if (Services.Todoist.get_default ().delete.end (res)) {
+                                Services.Database.get_default ().delete_item (item);
+                            }
+						});
+					} else if (item.project.backend_type == BackendType.LOCAL) {
+					    Services.Database.get_default ().delete_item (item);
+					}
+				}
+			});
+
+            return;
+        }
+
         main_revealer.reveal_child = false;
 
         if (undo) {

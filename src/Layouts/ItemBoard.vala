@@ -3,6 +3,10 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 	private Gtk.CheckButton checked_button;
 	private Gtk.Label content_label;
+    private Widgets.SourceView content_textview;
+
+    private Widgets.LoadingButton hide_loading_button;
+    private Gtk.Revealer hide_loading_revealer;
 
 	private Gtk.Label description_label;
 	private Gtk.Revealer description_label_revealer;
@@ -19,17 +23,18 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private Gtk.Box handle_grid;
 	private Gtk.Revealer main_revealer;
 
+    public int64 update_id { get; set; default = int64.parse (Util.get_default ().generate_id ()); }
 	public uint complete_timeout { get; set; default = 0; }
 	Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
 	public bool is_loading {
 		set {
 			if (value) {
-				// hide_loading_revealer.reveal_child = value;
-				// hide_loading_button.is_loading = value;
+				hide_loading_revealer.reveal_child = value;
+				hide_loading_button.is_loading = value;
 			} else {
-				// hide_loading_button.is_loading = value;
-				// hide_loading_revealer.reveal_child = edit;
+				hide_loading_button.is_loading = value;
+				hide_loading_revealer.reveal_child = false;
 			}
 		}
 	}
@@ -100,17 +105,36 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		add_css_class ("row");
 
 		checked_button = new Gtk.CheckButton () {
-			valign = Gtk.Align.CENTER
+			valign = Gtk.Align.START
 		};
 
 		checked_button.add_css_class ("priority-color");
 
-		content_label = new Gtk.Label (item.content) {
-			hexpand = true,
-			xalign = 0,
-			wrap = true,
-			ellipsize = Pango.EllipsizeMode.NONE
-		};
+        content_textview = new Widgets.SourceView () {
+            hexpand = true
+        };
+        content_textview.wrap_mode = Gtk.WrapMode.WORD;
+        content_textview.buffer.text = item.content;
+        content_textview.editable = !item.completed;
+        content_textview.remove_css_class ("view");
+
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("information", 19) {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            margin_top = 6,
+            margin_end = 6
+        };
+        hide_loading_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        hide_loading_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        hide_loading_button.add_css_class ("no-padding");
+        hide_loading_button.add_css_class ("min-height-0");
+
+        hide_loading_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            valign = Gtk.Align.START,
+            halign = Gtk.Align.END
+        };
+        hide_loading_revealer.child = hide_loading_button;
 
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
 			margin_top = 6,
@@ -119,7 +143,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		};
 
 		content_box.append (checked_button);
-		content_box.append (content_label);
+		content_box.append (content_textview);
 
 		description_label = new Gtk.Label (null) {
 			xalign = 0,
@@ -195,11 +219,15 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		handle_grid.add_css_class ("border-radius-9");
 		handle_grid.add_css_class ("pb-6");
 
+        var overlay = new Gtk.Overlay ();
+		overlay.child = handle_grid;
+		overlay.add_overlay (hide_loading_revealer);
+
 		main_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
 		};
 
-		main_revealer.child = handle_grid;
+		main_revealer.child = overlay;
 
 		child = main_revealer;
 		update_request ();
@@ -209,6 +237,10 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 			if (!item.checked) {
 				build_drag_and_drop ();
+			}
+
+			if (item.activate_name_editable) {
+                content_textview.grab_focus ();
 			}
 
 			return GLib.Source.REMOVE;
@@ -224,25 +256,47 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_toggled (checked_button.active);
 		});
 
-        var handle_gesture_click = new Gtk.GestureClick ();
+        var content_controller_key = new Gtk.EventControllerKey ();
+        content_textview.add_controller (content_controller_key);
+
+        content_controller_key.key_released.connect ((keyval, keycode, state) => {
+            update ();
+        });
+
+
+        var motion_gesture = new Gtk.EventControllerMotion ();
+        add_controller (motion_gesture);
+
+        motion_gesture.enter.connect (() => {
+            hide_loading_revealer.reveal_child = true;
+        });
+
+        motion_gesture.leave.connect (() => {
+            hide_loading_revealer.reveal_child = false;
+        });
+
+		hide_loading_button.clicked.connect (() => {
+            var dialog = new Dialogs.Item (item);
+            dialog.show ();
+        });
+
+		var handle_gesture_click = new Gtk.GestureClick ();
         handle_grid.add_controller (handle_gesture_click);
 
-		handle_gesture_click.pressed.connect ((n_press, x, y) => {
-            if (Services.EventBus.get_default ().multi_select_enabled) {
-                // select_checkbutton.active = !select_checkbutton.active;
-                // selected_toggled (select_checkbutton.active);
-            } else {
-                Services.EventBus.get_default ().unselect_all ();
-                Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                    if (!on_drag) {
-                        Services.EventBus.get_default ().open_item (item);
-                    }
-
-                    return GLib.Source.REMOVE;
-                });
+        handle_gesture_click.pressed.connect ((n_press, x, y) => {
+            if (n_press >= 2) {
+                var dialog = new Dialogs.Item (item);
+                dialog.show ();
             }
         });
 	}
+
+	private void update () {
+        if (item.content != content_textview.buffer.text) {
+            item.content = content_textview.buffer.text;
+            item.update_async_timeout (update_id, this);
+        }
+    }
 
 	public void checked_toggled (bool active, uint? time = null) {
 		Services.EventBus.get_default ().unselect_all ();
@@ -254,8 +308,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			if (complete_timeout != 0) {
 				GLib.Source.remove (complete_timeout);
 				complete_timeout = 0;
-				content_label.remove_css_class ("dim-label");
-				content_label.remove_css_class ("line-through");
+				// content_label.remove_css_class ("dim-label");
+				// content_label.remove_css_class ("line-through");
 			} else {
 				item.checked = false;
 				item.completed_at = "";
@@ -288,9 +342,9 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		}
 
 		if (timeout > 0) {
-			content_label.add_css_class ("dim-label");
+			// content_label.add_css_class ("dim-label");
 			if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				content_label.add_css_class ("line-through");
+				// content_label.add_css_class ("line-through");
 			}
 		}
 
@@ -355,8 +409,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private void recurrency_update_complete (GLib.DateTime next_recurrency) {
 		checked_button.active = false;
 		complete_timeout = 0;
-		content_label.remove_css_class ("dim-label");
-		content_label.remove_css_class ("line-through");
+		// content_label.remove_css_class ("dim-label");
+		// content_label.remove_css_class ("line-through");
 
 		var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
@@ -370,14 +424,15 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_button.active = item.completed;
 
 			if (item.completed && Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				content_label.add_css_class ("line-through");
+				// content_label.add_css_class ("line-through");
 			} else if (item.completed && !Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				content_label.remove_css_class ("line-through");
+				// content_label.remove_css_class ("line-through");
 			}
 		}
 
-		content_label.label = item.content;
-		content_label.tooltip_text = item.content;
+		// content_label.label = item.content;
+		// content_label.tooltip_text = item.content;
+		content_textview.buffer.text = item.content;
 		description_label.label = Util.get_default ().line_break_to_space (item.description);
 		description_label_revealer.reveal_child = description_label.label.length > 0;
 		update_due_label ();
@@ -514,7 +569,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	}
 
 	public void drag_begin () {
-        handle_grid.add_css_class ("card");
         on_drag = true;
         opacity = 0.3;
 
@@ -522,7 +576,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	}
 
 	public void drag_end () {
-        handle_grid.remove_css_class ("card");
         on_drag = false;
         opacity = 1;
 

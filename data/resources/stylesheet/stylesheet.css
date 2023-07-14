@@ -305,7 +305,7 @@ entry.flat:focus-within {
 }
 
 .is_loading image {
-    animation: spin 1000ms linear infinite;
+    animation: spin-loading 1000ms linear infinite;
 }
 
 .popover-contents contents {
@@ -443,4 +443,8 @@ entry.flat:focus-within {
 .close-button {
     border-radius: 50%;
     padding: 0px;
+}
+
+.min-height-0 {
+    min-height: 0;
 }

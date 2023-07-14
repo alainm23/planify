@@ -32,6 +32,9 @@ public class Objects.Item : Objects.BaseObject {
     
     public int priority { get; set; default = Constants.INACTIVE; }
 
+    // Tmp
+    public bool activate_name_editable { get; set; default = false; }
+
     public string priority_icon {
         get {
             if (priority == Constants.PRIORITY_1) {
@@ -324,29 +327,38 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    public void update_async_timeout (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
+    private void show_loading (Gtk.ListBoxRow? row = null, bool value) {
+        if (row == null) {
+            return;
+        }
+
+        if (row is Layouts.ItemRow) {
+            ((Layouts.ItemRow) row).is_loading = value;
+        } else if (row is Layouts.ItemBoard) {
+            ((Layouts.ItemBoard) row).is_loading = value;
+        }
+    }
+
+    public void update_async_timeout (int64 update_id = Constants.INACTIVE, Gtk.ListBoxRow? row = null) {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
 
+
+
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-
-            if (loading_button != null) {
-                loading_button.is_loading = true;
-            }
+            show_loading (row, true);
             
             if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
-                    if (loading_button != null) {
-                        loading_button.is_loading = false;
-                    }
+                    show_loading (row, false);
                 });
             } else {
                 Services.Database.get_default ().update_item (this, update_id);
-                loading_button.is_loading = false;
+                show_loading (row, false);
             }
 
             return GLib.Source.REMOVE;

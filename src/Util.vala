@@ -747,6 +747,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("menu", true);
                 _dynamic_icons.set ("share", true);
                 _dynamic_icons.set ("dropdown", true);
+                _dynamic_icons.set ("information", true);
             }
 
             return _dynamic_icons;

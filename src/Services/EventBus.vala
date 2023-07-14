@@ -17,8 +17,6 @@ public class Services.EventBus : Object {
     public signal void delete_row_project (Objects.Project project);
     public signal void pane_selected (PaneType panel_type, string id);
     public signal void item_selected (string? id);
-    public signal void open_item (Objects.Item item);
-    public signal void close_item_view ();
     public signal void task_selected (string? uid);
     public signal void avatar_downloaded ();
     public signal void view_header (bool view);

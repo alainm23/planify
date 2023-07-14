@@ -121,5 +121,7 @@
     <file alias="share-dark.svg">resources/icons/share-dark.svg</file>
     <file alias="dropdown-dark.svg">resources/icons/dropdown-dark.svg</file>
     <file alias="dropdown-light.svg">resources/icons/dropdown-light.svg</file>
+    <file alias="information-light.svg">resources/icons/information-light.svg</file>
+    <file alias="information-dark.svg">resources/icons/information-dark.svg</file>
   </gresource>
 </gresources>

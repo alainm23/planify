@@ -113,6 +113,18 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		count_revealer.child = count_label;
 
+        var add_image = new Widgets.DynamicIcon ();
+		add_image.size = 21;
+		add_image.update_icon_name ("planner-plus-circle");
+
+		var add_button = new Gtk.Button () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			child = add_image
+		};
+
+		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
 		var menu_image = new Widgets.DynamicIcon ();
 		menu_image.size = 21;
 		menu_image.update_icon_name ("dots-horizontal");
@@ -129,6 +141,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		sectionrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		sectionrow_grid.add_css_class ("transition");
 		sectionrow_grid.append (name_editable);
+        sectionrow_grid.append (add_button);
 		sectionrow_grid.append (menu_button);
 
 		var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
@@ -415,6 +428,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				drop_widget_revealer.reveal_child = false;
 			}
 		});
+
+        add_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
 	}
 
 	private void check_drop_widget () {

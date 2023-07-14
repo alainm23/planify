@@ -46,7 +46,6 @@ sources = files(
   'Layouts/LabelRow.vala',
   'Layouts/SectionBoard.vala',
   'Layouts/ItemBoard.vala',
-  'Layouts/ItemView.vala',
   
   'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',

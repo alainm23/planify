@@ -109,35 +109,8 @@ public class MainWindow : Adw.ApplicationWindow {
 
         var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
 
-        var item_view = new Layouts.ItemView ();
-
-        var item_view_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-			halign = Gtk.Align.END,
-			margin_top = 60,
-			child = item_view
-		};
-
-        Services.EventBus.get_default ().open_item.connect (() => {
-            uint transition_duration = 0;
-            if (item_view_revealer.reveal_child) {
-                item_view_revealer.reveal_child = false;
-                transition_duration = item_view_revealer.transition_duration;
-            }
-
-            Timeout.add (transition_duration, () => {
-                item_view_revealer.reveal_child = true;
-                return GLib.Source.REMOVE;
-            });
-        });
-
-        Services.EventBus.get_default ().close_item_view.connect (() => {
-             item_view_revealer.reveal_child = false;
-        });
-
 		var views_overlay = new Gtk.Overlay ();
 		views_overlay.child = views_content;
-        views_overlay.add_overlay (item_view_revealer);
 		views_overlay.add_overlay (multiselect_toolbar);
 
 		var toast_overlay = new Adw.ToastOverlay ();

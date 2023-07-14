@@ -7,7 +7,7 @@ public class Views.Project : Gtk.Grid {
 	public Project (Objects.Project project) {
 		Object (
 			project: project
-			);
+		);
 	}
 
 	construct {
