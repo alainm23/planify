@@ -26,21 +26,17 @@ public class Widgets.SettingsHeader : Gtk.Grid {
 
         var back_button = new Gtk.Button () {
             can_focus = false,
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            child = back_grid
         };
 
         back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        back_button.add_css_class ("no-padding");
-        back_button.child = back_grid;
 
         var title_label = new Gtk.Label (title_header);
         title_label.add_css_class (Granite.STYLE_CLASS_TITLE_LABEL);
 
         var content_box = new Gtk.CenterBox () {
-            hexpand = true,
-            margin_end = 6,
-            margin_top = 6,
-            margin_bottom = 6
+            hexpand = true
         };
 
         if (show_back_button) {

@@ -246,9 +246,6 @@ public class Layouts.Sidebar : Gtk.Grid {
 
     private void add_all_projects () {
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
-            print ("Name: %s\n".printf (project.name));
-            print ("Backend: %s\n".printf (project.backend_type.to_string ()));
-
             add_row_project (project);
         }
     }
@@ -271,7 +268,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     }
 
     private void add_row_project (Objects.Project project) {
-        if (!project.inbox_project && project.parent_id == "") {
+        if (!project.is_inbox_project && project.parent_id == "") {
             if (project.backend_type == BackendType.TODOIST) {
                 if (!todoist_hashmap.has_key (project.id_string)) {
                     todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);

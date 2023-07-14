@@ -1076,40 +1076,17 @@ public class Util : GLib.Object {
         Objects.Project inbox_project = null;
 
         if (default_inbox == DefaultInboxProject.LOCAL) {
-            var todoist_inbox_project = Services.Database.get_default ().get_project (
-                Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id")
-            );
-            if (todoist_inbox_project != null) {
-                todoist_inbox_project.inbox_project = false;
-                todoist_inbox_project.update ();
-            }
-
             inbox_project = Services.Database.get_default ().get_project (
                 Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
             );
-            if (inbox_project != null) {
-                inbox_project.inbox_project = true;
-                inbox_project.update ();
-            } else {
+
+            if (inbox_project == null) {
                 inbox_project = create_inbox_project ();
             }
         } else if (default_inbox == DefaultInboxProject.TODOIST) {
-            var local_inbox_project = Services.Database.get_default ().get_project (
-                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
-            );
-            
-            if (local_inbox_project != null) {
-                local_inbox_project.inbox_project = false;
-                local_inbox_project.update ();
-            }
-
             inbox_project = Services.Database.get_default ().get_project (
                 Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id")
             );
-            if (inbox_project != null) {
-                inbox_project.inbox_project = true;
-                inbox_project.update ();
-            }
         }
 
         Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project.id);

@@ -23,6 +23,7 @@ public class Dialogs.Item : Adw.Window {
     public Objects.Item item { get; construct; }
 
     private Gtk.Label nav_label;
+    private Layouts.ItemRow row;
 
     public Item (Objects.Item item) {
         Object (
@@ -52,7 +53,7 @@ public class Dialogs.Item : Adw.Window {
 
         view_headerbar.pack_start (nav_label);
 
-        var row = new Layouts.ItemRow.for_board (item) {
+        row = new Layouts.ItemRow.for_board (item) {
             margin_start = 12
         };
 
@@ -89,6 +90,8 @@ public class Dialogs.Item : Adw.Window {
             section_name = item.section.name;
         }
         nav_label.label = "%s → %s".printf (item.project.short_name, section_name);
+
+        row.margin_bottom = item.completed ? 12 : 0;
     }
 
     public void hide_destroy () {

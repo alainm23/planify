@@ -47,6 +47,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Widgets.PinButton pin_button;
     private Widgets.ReminderButton reminder_button;
     private Gtk.Button add_button;
+    private Gtk.Box action_box;
 
     private Widgets.SubItems subitems;
     private Gtk.Revealer submit_cancel_revealer;
@@ -444,7 +445,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 16,
             margin_top = 6,
             margin_bottom = 3,
@@ -948,13 +949,20 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         priority_button.update_from_item (item);
         pin_button.update_request ();
         
-        // Check due label
         check_due ();
         check_description ();
 
         if (!edit) {
             item_summary.check_revealer ();
             labels_summary.check_revealer ();
+        }
+
+        if (edit) {
+            actionbar_revealer.reveal_child = !item.completed;
+            content_textview.editable = !item.completed;
+            description_textview.editable = !item.completed;
+            item_labels.sensitive = !item.completed;
+            action_box.sensitive = !item.completed;
         }
     }
 
@@ -967,7 +975,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         due_label.remove_css_class ("today-grid");
         due_label.remove_css_class ("upcoming-grid");
 
-        if (item.completed) {
+        if (item.completed && !board) {
             due_label.label = Util.get_default ().get_relative_date_from_date (
                 Util.get_default ().get_date_from_string (item.completed_at)
             );
@@ -1174,6 +1182,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (("Copy to clipboard"), "planner-clipboard");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
+        var move_item_section = new Widgets.ContextMenu.MenuItem (_("Move to Section"), "chevron-right");
         var repeat_item = new Widgets.ContextMenu.MenuItem (("Repeat"), "planner-rotate");
 
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
@@ -1184,6 +1193,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_box.append (copy_clipboard_item);
         menu_box.append (duplicate_item);
         menu_box.append (move_item);
+        menu_box.append (move_item_section);
         menu_box.append (repeat_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
@@ -1220,6 +1230,24 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
             
             var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            dialog.add_sections (item.project.sections);
+            dialog.project = item.project;
+            dialog.section = item.section;
+            dialog.show ();
+
+            dialog.changed.connect ((type, id) => {
+                if (type == "project") {
+                    move (Services.Database.get_default ().get_project (id), "");
+                } else {
+                    move (item.project, id);
+                }
+            });
+        });
+
+        move_item_section.activate_item.connect (() => {
+            menu_handle_popover.popdown ();
+
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.SECTIONS);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -1361,7 +1389,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                             checked_button.sensitive = true;
                         }
                     });
-                } else {
+                } else if (item.project.backend_type == BackendType.LOCAL) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                 }
             }
@@ -1617,7 +1645,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             item.project_id = project_id;
             item.section_id = section_id;
-            // project_button.update_request ();
         } else {
             if (item.project.backend_type == project.backend_type) {
                 if (item.project_id != project_id || item.section_id != section_id) {
@@ -1639,7 +1666,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                                 main_revealer.reveal_child = true;
                             }
                         });
-                    } else {
+                    } else if (item.project.backend_type == BackendType.LOCAL) {
                         move_item (project_id, section_id);
                     }
                 }
@@ -1689,6 +1716,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         item.project_id = project_id;
         item.section_id = section_id;
 
+        update_request ();
         Services.Database.get_default ().update_item (item);
         Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id);
     }

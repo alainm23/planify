@@ -1459,9 +1459,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$completed_at", item.completed_at);
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-        } else {
+        if (stmt.step () == Sqlite.DONE) {
             foreach (Objects.Item subitem in item.items) {
                 subitem.checked = item.checked;
                 subitem.completed_at = item.completed_at;
@@ -1472,6 +1470,8 @@ public class Services.Database : GLib.Object {
             item_updated (item, Constants.INACTIVE);
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
         stmt.reset ();

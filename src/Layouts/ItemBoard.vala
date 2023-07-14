@@ -2,7 +2,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	public Objects.Item item { get; construct; }
 
 	private Gtk.CheckButton checked_button;
-	private Gtk.Label content_label;
     private Widgets.SourceView content_textview;
 
     private Widgets.LoadingButton hide_loading_button;
@@ -121,8 +120,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         hide_loading_button = new Widgets.LoadingButton.with_icon ("information", 19) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_top = 6,
-            margin_end = 6
+            margin_top = 9,
+            margin_end = 9
         };
         hide_loading_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         hide_loading_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
@@ -308,8 +307,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			if (complete_timeout != 0) {
 				GLib.Source.remove (complete_timeout);
 				complete_timeout = 0;
-				// content_label.remove_css_class ("dim-label");
-				// content_label.remove_css_class ("line-through");
 			} else {
 				item.checked = false;
 				item.completed_at = "";
@@ -339,13 +336,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 		if (time != null) {
 			timeout = time;
-		}
-
-		if (timeout > 0) {
-			// content_label.add_css_class ("dim-label");
-			if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				// content_label.add_css_class ("line-through");
-			}
 		}
 
 		complete_timeout = Timeout.add (timeout, () => {
@@ -409,8 +399,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private void recurrency_update_complete (GLib.DateTime next_recurrency) {
 		checked_button.active = false;
 		complete_timeout = 0;
-		// content_label.remove_css_class ("dim-label");
-		// content_label.remove_css_class ("line-through");
 
 		var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
@@ -422,16 +410,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		if (complete_timeout <= 0) {
 			Util.get_default ().set_widget_priority (item.priority, checked_button);
 			checked_button.active = item.completed;
-
-			if (item.completed && Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				// content_label.add_css_class ("line-through");
-			} else if (item.completed && !Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
-				// content_label.remove_css_class ("line-through");
-			}
 		}
 
-		// content_label.label = item.content;
-		// content_label.tooltip_text = item.content;
 		content_textview.buffer.text = item.content;
 		description_label.label = Util.get_default ().line_break_to_space (item.description);
 		description_label_revealer.reveal_child = description_label.label.length > 0;
