@@ -57,8 +57,8 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             halign = Gtk.Align.END
         };
 
-        count_label.get_style_context ().add_class ("dim-label");
-        count_label.get_style_context ().add_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        count_label.add_css_class ("dim-label");
+        count_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         count_revealer = new Gtk.Revealer () {
             reveal_child = int.parse (count_label.label) > 0

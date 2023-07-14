@@ -59,14 +59,19 @@
          * fails for some reason.
          */
         const string LIBICAL_TZ_PREFIX = "/freeassociation.sourceforge.net/";
-        if (tzid.has_prefix (LIBICAL_TZ_PREFIX)) {
-            // TZID has prefix "/freeassociation.sourceforge.net/",
-            // indicating a libical TZID.
-            return new GLib.TimeZone (tzid.offset (LIBICAL_TZ_PREFIX.length));
-        } else {
+        try {
+            if (tzid.has_prefix (LIBICAL_TZ_PREFIX)) {
+                // TZID has prefix "/freeassociation.sourceforge.net/",
+                // indicating a libical TZID.
+                return new GLib.TimeZone.identifier (tzid.offset (LIBICAL_TZ_PREFIX.length));
+            }
             // TZID does not have libical prefix, potentially indicating an Olson
             // standard city name.
-            return new GLib.TimeZone (tzid);
+            return new GLib.TimeZone.identifier (tzid);
+        }
+        catch (Error e) {
+            debug ("Failed to parse Timezone: %s. Using UTC", e.message);
+            return new GLib.TimeZone.utc ();
         }
     }
 

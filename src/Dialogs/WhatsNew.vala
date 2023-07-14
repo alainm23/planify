@@ -102,7 +102,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 	public void add_feature (string title, string description, string icon) {
 		var row = new Adw.ActionRow ();
-		row.icon_name = icon;
+        row.add_prefix (new Gtk.Image.from_icon_name (icon));
 		row.title = title;
 		row.subtitle = description;
 

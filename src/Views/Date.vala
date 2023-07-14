@@ -45,15 +45,15 @@ public class Views.Date : Gtk.Grid {
             margin_start = 26,
             margin_bottom = 6
         };
-        overdue_label.get_style_context ().add_class ("font-bold");
+        overdue_label.add_css_class ("font-bold");
         
         var reschedule_button = new Gtk.Button.with_label (_("Reschedule")) {
             can_focus = false,
             hexpand = true,
             halign = Gtk.Align.END
         };
-        reschedule_button.get_style_context ().add_class (Granite.STYLE_CLASS_FLAT);
-        reschedule_button.get_style_context ().add_class ("primary-color");
+        reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        reschedule_button.add_css_class ("primary-color");
         reschedule_button.clicked.connect (open_datetime_picker);
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);

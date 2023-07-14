@@ -123,7 +123,7 @@ public class Dialogs.TodoistOAuth : Adw.Window {
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (STATE) in redirect_uri)) {
                 info_label.label = _("Synchronizing. Wait a moment please.");
-                get_todoist_token (redirect_uri);
+                get_todoist_token.begin (redirect_uri);
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {

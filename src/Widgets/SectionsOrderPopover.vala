@@ -40,8 +40,8 @@ public class Widgets.SectionsOrderPopover : Gtk.Popover {
 
     private void set_sort_func () {
         listbox.set_sort_func ((row1, row2) => {
-            Objects.Section item1 = ((Layouts.SectionRow) row1).section;
-            Objects.Section item2 = ((Layouts.SectionRow) row2).section;
+            Objects.Section item1 = ((Widgets.SectionsOrderItem) row1).section;
+            Objects.Section item2 = ((Widgets.SectionsOrderItem) row2).section;
     
             return item1.section_order - item2.section_order;
         });

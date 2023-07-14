@@ -270,7 +270,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		sidebar.init();
-		labels_header.init ();
+		// labels_header.init ();
 
 		Services.Notification.get_default ();
 		Services.TimeMonitor.get_default ();

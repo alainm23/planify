@@ -582,11 +582,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		todoist_setting_revealer.child = todoist_setting_button;
 
 		var todoist_row = new Adw.ActionRow ();
-		todoist_row.icon_name = "planner-todoist";
 		todoist_row.title = _("Todoist");
 		todoist_row.subtitle = _("Synchronize with your Todoist Account");
 		todoist_row.add_suffix (todoist_setting_revealer);
 		todoist_row.add_suffix (todoist_switch);
+        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("planner-todoist"));
 
 		// Google Tasks
 		var google_tasks_switch = new Gtk.Switch () {
@@ -614,11 +614,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		google_tasks_revealer.child = google_tasks_button;
 
 		var google_row = new Adw.ActionRow ();
-		google_row.icon_name = "google";
 		google_row.title = _("Google Tasks");
 		google_row.subtitle = _("Synchronize with your Google Account");
 		google_row.add_suffix (google_tasks_revealer);
 		google_row.add_suffix (google_tasks_switch);
+        google_row.add_prefix (new Gtk.Image.from_icon_name ("google"));
 
 		var accounts_group = new Adw.PreferencesGroup ();
 		accounts_group.title = _("Accounts");
