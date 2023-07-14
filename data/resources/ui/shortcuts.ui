@@ -64,7 +64,7 @@
 
             <child>
               <object class="GtkShortcutsShortcut" id="open-preferences">
-                <property name="accelerator">&lt;ctrl&gt;.</property>
+                <property name="accelerator">&lt;ctrl&gt;comma</property>
                 <property name="title" translatable="yes" context="shortcut window">Open preferences</property>
               </object>
             </child>
