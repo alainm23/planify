@@ -4,6 +4,9 @@
     "runtime-version": "44",
     "sdk": "org.gnome.Sdk",
     "command": "io.github.alainm23.planify",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
     "finish-args": [
         "--device=dri",
         "--share=ipc",
@@ -13,6 +16,11 @@
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
         "--talk-name=org.gnome.evolution.dataserver.Sources5"
     ],
+    "build-options" : {
+        "prepend-path" : "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib",
+        "env" : {        }
+    },
     "cleanup": [
         "/include",
         "/lib/pkgconfig",

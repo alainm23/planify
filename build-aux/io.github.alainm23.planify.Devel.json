@@ -4,6 +4,9 @@
     "runtime-version": "44",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.vala"
+    ],
     "tags" : [
         "devel"
     ],
@@ -20,9 +23,11 @@
         "--own-name=io.github.alainm23.planify.quick-add",
         "--own-name=io.github.alainm23.planify"
     ],
-    "x-run-args" : [
-        "--debug"
-    ],
+    "build-options" : {
+        "prepend-path" : "/usr/lib/sdk/vala/bin/",
+        "prepend-ld-library-path" : "/usr/lib/sdk/vala/lib",
+        "env" : {        }
+    },
     "cleanup" : [
         "/include",
         "/lib/pkgconfig",
