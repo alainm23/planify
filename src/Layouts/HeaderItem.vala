@@ -269,12 +269,12 @@ public class Layouts.HeaderItem : Gtk.Grid {
         content_revealer.reveal_child = size > 0;
     }
 
-    public void set_sort_func (Gtk.ListBoxSortFunc? sort_func) {
-        listbox.set_sort_func (sort_func);
+    public void set_sort_func (owned Gtk.ListBoxSortFunc? sort_func) {
+        listbox.set_sort_func ((owned) sort_func);
     }
 
-    public void set_filter_func (Gtk.ListBoxFilterFunc? filter_func) {
-        listbox.set_filter_func (filter_func);
+    public void set_filter_func (owned Gtk.ListBoxFilterFunc? filter_func) {
+        listbox.set_filter_func ((owned) filter_func);
     }
 
     public void invalidate_filter () {
