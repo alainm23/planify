@@ -21,7 +21,7 @@
 
 public class Dialogs.RepeatConfig : Adw.Window {
     private Gtk.SpinButton recurrency_interval;
-    private Gtk.ComboBoxText recurrency_combobox;
+    private Gtk.DropDown recurrency_combobox;
     private Gtk.Label repeat_label;
 
     private Gtk.CheckButton mo_button;
@@ -37,9 +37,9 @@ public class Dialogs.RepeatConfig : Adw.Window {
             recurrency_interval.value = value.recurrency_interval;
 
             if (value.recurrency_type == RecurrencyType.NONE) {
-                recurrency_combobox.active = 0;
+                recurrency_combobox.selected = 0;
             } else {
-                recurrency_combobox.active = (int) value.recurrency_type;
+                recurrency_combobox.selected = (int) value.recurrency_type;
             }
 
             if (value.recurrency_type == RecurrencyType.EVERY_WEEK) {
@@ -98,18 +98,17 @@ public class Dialogs.RepeatConfig : Adw.Window {
         };
         recurrency_interval.add_css_class ("popover-spinbutton");
 
-        recurrency_combobox = new Gtk.ComboBoxText () {
+        string[] items = {
+            _("Days(s)"), _("Week(s)"), _("Month(s)"), _("Year(s)")
+        };
+
+        recurrency_combobox = new Gtk.DropDown.from_strings (items) {
             hexpand = true,
             margin_top = 6,
             margin_end = 6,
             margin_bottom = 6
         };
-        
-        recurrency_combobox.append_text (_("Day(s)"));
-        recurrency_combobox.append_text (_("Week(s)"));
-        recurrency_combobox.append_text (_("Month(s)"));
-        recurrency_combobox.append_text (_("Year(s)"));
-        recurrency_combobox.active = 0;
+        recurrency_combobox.selected = 0;
 
         var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -181,8 +180,8 @@ public class Dialogs.RepeatConfig : Adw.Window {
             update_repeat_label ();
         });
 
-        recurrency_combobox.changed.connect (() => {
-            if ((RecurrencyType) this.recurrency_combobox.get_active() == RecurrencyType.EVERY_WEEK) {
+        recurrency_combobox.notify["selected-item"].connect (() => {
+            if ((RecurrencyType) this.recurrency_combobox.selected == RecurrencyType.EVERY_WEEK) {
                 weeks_revealer.reveal_child = true;
             } else {
                 weeks_revealer.reveal_child = false;
@@ -228,7 +227,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
     private void set_repeat () {
         var duedate = new Objects.DueDate ();
         duedate.is_recurring = true;
-        duedate.recurrency_type = (RecurrencyType) this.recurrency_combobox.get_active();
+        duedate.recurrency_type = (RecurrencyType) this.recurrency_combobox.selected;
         duedate.recurrency_interval = (int) recurrency_interval.value;
 
         if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
@@ -285,7 +284,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
     }
 
     private void update_repeat_label () {
-        RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.get_active();
+        RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.selected;
         string label = Util.get_default ().get_recurrency_weeks (selected_option, (int)  recurrency_interval.value, get_recurrency_weeks ());
         repeat_label.label = label;
     }
