@@ -62,13 +62,12 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
     }
 
     public void update () {
-        remove (label_sunday);
-        remove (label_monday);
-        remove (label_tuesday);
-        remove (label_wednesday);
-        remove (label_thursday);
-        remove (label_friday);
-        remove (label_saturday);
+        for (Gtk.Widget? child = get_first_child (); child != null;) {
+            Gtk.Widget? next = child.get_next_sibling ();
+            remove (child);
+
+            child = next;
+        }
 
         var start_week = Services.Settings.get_default ().settings.get_enum ("start-week");
         
