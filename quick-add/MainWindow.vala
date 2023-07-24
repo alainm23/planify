@@ -83,7 +83,7 @@ public class MainWindow : Adw.ApplicationWindow {
         quick_add_content.append (description_textview);
         quick_add_content.append (action_box);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-do"));
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do"));
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
         submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
         submit_button.add_css_class ("border-radius-6");

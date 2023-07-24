@@ -431,18 +431,18 @@ msgstr ""
 "个你自己的项目。"
 
 #: src/Util.vala:1178
-msgid "You're done!"
+msgid "You’re done!"
 msgstr "你完成了！"
 
 #: src/Util.vala:1179
 msgid ""
-"That's all you really need to know. Feel free to start adding your own "
+"That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "\n"
 "You can come back to this project later to learn the advanced features "
 "below..\n"
 "\n"
-"We hope you'll enjoy using Planify!"
+"We hope you’ll enjoy using Planify!"
 msgstr ""
 "这就是你真正需要知道的一切。请随意开始添加你自己的项目和待办事项。\n"
 "\n"
@@ -1405,7 +1405,7 @@ msgstr "上次同步"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:939
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
-"keystrokes. You don't even have to leave the app you're currently in."
+"keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
 "使用 '快速添加'，只需敲击几下键盘，就可以在桌面上的任何地方创建待办事项。你"
 "甚至不需要离开你目前所在的应用程序。"
@@ -1439,3 +1439,47 @@ msgstr "你确定要移除 Todoist 同步吗？此操作将会删除你所有的
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1014
 msgid "Sign off"
 msgstr "登出"
+
+#：src/Layouts/ProjectRow.vala:412
+#：src/Layouts/ProjectRow.vala:419
+msgid "Add to favorites"
+msgstr "添加至'最爱'"
+
+#：src/Layouts/ProjectRow.vala:412
+#：src/Layouts/ProjectRow.vala:419
+msgid "Remove from favorites"
+msgstr "从'最爱'移除"
+
+#: quick-add/MainWindow.vala:40
+msgid "To-do name"
+msgstr "待办事项名称"
+
+#: quick-add/MainWindow.vala:55
+msgid "Add a description…"
+msgstr "添加一个描述..."
+
+#: quick-add/MainWindow.vala:17
+msgid "Planify - Quick Add"
+msgstr "Planify - 快速添加"
+
+#: quick-add/MainWindow.vala:146
+msgid ""
+"I'm sorry, Quick Add can't find any project available, try "
+"creating a project from Planify."
+msgstr ""
+"很抱歉，'快速添加'无法找到任何可用的项目，"
+"请尝试从 Planify 创建一个项目。"
+
+#: quick-add/MainWindow.vala:169
+msgid "To-do added"
+msgstr "待办事项已添加"
+
+#: #: src/Util.vala:1121
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around in it – you can always create "
+"a new one from settings."
+msgstr ""
+"该项目将为您提供一切入门所需的信息。"
+"请随意在其中进行操作，如果需要，您随"
+"时可以从设置中创建一个新的项目。"
