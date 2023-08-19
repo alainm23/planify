@@ -99,7 +99,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
         recurrency_interval.add_css_class ("popover-spinbutton");
 
         string[] items = {
-            _("Days(s)"), _("Week(s)"), _("Month(s)"), _("Year(s)")
+            _("Day(s)"), _("Week(s)"), _("Month(s)"), _("Year(s)")
         };
 
         recurrency_combobox = new Gtk.DropDown.from_strings (items) {
