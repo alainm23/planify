@@ -25,7 +25,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             hexpand = true,
             halign = Gtk.Align.START
         };
-        title_image.size = 19;
+        title_image.size = 16;
 
         title_label = new Gtk.Label (null) {
             hexpand = true,

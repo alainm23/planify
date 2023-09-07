@@ -11,7 +11,7 @@ public class Widgets.SyncButton : Gtk.Grid {
 
     construct {
         sync_icon = new Widgets.DynamicIcon ();
-        sync_icon.size = 21;
+        sync_icon.size = 16;
         sync_icon.update_icon_name ("planner-refresh");
 
         var sync_button = new Gtk.Button () {

@@ -255,11 +255,11 @@ public class Views.Project : Gtk.Grid {
 				list_view.prepare_new_item (content);
 			}
 		} else {
-			//  Views.Board? board_view;
-			//  board_view = (Views.Board) view_stack.get_child_by_name (project.view_style.to_string ());
-			//  if (board_view != null) {
-
-			//  }
+			Views.Board? board_view;
+			board_view = (Views.Board) view_stack.get_child_by_name (project.view_style.to_string ());
+			if (board_view != null) {
+                board_view.prepare_new_item (content);
+			}
 		}
 	}
 

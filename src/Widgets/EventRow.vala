@@ -142,7 +142,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 			color
 			);
 
-		provider.load_from_data (colored_css.data);
+		provider.load_from_data (colored_css, colored_css.length);
 
 		Gtk.StyleContext.add_provider_for_display (
 			Gdk.Display.get_default (), provider,

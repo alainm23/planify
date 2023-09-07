@@ -110,4 +110,8 @@ public class Views.Board : Gtk.Grid {
             flowbox.append (sections_map[section.id]);
         }
     }
+
+    public void prepare_new_item (string content = "") {
+        inbox_board.prepare_new_item (content);
+    }
 }

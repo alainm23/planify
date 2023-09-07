@@ -5,6 +5,7 @@ public class Widgets.LoadingButton : Gtk.Button {
     bool _is_loading;
 
     private Gtk.Stack submit_stack;
+    private Widgets.DynamicIcon icon;
 
     [Description (nick = "Show loading", blurb = "Show loading")]
     public bool is_loading {
@@ -61,7 +62,7 @@ public class Widgets.LoadingButton : Gtk.Button {
         if (loading_type == LoadingButtonType.LABEL) {
             submit_stack.add_named (new Gtk.Label (text_icon), "button");
         } else {
-            var icon = new Widgets.DynamicIcon ();
+            icon = new Widgets.DynamicIcon ();
             icon.size = icon_size;
             icon.update_icon_name (text_icon);
             submit_stack.add_named (icon, "button");
@@ -70,5 +71,11 @@ public class Widgets.LoadingButton : Gtk.Button {
         submit_stack.add_named (submit_spinner, "spinner");
 
         child = submit_stack;
+    }
+
+    public void update_icon (string icon_name) {
+        if (icon != null) {
+            icon.update_icon_name (icon_name);
+        }
     }
 }

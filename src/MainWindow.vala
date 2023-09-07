@@ -5,6 +5,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Stack views_stack;
 	private Adw.Flap flap_view;
 	private Widgets.ProjectViewHeaderBar project_view_headerbar;
+	private Widgets.LabelsHeader labels_header;
 	private Gtk.MenuButton settings_button;
 
 	public Services.ActionManager action_manager;
@@ -242,6 +243,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		sidebar.init();
+		labels_header.init ();
 
 		Services.Notification.get_default ();
 		Services.TimeMonitor.get_default ();
@@ -449,12 +451,12 @@ public class MainWindow : Adw.ApplicationWindow {
 	private void change_todoist_default (bool use_todoist, string inbox_project_id) {
 		if (use_todoist) {
 			var old_inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
-			// old_inbox_project.inbox_project = false;
-			// old_inbox_project.update ();
+			old_inbox_project.inbox_project = false;
+			old_inbox_project.update ();
 
 			var new_inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
-			// new_inbox_project.inbox_project = true;
-			// old_inbox_project.update ();
+			new_inbox_project.inbox_project = true;
+			old_inbox_project.update ();
 
 			Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project_id);
 			Services.Settings.get_default ().settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
@@ -469,11 +471,14 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
 		preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
+		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
 		keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
+		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
+		about_item.add_css_class ("no-font-bold");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -495,10 +500,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			dialog.show ();
 		});
 
-		about_item.clicked.connect (() => {
-            popover.popdown ();
-            about_dialog ();
-        });
+		about_item.clicked.connect (about_dialog);
 
 		keyboard_shortcuts_item.clicked.connect (() => {
 			popover.popdown ();

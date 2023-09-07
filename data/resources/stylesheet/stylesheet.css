@@ -448,3 +448,7 @@ entry.flat:focus-within {
 .min-height-0 {
     min-height: 0;
 }
+
+.no-font-bold {
+    font-weight: normal;
+}

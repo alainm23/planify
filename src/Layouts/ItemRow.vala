@@ -33,8 +33,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     
     private Gtk.Popover menu_popover = null;
     private Widgets.ContextMenu.MenuItem more_information_item;
-    private Gtk.Button cancel_button;
-    private Gtk.Revealer actionbar_revealer;
     private Widgets.LoadingButton hide_loading_button;
     private Widgets.LoadingButton submit_button;
     private Widgets.HyperTextView description_textview;
@@ -50,10 +48,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.Box action_box;
 
     private Widgets.SubItems subitems;
-    private Gtk.Revealer submit_cancel_revealer;
-    private Gtk.Button delete_button;
+    private Gtk.Revealer submit_button_revealer;
     private Gtk.Button menu_button;
-    private Gtk.Revealer delete_button_revealer;
     private Gtk.Revealer menu_button_revealer;
     private Gtk.Button hide_subtask_button;
     private Gtk.Revealer hide_subtask_revealer;
@@ -82,7 +78,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
-                actionbar_revealer.reveal_child = !item.completed;
                 item_summary.reveal_child = false;
                 labels_summary.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
@@ -115,7 +110,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
-                actionbar_revealer.reveal_child = false;
                 item_summary.check_revealer ();
                 labels_summary.check_revealer ();
                 hide_loading_button.add_css_class ("no-padding");
@@ -300,7 +294,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         content_entry_revealer.child = content_textview;
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("chevron-down", 19) {
+        string hide_loading_icon = is_creating ? "planner-close-circle" : "chevron-down";
+        hide_loading_button = new Widgets.LoadingButton.with_icon (hide_loading_icon, 19) {
             valign = Gtk.Align.START,
             can_focus = false
         };
@@ -414,9 +409,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             sensitive = !item.completed
         };
 
-        //  project_button = new Widgets.ProjectButton (item) {
-        //      sensitive = !item.completed
-        //  };
 
         schedule_button = new Widgets.ScheduleButton ();
 
@@ -425,7 +417,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         label_button = new Widgets.LabelButton (item);
 
         pin_button = new Widgets.PinButton (item);
-        
+
         reminder_button = new Widgets.ReminderButton (item) {
             visible = !is_creating
         };
@@ -445,6 +437,39 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Save")) {
+            margin_start = 6,
+            margin_end = 3,
+            can_focus = false
+        };
+        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        submit_button.add_css_class ("border-radius-6");
+        submit_button.add_css_class ("action-button");
+
+        submit_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            valign = Gtk.Align.START,
+            reveal_child = is_creating,
+            child = submit_button
+        };
+
+        var menu_image = new Widgets.DynamicIcon ();
+        menu_image.size = 19;
+        menu_image.update_icon_name ("dots-horizontal");
+        
+        menu_button = new Gtk.Button () {
+            can_focus = false,
+            child = menu_image
+        };
+        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        
+        menu_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            reveal_child = !is_creating,
+            child = menu_button
+        };
+
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 16,
             margin_top = 6,
@@ -463,6 +488,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
         action_box_right.append (pin_button);
+        action_box_right.append (submit_button_revealer);
+        action_box_right.append (menu_button_revealer);
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
@@ -480,7 +507,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         detail_revealer.child = details_grid;
 
         handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            valign = Gtk.Align.START
+            valign = board ? Gtk.Align.FILL : Gtk.Align.START,
+            vexpand = board
         };
 
         handle_grid.add_css_class ("transition");
@@ -518,98 +546,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_eventbox_box.append (repeat_image_revealer);
         itemrow_eventbox_box.append (select_revealer);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Save"));
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        submit_button.add_css_class ("border-radius-6");
-        submit_button.add_css_class ("action-button");
-
-        cancel_button = new Gtk.Button.with_label (_("Cancel")) {
-            can_focus = false
-        };
-        cancel_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        cancel_button.add_css_class ("border-radius-6");
-        cancel_button.add_css_class ("action-button");
-        
-        var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            homogeneous = true
-        };
-        submit_cancel_grid.append (cancel_button);
-        submit_cancel_grid.append (submit_button);
-
-        submit_cancel_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = is_creating
-        };
-
-        submit_cancel_revealer.child = submit_cancel_grid;
-
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
-        
-        menu_button = new Gtk.Button () {
-            can_focus = false
-        };
-
-        menu_button.child = menu_image;
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        
-        menu_button_revealer = new Gtk.Revealer () {
-            reveal_child = !is_creating
-        };
-
-        menu_button_revealer.child = menu_button;
-
-        var trash_image = new Widgets.DynamicIcon ();
-        trash_image.size = 19;
-        trash_image.update_icon_name ("planner-trash");
-
-        delete_button = new Gtk.Button () {
-            can_focus = false
-        };
-
-        delete_button.child = trash_image;
-        delete_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        delete_button_revealer = new Gtk.Revealer () {
-            reveal_child = !is_creating
-        };
-
-        delete_button_revealer.child = delete_button;
-
-        var project_delete_menu_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            halign = Gtk.Align.END
-        };
-
-        // project_delete_menu_box.append (project_button);
-        project_delete_menu_box.append (delete_button_revealer);
-        project_delete_menu_box.append (menu_button_revealer);
-
-        var actionbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 15
-        };
-
-        actionbar_box.append (submit_cancel_revealer);
-        actionbar_box.append (project_delete_menu_box);
-        actionbar_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
-        };
-
-        actionbar_revealer.child = actionbar_box;
-
         subitems = new Widgets.SubItems (item);
 
         main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-
         main_grid.add_css_class ("transition");
         main_grid.append (itemrow_eventbox_box);
-        main_grid.append (actionbar_revealer);
         main_grid.append (subitems);
 
         main_revealer = new Gtk.Revealer () {
@@ -733,13 +674,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             add_item ();
         });
 
-        cancel_button.clicked.connect (() => {
-            if (is_creating) {
-                Services.EventBus.get_default ().new_item_deleted (item.project_id);
-                hide_destroy ();
-            }
-        });
-
         var checked_button_gesture = new Gtk.GestureClick ();
         checked_button_gesture.set_button (1);
         checked_button.add_controller (checked_button_gesture);
@@ -761,6 +695,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 
             if (is_creating) {
+                Services.EventBus.get_default ().new_item_deleted (item.project_id);
                 hide_destroy ();
             } else {
                 if (!board) {
@@ -795,11 +730,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         item_labels.labels_changed.connect (update_labels);
         label_button.labels_changed.connect (update_labels);
-
-        delete_button.clicked.connect (() => {
-            delete_request ();
-        });
-
 
         Services.EventBus.get_default ().checked_toggled.connect ((i) => {
             if (item.id == i.parent_id) {
@@ -914,13 +844,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public void update_inserted_item () {
         update_request ();
 
-        submit_cancel_revealer.reveal_child = false;
+        submit_button_revealer.reveal_child = false;
         submit_button.is_loading = false;
         
+        hide_loading_button.update_icon ("chevron-down");
         add_button.visible = true;
-        delete_button_revealer.reveal_child = true;
         menu_button_revealer.reveal_child = true;
-
         reminder_button.visible =  true;
 
         edit = false;
@@ -958,7 +887,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
 
         if (edit) {
-            actionbar_revealer.reveal_child = !item.completed;
             content_textview.editable = !item.completed;
             description_textview.editable = !item.completed;
             item_labels.sensitive = !item.completed;
@@ -1188,6 +1116,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
         more_information_item.add_css_class ("small-label");
 
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        delete_item.add_css_class ("menu-item-danger");
+
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (copy_clipboard_item);
@@ -1195,6 +1126,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_box.append (move_item);
         menu_box.append (move_item_section);
         menu_box.append (repeat_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
 
@@ -1268,6 +1201,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         menu_popover.closed.connect (() => {
             menu_stack.set_visible_child_name ("menu");
+        });
+
+        delete_item.activate_item.connect (() => {
+            menu_popover.popdown ();
+            delete_request ();
         });
     }
 

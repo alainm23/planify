@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="16"
+   height="16"
    fill="none"
-   viewBox="0 0 24 24"
+   viewBox="0 0 16 16"
    version="1.1"
    id="svg10"
    sodipodi:docname="planner-scheduled.svg"
-   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -46,9 +46,9 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      showgrid="false"
-     inkscape:zoom="15.615275"
-     inkscape:cx="16.041985"
-     inkscape:cy="15.625725"
+     inkscape:zoom="7.8076375"
+     inkscape:cx="20.812954"
+     inkscape:cy="6.339946"
      inkscape:window-width="1366"
      inkscape:window-height="699"
      inkscape:window-x="0"
@@ -57,36 +57,40 @@
      inkscape:current-layer="svg10"
      inkscape:showpageshadow="2"
      inkscape:deskcolor="#d1d1d1" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M4.75 8.75C4.75 7.64543 5.64543 6.75 6.75 6.75H17.25C18.3546 6.75 19.25 7.64543 19.25 8.75V17.25C19.25 18.3546 18.3546 19.25 17.25 19.25H6.75C5.64543 19.25 4.75 18.3546 4.75 17.25V8.75Z"
-     id="path2"
-     style="stroke:#9d59e0;stroke-opacity:1;fill:#9d59e0;fill-opacity:0.14901961" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M8 4.75V8.25"
-     id="path4"
-     style="stroke:#9d59e0;stroke-opacity:1" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M16 4.75V8.25"
-     id="path6"
-     style="stroke:#9d59e0;stroke-opacity:1;fill-opacity:1;fill:url(#linearGradient830)" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M7.75 10.75H16.25"
-     id="path8"
-     style="stroke:#9d59e0;stroke-opacity:1" />
+  <g
+     id="g1"
+     transform="matrix(0.875,0,0,0.875,-2.5,-2.5)">
+    <path
+       stroke="currentColor"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="1.5"
+       d="m 4.75,8.75 c 0,-1.10457 0.89543,-2 2,-2 h 10.5 c 1.1046,0 2,0.89543 2,2 v 8.5 c 0,1.1046 -0.8954,2 -2,2 H 6.75 c -1.10457,0 -2,-0.8954 -2,-2 z"
+       id="path2"
+       style="fill:#9d59e0;fill-opacity:0.14902;stroke:#9d59e0;stroke-opacity:1" />
+    <path
+       stroke="currentColor"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="1.5"
+       d="m 8,4.75 v 3.5"
+       id="path4"
+       style="stroke:#9d59e0;stroke-opacity:1" />
+    <path
+       stroke="currentColor"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="1.5"
+       d="m 16,4.75 v 3.5"
+       id="path6"
+       style="fill:url(#linearGradient830);fill-opacity:1;stroke:#9d59e0;stroke-opacity:1" />
+    <path
+       stroke="currentColor"
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="1.5"
+       d="m 7.75,10.75 h 8.5"
+       id="path8"
+       style="stroke:#9d59e0;stroke-opacity:1" />
+  </g>
 </svg>

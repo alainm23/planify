@@ -153,10 +153,9 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            can_focus = false
+            can_focus = false,
+            child = add_image
         };
-
-        add_button.child = add_image;
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         add_button.add_css_class ("p3");

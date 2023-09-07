@@ -54,7 +54,9 @@ public class Dialogs.Item : Adw.Window {
         view_headerbar.pack_start (nav_label);
 
         row = new Layouts.ItemRow.for_board (item) {
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 12,
+            vexpand = true
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -90,8 +92,6 @@ public class Dialogs.Item : Adw.Window {
             section_name = item.section.name;
         }
         nav_label.label = "%s → %s".printf (item.project.short_name, section_name);
-
-        row.margin_bottom = item.completed ? 12 : 0;
     }
 
     public void hide_destroy () {
