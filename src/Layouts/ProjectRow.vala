@@ -409,15 +409,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
-            favorite_item.title = project.is_favorite ? ("Remove from favorites") : ("Add to favorites");
+            favorite_item.title = project.is_favorite ? _("Remove from favorites") : _("Add to favorites");
 
             menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_popover.popup ();
             return;
         }
         
-        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? ("Remove from favorites") : ("Add to favorites"), "planner-star");
-        var edit_item = new Widgets.ContextMenu.MenuItem (("Edit project"), "planner-edit");
+        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove from favorites") : _("Add to favorites"), "planner-star");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
@@ -472,7 +472,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
 
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
-            _("Delete project"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
+            _("Delete project"), _("Are you sure you want to delete <b>%s</b>?").printf (Util.get_default ().get_dialog_text (project.short_name)));
 
             dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));

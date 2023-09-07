@@ -1107,11 +1107,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             return;
         }
 
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (("Copy to clipboard"), "planner-clipboard");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (("Duplicate"), "planner-copy");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to clipboard"), "planner-clipboard");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
         var move_item_section = new Widgets.ContextMenu.MenuItem (_("Move to Section"), "chevron-right");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (("Repeat"), "planner-rotate");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
 
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
         more_information_item.add_css_class ("small-label");
@@ -1210,12 +1210,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private Gtk.Widget get_repeat_widget () {
-        var none_item = new Widgets.ContextMenu.MenuItem (("None"));
-        var daily_item = new Widgets.ContextMenu.MenuItem (("Daily"));
-        var weekly_item = new Widgets.ContextMenu.MenuItem (("Weekly"));
-        var monthly_item = new Widgets.ContextMenu.MenuItem (("Monthly"));
-        var yearly_item = new Widgets.ContextMenu.MenuItem (("Yearly"));
-        var custom_item = new Widgets.ContextMenu.MenuItem (("Custom"));
+        var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
+        var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
+        var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
+        var monthly_item = new Widgets.ContextMenu.MenuItem (_("Monthly"));
+        var yearly_item = new Widgets.ContextMenu.MenuItem (_("Yearly"));
+        var custom_item = new Widgets.ContextMenu.MenuItem (_("Custom"));
         
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -1509,7 +1509,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     public void delete_request (bool undo = true) {
         if (board) {
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
-			                                    _("Delete to-do"), _("Are you sure you want to delete this to-do?"));
+			                                    _("Delete To-Do"), _("Are you sure you want to delete this to-do?"));
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));

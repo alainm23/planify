@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-06-23 20:36-0500\n"
-"PO-Revision-Date: 2023-06-26 09:40+0800\n"
-"Last-Translator: 傅申 <sh.fu@outlook.com>\n"
+"PO-Revision-Date: 2023-08-20 03:43+0800\n"
+"Last-Translator: YaoSheng <henryau53@gmail.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: src/App.vala:86 src/Dialogs/Preferences/PreferencesWindow.vala:120
 msgid "Are you sure you want to reset all?"
@@ -136,7 +136,7 @@ msgstr "Planify"
 
 #: src/MainWindow.vala:96
 msgid "Toggle Sidebar"
-msgstr "打开/关闭侧边栏"
+msgstr "打开或关闭侧边栏"
 
 #: src/MainWindow.vala:238
 msgid "Tasks synced successfully"
@@ -263,7 +263,8 @@ msgstr "深色"
 msgid "Dark Blue"
 msgstr "深蓝色"
 
-#: src/Util.vala:237 src/Dialogs/Preferences/PreferencesWindow.vala:246
+#: src/Layouts/ItemRow.vala:1275 src/Util.vala:237
+#: src/Dialogs/Preferences/PreferencesWindow.vala:246
 msgid "None"
 msgstr "无"
 
@@ -385,7 +386,7 @@ msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 "Completed to-dos are collected al the bottom of your project."
 msgstr ""
-"你正在看一个待办事项! 点击左边的复选框来完成它。完成的待办事项会被收集在你的"
+"你正在看一个待办事项！点击左边的复选框来完成它。完成的待办事项会被收集在你的"
 "项目底部。"
 
 #: src/Util.vala:1154
@@ -397,7 +398,7 @@ msgid ""
 "Now it's your turn, tap the '+' button at the top of your project, enter any "
 "pending and tap the blue 'Save' button."
 msgstr ""
-"现在轮到你了，点击你的项目顶部的 '+' 键，输入任何待定，然后点击蓝色的 '保存' "
+"现在轮到你了，点击你的项目顶部的 ‘+’ 键，输入任何待定，然后点击蓝色的 ‘保存’ "
 "按钮。"
 
 #: src/Util.vala:1160
@@ -427,22 +428,22 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"更好地组织你的待办事项! 进入左侧面板，点击 '此电脑上' 部分的 '+' 按钮，添加一"
+"更好地组织你的待办事项！进入左侧面板，点击 ‘此电脑上’ 部分的 ‘+’ 按钮，添加一"
 "个你自己的项目。"
 
 #: src/Util.vala:1178
-msgid "You're done!"
+msgid "You’re done!"
 msgstr "你完成了！"
 
 #: src/Util.vala:1179
 msgid ""
-"That's all you really need to know. Feel free to start adding your own "
+"That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
 "\n"
 "You can come back to this project later to learn the advanced features "
 "below..\n"
 "\n"
-"We hope you'll enjoy using Planify!"
+"We hope you’ll enjoy using Planify!"
 msgstr ""
 "这就是你真正需要知道的一切。请随意开始添加你自己的项目和待办事项。\n"
 "\n"
@@ -463,7 +464,7 @@ msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 Calendar Events to turn ir on."
 msgstr ""
-"您可以在 Planify 中显示您系统的日历事件。进入 '偏好设置' 🡒 '日历事件' 来打"
+"您可以在 Planify 中显示您系统的日历事件。进入 ‘偏好设置’ 🡒 ‘日历事件’ 来打"
 "开。"
 
 #: src/Util.vala:1210
@@ -476,7 +477,7 @@ msgid ""
 "Todoist, Google Tasks and CalDAV accounts. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify不仅可以在本地创建任务，它还可以同步你的 Todoist、Google Tasks 和 "
-"CalDAV 账户。进入 '偏好设置' 🡒 '账户'。"
+"CalDAV 账户。进入 ‘偏好设置’ 🡒 ‘账户’ 。"
 
 #: src/Util.vala:1222
 msgid "💼️Work"
@@ -505,7 +506,7 @@ msgstr "此电脑上"
 #: src/Layouts/ItemBoard.vala:265 src/Layouts/ItemRow.vala:1489
 #, c-format
 msgid "Completed. Next occurrence: %s"
-msgstr "已完成，下一个事件: %s"
+msgstr "已完成，下一个事件：%s"
 
 #: src/Layouts/ItemRow.vala:366 src/Views/List.vala:35 src/Views/List.vala:259
 #: src/Dialogs/Item.vala:176 src/Dialogs/ProjectDescription.vala:42
@@ -534,6 +535,14 @@ msgstr "无日期"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:104
 msgid "Move"
 msgstr "移动"
+
+#: src/Layouts/ItemRow.vala:1182
+msgid "Copy to clipboard"
+msgstr "复制到剪切板"
+
+#: src/Layouts/ItemRow.vala:1183
+msgid "Duplicate"
+msgstr "创建副本"
 
 #: src/Layouts/ItemRow.vala:1012
 msgid "Move to Section"
@@ -654,7 +663,7 @@ msgstr "最爱"
 
 #: src/Layouts/Sidebar.vala:56
 msgid "No favorites available. Create one by clicking on the '+' button"
-msgstr "没有可用最爱。点击 '+' 按钮以创建"
+msgstr "尚无可用 ‘最爱’，点击 ‘+’ 按钮创建"
 
 #: src/Layouts/Sidebar.vala:60 src/Dialogs/Project.vala:139
 #: src/Dialogs/Preferences/PreferencesWindow.vala:565
@@ -668,7 +677,7 @@ msgstr "添加项目"
 #: src/Layouts/Sidebar.vala:62 src/Layouts/Sidebar.vala:172
 #: src/Layouts/Sidebar.vala:185
 msgid "No project available. Create one by clicking on the '+' button"
-msgstr "没有可用项目。点击 '+' 按钮以创建"
+msgstr "尚无可用项目，点击 ‘+’ 按钮创建"
 
 #: src/Layouts/Sidebar.vala:171 src/Layouts/Sidebar.vala:174
 #: src/Dialogs/Project.vala:140
@@ -681,7 +690,7 @@ msgstr "Todoist"
 
 #: src/Layouts/Sidebar.vala:175 src/Layouts/Sidebar.vala:188
 msgid "No account available, Sync one by clicking the '+' button"
-msgstr "无可用账户，点击 '+' 按钮以同步"
+msgstr "尚无可用账户，点击 ‘+’ 按钮以同步"
 
 #: src/Layouts/Sidebar.vala:184 src/Layouts/Sidebar.vala:187
 #: src/Dialogs/Preferences/PreferencesWindow.vala:634
@@ -717,7 +726,7 @@ msgstr "以标签过滤"
 
 #: src/Widgets/LabelsHeader.vala:23
 msgid "No label available, click to add one"
-msgstr "无可用标签，点击以创建"
+msgstr "尚无可用标签，点击创建"
 
 #: src/Widgets/LabelsHeader.vala:130 src/Dialogs/Label.vala:95
 msgid "Add label"
@@ -727,7 +736,7 @@ msgstr "添加标签"
 msgid ""
 "Your list of filters will show up here. Create one by clicking on the '+' "
 "button"
-msgstr "你的过滤器列表将显示在这里。点击 '+' 按钮以创建"
+msgstr "你的过滤器列表将显示在这里，点击 ‘+’ 按钮创建"
 
 #: src/Widgets/MultiSelectToolbar.vala:50
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:147
@@ -746,7 +755,7 @@ msgstr "计划"
 msgid "Mask as Completed"
 msgstr "标记为完成"
 
-#: src/Widgets/MultiSelectToolbar.vala:307
+#: src/Widgets/MultiSelectToolbar.vala:307 src/Layouts/ItemRow.vala:1574
 msgid "Delete To-Do"
 msgstr "删除待办事项"
 
@@ -885,31 +894,31 @@ msgstr "%Y"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:40
 msgid "Mo"
-msgstr "周一"
+msgstr "一"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:43
 msgid "Tu"
-msgstr "周二"
+msgstr "二"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:46
 msgid "We"
-msgstr "周三"
+msgstr "三"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:49
 msgid "Th"
-msgstr "周四"
+msgstr "四"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:52
 msgid "Fr"
-msgstr "周五"
+msgstr "五"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:55
 msgid "Sa"
-msgstr "周六"
+msgstr "六"
 
 #: src/Widgets/Calendar/CalendarWeek.vala:58
 msgid "Su"
-msgstr "周日"
+msgstr "日"
 
 #: src/Widgets/DateTimePicker/DateTimePicker.vala:80
 #: src/Dialogs/DatePicker.vala:71
@@ -948,7 +957,7 @@ msgstr "搜索或创建"
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr "你的过滤器列表将显示在这里。输入名称并按下回车键以创建。"
+msgstr "你的过滤器列表将显示在这里，输入名称并按下回车键创建。"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
@@ -963,7 +972,7 @@ msgstr "添加备忘录"
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:246
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the button."
-msgstr "你的备忘录列表将显示在这里。点击按钮以创建。"
+msgstr "你的备忘录列表将显示在这里，点击按钮创建。"
 
 #: src/Views/Date.vala:41 src/Views/Today.vala:59
 msgid "Overdue"
@@ -976,7 +985,7 @@ msgstr "重新计划"
 #: src/Views/Date.vala:136 src/Views/Filter.vala:136 src/Views/List.vala:83
 #: src/Views/Pinboard.vala:34 src/Views/Today.vala:158
 msgid "Press 'a' or tap the plus button to create a new to-do"
-msgstr "按 'a' 或点击 '+' 按钮以创建新待办事项"
+msgstr "按 ‘a’ 或点击 ‘+’ 按钮创建新待办事项"
 
 #: src/Views/Filter.vala:220 src/Objects/Filters/Completed.vala:37
 msgid "Completed"
@@ -1110,9 +1119,29 @@ msgstr "成功添加项目！"
 msgid "Project Description"
 msgstr "项目描述"
 
-#: src/Dialogs/RepeatConfig.vala:66
+#: src/Dialogs/RepeatConfig.vala:66 src/Layouts/ItemRow.vala:1186
 msgid "Repeat"
 msgstr "重复"
+
+#: src/Layouts/ItemRow.vala:1276
+msgid "Daily"
+msgstr "每天"
+
+#: src/Layouts/ItemRow.vala:1277
+msgid "Weekly"
+msgstr "每周"
+
+#: src/Layouts/ItemRow.vala:1278
+msgid "Monthly"
+msgstr "每月"
+
+#: src/Layouts/ItemRow.vala:1279
+msgid "Yearly"
+msgstr "每年"
+
+#: src/Layouts/ItemRow.vala:1280
+msgid "Custom"
+msgstr "自定义"
 
 #: src/Dialogs/RepeatConfig.vala:108
 msgid "Day(s)"
@@ -1339,7 +1368,7 @@ msgstr "完成任务"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:236
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option."
-msgstr "立即完成你的待办事项，或者等待2500毫秒（具备撤销选项）。"
+msgstr "立即完成你的待办事项，或者等待 2500 毫秒（具备撤销选项）。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:243
 msgid "Priority 1"
@@ -1405,10 +1434,10 @@ msgstr "上次同步"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:939
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
-"keystrokes. You don't even have to leave the app you're currently in."
+"keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
-"使用 '快速添加'，只需敲击几下键盘，就可以在桌面上的任何地方创建待办事项。你"
-"甚至不需要离开你目前所在的应用程序。"
+"使用 ‘快速添加’，只需敲击几下键盘，就可以在桌面上的任何地方创建待办事项。你甚"
+"至不需要离开你目前所在的应用程序。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:945
 msgid "Set a custom shortcut in System Settings"
@@ -1418,7 +1447,9 @@ msgstr "在系统设置中设置自定义快捷键"
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
-msgstr "前往系统设置 → 键盘 → 快捷键 → 自定义，然后一个新的快捷键，内容如下："
+msgstr ""
+"前往 ‘系统设置’ → ‘键盘’ → ‘快捷键’ → ‘自定义’，然后一个新的快捷键，内容如"
+"下："
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:994
 msgid "The command was copied to the clipboard."
@@ -1439,3 +1470,128 @@ msgstr "你确定要移除 Todoist 同步吗？此操作将会删除你所有的
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1014
 msgid "Sign off"
 msgstr "登出"
+
+#: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
+msgid "Add to favorites"
+msgstr "添加至 ‘最爱’"
+
+#: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
+msgid "Remove from favorites"
+msgstr "从 ‘最爱’ 移除"
+
+#: quick-add/MainWindow.vala:40
+msgid "To-do name"
+msgstr "待办事项名称"
+
+#: quick-add/MainWindow.vala:55
+msgid "Add a description…"
+msgstr "添加一个描述…"
+
+#: quick-add/MainWindow.vala:17
+msgid "Planify - Quick Add"
+msgstr "Planify - 快速添加"
+
+#: quick-add/MainWindow.vala:146
+msgid ""
+"I'm sorry, Quick Add can't find any project available, try creating a "
+"project from Planify."
+msgstr ""
+"很抱歉，‘快速添加’ 无法找到任何可用的项目，请尝试从 Planify 创建一个项目。"
+
+#: quick-add/MainWindow.vala:169
+msgid "To-do added"
+msgstr "待办事项已添加"
+
+#: src/Util.vala:1121
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around in it – you can always create a new "
+"one from settings."
+msgstr ""
+"该项目将为您提供一切入门所需的信息。请随意在其中进行操作，如果需要，您随时可"
+"以从设置中创建一个新的项目。"
+
+#: data/resources/ui/shortcuts.ui:12
+msgctxt "shortcut window"
+msgid "Used anywhere"
+msgstr "任何地方使用"
+
+#: data/resources/ui/shortcuts.ui:16
+msgctxt "shortcut window"
+msgid "Create a new task"
+msgstr "创建一个新任务"
+
+#: data/resources/ui/shortcuts.ui:23
+msgctxt "shortcut window"
+msgid "Paste plain text to create new task"
+msgstr "通过粘贴纯文本创建新任务"
+
+#: data/resources/ui/shortcuts.ui:30
+msgctxt "shortcut window"
+msgid "Create a new project"
+msgstr "创建一个新项目"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Create a new section in a project"
+msgstr "在项目中创建一个新分区"
+
+#: data/resources/ui/shortcuts.ui:45
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "搜索"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Open Quick Find"
+msgstr "打开快速查找"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Control windows"
+msgstr "窗口控制"
+
+#: data/resources/ui/shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "退出"
+
+#: data/resources/ui/shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "打开偏好设置"
+
+#: data/resources/ui/shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Show/hide Sidebar"
+msgstr "显示或隐藏侧边栏"
+
+#: data/resources/ui/shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Open Keyboard Shortcuts"
+msgstr "打开快捷键"
+
+#: data/resources/ui/shortcuts.ui:90
+msgctxt "shortcut window"
+msgid "Navigate"
+msgstr "导航"
+
+#: data/resources/ui/shortcuts.ui:94
+msgctxt "shortcut window"
+msgid "Open Inbox"
+msgstr "打开待办收件箱"
+
+#: data/resources/ui/shortcuts.ui:101
+msgctxt "shortcut window"
+msgid "Open Today"
+msgstr "打开今日"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Open Scheduled"
+msgstr "打开已计划"
+
+#: data/resources/ui/shortcuts.ui:115
+msgctxt "shortcut window"
+msgid "Open Pinboard"
+msgstr "打开标签"

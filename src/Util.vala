@@ -1118,7 +1118,7 @@ public class Util : GLib.Object {
         project.name = _("Meet Planify");
         project.color = "blue";
         project.show_completed = true;
-        project.description = "This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.";
+        project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.");
 
         if (Services.Database.get_default ().insert_project (project)) {
             var item_01 = new Objects.Item ();
