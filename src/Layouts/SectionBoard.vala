@@ -29,6 +29,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     private Gtk.ListBox listbox;
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
+    private Widgets.LoadingButton add_button;
 
     public bool is_inbox_section {
         get {
@@ -73,7 +74,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         name_editable.add_style ("font-bold");
         name_editable.text = section.name;
 
-        var add_button = new Widgets.LoadingButton.with_icon ("planner-plus-circle", 19);
+        add_button = new Widgets.LoadingButton.with_icon ("planner-plus-circle", 19);
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var menu_image = new Widgets.DynamicIcon ();
@@ -170,7 +171,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             }
 
             check_inbox_visible ();
-
             return GLib.Source.REMOVE;
         });
 
@@ -304,30 +304,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         });
 
         add_button.clicked.connect (() => {
-            var item = new Objects.Item ();
-            item.project_id = section.project_id;
-            item.section_id = section.id;
-            item.content = _("My new to-do");
-
-
-            if (item.project.backend_type == BackendType.TODOIST) {
-                add_button.is_loading = true;
-                Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                    add_button.is_loading = false;
-                    string? id = Services.Todoist.get_default ().add.end (res);
-                    if (id != null) {
-                        item.id = id;
-                        item.activate_name_editable = true;
-                        Services.Database.get_default ().insert_item (item, false);
-                        add_item (item, 0);
-                    }
-                });
-            } else if (item.project.backend_type == BackendType.LOCAL) {
-                item.id = Util.get_default ().generate_id ();
-                item.activate_name_editable = true;
-                Services.Database.get_default ().insert_item (item, false);
-                add_item (item, 0);
-            }
+            prepare_new_item ();
         });
     }
 
@@ -543,7 +520,30 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     }
 
     public void prepare_new_item (string content = "") {
+        var item = new Objects.Item ();
+        item.project_id = section.project_id;
+        item.section_id = section.id;
+        item.content = _("My new to-do");
 
+
+        if (item.project.backend_type == BackendType.TODOIST) {
+            add_button.is_loading = true;
+            Services.Todoist.get_default ().add.begin (item, (obj, res) => {
+                add_button.is_loading = false;
+                string? id = Services.Todoist.get_default ().add.end (res);
+                if (id != null) {
+                    item.id = id;
+                    item.activate_name_editable = true;
+                    Services.Database.get_default ().insert_item (item, false);
+                    add_item (item, 0);
+                }
+            });
+        } else if (item.project.backend_type == BackendType.LOCAL) {
+            item.id = Util.get_default ().generate_id ();
+            item.activate_name_editable = true;
+            Services.Database.get_default ().insert_item (item, false);
+            add_item (item, 0);
+        }
     }
 
     private void move_section (string project_id) {
@@ -567,7 +567,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
 
     private void check_inbox_visible () {
         if (is_inbox_section) {
-            visible = items.size > 0;
+            // visible = items.size > 0;
         }
     }
 

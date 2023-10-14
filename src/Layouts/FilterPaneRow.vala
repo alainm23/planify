@@ -23,7 +23,8 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
 
         title_image = new Widgets.DynamicIcon () {
             hexpand = true,
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            margin_start = 3
         };
         title_image.size = 16;
 

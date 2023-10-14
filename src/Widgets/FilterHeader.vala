@@ -37,14 +37,18 @@ public class Widgets.FilterHeader : Gtk.Grid {
         sidebar_button.child = sidebar_image;
 
         var view_icon = new Gtk.Image () {
-            pixel_size = 24,
+            pixel_size = 16,
             valign = Gtk.Align.CENTER
         };
 
-        var title_label = new Gtk.Label (null);
+        var title_label = new Gtk.Label (null) {
+            valign = Gtk.Align.CENTER
+        };
         title_label.add_css_class ("font-bold");
 
-        date_label = new Gtk.Label (null);
+        date_label = new Gtk.Label (null) {
+            valign = Gtk.Align.CENTER
+        };
         date_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         date_label_revealer = new Gtk.Revealer () {

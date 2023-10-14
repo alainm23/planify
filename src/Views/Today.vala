@@ -73,7 +73,6 @@ public class Views.Today : Gtk.Grid {
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         overdue_header_box.append (overdue_label);
-        // overdue_header_box.append (reschedule_button);
 
         overdue_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -90,7 +89,9 @@ public class Views.Today : Gtk.Grid {
 
         overdue_listbox_grid.attach (overdue_listbox, 0, 0);
 
-        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_top = 6
+        };
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 12
@@ -114,7 +115,6 @@ public class Views.Today : Gtk.Grid {
         today_label.add_css_class ("font-bold");
         
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-
         today_header_box.append (today_label);
 
         var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);

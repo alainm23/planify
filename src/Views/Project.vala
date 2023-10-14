@@ -28,13 +28,12 @@ public class Views.Project : Gtk.Grid {
 
 		var inbox_icon = new Gtk.Image () {
 			gicon = new ThemedIcon ("planner-inbox"),
-			pixel_size = 24
+			pixel_size = 16
 		};
 
 		var title_label = new Gtk.Label (project.name);
 		title_label.add_css_class ("font-bold");
 
-		// Menu Button
 		var menu_image = new Widgets.DynamicIcon ();
 		menu_image.size = 21;
 		menu_image.update_icon_name ("dots-horizontal");
@@ -48,7 +47,6 @@ public class Views.Project : Gtk.Grid {
 		menu_button.child = menu_image;
 		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-		// Toggle View Button
 		var list_image = new Widgets.DynamicIcon ();
 		list_image.size = 21;
 		list_image.update_icon_name ("unordered-list");
@@ -87,7 +85,6 @@ public class Views.Project : Gtk.Grid {
 		view_mode_box.append (list_button);
 		view_mode_box.append (board_button);
 
-		// Add Button
 		var add_image = new Widgets.DynamicIcon ();
 		add_image.size = 21;
 		add_image.update_icon_name ("planner-plus-circle");
@@ -102,7 +99,6 @@ public class Views.Project : Gtk.Grid {
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
-		// Search Icon
 		var search_image = new Widgets.DynamicIcon ();
 		search_image.size = 19;
 		search_image.update_icon_name ("planner-search");
@@ -115,7 +111,6 @@ public class Views.Project : Gtk.Grid {
 		search_button.child = search_image;
 		search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
 
-		// Search Icon
 		var sections_image = new Widgets.DynamicIcon ();
 		sections_image.size = 19;
 		sections_image.update_icon_name ("dropdown");
