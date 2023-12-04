@@ -114,7 +114,7 @@ public class Util : GLib.Object {
             """.printf (color, color);
 
             var style_provider = new Gtk.CssProvider ();
-            style_provider.load_from_data (style, style.length);
+            style_provider.load_from_string (style);
 
             providers[color] = style_provider;
         }
@@ -290,7 +290,7 @@ public class Util : GLib.Object {
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
                 selected_color = "@popover_bg_color";
-                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             } else if (appearance_mode == 2) {
                 window_bg_color = "#0B0B11";
                 popover_bg_color = "#15151B";
@@ -299,7 +299,7 @@ public class Util : GLib.Object {
                 upcoming_bg_color = "#313234";
                 upcoming_fg_color = "#ededef";
                 selected_color = "@popover_bg_color";
-                Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
             window_bg_color = "#ffffff";
@@ -309,7 +309,7 @@ public class Util : GLib.Object {
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
             selected_color = "alpha(@shade_color, 0.65)";
-            Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
+            Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
         var CSS = _css.printf (
@@ -322,8 +322,8 @@ public class Util : GLib.Object {
             selected_color
         );
 
-        provider.load_from_data (CSS, CSS.length);
-
+        provider.load_from_string (CSS);
+        
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
@@ -1187,7 +1187,7 @@ We hope you’ll enjoy using Planify!""");
             item_02_02.project_id = project.id;
             item_02_02.section_id = section_01.id;
             item_02_02.content = _("Enable synchronization with third-party service.");
-            item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist, Google Tasks and CalDAV accounts. Go to 'Preferences' 🡒 'Accounts'.");
+            item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
 
             section_01.add_item_if_not_exists (item_02_01);
             section_01.add_item_if_not_exists (item_02_02);

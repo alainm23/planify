@@ -97,7 +97,7 @@ public class Views.Project : Gtk.Grid {
 
 		add_button.child = add_image;
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
+		// add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
 		var search_image = new Widgets.DynamicIcon ();
 		search_image.size = 19;
@@ -109,7 +109,7 @@ public class Views.Project : Gtk.Grid {
 
 		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		search_button.child = search_image;
-		search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
+		// search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
 
 		var sections_image = new Widgets.DynamicIcon ();
 		sections_image.size = 19;
@@ -144,12 +144,12 @@ public class Views.Project : Gtk.Grid {
 			margin_end = 3,
 			opacity = 0
 		});
-		headerbar.pack_end (view_mode_box);
-		headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-			margin_start = 3,
-			margin_end = 3,
-			opacity = 0
-		});
+		//  headerbar.pack_end (view_mode_box);
+		//  headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+		//  	margin_start = 3,
+		//  	margin_end = 3,
+		//  	opacity = 0
+		//  });
 		headerbar.pack_end (add_button);
 		headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
 			margin_start = 3,
@@ -179,7 +179,7 @@ public class Views.Project : Gtk.Grid {
 		content_overlay.child = content_box;
 
 		attach(content_overlay, 0, 0);
-		update_project_view (project.view_style);
+		update_project_view (ProjectViewStyle.LIST);
 		show();
 
 		add_button.clicked.connect (() => {

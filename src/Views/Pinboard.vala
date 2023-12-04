@@ -52,8 +52,9 @@ public class Views.Pinboard : Gtk.Grid {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
-            margin_start = 12,
-            margin_end = 12
+            tightening_threshold = 800,
+            margin_start = 24,
+            margin_end = 24
         };
 
         content_clamp.child = content;

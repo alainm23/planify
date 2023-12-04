@@ -116,7 +116,7 @@ public class Util : GLib.Object {
             selected_color
         );
 
-        provider.load_from_data (CSS, CSS.length);
+        provider.load_from_string (CSS);
 
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
@@ -443,7 +443,7 @@ public class Util : GLib.Object {
             """.printf (color, color);
 
             var style_provider = new Gtk.CssProvider ();
-            style_provider.load_from_data (style, style.length);
+            style_provider.load_from_string (style);
 
             providers[color] = style_provider;
         }

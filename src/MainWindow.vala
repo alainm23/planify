@@ -16,7 +16,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			app: application,
 			icon_name: Constants.APPLICATION_ID,
 			title: _("Planify")
-			);
+		);
 	}
 
 	static construct {
@@ -93,7 +93,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		sidebar_button.child = sidebar_image;
-		sidebar_button.tooltip_markup = Granite.markup_accel_tooltip ({"m"}, _("Toggle Sidebar"));
+		// sidebar_button.tooltip_markup = Granite.markup_accel_tooltip ({"m"}, _("Toggle Sidebar"));
 
 		project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
@@ -246,7 +246,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		labels_header.init ();
 
 		Services.Notification.get_default ();
-		Services.TimeMonitor.get_default ();
+		Services.TimeMonitor.get_default ().init_timeout ();
 
 		go_homepage ();
 
@@ -470,11 +470,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
-		preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
+		// preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
 		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
-		keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
+		// keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
@@ -500,7 +500,10 @@ public class MainWindow : Adw.ApplicationWindow {
 			dialog.show ();
 		});
 
-		about_item.clicked.connect (about_dialog);
+		about_item.clicked.connect (() => {
+			popover.popdown ();
+			about_dialog ();
+		});
 
 		keyboard_shortcuts_item.clicked.connect (() => {
 			popover.popdown ();

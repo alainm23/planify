@@ -4,6 +4,7 @@ public class Views.Filter : Gtk.Grid {
     private Widgets.DynamicIcon filter_icon;
     private Gtk.Label title_label;
     private Gtk.ListBox listbox;
+    private Gtk.Grid listbox_grid;
     private Gtk.Stack listbox_stack;
 
     Objects.BaseObject _filter;
@@ -79,7 +80,7 @@ public class Views.Filter : Gtk.Grid {
 
         add_button.child = add_image;
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
+        // add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
         // Search Icon
         var search_image = new Widgets.DynamicIcon ();
@@ -92,7 +93,7 @@ public class Views.Filter : Gtk.Grid {
 
         search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         search_button.child = search_image;
-        search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
+        // search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
         
         var headerbar = new Adw.HeaderBar () {
             title_widget = new Gtk.Label (null),
@@ -127,10 +128,7 @@ public class Views.Filter : Gtk.Grid {
 
         listbox.add_css_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid () {
-            margin_top = 12
-        };
-
+        listbox_grid = new Gtk.Grid ();
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Widgets.Placeholder (
@@ -155,8 +153,9 @@ public class Views.Filter : Gtk.Grid {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
-            margin_start = 12,
-            margin_end = 12
+            tightening_threshold = 800,
+            margin_start = 24,
+            margin_end = 24
         };
 
         content_clamp.child = content;
@@ -216,10 +215,12 @@ public class Views.Filter : Gtk.Grid {
             filter_icon.update_icon_name (Util.get_default ().get_priority_icon (priority.priority));
             title_label.label = priority.name;
             listbox.set_header_func (null);
+            listbox_grid.margin_top = 12;
         } else if (filter is Objects.Completed) {
             filter_icon.update_icon_name ("planner-completed");
             title_label.label = _("Completed");
             listbox.set_header_func (header_completed_function);
+            listbox_grid.margin_top = 0;
         }
     }
 
@@ -301,18 +302,18 @@ public class Views.Filter : Gtk.Grid {
 
     private void valid_checked_item (Objects.Item item, bool old_checked) {
         if (filter is Objects.Priority) {
-            if (!old_checked) { // -> False 
+            if (!old_checked) {
                 if (items.has_key (item.id_string) && item.completed) {
                     items[item.id_string].hide_destroy ();
                     items.unset (item.id_string);
                 }
-            } else { // true ->
+            } else {
                 valid_update_item (item);
             }
         } else if (filter is Objects.Completed) {
-            if (!old_checked) { // -> False 
+            if (!old_checked) {
                 valid_update_item (item);
-            } else { // true ->
+            } else {
                 if (items.has_key (item.id_string) && !item.completed) {
                     items[item.id_string].hide_destroy ();
                     items.unset (item.id_string);
@@ -342,14 +343,16 @@ public class Views.Filter : Gtk.Grid {
         ));
         header_label.add_css_class ("font-bold");
         header_label.halign = Gtk.Align.START;
+        header_label.margin_start = 3;
 
         var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             hexpand = true,
-            margin_bottom = 6
+            margin_bottom = 6,
+            margin_start = 3
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 16
+            margin_top = 12
         };
         header_box.append (header_label);
         header_box.append (header_separator);

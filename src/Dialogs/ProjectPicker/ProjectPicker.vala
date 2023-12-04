@@ -71,8 +71,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             resizable: true,
             modal: true,
             title: _("Move"),
-            width_request: 320,
-            height_request: 450,
+            width_request: 400,
+            height_request: 600,
             transient_for: (Gtk.Window) Planner.instance.main_window
         );
     }
@@ -95,11 +95,12 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         var main_stack = new Gtk.Stack () {
             hexpand = true,
             vexpand = true,
-            transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+            transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
         main_stack.add_named (build_projects_view (), "projects");
         main_stack.add_named (build_sections_view (), "sections");
+        main_stack.visible_child_name = picker_type.to_string ();
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Move")) {
             margin_top = 12,
@@ -119,7 +120,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         add_projects ();
 
         Timeout.add (Constants.DRAG_TIMEOUT, () => {
-            main_stack.visible_child_name = picker_type.to_string ();
+            // main_stack.visible_child_name = picker_type.to_string ();
             return GLib.Source.REMOVE;
         });
 

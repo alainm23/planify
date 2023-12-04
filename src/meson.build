@@ -98,9 +98,9 @@ sources = files(
   'Widgets/ContextMenu/MenuSeparator.vala',
   'Widgets/ContextMenu/MenuItemPicker.vala',
 
-  'Views/Project.vala',
-  'Views/List.vala',
-  'Views/Board.vala',
+  'Views/Project/Project.vala',
+  'Views/Project/List.vala',
+  'Views/Project/Board.vala',
   'Views/Date.vala',
   'Views/Today.vala',
   'Views/Pinboard.vala',

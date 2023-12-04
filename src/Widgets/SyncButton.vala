@@ -62,7 +62,7 @@ public class Widgets.SyncButton : Gtk.Grid {
     private void network_available () {
         if (GLib.NetworkMonitor.get_default ().network_available) {
             stack.visible_child_name = "sync";
-            tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
+            // tooltip_markup = Granite.markup_accel_tooltip ({"<Ctrl>S"}, _("Sync"));
         } else {
             stack.visible_child_name = "error";
             tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length

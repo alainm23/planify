@@ -30,7 +30,7 @@ public class Widgets.MagicButton : Gtk.Grid {
 
     public MagicButton () {
         Object (
-            tooltip_markup: Granite.markup_accel_tooltip ({"a"}, _("Add Task")),
+            // tooltip_markup: Granite.markup_accel_tooltip ({"a"}, _("Add Task")),
             margin_top: 32,
             margin_start: 32,
             margin_end: 32,

@@ -9,7 +9,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			modal: true,
 			default_width: 450,
 			height_request: 500
-			);
+		);
 	}
 
 	construct {
@@ -28,25 +28,23 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var accounts_row = new Adw.ActionRow ();
 		accounts_row.activatable = true;
 		accounts_row.add_prefix (generateIcon ("planner-cloud"));
-		accounts_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		accounts_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		accounts_row.title = _("Accounts");
 		accounts_row.subtitle = _("Sync your favorite to-do providers.");
 
 		accounts_row.activated.connect (() => {
-			present_subpage (get_accounts_page ());
-			can_navigate_back = true;
+			push_subpage (get_accounts_page ());
 		});
 
 		var general_row = new Adw.ActionRow ();
 		general_row.activatable = true;
 		general_row.add_prefix (generateIcon ("planner-general"));
-		general_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		general_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		general_row.title = _("General");
 		general_row.subtitle = _("Customize to your liking.");
 
 		general_row.activated.connect (() => {
-			present_subpage (get_general_page ());
-			can_navigate_back = true;
+			push_subpage (get_general_page ());
 		});
 
 		general_group.add (accounts_row);
@@ -57,25 +55,23 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var appearance_row = new Adw.ActionRow ();
 		appearance_row.activatable = true;
 		appearance_row.add_prefix (generateIcon ("planner-appearance"));
-		appearance_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		appearance_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		appearance_row.title = _("Appearance");
 		appearance_row.subtitle = Util.get_default ().get_theme_name ();
 
 		appearance_row.activated.connect (() => {
-			present_subpage (get_appearance_page ());
-			can_navigate_back = true;
+			push_subpage (get_appearance_page ());
 		});
 
 		var quick_add_row = new Adw.ActionRow ();
 		quick_add_row.activatable = true;
 		quick_add_row.add_prefix (generateIcon ("archive-plus"));
-		quick_add_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		quick_add_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		quick_add_row.title = _("Quick Add");
 		quick_add_row.subtitle = _("Adding To-Dos From Anywhere.");
 
 		quick_add_row.activated.connect (() => {
-			present_subpage (get_quick_add_page ());
-			can_navigate_back = true;
+			push_subpage (get_quick_add_page ());
 		});
 
 		var personalization_group = new Adw.PreferencesGroup ();
@@ -91,7 +87,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var tutorial_row = new Adw.ActionRow ();
 		tutorial_row.activatable = true;
 		tutorial_row.add_prefix (generateIcon ("light-bulb"));
-		tutorial_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		tutorial_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		tutorial_row.title = _("Create Tutorial Project");
 		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
 
@@ -104,7 +100,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var delete_row = new Adw.ActionRow ();
 		delete_row.activatable = true;
 		delete_row.add_prefix (generateIcon ("trash"));
-		delete_row.add_suffix (generateIcon ("chevron-right-light", 24));
+		delete_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
 		delete_row.title = _("Delete Planify Data");
 
 		privacy_group.add (delete_row);
@@ -124,14 +120,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		return page;
 	}
 
-	private Gtk.Widget get_general_page () {
-		var settings_header_box = new Widgets.SettingsHeader (_("General"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
+	private Adw.NavigationPage get_general_page () {
+		var settings_header = new Widgets.SettingsHeader (_("General"));
 
 		var general_group = new Adw.PreferencesGroup ();
 		general_group.title = _("Sort Settings");
@@ -307,6 +297,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (settings_header);
 		main_content.append (scrolled_window);
 
+		var page = new Adw.NavigationPage (main_content, "general");
+
 		sort_projects_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
 		});
@@ -351,21 +343,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
 		});
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
-		return main_content;
+		return page;
 	}
 
-	private Gtk.Widget get_appearance_page () {
-		var settings_header_box = new Widgets.SettingsHeader (_("Appearance"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
+	private Adw.NavigationPage get_appearance_page () {
+		var settings_header = new Widgets.SettingsHeader (_("Appearance"));
 
 		var appearance_group = new Adw.PreferencesGroup ();
 
@@ -469,6 +455,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (settings_header);
 		main_content.append (content_clamp);
 
+		var page = new Adw.NavigationPage (main_content, "appearance");
+
 		int appearance = Services.Settings.get_default ().settings.get_enum ("appearance");
 		if (appearance == 0) {
 			light_check.active = true;
@@ -525,21 +513,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			}
 		});
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
-		return main_content;
+		return page;
 	}
 
-	private Gtk.Widget get_accounts_page () {
-		var settings_header_box = new Widgets.SettingsHeader (_("Accounts"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
+	private Adw.NavigationPage get_accounts_page () {
+		var settings_header = new Widgets.SettingsHeader (_("Accounts"));
 
 		var default_group = new Adw.PreferencesGroup () {
 			visible = Services.Todoist.get_default ().is_logged_in ()
@@ -647,6 +629,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (settings_header);
 		main_content.append (content_clamp);
 
+		var page = new Adw.NavigationPage (main_content, "account");
+
 		var todoist_switch_gesture = new Gtk.GestureClick ();
 		todoist_switch_gesture.set_button (1);
 		todoist_switch.add_controller (todoist_switch_gesture);
@@ -708,13 +692,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		todoist_setting_button.clicked.connect (() => {
-			present_subpage (get_todoist_view ());
-			can_navigate_back = true;
+			push_subpage (get_todoist_view ());
 		});
 
 		google_tasks_button.clicked.connect (() => {
-			present_subpage (get_google_view ());
-			can_navigate_back = true;
+			push_subpage (get_google_view ());
 		});
 
 		inbox_project_row.notify["selected"].connect (() => {
@@ -722,21 +704,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Util.get_default ().change_default_inbox ();
 		});
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
-		return main_content;
+		return page;
 	}
 
-	private Gtk.Widget get_todoist_view () {
-		var settings_header_box = new Widgets.SettingsHeader (_("Todoist"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
+	private Adw.NavigationPage get_todoist_view () {
+		var settings_header = new Widgets.SettingsHeader (_("Todoist"));
 
 		var todoist_avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("todoist-user-name"), true);
 
@@ -808,27 +784,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (user_box);
 		main_content.append (content_clamp);
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		var page = new Adw.NavigationPage (main_content, "todoist");
+
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
 		sync_server_row.notify["active"].connect (() => {
 			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
 		});
 
-		return main_content;
+		return page;
 	}
 
-	private Gtk.Widget get_google_view () {
-		var settings_header_box = new Widgets.SettingsHeader (_("Google Tasks"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
-
-		// settings_header.add_css_class (Granite.STYLE_CLASS_FLAT);
+	private Adw.NavigationPage get_google_view () {
+		var settings_header = new Widgets.SettingsHeader (_("Google Tasks"));
 
 		var avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("google-user-name"), true);
 
@@ -899,25 +869,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (user_box);
 		main_content.append (content_clamp);
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		var page = new Adw.NavigationPage (main_content, "google");
+
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
 		sync_server_row.notify["active"].connect (() => {
 			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
 		});
 
-		return main_content;
+		return page;
 	}
 
-	private Gtk.Widget get_quick_add_page () {
-		var settings_header_box = new Widgets.SettingsHeader (_("Quick Add"));
-
-		var settings_header = new Gtk.HeaderBar () {
-			title_widget = settings_header_box,
-			show_title_buttons = false,
-			hexpand = true
-		};
+	private Adw.NavigationPage get_quick_add_page () {
+		var settings_header = new Widgets.SettingsHeader (_("Quick Add"));
 
 		var detail_row = new Adw.ActionRow ();
 		detail_row.title = _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.");
@@ -972,17 +938,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		main_content.append (settings_header);
 		main_content.append (content_clamp);
 
+		var page = new Adw.NavigationPage (main_content, "quick-add");
+
 		copy_button.clicked.connect (() => {
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 			clipboard.set_text (QUICK_ADD_COMMAND);
 			add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard.")));
 		});
 
-		settings_header_box.back_activated.connect (() => {
-			close_subpage ();
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
-		return main_content;
+		return page;
 	}
 
 	private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {

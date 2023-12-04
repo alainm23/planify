@@ -8,38 +8,43 @@ public class Services.TimeMonitor : Object {
         return _instance;
     }
 
-    private uint timeout_id = 0;
+    private DateTime last_registered_date;
 
-    public TimeMonitor () {
-        add_timeout ();
+    public void init_timeout () {
+        last_registered_date = new DateTime.now_local ();
+        uint interval = calculate_seconds_until_midnight ();
+
+        Timeout.add_seconds (interval, on_timeout);
     }
 
-    private void add_timeout () {
-        uint interval = calculate_time_until_next_minute ();
+    private bool on_timeout() {
+        DateTime now = new DateTime.now_local ();
 
-        if (timeout_id > 0) {
-            Source.remove (timeout_id);
-        }
-        
-        timeout_id = Timeout.add_seconds (interval + 60, () => {
+        if (now.get_day_of_month () != last_registered_date.get_day_of_month() ||
+            now.get_month() != last_registered_date.get_month() ||
+            now.get_year() != last_registered_date.get_year()) {
+
             Services.EventBus.get_default ().day_changed ();
             Services.Notification.get_default ().regresh ();
-            add_timeout ();
-            return false;
-        });
+
+            last_registered_date = now;
+            uint interval = calculate_seconds_until_midnight();
+
+            Timeout.add_seconds(interval, on_timeout);
+        } else {
+            uint interval = calculate_seconds_until_midnight();
+            Timeout.add_seconds(interval, on_timeout);
+        }
+
+        return false;
     }
 
-    private uint calculate_time_until_next_minute () {
+    private uint calculate_seconds_until_midnight () {
         DateTime now = new DateTime.now_local ();
-        DateTime tomorrow = new DateTime.local (
-            now.get_year (),
-            now.get_month (),
-            now.get_day_of_month (),
-            23,
-            59,
-            59
-        );
 
-        return (uint) (tomorrow.to_unix () - now.to_unix ());
+        uint value = (24 * 60 * 60) -
+            (now.get_hour() * 60 * 60 + now.get_minute() * 60 + now.get_second());
+
+        return value;
     }
 }

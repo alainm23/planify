@@ -31,21 +31,24 @@ public class Widgets.SettingsHeader : Gtk.Grid {
         };
 
         back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
+        
         var title_label = new Gtk.Label (title_header);
         title_label.add_css_class (Granite.STYLE_CLASS_TITLE_LABEL);
 
-        var content_box = new Gtk.CenterBox () {
-            hexpand = true
-        };
+
+        var headerbar = new Gtk.HeaderBar () {
+			title_widget = title_label,
+			show_title_buttons = false,
+			hexpand = true
+		};
+
+        headerbar.add_css_class ("flat");
 
         if (show_back_button) {
-            content_box.set_start_widget (back_button);
+            headerbar.pack_start (back_button);
         }
-        
-        content_box.set_center_widget (title_label);
 
-        attach (content_box, 0, 0);
+        attach (headerbar, 0, 0);
 
         back_button.clicked.connect (() => {
             back_activated ();

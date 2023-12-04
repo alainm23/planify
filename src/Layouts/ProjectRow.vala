@@ -418,7 +418,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove from favorites") : _("Add to favorites"), "planner-star");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
+        // var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
@@ -429,8 +429,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
         menu_box.append (edit_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (move_item);
+        // menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        // menu_box.append (move_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);

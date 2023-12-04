@@ -45,8 +45,9 @@ public class Views.Today : Gtk.Grid {
 
         var event_list_clamp = new Adw.Clamp () {
             maximum_size = 1024,
-            margin_start = 12,
-            margin_end = 12,
+            tightening_threshold = 800,
+            margin_start = 24,
+            margin_end = 24,
             child = event_list_revealer
         };
         
@@ -71,7 +72,9 @@ public class Views.Today : Gtk.Grid {
 
         reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 2
+        };
         overdue_header_box.append (overdue_label);
 
         overdue_listbox = new Gtk.ListBox () {
@@ -90,11 +93,13 @@ public class Views.Today : Gtk.Grid {
         overdue_listbox_grid.attach (overdue_listbox, 0, 0);
 
         var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 3
         };
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 12
+            margin_top = 12,
+            margin_start = 2
         };
 
         overdue_box.append (overdue_header_box);
@@ -114,13 +119,18 @@ public class Views.Today : Gtk.Grid {
 
         today_label.add_css_class ("font-bold");
         
-        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+        var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 2
+        };
         today_header_box.append (today_label);
 
-        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+        var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 3
+        };
 
         var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12
+            margin_top = 12,
+            margin_start = 2
         };
         today_box.append (today_header_box);
         today_box.append (today_separator);
@@ -140,7 +150,8 @@ public class Views.Today : Gtk.Grid {
         listbox.add_css_class ("listbox-background");
 
         listbox_grid = new Gtk.Grid () {
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 3
         };
 
         listbox_grid.attach (listbox, 0, 0);
@@ -169,8 +180,9 @@ public class Views.Today : Gtk.Grid {
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
-            margin_start = 12,
-            margin_end = 12,
+            tightening_threshold = 800,
+            margin_start = 24,
+            margin_end = 24,
             child = listbox_placeholder_stack
         };
 
@@ -201,7 +213,9 @@ public class Views.Today : Gtk.Grid {
         });
 
         Services.EventBus.get_default ().day_changed.connect (() => {
+            date = new GLib.DateTime.now_local ();
             headerbar.update_today_label ();
+            add_today_items ();
         });
 
         Services.Database.get_default ().item_added.connect (valid_add_item);
