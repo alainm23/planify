@@ -126,7 +126,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             var priority_icon = new Widgets.DynamicIcon () {
                 valign = Gtk.Align.CENTER
             };
-            priority_icon.size = 19;
+            priority_icon.size = 16;
             priority_icon.update_icon_name (Util.get_default ().get_priority_icon (priority.priority));
 
             var name_label = new Gtk.Label (markup_string_with_search (priority.name, pattern)) {
@@ -143,7 +143,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             var filter_icon = new Widgets.DynamicIcon () {
                 valign = Gtk.Align.CENTER
             };
-            filter_icon.size = 19;
+            filter_icon.size = 16;
             filter_icon.update_icon_name ("planner-completed");
 
             var name_label = new Gtk.Label (markup_string_with_search (completed.name, pattern)) {

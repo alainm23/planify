@@ -23,7 +23,7 @@ public class Widgets.PriorityButton : Gtk.Grid {
         open_picker ();
 
         priority_image = new Widgets.DynamicIcon ();
-        priority_image.size = 19;
+        priority_image.size = 16;
 
         var projectbutton_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             valign = Gtk.Align.CENTER

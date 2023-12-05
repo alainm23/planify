@@ -149,7 +149,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
             halign = Gtk.Align.CENTER,
         };
         add_image.size = 21;
-        add_image.update_icon_name ("planner-plus-circle");
+        add_image.update_icon_name ("planner-plus");
 
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,

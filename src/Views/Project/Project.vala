@@ -168,7 +168,6 @@ public class Views.Project : Gtk.Grid {
 			vexpand = true
 		};
 
-		content_box.append (headerbar);
 		content_box.append (view_stack);
 
 		var content_overlay = new Gtk.Overlay () {
@@ -178,7 +177,11 @@ public class Views.Project : Gtk.Grid {
 
 		content_overlay.child = content_box;
 
-		attach(content_overlay, 0, 0);
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_overlay;
+
+		attach (toolbar_view, 0, 0);
 		update_project_view (ProjectViewStyle.LIST);
 		show();
 

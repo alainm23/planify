@@ -15,8 +15,8 @@ public class Widgets.SettingsHeader : Gtk.Grid {
 
     construct {
         var back_image = new Widgets.DynamicIcon ();
-        back_image.size = 19;
-        back_image.update_icon_name ("chevron-left");
+        back_image.size = 16;
+        back_image.update_icon_name ("go-previous-symbolic");
 
         var back_label = new Gtk.Label (_("Back"));
 
@@ -38,7 +38,7 @@ public class Widgets.SettingsHeader : Gtk.Grid {
 
         var headerbar = new Gtk.HeaderBar () {
 			title_widget = title_label,
-			show_title_buttons = false,
+			show_title_buttons = true,
 			hexpand = true
 		};
 

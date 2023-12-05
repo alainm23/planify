@@ -81,8 +81,8 @@ public class Planner : Adw.Application {
 		if (Services.Settings.get_default ().settings.get_string ("version") != Constants.VERSION) {
 			Services.Settings.get_default ().settings.set_string ("version", Constants.VERSION);
 
-			var dialog = new Dialogs.WhatsNew ();
-			dialog.show ();
+			//  var dialog = new Dialogs.WhatsNew ();
+			//  dialog.show ();
 		}
 
 		if (clear_database) {

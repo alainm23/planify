@@ -3,7 +3,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private Layouts.Sidebar sidebar;
 	private Gtk.Stack views_stack;
-	private Adw.Flap flap_view;
+	private Adw.OverlaySplitView overlay_split_view;
 	private Widgets.ProjectViewHeaderBar project_view_headerbar;
 	private Widgets.LabelsHeader labels_header;
 	private Gtk.MenuButton settings_button;
@@ -69,15 +69,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		sidebar = new Layouts.Sidebar ();
 
-		var sidebar_content = new Gtk.Grid() {
-			orientation = Gtk.Orientation.VERTICAL,
-			vexpand = true,
-			hexpand = false
-		};
-
-		sidebar_content.add_css_class ("sidebar");
-		sidebar_content.attach(sidebar_header, 0, 0);
-		sidebar_content.attach(sidebar, 0, 1);
+		var sidebar_view = new Adw.ToolbarView ();
+		sidebar_view.add_top_bar (sidebar_header);
+		sidebar_view.content = sidebar;
 
 		var sidebar_image = new Widgets.DynamicIcon ();
 		sidebar_image.size = 19;
@@ -93,7 +87,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		sidebar_button.child = sidebar_image;
-		// sidebar_button.tooltip_markup = Granite.markup_accel_tooltip ({"m"}, _("Toggle Sidebar"));
 
 		project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
@@ -116,23 +109,19 @@ public class MainWindow : Adw.ApplicationWindow {
 		var toast_overlay = new Adw.ToastOverlay ();
 		toast_overlay.child = views_overlay;
 
-		flap_view = new Adw.Flap () {
-			locked = false,
-			fold_policy = Adw.FlapFoldPolicy.AUTO,
-			transition_type = Adw.FlapTransitionType.OVER
-		};
-		flap_view.content = toast_overlay;
-		flap_view.flap = sidebar_content;
+		overlay_split_view = new Adw.OverlaySplitView ();
+		overlay_split_view.content = toast_overlay;
+		overlay_split_view.sidebar = sidebar_view;
 
-		set_content (flap_view);
+		set_content (overlay_split_view);
 		set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
-		Services.Settings.get_default ().settings.bind ("pane-position", sidebar_content, "width_request", GLib.SettingsBindFlags.DEFAULT);
-		Services.Settings.get_default ().settings.bind ("slim-mode", flap_view, "reveal_flap", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
 
 		Timeout.add (250, () => {
 			init_backend ();
-			flap_view.reveal_flap = true;
+			overlay_split_view.show_sidebar = true;
 			return GLib.Source.REMOVE;
 		});
 
@@ -211,9 +200,9 @@ public class MainWindow : Adw.ApplicationWindow {
 				add_label_view (id);
 			}
 
-			if (flap_view.folded) {
-				show_hide_sidebar ();
-			}
+			//  if (overlay_split_view.show_sidebar) {
+			//  	show_hide_sidebar ();
+			//  }
 		});
 
 		sidebar_button.clicked.connect (() => {
@@ -230,7 +219,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void show_hide_sidebar () {
-		flap_view.reveal_flap = !flap_view.reveal_flap;
+		overlay_split_view.show_sidebar = !overlay_split_view.show_sidebar;
 	}
 
 	private void init_backend () {

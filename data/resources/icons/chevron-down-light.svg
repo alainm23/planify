@@ -1,51 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="16"
+   height="16"
    fill="none"
-   viewBox="0 0 24 24"
+   viewBox="0 0 16 16"
    version="1.1"
-   id="svg4"
+   id="svg1"
    sodipodi:docname="chevron-down-light.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs8" />
+     id="defs1" />
   <sodipodi:namedview
-     id="namedview6"
+     id="namedview1"
      pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1.0"
-     inkscape:pageshadow="2"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
-     showgrid="false"
-     inkscape:zoom="15.615275"
-     inkscape:cx="7.8769028"
-     inkscape:cy="15.721786"
-     inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="33.541667"
+     inkscape:cx="11.985093"
+     inkscape:cy="9.6149067"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4" />
+     inkscape:current-layer="svg1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M 15.249911,10.275534 11.98163,13.758469 8.75,10.2415"
-     id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
-  <path
-     stroke="currentColor"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M 4.75,12 C 4.75,7.99594 7.99594,4.75 12,4.75 v 0 c 4.0041,0 7.25,3.24594 7.25,7.25 v 0 c 0,4.0041 -3.2459,7.25 -7.25,7.25 v 0 C 7.99594,19.25 4.75,16.0041 4.75,12 Z"
-     id="path2-3"
-     style="stroke:#666666;stroke-opacity:1" />
+     stroke-width="2.62501"
+     d="M 13.687495,4.937505 8,11.062557 2.312505,4.937505"
+     id="path1"
+     style="stroke:#666666;stroke-opacity:1;stroke-width:1.5;stroke-dasharray:none" />
 </svg>
