@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
    fill="none"
    version="1.1"
    id="svg6"
    sodipodi:docname="planner-repeat.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,16 +26,16 @@
      showgrid="false"
      inkscape:zoom="19.583333"
      inkscape:cx="12"
-     inkscape:cy="12"
-     inkscape:window-width="1366"
-     inkscape:window-height="699"
+     inkscape:cy="11.974468"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg6" />
   <g
      id="g1207"
-     transform="translate(0.43893151,-1.0639066)">
+     transform="matrix(0.8752593,0,0,0.8752593,-2.5010372,-2.5047388)">
     <path
        d="m 6.87347,6.87299 c 2.8313,-2.8313 7.42173,-2.8313 10.25303,0 2.8313,2.8313 2.8313,7.42171 0,10.25301 -2.8313,2.8313 -7.42173,2.8313 -10.25303,0 -0.6338,-0.6338 -1.12572,-1.3557 -1.47576,-2.1264"
        stroke="currentColor"

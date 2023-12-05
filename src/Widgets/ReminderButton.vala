@@ -17,7 +17,7 @@ public class Widgets.ReminderButton : Gtk.Grid {
         var reminder_picker = new Widgets.ReminderPicker.ReminderPicker (item);
 
         var bell_image = new Widgets.DynamicIcon ();
-        bell_image.size = 19;
+        bell_image.size = 16;
         bell_image.update_icon_name ("planner-bell");
 
         badge_label = new Gtk.Label (null);

@@ -346,7 +346,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             margin_start = 6
         };
-        repeat_image.size = 19;    
+        repeat_image.size = 16;    
         repeat_image.update_icon_name ("planner-rotate");
         repeat_image.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
@@ -360,7 +360,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             margin_start = 6
         };
-        description_image.size = 19;    
+        description_image.size = 16;    
         description_image.update_icon_name ("planner-note");
         description_image.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
@@ -423,8 +423,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         };
 
         var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 19;
-        add_image.update_icon_name ("planner-plus-circle");
+        add_image.size = 16;
+        add_image.update_icon_name ("plus");
 
         add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
@@ -455,8 +455,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         };
 
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
+        menu_image.size = 16;
+        menu_image.update_icon_name ("dots-vertical");
         
         menu_button = new Gtk.Button () {
             can_focus = false,
@@ -517,7 +517,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         handle_grid.append (detail_revealer);
 
         var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 19;
+        chevron_right_image.size = 16;
         chevron_right_image.update_icon_name ("chevron-right");
 
         hide_subtask_button = new Gtk.Button () {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
-   viewBox="0 0 24 24"
+   width="16"
+   height="16"
+   viewBox="0 0 16 16"
    fill="none"
    version="1.1"
    id="svg143"
-   sodipodi:docname="dropdown-dark.svg"
-   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="dropdown-light.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -25,33 +25,33 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="19.583333"
-     inkscape:cx="12"
-     inkscape:cy="12"
-     inkscape:window-width="1366"
-     inkscape:window-height="699"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:cx="11.974468"
+     inkscape:cy="11.974468"
+     inkscape:window-width="1549"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg143" />
   <path
-     d="M18.25 8.75H5.75C5.19772 8.75 4.75 9.19772 4.75 9.75V18.25C4.75 18.8023 5.19771 19.25 5.75 19.25H18.25C18.8023 19.25 19.25 18.8023 19.25 18.25V9.75C19.25 9.19772 18.8023 8.75 18.25 8.75Z"
+     d="M 13.46875,5.15625 H 2.53125 c -0.483245,0 -0.875,0.391755 -0.875,0.875 v 7.4375 c 0,0.483262 0.3917462,0.875 0.875,0.875 h 10.9375 c 0.483262,0 0.875,-0.391738 0.875,-0.875 v -7.4375 c 0,-0.483245 -0.391738,-0.875 -0.875,-0.875 z"
      stroke="currentColor"
-     stroke-width="1.5"
+     stroke-width="1.3125"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path137"
      style="stroke:#666666;stroke-opacity:1" />
   <path
-     d="M5 14H19"
+     d="m 1.875,9.75 h 12.25"
      stroke="currentColor"
-     stroke-width="1.5"
+     stroke-width="1.3125"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path139"
      style="stroke:#666666;stroke-opacity:1" />
   <path
-     d="M5.5 5C5.5 5.27614 5.27614 5.5 5 5.5C4.72386 5.5 4.5 5.27614 4.5 5C4.5 4.72386 4.72386 4.5 5 4.5C5.27614 4.5 5.5 4.72386 5.5 5Z"
+     d="m 2.3125,1.875 c 0,0.2416225 -0.1958775,0.4375 -0.4375,0.4375 -0.2416225,0 -0.4375,-0.1958775 -0.4375,-0.4375 0,-0.2416225 0.1958775,-0.4375 0.4375,-0.4375 0.2416225,0 0.4375,0.1958775 0.4375,0.4375 z"
      stroke="currentColor"
      id="path141"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#666666;stroke-width:0.875;stroke-opacity:1" />
 </svg>

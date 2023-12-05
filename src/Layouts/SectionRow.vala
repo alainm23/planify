@@ -114,8 +114,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		count_revealer.child = count_label;
 
         var add_image = new Widgets.DynamicIcon ();
-		add_image.size = 21;
-		add_image.update_icon_name ("planner-plus-circle");
+		add_image.size = 16;
+		add_image.update_icon_name ("plus");
 
 		var add_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
@@ -126,8 +126,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
 		var menu_image = new Widgets.DynamicIcon ();
-		menu_image.size = 21;
-		menu_image.update_icon_name ("dots-horizontal");
+		menu_image.size = 16;
+		menu_image.update_icon_name ("dots-vertical");
 
 		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
@@ -578,7 +578,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	private Gtk.Popover build_context_menu () {
-		var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "planner-plus-circle");
+		var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
 		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list-dark");

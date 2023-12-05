@@ -35,11 +35,11 @@ public class Widgets.LoadingButton : Gtk.Button {
         Object (
             loading_type: LoadingButtonType.LABEL,
             text_icon: label,
-            icon_size: 19
+            icon_size: 16
         );
     }
 
-    public LoadingButton.with_icon (string icon_name, int icon_size = 19) {
+    public LoadingButton.with_icon (string icon_name, int icon_size = 16) {
         Object (
             loading_type: LoadingButtonType.ICON,
             text_icon: icon_name,

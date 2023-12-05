@@ -30,7 +30,7 @@ public class Views.Filter : Gtk.Grid {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
         var sidebar_image = new Widgets.DynamicIcon ();
-        sidebar_image.size = 19;
+        sidebar_image.size = 16;
 
         if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
             sidebar_image.update_icon_name ("sidebar-left");
@@ -55,8 +55,8 @@ public class Views.Filter : Gtk.Grid {
 
         // Menu Button
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 21;
-        menu_image.update_icon_name ("dots-horizontal");
+        menu_image.size = 16;
+        menu_image.update_icon_name ("dots-vertical");
         
         var menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,
@@ -69,8 +69,8 @@ public class Views.Filter : Gtk.Grid {
 
         // Add Button
         var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 21;
-        add_image.update_icon_name ("planner-plus-circle");
+        add_image.size = 16;
+        add_image.update_icon_name ("plus");
         
         var add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
@@ -84,7 +84,7 @@ public class Views.Filter : Gtk.Grid {
 
         // Search Icon
         var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 19;
+        search_image.size = 16;
         search_image.update_icon_name ("planner-search");
         
         var search_button = new Gtk.Button () {

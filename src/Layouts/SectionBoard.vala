@@ -74,12 +74,12 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         name_editable.add_style ("font-bold");
         name_editable.text = section.name;
 
-        add_button = new Widgets.LoadingButton.with_icon ("planner-plus-circle", 19);
+        add_button = new Widgets.LoadingButton.with_icon ("plus", 16);
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
+        menu_image.size = 16;
+        menu_image.update_icon_name ("dots-vertical");
 
         var menu_button = new Gtk.MenuButton () {
             child = menu_image,
@@ -429,7 +429,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     }
 
     private Gtk.Popover build_context_menu () {
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "planner-plus-circle");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
         var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list-dark");

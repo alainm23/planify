@@ -12,7 +12,7 @@ public class Views.Project : Gtk.Grid {
 
 	construct {
 		var sidebar_image = new Widgets.DynamicIcon ();
-		sidebar_image.size = 19;
+		sidebar_image.size = 16;
 		if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
 			sidebar_image.update_icon_name ("sidebar-left");
 		} else {
@@ -35,8 +35,8 @@ public class Views.Project : Gtk.Grid {
 		title_label.add_css_class ("font-bold");
 
 		var menu_image = new Widgets.DynamicIcon ();
-		menu_image.size = 21;
-		menu_image.update_icon_name ("dots-horizontal");
+		menu_image.size = 16;
+		menu_image.update_icon_name ("dots-vertical");
 
 		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
@@ -86,8 +86,8 @@ public class Views.Project : Gtk.Grid {
 		view_mode_box.append (board_button);
 
 		var add_image = new Widgets.DynamicIcon ();
-		add_image.size = 21;
-		add_image.update_icon_name ("planner-plus-circle");
+		add_image.size = 16;
+		add_image.update_icon_name ("plus");
 
 		var add_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
@@ -100,7 +100,7 @@ public class Views.Project : Gtk.Grid {
 		// add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
 
 		var search_image = new Widgets.DynamicIcon ();
-		search_image.size = 19;
+		search_image.size = 16;
 		search_image.update_icon_name ("planner-search");
 
 		var search_button = new Gtk.Button () {
@@ -112,7 +112,7 @@ public class Views.Project : Gtk.Grid {
 		// search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
 
 		var sections_image = new Widgets.DynamicIcon ();
-		sections_image.size = 19;
+		sections_image.size = 16;
 		sections_image.update_icon_name ("dropdown");
 
 		var sections_order_popover = new Widgets.SectionsOrderPopover (project);

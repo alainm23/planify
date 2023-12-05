@@ -50,8 +50,8 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         add_css_class ("row");
 
         var reminder_image = new Widgets.DynamicIcon ();
-        reminder_image.size = 21;
-        reminder_image.update_icon_name (is_creating ? "planner-plus-circle" : "planner-bell");
+        reminder_image.size = 16;
+        reminder_image.update_icon_name (is_creating ? "plus" : "planner-bell");
 
         var reminder_label = new Gtk.Label (is_creating ? _("Add reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
 

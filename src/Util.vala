@@ -712,11 +712,8 @@ public class Util : GLib.Object {
                 _dynamic_icons = new Gee.HashMap<string, bool> ();
                 _dynamic_icons.set ("planner-calendar", true);
                 _dynamic_icons.set ("planner-search", true);
-                _dynamic_icons.set ("planner-plus", true);
                 _dynamic_icons.set ("chevron-right", true);
                 _dynamic_icons.set ("chevron-down", true);
-                _dynamic_icons.set ("chevron-left", true);
-                _dynamic_icons.set ("planner-plus-circle", true);
                 _dynamic_icons.set ("planner-refresh", true);
                 _dynamic_icons.set ("planner-edit", true);
                 _dynamic_icons.set ("planner-trash", true);
@@ -725,7 +722,6 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-close-circle", true);
                 _dynamic_icons.set ("planner-check-circle", true);
                 _dynamic_icons.set ("planner-flag", true);
-                _dynamic_icons.set ("dots-horizontal", true);
                 _dynamic_icons.set ("planner-tag", true);
                 _dynamic_icons.set ("planner-pinned", true);
                 _dynamic_icons.set ("planner-settings", true);
@@ -748,6 +744,8 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("share", true);
                 _dynamic_icons.set ("dropdown", true);
                 _dynamic_icons.set ("information", true);
+                _dynamic_icons.set ("dots-vertical", true);
+                _dynamic_icons.set ("plus", true);
             }
 
             return _dynamic_icons;

@@ -571,7 +571,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var todoist_setting_image = new Widgets.DynamicIcon ();
-		todoist_setting_image.size = 19;
+		todoist_setting_image.size = 16;
 		todoist_setting_image.update_icon_name ("applications-system-symbolic");
 
 		var todoist_setting_button = new Gtk.Button () {
@@ -603,7 +603,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var google_tasks_image = new Widgets.DynamicIcon ();
-		google_tasks_image.size = 19;
+		google_tasks_image.size = 16;
 		google_tasks_image.update_icon_name ("applications-system-symbolic");
 
 		var google_tasks_button = new Gtk.Button () {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="16"
+   height="16"
    fill="none"
-   viewBox="0 0 24 24"
+   viewBox="0 0 16 16"
    version="1.1"
    id="svg6"
-   sodipodi:docname="planner-tag.svg"
-   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   sodipodi:docname="planner-label.svg"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -24,27 +24,29 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="22.083333"
-     inkscape:cx="8.1056605"
+     inkscape:cx="8.1509435"
      inkscape:cy="9.4867926"
-     inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg6" />
+     inkscape:current-layer="svg6"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <circle
-     cx="15"
-     cy="9"
-     r="1"
+     cx="10.624248"
+     cy="5.3757563"
+     r="0.87515086"
      fill="currentColor"
      id="circle2"
-     style="fill:#f9c440;fill-opacity:0.1;stroke:#f9c440;stroke-opacity:1" />
+     style="fill:#f9c440;fill-opacity:0.1;stroke:#f9c440;stroke-width:0.875151;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M12 4.75H19.25V12L12.5535 18.6708C11.7544 19.4668 10.4556 19.445 9.68369 18.6226L5.28993 13.941C4.54041 13.1424 4.57265 11.8895 5.36226 11.1305L12 4.75Z"
+     stroke-width="1.31273"
+     d="M 7.9987945,1.656365 H 14.343639 V 8.0012089 L 8.4831905,13.839165 c -0.699333,0.69662 -1.8359788,0.677542 -2.5115165,-0.04218 L 2.1264712,9.6998769 c -0.6559431,-0.698896 -0.6277282,-1.795372 0.0633,-2.459612 z"
      id="path4"
-     style="stroke:#f9c440;stroke-opacity:1;fill:#f9c440;fill-opacity:0.1" />
+     style="fill:#f9c440;fill-opacity:0.1;stroke:#f9c440;stroke-opacity:1" />
 </svg>

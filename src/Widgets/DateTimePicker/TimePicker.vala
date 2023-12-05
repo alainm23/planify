@@ -88,7 +88,7 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
         time_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var close_circle_icon = new Widgets.DynamicIcon ();
-        close_circle_icon.size = 19;
+        close_circle_icon.size = 16;
         close_circle_icon.update_icon_name ("planner-close-circle");
         
         var no_time_button = new Gtk.Button () {
@@ -112,8 +112,8 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
         time_box.append (no_time_revealer);
 
         var add_circle_icon = new Widgets.DynamicIcon ();
-        add_circle_icon.size = 19;
-        add_circle_icon.update_icon_name ("planner-plus-circle");
+        add_circle_icon.size = 16;
+        add_circle_icon.update_icon_name ("plus");
 
         var add_time_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,

@@ -50,7 +50,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         year_label.add_css_class ("primary-color");
 
         var chevron_left_image = new Widgets.DynamicIcon ();
-        chevron_left_image.size = 19;
+        chevron_left_image.size = 16;
         chevron_left_image.update_icon_name ("chevron-left");
         
         left_button = new Gtk.Button () {
@@ -63,7 +63,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         // left_button.add_css_class ("no-padding");
 
         var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 19;
+        chevron_right_image.size = 16;
         chevron_right_image.update_icon_name ("chevron-right");
 
         right_button = new Gtk.Button () {

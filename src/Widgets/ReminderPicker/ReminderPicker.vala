@@ -52,8 +52,8 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
         };
-        add_image.size = 21;
-        add_image.update_icon_name ("planner-plus-circle");
+        add_image.size = 16;
+        add_image.update_icon_name ("plus");
 
         var add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,

@@ -82,7 +82,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
         subtasks_revealer.child = subtasks_grid;
 
         var reminder_image = new Widgets.DynamicIcon ();
-        reminder_image.size = 19;
+        reminder_image.size = 16;
         reminder_image.valign = Gtk.Align.CENTER;
         reminder_image.update_icon_name ("planner-bell");
         reminder_image.margin_end = 6;
@@ -94,7 +94,7 @@ public class Widgets.ItemSummary : Gtk.Grid {
         reminder_revealer.child = reminder_image;
 
         var description_image = new Widgets.DynamicIcon ();
-        description_image.size = 19;
+        description_image.size = 16;
         description_image.valign = Gtk.Align.CENTER;
         description_image.update_icon_name ("planner-note");
         description_image.margin_end = 6;

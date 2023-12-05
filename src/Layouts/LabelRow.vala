@@ -68,7 +68,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         count_revealer.child = count_label;
 
         var edit_image = new Widgets.DynamicIcon ();
-        edit_image.size = 19;
+        edit_image.size = 16;
         edit_image.update_icon_name ("planner-edit");
 
         var edit_button = new Gtk.Button ();
@@ -77,7 +77,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         edit_button.add_css_class ("padding-3");
 
         var trash_image = new Widgets.DynamicIcon ();
-        trash_image.size = 19;
+        trash_image.size = 16;
         trash_image.update_icon_name ("planner-trash");
 
         var trash_button = new Gtk.Button ();

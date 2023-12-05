@@ -28,10 +28,6 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        var top_project = new Widgets.ProjectHeader (project) {
-            margin_bottom = 6
-        };
-
         description_label = new Gtk.Label (_("Add a description")) {
             halign = Gtk.Align.START,
             margin_top = 6,
@@ -286,7 +282,7 @@ public class Views.List : Gtk.Grid {
     private Gtk.Revealer build_due_date_widget () {
         due_image = new Widgets.DynamicIcon ();
         due_image.update_icon_name ("planner-calendar");
-        due_image.size = 19;        
+        due_image.size = 16;        
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0

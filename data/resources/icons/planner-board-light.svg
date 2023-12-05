@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="24"
-   height="24"
+   width="16"
+   height="16"
    fill="none"
-   viewBox="0 0 24 24"
+   viewBox="0 0 16 16"
    version="1.1"
    id="svg8"
    sodipodi:docname="planner-board-light.svg"
-   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,34 +26,36 @@
      inkscape:zoom="22.083333"
      inkscape:cx="12"
      inkscape:cy="12.022642"
-     inkscape:window-width="1366"
-     inkscape:window-height="707"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg8" />
+     inkscape:current-layer="svg8"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M5.75 19.2502H18.25C18.8023 19.2502 19.25 18.8025 19.25 18.2502V5.75C19.25 5.19772 18.8023 4.75 18.25 4.75H5.75C5.19772 4.75 4.75 5.19772 4.75 5.75V18.2502C4.75 18.8025 5.19772 19.2502 5.75 19.2502Z"
+     stroke-width="1.3125"
+     d="m 2.53125,14.343925 h 10.9375 c 0.483262,0 0.875,-0.391738 0.875,-0.875 V 2.53125 c 0,-0.483245 -0.391738,-0.875 -0.875,-0.875 H 2.53125 c -0.483245,0 -0.875,0.391755 -0.875,0.875 v 10.937675 c 0,0.483262 0.391755,0.875 0.875,0.875 z"
      id="path2"
      style="stroke:#666666;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M9.25 5V19"
+     stroke-width="1.3125"
+     d="m 5.59375,1.875 v 12.25"
      id="path4"
      style="stroke:#666666;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.5"
-     d="M14.75 5V19"
+     stroke-width="1.3125"
+     d="m 10.40625,1.875 v 12.25"
      id="path6"
      style="stroke:#666666;stroke-opacity:1" />
 </svg>

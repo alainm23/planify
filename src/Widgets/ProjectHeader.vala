@@ -52,8 +52,8 @@ public class Widgets.ProjectHeader : Gtk.Grid {
         name_editable.text = project.inbox_project ? _("Inbox") : project.name;
 
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 21;
-        menu_image.update_icon_name ("dots-horizontal");
+        menu_image.size = 16;
+        menu_image.update_icon_name ("dots-vertical");
         
         menu_button = new Gtk.MenuButton () {
             valign = Gtk.Align.CENTER,

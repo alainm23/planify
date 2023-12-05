@@ -50,12 +50,8 @@
     <file alias="planner-calendar-dark.svg">resources/icons/planner-calendar-dark.svg</file>
     <file alias="planner-search-light.svg">resources/icons/planner-search-light.svg</file>
     <file alias="planner-search-dark.svg">resources/icons/planner-search-dark.svg</file>
-    <file alias="planner-plus-light.svg">resources/icons/planner-plus-light.svg</file>
-    <file alias="planner-plus-dark.svg">resources/icons/planner-plus-dark.svg</file>
     <file alias="chevron-right-dark.svg">resources/icons/chevron-right-dark.svg</file>
     <file alias="chevron-right-light.svg">resources/icons/chevron-right-light.svg</file>
-    <file alias="planner-plus-circle-light.svg">resources/icons/planner-plus-circle-light.svg</file>
-    <file alias="planner-plus-circle-dark.svg">resources/icons/planner-plus-circle-dark.svg</file>
     <file alias="planner-refresh-light.svg">resources/icons/planner-refresh-light.svg</file>
     <file alias="planner-refresh-dark.svg">resources/icons/planner-refresh-dark.svg</file>
     <file alias="planner-edit-light.svg">resources/icons/planner-edit-light.svg</file>
@@ -70,10 +66,6 @@
     <file alias="planner-check-circle-dark.svg">resources/icons/planner-check-circle-dark.svg</file>
     <file alias="planner-flag-light.svg">resources/icons/planner-flag-light.svg</file>
     <file alias="planner-flag-dark.svg">resources/icons/planner-flag-dark.svg</file>
-    <file alias="dots-horizontal-dark.svg">resources/icons/dots-horizontal-dark.svg</file>
-    <file alias="dots-horizontal-light.svg">resources/icons/dots-horizontal-light.svg</file>
-    <file alias="chevron-left-dark.svg">resources/icons/chevron-left-dark.svg</file>
-    <file alias="chevron-left-light.svg">resources/icons/chevron-left-light.svg</file>
     <file alias="planner-tag-dark.svg">resources/icons/planner-tag-dark.svg</file>
     <file alias="planner-tag-light.svg">resources/icons/planner-tag-light.svg</file>
     <file alias="planner-pinned-dark.svg">resources/icons/planner-pinned-dark.svg</file>
@@ -123,5 +115,9 @@
     <file alias="information-dark.svg">resources/icons/information-dark.svg</file>
     <file alias="chevron-down-light.svg">resources/icons/chevron-down-light.svg</file>
     <file alias="chevron-down-dark.svg">resources/icons/chevron-down-dark.svg</file>
+    <file alias="dots-vertical-light.svg">resources/icons/dots-vertical-light.svg</file>
+    <file alias="dots-vertical-dark.svg">resources/icons/dots-vertical-dark.svg</file>
+    <file alias="plus-light.svg">resources/icons/plus-light.svg</file>
+    <file alias="plus-dark.svg">resources/icons/plus-dark.svg</file>
   </gresource>
 </gresources>

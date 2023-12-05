@@ -112,7 +112,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         count_revealer.child = count_label;
 
         var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 19;
+        chevron_right_image.size = 16;
         chevron_right_image.update_icon_name ("chevron-right"); 
 
         arrow_button = new Gtk.Button ();

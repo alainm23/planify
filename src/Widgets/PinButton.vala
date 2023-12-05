@@ -18,7 +18,7 @@ public class Widgets.PinButton : Gtk.Button {
         add_css_class (Granite.STYLE_CLASS_FLAT);
                 
         pinned_image = new Widgets.DynamicIcon ();
-        pinned_image.size = 19;
+        pinned_image.size = 16;
 
         var projectbutton_grid = new Gtk.Grid () {
             column_spacing = 6,

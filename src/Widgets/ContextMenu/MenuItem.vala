@@ -57,7 +57,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         menu_icon = new Widgets.DynamicIcon () {
             valign = Gtk.Align.CENTER
         };
-        menu_icon.size = 19;
+        menu_icon.size = 16;
 
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,

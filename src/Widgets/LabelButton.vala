@@ -19,7 +19,7 @@ public class Widgets.LabelButton : Gtk.Grid {
         labels_picker = new Widgets.LabelPicker.LabelPicker ();
 
         var tag_image = new Widgets.DynamicIcon ();
-        tag_image.size = 19;
+        tag_image.size = 16;
         tag_image.update_icon_name ("planner-tag");
 
         button = new Gtk.MenuButton () {

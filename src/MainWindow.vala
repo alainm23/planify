@@ -45,8 +45,8 @@ public class MainWindow : Adw.ApplicationWindow {
 		sidebar_header.add_css_class ("flat");
 
 		var settings_image = new Widgets.DynamicIcon ();
-		settings_image.size = 21;
-		settings_image.update_icon_name ("menu");
+		settings_image.size = 16;
+		settings_image.update_icon_name ("dots-vertical");
 
 		var settings_popover = build_menu_app ();
 
@@ -59,34 +59,13 @@ public class MainWindow : Adw.ApplicationWindow {
 			Services.EventBus.get_default ().unselect_all ();
 		});
 
-		var sync_button = new Widgets.SyncButton ();
-
-		var sidebar_buttons = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-		sidebar_buttons.append (sync_button);
-		sidebar_buttons.append (settings_button);
-
-		sidebar_header.pack_end (sidebar_buttons);
+		sidebar_header.pack_end (settings_button);
 
 		sidebar = new Layouts.Sidebar ();
 
 		var sidebar_view = new Adw.ToolbarView ();
 		sidebar_view.add_top_bar (sidebar_header);
 		sidebar_view.content = sidebar;
-
-		var sidebar_image = new Widgets.DynamicIcon ();
-		sidebar_image.size = 19;
-		if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-			sidebar_image.update_icon_name ("sidebar-left");
-		} else {
-			sidebar_image.update_icon_name ("sidebar-right");
-		}
-
-		var sidebar_button = new Gtk.Button () {
-			valign = Gtk.Align.CENTER
-		};
-
-		sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		sidebar_button.child = sidebar_image;
 
 		project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
@@ -166,12 +145,6 @@ public class MainWindow : Adw.ApplicationWindow {
 						}
 					});
 				}
-			} else if (key == "slim-mode") {
-				if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-					sidebar_image.update_icon_name ("sidebar-left");
-				} else {
-					sidebar_image.update_icon_name ("sidebar-right");
-				}
 			}
 		});
 
@@ -200,13 +173,9 @@ public class MainWindow : Adw.ApplicationWindow {
 				add_label_view (id);
 			}
 
-			//  if (overlay_split_view.show_sidebar) {
-			//  	show_hide_sidebar ();
-			//  }
-		});
-
-		sidebar_button.clicked.connect (() => {
-			show_hide_sidebar ();
+			if (!overlay_split_view.show_sidebar) {
+				show_hide_sidebar ();
+			}
 		});
 
 		Services.EventBus.get_default ().send_notification.connect ((toast) => {

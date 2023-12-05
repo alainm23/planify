@@ -63,7 +63,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         var schedule_image = new Widgets.DynamicIcon ();
         schedule_image.update_icon_name ("planner-calendar");
-        schedule_image.size = 19;  
+        schedule_image.size = 16;  
 
         var schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         schedule_box.append (schedule_image);
@@ -75,7 +75,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         var label_image = new Widgets.DynamicIcon ();
         label_image.update_icon_name ("planner-tag");
-        label_image.size = 19;  
+        label_image.size = 16;  
 
         label_button = new Gtk.Button ();
         label_button.add_css_class (Granite.STYLE_CLASS_FLAT);
@@ -83,7 +83,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         var priority_image = new Widgets.DynamicIcon ();
         priority_image.update_icon_name ("planner-flag");
-        priority_image.size = 19;  
+        priority_image.size = 16;  
 
         priority_button = new Gtk.Button ();
 
@@ -91,8 +91,8 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         priority_button.child = priority_image;
 
         var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 19;
-        menu_image.update_icon_name ("dots-horizontal");
+        menu_image.size = 16;
+        menu_image.update_icon_name ("dots-vertical");
         
         menu_button = new Gtk.Button ();
         menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
