@@ -20,7 +20,7 @@
 */
 
 public class Services.ActionManager : Object {
-    public weak Planner app { get; construct; }
+    public weak Planify app { get; construct; }
     public weak MainWindow window { get; construct; }
 
     public SimpleActionGroup actions { get; construct; }
@@ -67,7 +67,7 @@ public class Services.ActionManager : Object {
         { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
     };
 
-    public ActionManager (Planner app, MainWindow window) {
+    public ActionManager (Planify app, MainWindow window) {
         Object (
             app: app,
             window: window
@@ -214,8 +214,7 @@ public class Services.ActionManager : Object {
 
     private void action_shortcuts () {
         Services.EventBus.get_default ().unselect_all ();
-        //  var dialog = new Gtk.ShortcutsWindow ();
-        //  dialog.show ();
+        window.open_shortcuts_window();
     }
 
     private void action_view_home () {

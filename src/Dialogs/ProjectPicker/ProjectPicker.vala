@@ -73,7 +73,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             title: _("Move"),
             width_request: 400,
             height_request: 600,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 

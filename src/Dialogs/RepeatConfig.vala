@@ -66,7 +66,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
             title: _("Repeat"),
             width_request: 320,
             height_request: 375,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -285,7 +285,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
 
     private void update_repeat_label () {
         RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.selected;
-        string label = Util.get_default ().get_recurrency_weeks (selected_option, (int)  recurrency_interval.value, get_recurrency_weeks ());
+        string label = Util.get_default ().get_recurrency_weeks (selected_option, (int) recurrency_interval.value, get_recurrency_weeks ());
         repeat_label.label = label;
     }
 

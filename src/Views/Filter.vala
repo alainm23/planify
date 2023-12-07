@@ -1,11 +1,10 @@
-public class Views.Filter : Gtk.Grid {
-    public Gee.HashMap <string, Layouts.ItemRow> items;
-
-    private Widgets.DynamicIcon filter_icon;
-    private Gtk.Label title_label;
+public class Views.Filter : Adw.Bin {
+    private Layouts.HeaderBar headerbar;
     private Gtk.ListBox listbox;
     private Gtk.Grid listbox_grid;
     private Gtk.Stack listbox_stack;
+
+    public Gee.HashMap <string, Layouts.ItemRow> items;
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -29,95 +28,7 @@ public class Views.Filter : Gtk.Grid {
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var sidebar_image = new Widgets.DynamicIcon ();
-        sidebar_image.size = 16;
-
-        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-            sidebar_image.update_icon_name ("sidebar-left");
-        } else {
-            sidebar_image.update_icon_name ("sidebar-right");
-        }
-        
-        var sidebar_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
-        };
-
-        sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        sidebar_button.child = sidebar_image;
-
-        filter_icon = new Widgets.DynamicIcon () {
-            valign = Gtk.Align.CENTER
-        };
-        filter_icon.size = 24;
-
-        title_label = new Gtk.Label (null);
-        title_label.add_css_class ("font-bold");
-
-        // Menu Button
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 16;
-        menu_image.update_icon_name ("dots-vertical");
-        
-        var menu_button = new Gtk.MenuButton () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
-            // popover = build_context_menu ()
-        };
-
-        menu_button.child = menu_image;
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        // Add Button
-        var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 16;
-        add_image.update_icon_name ("plus");
-        
-        var add_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            tooltip_text = _("Add To-Do")
-        };
-
-        add_button.child = add_image;
-        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        // add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
-
-        // Search Icon
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 16;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
-        };
-
-        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        search_button.child = search_image;
-        // search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
-        
-        var headerbar = new Adw.HeaderBar () {
-            title_widget = new Gtk.Label (null),
-            hexpand = true,
-            decoration_layout = ":close"
-        };
-
-        headerbar.add_css_class ("flat");
-        headerbar.pack_start (sidebar_button);
-        headerbar.pack_start (filter_icon);
-        headerbar.pack_start (title_label);
-        headerbar.pack_end (menu_button);
-        headerbar.pack_end (search_button);
-        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3,
-            margin_end = 3,
-            opacity = 0
-        });
-        headerbar.pack_end (add_button);
-        headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3,
-            margin_end = 3,
-            opacity = 0
-        });
+        headerbar = new Layouts.HeaderBar ();
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -168,16 +79,11 @@ public class Views.Filter : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            vexpand = true
-        };
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = scrolled_window;
 
-        content_box.append (headerbar);
-        content_box.append (scrolled_window);
-
-        attach (content_box, 0, 0);
-        add_items ();
+        child = toolbar_view;
 
         Timeout.add (listbox_stack.transition_duration, () => {
             validate_placeholder ();
@@ -194,31 +100,16 @@ public class Views.Filter : Gtk.Grid {
                 items[item.id_string].update_request ();
             }
         });
-
-        add_button.clicked.connect (() => {
-            // prepare_new_item ();
-        });
-
-        search_button.clicked.connect (() => {
-            var dialog = new Dialogs.QuickFind.QuickFind ();
-            dialog.show ();
-        });
-
-        sidebar_button.clicked.connect (() => {
-            Planner._instance.main_window.show_hide_sidebar ();
-        });
     }
 
     private void update_request () {
         if (filter is Objects.Priority) {
             Objects.Priority priority = ((Objects.Priority) filter);
-            filter_icon.update_icon_name (Util.get_default ().get_priority_icon (priority.priority));
-            title_label.label = priority.name;
+            headerbar.title = priority.name;
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
         } else if (filter is Objects.Completed) {
-            filter_icon.update_icon_name ("planner-completed");
-            title_label.label = _("Completed");
+            headerbar.title = _("Completed");
             listbox.set_header_func (header_completed_function);
             listbox_grid.margin_top = 0;
         }

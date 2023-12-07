@@ -40,7 +40,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      d="M 1.656445,14.343128 V 11.27972 c 0,-0.483406 0.3918711,-0.875259 0.8752593,-0.875259 h 3.0634075"
      stroke="currentColor"
@@ -48,5 +48,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

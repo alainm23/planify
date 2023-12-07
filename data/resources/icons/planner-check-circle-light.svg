@@ -41,7 +41,7 @@
      stroke-width="1.3125"
      d="M 1.65625,8 C 1.65625,4.4964475 4.4964475,1.65625 8,1.65625 v 0 c 3.503588,0 6.34375,2.8401975 6.34375,6.34375 v 0 c 0,3.503588 -2.840162,6.34375 -6.34375,6.34375 v 0 C 4.4964475,14.34375 1.65625,11.503588 1.65625,8 Z"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -49,5 +49,5 @@
      stroke-width="1.3125"
      d="M 6.03125,8.65625 6.4107375,9.4651 C 6.7115625,10.106125 7.6094,10.14305 7.96185,9.52889 l 2.0069,-3.497638"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

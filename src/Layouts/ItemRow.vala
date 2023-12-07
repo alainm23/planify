@@ -1508,7 +1508,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public void delete_request (bool undo = true) {
         if (board) {
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
 			                                    _("Delete To-Do"), _("Are you sure you want to delete this to-do?"));
 
 			dialog.body_use_markup = true;
@@ -1615,7 +1615,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void confirm_move (Objects.Project project, string section_id) {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
         _("Move tasks"), _("Are you sure you want to move your task to <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
 
         dialog.body_use_markup = true;

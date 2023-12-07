@@ -69,7 +69,7 @@ public class Services.Notification : GLib.Object {
                 new Variant.string (reminder.item_id)
             );
 
-            Planner.instance.send_notification (reminder.id_string, notification);
+            Planify.instance.send_notification (reminder.id_string, notification);
             Services.Database.get_default ().delete_reminder (reminder);
         } else if (Granite.DateTime.is_same_day (reminder.due.datetime, new GLib.DateTime.now_local ())) {
             var interval = (uint) time_until_now (reminder.due.datetime);
@@ -104,7 +104,7 @@ public class Services.Notification : GLib.Object {
             new Variant.string (reminder.item_id)
         );
 
-        Planner.instance.send_notification (uid, notification);
+        Planify.instance.send_notification (uid, notification);
         Services.Database.get_default ().delete_reminder (reminder);
     }
 }

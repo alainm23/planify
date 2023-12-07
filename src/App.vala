@@ -1,11 +1,11 @@
-public class Planner : Adw.Application {
+public class Planify : Adw.Application {
 	public MainWindow main_window;
 
-	public static Planner _instance = null;
-	public static Planner instance {
+	public static Planify _instance = null;
+	public static Planify instance {
 		get {
 			if (_instance == null) {
-				_instance = new Planner ();
+				_instance = new Planify ();
 			}
 			return _instance;
 		}
@@ -18,7 +18,7 @@ public class Planner : Adw.Application {
 
 	private Xdp.Portal? portal = null;
 
-	private const OptionEntry[] PLANNER_OPTIONS = {
+	private const OptionEntry[] OPTIONS = {
 		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
 		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planner", null },
 		{ "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
@@ -36,7 +36,7 @@ public class Planner : Adw.Application {
 		Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
 		Intl.textdomain (Constants.GETTEXT_PACKAGE);
 
-		add_main_option_entries (PLANNER_OPTIONS);
+		add_main_option_entries (OPTIONS);
 		create_dir_with_parents ("/io.github.alainm23.planify");
 	}
 
@@ -125,7 +125,10 @@ public class Planner : Adw.Application {
 	}
 
 	public static int main (string[] args) {
-		Planner app = Planner.instance;
+		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1069
+		GLib.Environment.set_variable ("WEBKIT_DISABLE_COMPOSITING_MODE", "1", true);
+
+		Planify app = Planify.instance;
 		return app.run (args);
 	}
 }

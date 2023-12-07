@@ -1,6 +1,6 @@
 
 
-public class Layouts.HeaderItem : Gtk.Grid {
+public class Layouts.HeaderItem : Adw.Bin {
     public string _header_title;
     public string header_title {
         get {
@@ -10,18 +10,6 @@ public class Layouts.HeaderItem : Gtk.Grid {
         set {
             _header_title = value;
             name_label.label = _header_title;
-        }
-    }
-
-    public string _add_tooltip;
-    public string add_tooltip {
-        get {
-            return _add_tooltip;
-        }
-
-        set {
-            _add_tooltip = value;
-            add_button.tooltip_markup = value;
         }
     }
     
@@ -56,25 +44,17 @@ public class Layouts.HeaderItem : Gtk.Grid {
     private Gtk.Label name_label;
     private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
-    private Gtk.Button add_button;
-    private Gtk.Stack action_stack;
     private Gtk.Grid content_grid;
+    private Gtk.Box action_box;
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
     private Gtk.Revealer separator_revealer;
-
     public signal void add_activated ();
     public signal void row_activated (Gtk.Widget widget);
 
     private bool has_children {
         get {
             return Util.get_default ().get_children (listbox).length () > 0;
-        }
-    }
-
-    public bool is_loading {
-        set {
-            action_stack.visible_child_name = value ? "spinner" : "button";
         }
     }
 
@@ -99,10 +79,11 @@ public class Layouts.HeaderItem : Gtk.Grid {
     public bool card {
         set {
             if (value) {
-                content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+                content_grid.add_css_class ("card");
+                content_grid.add_css_class ("sidebar-card");
             } else {
-                content_grid.remove_css_class (Granite.STYLE_CLASS_CARD);
-                // content_grid.remove_css_class ("pane-content");
+                content_grid.remove_css_class ("card");
+                content_grid.remove_css_class ("sidebar-card");
             }
         }
     }
@@ -115,7 +96,7 @@ public class Layouts.HeaderItem : Gtk.Grid {
         }
     }
     
-    public HeaderItem (string? header_title) {
+    public HeaderItem (string? header_title = null) {
         Object (
             header_title: header_title
         );
@@ -140,50 +121,20 @@ public class Layouts.HeaderItem : Gtk.Grid {
             margin_end = 1
         };
 
-        content_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        content_grid.add_css_class ("card");
+        content_grid.add_css_class ("sidebar-card");
         content_grid.add_css_class ("padding-3");
         content_grid.attach (listbox, 0, 0, 1, 1);
 
-        var add_image = new Widgets.DynamicIcon () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-        };
-        add_image.size = 16;
-        add_image.update_icon_name ("plus");
-
-        add_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = add_image
-        };
-
-        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_button.add_css_class ("p3");
-
-        var spinner_loading = new Gtk.Spinner () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            spinning = true
-        };
-        
-        spinner_loading.start ();
-
-        action_stack = new Gtk.Stack () {
-            halign = Gtk.Align.END,
+        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            valign = Gtk.Align.CENTER,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+            halign = END
         };
-
-        action_stack.add_named (add_button, "button");
-        action_stack.add_named (spinner_loading, "spinner");
 
         action_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child = true
+            child = action_box
         };
-
-        action_revealer.child = action_stack;
 
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
@@ -201,10 +152,9 @@ public class Layouts.HeaderItem : Gtk.Grid {
         };
 
         separator_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = separator
         };
-
-        separator_revealer.child = separator;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -218,19 +168,29 @@ public class Layouts.HeaderItem : Gtk.Grid {
         content_box.append (content_grid);
 
         content_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = content_box
         };
 
-        content_revealer.child = content_box;
+        child = content_revealer;
 
-        attach(content_revealer, 0, 0);
-
-        add_button.clicked.connect (() => {
-            add_activated ();
-        });
+        //  add_button.clicked.connect (() => {
+        //      add_activated ();
+        //  });
 
         listbox.row_activated.connect ((row) => {
             row_activated (row);
+        });
+
+        var motion_gesture = new Gtk.EventControllerMotion ();
+        add_controller (motion_gesture);
+
+        motion_gesture.enter.connect (() => {
+            action_revealer.reveal_child = true;
+        });
+
+        motion_gesture.leave.connect (() => {
+            action_revealer.reveal_child = false;
         });
     }
 
@@ -258,6 +218,10 @@ public class Layouts.HeaderItem : Gtk.Grid {
 
     public void add_child (Gtk.Widget widget) {
         listbox.append (widget);
+    }
+
+    public void add_widget_end (Gtk.Widget widget) {
+        action_box.append (widget);
     }
 
     public void remove_child (Gtk.Widget widget) {

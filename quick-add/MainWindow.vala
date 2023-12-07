@@ -79,6 +79,7 @@ public class MainWindow : Adw.ApplicationWindow {
             vexpand = true
         };
         quick_add_content.add_css_class (Granite.STYLE_CLASS_CARD);
+        quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
         quick_add_content.append (description_textview);
         quick_add_content.append (action_box);

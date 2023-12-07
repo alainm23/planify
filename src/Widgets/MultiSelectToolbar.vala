@@ -314,7 +314,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
             }
 
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
             title, message);
 
             dialog.body_use_markup = true;

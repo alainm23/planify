@@ -26,11 +26,9 @@ public class Dialogs.TodoistOAuth : Adw.Window {
 
     public TodoistOAuth () {
         Object (
-            transient_for: (Gtk.Window) Planner.instance.main_window,
+            transient_for: (Gtk.Window) Planify.instance.main_window,
             deletable: true,
-            // resizable: true,
             destroy_with_parent: true,
-            // window_position: Gtk.WindowPosition.CENTER_ON_PARENT,
             modal: true,
             title: _("Todoist Sync"),
             height_request: 575,
@@ -57,8 +55,8 @@ public class Dialogs.TodoistOAuth : Adw.Window {
         webview.vexpand = true;
         webview.hexpand = true;
 
-        // WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
-        // WebKit.WebContext.get_default ().set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
+        WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
+        webview.network_session.set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
 
         webview.load_uri (OAUTH_OPEN_URL);
 

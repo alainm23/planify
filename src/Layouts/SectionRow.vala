@@ -113,36 +113,36 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		count_revealer.child = count_label;
 
-        var add_image = new Widgets.DynamicIcon ();
-		add_image.size = 16;
-		add_image.update_icon_name ("plus");
-
 		var add_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			child = add_image
+			child = new Widgets.DynamicIcon.from_icon_name ("plus")
 		};
 
 		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-		var menu_image = new Widgets.DynamicIcon ();
-		menu_image.size = 16;
-		menu_image.update_icon_name ("dots-vertical");
-
 		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			popover = build_context_menu ()
+			popover = build_context_menu (),
+			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical")
 		};
-
-		menu_button.child = menu_image;
 		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+		actions_box.append (add_button);
+		actions_box.append (menu_button);
+
+		var actions_box_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            reveal_child = false,
+			child = actions_box
+        };
 
 		sectionrow_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		sectionrow_grid.add_css_class ("transition");
 		sectionrow_grid.append (name_editable);
-        sectionrow_grid.append (add_button);
-		sectionrow_grid.append (menu_button);
+        sectionrow_grid.append (actions_box_revealer);
 
 		var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
 			margin_bottom = 6,
@@ -432,6 +432,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         add_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+		var motion_gesture = new Gtk.EventControllerMotion ();
+        sectionrow_grid.add_controller (motion_gesture);
+
+        motion_gesture.enter.connect (() => {
+            actions_box_revealer.reveal_child = true;
+        });
+
+        motion_gesture.leave.connect (() => {
+			if (!menu_button.active) {
+				actions_box_revealer.reveal_child = false;
+			}
+        });
 	}
 
 	private void check_drop_widget () {
@@ -581,7 +594,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
-		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list-dark");
+		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "planner-trash");
 		delete_item.add_css_class ("menu-item-danger");
 
@@ -635,7 +648,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
 
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
 			                                    _("Delete section"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (section.short_name))));
 
 			dialog.body_use_markup = true;

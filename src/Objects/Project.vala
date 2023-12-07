@@ -301,7 +301,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public void update (bool cloud=true) {
+    public void update (bool cloud = true) {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }

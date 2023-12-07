@@ -41,7 +41,7 @@
      stroke-width="1.3125"
      d="m 1.65625,4.28125 c 0,-0.9664987 0.7835013,-1.75 1.75,-1.75 h 9.1875 c 0.966525,0 1.75,0.7835013 1.75,1.75 v 7.4375 c 0,0.966525 -0.783475,1.75 -1.75,1.75 h -9.1875 c -0.9664987,0 -1.75,-0.783475 -1.75,-1.75 z"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -49,5 +49,5 @@
      stroke-width="1.3125"
      d="M 2.3125,3.1875 8,8.21875 13.6875,3.1875"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

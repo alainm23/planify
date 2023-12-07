@@ -25,7 +25,7 @@ public class Dialogs.ProjectDescription : Adw.Window {
     public ProjectDescription (Objects.Project project) {
         Object (
             project: project,
-            transient_for: (Gtk.Window) Planner.instance.main_window,
+            transient_for: (Gtk.Window) Planify.instance.main_window,
             deletable: true,
             resizable: true,
             modal: true,

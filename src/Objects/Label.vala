@@ -179,8 +179,8 @@ public class Objects.Label : Objects.BaseObject {
     public void delete (bool confirm = true) {
         //  if (!confirm) {
         //      if (todoist) {
-        //          Planner.todoist.delete.begin (this, (obj, res) => {
-        //              Planner.todoist.delete.end (res);
+        //          Planify.todoist.delete.begin (this, (obj, res) => {
+        //              Planify.todoist.delete.end (res);
         //              Services.Database.get_default ().delete_label (this);
         //          });
         //      } else {
@@ -210,8 +210,8 @@ public class Objects.Label : Objects.BaseObject {
         //      if (response == Gtk.ResponseType.ACCEPT) {
         //          if (todoist) {
         //              remove_button.is_loading = true;
-        //              Planner.todoist.delete.begin (this, (obj, res) => {
-        //                  Planner.todoist.delete.end (res);
+        //              Planify.todoist.delete.begin (this, (obj, res) => {
+        //                  Planify.todoist.delete.end (res);
         //                  Services.Database.get_default ().delete_label (this);
         //                  remove_button.is_loading = false;
         //                  message_dialog.hide_destroy ();

@@ -47,8 +47,8 @@ public class Widgets.MagicButton : Gtk.Grid {
         };
         
         magic_button = new Gtk.Button () {
-            height_request = 41,
-            width_request = 41
+            height_request = 48,
+            width_request = 48
         };
 
         magic_button.child = add_icon;

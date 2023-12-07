@@ -57,7 +57,7 @@ public class Dialogs.LabelPicker : Adw.Window {
             title: _("Labels"),
             width_request: 320,
             height_request: 450,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 

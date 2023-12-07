@@ -1,6 +1,6 @@
-@define-color window_bg_color #ffffff;
+@define-color window_bg_color #fafafa;
 @define-color popover_bg_color #ffffff;
-@define-color sidebar_bg_color #fafafa;
+@define-color sidebar_bg_color #f6f5f4;
 @define-color item_border_color @borders;
 @define-color upcoming_bg_color #ededef;
 @define-color upcoming_fg_color shade(#ededef, 0);

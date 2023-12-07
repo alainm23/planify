@@ -25,7 +25,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="19.583333"
-     inkscape:cx="12.102128"
+     inkscape:cx="12.153192"
      inkscape:cy="11.974468"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -41,7 +41,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      d="M 5.59375,8 C 5.59375,9.087275 4.71231,9.96875 3.625,9.96875 2.53769,9.96875 1.65625,9.087275 1.65625,8 1.65625,6.912725 2.53769,6.03125 3.625,6.03125 4.71231,6.03125 5.59375,6.912725 5.59375,8 Z"
      stroke="currentColor"
@@ -49,7 +49,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      d="m 14.34375,12.375 c 0,1.087275 -0.881475,1.96875 -1.96875,1.96875 -1.087275,0 -1.96875,-0.881475 -1.96875,-1.96875 0,-1.087275 0.881475,-1.96875 1.96875,-1.96875 1.087275,0 1.96875,0.881475 1.96875,1.96875 z"
      stroke="currentColor"
@@ -57,7 +57,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path6"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      d="M 10.1875,11.5 5.375,9.3125"
      stroke="currentColor"
@@ -65,7 +65,7 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path8"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      d="M 10.1875,4.9375 5.375,7.125"
      stroke="currentColor"
@@ -73,5 +73,5 @@
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path10"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

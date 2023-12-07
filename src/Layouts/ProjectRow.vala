@@ -404,7 +404,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         handle_grid.remove_css_class ("card");
         on_drag = false;
         opacity = 1;
-        listbox_revealer.reveal_child =  project.collapsed;
+        listbox_revealer.reveal_child = project.collapsed;
     }
     
     private void build_context_menu (double x, double y) {
@@ -471,7 +471,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
             _("Delete project"), _("Are you sure you want to delete <b>%s</b>?").printf (Util.get_default ().get_dialog_text (project.short_name)));
 
             dialog.body_use_markup = true;

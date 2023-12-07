@@ -32,7 +32,7 @@ public class Widgets.Placeholder : Gtk.Grid {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER
         };
-        placeholder_image.add_css_class ("icon-dropshadow");
+        placeholder_image.add_css_class ("icon-animation-dropshadow");
         placeholder_image.size = 96;
         placeholder_image.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 

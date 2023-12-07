@@ -39,7 +39,7 @@
      stroke-width="1.5"
      d="m 8,1.75 v 12.5"
      id="path1"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -47,5 +47,5 @@
      stroke-width="1.5"
      d="M 14.25,8 H 1.75"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

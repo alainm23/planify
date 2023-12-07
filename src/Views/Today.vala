@@ -1,6 +1,6 @@
-public class Views.Today : Gtk.Grid {
+public class Views.Today : Adw.Bin {
+    private Layouts.HeaderBar headerbar;
     private Widgets.EventsList event_list;
-
     private Gtk.ListBox listbox;
     private Gtk.Revealer today_revealer;
     private Gtk.ListBox overdue_listbox;
@@ -27,11 +27,13 @@ public class Views.Today : Gtk.Grid {
         }
     }
 
+    private string today_label = _("Today");
+
     construct {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
         
-        var headerbar = new Widgets.FilterHeader (Objects.Today.get_default ());
+        headerbar = new Layouts.HeaderBar ();
 
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12
@@ -54,8 +56,6 @@ public class Views.Today : Gtk.Grid {
         event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
         });
-
-        var magic_button = new Widgets.MagicButton ();
 
         var overdue_label = new Gtk.Label (_("Overdue")) {
             halign = Gtk.Align.START,
@@ -199,12 +199,25 @@ public class Views.Today : Gtk.Grid {
             vexpand = true
         };
 
-        content_box.append (headerbar);
         content_box.append (event_list_clamp);
         content_box.append (scrolled_window);
 
-        attach (content_box, 0, 0);
-        headerbar.update_today_label ();
+        var magic_button = new Widgets.MagicButton ();
+
+		var content_overlay = new Gtk.Overlay () {
+			hexpand = true,
+			vexpand = true
+		};
+
+		content_overlay.child = content_box;
+		content_overlay.add_overlay (magic_button);
+
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_overlay;
+
+        child = toolbar_view;
+        update_today_label ();
         add_today_items ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
@@ -214,7 +227,7 @@ public class Views.Today : Gtk.Grid {
 
         Services.EventBus.get_default ().day_changed.connect (() => {
             date = new GLib.DateTime.now_local ();
-            headerbar.update_today_label ();
+            update_today_label ();
             add_today_items ();
         });
 
@@ -232,7 +245,7 @@ public class Views.Today : Gtk.Grid {
             }
         });
 
-        headerbar.prepare_new_item.connect (() => {
+        magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
     }
@@ -428,22 +441,12 @@ public class Views.Today : Gtk.Grid {
         }
     }
 
-    public void build_content_menu () {
-        //  Services.EventBus.get_default ().unselect_all ();
-
-        //  var menu = new Dialogs.ContextMenu.Menu ();
-
-        //  var show_completed_item = new Dialogs.ContextMenu.MenuItem (
-        //      Services.Settings.get_default ().settings.get_boolean ("show-today-completed") ? _("Hide completed tasks") : _("Show completed tasks"),
-        //      "planner-check-circle"
-        //  );
-
-        //  menu.add_item (show_completed_item);
-        //  menu.popup ();
-
-        //  show_completed_item.activate_item.connect (() => {
-        //      menu.hide_destroy ();
-        //      Services.Settings.get_default ().settings.set_boolean ("show-today-completed", !Services.Settings.get_default ().settings.get_boolean ("show-today-completed"));
-        //  });
+    public void update_today_label () {
+        var date = new GLib.DateTime.now_local ();
+        var date_format = "%s %s".printf (date.format ("%a"),
+            date.format (
+            Granite.DateTime.get_default_date_format (false, true, false)
+        ));
+        headerbar.title = "%s <small>%s</small>".printf (today_label, date_format);
     }
 }

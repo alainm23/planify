@@ -37,24 +37,24 @@
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,2.53125 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,3.3125 h 10.875"
      id="path2"
      style="stroke:#ffffff;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,13.46875 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,12.6875 h 10.875"
      id="path4"
      style="stroke:#ffffff;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,8 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,8 h 10.875"
      id="path6"
      style="stroke:#ffffff;stroke-opacity:1" />
 </svg>

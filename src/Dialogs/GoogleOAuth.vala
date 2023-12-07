@@ -33,7 +33,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
 
     public GoogleOAuth () {
         Object (
-            transient_for: (Gtk.Window) Planner.instance.main_window,
+            transient_for: (Gtk.Window) Planify.instance.main_window,
             deletable: true,
             destroy_with_parent: true,
             modal: true,

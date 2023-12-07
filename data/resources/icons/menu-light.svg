@@ -25,37 +25,37 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="19.583333"
-     inkscape:cx="12"
+     inkscape:cx="12.025532"
      inkscape:cy="11.974468"
-     inkscape:window-width="1920"
-     inkscape:window-height="1011"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1549"
+     inkscape:window-height="991"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg8"
      showguides="false" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,2.53125 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,3.3125 h 10.875"
      id="path2"
-     style="fill:none;fill-opacity:1;stroke:#666666;stroke-opacity:1" />
+     style="fill:none;fill-opacity:1;stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,13.46875 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,12.6875 h 10.875"
      id="path4"
-     style="fill:none;fill-opacity:1;stroke:#666666;stroke-opacity:1" />
+     style="fill:none;fill-opacity:1;stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
-     stroke-width="1.3125"
-     d="m 1.65625,8 h 12.6875"
+     stroke-width="1.125"
+     d="m 2.5625,8 h 10.875"
      id="path6"
-     style="fill:none;fill-opacity:1;stroke:#666666;stroke-opacity:1" />
+     style="fill:none;fill-opacity:1;stroke:#333333;stroke-opacity:1" />
 </svg>

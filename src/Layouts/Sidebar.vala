@@ -17,7 +17,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
 
     public Sidebar () {
-        Object();
+        Object ();
     }
 
     construct {
@@ -36,16 +36,9 @@ public class Layouts.Sidebar : Gtk.Grid {
         };
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
-        // inbox_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>1"}, _("Inbox"));
-
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
-        // today_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>2"}, _("Today"));
-
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
-        // scheduled_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>3"}, _("Scheduled"));
-
         filters_filter = new Layouts.FilterPaneRow (FilterType.FILTER);
-        // filters_filter.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>4"}, _("Labels"));
 
         filters_grid.attach (inbox_filter, 0, 0);
         filters_grid.attach (today_filter, 1, 0);
@@ -58,14 +51,13 @@ public class Layouts.Sidebar : Gtk.Grid {
         favorites_header.show_action = false;
 
         local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
-        // local_projects_header.add_tooltip = Granite.markup_accel_tooltip ({"p"}, _("Add Project"));
         local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
         local_projects_header.margin_top = 6;
 
-        todoist_projects_header = new Layouts.HeaderItem (null);
+        todoist_projects_header = new Layouts.HeaderItem ();
         todoist_projects_header.margin_top = 6;
 
-        google_projects_header = new Layouts.HeaderItem (null);
+        google_projects_header = new Layouts.HeaderItem ();
         google_projects_header.margin_top = 6;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -92,11 +84,39 @@ public class Layouts.Sidebar : Gtk.Grid {
         attach (scrolled_window, 0, 0);
         update_projects_sort ();
 
-        local_projects_header.add_activated.connect (() => {
+        var add_local_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            }
+        };
+
+        add_local_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_local_button.add_css_class ("header-item-button");
+
+        local_projects_header.add_widget_end (add_local_button);
+        add_local_button.clicked.connect (() => {
             prepare_new_project (BackendType.LOCAL);
         });
 
-        todoist_projects_header.add_activated.connect (() => {
+        var sync_button = new Widgets.SyncButton ();
+        todoist_projects_header.add_widget_end (sync_button);
+        
+        var add_todoist_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            }
+        };
+
+        add_todoist_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_todoist_button.add_css_class ("header-item-button");
+        todoist_projects_header.add_widget_end (add_todoist_button);
+        add_todoist_button.clicked.connect (() => {
             bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
             
             if (is_logged_in) {

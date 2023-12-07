@@ -499,7 +499,7 @@ public class Views.Date : Gtk.Grid {
         //      Services.EventBus.get_default ().item_selected (null);
 
         //      var row = new Layouts.ItemRow.for_project (
-        //          Planner.database.get_project (Services.Settings.get_default ().settings.get_int64 ("inbox-project-id"))
+        //          Planify.database.get_project (Services.Settings.get_default ().settings.get_int64 ("inbox-project-id"))
         //      );
             
         //      row.update_due (Util.get_default ().get_format_date (date));

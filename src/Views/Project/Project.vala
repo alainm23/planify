@@ -3,6 +3,7 @@ public class Views.Project : Gtk.Grid {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Stack view_stack;
+	private Widgets.ContextMenu.MenuItem show_completed_item;
 
 	public Project (Objects.Project project) {
 		Object (
@@ -11,151 +12,28 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	construct {
-		var sidebar_image = new Widgets.DynamicIcon ();
-		sidebar_image.size = 16;
-		if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-			sidebar_image.update_icon_name ("sidebar-left");
-		} else {
-			sidebar_image.update_icon_name ("sidebar-right");
-		}
-
-		var sidebar_button = new Gtk.Button () {
-			valign = Gtk.Align.CENTER
-		};
-
-		sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		sidebar_button.child = sidebar_image;
-
-		var inbox_icon = new Gtk.Image () {
-			gicon = new ThemedIcon ("planner-inbox"),
-			pixel_size = 16
-		};
-
-		var title_label = new Gtk.Label (project.name);
-		title_label.add_css_class ("font-bold");
-
-		var menu_image = new Widgets.DynamicIcon ();
-		menu_image.size = 16;
-		menu_image.update_icon_name ("dots-vertical");
-
 		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			popover = build_context_menu ()
+			margin_end = 12,
+			popover = build_context_menu_popover (),
+			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical")
 		};
-
-		menu_button.child = menu_image;
 		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-		var list_image = new Widgets.DynamicIcon ();
-		list_image.size = 21;
-		list_image.update_icon_name ("unordered-list");
-
-		var board_image = new Widgets.DynamicIcon ();
-		board_image.size = 21;
-		board_image.update_icon_name ("planner-board");
-
-		var list_button = new Gtk.ToggleButton () {
-			active = true,
-			child = list_image,
-			valign = Gtk.Align.CENTER,
-			tooltip_text = _("List View"),
-			active = project.view_style == ProjectViewStyle.LIST
-		};
-
-		list_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-		var board_button = new Gtk.ToggleButton () {
-			child = board_image,
-			valign = Gtk.Align.CENTER,
-			tooltip_text = _("Board View"),
-			active = project.view_style == ProjectViewStyle.BOARD
-		};
-
-		board_button.set_group (list_button);
-		board_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-		var view_mode_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-			hexpand = true,
-			homogeneous = true,
-			valign = Gtk.Align.CENTER
-		};
-
-		view_mode_box.add_css_class (Granite.STYLE_CLASS_LINKED);
-		view_mode_box.append (list_button);
-		view_mode_box.append (board_button);
-
-		var add_image = new Widgets.DynamicIcon ();
-		add_image.size = 16;
-		add_image.update_icon_name ("plus");
-
-		var add_button = new Gtk.Button () {
+		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			tooltip_text = _("Add To-Do")
+			popover = build_view_setting_popover (),
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders")
 		};
+		view_setting_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+		
+		var headerbar = new Layouts.HeaderBar ();
+		headerbar.title = project.name;
 
-		add_button.child = add_image;
-		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		// add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
-
-		var search_image = new Widgets.DynamicIcon ();
-		search_image.size = 16;
-		search_image.update_icon_name ("planner-search");
-
-		var search_button = new Gtk.Button () {
-			valign = Gtk.Align.CENTER
-		};
-
-		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		search_button.child = search_image;
-		// search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
-
-		var sections_image = new Widgets.DynamicIcon ();
-		sections_image.size = 16;
-		sections_image.update_icon_name ("dropdown");
-
-		var sections_order_popover = new Widgets.SectionsOrderPopover (project);
-
-		var sections_button = new Gtk.MenuButton () {
-			valign = Gtk.Align.CENTER,
-			child = sections_image,
-			popover = sections_order_popover
-		};
-		sections_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-		var headerbar = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (null),
-			hexpand = true,
-			decoration_layout = ":close"
-		};
-
-		headerbar.add_css_class ("flat");
-		headerbar.pack_start (sidebar_button);
-		if (project.id == Services.Settings.get_default ().settings.get_string ("inbox-project-id")) {
-			headerbar.pack_start (inbox_icon);
-		}
-		headerbar.pack_start (title_label);
 		headerbar.pack_end (menu_button);
-		headerbar.pack_end (search_button);
-		// headerbar.pack_end (sections_button);
-		headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-			margin_start = 3,
-			margin_end = 3,
-			opacity = 0
-		});
-		//  headerbar.pack_end (view_mode_box);
-		//  headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-		//  	margin_start = 3,
-		//  	margin_end = 3,
-		//  	opacity = 0
-		//  });
-		headerbar.pack_end (add_button);
-		headerbar.pack_end (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-			margin_start = 3,
-			margin_end = 3,
-			opacity = 0
-		});
+		headerbar.pack_end (view_setting_button);
 
 		view_stack = new Gtk.Stack () {
 			hexpand = true,
@@ -170,12 +48,15 @@ public class Views.Project : Gtk.Grid {
 
 		content_box.append (view_stack);
 
+		var magic_button = new Widgets.MagicButton ();
+
 		var content_overlay = new Gtk.Overlay () {
 			hexpand = true,
 			vexpand = true
 		};
 
 		content_overlay.child = content_box;
+		content_overlay.add_overlay (magic_button);
 
 		var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
@@ -185,29 +66,12 @@ public class Views.Project : Gtk.Grid {
 		update_project_view (ProjectViewStyle.LIST);
 		show();
 
-		add_button.clicked.connect (() => {
+		magic_button.clicked.connect (() => {
 			prepare_new_item ();
 		});
 
-		list_button.toggled.connect (() => {
-			update_project_view (ProjectViewStyle.LIST);
-		});
-
-		board_button.toggled.connect (() => {
-			update_project_view (ProjectViewStyle.BOARD);
-		});
-
-		search_button.clicked.connect (() => {
-			var dialog = new Dialogs.QuickFind.QuickFind ();
-			dialog.show ();
-		});
-
-		sidebar_button.clicked.connect (() => {
-			Planner._instance.main_window.show_hide_sidebar ();
-		});
-
 		project.updated.connect (() => {
-			title_label.label = project.name;
+			headerbar.title = project.name;
 		});
 	}
 
@@ -261,17 +125,12 @@ public class Views.Project : Gtk.Grid {
 		}
 	}
 
-	private Widgets.ContextMenu.MenuItem show_completed_item;
-	private Gtk.Popover build_context_menu () {
+	private Gtk.Popover build_context_menu_popover () {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var description_item = new Widgets.ContextMenu.MenuItem (_("Description"), "planner-note");
 
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
-		show_completed_item = new Widgets.ContextMenu.MenuItem (
-			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
-			"planner-check-circle"
-			);
 
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 
@@ -293,6 +152,7 @@ public class Views.Project : Gtk.Grid {
 		}
 
 		menu_box.append (add_section_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (select_item);
 		menu_box.append (paste_item);
 		menu_box.append (show_completed_item);
@@ -305,7 +165,8 @@ public class Views.Project : Gtk.Grid {
 		var popover = new Gtk.Popover () {
 			has_arrow = false,
 			position = Gtk.PositionType.BOTTOM,
-			child = menu_box
+			child = menu_box,
+			width_request = 250
 		};
 
 		edit_item.activate_item.connect (() => {
@@ -351,15 +212,6 @@ public class Views.Project : Gtk.Grid {
 			});
 		});
 
-		show_completed_item.activate_item.connect (() => {
-			popover.popdown ();
-
-			project.show_completed = !project.show_completed;
-			project.update ();
-
-			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
-		});
-
 		add_section_item.activate_item.connect (() => {
 			Objects.Section new_section = prepare_new_section ();
 
@@ -401,7 +253,7 @@ public class Views.Project : Gtk.Grid {
 		delete_item.clicked.connect (() => {
 			popover.popdown ();
 
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
 			                                    _("Delete project"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
 
 			dialog.body_use_markup = true;
@@ -423,6 +275,51 @@ public class Views.Project : Gtk.Grid {
 					}
 				}
 			});
+		});
+
+		return popover;
+	}
+
+	private Gtk.Popover build_view_setting_popover () {
+		var order_by_model = new Gee.ArrayList<string> ();
+		order_by_model.add (_("Custom sort order"));
+		order_by_model.add (_("Alphabetically"));
+		order_by_model.add (_("Due date"));
+		order_by_model.add (_("Date added"));
+		order_by_model.add (_("Priority"));
+
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), null, order_by_model, project.sort_order);
+
+		show_completed_item = new Widgets.ContextMenu.MenuItem (
+			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
+			"planner-check-circle"
+			);
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (order_by_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (show_completed_item);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = false,
+			position = Gtk.PositionType.BOTTOM,
+			child = menu_box,
+			width_request = 250
+		};
+
+		order_by_item.selected.connect ((index) => {
+			project.sort_order = index;
+			project.update (false);
+		});
+
+		show_completed_item.activate_item.connect (() => {
+			popover.popdown ();
+
+			project.show_completed = !project.show_completed;
+			project.update ();
+
+			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
 		});
 
 		return popover;

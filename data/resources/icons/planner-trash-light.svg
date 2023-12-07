@@ -25,7 +25,7 @@
      showgrid="false"
      inkscape:zoom="31.23055"
      inkscape:cx="5.0911687"
-     inkscape:cy="9.2697694"
+     inkscape:cy="9.2697695"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
      inkscape:window-x="0"
@@ -41,7 +41,7 @@
      stroke-width="1.35484"
      d="m 3.2580651,4.1610974 0.7597484,8.7371746 c 0.081173,0.933484 0.8626439,1.649923 1.7996594,1.649923 h 4.3650831 c 0.937006,0 1.718477,-0.716439 1.799587,-1.649923 l 0.759793,-8.7371746"
      id="path2"
-     style="fill:none;fill-opacity:0.101961;stroke:#666666;stroke-opacity:1" />
+     style="fill:none;fill-opacity:0.101961;stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -49,7 +49,7 @@
      stroke-width="1.35484"
      d="M 5.9677425,3.9352909 V 3.2578716 C 5.9677425,2.2601954 6.776491,1.45142 7.774195,1.45142 h 0.451612 c 0.997704,0 1.806452,0.8087754 1.806452,1.8064516 v 0.6774193"
      id="path4"
-     style="fill:none;fill-opacity:0.101961;stroke:#666666;stroke-opacity:1" />
+     style="fill:none;fill-opacity:0.101961;stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -57,5 +57,5 @@
      stroke-width="1.35484"
      d="M 1.67742,4.1610974 H 14.322582"
      id="path6"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

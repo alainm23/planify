@@ -302,9 +302,9 @@ public class Util : GLib.Object {
                 Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_DARK;
             }
         } else {
-            window_bg_color = "#ffffff";
+            window_bg_color = "#fafafa";
             popover_bg_color = "#ffffff";
-            sidebar_bg_color = "#fafafa";
+            sidebar_bg_color = "#f6f5f4";
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
@@ -312,7 +312,7 @@ public class Util : GLib.Object {
             Adw.StyleManager.get_default ().color_scheme = Adw.ColorScheme.FORCE_LIGHT;
         }
 
-        var CSS = _css.printf (
+        var css = _css.printf (
             window_bg_color,
             popover_bg_color,
             sidebar_bg_color,
@@ -322,7 +322,7 @@ public class Util : GLib.Object {
             selected_color
         );
 
-        provider.load_from_string (CSS);
+        provider.load_from_string (css);
         
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,
@@ -525,7 +525,7 @@ public class Util : GLib.Object {
 
         next_day = int.parse (weeks[index]);
 
-        if (day_of_week < next_day){
+        if (day_of_week < next_day) {
             days = next_day - day_of_week;
         } else {
             days = 7 - (day_of_week - next_day);
@@ -740,6 +740,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-rotate", true);
                 _dynamic_icons.set ("planner-section", true);
                 _dynamic_icons.set ("unordered-list", true);
+                _dynamic_icons.set ("ordered-list", true);
                 _dynamic_icons.set ("menu", true);
                 _dynamic_icons.set ("share", true);
                 _dynamic_icons.set ("dropdown", true);
@@ -768,7 +769,7 @@ public class Util : GLib.Object {
         string returned = name;
         
         if (name.length > size) {
-            returned = name.substring (0, size) + "...";
+            returned = name.substring (0, size) + "…";
         }
 
         return returned;
@@ -807,7 +808,7 @@ public class Util : GLib.Object {
     }
 
     public void clear_database (string title, string message) {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
         title, message);
 
         dialog.body_use_markup = true;
@@ -826,7 +827,7 @@ public class Util : GLib.Object {
     }
 
     public void show_alert_destroy () {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
         null, _("Process completed, you need to start Planify again."));
 
         dialog.modal = true;
@@ -834,7 +835,7 @@ public class Util : GLib.Object {
         dialog.show ();
 
         dialog.response.connect ((response) => {
-            Planner.instance.main_window.destroy ();
+            Planify.instance.main_window.destroy ();
         });
     }
 
@@ -906,7 +907,7 @@ public class Util : GLib.Object {
     //          if (response == Gtk.ResponseType.ACCEPT) {
     //              clear_database_query ();
     //              reset_settings ();
-    //              Planner.instance.main_window.destroy ();
+    //              Planify.instance.main_window.destroy ();
     //          } else {
     //              message_dialog.hide_destroy ();
     //          }
@@ -1223,11 +1224,11 @@ We hope you’ll enjoy using Planify!""");
         label_05.name = _("🏃‍♀️️Follow Up");
         label_05.color = "grey";
 
-        Services.Database.get_default().insert_label (label_01);
-        Services.Database.get_default().insert_label (label_02);
-        Services.Database.get_default().insert_label (label_03);
-        Services.Database.get_default().insert_label (label_04);
-        Services.Database.get_default().insert_label (label_05);
+        Services.Database.get_default ().insert_label (label_01);
+        Services.Database.get_default ().insert_label (label_02);
+        Services.Database.get_default ().insert_label (label_03);
+        Services.Database.get_default ().insert_label (label_04);
+        Services.Database.get_default ().insert_label (label_05);
     }
 
     public string get_markup_format (string _text) {
@@ -1242,14 +1243,14 @@ We hope you’ll enjoy using Planify!""");
 
         MatchInfo info;
         try {
-            List<string> urls = new List<string>();
+            List<string> urls = new List<string> ();
             if (url_regex.match (text, 0, out info)) {
                 do {
                     var url = info.fetch_named ("url");
                     urls.append (url);
                 } while (info.next ());
             }
-            List<string> emails = new List<string>();
+            List<string> emails = new List<string> ();
             if (mailto_regex.match (text, 0, out info)) {
                 do {
                     var email = info.fetch_named ("mailto");
@@ -1262,7 +1263,7 @@ We hope you’ll enjoy using Planify!""");
                     bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
                 } while (info.next ());
             }
-            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown>();
+            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown> ();
             if (italic_regex.match (text, 0, out info)) {
                 do {
                     italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
@@ -1277,24 +1278,24 @@ We hope you’ll enjoy using Planify!""");
 
             var converted = text;
             urls.foreach ((url) => {
-                var urlEncoded = url.replace ("&", "&amp;");
-                var urlAsLink = @"<a href=\"$urlEncoded\">$urlEncoded</a>";
-                converted = converted.replace (url, urlAsLink);
+                var url_encoded = url.replace ("&", "&amp;");
+                var url_as_link = @"<a href=\"$url_encoded\">$url_encoded</a>";
+                converted = converted.replace (url, url_as_link);
             });
             emails.foreach ((email) => {
-                var emailAsLink = @"<a href=\"mailto:$email\">$email</a>";
-                converted = converted.replace (email, emailAsLink);
+                var email_as_link = @"<a href=\"mailto:$email\">$email</a>";
+                converted = converted.replace (email, email_as_link);
             });
             foreach (RegexMarkdown m in italic_bold) {
-                string format = "<i><b>"+m.text+"</b></i>";
+                string format = "<i><b>" + m.text + "</b></i>";
                 converted = converted.replace (m.match, format);
             }
             foreach (RegexMarkdown m in bolds_01) {
-                string format = "<b>"+m.text+"</b>";
+                string format = "<b>" + m.text + "</b>";
                 converted = converted.replace (m.match, format);
             }
             foreach (RegexMarkdown m in italics_01) {
-                string format = "<i>"+m.text+"</i>";
+                string format = "<i>" + m.text + "</i>";
                 converted = converted.replace (m.match, format);
             }
 
@@ -1315,4 +1316,3 @@ public class RegexMarkdown {
         this.extra = extra;
     }
 }
-

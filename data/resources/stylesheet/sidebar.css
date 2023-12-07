@@ -3,6 +3,7 @@
 }
 
 .filter-pane-row-inbox {
+    box-shadow: none;
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
@@ -19,6 +20,7 @@
 }
 
 .filter-pane-row-today {
+    box-shadow: none;
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
@@ -35,6 +37,7 @@
 }
 
 .filter-pane-row-scheduled {
+    box-shadow: none;
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
@@ -51,6 +54,7 @@
 }
 
 .filter-pane-row-filter {
+    box-shadow: none;
     padding: 3px;
     border-radius: 6px;
     transition: all 220ms ease-in-out;
@@ -81,10 +85,6 @@
     background-color: transparent;
 }
 
-/* .selectable-item:focus:focus-visible {
-    outline: none;
-} */
-
 .selectable-item-selected {
     background-color: @shade_color;
     border-radius: 9px;
@@ -93,4 +93,9 @@
 .drop-css {
     border-radius: 9px;
     transition: all 220ms ease-in-out;
+}
+
+.sidebar-card {
+    box-shadow: none;
+    border: 1px solid @item_border_color;
 }

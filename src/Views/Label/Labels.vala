@@ -1,4 +1,4 @@
-public class Views.Filters : Gtk.Grid {
+public class Views.Labels : Adw.Bin {
     private Layouts.HeaderItem labels_local_header;
     private Layouts.HeaderItem labels_todoist_header;
 
@@ -9,79 +9,9 @@ public class Views.Filters : Gtk.Grid {
         labels_local_map = new Gee.HashMap <string, Layouts.LabelRow> ();
         labels_todoist_map = new Gee.HashMap <string, Layouts.LabelRow> ();
 
-        var sidebar_image = new Widgets.DynamicIcon ();
-        sidebar_image.size = 16;
+        var headerbar = new Layouts.HeaderBar ();
+        headerbar.title = _("Labels");
 
-        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-            sidebar_image.update_icon_name ("sidebar-left");
-        } else {
-            sidebar_image.update_icon_name ("sidebar-right");
-        }
-        
-        var sidebar_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
-        };
-
-        sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        sidebar_button.child = sidebar_image;
-
-        var title_label = new Gtk.Label (_("Labels"));
-        title_label.add_css_class ("font-bold");
-
-        // Menu Button
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 16;
-        menu_image.update_icon_name ("dots-vertical");
-        
-        var menu_button = new Gtk.MenuButton () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
-            // popover = build_context_menu ()
-        };
-
-        menu_button.child = menu_image;
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        // Add Button
-        var add_image = new Widgets.DynamicIcon ();
-        add_image.size = 16;
-        add_image.update_icon_name ("plus");
-        
-        var add_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-            tooltip_text = _("Add To-Do")
-        };
-
-        add_button.child = add_image;
-        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        // add_button.tooltip_markup = Granite.markup_accel_tooltip ({"a"}, _("Add To-Do"));
-
-        // Search Icon
-        var search_image = new Widgets.DynamicIcon ();
-        search_image.size = 16;
-        search_image.update_icon_name ("planner-search");
-        
-        var search_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER
-        };
-
-        search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        search_button.child = search_image;
-        // search_button.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>f"}, _("Quick Find"));
-        
-        var headerbar = new Adw.HeaderBar () {
-            title_widget = new Gtk.Label (null),
-            hexpand = true,
-            decoration_layout = ":close"
-        };
-
-        headerbar.add_css_class ("flat");
-        headerbar.pack_start (sidebar_button);
-        headerbar.pack_start (title_label);
-        headerbar.pack_end (menu_button);
-        headerbar.pack_end (search_button);
-        
         labels_local_header = new Layouts.HeaderItem (_("Labels: On This Computer"));
         labels_local_header.reveal = true;
         labels_local_header.card = false;
@@ -119,15 +49,11 @@ public class Views.Filters : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            vexpand = true
-        };
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = scrolled_window;
 
-        content_box.append (headerbar);
-        content_box.append (scrolled_window);
-
-        attach (content_box, 0, 0);
+        child = toolbar_view;
         add_labels ();
 
         Timeout.add (225, () => {
@@ -144,10 +70,6 @@ public class Views.Filters : Gtk.Grid {
         labels_todoist_header.add_activated.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.TODOIST);
             dialog.show ();
-        });
-
-        sidebar_button.clicked.connect (() => {
-            Planner._instance.main_window.show_hide_sidebar ();
         });
 
         labels_local_header.row_activated.connect ((row) => {
@@ -177,7 +99,6 @@ public class Views.Filters : Gtk.Grid {
         Services.Todoist.get_default ().log_in.connect (() => {
             labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         });
-
 
         Services.Todoist.get_default ().log_out.connect (() => {
             labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();

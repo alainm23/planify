@@ -138,7 +138,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         trash_button.clicked.connect (() => {
             Services.EventBus.get_default ().close_labels ();
             
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
             _("Delete label"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (label.short_name))));
 
             dialog.body_use_markup = true;

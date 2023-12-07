@@ -46,7 +46,7 @@ public class Dialogs.Label : Adw.Window {
             title: _("New Label"),
             width_request: 320,
             height_request: 400,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -59,7 +59,7 @@ public class Dialogs.Label : Adw.Window {
             title: _("Edit Label"),
             width_request: 320,
             height_request: 400,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -165,12 +165,12 @@ public class Dialogs.Label : Adw.Window {
             if (label.backend_type == BackendType.TODOIST) { 
                 Services.Todoist.get_default ().update.begin (label, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default().update_label (label);
+                    Services.Database.get_default ().update_label (label);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
             } else if (label.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default().update_label (label);
+                Services.Database.get_default ().update_label (label);
                 hide_destroy ();
             }
         } else {
@@ -179,13 +179,13 @@ public class Dialogs.Label : Adw.Window {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                     label.id = Services.Todoist.get_default ().add.end (res);
-                    Services.Database.get_default().insert_label (label);
+                    Services.Database.get_default ().insert_label (label);
                     hide_destroy ();
                 });
 
             } else if (label.backend_type == BackendType.LOCAL) {
                 label.id = Util.get_default ().generate_id ();
-                Services.Database.get_default().insert_label (label);
+                Services.Database.get_default ().insert_label (label);
                 hide_destroy ();
             }
         }

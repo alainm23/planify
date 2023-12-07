@@ -53,7 +53,7 @@ public class Dialogs.DatePicker : Adw.Window {
             title: title,
             width_request: 320,
             height_request: 450,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -157,7 +157,7 @@ public class Dialogs.DatePicker : Adw.Window {
     }
 
     private void set_date (DateTime? date) {
-        _datetime = Util.get_default ().get_format_date (date);;
+        _datetime = Util.get_default ().get_format_date (date);
         date_changed ();
         hide_destroy ();
     }

@@ -1,8 +1,9 @@
-public class Views.Pinboard : Adw.Bin {
-    public Gee.HashMap <string, Layouts.ItemRow> items;
+public class Views.Label : Adw.Bin {
+    private Layouts.HeaderBar headerbar;
     private Gtk.ListBox listbox;
     private Gtk.Stack listbox_stack;
-    private Gtk.ScrolledWindow scrolled_window;
+
+    public Gee.HashMap <string, Layouts.ItemRow> items;
 
     private bool has_items {
         get {
@@ -10,11 +11,24 @@ public class Views.Pinboard : Adw.Bin {
         }
     }
 
+    Objects.Label _label;
+    public Objects.Label label {
+        get {
+            return _label;
+        }
+
+        set {
+            _label = value;
+            update_request ();
+            add_items ();
+        }
+    }
+
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var headerbar = new Layouts.HeaderBar ();
-        headerbar.title = _("Pinboard");
+        headerbar = new Layouts.HeaderBar ();
+        headerbar.back_revealer = true;
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -26,23 +40,24 @@ public class Views.Pinboard : Adw.Bin {
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 12
+            margin_top = 20
         };
 
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Widgets.Placeholder (
-            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
+            _("No to-dos for this filter yet."), "planner-check-circle"
         );
 
         listbox_stack = new Gtk.Stack () {
-            hexpand = true,
             vexpand = true,
+            hexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
         listbox_stack.add_named (listbox_grid, "listbox");
         listbox_stack.add_named (listbox_placeholder, "placeholder");
+
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
@@ -60,7 +75,7 @@ public class Views.Pinboard : Adw.Bin {
 
         content_clamp.child = content;
 
-        scrolled_window = new Gtk.ScrolledWindow () {
+        var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true
@@ -73,7 +88,6 @@ public class Views.Pinboard : Adw.Bin {
 		toolbar_view.content = scrolled_window;
 
         child = toolbar_view;
-        add_items ();
 
         Timeout.add (listbox_stack.transition_duration, () => {
             validate_placeholder ();
@@ -84,10 +98,16 @@ public class Views.Pinboard : Adw.Bin {
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
-        Services.EventBus.get_default ().item_moved.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+        scrolled_window.vadjustment.value_changed.connect (() => {
+            if (scrolled_window.vadjustment.value > 50) {
+                Services.EventBus.get_default ().view_header (true);
+            } else {
+                Services.EventBus.get_default ().view_header (false);
             }
+        });
+
+        headerbar.back_activated.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
         });
     }
 
@@ -95,64 +115,9 @@ public class Views.Pinboard : Adw.Bin {
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 
-    public void prepare_new_item (string content = "") {
-        listbox_stack.visible_child_name = "listbox";
-        Services.EventBus.get_default ().item_selected (null);
-
-        var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
-        );
-
-        row.update_content (content);
-        row.update_priority (Util.get_default ().get_default_priority ());
-        row.update_pinned (true);
-        
-        row.item_added.connect (() => {
-            item_added (row);
-        });
-
-        row.widget_destroyed.connect (() => {
-            validate_placeholder ();
-        });
-
-        listbox.insert (row, 0);
-
-        Timeout.add (225, () => {
-            scrolled_window.vadjustment.value = 0;
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    private void item_added (Layouts.ItemRow row) {
-        bool insert = !row.item.pinned;
-
-        if (!insert) {
-            valid_add_itemrow (row);
-            row.update_inserted_item ();
-        }
-
-        if (row.item.section_id != "") {
-            Services.Database.get_default ().get_section (row.item.section_id)
-                .add_item_if_not_exists (row.item);
-        } else {
-            Services.Database.get_default ().get_project (row.item.project_id)
-                .add_item_if_not_exists (row.item);
-        }
-
-        if (insert) {
-            row.hide_destroy ();
-        }
-    }
-
-    private void valid_add_itemrow (Layouts.ItemRow row) {
-        if (!items.has_key (row.item.id_string) && row.item.pinned) {
-            items [row.item.id_string] = row;
-            listbox.append (items [row.item.id_string]);
-        }
-    }
-
-    private void valid_add_item (Objects.Item item, bool insert = true) {        
-        if (!items.has_key (item.id_string) && item.pinned && !item.checked) {
+    private void valid_add_item (Objects.Item item, bool insert = true) {
+        if (!items.has_key (item.id_string) && item.labels.has_key (label.id_string)
+            && insert) {
             add_item (item);   
         }
 
@@ -169,7 +134,7 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id_string) && (!item.pinned || item.checked)) {
+        if (items.has_key (item.id_string) && !item.labels.has_key (label.id_string)) {
             items[item.id_string].hide_destroy ();
             items.unset (item.id_string);
         }
@@ -177,14 +142,26 @@ public class Views.Pinboard : Adw.Bin {
         valid_add_item (item);
     }
 
-    private void add_items () {
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
+    private void add_items () {        
+        foreach (Layouts.ItemRow row in items.values) {
+            listbox.remove (row);
+        }
+
+        items.clear ();
+
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_label (label, false)) {
             add_item (item);
         }
+
+        validate_placeholder ();
     }
 
     private void add_item (Objects.Item item) {
         items [item.id_string] = new Layouts.ItemRow (item);
         listbox.append (items [item.id_string]);
+    }
+
+    public void update_request () { 
+        headerbar.title = label.name;
     }
 }

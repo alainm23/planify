@@ -53,10 +53,6 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             width_request = 100
         };
 
-        //  main_grid.attach (title_label, 0, 0, 1, 1);
-        //  main_grid.attach (title_image, 1, 0, 1, 1);
-        //  main_grid.attach (count_label, 0, 1, 2, 2);
-
         main_grid.attach (title_image, 0, 0, 1, 1);
         main_grid.attach (count_label, 1, 0, 1, 1);
         main_grid.attach (title_label, 0, 1, 2, 2);
@@ -140,7 +136,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
                 update_count_label (Objects.Pinboard.get_default ().pinboard_count);
             });
         } else if (filter_type == FilterType.FILTER) {
-            update_count_label(Objects.Filters.Labels.get_default ().count);
+            update_count_label (Objects.Filters.Labels.get_default ().count);
             Objects.Filters.Labels.get_default ().count_updated.connect (() => {
                 update_count_label (Objects.Filters.Labels.get_default ().count);
             });

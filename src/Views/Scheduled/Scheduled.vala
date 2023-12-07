@@ -1,14 +1,14 @@
-public class Views.Scheduled.Scheduled : Gtk.Grid {
-    public Gee.HashMap <string, Layouts.ItemRow> items;
-
+public class Views.Scheduled.Scheduled : Adw.Bin {
     private Gtk.ListBox listbox;
     private Gtk.ScrolledWindow scrolled_window;
 
+    public Gee.HashMap <string, Layouts.ItemRow> items;
+    
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var headerbar = new Widgets.FilterHeader (Objects.Scheduled.get_default ());
-        headerbar.visible_add_button = false;
+        var headerbar = new Layouts.HeaderBar ();
+        headerbar.title = _("Scheduled");
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -48,20 +48,12 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
 
         scrolled_window.child = content_clamp;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            vexpand = true
-        };
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = scrolled_window;
 
-        content_box.append (headerbar);
-        content_box.append (scrolled_window);
-
-        attach (content_box, 0, 0);
+        child = toolbar_view;
         add_days ();
-
-        headerbar.prepare_new_item.connect (() => {
-            prepare_new_item ();
-        });
     }
 
     private void add_days () {
@@ -94,14 +86,5 @@ public class Views.Scheduled.Scheduled : Gtk.Grid {
             var row = new Views.Scheduled.ScheduledMonth (date);
             listbox.append (row);
         }
-    }
-
-    public void prepare_new_item (string content = "") {
-        Timeout.add (225, () => {
-            scrolled_window.vadjustment.value = 0;
-            return GLib.Source.REMOVE;
-        });
-
-        // var row = listbox.get_row_at_index (0);
     }
 }

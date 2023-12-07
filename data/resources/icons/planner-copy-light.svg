@@ -40,7 +40,7 @@
      stroke-width="1.3125"
      d="m 3.1875,10.84375 v 0 c -0.8456875,0 -1.53125,-0.685562 -1.53125,-1.53125 V 3.40625 c 0,-0.9664987 0.7835013,-1.75 1.75,-1.75 H 9.3125 c 0.845688,0 1.53125,0.6855625 1.53125,1.53125 v 0"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <rect
      width="9.1875"
      height="9.1875"
@@ -52,5 +52,5 @@
      stroke-width="1.3125"
      rx="1.75"
      id="rect4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

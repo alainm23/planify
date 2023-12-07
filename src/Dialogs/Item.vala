@@ -28,7 +28,7 @@ public class Dialogs.Item : Adw.Window {
     public Item (Objects.Item item) {
         Object (
             item: item,
-            transient_for: (Gtk.Window) Planner.instance.main_window,
+            transient_for: (Gtk.Window) Planify.instance.main_window,
             destroy_with_parent: true,
             deletable: true,
             resizable: true,

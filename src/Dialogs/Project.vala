@@ -51,7 +51,7 @@ public class Dialogs.Project : Adw.Window {
             title: _("New Project"),
             width_request: 320,
             height_request: 400,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -65,7 +65,7 @@ public class Dialogs.Project : Adw.Window {
             title: _("Edit Project"),
             width_request: 320,
             height_request: 400,
-            transient_for: (Gtk.Window) Planner.instance.main_window
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
@@ -226,7 +226,7 @@ public class Dialogs.Project : Adw.Window {
         name_entry.entry_activated.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
 
-        emoji_chooser.emoji_picked.connect((emoji) => {
+        emoji_chooser.emoji_picked.connect ((emoji) => {
             emoji_label.label = emoji;
         });
 
@@ -297,7 +297,7 @@ public class Dialogs.Project : Adw.Window {
                     hide_destroy ();
                 });
             } else if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default().update_project (project);
+                Services.Database.get_default ().update_project (project);
                 hide_destroy ();
             }
         } else {
@@ -313,7 +313,7 @@ public class Dialogs.Project : Adw.Window {
             } else if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
                 project.id = Util.get_default ().generate_id ();
                 project.backend_type = BackendType.LOCAL;
-                Services.Database.get_default().insert_project (project);
+                Services.Database.get_default ().insert_project (project);
                 go_project (project.id_string);
             }
         }

@@ -1,16 +1,14 @@
 public class MainWindow : Adw.ApplicationWindow {
-	public weak Planner app { get; construct; }
+	public weak Planify app { get; construct; }
 
 	private Layouts.Sidebar sidebar;
 	private Gtk.Stack views_stack;
 	private Adw.OverlaySplitView overlay_split_view;
-	private Widgets.ProjectViewHeaderBar project_view_headerbar;
-	private Widgets.LabelsHeader labels_header;
 	private Gtk.MenuButton settings_button;
 
 	public Services.ActionManager action_manager;
 
-	public MainWindow (Planner application) {
+	public MainWindow (Planify application) {
 		Object (
 			application: application,
 			app: application,
@@ -36,38 +34,32 @@ public class MainWindow : Adw.ApplicationWindow {
 			Services.Database.get_default ().add_item (item);
 		});
 
-		var sidebar_header = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (null),
-			hexpand = true,
-			decoration_layout = ":"
-		};
-
-		sidebar_header.add_css_class ("flat");
-
-		var settings_image = new Widgets.DynamicIcon ();
-		settings_image.size = 16;
-		settings_image.update_icon_name ("dots-vertical");
-
 		var settings_popover = build_menu_app ();
 
 		settings_button = new Gtk.MenuButton ();
 		settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		settings_button.popover = settings_popover;
-		settings_button.child = settings_image;
+		settings_button.child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical");
 
-		settings_popover.show.connect (() => {
-			Services.EventBus.get_default ().unselect_all ();
-		});
+		var search_button = new Gtk.Button () {
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-search")
+		};
+		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
+		var sidebar_header = new Adw.HeaderBar () {
+			title_widget = new Gtk.Label (null),
+			hexpand = true
+		};
+
+		sidebar_header.add_css_class ("flat");
 		sidebar_header.pack_end (settings_button);
+		sidebar_header.pack_end (search_button);
 
 		sidebar = new Layouts.Sidebar ();
 
 		var sidebar_view = new Adw.ToolbarView ();
 		sidebar_view.add_top_bar (sidebar_header);
 		sidebar_view.content = sidebar;
-
-		project_view_headerbar = new Widgets.ProjectViewHeaderBar ();
 
 		views_stack = new Gtk.Stack () {
 			hexpand = true,
@@ -129,16 +121,16 @@ public class MainWindow : Adw.ApplicationWindow {
 			} else if (key == "run-on-startup") {
 				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
 				if (active) {
-					Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-						if (Planner.instance.ask_for_background.end (res)) {
+					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+						if (Planify.instance.ask_for_background.end (res)) {
 							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", true);
 						} else {
 							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
 						}
 					});
 				} else {
-					Planner.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-						if (Planner.instance.ask_for_background.end (res)) {
+					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+						if (Planify.instance.ask_for_background.end (res)) {
 							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
 						} else {
 							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
@@ -185,6 +177,15 @@ public class MainWindow : Adw.ApplicationWindow {
 		Services.EventBus.get_default ().inbox_project_changed.connect (() => {
 			add_inbox_view ();
 		});
+
+		settings_popover.show.connect (() => {
+			Services.EventBus.get_default ().unselect_all ();
+		});
+
+		search_button.clicked.connect (() => {
+			var dialog = new Dialogs.QuickFind.QuickFind ();
+			dialog.show ();
+		});
 	}
 
 	public void show_hide_sidebar () {
@@ -201,7 +202,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		sidebar.init();
-		labels_header.init ();
 
 		Services.Notification.get_default ();
 		Services.TimeMonitor.get_default ().init_timeout ();
@@ -211,7 +211,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
 
 		Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
 			                                    _("Tasks synced successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
 
 			dialog.body_use_markup = true;
@@ -241,7 +241,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (project_view, project.view_id);
 		}
 
-		project_view_headerbar.update_view (project);
 		views_stack.set_visible_child_name (project.view_id);
 		return project_view;
 	}
@@ -261,7 +260,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (today_view, "today-view");
 		}
 
-		project_view_headerbar.update_view (Objects.Today.get_default ());
 		views_stack.set_visible_child_name ("today-view");
 	}
 
@@ -273,7 +271,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (scheduled_view, "scheduled-view");
 		}
 
-		project_view_headerbar.update_view (Objects.Scheduled.get_default ());
 		views_stack.set_visible_child_name ("scheduled-view");
 	}
 
@@ -285,20 +282,18 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (pinboard_view, "pinboard-view");
 		}
 
-		project_view_headerbar.update_view (Objects.Pinboard.get_default ());
 		views_stack.set_visible_child_name ("pinboard-view");
 	}
 
 	public void add_filters_view () {
-		Views.Filters? filters_view;
-		filters_view = (Views.Filters) views_stack.get_child_by_name ("filters-view");
-		if (filters_view == null) {
-			filters_view = new Views.Filters ();
-			views_stack.add_named (filters_view, "filters-view");
+		Views.Labels? labels_view;
+		labels_view = (Views.Labels) views_stack.get_child_by_name ("labels-view");
+		if (labels_view == null) {
+			labels_view = new Views.Labels ();
+			views_stack.add_named (labels_view, "labels-view");
 		}
 
-		project_view_headerbar.update_view (Objects.Pinboard.get_default ());
-		views_stack.set_visible_child_name ("filters-view");
+		views_stack.set_visible_child_name ("labels-view");
 	}
 
 	public void add_priority_view (string view_id) {
@@ -309,7 +304,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (filter_view, "priority-view");
 		}
 
-		project_view_headerbar.update_view (Util.get_default ().get_priority_filter (view_id));
 		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
 		views_stack.set_visible_child_name ("priority-view");
 	}
@@ -322,7 +316,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (filter_view, "completed-view");
 		}
 
-		project_view_headerbar.update_view (Objects.Completed.get_default ());
 		filter_view.filter = Objects.Completed.get_default ();
 		views_stack.set_visible_child_name ("completed-view");
 	}
@@ -335,7 +328,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (label_view, "label-view");
 		}
 
-		project_view_headerbar.update_view (Services.Database.get_default ().get_label (id));
 		label_view.label = Services.Database.get_default ().get_label (id);
 		views_stack.set_visible_child_name ("label-view");
 	}
@@ -465,24 +457,27 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		keyboard_shortcuts_item.clicked.connect (() => {
 			popover.popdown ();
-
-			try {
-				var build = new Gtk.Builder ();
-				build.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
-				var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-planify");
-				window.set_transient_for (this);
-				window.show ();
-			} catch (Error e) {
-				warning ("Failed to open shortcuts window: %s\n", e.message);
-			}
+			open_shortcuts_window ();
 		});
 
 		return popover;
 	}
 
+	public void open_shortcuts_window () {
+		try {
+			var build = new Gtk.Builder ();
+			build.add_from_resource ("/io/github/alainm23/planify/shortcuts.ui");
+			var window = (Gtk.ShortcutsWindow) build.get_object ("shortcuts-planify");
+			window.set_transient_for (this);
+			window.show ();
+		} catch (Error e) {
+			warning ("Failed to open shortcuts window: %s\n", e.message);
+		}
+	}
+
 	private void about_dialog () {
 		var dialog = new Adw.AboutWindow () {
-			transient_for = (Gtk.Window) Planner.instance.main_window,
+			transient_for = (Gtk.Window) Planify.instance.main_window,
 			modal = true
 		};
 

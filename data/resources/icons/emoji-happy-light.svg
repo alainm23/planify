@@ -40,7 +40,7 @@
      stroke-width="1.3125"
      d="m 5.15625,1.65625 h 5.6875 c 1.932962,0 3.5,1.5670025 3.5,3.5 v 5.6875 c 0,1.932962 -1.567038,3.5 -3.5,3.5 h -5.6875 c -1.9329975,0 -3.5,-1.567038 -3.5,-3.5 v -5.6875 c 0,-1.9329975 1.5670025,-3.5 3.5,-3.5 z"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -48,19 +48,19 @@
      stroke-width="1.3125"
      d="m 4.28125,8.65625 c 0,0 1.09375,2.1875 3.71875,2.1875 2.625,0 3.71875,-2.1875 3.71875,-2.1875"
      id="path4"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <circle
      cx="9.75"
      cy="6.25"
      r="0.875"
      fill="currentColor"
      id="circle6"
-     style="fill:#666666;fill-opacity:1;stroke-width:0.875" />
+     style="fill:#333333;fill-opacity:1;stroke-width:0.875" />
   <circle
      cx="6.25"
      cy="6.25"
      r="0.875"
      fill="currentColor"
      id="circle8"
-     style="fill:#666666;fill-opacity:1;stroke-width:0.875" />
+     style="fill:#333333;fill-opacity:1;stroke-width:0.875" />
 </svg>

@@ -3,7 +3,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	public PreferencesWindow () {
 		Object (
-			transient_for: (Gtk.Window) Planner.instance.main_window,
+			transient_for: (Gtk.Window) Planify.instance.main_window,
 			deletable: true,
 			destroy_with_parent: true,
 			modal: true,
@@ -368,71 +368,49 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		appearance_group.add (system_appearance_row);
 
-		var dark_mode_group = new Adw.PreferencesGroup () {
-			visible = !Services.Settings.get_default ().settings.get_boolean ("system-appearance")
-		};
-
-		var dark_mode_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("dark-mode")
-		};
-
-		var dark_mode_row = new Adw.ActionRow ();
-		dark_mode_row.title = _("Dark mode");
-		dark_mode_row.set_activatable_widget (dark_mode_switch);
-		dark_mode_row.add_suffix (dark_mode_switch);
-
-		dark_mode_group.add (dark_mode_row);
-
-		var light_check = new Gtk.CheckButton ();
-
-		var dark_check = new Gtk.CheckButton ();
-		dark_check.set_group (light_check);
-
-		var dark_grid = new Gtk.Grid () {
-			height_request = 24,
-			width_request = 24,
+		var light_check = new Gtk.CheckButton () {
 			halign = Gtk.Align.CENTER,
-			valign = Gtk.Align.CENTER
+			focus_on_click = false,
+			tooltip_text = _("Light Style"),
+			visible = is_light_visible ()
 		};
+		light_check.add_css_class ("theme-selector");
+		light_check.add_css_class ("light");
 
-		dark_grid.add_css_class ("dark-grid");
-
-		var dark_item_row = new Adw.ActionRow ();
-		dark_item_row.title = _("Dark");
-		dark_item_row.set_activatable_widget (dark_check);
-		dark_item_row.add_prefix (dark_grid);
-		dark_item_row.add_suffix (dark_check);
-
-		var dark_blue_check = new Gtk.CheckButton ();
-		dark_blue_check.set_group (light_check);
-
-		var dark_blue_grid = new Gtk.Grid () {
-			height_request = 24,
-			width_request = 24,
+		var dark_check = new Gtk.CheckButton () {
 			halign = Gtk.Align.CENTER,
-			valign = Gtk.Align.CENTER
+			focus_on_click = false,
+			tooltip_text = _("Dark Style"),
+			group = light_check
 		};
+		dark_check.add_css_class ("theme-selector");
+		dark_check.add_css_class ("dark");
 
-		dark_blue_grid.add_css_class ("dark-blue-grid");
-
-		var dark_blue_item_row = new Adw.ActionRow ();
-		dark_blue_item_row.title = _("Dark Blue");
-		dark_blue_item_row.set_activatable_widget (dark_blue_check);
-		dark_blue_item_row.add_prefix (dark_blue_grid);
-		dark_blue_item_row.add_suffix (dark_blue_check);
-
-		bool dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-		if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-			dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-		}
+		var dark_blue_check = new Gtk.CheckButton () {
+			halign = Gtk.Align.CENTER,
+			focus_on_click = false,
+			tooltip_text = _("Dark Blue Style"),
+			group = light_check
+		};
+		dark_blue_check.add_css_class ("theme-selector");
+		dark_blue_check.add_css_class ("dark-blue");
 
 		var dark_modes_group = new Adw.PreferencesGroup () {
-			visible = dark_mode
+			visible = is_dark_modes_visible ()
 		};
 
-		dark_modes_group.add (dark_item_row);
-		dark_modes_group.add (dark_blue_item_row);
+		var dark_modes_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+			hexpand = true,
+			halign = CENTER
+		};
+		dark_modes_box.append (light_check);
+		dark_modes_box.append (dark_check);
+		dark_modes_box.append (dark_blue_check);
+
+		var dark_modes_row = new Adw.ActionRow ();
+		dark_modes_row.set_child (dark_modes_box);
+
+		dark_modes_group.add (dark_modes_row);
 
 		appearance_group.add (system_appearance_row);
 
@@ -456,7 +434,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (appearance_group);
-		content_box.append (dark_mode_group);
 		content_box.append (dark_modes_group);
 		content_box.append (sidebar_group);
 
@@ -492,46 +469,26 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_boolean ("system-appearance", system_appearance_switch.active);
 		});
 
-		dark_mode_switch.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("dark-mode", dark_mode_switch.active);
+		light_check.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_boolean ("dark-mode", false);
+			Services.Settings.get_default ().settings.set_enum ("appearance", 0);
 		});
 
 		dark_check.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
 			Services.Settings.get_default ().settings.set_enum ("appearance", 1);
 		});
 
 		dark_blue_check.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_boolean ("dark-mode", true);
 			Services.Settings.get_default ().settings.set_enum ("appearance", 2);
 		});
 
-		dark_item_row.activated.connect (() => {
-			dark_check.active = true;
-		});
-
-		dark_blue_item_row.activated.connect (() => {
-			dark_blue_check.active = true;
-		});
-
 		Services.Settings.get_default ().settings.changed.connect ((key) => {
-			if (key == "system-appearance") {
+			if (key == "system-appearance" || key == "dark-mode") {
 				system_appearance_switch.active = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-				dark_mode_group.visible = !Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
-				dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-				if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-					dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-				}
-
-				dark_modes_group.visible = dark_mode;
-			} else if (key == "dark-mode") {
-				dark_mode_switch.active = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-
-				dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-				if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-					dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-				}
-
-				dark_modes_group.visible = dark_mode;
+				light_check.visible = is_light_visible ();
+				dark_modes_group.visible = is_dark_modes_visible ();
 			}
 		});
 
@@ -544,6 +501,36 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		return page;
+	}
+
+	public bool is_dark_theme () {
+        var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+
+		if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
+			dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+		}
+
+		return dark_mode;
+    }
+
+	public bool is_light_visible () {
+		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
+
+		if (system_appearance) {
+			return !is_dark_theme ();
+		}
+
+		return true;
+	}
+
+	public bool is_dark_modes_visible () {
+		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
+
+		if (system_appearance) {
+			return is_dark_theme ();
+		}
+
+		return true;
 	}
 
 	private Adw.NavigationPage get_accounts_page () {
@@ -572,7 +559,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var todoist_setting_image = new Widgets.DynamicIcon ();
 		todoist_setting_image.size = 16;
-		todoist_setting_image.update_icon_name ("applications-system-symbolic");
+		todoist_setting_image.update_icon_name ("planner-settings");
 
 		var todoist_setting_button = new Gtk.Button () {
 			margin_end = 6,
@@ -594,7 +581,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		todoist_row.subtitle = _("Synchronize with your Todoist Account");
 		todoist_row.add_suffix (todoist_setting_revealer);
 		todoist_row.add_suffix (todoist_switch);
-        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("planner-todoist"));
+        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("planner-todoist") {
+			pixel_size = 32
+		});
 
 		// Google Tasks
 		var google_tasks_switch = new Gtk.Switch () {
@@ -604,7 +593,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var google_tasks_image = new Widgets.DynamicIcon ();
 		google_tasks_image.size = 16;
-		google_tasks_image.update_icon_name ("applications-system-symbolic");
+		google_tasks_image.update_icon_name ("planner-settings");
 
 		var google_tasks_button = new Gtk.Button () {
 			margin_end = 6,
@@ -626,7 +615,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		google_row.subtitle = _("Synchronize with your Google Account");
 		google_row.add_suffix (google_tasks_revealer);
 		google_row.add_suffix (google_tasks_switch);
-        google_row.add_prefix (new Gtk.Image.from_icon_name ("google"));
+        google_row.add_prefix (new Gtk.Image.from_icon_name ("google") {
+			pixel_size = 32
+		});
 
 		var accounts_group = new Adw.PreferencesGroup ();
 		accounts_group.title = _("Accounts");
@@ -988,7 +979,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			message = _("Are you sure you want to remove the Google Tasks sync? This action will delete all your tasks and settings.");
 		}
 
-		var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window,
+		var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
 		                                    _("Sign off"), message);
 
 		dialog.body_use_markup = true;

@@ -490,7 +490,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planner.instance.main_window, 
+            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
             _("Delete section"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (section.short_name))));
 
             dialog.body_use_markup = true;

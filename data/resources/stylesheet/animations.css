@@ -1,6 +1,6 @@
 @keyframes spin-loading {
-    from {-gtk-icon-transform: rotate(360deg);}
-    to {-gtk-icon-transform: rotate(0deg);}
+    from {-gtk-icon-transform: rotate(0deg);}
+    to {-gtk-icon-transform: rotate(360deg);}
 }
 
 @keyframes fancy-turn {

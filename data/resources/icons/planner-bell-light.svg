@@ -41,7 +41,7 @@
      stroke-width="1.5"
      d="M 12.593776,8.0000395 V 6.2500298 c 0,-2.5370762 -2.056699,-4.5937748 -4.5937747,-4.5937748 -2.5370673,0 -4.5937746,2.0567074 -4.5937746,4.5937748 V 8.0000395 L 1.6562172,11.71881 H 14.343785 Z"
      id="path2"
-     style="fill:none;fill-opacity:0.1;stroke:#666666;stroke-width:1.31251;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:none;fill-opacity:0.1;stroke:#333333;stroke-width:1.31251;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -49,5 +49,5 @@
      stroke-width="1.5"
      d="m 5.3749873,12.156312 c 0,0 0,2.187512 2.625014,2.187512 2.6250137,0 2.6250137,-2.187512 2.6250137,-2.187512"
      id="path4"
-     style="stroke:#666666;stroke-width:1.31251;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+     style="stroke:#333333;stroke-width:1.31251;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
 </svg>

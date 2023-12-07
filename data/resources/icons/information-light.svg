@@ -25,7 +25,7 @@
      inkscape:deskcolor="#d1d1d1"
      showgrid="false"
      inkscape:zoom="19.583333"
-     inkscape:cx="12.102128"
+     inkscape:cx="12.153192"
      inkscape:cy="11.974468"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -40,14 +40,14 @@
      stroke-width="1.75"
      d="m 8,8.875 v 1.75"
      id="path2"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
   <circle
      cx="8"
      cy="5.375"
      r="0.875"
      fill="currentColor"
      id="circle4"
-     style="fill:#666666;fill-opacity:1;stroke-width:0.875" />
+     style="fill:#333333;fill-opacity:1;stroke-width:0.875" />
   <circle
      cx="8"
      cy="8"
@@ -57,5 +57,5 @@
      stroke-linejoin="round"
      stroke-width="1.3125"
      id="circle6"
-     style="stroke:#666666;stroke-opacity:1" />
+     style="stroke:#333333;stroke-opacity:1" />
 </svg>

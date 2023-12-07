@@ -25,12 +25,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
     private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items;
     public QuickFind () {
         Object (
-            transient_for: Planner.instance.main_window,
+            transient_for: Planify.instance.main_window,
             deletable: false,
             modal: true,
             margin_bottom: 128,
-            width_request: 375,
-            height_request: 275
+            width_request: 400,
+            height_request: 325
         );
     }
 

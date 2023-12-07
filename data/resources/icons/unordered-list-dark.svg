@@ -34,46 +34,46 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg14" />
   <path
-     d="M 2.5,2 C 2.5,2.27614 2.27614,2.5 2,2.5 1.72386,2.5 1.5,2.27614 1.5,2 1.5,1.72386 1.72386,1.5 2,1.5 2.27614,1.5 2.5,1.72386 2.5,2 Z"
+     d="m 3.2857144,2.857143 c 0,0.2366914 -0.19188,0.4285714 -0.4285714,0.4285714 -0.2366915,0 -0.4285715,-0.19188 -0.4285715,-0.4285714 0,-0.2366915 0.19188,-0.4285715 0.4285715,-0.4285715 0.2366914,0 0.4285714,0.19188 0.4285714,0.4285715 z"
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path2"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke:#ffffff;stroke-width:0.857143;stroke-opacity:1" />
   <path
-     d="M 2.5,8 C 2.5,8.2761 2.27614,8.5 2,8.5 1.72386,8.5 1.5,8.2761 1.5,8 1.5,7.7239 1.72386,7.5 2,7.5 2.27614,7.5 2.5,7.7239 2.5,8 Z"
+     d="m 3.2857144,8.0000001 c 0,0.2366571 -0.19188,0.4285714 -0.4285714,0.4285714 -0.2366915,0 -0.4285715,-0.1919143 -0.4285715,-0.4285714 0,-0.2366571 0.19188,-0.4285714 0.4285715,-0.4285714 0.2366914,0 0.4285714,0.1919143 0.4285714,0.4285714 z"
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path4"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke:#ffffff;stroke-width:0.857143;stroke-opacity:1" />
   <path
-     d="m 2.5,14 c 0,0.2761 -0.22386,0.5 -0.5,0.5 -0.27614,0 -0.5,-0.2239 -0.5,-0.5 0,-0.2761 0.22386,-0.5 0.5,-0.5 0.27614,0 0.5,0.2239 0.5,0.5 z"
+     d="m 3.2857144,13.142857 c 0,0.236657 -0.19188,0.428572 -0.4285714,0.428572 -0.2366915,0 -0.4285715,-0.191915 -0.4285715,-0.428572 0,-0.236657 0.19188,-0.428571 0.4285715,-0.428571 0.2366914,0 0.4285714,0.191914 0.4285714,0.428571 z"
      stroke="currentColor"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path6"
-     style="stroke:#ffffff;stroke-opacity:1" />
+     style="stroke:#ffffff;stroke-width:0.857143;stroke-opacity:1" />
   <path
-     d="m 5.75,2 h 8.5"
+     d="M 6.0714287,2.857143 H 13.357143"
      stroke="currentColor"
-     stroke-width="1.5"
+     stroke-width="1.28571"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path8"
      style="stroke:#ffffff;stroke-opacity:1" />
   <path
-     d="m 5.75,8 h 8.5"
+     d="M 6.0714287,8.0000001 H 13.357143"
      stroke="currentColor"
-     stroke-width="1.5"
+     stroke-width="1.28571"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path10"
      style="stroke:#ffffff;stroke-opacity:1" />
   <path
-     d="m 5.75,14 h 8.5"
+     d="M 6.0714287,13.142857 H 13.357143"
      stroke="currentColor"
-     stroke-width="1.5"
+     stroke-width="1.28571"
      stroke-linecap="round"
      stroke-linejoin="round"
      id="path12"

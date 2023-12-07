@@ -281,8 +281,8 @@ public class Objects.Section : Objects.BaseObject {
     public void delete (bool confirm = true) {
         //  if (!confirm) {
         //      if (project.todoist) {
-        //          Planner.todoist.delete.begin (this, (obj, res) => {
-        //              Planner.todoist.delete.end (res);
+        //          Planify.todoist.delete.begin (this, (obj, res) => {
+        //              Planify.todoist.delete.end (res);
         //              Services.Database.get_default ().delete_section (this);
         //          });
         //      } else {
@@ -318,8 +318,8 @@ public class Objects.Section : Objects.BaseObject {
         //      if (response == Gtk.ResponseType.ACCEPT) {
         //          if (project.todoist) {
         //              remove_button.is_loading = true;
-        //              Planner.todoist.delete.begin (this, (obj, res) => {
-        //                  Planner.todoist.delete.end (res);
+        //              Planify.todoist.delete.begin (this, (obj, res) => {
+        //                  Planify.todoist.delete.end (res);
         //                  Services.Database.get_default ().delete_section (this);
         //                  remove_button.is_loading = false;
         //                  message_dialog.hide_destroy ();

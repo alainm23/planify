@@ -1,4 +1,4 @@
-public class Widgets.SettingsHeader : Gtk.Grid {
+public class Widgets.SettingsHeader : Adw.Bin {
     public string title_header { get; construct; }
     public bool show_back_button { get; construct; }
 
@@ -48,7 +48,7 @@ public class Widgets.SettingsHeader : Gtk.Grid {
             headerbar.pack_start (back_button);
         }
 
-        attach (headerbar, 0, 0);
+        child = headerbar;
 
         back_button.clicked.connect (() => {
             back_activated ();

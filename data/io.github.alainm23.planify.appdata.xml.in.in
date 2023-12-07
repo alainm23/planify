@@ -51,6 +51,17 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   ​<releases>
+    <release version="4.1.4" date="2023-12-05">
+      <description>
+        <ul>
+          <li>Dark mode bug fix.</li>
+          <li>Design and UX changes.</li>
+          <li>Migration to libadwaita 1.4.</li>
+          <li>Bug fixes and performance improvement.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.1.1" date="2023-06-27">
       <description>
         <ul>
