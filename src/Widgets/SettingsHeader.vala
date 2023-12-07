@@ -18,11 +18,11 @@ public class Widgets.SettingsHeader : Adw.Bin {
         back_image.size = 16;
         back_image.update_icon_name ("go-previous-symbolic");
 
-        var back_label = new Gtk.Label (_("Back"));
+        // var back_label = new Gtk.Label (_("Back"));
 
         var back_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         back_grid.append (back_image);
-        back_grid.append (back_label);
+        // back_grid.append (back_label);
 
         var back_button = new Gtk.Button () {
             can_focus = false,
