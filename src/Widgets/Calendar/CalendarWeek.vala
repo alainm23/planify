@@ -1,5 +1,5 @@
 /*
-* Copyright © 2019 Alain M. (https://github.com/alainm23/planner)
+* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,15 +20,9 @@
 */
 
 public class Widgets.Calendar.CalendarWeek : Gtk.Box {
-    private Gtk.Label label_monday;
-    private Gtk.Label label_tuesday;
-    private Gtk.Label label_wednesday;
-    private Gtk.Label label_thursday;
-    private Gtk.Label label_friday;
-    private Gtk.Label label_saturday;
-    private Gtk.Label label_sunday;
+    private Gtk.Label[] day_labels;
 
-    public CalendarWeek () {
+    construct {
         orientation = Gtk.Orientation.HORIZONTAL;
         homogeneous = true;
         valign = Gtk.Align.CENTER;
@@ -36,27 +30,21 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         margin_top = 6;
         margin_bottom = 6;
         margin_end = 6;
-        
-        label_monday = new Gtk.Label (_("Mo"));
-        label_monday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
-        label_tuesday = new Gtk.Label (_("Tu"));
-        label_tuesday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        day_labels = new Gtk.Label[] {
+            new Gtk.Label (_("Su")),
+            new Gtk.Label (_("Mo")),
+            new Gtk.Label (_("Tu")),
+            new Gtk.Label (_("We")),
+            new Gtk.Label (_("Th")),
+            new Gtk.Label (_("Fr")),
+            new Gtk.Label (_("Sa"))
+        };
 
-        label_wednesday = new Gtk.Label (_("We"));
-        label_wednesday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        label_thursday = new Gtk.Label (_("Th"));
-        label_thursday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        label_friday = new Gtk.Label (_("Fr"));
-        label_friday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        label_saturday = new Gtk.Label (_("Sa"));
-        label_saturday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        label_sunday = new Gtk.Label (_("Su"));
-        label_sunday.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        foreach (var label in day_labels) {
+            label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+            append (label);
+        }
 
         update ();
     }
@@ -65,28 +53,25 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         for (Gtk.Widget? child = get_first_child (); child != null;) {
             Gtk.Widget? next = child.get_next_sibling ();
             remove (child);
-
             child = next;
         }
 
         var start_week = Services.Settings.get_default ().settings.get_enum ("start-week");
-        
-        if (start_week == 0) {
-            append (label_sunday);
-            append (label_monday);
-            append (label_tuesday);
-            append (label_wednesday);
-            append (label_thursday);
-            append (label_friday);
-            append (label_saturday);
-        } else if (start_week == 1) {
-            append (label_monday);
-            append (label_tuesday);
-            append (label_wednesday);
-            append (label_thursday);
-            append (label_friday);
-            append (label_saturday);
-            append (label_sunday);
+        var rotated_labels = rotate_left (day_labels, start_week);
+
+        foreach (var label in rotated_labels) {
+            append (label);
         }
+    }
+
+    private Gtk.Label[] rotate_left (Gtk.Label[] array, int positions) {
+        positions = (positions % array.length + array.length) % array.length;
+        var rotated = new Gtk.Label[array.length];
+
+        for (int i = 0; i < array.length; i++) {
+            rotated[i] = array[(i + positions) % array.length];
+        }
+
+        return rotated;
     }
 }

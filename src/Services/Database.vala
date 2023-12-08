@@ -2014,11 +2014,11 @@ public class Services.Database : GLib.Object {
 
     private void set_parameter_bool (Sqlite.Statement? stmt, string par, bool val) {
         int par_position = stmt.bind_parameter_index (par);
-        stmt.bind_int (par_position, val ? Constants.ACTIVE : Constants.INACTIVE);
+        stmt.bind_int (par_position, val ? 1 : 0);
     }
 
     private bool get_parameter_bool (Sqlite.Statement stmt, int col) {
-        return stmt.column_int (col) == Constants.ACTIVE;
+        return stmt.column_int (col) == 1;
     }
 
     Json.Parser parser;

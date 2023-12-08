@@ -26,7 +26,7 @@ public class Objects.BaseObject : GLib.Object {
     public signal void deleted ();
     public signal void updated ();
 
-    public uint update_timeout_id { get; set; default = Constants.INACTIVE; }
+    public uint update_timeout_id { get; set; default = 0; }
 
     string _id_string;
     public string id_string {

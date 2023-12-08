@@ -30,7 +30,7 @@ public class Objects.Item : Objects.BaseObject {
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
     
-    public int priority { get; set; default = Constants.INACTIVE; }
+    public int priority { get; set; default = 0; }
 
     // Tmp
     public bool activate_name_editable { get; set; default = false; }
@@ -77,8 +77,8 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public int child_order { get; set; default = Constants.INACTIVE; }
-    public int day_order { get; set; default = Constants.INACTIVE; }
+    public int child_order { get; set; default = 0; }
+    public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
@@ -617,7 +617,7 @@ public class Objects.Item : Objects.BaseObject {
             builder.add_string_value (Util.get_default ().get_encode_text (description));
 
             builder.set_member_name ("priority");
-            if (priority == Constants.INACTIVE) {
+            if (priority == 0) {
                 builder.add_int_value (Constants.PRIORITY_4);
             } else {
                 builder.add_int_value (priority);
@@ -694,7 +694,7 @@ public class Objects.Item : Objects.BaseObject {
         builder.add_string_value (Util.get_default ().get_encode_text (description));
 
         builder.set_member_name ("priority");
-        if (priority == Constants.INACTIVE) {
+        if (priority == 0) {
             builder.add_int_value (Constants.PRIORITY_4);
         } else {
             builder.add_int_value (priority);

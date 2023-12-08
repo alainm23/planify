@@ -206,6 +206,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var start_week_model = new Gtk.StringList (null);
 		start_week_model.append (_("Sunday"));
 		start_week_model.append (_("Monday"));
+		start_week_model.append (_("Tuesday"));
+		start_week_model.append (_("Wednesday"));
+		start_week_model.append (_("Thursday"));
+		start_week_model.append (_("Friday"));
+		start_week_model.append (_("Saturday"));
 
 		var start_week_row = new Adw.ComboRow ();
 		start_week_row.title = _("Start of the week");
@@ -274,7 +279,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
-			margin_top = 24,
 			margin_start = 24,
 			margin_end = 24,
 			margin_bottom = 24
@@ -289,15 +293,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 		scrolled_window.child = content_clamp;
 
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
 
-		main_content.append (settings_header);
-		main_content.append (scrolled_window);
-
-		var page = new Adw.NavigationPage (main_content, "general");
+		var page = new Adw.NavigationPage (toolbar_view, "general");
 
 		sort_projects_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
@@ -439,7 +439,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
-			margin_top = 24,
 			margin_start = 24,
 			margin_end = 24
 		};
@@ -631,22 +630,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
-			margin_top = 24,
 			margin_start = 24,
-			margin_end = 24
+			margin_end = 24,
+			margin_top = 12
 		};
 
 		content_clamp.child = content_box;
 
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = content_clamp;
 
-		main_content.append (settings_header);
-		main_content.append (content_clamp);
-
-		var page = new Adw.NavigationPage (main_content, "account");
+		var page = new Adw.NavigationPage (toolbar_view, "account");
 
 		var todoist_switch_gesture = new Gtk.GestureClick ();
 		todoist_switch_gesture.set_button (1);
@@ -713,7 +708,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		google_tasks_button.clicked.connect (() => {
-			push_subpage (get_google_view ());
+			
 		});
 
 		inbox_project_row.notify["selected"].connect (() => {
@@ -758,7 +753,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
-			margin_top = 24,
 			margin_start = 24,
 			margin_end = 24
 		};
@@ -797,96 +791,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			hexpand = true
 		};
 
-		main_content.append (settings_header);
 		main_content.append (user_box);
 		main_content.append (content_clamp);
 
-		var page = new Adw.NavigationPage (main_content, "todoist");
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = main_content;
 
-		settings_header.back_activated.connect (() => {
-			pop_subpage ();
-		});
-
-		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
-		});
-
-		return page;
-	}
-
-	private Adw.NavigationPage get_google_view () {
-		var settings_header = new Widgets.SettingsHeader (_("Google Tasks"));
-
-		var avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("google-user-name"), true);
-
-		var file = File.new_for_path (Util.get_default ().get_avatar_path ("google-user"));
-		if (file.query_exists ()) {
-			// todoist_avatar.set_loadable_icon (new FileIcon (file));
-		}
-
-		var user_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("google-user-name")) {
-			margin_top = 12
-		};
-		user_label.add_css_class ("title-1");
-
-		var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-		email_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			margin_top = 64
-		};
-		user_box.append (avatar);
-		user_box.append (user_label);
-		user_box.append (email_label);
-
-		var default_group = new Adw.PreferencesGroup ();
-
-		var content_clamp = new Adw.Clamp () {
-			maximum_size = 400,
-			margin_top = 24,
-			margin_start = 24,
-			margin_end = 24
-		};
-
-		content_clamp.child = default_group;
-
-		var sync_server_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
-		};
-
-		var sync_server_row = new Adw.ActionRow ();
-		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.");
-		sync_server_row.set_activatable_widget (sync_server_switch);
-		sync_server_row.add_suffix (sync_server_switch);
-
-		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
-			);
-
-		var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
-												 last_sync_date
-												 ));
-
-		var last_sync_row = new Adw.ActionRow ();
-		last_sync_row.activatable = false;
-		last_sync_row.title = _("Last Sync");
-		last_sync_row.add_suffix (last_sync_label);
-
-		default_group.add (sync_server_row);
-		default_group.add (last_sync_row);
-
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
-
-		main_content.append (settings_header);
-		main_content.append (user_box);
-		main_content.append (content_clamp);
-
-		var page = new Adw.NavigationPage (main_content, "google");
+		var page = new Adw.NavigationPage (toolbar_view, "todoist");
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
@@ -940,22 +852,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
-			margin_top = 24,
 			margin_start = 24,
-			margin_end = 24
+			margin_end = 24,
+			margin_top = 12
 		};
 
 		content_clamp.child = content_box;
 
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = content_clamp;
 
-		main_content.append (settings_header);
-		main_content.append (content_clamp);
-
-		var page = new Adw.NavigationPage (main_content, "quick-add");
+		var page = new Adw.NavigationPage (toolbar_view, "quick-add");
 
 		copy_button.clicked.connect (() => {
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();

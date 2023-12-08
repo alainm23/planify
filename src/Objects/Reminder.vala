@@ -1,10 +1,10 @@
 public class Objects.Reminder : Objects.BaseObject {
-    public int64 notify_uid { get; set; default = Constants.INACTIVE; }
+    public int64 notify_uid { get; set; default = 0; }
     public string item_id { get; set; default = ""; }
     public string service { get; set; default = ""; }
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
-    public int mm_offset { get; set; default = Constants.INACTIVE; }
-    public int is_deleted { get; set; default = Constants.INACTIVE; }
+    public int mm_offset { get; set; default = 0; }
+    public int is_deleted { get; set; default = 0; }
 
     Objects.Item? _item;
     public Objects.Item item {
