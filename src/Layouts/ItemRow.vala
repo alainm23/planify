@@ -171,7 +171,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
-    public int64 update_id { get; set; default = int64.parse (Util.get_default ().generate_id ()); }
+    public string update_id { get; set; default = Util.get_default ().generate_id (); }
     public bool on_drag = false;
 
     public signal void item_added ();
@@ -716,7 +716,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     priority_button.update_from_item (item);
                 } else {
                     if (item.project.backend_type == BackendType.TODOIST) {
-                        item.update_async (Constants.INACTIVE, this);
+                        item.update_async ("", this);
                     } else {
                         item.update_local ();
                     }
@@ -1394,7 +1394,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             priority_button.update_from_item (item);
         } else {
-            item.update_async (Constants.INACTIVE, this);
+            item.update_async ("", this);
         }
     }
 
@@ -1408,7 +1408,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             schedule_button.update_from_item (item);
         } else {
-            item.update_async (Constants.INACTIVE, this);
+            item.update_async ("", this);
         }
     }
 
@@ -1454,7 +1454,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             schedule_button.update_from_item (item);
         } else {
-            item.update_async (Constants.INACTIVE, this);
+            item.update_async ("", this);
         }
     }
 

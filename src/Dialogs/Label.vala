@@ -184,7 +184,7 @@ public class Dialogs.Label : Adw.Window {
                 });
 
             } else if (label.backend_type == BackendType.LOCAL) {
-                label.id = Util.get_default ().generate_id ();
+                label.id = Util.get_default ().generate_id (label);
                 Services.Database.get_default ().insert_label (label);
                 hide_destroy ();
             }

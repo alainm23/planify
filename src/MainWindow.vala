@@ -392,7 +392,7 @@ public class MainWindow : Adw.ApplicationWindow {
 					project_view.project.add_section_if_not_exists (new_section);
 				});
 			} else {
-				new_section.id = Util.get_default ().generate_id ();
+				new_section.id = Util.get_default ().generate_id (new_section);
 				project_view.project.add_section_if_not_exists (new_section);
 			}
 		}

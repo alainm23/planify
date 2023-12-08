@@ -173,36 +173,35 @@ public class Util : GLib.Object {
         );
     }
 
-    public string generate_id (int len=10) {
-        string allowed_characters = "0123456789";
-
-        var password_builder = new StringBuilder ();
-        for (var i = 0; i < len; i++) {
-            var random_index = Random.int_range (0, allowed_characters.length);
-            password_builder.append_c (allowed_characters[random_index]);
+    public string generate_id (Objects.BaseObject? base_object = null) {
+        if (base_object == null) {
+            return Uuid.string_random ();
         }
 
-        if (int64.parse (password_builder.str) <= 0) {
-            return generate_id ();
+        var collection = Services.Database.get_default ().get_collection_by_type (base_object);
+        var id = Uuid.string_random ();
+
+        if (check_id_exists (collection, id)) {
+            return generate_id (base_object);
         }
 
-        return password_builder.str;
+        return id;
+    }
+
+    private bool check_id_exists (Gee.ArrayList<Objects.BaseObject> items, string id) {
+        bool returned = false;
+        foreach (Objects.BaseObject base_object in items) {
+            if (base_object.id == id) {
+                returned = true;
+                break;
+            }
+        }
+
+        return returned;
     }
 
     public string generate_string () {
-        string allowed_characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" + "0123456789";
-
-        var password_builder = new StringBuilder ();
-        for (var i = 0; i < 36; i++) {
-            var random_index = Random.int_range (0, allowed_characters.length);
-            password_builder.append_c (allowed_characters[random_index]);
-        }
-
-        return password_builder.str;
-    }
-
-    public string generate_temp_id () {
-        return "_" + generate_id (13).to_string ();
+        return generate_id ();
     }
 
     public string get_encode_text (string text) {
@@ -1094,7 +1093,7 @@ public class Util : GLib.Object {
 
     public Objects.Project create_inbox_project () {
         Objects.Project inbox_project = new Objects.Project ();
-        inbox_project.id = Util.get_default ().generate_id ();
+        inbox_project.id = Util.get_default ().generate_id (inbox_project);
         inbox_project.backend_type = BackendType.LOCAL;
         inbox_project.name = _("Inbox");
         inbox_project.inbox_project = true;
@@ -1110,7 +1109,7 @@ public class Util : GLib.Object {
 
     public void create_tutorial_project () {
         Objects.Project project = new Objects.Project ();
-        project.id = Util.get_default ().generate_id ();
+        project.id = Util.get_default ().generate_id (project);
         project.backend_type = BackendType.LOCAL;
         project.icon_style = ProjectIconStyle.EMOJI;
         project.emoji = "🚀️";
@@ -1121,37 +1120,37 @@ public class Util : GLib.Object {
 
         if (Services.Database.get_default ().insert_project (project)) {
             var item_01 = new Objects.Item ();
-            item_01.id = Util.get_default ().generate_id ();
+            item_01.id = Util.get_default ().generate_id (item_01);
             item_01.project_id = project.id;
             item_01.content = _("Tap this to-do");
             item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected al the bottom of your project.");
 
             var item_02 = new Objects.Item ();
-            item_02.id = Util.get_default ().generate_id ();
+            item_02.id = Util.get_default ().generate_id (item_02);
             item_02.project_id = project.id;
             item_02.content = _("Create a new to-do");
             item_02.description = _("Now it's your turn, tap the '+' button at the top of your project, enter any pending and tap the blue 'Save' button.");
 
             var item_03 = new Objects.Item ();
-            item_03.id = Util.get_default ().generate_id ();
+            item_03.id = Util.get_default ().generate_id (item_03);
             item_03.project_id = project.id;
             item_03.content = _("Plan this to-do by today or later");
             item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
 
             var item_04 = new Objects.Item ();
-            item_04.id = Util.get_default ().generate_id ();
+            item_04.id = Util.get_default ().generate_id (item_04);
             item_04.project_id = project.id;
             item_04.content = _("Reorder yours to-dos");
             item_04.description = _("To reorder your list, tap amd hold a to-do, then drag it to where it shpuld go.");
 
             var item_05 = new Objects.Item ();
-            item_05.id = Util.get_default ().generate_id ();
+            item_05.id = Util.get_default ().generate_id (item_05);
             item_05.project_id = project.id;
             item_05.content = _("Create a project");
             item_05.description = _("Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own.");
 
             var item_06 = new Objects.Item ();
-            item_06.id = Util.get_default ().generate_id ();
+            item_06.id = Util.get_default ().generate_id (item_06);
             item_06.project_id = project.id;
             item_06.content = _("You’re done!");
             item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
@@ -1168,21 +1167,21 @@ We hope you’ll enjoy using Planify!""");
             project.add_item_if_not_exists (item_06);
 
             var section_01 = new Objects.Section ();
-            section_01.id = Util.get_default ().generate_id ();
+            section_01.id = Util.get_default ().generate_id (section_01);
             section_01.project_id = project.id;
             section_01.name = _("Tune your setup");
 
             project.add_section_if_not_exists (section_01);
 
             var item_02_01 = new Objects.Item ();
-            item_02_01.id = Util.get_default ().generate_id ();
+            item_02_01.id = Util.get_default ().generate_id (item_02_01);
             item_02_01.project_id = project.id;
             item_02_01.section_id = section_01.id;
             item_02_01.content = _("Show your calendar events");
             item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 Calendar Events to turn ir on.");
 
             var item_02_02 = new Objects.Item ();
-            item_02_02.id = Util.get_default ().generate_id ();
+            item_02_02.id = Util.get_default ().generate_id (item_02_02);
             item_02_02.project_id = project.id;
             item_02_02.section_id = section_01.id;
             item_02_02.content = _("Enable synchronization with third-party service.");
@@ -1195,31 +1194,31 @@ We hope you’ll enjoy using Planify!""");
 
     public void create_default_labels () {
         var label_01 = new Objects.Label ();
-        label_01.id = Util.get_default ().generate_id ();
+        label_01.id = Util.get_default ().generate_id (label_01);
         label_01.backend_type = BackendType.LOCAL;
         label_01.name = _("💼️Work");
         label_01.color = "taupe";
 
         var label_02 = new Objects.Label ();
-        label_02.id = Util.get_default ().generate_id ();
+        label_02.id = Util.get_default ().generate_id (label_02);
         label_02.backend_type = BackendType.LOCAL;
         label_02.name = _("🎒️School");
         label_02.color = "berry_red";
 
         var label_03 = new Objects.Label ();
-        label_03.id = Util.get_default ().generate_id ();
+        label_03.id = Util.get_default ().generate_id (label_03);
         label_03.backend_type = BackendType.LOCAL;
         label_03.name = _("👉️Delegated");
         label_03.color = "yellow";
 
         var label_04 = new Objects.Label ();
-        label_04.id = Util.get_default ().generate_id ();
+        label_04.id = Util.get_default ().generate_id (label_04);
         label_04.backend_type = BackendType.LOCAL;
         label_04.name = _("🏡️Home");
         label_04.color = "lime_green";
 
         var label_05 = new Objects.Label ();
-        label_05.id = Util.get_default ().generate_id ();
+        label_05.id = Util.get_default ().generate_id (label_05);
         label_05.backend_type = BackendType.LOCAL;
         label_05.name = _("🏃‍♀️️Follow Up");
         label_05.color = "grey";

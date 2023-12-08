@@ -90,11 +90,9 @@ public class Layouts.Sidebar : Gtk.Grid {
             child = new Widgets.DynamicIcon.from_icon_name ("plus") {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
-            }
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
-
-        add_local_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_local_button.add_css_class ("header-item-button");
 
         local_projects_header.add_widget_end (add_local_button);
         add_local_button.clicked.connect (() => {
@@ -110,11 +108,10 @@ public class Layouts.Sidebar : Gtk.Grid {
             child = new Widgets.DynamicIcon.from_icon_name ("plus") {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
-            }
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
-        add_todoist_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_todoist_button.add_css_class ("header-item-button");
         todoist_projects_header.add_widget_end (add_todoist_button);
         add_todoist_button.clicked.connect (() => {
             bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();

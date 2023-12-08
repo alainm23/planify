@@ -854,7 +854,7 @@ public class Services.Todoist : GLib.Object {
 					e.message
 					);
 			} else {
-				id = Util.get_default ().generate_id ();
+				id = Util.get_default ().generate_id (object);
 
 				object.id = id;
 

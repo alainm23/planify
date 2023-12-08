@@ -311,7 +311,7 @@ public class Dialogs.Project : Adw.Window {
                 });
 
             } else if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
-                project.id = Util.get_default ().generate_id ();
+                project.id = Util.get_default ().generate_id (project);
                 project.backend_type = BackendType.LOCAL;
                 Services.Database.get_default ().insert_project (project);
                 go_project (project.id_string);

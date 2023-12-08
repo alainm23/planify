@@ -224,7 +224,7 @@ public class Views.Project : Gtk.Grid {
 					popover.popdown ();
 				});
 			} else {
-				new_section.id = Util.get_default ().generate_id ();
+				new_section.id = Util.get_default ().generate_id (new_section);
 				project.add_section_if_not_exists (new_section);
 				popover.popdown ();
 			}

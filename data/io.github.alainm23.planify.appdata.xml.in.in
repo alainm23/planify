@@ -44,9 +44,9 @@
   </kudos>
   <developer_name>Alain Yoyce Meza Huaman</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>
-  <url type="homepage">https://useplanner.com/</url>
-  <url type="bugtracker">https://github.com/alainm23/planner/issues</url>
-  <url type="translate">https://github.com/alainm23/planner/tree/master/po#readme</url>
+  <url type="homepage">https://github.com/alainm23/planify</url>
+  <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
+  <url type="translate">https://github.com/alainm23/planify/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>

@@ -293,7 +293,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private void update () {
         if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
-            item.update_async_timeout (update_id, this);
+            item.update_async_timeout ("", this);
         }
     }
 

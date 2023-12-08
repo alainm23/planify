@@ -303,10 +303,10 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_local () {
-        Services.Database.get_default ().update_item (this, Constants.INACTIVE);
+        Services.Database.get_default ().update_item (this, "");
     }
 
-    public void update (int64 update_id = Constants.INACTIVE) {
+    public void update (string update_id = "") {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
@@ -339,7 +339,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public void update_async_timeout (int64 update_id = Constants.INACTIVE, Gtk.ListBoxRow? row = null) {
+    public void update_async_timeout (string update_id = "", Gtk.ListBoxRow? row = null) {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
@@ -365,7 +365,7 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    public void update_async (int64 update_id = Constants.INACTIVE, Layouts.ItemRow? loading_button = null) {
+    public void update_async (string update_id = "", Layouts.ItemRow? loading_button = null) {
         if (loading_button != null) {
             loading_button.is_loading = true;
         }
@@ -430,7 +430,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (project.backend_type == BackendType.TODOIST) {
-            update_async (Constants.INACTIVE, loading_button);
+            update_async ("", loading_button);
         } else {
             update_local ();
         }
@@ -769,7 +769,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public Objects.Item generate_copy () {
         var new_item = new Objects.Item ();
-        new_item.id = Util.get_default ().generate_id ();
+        new_item.id = Util.get_default ().generate_id (new_item);
         new_item.content = content;
         new_item.description = description;
         new_item.pinned = pinned;
@@ -792,7 +792,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else {
-            new_item.id = Util.get_default ().generate_id ();
+            new_item.id = Util.get_default ().generate_id (new_item);
             insert_duplicate (new_item);
         }
     }

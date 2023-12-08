@@ -539,7 +539,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
                 }
             });
         } else if (item.project.backend_type == BackendType.LOCAL) {
-            item.id = Util.get_default ().generate_id ();
+            item.id = Util.get_default ().generate_id (item);
             item.activate_name_editable = true;
             Services.Database.get_default ().insert_item (item, false);
             add_item (item, 0);

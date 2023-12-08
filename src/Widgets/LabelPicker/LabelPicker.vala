@@ -181,7 +181,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
                 search_entry.text = "";
             });
         } else {
-            label.id = Util.get_default ().generate_id ();
+            label.id = Util.get_default ().generate_id (label);
             label.backend_type = BackendType.LOCAL;
             Services.Database.get_default ().insert_label (label);
 

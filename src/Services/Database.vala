@@ -20,7 +20,7 @@ public class Services.Database : GLib.Object {
     
     public signal void item_deleted (Objects.Item item);
     public signal void item_added (Objects.Item item, bool insert = true);
-    public signal void item_updated (Objects.Item item, int64 update_id);
+    public signal void item_updated (Objects.Item item, string update_id);
 
     public signal void item_label_added (Objects.ItemLabel item_label);
     public signal void item_label_deleted (Objects.ItemLabel item_label);
@@ -316,6 +316,20 @@ public class Services.Database : GLib.Object {
 
     public bool is_database_empty () {
         return projects.size <= 0;
+    }
+
+    public Gee.ArrayList<Objects.BaseObject> get_collection_by_type (Objects.BaseObject base_object) {
+        if (base_object is Objects.Project) {
+            return projects;
+        } else if (base_object is Objects.Section) {
+            return sections;
+        } else if (base_object is Objects.Item) {
+            return items;
+        } else if (base_object is Objects.Label) {
+            return labels;
+        }
+
+        return new Gee.ArrayList<Objects.BaseObject> ();
     }
 
     /*
@@ -1404,7 +1418,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item (Objects.Item item, int64 update_id = Constants.INACTIVE) {
+    public void update_item (Objects.Item item, string update_id = "") {
         item.updated_at = new GLib.DateTime.now_local ().to_string ();
         Sqlite.Statement stmt;
 
@@ -1467,7 +1481,7 @@ public class Services.Database : GLib.Object {
             }
 
             item.updated ();
-            item_updated (item, Constants.INACTIVE);
+            item_updated (item, "");
 
             Services.EventBus.get_default ().checked_toggled (item, old_checked);
         } else {

@@ -70,7 +70,6 @@ sources = files(
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
   'Widgets/CalendarSourceRow.vala',
-  'Widgets/SettingsHeader.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
@@ -151,6 +150,7 @@ sources = files(
   'Dialogs/QuickFind/Synapse.vala',
 
   'Dialogs/Preferences/PreferencesWindow.vala',
+  'Dialogs/Preferences/SettingsHeader.vala',
 )
 
 executable(
