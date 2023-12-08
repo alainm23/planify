@@ -14,7 +14,11 @@
         "--socket=fallback-x11",
         "--socket=wayland",
         "--talk-name=org.gnome.evolution.dataserver.Calendar8",
-        "--talk-name=org.gnome.evolution.dataserver.Sources5"
+        "--talk-name=org.gnome.evolution.dataserver.Sources5",
+        "--talk-name=io.github.alainm23.planify",
+        "--talk-name=io.github.alainm23.planify.quick-add",
+        "--own-name=io.github.alainm23.planify.quick-add",
+        "--own-name=io.github.alainm23.planify"
     ],
     "cleanup": [
         "/include",
@@ -28,6 +32,17 @@
         "*.a"
     ],
     "modules" : [
+        {
+            "name": "intltool",
+            "cleanup": [ "*" ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz",
+                    "sha256": "67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd"
+                }
+            ]
+        },
         {
             "name": "granite",
             "buildsystem": "meson",
