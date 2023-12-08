@@ -373,12 +373,15 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		Services.EventBus.get_default ().update_inserted_item_map.connect ((row, old_section_id) => {
 			if (row.item.project_id == section.project_id &&
 			    row.item.section_id == section.id) {
-				items [row.item.id] = row;
-				update_sort ();
+				if (!items.has_key (row.item.id)) {
+					items [row.item.id] = row;
+					update_sort ();
+				}
 			}
 
 			if (row.item.project_id == section.project_id &&
-			    old_section_id == section.id) {
+			    row.item.section_id != section.id &&
+				old_section_id == section.id) {
 				if (items.has_key (row.item.id)) {
 					items.unset (row.item.id);
 				}
