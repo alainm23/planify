@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.alainm23.planify.Devel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version": "44",
+    "runtime-version": "45",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.alainm23.planify",
     "sdk-extensions" : [
@@ -81,8 +81,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/libical/libical/releases/download/v3.0.16/libical-3.0.16.tar.gz",
-                    "sha256": "b44705dd71ca4538c86fb16248483ab4b48978524fb1da5097bd76aa2e0f0c33",
+                    "url": "https://github.com/libical/libical/releases/download/v3.0.17/libical-3.0.17.tar.gz",
+                    "sha256": "bcda9a6db6870240328752854d1ea475af9bbc6356e6771018200e475e5f781b",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1637,
@@ -125,8 +125,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.gnome.org/sources/evolution-data-server/3.48/evolution-data-server-3.48.1.tar.xz",
-                    "sha256": "5ce62c1e67f2789342a7f4a035b102f74e62ed85f60e81a5b7f3e04165404dff",
+                    "url": "https://download.gnome.org/sources/evolution-data-server/3.50/evolution-data-server-3.50.2.tar.xz",
+                    "sha256": "5e66270388d50c14f3b1ae3fa0d2127b9fedce752acd393b5545281b01fc4970",
                     "x-checker-data": {
                         "type": "gnome",
                         "name": "evolution-data-server"
@@ -135,17 +135,17 @@
             ]
         },
         {
-            "name" : "libportal",
-            "buildsystem" : "meson",
-            "config-opts" : [
+            "name": "libportal",
+            "buildsystem": "meson",
+            "config-opts": [
                 "-Dbackends=['gtk4']",
                 "-Ddocs=false",
                 "-Dtests=false"
             ],
-            "sources" : [
+            "sources": [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/flatpak/libportal.git",
+                    "type": "git",
+                    "url": "https://github.com/flatpak/libportal.git",
                     "tag": "0.6"
                 }
             ]
@@ -160,8 +160,8 @@
             ],
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/alainm23/planner.git"
+                    "type": "dir",
+                    "path": "../"
                 }
             ]
         }
