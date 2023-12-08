@@ -15,3 +15,18 @@ jobs:
     - uses: elementary/actions/vala-lint@master
       with:
         conf: vala-lint.conf
+  flatpak:
+    name: "Flatpak"
+    runs-on: ubuntu-latest
+    container:
+      image: bilelmoussaoui/flatpak-github-actions:gnome-45
+      options: --privileged
+    steps:
+    - uses: actions/checkout@v4
+    - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+      with:
+        bundle: io.github.alainm23.planify.Devel.flatpak
+        manifest-path: build-aux/io.github.alainm23.planify.Devel.json
+        cache-key: flatpak-builder-${{ github.sha }}
+        repository-name: flathub-beta
+        repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo # until GNOME 45
