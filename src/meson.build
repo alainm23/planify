@@ -154,7 +154,7 @@ sources = files(
 )
 
 executable(
-  meson.project_name(),
+  application_id,
   sources,
   asresources,
   config_file,

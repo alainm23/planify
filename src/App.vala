@@ -27,7 +27,7 @@ public class Planify : Adw.Application {
 	};
 
 	construct {
-		application_id = "io.github.alainm23.planify";
+		application_id = Constants.APPLICATION_ID;
 		flags |= ApplicationFlags.HANDLES_OPEN;
 
 		Intl.setlocale (LocaleCategory.ALL, "");

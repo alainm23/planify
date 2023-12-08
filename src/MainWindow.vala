@@ -483,12 +483,12 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		dialog.show ();
 
-		dialog.application_icon = "io.github.alainm23.planify";
+		dialog.application_icon = Constants.APPLICATION_ID;
 		dialog.application_name = "Planify";
 		dialog.version = Constants.VERSION;
-		dialog.developer_name = "Alain Meza H.";
-		dialog.website = "https://github.com/alainm23/planner";
+		dialog.developer_name = "Alain";
+		dialog.website = "https://github.com/alainm23/planify";
 		dialog.developers = { "Alain" };
-		dialog.issue_url = "https://github.com/alainm23/planner/issues";
+		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 	}
 }
