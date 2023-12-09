@@ -357,7 +357,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		Services.EventBus.get_default ().pane_selected (
 			PaneType.FILTER,
 			Util.get_default ().get_filter ().to_string ()
-			);
+		);
 	}
 
 	public void valid_view_removed (Objects.Project project) {

@@ -150,15 +150,10 @@ public class Views.Project : Gtk.Grid {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var description_item = new Widgets.ContextMenu.MenuItem (_("Description"), "planner-note");
-
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
-
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
-
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
-
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "planner-clipboard");
-
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "planner-trash");
 		delete_item.add_css_class ("menu-item-danger");
 

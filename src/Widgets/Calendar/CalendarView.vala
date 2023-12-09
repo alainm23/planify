@@ -26,10 +26,14 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
     public signal void day_selected (int day);
 
     public CalendarView () {
-        orientation = Gtk.Orientation.VERTICAL;
-        margin_start = 6;
-        margin_end = 6;
+        Object (
+            orientation: Gtk.Orientation.VERTICAL,
+            margin_start: 6,
+            margin_end: 6
+        );
+    }
 
+    construct {
         days_arraylist = new Gee.ArrayList<Widgets.Calendar.CalendarDay> ();
 
         days_grid = new Gtk.Grid () {

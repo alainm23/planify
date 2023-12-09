@@ -11,9 +11,7 @@
         <value nick="Inbox" value="0" />
         <value nick="Today" value="1" />
         <value nick="Scheduled" value="2" />
-        <value nick="Pinboard" value="3" />
-        <value nick="Completed" value="4" />
-        <value nick="All Tasks" value="5" />
+        <value nick="Labels" value="3" />
     </enum>
 
     <enum id="io.github.alainm23.planify.appearance">

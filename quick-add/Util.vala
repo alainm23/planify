@@ -106,7 +106,7 @@ public class Util : GLib.Object {
             Adw.StyleManager.get_default ().set_color_scheme (Adw.ColorScheme.FORCE_LIGHT);
         }
 
-        var CSS = _css.printf (
+        var css = _css.printf (
             window_bg_color,
             popover_bg_color,
             sidebar_bg_color,
@@ -116,7 +116,7 @@ public class Util : GLib.Object {
             selected_color
         );
 
-        provider.load_from_string (CSS);
+        provider.load_from_string (css);
 
         Gtk.StyleContext.add_provider_for_display (
             Gdk.Display.get_default (), provider,

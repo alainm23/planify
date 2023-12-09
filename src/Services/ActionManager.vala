@@ -36,6 +36,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
     public const string ACTION_NEW_SECTION = "action_new_section";
+    public const string ACTION_VIEW_HOMEPAGE = "action_view_homepage";
     public const string ACTION_VIEW_INBOX = "action_view_inbox";
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_SCHEDULED = "action_view_scheduled";
@@ -58,6 +59,7 @@ public class Services.ActionManager : Object {
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
         { ACTION_NEW_SECTION, action_new_section },
+        { ACTION_VIEW_HOMEPAGE, action_view_homepage },
         { ACTION_VIEW_INBOX, action_view_inbox },
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_SCHEDULED, action_view_scheduled },
@@ -81,6 +83,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
         action_accelerators.set (ACTION_OPEN_LABELS, "<Control>l");
         action_accelerators.set (ACTION_SYNC_MANUALLY, "<Control>s");
+        action_accelerators.set (ACTION_VIEW_HOMEPAGE, "<Control>h");
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>3");
@@ -156,6 +159,11 @@ public class Services.ActionManager : Object {
         // TODO: Update Backend Type instance default by user
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
         dialog.show ();
+    }
+
+    private void action_view_homepage () {
+        Services.EventBus.get_default ().unselect_all ();
+        window.go_homepage ();
     }
 
     private void action_view_inbox () {

@@ -60,7 +60,6 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
 
         left_button.child = chevron_left_image;
         left_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        // left_button.add_css_class ("no-padding");
 
         var chevron_right_image = new Widgets.DynamicIcon ();
         chevron_right_image.size = 16;

@@ -21,7 +21,7 @@
 
 public class Dialogs.DatePicker : Adw.Window {
     private Gtk.Revealer clear_revealer;
-    private Gtk.Calendar calendar_item;
+    private Widgets.Calendar.Calendar calendar_view;
     private Widgets.ContextMenu.MenuItem no_date_item;
 
     private GLib.DateTime _datetime = null;
@@ -32,7 +32,7 @@ public class Dialogs.DatePicker : Adw.Window {
 
         set {
             _datetime = value;
-            calendar_item.select_day (_datetime);
+            // calendar_item.select_day (_datetime);
             no_date_item.visible = true;
         }
     }
@@ -89,15 +89,10 @@ public class Dialogs.DatePicker : Adw.Window {
         items_card.append (no_date_item);
         items_card.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        calendar_item = new Gtk.Calendar () {
-            margin_bottom = 6,
+        calendar_view = new Widgets.Calendar.Calendar (true) {
             margin_top = 6,
-            margin_start = 6,
-            margin_end = 6
+            margin_bottom = 6
         };
-
-        calendar_item.add_css_class ("calendar");
-        calendar_item.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var calendar_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
@@ -105,7 +100,7 @@ public class Dialogs.DatePicker : Adw.Window {
             margin_bottom = 12
         };
 
-        calendar_card.append (calendar_item);
+        calendar_card.append (calendar_view);
         calendar_card.add_css_class (Granite.STYLE_CLASS_CARD);
 
         var done_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
@@ -145,8 +140,8 @@ public class Dialogs.DatePicker : Adw.Window {
             hide_destroy ();
         });
 
-        calendar_item.day_selected.connect (() => {
-            _datetime = calendar_item.get_date ();
+        calendar_view.selection_changed.connect ((date) => {
+            _datetime = date;
         });
 
         done_button.clicked.connect (() => {

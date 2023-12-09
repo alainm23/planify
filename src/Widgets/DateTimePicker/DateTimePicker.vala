@@ -107,9 +107,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         menu_items_box.append (calendar_item_box);
 
         var calendar_view = new Widgets.Calendar.Calendar (true);
-        // var calendar_view = new Gtk.Calendar ();
-        // calendar_view.add_css_class ("calendar");
-        // calendar_view.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var calendar_grid = new Gtk.Grid ();
         calendar_grid.attach (calendar_view, 0, 0);
@@ -197,10 +194,6 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         calendar_view.selection_changed.connect ((date) => {
             _datetime = Util.get_default ().get_format_date (date);
         });
-
-        //  calendar_view.day_selected.connect (() => {
-        //      _datetime = Util.get_default ().get_format_date (calendar_view.get_date ());
-        //  });
 
         time_picker.time_changed.connect (() => {
             _datetime = Util.get_default ().get_format_date (datetime);

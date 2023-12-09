@@ -21,8 +21,6 @@
 
 public class Widgets.ScheduleButton : Gtk.Grid {
     private Gtk.Label due_label;
-
-    private Gtk.Label repeat_label;
     
     private Gtk.Box schedule_box;
     private Widgets.DynamicIcon due_image;
@@ -77,42 +75,11 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                 datetime_picker.datetime = datetime;
             }
         });
-
-        //  set_child (schedule_box);
-
-        //  var gesture = new Gtk.GestureClick ();
-        //  gesture.set_button (1);
-        //  add_controller (gesture);
-
-        //  gesture.pressed.connect ((n_press, x, y) => {
-        //      gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-        //      open_datetime_picker ();
-        //  });
     }
-
-    //  private void open_datetime_picker () {
-    //      if (datetime_picker == null) {
-    //          datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
-    //          datetime_picker.set_parent (this);
-                    
-    //          datetime_picker.date_changed.connect (() => {
-    //              date_changed (datetime_picker.datetime);
-    //          });
-    //      }
-
-    //      datetime_picker.visible_no_date = false;
-    //      if (datetime != null) {
-    //          datetime_picker.visible_no_date = true;
-    //          datetime_picker.datetime = datetime;
-    //      }
-
-    //      datetime_picker.popup ();
-    //  }
 
     public void update_from_item (Objects.Item item) {
         due_label.label = _("Schedule");
         tooltip_text = _("Schedule");
-        // repeat_label.label = "";
 
         due_image.update_icon_name ("planner-calendar");
         datetime = null;

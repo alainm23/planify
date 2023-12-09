@@ -53,9 +53,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         current_date = new GLib.DateTime.now_local ();
 
         calendar_header = new Widgets.Calendar.CalendarHeader ();
-
         calendar_week = new Widgets.Calendar.CalendarWeek ();
-        
         calendar_view = new Widgets.Calendar.CalendarView ();
 
         append (calendar_header);
@@ -106,7 +104,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         start_day = (start_day + 7) % 7;
 
         int max_days = Util.get_default ().get_days_of_month (date.get_month (), year_nav);
-
         calendar_view.fill_grid_days (start_day,
                                       max_days,
                                       date.get_day_of_month (),
@@ -132,6 +129,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
             start_day += 7;
         }
         start_day = (start_day + 7) % 7;
+
         int max_days = Util.get_default ().get_days_of_month (date.get_month (), year_nav);
         calendar_view.fill_grid_days (start_day,
                                       max_days,
@@ -160,7 +158,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         start_day = (start_day + 7) % 7;
 
         int max_days = Util.get_default ().get_days_of_month (current_date.get_month (), year_nav);
-
         calendar_view.fill_grid_days (
             start_day,
             max_days,

@@ -44,12 +44,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		page.icon_name = "applications-system-symbolic";
 
 		// Accounts
-		var general_group = new Adw.PreferencesGroup ();
-
 		var accounts_row = new Adw.ActionRow ();
 		accounts_row.activatable = true;
-		accounts_row.add_prefix (generateIcon ("planner-cloud"));
-		accounts_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		accounts_row.add_prefix (generate_icon ("planner-cloud"));
+		accounts_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		accounts_row.title = _("Accounts");
 		accounts_row.subtitle = _("Sync your favorite to-do providers.");
 
@@ -57,10 +55,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_accounts_page ());
 		});
 
+		var accounts_group = new Adw.PreferencesGroup ();
+		accounts_group.add (accounts_row);
+
+		page.add (accounts_group);
+
+		// Personalization
 		var general_row = new Adw.ActionRow ();
 		general_row.activatable = true;
-		general_row.add_prefix (generateIcon ("planner-general"));
-		general_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		general_row.add_prefix (generate_icon ("planner-general"));
+		general_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		general_row.title = _("General");
 		general_row.subtitle = _("Customize to your liking.");
 
@@ -68,15 +72,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_general_page ());
 		});
 
-		general_group.add (accounts_row);
-		general_group.add (general_row);
-		page.add (general_group);
+		var homepage_row = new Adw.ActionRow ();
+		homepage_row.activatable = true;
+		homepage_row.add_prefix (generate_icon ("planner-home"));
+		homepage_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		homepage_row.title = _("Homepage");
+		homepage_row.subtitle = _("Customize your homepage.");
 
-		// Personalization
+		homepage_row.activated.connect (() => {
+			push_subpage (get_homepage_page ());
+		});
+
 		var appearance_row = new Adw.ActionRow ();
 		appearance_row.activatable = true;
-		appearance_row.add_prefix (generateIcon ("planner-appearance"));
-		appearance_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		appearance_row.add_prefix (generate_icon ("planner-appearance"));
+		appearance_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		appearance_row.title = _("Appearance");
 		appearance_row.subtitle = Util.get_default ().get_theme_name ();
 
@@ -86,8 +96,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var quick_add_row = new Adw.ActionRow ();
 		quick_add_row.activatable = true;
-		quick_add_row.add_prefix (generateIcon ("archive-plus"));
-		quick_add_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		quick_add_row.add_prefix (generate_icon ("archive-plus"));
+		quick_add_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		quick_add_row.title = _("Quick Add");
 		quick_add_row.subtitle = _("Adding To-Dos From Anywhere.");
 
@@ -96,6 +106,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		var personalization_group = new Adw.PreferencesGroup ();
+		personalization_group.add (general_row);
+		personalization_group.add (homepage_row);
 		personalization_group.add (appearance_row);
 		personalization_group.add (quick_add_row);
 
@@ -107,8 +119,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var tutorial_row = new Adw.ActionRow ();
 		tutorial_row.activatable = true;
-		tutorial_row.add_prefix (generateIcon ("light-bulb"));
-		tutorial_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		tutorial_row.add_prefix (generate_icon ("light-bulb"));
+		tutorial_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		tutorial_row.title = _("Create Tutorial Project");
 		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
 
@@ -120,8 +132,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var delete_row = new Adw.ActionRow ();
 		delete_row.activatable = true;
-		delete_row.add_prefix (generateIcon ("trash"));
-		delete_row.add_suffix (generateIcon ("pan-end-symbolic", 16));
+		delete_row.add_prefix (generate_icon ("trash"));
+		delete_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		delete_row.title = _("Delete Planify Data");
 
 		privacy_group.add (delete_row);
@@ -366,6 +378,122 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_homepage_page () {
+		var settings_header = new Widgets.SettingsHeader (_("Homepage"));
+
+		var description_label = new Gtk.Label (
+            _("When you open up Planify, make sure you see the to-dos that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
+        ) {
+			justify = Gtk.Justification.FILL,
+			use_markup = true,
+			wrap = true,
+			xalign = 0,
+			margin_top = 12,
+			margin_end = 6,
+			margin_start = 6
+		};
+
+		var inbox_checkbutton = new Gtk.CheckButton () {
+			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 0
+		};
+		var inbox_row = new Adw.ActionRow ();
+
+		inbox_row.title = _("Inbox");
+		inbox_row.add_prefix (generate_icon ("planner-inbox", 19));
+		inbox_row.add_suffix (inbox_checkbutton);
+		inbox_row.set_activatable_widget (inbox_checkbutton);
+
+		var today_checkbutton = new Gtk.CheckButton () {
+			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 1
+		};
+		today_checkbutton.group = inbox_checkbutton;
+
+		var today_row = new Adw.ActionRow ();
+		today_row.title = _("Today");
+		today_row.add_prefix (generate_icon ("planner-today", 19));
+		today_row.add_suffix (today_checkbutton);
+		today_row.set_activatable_widget (today_checkbutton);
+
+		var scheduled_checkbutton = new Gtk.CheckButton () {
+			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 2
+		};
+		scheduled_checkbutton.group = inbox_checkbutton;
+
+		var scheduled_row = new Adw.ActionRow ();
+		scheduled_row.title = _("Scheduled");
+		scheduled_row.add_prefix (generate_icon ("planner-scheduled", 19));
+		scheduled_row.add_suffix (scheduled_checkbutton);
+		scheduled_row.set_activatable_widget (scheduled_checkbutton);
+
+		var labels_checkbutton = new Gtk.CheckButton () {
+			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 3
+		};
+		labels_checkbutton.group = inbox_checkbutton;
+
+		var labels_row = new Adw.ActionRow ();
+		labels_row.title = _("Labels");
+		labels_row.add_prefix (generate_icon ("planner-tag-icon", 19));
+		labels_row.add_suffix(labels_checkbutton);
+		labels_row.set_activatable_widget (labels_checkbutton);
+
+		var group = new Adw.PreferencesGroup () {
+			margin_top = 12
+		};
+
+		group.add (inbox_row);
+		group.add (today_row);
+		group.add (scheduled_row);
+		group.add (labels_row);
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		content_box.append (description_label);
+		content_box.append (group);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 24,
+			margin_end = 24,
+			margin_bottom = 24
+		};
+
+		content_clamp.child = content_box;
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+			hscrollbar_policy = Gtk.PolicyType.NEVER,
+			hexpand = true,
+			vexpand = true
+		};
+		scrolled_window.child = content_clamp;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "homepage");
+
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		inbox_checkbutton.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("homepage-item", 0);
+		});
+
+		today_checkbutton.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("homepage-item", 1);
+		});
+
+		scheduled_checkbutton.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("homepage-item", 2);
+		});
+
+		labels_checkbutton.toggled.connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("homepage-item", 3);
 		});
 
 		return page;
@@ -835,18 +963,28 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	private Adw.NavigationPage get_quick_add_page () {
 		var settings_header = new Widgets.SettingsHeader (_("Quick Add"));
 
-		var detail_row = new Adw.ActionRow ();
-		detail_row.title = _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.");
+		var description_label = new Gtk.Label (
+            _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.") // vala-lint=line-length
+        ) {
+			justify = Gtk.Justification.FILL,
+			use_markup = true,
+			wrap = true,
+			xalign = 0,
+			margin_end = 6,
+			margin_start = 6
+		};
 
-		var detail_group = new Adw.PreferencesGroup ();
-		detail_group.add (detail_row);
-
-		var set_custom_row = new Adw.ActionRow ();
-		set_custom_row.title = _("Set a custom shortcut in System Settings");
-		set_custom_row.subtitle = _("Head to System Settings → Keyboard → Shortcuts → Custom, then add a new shortcut with the following:");
-
-		var set_custom_group = new Adw.PreferencesGroup ();
-		set_custom_group.add (set_custom_row);
+		var description2_label = new Gtk.Label (
+            _("Head to System Settings → Keyboard → Shortcuts → Custom, then add a new shortcut with the following:") // vala-lint=line-length
+        ) {
+			justify = Gtk.Justification.FILL,
+			use_markup = true,
+			wrap = true,
+			xalign = 0,
+			margin_top = 6,
+			margin_end = 6,
+			margin_start = 6
+		};
 
 		var copy_button = new Gtk.Button.from_icon_name ("edit-copy-symbolic") {
 			valign = CENTER
@@ -859,7 +997,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		command_entry.add_css_class ("small-label");
 		command_entry.add_css_class ("monospace");
 
-		var command_group = new Adw.PreferencesGroup ();
+		var command_group = new Adw.PreferencesGroup () {
+			margin_top = 12
+		};
 		command_group.add (command_entry);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
@@ -867,8 +1007,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			hexpand = true
 		};
 
-		content_box.append (detail_group);
-		content_box.append (set_custom_group);
+		content_box.append (description_label);
+		content_box.append (description2_label);
 		content_box.append (command_group);
 
 		var content_clamp = new Adw.Clamp () {
@@ -930,7 +1070,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 	}
 
-	private Gtk.Widget generateIcon (string icon_name, int size = 32) {
+	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
 		var icon = new Widgets.DynamicIcon ();
 		icon.size = size;
 		icon.update_icon_name (icon_name);
