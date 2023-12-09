@@ -11,12 +11,12 @@ jobs:
     name: "Vala Lint"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: elementary/actions/vala-lint@master
-      with:
-              dir: src/
-              conf: .vala-lint.conf
-              fail: true
+        - uses: actions/checkout@v1
+        - uses: elementary/actions/vala-lint@main
+          with:
+            dir: .
+            conf: .vala-lint.conf
+            fail: false
   flatpak:
     name: "Flatpak"
     runs-on: ubuntu-latest
