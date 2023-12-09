@@ -14,7 +14,9 @@ jobs:
     - uses: actions/checkout@v3
     - uses: elementary/actions/vala-lint@master
       with:
-        conf: .vala-lint.conf
+              dir: src/
+              conf: .vala-lint.conf
+              fail: true
   flatpak:
     name: "Flatpak"
     runs-on: ubuntu-latest
