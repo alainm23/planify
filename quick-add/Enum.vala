@@ -222,7 +222,7 @@ public enum RecurrencyType {
                 }
                 
             default:
-                assert_not_reached();
+                assert_not_reached ();
         }
     }
 }
