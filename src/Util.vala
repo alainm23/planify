@@ -122,6 +122,8 @@ public class Util : GLib.Object {
         return returned;
     }
 
+    // Providers
+    
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
     public void set_widget_color (string color, Gtk.Widget widget) {
         if (providers == null) {

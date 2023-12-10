@@ -1,26 +1,24 @@
-libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
-
 deps = [
-  dependency('glib-2.0'),
-  dependency('gee-0.8', version: '>=0.8.5'),
-  dependency('gtk4'),
-  dependency('sqlite3'),
-  dependency('libadwaita-1'),
-  dependency('webkitgtk-6.0'),
-  dependency('granite-7'),
-  dependency('json-glib-1.0'),
-  dependency('libecal-2.0', version: '>= 3.45.1'),
-  dependency('libedataserver-1.2', version: '>= 3.45.1'),
-  dependency('libical-glib'),
+  core_dep,
+  glib_dep,
+  gee_dep,
+  gtk_dep,
+  sqlite3_dep,
+  libadwaita_dep,
+  webkitgtk_dep,
+  granite_dep,
+  json_dep,
+  libecal_dep,
+  libedataserver_dep,
+  libical_dep,
   libportal_dep,
-  meson.get_compiler('c').find_library('m', required : false)
+  m_dep
 ]
 
 sources = files(
   'App.vala',
   'MainWindow.vala',
   'Util.vala',
-  'Enum.vala',
 
   'Services/Database.vala',
   'Services/EventBus.vala',
@@ -29,7 +27,6 @@ sources = files(
   'Services/ActionManager.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
-  'Services/Settings.vala',
   'Services/DBusServer.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
@@ -48,7 +45,7 @@ sources = files(
   'Layouts/ItemBoard.vala',
   'Layouts/HeaderBar.vala',
   
-  'Widgets/DynamicIcon.vala',
+  # 'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',
   'Widgets/LoadingButton.vala',
   'Widgets/CircularProgressBar.vala',
@@ -126,8 +123,6 @@ sources = files(
   'Objects/Filters/Priority.vala',
   'Objects/Filters/Completed.vala',
   'Objects/Filters/Labels.vala',
-
-  'Models/ItemList.vala',
 
   'Dialogs/Project.vala',
   'Dialogs/Label.vala',

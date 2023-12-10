@@ -123,8 +123,8 @@ public class Util : GLib.Object {
             Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
         );
     }
-
-        /*
+    
+    /*
         Icons
     */
 
@@ -522,6 +522,6 @@ public class Util : GLib.Object {
     }
     
     public string get_color (string key) {
-        return get_colors().get (key).hexadecimal;
+        return get_colors ().get (key).hexadecimal;
     }
 }

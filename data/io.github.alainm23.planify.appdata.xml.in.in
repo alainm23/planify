@@ -32,10 +32,13 @@
   </description>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/resources/screenshot/screenshot-01.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-01.png</image>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/alainm23/planner/master/data/resources/screenshot/screenshot-02.png</image>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-02.png</image>
+    </screenshot>
+        <screenshot>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-03.png</image>
     </screenshot>
   </screenshots>
   <kudos>
@@ -51,6 +54,21 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   ​<releases>
+    <release version="4.2" date="2023-12-10">
+      <description>
+        <ul>
+          <li>Icon size update.</li>
+          <li>Custom decoration layout support.</li>
+          <li>Improved colors in light theme.</li>
+          <li>Sort to-dos by project available.</li>
+          <li>Ability to configure or decrease the size of the sidebar.</li>
+          <li>Available configuration to change the start day of the week in the calendar.</li>
+          <li>Added the functionality to select the home page.</li>
+          <li>Bugs fixed #1053, #1026, #1042, #1041, #1037, #1035, #1015, #1001, #995, #946, #1055.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.1.4" date="2023-12-05">
       <description>
         <ul>

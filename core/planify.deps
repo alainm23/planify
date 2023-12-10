@@ -1,0 +1,11 @@
+glib-2.0
+gee-0.8
+gtk4
+sqlite3
+libadwaita-1
+webkitgtk-6.0
+granite-7
+json-glib-1.0
+libecal-2.0
+libedataserver-1.2
+libical-glib

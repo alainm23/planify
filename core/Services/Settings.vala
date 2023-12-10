@@ -19,26 +19,19 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Models.ItemList : GLib.Object, GLib.ListModel {
-    public Gee.ArrayList<Objects.Item> entries { get; construct; }
+public class Services.Settings : GLib.Object {
+    public GLib.Settings settings;
 
-    public ItemList (Gee.ArrayList<Objects.Item> entries) {
-        Object (entries: entries);
-    }
-
-    public uint get_n_items () {
-        return entries.size;
-    }
-
-    public GLib.Type get_item_type () {
-        return typeof (Objects.Item);
-    }
-
-    public GLib.Object ? get_item (uint position) {
-        if (position > entries.size) {
-            return null;
+    private static Settings? _instance;
+    public static Settings get_default () {
+        if (_instance == null) {
+            _instance = new Settings ();
         }
-        
-        return entries[(int) position];
+
+        return _instance;
+    }
+
+    public Settings () {
+        settings = new GLib.Settings ("io.github.alainm23.planify");
     }
 }

@@ -43,7 +43,7 @@ public enum ProjectViewStyle {
 			return "board";
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -61,7 +61,7 @@ public enum ProjectIconStyle {
 			return "emoji";
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -95,7 +95,7 @@ public enum FilterType {
 			return "filter";
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 
@@ -114,7 +114,7 @@ public enum FilterType {
 			return _("Pinboard");
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -148,7 +148,7 @@ public enum BackendType {
 			return "caldav";
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -199,7 +199,7 @@ public enum ObjectType {
 			return _("Lists");
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -243,7 +243,7 @@ public enum RecurrencyType {
 			}
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }
@@ -266,7 +266,7 @@ public enum PickerType {
 			return "sections";
 
 		default:
-			assert_not_reached();
+			assert_not_reached ();
 		}
 	}
 }

@@ -222,7 +222,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			Util.get_default ().create_default_labels ();
 		}
 
-		sidebar.init();
+		sidebar.init ();
 
 		Services.Notification.get_default ();
 		Services.TimeMonitor.get_default ().init_timeout ();
