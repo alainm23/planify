@@ -108,7 +108,8 @@ public class Planify : Adw.Application {
 
 		if (clear_database) {
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it."));
+			                                    _("The process removes all stored information without the possibility of undoing it."),
+												main_window);
 		}
 	}
 
@@ -120,8 +121,7 @@ public class Planify : Adw.Application {
 
 		string reason = _(
 			"Planify will automatically start when this device turns on " +
-			"and run when its window is closed so that it can send to-do notifications."
-			);
+			"and run when its window is closed so that it can send to-do notifications.");
 		var command = new GenericArray<unowned string> (2);
 		foreach (unowned var arg in DAEMON_COMMAND) {
 			command.add (arg);

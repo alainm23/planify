@@ -116,13 +116,6 @@ public class Services.Todoist : GLib.Object {
 		log_out ();
 	}
 
-	public void init () {
-		if (invalid_token ()) {
-			var todoist_oauth = new Dialogs.TodoistOAuth ();
-			todoist_oauth.show ();
-		}
-	}
-
 	public bool invalid_token () {
 		return Services.Settings.get_default ().settings.get_string ("todoist-access-token").strip () == "";
 	}
@@ -131,17 +124,14 @@ public class Services.Todoist : GLib.Object {
 		return !invalid_token ();
 	}
 
-	public async void get_todoist_token (string url) {
-		string CODE = url.split ("=") [1];
-		CODE = CODE.split ("&") [0];
+	public async void get_todoist_token (string _url) {
+		string code = _url.split ("=") [1];
+		code = code.split ("&") [0];
 
-		string URL = "https://todoist.com/oauth/access_token?client_id=%s&client_secret=%s&code=%s".printf (
-			Constants.TODOIST_CLIENT_ID,
-			Constants.TODOIST_CLIENT_SECRET,
-			CODE
-			);
+		string url = "https://todoist.com/oauth/access_token?client_id=%s&client_secret=%s&code=%s".printf (
+			Constants.TODOIST_CLIENT_ID, Constants.TODOIST_CLIENT_SECRET, code);
 
-		var message = new Soup.Message ("POST", URL);
+		var message = new Soup.Message ("POST", url);
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);

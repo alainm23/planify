@@ -20,15 +20,22 @@
 */
 
 public class Widgets.SettingsHeader : Adw.Bin {
-    public string title_header { get; construct; }
     public bool show_back_button { get; construct; }
 
+    public string title {
+        set {
+            title_label.label = value;
+        }
+    }
+
+    private Gtk.Label title_label;
+    
     public signal void done_activated ();
     public signal void back_activated ();
 
-    public SettingsHeader (string title_header, bool show_back_button = true) {
+    public SettingsHeader (string title, bool show_back_button = true) {
         Object (
-            title_header: title_header,
+            title: title,
             show_back_button: show_back_button,
             hexpand: true
         );
@@ -48,9 +55,8 @@ public class Widgets.SettingsHeader : Adw.Bin {
 
         back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         
-        var title_label = new Gtk.Label (title_header);
+        title_label = new Gtk.Label (null);
         title_label.add_css_class (Granite.STYLE_CLASS_TITLE_LABEL);
-
 
         var headerbar = new Gtk.HeaderBar () {
 			title_widget = title_label,

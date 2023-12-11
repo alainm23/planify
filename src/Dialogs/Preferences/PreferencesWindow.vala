@@ -20,8 +20,6 @@
 */
 
 public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
-	private string QUICK_ADD_COMMAND = "flatpak run --command=io.github.alainm23.planify.quick-add %s";
-
 	public PreferencesWindow () {
 		Object (
 			transient_for: (Gtk.Window) Planify.instance.main_window,
@@ -147,7 +145,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		delete_row.activated.connect (() => {
 			destroy ();
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it."));
+			                                    _("The process removes all stored information without the possibility of undoing it."),
+											Planify.instance.main_window);
 		});
 
 		return page;
@@ -651,36 +650,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		return page;
 	}
 
-	public bool is_dark_theme () {
-        var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
-
-		if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
-			dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
-		}
-
-		return dark_mode;
-    }
-
-	public bool is_light_visible () {
-		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
-		if (system_appearance) {
-			return !is_dark_theme ();
-		}
-
-		return true;
-	}
-
-	public bool is_dark_modes_visible () {
-		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
-
-		if (system_appearance) {
-			return is_dark_theme ();
-		}
-
-		return true;
-	}
-
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Widgets.SettingsHeader (_("Accounts"));
 
@@ -801,7 +770,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 			if (todoist_switch.active) {
 				todoist_switch.active = false;
-				Services.Todoist.get_default ().init ();
+				if (!Services.Todoist.get_default ().is_logged_in ()) {
+					push_subpage (get_oauth_todoist_page (todoist_switch));
+				}
 			} else {
 				confirm_log_out (todoist_switch, BackendType.TODOIST);
 			}
@@ -962,7 +933,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_quick_add_page () {
 		var settings_header = new Widgets.SettingsHeader (_("Quick Add"));
-
+		string quick_add_command = "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
+		
 		var description_label = new Gtk.Label (
             _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.") // vala-lint=line-length
         ) {
@@ -993,7 +965,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var command_entry = new Adw.ActionRow ();
 		command_entry.add_suffix (copy_button);
-		command_entry.title = QUICK_ADD_COMMAND.printf (Build.APPLICATION_ID);
+		command_entry.title = quick_add_command;
 		command_entry.add_css_class ("small-label");
 		command_entry.add_css_class ("monospace");
 
@@ -1028,7 +1000,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		copy_button.clicked.connect (() => {
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-			clipboard.set_text (QUICK_ADD_COMMAND.printf (Build.APPLICATION_ID));
+			clipboard.set_text (quick_add_command);
 			add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard.")));
 		});
 
@@ -1039,12 +1011,172 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		return page;
 	}
 
+	private Adw.NavigationPage get_oauth_todoist_page (Gtk.Switch switch_widget) {
+		var settings_header = new Widgets.SettingsHeader (_("Loading…"));
+
+		string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
+		string state = Util.get_default ().generate_string ();
+		oauth_open_url = oauth_open_url.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, state);
+
+		WebKit.WebView webview = new WebKit.WebView ();
+        webview.zoom_level = 0.75;
+        webview.vexpand = true;
+        webview.hexpand = true;
+
+        WebKit.WebContext.get_default ().set_preferred_languages (GLib.Intl.get_language_names ());
+        webview.network_session.set_tls_errors_policy (WebKit.TLSErrorsPolicy.IGNORE);
+
+        webview.load_uri (oauth_open_url);
+
+        var sync_image = new Widgets.DynamicIcon () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER
+        };
+        sync_image.update_icon_name ("planner-cloud");
+        sync_image.size = 128;
+
+        // Loading
+        var progress_bar = new Gtk.ProgressBar () {
+            margin_top = 6
+        };
+
+        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes."));
+        sync_label.wrap = true;
+        sync_label.justify = Gtk.Justification.CENTER;
+        sync_label.margin_top = 12;
+        sync_label.margin_start = 12;
+        sync_label.margin_end = 12;
+
+        var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            margin_top = 24,
+            margin_start = 64,
+            margin_end = 64
+        };
+        sync_box.append (sync_image);
+        sync_box.append (progress_bar);
+        sync_box.append (sync_label);
+
+        var stack = new Gtk.Stack ();
+        stack.vexpand = true;
+        stack.hexpand = true;
+        stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+
+        stack.add_named (webview, "web_view");
+        stack.add_named (sync_box, "spinner-view");
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+			child = stack
+        };
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
+
+		settings_header.back_activated.connect (() => {
+			switch_widget.active = false;
+			pop_subpage ();
+		});
+
+		webview.load_changed.connect ((load_event) => {
+            var redirect_uri = webview.get_uri ();
+
+            if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
+                ("&state=%s".printf (state) in redirect_uri)) {
+				settings_header.title = _("Synchronizing. Wait a moment please.");
+                get_todoist_token.begin (redirect_uri);
+            }
+
+            if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
+                debug ("access_denied");
+				switch_widget.active = false;
+				pop_subpage ();
+            }
+
+            if (load_event == WebKit.LoadEvent.FINISHED) {
+                settings_header.title = _("Please enter your credentials");
+                return;
+            }
+
+            if (load_event == WebKit.LoadEvent.STARTED) {
+                settings_header.title = _("Loading…");
+                return;
+            }
+
+            return;
+        });
+
+        webview.load_failed.connect ((load_event, failing_uri, _error) => {
+            var error = (GLib.Error)_error;
+            warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
+            if (GLib.strcmp (failing_uri, oauth_open_url) == 0) {
+                settings_header.title = _("Network Is Not Available");
+                stack.visible_child_name = "error_view";
+            }
+
+            return true;
+        });
+
+        Services.Todoist.get_default ().first_sync_started.connect (() => {
+            stack.visible_child_name = "spinner-view";
+        });
+
+        Services.Todoist.get_default ().first_sync_finished.connect (() => {
+			pop_subpage ();
+        });
+
+        Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
+            progress_bar.fraction = progress;
+        });
+
+		return page;
+	}
+
+	private async void get_todoist_token (string redirect_uri) {
+        yield Services.Todoist.get_default ().get_todoist_token (redirect_uri);
+    }
+
+	public bool is_dark_theme () {
+        var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
+
+		if (Services.Settings.get_default ().settings.get_boolean ("system-appearance")) {
+			dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
+		}
+
+		return dark_mode;
+    }
+
+	public bool is_light_visible () {
+		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
+
+		if (system_appearance) {
+			return !is_dark_theme ();
+		}
+
+		return true;
+	}
+
+	public bool is_dark_modes_visible () {
+		bool system_appearance = Services.Settings.get_default ().settings.get_boolean ("system-appearance");
+
+		if (system_appearance) {
+			return is_dark_theme ();
+		}
+
+		return true;
+	}
+
 	private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
 		string message = "";
 
 		if (backend_type == BackendType.TODOIST) {
 			message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");
-		} else if  (backend_type == BackendType.GOOGLE_TASKS) {
+		} else if (backend_type == BackendType.GOOGLE_TASKS) {
 			message = _("Are you sure you want to remove the Google Tasks sync? This action will delete all your tasks and settings.");
 		}
 
@@ -1061,7 +1193,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			if (response == "delete") {
 				if (backend_type == BackendType.TODOIST) {
 					Services.Todoist.get_default ().remove_items ();
-				} else if  (backend_type == BackendType.GOOGLE_TASKS) {
+				} else if (backend_type == BackendType.GOOGLE_TASKS) {
 					Services.GoogleTasks.get_default ().remove_items ();
 				}
 			} else {
@@ -1071,9 +1203,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
-		var icon = new Widgets.DynamicIcon ();
+		var icon = new Widgets.DynamicIcon.from_icon_name (icon_name);
 		icon.size = size;
-		icon.update_icon_name (icon_name);
 		return icon;
 	}
 }

@@ -170,6 +170,7 @@ public class Util : GLib.Object {
         
         var file_path = File.new_for_path (get_avatar_path (id));
         var file_from_uri = File.new_for_uri (avatar_url);
+
         if (!file_path.query_exists ()) {
             MainLoop loop = new MainLoop ();
 
@@ -602,29 +603,6 @@ public class Util : GLib.Object {
         return returned;
     }
 
-    public void item_added (Layouts.ItemRow row) {
-        bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
-
-        if (row.item.section_id != "") {
-            Services.Database.get_default ().get_section (row.item.section_id)
-                .add_item_if_not_exists (row.item, insert);
-        } else {
-            Services.Database.get_default ().get_project (row.item.project_id)
-                .add_item_if_not_exists (row.item, insert);
-        }
-        
-        if (!insert) {
-            Services.EventBus.get_default ().update_inserted_item_map (row, "");
-            row.update_inserted_item ();
-        } else {
-            row.hide_destroy ();
-        }
-
-        Services.EventBus.get_default ().send_notification (create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
-        Services.EventBus.get_default ().update_section_sort_func (row.item.project_id, row.item.section_id, false);
-    }
-
-
     public GLib.DateTime get_today_format_date () {
         return get_format_date (new DateTime.now_local ());
     }
@@ -783,8 +761,8 @@ public class Util : GLib.Object {
         return entry.get_text_length () > 0;
     }
 
-    public bool is_text_valid (Widgets.SourceView entry) {
-        return entry.buffer.text.length > 0;
+    public bool is_text_valid (string text) {
+        return text.length > 0;
     }
 
     public string get_short_name (string name, int size = Constants.SHORT_NAME_SIZE) {
@@ -829,9 +807,8 @@ public class Util : GLib.Object {
         //  dialog.show_all ();
     }
 
-    public void clear_database (string title, string message) {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-        title, message);
+    public void clear_database (string title, string message, Gtk.Window window) {
+        var dialog = new Adw.MessageDialog (window, title, message);
 
         dialog.body_use_markup = true;
         dialog.add_response ("cancel", _("Cancel"));
@@ -843,21 +820,20 @@ public class Util : GLib.Object {
             if (response == "delete") {
                 clear_database_query ();
                 reset_settings ();
-                show_alert_destroy ();
+                show_alert_destroy (window);
             }
         });
     }
 
-    public void show_alert_destroy () {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-        null, _("Process completed, you need to start Planify again."));
+    public void show_alert_destroy (Gtk.Window window) {
+        var dialog = new Adw.MessageDialog (window, null, _("Process completed, you need to start Planify again."));
 
         dialog.modal = true;
         dialog.add_response ("ok", _("Ok"));
         dialog.show ();
 
         dialog.response.connect ((response) => {
-            Planify.instance.main_window.destroy ();
+            window.destroy ();
         });
     }
 

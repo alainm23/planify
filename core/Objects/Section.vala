@@ -112,22 +112,6 @@ public class Objects.Section : Objects.BaseObject {
                 section_count_updated ();
             }
         });
-
-        //  Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id, insert) => {
-        //      if (item.project_id == id || old_project_id == id) {
-        //          _project_count = update_project_count ();
-        //          _percentage = update_percentage ();
-        //          project_count_updated ();
-        //      }
-        //  });
-
-        //  Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
-        //      if (section.project_id == id || old_project_id == id) {
-        //          _project_count = update_project_count ();
-        //          _percentage = update_percentage ();
-        //          project_count_updated ();
-        //      }
-        //  });
     }
 
     public Section.from_json (Json.Node node) {
@@ -276,62 +260,6 @@ public class Objects.Section : Objects.BaseObject {
         generator.set_root (root);
 
         return generator.to_data (null);
-    }
-
-    public void delete (bool confirm = true) {
-        //  if (!confirm) {
-        //      if (project.todoist) {
-        //          Planify.todoist.delete.begin (this, (obj, res) => {
-        //              Planify.todoist.delete.end (res);
-        //              Services.Database.get_default ().delete_section (this);
-        //          });
-        //      } else {
-        //          Services.Database.get_default ().delete_section (this);
-        //      }
-
-        //      return;
-        //  }
-
-        //  int tasks = items.size;
-        //  string message = _("Are you sure you want to delete %s?".printf (Util.get_default ().get_dialog_text (name)));
-        //  if (tasks > 0) {
-        //      message = _("Delete %s with its %d tasks?".printf (Util.get_default ().get_dialog_text (name), tasks));
-        //  }
-
-        //  var message_dialog = new Dialogs.MessageDialog (
-        //      _("Delete section"),
-        //      message,
-        //      "dialog-warning"
-        //  );
-        //  message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-        //  message_dialog.show_all ();
-
-        //  var remove_button = new Widgets.LoadingButton (
-        //      LoadingButtonType.LABEL, _("Delete")) {
-        //      hexpand = true
-        //  };
-        //  remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-        //  remove_button.get_style_context ().add_class ("border-radius-6");
-        //  message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-
-        //  message_dialog.default_action.connect ((response) => {
-        //      if (response == Gtk.ResponseType.ACCEPT) {
-        //          if (project.todoist) {
-        //              remove_button.is_loading = true;
-        //              Planify.todoist.delete.begin (this, (obj, res) => {
-        //                  Planify.todoist.delete.end (res);
-        //                  Services.Database.get_default ().delete_section (this);
-        //                  remove_button.is_loading = false;
-        //                  message_dialog.hide_destroy ();
-        //              });
-        //          } else {
-        //              Services.Database.get_default ().delete_section (this);
-        //              message_dialog.hide_destroy ();
-        //          }
-        //      } else {
-        //          message_dialog.hide_destroy ();
-        //      }
-        //  });
     }
 
     public override string get_move_json (string uuid, string new_project_id) {

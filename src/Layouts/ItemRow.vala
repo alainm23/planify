@@ -673,7 +673,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (!is_creating) {
                     update ();
                 } else {
-                    submit_button.sensitive = Util.get_default ().is_text_valid (content_textview);
+                    submit_button.sensitive = Util.get_default ().is_text_valid (content_textview.buffer.text);
                 }
             }
         });
@@ -848,7 +848,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             Source.remove (destroy_timeout);
         }
         
-        if (!Util.get_default ().is_text_valid (content_textview)) {
+        if (!Util.get_default ().is_text_valid (content_textview.buffer.text)) {
             Services.EventBus.get_default ().new_item_deleted (item.project_id);
             hide_destroy ();
             return;

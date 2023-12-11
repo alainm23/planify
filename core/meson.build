@@ -1,10 +1,33 @@
 core_files = files(
-    'Utils.vala',
+    'Util.vala',
     'Enum.vala',
     'Constants.vala',
+
     'Services/Settings.vala',
+    'Services/EventBus.vala',
+    'Services/Database.vala',
+    'Services/Todoist.vala',
+
     'Widgets/DynamicIcon.vala',
-    'Widgets/LoadingButton.vala'
+    'Widgets/LoadingButton.vala',
+
+    'Objects/BaseObject.vala',
+    'Objects/Color.vala',
+    'Objects/DueDate.vala',
+    'Objects/Item.vala',
+    'Objects/ItemLabel.vala',
+    'Objects/Label.vala',
+    'Objects/Project.vala',
+    'Objects/Queue.vala',
+    'Objects/Reminder.vala',
+    'Objects/Section.vala',
+    
+    'Objects/Filters/Pinboard.vala',
+    'Objects/Filters/Scheduled.vala',
+    'Objects/Filters/Today.vala',
+    'Objects/Filters/Priority.vala',
+    'Objects/Filters/Completed.vala',
+    'Objects/Filters/Labels.vala',
 )
 
 core_deps = [
@@ -15,6 +38,7 @@ core_deps = [
   libadwaita_dep,
   granite_dep,
   json_dep,
+  libsoup_dep
 ]
 
 core_lib = shared_library(

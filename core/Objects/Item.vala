@@ -205,6 +205,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void loading_changed (bool value);
+    
     construct {
         deleted.connect (() => {
             Idle.add (() => {

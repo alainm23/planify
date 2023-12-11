@@ -48,9 +48,8 @@ public class Services.EventBus : Object {
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "", bool insert = true);
-    public signal void item_section_moved (Layouts.ItemRow itemrow, string old_section_id);
     public signal void update_items_position (string project_id, string section_id);
-    public signal void update_inserted_item_map (Layouts.ItemRow row, string old_section_id);
+    public signal void update_inserted_item_map (Gtk.Widget row, string old_section_id);
     public signal void update_section_sort_func (string project_id, string section_id, bool active);
     public signal void day_changed ();
     public signal void open_labels ();
@@ -68,8 +67,8 @@ public class Services.EventBus : Object {
     public bool multi_select_enabled = false;
     public signal void show_multi_select (bool enabled);
     public signal void unselect_all ();
-    public signal void select_item (Layouts.ItemRow itemrow);
-    public signal void unselect_item (Layouts.ItemRow itemrow);
+    public signal void select_item (Gtk.Widget itemrow);
+    public signal void unselect_item (Gtk.Widget itemrow);
 
     public signal void magic_button_visible (bool active);
     public signal void item_drag_begin (Objects.Item item);

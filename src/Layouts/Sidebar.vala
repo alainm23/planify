@@ -139,8 +139,6 @@ public class Layouts.Sidebar : Gtk.Grid {
             
             if (is_logged_in) {
                 prepare_new_project (BackendType.TODOIST);
-            } else {
-                Services.Todoist.get_default ().init ();
             }
         });
 

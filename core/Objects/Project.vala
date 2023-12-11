@@ -186,7 +186,20 @@ public class Objects.Project : Objects.BaseObject {
             return _percentage;
         }
     }
+    
+    bool _loading = false;
+    public bool loading {
+        set {
+            _loading = value;
+            loading_changed (_loading);
+        }
 
+        get {
+            return _loading;
+        }
+    }
+
+    public signal void loading_changed (bool value);
     public signal void project_count_updated ();
 
     Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
@@ -343,22 +356,18 @@ public class Objects.Project : Objects.BaseObject {
         });
     }
 
-    public void update_async (Widgets.LoadingButton? loading_button = null) {
-        if (loading_button != null) {
-            loading_button.is_loading = true;
-        }
+    public void update_async () {
+        loading = true;
         
         if (backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_project (this);
-
-                if (loading_button != null) {
-                    loading_button.is_loading = false;
-                }
+                loading = false;
             });
-        } else {
+        } else if (backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().update_project (this);
+            loading = false;
         }
     }
 

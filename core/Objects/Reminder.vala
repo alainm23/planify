@@ -39,6 +39,20 @@ public class Objects.Reminder : Objects.BaseObject {
         }
     }
 
+    bool _loading = false;
+    public bool loading {
+        set {
+            _loading = value;
+            loading_changed (_loading);
+        }
+
+        get {
+            return _loading;
+        }
+    }
+
+    public signal void loading_changed (bool value);
+
     construct {
         deleted.connect (() => {
             Services.Database.get_default ().reminder_deleted (this);
@@ -96,23 +110,19 @@ public class Objects.Reminder : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public void delete (Widgets.LoadingButton? loading_button = null) {
-        if (item.project.backend_type == BackendType.TODOIST) {
-            if (loading_button != null) {
-                loading_button.is_loading = true;
-            }
+    public void delete () {
+        loading = true;
 
+        if (item.project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res)) {
                     Services.Database.get_default ().delete_reminder (this);
-                } else {
-                    if (loading_button != null) {
-                        loading_button.is_loading = false;
-                    }
+                    loading = false;
                 }
             });
         } else {
             Services.Database.get_default ().delete_reminder (this);
+            loading = false;
         }
     }
 }

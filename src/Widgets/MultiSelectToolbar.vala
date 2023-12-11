@@ -127,7 +127,9 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
 
         attach (main_revealer, 0, 0);
 
-        Services.EventBus.get_default ().select_item.connect ((row) => {
+        Services.EventBus.get_default ().select_item.connect ((_row) => {
+            var row = (Layouts.ItemRow) _row;
+
             if (items_selected.has_key (row.item.id_string)) {
                 items_selected.unset (row.item.id_string);
                 row.is_row_selected = false;
@@ -139,7 +141,9 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
             check_select_bar ();
         });
 
-        Services.EventBus.get_default ().unselect_item.connect ((row) => {
+        Services.EventBus.get_default ().unselect_item.connect ((_row) => {
+            var row = (Layouts.ItemRow) _row;
+
             if (items_selected.has_key (row.item.id_string)) {
                 items_selected.unset (row.item.id_string);
                 row.is_row_selected = false;
