@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Irénée THIRION <irenee.thirion@e.email>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-09 06:09-0500\n"
-"PO-Revision-Date: 2023-06-25 20:00+0200\n"
+"PO-Revision-Date: 2023-12-11 10:00+0100\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
-"Language-Team: \n"
-"Language: fr_FR\n"
+"Language-Team: French <gnomefr@traduc.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: src/App.vala:110 src/Dialogs/Preferences/PreferencesWindow.vala:149
 msgid "Are you sure you want to reset all?"
@@ -307,6 +308,9 @@ msgid ""
 "running. Don’t hesitate to play around in it – you can always create a new "
 "one from settings."
 msgstr ""
+"Ce projet vous montre tout ce que vous devez savoir sur l’application pour "
+"bien commencer. N’hésitez pas à vous amuser avec – vous pouvez toujours en "
+"créer un nouveau depuis les paramètres."
 
 #: src/Util.vala:1146
 msgid "Tap this to-do"
@@ -412,14 +416,12 @@ msgid "Enable synchronization with third-party service."
 msgstr "Activez la synchronisation avec des services tiers."
 
 #: src/Util.vala:1209
-#, fuzzy
 msgid ""
 "Planify not only creates tasks locally, it can also synchronize your Todoist "
 "account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
 "Planify ne crée pas seulement des tâches localement, il peut aussi "
-"synchroniser vos comptes Todoist, Google Tasks et CalDAV. Allez dans "
-"« Préférences » → « Comptes »."
+"synchroniser votre compte Todoist. Allez dans « Préférences » → « Comptes »."
 
 #: src/Util.vala:1220
 msgid "💼️Work"
@@ -570,12 +572,11 @@ msgstr ""
 
 #: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Supprimer des favoris"
 
 #: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
-#, fuzzy
 msgid "Add to favorites"
-msgstr "Favoris"
+msgstr "Ajouter aux favoris"
 
 #: src/Layouts/ProjectRow.vala:420 src/Views/Project/Project.vala:150
 #: src/Dialogs/Project.vala:65
@@ -698,12 +699,10 @@ msgid "Not available"
 msgstr "Indisponible"
 
 #: src/Layouts/ItemRow.vala:1131
-#, fuzzy
 msgid "Copy to clipboard"
-msgstr "Tâche copiée dans le presse-papiers"
+msgstr "Copier vers le presse-papiers"
 
 #: src/Layouts/ItemRow.vala:1132
-#, fuzzy
 msgid "Duplicate"
 msgstr "Dupliquer"
 
@@ -713,26 +712,23 @@ msgstr "Répéter"
 
 #: src/Layouts/ItemRow.vala:1235
 msgid "Daily"
-msgstr ""
+msgstr "Quotidiennement"
 
 #: src/Layouts/ItemRow.vala:1236
-#, fuzzy
 msgid "Weekly"
-msgstr "Semaine(s)"
+msgstr "Hebdomadairement"
 
 #: src/Layouts/ItemRow.vala:1237
-#, fuzzy
 msgid "Monthly"
-msgstr "Mois"
+msgstr "Mensuellement"
 
 #: src/Layouts/ItemRow.vala:1238
-#, fuzzy
 msgid "Yearly"
-msgstr "Année(s)"
+msgstr "Annuellement"
 
 #: src/Layouts/ItemRow.vala:1239
 msgid "Custom"
-msgstr ""
+msgstr "Personnalisé"
 
 #: src/Layouts/ItemRow.vala:1515 src/Layouts/ItemBoard.vala:424
 #, c-format
@@ -769,9 +765,8 @@ msgid "Delete label"
 msgstr "Supprimer l’étiquette"
 
 #: src/Layouts/SectionBoard.vala:526
-#, fuzzy
 msgid "My new to-do"
-msgstr "Créer une nouvelle tâche"
+msgstr "Ma nouvelle tâche"
 
 #: src/Widgets/SyncButton.vala:83
 #, c-format
@@ -824,7 +819,7 @@ msgstr "Marquer comme fait"
 #: src/Widgets/MultiSelectToolbar.vala:312
 #, c-format
 msgid "Delete %d To-Dos"
-msgstr "Supprimer %d tâches ?"
+msgstr "Supprimer %d tâches"
 
 #: src/Widgets/MultiSelectToolbar.vala:313
 #, c-format
@@ -985,9 +980,8 @@ msgid "Priority"
 msgstr "Priorité"
 
 #: src/Views/Project/Project.vala:312
-#, fuzzy
 msgid "Order by"
-msgstr "Ordre"
+msgstr "Trier par"
 
 #: src/Views/Project/Project.vala:315
 msgid "Hide completed tasks"
@@ -1162,15 +1156,15 @@ msgstr "Réseau Indisponible"
 
 #: src/Dialogs/WhatsNew.vala:33
 msgid "What's New"
-msgstr ""
+msgstr "Quoi de neuf"
 
 #: src/Dialogs/WhatsNew.vala:47
 msgid "What's New in Planify"
-msgstr ""
+msgstr "Quoi de neuf dans Planify"
 
 #: src/Dialogs/WhatsNew.vala:52
 msgid "Version 4.1.1"
-msgstr ""
+msgstr "Version 4.1.1"
 
 #: src/Dialogs/WhatsNew.vala:98 src/Dialogs/WhatsNew.vala:99
 #: src/Dialogs/Preferences/PreferencesWindow.vala:729
@@ -1283,14 +1277,12 @@ msgstr "Customisez selon vos envies."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:79
 #: src/Dialogs/Preferences/PreferencesWindow.vala:387
-#, fuzzy
 msgid "Homepage"
 msgstr "Page d’accueil"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:80
-#, fuzzy
 msgid "Customize your homepage."
-msgstr "Customisez selon vos envies."
+msgstr "Customisez votre page d’accueil."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:90
 #: src/Dialogs/Preferences/PreferencesWindow.vala:503
@@ -1451,33 +1443,33 @@ msgid ""
 "important. The default homepage is your <b>Inbox</b> view, but you can "
 "change it to whatever you'd like."
 msgstr ""
+"Assurez-vous de voir les tâches les plus importantes directement à "
+"l’ouverture de Planify. La page d’accueil par défaut est la vue de votre "
+"<b>Boîte de réception</b>, mais vous pouvez la modifier."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:506
 msgid "App Theme"
-msgstr ""
+msgstr "Thème de l’application"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:514
 msgid "Use system settings"
 msgstr "Utiliser les paramètres système"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:523
-#, fuzzy
 msgid "Light Style"
-msgstr "Bleu clair"
+msgstr "Style clair"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:532
-#, fuzzy
 msgid "Dark Style"
-msgstr "Bleu sombre"
+msgstr "Style sombre"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:541
-#, fuzzy
 msgid "Dark Blue Style"
-msgstr "Bleu sombre"
+msgstr "Style bleu sombre"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:579
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Largeur du volet latéral"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:696
 msgid "Default Inbox Project"
@@ -1547,367 +1539,3 @@ msgstr ""
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1040
 msgid "Sign off"
 msgstr "Se déconnecter"
-
-#~ msgid "Toggle Sidebar"
-#~ msgstr "Basculer la barre latérale"
-
-#~ msgid "Move to project"
-#~ msgstr "Déplacer vers le projet"
-
-#~ msgid "Add Project"
-#~ msgstr "Ajouter un projet"
-
-#~ msgid "Add To-Do"
-#~ msgstr "Ajouter une tâche"
-
-#~ msgid "No label available, click to add one"
-#~ msgstr "Aucune étiquette disponible, cliquez pour en ajouter une"
-
-#~ msgid ""
-#~ "Your list of filters will show up here. Create one by clicking on the '+' "
-#~ "button"
-#~ msgstr ""
-#~ "Votre liste de filtres apparaîtra ici. Créez-en une en cliquant sur le "
-#~ "bouton ’+’"
-
-#~ msgid "Back"
-#~ msgstr "Retour"
-
-#~ msgid "Sync"
-#~ msgstr "Synchronisation"
-
-#~ msgid "List View"
-#~ msgstr "Vue en liste"
-
-#~ msgid "Board View"
-#~ msgstr "Vue en tableau"
-
-#~ msgid "Task Name"
-#~ msgstr "Nom de la tâche"
-
-#~ msgid "Dark mode"
-#~ msgstr "Mode sombre"
-
-#~ msgid "Planner"
-#~ msgstr "Planner"
-
-#~ msgid ""
-#~ "You are running an early stage development version. Be aware it is a work "
-#~ "in progress and far from complete yet."
-#~ msgstr ""
-#~ "Vous utilisez une version en cours de développement. Sachez qu’il s’agit "
-#~ "d’un travail en cours et qu’il est loin d’être terminé."
-
-#~ msgid "Add Tasks"
-#~ msgstr "Ajouter des tâches"
-
-#~ msgid "Add task"
-#~ msgstr "Ajouter une tâche"
-
-#~ msgid "What will you accomplish?"
-#~ msgstr "Qu’accomplirez-vous ?"
-
-#~ msgid "No tasks with this label at the moment"
-#~ msgstr "Pas de tâches avec cette étiquette pour l’instant"
-
-#~ msgid "Clear"
-#~ msgstr "Vider"
-
-#~ msgid "Welcome to Planner 3"
-#~ msgstr "Bienvenue dans Planner 3"
-
-#~ msgid ""
-#~ "We have detected that you have a Planner 2 configuration started, "
-#~ "currently the v3 database is not compatible with v2, if you wish you can "
-#~ "download a backup in JSON format and migrate your data manually, or you "
-#~ "can start with v3 with a new configuration."
-#~ msgstr ""
-#~ "Nous avons détecté que vous avez une configuration Planner 2 en cours ; "
-#~ "actuellement la base de données de la version 3 n’est pas compatible avec "
-#~ "la version 2, si vous le souhaitez vous pouvez télécharger une sauvegarde "
-#~ "au format JSON et migrer votre base de données manuellement, ou bien vous "
-#~ "pouvez débuter dans la version 3 avec une nouvelle configuration."
-
-#~ msgid "Create backup"
-#~ msgstr "Créer une sauvegarde"
-
-#~ msgid "Starting over"
-#~ msgstr "Recommencer à zéro"
-
-#~ msgid "Delete all data app"
-#~ msgstr "Supprimer toutes les données de l’app"
-
-#~ msgid ""
-#~ "Are you sure that you would like to delete all of your data app? Once "
-#~ "deleted, it cannot be restored. You will need to restart the app for the "
-#~ "change to take place."
-#~ msgstr ""
-#~ "Êtes-vous sûr de vouloir supprimer toutes les données de votre appli ? "
-#~ "Une fois supprimées elles ne peuvent être restaurées. Vous aurez besoin "
-#~ "de redémarrer l’appli pour que le changement prenne effet."
-
-#~ msgid "Creating a new task list failed"
-#~ msgstr "La création d’une nouvelle tâche a échoué"
-
-#~ msgid ""
-#~ "The task list registry may be unavailable or unable to be written to."
-#~ msgstr ""
-#~ "Le registre de la liste des tâches peut être indisponible ou ne pas "
-#~ "pouvoir être édité."
-
-#~ msgid "New list"
-#~ msgstr "Nouvelle liste"
-
-#~ msgid "Add tasklist"
-#~ msgstr "Ajouter une liste de tâches"
-
-#~ msgid "Markdown"
-#~ msgstr "Markdown"
-
-#~ msgid "Email"
-#~ msgstr "Courriel"
-
-#~ msgid ""
-#~ "No tasks available. Create one by dragging the '+' button here or "
-#~ "clicking on this space."
-#~ msgstr ""
-#~ "Pas de tâches disponible. Créez-en une en faisant glisser le bouton ’+’ "
-#~ "ici ou en cliquant sur cet espace."
-
-#~ msgid "Delete tasklist"
-#~ msgstr "Supprimer la liste de tâches"
-
-#~ msgid "Adding task failed"
-#~ msgstr "Échec de l’ajout de la tâche"
-
-#~ msgid "Updating task failed"
-#~ msgstr "Échec de la mise à jour de la tâche"
-
-#~ msgid "The task registry may be unavailable or unable to be written to."
-#~ msgstr ""
-#~ "Le registre des tâches peut être indisponible ou ne pas pouvoir être "
-#~ "édité."
-
-#~ msgid "Completing task failed"
-#~ msgstr "Échec de la complétion de la tâche"
-
-#~ msgid "Removing task failed"
-#~ msgstr "Échec de la suppression de la tâche"
-
-#~ msgid "Never worry about forgetting things again"
-#~ msgstr "Ne vous inquiétez plus jamais d’oublier des choses"
-
-#~ msgid "Startup"
-#~ msgstr "Démarrage"
-
-#~ msgid "Start working locally"
-#~ msgstr "Commencer à travailler localement"
-
-#~ msgid "CalDAV"
-#~ msgstr "CalDAV"
-
-#~ msgid "Synchronize your Tasks with CalDAV"
-#~ msgstr "Synchroniser vos tâches avec CalDAV"
-
-#~ msgid "No tasks with this tasklist at the moment"
-#~ msgstr "Pas de tâches avec cette liste de tâches pour l’instant"
-
-#~ msgid "Renaming task list failed"
-#~ msgstr "Échec du renommage de la tâche"
-
-#~ msgid "Could not change the task list color"
-#~ msgstr "Échec lors du changement de couleur de la liste de tâche"
-
-#~ msgid "The task list registry may be unavailable or write-protected."
-#~ msgstr ""
-#~ "Le registre de la liste des tâches peut être indisponible ou protégé "
-#~ "contre toute édition."
-
-#~ msgid "Edit tasklist"
-#~ msgstr "Éditer la liste de tâches"
-
-#~ msgid "Show completed"
-#~ msgstr "Montrer les tâches accomplies"
-
-#, c-format
-#~ msgid "Delete “%s”?"
-#~ msgstr "Supprimer “%s” ?"
-
-#~ msgid ""
-#~ "The list and all its tasks will be permanently deleted. If you've shared "
-#~ "this list, other people will no longer have access."
-#~ msgstr ""
-#~ "La liste et toutes ses tâches seront supprimées de manière permanente. Si "
-#~ "vous avez partagé cette liste, d’autres personnes n’y auront plus accès."
-
-#~ msgid "Deleting the task list failed"
-#~ msgstr "Échec de la suppression de la liste de tâches"
-
-#~ msgid "Connect to the Internet to connect with Todoist"
-#~ msgstr "Connectez-vous à Internet pour vous connecter avec Todoist"
-
-#~ msgid "Progress"
-#~ msgstr "Progression"
-
-#~ msgid "Grab the whole screen"
-#~ msgstr "Saisir l’ensemble de l’écran"
-
-#~ msgid "Grab the current window"
-#~ msgstr "Saisir la fenêtre actuelle"
-
-#~ msgid "Label name"
-#~ msgstr "Nom de l’étiquette"
-
-#~ msgid "Synchronization"
-#~ msgstr "Synchronisation"
-
-#~ msgid "Notification settings"
-#~ msgstr "Paramètres de notification"
-
-#~ msgid "Manage your notification settings"
-#~ msgstr "Gérez vos paramètres de notification"
-
-#~ msgid "Be more productive"
-#~ msgstr "Soyez plus productif"
-
-#~ msgid "View your upcoming events"
-#~ msgstr "Voyez vos événements à venir"
-
-#~ msgid "Contact us"
-#~ msgstr "Contactez-nous"
-
-#~ msgid "Request a feature or ask us a question"
-#~ msgstr "Demandez une fonctionnalité ou posez-nous une question"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Follow us on"
-#~ msgstr "Suivez-nous sur Twitter"
-
-#~ msgid "Support & Credits"
-#~ msgstr "Support et Crédits"
-
-#~ msgid "Privacy policies"
-#~ msgstr "Politique de confidentialité"
-
-#~ msgid "We have nothing on you"
-#~ msgstr "Nous n’avons rien sur vous"
-
-#~ msgid "Import from Planner 2.0"
-#~ msgstr "Importer depuis Planner 2.0"
-
-#~ msgid "Import your tasks from Planner 2"
-#~ msgstr "Importez-vos tâches depuis Planner 2"
-
-#~ msgid "Start over again"
-#~ msgstr "Repartir de zéro"
-
-#~ msgid "Badge Count"
-#~ msgstr "Compteur de badges"
-
-#~ msgid "General Settings"
-#~ msgstr "Paramètres Généraux"
-
-#~ msgid "Server URL"
-#~ msgstr "URL du serveur"
-
-#~ msgid "Invalid URL"
-#~ msgstr "URL invalide"
-
-#~ msgid "User Name"
-#~ msgstr "Nom d’utilisateur"
-
-#~ msgid "Password"
-#~ msgstr "Mot de passe"
-
-#~ msgid "Account Display Name"
-#~ msgstr "Nom du compte"
-
-#~ msgid "Could not save configuration"
-#~ msgstr "Échec de la sauvegarde de la configuration"
-
-#~ msgid "Could not fetch tasklists"
-#~ msgstr "Échec de la récupération des listes de tâches"
-
-#~ msgid "Pick Date"
-#~ msgstr "Choisir une date"
-
-#~ msgid "Shortcuts"
-#~ msgstr "Raccourcis"
-
-#~ msgid "Used anywhere"
-#~ msgstr "Utilisé n’importe où"
-
-#~ msgid "Paste plain text to create new task"
-#~ msgstr "Coller le texte brut pour créer une nouvelle tâche"
-
-#~ msgid "Create a new section in a project"
-#~ msgstr "Créer une nouvelle section dans un projet"
-
-#~ msgid "Search"
-#~ msgstr "Chercher"
-
-#~ msgid "Open Quick Find"
-#~ msgstr "Ouvrir la Recherche Rapide"
-
-#~ msgid "Start typing to begin a search"
-#~ msgstr "Commencez à taper pour faire une recherche"
-
-#~ msgid "Control windows"
-#~ msgstr "Contrôler les fenêtres"
-
-#~ msgid "Quit"
-#~ msgstr "Quitter"
-
-#~ msgid "Show/hide sidebar"
-#~ msgstr "Afficher / cacher la barre latérale"
-
-#~ msgid "Open Keyboard Shortcuts"
-#~ msgstr "Ouvrir les Raccourcis clavier"
-
-#~ msgid "Navigate"
-#~ msgstr "Naviguer"
-
-#~ msgid "Open Inbox"
-#~ msgstr "Ouvrir la Boîte de réception"
-
-#~ msgid "Open Today"
-#~ msgstr "Ouvrir Aujourd’hui"
-
-#~ msgid "Open Scheduled"
-#~ msgstr "Ouvrir Programmé"
-
-#~ msgid "Open Pinboard"
-#~ msgstr "Ouvrir Épinglé"
-
-#~ msgid "Disabled"
-#~ msgstr "Désactivé"
-
-#~ msgid "Backup"
-#~ msgstr "Sauvegarde"
-
-#~ msgid "The import was successful."
-#~ msgstr "Importation réussie."
-
-#~ msgid "Save backup file"
-#~ msgstr "Enregistrer le fichier de sauvegarde"
-
-#~ msgid "Open Planner file"
-#~ msgstr "Ouvrir le fichier Planner"
-
-#~ msgid "Open"
-#~ msgstr "Ouvrir"
-
-#~ msgid "JSON files"
-#~ msgstr "Fichiers JSON"
-
-#~ msgid "All files"
-#~ msgstr "Tous les fichiers"
-
-#~ msgid "Sort"
-#~ msgstr "Trier"
-
-#, c-format
-#~ msgid "Delete %s with its %d tasks?"
-#~ msgstr "Supprimer %s avec ses %d tâches ?"
