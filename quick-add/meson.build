@@ -16,7 +16,6 @@ quick_find_sources = files(
     'Services/Todoist.vala',
     
     'Widgets/HyperTextView.vala',
-    'Widgets/LoadingButton.vala',
     'Widgets/ProjectPickerRow.vala',
     'Widgets/IconColorProject.vala',
     'Widgets/HeaderItem.vala',

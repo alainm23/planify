@@ -32,7 +32,6 @@ public class Objects.Item : Objects.BaseObject {
     
     public int priority { get; set; default = 0; }
 
-    // Tmp
     public bool activate_name_editable { get; set; default = false; }
 
     public string priority_icon {
@@ -105,6 +104,18 @@ public class Objects.Item : Objects.BaseObject {
     public bool has_section {
         get {
             return section_id != "";
+        }
+    }
+
+    bool _loading = false;
+    public bool loading {
+        set {
+            _loading = value;
+            loading_changed (_loading);
+        }
+
+        get {
+            return _loading;
         }
     }
 
@@ -193,7 +204,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
-
+    public signal void loading_changed (bool value);
     construct {
         deleted.connect (() => {
             Idle.add (() => {
@@ -210,7 +221,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_labels_from_json (Json.Node node) {
-        update_labels_async (get_labels_from_json (node), null);
+        update_labels_async (get_labels_from_json (node));
     }
 
     public Gee.HashMap<string, Objects.Label> get_labels_from_json (Json.Node node) {
@@ -233,7 +244,7 @@ public class Objects.Item : Objects.BaseObject {
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
-        } else{
+        } else {
             section_id = "";
         }
 
@@ -319,7 +330,7 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
                 });
-            } else {
+            } else if (project.backend_type == BackendType.LOCAL) {
                 Services.Database.get_default ().update_item (this, update_id);
             }
 
@@ -327,60 +338,42 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    private void show_loading (Gtk.ListBoxRow? row = null, bool value) {
-        if (row == null) {
-            return;
-        }
-
-        if (row is Layouts.ItemRow) {
-            ((Layouts.ItemRow) row).is_loading = value;
-        } else if (row is Layouts.ItemBoard) {
-            ((Layouts.ItemBoard) row).is_loading = value;
-        }
-    }
-
-    public void update_async_timeout (string update_id = "", Gtk.ListBoxRow? row = null) {
+    public void update_async_timeout (string update_id = "") {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
-
-
-
+        
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
-            show_loading (row, true);
-            
+            loading = true;
+
             if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
-                    show_loading (row, false);
+                    loading = false;
                 });
             } else {
                 Services.Database.get_default ().update_item (this, update_id);
-                show_loading (row, false);
+                loading = false;
             }
 
             return GLib.Source.REMOVE;
         });
     }
 
-    public void update_async (string update_id = "", Layouts.ItemRow? loading_button = null) {
-        if (loading_button != null) {
-            loading_button.is_loading = true;
-        }
+    public void update_async (string update_id = "") {
+        loading = true;
         
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_item (this, update_id);
-                if (loading_button != null) {
-                    loading_button.is_loading = false;
-                }
+                loading = false;
             });
         } else {
             Services.Database.get_default ().update_item (this, update_id);
-            loading_button.is_loading = false;
+            loading = false;
         }
     }
 
@@ -403,8 +396,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels,
-        Layouts.ItemRow? loading_button = null) {
+    public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels) {
         bool update = false;
         foreach (var entry in new_labels.entries) {
             if (!labels.has_key (entry.value.id_string)) {
@@ -430,7 +422,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (project.backend_type == BackendType.TODOIST) {
-            update_async ("", loading_button);
+            update_async ("");
         } else {
             update_local ();
         }
@@ -815,19 +807,11 @@ public class Objects.Item : Objects.BaseObject {
         return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
-    public void delete_item (Layouts.ItemRow? itemrow = null) {
+    public void delete_item () {
         if (project.backend_type == BackendType.TODOIST) {
-            if (itemrow != null) {
-                itemrow.is_loading = true;
-            }
-
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res)) {
                     Services.Database.get_default ().delete_item (this);
-                } else {
-                    if (itemrow != null) {
-                        itemrow.is_loading = false;
-                    }
                 }
             });
         } else {

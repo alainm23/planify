@@ -36,7 +36,6 @@ asresources = gnome.compile_resources (
     c_name: 'as'
 )
 
-
 ###########
 # Profile #
 ###########
@@ -51,6 +50,26 @@ else
   rev = ''
   application_id = 'io.github.alainm23.planify'
 endif
+
+############
+# Config #
+############
+
+conf_data = configuration_data()
+conf_data.set_quoted('APPLICATION_ID', application_id)
+conf_data.set_quoted('GETTEXT_PACKAGE', application_id)
+conf_data.set_quoted('VERSION', meson.project_version())
+conf_data.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
+conf_data.set_quoted('PACKAGE_VERSION', meson.project_version())
+conf_data.set_quoted('PREFIX', get_option('prefix'))
+conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
+conf_data.set_quoted('PROFILE', profile)
+
+config_file = configure_file(
+    configuration : conf_data,
+    input : 'config.vala.in',
+    output : 'config.vala'
+)
 
 subdir('core')
 subdir('src')

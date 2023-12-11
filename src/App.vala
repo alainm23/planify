@@ -48,14 +48,14 @@ public class Planify : Adw.Application {
 	};
 
 	construct {
-		application_id = Constants.APPLICATION_ID;
+		application_id = Build.APPLICATION_ID;
 		flags |= ApplicationFlags.HANDLES_OPEN;
 
 		Intl.setlocale (LocaleCategory.ALL, "");
-		string langpack_dir = Path.build_filename (Constants.INSTALL_PREFIX, "share", "locale");
-		Intl.bindtextdomain (Constants.GETTEXT_PACKAGE, langpack_dir);
-		Intl.bind_textdomain_codeset (Constants.GETTEXT_PACKAGE, "UTF-8");
-		Intl.textdomain (Constants.GETTEXT_PACKAGE);
+		string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
+		Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);
+		Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
+		Intl.textdomain (Build.GETTEXT_PACKAGE);
 
 		add_main_option_entries (OPTIONS);
 		create_dir_with_parents ("/io.github.alainm23.planify");
@@ -67,7 +67,7 @@ public class Planify : Adw.Application {
 		}
 
 		if (version) {
-			print ("%s\n".printf (Constants.VERSION));
+			print ("%s\n".printf (Build.VERSION));
 			return;
 		}
 
@@ -99,8 +99,8 @@ public class Planify : Adw.Application {
 
 		Util.get_default ().update_theme ();
 
-		if (Services.Settings.get_default ().settings.get_string ("version") != Constants.VERSION) {
-			Services.Settings.get_default ().settings.set_string ("version", Constants.VERSION);
+		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
+			Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
 
 			//  var dialog = new Dialogs.WhatsNew ();
 			//  dialog.show ();

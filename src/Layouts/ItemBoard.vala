@@ -47,15 +47,22 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	public uint complete_timeout { get; set; default = 0; }
 	Gee.HashMap<string, Widgets.ItemLabelChild> labels;
 
+	private bool _is_loading;
 	public bool is_loading {
 		set {
-			if (value) {
-				hide_loading_revealer.reveal_child = value;
-				hide_loading_button.is_loading = value;
+			_is_loading = value;
+
+			if (_is_loading) {
+				hide_loading_revealer.reveal_child = _is_loading;
+				hide_loading_button.is_loading = _is_loading;
 			} else {
-				hide_loading_button.is_loading = value;
+				hide_loading_button.is_loading = _is_loading;
 				hide_loading_revealer.reveal_child = false;
 			}
+		}
+
+		get {
+			return _is_loading;
 		}
 	}
 
@@ -314,7 +321,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	private void update () {
         if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
-            item.update_async_timeout ("", this);
+            item.update_async_timeout ("");
         }
     }
 

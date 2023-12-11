@@ -178,15 +178,22 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
+    private bool _is_loading;
     public bool is_loading {
         set {
-            if (value) {
-                hide_loading_revealer.reveal_child = value;
-                hide_loading_button.is_loading = value;
+            _is_loading = value;
+
+            if (_is_loading) {
+                hide_loading_revealer.reveal_child = _is_loading;
+                hide_loading_button.is_loading = _is_loading;
             } else {
-                hide_loading_button.is_loading = value;
+                hide_loading_button.is_loading = _is_loading;
                 hide_loading_revealer.reveal_child = edit;
             }
+        }
+
+        get {
+            return _is_loading;
         }
     }
 
@@ -737,7 +744,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     priority_button.update_from_item (item);
                 } else {
                     if (item.project.backend_type == BackendType.TODOIST) {
-                        item.update_async ("", this);
+                        item.update_async ("");
                     } else {
                         item.update_local ();
                     }
@@ -813,6 +820,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
         });
+
+        item.loading_changed.connect ((value) => {
+            is_loading = value;
+        });
     }
 
     private void selected_toggled (bool active) {
@@ -828,8 +839,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             item.description != description_textview.get_text ()) {
             item.content = content_textview.buffer.text;
             item.description = description_textview.get_text ();
-
-            item.update_async_timeout (update_id, this);      
+            item.update_async_timeout (update_id);
         }
     }
 
@@ -871,7 +881,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         hide_loading_button.update_icon ("chevron-down");
         add_button.visible = true;
         menu_button_revealer.reveal_child = true;
-        reminder_button.visible =  true;
+        reminder_button.visible = true;
 
         edit = false;
     }
@@ -1041,7 +1051,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_handle_popover.set_parent (this);
         menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
 
-        menu_handle_popover.popup();
+        menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
@@ -1124,7 +1134,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         if (menu_popover != null) {
             more_information_item.title = added_updated_format;
-            menu_popover.popup();
+            menu_popover.popup ();
             return;
         }
 
@@ -1415,7 +1425,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             priority_button.update_from_item (item);
         } else {
-            item.update_async ("", this);
+            item.update_async ("");
         }
     }
 
@@ -1429,7 +1439,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             schedule_button.update_from_item (item);
         } else {
-            item.update_async ("", this);
+            item.update_async ("");
         }
     }
 
@@ -1456,7 +1466,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (day_of_week == next_day) {
                     due_date = today;
                 } else {
-                    due_date =  Util.get_default ().next_recurrency_week (today, duedate);
+                    due_date = Util.get_default ().next_recurrency_week (today, duedate);
                 }
 
                 item.due.date = Util.get_default ().get_todoist_datetime_format (due_date);
@@ -1475,7 +1485,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (is_creating) {
             schedule_button.update_from_item (item);
         } else {
-            item.update_async ("", this);
+            item.update_async ("");
         }
     }
 
@@ -1523,7 +1533,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             item.update_local_labels (labels);
             item_labels.update_labels ();
         } else {
-            item.update_labels_async (labels, this);
+            item.update_labels_async (labels);
         }
     }
 
@@ -1560,7 +1570,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (undo) {
             delete_undo ();
         } else {
-            item.delete_item (this);
+            item.delete_item ();
         }
     }
 
@@ -1653,14 +1663,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
                 if (project.backend_type == BackendType.LOCAL) {
                     project.add_item_if_not_exists (new_item);
-                    item.delete_item (this);
+                    item.delete_item ();
                 } else if (project.backend_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                         string? id = Services.Todoist.get_default ().add.end (res);
                         if (id != null) {
                             new_item.id = id;
                             project.add_item_if_not_exists (new_item);
-                            item.delete_item (this);
+                            item.delete_item ();
                         }
                     });
                 }

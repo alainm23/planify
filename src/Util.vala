@@ -900,7 +900,7 @@ public class Util : GLib.Object {
     //      message_dialog.default_action.connect ((response) => {
     //          if (response == Gtk.ResponseType.CANCEL) {
     //              clear_database_query ();
-    //              Services.Settings.get_default ().settings.set_string ("version", Constants.VERSION);
+    //              Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
     //              message_dialog.destroy ();
     //          } else {
     //              Services.MigrateV2.get_default ().export_v2_database ();

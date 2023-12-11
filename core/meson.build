@@ -1,24 +1,10 @@
-conf_data = configuration_data()
-conf_data.set_quoted('APPLICATION_ID', application_id)
-conf_data.set_quoted('GETTEXT_PACKAGE', application_id)
-conf_data.set_quoted('VERSION', meson.project_version())
-conf_data.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
-conf_data.set_quoted('PACKAGE_VERSION', meson.project_version())
-conf_data.set_quoted('PREFIX', get_option('prefix'))
-conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
-conf_data.set_quoted('PROFILE', profile)
-
-config_file = configure_file(
-    configuration : conf_data,
-    input : 'config.vala.in',
-    output : 'config.vala'
-)
-
 core_files = files(
     'Utils.vala',
     'Enum.vala',
+    'Constants.vala',
     'Services/Settings.vala',
-    'Widgets/DynamicIcon.vala'
+    'Widgets/DynamicIcon.vala',
+    'Widgets/LoadingButton.vala'
 )
 
 core_deps = [

@@ -1,0 +1,8 @@
+namespace Build {
+    public const string GETTEXT_PACKAGE = @GETTEXT_PACKAGE@;
+    public const string APPLICATION_ID = @APPLICATION_ID@;
+    public const string VERSION = @VERSION@;
+    public const string INSTALL_PREFIX = @PREFIX@;
+    public const string DATADIR = @DATADIR@;
+    public const string PROFILE = @PROFILE@;
+}

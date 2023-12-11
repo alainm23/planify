@@ -47,7 +47,6 @@ sources = files(
   
   # 'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',
-  'Widgets/LoadingButton.vala',
   'Widgets/CircularProgressBar.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',

@@ -1,13 +1,7 @@
 namespace Constants {
-    public const string GETTEXT_PACKAGE = @GETTEXT_PACKAGE@;
-    public const string APPLICATION_ID = @APPLICATION_ID@;
-    public const string VERSION = @VERSION@;
-    public const string INSTALL_PREFIX = @PREFIX@;
-    public const string DATADIR = @DATADIR@;
     public const string TODOIST_CLIENT_ID = "b0dd7d3714314b1dbbdab9ee03b6b432";
     public const string TODOIST_CLIENT_SECRET = "a86dfeb12139459da3e5e2a8c197c678";
     public const string TODOIST_SCOPE = "data:read_write,data:delete,project:delete";
-    public const string PROFILE = @PROFILE@;
     public const int UPDATE_TIMEOUT = 1500;
     public const int DESTROY_TIMEOUT = 750;
     public const int DRAG_TIMEOUT = 225;

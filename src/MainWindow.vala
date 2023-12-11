@@ -33,7 +33,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		Object (
 			application: application,
 			app: application,
-			icon_name: Constants.APPLICATION_ID,
+			icon_name: Build.APPLICATION_ID,
 			title: _("Planify")
 		);
 	}
@@ -44,7 +44,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	construct {
-		if (Constants.PROFILE == "development") {
+		if (Build.PROFILE == "development") {
 			add_css_class ("devel");
 		}
 
@@ -441,11 +441,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
-		// preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
 		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
-		// keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
@@ -504,9 +502,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		dialog.show ();
 
-		dialog.application_icon = Constants.APPLICATION_ID;
+		dialog.application_icon = Build.APPLICATION_ID;
 		dialog.application_name = "Planify";
-		dialog.version = Constants.VERSION;
+		dialog.version = Build.VERSION;
 		dialog.developer_name = "Alain";
 		dialog.website = "https://github.com/alainm23/planify";
 		dialog.developers = { "Alain" };

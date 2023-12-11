@@ -993,7 +993,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var command_entry = new Adw.ActionRow ();
 		command_entry.add_suffix (copy_button);
-		command_entry.title = QUICK_ADD_COMMAND.printf (Constants.APPLICATION_ID);
+		command_entry.title = QUICK_ADD_COMMAND.printf (Build.APPLICATION_ID);
 		command_entry.add_css_class ("small-label");
 		command_entry.add_css_class ("monospace");
 
@@ -1028,7 +1028,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		copy_button.clicked.connect (() => {
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
-			clipboard.set_text (QUICK_ADD_COMMAND.printf (Constants.APPLICATION_ID));
+			clipboard.set_text (QUICK_ADD_COMMAND.printf (Build.APPLICATION_ID));
 			add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard.")));
 		});
 
