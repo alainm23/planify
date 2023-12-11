@@ -54,6 +54,15 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   ​<releases>
+    <release version="4.2.1" date="2023-12-11">
+      <description>
+        <ul>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Bugs fixed #1071.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.2" date="2023-12-10">
       <description>
         <ul>
