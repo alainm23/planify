@@ -128,7 +128,7 @@ public class Views.Label : Adw.Bin {
         });
 
         headerbar.back_activated.connect (() => {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
         });
     }
 

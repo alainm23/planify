@@ -62,7 +62,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Widgets.ItemSummary item_summary;
     private Widgets.LabelsSummary labels_summary;
     private Widgets.PriorityButton priority_button;
-    private Widgets.LabelButton label_button;
+    private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Widgets.ReminderButton reminder_button;
     private Gtk.Button add_button;
@@ -439,11 +439,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
 
         schedule_button = new Widgets.ScheduleButton ();
-
         priority_button = new Widgets.PriorityButton ();
-        
-        label_button = new Widgets.LabelButton (item);
-
+        label_button = new Widgets.LabelPicker.LabelButton (item);
         pin_button = new Widgets.PinButton (item);
 
         reminder_button = new Widgets.ReminderButton (item) {

@@ -33,7 +33,6 @@ sources = files(
 
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneRow.vala',
-  'Layouts/HeaderItem.vala',
   'Layouts/ProjectRow.vala',
   'Layouts/SectionRow.vala',
   'Layouts/ItemRow.vala',
@@ -47,17 +46,9 @@ sources = files(
   'Widgets/CircularProgressBar.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',
-  'Widgets/Entries.vala',
   'Widgets/Placeholder.vala',
   'Widgets/SyncButton.vala',
-  'Widgets/ScheduleButton.vala',
-  'Widgets/PriorityButton.vala',
   'Widgets/ItemSummary.vala',
-  'Widgets/PinButton.vala',
-  'Widgets/LabelButton.vala',
-  'Widgets/ItemLabels.vala',
-  'Widgets/ItemLabelChild.vala',
-  'Widgets/IconColorProject.vala',
   'Widgets/ReminderButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
@@ -68,24 +59,8 @@ sources = files(
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
 
-  'Widgets/Calendar/Calendar.vala',
-  'Widgets/Calendar/CalendarDay.vala',
-  'Widgets/Calendar/CalendarHeader.vala',
-  'Widgets/Calendar/CalendarView.vala',
-  'Widgets/Calendar/CalendarWeek.vala',
-
-  'Widgets/DateTimePicker/DateTimePicker.vala',
-  'Widgets/DateTimePicker/TimePicker.vala',
-
-  'Widgets/LabelPicker/LabelPicker.vala',
-  'Widgets/LabelPicker/LabelRow.vala',
-
   'Widgets/ReminderPicker/ReminderPicker.vala',
   'Widgets/ReminderPicker/ReminderRow.vala',
-  
-  'Widgets/ContextMenu/MenuItem.vala',
-  'Widgets/ContextMenu/MenuSeparator.vala',
-  'Widgets/ContextMenu/MenuPicker.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -107,6 +82,7 @@ sources = files(
   'Dialogs/Item.vala',
   'Dialogs/GoogleOAuth.vala',
   'Dialogs/WhatsNew.vala',
+  'Dialogs/QuickAdd.vala',
   'Dialogs/ProjectDescription.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',

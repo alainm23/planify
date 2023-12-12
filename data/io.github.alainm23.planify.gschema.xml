@@ -145,8 +145,8 @@
             <description>Whether the window was maximized on last run</description>
         </key>
 
-        <key name="quick-add-project-selected" type="x">
-            <default>0</default>
+        <key name="quick-add-project-selected" type="s">
+            <default>""</default>
             <summary></summary>
             <description></description>
         </key>

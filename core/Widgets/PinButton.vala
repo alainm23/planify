@@ -19,45 +19,49 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.LabelButton : Gtk.Grid {
+public class Widgets.PinButton : Gtk.Button {
     public Objects.Item item { get; construct; }
+    private Widgets.DynamicIcon pinned_image;
 
-    private Gtk.MenuButton button; 
-    
-    private Widgets.LabelPicker.LabelPicker labels_picker = null;
-    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
+    public signal void changed ();
 
-    public LabelButton (Objects.Item item) {
+    public PinButton (Objects.Item item) {
         Object (
             item: item,
+            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
-            tooltip_text: _("Add label(s)")
+            tooltip_text: _("Pinned")
         );
     }
 
-    construct {
-        labels_picker = new Widgets.LabelPicker.LabelPicker ();
+    construct {       
+        add_css_class ("flat");
+        
+        pinned_image = new Widgets.DynamicIcon ();
+        pinned_image.size = 16;
 
-        var tag_image = new Widgets.DynamicIcon ();
-        tag_image.size = 16;
-        tag_image.update_icon_name ("planner-tag");
-
-        button = new Gtk.MenuButton () {
-            child = tag_image,
-            popover = labels_picker
+        var projectbutton_grid = new Gtk.Grid () {
+            column_spacing = 6,
+            valign = Gtk.Align.CENTER
         };
+        projectbutton_grid.attach (pinned_image, 0, 0);
 
-        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        child = projectbutton_grid;
 
-        attach (button, 0, 0);
+        update_request ();
 
-        labels_picker.show.connect (() => {
-            labels_picker.item = item;
+        var gesture = new Gtk.GestureClick ();
+        gesture.set_button (1);
+        add_controller (gesture);
+
+        gesture.pressed.connect ((n_press, x, y) => {
+            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            changed ();
         });
+    }
 
-        labels_picker.closed.connect (() => {
-            labels_changed (labels_picker.labels_map);
-        });
+    public void update_request () {
+        pinned_image.update_icon_name (item.pinned_icon);
     }
 }

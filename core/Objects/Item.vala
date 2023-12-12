@@ -30,7 +30,7 @@ public class Objects.Item : Objects.BaseObject {
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
     
-    public int priority { get; set; default = 0; }
+    public int priority { get; set; default = Constants.PRIORITY_4; }
 
     public bool activate_name_editable { get; set; default = false; }
 

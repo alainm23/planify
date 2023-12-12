@@ -204,12 +204,9 @@ entry.flat:focus-within {
     margin-top: 24px;
 }
 
-.card {
-    box-shadow: none;
-}
-
 .card-selected {
-    padding: 9px;
+    margin-left: 3px;
+    padding-left: 9px;
     padding-top: 3px;
     padding-right: 3px;
     padding-bottom: 0px;

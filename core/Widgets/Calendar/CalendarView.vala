@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.Calendar.CalendarView : Gtk.Box {
+public class Widgets.Calendar.CalendarView : Adw.Bin {
     private Gee.ArrayList <Widgets.Calendar.CalendarDay> days_arraylist;
     private Gtk.Grid days_grid;
 
@@ -27,7 +27,6 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
 
     public CalendarView () {
         Object (
-            orientation: Gtk.Orientation.VERTICAL,
             margin_start: 6,
             margin_end: 6
         );
@@ -59,7 +58,7 @@ public class Widgets.Calendar.CalendarView : Gtk.Box {
             days_arraylist.add (day);
         }
 
-        append (days_grid);
+        child = days_grid;
     }
 
     public void fill_grid_days (int start_day,

@@ -72,7 +72,7 @@ public enum FilterType {
 	SCHEDULED = 2,
 	PINBOARD = 3,
 	LABEL = 4,
-	FILTER = 5;
+	LABELS = 5;
 
 	public string to_string () {
 		switch (this) {
@@ -91,8 +91,8 @@ public enum FilterType {
 		case LABEL:
 			return "label";
 
-		case FILTER:
-			return "filter";
+		case LABELS:
+			return "labels";
 
 		default:
 			assert_not_reached ();

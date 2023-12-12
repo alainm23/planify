@@ -25,7 +25,7 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.FilterPaneRow inbox_filter;
     private Layouts.FilterPaneRow today_filter;
     private Layouts.FilterPaneRow scheduled_filter;
-    private Layouts.FilterPaneRow filters_filter;
+    private Layouts.FilterPaneRow labels_filter;
     
     private Layouts.HeaderItem favorites_header;
     private Layouts.HeaderItem local_projects_header;
@@ -59,12 +59,12 @@ public class Layouts.Sidebar : Gtk.Grid {
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
-        filters_filter = new Layouts.FilterPaneRow (FilterType.FILTER);
+        labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS);
 
         filters_grid.attach (inbox_filter, 0, 0);
         filters_grid.attach (today_filter, 1, 0);
         filters_grid.attach (scheduled_filter, 0, 1);
-        filters_grid.attach (filters_filter, 1, 1);
+        filters_grid.attach (labels_filter, 1, 1);
 
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
@@ -269,7 +269,7 @@ public class Layouts.Sidebar : Gtk.Grid {
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
-        filters_filter.init ();
+        labels_filter.init ();
         
         local_projects_header.reveal = true;
 

@@ -19,20 +19,20 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ItemLabels : Gtk.Grid {
+public class Widgets.ItemLabels : Adw.Bin {
     public Objects.Item item { get; construct; }
-
-    private Gtk.FlowBox flowbox;
-    private Gtk.Revealer main_revealer;
-
-    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
-    public signal void dialog_open (bool value);
 
     private bool has_items {
         get {
             return item_labels_map.size > 0;
         }
     }
+
+    private Gtk.FlowBox flowbox;
+    private Gtk.Revealer main_revealer;
+
+    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
+    public signal void dialog_open (bool value);
 
     private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map;
 
@@ -56,12 +56,11 @@ public class Widgets.ItemLabels : Gtk.Grid {
         };
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = flowbox
         };
-
-        main_revealer.child = flowbox;
         
-        attach (main_revealer, 0, 0);
+        child = main_revealer;
         add_labels ();
 
         //  button_press_event.connect ((sender, evt) => {

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.Calendar.CalendarDay : Gtk.Grid {
+public class Widgets.Calendar.CalendarDay : Adw.Bin {
     public int day {
         set {
             label.label = value.to_string ();
@@ -32,10 +32,14 @@ public class Widgets.Calendar.CalendarDay : Gtk.Grid {
     private Gtk.Label label;
     public signal void day_selected (int day);
 
-    construct {
-        halign = Gtk.Align.CENTER;
-        valign = Gtk.Align.CENTER;
+    public CalendarDay () {
+        Object (
+            halign: Gtk.Align.CENTER,
+            valign: Gtk.Align.CENTER
+        );
+    }
 
+    construct {
         label = new Gtk.Label (null) {
             height_request = 16,
             width_request = 16,
@@ -56,7 +60,7 @@ public class Widgets.Calendar.CalendarDay : Gtk.Grid {
 
         main_grid.append (label);
 
-        attach (main_grid, 0, 0);
+        child = main_grid;
 
         var gesture = new Gtk.GestureClick ();
         gesture.set_button (1);

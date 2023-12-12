@@ -921,7 +921,7 @@ public class Util : GLib.Object {
             case 2:
                 return FilterType.SCHEDULED;
             case 3:
-                return FilterType.FILTER;
+                return FilterType.LABELS;
             default:
                 assert_not_reached ();
         }

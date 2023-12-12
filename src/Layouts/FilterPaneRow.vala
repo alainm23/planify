@@ -127,7 +127,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
             title_image.update_icon_name ("planner-pin-tack");
-        } else if (filter_type == FilterType.FILTER) {
+        } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
             title_image.update_icon_name ("planner-tag-icon");
         }
@@ -155,7 +155,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
                 update_count_label (Objects.Pinboard.get_default ().pinboard_count);
             });
-        } else if (filter_type == FilterType.FILTER) {
+        } else if (filter_type == FilterType.LABELS) {
             update_count_label (Objects.Filters.Labels.get_default ().count);
             Objects.Filters.Labels.get_default ().count_updated.connect (() => {
                 update_count_label (Objects.Filters.Labels.get_default ().count);

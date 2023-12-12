@@ -974,6 +974,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 		command_group.add (command_entry);
 
+		var settings_group = new Adw.PreferencesGroup ();
+		settings_group.title = _("Settings");
+
+		var save_last_switch = new Gtk.Switch () {
+			valign = Gtk.Align.CENTER,
+			active = Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")
+		};
+
+		var save_last_row = new Adw.ActionRow ();
+		save_last_row.title = _("Save Last Selected Project");
+		save_last_row.subtitle = _("If unchecked, the default project selected is Inbox.");
+		save_last_row.set_activatable_widget (save_last_switch);
+		save_last_row.add_suffix (save_last_switch);
+
+		settings_group.add (save_last_row);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
 			hexpand = true
@@ -982,6 +998,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		content_box.append (description_label);
 		content_box.append (description2_label);
 		content_box.append (command_group);
+		content_box.append (settings_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
@@ -1006,6 +1023,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
+		});
+
+		save_last_switch.notify["active"].connect (() => {
+			Services.Settings.get_default ().settings.set_boolean ("quick-add-save-last-project", save_last_switch.active);
 		});
 
 		return page;

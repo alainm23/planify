@@ -4,11 +4,9 @@ quick_find_sources = files(
 
     'Services/DBusClient.vala',
     
-    'Widgets/HyperTextView.vala',
-    'Widgets/ProjectPickerRow.vala',
-    'Widgets/IconColorProject.vala',
-    'Widgets/HeaderItem.vala',
-    'Widgets/ProjectPicker.vala'
+    # 'Widgets/ProjectPickerRow.vala',
+    # 'Widgets/IconColorProject.vala',
+    # 'Widgets/ProjectPicker.vala'
 )
 
 executable(

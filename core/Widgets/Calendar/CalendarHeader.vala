@@ -37,11 +37,15 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         }
     }
 
-    construct {
-        hexpand = true;
-        orientation = Gtk.Orientation.HORIZONTAL;
-        valign = Gtk.Align.CENTER;
-        
+    public CalendarHeader () {
+        Object (
+            hexpand: true,
+            orientation: Gtk.Orientation.HORIZONTAL,
+            valign: Gtk.Align.CENTER
+        );
+    }
+
+    construct {        
         month_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%OB")));
         month_label.add_css_class ("font-bold");
         
