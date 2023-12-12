@@ -2,22 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.alainm23.planner package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# Irénée THIRION <irenee.thirion@e.email>, 2023.
+# hachikoha <hachikohe@gmail.com>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-09 06:09-0500\n"
-"PO-Revision-Date: 2023-12-12 04:46+0500\n"
-"Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
-"Language-Team: Russian <gnomefr@traduc.org>\n"
+"PO-Revision-Date: 2023-12-12 05:43+0500\n"
+"Last-Translator: Hachikoha <hachikohe@gmail.com>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.4\n"
 
 #: src/App.vala:110 src/Dialogs/Preferences/PreferencesWindow.vala:149
 msgid "Are you sure you want to reset all?"
@@ -253,8 +251,7 @@ msgstr "Запрос был неправильным."
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
-"Требуется аутентификация, но она завершилась неудачно или еще не была "
-"выполнена."
+"Требуется аутентификация, но она завершилась неудачно или еще не была выполнена."
 
 #: src/Util.vala:964
 msgid "The request was valid, but for something that is forbidden."
@@ -266,9 +263,7 @@ msgstr "Запрошенный ресурс не найден."
 
 #: src/Util.vala:966
 msgid "The user has sent too many requests in a given amount of time."
-msgstr ""
-"Пользователь отправил слишком много запросов за определенный промежуток "
-"времени."
+msgstr "Пользователь отправил слишком много запросов за определенный промежуток времени."
 
 #: src/Util.vala:967
 msgid "The request failed due to a server error."
@@ -342,8 +337,7 @@ msgstr "Запланируйте эту задачу на сегодня или 
 
 #: src/Util.vala:1159
 msgid "Tap the calendar button at the bottom to decide when to do this to-do."
-msgstr ""
-"Нажмите кнопку календаря внизу, чтобы решить, когда выполнить это задание."
+msgstr "Нажмите кнопку календаря внизу, чтобы решить, когда выполнить это задание."
 
 #: src/Util.vala:1164
 msgid "Reorder yours to-dos"
@@ -1239,9 +1233,7 @@ msgstr "Быстрый поиск"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:172
 msgid "Quickly switch projects and views, find tasks, search by labels."
-msgstr ""
-"Быстро переключайте проекты и списки, находите задачи, осуществляйте поиск по "
-"меткам."
+msgstr "Быстро переключайте проекты и списки, находите задачи, осуществляйте поиск по меткам."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:51
 #: src/Dialogs/Preferences/PreferencesWindow.vala:685
@@ -1297,8 +1289,7 @@ msgstr "Создайте обучающий проект"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:125
 msgid "Learn the app step by step with a short tutorial project."
-msgstr ""
-"Изучите приложение шаг за шагом с помощью короткого руководства пользователя."
+msgstr "Изучите приложение шаг за шагом с помощью короткого руководства пользователя."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:131
 msgid "Privacy"
@@ -1386,8 +1377,7 @@ msgstr "Немедленно"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:260
 msgid "Wait 2500 milliseconds"
-msgstr ""
-"Ожидать 2500\n"
+msgstr "Ожидать 2500\n"
 "миллисекунд"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:263
