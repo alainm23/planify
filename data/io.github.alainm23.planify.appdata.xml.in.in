@@ -4,7 +4,7 @@
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
   <name>Planify</name>
-  <summary>Never worry about forgetting things again</summary>
+  <summary>Forget about forgetting things</summary>
   <description>
     <p>🚀️ Planify is here...</p>
     <ul>
@@ -53,7 +53,7 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
-  ​<releases>
+  <releases>
     <release version="4.2.1" date="2023-12-11">
       <description>
         <ul>

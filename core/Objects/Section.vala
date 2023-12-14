@@ -119,6 +119,18 @@ public class Objects.Section : Objects.BaseObject {
         update_from_json (node);
     }
 
+    public Section.from_import_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        name = node.get_object ().get_string_member ("name");
+        archived_at = node.get_object ().get_string_member ("archived_at");
+        added_at = node.get_object ().get_string_member ("added_at");
+        project_id = node.get_object ().get_string_member ("project_id");
+        section_order = (int32) node.get_object ().get_int_member ("section_order");
+        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        is_archived = node.get_object ().get_boolean_member ("is_archived");
+    }
+
     public void update_from_json (Json.Node node) {
         project_id = node.get_object ().get_string_member ("project_id");
         name = node.get_object ().get_string_member ("name");

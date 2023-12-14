@@ -5,7 +5,7 @@ public class MainWindow : Adw.ApplicationWindow {
             icon_name: "io.github.alainm23.planify",
             title: _("Planify - Quick Add"),
             resizable: false,
-            width_request: 650,
+            width_request: 600,
             halign: Gtk.Align.START
         );
     }

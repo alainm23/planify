@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.SettingsHeader : Adw.Bin {
+public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
     public bool show_back_button { get; construct; }
 
     public string title {

@@ -335,6 +335,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void clear_database () {
+        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        File db_file = File.new_for_path (db_path);
+
+        if (db_file.query_exists ()) {
+            try {
+                db_file.delete ();
+            } catch (Error err) {
+                warning (err.message);
+            }
+        }
+    }
+
     public bool is_database_empty () {
         return projects.size <= 0;
     }
@@ -1237,7 +1250,7 @@ public class Services.Database : GLib.Object {
         return_value.id = stmt.column_text (0);
         return_value.content = stmt.column_text (1);
         return_value.description = stmt.column_text (2);
-        return_value.due.update_from_json (get_due_parameter (stmt, 3));
+        return_value.due.update_from_json (get_due_parameter (stmt.column_text (3)));
         return_value.added_at = stmt.column_text (4);
         return_value.completed_at = stmt.column_text (5);
         return_value.updated_at = stmt.column_text (6);
@@ -1645,7 +1658,7 @@ public class Services.Database : GLib.Object {
         Objects.Reminder return_value = new Objects.Reminder ();
         return_value.id = stmt.column_text (0);
         return_value.item_id = stmt.column_text (1);
-        return_value.due.update_from_json (get_due_parameter (stmt, 2));
+        return_value.due.update_from_json (get_due_parameter (stmt.column_text (2)));
         return return_value;
     }
 
@@ -2043,13 +2056,13 @@ public class Services.Database : GLib.Object {
     }
 
     Json.Parser parser;
-    private Json.Object? get_due_parameter (Sqlite.Statement stmt, int col) {
+    public Json.Object? get_due_parameter (string data) {
         if (parser == null) {
             parser = new Json.Parser ();
         }
                 
         try {
-            parser.load_from_data (stmt.column_text (col), -1);
+            parser.load_from_data (data, -1);
         } catch (Error e) {
             debug (e.message);
         }

@@ -108,6 +108,17 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (description_textview);
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
+        
+        // Alert Box
+        var error_icon = new Widgets.DynamicIcon.from_icon_name ("dialog-warning-symbolic");
+        var error_label = new Gtk.Label ("Error de casa");
+
+        var error_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true
+        };
+
+        error_box.append (error_icon);
+        error_box.append (error_label);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             valign = CENTER,
@@ -148,6 +159,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             valign = Gtk.Align.START
         };
         main_content.append (quick_add_content);
+        // main_content.append (error_box);
         main_content.append (footer_content);
 
         var warning_image = new Gtk.Image ();
@@ -258,15 +270,19 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                submit_button.is_loading = false;
+
+                if (response.status) {
+                    item.id = response.data;
                     add_item_db (item);
+                } else {
+                    debug ("%s", response.error);
                 }
             });
         } else if (item.project.backend_type == BackendType.LOCAL) {
-                item.id = Util.get_default ().generate_id ();
-                add_item_db (item);
+            item.id = Util.get_default ().generate_id ();
+            add_item_db (item);
         }
     }
 
@@ -286,6 +302,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void set_project (Objects.Project project) {
         project_picker_button.project = project;
+        item.project_id = project.id;
     }
 
     public void set_due (GLib.DateTime? datetime) {

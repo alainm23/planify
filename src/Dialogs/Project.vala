@@ -305,9 +305,15 @@ public class Dialogs.Project : Adw.Window {
             if (project.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (project, (obj, res) => {
-                    project.id = Services.Todoist.get_default ().add.end (res);
-                    Services.Database.get_default().insert_project (project);
-                    go_project (project.id_string);
+                    TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+
+                    if (response.status) {
+                        project.id = response.data;
+                        Services.Database.get_default().insert_project (project);
+                        go_project (project.id_string);
+                    } else {
+
+                    }
                 });
 
             } else if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {

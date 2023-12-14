@@ -241,6 +241,10 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.append (widget);
     }
 
+    public void insert_child (Gtk.Widget widget, int position) {
+        listbox.insert (widget, position);
+    }
+
     public void add_widget_end (Gtk.Widget widget) {
         action_box.append (widget);
     }

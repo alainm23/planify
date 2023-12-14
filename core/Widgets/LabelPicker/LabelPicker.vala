@@ -172,13 +172,19 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             is_loading = true;
             label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
-                label.id = Services.Todoist.get_default ().add.end (res);
-                Services.Database.get_default ().insert_label (label);
-                checked_toggled (label, true);
-                
-                popdown ();
-                is_loading = false;
-                search_entry.text = "";
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+
+                if (response.status) {
+                    label.id = response.data;
+                    Services.Database.get_default ().insert_label (label);
+                    checked_toggled (label, true);
+                    
+                    popdown ();
+                    is_loading = false;
+                    search_entry.text = "";
+                } else {
+                    
+                }
             });
         } else {
             label.id = Util.get_default ().generate_id (label);

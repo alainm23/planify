@@ -304,7 +304,7 @@
         <key name="version" type="s">
             <default>'3.0'</default>
             <summary>The currently installed version.</summary>
-            <description>The currently installed version of planit, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+            <description>The currently installed version of Planify, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
 
         <key name="calendar-enabled" type="b">

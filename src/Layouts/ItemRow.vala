@@ -857,9 +857,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    item.id = response.data;
                     item_added ();
                 }
             });
@@ -1652,8 +1652,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
         dialog.show ();
 
-        dialog.response.connect ((response) => {
-            if (response == "ok") {
+        dialog.response.connect ((resp) => {
+            if (resp == "ok") {
                 var new_item = item.generate_copy ();
                 new_item.project_id = project.id;
                 new_item.section_id = "";
@@ -1663,9 +1663,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     item.delete_item ();
                 } else if (project.backend_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                        string? id = Services.Todoist.get_default ().add.end (res);
-                        if (id != null) {
-                            new_item.id = id;
+                        TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                        if (response.status) {
+                            new_item.id = response.data;
                             project.add_item_if_not_exists (new_item);
                             item.delete_item ();
                         }

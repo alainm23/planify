@@ -273,13 +273,6 @@ public class Views.Date : Gtk.Grid {
     }
     
     public void set_datetime (GLib.DateTime? date) {
-        //  foreach (string key in overdue_items.keys) {
-        //      print ("Item: %s\n".printf (key));
-        //      //  if (overdue_items.has_key (key)) {
-        //      //      overdue_items[key].update_due (date);
-        //      //  }            
-        //  }
-
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox)) {
             ((Layouts.ItemRow) child).update_due (date);
         }
@@ -414,7 +407,7 @@ public class Views.Date : Gtk.Grid {
         }
 
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
-            print ("Item: %s\n".printf (item.content));
+            debug ("Item: %s\n".printf (item.content));
             add_item (item);
         }
 

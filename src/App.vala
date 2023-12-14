@@ -59,6 +59,7 @@ public class Planify : Adw.Application {
 
 		add_main_option_entries (OPTIONS);
 		create_dir_with_parents ("/io.github.alainm23.planify");
+		create_dir_with_parents ("/io.github.alainm23.planify/backups");
 	}
 
 	protected override void activate () {
@@ -67,7 +68,7 @@ public class Planify : Adw.Application {
 		}
 
 		if (version) {
-			print ("%s\n".printf (Build.VERSION));
+			debug ("%s\n".printf (Build.VERSION));
 			return;
 		}
 
@@ -132,7 +133,7 @@ public class Planify : Adw.Application {
 		try {
 			return yield portal.request_background (window, reason, command, flags, null);
 		} catch (Error e) {
-			print ("Error during portal request: %s".printf (e.message));
+			debug ("Error during portal request: %s".printf (e.message));
 			return e is IOError.FAILED;
 		}
 	}

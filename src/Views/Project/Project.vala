@@ -234,10 +234,14 @@ public class Views.Project : Gtk.Grid {
 			if (project.backend_type == BackendType.TODOIST) {
 				add_section_item.is_loading = true;
 				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					new_section.id = Services.Todoist.get_default ().add.end (res);
-					project.add_section_if_not_exists (new_section);
-					add_section_item.is_loading = false;
-					popover.popdown ();
+					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+
+					if (response.status) {
+						new_section.id = response.data;
+						project.add_section_if_not_exists (new_section);
+						add_section_item.is_loading = false;
+						popover.popdown ();
+					}
 				});
 			} else {
 				new_section.id = Util.get_default ().generate_id (new_section);

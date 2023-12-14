@@ -221,6 +221,27 @@ public class Objects.Item : Objects.BaseObject {
         update_local_labels (get_labels_from_json (node));
     }
 
+    public Item.from_import_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        content = node.get_object ().get_string_member ("content");
+        description = node.get_object ().get_string_member ("description");
+        added_at = node.get_object ().get_string_member ("added_at");
+        completed_at = node.get_object ().get_string_member ("completed_at");
+        updated_at = node.get_object ().get_string_member ("updated_at");
+        section_id = node.get_object ().get_string_member ("section_id");
+        project_id = node.get_object ().get_string_member ("project_id");
+        parent_id = node.get_object ().get_string_member ("parent_id");
+        priority = (int32) node.get_object ().get_int_member ("priority");
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
+        checked = node.get_object ().get_boolean_member ("checked");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        day_order = (int32) node.get_object ().get_int_member ("day_order");
+        due.update_from_json (Services.Database.get_default ().get_due_parameter (node.get_object ().get_string_member ("due")));
+        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        pinned = node.get_object ().get_boolean_member ("pinned");
+        update_local_labels (get_labels_from_json (node));
+    }
+
     public void update_labels_from_json (Json.Node node) {
         update_labels_async (get_labels_from_json (node));
     }
@@ -642,8 +663,6 @@ public class Objects.Item : Objects.BaseObject {
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
-
-        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
     }
 
@@ -778,9 +797,9 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    new_item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    new_item.id = response.data;
                     insert_duplicate (new_item);
                 }
             });

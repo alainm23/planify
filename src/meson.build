@@ -20,11 +20,14 @@ sources = files(
   'App.vala',
   'MainWindow.vala',
 
+  'Objects/Backup.vala',
+
   'Services/GoogleTasks.vala',
   'Services/ActionManager.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
+  'Services/Backups.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
@@ -41,7 +44,6 @@ sources = files(
   'Layouts/ItemBoard.vala',
   'Layouts/HeaderBar.vala',
   
-  # 'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',
   'Widgets/CircularProgressBar.vala',
   'Widgets/MagicButton.vala',
@@ -53,7 +55,6 @@ sources = files(
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
-  'Widgets/CalendarSourceRow.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
@@ -99,6 +100,7 @@ sources = files(
 
   'Dialogs/Preferences/PreferencesWindow.vala',
   'Dialogs/Preferences/SettingsHeader.vala',
+  'Dialogs/Preferences/Pages/Backup.vala',
 )
 
 executable(

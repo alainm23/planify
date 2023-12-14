@@ -55,7 +55,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         };
         title_label.ellipsize = Pango.EllipsizeMode.END;
         title_label.add_css_class ("font-bold");
-
+        
         count_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.END,

@@ -46,7 +46,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		accounts_row.activatable = true;
 		accounts_row.add_prefix (generate_icon ("planner-cloud"));
 		accounts_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		accounts_row.title = _("Accounts");
+		accounts_row.title = _("Integrations");
 		accounts_row.subtitle = _("Sync your favorite to-do providers.");
 
 		accounts_row.activated.connect (() => {
@@ -122,7 +122,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		tutorial_row.title = _("Create Tutorial Project");
 		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
 
+		var backups_row = new Adw.ActionRow ();
+		backups_row.activatable = true;
+		backups_row.add_prefix (generate_icon ("planner-upload"));
+		backups_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		backups_row.title = _("Backups");
+
 		support_group.add (tutorial_row);
+		support_group.add (backups_row);
 		page.add (support_group);
 
 		var privacy_group = new Adw.PreferencesGroup ();
@@ -142,6 +149,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			add_toast (Util.get_default ().create_toast (_("A tutorial project has been created.")));
 		});
 
+		backups_row.activated.connect (() => {
+			push_subpage (get_backups_page ());
+		});
+
 		delete_row.activated.connect (() => {
 			destroy ();
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
@@ -153,7 +164,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_general_page () {
-		var settings_header = new Widgets.SettingsHeader (_("General"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("General"));
 
 		var general_group = new Adw.PreferencesGroup ();
 		general_group.title = _("Sort Settings");
@@ -383,7 +394,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_homepage_page () {
-		var settings_header = new Widgets.SettingsHeader (_("Homepage"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Homepage"));
 
 		var description_label = new Gtk.Label (
             _("When you open up Planify, make sure you see the to-dos that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
@@ -437,7 +448,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var labels_row = new Adw.ActionRow ();
 		labels_row.title = _("Labels");
 		labels_row.add_prefix (generate_icon ("planner-tag-icon", 19));
-		labels_row.add_suffix(labels_checkbutton);
+		labels_row.add_suffix (labels_checkbutton);
 		labels_row.set_activatable_widget (labels_checkbutton);
 
 		var group = new Adw.PreferencesGroup () {
@@ -499,7 +510,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_appearance_page () {
-		var settings_header = new Widgets.SettingsHeader (_("Appearance"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Appearance"));
 
 		var appearance_group = new Adw.PreferencesGroup ();
 		appearance_group.title = _("App Theme");
@@ -651,7 +662,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_accounts_page () {
-		var settings_header = new Widgets.SettingsHeader (_("Accounts"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
 
 		var default_group = new Adw.PreferencesGroup () {
 			visible = Services.Todoist.get_default ().is_logged_in ()
@@ -674,17 +685,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			active = Services.Todoist.get_default ().is_logged_in ()
 		};
 
-		var todoist_setting_image = new Widgets.DynamicIcon ();
-		todoist_setting_image.size = 16;
-		todoist_setting_image.update_icon_name ("planner-settings");
 
 		var todoist_setting_button = new Gtk.Button () {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER
+			halign = Gtk.Align.CENTER,
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings") {
+				size = 24
+			},
+			css_classes = { Granite.STYLE_CLASS_FLAT }
 		};
-		todoist_setting_button.child = todoist_setting_image;
-		todoist_setting_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
 		var todoist_setting_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -844,7 +854,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_todoist_view () {
-		var settings_header = new Widgets.SettingsHeader (_("Todoist"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
 
 		var todoist_avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("todoist-user-name"), true);
 
@@ -868,16 +878,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		user_box.append (todoist_avatar);
 		user_box.append (todoist_user);
 		user_box.append (todoist_email);
-
-		var default_group = new Adw.PreferencesGroup ();
-
-		var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 24,
-			margin_end = 24
-		};
-
-		content_clamp.child = default_group;
 
 		var sync_server_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
@@ -903,8 +903,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		last_sync_row.title = _("Last Sync");
 		last_sync_row.add_suffix (last_sync_label);
 
+		var default_group = new Adw.PreferencesGroup () {
+			margin_top = 24
+		};
+
 		default_group.add (sync_server_row);
 		default_group.add (last_sync_row);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 24,
+			margin_end = 24,
+			child = default_group
+		};
 
 		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			vexpand = true,
@@ -932,7 +943,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_quick_add_page () {
-		var settings_header = new Widgets.SettingsHeader (_("Quick Add"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Quick Add"));
 		string quick_add_command = "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
 		
 		var description_label = new Gtk.Label (
@@ -1033,7 +1044,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_oauth_todoist_page (Gtk.Switch switch_widget) {
-		var settings_header = new Widgets.SettingsHeader (_("Loading…"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Loading…"));
 
 		string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
 		string state = Util.get_default ().generate_string ();
@@ -1154,6 +1165,23 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
             progress_bar.fraction = progress;
         });
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_backups_page () {
+		var backup_page = new Dialogs.Preferences.Pages.Backup ();
+		var page = new Adw.NavigationPage (backup_page, "backups-page");
+
+		backup_page.pop_subpage.connect (() => {
+			pop_subpage ();
+		});
+
+		backup_page.popup_toast.connect ((msg) => {
+			var toast = new Adw.Toast (msg);
+			toast.timeout = 3;
+			add_toast (toast);
+		});
 
 		return page;
 	}

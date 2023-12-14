@@ -105,6 +105,15 @@ public class Objects.Label : Objects.BaseObject {
         backend_type = BackendType.TODOIST;
     }
 
+    public Label.from_import_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        name = node.get_object ().get_string_member ("name");
+        color = node.get_object ().get_string_member ("color");
+        backend_type = Util.get_default ().get_backend_type_by_text (node.get_object ().get_string_member ("backend_type"));
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        is_favorite = node.get_object ().get_boolean_member ("is_favorite");
+    }
+
     public void update_from_json (Json.Node node) {
         name = node.get_object ().get_string_member ("name");
 

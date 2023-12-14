@@ -174,8 +174,7 @@ public class Util : GLib.Object {
         if (!file_path.query_exists ()) {
             MainLoop loop = new MainLoop ();
 
-            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => { // vala-lint=line-length
-            }, (obj, res) => {
+            file_from_uri.copy_async.begin (file_path, 0, Priority.DEFAULT, null, (current_num_bytes, total_num_bytes) => {}, (obj, res) => {
                 try {
                     if (file_from_uri.copy_async.end (res)) {
                         // Services.EventBus.get_default ().avatar_downloaded ();
@@ -229,7 +228,7 @@ public class Util : GLib.Object {
     }
 
     public string get_encode_text (string text) {
-        return text.replace ("&", "%26").replace ("#", "%23");
+        return Uri.escape_string (text, null, false);
     }
 
     public string get_theme_name () {
@@ -645,9 +644,11 @@ public class Util : GLib.Object {
         }
 
         bool returned = true;
+        
         if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
             returned = false;
         }
+
         return returned;
     }
 
@@ -747,6 +748,9 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("information", true);
                 _dynamic_icons.set ("dots-vertical", true);
                 _dynamic_icons.set ("plus", true);
+                _dynamic_icons.set ("file-download", true);
+                _dynamic_icons.set ("download", true);
+                _dynamic_icons.set ("file", true);
             }
 
             return _dynamic_icons;
@@ -778,34 +782,6 @@ public class Util : GLib.Object {
     public bool is_clock_format_12h () {
         return Services.Settings.get_default ().settings.get_string ("clock-format").contains ("12h");
     }
-    
-    public void open_quick_find () {
-        //  var dialog = new Dialogs.QuickFind.QuickFind ();
-
-        //  int window_x, window_y;
-        //  int window_width, width_height;
-
-        //  Services.Settings.get_default ().settings.get ("window-position", "(ii)", out window_x, out window_y);
-        //  Services.Settings.get_default ().settings.get ("window-size", "(ii)", out window_width, out width_height);
-
-        //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
-        //  dialog.show_all ();
-    }
-
-    public void open_item_dialog (Objects.Item item) {
-        //  Services.EventBus.get_default ().alt_pressed = false;
-        
-        //  var dialog = new Dialogs.Item (item);
-
-        //  int window_x, window_y;
-        //  int window_width, width_height;
-
-        //  Services.Settings.get_default ().settings.get ("window-position", "(ii)", out window_x, out window_y);
-        //  Services.Settings.get_default ().settings.get ("window-size", "(ii)", out window_width, out width_height);
-
-        //  dialog.move (window_x + ((window_width - dialog.width_request) / 2), window_y + 48);
-        //  dialog.show_all ();
-    }
 
     public void clear_database (string title, string message, Gtk.Window window) {
         var dialog = new Adw.MessageDialog (window, title, message);
@@ -818,8 +794,8 @@ public class Util : GLib.Object {
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
-                clear_database_query ();
-                reset_settings ();
+                Services.Database.get_default ().clear_database ();
+                Services.Settings.get_default ().reset_settings ();
                 show_alert_destroy (window);
             }
         });
@@ -837,81 +813,6 @@ public class Util : GLib.Object {
         });
     }
 
-    public void clear_database_query () {
-        string db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-        File db_file = File.new_for_path (db_path);
-
-        if (db_file.query_exists ()) {
-            try {
-                db_file.delete ();
-            } catch (Error err) {
-                warning (err.message);
-            }
-        }
-    }
-
-    public void reset_settings () {
-        var schema_source = GLib.SettingsSchemaSource.get_default ();
-        SettingsSchema schema = schema_source.lookup ("com.github.alainm23.planit", true);
-
-        foreach (string key in schema.list_keys ()) {
-            Services.Settings.get_default ().settings.reset (key);
-        }
-    }
-
-    //  public void open_migrate_message () {
-    //      var message_dialog = new Dialogs.MessageDialog (
-    //          _("Welcome to Planner 3"),
-    //          _("We have detected that you have a Planner 2 configuration started, currently the v3 database is not compatible with v2, if you wish you can download a backup in JSON format and migrate your data manually, or you can start with v3 with a new configuration."),
-    //          "dialog-warning"
-    //      ) {
-    //          modal = true
-    //      };
-        
-    //      message_dialog.add_default_action (_("Create backup"), Gtk.ResponseType.ACCEPT, Gtk.STYLE_CLASS_SUGGESTED_ACTION);
-    //      message_dialog.add_default_action (_("Starting over"), Gtk.ResponseType.CANCEL);
-
-    //      message_dialog.show_all ();
-
-    //      message_dialog.default_action.connect ((response) => {
-    //          if (response == Gtk.ResponseType.CANCEL) {
-    //              clear_database_query ();
-    //              Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
-    //              message_dialog.destroy ();
-    //          } else {
-    //              Services.MigrateV2.get_default ().export_v2_database ();
-    //          }
-    //      });
-    //  }
-
-    //  public void delete_app_data () {
-    //      var message_dialog = new Dialogs.MessageDialog (
-    //          _("Delete all data app"),
-    //          _("Are you sure that you would like to delete all of your data app? Once deleted, it cannot be restored. You will need to restart the app for the change to take place."),
-    //          "dialog-warning"
-    //      );
-    //      message_dialog.add_default_action (_("Cancel"), Gtk.ResponseType.CANCEL);
-    //      message_dialog.show_all ();
-    
-    //      var remove_button = new Widgets.LoadingButton (
-    //          LoadingButtonType.LABEL, _("Delete")) {
-    //          hexpand = true
-    //      };
-    //      remove_button.get_style_context ().add_class (Gtk.STYLE_CLASS_DESTRUCTIVE_ACTION);
-    //      remove_button.get_style_context ().add_class ("border-radius-6");
-    //      message_dialog.add_action_widget (remove_button, Gtk.ResponseType.ACCEPT);
-    
-    //      message_dialog.default_action.connect ((response) => {
-    //          if (response == Gtk.ResponseType.ACCEPT) {
-    //              clear_database_query ();
-    //              reset_settings ();
-    //              Planify.instance.main_window.destroy ();
-    //          } else {
-    //              message_dialog.hide_destroy ();
-    //          }
-    //      });
-    //  }
-
     public FilterType get_filter () {
         switch (Services.Settings.get_default ().settings.get_enum ("homepage-item")) {
             case 0:
@@ -925,27 +826,6 @@ public class Util : GLib.Object {
             default:
                 assert_not_reached ();
         }
-    }
-
-    public bool is_todoist_error (int status_code) {
-        return (status_code == 400 || status_code == 401 ||
-            status_code == 403 || status_code == 404 ||
-            status_code == 429 || status_code == 500 ||
-            status_code == 503);
-    }
-
-    public string get_todoist_error (int code) {
-        var messages = new Gee.HashMap<int, string> ();
-
-        messages.set (400, _("The request was incorrect."));
-        messages.set (401, _("Authentication is required, and has failed, or has not yet been provided."));
-        messages.set (403, _("The request was valid, but for something that is forbidden."));
-        messages.set (404, _("The requested resource could not be found."));
-        messages.set (429, _("The user has sent too many requests in a given amount of time."));
-        messages.set (500, _("The request failed due to a server error."));
-        messages.set (503, _("The server is currently unable to handle the request."));
-
-        return messages.get (code);
     }
 
     public int get_default_priority () {
@@ -1300,6 +1180,20 @@ We hope you’ll enjoy using Planify!""");
             return converted;
         } catch (GLib.RegexError ex) {
             return text;
+        }
+    }
+
+    public BackendType get_backend_type_by_text (string backend_type) {
+        if (backend_type == "local") {
+            return BackendType.LOCAL;
+        } else if (backend_type == "todoist") {
+            return BackendType.TODOIST;
+        } else if (backend_type == "google-tasks") {
+            return BackendType.GOOGLE_TASKS;
+        } else if (backend_type == "caldav") {
+            return BackendType.CALDAV;
+        } else {
+            return BackendType.NONE;
         }
     }
 }

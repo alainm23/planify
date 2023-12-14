@@ -28,7 +28,7 @@ public class Dialogs.QuickAdd : Adw.Window {
             resizable: true,
             modal: true,
             transient_for: (Gtk.Window) Planify.instance.main_window,
-            width_request: 650,
+            width_request: 600,
             halign: Gtk.Align.START
         );
     }

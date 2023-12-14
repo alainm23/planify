@@ -132,8 +132,8 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items_checked;
     public Gee.ArrayList<Objects.Item> items_checked {
         get {
-            _items = Services.Database.get_default ().get_items_checked_by_project (this);
-            return _items;
+            _items_checked = Services.Database.get_default ().get_items_checked_by_project (this);
+            return _items_checked;
         }
     }
 
@@ -275,6 +275,29 @@ public class Objects.Project : Objects.BaseObject {
         id = node.get_object ().get_string_member ("id");
         update_from_google_tasklist_json (node);
         backend_type = BackendType.GOOGLE_TASKS;
+    }
+
+    public Project.from_import_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        name = node.get_object ().get_string_member ("name");
+        color = node.get_object ().get_string_member ("color");
+        backend_type = Util.get_default ().get_backend_type_by_text (node.get_object ().get_string_member ("backend_type"));
+        inbox_project = node.get_object ().get_boolean_member ("inbox_project");
+        team_inbox = node.get_object ().get_boolean_member ("team_inbox");
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        is_archived = node.get_object ().get_boolean_member ("is_archived");
+        is_favorite = node.get_object ().get_boolean_member ("is_favorite");
+        shared = node.get_object ().get_boolean_member ("shared");
+        view_style = node.get_object ().get_string_member ("view_style") == "board" ? ProjectViewStyle.BOARD : ProjectViewStyle.LIST;
+        sort_order = (int32) node.get_object ().get_int_member ("sort_order");
+        parent_id = node.get_object ().get_string_member ("parent_id");
+        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        icon_style = node.get_object ().get_string_member ("icon_style") == "progress" ? ProjectIconStyle.PROGRESS : ProjectIconStyle.EMOJI;
+        emoji = node.get_object ().get_string_member ("emoji");
+        show_completed = node.get_object ().get_boolean_member ("show_completed");
+        description = node.get_object ().get_string_member ("description");
+        due_date = node.get_object ().get_string_member ("due_date");
     }
 
     public void update_from_json (Json.Node node) {
@@ -522,8 +545,6 @@ public class Objects.Project : Objects.BaseObject {
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
-
-        print ("%s\n".printf (generator.to_data (null)));
         return generator.to_data (null);
     }
 

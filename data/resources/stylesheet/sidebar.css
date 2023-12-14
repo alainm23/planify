@@ -53,7 +53,7 @@
     box-shadow: 0px 0px 3px 1px #9d59e0;
 }
 
-.filter-pane-row-filter {
+.filter-pane-row-labels {
     box-shadow: none;
     padding: 3px;
     border-radius: 6px;
@@ -62,11 +62,11 @@
     color: #7e8087;
 }
 
-.filter-pane-row-filter.selected image {
+.filter-pane-row-labels.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.filter-pane-row-filter-selected {
+.filter-pane-row-labels-selected {
     box-shadow: 0px 0px 3px 1px #7e8087;
 }
 

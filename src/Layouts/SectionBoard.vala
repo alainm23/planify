@@ -530,9 +530,9 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             add_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 add_button.is_loading = false;
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    item.id = response.data;
                     item.activate_name_editable = true;
                     Services.Database.get_default ().insert_item (item, false);
                     add_item (item, 0);

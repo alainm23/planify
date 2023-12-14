@@ -11,7 +11,7 @@
 using Gtk;
 using Cairo;
  
-public class Widgets.CircularProgressBar : Gtk.Grid {
+public class Widgets.CircularProgressBar : Adw.Bin {
     public int size { get; construct; }
 
     public double percentage {
@@ -48,13 +48,14 @@ public class Widgets.CircularProgressBar : Gtk.Grid {
             add_css_class ("circular-progress-bar");
         }
 
-        circularProgressBar = new _CircularProgressBar(size);
-        circularProgressBar.margin_start = 2;
-        circularProgressBar.margin_top = 2;
-        circularProgressBar.margin_end = 2;
-        circularProgressBar.margin_bottom = 2;
+        circularProgressBar = new _CircularProgressBar(size) {
+            margin_start = 2,
+            margin_top = 2,
+            margin_end = 2,
+            margin_bottom = 2  
+        };
 
-        attach(circularProgressBar, 0, 0);
+        child = circularProgressBar;
     }
 }
 
@@ -241,34 +242,5 @@ public class _CircularProgressBar : Gtk.DrawingArea {
                 cr.stroke ();
             }
         }
-
-        // Textual information
-        //  var context = get_style_context ();
-        //  context.save ();
-        //  // FIXME: Gtk4 has changes in the styles that need to be reviewed
-        //  // For now we get the text color from the default context.
-        //  color = context.get_color ();
-        //  Gdk.cairo_set_source_rgba (cr, color);
-
-        //  // Percentage
-        //  layout = Pango.cairo_create_layout (cr);
-        //  layout.set_text ("%d".printf ((int) (percentage * 100.0)), -1);
-        //  desc = Pango.FontDescription.from_string (font + " 24");
-        //  layout.set_font_description (desc);
-        //  Pango.cairo_update_layout (cr, layout);
-        //  layout.get_size (out w, out h); 
-        //  cr.move_to (center_x - ((w / Pango.SCALE) / 2), center_y - 27 );
-        //  Pango.cairo_show_layout (cr, layout);
-
-        //  // Units indicator (percentage)
-        //  layout.set_text ("PERCENT", -1);
-        //  desc = Pango.FontDescription.from_string (font + " 8");
-        //  layout.set_font_description (desc);
-        //  Pango.cairo_update_layout (cr, layout);
-        //  layout.get_size (out w, out h); 
-        //  cr.move_to (center_x - ((w / Pango.SCALE) / 2), center_y + 13);
-        //  Pango.cairo_show_layout (cr, layout);
-        //  context.restore ();
-        //  cr.restore ();
     }
 }

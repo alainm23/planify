@@ -156,7 +156,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var content_stack = new Gtk.Stack () {
             hexpand = true,
             vexpand = true,
-            transition_type = Gtk.StackTransitionType.SLIDE_RIGHT,
+            transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT,
             vhomogeneous = false,
             hhomogeneous = true
         };

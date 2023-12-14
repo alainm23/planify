@@ -162,15 +162,14 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    reminder.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    reminder.id = response.data;
                 } else {
                     reminder.id = Util.get_default ().generate_id ();
                 }
 
                 item.add_reminder_if_not_exists (reminder);
-
                 main_stack.visible_child_name = "listbox";
                 submit_button.is_loading = false;
             });

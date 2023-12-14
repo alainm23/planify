@@ -119,5 +119,11 @@
     <file alias="dots-vertical-dark.svg">resources/icons/dots-vertical-dark.svg</file>
     <file alias="plus-light.svg">resources/icons/plus-light.svg</file>
     <file alias="plus-dark.svg">resources/icons/plus-dark.svg</file>
+    <file alias="file-download-light.svg">resources/icons/file-download-light.svg</file>
+    <file alias="file-download-dark.svg">resources/icons/file-download-dark.svg</file>
+    <file alias="download-light.svg">resources/icons/download-light.svg</file>
+    <file alias="download-dark.svg">resources/icons/download-dark.svg</file>
+    <file alias="file-light.svg">resources/icons/file-light.svg</file>
+    <file alias="file-dark.svg">resources/icons/file-dark.svg</file>
   </gresource>
 </gresources>
