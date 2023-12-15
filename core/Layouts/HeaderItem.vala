@@ -116,6 +116,33 @@ public class Layouts.HeaderItem : Adw.Bin {
             }
         }
     }
+
+    public bool separator_lines {
+        set {
+            if (value) {
+                listbox.add_css_class ("separator-lines");
+            }
+        }
+    }
+
+    public bool box_shadow {
+        set {
+            if (value) {
+                content_grid.remove_css_class ("sidebar-card");
+            }
+        }
+    }
+
+    public bool listbox_no_margin {
+        set {
+            if (value) {
+                listbox.margin_top = 0;
+                listbox.margin_bottom = 0;
+                listbox.margin_start = 0;
+                listbox.margin_end = 0;
+            }
+        }
+    }
     
     public HeaderItem (string? header_title = null) {
         Object (
@@ -132,19 +159,22 @@ public class Layouts.HeaderItem : Adw.Bin {
         name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         listbox = new Gtk.ListBox () {
-            hexpand = true
+            hexpand = true,
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
         };
         
         listbox.set_placeholder (get_placeholder ());
         listbox.add_css_class ("bg-transparent");
 
         content_grid = new Gtk.Grid () {
-            margin_end = 1
+            margin_end = 3
         };
 
         content_grid.add_css_class ("card");
         content_grid.add_css_class ("sidebar-card");
-        content_grid.add_css_class ("padding-3");
         content_grid.attach (listbox, 0, 0, 1, 1);
 
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {

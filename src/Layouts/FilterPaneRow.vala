@@ -20,7 +20,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.FilterPaneRow : Gtk.Grid {
+public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public FilterType filter_type { get; construct; }
 
     public string title;
@@ -64,6 +64,11 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
 
         count_label.add_css_class ("font-bold");
 
+        var count_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = count_label
+        };
+
         var main_grid = new Gtk.Grid () {
             column_spacing = 6,
             margin_start = 3,
@@ -74,11 +79,12 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
         };
 
         main_grid.attach (title_image, 0, 0, 1, 1);
-        main_grid.attach (count_label, 1, 0, 1, 1);
+        main_grid.attach (count_revealer, 1, 0, 1, 1);
         main_grid.attach (title_label, 0, 1, 2, 2);
 
-        attach (main_grid, 0, 0);
+        child = main_grid;
         build_filter_data ();
+        Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         var select_gesture = new Gtk.GestureClick ();
         select_gesture.set_button (1);
@@ -134,7 +140,7 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
     }
 
     private void update_count_label (int count) {
-        count_label.label = count.to_string ();
+        count_label.label = count <= 0 ? "" : count.to_string ();
     }
     
     public void init () {
@@ -174,5 +180,32 @@ public class Layouts.FilterPaneRow : Gtk.Grid {
             inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
             update_count_label (inbox_project.project_count);
         });
+    }
+
+    public int item_order () {
+        var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
+        return find_index (views_order, filter_type.to_string ());
+    }
+
+    public bool active () {
+        var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
+
+        for (int i = 0; i < views_order.length; i++) {
+            if (views_order [i] == filter_type.to_string ()) {
+                return true;
+            }
+        }
+    
+        return false;
+    }
+
+    private int find_index (string[] array, string elemento) {
+        for (int i = 0; i < array.length; i++) {
+            if (array [i] == elemento) {
+                return i;
+            }
+        }
+    
+        return -1;
     }
 }

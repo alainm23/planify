@@ -24,10 +24,10 @@
      inkscape:pagecheckerboard="0"
      showgrid="false"
      inkscape:zoom="22.083334"
-     inkscape:cx="3.8943394"
-     inkscape:cy="6.2716978"
-     inkscape:window-width="1366"
-     inkscape:window-height="699"
+     inkscape:cx="3.871698"
+     inkscape:cy="6.2716979"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -36,7 +36,8 @@
      inkscape:deskcolor="#d1d1d1" />
   <g
      id="g1"
-     transform="matrix(0.875,0,0,0.875,-2.9375,-2.5)">
+     transform="matrix(0.875,0,0,0.875,-2.9375,-2.5)"
+     style="stroke:#f66151;stroke-opacity:1;fill:#f66151;fill-opacity:0.1">
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -44,7 +45,7 @@
        stroke-width="1.5"
        d="M 9.2500001,7.7499998 8.2499997,4.7500002 16.75,4.75 l -1,2.9999997 V 9.9999993 C 18.75,11 18.75,14.25 18.75,14.25 H 6.25 c 0,0 0,-3.25 3.0000003,-4.2500007 z"
        id="path2"
-       style="fill:#7e8087;fill-opacity:0.15;stroke:#7e8087;stroke-opacity:1" />
+       style="fill:#f66151;fill-opacity:0.1;stroke:#f66151;stroke-opacity:1" />
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -52,6 +53,6 @@
        stroke-width="1.5"
        d="m 12.5,14.5 v 4.75"
        id="path4"
-       style="stroke:#7e8087;stroke-opacity:1" />
+       style="stroke:#f66151;stroke-opacity:1;fill:#f66151;fill-opacity:0.1" />
   </g>
 </svg>

@@ -45,6 +45,7 @@
     <file alias="planner-upload.svg">resources/icons/settings/planner-upload.svg</file>
     <file alias="light-bulb.svg">resources/icons/settings/light-bulb.svg</file>
     <file alias="archive-plus.svg">resources/icons/settings/archive-plus.svg</file>
+    <file alias="sidebar.svg">resources/icons/settings/sidebar.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/icons/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/icons/planner-calendar-dark.svg</file>
@@ -70,7 +71,6 @@
     <file alias="planner-tag-light.svg">resources/icons/planner-tag-light.svg</file>
     <file alias="planner-pinned-dark.svg">resources/icons/planner-pinned-dark.svg</file>
     <file alias="planner-pinned-light.svg">resources/icons/planner-pinned-light.svg</file>
-    <file alias="planner-pinned-activated.svg">resources/icons/planner-pinned-activated.svg</file>
     <file alias="planner-settings-dark.svg">resources/icons/planner-settings-dark.svg</file>
     <file alias="planner-settings-light.svg">resources/icons/planner-settings-light.svg</file>
     <file alias="planner-bell-light.svg">resources/icons/planner-bell-light.svg</file>

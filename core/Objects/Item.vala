@@ -85,7 +85,7 @@ public class Objects.Item : Objects.BaseObject {
     public bool pinned { get; set; default = false; }
     public string pinned_icon {
         get {
-            return pinned ? "planner-pinned-activated" : "planner-pinned";
+            return pinned ? "planner-pin-tack" : "planner-pinned";
         }
     }
 

@@ -68,6 +68,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			margin_top = 12,
 			reveal = true
 		};
+		
 		backups_group.set_sort_func (set_sort_func);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {

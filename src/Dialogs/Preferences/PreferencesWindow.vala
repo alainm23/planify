@@ -70,15 +70,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_general_page ());
 		});
 
-		var homepage_row = new Adw.ActionRow ();
-		homepage_row.activatable = true;
-		homepage_row.add_prefix (generate_icon ("planner-home"));
-		homepage_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		homepage_row.title = _("Homepage");
-		homepage_row.subtitle = _("Customize your homepage.");
+		var sidebar_row = new Adw.ActionRow ();
+		sidebar_row.activatable = true;
+		sidebar_row.add_prefix (generate_icon ("sidebar"));
+		sidebar_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		sidebar_row.title = _("Sidebar");
+		sidebar_row.subtitle = _("Customize your sidebar.");
 
-		homepage_row.activated.connect (() => {
-			push_subpage (get_homepage_page ());
+		sidebar_row.activated.connect (() => {
+			push_subpage (get_sidebar_page ());
 		});
 
 		var appearance_row = new Adw.ActionRow ();
@@ -105,7 +105,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var personalization_group = new Adw.PreferencesGroup ();
 		personalization_group.add (general_row);
-		personalization_group.add (homepage_row);
+		personalization_group.add (sidebar_row);
 		personalization_group.add (appearance_row);
 		personalization_group.add (quick_add_row);
 
@@ -387,6 +387,58 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_sidebar_page () {
+		//  var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
+
+		//  var views_group = new Layouts.HeaderItem (_("Show in sidebar")) {
+		//  	margin_top = 12,
+		//  	reveal = true
+		//  };
+
+		//  var inbox_row = new Widgets.SidebarRow (_("Inbox"), "planner-inbox");
+		//  var today_row = new Widgets.SidebarRow (_("Today"), "planner-today");
+		//  var scheduled_row = new Widgets.SidebarRow (_("Scheduled"), "planner-scheduled");
+		//  var pinboard_row = new Widgets.SidebarRow (_("Pinboard"), "planner-pin-tack");
+		//  var labels_row = new Widgets.SidebarRow (_("Labels"), "planner-tag-icon");
+
+		//  views_group.add_child (inbox_row);
+		//  views_group.add_child (today_row);
+		//  views_group.add_child (scheduled_row);
+		//  views_group.add_child (pinboard_row);
+		//  views_group.add_child (labels_row);
+
+		//  var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		//  content_box.append (views_group);
+
+		//  var content_clamp = new Adw.Clamp () {
+		//  	maximum_size = 600,
+		//  	margin_start = 24,
+		//  	margin_end = 24,
+		//  	margin_bottom = 24
+		//  };
+
+		//  content_clamp.child = content_box;
+
+		//  var scrolled_window = new Gtk.ScrolledWindow () {
+		//  	hscrollbar_policy = Gtk.PolicyType.NEVER,
+		//  	hexpand = true,
+		//  	vexpand = true
+		//  };
+		//  scrolled_window.child = content_clamp;
+
+		//  var toolbar_view = new Adw.ToolbarView ();
+		//  toolbar_view.add_top_bar (settings_header);
+		//  toolbar_view.content = scrolled_window;
+		var sidebar_page = new Dialogs.Preferences.Pages.Sidebar ();
+		var page = new Adw.NavigationPage (sidebar_page, "sidebar");
+
+		sidebar_page.pop_subpage.connect (() => {
 			pop_subpage ();
 		});
 
@@ -750,7 +802,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		accounts_group.title = _("Accounts");
 
 		accounts_group.add (todoist_row);
-		// accounts_group.add (google_row);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (default_group);

@@ -336,5 +336,17 @@
             <summary>Google User Email</summary>
             <description>Google User Email</description>
         </key>
+
+        <key name="views-order-visible" type="as">
+            <default>['inbox', 'today', 'scheduled', 'labels']</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="show-tasks-count" type="b">
+            <default>true</default>
+            <summary>Show Taks Count</summary>
+            <description>Show Taks Count</description>
+        </key>
     </schema>
 </schemalist>
