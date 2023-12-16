@@ -462,7 +462,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Save")) {
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             margin_start = 6,
             margin_end = 3,
             can_focus = false
@@ -695,7 +695,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        submit_button.clicked.connect (() => {
+        var submit_gesture = new Gtk.GestureClick ();
+        submit_gesture.set_button (1);
+        submit_button.add_controller (submit_gesture);
+
+        submit_gesture.pressed.connect (() => {
+            submit_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             add_item ();
         });
 

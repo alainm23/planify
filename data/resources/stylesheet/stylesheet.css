@@ -21,6 +21,10 @@ check {
     padding: 3px;
 }
 
+.padding-9 {
+    padding: 9px;
+}
+
 .border-radius-6 {
     border-radius: 6px;
 }
@@ -224,6 +228,10 @@ entry.flat:focus-within {
 
 .line-through {
     text-decoration: line-through;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
 .complete-animation {

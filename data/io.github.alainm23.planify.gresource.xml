@@ -12,6 +12,7 @@
   <gresource prefix="/io/github/alainm23/planify">
     <file alias="index.css" compressed="true">resources/stylesheet/index.css</file>
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
+    <file preprocess="xml-stripblanks">io.github.alainm23.planify.appdata.xml.in.in</file>
 
     <file alias="planner-inbox.svg">resources/icons/planner-inbox.svg</file>
     <file alias="planner-today.svg">resources/icons/planner-today.svg</file>
@@ -125,5 +126,7 @@
     <file alias="download-dark.svg">resources/icons/download-dark.svg</file>
     <file alias="file-light.svg">resources/icons/file-light.svg</file>
     <file alias="file-dark.svg">resources/icons/file-dark.svg</file>
+    <file alias="gift-light.svg">resources/icons/gift-light.svg</file>
+    <file alias="gift-dark.svg">resources/icons/gift-dark.svg</file>
   </gresource>
 </gresources>

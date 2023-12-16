@@ -524,19 +524,21 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void about_dialog () {
-		var dialog = new Adw.AboutWindow () {
+		string appdata_path = "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in";
+		debug (appdata_path);
+
+		var dialog = new Adw.AboutWindow.from_appdata (appdata_path, Build.VERSION) {
 			transient_for = (Gtk.Window) Planify.instance.main_window,
-			modal = true
+			modal = true,
+			application_icon = Build.APPLICATION_ID,
+			application_name = "Planify",
+			developer_name = "Alain",
+			designers = { "Alain" },
+			website = "https://github.com/alainm23/planify",
+			developers = { "Alain" },
+			issue_url = "https://github.com/alainm23/planify/issues"
 		};
 
 		dialog.show ();
-
-		dialog.application_icon = Build.APPLICATION_ID;
-		dialog.application_name = "Planify";
-		dialog.version = Build.VERSION;
-		dialog.developer_name = "Alain";
-		dialog.website = "https://github.com/alainm23/planify";
-		dialog.developers = { "Alain" };
-		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 	}
 }

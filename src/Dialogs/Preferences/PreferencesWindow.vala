@@ -312,7 +312,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		underline_completed_row.set_activatable_widget (underline_completed_switch);
 		underline_completed_row.add_suffix (underline_completed_switch);
 
-		// tasks_group.add (underline_completed_row);
+		tasks_group.add (underline_completed_row);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
@@ -394,47 +394,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_sidebar_page () {
-		//  var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
-
-		//  var views_group = new Layouts.HeaderItem (_("Show in sidebar")) {
-		//  	margin_top = 12,
-		//  	reveal = true
-		//  };
-
-		//  var inbox_row = new Widgets.SidebarRow (_("Inbox"), "planner-inbox");
-		//  var today_row = new Widgets.SidebarRow (_("Today"), "planner-today");
-		//  var scheduled_row = new Widgets.SidebarRow (_("Scheduled"), "planner-scheduled");
-		//  var pinboard_row = new Widgets.SidebarRow (_("Pinboard"), "planner-pin-tack");
-		//  var labels_row = new Widgets.SidebarRow (_("Labels"), "planner-tag-icon");
-
-		//  views_group.add_child (inbox_row);
-		//  views_group.add_child (today_row);
-		//  views_group.add_child (scheduled_row);
-		//  views_group.add_child (pinboard_row);
-		//  views_group.add_child (labels_row);
-
-		//  var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		//  content_box.append (views_group);
-
-		//  var content_clamp = new Adw.Clamp () {
-		//  	maximum_size = 600,
-		//  	margin_start = 24,
-		//  	margin_end = 24,
-		//  	margin_bottom = 24
-		//  };
-
-		//  content_clamp.child = content_box;
-
-		//  var scrolled_window = new Gtk.ScrolledWindow () {
-		//  	hscrollbar_policy = Gtk.PolicyType.NEVER,
-		//  	hexpand = true,
-		//  	vexpand = true
-		//  };
-		//  scrolled_window.child = content_clamp;
-
-		//  var toolbar_view = new Adw.ToolbarView ();
-		//  toolbar_view.add_top_bar (settings_header);
-		//  toolbar_view.content = scrolled_window;
 		var sidebar_page = new Dialogs.Preferences.Pages.Sidebar ();
 		var page = new Adw.NavigationPage (sidebar_page, "sidebar");
 

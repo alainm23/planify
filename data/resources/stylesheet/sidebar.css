@@ -151,3 +151,15 @@
     box-shadow: none;
     border: 1px solid @item_border_color;
 }
+
+.gift-animation,
+.gift-animation image {
+    animation-name: fancy-turn;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-delay: 0s;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}

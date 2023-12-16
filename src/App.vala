@@ -100,13 +100,6 @@ public class Planify : Adw.Application {
 
 		Util.get_default ().update_theme ();
 
-		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
-			Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
-
-			//  var dialog = new Dialogs.WhatsNew ();
-			//  dialog.show ();
-		}
-
 		if (clear_database) {
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
 			                                    _("The process removes all stored information without the possibility of undoing it."),

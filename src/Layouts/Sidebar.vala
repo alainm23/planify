@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.Sidebar : Gtk.Grid {
+public class Layouts.Sidebar : Adw.Bin {
     private Gtk.FlowBox filters_flow;
 
     private Layouts.FilterPaneRow inbox_filter;
@@ -33,27 +33,23 @@ public class Layouts.Sidebar : Gtk.Grid {
     private Layouts.HeaderItem todoist_projects_header;
     private Layouts.HeaderItem google_projects_header;
 
-    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
     public Sidebar () {
         Object ();
     }
 
-    construct {
-        local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-        todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-        google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> (); 
-        favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-
+    construct { 
         filters_flow = new Gtk.FlowBox () {
             homogeneous = true,
             row_spacing = 9,
             column_spacing = 9,
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            min_children_per_line = 2
         };
 
         filters_flow.set_sort_func ((child1, child2) => {
@@ -95,17 +91,52 @@ public class Layouts.Sidebar : Gtk.Grid {
         google_projects_header = new Layouts.HeaderItem ();
         google_projects_header.margin_top = 6;
 
+        var whats_new_icon = new Widgets.DynamicIcon.from_icon_name ("gift") {
+            css_classes = { "gift-animation" }
+        };
+        
+        var whats_new_label = new Gtk.Label (_("What’s new in Planify")) {
+            css_classes = { "underline" }
+        };
+
+        var close_button = new Gtk.Button () {
+            child = new Widgets.DynamicIcon.from_icon_name ("window-close"),
+            css_classes = { "flat", "no-padding" },
+            hexpand = true,
+            halign = END,
+            margin_end = 3
+        };
+
+        var whats_new_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            css_classes = { "card", "padding-9" },
+            vexpand = true,
+            valign = END,
+            margin_start = 3,
+            margin_end = 3
+        };
+
+        whats_new_box.append (whats_new_icon);
+        whats_new_box.append (whats_new_label);
+        whats_new_box.append (close_button);
+
+        var whats_new_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SWING_UP,
+            child = whats_new_box,
+            reveal_child = verify_new_version ()
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
             margin_top = 3
         };
-        
+
         content_box.append (filters_flow);
         content_box.append (favorites_header);
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
+        content_box.append (whats_new_revealer);
         // content_box.append (google_projects_header);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
@@ -116,7 +147,7 @@ public class Layouts.Sidebar : Gtk.Grid {
 
         scrolled_window.child = content_box;
 
-        attach (scrolled_window, 0, 0);
+        child = scrolled_window;
         update_projects_sort ();
 
         var add_local_button = new Gtk.Button () {
@@ -214,6 +245,37 @@ public class Layouts.Sidebar : Gtk.Grid {
                 todoist_hashmap.unset (project.id);
             }
         });
+
+        var whats_new_gesture = new Gtk.GestureClick ();
+        whats_new_gesture.set_button (1);
+        whats_new_box.add_controller (whats_new_gesture);
+
+        whats_new_gesture.pressed.connect (() => {
+			var dialog = new Dialogs.WhatsNew ();
+			dialog.show ();
+
+            update_version ();
+            whats_new_revealer.reveal_child = verify_new_version ();
+        });
+
+        var close_gesture = new Gtk.GestureClick ();
+        close_gesture.set_button (1);
+        close_button.add_controller (close_gesture);
+
+        close_gesture.pressed.connect (() => {
+            close_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+
+            update_version ();
+            whats_new_revealer.reveal_child = verify_new_version ();
+        });
+    }
+
+    public void update_version () {
+        Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
+    }
+
+    public bool verify_new_version () {
+        return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
     }
 
     public void verify_todoist_account () {

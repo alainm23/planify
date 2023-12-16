@@ -32,7 +32,7 @@ m_dep = meson.get_compiler('c').find_library('m', required : false)
 ############
 
 asresources = gnome.compile_resources (
-    'as-resources', 'data/resources/io.github.alainm23.planify.gresource.xml',
+    'as-resources', 'data/io.github.alainm23.planify.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )
