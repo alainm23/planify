@@ -43,7 +43,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         due_image = new Widgets.DynamicIcon ();
         due_image.update_icon_name ("planner-calendar");
-        due_image.size = 16;        
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0,

@@ -774,7 +774,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "underline-completed-tasks") {
+            if (key == "underline-completed-tasks" || key == "clock-format") {
                 update_request ();
             }
         });

@@ -19,16 +19,10 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
-    private Gtk.Button time_button;
-    private Gtk.ToggleButton am_togglebutton;
-    private Gtk.ToggleButton pm_togglebutton;
-    private Gtk.Box am_pm_box;
-    private Gtk.SpinButton hours_spinbutton;
-    private Gtk.SpinButton minutes_spinbutton;
+public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
+    private Gtk.Text time_entry;
     private Gtk.Stack time_stack;
     private Gtk.Revealer no_time_revealer;
-    private Gtk.Popover popover;
 
     public string format_12 { get; construct; }
     public string format_24 { get; construct; }
@@ -46,12 +40,6 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
         set {
             _time = value;
             changing_time = true;
-
-            if (_time.get_hour () >= 12) {
-                pm_togglebutton.active = true;
-            } else {
-                am_togglebutton.active = true;
-            }
 
             update_text (true);
             changing_time = false;
@@ -79,66 +67,7 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
 
     public signal void time_changed ();
 
-    construct {  
-        time_button = new Gtk.Button.with_label ("") {
-            valign = Gtk.Align.CENTER
-        };
-
-        time_button.add_css_class ("time-button-picker");
-        time_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var close_circle_icon = new Widgets.DynamicIcon ();
-        close_circle_icon.size = 16;
-        close_circle_icon.update_icon_name ("planner-close-circle");
-        
-        var no_time_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
-        };
-
-        no_time_button.child = close_circle_icon;
-        no_time_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        no_time_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-            reveal_child = true
-        };
-
-        no_time_revealer.child = no_time_button;
-
-        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        time_box.append (time_button);
-        time_box.append (no_time_revealer);
-
-        var add_circle_icon = new Widgets.DynamicIcon ();
-        add_circle_icon.size = 16;
-        add_circle_icon.update_icon_name ("plus");
-
-        var add_time_button = new Gtk.Button () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.END
-        };
-
-        add_time_button.child = add_circle_icon;
-        add_time_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        time_stack = new Gtk.Stack () {
-            transition_type = Gtk.StackTransitionType.CROSSFADE
-        };
-        time_stack.add_named (add_time_button, "add-time");
-        time_stack.add_named (time_box, "time-box");
-
-        var timepicker_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 3,
-            hexpand = true
-        };
-        
-        timepicker_box.append (time_stack);
-
-        /*
-        *   Build Time Popover
-        */
-
+    construct {
         if (format_12 == null) {
             format_12 = Granite.DateTime.get_default_time_format (true);
         }
@@ -147,54 +76,53 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
             format_24 = Granite.DateTime.get_default_time_format (false);
         }
 
-        /// TRANSLATORS: this will only show up when 12-hours clock is in use
-        am_togglebutton = new Gtk.ToggleButton.with_label (_("AM")) {
-            vexpand = true
+        time_entry = new Gtk.Text () {
+            max_width_chars = 9,
+            margin_start = 12
+        };
+        
+        var no_time_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            child = new Widgets.DynamicIcon.from_icon_name ("planner-close-circle"),
+            css_classes = { "flat" }
         };
 
-        /// TRANSLATORS: this will only show up when 12-hours clock is in use
-        pm_togglebutton = new Gtk.ToggleButton.with_label (_("PM")) {
-            group = am_togglebutton,
-            vexpand = true
+        no_time_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            reveal_child = true,
+            child = no_time_button
         };
 
-        am_pm_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        am_pm_box.add_css_class (Granite.STYLE_CLASS_LINKED);
-        am_pm_box.append (am_togglebutton);
-        am_pm_box.append (pm_togglebutton);
+        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            css_classes = { "card" },
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_end = 3
+        };
+        time_box.append (time_entry);
+        time_box.append (no_time_revealer);
 
-        if (Util.get_default ().is_clock_format_12h ()) {
-            hours_spinbutton = new Gtk.SpinButton.with_range (1, 12, 1);
-        } else {
-            hours_spinbutton = new Gtk.SpinButton.with_range (0, 23, 1);
-        }
+        var add_time_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.END,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
+            css_classes = { "flat" }
+        };
 
-        hours_spinbutton.orientation = Gtk.Orientation.VERTICAL;
-        hours_spinbutton.wrap = true;
-        hours_spinbutton.value_changed.connect (() => {
-            update_time (true);
-        });
+        time_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
+        };
+        time_stack.add_named (add_time_button, "add-time");
+        time_stack.add_named (time_box, "time-box");
+        
 
-        minutes_spinbutton = new Gtk.SpinButton.with_range (0, 59, 1);
-        minutes_spinbutton.orientation = Gtk.Orientation.VERTICAL;
-        minutes_spinbutton.wrap = true;
-        minutes_spinbutton.value_changed.connect (() => {
-            update_time (false);
-        });
-
-        var separation_label = new Gtk.Label (_(":"));
-
-        var pop_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-
-        pop_grid.append (hours_spinbutton);
-        pop_grid.append (separation_label);
-        pop_grid.append (minutes_spinbutton);
-        pop_grid.append (am_pm_box);
-
-        popover = new Gtk.Popover ();
-        popover.position = Gtk.PositionType.BOTTOM;
-        popover.set_parent (time_button);
-        popover.child = pop_grid;
+        var timepicker_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 3,
+            hexpand = true
+        };
+        
+        timepicker_box.append (time_stack);
 
         var main_grid = new Gtk.Grid () {
             hexpand = true
@@ -202,106 +130,135 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
 
         main_grid.attach (timepicker_box, 0, 0);
 
-        attach (main_grid, 0, 0);
-
-        time_button.clicked.connect (() => {
-            open_time_picker ();
-        });
+        child = main_grid;
 
         add_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "time-box";
             update_text ();
-            open_time_picker ();
         });
+
+        // Connecting to events allowing manual changes
+        var focus_controller = new Gtk.EventControllerFocus ();
+        var scroll_controller = new Gtk.EventControllerScroll (
+            Gtk.EventControllerScrollFlags.BOTH_AXES |
+            Gtk.EventControllerScrollFlags.DISCRETE
+        );
+
+        time_entry.add_controller (focus_controller);
+        time_entry.add_controller (scroll_controller);
+
+        focus_controller.leave.connect (() => {
+            is_unfocused ();
+        });
+
+        scroll_controller.scroll.connect ((dx, dy) => {
+            double largest = dx.abs () > dy.abs () ? dx : dy;
+            if (largest < 0) {
+                _time = _time.add_minutes (1);
+            } else {
+                _time = _time.add_minutes (-1);
+            }
+
+            update_text ();
+            return false;
+        });
+
+        time_entry.activate.connect (is_unfocused);
 
         no_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "add-time";
+            _time = null;
             update_text ();
         });
-
-        am_togglebutton.clicked.connect (() => {
-            update_am_pm (-12);
-        });
-
-        pm_togglebutton.clicked.connect (() => {
-            update_am_pm (12);
-        });
     }
 
-    private void update_am_pm (int hours) {
-        if (changing_time) {
-            return;
+    private void is_unfocused () {
+        if (old_string.collate (time_entry.text) != 0) {
+            old_string = time_entry.text;
+            parse_time (time_entry.text.dup ());
         }
-
-        time = _time.add_hours (hours);
-        time_changed ();
-
-        update_text (true);
     }
 
-    private void open_time_picker () {
-        // If the mode is changed from 12h to 24h or visa versa, the entry updates on icon press
-        update_text ();
-        changing_time = true;
+    private void parse_time (string timestr) {
+        string current = "";
+        bool is_hours = true;
+        bool is_suffix = false;
+        bool has_suffix = false;
 
-        if (Util.get_default ().is_clock_format_12h () && time.get_hour () > 12) {
-            hours_spinbutton.set_value (time.get_hour () - 12);
-        } else {
-            hours_spinbutton.set_value (time.get_hour ());
-        }
-
-        if (Util.get_default ().is_clock_format_12h ()) {
-            am_pm_box.show ();
-
-            if (time.get_hour () > 12) {
-                hours_spinbutton.set_value (time.get_hour () - 12);
-            } else if (time.get_hour () == 0) {
-                hours_spinbutton.set_value (12);
+        int? hour = null;
+        int? minute = null;
+        foreach (var c in timestr.down ().to_utf8 ()) {
+            if (c.isdigit ()) {
+                current = "%s%c".printf (current, c);
             } else {
-                hours_spinbutton.set_value (time.get_hour ());
-            }
+                if (!is_suffix) {
+                    if (current != "") {
+                        if (is_hours) {
+                            is_hours = false;
+                            hour = int.parse (current);
+                            current = "";
+                        } else {
+                            minute = int.parse (current);
+                            current = "";
+                        }
+                    }
 
-            // Make sure that bounds are set correctly
-            hours_spinbutton.set_range (1, 12);
-        } else {
-            am_pm_box.hide ();
-            hours_spinbutton.set_value (time.get_hour ());
-            hours_spinbutton.set_range (0, 23);
-        }
-
-        minutes_spinbutton.set_value (time.get_minute ());
-        changing_time = false;
-
-        popover.popup ();
-    }
-
-    private void update_time (bool is_hour) {
-        if (changing_time) {
-            return;
-        }
-
-        if (is_hour) {
-            var new_hour = hours_spinbutton.get_value_as_int () - time.get_hour ();
-
-            if (Util.get_default ().is_clock_format_12h ()) {
-                if (hours_spinbutton.get_value_as_int () == 12 && am_togglebutton.active = true) {
-                    _time = _time.add_hours (-_time.get_hour ());
-                } else if (hours_spinbutton.get_value_as_int () < 12 && am_togglebutton.active = true) {
-                    _time = _time.add_hours (new_hour);
-                } else if (hours_spinbutton.get_value_as_int () == 12 && pm_togglebutton.active = true) {
-                    _time = _time.add_hours (-_time.get_hour () + 12);
-                } else if (hours_spinbutton.get_value_as_int () < 12 && pm_togglebutton.active = true) {
-                    _time = _time.add_hours (new_hour + 12);
-
-                    if (time.get_hour () <= 12) {
-                        _time = _time.add_hours (12);
+                    if (c.to_string ().contains ("a") || c.to_string ().contains ("p")) {
+                        is_suffix = true;
+                        current = "%s%c".printf (current, c);
                     }
                 }
-            } else {
-                _time = _time.add_hours (new_hour);
+
+                if (c.to_string ().contains ("m") && is_suffix) {
+                    if (hour == null) {
+                        return;
+                    } else if (minute == null) {
+                        minute = 0;
+                    }
+
+                    // We can imagine that some will try to set it to "19:00 am"
+                    if (current.contains ("a") || hour >= 12) {
+                        time = time.add_hours (hour - time.get_hour ());
+                    } else {
+                        time = time.add_hours (hour + 12 - time.get_hour ());
+                    }
+
+                    if (current.contains ("a") && hour == 12) {
+                        time = time.add_hours (-12);
+                    }
+
+                    time = time.add_minutes (minute - time.get_minute ());
+                    has_suffix = true;
+                }
             }
-        } else {
-            _time = time.add_minutes (minutes_spinbutton.get_value_as_int () - time.get_minute ());
+        }
+
+        if (is_hours == false && is_suffix == false && current != "") {
+            minute = int.parse (current);
+        }
+
+        if (hour == null) {
+            if (current.length < 3) {
+                hour = int.parse (current);
+                minute = 0;
+            } else if (current.length == 4) {
+                hour = int.parse (current.slice (0, 2));
+                minute = int.parse (current.slice (2, 4));
+                if (hour > 23 || minute > 59) {
+                    hour = null;
+                    minute = null;
+                }
+            }
+        }
+
+        if (hour == null || minute == null) {
+            update_text ();
+            return;
+        }
+
+        if (has_suffix == false) {
+            time = time.add_hours (hour - time.get_hour ());
+            time = time.add_minutes (minute - time.get_minute ());
         }
 
         update_text ();
@@ -309,12 +266,12 @@ public class Widgets.DateTimePicker.TimePicker : Gtk.Grid {
 
     private void update_text (bool no_signal = false) {
         if (Util.get_default ().is_clock_format_12h ()) {
-            time_button.label = time.format (format_12);
+            time_entry.set_text (time.format (format_12));
         } else {
-            time_button.label = time.format (format_24);
+            time_entry.set_text (time.format (format_24));
         }
 
-        old_string = time_button.label;
+        old_string = time_entry.text;
 
         if (no_signal == false) {
             time_changed ();

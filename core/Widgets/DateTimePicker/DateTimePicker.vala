@@ -112,17 +112,14 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         calendar_grid.attach (calendar_view, 0, 0);
         calendar_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        var time_icon = new Widgets.DynamicIcon () {
-            margin_start = 3
+        var time_icon = new Widgets.DynamicIcon.from_icon_name ("planner-clock") {
+            margin_start = 9
         };
-
-        time_icon.size = 21;
-        time_icon.update_icon_name ("planner-clock");
 
         var time_label = new Gtk.Label (_("Time")) {
-            margin_start = 6
+            margin_start = 6,
+            css_classes = { "font-weight-500" }
         };
-        time_label.add_css_class ("font-weight-500");
 
         time_picker = new Widgets.DateTimePicker.TimePicker () {
             hexpand = true,
@@ -131,19 +128,19 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            margin_top = 6
+            margin_top = 6,
+            css_classes = { "card" }
         };
 
         time_box.append (time_icon);
         time_box.append (time_label);
         time_box.append (time_picker);
-        time_box.add_css_class (Granite.STYLE_CLASS_CARD);
 
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
             margin_top = 12,
-            margin_bottom = 3
+            margin_bottom = 3,
+            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
