@@ -71,8 +71,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             resizable: true,
             modal: true,
             title: _("Move"),
-            width_request: 400,
-            height_request: 600,
+            width_request: 375,
+            height_request: 500,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }

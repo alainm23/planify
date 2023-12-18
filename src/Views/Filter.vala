@@ -145,7 +145,8 @@ public class Views.Filter : Adw.Bin {
 
         var dialog = new Dialogs.QuickAdd ();
         dialog.set_project (inbox_project);
-
+        dialog.update_content (content);
+        
         if (filter is Objects.Priority) {
             Objects.Priority priority = ((Objects.Priority) filter);
             dialog.set_priority (priority.priority);

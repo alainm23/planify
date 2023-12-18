@@ -394,6 +394,7 @@ public class Views.Today : Adw.Bin {
         );
 
         var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
         dialog.set_project (inbox_project);
         dialog.set_due (Util.get_default ().get_format_date (date));
         dialog.show ();

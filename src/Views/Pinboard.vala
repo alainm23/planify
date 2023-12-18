@@ -136,6 +136,7 @@ public class Views.Pinboard : Adw.Bin {
         );
 
         var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
         dialog.set_project (inbox_project);
         dialog.set_pinned (true);
         dialog.show ();

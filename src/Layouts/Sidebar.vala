@@ -112,7 +112,9 @@ public class Layouts.Sidebar : Adw.Bin {
             vexpand = true,
             valign = END,
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            margin_top = 9,
+            margin_bottom = 3
         };
 
         whats_new_box.append (whats_new_icon);

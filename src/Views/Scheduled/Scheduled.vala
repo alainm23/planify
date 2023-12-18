@@ -129,6 +129,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         );
 
         var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
         dialog.set_project (inbox_project);
         dialog.set_due (Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1)));
         dialog.show ();
