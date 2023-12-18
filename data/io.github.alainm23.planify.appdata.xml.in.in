@@ -54,6 +54,26 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.3" date="2023-12-18">
+      <description>
+        <p>Planify 4.3 is here, design improvements and new features available.</p>
+        <p>What’s New</p>
+        <ul>
+          <li>Quick Add Improvements: Now supports project selection, due date, priority, labels and pinned.</li>
+          <li>Sidebar filter settings: It is now possible to re-order, hide filters and the task cutter.</li>
+          <li>Backup support: It is now possible to create a backup copy and import it from somewhere else. Planify will import all your tasks and settings.</li>
+          <li>Offline support for Todoist: You were without internet, keep using Planify with Todoist, the tasks will be saved locally and synchronized when the connection returns.</li>
+        </ul>
+        <p>Bug Fixed and Translations</p>
+        <ul>
+          <li>Russian translations thanks to @hachikoharuno.</li>
+          <li>Fix typos in welcome project #1079 thanks to @Jaques22.</li>
+          <li>Fixed error when displaying color in calendar events.</li>
+          <li>Bugs fixed #1076, #1073.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.2.1" date="2023-12-11">
       <description>
         <ul>

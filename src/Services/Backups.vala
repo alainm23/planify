@@ -105,7 +105,7 @@ public class Services.Backups : Object {
         builder.begin_object ();
 
         builder.set_member_name ("version");
-        builder.add_string_value (Constants.UPLOAD_VERSION);
+        builder.add_string_value (Constants.BACKUP_VERSION);
 
         builder.set_member_name ("date");
         builder.add_string_value (new GLib.DateTime.now_local ().to_string ());

@@ -31,7 +31,8 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
             separator_lines = true,
             listbox_no_margin = true,
             box_shadow = true,
-			reveal = true
+			reveal = true,
+            margin_top = 12
 		};
 
 		var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "planner-inbox");
@@ -62,9 +63,15 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         };
 		count_group.add (show_count_row);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (count_group);
         content_box.append (views_group);
+        content_box.append (new Gtk.Label (_("You can sort your views by dragging and dropping")) {
+            css_classes = { "small-label", "dim-label" },
+            halign = START,
+            margin_start = 12,
+            margin_top = 3
+        });
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,

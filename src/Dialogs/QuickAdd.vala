@@ -38,10 +38,6 @@ public class Dialogs.QuickAdd : Adw.Window {
         set_content (quick_add_widget);
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
-        quick_add_widget.send_interface_id.connect ((id) => {
-            var item = Services.Database.get_default ().get_item_by_id (id);
-			Services.Database.get_default ().add_item (item);
-        });
     }
 
     public void hide_destroy () {

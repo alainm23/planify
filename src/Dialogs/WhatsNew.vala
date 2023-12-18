@@ -68,10 +68,9 @@ public class Dialogs.WhatsNew : Adw.Window {
 			right_margin = 12,
 			top_margin = 12,
 			bottom_margin = 12,
-			editable = false
+			editable = false,
+			css_classes = { "card", "small-label" }
 		};
-		textview.add_css_class ("card");
-		textview.add_css_class ("small-label");
 		textview.remove_css_class ("view");
 		group.add (textview);
 
@@ -105,9 +104,10 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 		content = toolbar_view;
 
-		add_feature (_("Todoist"), _("Synchronize with your Todoist Account"));
-		add_feature (_("Todoist"), _("Synchronize with your Todoist Account"));
-		add_description ("");
+		add_feature (_("Quick Add Improvements"), _("Now supports project selection, due date, priority, labels and pinned."));
+		add_feature (_("Sidebar filter settings"), _("It is now possible to re-order, hide filters and the task cutter."));
+		add_feature (_("Backup support"), _("It is now possible to create a backup copy and import it from somewhere else. Planify will import all your tasks and settings."));
+		add_feature (_("Offline support for Todoist"), _("You were without internet, keep using Planify with Todoist, the tasks will be saved locally and synchronized when the connection returns."));
 	}
 
 	public void add_feature (string title, string description) {
