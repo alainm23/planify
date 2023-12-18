@@ -124,10 +124,4 @@ public class Objects.Backup : Object {
 
         return true;
     }
-
-    private void print_root (Json.Node root) {
-		Json.Generator generator = new Json.Generator ();
-		generator.set_root (root);
-		debug (generator.to_data (null) + "\n");
-	}
 }

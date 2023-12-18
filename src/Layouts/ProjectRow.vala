@@ -346,9 +346,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
             
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
@@ -363,7 +360,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {
@@ -486,7 +483,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (response == "delete") {
                     if (project.backend_type == BackendType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-                            if (Services.Todoist.get_default ().delete.end (res)) {
+                            if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_project (project);
                             }
                         });

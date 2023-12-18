@@ -29,7 +29,6 @@ public class Services.ActionManager : Object {
     public const string ACTION_QUIT = "action_quit";
     public const string ACTION_PREFERENCES = "action_preferences";
     public const string ACTION_SHORTCUTS = "action_shortcuts";
-    public const string ACTION_QUICK_ADD = "action_quick_add";
     public const string ACTION_ADD_TASK = "action_add_task";
     public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
@@ -53,7 +52,6 @@ public class Services.ActionManager : Object {
         { ACTION_QUIT, action_quit },
         { ACTION_PREFERENCES, action_preferences },
         { ACTION_SHORTCUTS, action_shortcuts },
-        { ACTION_QUICK_ADD, action_quick_add },
         { ACTION_ADD_TASK, action_add_task },
         { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
@@ -92,7 +90,6 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>4");
         action_accelerators.set (ACTION_ESC, "Escape");
 
-        typing_accelerators.set (ACTION_QUICK_ADD, "q");
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
         typing_accelerators.set (ACTION_NEW_PROJECT, "p");
@@ -236,9 +233,5 @@ public class Services.ActionManager : Object {
     private void action_open_labels () {
         Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().open_labels ();
-    }
-
-    private void action_quick_add () {
-        window.open_quick_add ();
     }
 }

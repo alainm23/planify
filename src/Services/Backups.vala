@@ -105,7 +105,7 @@ public class Services.Backups : Object {
         builder.begin_object ();
 
         builder.set_member_name ("version");
-        builder.add_string_value (Build.VERSION);
+        builder.add_string_value (Constants.UPLOAD_VERSION);
 
         builder.set_member_name ("date");
         builder.add_string_value (new GLib.DateTime.now_local ().to_string ());
@@ -370,14 +370,19 @@ public class Services.Backups : Object {
         var path = path + "/" + file_name;
 
         var file = File.new_for_path (path);
-        var stream = file.create (FileCreateFlags.NONE, null);
-        stream.write (export_to_json ().data, null);
-        stream.close (null);
 
-        var file_path = File.new_for_path (path);
-        if (file_path.query_exists ()) {
-            var backup = new Objects.Backup.from_file (file_path);
-            backup_added (backup);
+        try {
+            var stream = file.create (FileCreateFlags.NONE, null);
+            stream.write (export_to_json ().data, null);
+            stream.close (null);
+    
+            var file_path = File.new_for_path (path);
+            if (file_path.query_exists ()) {
+                var backup = new Objects.Backup.from_file (file_path);
+                backup_added (backup);
+            }
+        } catch (Error e) {
+            debug ("Error: %s\n", e.message);
         }
     }
 
@@ -406,7 +411,7 @@ public class Services.Backups : Object {
         });
     }
 
-    public async GLib.File import_backup () {
+    public async GLib.File? import_backup () {
         var dialog = new Gtk.FileDialog ();
         add_filters (dialog);
 

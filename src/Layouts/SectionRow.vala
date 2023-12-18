@@ -573,7 +573,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
 
 		if (section.project.sort_order == 1) {
-			return item1.content.collate (item2.content);
+			return item1.content.strip ().collate (item2.content.strip ());
 		}
 
 		if (section.project.sort_order == 2) {
@@ -730,7 +730,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
-					if (Services.Todoist.get_default ().move_item.end (res)) {
+					if (Services.Todoist.get_default ().move_item.end (res).status) {
 						Services.Database.get_default ().update_item (picked_widget.item);
 					}
 				});
@@ -787,7 +787,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		if (section.project.backend_type == BackendType.TODOIST) {
 			// menu_loading_button.is_loading = true;
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
-				if (Services.Todoist.get_default ().move_project_section.end (res)) {
+				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
 					Services.Database.get_default ().move_section (section, old_section_id);
 					// menu_loading_button.is_loading = false;
 				} else {

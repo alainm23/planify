@@ -390,58 +390,58 @@ public class Services.Todoist : GLib.Object {
 	}
 
 	public async void queue () {
-		//  Gee.ArrayList<Objects.Queue?> queue = Services.Database.get_default ().get_all_queue ();
+		Gee.ArrayList<Objects.Queue?> queue = Services.Database.get_default ().get_all_queue ();
 
-		//  string url = "%s?commands=%s".printf (
-		//      TODOIST_SYNC_URL,
-		//      get_queue_json (queue)
-		//  );
+		string url = "%s?commands=%s".printf (
+		    TODOIST_SYNC_URL,
+		    get_queue_json (queue)
+		);
 
-		//  var message = new Soup.Message ("POST", url);
-		//  message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		var message = new Soup.Message ("POST", url);
+		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
 
-		//  try {
-		//      GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
-		//      parser.load_from_data ((string) stream.get_data ());
+		try {
+		    GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
+		    parser.load_from_data ((string) stream.get_data ());
 
-		//      // Debug
-		//      print_root (parser.get_root ());
+		    // Debug
+		    print_root (parser.get_root ());
 
-		//      var node = parser.get_root ().get_object ();
-		//      string sync_token = node.get_string_member ("sync_token");
-		//      Services.Settings.get_default ().settings.set_string ("todoist-sync-token", sync_token);
+		    var node = parser.get_root ().get_object ();
+		    string sync_token = node.get_string_member ("sync_token");
+		    Services.Settings.get_default ().settings.set_string ("todoist-sync-token", sync_token);
 
-		//      foreach (var q in queue) {
-		//          var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
-		//          if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-		//              if (q.query == "project_add") {
-		//                  var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-		//                  Services.Database.get_default ().update_project_id (q.object_id, id);
-		//                  Services.Database.get_default ().remove_CurTempIds (q.object_id);
-		//              }
+		    foreach (var q in queue) {
+		        var uuid_member = node.get_object_member ("sync_status").get_member (q.uuid);
+		        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+		            if (q.query == "project_add") {
+		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
+		                Services.Database.get_default ().update_project_id (q.object_id, id);
+		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
+		            }
 
-		//              if (q.query == "section_add") {
-		//                  var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-		//                  Services.Database.get_default ().update_section_id (q.object_id, id);
-		//                  Services.Database.get_default ().remove_CurTempIds (q.object_id);
-		//              }
+		            if (q.query == "section_add") {
+		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
+		                Services.Database.get_default ().update_section_id (q.object_id, id);
+		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
+		            }
 
-		//              if (q.query == "item_add") {
-		//                  var id = int64.parse (node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id));
-		//                  Services.Database.get_default ().update_item_id (q.object_id, id);
-		//                  Services.Database.get_default ().remove_CurTempIds (q.object_id);
-		//              }
+		            if (q.query == "item_add") {
+		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
+		                Services.Database.get_default ().update_item_id (q.object_id, id);
+		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
+		            }
 
-		//              Services.Database.get_default ().remove_queue (q.uuid);
-		//          } else {
-		//              //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
-		//              //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
-		//              //project_added_error (http_code, error_message);
-		//          }
-		//      }
-		//  } catch (Error e) {
+		            Services.Database.get_default ().remove_queue (q.uuid);
+		        } else {
+		            //var http_code = (int32) sync_status.get_object_member (uuid).get_int_member ("http_code");
+		            //var error_message = sync_status.get_object_member (uuid).get_string_member ("error");
+		            //project_added_error (http_code, error_message);
+		        }
+		    }
+		} catch (Error e) {
 
-		//  }
+		}
 	}
 
 	public string get_queue_json (Gee.ArrayList<Objects.Queue?> queue) {
@@ -482,7 +482,7 @@ public class Services.Todoist : GLib.Object {
 				builder.set_member_name ("args");
 				builder.begin_object ();
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.set_member_name ("name");
 				builder.add_string_value (get_string_member_by_object (q.args, "name"));
@@ -503,7 +503,7 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -527,7 +527,7 @@ public class Services.Todoist : GLib.Object {
 				if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
 					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
 				} else {
-					builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
+					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
 				}
 
 				builder.end_object ();
@@ -542,7 +542,7 @@ public class Services.Todoist : GLib.Object {
 				builder.set_member_name ("args");
 				builder.begin_object ();
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.set_member_name ("name");
 				builder.add_string_value (get_string_member_by_object (q.args, "name"));
@@ -560,7 +560,7 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -575,14 +575,10 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.set_member_name ("project_id");
-				if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
-					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-				} else {
-					builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
-				}
+				builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -609,31 +605,13 @@ public class Services.Todoist : GLib.Object {
 				builder.add_int_value (get_int_member_by_object (q.args, "priority"));
 
 				builder.set_member_name ("project_id");
-				if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
-					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-				} else {
-					builder.add_int_value (get_int_member_by_object (q.args, "project_id"));
-				}
+				builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
 
-				if (get_type_by_member (q.args, "section_id") == GLib.Type.STRING) {
-					builder.set_member_name ("section_id");
-					builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
-				} else {
-					if (get_int_member_by_object (q.args, "section_id") != 0) {
-						builder.set_member_name ("section_id");
-						builder.add_int_value (get_int_member_by_object (q.args, "section_id"));
-					}
-				}
+				builder.set_member_name ("section_id");
+				builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
 
-				if (get_type_by_member (q.args, "parent_id") == GLib.Type.STRING) {
-					builder.set_member_name ("parent_id");
-					builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
-				} else {
-					if (get_int_member_by_object (q.args, "parent_id") != 0) {
-						builder.set_member_name ("parent_id");
-						builder.add_int_value (get_int_member_by_object (q.args, "parent_id"));
-					}
-				}
+				builder.set_member_name ("parent_id");
+				builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -648,7 +626,7 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.set_member_name ("content");
 				builder.add_string_value (get_string_member_by_object (q.args, "content"));
@@ -688,7 +666,7 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -703,16 +681,12 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				string type = get_string_member_by_object (q.args, "type");
 
 				builder.set_member_name (type);
-				if (get_type_by_member (q.args, type) == GLib.Type.STRING) {
-					builder.add_string_value (get_string_member_by_object (q.args, type));
-				} else {
-					builder.add_int_value (get_int_member_by_object (q.args, type));
-				}
+				builder.add_string_value (get_string_member_by_object (q.args, type));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -727,7 +701,7 @@ public class Services.Todoist : GLib.Object {
 				builder.begin_object ();
 
 				builder.set_member_name ("id");
-				builder.add_int_value (get_int_member_by_object (q.args, "id"));
+				builder.add_string_value (get_string_member_by_object (q.args, "id"));
 
 				builder.end_object ();
 				builder.end_object ();
@@ -843,6 +817,8 @@ public class Services.Todoist : GLib.Object {
 					response.status = true;
 					response.data = id;
 				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
 					debug_error (
 						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
 						sync_status.get_object_member (uuid).get_string_member ("error")
@@ -851,11 +827,8 @@ public class Services.Todoist : GLib.Object {
 			}
 		} catch (Error e) {
 			if (is_todoist_error (message.status_code)) {
-				debug_error (
-					message.status_code,
-					get_todoist_error (message.status_code)
-				);
-			} else if ((int32) message.status_code == 0) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
@@ -863,17 +836,18 @@ public class Services.Todoist : GLib.Object {
 			} else {
 				id = Util.get_default ().generate_id (object);
 
-				object.id = id;
-
 				var queue = new Objects.Queue ();
 				queue.uuid = uuid;
 				queue.object_id = id;
 				queue.temp_id = temp_id;
 				queue.query = object.type_add;
 				queue.args = object.to_json ();
-
+		
 				Services.Database.get_default ().insert_queue (queue);
 				Services.Database.get_default ().insert_CurTempIds (object.id, temp_id, object.object_type_string);
+
+				response.status = true;
+				response.data = queue.object_id;
 			}
 		}
 
@@ -884,17 +858,21 @@ public class Services.Todoist : GLib.Object {
 		debug ("Code: %s - %s".printf (status_code.to_string (), message));
 	}
 
-	public async bool update (Objects.BaseObject object) {
+	public async TodoistResponse update (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
-		bool success = false;
 
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
 			object.get_update_json (uuid)
-			);
+		);
 
 		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+
+		TodoistResponse response = new TodoistResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -903,29 +881,37 @@ public class Services.Todoist : GLib.Object {
 			// Debug
 			print_root (parser.get_root ());
 
-			var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
-			var uuid_member = sync_status.get_member (uuid);
-
-			if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-				Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-				success = true;
-			} else {
-				debug_error (
-					(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-					sync_status.get_object_member (uuid).get_string_member ("error")
-				);
-			}
-		} catch (Error e) {
 			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
 				debug_error (
 					message.status_code,
 					get_todoist_error (message.status_code)
 				);
-			} else if ((int32) message.status_code == 0) {
+			} else {
+				var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+				var uuid_member = sync_status.get_member (uuid);
+	
+				if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+					Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+					response.status = true;
+				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
+					debug_error (
+						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+						sync_status.get_object_member (uuid).get_string_member ("error")
+					);
+				}
+			}
+		} catch (Error e) {
+			if (is_todoist_error (message.status_code)) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
-					);
+				);
 			} else {
 				var queue = new Objects.Queue ();
 				queue.uuid = uuid;
@@ -934,15 +920,15 @@ public class Services.Todoist : GLib.Object {
 				queue.args = object.to_json ();
 
 				Services.Database.get_default ().insert_queue (queue);
+				response.status = true;
 			}
 		}
 
-		return success;
+		return response;
 	}
 
-	public async bool delete (Objects.BaseObject object) {
+	public async TodoistResponse delete (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
-		bool success = false;
 
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
@@ -952,6 +938,8 @@ public class Services.Todoist : GLib.Object {
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
 
+		TodoistResponse response = new TodoistResponse ();
+
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 			parser.load_from_data ((string) stream.get_data ());
@@ -959,25 +947,33 @@ public class Services.Todoist : GLib.Object {
 			// Debug
 			print_root (parser.get_root ());
 
-			var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
-			var uuid_member = sync_status.get_member (uuid);
-
-			if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-				Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-				success = true;
-			} else {
-				debug_error (
-					(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-					sync_status.get_object_member (uuid).get_string_member ("error")
-				);
-			}
-		} catch (Error e) {
 			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
 				debug_error (
 					message.status_code,
 					get_todoist_error (message.status_code)
 				);
-			} else if ((int32) message.status_code == 0) {
+			} else {
+				var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+				var uuid_member = sync_status.get_member (uuid);
+	
+				if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+					Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+					response.status = true;
+				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
+					debug_error (
+						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+						sync_status.get_object_member (uuid).get_string_member ("error")
+					);
+				}
+			}
+		} catch (Error e) {
+			if (is_todoist_error (message.status_code)) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
@@ -990,10 +986,11 @@ public class Services.Todoist : GLib.Object {
 				queue.args = object.to_json ();
 
 				Services.Database.get_default ().insert_queue (queue);
+				response.status = true;
 			}
 		}
 
-		return success;
+		return response;
 	}
 	/*
 	    Sections
@@ -1011,17 +1008,21 @@ public class Services.Todoist : GLib.Object {
 	    Items
 	 */
 
-	public async bool complete_item (Objects.Item item) {
+	public async TodoistResponse complete_item (Objects.Item item) {
 		string uuid = Util.get_default ().generate_string ();
-		bool success = false;
 
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
 			item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete")
-			);
+		);
 
 		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+
+		TodoistResponse response = new TodoistResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1029,26 +1030,34 @@ public class Services.Todoist : GLib.Object {
 
 			// Debug
 			print_root (parser.get_root ());
-
-			var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
-			var uuid_member = sync_status.get_member (uuid);
-
-			if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-				Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
-				success = true;
-			} else {
-				debug_error (
-					(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-					sync_status.get_object_member (uuid).get_string_member ("error")
-				);
-			}
-		} catch (Error e) {
+			
 			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
 				debug_error (
 					message.status_code,
 					get_todoist_error (message.status_code)
 				);
-			} else if ((int32) message.status_code == 0) {
+			} else {
+				var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+				var uuid_member = sync_status.get_member (uuid);
+	
+				if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+					Services.Settings.get_default ().settings.set_string ("todoist-sync-token", parser.get_root ().get_object ().get_string_member ("sync_token"));
+					response.status = true;
+				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
+					debug_error (
+						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+						sync_status.get_object_member (uuid).get_string_member ("error")
+					);
+				}
+			}
+		} catch (Error e) {
+			if (is_todoist_error (message.status_code)) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
@@ -1059,13 +1068,13 @@ public class Services.Todoist : GLib.Object {
 				queue.object_id = item.id;
 				queue.query = item.checked ? "item_complete" : "item_uncomplete";
 				queue.args = item.to_json ();
-				success = true;
 
 				Services.Database.get_default ().insert_queue (queue);
+				response.status = true;
 			}
 		}
 
-		return success;
+		return response;
 	}
 
 	private void print_root (Json.Node root) {
@@ -1104,9 +1113,8 @@ public class Services.Todoist : GLib.Object {
 		return generator.to_data (null);
 	}
 
-	public async bool move_item (Objects.Item item, string type, string id) {
+	public async TodoistResponse move_item (Objects.Item item, string type, string id) {
 		string uuid = Util.get_default ().generate_string ();
-		bool success = false;
 
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
@@ -1114,7 +1122,12 @@ public class Services.Todoist : GLib.Object {
 			);
 
 		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+
+		TodoistResponse response = new TodoistResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1122,28 +1135,36 @@ public class Services.Todoist : GLib.Object {
 
 			print_root (parser.get_root ());
 
-			var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
-			var uuid_member = sync_status.get_member (uuid);
-
-			if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-				Services.Settings.get_default ().settings.set_string (
-					"todoist-sync-token",
-					parser.get_root ().get_object ().get_string_member ("sync_token")
-					);
-				success = true;
-			} else {
-				debug_error (
-					(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-					sync_status.get_object_member (uuid).get_string_member ("error")
-				);
-			}
-		} catch (Error e) {
 			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
 				debug_error (
 					message.status_code,
 					get_todoist_error (message.status_code)
 				);
-			} else if ((int32) message.status_code == 0) {
+			} else {
+				var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+				var uuid_member = sync_status.get_member (uuid);
+	
+				if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+					Services.Settings.get_default ().settings.set_string (
+						"todoist-sync-token",
+						parser.get_root ().get_object ().get_string_member ("sync_token")
+					);
+					response.status = true;
+				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
+					debug_error (
+						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+						sync_status.get_object_member (uuid).get_string_member ("error")
+					);
+				}
+			}
+		} catch (Error e) {
+			if (is_todoist_error (message.status_code)) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
@@ -1154,18 +1175,17 @@ public class Services.Todoist : GLib.Object {
 				queue.object_id = item.id;
 				queue.query = "item_move";
 				queue.args = item.to_move_json (type, id);
-				success = true;
 
 				Services.Database.get_default ().insert_queue (queue);
+				response.status = true;
 			}
 		}
 
-		return success;
+		return response;
 	}
 
-	public async bool move_project_section (Objects.BaseObject base_object, string project_id) {
+	public async TodoistResponse move_project_section (Objects.BaseObject base_object, string project_id) {
 		string uuid = Util.get_default ().generate_string ();
-		bool success = false;
 
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
@@ -1173,7 +1193,12 @@ public class Services.Todoist : GLib.Object {
 			);
 
 		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+
+		TodoistResponse response = new TodoistResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1181,28 +1206,36 @@ public class Services.Todoist : GLib.Object {
 
 			print_root (parser.get_root ());
 
-			var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
-			var uuid_member = sync_status.get_member (uuid);
-
-			if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
-				Services.Settings.get_default ().settings.set_string (
-					"todoist-sync-token",
-					parser.get_root ().get_object ().get_string_member ("sync_token")
-					);
-				success = true;
-			} else {
-				debug_error (
-					(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
-					sync_status.get_object_member (uuid).get_string_member ("error")
-				);
-			}
-		} catch (Error e) {
 			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
 				debug_error (
 					message.status_code,
 					get_todoist_error (message.status_code)
 				);
-			} else if ((int32) message.status_code == 0) {
+			} else {
+				var sync_status = parser.get_root ().get_object ().get_object_member ("sync_status");
+				var uuid_member = sync_status.get_member (uuid);
+	
+				if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
+					Services.Settings.get_default ().settings.set_string (
+						"todoist-sync-token",
+						parser.get_root ().get_object ().get_string_member ("sync_token")
+						);
+					response.status = true;
+				} else {
+					response.error = sync_status.get_object_member (uuid).get_string_member ("error");
+
+					debug_error (
+						(uint) sync_status.get_object_member (uuid).get_int_member ("http_code"),
+						sync_status.get_object_member (uuid).get_string_member ("error")
+					);
+				}
+			}
+		} catch (Error e) {
+			if (is_todoist_error (message.status_code)) {
+				response.error = e.message;
+
 				debug_error (
 					message.status_code,
 					e.message
@@ -1218,13 +1251,13 @@ public class Services.Todoist : GLib.Object {
 				}
 
 				queue.args = base_object.to_json ();
-				success = true;
+				response.status = true;
 
 				Services.Database.get_default ().insert_queue (queue);
 			}
 		}
 
-		return success;
+		return response;
 	}
 
 	public bool is_todoist_error (uint status_code) {

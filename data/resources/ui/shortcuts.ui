@@ -41,18 +41,6 @@
         </child>
 
         <child>
-          <object class="GtkShortcutsGroup" id="quick-add">
-            <property name="title" translatable="yes" context="shortcut window">Quick Add</property>
-            <child>
-              <object class="GtkShortcutsShortcut" id="quick-find-item">
-                <property name="accelerator">q</property>
-                <property name="title" translatable="yes" context="shortcut window">Add task</property>
-              </object>
-            </child>
-          </object>
-        </child>
-
-        <child>
           <object class="GtkShortcutsGroup" id="search">
             <property name="title" translatable="yes" context="shortcut window">Search</property>
             <child>

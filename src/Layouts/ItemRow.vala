@@ -1354,7 +1354,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     checked_button.sensitive = false;
                     is_loading = true;
                     Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res)) {
+                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
                             Services.Database.get_default ().checked_toggled (item, old_checked);
                             is_loading = false;
                             checked_button.sensitive = true;
@@ -1399,7 +1399,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     checked_button.sensitive = false;
                     is_loading = true;
                     Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res)) {
+                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
                             Services.Database.get_default ().checked_toggled (item, old_checked);
                             is_loading = false;
                             checked_button.sensitive = true;
@@ -1501,7 +1501,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().update.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().update.end (res)) {
+                if (Services.Todoist.get_default ().update.end (res).status) {
                     Services.Database.get_default ().update_item (item);
                     is_loading = false;
                     checked_button.sensitive = true;
@@ -1554,7 +1554,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 				if (response == "delete") {
 					if (item.project.backend_type == BackendType.TODOIST) {
 						Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-							if (Services.Todoist.get_default ().delete.end (res)) {
+							if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_item (item);
                             }
 						});
@@ -1589,7 +1589,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             if (item.project.backend_type == BackendType.TODOIST) {
                 is_loading = true;
                 Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-                    if (Services.Todoist.get_default ().delete.end (res)) {
+                    if (Services.Todoist.get_default ().delete.end (res).status) {
                         Services.Database.get_default ().delete_item (item);
                     } else {
                         is_loading = false;
@@ -1630,7 +1630,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                         }
 
                         Services.Todoist.get_default ().move_item.begin (item, move_type, move_id, (obj, res) => {
-                            if (Services.Todoist.get_default ().move_item.end (res)) {
+                            if (Services.Todoist.get_default ().move_item.end (res).status) {
                                 move_item (project_id, section_id);
                                 is_loading = false;
                             } else {
@@ -1725,9 +1725,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             var target_widget = this;
             var old_section_id = "";
 
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
@@ -1768,7 +1765,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     }
                     
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
-                        if (Services.Todoist.get_default ().move_item.end (res)) {
+                        if (Services.Todoist.get_default ().move_item.end (res).status) {
                             Services.Database.get_default ().update_item (picked_widget.item);
                         }
                     });
@@ -1784,7 +1781,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {

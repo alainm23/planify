@@ -1959,7 +1959,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void remove_CurTempIds (int64 id) { // vala-lint=naming-convention
+    public void remove_CurTempIds (string id) { // vala-lint=naming-convention
         Sqlite.Statement stmt;
 
         sql = """
@@ -1967,7 +1967,7 @@ public class Services.Database : GLib.Object {
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_int64 (stmt, "$id", id);
+        set_parameter_str (stmt, "$id", id);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -2037,10 +2037,11 @@ public class Services.Database : GLib.Object {
         stmt.bind_int (par_position, val);
     }
 
-    private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
-        int par_position = stmt.bind_parameter_index (par);
-        stmt.bind_int64 (par_position, val);
-    }
+    //  private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
+    //      int par_position = stmt.bind_parameter_index (par);
+    //      stmt.bind_int64 (par_position, val);
+    //  }
+
     private void set_parameter_str (Sqlite.Statement? stmt, string par, string val) {
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_text (par_position, val);

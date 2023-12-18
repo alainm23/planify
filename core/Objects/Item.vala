@@ -690,7 +690,7 @@ public class Objects.Item : Objects.BaseObject {
             }
         }
 
-        if (section_id != "") {
+        if (parent_id != "") {
             builder.set_member_name ("parent_id");
             if (Services.Database.get_default ().curTempIds_exists (parent_id)) {
                 builder.add_string_value (Services.Database.get_default ().get_temp_id (parent_id));
@@ -725,12 +725,14 @@ public class Objects.Item : Objects.BaseObject {
             builder.add_null_value ();
         }
 
-        //  builder.set_member_name ("labels");
-        //      builder.begin_array ();
-        //      foreach (Objects.ItemLabel item_label in labels.values) {
-        //          builder.add_string_value (item_label.label.name);
-        //      }
-        //      builder.end_array ();
+        builder.set_member_name ("labels");
+        builder.begin_array ();
+        foreach (Objects.ItemLabel item_label in labels.values) {
+            if (item_label.label.backend_type == BackendType.TODOIST) {
+                builder.add_string_value (item_label.label.name);
+            }
+        }
+        builder.end_array ();
         builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
@@ -830,7 +832,7 @@ public class Objects.Item : Objects.BaseObject {
     public void delete_item () {
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                if (Services.Todoist.get_default ().delete.end (res)) {
+                if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                 }
             });

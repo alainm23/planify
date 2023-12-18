@@ -381,45 +381,22 @@ public class MainWindow : Adw.ApplicationWindow {
 				today_view.prepare_new_item (content);
 			}
 		} else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
-			//  Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
-			//  if (scheduled_view != null) {
-			//      scheduled_view.prepare_new_item (content);
-			//  }
-		} else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
-			//  Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
-			//  if (pinboard_view != null) {
-			//      pinboard_view.prepare_new_item (content);
-			//  }
-		}
-	}
-
-
-	public void open_quick_add () {
-		var dialog = new Dialogs.QuickAdd ();
-
-		if (views_stack.visible_child_name.has_prefix ("project")) {
-			Views.Project? project_view = (Views.Project) views_stack.visible_child;
-			if (project_view != null) {
-				dialog.set_project (project_view.project);
+			Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
+			if (scheduled_view != null) {
+			    scheduled_view.prepare_new_item (content);
 			}
-		} else if (views_stack.visible_child_name.has_prefix ("today-view")) {
-			dialog.set_due (Util.get_default ().get_today_format_date ()) ;
-		} else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
-			dialog.set_due (Util.get_default ().get_today_format_date ().add_days (1)) ;
 		} else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
-			dialog.set_pinned (true);
+			Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
+			if (pinboard_view != null) {
+			    pinboard_view.prepare_new_item (content);
+			}
 		} else if (views_stack.visible_child_name.has_prefix ("priority-view")) {
-			Views.Filter? filter_view;
-			filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
+			Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
 			if (filter_view != null) {
-				var priority = (Objects.Priority) filter_view.filter;
-				dialog.set_priority (priority.priority);
+				filter_view.prepare_new_item (content);
 			}
 		}
-
-        dialog.show ();
 	}
-
 
 	public void new_section_action () {
 		if (!views_stack.visible_child_name.has_prefix ("project")) {

@@ -176,8 +176,6 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 	}
 
     private void updateView (Array<string> views, string view, bool active) {
-        Array<string> array = new Array<string> ();
-
         if (active) {
             if (!find_view (views.data, view)) {
                 views.append_val (view);
@@ -236,9 +234,6 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             var picked_widget = (Widgets.SidebarRow) value;
             var target_widget = this;
 
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
@@ -253,7 +248,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {

@@ -300,6 +300,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         }  
     }
 
+    public void update_content (string content = "") {
+        content_entry.set_text (content);
+    }
+
     public void set_project (Objects.Project project) {
         project_picker_button.project = project;
         item.project_id = project.id;

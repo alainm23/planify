@@ -166,8 +166,20 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	private Adw.NavigationPage get_general_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("General"));
 
+		var home_page_model = new Gtk.StringList (null);
+		home_page_model.append (_("Inbox"));
+		home_page_model.append (_("Today"));
+		home_page_model.append (_("Scheduled"));
+		home_page_model.append (_("Labels"));
+		
+		var home_page_row = new Adw.ComboRow ();
+		home_page_row.title = _("Home Page");
+		home_page_row.model = home_page_model;
+		home_page_row.selected = Services.Settings.get_default ().settings.get_enum ("homepage-item");
+
 		var general_group = new Adw.PreferencesGroup ();
-		general_group.title = _("Sort Settings");
+		general_group.title = _("General");
+		general_group.add (home_page_row);
 
 		var sort_projects_model = new Gtk.StringList (null);
 		sort_projects_model.append (_("Alphabetically"));
@@ -178,8 +190,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		sort_projects_row.model = sort_projects_model;
 		sort_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
 
-		general_group.add (sort_projects_row);
-
 		var sort_order_projects_model = new Gtk.StringList (null);
 		sort_order_projects_model.append (_("Ascending"));
 		sort_order_projects_model.append (_("Descending"));
@@ -189,7 +199,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		sort_order_projects_row.model = sort_order_projects_model;
 		sort_order_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
 
-		general_group.add (sort_order_projects_row);
+		var sort_setting_group = new Adw.PreferencesGroup ();
+		sort_setting_group.title = _("Sort Settings");
+		sort_setting_group.add (sort_order_projects_row);
+		sort_setting_group.add (sort_projects_row);
 
 		var de_group = new Adw.PreferencesGroup ();
 		de_group.title = _("DE Integration");
@@ -316,6 +329,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
+		content_box.append (sort_setting_group);
 		content_box.append (de_group);
 		content_box.append (datetime_group);
 		content_box.append (tasks_group);
@@ -341,6 +355,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		toolbar_view.content = scrolled_window;
 
 		var page = new Adw.NavigationPage (toolbar_view, "general");
+
+		home_page_row.notify["selected"].connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("homepage-item", (int) home_page_row.selected);
+		});
 
 		sort_projects_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
@@ -399,122 +417,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		sidebar_page.pop_subpage.connect (() => {
 			pop_subpage ();
-		});
-
-		return page;
-	}
-
-	private Adw.NavigationPage get_homepage_page () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Homepage"));
-
-		var description_label = new Gtk.Label (
-            _("When you open up Planify, make sure you see the to-dos that are most important. The default homepage is your <b>Inbox</b> view, but you can change it to whatever you'd like.") // vala-lint=line-length
-        ) {
-			justify = Gtk.Justification.FILL,
-			use_markup = true,
-			wrap = true,
-			xalign = 0,
-			margin_top = 12,
-			margin_end = 6,
-			margin_start = 6
-		};
-
-		var inbox_checkbutton = new Gtk.CheckButton () {
-			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 0
-		};
-		var inbox_row = new Adw.ActionRow ();
-
-		inbox_row.title = _("Inbox");
-		inbox_row.add_prefix (generate_icon ("planner-inbox", 19));
-		inbox_row.add_suffix (inbox_checkbutton);
-		inbox_row.set_activatable_widget (inbox_checkbutton);
-
-		var today_checkbutton = new Gtk.CheckButton () {
-			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 1
-		};
-		today_checkbutton.group = inbox_checkbutton;
-
-		var today_row = new Adw.ActionRow ();
-		today_row.title = _("Today");
-		today_row.add_prefix (generate_icon ("planner-today", 19));
-		today_row.add_suffix (today_checkbutton);
-		today_row.set_activatable_widget (today_checkbutton);
-
-		var scheduled_checkbutton = new Gtk.CheckButton () {
-			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 2
-		};
-		scheduled_checkbutton.group = inbox_checkbutton;
-
-		var scheduled_row = new Adw.ActionRow ();
-		scheduled_row.title = _("Scheduled");
-		scheduled_row.add_prefix (generate_icon ("planner-scheduled", 19));
-		scheduled_row.add_suffix (scheduled_checkbutton);
-		scheduled_row.set_activatable_widget (scheduled_checkbutton);
-
-		var labels_checkbutton = new Gtk.CheckButton () {
-			active = Services.Settings.get_default ().settings.get_enum ("homepage-item") == 3
-		};
-		labels_checkbutton.group = inbox_checkbutton;
-
-		var labels_row = new Adw.ActionRow ();
-		labels_row.title = _("Labels");
-		labels_row.add_prefix (generate_icon ("planner-tag-icon", 19));
-		labels_row.add_suffix (labels_checkbutton);
-		labels_row.set_activatable_widget (labels_checkbutton);
-
-		var group = new Adw.PreferencesGroup () {
-			margin_top = 12
-		};
-
-		group.add (inbox_row);
-		group.add (today_row);
-		group.add (scheduled_row);
-		group.add (labels_row);
-
-		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		content_box.append (description_label);
-		content_box.append (group);
-
-		var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 24,
-			margin_end = 24,
-			margin_bottom = 24
-		};
-
-		content_clamp.child = content_box;
-
-		var scrolled_window = new Gtk.ScrolledWindow () {
-			hscrollbar_policy = Gtk.PolicyType.NEVER,
-			hexpand = true,
-			vexpand = true
-		};
-		scrolled_window.child = content_clamp;
-
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (settings_header);
-		toolbar_view.content = scrolled_window;
-
-		var page = new Adw.NavigationPage (toolbar_view, "homepage");
-
-		settings_header.back_activated.connect (() => {
-			pop_subpage ();
-		});
-
-		inbox_checkbutton.toggled.connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("homepage-item", 0);
-		});
-
-		today_checkbutton.toggled.connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("homepage-item", 1);
-		});
-
-		scheduled_checkbutton.toggled.connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("homepage-item", 2);
-		});
-
-		labels_checkbutton.toggled.connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("homepage-item", 3);
 		});
 
 		return page;

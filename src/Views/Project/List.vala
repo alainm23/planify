@@ -252,12 +252,10 @@ public class Views.List : Gtk.Grid {
     }
 
     public void prepare_new_item (string content = "") {
-        listbox_placeholder_stack.visible_child_name = "listbox";
-        inbox_section.prepare_new_item (content);
-        Timeout.add (225, () => {
-            scrolled_window.vadjustment.value = 0;
-            return GLib.Source.REMOVE;
-        });
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.set_project (project);
+        dialog.update_content (content);
+        dialog.show ();
     }
 
     public bool validate_children () {

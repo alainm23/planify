@@ -53,6 +53,10 @@ public class Dialogs.QuickAdd : Adw.Window {
         });
     }
 
+    public void update_content (string content = "") {
+        quick_add_widget.update_content (content);
+    }
+
     public void set_project (Objects.Project project) {
         quick_add_widget.set_project (project);
     }

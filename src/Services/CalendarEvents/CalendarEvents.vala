@@ -238,12 +238,6 @@
         debug (@"Component ['$(comp.get_summary())', $(source.dup_display_name()), $(comp.get_uid()))]");
     }
 
-    /* --- Signal Handlers ---// */
-    private void on_parameter_changed () {
-        compute_ranges ();
-        load_all_sources ();
-    }
-
     private ECal.ClientView on_client_view_received (AsyncResult results, E.Source source, ECal.Client client) {
         ECal.ClientView view;
         try {

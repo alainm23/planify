@@ -553,7 +553,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         if (section.project.backend_type == BackendType.TODOIST) {
             // menu_loading_button.is_loading = true;
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
-                if (Services.Todoist.get_default ().move_project_section.end (res)) {
+                if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                     Services.Database.get_default ().move_section (section, old_section_id);
                     // menu_loading_button.is_loading = false;
                 } else {
