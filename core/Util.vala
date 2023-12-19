@@ -1035,7 +1035,7 @@ public class Util : GLib.Object {
             item_04.id = Util.get_default ().generate_id (item_04);
             item_04.project_id = project.id;
             item_04.content = _("Reorder yours to-dos");
-            item_04.description = _("To reorder your list, tap amd hold a to-do, then drag it to where it shpuld go.");
+            item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
 
             var item_05 = new Objects.Item ();
             item_05.id = Util.get_default ().generate_id (item_05);
