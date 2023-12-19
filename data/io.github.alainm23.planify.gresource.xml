@@ -47,6 +47,7 @@
     <file alias="light-bulb.svg">resources/icons/settings/light-bulb.svg</file>
     <file alias="archive-plus.svg">resources/icons/settings/archive-plus.svg</file>
     <file alias="sidebar.svg">resources/icons/settings/sidebar.svg</file>
+    <file alias="telegram.svg">resources/icons/settings/telegram.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/icons/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/icons/planner-calendar-dark.svg</file>
@@ -80,8 +81,8 @@
     <file alias="sidebar-left-light.svg">resources/icons/sidebar-left-light.svg</file>
     <file alias="sidebar-right-dark.svg">resources/icons/sidebar-right-dark.svg</file>
     <file alias="sidebar-right-light.svg">resources/icons/sidebar-right-light.svg</file>
-    <file alias="planner-mail-light.svg">resources/icons/planner-mail-light.svg</file>
-    <file alias="planner-mail-dark.svg">resources/icons/planner-mail-dark.svg</file>
+    <file alias="mail-light.svg">resources/icons/mail-light.svg</file>
+    <file alias="mail-dark.svg">resources/icons/mail-dark.svg</file>
     <file alias="planner-note-light.svg">resources/icons/planner-note-light.svg</file>
     <file alias="planner-note-dark.svg">resources/icons/planner-note-dark.svg</file>
     <file alias="planner-settings-sliders-dark.svg">resources/icons/planner-settings-sliders-dark.svg</file>

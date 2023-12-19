@@ -12,4 +12,7 @@ namespace Constants {
     public const int PRIORITY_2 = 3;
     public const int PRIORITY_3 = 2;
     public const int PRIORITY_4 = 1;
+    public const string TWITTER_URL = "https://twitter.com/useplanify";
+    public const string CONTACT_US = "alainmh23@gmail.com";
+    public const string TELEGRAM_GROUP = "https://t.me/+cArNTCbdT3xmOTcx";
 }
