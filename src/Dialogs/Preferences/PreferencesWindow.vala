@@ -161,9 +161,25 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
         });
 
+		//  var review_app_row = new Adw.ActionRow ();
+		//  review_app_row.activatable = true;
+		//  review_app_row.add_prefix (generate_icon ("planner-heart"));
+		//  review_app_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		//  review_app_row.title = _("Review the app");
+		//  review_app_row.subtitle = _("Tell us what  we are doing correct or wrong.");
+
+		//  review_app_row.activated.connect (() => {
+        //      try {
+        //          AppInfo.launch_default_for_uri (Constants.TELEGRAM_GROUP, null);
+        //      } catch (Error e) {
+        //          warning ("%s\n", e.message);
+        //      }
+        //  });
+
 		reach_us_group.add (contact_us_row);
 		reach_us_group.add (tweet_us_row);
 		reach_us_group.add (telegram_row);
+		// reach_us_group.add (review_app_row);
 		page.add (reach_us_group);
 
 		// Support Group
