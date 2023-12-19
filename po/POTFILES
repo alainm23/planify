@@ -20,6 +20,7 @@ core/Widgets/PinButton.vala
 core/Widgets/PriorityButton.vala
 core/Widgets/ItemLabels.vala
 core/Widgets/ItemLabelChild.vala
+core/Widgets/CircularProgressBar.vala
 
 core/Widgets/Calendar/Calendar.vala
 core/Widgets/Calendar/CalendarDay.vala
@@ -89,7 +90,6 @@ src/Layouts/ItemBoard.vala
 src/Layouts/HeaderBar.vala
 
 src/Widgets/ColorPickerRow.vala
-src/Widgets/CircularProgressBar.vala
 src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/Placeholder.vala
