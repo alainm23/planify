@@ -7,7 +7,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     public signal void selected (Objects.Project project);
 
     construct {
-        icon_project = new Widgets.IconColorProject (19);
+        icon_project = new Widgets.IconColorProject (10);
 
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;

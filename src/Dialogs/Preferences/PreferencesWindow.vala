@@ -1058,9 +1058,20 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         webview.load_failed.connect ((load_event, failing_uri, _error) => {
             var error = (GLib.Error)_error;
             warning ("Loading uri '%s' failed, error : %s", failing_uri, error.message);
+
             if (GLib.strcmp (failing_uri, oauth_open_url) == 0) {
                 settings_header.title = _("Network Is Not Available");
-                stack.visible_child_name = "error_view";
+				
+				var toast = new Adw.Toast (_("Network Is Not Available"));
+				toast.button_label = _("Ok");
+				toast.timeout = 0;
+
+				toast.button_clicked.connect (() => {
+					switch_widget.active = false;
+					pop_subpage ();
+				});
+
+				add_toast (toast);
             }
 
             return true;

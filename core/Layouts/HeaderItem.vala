@@ -31,6 +31,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         set {
             _header_title = value;
             name_label.label = _header_title;
+            name_label.visible = value != null;
         }
     }
     

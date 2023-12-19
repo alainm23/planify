@@ -3,7 +3,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
     public ProjectPickerPopover () {
         Object (
-            height_request: 275,
+            height_request: 300,
+            width_request: 275,
             has_arrow: false,
             position: Gtk.PositionType.BOTTOM
         );
@@ -13,10 +14,13 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var search_entry = new Gtk.SearchEntry () {
             margin_top = 9,
             margin_start = 9,
-            margin_end = 9
+            margin_end = 9,
+            margin_bottom = 9
         };
             
-        var inbox_group = new Layouts.HeaderItem (null);
+        var inbox_group = new Layouts.HeaderItem (null) {
+            reveal_child = true
+        };
 
         var local_group = new Layouts.HeaderItem (_("On this Computer")) {
             reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.LOCAL).size > 0
@@ -42,9 +46,9 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
             hexpand = true,
             vexpand = true,
             transition_type = Gtk.StackTransitionType.CROSSFADE,
-            margin_start = 9,
-            margin_end = 9,
-            margin_bottom = 9
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
         };
 
         stack.add_named (scrolled_box, "projects");
@@ -53,18 +57,18 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = stack
         };
 
-        scrolled_window.child = stack;
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (search_entry);
+		toolbar_view.content = scrolled_window;
 
-        var popover_box = new Gtk.Box (VERTICAL, 12);
-        popover_box.append (search_entry);
-        popover_box.append (scrolled_window);
-
-        child = popover_box;
+        child = toolbar_view;
         add_css_class ("popover-no-content");
-
+        search_entry.grab_focus ();
+        
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
             var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
             var row_2 = new Widgets.ProjectPicker.ProjectPickerRow (project);

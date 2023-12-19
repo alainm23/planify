@@ -920,6 +920,20 @@ public class Util : GLib.Object {
         }
     }
 
+    public string get_priority_keywords (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            return "%s;%s".printf ("p1", _("high"));
+        } else if (priority == Constants.PRIORITY_2) {
+            return "%s;%s".printf ("p2", _("medium"));
+        } else if (priority == Constants.PRIORITY_3) {
+            return "%s;%s".printf ("p3", _("low"));
+        } else if (priority == Constants.PRIORITY_4) {
+            return "%s;%s".printf ("p4", _("none"));
+        } else {
+            return "";
+        }
+    }
+
     public string get_priority_icon (int priority) {
         if (priority == Constants.PRIORITY_1) {
             return "planner-priority-1";

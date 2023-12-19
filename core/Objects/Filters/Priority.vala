@@ -64,7 +64,7 @@ public class Objects.Priority : Objects.BaseObject {
 
     construct {
         name = Util.get_default ().get_priority_title (priority);
-        keywords = "%s;%s".printf (_("priority"), "p" + priority.to_string ());
+        keywords = Util.get_default ().get_priority_keywords (priority);
 
         Services.Database.get_default ().item_added.connect (() => {
             _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;

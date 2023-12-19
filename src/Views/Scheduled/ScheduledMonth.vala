@@ -138,14 +138,18 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
     }
 
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id_string) &&
             Services.Database.get_default ().valid_item_by_month (item, date, false)) {
-            items [item.id_string] = new Layouts.ItemRow (item);
+            items [item.id_string] = new Layouts.ItemRow (item) {
+                show_project_label = true
+            };
             listbox.append (items [item.id_string]);
         }
 

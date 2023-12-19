@@ -123,14 +123,13 @@
     border-radius: 12px;
     transition: all 220ms ease-in-out;
     background-color: transparent;
+    outline: none;
 }
 
+.selectable-item:selected,
 .selectable-item:hover {
     background-color: transparent;
-}
-
-.selectable-item:selected {
-    background-color: transparent;
+    outline: none;
 }
 
 .selectable-item-selected {

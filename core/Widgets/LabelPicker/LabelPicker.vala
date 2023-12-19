@@ -110,15 +110,15 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         
         content_grid.attach (listbox_scrolled, 0, 0);
 
-        var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        main_grid.append (search_entry);
-        main_grid.append (content_grid);
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (search_entry);
+		toolbar_view.content = content_grid;
 
-        child = main_grid;
+        child = toolbar_view;
         add_all_labels ();
 
         var controller_key = new Gtk.EventControllerKey ();
-        main_grid.add_controller (controller_key);
+        toolbar_view.add_controller (controller_key);
 
         controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");

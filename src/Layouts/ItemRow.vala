@@ -30,6 +30,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.CheckButton checked_button;
     private Widgets.SourceView content_textview;
     private Gtk.Revealer hide_loading_revealer;
+    private Gtk.Revealer project_label_revealer;
+    private Gtk.Label project_label;
 
     private Gtk.CheckButton select_checkbutton;
     private Gtk.Revealer select_revealer;
@@ -99,6 +101,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
+                project_label_revealer.reveal_child = false;
                 item_summary.reveal_child = false;
                 labels_summary.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
@@ -131,6 +134,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
+                project_label_revealer.reveal_child = show_project_label;
                 item_summary.check_revealer ();
                 labels_summary.check_revealer ();
                 hide_loading_button.add_css_class ("no-padding");
@@ -194,6 +198,18 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         get {
             return _is_loading;
+        }
+    }
+
+    private bool _show_project_label = false;
+    public bool show_project_label {
+        set {
+            _show_project_label = value;
+            project_label_revealer.reveal_child = _show_project_label;
+        }
+
+        get {
+            return _show_project_label;
         }
     }
 
@@ -347,6 +363,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         select_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             child = select_checkbutton
+        };
+
+        project_label = new Gtk.Label (item.project.short_name) {
+            css_classes = { "small-label", "dim-label" },
+            margin_start = 6
+        };
+
+        project_label_revealer  = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = project_label
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -570,6 +596,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_eventbox_box.append (description_image_revealer);
         itemrow_eventbox_box.append (repeat_image_revealer);
         itemrow_eventbox_box.append (select_revealer);
+        itemrow_eventbox_box.append (project_label_revealer);
 
         subitems = new Widgets.SubItems (item);
 

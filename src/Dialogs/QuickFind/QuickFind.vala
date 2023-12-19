@@ -28,7 +28,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             transient_for: Planify.instance.main_window,
             deletable: false,
             modal: true,
-            margin_bottom: 128,
+            margin_bottom: 164,
             width_request: 400,
             height_request: 325
         );
@@ -57,23 +57,23 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
-        var listbox_grid = new Gtk.Grid ();
+        var listbox_grid = new Gtk.Grid () {
+            margin_bottom = 12
+        };
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            child = listbox_grid
         };
 
-        listbox_scrolled.child = listbox_grid;
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = listbox_scrolled;
 
-        var content_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-
-        content_grid.append (headerbar);
-        content_grid.append (listbox_scrolled);
-
-        content = content_grid;
+        content = toolbar_view;
 
         search_entry.search_changed.connect (() => {
             search_changed ();

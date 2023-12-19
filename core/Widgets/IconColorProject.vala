@@ -1,8 +1,10 @@
-public class Widgets.IconColorProject : Gtk.Grid {
+public class Widgets.IconColorProject : Adw.Bin {
     public Objects.Project project { get; set; }
     public int pixel_size { get; construct; }
 
-    private Gtk.Grid widget_color;
+    private Widgets.CircularProgressBar circular_progress_bar;
+    private Gtk.Label emoji_label;
+    private Gtk.Stack color_emoji_stack;
     private Gtk.Stack stack;
 
     public IconColorProject (int pixel_size) {
@@ -12,43 +14,43 @@ public class Widgets.IconColorProject : Gtk.Grid {
     }
 
     construct {
-        var inbox_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("planner-inbox"),
-            pixel_size = pixel_size,
-            valign = Gtk.Align.CENTER,
+        circular_progress_bar = new Widgets.CircularProgressBar (pixel_size);
+        circular_progress_bar.percentage = 100;
+
+        emoji_label = new Gtk.Label (null) {
             halign = Gtk.Align.CENTER
         };
 
-        widget_color = new Gtk.Grid () {
-            height_request = pixel_size - 3,
-            width_request = pixel_size - 3,
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
+        color_emoji_stack = new Gtk.Stack () {
+            transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        widget_color.add_css_class ("label-color");
+        color_emoji_stack.add_named (circular_progress_bar, "color");
+        color_emoji_stack.add_named (emoji_label, "emoji");
+
+        var inbox_icon = new Widgets.DynamicIcon.from_icon_name ("planner-inbox") {
+            size = 19
+        };
 
         stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        stack.add_named (widget_color, "color");
-        stack.add_named (inbox_icon, "icon");
+        stack.add_named (color_emoji_stack, "color-emoji");
+        stack.add_named (inbox_icon, "inbox");
 
-        attach (stack, 0, 0);
+        child = stack;
 
         notify["project"].connect (() => {
-            if (project != null) {
-                update_request ();
-            }
+            update_request ();
         });
     }
 
     public void update_request () {
-        Util.get_default ().set_widget_color (Util.get_default ().get_color (project.color), widget_color);
-        Timeout.add (stack.transition_duration, () => {
-            stack.visible_child_name = project.inbox_project ? "icon" : "color";
-            return GLib.Source.REMOVE;
-        });
+        stack.visible_child_name = project.is_inbox_project ? "inbox" : "color-emoji";
+        color_emoji_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";
+        circular_progress_bar.color = project.color;
+        circular_progress_bar.percentage = project.percentage;
+        emoji_label.label = project.emoji;
     }
 }

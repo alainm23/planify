@@ -189,7 +189,9 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
     }
 

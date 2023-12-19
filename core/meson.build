@@ -19,6 +19,7 @@ core_files = files(
     'Widgets/PriorityButton.vala',
     'Widgets/ItemLabels.vala',
     'Widgets/ItemLabelChild.vala',
+    'Widgets/CircularProgressBar.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',

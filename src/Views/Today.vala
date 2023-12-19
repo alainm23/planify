@@ -304,14 +304,18 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
         update_headers ();
         check_placeholder ();
     }
 
     private void add_overdue_item (Objects.Item item) {
-        overdue_items [item.id_string] = new Layouts.ItemRow (item);
+        overdue_items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         overdue_listbox.append (overdue_items [item.id_string]);
         update_headers ();
         check_placeholder ();

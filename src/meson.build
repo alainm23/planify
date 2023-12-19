@@ -45,7 +45,6 @@ sources = files(
   'Layouts/HeaderBar.vala',
   
   'Widgets/ColorPickerRow.vala',
-  'Widgets/CircularProgressBar.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',
   'Widgets/Placeholder.vala',
