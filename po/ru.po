@@ -443,7 +443,7 @@ msgstr "Название задачи"
 
 #: core/QuickAdd.vala:58
 msgid "Add a description…"
-msgstr "Добавить описание..."
+msgstr "Добавить описание…"
 
 #: core/QuickAdd.vala:123 src/Layouts/ItemRow.vala:491
 msgid "Add To-Do"
@@ -723,7 +723,7 @@ msgstr "Google Tasks"
 
 #: src/Layouts/ProjectRow.vala:340
 msgid "Project list order changed to Custom Sort Order."
-msgstr "Порядок проектов изменен на пользовательский порядок сортировки."
+msgstr "Сортировка проектов была изменена на ручную"
 
 #: src/Layouts/ProjectRow.vala:411 src/Layouts/ProjectRow.vala:418
 msgid "Remove from favorites"
@@ -1430,7 +1430,7 @@ msgstr "Тема приложения"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:437
 msgid "Use system settings"
-msgstr "Использовать системные настройки"
+msgstr "Использовать настройки системы"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:446
 msgid "Light Style"
@@ -1506,7 +1506,7 @@ msgstr "Сохранить в последний выбранный проект
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:910
 msgid "If unchecked, the default project selected is Inbox."
-msgstr "Если опция не включена, по умолчанию будет выбран проект «Входящие»."
+msgstr "Если эта опция не включена, по умолчанию будет выбран проект «Входящие»."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:944
 msgid "The command was copied to the clipboard."
@@ -1597,7 +1597,7 @@ msgstr "Скачать"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in sidebar"
-msgstr "Показать в боковой панели"
+msgstr "Отображать на боковой панели"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show task count"
