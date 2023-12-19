@@ -46,7 +46,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         if (base_object is Objects.Project) {
             Objects.Project project = ((Objects.Project) base_object);
 
-            var icon_project = new Widgets.IconColorProject (19);
+            var icon_project = new Widgets.IconColorProject (12);
             icon_project.project = project;
 
             var name_label = new Gtk.Label (markup_string_with_search (project.name, pattern)) {

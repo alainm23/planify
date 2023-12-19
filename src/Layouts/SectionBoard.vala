@@ -530,9 +530,9 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             add_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 add_button.is_loading = false;
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    item.id = response.data;
                     item.activate_name_editable = true;
                     Services.Database.get_default ().insert_item (item, false);
                     add_item (item, 0);
@@ -553,7 +553,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         if (section.project.backend_type == BackendType.TODOIST) {
             // menu_loading_button.is_loading = true;
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
-                if (Services.Todoist.get_default ().move_project_section.end (res)) {
+                if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                     Services.Database.get_default ().move_section (section, old_section_id);
                     // menu_loading_button.is_loading = false;
                 } else {

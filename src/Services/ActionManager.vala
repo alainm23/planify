@@ -183,7 +183,7 @@ public class Services.ActionManager : Object {
 
     private void action_view_pinboard () {
         Services.EventBus.get_default ().unselect_all ();
-        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
     }
 
     private void action_esc () {

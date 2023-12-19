@@ -30,6 +30,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.CheckButton checked_button;
     private Widgets.SourceView content_textview;
     private Gtk.Revealer hide_loading_revealer;
+    private Gtk.Revealer project_label_revealer;
+    private Gtk.Label project_label;
 
     private Gtk.CheckButton select_checkbutton;
     private Gtk.Revealer select_revealer;
@@ -62,7 +64,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Widgets.ItemSummary item_summary;
     private Widgets.LabelsSummary labels_summary;
     private Widgets.PriorityButton priority_button;
-    private Widgets.LabelButton label_button;
+    private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
     private Widgets.ReminderButton reminder_button;
     private Gtk.Button add_button;
@@ -99,6 +101,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
                 content_entry_revealer.reveal_child = true;
+                project_label_revealer.reveal_child = false;
                 item_summary.reveal_child = false;
                 labels_summary.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
@@ -131,6 +134,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
+                project_label_revealer.reveal_child = show_project_label;
                 item_summary.check_revealer ();
                 labels_summary.check_revealer ();
                 hide_loading_button.add_css_class ("no-padding");
@@ -194,6 +198,18 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         get {
             return _is_loading;
+        }
+    }
+
+    private bool _show_project_label = false;
+    public bool show_project_label {
+        set {
+            _show_project_label = value;
+            project_label_revealer.reveal_child = _show_project_label;
+        }
+
+        get {
+            return _show_project_label;
         }
     }
 
@@ -349,6 +365,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             child = select_checkbutton
         };
 
+        project_label = new Gtk.Label (item.project.short_name) {
+            css_classes = { "small-label", "dim-label" },
+            margin_start = 6
+        };
+
+        project_label_revealer  = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = project_label
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.CENTER,
             margin_start = 6
@@ -439,11 +465,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
 
         schedule_button = new Widgets.ScheduleButton ();
-
         priority_button = new Widgets.PriorityButton ();
-        
-        label_button = new Widgets.LabelButton (item);
-
+        label_button = new Widgets.LabelPicker.LabelButton (item);
         pin_button = new Widgets.PinButton (item);
 
         reminder_button = new Widgets.ReminderButton (item) {
@@ -465,7 +488,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Save")) {
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             margin_start = 6,
             margin_end = 3,
             can_focus = false
@@ -573,6 +596,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_eventbox_box.append (description_image_revealer);
         itemrow_eventbox_box.append (repeat_image_revealer);
         itemrow_eventbox_box.append (select_revealer);
+        itemrow_eventbox_box.append (project_label_revealer);
 
         subitems = new Widgets.SubItems (item);
 
@@ -673,7 +697,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 if (!is_creating) {
                     update ();
                 } else {
-                    submit_button.sensitive = Util.get_default ().is_text_valid (content_textview);
+                    submit_button.sensitive = Util.get_default ().is_text_valid (content_textview.buffer.text);
                 }
             }
         });
@@ -698,7 +722,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
         });
 
-        submit_button.clicked.connect (() => {
+        var submit_gesture = new Gtk.GestureClick ();
+        submit_gesture.set_button (1);
+        submit_button.add_controller (submit_gesture);
+
+        submit_gesture.pressed.connect (() => {
+            submit_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             add_item ();
         });
 
@@ -772,7 +801,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "underline-completed-tasks") {
+            if (key == "underline-completed-tasks" || key == "clock-format") {
                 update_request ();
             }
         });
@@ -848,7 +877,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             Source.remove (destroy_timeout);
         }
         
-        if (!Util.get_default ().is_text_valid (content_textview)) {
+        if (!Util.get_default ().is_text_valid (content_textview.buffer.text)) {
             Services.EventBus.get_default ().new_item_deleted (item.project_id);
             hide_destroy ();
             return;
@@ -860,9 +889,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                string? id = Services.Todoist.get_default ().add.end (res);
-                if (id != null) {
-                    item.id = id;
+                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                if (response.status) {
+                    item.id = response.data;
                     item_added ();
                 }
             });
@@ -1352,7 +1381,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     checked_button.sensitive = false;
                     is_loading = true;
                     Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res)) {
+                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
                             Services.Database.get_default ().checked_toggled (item, old_checked);
                             is_loading = false;
                             checked_button.sensitive = true;
@@ -1397,7 +1426,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     checked_button.sensitive = false;
                     is_loading = true;
                     Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res)) {
+                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
                             Services.Database.get_default ().checked_toggled (item, old_checked);
                             is_loading = false;
                             checked_button.sensitive = true;
@@ -1499,7 +1528,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().update.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().update.end (res)) {
+                if (Services.Todoist.get_default ().update.end (res).status) {
                     Services.Database.get_default ().update_item (item);
                     is_loading = false;
                     checked_button.sensitive = true;
@@ -1552,7 +1581,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 				if (response == "delete") {
 					if (item.project.backend_type == BackendType.TODOIST) {
 						Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-							if (Services.Todoist.get_default ().delete.end (res)) {
+							if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_item (item);
                             }
 						});
@@ -1587,7 +1616,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             if (item.project.backend_type == BackendType.TODOIST) {
                 is_loading = true;
                 Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-                    if (Services.Todoist.get_default ().delete.end (res)) {
+                    if (Services.Todoist.get_default ().delete.end (res).status) {
                         Services.Database.get_default ().delete_item (item);
                     } else {
                         is_loading = false;
@@ -1628,7 +1657,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                         }
 
                         Services.Todoist.get_default ().move_item.begin (item, move_type, move_id, (obj, res) => {
-                            if (Services.Todoist.get_default ().move_item.end (res)) {
+                            if (Services.Todoist.get_default ().move_item.end (res).status) {
                                 move_item (project_id, section_id);
                                 is_loading = false;
                             } else {
@@ -1655,8 +1684,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
         dialog.show ();
 
-        dialog.response.connect ((response) => {
-            if (response == "ok") {
+        dialog.response.connect ((resp) => {
+            if (resp == "ok") {
                 var new_item = item.generate_copy ();
                 new_item.project_id = project.id;
                 new_item.section_id = "";
@@ -1666,9 +1695,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     item.delete_item ();
                 } else if (project.backend_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                        string? id = Services.Todoist.get_default ().add.end (res);
-                        if (id != null) {
-                            new_item.id = id;
+                        TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                        if (response.status) {
+                            new_item.id = response.data;
                             project.add_item_if_not_exists (new_item);
                             item.delete_item ();
                         }
@@ -1723,9 +1752,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             var target_widget = this;
             var old_section_id = "";
 
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
@@ -1766,7 +1792,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                     }
                     
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
-                        if (Services.Todoist.get_default ().move_item.end (res)) {
+                        if (Services.Todoist.get_default ().move_item.end (res).status) {
                             Services.Database.get_default ().update_item (picked_widget.item);
                         }
                     });
@@ -1782,7 +1808,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {

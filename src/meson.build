@@ -8,6 +8,7 @@ deps = [
   webkitgtk_dep,
   granite_dep,
   json_dep,
+  libsoup_dep,
   libecal_dep,
   libedataserver_dep,
   libical_dep,
@@ -18,16 +19,15 @@ deps = [
 sources = files(
   'App.vala',
   'MainWindow.vala',
-  'Util.vala',
 
-  'Services/Database.vala',
-  'Services/EventBus.vala',
-  'Services/Todoist.vala',
+  'Objects/Backup.vala',
+
   'Services/GoogleTasks.vala',
   'Services/ActionManager.vala',
   'Services/Notification.vala',
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
+  'Services/Backups.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
@@ -36,7 +36,6 @@ sources = files(
 
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneRow.vala',
-  'Layouts/HeaderItem.vala',
   'Layouts/ProjectRow.vala',
   'Layouts/SectionRow.vala',
   'Layouts/ItemRow.vala',
@@ -45,55 +44,27 @@ sources = files(
   'Layouts/ItemBoard.vala',
   'Layouts/HeaderBar.vala',
   
-  # 'Widgets/DynamicIcon.vala',
   'Widgets/ColorPickerRow.vala',
-  'Widgets/CircularProgressBar.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',
-  'Widgets/Entries.vala',
   'Widgets/Placeholder.vala',
   'Widgets/SyncButton.vala',
-  'Widgets/ScheduleButton.vala',
-  'Widgets/PriorityButton.vala',
   'Widgets/ItemSummary.vala',
-  'Widgets/PinButton.vala',
-  'Widgets/LabelButton.vala',
-  'Widgets/ItemLabels.vala',
-  'Widgets/ItemLabelChild.vala',
-  'Widgets/IconColorProject.vala',
   'Widgets/ReminderButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
-  'Widgets/CalendarSourceRow.vala',
   'Widgets/SubItems.vala',
   'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
 
-  'Widgets/Calendar/Calendar.vala',
-  'Widgets/Calendar/CalendarDay.vala',
-  'Widgets/Calendar/CalendarHeader.vala',
-  'Widgets/Calendar/CalendarView.vala',
-  'Widgets/Calendar/CalendarWeek.vala',
-
-  'Widgets/DateTimePicker/DateTimePicker.vala',
-  'Widgets/DateTimePicker/TimePicker.vala',
-
-  'Widgets/LabelPicker/LabelPicker.vala',
-  'Widgets/LabelPicker/LabelRow.vala',
-
   'Widgets/ReminderPicker/ReminderPicker.vala',
   'Widgets/ReminderPicker/ReminderRow.vala',
-  
-  'Widgets/ContextMenu/MenuItem.vala',
-  'Widgets/ContextMenu/MenuSeparator.vala',
-  'Widgets/ContextMenu/MenuPicker.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
   'Views/Project/Board.vala',
-  'Views/Date.vala',
   'Views/Today.vala',
   'Views/Pinboard.vala',
   'Views/Label/Label.vala',
@@ -105,30 +76,12 @@ sources = files(
   'Views/Scheduled/ScheduledRange.vala',
   'Views/Scheduled/ScheduledMonth.vala',
 
-  'Objects/BaseObject.vala',
-  'Objects/Color.vala',
-  'Objects/DueDate.vala',
-  'Objects/Item.vala',
-  'Objects/ItemLabel.vala',
-  'Objects/Label.vala',
-  'Objects/Project.vala',
-  'Objects/Queue.vala',
-  'Objects/Reminder.vala',
-  'Objects/Section.vala',
-  
-  'Objects/Filters/Pinboard.vala',
-  'Objects/Filters/Scheduled.vala',
-  'Objects/Filters/Today.vala',
-  'Objects/Filters/Priority.vala',
-  'Objects/Filters/Completed.vala',
-  'Objects/Filters/Labels.vala',
-
   'Dialogs/Project.vala',
   'Dialogs/Label.vala',
   'Dialogs/Item.vala',
-  'Dialogs/TodoistOAuth.vala',
   'Dialogs/GoogleOAuth.vala',
   'Dialogs/WhatsNew.vala',
+  'Dialogs/QuickAdd.vala',
   'Dialogs/ProjectDescription.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',
@@ -145,6 +98,8 @@ sources = files(
 
   'Dialogs/Preferences/PreferencesWindow.vala',
   'Dialogs/Preferences/SettingsHeader.vala',
+  'Dialogs/Preferences/Pages/Backup.vala',
+  'Dialogs/Preferences/Pages/Sidebar.vala'
 )
 
 executable(

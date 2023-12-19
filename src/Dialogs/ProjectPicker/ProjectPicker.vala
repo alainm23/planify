@@ -71,8 +71,8 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             resizable: true,
             modal: true,
             title: _("Move"),
-            width_request: 400,
-            height_request: 600,
+            width_request: 375,
+            height_request: 500,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
@@ -154,7 +154,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     }
 
     private Gtk.Widget build_projects_view () {
-        inbox_group = new Layouts.HeaderItem (null);
+        inbox_group = new Layouts.HeaderItem (null) {
+            margin_top = 12
+        };
         inbox_group.show_action = false;
 
         local_group = new Layouts.HeaderItem (_("On this Computer"));

@@ -21,6 +21,10 @@ check {
     padding: 3px;
 }
 
+.padding-9 {
+    padding: 9px;
+}
+
 .border-radius-6 {
     border-radius: 6px;
 }
@@ -204,12 +208,9 @@ entry.flat:focus-within {
     margin-top: 24px;
 }
 
-.card {
-    box-shadow: none;
-}
-
 .card-selected {
-    padding: 9px;
+    margin-left: 3px;
+    padding-left: 9px;
     padding-top: 3px;
     padding-right: 3px;
     padding-bottom: 0px;
@@ -227,6 +228,10 @@ entry.flat:focus-within {
 
 .line-through {
     text-decoration: line-through;
+}
+
+.underline {
+    text-decoration: underline;
 }
 
 .complete-animation {
@@ -506,4 +511,9 @@ checkbutton.theme-selector radio:checked {
     padding: 3px;
     min-height: 16px;
     min-width: 16px;
+}
+
+.event-bar {
+    background-color: @colorAccent;
+    border-radius: 1px;
 }

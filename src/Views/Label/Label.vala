@@ -128,7 +128,7 @@ public class Views.Label : Adw.Bin {
         });
 
         headerbar.back_activated.connect (() => {
-            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.FILTER.to_string ());
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
         });
     }
 
@@ -178,7 +178,9 @@ public class Views.Label : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
     }
 

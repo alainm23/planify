@@ -145,8 +145,8 @@
             <description>Whether the window was maximized on last run</description>
         </key>
 
-        <key name="quick-add-project-selected" type="x">
-            <default>0</default>
+        <key name="quick-add-project-selected" type="s">
+            <default>""</default>
             <summary></summary>
             <description></description>
         </key>
@@ -304,7 +304,7 @@
         <key name="version" type="s">
             <default>'3.0'</default>
             <summary>The currently installed version.</summary>
-            <description>The currently installed version of planit, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
+            <description>The currently installed version of Planify, updated only after the user launched the app. This is used to know when to trigger the Release Dialog.</description>
         </key>
 
         <key name="calendar-enabled" type="b">
@@ -335,6 +335,18 @@
             <default>""</default>
             <summary>Google User Email</summary>
             <description>Google User Email</description>
+        </key>
+
+        <key name="views-order-visible" type="as">
+            <default>['inbox', 'today', 'scheduled', 'labels']</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
+        <key name="show-tasks-count" type="b">
+            <default>true</default>
+            <summary>Show Taks Count</summary>
+            <description>Show Taks Count</description>
         </key>
     </schema>
 </schemalist>

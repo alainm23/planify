@@ -193,6 +193,6 @@ public class Services.GoogleTasks : GLib.Object {
     private void print_root (Json.Node root) {
         Json.Generator generator = new Json.Generator ();
         generator.set_root (root);
-        print (generator.to_data (null) + "\n");
+        debug (generator.to_data (null) + "\n");
     }
 }

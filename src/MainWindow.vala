@@ -175,7 +175,7 @@ public class MainWindow : Adw.ApplicationWindow {
 					add_scheduled_view ();
 				} else if (id == FilterType.PINBOARD.to_string ()) {
 					add_pinboard_view ();
-				} else if (id == FilterType.FILTER.to_string ()) {
+				} else if (id == FilterType.LABELS.to_string ()) {
 					add_filters_view ();
 				} else if (id.has_prefix ("priority")) {
 					add_priority_view (id);
@@ -270,7 +270,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	private void add_inbox_view () {
 		add_project_view (
 			Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
-			);
+		);
 	}
 
 	public void add_today_view () {
@@ -381,20 +381,20 @@ public class MainWindow : Adw.ApplicationWindow {
 				today_view.prepare_new_item (content);
 			}
 		} else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
-			//  Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
-			//  if (scheduled_view != null) {
-			//      scheduled_view.prepare_new_item (content);
-			//  }
+			Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
+			if (scheduled_view != null) {
+			    scheduled_view.prepare_new_item (content);
+			}
 		} else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
-			//  Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
-			//  if (pinboard_view != null) {
-			//      pinboard_view.prepare_new_item (content);
-			//  }
-		} else if (views_stack.visible_child_name.has_prefix ("tasklist")) {
-			//  Views.Tasklist? tasklist_view = (Views.Tasklist) views_stack.visible_child;
-			//  if (tasklist_view != null) {
-			//      tasklist_view.prepare_new_item (content);
-			//  }
+			Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
+			if (pinboard_view != null) {
+			    pinboard_view.prepare_new_item (content);
+			}
+		} else if (views_stack.visible_child_name.has_prefix ("priority-view")) {
+			Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
+			if (filter_view != null) {
+				filter_view.prepare_new_item (content);
+			}
 		}
 	}
 
@@ -409,8 +409,14 @@ public class MainWindow : Adw.ApplicationWindow {
 
 			if (project_view.project.backend_type == BackendType.TODOIST) {
 				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					new_section.id = Services.Todoist.get_default ().add.end (res);
-					project_view.project.add_section_if_not_exists (new_section);
+					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+
+					if (response.status) {
+						new_section.id = response.data;
+						project_view.project.add_section_if_not_exists (new_section);
+					} else {
+
+					}
 				});
 			} else {
 				new_section.id = Util.get_default ().generate_id (new_section);
@@ -495,19 +501,21 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void about_dialog () {
-		var dialog = new Adw.AboutWindow () {
+		string appdata_path = "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in";
+		debug (appdata_path);
+
+		var dialog = new Adw.AboutWindow.from_appdata (appdata_path, Build.VERSION) {
 			transient_for = (Gtk.Window) Planify.instance.main_window,
-			modal = true
+			modal = true,
+			application_icon = Build.APPLICATION_ID,
+			application_name = "Planify",
+			developer_name = "Alain",
+			designers = { "Alain" },
+			website = "https://github.com/alainm23/planify",
+			developers = { "Alain" },
+			issue_url = "https://github.com/alainm23/planify/issues"
 		};
 
 		dialog.show ();
-
-		dialog.application_icon = Build.APPLICATION_ID;
-		dialog.application_name = "Planify";
-		dialog.version = Build.VERSION;
-		dialog.developer_name = "Alain";
-		dialog.website = "https://github.com/alainm23/planify";
-		dialog.developers = { "Alain" };
-		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 	}
 }

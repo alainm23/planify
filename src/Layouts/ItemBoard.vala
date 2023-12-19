@@ -343,7 +343,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 					checked_button.sensitive = false;
 					is_loading = true;
 					Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-						if (Services.Todoist.get_default ().complete_item.end (res)) {
+						if (Services.Todoist.get_default ().complete_item.end (res).status) {
 							Services.Database.get_default ().checked_toggled (item, old_checked);
 							is_loading = false;
 							checked_button.sensitive = true;
@@ -380,7 +380,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 					checked_button.sensitive = false;
 					is_loading = true;
 					Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-						if (Services.Todoist.get_default ().complete_item.end (res)) {
+						if (Services.Todoist.get_default ().complete_item.end (res).status) {
 							Services.Database.get_default ().checked_toggled (item, old_checked);
 							is_loading = false;
 							checked_button.sensitive = true;
@@ -408,7 +408,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_button.sensitive = false;
 			is_loading = true;
 			Services.Todoist.get_default ().update.begin (item, (obj, res) => {
-				if (Services.Todoist.get_default ().update.end (res)) {
+				if (Services.Todoist.get_default ().update.end (res).status) {
 					Services.Database.get_default ().update_item (item);
 					is_loading = false;
 					checked_button.sensitive = true;
@@ -545,9 +545,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			var picked_widget = (Layouts.ItemBoard) value;
 			var target_widget = this;
 
-			Gtk.Allocation alloc;
-			target_widget.get_allocation (out alloc);
-
 			picked_widget.drag_end ();
 			target_widget.drag_end ();
 
@@ -561,7 +558,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			source_list.remove (picked_widget);
 
 			if (target_widget.get_index () == 0) {
-				if (y < (alloc.height / 2)) {
+				if (y < (target_widget.get_height () / 2)) {
 					target_list.insert (picked_widget, 0);
 				} else {
 					target_list.insert (picked_widget, target_widget.get_index () + 1);

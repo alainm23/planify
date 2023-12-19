@@ -36,7 +36,7 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         add_css_class ("selectable-item");
         add_css_class ("transition");
 
-        icon_project = new Widgets.IconColorProject (21);
+        icon_project = new Widgets.IconColorProject (12);
         icon_project.project = project;
 
         name_label = new Gtk.Label (null);
@@ -61,10 +61,10 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         selected_revealer.child = selected_icon;
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6
         };
         content_box.append (icon_project);        
         content_box.append (name_label);

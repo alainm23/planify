@@ -1,6 +1,6 @@
-.sidebar {
-    background: @sidebar_bg_color;
-}
+/*
+ * Inbox View
+ */
 
 .filter-pane-row-inbox {
     box-shadow: none;
@@ -19,6 +19,10 @@
     box-shadow: 0px 0px 3px 1px #1e63ec;
 }
 
+/*
+ * Today View
+ */
+
 .filter-pane-row-today {
     box-shadow: none;
     padding: 3px;
@@ -35,6 +39,10 @@
 .filter-pane-row-today-selected {
     box-shadow: 0px 0px 3px 1px #16af54;
 }
+
+/*
+ * Scheduled View
+ */
 
 .filter-pane-row-scheduled {
     box-shadow: none;
@@ -53,7 +61,11 @@
     box-shadow: 0px 0px 3px 1px #9d59e0;
 }
 
-.filter-pane-row-filter {
+/*
+ * Labels View
+ */
+
+.filter-pane-row-labels {
     box-shadow: none;
     padding: 3px;
     border-radius: 6px;
@@ -62,12 +74,48 @@
     color: #7e8087;
 }
 
-.filter-pane-row-filter.selected image {
+.filter-pane-row-labels.selected image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.filter-pane-row-filter-selected {
+.filter-pane-row-labels-selected {
     box-shadow: 0px 0px 3px 1px #7e8087;
+}
+
+/*
+ * Pinboard View
+ */
+
+ .filter-pane-row-pinboard {
+    box-shadow: none;
+    padding: 3px;
+    border-radius: 6px;
+    transition: all 220ms ease-in-out;
+    background-color: alpha(#f66151, 0.15);
+    color: #f66151;
+}
+
+.filter-pane-row-pinboard.selected image {
+    animation: fancy-turn 0.7s ease-in-out;
+}
+
+.filter-pane-row-pinboard-selected {
+    box-shadow: 0px 0px 3px 1px #f66151;
+}
+
+.sidebar-row {
+    padding: 0;
+    transition: all 220ms ease-in-out;
+    background-color: transparent;
+}
+
+.sidebar-row:selected,
+.sidebar-row:hover {
+    outline: none;
+}
+
+.separator-lines row:not(:first-child) {
+    border-top: 1px solid @item_border_color;
 }
 
 .selectable-item {
@@ -75,14 +123,13 @@
     border-radius: 12px;
     transition: all 220ms ease-in-out;
     background-color: transparent;
+    outline: none;
 }
 
+.selectable-item:selected,
 .selectable-item:hover {
     background-color: transparent;
-}
-
-.selectable-item:selected {
-    background-color: transparent;
+    outline: none;
 }
 
 .selectable-item-selected {
@@ -95,7 +142,23 @@
     transition: all 220ms ease-in-out;
 }
 
+.sidebar {
+    background: @sidebar_bg_color;
+}
+
 .sidebar-card {
     box-shadow: none;
     border: 1px solid @item_border_color;
+}
+
+.gift-animation,
+.gift-animation image {
+    animation-name: fancy-turn;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-delay: 0s;
+    animation-fill-mode: none;
+    animation-play-state: running;
 }

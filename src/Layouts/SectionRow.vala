@@ -370,7 +370,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 		});
 
-		Services.EventBus.get_default ().update_inserted_item_map.connect ((row, old_section_id) => {
+		Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
+			var row = (Layouts.ItemRow) _row;
+
 			if (row.item.project_id == section.project_id &&
 			    row.item.section_id == section.id) {
 				if (!items.has_key (row.item.id)) {
@@ -533,7 +535,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		row.update_priority (Util.get_default ().get_default_priority ());
 
 		row.item_added.connect (() => {
-			Util.get_default ().item_added (row);
+			item_added (row);
 		});
 
 		if (has_children) {
@@ -543,12 +545,35 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 	}
 
+	public void item_added (Layouts.ItemRow row) {
+		bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
+
+		if (row.item.section_id != "") {
+			Services.Database.get_default ().get_section (row.item.section_id)
+				.add_item_if_not_exists (row.item, insert);
+		} else {
+			Services.Database.get_default ().get_project (row.item.project_id)
+				.add_item_if_not_exists (row.item, insert);
+		}
+
+		if (!insert) {
+			Services.EventBus.get_default ().update_inserted_item_map (row, "");
+			row.update_inserted_item ();
+		} else {
+			row.hide_destroy ();
+		}
+
+		Services.EventBus.get_default ().send_notification (
+			Util.get_default ().create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
+		Services.EventBus.get_default ().update_section_sort_func (row.item.project_id, row.item.section_id, false);
+	}
+
 	private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
 		Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
 		Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
 
 		if (section.project.sort_order == 1) {
-			return item1.content.collate (item2.content);
+			return item1.content.strip ().collate (item2.content.strip ());
 		}
 
 		if (section.project.sort_order == 2) {
@@ -705,7 +730,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
-					if (Services.Todoist.get_default ().move_item.end (res)) {
+					if (Services.Todoist.get_default ().move_item.end (res).status) {
 						Services.Database.get_default ().update_item (picked_widget.item);
 					}
 				});
@@ -762,7 +787,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		if (section.project.backend_type == BackendType.TODOIST) {
 			// menu_loading_button.is_loading = true;
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
-				if (Services.Todoist.get_default ().move_project_section.end (res)) {
+				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
 					Services.Database.get_default ().move_section (section, old_section_id);
 					// menu_loading_button.is_loading = false;
 				} else {

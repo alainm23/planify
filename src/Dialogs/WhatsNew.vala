@@ -31,28 +31,29 @@ public class Dialogs.WhatsNew : Adw.Window {
 			destroy_with_parent: true,
 			modal: true,
 			title: _("What's New"),
-			height_request: 475,
-			width_request: 375
-			);
+			default_width: 450,
+			height_request: 600
+		);
 	}
 
 	construct {
 		var headerbar = new Adw.HeaderBar () {
 			title_widget = new Gtk.Label (null),
 			hexpand = true,
-			decoration_layout = ":close"
+			css_classes = { Granite.STYLE_CLASS_FLAT }
 		};
-		headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-		var title_label = new Gtk.Label (_("What's New in Planify")) {
-			halign = START
+		var title_label = new Gtk.Label (_("What’s new in Planify")) {
+			hexpand = true,
+			halign = CENTER,
+			css_classes = { "h1" }
 		};
-		title_label.add_css_class ("h1");
 
-		var version_label = new Gtk.Label (_("Version 4.1.1")) {
-			halign = START
+		var version_label = new Gtk.Label (Build.VERSION) {
+			hexpand = true,
+			halign = CENTER,
+			css_classes = { "dim-label" }
 		};
-		version_label.add_css_class ("dim-label");
 
 		feature_group = new Adw.PreferencesGroup () {
 			margin_top = 24
@@ -67,10 +68,9 @@ public class Dialogs.WhatsNew : Adw.Window {
 			right_margin = 12,
 			top_margin = 12,
 			bottom_margin = 12,
-			editable = false
+			editable = false,
+			css_classes = { "card", "small-label" }
 		};
-		textview.add_css_class ("card");
-		textview.add_css_class ("small-label");
 		textview.remove_css_class ("view");
 		group.add (textview);
 
@@ -89,20 +89,29 @@ public class Dialogs.WhatsNew : Adw.Window {
 		content_box.append (feature_group);
 		content_box.append (group_revealer);
 
-		var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		main_grid.append (headerbar);
-		main_grid.append (content_box);
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 12,
+			margin_end = 12,
+			margin_bottom = 12
+		};
 
-		content = main_grid;
+		content_clamp.child = content_box;
 
-		add_feature (_("Todoist"), _("Synchronize with your Todoist Account"), "planner-todoist");
-		add_feature (_("Todoist"), _("Synchronize with your Todoist Account"), "planner-todoist");
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_clamp;
 
+		content = toolbar_view;
+
+		add_feature (_("Quick Add Improvements"), _("Now supports project selection, due date, priority, labels and pinned."));
+		add_feature (_("Sidebar filter settings"), _("It is now possible to re-order, hide filters and the task cutter."));
+		add_feature (_("Backup support"), _("It is now possible to create a backup copy and import it from somewhere else. Planify will import all your tasks and settings."));
+		add_feature (_("Offline support for Todoist"), _("You were without internet, keep using Planify with Todoist, the tasks will be saved locally and synchronized when the connection returns."));
 	}
 
-	public void add_feature (string title, string description, string icon) {
+	public void add_feature (string title, string description) {
 		var row = new Adw.ActionRow ();
-        row.add_prefix (new Gtk.Image.from_icon_name (icon));
 		row.title = title;
 		row.subtitle = description;
 

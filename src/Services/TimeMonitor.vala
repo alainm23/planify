@@ -42,18 +42,18 @@ public class Services.TimeMonitor : Object {
         DateTime now = new DateTime.now_local ();
 
         if (now.get_day_of_month () != last_registered_date.get_day_of_month() ||
-            now.get_month() != last_registered_date.get_month() ||
-            now.get_year() != last_registered_date.get_year()) {
+            now.get_month() != last_registered_date.get_month () ||
+            now.get_year() != last_registered_date.get_year ()) {
 
             Services.EventBus.get_default ().day_changed ();
             Services.Notification.get_default ().regresh ();
 
             last_registered_date = now;
-            uint interval = calculate_seconds_until_midnight();
+            uint interval = calculate_seconds_until_midnight ();
 
             Timeout.add_seconds(interval, on_timeout);
         } else {
-            uint interval = calculate_seconds_until_midnight();
+            uint interval = calculate_seconds_until_midnight ();
             Timeout.add_seconds(interval, on_timeout);
         }
 
@@ -64,7 +64,7 @@ public class Services.TimeMonitor : Object {
         DateTime now = new DateTime.now_local ();
 
         uint value = (24 * 60 * 60) -
-            (now.get_hour() * 60 * 60 + now.get_minute() * 60 + now.get_second());
+            (now.get_hour () * 60 * 60 + now.get_minute () * 60 + now.get_second ());
 
         return value;
     }

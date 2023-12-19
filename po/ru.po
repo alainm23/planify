@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-09 06:09-0500\n"
+"POT-Creation-Date: 2023-12-18 19:36-0500\n"
 "PO-Revision-Date: 2023-12-12 05:43+0500\n"
 "Last-Translator: Hachikoha <hachikohe@gmail.com>\n"
 "Language: ru\n"
@@ -17,18 +17,685 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/App.vala:110 src/Dialogs/Preferences/PreferencesWindow.vala:149
+#: core/Util.vala:41 core/Util.vala:42
+msgid "Berry Red"
+msgstr "Ягодно-красный"
+
+#: core/Util.vala:44 core/Util.vala:45
+msgid "Red"
+msgstr "Красный"
+
+#: core/Util.vala:47 core/Util.vala:48
+msgid "Orange"
+msgstr "Оранжевый"
+
+#: core/Util.vala:50 core/Util.vala:51
+msgid "Olive Green"
+msgstr "Оливковый"
+
+#: core/Util.vala:53 core/Util.vala:54
+msgid "Yellow"
+msgstr "Желтый"
+
+#: core/Util.vala:56 core/Util.vala:57
+msgid "Lime Green"
+msgstr "Лаймовый"
+
+#: core/Util.vala:59 core/Util.vala:60
+msgid "Green"
+msgstr "Зеленый"
+
+#: core/Util.vala:62 core/Util.vala:63
+msgid "Mint Green"
+msgstr "Мятный"
+
+#: core/Util.vala:65 core/Util.vala:66
+msgid "Teal"
+msgstr "Бирюзовый"
+
+#: core/Util.vala:68 core/Util.vala:69
+msgid "Sky Blue"
+msgstr "Небесно-голубой"
+
+#: core/Util.vala:71 core/Util.vala:72
+msgid "Light Blue"
+msgstr "Голубой"
+
+#: core/Util.vala:74 core/Util.vala:75
+msgid "Blue"
+msgstr "Синий"
+
+#: core/Util.vala:77 core/Util.vala:78
+msgid "Grape"
+msgstr "Виноград"
+
+#: core/Util.vala:80 core/Util.vala:81
+msgid "Violet"
+msgstr "Фиолетовый"
+
+#: core/Util.vala:83 core/Util.vala:84
+msgid "Lavander"
+msgstr "Лаванда"
+
+#: core/Util.vala:86 core/Util.vala:87
+msgid "Magenta"
+msgstr "Пурпурный"
+
+#: core/Util.vala:89 core/Util.vala:90
+msgid "Salmon"
+msgstr "Лосось"
+
+#: core/Util.vala:92 core/Util.vala:93
+msgid "Charcoal"
+msgstr "Древесный уголь"
+
+#: core/Util.vala:95 core/Util.vala:96
+msgid "Grey"
+msgstr "Серый"
+
+#: core/Util.vala:98 core/Util.vala:99
+msgid "Taupe"
+msgstr "Серо-коричневый"
+
+#: core/Util.vala:240
+msgid "Light"
+msgstr "Светлый"
+
+#: core/Util.vala:243
+msgid "Dark"
+msgstr "Темный"
+
+#: core/Util.vala:246
+msgid "Dark Blue"
+msgstr "Темно-синий"
+
+#: core/Util.vala:259 src/Layouts/ItemRow.vala:1273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:297
+msgid "None"
+msgstr "Нет"
+
+#: core/Util.vala:262 core/Util.vala:992 core/Enum.vala:108
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:78
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:46
+#: src/Layouts/FilterPaneRow.vala:128
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:101
+#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:38
+msgid "Inbox"
+msgstr "Входящие"
+
+#: core/Util.vala:265 core/Util.vala:440 core/Enum.vala:105
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:70
+#: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:125
+#: src/Layouts/ItemRow.vala:1036 src/Views/Today.vala:51
+#: src/Views/Today.vala:135 src/Dialogs/DatePicker.vala:64
+#: src/Dialogs/Preferences/PreferencesWindow.vala:171
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:39
+msgid "Today"
+msgstr "Сегодня"
+
+#: core/Util.vala:268
+msgid "Today + Inbox"
+msgstr "Сегодня + Входящие"
+
+#: core/Util.vala:442 core/Widgets/DateTimePicker/DateTimePicker.vala:73
+#: src/Layouts/ItemRow.vala:1039 src/Dialogs/DatePicker.vala:68
+msgid "Tomorrow"
+msgstr "Завтра"
+
+#: core/Util.vala:444
+msgid "Yesterday"
+msgstr "Вчера"
+
+#: core/Util.vala:571
+msgid "Mo,"
+msgstr "Пн,"
+
+#: core/Util.vala:575
+msgid "Tu,"
+msgstr "Вт,"
+
+#: core/Util.vala:579
+msgid "We,"
+msgstr "Ср,"
+
+#: core/Util.vala:583
+msgid "Th,"
+msgstr "Чт,"
+
+#: core/Util.vala:587
+msgid "Fr,"
+msgstr "Пт,"
+
+#: core/Util.vala:591
+msgid "Sa,"
+msgstr "Сб,"
+
+#: core/Util.vala:595
+msgid "Su,"
+msgstr "Вс,"
+
+#: core/Util.vala:791 core/QuickAdd.vala:128 src/MainWindow.vala:239
+#: src/Layouts/ProjectRow.vala:477 src/Layouts/SectionRow.vala:683
+#: src/Layouts/ItemRow.vala:1575 src/Layouts/ItemRow.vala:1682
+#: src/Layouts/LabelRow.vala:145 src/Layouts/SectionBoard.vala:497
+#: src/Widgets/MultiSelectToolbar.vala:325 src/Views/Project/Project.vala:280
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1159
+#: src/Dialogs/Preferences/Pages/Backup.vala:184
+#: src/Dialogs/Preferences/Pages/Backup.vala:241
+msgid "Cancel"
+msgstr "Отмена"
+
+#: core/Util.vala:792
+msgid "Reset all"
+msgstr "Сбросить все"
+
+#: core/Util.vala:806 src/Services/Backups.vala:511
+msgid "Process completed, you need to start Planify again."
+msgstr "Процесс завершен, вам нужно снова перезапустить Planify."
+
+#: core/Util.vala:809 src/MainWindow.vala:240 src/Services/Backups.vala:515
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1066
+msgid "Ok"
+msgstr "ОК"
+
+#: core/Util.vala:911 core/Widgets/PriorityButton.vala:32
+#: core/Objects/Item.vala:68 src/Widgets/MultiSelectToolbar.vala:203
+msgid "Priority 1: high"
+msgstr "Приоритет 1: высокий"
+
+#: core/Util.vala:913 core/Widgets/PriorityButton.vala:33
+#: core/Objects/Item.vala:70 src/Widgets/MultiSelectToolbar.vala:204
+msgid "Priority 2: medium"
+msgstr "Приоритет 2: средний"
+
+#: core/Util.vala:915 core/Widgets/PriorityButton.vala:34
+#: core/Objects/Item.vala:72 src/Widgets/MultiSelectToolbar.vala:205
+msgid "Priority 3: low"
+msgstr "Приоритет 3: низкий"
+
+#: core/Util.vala:917 core/Util.vala:919 core/Widgets/PriorityButton.vala:35
+#: core/Objects/Item.vala:74 src/Widgets/MultiSelectToolbar.vala:206
+msgid "Priority 4: none"
+msgstr "Приоритет 4: нет"
+
+#: core/Util.vala:925
+msgid "high"
+msgstr ""
+
+#: core/Util.vala:927
+msgid "medium"
+msgstr ""
+
+#: core/Util.vala:929
+#, fuzzy
+msgid "low"
+msgstr "Желтый"
+
+#: core/Util.vala:931
+msgid "none"
+msgstr ""
+
+#: core/Util.vala:1010
+msgid "Meet Planify"
+msgstr "Встречайте Planify"
+
+#: core/Util.vala:1013
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around in it – you can always create a new "
+"one from settings."
+msgstr ""
+"Этот проект покажет вам все, что нужно знать, чтобы приступить к делу. Не "
+"стесняйтесь экспериментировать с ним – вы всегда можете создать новый в "
+"настройках."
+
+#: core/Util.vala:1019
+msgid "Tap this to-do"
+msgstr "Нажмите на эту задачу"
+
+#: core/Util.vala:1020
+msgid ""
+"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
+"Completed to-dos are collected al the bottom of your project."
+msgstr ""
+"Перед вами задача! Завершите ее, нажав на флажок слева. Выполненные задачи "
+"собираются в нижней части вашего проекта."
+
+#: core/Util.vala:1025
+msgid "Create a new to-do"
+msgstr "Создать новую задачу"
+
+#: core/Util.vala:1026
+msgid ""
+"Now it's your turn, tap the '+' button at the top of your project, enter any "
+"pending and tap the blue 'Save' button."
+msgstr ""
+"Теперь ваша очередь, нажмите кнопку «+» в верхней части проекта, введите все "
+"оставшиеся данные и нажмите синюю кнопку «Сохранить»."
+
+#: core/Util.vala:1031
+msgid "Plan this to-do by today or later"
+msgstr "Запланируйте эту задачу на сегодня или позже."
+
+#: core/Util.vala:1032
+msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+msgstr ""
+"Нажмите кнопку календаря внизу, чтобы решить, когда выполнить это задание."
+
+#: core/Util.vala:1037
+msgid "Reorder yours to-dos"
+msgstr "Измените порядок задач"
+
+#: core/Util.vala:1038
+#, fuzzy
+msgid ""
+"To reorder your list, tap and hold a to-do, then drag it to where it should "
+"go."
+msgstr ""
+"Чтобы изменить порядок списка, нажмите и удерживайте задачу, а затем "
+"перетащите ее куда вам нужно."
+
+#: core/Util.vala:1043
+msgid "Create a project"
+msgstr "Создать проект"
+
+#: core/Util.vala:1044
+msgid ""
+"Organize your to-dos better! Go to the left panel and click the '+' button "
+"in the 'On This Computer' section and add a project of your own."
+msgstr ""
+"Организуйте свои задачи лучше! Перейдите на левую панель, нажмите кнопку «+» "
+"в разделе «На этом компьютере» и добавьте собственный проект."
+
+#: core/Util.vala:1049
+msgid "You’re done!"
+msgstr "Вы готовы!"
+
+#: core/Util.vala:1050
+msgid ""
+"That’s all you really need to know. Feel free to start adding your own "
+"projects and to-dos.\n"
+"\n"
+"You can come back to this project later to learn the advanced features "
+"below..\n"
+"\n"
+"We hope you’ll enjoy using Planify!"
+msgstr ""
+"Это все, что вам действительно нужно знать. Не стесняйтесь добавлять свои "
+"собственные проекты и задачи.\n"
+"\n"
+"Вы можете вернуться к этому проекту позже, чтобы изучить расширенные "
+"функции, указанные ниже..\n"
+"\n"
+"Мы надеемся, что вам понравится использовать Planify!"
+
+#: core/Util.vala:1066
+msgid "Tune your setup"
+msgstr "Настройте параметры приложения"
+
+#: core/Util.vala:1074
+msgid "Show your calendar events"
+msgstr "Показать события календаря"
+
+#: core/Util.vala:1075
+msgid ""
+"You can display your system's calendar events in Planify. Go to "
+"'Preferences' 🡒 Calendar Events to turn ir on."
+msgstr ""
+"Вы можете отображать события календаря вашей системы в Planify. Перейдите в "
+"«Настройки» 🡒 «События календаря», чтобы включить их."
+
+#: core/Util.vala:1081
+msgid "Enable synchronization with third-party service."
+msgstr "Включите синхронизацию со сторонним сервисом."
+
+#: core/Util.vala:1082
+msgid ""
+"Planify not only creates tasks locally, it can also synchronize your Todoist "
+"account. Go to 'Preferences' 🡒 'Accounts'."
+msgstr ""
+"Planify не только создает задачи локально, но и может синхронизировать их с "
+"вашей учетной записью Todoist. Перейдите в «Настройки» 🡒 «Учетные записи»."
+
+#: core/Util.vala:1093
+msgid "💼️Work"
+msgstr "💼️ Работа"
+
+#: core/Util.vala:1099
+msgid "🎒️School"
+msgstr "🎒️ Учеба"
+
+#: core/Util.vala:1105
+msgid "👉️Delegated"
+msgstr "👉️ Делегирование"
+
+#: core/Util.vala:1111
+msgid "🏡️Home"
+msgstr "🏡️ Дом"
+
+#: core/Util.vala:1117
+msgid "🏃‍♀️️Follow Up"
+msgstr "🏃‍♀️️ Последующая работа"
+
+#: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
+#: src/Layouts/FilterPaneRow.vala:131 src/Views/Scheduled/Scheduled.vala:32
+#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:40
+msgid "Scheduled"
+msgstr "Предстоящее"
+
+#: core/Enum.vala:114 src/Layouts/FilterPaneRow.vala:134
+#: src/Views/Pinboard.vala:38 src/Dialogs/Preferences/Pages/Sidebar.vala:41
+msgid "Pinboard"
+msgstr "Прикрепленные"
+
+#: core/Enum.vala:181 src/Dialogs/Preferences/Pages/Backup.vala:160
+msgid "Projects"
+msgstr "Проекты"
+
+#: core/Enum.vala:184 src/Dialogs/Preferences/Pages/Backup.vala:164
+msgid "Sections"
+msgstr "Разделы"
+
+#: core/Enum.vala:187 core/Enum.vala:196
+msgid "Tasks"
+msgstr "Задачи"
+
+#: core/Enum.vala:190 core/Objects/Filters/Labels.vala:58
+#: src/Layouts/FilterPaneRow.vala:137 src/Views/Label/Labels.vala:34
+#: src/Dialogs/LabelPicker.vala:57
+#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/Pages/Backup.vala:172
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:42
+msgid "Labels"
+msgstr "Метки"
+
+#: core/Enum.vala:193
+msgid "Filters"
+msgstr "Фильтры"
+
+#: core/Enum.vala:199
+msgid "Lists"
+msgstr "Списки"
+
+#: core/Enum.vala:217
+msgid "Don't Repeat"
+msgstr "Не повторяйте"
+
+#: core/Enum.vala:220 core/Enum.vala:222
+msgid "Every day"
+msgstr "Каждый день"
+
+#: core/Enum.vala:222
+#, c-format
+msgid "Every %d days"
+msgstr "Каждые %d дня(ей)"
+
+#: core/Enum.vala:226 core/Enum.vala:228
+msgid "Every week"
+msgstr "Каждую неделю"
+
+#: core/Enum.vala:228
+#, c-format
+msgid "Every %d weeks"
+msgstr "Каждые %d недели(ель)"
+
+#: core/Enum.vala:233 core/Enum.vala:235
+msgid "Every month"
+msgstr "Каждый месяц"
+
+#: core/Enum.vala:235
+#, c-format
+msgid "Every %d months"
+msgstr "Каждые %d месяца(ев)"
+
+#: core/Enum.vala:240 core/Enum.vala:242
+msgid "Every year"
+msgstr "Каждый год"
+
+#: core/Enum.vala:242
+#, c-format
+msgid "Every %d years"
+msgstr "Каждые %d года(лет)"
+
+#: core/QuickAdd.vala:43
+msgid "To-do name"
+msgstr ""
+
+#: core/QuickAdd.vala:58
+#, fuzzy
+msgid "Add a description…"
+msgstr "Добавить описание"
+
+#: core/QuickAdd.vala:123 src/Layouts/ItemRow.vala:491
+msgid "Add To-Do"
+msgstr ""
+
+#: core/QuickAdd.vala:169
+msgid ""
+"I'm sorry, Quick Add can't find any project available, try creating a "
+"project from Planify."
+msgstr ""
+
+#: core/QuickAdd.vala:192
+msgid "To-do added"
+msgstr ""
+
+#: core/Services/Todoist.vala:1273
+msgid "The request was incorrect."
+msgstr "Запрос был неправильным."
+
+#: core/Services/Todoist.vala:1274
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr ""
+"Требуется аутентификация, но она завершилась неудачно или еще не была "
+"выполнена."
+
+#: core/Services/Todoist.vala:1275
+msgid "The request was valid, but for something that is forbidden."
+msgstr "Запрос был действительным, но для чего-то запрещенного."
+
+#: core/Services/Todoist.vala:1276
+msgid "The requested resource could not be found."
+msgstr "Запрошенный ресурс не найден."
+
+#: core/Services/Todoist.vala:1277
+msgid "The user has sent too many requests in a given amount of time."
+msgstr ""
+"Пользователь отправил слишком много запросов за определенный промежуток "
+"времени."
+
+#: core/Services/Todoist.vala:1278
+msgid "The request failed due to a server error."
+msgstr "Запрос не выполнен из-за ошибки сервера."
+
+#: core/Services/Todoist.vala:1279
+msgid "The server is currently unable to handle the request."
+msgstr "Сервер в настоящее время не может обработать запрос."
+
+#: core/Services/Todoist.vala:1281
+msgid "Unknown error"
+msgstr ""
+
+#: core/Widgets/PinButton.vala:34
+msgid "Pinned"
+msgstr "Закрепить"
+
+#: core/Widgets/PriorityButton.vala:12
+msgid "Set the priority"
+msgstr "Установить приоритет"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:35
+#: core/Widgets/Calendar/CalendarHeader.vala:49
+msgid "%OB"
+msgstr "%OB"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Widgets/Calendar/CalendarHeader.vala:52
+msgid "%Y"
+msgstr "%Y"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:35
+msgid "Su"
+msgstr "Вс"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:36
+msgid "Mo"
+msgstr "Пн"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:37
+msgid "Tu"
+msgstr "Вт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:38
+msgid "We"
+msgstr "Ср"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:39
+msgid "Th"
+msgstr "Чт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:40
+msgid "Fr"
+msgstr "Пт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:41
+msgid "Sa"
+msgstr "Сб"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:37
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:47
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:80
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:81
+#: src/Widgets/MultiSelectToolbar.vala:60 src/Views/Project/List.vala:306
+msgid "Schedule"
+msgstr "Запланировать"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:76
+#: src/Layouts/ItemRow.vala:1042 src/Dialogs/DatePicker.vala:77
+msgid "No Date"
+msgstr "Нет данных"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:78
+#: src/Dialogs/DatePicker.vala:71
+msgid "Next week"
+msgstr "Через неделю"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+msgid "Choose a date"
+msgstr "Выберите дату"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:119
+#: src/Widgets/ReminderPicker/ReminderPicker.vala:208
+msgid "Time"
+msgstr "Время"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:139
+#: src/Widgets/MultiSelectToolbar.vala:50
+#: src/Dialogs/ProjectDescription.vala:62 src/Dialogs/DatePicker.vala:106
+#: src/Dialogs/RepeatConfig.vala:156
+msgid "Done"
+msgstr "Готово"
+
+#: core/Widgets/LabelPicker/LabelPicker.vala:71 src/Dialogs/LabelPicker.vala:71
+msgid "Search or Create"
+msgstr "Найдите или создайте"
+
+#: core/Widgets/LabelPicker/LabelPicker.vala:215
+#: src/Dialogs/LabelPicker.vala:153
+msgid ""
+"Your list of filters will show up here. Create one by entering the name and "
+"pressing the Enter key."
+msgstr ""
+"Здесь появится список ваших фильтров. Создайте его, введя имя и нажав "
+"клавишу Enter."
+
+#: core/Widgets/LabelPicker/LabelButton.vala:35
+msgid "Add label(s)"
+msgstr "Добавить метку(-ки)"
+
+#: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:162
+msgid "On this Computer"
+msgstr "На этом компьютере"
+
+#: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:30
+#: src/Layouts/Sidebar.vala:288 src/Layouts/Sidebar.vala:291
+#: src/Dialogs/Project.vala:140
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:165
+#: src/Dialogs/Preferences/PreferencesWindow.vala:586
+#: src/Dialogs/Preferences/PreferencesWindow.vala:620
+#: src/Dialogs/Preferences/PreferencesWindow.vala:769
+#: src/Dialogs/Preferences/Pages/Backup.vala:151
+msgid "Todoist"
+msgstr "Todoist"
+
+#: core/Objects/Item.vala:780
+msgid "Task copied to clipboard"
+msgstr "Задача скопирована в буфер обмена."
+
+#: core/Objects/Item.vala:798
+#, c-format
+msgid "Diplicate"
+msgstr "Дублировать"
+
+#: core/Objects/Project.vala:684 src/Views/Project/Project.vala:351
+msgid "New section"
+msgstr "Новый раздел"
+
+#: core/Objects/Project.vala:694
+msgid "The project was copied to the Clipboard."
+msgstr "Проект скопирован в буфер обмена."
+
+#: core/Objects/Filters/Pinboard.vala:51
+msgid "pinboard"
+msgstr "Прикрепленные"
+
+#: core/Objects/Filters/Scheduled.vala:51
+#, c-format
+msgid "scheduled"
+msgstr "Предстоящее"
+
+#: core/Objects/Filters/Scheduled.vala:51
+msgid "upcoming"
+msgstr "предстоящий"
+
+#: core/Objects/Filters/Today.vala:67
+msgid "today"
+msgstr "сегодня"
+
+#: core/Objects/Filters/Completed.vala:58 src/Views/Filter.vala:165
+msgid "Completed"
+msgstr "Завершено"
+
+#: core/Objects/Filters/Completed.vala:59
+#, c-format
+msgid "completed"
+msgstr "завершено"
+
+#: core/Objects/Filters/Completed.vala:59
+msgid "logbook"
+msgstr "журнал событий"
+
+#: core/Objects/Filters/Labels.vala:59
+#, c-format
+msgid "labels"
+msgstr "Метки"
+
+#: src/App.vala:105 src/Dialogs/Preferences/PreferencesWindow.vala:158
 msgid "Are you sure you want to reset all?"
 msgstr "Вы уверены, что хотите сбросить все?"
 
-#: src/App.vala:111 src/Dialogs/Preferences/PreferencesWindow.vala:150
+#: src/App.vala:106 src/Dialogs/Preferences/PreferencesWindow.vala:159
 msgid ""
-"The process removes all stored information without the possibility of undoing "
-"it."
+"The process removes all stored information without the possibility of "
+"undoing it."
 msgstr ""
 "Процесс удаляет всю сохраненную информацию без возможности восстановления."
 
-#: src/App.vala:122
+#: src/App.vala:118
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
@@ -46,554 +713,109 @@ msgstr "Задачи синхронизированы успешно"
 
 #: src/MainWindow.vala:236
 msgid "Do you want to use Todoist as your default Inbox Project?"
-msgstr "Хотите использовать Todoist в качестве проекта «Входящие» по умолчанию?"
+msgstr ""
+"Хотите использовать Todoist в качестве проекта «Входящие» по умолчанию?"
 
-#: src/MainWindow.vala:239 src/Util.vala:835 src/Layouts/ProjectRow.vala:478
-#: src/Layouts/SectionRow.vala:658 src/Layouts/ItemRow.vala:1536
-#: src/Layouts/ItemRow.vala:1643 src/Layouts/LabelRow.vala:145
-#: src/Layouts/SectionBoard.vala:497 src/Widgets/MultiSelectToolbar.vala:321
-#: src/Views/Project/Project.vala:281
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1043
-msgid "Cancel"
-msgstr "Отмена"
-
-#: src/MainWindow.vala:240 src/Util.vala:854
-msgid "Ok"
-msgstr "ОК"
-
-#: src/MainWindow.vala:443 src/Dialogs/Preferences/PreferencesWindow.vala:42
+#: src/MainWindow.vala:449 src/Dialogs/Preferences/PreferencesWindow.vala:40
 msgid "Preferences"
 msgstr "Настройки"
 
-#. preferences_item.tooltip_markup = Granite.markup_accel_tooltip ({"<Control>comma"}, _("Preferences"));
-#: src/MainWindow.vala:447
+#: src/MainWindow.vala:452
 msgid "Keyboard shortcuts"
 msgstr "Сочетания клавиш"
 
-#. keyboard_shortcuts_item.tooltip_markup = Granite.markup_accel_tooltip ({"F1"}, _("Keyboard shortcuts"));
-#: src/MainWindow.vala:451
+#: src/MainWindow.vala:455
 msgid "About Planify"
 msgstr "О Planify"
 
-#: src/Util.vala:41 src/Util.vala:42
-msgid "Berry Red"
-msgstr "Ягодно-красный"
-
-#: src/Util.vala:44 src/Util.vala:45
-msgid "Red"
-msgstr "Красный"
-
-#: src/Util.vala:47 src/Util.vala:48
-msgid "Orange"
-msgstr "Оранжевый"
-
-#: src/Util.vala:50 src/Util.vala:51
-msgid "Olive Green"
-msgstr "Оливковый"
-
-#: src/Util.vala:53 src/Util.vala:54
-msgid "Yellow"
-msgstr "Желтый"
-
-#: src/Util.vala:56 src/Util.vala:57
-msgid "Lime Green"
-msgstr "Лаймовый"
-
-#: src/Util.vala:59 src/Util.vala:60
-msgid "Green"
-msgstr "Зеленый"
-
-#: src/Util.vala:62 src/Util.vala:63
-msgid "Mint Green"
-msgstr "Мятный"
-
-#: src/Util.vala:65 src/Util.vala:66
-msgid "Teal"
-msgstr "Бирюзовый"
-
-#: src/Util.vala:68 src/Util.vala:69
-msgid "Sky Blue"
-msgstr "Небесно-голубой"
-
-#: src/Util.vala:71 src/Util.vala:72
-msgid "Light Blue"
-msgstr "Голубой"
-
-#: src/Util.vala:74 src/Util.vala:75
-msgid "Blue"
-msgstr "Синий"
-
-#: src/Util.vala:77 src/Util.vala:78
-msgid "Grape"
-msgstr "Виноград"
-
-#: src/Util.vala:80 src/Util.vala:81
-msgid "Violet"
-msgstr "Фиолетовый"
-
-#: src/Util.vala:83 src/Util.vala:84
-msgid "Lavander"
-msgstr "Лаванда"
-
-#: src/Util.vala:86 src/Util.vala:87
-msgid "Magenta"
-msgstr "Пурпурный"
-
-#: src/Util.vala:89 src/Util.vala:90
-msgid "Salmon"
-msgstr "Лосось"
-
-#: src/Util.vala:92 src/Util.vala:93
-msgid "Charcoal"
-msgstr "Древесный уголь"
-
-#: src/Util.vala:95 src/Util.vala:96
-msgid "Grey"
-msgstr "Серый"
-
-#: src/Util.vala:98 src/Util.vala:99
-msgid "Taupe"
-msgstr "Серо-коричневый"
-
-#: src/Util.vala:238
-msgid "Light"
-msgstr "Светлый"
-
-#: src/Util.vala:241
-msgid "Dark"
-msgstr "Темный"
-
-#: src/Util.vala:244
-msgid "Dark Blue"
-msgstr "Темно-синий"
-
-#: src/Util.vala:257 src/Layouts/ItemRow.vala:1234
-#: src/Dialogs/Preferences/PreferencesWindow.vala:274
-msgid "None"
-msgstr "Нет"
-
-#: src/Util.vala:260 src/Util.vala:1119 src/Enum.vala:108
-#: src/Layouts/FilterPaneRow.vala:122
-#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:101
-#: src/Dialogs/Preferences/PreferencesWindow.vala:406
-msgid "Inbox"
-msgstr "Входящие"
-
-#: src/Util.vala:263 src/Util.vala:438 src/Enum.vala:105
-#: src/Layouts/FilterPaneRow.vala:119 src/Layouts/ItemRow.vala:997
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:70 src/Views/Date.vala:104
-#: src/Views/Today.vala:51 src/Views/Today.vala:135
-#: src/Objects/Filters/Today.vala:66 src/Dialogs/DatePicker.vala:64
-#: src/Dialogs/Preferences/PreferencesWindow.vala:417
-msgid "Today"
-msgstr "Сегодня"
-
-#: src/Util.vala:266
-msgid "Today + Inbox"
-msgstr "Сегодня + Входящие"
-
-#: src/Util.vala:440 src/Layouts/ItemRow.vala:1000
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:73
-#: src/Dialogs/DatePicker.vala:68
-msgid "Tomorrow"
-msgstr "Завтра"
-
-#: src/Util.vala:442
-msgid "Yesterday"
-msgstr "Вчера"
-
-#: src/Util.vala:569
-msgid "Mo,"
-msgstr "Пн,"
-
-#: src/Util.vala:573
-msgid "Tu,"
-msgstr "Вт,"
-
-#: src/Util.vala:577
-msgid "We,"
-msgstr "Ср,"
-
-#: src/Util.vala:581
-msgid "Th,"
-msgstr "Чт,"
-
-#: src/Util.vala:585
-msgid "Fr,"
-msgstr "Пт,"
-
-#: src/Util.vala:589
-msgid "Sa,"
-msgstr "Сб,"
-
-#: src/Util.vala:593
-msgid "Su,"
-msgstr "Вс,"
-
-#: src/Util.vala:621
-#, c-format
-msgid "Task added to <b>%s</b>"
-msgstr "Задача добавлена в <b>%s</b>"
-
-#: src/Util.vala:836
-msgid "Reset all"
-msgstr "Сбросить все"
-
-#: src/Util.vala:851
-msgid "Process completed, you need to start Planify again."
-msgstr "Процесс завершен, вам нужно снова перезапустить Planify."
-
-#: src/Util.vala:962
-msgid "The request was incorrect."
-msgstr "Запрос был неправильным."
-
-#: src/Util.vala:963
-msgid ""
-"Authentication is required, and has failed, or has not yet been provided."
+#: src/Services/Backups.vala:510
+msgid "Backup successfully imported"
 msgstr ""
-"Требуется аутентификация, но она завершилась неудачно или еще не была выполнена."
 
-#: src/Util.vala:964
-msgid "The request was valid, but for something that is forbidden."
-msgstr "Запрос был действительным, но для чего-то запрещенного."
-
-#: src/Util.vala:965
-msgid "The requested resource could not be found."
-msgstr "Запрошенный ресурс не найден."
-
-#: src/Util.vala:966
-msgid "The user has sent too many requests in a given amount of time."
-msgstr "Пользователь отправил слишком много запросов за определенный промежуток времени."
-
-#: src/Util.vala:967
-msgid "The request failed due to a server error."
-msgstr "Запрос не выполнен из-за ошибки сервера."
-
-#: src/Util.vala:968
-msgid "The server is currently unable to handle the request."
-msgstr "Сервер в настоящее время не может обработать запрос."
-
-#: src/Util.vala:1052 src/Widgets/PriorityButton.vala:40
-#: src/Widgets/MultiSelectToolbar.vala:199 src/Objects/Item.vala:69
-msgid "Priority 1: high"
-msgstr "Приоритет 1: высокий"
-
-#: src/Util.vala:1054 src/Widgets/PriorityButton.vala:41
-#: src/Widgets/MultiSelectToolbar.vala:200 src/Objects/Item.vala:71
-msgid "Priority 2: medium"
-msgstr "Приоритет 2: средний"
-
-#: src/Util.vala:1056 src/Widgets/PriorityButton.vala:42
-#: src/Widgets/MultiSelectToolbar.vala:201 src/Objects/Item.vala:73
-msgid "Priority 3: low"
-msgstr "Приоритет 3: низкий"
-
-#: src/Util.vala:1058 src/Util.vala:1060 src/Widgets/PriorityButton.vala:43
-#: src/Widgets/MultiSelectToolbar.vala:202 src/Objects/Item.vala:75
-msgid "Priority 4: none"
-msgstr "Приоритет 4: нет"
-
-#: src/Util.vala:1137
-msgid "Meet Planify"
-msgstr "Встречайте Planify"
-
-#: src/Util.vala:1140
-msgid ""
-"This project shows you everything you need to know to hit the ground running. "
-"Don’t hesitate to play around in it – you can always create a new one from "
-"settings."
+#: src/Services/Backups.vala:526
+msgid "Planify backup files"
 msgstr ""
-"Этот проект покажет вам все, что нужно знать, чтобы приступить к делу. Не "
-"стесняйтесь экспериментировать с ним – вы всегда можете создать новый в "
-"настройках."
 
-#: src/Util.vala:1146
-msgid "Tap this to-do"
-msgstr "Нажмите на эту задачу"
-
-#: src/Util.vala:1147
-msgid ""
-"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
-msgstr ""
-"Перед вами задача! Завершите ее, нажав на флажок слева. Выполненные задачи "
-"собираются в нижней части вашего проекта."
-
-#: src/Util.vala:1152
-msgid "Create a new to-do"
-msgstr "Создать новую задачу"
-
-#: src/Util.vala:1153
-msgid ""
-"Now it's your turn, tap the '+' button at the top of your project, enter any "
-"pending and tap the blue 'Save' button."
-msgstr ""
-"Теперь ваша очередь, нажмите кнопку «+» в верхней части проекта, введите все "
-"оставшиеся данные и нажмите синюю кнопку «Сохранить»."
-
-#: src/Util.vala:1158
-msgid "Plan this to-do by today or later"
-msgstr "Запланируйте эту задачу на сегодня или позже."
-
-#: src/Util.vala:1159
-msgid "Tap the calendar button at the bottom to decide when to do this to-do."
-msgstr "Нажмите кнопку календаря внизу, чтобы решить, когда выполнить это задание."
-
-#: src/Util.vala:1164
-msgid "Reorder yours to-dos"
-msgstr "Измените порядок задач"
-
-#: src/Util.vala:1165
-msgid ""
-"To reorder your list, tap amd hold a to-do, then drag it to where it shpuld "
-"go."
-msgstr ""
-"Чтобы изменить порядок списка, нажмите и удерживайте задачу, а затем "
-"перетащите ее куда вам нужно."
-
-#: src/Util.vala:1170
-msgid "Create a project"
-msgstr "Создать проект"
-
-#: src/Util.vala:1171
-msgid ""
-"Organize your to-dos better! Go to the left panel and click the '+' button in "
-"the 'On This Computer' section and add a project of your own."
-msgstr ""
-"Организуйте свои задачи лучше! Перейдите на левую панель, нажмите кнопку «+» "
-"в разделе «На этом компьютере» и добавьте собственный проект."
-
-#: src/Util.vala:1176
-msgid "You’re done!"
-msgstr "Вы готовы!"
-
-#: src/Util.vala:1177
-msgid ""
-"That’s all you really need to know. Feel free to start adding your own "
-"projects and to-dos.\n"
-"\n"
-"You can come back to this project later to learn the advanced features "
-"below..\n"
-"\n"
-"We hope you’ll enjoy using Planify!"
-msgstr ""
-"Это все, что вам действительно нужно знать. Не стесняйтесь добавлять свои "
-"собственные проекты и задачи.\n"
-"\n"
-"Вы можете вернуться к этому проекту позже, чтобы изучить расширенные функции, "
-"указанные ниже..\n"
-"\n"
-"Мы надеемся, что вам понравится использовать Planify!"
-
-#: src/Util.vala:1193
-msgid "Tune your setup"
-msgstr "Настройте параметры приложения"
-
-#: src/Util.vala:1201
-msgid "Show your calendar events"
-msgstr "Показать события календаря"
-
-#: src/Util.vala:1202
-msgid ""
-"You can display your system's calendar events in Planify. Go to 'Preferences' "
-"🡒 Calendar Events to turn ir on."
-msgstr ""
-"Вы можете отображать события календаря вашей системы в Planify. Перейдите в "
-"«Настройки» 🡒 «События календаря», чтобы включить их."
-
-#: src/Util.vala:1208
-msgid "Enable synchronization with third-party service."
-msgstr "Включите синхронизацию со сторонним сервисом."
-
-#: src/Util.vala:1209
-msgid ""
-"Planify not only creates tasks locally, it can also synchronize your Todoist "
-"account. Go to 'Preferences' 🡒 'Accounts'."
-msgstr ""
-"Planify не только создает задачи локально, но и может синхронизировать их с "
-"вашей учетной записью Todoist. Перейдите в «Настройки» 🡒 «Учетные записи»."
-
-#: src/Util.vala:1220
-msgid "💼️Work"
-msgstr "💼️ Работа"
-
-#: src/Util.vala:1226
-msgid "🎒️School"
-msgstr "🎒️ Учеба"
-
-#: src/Util.vala:1232
-msgid "👉️Delegated"
-msgstr "👉️ Делегирование"
-
-#: src/Util.vala:1238
-msgid "🏡️Home"
-msgstr "🏡️ Дом"
-
-#: src/Util.vala:1244
-msgid "🏃‍♀️️Follow Up"
-msgstr "🏃‍♀️️ Последующая работа"
-
-#: src/Enum.vala:111 src/Layouts/FilterPaneRow.vala:125
-#: src/Views/Scheduled/Scheduled.vala:32 src/Objects/Filters/Scheduled.vala:50
-#: src/Dialogs/Preferences/PreferencesWindow.vala:428
-msgid "Scheduled"
-msgstr "Предстоящее"
-
-#: src/Enum.vala:114 src/Layouts/FilterPaneRow.vala:128
-#: src/Views/Pinboard.vala:38
-msgid "Pinboard"
-msgstr "Прикрепленные"
-
-#: src/Enum.vala:181
-msgid "Projects"
-msgstr "Проекты"
-
-#: src/Enum.vala:184
-msgid "Sections"
-msgstr "Разделы"
-
-#: src/Enum.vala:187 src/Enum.vala:196
-msgid "Tasks"
-msgstr "Задачи"
-
-#: src/Enum.vala:190 src/Layouts/FilterPaneRow.vala:131
-#: src/Views/Label/Labels.vala:34 src/Objects/Filters/Labels.vala:58
-#: src/Dialogs/LabelPicker.vala:57
-#: src/Dialogs/Preferences/PreferencesWindow.vala:439
-msgid "Labels"
-msgstr "Метки"
-
-#: src/Enum.vala:193
-msgid "Filters"
-msgstr "Фильтры"
-
-#: src/Enum.vala:199
-msgid "Lists"
-msgstr "Списки"
-
-#: src/Enum.vala:217
-msgid "Don't Repeat"
-msgstr "Не повторяйте"
-
-#: src/Enum.vala:220 src/Enum.vala:222
-msgid "Every day"
-msgstr "Каждый день"
-
-#: src/Enum.vala:222
-#, c-format
-msgid "Every %d days"
-msgstr "Каждые %d дня(ей)"
-
-#: src/Enum.vala:226 src/Enum.vala:228
-msgid "Every week"
-msgstr "Каждую неделю"
-
-#: src/Enum.vala:228
-#, c-format
-msgid "Every %d weeks"
-msgstr "Каждые %d недели(ель)"
-
-#: src/Enum.vala:233 src/Enum.vala:235
-msgid "Every month"
-msgstr "Каждый месяц"
-
-#: src/Enum.vala:235
-#, c-format
-msgid "Every %d months"
-msgstr "Каждые %d месяца(ев)"
-
-#: src/Enum.vala:240 src/Enum.vala:242
-msgid "Every year"
-msgstr "Каждый год"
-
-#: src/Enum.vala:242
-#, c-format
-msgid "Every %d years"
-msgstr "Каждые %d года(лет)"
-
-#: src/Services/CalendarEvents/Util.vala:269
+#: src/Services/CalendarEvents/Util.vala:243
 msgid "On this computer"
 msgstr "На этом компьютере"
 
-#: src/Layouts/Sidebar.vala:69
+#: src/Layouts/Sidebar.vala:79
 msgid "Favorites"
 msgstr "Избранное"
 
-#: src/Layouts/Sidebar.vala:70
+#: src/Layouts/Sidebar.vala:80
 msgid "No favorites available. Create one by clicking on the '+' button"
 msgstr "В избранном ничего нет. Создайте, нажав кнопку «+»."
 
-#: src/Layouts/Sidebar.vala:74 src/Dialogs/Project.vala:139
-#: src/Dialogs/Preferences/PreferencesWindow.vala:692
+#: src/Layouts/Sidebar.vala:84 src/Dialogs/Project.vala:139
+#: src/Dialogs/Preferences/PreferencesWindow.vala:585
 msgid "On This Computer"
 msgstr "На этом компьютере"
 
-#: src/Layouts/Sidebar.vala:75 src/Layouts/Sidebar.vala:210
-#: src/Layouts/Sidebar.vala:223
+#: src/Layouts/Sidebar.vala:85 src/Layouts/Sidebar.vala:289
+#: src/Layouts/Sidebar.vala:302
 msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Нет доступного проекта. Создайте его, нажав кнопку «+»."
 
-#: src/Layouts/Sidebar.vala:209 src/Layouts/Sidebar.vala:212
-#: src/Dialogs/Project.vala:140 src/Dialogs/WhatsNew.vala:98
-#: src/Dialogs/WhatsNew.vala:99 src/Dialogs/ProjectPicker/ProjectPicker.vala:163
-#: src/Dialogs/Preferences/PreferencesWindow.vala:693
-#: src/Dialogs/Preferences/PreferencesWindow.vala:728
-#: src/Dialogs/Preferences/PreferencesWindow.vala:876
-msgid "Todoist"
-msgstr "Todoist"
+#: src/Layouts/Sidebar.vala:98 src/Dialogs/WhatsNew.vala:46
+#, fuzzy
+msgid "What’s new in Planify"
+msgstr "Что нового в Planify"
 
-#: src/Layouts/Sidebar.vala:213 src/Layouts/Sidebar.vala:226
+#: src/Layouts/Sidebar.vala:292 src/Layouts/Sidebar.vala:305
 msgid "No account available, Sync one by clicking the '+' button"
 msgstr "Нет доступной учетной записи. Синхронизируйте ее, нажав кнопку «+»."
 
-#: src/Layouts/Sidebar.vala:222 src/Layouts/Sidebar.vala:225
-#: src/Dialogs/Preferences/PreferencesWindow.vala:762
+#: src/Layouts/Sidebar.vala:301 src/Layouts/Sidebar.vala:304
+#: src/Dialogs/Preferences/PreferencesWindow.vala:654
 msgid "Google Tasks"
 msgstr "Google Tasks"
 
-#: src/Layouts/ProjectRow.vala:338
+#: src/Layouts/ProjectRow.vala:340
 msgid "Project list order changed to Custom Sort Order."
-msgstr "Порядок списка проектов изменен на пользовательский порядок сортировки."
+msgstr ""
+"Порядок списка проектов изменен на пользовательский порядок сортировки."
 
-#: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
+#: src/Layouts/ProjectRow.vala:411 src/Layouts/ProjectRow.vala:418
 msgid "Remove from favorites"
 msgstr "Удалить из избранного"
 
-#: src/Layouts/ProjectRow.vala:412 src/Layouts/ProjectRow.vala:419
+#: src/Layouts/ProjectRow.vala:411 src/Layouts/ProjectRow.vala:418
 msgid "Add to favorites"
 msgstr "Добавить в избранное"
 
-#: src/Layouts/ProjectRow.vala:420 src/Views/Project/Project.vala:150
+#: src/Layouts/ProjectRow.vala:419 src/Views/Project/Project.vala:150
 #: src/Dialogs/Project.vala:65
 msgid "Edit Project"
 msgstr "Изменить проект"
 
 #. var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
-#: src/Layouts/ProjectRow.vala:422 src/Layouts/ProjectRow.vala:475
-#: src/Views/Project/Project.vala:278
+#: src/Layouts/ProjectRow.vala:421 src/Layouts/ProjectRow.vala:474
+#: src/Views/Project/Project.vala:277
 msgid "Delete project"
 msgstr "Удалить проект"
 
-#: src/Layouts/ProjectRow.vala:425
+#: src/Layouts/ProjectRow.vala:424
 msgid "Share"
 msgstr "Поделиться"
 
-#: src/Layouts/ProjectRow.vala:426
+#: src/Layouts/ProjectRow.vala:425
 msgid "Send by e-mail"
 msgstr "Отправить по e-mail"
 
-#: src/Layouts/ProjectRow.vala:475 src/Layouts/SectionRow.vala:655
+#: src/Layouts/ProjectRow.vala:474 src/Layouts/SectionRow.vala:680
 #: src/Layouts/LabelRow.vala:142 src/Layouts/SectionBoard.vala:494
-#: src/Views/Project/Project.vala:278
+#: src/Views/Project/Project.vala:277
 #, c-format
 msgid "Are you sure you want to delete <b>%s</b>?"
 msgstr "Вы уверены, что хотите удалить <b>%s</b> ?"
 
-#: src/Layouts/ProjectRow.vala:479 src/Layouts/SectionRow.vala:659
-#: src/Layouts/ItemRow.vala:1537 src/Layouts/LabelRow.vala:146
-#: src/Layouts/SectionBoard.vala:498 src/Widgets/MultiSelectToolbar.vala:278
-#: src/Widgets/MultiSelectToolbar.vala:322 src/Views/Project/Project.vala:282
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1044
+#: src/Layouts/ProjectRow.vala:478 src/Layouts/SectionRow.vala:684
+#: src/Layouts/ItemRow.vala:1576 src/Layouts/LabelRow.vala:146
+#: src/Layouts/SectionBoard.vala:498 src/Widgets/MultiSelectToolbar.vala:282
+#: src/Widgets/MultiSelectToolbar.vala:326 src/Views/Project/Project.vala:281
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1160
 msgid "Delete"
 msgstr "Удалить"
 
@@ -602,144 +824,140 @@ msgstr "Удалить"
 msgid "(No Section)"
 msgstr "(Нет разделов)"
 
-#: src/Layouts/SectionRow.vala:597 src/Layouts/SectionBoard.vala:432
+#: src/Layouts/SectionRow.vala:567
+#, c-format
+msgid "Task added to <b>%s</b>"
+msgstr "Задача добавлена в <b>%s</b>"
+
+#: src/Layouts/SectionRow.vala:622 src/Layouts/SectionBoard.vala:432
 msgid "Add Task"
 msgstr "Добавить задачу"
 
-#: src/Layouts/SectionRow.vala:598 src/Layouts/SectionBoard.vala:433
+#: src/Layouts/SectionRow.vala:623 src/Layouts/SectionBoard.vala:433
 msgid "Edit Section"
 msgstr "Изменить раздел"
 
-#: src/Layouts/SectionRow.vala:599 src/Layouts/SectionBoard.vala:434
+#: src/Layouts/SectionRow.vala:624 src/Layouts/SectionBoard.vala:434
 msgid "Move Section"
 msgstr "Переместить раздел"
 
-#: src/Layouts/SectionRow.vala:600 src/Layouts/SectionBoard.vala:435
+#: src/Layouts/SectionRow.vala:625 src/Layouts/SectionBoard.vala:435
 #: src/Dialogs/ManageSectionOrder.vala:32
 msgid "Manage Section Order"
 msgstr "Изменить порядок разделов"
 
-#: src/Layouts/SectionRow.vala:601 src/Layouts/SectionBoard.vala:436
+#: src/Layouts/SectionRow.vala:626 src/Layouts/SectionBoard.vala:436
 msgid "Delete Section"
 msgstr "Удалить раздел"
 
-#: src/Layouts/SectionRow.vala:655 src/Layouts/SectionBoard.vala:494
+#: src/Layouts/SectionRow.vala:680 src/Layouts/SectionBoard.vala:494
 msgid "Delete section"
 msgstr "Удалить раздел"
 
-#: src/Layouts/ItemRow.vala:405 src/Views/Project/List.vala:52
-#: src/Views/Project/List.vala:277 src/Dialogs/ProjectDescription.vala:42
+#: src/Layouts/ItemRow.vala:438 src/Views/Project/List.vala:52
+#: src/Views/Project/List.vala:275 src/Dialogs/ProjectDescription.vala:42
 msgid "Add a description"
 msgstr "Добавить описание"
 
-#: src/Layouts/ItemRow.vala:452
+#: src/Layouts/ItemRow.vala:482
 msgid "Add subtask"
 msgstr "Добавить подзадачу"
 
-#: src/Layouts/ItemRow.vala:461
-msgid "Save"
-msgstr "Сохранить"
-
-#: src/Layouts/ItemRow.vala:1003
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:76
-#: src/Dialogs/DatePicker.vala:77
-msgid "No Date"
-msgstr "Нет данных"
-
 #. var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
 #. var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
-#: src/Layouts/ItemRow.vala:1007 src/Layouts/ItemRow.vala:1133
-#: src/Layouts/ItemRow.vala:1644 src/Dialogs/ProjectPicker/ProjectPicker.vala:73
+#: src/Layouts/ItemRow.vala:1046 src/Layouts/ItemRow.vala:1172
+#: src/Layouts/ItemRow.vala:1683
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:73
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:105
 msgid "Move"
 msgstr "Переместить"
 
-#: src/Layouts/ItemRow.vala:1008 src/Layouts/ItemRow.vala:1134
+#: src/Layouts/ItemRow.vala:1047 src/Layouts/ItemRow.vala:1173
 msgid "Move to Section"
 msgstr "Переместить в раздел"
 
-#: src/Layouts/ItemRow.vala:1010
+#: src/Layouts/ItemRow.vala:1049
 msgid "Complete"
 msgstr "Завершить"
 
-#: src/Layouts/ItemRow.vala:1011
+#: src/Layouts/ItemRow.vala:1050
 msgid "Edit"
 msgstr "Изменить"
 
-#: src/Layouts/ItemRow.vala:1013 src/Layouts/ItemRow.vala:1140
+#: src/Layouts/ItemRow.vala:1052 src/Layouts/ItemRow.vala:1179
 msgid "Delete task"
 msgstr "Удалить задачу"
 
-#: src/Layouts/ItemRow.vala:1115
+#: src/Layouts/ItemRow.vala:1154
 msgid "Added at"
 msgstr "Добавлено"
 
-#: src/Layouts/ItemRow.vala:1116
+#: src/Layouts/ItemRow.vala:1155
 msgid "Updated at"
 msgstr "Обновлено"
 
-#: src/Layouts/ItemRow.vala:1118
+#: src/Layouts/ItemRow.vala:1157
 msgid "Not available"
 msgstr "Не доступно"
 
-#: src/Layouts/ItemRow.vala:1131
+#: src/Layouts/ItemRow.vala:1170
 msgid "Copy to clipboard"
 msgstr "Скопировать в буфер обмена"
 
-#: src/Layouts/ItemRow.vala:1132
+#: src/Layouts/ItemRow.vala:1171
 msgid "Duplicate"
 msgstr "Дублировать"
 
-#: src/Layouts/ItemRow.vala:1135 src/Dialogs/RepeatConfig.vala:66
+#: src/Layouts/ItemRow.vala:1174 src/Dialogs/RepeatConfig.vala:66
 msgid "Repeat"
 msgstr "Повторять"
 
-#: src/Layouts/ItemRow.vala:1235
+#: src/Layouts/ItemRow.vala:1274
 msgid "Daily"
 msgstr "Ежедневно"
 
-#: src/Layouts/ItemRow.vala:1236
+#: src/Layouts/ItemRow.vala:1275
 msgid "Weekly"
 msgstr "Еженедельно"
 
-#: src/Layouts/ItemRow.vala:1237
+#: src/Layouts/ItemRow.vala:1276
 msgid "Monthly"
 msgstr "Ежемесячно"
 
-#: src/Layouts/ItemRow.vala:1238
+#: src/Layouts/ItemRow.vala:1277
 msgid "Yearly"
 msgstr "Ежегодно"
 
-#: src/Layouts/ItemRow.vala:1239
+#: src/Layouts/ItemRow.vala:1278
 msgid "Custom"
 msgstr "Пользовательская настройка"
 
-#: src/Layouts/ItemRow.vala:1515 src/Layouts/ItemBoard.vala:424
+#: src/Layouts/ItemRow.vala:1554 src/Layouts/ItemBoard.vala:431
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Завершено. Следующее появление: %s"
 
-#: src/Layouts/ItemRow.vala:1533 src/Widgets/MultiSelectToolbar.vala:309
+#: src/Layouts/ItemRow.vala:1572 src/Widgets/MultiSelectToolbar.vala:313
 msgid "Delete To-Do"
 msgstr "Удалить задачу"
 
-#: src/Layouts/ItemRow.vala:1533 src/Widgets/MultiSelectToolbar.vala:310
+#: src/Layouts/ItemRow.vala:1572 src/Widgets/MultiSelectToolbar.vala:314
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Вы уверены, что хотите удалить эту задачу?"
 
-#: src/Layouts/ItemRow.vala:1568
+#: src/Layouts/ItemRow.vala:1607
 msgid "The task was deleted"
 msgstr "Задача была удалена"
 
-#: src/Layouts/ItemRow.vala:1569
+#: src/Layouts/ItemRow.vala:1608
 msgid "Undo"
 msgstr "Отменить"
 
-#: src/Layouts/ItemRow.vala:1640
+#: src/Layouts/ItemRow.vala:1679
 msgid "Move tasks"
 msgstr "Переместить задачи"
 
-#: src/Layouts/ItemRow.vala:1640
+#: src/Layouts/ItemRow.vala:1679
 #, c-format
 msgid "Are you sure you want to move your task to <b>%s</b>?"
 msgstr "Вы уверены, что хотите переместить задачу в <b>%s</b> ?"
@@ -767,45 +985,20 @@ msgstr ""
 "Изменения, внесенные вами в автономном режиме,\n"
 "будут синхронизированы при повторном подключении."
 
-#: src/Widgets/ScheduleButton.vala:37 src/Widgets/ScheduleButton.vala:48
-#: src/Widgets/ScheduleButton.vala:81 src/Widgets/ScheduleButton.vala:82
-#: src/Widgets/MultiSelectToolbar.vala:60 src/Views/Project/List.vala:308
-msgid "Schedule"
-msgstr "Запланировать"
-
-#: src/Widgets/PriorityButton.vala:15
-msgid "Set the priority"
-msgstr "Установить приоритет"
-
-#: src/Widgets/PinButton.vala:34
-msgid "Pinned"
-msgstr "Закрепить"
-
-#: src/Widgets/LabelButton.vala:35
-msgid "Add label(s)"
-msgstr "Добавить метку(-ки)"
-
 #: src/Widgets/ReminderButton.vala:33
 msgid "Add reminder(s)"
 msgstr "Добавить напоминание"
 
-#: src/Widgets/MultiSelectToolbar.vala:50
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:145
-#: src/Dialogs/ProjectDescription.vala:62 src/Dialogs/DatePicker.vala:111
-#: src/Dialogs/RepeatConfig.vala:156
-msgid "Done"
-msgstr "Готово"
-
-#: src/Widgets/MultiSelectToolbar.vala:276
+#: src/Widgets/MultiSelectToolbar.vala:280
 msgid "Mask as Completed"
 msgstr "Пометить как завершенные"
 
-#: src/Widgets/MultiSelectToolbar.vala:312
+#: src/Widgets/MultiSelectToolbar.vala:316
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr "Удалить %d задач"
 
-#: src/Widgets/MultiSelectToolbar.vala:313
+#: src/Widgets/MultiSelectToolbar.vala:317
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Вы уверены, что хотите удалить эти %d задач?"
@@ -814,105 +1007,27 @@ msgstr "Вы уверены, что хотите удалить эти %d зад
 msgid "All"
 msgstr "Все"
 
-#: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:154
+#: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:153
 msgid "Add Section"
 msgstr "Добавить раздел"
-
-#: src/Widgets/Calendar/CalendarHeader.vala:35
-#: src/Widgets/Calendar/CalendarHeader.vala:45
-msgid "%OB"
-msgstr "%OB"
-
-#: src/Widgets/Calendar/CalendarHeader.vala:36
-#: src/Widgets/Calendar/CalendarHeader.vala:48
-msgid "%Y"
-msgstr "%Y"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:35
-msgid "Su"
-msgstr "Вс"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:36
-msgid "Mo"
-msgstr "Пн"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:37
-msgid "Tu"
-msgstr "Вт"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:38
-msgid "We"
-msgstr "Ср"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:39
-msgid "Th"
-msgstr "Чт"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:40
-msgid "Fr"
-msgstr "Пт"
-
-#: src/Widgets/Calendar/CalendarWeek.vala:41
-msgid "Sa"
-msgstr "Сб"
-
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:78
-#: src/Dialogs/DatePicker.vala:71
-msgid "Next week"
-msgstr "Через неделю"
-
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:83
-msgid "Choose a date"
-msgstr "Выберите дату"
-
-#: src/Widgets/DateTimePicker/DateTimePicker.vala:125
-#: src/Widgets/ReminderPicker/ReminderPicker.vala:209
-msgid "Time"
-msgstr "Время"
-
-#. / TRANSLATORS: this will only show up when 12-hours clock is in use
-#: src/Widgets/DateTimePicker/TimePicker.vala:151
-msgid "AM"
-msgstr "AM"
-
-#. / TRANSLATORS: this will only show up when 12-hours clock is in use
-#: src/Widgets/DateTimePicker/TimePicker.vala:156
-msgid "PM"
-msgstr "PM"
-
-#: src/Widgets/DateTimePicker/TimePicker.vala:185
-msgid ":"
-msgstr ":"
-
-#: src/Widgets/LabelPicker/LabelPicker.vala:71 src/Dialogs/LabelPicker.vala:71
-msgid "Search or Create"
-msgstr "Найдите или создайте"
-
-#: src/Widgets/LabelPicker/LabelPicker.vala:209 src/Dialogs/LabelPicker.vala:153
-msgid ""
-"Your list of filters will show up here. Create one by entering the name and "
-"pressing the Enter key."
-msgstr ""
-"Здесь появится список ваших фильтров. Создайте его, введя имя и нажав клавишу "
-"Enter."
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:44
 msgid "Reminders"
 msgstr "Напоминания"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:94
-#: src/Widgets/ReminderPicker/ReminderPicker.vala:225
+#: src/Widgets/ReminderPicker/ReminderPicker.vala:224
 #: src/Widgets/ReminderPicker/ReminderRow.vala:56
 msgid "Add reminder"
 msgstr "Добавить напоминание"
 
-#: src/Widgets/ReminderPicker/ReminderPicker.vala:246
+#: src/Widgets/ReminderPicker/ReminderPicker.vala:245
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the button."
 msgstr "Здесь появится список напоминаний. Добавьте его, нажав кнопку."
 
-#: src/Views/Project/Project.vala:151 src/Views/Project/Project.vala:209
-#: src/Views/Project/List.vala:338
+#: src/Views/Project/Project.vala:151 src/Views/Project/Project.vala:204
+#: src/Views/Project/List.vala:336
 msgid "When?"
 msgstr "Когда?"
 
@@ -920,80 +1035,76 @@ msgstr "Когда?"
 msgid "Description"
 msgstr "Описание"
 
-#: src/Views/Project/Project.vala:156
+#: src/Views/Project/Project.vala:154
 msgid "Filter by Labels"
 msgstr "Фильтровать по меткам"
 
-#: src/Views/Project/Project.vala:158
+#: src/Views/Project/Project.vala:155
 msgid "Select"
 msgstr "Выбрать"
 
-#: src/Views/Project/Project.vala:160
+#: src/Views/Project/Project.vala:156
 msgid "Paste"
 msgstr "Вставить"
 
-#: src/Views/Project/Project.vala:162
+#: src/Views/Project/Project.vala:157
 msgid "Delete Project"
 msgstr "Удалить проект"
 
-#: src/Views/Project/Project.vala:306
-#: src/Dialogs/Preferences/PreferencesWindow.vala:164
-#: src/Dialogs/Preferences/PreferencesWindow.vala:571
+#: src/Views/Project/Project.vala:305
+#: src/Dialogs/Preferences/PreferencesWindow.vala:186
+#: src/Dialogs/Preferences/PreferencesWindow.vala:494
 msgid "Custom sort order"
 msgstr "Порядок пользователя"
 
-#: src/Views/Project/Project.vala:307
-#: src/Dialogs/Preferences/PreferencesWindow.vala:163
-#: src/Dialogs/Preferences/PreferencesWindow.vala:570
+#: src/Views/Project/Project.vala:306
+#: src/Dialogs/Preferences/PreferencesWindow.vala:185
+#: src/Dialogs/Preferences/PreferencesWindow.vala:493
 msgid "Alphabetically"
 msgstr "По алфавиту"
 
-#: src/Views/Project/Project.vala:308
+#: src/Views/Project/Project.vala:307
 msgid "Due date"
 msgstr "По сроку выполнения"
 
-#: src/Views/Project/Project.vala:309
+#: src/Views/Project/Project.vala:308
 msgid "Date added"
 msgstr "По дате добавления"
 
-#: src/Views/Project/Project.vala:310
+#: src/Views/Project/Project.vala:309
 msgid "Priority"
 msgstr "По приоритету"
 
-#: src/Views/Project/Project.vala:312
+#: src/Views/Project/Project.vala:311
 msgid "Order by"
 msgstr "Сортировать"
 
-#: src/Views/Project/Project.vala:315
+#: src/Views/Project/Project.vala:314
 msgid "Hide completed tasks"
 msgstr "Скрыть выполненные задачи"
 
-#: src/Views/Project/Project.vala:315
+#: src/Views/Project/Project.vala:314
 msgid "Show Completed Tasks"
 msgstr "Показать выполненные задачи"
 
-#: src/Views/Project/Project.vala:343
+#: src/Views/Project/Project.vala:342
 msgid "Hide Completed Tasks"
 msgstr "Скрыть выполненные задачи"
 
-#: src/Views/Project/Project.vala:343
+#: src/Views/Project/Project.vala:342
 msgid "Show completed tasks"
 msgstr "Показать выполненные задачи"
 
-#: src/Views/Project/Project.vala:352 src/Objects/Project.vala:654
-msgid "New section"
-msgstr "Новый раздел"
-
-#: src/Views/Project/List.vala:100 src/Views/Date.vala:157
-#: src/Views/Today.vala:190 src/Views/Pinboard.vala:56 src/Views/Filter.vala:67
+#: src/Views/Project/List.vala:100 src/Views/Today.vala:190
+#: src/Views/Pinboard.vala:56 src/Views/Filter.vala:68
 msgid "Press 'a' or tap the plus button to create a new to-do"
 msgstr "Нажмите «a» или коснитесь кнопки плюс, чтобы создать новую задачу."
 
-#: src/Views/Date.vala:62 src/Views/Today.vala:81
+#: src/Views/Today.vala:81
 msgid "Overdue"
 msgstr "Просрочено"
 
-#: src/Views/Date.vala:71 src/Views/Today.vala:89
+#: src/Views/Today.vala:89
 msgid "Reschedule"
 msgstr "Перенести"
 
@@ -1008,59 +1119,6 @@ msgstr "Метки : На этом компьютере"
 #: src/Views/Label/Labels.vala:42
 msgid "Labels: Todoist"
 msgstr "Метки : Todoist"
-
-#: src/Views/Filter.vala:133 src/Objects/Filters/Completed.vala:58
-msgid "Completed"
-msgstr "Завершено"
-
-#: src/Objects/Item.vala:766
-msgid "Task copied to clipboard"
-msgstr "Задача скопирована в буфер обмена."
-
-#: src/Objects/Item.vala:784
-#, c-format
-msgid "Diplicate"
-msgstr "Дублировать"
-
-#: src/Objects/Project.vala:664
-msgid "The project was copied to the Clipboard."
-msgstr "Проект скопирован в буфер обмена."
-
-#: src/Objects/Filters/Pinboard.vala:51
-msgid "pinboard"
-msgstr "Прикрепленные"
-
-#: src/Objects/Filters/Scheduled.vala:51
-#, c-format
-msgid "scheduled"
-msgstr "Предстоящее"
-
-#: src/Objects/Filters/Scheduled.vala:51
-msgid "upcoming"
-msgstr "предстоящий"
-
-#: src/Objects/Filters/Today.vala:67
-msgid "today"
-msgstr "сегодня"
-
-#: src/Objects/Filters/Priority.vala:67
-#, c-format
-msgid "priority"
-msgstr "приоритет"
-
-#: src/Objects/Filters/Completed.vala:59
-#, c-format
-msgid "completed"
-msgstr "завершено"
-
-#: src/Objects/Filters/Completed.vala:59
-msgid "logbook"
-msgstr "журнал событий"
-
-#: src/Objects/Filters/Labels.vala:59
-#, c-format
-msgid "labels"
-msgstr "Метки"
 
 #: src/Dialogs/Project.vala:51
 msgid "New Project"
@@ -1086,7 +1144,7 @@ msgstr "Добавить проект"
 msgid "Update project"
 msgstr "Обновить проект"
 
-#: src/Dialogs/Project.vala:325
+#: src/Dialogs/Project.vala:331
 msgid "Project added successfully!"
 msgstr "Проект успешно добавлен!"
 
@@ -1110,28 +1168,27 @@ msgstr "Добавить метку"
 msgid "Update label"
 msgstr "Обновить метку"
 
-#: src/Dialogs/TodoistOAuth.vala:33 src/Dialogs/GoogleOAuth.vala:40
+#: src/Dialogs/GoogleOAuth.vala:40
 msgid "Todoist Sync"
 msgstr "Синхронизация с Todoist"
 
-#: src/Dialogs/TodoistOAuth.vala:42 src/Dialogs/TodoistOAuth.vala:140
 #: src/Dialogs/GoogleOAuth.vala:54 src/Dialogs/GoogleOAuth.vala:145
 msgid "Loading"
 msgstr "Загрузка"
 
-#: src/Dialogs/TodoistOAuth.vala:76 src/Dialogs/GoogleOAuth.vala:85
+#: src/Dialogs/GoogleOAuth.vala:85
+#: src/Dialogs/Preferences/PreferencesWindow.vala:987
 msgid "Planner is sync your tasks, this may take a few minutes."
 msgstr "Planify синхронизирует ваши задачи, это может занять несколько минут."
 
-#: src/Dialogs/TodoistOAuth.vala:123
-msgid "Synchronizing. Wait a moment please."
-msgstr "Синхронизация. Пожалуйста подождите."
-
-#: src/Dialogs/TodoistOAuth.vala:133 src/Dialogs/GoogleOAuth.vala:138
+#: src/Dialogs/GoogleOAuth.vala:138
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1046
 msgid "Please enter your credentials"
 msgstr "Пожалуйста, введите свои учетные данные"
 
-#: src/Dialogs/TodoistOAuth.vala:153 src/Dialogs/GoogleOAuth.vala:158
+#: src/Dialogs/GoogleOAuth.vala:158
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1063
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1065
 msgid "Network Is Not Available"
 msgstr "Сеть недоступна"
 
@@ -1139,18 +1196,42 @@ msgstr "Сеть недоступна"
 msgid "What's New"
 msgstr "Что нового"
 
-#: src/Dialogs/WhatsNew.vala:47
-msgid "What's New in Planify"
-msgstr "Что нового в Planify"
+#: src/Dialogs/WhatsNew.vala:107
+msgid "Quick Add Improvements"
+msgstr ""
 
-#: src/Dialogs/WhatsNew.vala:52
-msgid "Version 4.1.1"
-msgstr "Версия 4.1.1"
+#: src/Dialogs/WhatsNew.vala:107
+msgid "Now supports project selection, due date, priority, labels and pinned."
+msgstr ""
 
-#: src/Dialogs/WhatsNew.vala:98 src/Dialogs/WhatsNew.vala:99
-#: src/Dialogs/Preferences/PreferencesWindow.vala:729
-msgid "Synchronize with your Todoist Account"
-msgstr "Синхронизируйте со своей учетной записью Todoist."
+#: src/Dialogs/WhatsNew.vala:108
+#, fuzzy
+msgid "Sidebar filter settings"
+msgstr "Использовать системные настройки"
+
+#: src/Dialogs/WhatsNew.vala:108
+msgid "It is now possible to re-order, hide filters and the task cutter."
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:109
+msgid "Backup support"
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:109
+msgid ""
+"It is now possible to create a backup copy and import it from somewhere "
+"else. Planify will import all your tasks and settings."
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:110
+msgid "Offline support for Todoist"
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:110
+msgid ""
+"You were without internet, keep using Planify with Todoist, the tasks will "
+"be saved locally and synchronized when the connection returns."
+msgstr ""
 
 #: src/Dialogs/ProjectDescription.vala:34
 msgid "Project Description"
@@ -1164,11 +1245,7 @@ msgstr "Обновить"
 msgid "Type a search"
 msgstr "Введите запрос"
 
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:160
-msgid "On this Computer"
-msgstr "На этом компьютере"
-
-#: src/Dialogs/ProjectPicker/ProjectPicker.vala:248
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:250
 msgid "No Section"
 msgstr "Нет раздела"
 
@@ -1193,37 +1270,37 @@ msgid "Year(s)"
 msgstr "Года(лет)"
 
 #: src/Dialogs/RepeatConfig.vala:124
-#: src/Dialogs/Preferences/PreferencesWindow.vala:241
+#: src/Dialogs/Preferences/PreferencesWindow.vala:264
 msgid "Monday"
 msgstr "Понедельник"
 
 #: src/Dialogs/RepeatConfig.vala:125
-#: src/Dialogs/Preferences/PreferencesWindow.vala:242
+#: src/Dialogs/Preferences/PreferencesWindow.vala:265
 msgid "Tuesday"
 msgstr "Вторник"
 
 #: src/Dialogs/RepeatConfig.vala:126
-#: src/Dialogs/Preferences/PreferencesWindow.vala:243
+#: src/Dialogs/Preferences/PreferencesWindow.vala:266
 msgid "Wednesday"
 msgstr "Среда"
 
 #: src/Dialogs/RepeatConfig.vala:127
-#: src/Dialogs/Preferences/PreferencesWindow.vala:244
+#: src/Dialogs/Preferences/PreferencesWindow.vala:267
 msgid "Thursday"
 msgstr "Четверг"
 
 #: src/Dialogs/RepeatConfig.vala:128
-#: src/Dialogs/Preferences/PreferencesWindow.vala:245
+#: src/Dialogs/Preferences/PreferencesWindow.vala:268
 msgid "Friday"
 msgstr "Пятница"
 
 #: src/Dialogs/RepeatConfig.vala:129
-#: src/Dialogs/Preferences/PreferencesWindow.vala:246
+#: src/Dialogs/Preferences/PreferencesWindow.vala:269
 msgid "Saturday"
 msgstr "Суббота"
 
 #: src/Dialogs/RepeatConfig.vala:130
-#: src/Dialogs/Preferences/PreferencesWindow.vala:240
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "Sunday"
 msgstr "Воскресенье"
 
@@ -1233,158 +1310,174 @@ msgstr "Быстрый поиск"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:172
 msgid "Quickly switch projects and views, find tasks, search by labels."
-msgstr "Быстро переключайте проекты и списки, находите задачи, осуществляйте поиск по меткам."
+msgstr ""
+"Быстро переключайте проекты и списки, находите задачи, осуществляйте поиск "
+"по меткам."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:51
-#: src/Dialogs/Preferences/PreferencesWindow.vala:685
-#: src/Dialogs/Preferences/PreferencesWindow.vala:771
-msgid "Accounts"
-msgstr "Учетные записи"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#, fuzzy
+msgid "Integrations"
+msgstr "Интеграция с рабочим окружением"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:52
+#: src/Dialogs/Preferences/PreferencesWindow.vala:50
 msgid "Sync your favorite to-do providers."
 msgstr "Синхронизируйте со своими любимыми планировщиками задач."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:68
-#: src/Dialogs/Preferences/PreferencesWindow.vala:157
+#: src/Dialogs/Preferences/PreferencesWindow.vala:66
+#: src/Dialogs/Preferences/PreferencesWindow.vala:167
+#: src/Dialogs/Preferences/PreferencesWindow.vala:181
 msgid "General"
 msgstr "Общие"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:69
+#: src/Dialogs/Preferences/PreferencesWindow.vala:67
 msgid "Customize to your liking."
 msgstr "Настройте как вам нравится."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:79
-#: src/Dialogs/Preferences/PreferencesWindow.vala:387
-msgid "Homepage"
-msgstr "Домашняя страница"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:77
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:28
+#, fuzzy
+msgid "Sidebar"
+msgstr "Ширина боковой панели"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:80
-msgid "Customize your homepage."
+#: src/Dialogs/Preferences/PreferencesWindow.vala:78
+#, fuzzy
+msgid "Customize your sidebar."
 msgstr "Настройте свою домашнюю страницу."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:90
-#: src/Dialogs/Preferences/PreferencesWindow.vala:503
-#: src/Dialogs/Preferences/PreferencesWindow.vala:567
+#: src/Dialogs/Preferences/PreferencesWindow.vala:88
+#: src/Dialogs/Preferences/PreferencesWindow.vala:426
+#: src/Dialogs/Preferences/PreferencesWindow.vala:490
 msgid "Appearance"
 msgstr "Оформление"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:101
-#: src/Dialogs/Preferences/PreferencesWindow.vala:964
+#: src/Dialogs/Preferences/PreferencesWindow.vala:99
+#: src/Dialogs/Preferences/PreferencesWindow.vala:858
 msgid "Quick Add"
 msgstr "Быстрое добавление"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:102
+#: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Adding To-Dos From Anywhere."
 msgstr "Добавляйте задачи из любого места."
 
 #. Support Group
-#: src/Dialogs/Preferences/PreferencesWindow.vala:118
+#: src/Dialogs/Preferences/PreferencesWindow.vala:116
 msgid "Support"
 msgstr "Поддержка"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:124
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Create Tutorial Project"
 msgstr "Создайте обучающий проект"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:125
+#: src/Dialogs/Preferences/PreferencesWindow.vala:123
 msgid "Learn the app step by step with a short tutorial project."
-msgstr "Изучите приложение шаг за шагом с помощью короткого руководства пользователя."
+msgstr ""
+"Изучите приложение шаг за шагом с помощью короткого руководства пользователя."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:131
+#: src/Dialogs/Preferences/PreferencesWindow.vala:129
+#: src/Dialogs/Preferences/Pages/Backup.vala:28
+msgid "Backups"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Privacy"
 msgstr "Конфиденциальность"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:137
+#: src/Dialogs/Preferences/PreferencesWindow.vala:142
 msgid "Delete Planify Data"
 msgstr "Удалить данные Planify"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:144
+#: src/Dialogs/Preferences/PreferencesWindow.vala:149
 msgid "A tutorial project has been created."
 msgstr "Обучающий проект был создан"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:160
-msgid "Sort Settings"
-msgstr "Настройки сортировки"
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
+#, fuzzy
+msgid "Home Page"
+msgstr "Домашняя страница"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:167
+#: src/Dialogs/Preferences/PreferencesWindow.vala:189
 msgid "Sort projects"
 msgstr "Сортировка проектов"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:174
+#: src/Dialogs/Preferences/PreferencesWindow.vala:194
 msgid "Ascending"
 msgstr "По возрастанию"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:175
+#: src/Dialogs/Preferences/PreferencesWindow.vala:195
 msgid "Descending"
 msgstr "По убыванию"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:178
+#: src/Dialogs/Preferences/PreferencesWindow.vala:198
 msgid "Sort by"
 msgstr "Сортировать по"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:185
+#: src/Dialogs/Preferences/PreferencesWindow.vala:203
+msgid "Sort Settings"
+msgstr "Настройки сортировки"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:208
 msgid "DE Integration"
 msgstr "Интеграция с рабочим окружением"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:193
+#: src/Dialogs/Preferences/PreferencesWindow.vala:216
 msgid "Run in background"
 msgstr "Запустить в фоновом режиме"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:194
+#: src/Dialogs/Preferences/PreferencesWindow.vala:217
 msgid "Let Planify run in background and send notifications."
 msgstr "Позвольте Planify работать в фоновом режиме и отправлять уведомления."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:206
+#: src/Dialogs/Preferences/PreferencesWindow.vala:229
 msgid "Run on startup"
 msgstr "Запускать при старте системы"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:207
+#: src/Dialogs/Preferences/PreferencesWindow.vala:230
 msgid "Whether Planify should run on startup."
 msgstr "Должен ли Planify запускаться при старте системы."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:219
+#: src/Dialogs/Preferences/PreferencesWindow.vala:242
 msgid "Calendar Events"
 msgstr "События календаря"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:226
+#: src/Dialogs/Preferences/PreferencesWindow.vala:249
 msgid "Date and Time"
 msgstr "Дата и время"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:252
 msgid "24h"
 msgstr "24-часовой"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
+#: src/Dialogs/Preferences/PreferencesWindow.vala:253
 msgid "12h"
 msgstr "12-часовой"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:233
+#: src/Dialogs/Preferences/PreferencesWindow.vala:256
 msgid "Clock Format"
 msgstr "Формат времени"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:249
+#: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Start of the week"
 msgstr "Начало недели"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:256
+#: src/Dialogs/Preferences/PreferencesWindow.vala:279
 msgid "Task settings"
 msgstr "Настройки задачи"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:259
+#: src/Dialogs/Preferences/PreferencesWindow.vala:282
 msgid "Instantly"
 msgstr "Немедленно"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:260
+#: src/Dialogs/Preferences/PreferencesWindow.vala:283
 msgid "Wait 2500 milliseconds"
-msgstr "Ожидать 2500\n"
+msgstr ""
+"Ожидать 2500\n"
 "миллисекунд"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:263
+#: src/Dialogs/Preferences/PreferencesWindow.vala:286
 msgid "Complete task"
 msgstr "Выполнить задачу"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:264
+#: src/Dialogs/Preferences/PreferencesWindow.vala:287
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option."
 msgstr ""
@@ -1392,77 +1485,76 @@ msgstr ""
 "мгновенно или подождите 2500\n"
 "миллисекунд с опцией отмены."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:271
+#: src/Dialogs/Preferences/PreferencesWindow.vala:294
 msgid "Priority 1"
 msgstr "Приоритет 1"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:272
+#: src/Dialogs/Preferences/PreferencesWindow.vala:295
 msgid "Priority 2"
 msgstr "Приоритет 2"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+#: src/Dialogs/Preferences/PreferencesWindow.vala:296
 msgid "Priority 3"
 msgstr "Приоритет 3"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:277
+#: src/Dialogs/Preferences/PreferencesWindow.vala:300
 msgid "Default priority"
 msgstr "Приоритет по умолчанию"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:289
+#: src/Dialogs/Preferences/PreferencesWindow.vala:312
 msgid "Description preview"
 msgstr "Предварительный просмотр описания"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:301
+#: src/Dialogs/Preferences/PreferencesWindow.vala:324
 msgid "Underline completed tasks"
 msgstr "Подчеркните выполненные задачи"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:390
-msgid ""
-"When you open up Planify, make sure you see the to-dos that are most "
-"important. The default homepage is your <b>Inbox</b> view, but you can change "
-"it to whatever you'd like."
-msgstr ""
-"Открывая Planify, убедитесь, что вы видите наиболее важные задачи. Домашней "
-"страницей по умолчанию является список «‎<b>Входящие</b>», но вы можете "
-"изменить его на любой другой."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:506
+#: src/Dialogs/Preferences/PreferencesWindow.vala:429
 msgid "App Theme"
 msgstr "Тема приложения"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:514
+#: src/Dialogs/Preferences/PreferencesWindow.vala:437
 msgid "Use system settings"
 msgstr "Использовать системные настройки"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:523
+#: src/Dialogs/Preferences/PreferencesWindow.vala:446
 msgid "Light Style"
 msgstr "Светлый стиль"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:532
+#: src/Dialogs/Preferences/PreferencesWindow.vala:455
 msgid "Dark Style"
 msgstr "Темный стиль"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:541
+#: src/Dialogs/Preferences/PreferencesWindow.vala:464
 msgid "Dark Blue Style"
 msgstr "Темно-синий стиль"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:579
+#: src/Dialogs/Preferences/PreferencesWindow.vala:502
 msgid "Sidebar Width"
 msgstr "Ширина боковой панели"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:696
+#: src/Dialogs/Preferences/PreferencesWindow.vala:578
+#: src/Dialogs/Preferences/PreferencesWindow.vala:663
+msgid "Accounts"
+msgstr "Учетные записи"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:589
 msgid "Default Inbox Project"
 msgstr "Проект «Входящие» по умолчанию"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:763
+#: src/Dialogs/Preferences/PreferencesWindow.vala:621
+msgid "Synchronize with your Todoist Account"
+msgstr "Синхронизируйте со своей учетной записью Todoist."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:655
 msgid "Synchronize with your Google Account"
 msgstr "Синхронизировать с вашей учетной записью Google"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:917
+#: src/Dialogs/Preferences/PreferencesWindow.vala:800
 msgid "Sync Server"
 msgstr "Синхронизация с сервером"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:918
+#: src/Dialogs/Preferences/PreferencesWindow.vala:801
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
@@ -1470,11 +1562,11 @@ msgstr ""
 "Активируйте эту настройку, чтобы Planify автоматически синхронизировался с "
 "вашей учетной записью Todoist каждые 15 минут."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:932
+#: src/Dialogs/Preferences/PreferencesWindow.vala:815
 msgid "Last Sync"
 msgstr "Последняя синхронизация"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:967
+#: src/Dialogs/Preferences/PreferencesWindow.vala:862
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -1483,11 +1575,7 @@ msgstr ""
 "места на рабочем столе с помощью всего лишь нескольких нажатий клавиш. Вам "
 "даже не придется выходить из приложения, в котором вы сейчас находитесь."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:973
-msgid "Set a custom shortcut in System Settings"
-msgstr "Установите свое сочетание клавиш в настройках системы."
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:974
+#: src/Dialogs/Preferences/PreferencesWindow.vala:873
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -1496,19 +1584,43 @@ msgstr ""
 "Пользовательские сочетания клавиш, затем добавьте новое сочетание клавиш со "
 "следующим текстом:"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1020
+#: src/Dialogs/Preferences/PreferencesWindow.vala:901
+#, fuzzy
+msgid "Settings"
+msgstr "Настройки сортировки"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:909
+#, fuzzy
+msgid "Save Last Selected Project"
+msgstr "Удалить проект"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:910
+msgid "If unchecked, the default project selected is Inbox."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:944
 msgid "The command was copied to the clipboard."
 msgstr "Команда скопирована в буфер обмена."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1034
-msgid ""
-"Are you sure you want to remove the Todoist sync? This action will delete all "
-"your tasks and settings."
-msgstr ""
-"Вы уверены, что хотите удалить синхронизацию с Todoist? Это действие приведет "
-"к удалению всех ваших задач и настроек."
+#: src/Dialogs/Preferences/PreferencesWindow.vala:959
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1051
+#, fuzzy
+msgid "Loading…"
+msgstr "Загрузка"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1036
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1035
+msgid "Synchronizing. Wait a moment please."
+msgstr "Синхронизация. Пожалуйста подождите."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1150
+msgid ""
+"Are you sure you want to remove the Todoist sync? This action will delete "
+"all your tasks and settings."
+msgstr ""
+"Вы уверены, что хотите удалить синхронизацию с Todoist? Это действие "
+"приведет к удалению всех ваших задач и настроек."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1152
 msgid ""
 "Are you sure you want to remove the Google Tasks sync? This action will "
 "delete all your tasks and settings."
@@ -1516,6 +1628,110 @@ msgstr ""
 "Вы уверены, что хотите удалить синхронизацию с Google Tasks? Это действие "
 "приведет к удалению всех ваших задач и настроек."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1040
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1156
 msgid "Sign off"
 msgstr "Выйти"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:51
+msgid ""
+"Never worry about losing your data. You can create backups of your active "
+"projects, tasks and comments and import them later."
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
+#, fuzzy
+msgid "Create backup"
+msgstr "Создать проект"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:65
+msgid "Import backup"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
+msgid "Backups files"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:123
+msgid "Selected file is invalid"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:140
+msgid "Import Overview"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:168
+msgid "Items"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:189
+msgid "Confirm"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:238
+msgid "Restore backup"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:238
+#, fuzzy
+msgid ""
+"Are you sure you want to continue? This operation will delete your current "
+"data and replace it with the backup data."
+msgstr ""
+"Вы уверены, что хотите удалить синхронизацию с Todoist? Это действие "
+"приведет к удалению всех ваших задач и настроек."
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:242
+msgid "Restore Backup"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:297
+msgid "Download"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:30
+msgid "Show in sidebar"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
+msgid "Show task count"
+msgstr ""
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:69
+msgid "You can sort your views by dragging and dropping"
+msgstr ""
+
+#: quick-add/MainWindow.vala:6
+#, fuzzy
+msgid "Planify - Quick Add"
+msgstr "Быстрое добавление"
+
+#~ msgid "Save"
+#~ msgstr "Сохранить"
+
+#~ msgid "AM"
+#~ msgstr "AM"
+
+#~ msgid "PM"
+#~ msgstr "PM"
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#, c-format
+#~ msgid "priority"
+#~ msgstr "приоритет"
+
+#~ msgid "Version 4.1.1"
+#~ msgstr "Версия 4.1.1"
+
+#~ msgid ""
+#~ "When you open up Planify, make sure you see the to-dos that are most "
+#~ "important. The default homepage is your <b>Inbox</b> view, but you can "
+#~ "change it to whatever you'd like."
+#~ msgstr ""
+#~ "Открывая Planify, убедитесь, что вы видите наиболее важные задачи. "
+#~ "Домашней страницей по умолчанию является список «‎<b>Входящие</b>», но вы "
+#~ "можете изменить его на любой другой."
+
+#~ msgid "Set a custom shortcut in System Settings"
+#~ msgstr "Установите свое сочетание клавиш в настройках системы."

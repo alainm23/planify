@@ -105,11 +105,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         count_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         count_revealer = new Gtk.Revealer () {
-            reveal_child = int.parse (count_label.label) > 0,
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = count_label
         };
-
-        count_revealer.child = count_label;
 
         var chevron_right_image = new Widgets.DynamicIcon ();
         chevron_right_image.size = 16;
@@ -198,7 +196,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
-
+        Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
+        
         if (drag_n_drop) {
             build_drag_and_drop ();
         }
@@ -281,9 +280,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         project.deleted.connect (hide_destroy);
 
         project.project_count_updated.connect (() => {
-            count_label.label = project.project_count.to_string ();
+            update_count_label (project.project_count);
             circular_progress_bar.percentage = project.percentage;
-            count_revealer.reveal_child = int.parse (count_label.label) > 0;
         });
 
         project.subproject_added.connect ((subproject) => {
@@ -302,6 +300,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 add_subproject (subproject);
             }
         });
+    }
+
+    private void update_count_label (int count) {
+        count_label.label = count <= 0 ? "" : count.to_string ();
     }
 
     private void build_drag_and_drop () {
@@ -344,9 +346,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
             
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
-
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
@@ -361,7 +360,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {
@@ -484,7 +483,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (response == "delete") {
                     if (project.backend_type == BackendType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-                            if (Services.Todoist.get_default ().delete.end (res)) {
+                            if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_project (project);
                             }
                         });

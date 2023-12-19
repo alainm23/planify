@@ -19,52 +19,62 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.Sidebar : Gtk.Grid {
-    private Gtk.Grid filters_grid;
+public class Layouts.Sidebar : Adw.Bin {
+    private Gtk.FlowBox filters_flow;
 
     private Layouts.FilterPaneRow inbox_filter;
     private Layouts.FilterPaneRow today_filter;
     private Layouts.FilterPaneRow scheduled_filter;
-    private Layouts.FilterPaneRow filters_filter;
+    private Layouts.FilterPaneRow labels_filter;
+    private Layouts.FilterPaneRow pinboard_filter;
     
     private Layouts.HeaderItem favorites_header;
     private Layouts.HeaderItem local_projects_header;
     private Layouts.HeaderItem todoist_projects_header;
     private Layouts.HeaderItem google_projects_header;
 
-    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap;
-    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap;
+    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
     public Sidebar () {
         Object ();
     }
 
-    construct {
-        local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-        todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-        google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> (); 
-        favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-
-        filters_grid= new Gtk.Grid () {
+    construct { 
+        filters_flow = new Gtk.FlowBox () {
+            homogeneous = true,
             row_spacing = 9,
             column_spacing = 9,
             margin_start = 3,
             margin_end = 3,
-            column_homogeneous = true,
-            row_homogeneous = true
+            min_children_per_line = 2
         };
+
+        filters_flow.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
+            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
+
+            return item1 - item2;
+        });
+
+        filters_flow.set_filter_func ((child) => {
+            var row = ((Layouts.FilterPaneRow) child);
+            return row.active ();
+        });
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
-        filters_filter = new Layouts.FilterPaneRow (FilterType.FILTER);
+        labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS);
+        pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD);
 
-        filters_grid.attach (inbox_filter, 0, 0);
-        filters_grid.attach (today_filter, 1, 0);
-        filters_grid.attach (scheduled_filter, 0, 1);
-        filters_grid.attach (filters_filter, 1, 1);
+        filters_flow.append (inbox_filter);
+        filters_flow.append (today_filter);
+        filters_flow.append (scheduled_filter);
+        filters_flow.append (labels_filter);
+        filters_flow.append (pinboard_filter);
 
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
@@ -81,17 +91,54 @@ public class Layouts.Sidebar : Gtk.Grid {
         google_projects_header = new Layouts.HeaderItem ();
         google_projects_header.margin_top = 6;
 
+        var whats_new_icon = new Widgets.DynamicIcon.from_icon_name ("gift") {
+            css_classes = { "gift-animation" }
+        };
+        
+        var whats_new_label = new Gtk.Label (_("What’s new in Planify")) {
+            css_classes = { "underline" }
+        };
+
+        var close_button = new Gtk.Button () {
+            child = new Widgets.DynamicIcon.from_icon_name ("window-close"),
+            css_classes = { "flat", "no-padding" },
+            hexpand = true,
+            halign = END,
+            margin_end = 3
+        };
+
+        var whats_new_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            css_classes = { "card", "padding-9" },
+            vexpand = true,
+            valign = END,
+            margin_start = 3,
+            margin_end = 3,
+            margin_top = 9,
+            margin_bottom = 3
+        };
+
+        whats_new_box.append (whats_new_icon);
+        whats_new_box.append (whats_new_label);
+        whats_new_box.append (close_button);
+
+        var whats_new_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SWING_UP,
+            child = whats_new_box,
+            reveal_child = verify_new_version ()
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
             margin_top = 3
         };
-        
-        content_box.append (filters_grid);
+
+        content_box.append (filters_flow);
         content_box.append (favorites_header);
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
+        content_box.append (whats_new_revealer);
         // content_box.append (google_projects_header);
 
         var scrolled_window = new Gtk.ScrolledWindow () {
@@ -102,7 +149,7 @@ public class Layouts.Sidebar : Gtk.Grid {
 
         scrolled_window.child = content_box;
 
-        attach (scrolled_window, 0, 0);
+        child = scrolled_window;
         update_projects_sort ();
 
         var add_local_button = new Gtk.Button () {
@@ -139,14 +186,15 @@ public class Layouts.Sidebar : Gtk.Grid {
             
             if (is_logged_in) {
                 prepare_new_project (BackendType.TODOIST);
-            } else {
-                Services.Todoist.get_default ().init ();
             }
         });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "projects-sort-by" || key == "projects-ordered") {
                 update_projects_sort ();
+            } else if (key == "views-order-visible") {
+                filters_flow.invalidate_sort ();
+                filters_flow.invalidate_filter ();
             }
         });
 
@@ -199,6 +247,37 @@ public class Layouts.Sidebar : Gtk.Grid {
                 todoist_hashmap.unset (project.id);
             }
         });
+
+        var whats_new_gesture = new Gtk.GestureClick ();
+        whats_new_gesture.set_button (1);
+        whats_new_box.add_controller (whats_new_gesture);
+
+        whats_new_gesture.pressed.connect (() => {
+			var dialog = new Dialogs.WhatsNew ();
+			dialog.show ();
+
+            update_version ();
+            whats_new_revealer.reveal_child = verify_new_version ();
+        });
+
+        var close_gesture = new Gtk.GestureClick ();
+        close_gesture.set_button (1);
+        close_button.add_controller (close_gesture);
+
+        close_gesture.pressed.connect (() => {
+            close_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+
+            update_version ();
+            whats_new_revealer.reveal_child = verify_new_version ();
+        });
+    }
+
+    public void update_version () {
+        Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
+    }
+
+    public bool verify_new_version () {
+        return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
     }
 
     public void verify_todoist_account () {
@@ -271,7 +350,8 @@ public class Layouts.Sidebar : Gtk.Grid {
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
-        filters_filter.init ();
+        labels_filter.init ();
+        pinboard_filter.init ();
         
         local_projects_header.reveal = true;
 

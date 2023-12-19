@@ -178,9 +178,15 @@ public class Dialogs.Label : Adw.Window {
             if (label.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {
-                    label.id = Services.Todoist.get_default ().add.end (res);
-                    Services.Database.get_default ().insert_label (label);
-                    hide_destroy ();
+                    TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+
+                    if (response.status) {
+                        label.id = response.data;
+                        Services.Database.get_default ().insert_label (label);
+                        hide_destroy ();
+                    } else {
+
+                    }
                 });
 
             } else if (label.backend_type == BackendType.LOCAL) {

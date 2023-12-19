@@ -304,14 +304,18 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
         update_headers ();
         check_placeholder ();
     }
 
     private void add_overdue_item (Objects.Item item) {
-        overdue_items [item.id_string] = new Layouts.ItemRow (item);
+        overdue_items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         overdue_listbox.append (overdue_items [item.id_string]);
         update_headers ();
         check_placeholder ();
@@ -389,67 +393,17 @@ public class Views.Today : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        listbox_placeholder_stack.visible_child_name = "listbox";
-        Timeout.add (225, () => {
-            scrolled_window.vadjustment.value = 0;
-            return GLib.Source.REMOVE;
-        });
-
-        Services.EventBus.get_default ().item_selected (null);
-
-        var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
+        var inbox_project = Services.Database.get_default ().get_project (
+            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
         );
 
-        row.update_due (Util.get_default ().get_format_date (date));
-        row.update_content (content);
-        row.update_priority (Util.get_default ().get_default_priority ());
-
-        row.item_added.connect (() => {
-            item_added (row);
-        });
-
-        row.widget_destroyed.connect (() => {
-            check_placeholder ();
-        });
-
-        if (today_has_children) {
-            listbox.insert (row, 0);
-        } else {
-            listbox.append (row);
-        }
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
+        dialog.set_project (inbox_project);
+        dialog.set_due (Util.get_default ().get_format_date (date));
+        dialog.show ();
     }
-
-    private void item_added (Layouts.ItemRow row) {
-        bool insert = true;
-        if (row.item.has_due) {
-            insert = !Util.get_default ().is_same_day (date, row.item.due.datetime);
-        }
-
-        if (!insert) {
-            if (!items.has_key (row.item.id_string)) {
-                items [row.item.id_string] = row;
-            }
-
-            row.update_inserted_item ();
-        }
-
-        if (row.item.section_id != "") {
-            Services.Database.get_default ().get_section (row.item.section_id)
-                .add_item_if_not_exists (row.item);
-        } else {
-            Services.Database.get_default ().get_project (row.item.project_id)
-                .add_item_if_not_exists (row.item);
-        }
-
-        update_headers ();
-        check_placeholder ();
-
-        if (insert) {
-            row.hide_destroy ();
-        }
-    }
-
+    
     private void update_headers () {
         if (overdue_has_children) {
             overdue_revealer.reveal_child = true;

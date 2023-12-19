@@ -59,6 +59,7 @@ public class Planify : Adw.Application {
 
 		add_main_option_entries (OPTIONS);
 		create_dir_with_parents ("/io.github.alainm23.planify");
+		create_dir_with_parents ("/io.github.alainm23.planify/backups");
 	}
 
 	protected override void activate () {
@@ -67,7 +68,7 @@ public class Planify : Adw.Application {
 		}
 
 		if (version) {
-			print ("%s\n".printf (Build.VERSION));
+			debug ("%s\n".printf (Build.VERSION));
 			return;
 		}
 
@@ -93,22 +94,17 @@ public class Planify : Adw.Application {
 
 		var provider = new Gtk.CssProvider ();
 		provider.load_from_resource ("/io/github/alainm23/planify/index.css");
+		
 		Gtk.StyleContext.add_provider_for_display (
 			Gdk.Display.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
 		);
 
 		Util.get_default ().update_theme ();
 
-		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
-			Services.Settings.get_default ().settings.set_string ("version", Build.VERSION);
-
-			//  var dialog = new Dialogs.WhatsNew ();
-			//  dialog.show ();
-		}
-
 		if (clear_database) {
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it."));
+			                                    _("The process removes all stored information without the possibility of undoing it."),
+												main_window);
 		}
 	}
 
@@ -120,8 +116,7 @@ public class Planify : Adw.Application {
 
 		string reason = _(
 			"Planify will automatically start when this device turns on " +
-			"and run when its window is closed so that it can send to-do notifications."
-			);
+			"and run when its window is closed so that it can send to-do notifications.");
 		var command = new GenericArray<unowned string> (2);
 		foreach (unowned var arg in DAEMON_COMMAND) {
 			command.add (arg);
@@ -132,7 +127,7 @@ public class Planify : Adw.Application {
 		try {
 			return yield portal.request_background (window, reason, command, flags, null);
 		} catch (Error e) {
-			print ("Error during portal request: %s".printf (e.message));
+			debug ("Error during portal request: %s".printf (e.message));
 			return e is IOError.FAILED;
 		}
 	}

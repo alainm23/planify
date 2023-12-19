@@ -204,9 +204,6 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         drop_target.drop.connect ((target, value, x, y) => {
             var picked_widget = (Layouts.LabelRow) value;
             var target_widget = this;
-            
-            Gtk.Allocation alloc;
-            target_widget.get_allocation (out alloc);
 
             picked_widget.drag_end ();
             target_widget.drag_end ();
@@ -222,7 +219,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             
             if (target_widget.get_index () == 0) {
-                if (y > (alloc.height / 2)) {
+                if (y > (target_widget.get_height () / 2)) {
                     position = target_widget.get_index () + 1;
                 }
             } else {

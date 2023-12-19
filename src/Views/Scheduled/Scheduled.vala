@@ -69,12 +69,26 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         scrolled_window.child = content_clamp;
 
+        var magic_button = new Widgets.MagicButton ();
+
+        var content_overlay = new Gtk.Overlay () {
+			hexpand = true,
+			vexpand = true
+		};
+
+		content_overlay.child = scrolled_window;
+		content_overlay.add_overlay (magic_button);
+
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = scrolled_window;
+		toolbar_view.content = content_overlay;
 
         child = toolbar_view;
         add_days ();
+
+        magic_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
     }
 
     private void add_days () {
@@ -107,5 +121,17 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             var row = new Views.Scheduled.ScheduledMonth (date);
             listbox.append (row);
         }
+    }
+
+    public void prepare_new_item (string content = "") {
+        var inbox_project = Services.Database.get_default ().get_project (
+            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+        );
+
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
+        dialog.set_project (inbox_project);
+        dialog.set_due (Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1)));
+        dialog.show ();
     }
 }

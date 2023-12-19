@@ -87,7 +87,11 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         });
 
         remove_button.clicked.connect (() => {
-            reminder.delete (remove_button);
+            reminder.delete ();
+        });
+
+        reminder.loading_changed.connect ((value) => {
+            remove_button.is_loading = value;
         });
     }
 

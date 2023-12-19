@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.2.1'
+  version: '4.3'
 )
 
 gnome = import('gnome')
@@ -15,6 +15,7 @@ gio_dep = dependency('gio-2.0')
 glib_dep = dependency('glib-2.0')
 gee_dep = dependency('gee-0.8')
 gtk_dep = dependency('gtk4')
+libsoup_dep = dependency('libsoup-3.0')
 sqlite3_dep = dependency('sqlite3')
 libadwaita_dep = dependency('libadwaita-1')
 webkitgtk_dep = dependency('webkitgtk-6.0')
@@ -31,7 +32,7 @@ m_dep = meson.get_compiler('c').find_library('m', required : false)
 ############
 
 asresources = gnome.compile_resources (
-    'as-resources', 'data/resources/io.github.alainm23.planify.gresource.xml',
+    'as-resources', 'data/io.github.alainm23.planify.gresource.xml',
     source_dir: 'data',
     c_name: 'as'
 )

@@ -34,4 +34,13 @@ public class Services.Settings : GLib.Object {
     public Settings () {
         settings = new GLib.Settings ("io.github.alainm23.planify");
     }
+
+    public void reset_settings () {
+        var schema_source = GLib.SettingsSchemaSource.get_default ();
+        SettingsSchema schema = schema_source.lookup ("io.github.alainm23.planify", true);
+
+        foreach (string key in schema.list_keys ()) {
+            Services.Settings.get_default ().settings.reset (key);
+        }
+    }
 }

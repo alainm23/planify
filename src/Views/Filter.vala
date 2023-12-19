@@ -24,6 +24,7 @@ public class Views.Filter : Adw.Bin {
     private Gtk.ListBox listbox;
     private Gtk.Grid listbox_grid;
     private Gtk.Stack listbox_stack;
+    private Widgets.MagicButton magic_button;
 
     public Gee.HashMap <string, Layouts.ItemRow> items;
 
@@ -100,9 +101,19 @@ public class Views.Filter : Adw.Bin {
 
         scrolled_window.child = content_clamp;
 
+        magic_button = new Widgets.MagicButton ();
+
+        var content_overlay = new Gtk.Overlay () {
+			hexpand = true,
+			vexpand = true
+		};
+
+		content_overlay.child = scrolled_window;
+		content_overlay.add_overlay (magic_button);
+
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = scrolled_window;
+		toolbar_view.content = content_overlay;
 
         child = toolbar_view;
 
@@ -121,6 +132,26 @@ public class Views.Filter : Adw.Bin {
                 items[item.id_string].update_request ();
             }
         });
+
+        magic_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
+    }
+
+    public void prepare_new_item (string content = "") {
+        var inbox_project = Services.Database.get_default ().get_project (
+            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+        );
+
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.set_project (inbox_project);
+        dialog.update_content (content);
+        
+        if (filter is Objects.Priority) {
+            Objects.Priority priority = ((Objects.Priority) filter);
+            dialog.set_priority (priority.priority);
+            dialog.show ();
+        }
     }
 
     private void update_request () {
@@ -129,10 +160,12 @@ public class Views.Filter : Adw.Bin {
             headerbar.title = priority.name;
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
+            magic_button.visible = true;
         } else if (filter is Objects.Completed) {
             headerbar.title = _("Completed");
             listbox.set_header_func (header_completed_function);
             listbox_grid.margin_top = 0;
+            magic_button.visible = false;
         }
     }
 
@@ -156,7 +189,9 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
     }
 

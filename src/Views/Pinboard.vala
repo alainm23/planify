@@ -89,9 +89,19 @@ public class Views.Pinboard : Adw.Bin {
 
         scrolled_window.child = content_clamp;
 
+        var magic_button = new Widgets.MagicButton ();
+
+        var content_overlay = new Gtk.Overlay () {
+			hexpand = true,
+			vexpand = true
+		};
+
+		content_overlay.child = scrolled_window;
+		content_overlay.add_overlay (magic_button);
+
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = scrolled_window;
+		toolbar_view.content = content_overlay;
 
         child = toolbar_view;
         add_items ();
@@ -110,6 +120,10 @@ public class Views.Pinboard : Adw.Bin {
                 items[item.id_string].update_request ();
             }
         });
+
+        magic_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
     }
 
     private void validate_placeholder () {
@@ -117,59 +131,15 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        listbox_stack.visible_child_name = "listbox";
-        Services.EventBus.get_default ().item_selected (null);
-
-        var row = new Layouts.ItemRow.for_project (
-            Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
+        var inbox_project = Services.Database.get_default ().get_project (
+            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
         );
 
-        row.update_content (content);
-        row.update_priority (Util.get_default ().get_default_priority ());
-        row.update_pinned (true);
-        
-        row.item_added.connect (() => {
-            item_added (row);
-        });
-
-        row.widget_destroyed.connect (() => {
-            validate_placeholder ();
-        });
-
-        listbox.insert (row, 0);
-
-        Timeout.add (225, () => {
-            scrolled_window.vadjustment.value = 0;
-            return GLib.Source.REMOVE;
-        });
-    }
-
-    private void item_added (Layouts.ItemRow row) {
-        bool insert = !row.item.pinned;
-
-        if (!insert) {
-            valid_add_itemrow (row);
-            row.update_inserted_item ();
-        }
-
-        if (row.item.section_id != "") {
-            Services.Database.get_default ().get_section (row.item.section_id)
-                .add_item_if_not_exists (row.item);
-        } else {
-            Services.Database.get_default ().get_project (row.item.project_id)
-                .add_item_if_not_exists (row.item);
-        }
-
-        if (insert) {
-            row.hide_destroy ();
-        }
-    }
-
-    private void valid_add_itemrow (Layouts.ItemRow row) {
-        if (!items.has_key (row.item.id_string) && row.item.pinned) {
-            items [row.item.id_string] = row;
-            listbox.append (items [row.item.id_string]);
-        }
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
+        dialog.set_project (inbox_project);
+        dialog.set_pinned (true);
+        dialog.show ();
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {        
@@ -205,7 +175,9 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item);
+        items [item.id_string] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
         listbox.append (items [item.id_string]);
     }
 }

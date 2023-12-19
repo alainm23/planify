@@ -78,7 +78,7 @@ public class Widgets.DynamicIcon : Adw.Bin {
             dark_mode = Granite.Settings.get_default ().prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
         }
         
-        if (Utils.get_default ().is_dynamic_icon (icon_name)) {
+        if (Util.get_default ().is_dynamic_icon (icon_name)) {
             icon.gicon = new ThemedIcon ("%s-%s".printf (
                 icon_name, dark_mode ? "dark" : "light"
             ));  
