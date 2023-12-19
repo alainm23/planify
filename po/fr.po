@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-18 19:36-0500\n"
-"PO-Revision-Date: 2023-12-11 10:00+0100\n"
+"PO-Revision-Date: 2023-12-19 08:30+0100\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -223,20 +223,19 @@ msgstr "Priorité 4 : Aucune"
 
 #: core/Util.vala:925
 msgid "high"
-msgstr ""
+msgstr "élevée"
 
 #: core/Util.vala:927
 msgid "medium"
-msgstr ""
+msgstr "moyenne"
 
 #: core/Util.vala:929
-#, fuzzy
 msgid "low"
-msgstr "Jaune"
+msgstr "basse"
 
 #: core/Util.vala:931
 msgid "none"
-msgstr ""
+msgstr "aucune"
 
 #: core/Util.vala:1010
 msgid "Meet Planify"
@@ -292,13 +291,12 @@ msgid "Reorder yours to-dos"
 msgstr "Réorganiser vos tâches"
 
 #: core/Util.vala:1038
-#, fuzzy
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
 "Pour réorganiser votre liste, cliquez sur une tâche et maintenez, puis "
-"faites la glisser où vous le souhaitez."
+"faites-la glisser où vous le souhaitez."
 
 #: core/Util.vala:1043
 msgid "Create a project"
@@ -467,26 +465,27 @@ msgstr "Toutes les %d années"
 
 #: core/QuickAdd.vala:43
 msgid "To-do name"
-msgstr ""
+msgstr "Nom de la tâche"
 
 #: core/QuickAdd.vala:58
-#, fuzzy
 msgid "Add a description…"
-msgstr "Ajouter une description"
+msgstr "Ajouter une description…"
 
 #: core/QuickAdd.vala:123 src/Layouts/ItemRow.vala:491
 msgid "Add To-Do"
-msgstr ""
+msgstr "Ajouter une tâche"
 
 #: core/QuickAdd.vala:169
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Désolé, l’Ajout rapide ne peut trouver aucun projet disponible, essayez de "
+"créer un projet depuis Planify."
 
 #: core/QuickAdd.vala:192
 msgid "To-do added"
-msgstr ""
+msgstr "Tâche ajoutée"
 
 #: core/Services/Todoist.vala:1273
 msgid "The request was incorrect."
@@ -520,7 +519,7 @@ msgstr "Le serveur est actuellement incapable de gérer la requête."
 
 #: core/Services/Todoist.vala:1281
 msgid "Unknown error"
-msgstr ""
+msgstr "Erreur inconnue"
 
 #: core/Widgets/PinButton.vala:34
 msgid "Pinned"
@@ -735,11 +734,11 @@ msgstr "À propos de Planify"
 
 #: src/Services/Backups.vala:510
 msgid "Backup successfully imported"
-msgstr ""
+msgstr "Sauvegarde importée avec succès"
 
 #: src/Services/Backups.vala:526
 msgid "Planify backup files"
-msgstr ""
+msgstr "Fichiers de sauvegarde Planify"
 
 #: src/Services/CalendarEvents/Util.vala:243
 msgid "On this computer"
@@ -766,7 +765,6 @@ msgid "No project available. Create one by clicking on the '+' button"
 msgstr "Pas de projet disponible. Créez-en un en cliquant sur le bouton ’+’"
 
 #: src/Layouts/Sidebar.vala:98 src/Dialogs/WhatsNew.vala:46
-#, fuzzy
 msgid "What’s new in Planify"
 msgstr "Quoi de neuf dans Planify"
 
@@ -1208,40 +1206,49 @@ msgstr "Quoi de neuf"
 
 #: src/Dialogs/WhatsNew.vala:107
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Améliorations de la fonctionnalité d’Ajout rapide"
 
 #: src/Dialogs/WhatsNew.vala:107
 msgid "Now supports project selection, due date, priority, labels and pinned."
 msgstr ""
+"Prend désormais en charge la sélection de projets, la date d’échéance, la "
+"priorité, les étiquettes et l’épinglage."
 
 #: src/Dialogs/WhatsNew.vala:108
-#, fuzzy
 msgid "Sidebar filter settings"
-msgstr "Utiliser les paramètres système"
+msgstr "Paramètres de filtrage de la barre latérale"
 
 #: src/Dialogs/WhatsNew.vala:108
 msgid "It is now possible to re-order, hide filters and the task cutter."
 msgstr ""
+"Il est désormais possible de ré-ordonner, masquer les filtres et catégories "
+"de tâches."
 
 #: src/Dialogs/WhatsNew.vala:109
 msgid "Backup support"
-msgstr ""
+msgstr "Prise en charge des sauvegardes"
 
 #: src/Dialogs/WhatsNew.vala:109
 msgid ""
 "It is now possible to create a backup copy and import it from somewhere "
 "else. Planify will import all your tasks and settings."
 msgstr ""
+"Il est désormais possible de créer une copie de sauvegarde de l’importer "
+"depuis un autre emplacement. Planify importera toutes vos tâches et vos "
+"paramètres."
 
 #: src/Dialogs/WhatsNew.vala:110
 msgid "Offline support for Todoist"
-msgstr ""
+msgstr "Mode hors-ligne pour Todoist"
 
 #: src/Dialogs/WhatsNew.vala:110
 msgid ""
 "You were without internet, keep using Planify with Todoist, the tasks will "
 "be saved locally and synchronized when the connection returns."
 msgstr ""
+"Si vous étiez sans connexion internet, vous pouvez continuer à utiliser "
+"Planify avec Todoist, les tâches seront enregistrées localement et "
+"synchronisées lorsque la connexion sera rétablie."
 
 #: src/Dialogs/ProjectDescription.vala:34
 msgid "Project Description"
@@ -1325,9 +1332,8 @@ msgstr ""
 "tâches, faites des recherches par étiquettes."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
-#, fuzzy
 msgid "Integrations"
-msgstr "Intégration à l’environnement de bureau"
+msgstr "Intégrations"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:50
 msgid "Sync your favorite to-do providers."
@@ -1345,14 +1351,12 @@ msgstr "Customisez selon vos envies."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:77
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
-#, fuzzy
 msgid "Sidebar"
-msgstr "Largeur du volet latéral"
+msgstr "Largeur"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:78
-#, fuzzy
 msgid "Customize your sidebar."
-msgstr "Customisez votre page d’accueil."
+msgstr "Customisez votre barre latérale."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:88
 #: src/Dialogs/Preferences/PreferencesWindow.vala:426
@@ -1386,7 +1390,7 @@ msgstr ""
 #: src/Dialogs/Preferences/PreferencesWindow.vala:129
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 msgid "Backups"
-msgstr ""
+msgstr "Sauvegardes"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:136
 msgid "Privacy"
@@ -1398,10 +1402,9 @@ msgstr "Supprimer les données de Planify"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:149
 msgid "A tutorial project has been created."
-msgstr "Un projet tutoriel a été créé"
+msgstr "Un projet tutoriel a été créé."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
-#, fuzzy
 msgid "Home Page"
 msgstr "Page d’accueil"
 
@@ -1480,7 +1483,7 @@ msgstr "Instantanément"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:283
 msgid "Wait 2500 milliseconds"
-msgstr "Attendre 2500 millisec."
+msgstr "Attendre 2500 millisecondes"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:286
 msgid "Complete task"
@@ -1592,18 +1595,18 @@ msgstr ""
 "ajoutez un nouveau raccourci avec la commande suivante :"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:901
-#, fuzzy
 msgid "Settings"
-msgstr "Paramètres de tri"
+msgstr "Paramètres"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:909
-#, fuzzy
 msgid "Save Last Selected Project"
-msgstr "Supprimer le projet"
+msgstr "Enregistrer le dernier projet sélectionné"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:910
 msgid "If unchecked, the default project selected is Inbox."
 msgstr ""
+"Si rien n’est coché, le projet sélectionné par défaut sera la boîte de "
+"réception."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:944
 msgid "The command was copied to the clipboard."
@@ -1611,9 +1614,8 @@ msgstr "La commande a été copiée vers le presse-papiers."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:959
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1051
-#, fuzzy
 msgid "Loading…"
-msgstr "Chargement"
+msgstr "Chargement…"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1035
 msgid "Synchronizing. Wait a moment please."
@@ -1644,101 +1646,69 @@ msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Ne craignez plus les pertes de données. Vous pouvez créer des sauvegardes de "
+"vos projets actifs, tâches et commentaires et les réimporter plus tard."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
-#, fuzzy
 msgid "Create backup"
-msgstr "Créer un projet"
+msgstr "Créer une sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:65
 msgid "Import backup"
-msgstr ""
+msgstr "Importer une sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Backups files"
-msgstr ""
+msgstr "Fichiers de sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:123
 msgid "Selected file is invalid"
-msgstr ""
+msgstr "Fichier sélectionné invalide"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "Import Overview"
-msgstr ""
+msgstr "Aperçu d’importation"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:168
 msgid "Items"
-msgstr ""
+msgstr "Éléments"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:189
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmer"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:238
 msgid "Restore backup"
-msgstr ""
+msgstr "Restaurer la sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:238
-#, fuzzy
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
-"Êtes-vous sûr de vouloir supprimer la synchronisation Todoist ? Cette action "
-"supprimera toutes vos tâches et paramètres."
+"Êtes-vous sûr de vouloir continuer ? Cette action supprimera vos données "
+"actuelles et les remplacera par celles de la sauvegarde."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:242
 msgid "Restore Backup"
-msgstr ""
+msgstr "Restaurer la sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:297
 msgid "Download"
-msgstr ""
+msgstr "Télécharger"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in sidebar"
-msgstr ""
+msgstr "Afficher dans la barre latérale"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show task count"
-msgstr ""
+msgstr "Afficher le compteur de tâches"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:69
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "Vous pouvez trier vos aperçus par glisser-déposer"
 
 #: quick-add/MainWindow.vala:6
-#, fuzzy
 msgid "Planify - Quick Add"
-msgstr "Ajout rapide"
-
-#, c-format
-#~ msgid "priority"
-#~ msgstr "priorité"
-
-#~ msgid "Save"
-#~ msgstr "Enregistrer"
-
-#~ msgid "AM"
-#~ msgstr "AM"
-
-#~ msgid "PM"
-#~ msgstr "PM"
-
-#~ msgid ":"
-#~ msgstr ":"
-
-#~ msgid "Version 4.1.1"
-#~ msgstr "Version 4.1.1"
-
-#~ msgid ""
-#~ "When you open up Planify, make sure you see the to-dos that are most "
-#~ "important. The default homepage is your <b>Inbox</b> view, but you can "
-#~ "change it to whatever you'd like."
-#~ msgstr ""
-#~ "Assurez-vous de voir les tâches les plus importantes directement à "
-#~ "l’ouverture de Planify. La page d’accueil par défaut est la vue de votre "
-#~ "<b>Boîte de réception</b>, mais vous pouvez la modifier."
-
-#~ msgid "Set a custom shortcut in System Settings"
-#~ msgstr "Définissez un raccourci personnalisé dans les paramètres Système"
+msgstr "Planify - Ajout rapide"
