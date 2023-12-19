@@ -112,7 +112,7 @@ msgid "Dark Blue"
 msgstr "Bleu sombre"
 
 #: core/Util.vala:259 src/Layouts/ItemRow.vala:1273
-#: src/Dialogs/Preferences/PreferencesWindow.vala:297
+#: src/Dialogs/Preferences/PreferencesWindow.vala:352
 msgid "None"
 msgstr "Aucun"
 
@@ -121,7 +121,7 @@ msgstr "Aucun"
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:46
 #: src/Layouts/FilterPaneRow.vala:128
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:101
-#: src/Dialogs/Preferences/PreferencesWindow.vala:170
+#: src/Dialogs/Preferences/PreferencesWindow.vala:225
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:38
 msgid "Inbox"
 msgstr "Boîte de réception"
@@ -131,7 +131,7 @@ msgstr "Boîte de réception"
 #: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:125
 #: src/Layouts/ItemRow.vala:1036 src/Views/Today.vala:51
 #: src/Views/Today.vala:135 src/Dialogs/DatePicker.vala:64
-#: src/Dialogs/Preferences/PreferencesWindow.vala:171
+#: src/Dialogs/Preferences/PreferencesWindow.vala:226
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:39
 msgid "Today"
 msgstr "Aujourd’hui"
@@ -182,7 +182,7 @@ msgstr "Di,"
 #: src/Layouts/ItemRow.vala:1575 src/Layouts/ItemRow.vala:1682
 #: src/Layouts/LabelRow.vala:145 src/Layouts/SectionBoard.vala:497
 #: src/Widgets/MultiSelectToolbar.vala:325 src/Views/Project/Project.vala:280
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1159
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1214
 #: src/Dialogs/Preferences/Pages/Backup.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:241
 msgid "Cancel"
@@ -197,7 +197,7 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Processus achevé, vous devez redémarrer Planify."
 
 #: core/Util.vala:809 src/MainWindow.vala:240 src/Services/Backups.vala:515
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1066
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1121
 msgid "Ok"
 msgstr "OK"
 
@@ -384,7 +384,7 @@ msgstr "🏃‍♀️️ À suivre"
 
 #: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
 #: src/Layouts/FilterPaneRow.vala:131 src/Views/Scheduled/Scheduled.vala:32
-#: src/Dialogs/Preferences/PreferencesWindow.vala:172
+#: src/Dialogs/Preferences/PreferencesWindow.vala:227
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:40
 msgid "Scheduled"
 msgstr "Prévu"
@@ -409,7 +409,7 @@ msgstr "Tâches"
 #: core/Enum.vala:190 core/Objects/Filters/Labels.vala:58
 #: src/Layouts/FilterPaneRow.vala:137 src/Views/Label/Labels.vala:34
 #: src/Dialogs/LabelPicker.vala:57
-#: src/Dialogs/Preferences/PreferencesWindow.vala:173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:228
 #: src/Dialogs/Preferences/Pages/Backup.vala:172
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:42
 msgid "Labels"
@@ -627,9 +627,9 @@ msgstr "Sur cet ordinateur"
 #: src/Layouts/Sidebar.vala:288 src/Layouts/Sidebar.vala:291
 #: src/Dialogs/Project.vala:140
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:165
-#: src/Dialogs/Preferences/PreferencesWindow.vala:586
-#: src/Dialogs/Preferences/PreferencesWindow.vala:620
-#: src/Dialogs/Preferences/PreferencesWindow.vala:769
+#: src/Dialogs/Preferences/PreferencesWindow.vala:641
+#: src/Dialogs/Preferences/PreferencesWindow.vala:675
+#: src/Dialogs/Preferences/PreferencesWindow.vala:824
 #: src/Dialogs/Preferences/Pages/Backup.vala:151
 msgid "Todoist"
 msgstr "Todoist"
@@ -686,11 +686,11 @@ msgstr "journal de bord"
 msgid "labels"
 msgstr "Étiquettes"
 
-#: src/App.vala:105 src/Dialogs/Preferences/PreferencesWindow.vala:158
+#: src/App.vala:105 src/Dialogs/Preferences/PreferencesWindow.vala:213
 msgid "Are you sure you want to reset all?"
 msgstr "Êtes-vous sûr de vouloir tout réinitialiser ?"
 
-#: src/App.vala:106 src/Dialogs/Preferences/PreferencesWindow.vala:159
+#: src/App.vala:106 src/Dialogs/Preferences/PreferencesWindow.vala:214
 msgid ""
 "The process removes all stored information without the possibility of "
 "undoing it."
@@ -755,7 +755,7 @@ msgstr ""
 "« + »"
 
 #: src/Layouts/Sidebar.vala:84 src/Dialogs/Project.vala:139
-#: src/Dialogs/Preferences/PreferencesWindow.vala:585
+#: src/Dialogs/Preferences/PreferencesWindow.vala:640
 msgid "On This Computer"
 msgstr "Sur cet ordinateur"
 
@@ -774,7 +774,7 @@ msgstr ""
 "Pas de compte disponible, synchronisez-en un en cliquant sur le bouton « + »"
 
 #: src/Layouts/Sidebar.vala:301 src/Layouts/Sidebar.vala:304
-#: src/Dialogs/Preferences/PreferencesWindow.vala:654
+#: src/Dialogs/Preferences/PreferencesWindow.vala:709
 msgid "Google Tasks"
 msgstr "Google Tasks"
 
@@ -821,7 +821,7 @@ msgstr "Êtes-vous sûr de vouloir supprimer <b>%s</b> ?"
 #: src/Layouts/ItemRow.vala:1576 src/Layouts/LabelRow.vala:146
 #: src/Layouts/SectionBoard.vala:498 src/Widgets/MultiSelectToolbar.vala:282
 #: src/Widgets/MultiSelectToolbar.vala:326 src/Views/Project/Project.vala:281
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1160
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1215
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -1060,14 +1060,14 @@ msgid "Delete Project"
 msgstr "Supprimer le projet"
 
 #: src/Views/Project/Project.vala:305
-#: src/Dialogs/Preferences/PreferencesWindow.vala:186
-#: src/Dialogs/Preferences/PreferencesWindow.vala:494
+#: src/Dialogs/Preferences/PreferencesWindow.vala:241
+#: src/Dialogs/Preferences/PreferencesWindow.vala:549
 msgid "Custom sort order"
 msgstr "Ordre de tri personnalisé"
 
 #: src/Views/Project/Project.vala:306
-#: src/Dialogs/Preferences/PreferencesWindow.vala:185
-#: src/Dialogs/Preferences/PreferencesWindow.vala:493
+#: src/Dialogs/Preferences/PreferencesWindow.vala:240
+#: src/Dialogs/Preferences/PreferencesWindow.vala:548
 msgid "Alphabetically"
 msgstr "Alphabétiquement"
 
@@ -1185,18 +1185,18 @@ msgid "Loading"
 msgstr "Chargement"
 
 #: src/Dialogs/GoogleOAuth.vala:85
-#: src/Dialogs/Preferences/PreferencesWindow.vala:987
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1042
 msgid "Planner is sync your tasks, this may take a few minutes."
 msgstr "Planner synchronise vos tâches, cela peut prendre quelques minutes."
 
 #: src/Dialogs/GoogleOAuth.vala:138
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1046
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1101
 msgid "Please enter your credentials"
 msgstr "Veuillez entrer vos informations d’identification"
 
 #: src/Dialogs/GoogleOAuth.vala:158
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1063
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1065
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1118
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1120
 msgid "Network Is Not Available"
 msgstr "Réseau Indisponible"
 
@@ -1287,37 +1287,37 @@ msgid "Year(s)"
 msgstr "Année(s)"
 
 #: src/Dialogs/RepeatConfig.vala:124
-#: src/Dialogs/Preferences/PreferencesWindow.vala:264
+#: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Monday"
 msgstr "Lundi"
 
 #: src/Dialogs/RepeatConfig.vala:125
-#: src/Dialogs/Preferences/PreferencesWindow.vala:265
+#: src/Dialogs/Preferences/PreferencesWindow.vala:320
 msgid "Tuesday"
 msgstr "Mardi"
 
 #: src/Dialogs/RepeatConfig.vala:126
-#: src/Dialogs/Preferences/PreferencesWindow.vala:266
+#: src/Dialogs/Preferences/PreferencesWindow.vala:321
 msgid "Wednesday"
 msgstr "Mercredi"
 
 #: src/Dialogs/RepeatConfig.vala:127
-#: src/Dialogs/Preferences/PreferencesWindow.vala:267
+#: src/Dialogs/Preferences/PreferencesWindow.vala:322
 msgid "Thursday"
 msgstr "Jeudi"
 
 #: src/Dialogs/RepeatConfig.vala:128
-#: src/Dialogs/Preferences/PreferencesWindow.vala:268
+#: src/Dialogs/Preferences/PreferencesWindow.vala:323
 msgid "Friday"
 msgstr "Vendredi"
 
 #: src/Dialogs/RepeatConfig.vala:129
-#: src/Dialogs/Preferences/PreferencesWindow.vala:269
+#: src/Dialogs/Preferences/PreferencesWindow.vala:324
 msgid "Saturday"
 msgstr "Samedi"
 
 #: src/Dialogs/RepeatConfig.vala:130
-#: src/Dialogs/Preferences/PreferencesWindow.vala:263
+#: src/Dialogs/Preferences/PreferencesWindow.vala:318
 msgid "Sunday"
 msgstr "Dimanche"
 
@@ -1340,8 +1340,8 @@ msgid "Sync your favorite to-do providers."
 msgstr "Synchronisez vos fournisseurs de tâches favoris."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:66
-#: src/Dialogs/Preferences/PreferencesWindow.vala:167
-#: src/Dialogs/Preferences/PreferencesWindow.vala:181
+#: src/Dialogs/Preferences/PreferencesWindow.vala:222
+#: src/Dialogs/Preferences/PreferencesWindow.vala:236
 msgid "General"
 msgstr "Général"
 
@@ -1359,13 +1359,13 @@ msgid "Customize your sidebar."
 msgstr "Customisez votre barre latérale."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:88
-#: src/Dialogs/Preferences/PreferencesWindow.vala:426
-#: src/Dialogs/Preferences/PreferencesWindow.vala:490
+#: src/Dialogs/Preferences/PreferencesWindow.vala:481
+#: src/Dialogs/Preferences/PreferencesWindow.vala:545
 msgid "Appearance"
 msgstr "Apparence"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:99
-#: src/Dialogs/Preferences/PreferencesWindow.vala:858
+#: src/Dialogs/Preferences/PreferencesWindow.vala:913
 msgid "Quick Add"
 msgstr "Ajout rapide"
 
@@ -1373,199 +1373,228 @@ msgstr "Ajout rapide"
 msgid "Adding To-Dos From Anywhere."
 msgstr "Ajouter des tâches depuis n’importe quel endroit."
 
+#: src/Dialogs/Preferences/PreferencesWindow.vala:115
+msgid "Reach Us"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Contact us"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+msgid "Request a feature or ask us anything."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:138
+msgid "Tweet us"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+msgid "Share some love."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+msgid "Telegram"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
+msgid "Discuss and share your feedback."
+msgstr ""
+
 #. Support Group
-#: src/Dialogs/Preferences/PreferencesWindow.vala:116
+#: src/Dialogs/Preferences/PreferencesWindow.vala:171
 msgid "Support"
 msgstr "Aide"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+#: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Create Tutorial Project"
 msgstr "Créer un projet tutoriel"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:123
+#: src/Dialogs/Preferences/PreferencesWindow.vala:178
 msgid "Learn the app step by step with a short tutorial project."
 msgstr ""
 "Faites le tour pas à pas de l’application avec un court projet tutoriel."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:129
+#: src/Dialogs/Preferences/PreferencesWindow.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
 msgid "Backups"
 msgstr "Sauvegardes"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:136
+#: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Privacy"
 msgstr "Vie privée"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:142
+#: src/Dialogs/Preferences/PreferencesWindow.vala:197
 msgid "Delete Planify Data"
 msgstr "Supprimer les données de Planify"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:149
+#: src/Dialogs/Preferences/PreferencesWindow.vala:204
 msgid "A tutorial project has been created."
 msgstr "Un projet tutoriel a été créé."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
+#: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Home Page"
 msgstr "Page d’accueil"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:189
+#: src/Dialogs/Preferences/PreferencesWindow.vala:244
 msgid "Sort projects"
 msgstr "Trier les projets"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:194
+#: src/Dialogs/Preferences/PreferencesWindow.vala:249
 msgid "Ascending"
 msgstr "Ascendant"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:195
+#: src/Dialogs/Preferences/PreferencesWindow.vala:250
 msgid "Descending"
 msgstr "Descendant"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:198
+#: src/Dialogs/Preferences/PreferencesWindow.vala:253
 msgid "Sort by"
 msgstr "Trier par"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:203
+#: src/Dialogs/Preferences/PreferencesWindow.vala:258
 msgid "Sort Settings"
 msgstr "Paramètres de tri"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:208
+#: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "DE Integration"
 msgstr "Intégration à l’environnement de bureau"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:216
+#: src/Dialogs/Preferences/PreferencesWindow.vala:271
 msgid "Run in background"
 msgstr "Exécuter en arrière-plan"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:217
+#: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Let Planify run in background and send notifications."
 msgstr ""
 "Laisser Planify s’exécuter en arrière-plan et envoyer des notifications."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:229
+#: src/Dialogs/Preferences/PreferencesWindow.vala:284
 msgid "Run on startup"
 msgstr "Lancer au démarrage"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:230
+#: src/Dialogs/Preferences/PreferencesWindow.vala:285
 msgid "Whether Planify should run on startup."
 msgstr "Indique si Planify devrait se lancer au démarrage."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:242
+#: src/Dialogs/Preferences/PreferencesWindow.vala:297
 msgid "Calendar Events"
 msgstr "Événements de calendrier"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:249
+#: src/Dialogs/Preferences/PreferencesWindow.vala:304
 msgid "Date and Time"
 msgstr "Date & heure"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:252
+#: src/Dialogs/Preferences/PreferencesWindow.vala:307
 msgid "24h"
 msgstr "24 h"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:253
+#: src/Dialogs/Preferences/PreferencesWindow.vala:308
 msgid "12h"
 msgstr "12 h"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:256
+#: src/Dialogs/Preferences/PreferencesWindow.vala:311
 msgid "Clock Format"
 msgstr "Format d’Horloge"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:272
+#: src/Dialogs/Preferences/PreferencesWindow.vala:327
 msgid "Start of the week"
 msgstr "Début de la semaine"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:279
+#: src/Dialogs/Preferences/PreferencesWindow.vala:334
 msgid "Task settings"
 msgstr "Paramètres des tâches"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:282
+#: src/Dialogs/Preferences/PreferencesWindow.vala:337
 msgid "Instantly"
 msgstr "Instantanément"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:283
+#: src/Dialogs/Preferences/PreferencesWindow.vala:338
 msgid "Wait 2500 milliseconds"
 msgstr "Attendre 2500 millisecondes"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:286
+#: src/Dialogs/Preferences/PreferencesWindow.vala:341
 msgid "Complete task"
 msgstr "Accomplissement des tâches"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:287
+#: src/Dialogs/Preferences/PreferencesWindow.vala:342
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option."
 msgstr ""
 "Marquer vos tâches comme accomplies instantanément ou attendre 2500 "
 "millisecondes avec l’option annuler."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:294
+#: src/Dialogs/Preferences/PreferencesWindow.vala:349
 msgid "Priority 1"
 msgstr "Priorité 1"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:295
+#: src/Dialogs/Preferences/PreferencesWindow.vala:350
 msgid "Priority 2"
 msgstr "Priorité 2"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:296
+#: src/Dialogs/Preferences/PreferencesWindow.vala:351
 msgid "Priority 3"
 msgstr "Priorité 3"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+#: src/Dialogs/Preferences/PreferencesWindow.vala:355
 msgid "Default priority"
 msgstr "Priorité par défaut"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:312
+#: src/Dialogs/Preferences/PreferencesWindow.vala:367
 msgid "Description preview"
 msgstr "Visualisation de la description"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:324
+#: src/Dialogs/Preferences/PreferencesWindow.vala:379
 msgid "Underline completed tasks"
 msgstr "Souligner les tâches accomplies"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:429
+#: src/Dialogs/Preferences/PreferencesWindow.vala:484
 msgid "App Theme"
 msgstr "Thème de l’application"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:437
+#: src/Dialogs/Preferences/PreferencesWindow.vala:492
 msgid "Use system settings"
 msgstr "Utiliser les paramètres système"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:446
+#: src/Dialogs/Preferences/PreferencesWindow.vala:501
 msgid "Light Style"
 msgstr "Style clair"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:455
+#: src/Dialogs/Preferences/PreferencesWindow.vala:510
 msgid "Dark Style"
 msgstr "Style sombre"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:464
+#: src/Dialogs/Preferences/PreferencesWindow.vala:519
 msgid "Dark Blue Style"
 msgstr "Style bleu sombre"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:502
+#: src/Dialogs/Preferences/PreferencesWindow.vala:557
 msgid "Sidebar Width"
 msgstr "Largeur du volet latéral"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:578
-#: src/Dialogs/Preferences/PreferencesWindow.vala:663
+#: src/Dialogs/Preferences/PreferencesWindow.vala:633
+#: src/Dialogs/Preferences/PreferencesWindow.vala:718
 msgid "Accounts"
 msgstr "Comptes"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:589
+#: src/Dialogs/Preferences/PreferencesWindow.vala:644
 msgid "Default Inbox Project"
 msgstr "Projet boîte de réception par défaut"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:621
+#: src/Dialogs/Preferences/PreferencesWindow.vala:676
 msgid "Synchronize with your Todoist Account"
 msgstr "Synchroniser avec votre compte Todoist"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:655
+#: src/Dialogs/Preferences/PreferencesWindow.vala:710
 msgid "Synchronize with your Google Account"
 msgstr "Synchroniser avec votre compte Google"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:800
+#: src/Dialogs/Preferences/PreferencesWindow.vala:855
 msgid "Sync Server"
 msgstr "Serveur de synchronisation"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:801
+#: src/Dialogs/Preferences/PreferencesWindow.vala:856
 msgid ""
 "Activate this setting so that Planner automatically synchronizes with your "
 "Todoist account every 15 minutes."
@@ -1573,11 +1602,11 @@ msgstr ""
 "Activez ce paramètre pour que Planner se synchronise automatiquement avec "
 "votre compte Todoist toutes les 15 minutes."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:815
+#: src/Dialogs/Preferences/PreferencesWindow.vala:870
 msgid "Last Sync"
 msgstr "Dernière synchronisation"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:862
+#: src/Dialogs/Preferences/PreferencesWindow.vala:917
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -1586,7 +1615,7 @@ msgstr ""
 "sur votre bureau, avec une combinaison de touches. Vous n’aurez même pas à "
 "quitter l’application que vous étiez en train d’utiliser."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:873
+#: src/Dialogs/Preferences/PreferencesWindow.vala:928
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -1595,33 +1624,37 @@ msgstr ""
 "ajoutez un nouveau raccourci avec la commande suivante :"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:901
+#: src/Dialogs/Preferences/PreferencesWindow.vala:956
 msgid "Settings"
 msgstr "Paramètres"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:909
+#: src/Dialogs/Preferences/PreferencesWindow.vala:964
 msgid "Save Last Selected Project"
 msgstr "Enregistrer le dernier projet sélectionné"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:910
+#: src/Dialogs/Preferences/PreferencesWindow.vala:965
 msgid "If unchecked, the default project selected is Inbox."
 msgstr ""
 "Si rien n’est coché, le projet sélectionné par défaut sera la boîte de "
 "réception."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:944
+#: src/Dialogs/Preferences/PreferencesWindow.vala:999
 msgid "The command was copied to the clipboard."
 msgstr "La commande a été copiée vers le presse-papiers."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:959
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1051
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1014
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1106
 msgid "Loading…"
 msgstr "Chargement…"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1035
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1090
 msgid "Synchronizing. Wait a moment please."
 msgstr "Synchronisation. Patientez un instant s’il vous plaît."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1150
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1205
 msgid ""
 "Are you sure you want to remove the Todoist sync? This action will delete "
 "all your tasks and settings."
@@ -1629,7 +1662,7 @@ msgstr ""
 "Êtes-vous sûr de vouloir supprimer la synchronisation Todoist ? Cette action "
 "supprimera toutes vos tâches et paramètres."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1152
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1207
 msgid ""
 "Are you sure you want to remove the Google Tasks sync? This action will "
 "delete all your tasks and settings."
@@ -1637,7 +1670,7 @@ msgstr ""
 "Êtes-vous sûr de vouloir supprimer la synchronisation Google Tasks ? Cette "
 "action supprimera toutes vos tâches et paramètres."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1156
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1211
 msgid "Sign off"
 msgstr "Se déconnecter"
 
@@ -1712,3 +1745,124 @@ msgstr "Vous pouvez trier vos aperçus par glisser-déposer"
 #: quick-add/MainWindow.vala:6
 msgid "Planify - Quick Add"
 msgstr "Planify - Ajout rapide"
+
+#: data/resources/ui/shortcuts.ui:12
+msgctxt "shortcut window"
+msgid "Used anywhere"
+msgstr "Utilisé partout"
+
+#: data/resources/ui/shortcuts.ui:16
+msgctxt "shortcut window"
+msgid "Create a new task"
+msgstr "Créer une nouvelle tâche"
+
+#: data/resources/ui/shortcuts.ui:23
+msgctxt "shortcut window"
+msgid "Paste plain text to create new task"
+msgstr "Coller du texte brut pour créer une nouvelle tâche"
+
+#: data/resources/ui/shortcuts.ui:30
+msgctxt "shortcut window"
+msgid "Create a new project"
+msgstr "Créer un nouveau projet"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Create a new section in a project"
+msgstr "Créer une nouvelle section dans un projet"
+
+#: data/resources/ui/shortcuts.ui:45
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Rechercher"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Open Quick Find"
+msgstr "Ouvrir la recherche rapide"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Control windows"
+msgstr "Contrôle des fenêtres"
+
+#: data/resources/ui/shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Quitter"
+
+#: data/resources/ui/shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "Ouvrir les préférences"
+
+#: data/resources/ui/shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Show/hide Sidebar"
+msgstr "Afficher/masquer la barre latérale"
+
+#: data/resources/ui/shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Open Keyboard Shortcuts"
+msgstr "Ouvrir les raccourcis clavier"
+
+#: data/resources/ui/shortcuts.ui:90
+msgctxt "shortcut window"
+msgid "Navigate"
+msgstr "Parcourir"
+
+#: data/resources/ui/shortcuts.ui:94
+msgctxt "shortcut window"
+msgid "Open Homepage"
+msgstr "Ouvrir la page d’accueil"
+
+#: data/resources/ui/shortcuts.ui:101
+msgctxt "shortcut window"
+msgid "Open Inbox"
+msgstr "Ouvrir la Boîte de réception"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Open Today"
+msgstr "Ouvrir la section Aujourd’hui"
+
+#: data/resources/ui/shortcuts.ui:115
+msgctxt "shortcut window"
+msgid "Open Scheduled"
+msgstr "Ouvrir la section Prévu"
+
+#: data/resources/ui/shortcuts.ui:122
+msgctxt "shortcut window"
+msgid "Open Pinboard"
+msgstr "Ouvrir la section Épinglé"
+
+#, c-format
+#~ msgid "priority"
+#~ msgstr "priorité"
+
+#~ msgid "Save"
+#~ msgstr "Enregistrer"
+
+#~ msgid "AM"
+#~ msgstr "AM"
+
+#~ msgid "PM"
+#~ msgstr "PM"
+
+#~ msgid ":"
+#~ msgstr ":"
+
+#~ msgid "Version 4.1.1"
+#~ msgstr "Version 4.1.1"
+
+#~ msgid ""
+#~ "When you open up Planify, make sure you see the to-dos that are most "
+#~ "important. The default homepage is your <b>Inbox</b> view, but you can "
+#~ "change it to whatever you'd like."
+#~ msgstr ""
+#~ "Assurez-vous de voir les tâches les plus importantes directement à "
+#~ "l’ouverture de Planify. La page d’accueil par défaut est la vue de votre "
+#~ "<b>Boîte de réception</b>, mais vous pouvez la modifier."
+
+#~ msgid "Set a custom shortcut in System Settings"
+#~ msgstr "Définissez un raccourci personnalisé dans les paramètres Système"

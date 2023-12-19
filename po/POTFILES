@@ -149,3 +149,5 @@ src/Dialogs/Preferences/Pages/Sidebar.vala
 quick-add/App.vala
 quick-add/MainWindow.vala
 quick-add/Services/DBusClient.vala
+
+data/resources/ui/shortcuts.ui

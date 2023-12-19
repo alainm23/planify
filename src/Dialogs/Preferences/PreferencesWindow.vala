@@ -111,6 +111,61 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		page.add (personalization_group);
 
+		var reach_us_group = new Adw.PreferencesGroup ();
+		reach_us_group.title = _("Reach Us");
+
+		var contact_us_row = new Adw.ActionRow ();
+		contact_us_row.activatable = true;
+		contact_us_row.add_prefix (generate_icon ("planner-mail"));
+		contact_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		contact_us_row.title = _("Contact us");
+		contact_us_row.subtitle = _("Request a feature or ask us anything.");
+
+		contact_us_row.activated.connect (() => {
+			string uri = "mailto:?subject=%s".printf (Constants.CONTACT_US);
+
+            try {
+                AppInfo.launch_default_for_uri (uri, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+		var tweet_us_row = new Adw.ActionRow ();
+		tweet_us_row.activatable = true;
+		tweet_us_row.add_prefix (generate_icon ("planner-annotation-dots"));
+		tweet_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		tweet_us_row.title = _("Tweet us");
+		tweet_us_row.subtitle = _("Share some love.");
+
+		tweet_us_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.TWITTER_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+		var telegram_row = new Adw.ActionRow ();
+		telegram_row.activatable = true;
+		telegram_row.add_prefix (generate_icon ("telegram"));
+		telegram_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		telegram_row.title = _("Telegram");
+		telegram_row.subtitle = _("Discuss and share your feedback.");
+
+		telegram_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.TELEGRAM_GROUP, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
+		reach_us_group.add (contact_us_row);
+		reach_us_group.add (tweet_us_row);
+		reach_us_group.add (telegram_row);
+		page.add (reach_us_group);
+
 		// Support Group
 		var support_group = new Adw.PreferencesGroup ();
 		support_group.title = _("Support");

@@ -729,7 +729,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("planner-bell", true);
                 _dynamic_icons.set ("sidebar-left", true);
                 _dynamic_icons.set ("sidebar-right", true);
-                _dynamic_icons.set ("planner-mail", true);
+                _dynamic_icons.set ("mail", true);
                 _dynamic_icons.set ("planner-note", true);
                 _dynamic_icons.set ("planner-settings-sliders", true);
                 _dynamic_icons.set ("planner-list", true);
