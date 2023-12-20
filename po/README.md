@@ -3,7 +3,7 @@
 To start translating, duplicate any of the `.po` files and start translating it, 
 rename it to match your country code and add your contry code.
 
- Be sure to add your country code to the [LINGUAS](https://github.com/edfloreshz/done/blob/main/po/LINGUAS) file too.
+ Be sure to add your country code to the [LINGUAS](https://github.com/alainm23/planify/blob/master/po/LINGUAS) file too.
 
 |Code      |Language                                  |
 |----------|------------------------------------------|
