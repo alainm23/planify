@@ -1304,7 +1304,7 @@ msgstr "Telegram"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Discuss and share your feedback."
-msgstr "Обсуждайте и делитесь своим мнением"
+msgstr "Обсуждайте и делитесь своим мнением."
 
 #. Support Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:116
