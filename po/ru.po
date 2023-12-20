@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-18 19:36-0500\n"
-"PO-Revision-Date: 2023-12-19 14:12+0500\n"
+"PO-Revision-Date: 2023-12-20 08:56+0500\n"
 "Last-Translator: Hachikoha <hachikohe@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -1278,6 +1278,34 @@ msgstr "Быстрое добавление"
 msgid "Adding To-Dos From Anywhere."
 msgstr "Добавляйте задачи из любого места."
 
+#: src/Dialogs/Preferences/PreferencesWindow.vala:115
+msgid "Reach Us"
+msgstr "Связаться с нами"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:121
+msgid "Contact us"
+msgstr "Свяжитесь с нами"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:122
+msgid "Request a feature or ask us anything."
+msgstr "Предложите функцию или или задайте нам вопрос."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:138
+msgid "Tweet us"
+msgstr "Пишите нам в Twitter"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:139
+msgid "Share some love."
+msgstr "Поделитесь любовью."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+msgid "Telegram"
+msgstr "Telegram"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:154
+msgid "Discuss and share your feedback."
+msgstr "Обсуждайте и делитесь своим мнением"
+
 #. Support Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:116
 msgid "Support"
@@ -1610,3 +1638,93 @@ msgstr "Вы можете менять порядок своих списков,
 #: quick-add/MainWindow.vala:6
 msgid "Planify - Quick Add"
 msgstr "Planify — Быстрое добавление"
+
+#: data/resources/ui/shortcuts.ui:12
+msgctxt "shortcut window"
+msgid "Used anywhere"
+msgstr "Глобальные комбинации"
+
+#: data/resources/ui/shortcuts.ui:16
+msgctxt "shortcut window"
+msgid "Create a new task"
+msgstr "Создать новую задачу"
+
+#: data/resources/ui/shortcuts.ui:23
+msgctxt "shortcut window"
+msgid "Paste plain text to create new task"
+msgstr "Вставьте обычный текст для создания новой задачи"
+
+#: data/resources/ui/shortcuts.ui:30
+msgctxt "shortcut window"
+msgid "Create a new project"
+msgstr "Создать новый проект"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Create a new section in a project"
+msgstr "Создать новый раздел в проекте"
+
+#: data/resources/ui/shortcuts.ui:45
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Поиск"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Open Quick Find"
+msgstr "Открыть быстрый поиск"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Control windows"
+msgstr "Управление окном"
+
+#: data/resources/ui/shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Выйти"
+
+#: data/resources/ui/shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Open preferences"
+msgstr "Открыть настройки"
+
+#: data/resources/ui/shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Show/hide Sidebar"
+msgstr "Показать/скрыть боковую панель"
+
+#: data/resources/ui/shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Open Keyboard Shortcuts"
+msgstr "Открыть комбинации клавиш"
+
+#: data/resources/ui/shortcuts.ui:90
+msgctxt "shortcut window"
+msgid "Navigate"
+msgstr "Навигация"
+
+#: data/resources/ui/shortcuts.ui:94
+msgctxt "shortcut window"
+msgid "Open Homepage"
+msgstr "Открыть Домашнюю страницу"
+
+#: data/resources/ui/shortcuts.ui:101
+msgctxt "shortcut window"
+msgid "Open Inbox"
+msgstr "Открыть Входящие"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Open Today"
+msgstr "Открыть Сегодня"
+
+#: data/resources/ui/shortcuts.ui:115
+msgctxt "shortcut window"
+msgid "Open Scheduled"
+msgstr "Открыть Предстоящее"
+
+#: data/resources/ui/shortcuts.ui:122
+msgctxt "shortcut window"
+msgid "Open Pinboard"
+msgstr "Открыть Закрепленные"
