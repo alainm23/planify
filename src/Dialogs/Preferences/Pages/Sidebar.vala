@@ -160,13 +160,15 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         handle_grid.append (name_label);
 		handle_grid.append (check_button);
 
+        var reorder = new Widgets.ReorderChild (handle_grid, this);
+
 		var main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = handle_grid
+			child = reorder
         };
 
 		child = main_revealer;
-        build_drag_and_drop ();
+        reorder.build_drag_and_drop ();
 
 		Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
@@ -179,6 +181,10 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
                 filter_type.to_string (),
                 check_button.active
             );
+        });
+
+        reorder.on_drop_end.connect ((listbox) => {
+            update_views_order (listbox);
         });
 	}
 
@@ -209,68 +215,6 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         return array;
     }
 
-    private void build_drag_and_drop () {
-        var drag_source = new Gtk.DragSource ();
-        drag_source.set_actions (Gdk.DragAction.MOVE);
-        
-        drag_source.prepare.connect ((source, x, y) => {
-            return new Gdk.ContentProvider.for_value (this);
-        });
-
-        drag_source.drag_begin.connect ((source, drag) => {
-            var paintable = new Gtk.WidgetPaintable (handle_grid);
-            source.set_icon (paintable, 0, 0);
-            drag_begin ();
-        });
-        
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
-            drag_end ();
-        });
-
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
-            drag_end ();
-            return false;
-        });
-
-        add_controller (drag_source);
-
-        var drop_target = new Gtk.DropTarget (typeof (Widgets.SidebarRow), Gdk.DragAction.MOVE);
-        drop_target.preload = true;
-
-        drop_target.drop.connect ((value, x, y) => {
-            var picked_widget = (Widgets.SidebarRow) value;
-            var target_widget = this;
-
-            picked_widget.drag_end ();
-            target_widget.drag_end ();
-
-            if (picked_widget == target_widget || target_widget == null) {
-                return false;
-            }
-
-            var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
-            var position = 0;
-
-            source_list.remove (picked_widget);
-            
-            if (target_widget.get_index () == 0) {
-                if (y > (target_widget.get_height () / 2)) {
-                    position = target_widget.get_index () + 1;
-                }
-            } else {
-                position = target_widget.get_index () + 1;
-            }
-
-            target_list.insert (picked_widget, position);
-            update_views_order (target_list);
-
-            return true;
-        });
-
-        add_controller (drop_target);
-    }
-
     private void update_views_order (Gtk.ListBox listbox) {
         Array<string> list = new Array<string> ();
         unowned Widgets.SidebarRow? row = null;
@@ -288,17 +232,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 
         Services.Settings.get_default ().settings.set_strv ("views-order-visible", list.data);
     }
-
-    public void drag_begin () {
-        handle_grid.add_css_class ("card");
-        opacity = 0.3;        
-    }
-
-    public void drag_end () {
-        handle_grid.remove_css_class ("card");
-        opacity = 1;
-    }
-
+    
     public int item_order () {
         var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
         return find_index (views_order, filter_type.to_string ());

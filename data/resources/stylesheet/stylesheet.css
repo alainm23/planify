@@ -517,3 +517,16 @@ checkbutton.theme-selector radio:checked {
     background-color: @colorAccent;
     border-radius: 1px;
 }
+
+.drop-area {
+    border-radius: 9px;
+    border-width: 3px;
+    border-style: dotted;
+    border-color: alpha(#1e63ec, 0.45);
+    min-height: 32px;
+    margin: 3px;
+}
+
+.drop-target:drop(active) {
+    border-radius: 10px;
+}

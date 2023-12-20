@@ -58,6 +58,8 @@ sources = files(
   'Widgets/LabelChild.vala',
   'Widgets/LabelsSummary.vala',
   'Widgets/SectionsOrderPopover.vala',
+  'Widgets/ScrolledWindow.vala',
+  'Widgets/ReorderChild.vala',
 
   'Widgets/ReminderPicker/ReminderPicker.vala',
   'Widgets/ReminderPicker/ReminderRow.vala',

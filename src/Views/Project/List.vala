@@ -30,7 +30,7 @@ public class Views.List : Gtk.Grid {
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
-    private Gtk.ScrolledWindow scrolled_window;
+    private Widgets.ScrolledWindow scrolled_window;
     
     public bool has_children {
         get {
@@ -131,12 +131,7 @@ public class Views.List : Gtk.Grid {
 
         content_clamp.child = content_box;
 
-        scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-        scrolled_window.child = content_clamp;
+        scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
         attach (scrolled_window, 0, 0);
         update_request ();
@@ -150,12 +145,12 @@ public class Views.List : Gtk.Grid {
         project.section_added.connect ((section) => {
             add_section (section);
             if (section.activate_name_editable) {
-                Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-                    scrolled_window.vadjustment.set_value (
-                        scrolled_window.vadjustment.get_upper () - scrolled_window.vadjustment.get_page_size ()
-                    );
-                    return GLib.Source.REMOVE;
-                });
+                //  Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+                //      scrolled_window.vadjustment.set_value (
+                //          scrolled_window.vadjustment.get_upper () - scrolled_window.vadjustment.get_page_size ()
+                //      );
+                //      return GLib.Source.REMOVE;
+                //  });
             }
         });
 

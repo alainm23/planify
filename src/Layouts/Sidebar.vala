@@ -141,13 +141,7 @@ public class Layouts.Sidebar : Adw.Bin {
         content_box.append (whats_new_revealer);
         // content_box.append (google_projects_header);
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-
-        scrolled_window.child = content_box;
+        var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         child = scrolled_window;
         update_projects_sort ();

@@ -22,6 +22,8 @@
 public class Dialogs.ManageSectionOrder : Adw.Window {
     public Objects.Project project { get; construct; }
     private Gtk.ListBox listbox;
+    private Gtk.DropControllerMotion drop_motion_ctrl;
+    private Widgets.ScrolledWindow scrolled_window;
 
     public ManageSectionOrder (Objects.Project project) {
         Object (
@@ -41,11 +43,7 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         listbox = new Gtk.ListBox () {
-            hexpand = true,
-            margin_top = 6,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 6
+            hexpand = true
         };
 
         listbox.add_css_class ("listbox-background");
@@ -53,18 +51,14 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         var listbox_grid = new Gtk.Grid () {
             margin_top = 12,
             margin_start = 12,
-            margin_end = 12
+            margin_end = 12,
+            margin_bottom = 12
         };
         
         listbox_grid.attach (listbox, 0, 0);
         listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        var listbox_scrolled = new Gtk.ScrolledWindow () {
-            hexpand = true,
-            vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = listbox_grid
-        };
+        scrolled_window = new Widgets.ScrolledWindow (listbox_grid);
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Update")) {
             margin_top = 12,
@@ -74,12 +68,12 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         };
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        content_box.append (headerbar);
-        content_box.append (listbox_scrolled);
-        content_box.append (submit_button);
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+        toolbar_view.add_bottom_bar (submit_button);
+		toolbar_view.content = scrolled_window;
 
-        content = content_box;
+        content = toolbar_view;
         add_sections ();
 
         Timeout.add (225, () => {

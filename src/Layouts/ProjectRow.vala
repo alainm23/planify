@@ -422,7 +422,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         delete_item.add_css_class ("menu-item-danger");
 
         var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share");
-        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "mail");
+        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "planner-mail");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
