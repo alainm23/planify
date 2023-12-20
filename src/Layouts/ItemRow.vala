@@ -338,7 +338,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         content_entry_revealer.child = content_textview;
 
-        string hide_loading_icon = is_creating ? "planner-close-circle" : "chevron-down";
+        string hide_loading_icon = is_creating ? "planner-close-circle" : "pan-down-symbolic";
         hide_loading_button = new Widgets.LoadingButton.with_icon (hide_loading_icon, 16) {
             valign = Gtk.Align.START,
             can_focus = false

@@ -123,7 +123,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             can_focus = false,
-            child =  new Widgets.DynamicIcon.from_icon_name ("chevron-right"),
+            child =  new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic"),
             css_classes = { "flat", "transparent", "hidden-button", "no-padding" }
         };
 
@@ -295,7 +295,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             add_subproject (subproject);
         });
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((subproject, old_parent_id) => {
+        Services.EventBus.get_default ().project_parent_changed.connect ((subproject, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
                 if (subprojects_hashmap.has_key (subproject.id_string)) {
                     subprojects_hashmap [subproject.id_string].hide_destroy ();
@@ -305,6 +305,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (subproject.parent_id == project.id) {
                 add_subproject (subproject);
+
+                if (collapsed) {
+                    project.collapsed = true;
+                    arrow_button.add_css_class ("opened");
+                }
             }
         });
     }
@@ -319,7 +324,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         add_controller (drop_motion_ctrl);
 
         drop_motion_ctrl.motion .connect ((x, y) => {
-            motion_top_revealer.reveal_child = true;
+            motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
         });
 
         drop_motion_ctrl.leave.connect (() => {
@@ -366,17 +371,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             string old_parent_id = picked_project.parent_id;
             picked_project.parent_id = target_project.id;
-
+            
             if (picked_project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                         Services.Database.get_default ().update_project (picked_project);
-                        Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id);
+                        Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
                     }
                 });
             } else if (picked_project.backend_type == BackendType.LOCAL) {
                 Services.Database.get_default ().update_project (picked_project);
-                Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id);
+                Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
             }
 
             return true;
@@ -385,7 +390,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Drop Order
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        drop_order_target.drop.connect ((value, x, y) => {
+        drop_order_target.drop.connect ((value, x, y) =>  {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
 
@@ -462,19 +467,16 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove from favorites") : _("Add to favorites"), "planner-star");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-        // var move_item = new Widgets.ContextMenu.MenuItem (_("Move to project"), "chevron-right");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share");
-        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "planner-mail");
+        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "mail");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
         menu_box.append (edit_item);
-        // menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        // menu_box.append (move_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
@@ -488,7 +490,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.RIGHT
+            position = Gtk.PositionType.RIGHT,
+            width_request = 250
         };
 
         menu_popover.set_parent (this);
