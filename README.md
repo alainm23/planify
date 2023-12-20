@@ -30,12 +30,6 @@
 - 🌙️ Night mode.
 - 🔁️ Recurring due dates.
 
-### Flathub Beta
-```
-flatpak remote-add flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo
-flatpak install io.github.alainm23.planify
-```
-
 ## 🛠 Compile
 
 You'll need the following dependencies:

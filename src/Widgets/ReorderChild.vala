@@ -51,7 +51,12 @@ public class Widgets.ReorderChild : Adw.Bin {
 
     construct {
         motion_top_grid = new Gtk.Grid () {
-            css_classes = { "drop-area" }
+            height_request = 32,
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6,
+            css_classes = { "drop-area", "drop-target" }
         };
 
         var motion_top_revealer = new Gtk.Revealer () {
@@ -60,7 +65,12 @@ public class Widgets.ReorderChild : Adw.Bin {
         };
 
         motion_bottom_grid = new Gtk.Grid () {
-            css_classes = { "drop-area" }
+            height_request = 32,
+            margin_top = 6,
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 6,
+            css_classes = { "drop-area", "drop-target" }
         };
 
         var motion_bottom_revealer = new Gtk.Revealer () {
@@ -68,9 +78,7 @@ public class Widgets.ReorderChild : Adw.Bin {
             child = motion_bottom_grid
         };
 
-        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            css_classes = { "drop-target" }
-        };
+        var main_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_box.append (motion_top_revealer);
         main_box.append (widget);
         main_box.append (motion_bottom_revealer);
@@ -152,25 +160,34 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         var source_list = (Gtk.ListBox) picked_widget.row.parent;
         var target_list = (Gtk.ListBox) target_widget.row.parent;
-        var position = first ? 0 : target_widget.row.get_index () + 1;
+        var position = 0;
 
+        if (picked_widget.row.get_index () > target_widget.row.get_index ()) {
+            position = target_widget.row.get_index () + 1;
+        } else {
+            position = target_widget.row.get_index ();
+        }
+
+        if (first) {
+            position = 0;
+        }
+        
         source_list.remove (picked_widget.row);
         target_list.insert (picked_widget.row, position);
 
         on_drop_end (target_list);
-
         return true;
     }
     
     public void drag_begin () {
-        widget.add_css_class ("card");
+        widget.add_css_class ("drop-begin");
         on_drag = true;
         on_drag_event (true);
         main_revealer.reveal_child = false;
     }
 
     public void drag_end () {
-        widget.remove_css_class ("card");
+        widget.remove_css_class ("drop-begin");
         on_drag = false;
         on_drag_event (false);
         main_revealer.reveal_child = true;

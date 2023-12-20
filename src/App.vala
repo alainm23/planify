@@ -41,9 +41,9 @@ public class Planify : Adw.Application {
 
 	private const OptionEntry[] OPTIONS = {
 		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
-		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planner", null },
+		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
 		{ "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
-		{ "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planner in a specific language", "LANG" },
+		{ "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
 		{ null }
 	};
 

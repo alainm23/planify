@@ -1119,7 +1119,7 @@ public class Services.Todoist : GLib.Object {
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
 			item.get_move_item (uuid, type, id)
-			);
+		);
 
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append (
@@ -1190,7 +1190,7 @@ public class Services.Todoist : GLib.Object {
 		string url = "%s?commands=%s".printf (
 			TODOIST_SYNC_URL,
 			base_object.get_move_json (uuid, project_id)
-			);
+		);
 
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append (

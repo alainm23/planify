@@ -31,7 +31,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Revealer count_revealer;
     private Gtk.Button arrow_button;
     private Gtk.ListBox listbox;
-    public Gtk.Grid handle_grid;
+    private Adw.Bin handle_grid;
     private Gtk.Revealer listbox_revealer;
     private Gtk.Stack progress_emoji_stack;
     private Gtk.Label due_label;
@@ -43,7 +43,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Popover menu_popover = null;
     private Widgets.ContextMenu.MenuItem favorite_item;
 
-    public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap;
+    private Gtk.Grid motion_top_grid;
+    private Gtk.Revealer motion_top_revealer;
+
+    public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     
     public bool on_drag = false;
 
@@ -73,10 +76,18 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
-        add_css_class ("transition");
+        css_classes = { "selectable-item", "transition" };
 
-        subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+        motion_top_grid = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-area", "drop-target" },
+            margin_bottom = 3
+        };
+
+        motion_top_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = motion_top_grid
+        };
 
         circular_progress_bar = new Widgets.CircularProgressBar (10);
         circular_progress_bar.percentage = project.percentage;
@@ -90,38 +101,31 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         progress_emoji_stack.add_named (circular_progress_bar, "progress");
         progress_emoji_stack.add_named (emoji_label, "emoji");
 
-        name_label = new Gtk.Label (project.name);
-        name_label.valign = Gtk.Align.CENTER;
-        name_label.ellipsize = Pango.EllipsizeMode.END;
-        name_label.hexpand = true;
-        name_label.halign = Gtk.Align.START;
+        name_label = new Gtk.Label (project.name) {
+            valign = Gtk.Align.CENTER,
+            ellipsize = Pango.EllipsizeMode.END,
+            hexpand = true,
+            halign = Gtk.Align.START,
+        };
 
         count_label = new Gtk.Label (project.project_count.to_string ()) {
             hexpand = true,
-            halign = Gtk.Align.CENTER
+            halign = Gtk.Align.CENTER,
+            css_classes = { "small-label", "dim-label" }
         };
-
-        count_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        count_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         count_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             child = count_label
         };
 
-        var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 16;
-        chevron_right_image.update_icon_name ("chevron-right"); 
-
-        arrow_button = new Gtk.Button ();
-        arrow_button.valign = Gtk.Align.CENTER;
-        arrow_button.halign = Gtk.Align.CENTER;
-        arrow_button.can_focus = false;
-        arrow_button.child = chevron_right_image;
-        arrow_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        arrow_button.add_css_class ("transparent");
-        arrow_button.add_css_class ("hidden-button");
-        arrow_button.add_css_class ("no-padding");
+        arrow_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            can_focus = false,
+            child =  new Widgets.DynamicIcon.from_icon_name ("chevron-right"),
+            css_classes = { "flat", "transparent", "hidden-button", "no-padding" }
+        };
 
         if (project.collapsed) {
             arrow_button.add_css_class ("opened");
@@ -132,12 +136,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             halign = Gtk.Align.END
         };
 
-        due_label = new Gtk.Label (null);
-        due_label.use_markup = true;
-        due_label.valign = Gtk.Align.CENTER;
-        due_label.halign = Gtk.Align.CENTER;
-        due_label.add_css_class ("pane-due-button");
-        due_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        due_label = new Gtk.Label (null) {
+            use_markup = true,
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            css_classes = { "pane-due-button", "small-label" }
+        };
 
         if (project.due_date != "") {
             menu_stack.add_named (due_label, "due_label");
@@ -160,9 +164,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         projectrow_box.append (name_label);
         projectrow_box.append (menu_stack);
 
-        handle_grid = new Gtk.Grid ();
-        handle_grid.add_css_class ("transition");
-        handle_grid.attach (projectrow_box, 0, 0);
+        handle_grid = new Adw.Bin () {
+            css_classes = { "transition", "drop-target" },
+            child = projectrow_box
+        };
 
         listbox = new Gtk.ListBox () {
             hexpand = true
@@ -179,20 +184,22 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         listbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = project.collapsed
+            reveal_child = project.collapsed,
+            child = listbox_grid
         };
 
-        listbox_revealer.child = listbox_grid;
-
         main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-
         main_content.append (handle_grid);
         main_content.append (listbox_revealer);
 
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        box.append (motion_top_revealer);
+        box.append (main_content);
+
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = box
         };
-        main_revealer.child = main_content;
 
         child = main_revealer;
         update_request ();
@@ -307,9 +314,23 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
+        // Motion Drop
+        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
+        add_controller (drop_motion_ctrl);
+
+        drop_motion_ctrl.motion .connect ((x, y) => {
+            motion_top_revealer.reveal_child = true;
+        });
+
+        drop_motion_ctrl.leave.connect (() => {
+            motion_top_revealer.reveal_child = false;
+        });
+
+        // Drag Souyrce
         var drag_source = new Gtk.DragSource ();
         drag_source.set_actions (Gdk.DragAction.MOVE);
-        
+        handle_grid.add_controller (drag_source);
+
         drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
         });
@@ -329,51 +350,89 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return false;
         });
 
-        add_controller (drag_source);
-
+        // Drop
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
-        drop_target.preload = true;
-
+        handle_grid.add_controller (drop_target);
         drop_target.drop.connect ((value, x, y) => {
-            if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 0) {
-                Services.EventBus.get_default ().send_notification (
-                    Util.get_default ().create_toast (_("Project list order changed to Custom Sort Order."))
-                );
-            }
-
-            Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 1);
-
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
-            
-            picked_widget.drag_end ();
-            target_widget.drag_end ();
+
+            var picked_project = picked_widget.project;
+            var target_project = target_widget.project;
 
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
 
-            var source_list = (Gtk.ListBox) picked_widget.parent;
-            var target_list = (Gtk.ListBox) target_widget.parent;
-            var position = 0;
+            string old_parent_id = picked_project.parent_id;
+            picked_project.parent_id = target_project.id;
 
-            source_list.remove (picked_widget);
-            
-            if (target_widget.get_index () == 0) {
-                if (y > (target_widget.get_height () / 2)) {
-                    position = target_widget.get_index () + 1;
-                }
-            } else {
-                position = target_widget.get_index () + 1;
+            if (picked_project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
+                    if (Services.Todoist.get_default ().move_project_section.end (res).status) {
+                        Services.Database.get_default ().update_project (picked_project);
+                        Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id);
+                    }
+                });
+            } else if (picked_project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_project (picked_project);
+                Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id);
             }
-
-            target_list.insert (picked_widget, position);
-            update_projects_child_order (target_list);
 
             return true;
         });
 
-        add_controller (drop_target);
+        // Drop Order
+        var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
+        motion_top_grid.add_controller (drop_order_target);
+        drop_order_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ProjectRow) value;
+            var target_widget = this;
+
+            var picked_project = picked_widget.project;
+            var target_project = target_widget.project;
+    
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+    
+            var source_list = (Gtk.ListBox) picked_widget.parent;
+            var target_list = (Gtk.ListBox) target_widget.parent;
+
+            if (picked_project.parent_id != target_project.parent_id) {
+                picked_project.parent_id = target_project.parent_id;
+
+                if (picked_project.backend_type == BackendType.TODOIST) {
+                    Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
+                        if (Services.Todoist.get_default ().move_project_section.end (res).status) {
+                            Services.Database.get_default ().update_project (picked_project);
+                        }
+                    });
+                } else if (picked_project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().update_project (picked_project);
+                }
+            }
+
+            source_list.remove (picked_widget);
+            target_list.insert (picked_widget, target_widget.get_index ());
+            update_projects_child_order (target_list);
+            
+            return true;
+        });
+    }
+
+    public void drag_begin () {
+        handle_grid.add_css_class ("drop-begin");
+        on_drag = true;
+        main_revealer.reveal_child = false;
+        listbox_revealer.reveal_child = false;
+    }
+
+    public void drag_end () {
+        handle_grid.remove_css_class ("drop-begin");
+        on_drag = false;
+        main_revealer.reveal_child = true;
+        listbox_revealer.reveal_child = project.collapsed;
     }
 
     private void update_projects_child_order (Gtk.ListBox listbox) {
@@ -390,20 +449,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             row_index++;
         } while (project_row != null);
-    }
-
-    public void drag_begin () {
-        handle_grid.add_css_class ("card");
-        on_drag = true;
-        opacity = 0.3;
-        listbox_revealer.reveal_child = false;
-    }
-
-    public void drag_end () {
-        handle_grid.remove_css_class ("card");
-        on_drag = false;
-        opacity = 1;
-        listbox_revealer.reveal_child = project.collapsed;
     }
     
     private void build_context_menu (double x, double y) {
