@@ -124,7 +124,7 @@ public class Layouts.Sidebar : Adw.Bin {
         var whats_new_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_UP,
             child = whats_new_box,
-            reveal_child = verify_new_version ()
+            reveal_child = true// verify_new_version ()
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {

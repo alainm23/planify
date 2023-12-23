@@ -255,7 +255,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             check_inbox_visible ();
         });
 
-        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
+        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (old_project_id == section.project_id && old_section_id == section.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();

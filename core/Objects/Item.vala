@@ -80,7 +80,18 @@ public class Objects.Item : Objects.BaseObject {
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
-    public bool collapsed { get; set; default = false; }
+
+    private bool _collapsed = false;
+    public bool collapsed {
+        get {
+            return _collapsed;
+        }
+
+        set {
+            _collapsed = value;
+            collapsed_change ();
+        }
+    }
 
     public bool pinned { get; set; default = false; }
     public string pinned_icon {
@@ -205,7 +216,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void loading_changed (bool value);
-    
+    public signal void collapsed_change ();
     construct {
         deleted.connect (() => {
             Idle.add (() => {

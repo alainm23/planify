@@ -58,20 +58,20 @@ public class Views.List : Gtk.Grid {
             use_markup = true,
             wrap = true
         };
+
         description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
         description_label.label = Util.get_default ().get_markup_format (project.description);
 
         var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 6,
-            margin_end = 6
+            margin_end = 6,
+            margin_start = 24
         };
         
         description_box.append (description_label);
         description_box.add_css_class ("description-box");
 
         due_revealer = build_due_date_widget ();
-
-        // label_filter_revealer = build_label_filter_widget ();
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -126,10 +126,9 @@ public class Views.List : Gtk.Grid {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24
+            margin_end = 42,
+            child = content_box
         };
-
-        content_clamp.child = content_box;
 
         scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
@@ -248,7 +247,7 @@ public class Views.List : Gtk.Grid {
 
     public void prepare_new_item (string content = "") {
         var dialog = new Dialogs.QuickAdd ();
-        dialog.set_project (project);
+        dialog.for_base_object (project);
         dialog.update_content (content);
         dialog.show ();
     }

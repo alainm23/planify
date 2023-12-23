@@ -906,6 +906,20 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
+    public int next_item_child_order (string project_id, string section_id) {
+        int child_order = 0;
+
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.project_id == project_id && item.section_id == section_id) {
+                    child_order++;
+                }
+            }
+
+            return child_order;
+        }
+    }
+
     /*
         Sections
     */
@@ -1491,6 +1505,7 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+
         stmt.reset ();
     }
 

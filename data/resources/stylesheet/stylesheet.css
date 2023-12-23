@@ -75,7 +75,7 @@ entry.flat:focus-within {
 }
 
 .transition {
-    transition: all 115ms ease-in-out;
+    transition: all 175ms ease-in-out;
 }
 
 .hidden-button image {
@@ -209,13 +209,13 @@ entry.flat:focus-within {
 }
 
 .card-selected {
-    margin-left: 3px;
+    transition: all 225ms ease-in-out;
+    margin: 24px;
     padding-left: 9px;
     padding-top: 3px;
     padding-right: 3px;
-    padding-bottom: 0px;
-    margin-right: 3px;
-    border: 1px solid @item_border_color;
+    padding-bottom: 3px;
+    box-shadow: 0px 0px 0px 1px @item_border_color;
 }
 
 .card-border {
@@ -236,7 +236,7 @@ entry.flat:focus-within {
 
 .complete-animation {
     background-color: @selected_color;
-    border-radius: 6px;
+    border-radius: 9px;
 }
 
 .action-button {

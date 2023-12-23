@@ -19,14 +19,14 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.LabelsSummary : Gtk.Grid {
+public class Widgets.LabelsSummary : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.Revealer revealer;
 
     private Gtk.Label more_label;
-    private Gtk.Grid more_label_grid;
+    private Adw.Bin more_label_grid;
     private Gtk.Revealer more_label_revealer;
 
     Gee.HashMap<string, Widgets.ItemLabelChild> labels;
@@ -57,16 +57,16 @@ public class Widgets.LabelsSummary : Gtk.Grid {
             margin_end = 6,
         };
 
-        more_label = new Gtk.Label (null);
-        more_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-        
-        more_label_grid = new Gtk.Grid () {
-            column_spacing = 3,
-            margin_end = 6,
-            valign = Gtk.Align.START
+        more_label = new Gtk.Label (null) {
+            css_classes = { "small-label" }
         };
-        more_label_grid.attach (more_label, 0, 0);
-        more_label_grid.add_css_class ("item-label-child");
+        
+        more_label_grid = new Adw.Bin () {
+            margin_end = 6,
+            valign = Gtk.Align.START,
+            css_classes = { "item-label-child" },
+            child = more_label
+        };
 
         more_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
@@ -83,12 +83,11 @@ public class Widgets.LabelsSummary : Gtk.Grid {
         content_box.append (more_label_revealer);
 
         revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            child = content_box
         };
 
-        revealer.child = content_box;
-
-        attach (revealer, 0, 0);
+        child = revealer;
         update_request ();
 
         item.item_label_deleted.connect ((item_label) => {

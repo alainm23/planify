@@ -67,7 +67,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			section: section,
 			focusable: false,
 			can_focus: true
-			);
+		);
 	}
 
 	public SectionRow.for_project (Objects.Project project) {
@@ -80,7 +80,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			section: section,
 			focusable: false,
 			can_focus: true
-			);
+		);
 	}
 
 	construct {
@@ -163,7 +163,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		sectionrow_revealer.child = header_box;
 
 		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			margin_top = is_inbox_section ? 12 : 0
+			margin_top = is_inbox_section ? 12 : 0,
+			margin_start = 21
 		};
 
 		handle_grid.append (sectionrow_revealer);
@@ -177,17 +178,16 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		listbox.add_css_class ("listbox-background");
 
-		var listbox_grid = new Gtk.Grid () {
-			margin_top = 0
+		var listbox_grid = new Adw.Bin () {
+			margin_top = 0,
+			child = listbox
 		};
-
-		listbox_grid.attach (listbox, 0, 0);
 
 		drop_widget = new Gtk.Grid () {
-			height_request = 32
+            height_request = 27,
+			margin_start = 21,
+            css_classes = { "drop-area", "drop-target" }
 		};
-
-		drop_widget.add_css_class ("drop-css");
 
 		drop_widget_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -341,8 +341,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 		});
 
-		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id, insert) => {
-			if (old_project_id == section.project_id && old_section_id == section.id) {
+		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+			if (old_project_id == section.project_id &&
+				old_section_id == section.id) {
 				if (items.has_key (item.id_string)) {
 					items [item.id_string].hide_destroy ();
 					items.unset (item.id_string);
@@ -354,7 +355,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 			}
 
-			if (item.project_id == section.project_id && item.section_id == section.id &&
+			if (item.project_id == section.project_id &&
+				item.section_id == section.id &&
 			    item.parent_id == "") {
 				add_item (item);
 			}
@@ -517,55 +519,20 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	public void add_item (Objects.Item item) {
 		if (!item.checked && !items.has_key (item.id_string)) {
 			items [item.id_string] = new Layouts.ItemRow (item);
-			listbox.append (items [item.id_string]);
+
+			if (item.child_order <= -1) {
+				listbox.append (items [item.id_string]);
+			} else {
+				listbox.insert (items [item.id_string], 0);
+			}
 		}
 	}
 
 	public void prepare_new_item (string content = "") {
-		Services.EventBus.get_default ().item_selected (null);
-
-		Layouts.ItemRow row;
-		if (is_inbox_section) {
-			row = new Layouts.ItemRow.for_project (section.project);
-		} else {
-			row = new Layouts.ItemRow.for_section (section);
-		}
-
-		row.update_content (content);
-		row.update_priority (Util.get_default ().get_default_priority ());
-
-		row.item_added.connect (() => {
-			item_added (row);
-		});
-
-		if (has_children) {
-			listbox.insert (row, 0);
-		} else {
-			listbox.append (row);
-		}
-	}
-
-	public void item_added (Layouts.ItemRow row) {
-		bool insert = row.project_id != row.item.project.id || row.section_id != row.item.section_id;
-
-		if (row.item.section_id != "") {
-			Services.Database.get_default ().get_section (row.item.section_id)
-				.add_item_if_not_exists (row.item, insert);
-		} else {
-			Services.Database.get_default ().get_project (row.item.project_id)
-				.add_item_if_not_exists (row.item, insert);
-		}
-
-		if (!insert) {
-			Services.EventBus.get_default ().update_inserted_item_map (row, "");
-			row.update_inserted_item ();
-		} else {
-			row.hide_destroy ();
-		}
-
-		Services.EventBus.get_default ().send_notification (
-			Util.get_default ().create_toast (_("Task added to <b>%s</b>".printf (row.item.project.short_name))));
-		Services.EventBus.get_default ().update_section_sort_func (row.item.project_id, row.item.section_id, false);
+		var dialog = new Dialogs.QuickAdd ();
+        dialog.for_base_object (section);
+        dialog.update_content (content);
+        dialog.show ();
 	}
 
 	private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
@@ -742,7 +709,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			source_list.remove (picked_widget);
 
 			listbox.append (picked_widget);
-			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id);
+			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
 			update_items_item_order (listbox);
 
 			return true;

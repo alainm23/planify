@@ -79,15 +79,21 @@ public class Dialogs.WhatsNew : Adw.Window {
 			child = group
 		};
 
+		var video = new Gtk.Video.for_resource ("/io/github/alainm23/planify/test-video.webm") {
+			autoplay = true,
+			loop = true
+		};
+
 		var content_box = new Gtk.Box (VERTICAL, 6) {
 			margin_start = 24,
 			margin_end = 24
 		};
 
-		content_box.append (title_label);
-		content_box.append (version_label);
-		content_box.append (feature_group);
-		content_box.append (group_revealer);
+		//  content_box.append (title_label);
+		//  content_box.append (version_label);
+		//  content_box.append (feature_group);
+		//  content_box.append (group_revealer);
+		content_box.append (video);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,

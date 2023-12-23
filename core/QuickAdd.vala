@@ -1,6 +1,6 @@
 public class Layouts.QuickAdd : Adw.Bin {
     public bool is_window_quick_add { get; construct; }
-    public Objects.Item item { get; set; }
+    public Objects.Item item { get; construct; }
 
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
@@ -17,18 +17,19 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
+    public signal void add_item_db (Objects.Item item);
 
     public QuickAdd (bool is_window_quick_add = false) {
+        var item = new Objects.Item ();
+        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        
         Object (
-            is_window_quick_add: is_window_quick_add
+            is_window_quick_add: is_window_quick_add,
+            item: item
         );
     }
 
     construct {
-        item = new Objects.Item ();
-        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
-
-
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
@@ -159,7 +160,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             valign = Gtk.Align.START
         };
         main_content.append (quick_add_content);
-        // main_content.append (error_box);
         main_content.append (footer_content);
 
         var warning_image = new Gtk.Image ();
@@ -223,12 +223,16 @@ public class Layouts.QuickAdd : Adw.Bin {
             hide_destroy ();
         });
 
-        project_picker_button.selected.connect ((project) => {
+        project_picker_button.project_change.connect ((project) => {
             item.project_id = project.id;
 
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
             }
+        });
+
+        project_picker_button.section_change.connect ((section) => {
+            item.section_id = section.id;
         });
 
         schedule_button.date_changed.connect ((datetime) => {
@@ -256,6 +260,16 @@ public class Layouts.QuickAdd : Adw.Bin {
 
             return false;
         });
+
+        Services.EventBus.get_default ().item_added_successfully.connect (() => {
+            main_stack.visible_child_name = "added";
+            added_image.add_css_class ("fancy-turn-animation");
+
+            Timeout.add (750, () => {
+                hide_destroy ();
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private void add_item () {        
@@ -266,6 +280,12 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
+        
+        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
+            item.child_order = 0;
+        } else {
+            item.child_order = -1;
+        }
         
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
@@ -286,27 +306,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         }
     }
 
-    private void add_item_db (Objects.Item item) {
-        if (Services.Database.get_default ().insert_item (item)) {
-            send_interface_id (item.id);
-            
-            main_stack.visible_child_name = "added";
-            added_image.add_css_class ("fancy-turn-animation");
-
-            Timeout.add (750, () => {
-                hide_destroy ();
-                return GLib.Source.REMOVE;
-            });
-        }  
-    }
-
     public void update_content (string content = "") {
         content_entry.set_text (content);
-    }
-
-    public void set_project (Objects.Project project) {
-        project_picker_button.project = project;
-        item.project_id = project.id;
     }
 
     public void set_due (GLib.DateTime? datetime) {
@@ -336,5 +337,26 @@ public class Layouts.QuickAdd : Adw.Bin {
     public void set_labels (Gee.HashMap <string, Objects.Label> labels) {
         item.update_local_labels (labels);
         item_labels.update_labels ();
+    }
+
+    public void for_project (Objects.Project project) {
+        item.project_id = project.id;
+        project_picker_button.project = project;
+    }
+
+    public void for_section (Objects.Section section) {
+        item.section_id = section.id;
+        item.project_id = section.project.id;
+
+        project_picker_button.project = section.project;
+        project_picker_button.section = section;
+    }
+
+    public void for_parent (Objects.Item _item) {
+        item.project_id = _item.project_id;
+        item.section_id = _item.section_id;
+        item.parent_id = _item.id;
+
+        project_picker_button.project = _item.project;
     }
 }

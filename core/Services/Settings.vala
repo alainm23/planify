@@ -43,4 +43,9 @@ public class Services.Settings : GLib.Object {
             Services.Settings.get_default ().settings.reset (key);
         }
     }
+
+    public NewTaskPosition get_new_task_position () {
+        var value = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
+        return value == 0 ? NewTaskPosition.TOP : NewTaskPosition.BOTTOM;
+    }
 }

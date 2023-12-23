@@ -374,18 +374,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		tasks_group.add (default_priority_row);
 
-		var description_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("description-preview")
-		};
-
-		var description_row = new Adw.ActionRow ();
-		description_row.title = _("Description preview");
-		description_row.set_activatable_widget (description_switch);
-		description_row.add_suffix (description_switch);
-
-		// tasks_group.add (description_row);
-
 		var underline_completed_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
 			active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
@@ -397,6 +385,17 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		underline_completed_row.add_suffix (underline_completed_switch);
 
 		tasks_group.add (underline_completed_row);
+
+		var tasks_position_model = new Gtk.StringList (null);
+		tasks_position_model.append (_("Top"));
+		tasks_position_model.append (_("Bottom"));
+
+		var tasks_position_row = new Adw.ComboRow ();
+		tasks_position_row.title = _("New task position");
+		tasks_position_row.model = tasks_position_model;
+		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
+
+		tasks_group.add (tasks_position_row);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
@@ -467,8 +466,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_enum ("default-priority", (int) default_priority_row.selected);
 		});
 
-		description_switch.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("description-preview", description_switch.active);
+		tasks_position_row.notify["selected"].connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("new-tasks-position", (int) tasks_position_row.selected);
 		});
 
 		underline_completed_switch.notify["active"].connect (() => {

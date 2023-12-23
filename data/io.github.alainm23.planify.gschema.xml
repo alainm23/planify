@@ -38,7 +38,7 @@
 
     <enum id="io.github.alainm23.planify.new-tasks-position">
         <value nick="Top" value="0" />
-        <value nick="Bottom" value="-1" />
+        <value nick="Bottom" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.clock-format">

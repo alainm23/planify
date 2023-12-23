@@ -270,3 +270,8 @@ public enum PickerType {
 		}
 	}
 }
+
+public enum NewTaskPosition {
+	TOP = 0,
+	BOTTOM = 1,
+}

@@ -71,9 +71,9 @@ public class Widgets.ScrolledWindow : Adw.Bin {
 
         var adj = scrolled_window.get_vadjustment ();
         if (scroll_up) {
-            adj.set_value (adj.get_value () - 2);
+            adj.set_value (adj.get_value () - Constants.SCROLL_STEPS);
         } else {
-            adj.set_value (adj.get_value () + 2);
+            adj.set_value (adj.get_value () + Constants.SCROLL_STEPS);
         }
 
         return true;

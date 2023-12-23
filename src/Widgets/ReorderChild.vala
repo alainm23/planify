@@ -95,21 +95,21 @@ public class Widgets.ReorderChild : Adw.Bin {
         row.add_controller (drop_motion_ctrl);
 
         drop_motion_ctrl.motion .connect ((x, y) => {
-            if (row.get_index () == 0) {
-                if (y > (row.get_height () / 2)) {
-                    motion_bottom_revealer.reveal_child = true;
-                    motion_top_revealer.reveal_child = false;
-                } else {
-                    motion_bottom_revealer.reveal_child = false;
-                    motion_top_revealer.reveal_child = true;
-                }
-            } else {
-                motion_bottom_revealer.reveal_child = true;
-            }
+            //  if (row.get_index () == 0) {
+            //      if (y > (row.get_height () / 2)) {
+            //          motion_bottom_revealer.reveal_child = true;
+            //          motion_top_revealer.reveal_child = false;
+            //      } else {
+            //          motion_bottom_revealer.reveal_child = false;
+            //          motion_top_revealer.reveal_child = true;
+            //      }
+            //  } else {
+            motion_top_revealer.reveal_child = true;
+            //  }
         });
 
         drop_motion_ctrl.leave.connect (() => {
-            motion_bottom_revealer.reveal_child = false;
+            // motion_bottom_revealer.reveal_child = false;
             motion_top_revealer.reveal_child = false;
         });
     }
@@ -160,20 +160,20 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         var source_list = (Gtk.ListBox) picked_widget.row.parent;
         var target_list = (Gtk.ListBox) target_widget.row.parent;
-        var position = 0;
+        //  var position = 0;
 
-        if (picked_widget.row.get_index () > target_widget.row.get_index ()) {
-            position = target_widget.row.get_index () + 1;
-        } else {
-            position = target_widget.row.get_index ();
-        }
+        //  if (picked_widget.row.get_index () > target_widget.row.get_index ()) {
+        //      position = target_widget.row.get_index () + 1;
+        //  } else {
+        //      position = target_widget.row.get_index ();
+        //  }
 
-        if (first) {
-            position = 0;
-        }
+        //  if (first) {
+        //      position = 0;
+        //  }
         
         source_list.remove (picked_widget.row);
-        target_list.insert (picked_widget.row, position);
+        target_list.insert (picked_widget.row, target_widget.row.get_index ());
 
         on_drop_end (target_list);
         return true;

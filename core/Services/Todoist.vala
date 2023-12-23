@@ -352,7 +352,6 @@ public class Services.Todoist : GLib.Object {
 							string old_project_id = item.project_id;
 							string old_section_id = item.section_id;
 							string old_parent_id = item.parent_id;
-							bool old_checked = item.checked;
 
 							item.update_from_json (_node);
 							item.update_labels_from_json (_node);
@@ -363,6 +362,7 @@ public class Services.Todoist : GLib.Object {
 								Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
 							}
 
+							bool old_checked = item.checked;
 							if (old_checked != item.checked) {
 								Services.Database.get_default ().checked_toggled (item, old_checked);
 							}

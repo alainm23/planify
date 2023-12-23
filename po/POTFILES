@@ -94,7 +94,6 @@ src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/Placeholder.vala
 src/Widgets/SyncButton.vala
-src/Widgets/ItemSummary.vala
 src/Widgets/ReminderButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala

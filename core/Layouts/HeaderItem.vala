@@ -276,6 +276,12 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.insert (widget, position);
     }
 
+    public void clear () {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
+    }
+
     public void add_widget_end (Gtk.Widget widget) {
         action_box.append (widget);
     }

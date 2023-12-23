@@ -15,4 +15,5 @@ namespace Constants {
     public const string TWITTER_URL = "https://twitter.com/useplanify";
     public const string CONTACT_US = "alainmh23@gmail.com";
     public const string TELEGRAM_GROUP = "https://t.me/+cArNTCbdT3xmOTcx";
+    public const int SCROLL_STEPS = 6;
 }

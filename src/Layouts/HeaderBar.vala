@@ -81,10 +81,10 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         // Title
         title_label = new Gtk.Label (null) {
-            use_markup = true
+            use_markup = true,
+            css_classes = { "font-bold" }
         };
-		title_label.add_css_class ("font-bold");
-
+        
         headerbar = new Adw.HeaderBar () {
 			hexpand = true,
             show_title = false

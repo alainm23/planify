@@ -49,7 +49,6 @@ sources = files(
   'Widgets/EditableLabel.vala',
   'Widgets/Placeholder.vala',
   'Widgets/SyncButton.vala',
-  'Widgets/ItemSummary.vala',
   'Widgets/ReminderButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
