@@ -54,6 +54,14 @@
   <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.3.2" date="2023-12-20">
+      <description>
+        <ul>
+          <li>Fixed the functionality of adding tags.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.3.1" date="2023-12-19">
       <description>
         <ul>

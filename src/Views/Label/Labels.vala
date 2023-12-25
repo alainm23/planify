@@ -83,12 +83,34 @@ public class Views.Labels : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        labels_local_header.add_activated.connect (() => {
+        var add_local_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+        };
+
+        labels_local_header.add_widget_end (add_local_button);
+        add_local_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.LOCAL);
             dialog.show ();
         });
 
-        labels_todoist_header.add_activated.connect (() => {
+        var add_todoist_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+        };
+
+        labels_todoist_header.add_widget_end (add_todoist_button);
+        add_todoist_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.TODOIST);
             dialog.show ();
         });
