@@ -1652,7 +1652,7 @@ msgstr "Создать новую задачу"
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste plain text to create new task"
-msgstr "Вставьте обычный текст для создания новой задачи"
+msgstr "Вставить текст для создания новой задачи"
 
 #: data/resources/ui/shortcuts.ui:30
 msgctxt "shortcut window"
