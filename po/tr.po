@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-12-19 05:27-0500\n"
-"PO-Revision-Date: 2023-06-02 22:02+0300\n"
+"PO-Revision-Date: 2023-12-25 10:21+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: core/Util.vala:41 core/Util.vala:42
 msgid "Berry Red"
@@ -199,7 +199,7 @@ msgstr "Tümünü sıfırla"
 
 #: core/Util.vala:806 src/Services/Backups.vala:511
 msgid "Process completed, you need to start Planify again."
-msgstr ""
+msgstr "İşlem tamamlandı, Planify'ı yeniden başlatmanız gerekiyor."
 
 #: core/Util.vala:809 src/MainWindow.vala:240 src/Services/Backups.vala:515
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1121
@@ -228,25 +228,23 @@ msgstr "Öncelik 4: yok"
 
 #: core/Util.vala:925
 msgid "high"
-msgstr ""
+msgstr "yüksek"
 
 #: core/Util.vala:927
 msgid "medium"
-msgstr ""
+msgstr "orta"
 
 #: core/Util.vala:929
-#, fuzzy
 msgid "low"
-msgstr "Sarı"
+msgstr "düşük"
 
 #: core/Util.vala:931
 msgid "none"
-msgstr ""
+msgstr "yok"
 
 #: core/Util.vala:1010
-#, fuzzy
 msgid "Meet Planify"
-msgstr "Planify"
+msgstr "Planify ile tanışın"
 
 #: core/Util.vala:1013
 msgid ""
@@ -254,59 +252,70 @@ msgid ""
 "running. Don’t hesitate to play around in it – you can always create a new "
 "one from settings."
 msgstr ""
+"Bu proje, işe koyulmak için bilmeniz gereken her şeyi size gösterecek. "
+"Kurcalamaktan çekinmeyin. Ayarlardan her zaman yenisini oluşturabilirsiniz."
 
 #: core/Util.vala:1019
 msgid "Tap this to-do"
-msgstr ""
+msgstr "Bu yapılacaka dokunun"
 
 #: core/Util.vala:1020
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 "Completed to-dos are collected al the bottom of your project."
 msgstr ""
+"Yapılacak bir işe bakıyorsunuz! Soldaki onay kutusuna dokunarak tamamlayın. "
+"Tamamlanan yapılacaklar projenizin altında toplanır."
 
 #: core/Util.vala:1025
 msgid "Create a new to-do"
-msgstr ""
+msgstr "Yeni yapılacak oluştur"
 
 #: core/Util.vala:1026
 msgid ""
 "Now it's your turn, tap the '+' button at the top of your project, enter any "
 "pending and tap the blue 'Save' button."
 msgstr ""
+"Şimdi sıra sizde. Projenizin üst kısmındaki '+' düğmesine dokunun, "
+"bekleyenleri girin ve mavi 'Kaydet' düğmesine dokunun."
 
 #: core/Util.vala:1031
 msgid "Plan this to-do by today or later"
-msgstr ""
+msgstr "Bu yapılacak işi bugün veya daha sonrasına planlayın"
 
 #: core/Util.vala:1032
 msgid "Tap the calendar button at the bottom to decide when to do this to-do."
 msgstr ""
+"Bu yapılacak işi ne zaman yapacağınıza karar vermek için alttaki takvim "
+"düğmesine dokunun."
 
 #: core/Util.vala:1037
 msgid "Reorder yours to-dos"
-msgstr ""
+msgstr "Yapılacaklarınızı yeniden sıralayın"
 
 #: core/Util.vala:1038
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
 msgstr ""
+"Listenizi yeniden sıralamak için yapılacak işe dokunup basılı tutun, "
+"ardından gitmesi gereken yere sürükleyin."
 
 #: core/Util.vala:1043
-#, fuzzy
 msgid "Create a project"
-msgstr "Projeyi güncelle"
+msgstr "Proje oluştur"
 
 #: core/Util.vala:1044
 msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
+"Yapılacaklarınızı daha iyi organize edin! Sol panele gidip 'Bu Bilgisayarda' "
+"bölümündeki '+' düğmesine tıklayın ve kendinize ait bir proje ekleyin."
 
 #: core/Util.vala:1049
 msgid "You’re done!"
-msgstr ""
+msgstr "Bitti!"
 
 #: core/Util.vala:1050
 msgid ""
@@ -318,51 +327,61 @@ msgid ""
 "\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
+"Gerçekten bilmeniz gereken tek şey bu. Kendi projelerinizi ve yapılacak "
+"işlerinizi eklemekten çekinmeyin.\n"
+"\n"
+"Aşağıdaki gelişmiş özellikleri öğrenmek için bu projeye daha sonra geri "
+"dönebilirsiniz...\n"
+"\n"
+"Planify'ı kullanmaktan keyif alacağınızı umuyoruz!"
 
 #: core/Util.vala:1066
 msgid "Tune your setup"
-msgstr ""
+msgstr "Kurulumunuzu ayarlayın"
 
 #: core/Util.vala:1074
-#, fuzzy
 msgid "Show your calendar events"
-msgstr "Takvim Etkinlikleri"
+msgstr "Takvim etkinliklerinizi gösterin"
 
 #: core/Util.vala:1075
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 Calendar Events to turn ir on."
 msgstr ""
+"Sisteminizin takvim etkinliklerini Planify'da görüntüleyebilirsiniz. Açmak "
+"için 'Tercihler' 🡒 Takvim Olayları'na gidin."
 
 #: core/Util.vala:1081
 msgid "Enable synchronization with third-party service."
-msgstr ""
+msgstr "Üçüncü taraf hizmetiyle eşzamanlamayı etkinleştirin."
 
 #: core/Util.vala:1082
 msgid ""
 "Planify not only creates tasks locally, it can also synchronize your Todoist "
 "account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
+"Planify sadece yerel olarak görevler oluşturmakla kalmaz, aynı zamanda "
+"Todoist hesabınızı da eşzamanlayabilir. 'Tercihler' 🡒 'Hesaplar'a git."
 
 #: core/Util.vala:1093
 msgid "💼️Work"
-msgstr ""
+msgstr "💼️İş"
 
 #: core/Util.vala:1099
 msgid "🎒️School"
-msgstr ""
+msgstr "🎒️Okul"
 
 #: core/Util.vala:1105
 msgid "👉️Delegated"
-msgstr ""
+msgstr "👉️Atanmış"
 
 #: core/Util.vala:1111
 msgid "🏡️Home"
-msgstr ""
+msgstr "🏡️Ev"
 
 #: core/Util.vala:1117
 msgid "🏃‍♀️️Follow Up"
-msgstr ""
+msgstr "🏃‍♀️️Takip Et"
 
 #: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
 #: src/Layouts/FilterPaneRow.vala:131 src/Views/Scheduled/Scheduled.vala:32
@@ -447,26 +466,27 @@ msgstr "Her %d yılda bir"
 
 #: core/QuickAdd.vala:43
 msgid "To-do name"
-msgstr ""
+msgstr "Yapılacak adı"
 
 #: core/QuickAdd.vala:58
-#, fuzzy
 msgid "Add a description…"
-msgstr "Açıklama ekle"
+msgstr "Açıklama ekle…"
 
 #: core/QuickAdd.vala:123 src/Layouts/ItemRow.vala:491
 msgid "Add To-Do"
-msgstr ""
+msgstr "Yapılacak Ekle"
 
 #: core/QuickAdd.vala:169
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
+"Üzgünüm, Hızlı Ekleme kullanılabilir bir proje bulamadı. Planify'dan proje "
+"oluşturmayı deneyin."
 
 #: core/QuickAdd.vala:192
 msgid "To-do added"
-msgstr ""
+msgstr "Yapılacak eklendi"
 
 #: core/Services/Todoist.vala:1273
 msgid "The request was incorrect."
@@ -499,7 +519,7 @@ msgstr "Sunucu şu anda isteği işleyemiyor."
 
 #: core/Services/Todoist.vala:1281
 msgid "Unknown error"
-msgstr ""
+msgstr "Bilinmeyen hata"
 
 #: core/Widgets/PinButton.vala:34
 msgid "Pinned"
@@ -587,13 +607,12 @@ msgstr "Ara veya Oluştur"
 
 #: core/Widgets/LabelPicker/LabelPicker.vala:215
 #: src/Dialogs/LabelPicker.vala:153
-#, fuzzy
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
 msgstr ""
-"Filtrelerinizin listesi burada görünecek. '+' düğmesine tıklayarak bir tane "
-"oluşturabilirsiniz"
+"Süzgeç listeniz burada görünecek. Adını girip Enter tuşuna basarak bir tane "
+"oluşturun."
 
 #: core/Widgets/LabelPicker/LabelButton.vala:35
 msgid "Add label(s)"
@@ -672,17 +691,18 @@ msgid "Are you sure you want to reset all?"
 msgstr "Tümünü sıfırlamak istediğinize emin misiniz?"
 
 #: src/App.vala:106 src/Dialogs/Preferences/PreferencesWindow.vala:214
-#, fuzzy
 msgid ""
 "The process removes all stored information without the possibility of "
 "undoing it."
-msgstr "Bu işlem, saklanan tüm bilgileri geri alma olanağı olmadan kaldırır."
+msgstr "İşlem, geri alma imkanı olmaksızın depolanan tüm bilgileri kaldırır."
 
 #: src/App.vala:118
 msgid ""
 "Planify will automatically start when this device turns on and run when its "
 "window is closed so that it can send to-do notifications."
 msgstr ""
+"Planify, bu aygıt açıldığında kendiliğinden başlayacak ve yapılacaklar "
+"bildirimleri gönderebilmek için penceresi kapatıldığında çalışacak."
 
 #: src/MainWindow.vala:37
 msgid "Planify"
@@ -710,11 +730,11 @@ msgstr "Planify Hakkında"
 
 #: src/Services/Backups.vala:510
 msgid "Backup successfully imported"
-msgstr ""
+msgstr "Yedek başarıyla içe aktarıldı"
 
 #: src/Services/Backups.vala:526
 msgid "Planify backup files"
-msgstr ""
+msgstr "Planify yedek dosyaları"
 
 #: src/Services/CalendarEvents/Util.vala:243
 msgid "On this computer"
@@ -741,7 +761,7 @@ msgstr "Proje bulunamadı. '+' düğmesine tıklayarak bir tane oluşturabilirsi
 
 #: src/Layouts/Sidebar.vala:98 src/Dialogs/WhatsNew.vala:46
 msgid "What’s new in Planify"
-msgstr ""
+msgstr "Planify'daki yenilikler"
 
 #: src/Layouts/Sidebar.vala:292 src/Layouts/Sidebar.vala:305
 msgid "No account available, Sync one by clicking the '+' button"
@@ -760,12 +780,11 @@ msgstr "Proje listesi sırası, Özel Sıralama Düzeni olarak değiştirildi."
 
 #: src/Layouts/ProjectRow.vala:411 src/Layouts/ProjectRow.vala:418
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Gözdelerden kaldır"
 
 #: src/Layouts/ProjectRow.vala:411 src/Layouts/ProjectRow.vala:418
-#, fuzzy
 msgid "Add to favorites"
-msgstr "Gözdeler"
+msgstr "Gözdelere ekle"
 
 #: src/Layouts/ProjectRow.vala:419 src/Views/Project/Project.vala:150
 #: src/Dialogs/Project.vala:65
@@ -883,14 +902,12 @@ msgid "Not available"
 msgstr "Kullanılamıyor"
 
 #: src/Layouts/ItemRow.vala:1170
-#, fuzzy
 msgid "Copy to clipboard"
-msgstr "Görev panoya kopyalandı"
+msgstr "Panoya kopyala"
 
 #: src/Layouts/ItemRow.vala:1171
-#, fuzzy
 msgid "Duplicate"
-msgstr "İkizle"
+msgstr "Çoğalt"
 
 #: src/Layouts/ItemRow.vala:1174 src/Dialogs/RepeatConfig.vala:66
 msgid "Repeat"
@@ -898,26 +915,23 @@ msgstr "Yinele"
 
 #: src/Layouts/ItemRow.vala:1274
 msgid "Daily"
-msgstr ""
+msgstr "Günlük"
 
 #: src/Layouts/ItemRow.vala:1275
-#, fuzzy
 msgid "Weekly"
-msgstr "Hafta"
+msgstr "Haftalık"
 
 #: src/Layouts/ItemRow.vala:1276
-#, fuzzy
 msgid "Monthly"
-msgstr "Ay(lar)"
+msgstr "Aylık"
 
 #: src/Layouts/ItemRow.vala:1277
-#, fuzzy
 msgid "Yearly"
-msgstr "Yıl"
+msgstr "Yıllık"
 
 #: src/Layouts/ItemRow.vala:1278
 msgid "Custom"
-msgstr ""
+msgstr "Özel"
 
 #: src/Layouts/ItemRow.vala:1554 src/Layouts/ItemBoard.vala:431
 #, c-format
@@ -955,7 +969,7 @@ msgstr "Etiketi sil"
 
 #: src/Layouts/SectionBoard.vala:526
 msgid "My new to-do"
-msgstr ""
+msgstr "Yeni yapılacaklarım"
 
 #: src/Widgets/SyncButton.vala:83
 #, c-format
@@ -1009,12 +1023,11 @@ msgid "Add reminder"
 msgstr "Hatırlatıcı ekle"
 
 #: src/Widgets/ReminderPicker/ReminderPicker.vala:245
-#, fuzzy
 msgid ""
 "Your list of reminders will show up here. Add one by clicking the button."
 msgstr ""
-"Filtrelerinizin listesi burada görünecek. '+' düğmesine tıklayarak bir tane "
-"oluşturabilirsiniz"
+"Hatırlatıcılar listeniz burada görünecek. Düğmeye tıklayarak bir tane "
+"ekleyin."
 
 #: src/Views/Project/Project.vala:151 src/Views/Project/Project.vala:204
 #: src/Views/Project/List.vala:336
@@ -1067,7 +1080,7 @@ msgstr "Öncelik"
 
 #: src/Views/Project/Project.vala:311
 msgid "Order by"
-msgstr ""
+msgstr "Sırala"
 
 #: src/Views/Project/Project.vala:314
 msgid "Hide completed tasks"
@@ -1185,44 +1198,49 @@ msgstr "Ağ Kullanılamıyor"
 
 #: src/Dialogs/WhatsNew.vala:33
 msgid "What's New"
-msgstr ""
+msgstr "Neler Yeni"
 
 #: src/Dialogs/WhatsNew.vala:107
 msgid "Quick Add Improvements"
-msgstr ""
+msgstr "Hızlı Ekleme İyileştirmeleri"
 
 #: src/Dialogs/WhatsNew.vala:107
 msgid "Now supports project selection, due date, priority, labels and pinned."
 msgstr ""
+"Artık proje seçimini, bitiş tarihini, önceliği, etiketleri ve sabitlemeyi "
+"destekliyor."
 
 #: src/Dialogs/WhatsNew.vala:108
-#, fuzzy
 msgid "Sidebar filter settings"
-msgstr "Sistem Ayarlarını Kullan"
+msgstr "Kenar çubuğu süzgeç ayarları"
 
 #: src/Dialogs/WhatsNew.vala:108
 msgid "It is now possible to re-order, hide filters and the task cutter."
-msgstr ""
+msgstr "Artık süzgeçleri ve görev kesiciyi yeniden sıralamak, gizlemek mümkün."
 
 #: src/Dialogs/WhatsNew.vala:109
 msgid "Backup support"
-msgstr ""
+msgstr "Yedekleme desteği"
 
 #: src/Dialogs/WhatsNew.vala:109
 msgid ""
 "It is now possible to create a backup copy and import it from somewhere "
 "else. Planify will import all your tasks and settings."
 msgstr ""
+"Artık yedek kopya oluşturmak ve bunu başka bir yerden içe aktarmak mümkün. "
+"Planify tüm görevlerinizi ve ayarlarınızı içe aktaracaktır."
 
 #: src/Dialogs/WhatsNew.vala:110
 msgid "Offline support for Todoist"
-msgstr ""
+msgstr "Todoist için çevrim dışı destek"
 
 #: src/Dialogs/WhatsNew.vala:110
 msgid ""
 "You were without internet, keep using Planify with Todoist, the tasks will "
 "be saved locally and synchronized when the connection returns."
 msgstr ""
+"İnternetiniz yokken bile Planify'ı Todoist ile kullanmaya devam edin. "
+"Görevler yerel olarak kaydedilecek ve bağlantı sağlandığında eşzamanlanacak."
 
 #: src/Dialogs/ProjectDescription.vala:34
 msgid "Project Description"
@@ -1306,13 +1324,12 @@ msgstr ""
 "etiketlere göre arama yapın."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:49
-#, fuzzy
 msgid "Integrations"
-msgstr "Masaüstü Ortamı Tümleşimi"
+msgstr "Tümleşim"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:50
 msgid "Sync your favorite to-do providers."
-msgstr ""
+msgstr "Favori yapılacaklar sağlayıcılarınızla eşzamanlayın."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:66
 #: src/Dialogs/Preferences/PreferencesWindow.vala:222
@@ -1322,17 +1339,16 @@ msgstr "Genel"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:67
 msgid "Customize to your liking."
-msgstr ""
+msgstr "İsteğinize göre özelleştirin."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:77
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
 msgid "Sidebar"
-msgstr ""
+msgstr "Kenar çubuğu"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:78
-#, fuzzy
 msgid "Customize your sidebar."
-msgstr "Özel sıralama düzeni"
+msgstr "Kenar çubuğunuzu özelleştirin."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:88
 #: src/Dialogs/Preferences/PreferencesWindow.vala:481
@@ -1342,77 +1358,74 @@ msgstr "Görünüm"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:99
 #: src/Dialogs/Preferences/PreferencesWindow.vala:913
-#, fuzzy
 msgid "Quick Add"
-msgstr "Hızlı Arama"
+msgstr "Hızlı Ekle"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:100
 msgid "Adding To-Dos From Anywhere."
-msgstr ""
+msgstr "Her Yerden Yapılacak Ekleme."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:115
 msgid "Reach Us"
-msgstr ""
+msgstr "Bize Ulaşın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:121
 msgid "Contact us"
-msgstr ""
+msgstr "Bizimle iletişime geçin"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:122
 msgid "Request a feature or ask us anything."
-msgstr ""
+msgstr "Özellik talep edin ya da bize bir şey sorun."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:138
 msgid "Tweet us"
-msgstr ""
+msgstr "Bize tweet atın"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:139
 msgid "Share some love."
-msgstr ""
+msgstr "Sevginizi paylaşın."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:153
 msgid "Telegram"
-msgstr ""
+msgstr "Telegram"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:154
 msgid "Discuss and share your feedback."
-msgstr ""
+msgstr "Tartışın ve görüşlerinizi paylaşın."
 
 #. Support Group
 #: src/Dialogs/Preferences/PreferencesWindow.vala:171
 msgid "Support"
-msgstr ""
+msgstr "Destek"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:177
 msgid "Create Tutorial Project"
-msgstr ""
+msgstr "Eğitim Projesi Oluştur"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:178
 msgid "Learn the app step by step with a short tutorial project."
-msgstr ""
+msgstr "Kısa eğitim projesi ile uygulamayı adım adım öğrenin."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:184
 #: src/Dialogs/Preferences/Pages/Backup.vala:28
-#, fuzzy
 msgid "Backups"
-msgstr "Geri"
+msgstr "Yedekler"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:191
 msgid "Privacy"
-msgstr ""
+msgstr "Gizlilik"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:197
-#, fuzzy
 msgid "Delete Planify Data"
-msgstr "Görevi sil"
+msgstr "Planify Verilerini Sil"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:204
 msgid "A tutorial project has been created."
-msgstr ""
+msgstr "Bir öğretici proje oluşturulmuştur."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:231
 msgid "Home Page"
-msgstr ""
+msgstr "Ana Sayfa"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:244
 msgid "Sort projects"
@@ -1431,9 +1444,8 @@ msgid "Sort by"
 msgstr "Sırala"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:258
-#, fuzzy
 msgid "Sort Settings"
-msgstr "Görev ayarları"
+msgstr "Sıralama Ayarları"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:263
 msgid "DE Integration"
@@ -1445,15 +1457,15 @@ msgstr "Arka planda çalıştır"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:272
 msgid "Let Planify run in background and send notifications."
-msgstr ""
+msgstr "Planify'ın arka planda çalışmasına ve bildirim göndermesine izin ver."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:284
 msgid "Run on startup"
-msgstr ""
+msgstr "Başlangıçta çalıştır"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:285
 msgid "Whether Planify should run on startup."
-msgstr ""
+msgstr "Planify'ın başlangıçta çalışma durumu."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:297
 msgid "Calendar Events"
@@ -1499,6 +1511,8 @@ msgstr "Görevi tamamla"
 msgid ""
 "Complete your to-do instantly or wait 2500 milliseconds with the undo option."
 msgstr ""
+"Yapılacak işinizi anında tamamlayın ya da geri al seçeneğiyle 2500 "
+"milisaniye bekleyin."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:349
 msgid "Priority 1"
@@ -1526,30 +1540,27 @@ msgstr "Tamamlanan görevlerin altını çiz"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:484
 msgid "App Theme"
-msgstr ""
+msgstr "Uygulama Teması"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:492
 msgid "Use system settings"
 msgstr "Sistem Ayarlarını Kullan"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:501
-#, fuzzy
 msgid "Light Style"
-msgstr "Açık Mavi"
+msgstr "Açık Biçem"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:510
-#, fuzzy
 msgid "Dark Style"
-msgstr "Koyu Mavi"
+msgstr "Koyu Biçem"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:519
-#, fuzzy
 msgid "Dark Blue Style"
-msgstr "Koyu Mavi"
+msgstr "Koyu Mavi Biçem"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:557
 msgid "Sidebar Width"
-msgstr ""
+msgstr "Kenar Çubuğu Genişliği"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:633
 #: src/Dialogs/Preferences/PreferencesWindow.vala:718
@@ -1589,37 +1600,38 @@ msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
 msgstr ""
+"Sadece birkaç tuşa basarak masaüstünüzün herhangi bir yerinden yapılacaklar "
+"oluşturmak için Hızlı Ekle'yi kullanın. Bulunduğunuz uygulamadan çıkmanıza "
+"bile gerek yok!"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:928
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
+"Sistem Ayarları → Klavye → Kısayollar → Özel bölümüne gidin ve aşağıdakileri "
+"içeren yeni kısayol ekleyin:"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:956
-#, fuzzy
 msgid "Settings"
-msgstr "Görev ayarları"
+msgstr "Ayarlar"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:964
-#, fuzzy
 msgid "Save Last Selected Project"
-msgstr "Projeyi Sil"
+msgstr "Son Seçilen Projeyi Kaydet"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:965
 msgid "If unchecked, the default project selected is Inbox."
-msgstr ""
+msgstr "İşaretlenmezse, öntanımlı proje Gelen Kutusu olarak seçilir."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:999
-#, fuzzy
 msgid "The command was copied to the clipboard."
-msgstr "Proje Panoya kopyalandı."
+msgstr "Komut panoya kopyalandı."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1014
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1106
-#, fuzzy
 msgid "Loading…"
-msgstr "Yükleniyor"
+msgstr "Yükleniyor…"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1090
 msgid "Synchronizing. Wait a moment please."
@@ -1634,13 +1646,12 @@ msgstr ""
 "görevlerinizi ve ayarlarınızı silecek."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1207
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the Google Tasks sync? This action will "
 "delete all your tasks and settings."
 msgstr ""
-"Todoist eşzamanlamasını kaldırmak istediğinden emin misin? Bu eylem, tüm "
-"görevlerinizi ve ayarlarınızı silecek."
+"Google Görevler eşzamanlamasını kaldırmak istediğinizden emin misiniz? Bu "
+"eylem, tüm görevlerinizi ve ayarlarınızı silecek."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1211
 msgid "Sign off"
@@ -1651,227 +1662,160 @@ msgid ""
 "Never worry about losing your data. You can create backups of your active "
 "projects, tasks and comments and import them later."
 msgstr ""
+"Verilerinizi kaybetmekten endişelenmeyin. Etkin projelerinizin, "
+"görevlerinizin ve yorumlarınızın yedeklerini oluşturabilir ve bunları daha "
+"sonra içe aktarabilirsiniz."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:61
-#, fuzzy
 msgid "Create backup"
-msgstr "Projeyi güncelle"
+msgstr "Yedek oluştur"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:65
 msgid "Import backup"
-msgstr ""
+msgstr "Yedeği içe aktar"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:67
 msgid "Backups files"
-msgstr ""
+msgstr "Yedek dosyaları"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:123
 msgid "Selected file is invalid"
-msgstr ""
+msgstr "Seçilen dosya geçersiz"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:140
 msgid "Import Overview"
-msgstr ""
+msgstr "İçe Aktarmaya Genel Görünümü"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:168
 msgid "Items"
-msgstr ""
+msgstr "Ögeler"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:189
 msgid "Confirm"
-msgstr ""
+msgstr "Onayla"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:238
 msgid "Restore backup"
-msgstr ""
+msgstr "Yedeği geri yükle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:238
-#, fuzzy
 msgid ""
 "Are you sure you want to continue? This operation will delete your current "
 "data and replace it with the backup data."
 msgstr ""
-"Todoist eşzamanlamasını kaldırmak istediğinden emin misin? Bu eylem, tüm "
-"görevlerinizi ve ayarlarınızı silecek."
+"Devam etmek istediğinizden emin misiniz? Bu işlem mevcut verilerinizi "
+"silecek ve yedek verilerle değiştirecek."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:242
 msgid "Restore Backup"
-msgstr ""
+msgstr "Yedeği Geri Yükle"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:297
 msgid "Download"
-msgstr ""
+msgstr "İndir"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30
 msgid "Show in sidebar"
-msgstr ""
+msgstr "Kenar çubuğunda göster"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:55
 msgid "Show task count"
-msgstr ""
+msgstr "Görev sayısını göster"
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:69
 msgid "You can sort your views by dragging and dropping"
-msgstr ""
+msgstr "Görünümlerinizi sürükleyip bırakarak sıralayabilirsiniz"
 
 #: quick-add/MainWindow.vala:6
-#, fuzzy
 msgid "Planify - Quick Add"
-msgstr "Hızlı Arama"
+msgstr "Planify - Hızlı Ekleme"
 
 #: data/resources/ui/shortcuts.ui:12
 msgctxt "shortcut window"
 msgid "Used anywhere"
-msgstr ""
+msgstr "Her yerde kullanılır"
 
 #: data/resources/ui/shortcuts.ui:16
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create a new task"
-msgstr "Projeyi güncelle"
+msgstr "Yeni görev oluştur"
 
 #: data/resources/ui/shortcuts.ui:23
 msgctxt "shortcut window"
 msgid "Paste plain text to create new task"
-msgstr ""
+msgstr "Yeni görev oluşturmak için düz metin yapıştır"
 
 #: data/resources/ui/shortcuts.ui:30
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create a new project"
-msgstr "Projeyi güncelle"
+msgstr "Yeni proje oluştur"
 
 #: data/resources/ui/shortcuts.ui:37
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Create a new section in a project"
-msgstr "Projeyi güncelle"
+msgstr "Projede yeni bölüm oluştur"
 
 #: data/resources/ui/shortcuts.ui:45
 msgctxt "shortcut window"
 msgid "Search"
-msgstr ""
+msgstr "Ara"
 
 #: data/resources/ui/shortcuts.ui:49
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Quick Find"
-msgstr "Hızlı Arama"
+msgstr "Hızlı bulu aç"
 
 #: data/resources/ui/shortcuts.ui:57
 msgctxt "shortcut window"
 msgid "Control windows"
-msgstr ""
+msgstr "Pencereleri denetle"
 
 #: data/resources/ui/shortcuts.ui:61
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr ""
+msgstr "Çık"
 
 #: data/resources/ui/shortcuts.ui:68
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open preferences"
-msgstr "Tercihler"
+msgstr "Tercihleri aç"
 
 #: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Show/hide Sidebar"
-msgstr ""
+msgstr "Kenar çubuğunu göster/gizle"
 
 #: data/resources/ui/shortcuts.ui:82
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Keyboard Shortcuts"
-msgstr "Klavye Kısayolları"
+msgstr "Klavye kısayollarını aç"
 
 #: data/resources/ui/shortcuts.ui:90
 msgctxt "shortcut window"
 msgid "Navigate"
-msgstr ""
+msgstr "Gezinme"
 
 #: data/resources/ui/shortcuts.ui:94
 msgctxt "shortcut window"
 msgid "Open Homepage"
-msgstr ""
+msgstr "Ana sayfayı aç"
 
 #: data/resources/ui/shortcuts.ui:101
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Inbox"
-msgstr "Gelen Kutusu"
+msgstr "Gelen kutusunu aç"
 
 #: data/resources/ui/shortcuts.ui:108
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Today"
-msgstr "Bugün"
+msgstr "Bugünü aç"
 
 #: data/resources/ui/shortcuts.ui:115
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Scheduled"
-msgstr "Zamanlanmış"
+msgstr "Zamanlanmışı aç"
 
 #: data/resources/ui/shortcuts.ui:122
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr "Pano"
-
-#, c-format
-#~ msgid "priority"
-#~ msgstr "öncelik"
-
-#~ msgid "AM"
-#~ msgstr "ÖÖ"
-
-#~ msgid "PM"
-#~ msgstr "ÖS"
-
-#~ msgid ":"
-#~ msgstr ":"
-
-#~ msgid "Move to project"
-#~ msgstr "Projeye taşı"
-
-#~ msgid "Add Project"
-#~ msgstr "Proje Ekle"
-
-#~ msgid "No label available, click to add one"
-#~ msgstr "Kullanılabilir etiket yok, eklemek için tıklayın"
-
-#~ msgid ""
-#~ "Your list of filters will show up here. Create one by clicking on the '+' "
-#~ "button"
-#~ msgstr ""
-#~ "Filtrelerinizin listesi burada görünecek. '+' düğmesine tıklayarak bir "
-#~ "tane oluşturabilirsiniz"
-
-#~ msgid "Sync"
-#~ msgstr "Eşzamanla"
-
-#~ msgid "List View"
-#~ msgstr "Liste Görünümü"
-
-#~ msgid "Board View"
-#~ msgstr "Pano Görünümü"
-
-#~ msgid "Task Name"
-#~ msgstr "Görev Adı"
-
-#~ msgid "Dark mode"
-#~ msgstr "Koyu kip"
-
-#~ msgid ""
-#~ "You are running an early stage development version. Be aware it is a work "
-#~ "in progress and far from complete yet."
-#~ msgstr ""
-#~ "Erken aşama geliştirme sürümünü çalıştırıyorsunuz. Çalışmaların "
-#~ "sürdüğünü, henüz tamamlanmadığını unutmayın."
-
-#~ msgid "Add Tasks"
-#~ msgstr "Görevler Ekle"
-
-#~ msgid "Planner"
-#~ msgstr "Planlayıcı"
+msgstr "Panoyu aç"
