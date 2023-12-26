@@ -23,6 +23,11 @@ public class Layouts.QuickAdd : Adw.Bin {
         var item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
         
+        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
+            item.child_order = 0;
+            item.custom_order = true;
+        }
+
         Object (
             is_window_quick_add: is_window_quick_add,
             item: item
@@ -75,7 +80,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         pin_button = new Widgets.PinButton (item);
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton (item);
+        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.item = item;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 3,
@@ -281,12 +287,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
         
-        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
-            item.child_order = 0;
-        } else {
-            item.child_order = -1;
-        }
-        
+        debug ("Content: %s, Index: %d", item.content, item.child_order);
+
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
@@ -358,5 +360,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.parent_id = _item.id;
 
         project_picker_button.project = _item.project;
+    }
+
+    public void set_index (int index) {
+        item.child_order = index;
+        item.custom_order = true;
     }
 }

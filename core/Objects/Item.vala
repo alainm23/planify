@@ -77,6 +77,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public int child_order { get; set; default = 0; }
+    public bool custom_order { get; set; default = false; }
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -217,6 +218,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void loading_changed (bool value);
     public signal void collapsed_change ();
+    
     construct {
         deleted.connect (() => {
             Idle.add (() => {

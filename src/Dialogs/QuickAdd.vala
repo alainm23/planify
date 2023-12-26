@@ -97,4 +97,8 @@ public class Dialogs.QuickAdd : Adw.Window {
             quick_add_widget.for_parent (base_object as Objects.Item);
         }
     }
+
+    public void set_index (int index) {
+        quick_add_widget.set_index (index);
+    }
 }

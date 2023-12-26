@@ -59,6 +59,7 @@ public class Services.EventBus : Object {
     public signal void new_item_deleted (string project_id);
     public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
+    public signal void request_escape ();
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);
@@ -71,8 +72,7 @@ public class Services.EventBus : Object {
     public signal void unselect_item (Gtk.Widget itemrow);
 
     public signal void magic_button_visible (bool active);
-    public signal void item_drag_begin (Objects.Item item);
-    public signal void item_drag_end (Objects.Item item);
+    public signal void project_view_drag_action (string project_id, bool active);
 
     // Quick Add
     public signal void item_added_successfully ();

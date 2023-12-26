@@ -73,7 +73,9 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle") {
+            visible = false
+        };
 
         var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (

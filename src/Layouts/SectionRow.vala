@@ -393,8 +393,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		});
 
 		name_editable.focus_changed.connect ((active) => {
-			Services.EventBus.get_default ().unselect_all ();
-
 			if (active) {
 				hide_revealer.reveal_child = false;
 				placeholder_revealer.reveal_child = false;
@@ -424,15 +422,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			count_revealer.reveal_child = int.parse (count_label.label) > 0;
 		});
 
-		Services.EventBus.get_default ().item_drag_begin.connect ((item) => {
-			if (item.project_id == section.project_id) {
-				check_drop_widget ();
-			}
-		});
-
-		Services.EventBus.get_default ().item_drag_end.connect ((item) => {
-			if (item.project_id == section.project_id) {
-				drop_widget_revealer.reveal_child = false;
+		Services.EventBus.get_default ().project_view_drag_action.connect ((project_id, active) => {
+			if (project_id == section.project_id) {
+				if (active) {
+					check_drop_widget ();
+				} else {
+					drop_widget_revealer.reveal_child = false;
+				}
 			}
 		});
 
@@ -520,10 +516,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		if (!item.checked && !items.has_key (item.id_string)) {
 			items [item.id_string] = new Layouts.ItemRow (item);
 
-			if (item.child_order <= -1) {
-				listbox.append (items [item.id_string]);
+			if (item.custom_order) {
+				listbox.insert (items [item.id_string], item.child_order);
 			} else {
-				listbox.insert (items [item.id_string], 0);
+				listbox.append (items [item.id_string]);
 			}
 		}
 	}
@@ -674,8 +670,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	private void build_drag_and_drop () {
 		var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
-		drop_target.preload = true;
-
+		drop_widget.add_controller (drop_target);
 		drop_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
 			var old_section_id = "";
@@ -715,7 +710,15 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			return true;
 		});
 
-		drop_widget.add_controller (drop_target);
+		var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+		drop_widget.add_controller (drop_magic_button_target);
+		drop_magic_button_target.drop.connect ((target, value, x, y) => {
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.for_base_object (section);
+            dialog.show ();
+
+			return true;
+		});
 	}
 
 	private void update_items_item_order (Gtk.ListBox listbox) {

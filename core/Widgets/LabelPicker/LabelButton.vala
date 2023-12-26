@@ -20,16 +20,26 @@
 */
 
 public class Widgets.LabelPicker.LabelButton : Adw.Bin {
-    public Objects.Item item { get; construct; }
+
+    private Objects.Item _item;
+    public Objects.Item item {
+        get {
+            return _item;
+        }
+
+        set {
+            _item = value;
+            labels_picker.item = _item;
+        }
+    }
 
     private Gtk.MenuButton button; 
     private Widgets.LabelPicker.LabelPicker labels_picker;
 
     public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
 
-    public LabelButton (Objects.Item item) {
+    public LabelButton () {
         Object (
-            item: item,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add label(s)")
@@ -47,9 +57,9 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         
         child = button;
 
-        labels_picker.show.connect (() => {
-            labels_picker.item = item;
-        });
+        //  labels_picker.show.connect (() => {
+        //      labels_picker.item = item;
+        //  });
 
         labels_picker.closed.connect (() => {
             labels_changed (labels_picker.labels_map);

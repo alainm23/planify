@@ -927,6 +927,104 @@ public class Services.Todoist : GLib.Object {
 		return response;
 	}
 
+	public async void update_items (Gee.ArrayList<Objects.Item> objects) {
+		string url = "%s?commands=%s".printf (
+			TODOIST_SYNC_URL,
+			get_update_items_json (objects)
+		);
+
+		var message = new Soup.Message ("POST", url);
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+
+		try {
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			parser.load_from_data ((string) stream.get_data ());
+
+			// Debug
+			print_root (parser.get_root ());
+
+			if (is_todoist_error (message.status_code)) {
+				debug_error (
+					message.status_code,
+					get_todoist_error (message.status_code)
+				);
+			} else {
+				Services.Settings.get_default ().settings.set_string (
+					"todoist-sync-token",
+					parser.get_root ().get_object ().get_string_member ("sync_token")
+				);
+			}
+		} catch (Error e) {
+
+		}
+	}
+
+	public string get_update_items_json (Gee.ArrayList<Objects.Item> objects) {
+        var builder = new Json.Builder ();
+        builder.begin_array ();
+
+		foreach (var item in objects) {
+			builder.begin_object ();
+
+			builder.set_member_name ("type");
+			builder.add_string_value ("item_update");
+
+			builder.set_member_name ("uuid");
+			builder.add_string_value (Util.get_default ().generate_string ());
+
+			builder.set_member_name ("args");
+				builder.begin_object ();
+
+				builder.set_member_name ("id");
+				builder.add_string_value (item.id);
+
+				builder.set_member_name ("content");
+				builder.add_string_value (Util.get_default ().get_encode_text (item.content));
+
+				builder.set_member_name ("description");
+				builder.add_string_value (Util.get_default ().get_encode_text (item.description));
+
+				builder.set_member_name ("priority");
+				if (item.priority == 0) {
+					builder.add_int_value (Constants.PRIORITY_4);
+				} else {
+					builder.add_int_value (item.priority);
+				}
+
+				if (item.has_due) {
+					builder.set_member_name ("due");
+					builder.begin_object ();
+
+					builder.set_member_name ("date");
+					builder.add_string_value (item.due.date);
+
+					builder.end_object ();
+				} else {
+					builder.set_member_name ("due");
+					builder.add_null_value ();
+				}
+
+				builder.set_member_name ("labels");
+					builder.begin_array ();
+					foreach (Objects.ItemLabel item_label in item.labels.values) {
+						builder.add_string_value (item_label.label.name);
+					}
+					builder.end_array ();
+				builder.end_object ();
+			builder.end_object ();
+		}
+
+        builder.end_array ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+        return generator.to_data (null);
+    }
+
 	public async TodoistResponse delete (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
 

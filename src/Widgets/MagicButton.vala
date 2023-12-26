@@ -24,6 +24,8 @@ public class Widgets.MagicButton : Adw.Bin {
     private Gtk.Revealer main_revealer;
 
     public signal void clicked ();
+    public signal void drag_begin ();
+    public signal void drag_end ();
 
     public MagicButton () {
         Object (
@@ -78,14 +80,17 @@ public class Widgets.MagicButton : Adw.Bin {
             var paintable = new Gtk.WidgetPaintable (magic_button);
             source.set_icon (paintable, 0, 0);
             main_revealer.reveal_child = false;
+            drag_begin ();
         });
         
         drag_source.drag_end.connect ((source, drag, delete_data) => {
             main_revealer.reveal_child = true;
+            drag_end ();
         });
 
         drag_source.drag_cancel.connect ((source, drag, reason) => {
             main_revealer.reveal_child = true;
+            drag_end ();
             return false;
         });
     }

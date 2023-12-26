@@ -92,14 +92,8 @@ public class MainWindow : Adw.ApplicationWindow {
 		var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		views_content.append (views_stack);
 
-        var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
-
-		var views_overlay = new Gtk.Overlay ();
-		views_overlay.child = views_content;
-		views_overlay.add_overlay (multiselect_toolbar);
-
 		var toast_overlay = new Adw.ToastOverlay ();
-		toast_overlay.child = views_overlay;
+		toast_overlay.child = views_content;
 
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
@@ -162,8 +156,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
-			Services.EventBus.get_default ().unselect_all ();
-
 			if (pane_type == PaneType.PROJECT) {
 				add_project_view (Services.Database.get_default ().get_project (id));
 			} else if (pane_type == PaneType.FILTER) {
@@ -200,7 +192,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		settings_popover.show.connect (() => {
-			Services.EventBus.get_default ().unselect_all ();
 		});
 
 		search_button.clicked.connect (() => {

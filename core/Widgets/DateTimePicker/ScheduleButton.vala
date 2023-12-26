@@ -24,9 +24,31 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     
     private Gtk.Box schedule_box;
     private Widgets.DynamicIcon due_image;
+    private Widgets.DateTimePicker.DateTimePicker datetime_picker;
 
-    private Widgets.DateTimePicker.DateTimePicker datetime_picker = null;
-    public GLib.DateTime datetime { get; set; }
+    private GLib.DateTime _datetime;
+    public GLib.DateTime datetime {
+        get {
+            return _datetime;
+        }
+
+        set {
+            _datetime = value;
+
+            if (_datetime != null) {
+                datetime_picker.visible_no_date = true;
+                datetime_picker.datetime = _datetime;
+            } else {
+                datetime_picker.visible_no_date = false;
+            }
+        }
+    }
+
+    public bool visible_no_date {
+        set {
+            datetime_picker.visible_no_date = value;
+        }
+    }
 
     public signal void date_changed (GLib.DateTime? date);
 
@@ -63,16 +85,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         attach (button, 0, 0);
 
         datetime_picker.date_changed.connect (() => {
-            date_changed (datetime_picker.datetime);
-        });
-
-        datetime_picker.show.connect (() => {
-            datetime_picker.visible_no_date = false;
-
-            if (datetime != null) {
-                datetime_picker.visible_no_date = true;
-                datetime_picker.datetime = datetime;
-            }
+            datetime = datetime_picker.datetime;
+            date_changed (datetime);
         });
     }
 

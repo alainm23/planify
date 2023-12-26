@@ -326,7 +326,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
     }
 
 	public void checked_toggled (bool active, uint? time = null) {
-		Services.EventBus.get_default ().unselect_all ();
 		bool old_checked = item.checked;
 
 		if (active) {
@@ -576,15 +575,11 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	public void drag_begin () {
         on_drag = true;
         opacity = 0.3;
-
-        Services.EventBus.get_default ().item_drag_begin (item);
 	}
 
 	public void drag_end () {
         on_drag = false;
         opacity = 1;
-
-        Services.EventBus.get_default ().item_drag_end (item);
 	}
 
 	public void hide_destroy () {

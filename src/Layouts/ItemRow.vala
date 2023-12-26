@@ -31,6 +31,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
+    private Gtk.Revealer checked_button_revealer;
     private Widgets.SourceView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
@@ -77,6 +78,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.DragSource drag_source;
     private Gtk.DropTarget drop_target;
     private Gtk.DropTarget drop_order_target;
+    private Gtk.DropTarget drop_magic_button_target;
+    private Gtk.DropTarget drop_order_magic_button_target;
 
     bool _edit = false;
     public bool edit {
@@ -290,10 +293,16 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         };
 
         checked_button = new Gtk.CheckButton () {
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            css_classes = { "priority-color" }
         };
 
-        checked_button.add_css_class ("priority-color");
+        checked_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
+            child = checked_button,
+            valign = Gtk.Align.CENTER,
+            reveal_child = true
+        };
 
         content_label = new Gtk.Label (item.content) {
             hexpand = true,
@@ -399,7 +408,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         };
 
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        content_main_box.append (checked_button);
+        content_main_box.append (checked_button_revealer);
         content_main_box.append (due_label_revealer);
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
@@ -437,7 +446,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         schedule_button = new Widgets.ScheduleButton ();
         priority_button = new Widgets.PriorityButton ();
-        label_button = new Widgets.LabelPicker.LabelButton (item);
+        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.item = item;
         pin_button = new Widgets.PinButton (item);
 
         reminder_button = new Widgets.ReminderButton (item);
@@ -577,7 +587,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                Services.EventBus.get_default ().unselect_all ();
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
                     if (!on_drag) {
                         Services.EventBus.get_default ().item_selected (item.id);
@@ -720,10 +729,17 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             selected_toggled (select_checkbutton.active);
         });    
 
-        Services.EventBus.get_default ().show_multi_select.connect ((active) => {
-            select_revealer.reveal_child = active;
+        Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
+            if (active) {
+                edit = false;
+                select_revealer.reveal_child = true;
+                checked_button_revealer.reveal_child = false;
+                disable_drag_and_drop ();
+            } else {
+                select_revealer.reveal_child = false;
+                checked_button_revealer.reveal_child = true;
+                build_drag_and_drop ();
 
-            if (!active) {
                 select_checkbutton.active = false;
             }
         });
@@ -1189,7 +1205,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     public void checked_toggled (bool active, uint? time = null) {
-        Services.EventBus.get_default ().unselect_all ();
         bool old_checked = item.checked;
 
         if (active) {
@@ -1537,6 +1552,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         // Drop
         build_drop_target ();
 
+        // Drop Magic Button
+        build_drop_magic_button_target ();
+
         // Drop Order
         build_drop_order_target ();
     }
@@ -1619,6 +1637,38 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
     }
 
+    private void build_drop_magic_button_target () {
+        drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+        itemrow_box.add_controller (drop_magic_button_target);
+
+        drop_magic_button_target.drop.connect ((value, x, y) => {
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.for_base_object (item);
+            dialog.show ();
+
+            return true;
+        });
+
+        drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+        motion_top_grid.add_controller (drop_order_magic_button_target);
+        drop_order_magic_button_target.drop.connect ((value, x, y) =>  {
+            debug ("Index: %d", get_index ());
+            
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.set_index (get_index ());
+
+            if (item.section_id != "") {
+                dialog.for_base_object (item.section);
+            } else {
+                dialog.for_base_object (item.project);
+            }
+
+            dialog.show ();
+
+            return true;
+        });
+    }
+
     private void build_drop_order_target () {
         drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
@@ -1694,21 +1744,23 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         remove_controller (drop_motion_ctrl);
         itemrow_box.remove_controller (drag_source);
         itemrow_box.remove_controller (drop_target);
+        itemrow_box.remove_controller (drop_magic_button_target);
         motion_top_grid.remove_controller (drop_order_target);
+        motion_top_grid.remove_controller (drop_order_magic_button_target);
     }
 
     public void drag_begin () {
         itemrow_box.add_css_class ("drop-begin");
         on_drag = true;
         main_revealer.reveal_child = false;
-        Services.EventBus.get_default ().item_drag_begin (item);
+        Services.EventBus.get_default ().project_view_drag_action (item.project_id, true);
     }
 
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
         on_drag = false;
         main_revealer.reveal_child = true;
-        Services.EventBus.get_default ().item_drag_end (item);
+        Services.EventBus.get_default ().project_view_drag_action (item.project_id, false);
     }
     
     private void update_items_item_order (Gtk.ListBox listbox) {

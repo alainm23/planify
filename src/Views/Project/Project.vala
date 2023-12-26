@@ -24,7 +24,9 @@ public class Views.Project : Gtk.Grid {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Stack view_stack;
+	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
+	private Widgets.MultiSelectToolbar multiselect_toolbar;
 
 	public Project (Objects.Project project) {
 		Object (
@@ -38,17 +40,17 @@ public class Views.Project : Gtk.Grid {
 			halign = Gtk.Align.CENTER,
 			margin_end = 12,
 			popover = build_context_menu_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical")
+			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+			css_classes = { "flat" }
 		};
-		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_view_setting_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders")
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
+			css_classes = { "flat" }
 		};
-		view_setting_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 		
 		var headerbar = new Layouts.HeaderBar ();
 		headerbar.title = project.name;
@@ -79,8 +81,14 @@ public class Views.Project : Gtk.Grid {
 		content_overlay.child = content_box;
 		content_overlay.add_overlay (magic_button);
 
-		var toolbar_view = new Adw.ToolbarView ();
+		multiselect_toolbar = new Widgets.MultiSelectToolbar (project);
+
+		toolbar_view = new Adw.ToolbarView () {
+			bottom_bar_style = Adw.ToolbarStyle.RAISED_BORDER,
+			reveal_bottom_bars = false
+		};
 		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.add_bottom_bar (multiselect_toolbar);
 		toolbar_view.content = content_overlay;
 
 		attach (toolbar_view, 0, 0);
@@ -91,8 +99,25 @@ public class Views.Project : Gtk.Grid {
 			prepare_new_item ();
 		});
 
+		magic_button.drag_begin.connect (() => {
+			Services.EventBus.get_default ().project_view_drag_action (project.id, true);
+		});
+
+		magic_button.drag_end.connect (() => {
+			Services.EventBus.get_default ().project_view_drag_action (project.id, false);
+		});
+
 		project.updated.connect (() => {
 			headerbar.title = project.name;
+		});
+
+		multiselect_toolbar.closed.connect (() => {
+			Services.EventBus.get_default ().multi_select_enabled = false;
+			Services.EventBus.get_default ().show_multi_select (false);
+			Services.EventBus.get_default ().magic_button_visible (true);
+			Services.EventBus.get_default ().connect_typing_accel ();
+
+			toolbar_view.reveal_bottom_bars = false;
 		});
 	}
 
@@ -266,8 +291,13 @@ public class Views.Project : Gtk.Grid {
 
 		select_item.clicked.connect (() => {
 			popover.popdown ();
+
 			Services.EventBus.get_default ().multi_select_enabled = true;
 			Services.EventBus.get_default ().show_multi_select (true);
+			Services.EventBus.get_default ().magic_button_visible (false);
+			Services.EventBus.get_default ().disconnect_typing_accel ();
+
+			toolbar_view.reveal_bottom_bars = true;
 		});
 
 		delete_item.clicked.connect (() => {

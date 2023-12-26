@@ -73,4 +73,16 @@ public class Widgets.PriorityButton : Adw.Bin {
     public void update_from_item (Objects.Item item) {
         priority_image.update_icon_name (item.priority_icon);
     }
+
+    public void set_priority (int priority) {
+        if (priority == Constants.PRIORITY_1) {
+            priority_image.update_icon_name ("planner-priority-1");
+        } else if (priority == Constants.PRIORITY_2) {
+            priority_image.update_icon_name ("planner-priority-2");
+        } else if (priority == Constants.PRIORITY_3) {
+            priority_image.update_icon_name ("planner-priority-3");
+        } else {
+            priority_image.update_icon_name ("planner-flag");
+        }
+    }
 }
