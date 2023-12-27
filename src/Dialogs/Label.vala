@@ -142,7 +142,7 @@ public class Dialogs.Label : Adw.Window {
     }
 
     private bool is_duplicate (string text) {
-        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true);
+        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true, label.backend_type);
         return label != null;
     }
 

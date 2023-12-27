@@ -495,58 +495,62 @@ public class Objects.Project : Objects.BaseObject {
 
     public override string get_update_json (string uuid, string? temp_id = null) {
         var builder = new Json.Builder ();
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
+            builder.begin_array ();
+                builder.begin_object ();
 
-        // Set type
-        builder.set_member_name ("type");
-        builder.add_string_value (temp_id == null ? "project_update" : "project_add");
+                // Set type
+                builder.set_member_name ("type");
+                builder.add_string_value (temp_id == null ? "project_update" : "project_add");
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-        if (temp_id != null) {
-            builder.set_member_name ("temp_id");
-            builder.add_string_value (temp_id);
-        }
+                if (temp_id != null) {
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+                }
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
+                builder.set_member_name ("args");
+                    builder.begin_object ();
 
-            if (temp_id == null) {
-                builder.set_member_name ("id");
-                builder.add_string_value (id);
-            }
+                    if (temp_id == null) {
+                        builder.set_member_name ("id");
+                        builder.add_string_value (id);
+                    }
 
-            builder.set_member_name ("name");
-            builder.add_string_value (Util.get_default ().get_encode_text (name));
+                    builder.set_member_name ("name");
+                    builder.add_string_value (name);
 
-            builder.set_member_name ("color");
-            builder.add_string_value (color);
+                    builder.set_member_name ("color");
+                    builder.add_string_value (color);
 
-            builder.set_member_name ("collapsed");
-            builder.add_boolean_value (collapsed);
+                    builder.set_member_name ("collapsed");
+                    builder.add_boolean_value (collapsed);
 
-            builder.set_member_name ("is_favorite");
-            builder.add_boolean_value (is_favorite);
+                    builder.set_member_name ("is_favorite");
+                    builder.add_boolean_value (is_favorite);
 
-            if (parent_id != "") {
-                builder.set_member_name ("parent_id");
-                builder.add_string_value (parent_id);
-            } else {
-                builder.set_member_name ("parent_id");
-                builder.add_null_value ();
-            }
+                    if (parent_id != "") {
+                        builder.set_member_name ("parent_id");
+                        builder.add_string_value (parent_id);
+                    } else {
+                        builder.set_member_name ("parent_id");
+                        builder.add_null_value ();
+                    }
 
-            builder.end_object ();
+                    builder.end_object ();
+                builder.end_object ();
+            builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
         generator.set_root (root);
         return generator.to_data (null);
     }
+
 
     public override string to_json () {
         var builder = new Json.Builder ();

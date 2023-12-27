@@ -80,6 +80,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private Gtk.DropTarget drop_order_target;
     private Gtk.DropTarget drop_magic_button_target;
     private Gtk.DropTarget drop_order_magic_button_target;
+    private Gee.HashMap<ulong, GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, GLib.Object> ();
 
     bool _edit = false;
     public bool edit {
@@ -443,11 +444,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             sensitive = !item.completed
         };
 
-
         schedule_button = new Widgets.ScheduleButton ();
         priority_button = new Widgets.PriorityButton ();
-        label_button = new Widgets.LabelPicker.LabelButton ();
-        label_button.item = item;
+        
+        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
+        label_button.labels = item._get_labels ();
+
         pin_button = new Widgets.PinButton (item);
 
         reminder_button = new Widgets.ReminderButton (item);
@@ -469,7 +471,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 16,
             margin_top = 6,
-            margin_bottom = 3,
             hexpand = true,
             sensitive = !item.completed
         };
@@ -693,8 +694,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             update_pinned (!item.pinned);
         });
 
-        item_labels.labels_changed.connect (update_labels);
-        label_button.labels_changed.connect (update_labels);
+        // item_labels.labels_changed.connect (update_labels);
+        label_button.labels_changed.connect ((labels) => {
+            update_labels (labels);
+        });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
             if (key == "underline-completed-tasks" || key == "clock-format") {
@@ -734,10 +737,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 edit = false;
                 select_revealer.reveal_child = true;
                 checked_button_revealer.reveal_child = false;
+                labels_summary.reveal_child = false;
                 disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
                 checked_button_revealer.reveal_child = true;
+                labels_summary.check_revealer ();
                 build_drag_and_drop ();
 
                 select_checkbutton.active = false;
@@ -1387,8 +1392,28 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         Services.EventBus.get_default ().send_notification (toast);
     }
 
-    public void update_labels (Gee.HashMap <string, Objects.Label> labels) {
-        item.update_labels_async (labels);
+    public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        bool update = false;
+        
+        foreach (var entry in new_labels.entries) {
+            if (item.get_label (entry.key) == null) {
+                item.add_label_if_not_exists (entry.value);
+                update = true;
+            }
+        }
+        
+        foreach (var label in item._get_labels ()) {
+            if (!new_labels.has_key (label.id)) {
+                item.delete_item_label (label.id);
+                update = true;
+            }
+        }
+
+        if (!update) {
+            return;
+        }
+
+        item.update_async ("");
     }
 
     public void delete_request (bool undo = true) {
@@ -1497,9 +1522,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     private void confirm_move (Objects.Project project, string section_id) {
         var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-        _("Move tasks"), _("Are you sure you want to move your task to <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
-
-        dialog.body_use_markup = true;
+            _("Move tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
+        );
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("ok", _("Move"));
         dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
@@ -1543,6 +1567,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
+        // Clear Signals
+        // dnd_handlerses.clear ();
+
         // Drop Motion
         build_drop_motion ();
 
@@ -1563,13 +1590,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
 
-        drop_motion_ctrl.motion.connect ((x, y) => {
+        dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
             motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
-        });
+        })] = drop_motion_ctrl;
 
-        drop_motion_ctrl.leave.connect (() => {
+        dnd_handlerses[drop_motion_ctrl.leave.connect (() => {
             motion_top_revealer.reveal_child = false;
-        });
+        })] = drop_motion_ctrl;
     }
 
     private void build_drag_source () {
@@ -1577,31 +1604,31 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         drag_source.set_actions (Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drag_source);
 
-        drag_source.prepare.connect ((source, x, y) => {
+        dnd_handlerses[drag_source.prepare.connect ((source, x, y) => {
             return new Gdk.ContentProvider.for_value (this);
-        });
+        })] = drag_source;
 
-        drag_source.drag_begin.connect ((source, drag) => {
+        dnd_handlerses[drag_source.drag_begin.connect ((source, drag) => {
             var paintable = new Gtk.WidgetPaintable (itemrow_box);
             source.set_icon (paintable, 0, 0);
             drag_begin ();
-        });
+        })] = drag_source;
 
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
+        dnd_handlerses[drag_source.drag_end.connect ((source, drag, delete_data) => {
             drag_end ();
-        });
+        })] = drag_source;
 
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
+        dnd_handlerses[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
             return false;
-        });
+        })] = drag_source;
     }
 
     private void build_drop_target () {
         drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drop_target);
 
-        drop_target.drop.connect ((value, x, y) => {
+        dnd_handlerses[drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
 
@@ -1634,24 +1661,24 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             }
 
             return true;
-        });
+        })] = drop_target;
     }
 
     private void build_drop_magic_button_target () {
         drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         itemrow_box.add_controller (drop_magic_button_target);
 
-        drop_magic_button_target.drop.connect ((value, x, y) => {
+        dnd_handlerses[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
             dialog.show ();
 
             return true;
-        });
+        })] = drop_magic_button_target;
 
         drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
-        drop_order_magic_button_target.drop.connect ((value, x, y) =>  {
+        dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) =>  {
             debug ("Index: %d", get_index ());
             
             var dialog = new Dialogs.QuickAdd ();
@@ -1666,13 +1693,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             dialog.show ();
 
             return true;
-        });
+        })] = drop_order_magic_button_target;
     }
 
     private void build_drop_order_target () {
         drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        drop_order_target.drop.connect ((value, x, y) =>  {
+        dnd_handlerses[drop_order_target.drop.connect ((value, x, y) =>  {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
             var old_section_id = "";
@@ -1737,7 +1764,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             update_items_item_order (target_list);
 
             return true;
-        });
+        })] = drop_order_target;
     }
 
     private void disable_drag_and_drop () {
@@ -1747,6 +1774,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_box.remove_controller (drop_magic_button_target);
         motion_top_grid.remove_controller (drop_order_target);
         motion_top_grid.remove_controller (drop_order_magic_button_target);
+
+        foreach (var entry in dnd_handlerses.entries) {
+            entry.value.disconnect (entry.key);
+        }
     }
 
     public void drag_begin () {

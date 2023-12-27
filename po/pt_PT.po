@@ -623,7 +623,7 @@ msgstr "Tarefa copiada para a área de transferência"
 
 #: core/Objects/Item.vala:798
 #, c-format
-msgid "Diplicate" //TODO: corrigir palavra
+msgid "Diplicate"
 msgstr "Duplicar"
 
 #: core/Objects/Project.vala:684 src/Views/Project/Project.vala:351
@@ -1227,7 +1227,7 @@ msgstr "Suporte offline para Todoist"
 msgid ""
 "You were without internet, keep using Planify with Todoist, the tasks will "
 "be saved locally and synchronized when the connection returns."
-msgstr ""Estava sem internet, continue a usar o Planify com o Todoist, as tarefas irão"
+msgstr "Estava sem internet, continue a usar o Planify com o Todoist, as tarefas irão"
 "ser guardadas localmente, e sincronizadas quando a conexão regressar."
 
 #: src/Dialogs/ProjectDescription.vala:34

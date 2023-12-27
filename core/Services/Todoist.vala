@@ -354,7 +354,6 @@ public class Services.Todoist : GLib.Object {
 							string old_parent_id = item.parent_id;
 
 							item.update_from_json (_node);
-							item.update_labels_from_json (_node);
 							Services.Database.get_default ().update_item (item);
 
 							if (old_project_id != item.project_id || old_section_id != item.section_id ||
@@ -391,14 +390,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async void queue () {
 		Gee.ArrayList<Objects.Queue?> queue = Services.Database.get_default ().get_all_queue ();
+		string json = get_queue_json (queue);
 
-		string url = "%s?commands=%s".printf (
-		    TODOIST_SYNC_URL,
-		    get_queue_json (queue)
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
-
-		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		try {
 		    GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);
@@ -446,271 +445,274 @@ public class Services.Todoist : GLib.Object {
 
 	public string get_queue_json (Gee.ArrayList<Objects.Queue?> queue) {
 		var builder = new Json.Builder ();
-		builder.begin_array ();
+		builder.begin_object ();
+            builder.set_member_name ("commands");
 
-		foreach (var q in queue) {
-			builder.begin_object ();
-
-			if (q.query == "project_add") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("project_add");
-
-				builder.set_member_name ("temp_id");
-				builder.add_string_value (q.temp_id);
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
+			builder.begin_array ();
+			foreach (var q in queue) {
 				builder.begin_object ();
 
-				builder.set_member_name ("name");
-				builder.add_string_value (get_string_member_by_object (q.args, "name"));
+				if (q.query == "project_add") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("project_add");
 
-				builder.set_member_name ("color");
-				builder.add_string_value (get_string_member_by_object (q.args, "color"));
+					builder.set_member_name ("temp_id");
+					builder.add_string_value (q.temp_id);
 
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "project_update") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("project_update");
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
 
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.set_member_name ("name");
-				builder.add_string_value (get_string_member_by_object (q.args, "name"));
-
-				builder.set_member_name ("color");
-				builder.add_string_value (get_string_member_by_object (q.args, "color"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "project_delete") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("project_delete");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "section_add") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("section_add");
-
-				builder.set_member_name ("temp_id");
-				builder.add_string_value (q.temp_id);
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("name");
-				builder.add_string_value (get_string_member_by_object (q.args, "name"));
-
-				builder.set_member_name ("project_id");
-				if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
-					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-				} else {
-					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-				}
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "section_update") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("section_update");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.set_member_name ("name");
-				builder.add_string_value (get_string_member_by_object (q.args, "name"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "section_delete") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("section_delete");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "section_move") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("section_move");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.set_member_name ("project_id");
-				builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "item_add") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("item_add");
-
-				builder.set_member_name ("temp_id");
-				builder.add_string_value (q.temp_id);
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("content");
-				builder.add_string_value (get_string_member_by_object (q.args, "content"));
-
-				builder.set_member_name ("description");
-				builder.add_string_value (get_string_member_by_object (q.args, "description"));
-
-				builder.set_member_name ("priority");
-				builder.add_int_value (get_int_member_by_object (q.args, "priority"));
-
-				builder.set_member_name ("project_id");
-				builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
-
-				builder.set_member_name ("section_id");
-				builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
-
-				builder.set_member_name ("parent_id");
-				builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "item_update") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("item_update");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.set_member_name ("content");
-				builder.add_string_value (get_string_member_by_object (q.args, "content"));
-
-				builder.set_member_name ("description");
-				builder.add_string_value (get_string_member_by_object (q.args, "description"));
-
-				builder.set_member_name ("priority");
-				builder.add_int_value (get_int_member_by_object (q.args, "priority"));
-
-				if (is_null_member (q.args, "due")) {
-					builder.set_member_name ("due");
-					builder.add_null_value ();
-				} else {
-					builder.set_member_name ("due");
+					builder.set_member_name ("args");
 					builder.begin_object ();
 
-					Json.Object due = get_object_member_by_object (q.args, "due");
+					builder.set_member_name ("name");
+					builder.add_string_value (get_string_member_by_object (q.args, "name"));
 
-					builder.set_member_name ("date");
-					builder.add_string_value (due.get_string_member ("date"));
+					builder.set_member_name ("color");
+					builder.add_string_value (get_string_member_by_object (q.args, "color"));
 
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "project_update") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("project_update");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.set_member_name ("name");
+					builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+					builder.set_member_name ("color");
+					builder.add_string_value (get_string_member_by_object (q.args, "color"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "project_delete") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("project_delete");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "section_add") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("section_add");
+
+					builder.set_member_name ("temp_id");
+					builder.add_string_value (q.temp_id);
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("name");
+					builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+					builder.set_member_name ("project_id");
+					if (get_type_by_member (q.args, "project_id") == GLib.Type.STRING) {
+						builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+					} else {
+						builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+					}
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "section_update") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("section_update");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.set_member_name ("name");
+					builder.add_string_value (get_string_member_by_object (q.args, "name"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "section_delete") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("section_delete");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "section_move") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("section_move");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.set_member_name ("project_id");
+					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "item_add") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("item_add");
+
+					builder.set_member_name ("temp_id");
+					builder.add_string_value (q.temp_id);
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("content");
+					builder.add_string_value (get_string_member_by_object (q.args, "content"));
+
+					builder.set_member_name ("description");
+					builder.add_string_value (get_string_member_by_object (q.args, "description"));
+
+					builder.set_member_name ("priority");
+					builder.add_int_value (get_int_member_by_object (q.args, "priority"));
+
+					builder.set_member_name ("project_id");
+					builder.add_string_value (get_string_member_by_object (q.args, "project_id"));
+
+					builder.set_member_name ("section_id");
+					builder.add_string_value (get_string_member_by_object (q.args, "section_id"));
+
+					builder.set_member_name ("parent_id");
+					builder.add_string_value (get_string_member_by_object (q.args, "parent_id"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "item_update") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("item_update");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.set_member_name ("content");
+					builder.add_string_value (get_string_member_by_object (q.args, "content"));
+
+					builder.set_member_name ("description");
+					builder.add_string_value (get_string_member_by_object (q.args, "description"));
+
+					builder.set_member_name ("priority");
+					builder.add_int_value (get_int_member_by_object (q.args, "priority"));
+
+					if (is_null_member (q.args, "due")) {
+						builder.set_member_name ("due");
+						builder.add_null_value ();
+					} else {
+						builder.set_member_name ("due");
+						builder.begin_object ();
+
+						Json.Object due = get_object_member_by_object (q.args, "due");
+
+						builder.set_member_name ("date");
+						builder.add_string_value (due.get_string_member ("date"));
+
+						builder.end_object ();
+					}
+
+					builder.end_object ();
+					builder.end_object ();
+					builder.begin_object ();
+				} else if (q.query == "item_delete") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("item_delete");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "item_move") {
+					builder.set_member_name ("type");
+					builder.add_string_value ("item_move");
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					string type = get_string_member_by_object (q.args, "type");
+
+					builder.set_member_name (type);
+					builder.add_string_value (get_string_member_by_object (q.args, type));
+
+					builder.end_object ();
+					builder.end_object ();
+				} else if (q.query == "item_complete" || q.query == "item_uncomplete") {
+					builder.set_member_name ("type");
+					builder.add_string_value (q.query);
+
+					builder.set_member_name ("uuid");
+					builder.add_string_value (q.uuid);
+
+					builder.set_member_name ("args");
+					builder.begin_object ();
+
+					builder.set_member_name ("id");
+					builder.add_string_value (get_string_member_by_object (q.args, "id"));
+
+					builder.end_object ();
 					builder.end_object ();
 				}
 
 				builder.end_object ();
-				builder.end_object ();
-				builder.begin_object ();
-			} else if (q.query == "item_delete") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("item_delete");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "item_move") {
-				builder.set_member_name ("type");
-				builder.add_string_value ("item_move");
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				string type = get_string_member_by_object (q.args, "type");
-
-				builder.set_member_name (type);
-				builder.add_string_value (get_string_member_by_object (q.args, type));
-
-				builder.end_object ();
-				builder.end_object ();
-			} else if (q.query == "item_complete" || q.query == "item_uncomplete") {
-				builder.set_member_name ("type");
-				builder.add_string_value (q.query);
-
-				builder.set_member_name ("uuid");
-				builder.add_string_value (q.uuid);
-
-				builder.set_member_name ("args");
-				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (get_string_member_by_object (q.args, "id"));
-
-				builder.end_object ();
-				builder.end_object ();
 			}
 
-			builder.end_object ();
-		}
-
-		builder.end_array ();
+			builder.end_array ();
+		builder.end_object ();
 
 		Json.Generator generator = new Json.Generator ();
 		Json.Node root = builder.get_root ();
@@ -778,17 +780,14 @@ public class Services.Todoist : GLib.Object {
 		string temp_id = Util.get_default ().generate_string ();
 		string uuid = Util.get_default ().generate_string ();
 		string id;
-
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			object.get_add_json (temp_id, uuid)
-		);
-
-		var message = new Soup.Message ("POST", url);
+		string json = object.get_add_json (temp_id, uuid);
+		
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		TodoistResponse response = new TodoistResponse ();
 		
@@ -860,17 +859,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async TodoistResponse update (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
+		string json = object.get_update_json (uuid);
 
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			object.get_update_json (uuid)
-		);
-
-		var message = new Soup.Message ("POST", url);
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		TodoistResponse response = new TodoistResponse ();
 
@@ -928,16 +924,14 @@ public class Services.Todoist : GLib.Object {
 	}
 
 	public async void update_items (Gee.ArrayList<Objects.Item> objects) {
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			get_update_items_json (objects)
-		);
+		string json = get_update_items_json (objects);
 
-		var message = new Soup.Message ("POST", url);
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -964,60 +958,63 @@ public class Services.Todoist : GLib.Object {
 
 	public string get_update_items_json (Gee.ArrayList<Objects.Item> objects) {
         var builder = new Json.Builder ();
-        builder.begin_array ();
 
-		foreach (var item in objects) {
-			builder.begin_object ();
+		builder.begin_object ();
+            builder.set_member_name ("commands");
 
-			builder.set_member_name ("type");
-			builder.add_string_value ("item_update");
-
-			builder.set_member_name ("uuid");
-			builder.add_string_value (Util.get_default ().generate_string ());
-
-			builder.set_member_name ("args");
+			builder.begin_array ();
+			foreach (var item in objects) {
 				builder.begin_object ();
-
-				builder.set_member_name ("id");
-				builder.add_string_value (item.id);
-
-				builder.set_member_name ("content");
-				builder.add_string_value (Util.get_default ().get_encode_text (item.content));
-
-				builder.set_member_name ("description");
-				builder.add_string_value (Util.get_default ().get_encode_text (item.description));
-
-				builder.set_member_name ("priority");
-				if (item.priority == 0) {
-					builder.add_int_value (Constants.PRIORITY_4);
-				} else {
-					builder.add_int_value (item.priority);
-				}
-
-				if (item.has_due) {
-					builder.set_member_name ("due");
+	
+				builder.set_member_name ("type");
+				builder.add_string_value ("item_update");
+	
+				builder.set_member_name ("uuid");
+				builder.add_string_value (Util.get_default ().generate_string ());
+	
+				builder.set_member_name ("args");
 					builder.begin_object ();
-
-					builder.set_member_name ("date");
-					builder.add_string_value (item.due.date);
-
-					builder.end_object ();
-				} else {
-					builder.set_member_name ("due");
-					builder.add_null_value ();
-				}
-
-				builder.set_member_name ("labels");
-					builder.begin_array ();
-					foreach (Objects.ItemLabel item_label in item.labels.values) {
-						builder.add_string_value (item_label.label.name);
+	
+					builder.set_member_name ("id");
+					builder.add_string_value (item.id);
+	
+					builder.set_member_name ("content");
+					builder.add_string_value (Util.get_default ().get_encode_text (item.content));
+	
+					builder.set_member_name ("description");
+					builder.add_string_value (Util.get_default ().get_encode_text (item.description));
+	
+					builder.set_member_name ("priority");
+					if (item.priority == 0) {
+						builder.add_int_value (Constants.PRIORITY_4);
+					} else {
+						builder.add_int_value (item.priority);
 					}
-					builder.end_array ();
+	
+					if (item.has_due) {
+						builder.set_member_name ("due");
+						builder.begin_object ();
+	
+						builder.set_member_name ("date");
+						builder.add_string_value (item.due.date);
+	
+						builder.end_object ();
+					} else {
+						builder.set_member_name ("due");
+						builder.add_null_value ();
+					}
+	
+					builder.set_member_name ("labels");
+						builder.begin_array ();
+						foreach (Objects.Label label in item.labels) {
+							builder.add_string_value (label.name);
+						}
+						builder.end_array ();
+					builder.end_object ();
 				builder.end_object ();
-			builder.end_object ();
-		}
-
-        builder.end_array ();
+			}
+			builder.end_array ();
+		builder.end_object ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
@@ -1027,14 +1024,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async TodoistResponse delete (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
+		string json = get_delete_json (object.id, object.type_delete, uuid);
 
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			get_delete_json (object.id, object.type_delete, uuid)
-			);
-
-		var message = new Soup.Message ("POST", url);
-		message.request_headers.append ("Authorization", "Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token")));
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		TodoistResponse response = new TodoistResponse ();
 
@@ -1108,17 +1105,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async TodoistResponse complete_item (Objects.Item item) {
 		string uuid = Util.get_default ().generate_string ();
+		string json = item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete");
 
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete")
-		);
-
-		var message = new Soup.Message ("POST", url);
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		TodoistResponse response = new TodoistResponse ();
 
@@ -1183,26 +1177,29 @@ public class Services.Todoist : GLib.Object {
 
 	public string get_delete_json (string id, string type, string uuid) {
 		var builder = new Json.Builder ();
-		builder.begin_array ();
 		builder.begin_object ();
-
-		// Set type
-		builder.set_member_name ("type");
-		builder.add_string_value (type);
-
-		builder.set_member_name ("uuid");
-		builder.add_string_value (uuid);
-
-		builder.set_member_name ("args");
-		builder.begin_object ();
-
-		builder.set_member_name ("id");
-		builder.add_string_value (id);
-
+            builder.set_member_name ("commands");
+			builder.begin_array ();
+				builder.begin_object ();
+		
+				// Set type
+				builder.set_member_name ("type");
+				builder.add_string_value (type);
+		
+				builder.set_member_name ("uuid");
+				builder.add_string_value (uuid);
+		
+				builder.set_member_name ("args");
+				builder.begin_object ();
+		
+				builder.set_member_name ("id");
+				builder.add_string_value (id);
+		
+				builder.end_object ();
+		
+				builder.end_object ();
+			builder.end_array ();
 		builder.end_object ();
-
-		builder.end_object ();
-		builder.end_array ();
 
 		Json.Generator generator = new Json.Generator ();
 		Json.Node root = builder.get_root ();
@@ -1213,17 +1210,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async TodoistResponse move_item (Objects.Item item, string type, string id) {
 		string uuid = Util.get_default ().generate_string ();
+		string json = item.get_move_item (uuid, type, id);
 
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			item.get_move_item (uuid, type, id)
-		);
-
-		var message = new Soup.Message ("POST", url);
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		TodoistResponse response = new TodoistResponse ();
 

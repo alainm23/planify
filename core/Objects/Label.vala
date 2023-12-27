@@ -60,35 +60,35 @@ public class Objects.Label : Objects.BaseObject {
         });
 
         Services.Database.get_default ().item_added.connect ((item) => {
-            if (item.labels.has_key (id_string)) {
+            if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
         Services.Database.get_default ().item_deleted.connect ((item) => {
-            if (item.labels.has_key (id_string)) {
+            if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
         Services.Database.get_default ().item_updated.connect ((item) => {
-            if (item.labels.has_key (id_string)) {
+            if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_label_added.connect ((item_label) => {
-            if (item_label.label.id == id) {
+        Services.Database.get_default ().item_label_added.connect ((label) => {
+            if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
             }
         });
 
-        Services.Database.get_default ().item_label_deleted.connect ((item_label) => {
-            if (item_label.label.id == id) {
+        Services.Database.get_default ().item_label_deleted.connect ((label) => {
+            if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
             }
@@ -139,44 +139,47 @@ public class Objects.Label : Objects.BaseObject {
     }
     public override string get_update_json (string uuid, string? temp_id = null) {
         var builder = new Json.Builder ();
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
+            builder.begin_array ();
+                builder.begin_object ();
 
-        // Set type
-        builder.set_member_name ("type");
-        builder.add_string_value (temp_id == null ? "label_update" : "label_add");
+                // Set type
+                builder.set_member_name ("type");
+                builder.add_string_value (temp_id == null ? "label_update" : "label_add");
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-        if (temp_id != null) {
-            builder.set_member_name ("temp_id");
-            builder.add_string_value (temp_id);
-        }
+                if (temp_id != null) {
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+                }
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
+                builder.set_member_name ("args");
+                    builder.begin_object ();
 
-            if (temp_id == null) {
-                builder.set_member_name ("id");
-                builder.add_string_value (id);
-            }
+                    if (temp_id == null) {
+                        builder.set_member_name ("id");
+                        builder.add_string_value (id);
+                    }
 
-            builder.set_member_name ("name");
-            builder.add_string_value (Util.get_default ().get_encode_text (name));
+                    builder.set_member_name ("name");
+                    builder.add_string_value (name);
 
-            builder.set_member_name ("color");
-            builder.add_string_value (color);
+                    builder.set_member_name ("color");
+                    builder.add_string_value (color);
 
-            builder.set_member_name ("item_order");
-            builder.add_int_value (item_order);
+                    builder.set_member_name ("item_order");
+                    builder.add_int_value (item_order);
 
-            builder.set_member_name ("is_favorite");
-            builder.add_boolean_value (is_favorite);
+                    builder.set_member_name ("is_favorite");
+                    builder.add_boolean_value (is_favorite);
 
-            builder.end_object ();
+                    builder.end_object ();
+                builder.end_object ();
+                builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();

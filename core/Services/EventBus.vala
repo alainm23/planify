@@ -67,10 +67,11 @@ public class Services.EventBus : Object {
     // Multi Select
     public bool multi_select_enabled = false;
     public signal void show_multi_select (bool enabled);
-    public signal void unselect_all ();
     public signal void select_item (Gtk.Widget itemrow);
     public signal void unselect_item (Gtk.Widget itemrow);
+    public signal void unselect_all ();
 
+    // Magic Button
     public signal void magic_button_visible (bool active);
     public signal void project_view_drag_action (string project_id, bool active);
 

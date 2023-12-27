@@ -48,7 +48,6 @@ core/Objects/BaseObject.vala
 core/Objects/Color.vala
 core/Objects/DueDate.vala
 core/Objects/Item.vala
-core/Objects/ItemLabel.vala
 core/Objects/Label.vala
 core/Objects/Project.vala
 core/Objects/Queue.vala

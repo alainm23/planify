@@ -535,11 +535,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
-
+            
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete project"), _("Are you sure you want to delete <b>%s</b>?").printf (Util.get_default ().get_dialog_text (project.short_name)));
+            _("Delete project"), _("Are you sure you want to delete %s?").printf (project.short_name));
 
-            dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);

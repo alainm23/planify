@@ -534,3 +534,8 @@ checkbutton.theme-selector radio:checked {
     border-radius: 9px;
     border: 1px solid @item_border_color;
 }
+
+.indicator {
+    background: #1e63ec;
+    border-radius: 50%;
+}

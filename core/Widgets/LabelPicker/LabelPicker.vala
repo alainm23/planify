@@ -20,29 +20,23 @@
 */
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
+    public BackendType backend_type { get; construct; }
+
     private Gtk.SearchEntry search_entry;
     private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
     
-    public Gee.HashMap <string, Objects.Label> labels_map;
     public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map;
 
-    public Objects.Item _item;
-    public Objects.Item item {
+    public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
+    public Gee.ArrayList<Objects.Label> labels {
         set {
-            _item = value;
+            picked.clear ();
 
-            foreach (var entry in value.labels.entries) {
-                labels_map [entry.key] = entry.value.label;
+            foreach (Objects.Label label in value) {
+                labels_widgets_map [label.id].active = true;
+                picked[label.id] = label;
             }
-
-            foreach (Objects.Label label in Services.Database.get_default ().labels) {
-                labels_widgets_map [label.id_string].active = value.labels.has_key (label.id_string);
-            }
-        }
-
-        get {
-            return _item;
         }
     }
 
@@ -52,29 +46,29 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels_map);
-
-    public LabelPicker () {
+    public LabelPicker (BackendType backend_type = BackendType.ALL) {
         Object (
+            backend_type: backend_type,
             has_arrow: false,
-            position: Gtk.PositionType.TOP
+            position: Gtk.PositionType.TOP,
+            width_request: 275,
+            height_request: 300
         );
     }
 
     construct {
-        add_css_class ("popover-contents");
+        css_classes = { "popover-contents" };
 
-        labels_map = new Gee.HashMap <string, Objects.Label> ();
         labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
 
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search or Create"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_top = 8,
-            margin_start = 8,
-            margin_end = 8,
-            margin_bottom = 8
+            margin_top = 9,
+            margin_start = 9,
+            margin_end = 9,
+            margin_bottom = 9
         };
 
         listbox = new Gtk.ListBox () {
@@ -86,33 +80,24 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         listbox.add_css_class ("listbox-separator-3");
         listbox.add_css_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid () {
+        var listbox_grid = new Adw.Bin () {
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            margin_bottom = 9,
+            child = listbox
         };
 
-        listbox_grid.attach (listbox, 0, 0);
-        
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true,
-            height_request = 175
+            vexpand = true
         };
 
         listbox_scrolled.child = listbox_grid;
 
-        var content_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            hexpand = true,
-            vexpand = true
-        };
-        
-        content_grid.attach (listbox_scrolled, 0, 0);
-
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (search_entry);
-		toolbar_view.content = content_grid;
+		toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
         add_all_labels ();
@@ -147,7 +132,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
         search_entry.activate.connect (() => {
             if (search_entry.text.length > 0) {
-                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true);
+                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true, backend_type);
                 if (label != null) {
                     if (labels_widgets_map.has_key (label.id_string)) {
                         labels_widgets_map [label.id_string].update_checked_toggled ();
@@ -168,7 +153,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         label.color = Util.get_default ().get_random_color ();
         label.name = search_entry.text;
 
-        if (item.project.backend_type == BackendType.TODOIST) {
+        if (backend_type == BackendType.TODOIST) {
             is_loading = true;
             label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
@@ -186,7 +171,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
                     
                 }
             });
-        } else {
+        } else if (backend_type == BackendType.LOCAL) {
             label.id = Util.get_default ().generate_id (label);
             label.backend_type = BackendType.LOCAL;
             Services.Database.get_default ().insert_label (label);
@@ -198,17 +183,15 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     private void add_all_labels () {
-        foreach (Objects.Label label in Services.Database.get_default ().labels) {
+        foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_backend_type (backend_type)) {
             add_label (label);
         }
     }
 
     private void add_label (Objects.Label label) {
-        var row = new Widgets.LabelPicker.LabelRow (label);
-        row.checked_toggled.connect (checked_toggled);
-
-        labels_widgets_map [label.id_string] = row;
-        listbox.append (row);
+        labels_widgets_map [label.id] = new Widgets.LabelPicker.LabelRow (label);
+        labels_widgets_map [label.id].checked_toggled.connect (checked_toggled);
+        listbox.append (labels_widgets_map [label.id]);
     }
 
     private Gtk.Widget get_placeholder () {
@@ -254,12 +237,12 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
     private void checked_toggled (Objects.Label label, bool active) {
         if (active) {
-            if (!labels_map.has_key (label.id_string)) {
-                labels_map [label.id_string] = label;
+            if (!picked.has_key (label.id)) {
+                picked [label.id] = label;
             }
         } else {
-            if (labels_map.has_key (label.id_string)) {
-                labels_map.unset (label.id_string);
+            if (picked.has_key (label.id)) {
+                picked.unset (label.id);
             }
         }
     }

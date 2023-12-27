@@ -22,33 +22,37 @@
 public class Widgets.MultiSelectToolbar : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Label size_label;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PriorityButton priority_button;
-
-    private Gtk.Button menu_button;
-    private Gtk.Popover menu_picker = null;
+    private Gtk.MenuButton menu_button;
 
     public Gee.HashMap<string, Layouts.ItemRow> items_selected = new Gee.HashMap <string, Layouts.ItemRow> ();
-
+    public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap <string, Objects.Label> ();
     public signal void closed ();
 
     public MultiSelectToolbar (Objects.Project project) {
         Object (
             project: project,
             hexpand: true,
-            halign: Gtk.Align.CENTER,
             valign: Gtk.Align.END
         );
     }
 
     construct {
+        css_classes = { "sidebar" };
+
+        size_label = new Gtk.Label (null) {
+            css_classes = { "font-bold" }
+        };
+
         schedule_button = new Widgets.ScheduleButton () {
             sensitive = false
         };
         schedule_button.visible_no_date = true;
 
-        label_button = new Widgets.LabelPicker.LabelButton () {
+        label_button = new Widgets.LabelPicker.LabelButton (project.backend_type) {
             sensitive = false
         };
 
@@ -56,29 +60,32 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             sensitive = false
         };
         priority_button.set_priority (Constants.PRIORITY_4);
-
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 16;
-        menu_image.update_icon_name ("dots-vertical");
         
-        menu_button = new Gtk.Button ();
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        menu_button.child = menu_image;
+        menu_button = new Gtk.MenuButton () {
+            css_classes = { Granite.STYLE_CLASS_FLAT },
+            valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            popover = build_menu_popover (),
+            sensitive = false
+        };
 
         var done_button = new Widgets.LoadingButton.with_label (_("Done")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_start = 12,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "small-button" }
+            width_request = 100,
+            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_top = 6,
-            margin_bottom = 6
+            margin_top = 9,
+            margin_bottom = 9
         };
 
+        content_box.append (size_label);
         content_box.append (schedule_button);
         content_box.append (label_button);
         content_box.append (priority_button);
@@ -98,6 +105,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 row.is_row_selected = true;
             }
 
+            check_labels (row.item, true);
             check_select_bar ();
         });
 
@@ -109,10 +117,19 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 row.is_row_selected = false;
             }
 
+            check_labels (row.item, false);
             check_select_bar ();
         });
 
         done_button.clicked.connect (() => {
+            unselect_all ();
+        });
+
+        Services.EventBus.get_default ().request_escape.connect (() => {
+            unselect_all ();
+		});
+
+        Services.EventBus.get_default ().unselect_all.connect (() => {
             unselect_all ();
         });
 
@@ -121,19 +138,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         label_button.labels_changed.connect ((labels) => {
-            
+            set_labels (labels);
         });
 
         priority_button.changed.connect ((priority) => {
             set_priority (priority);
-        });
-
-        menu_button.clicked.connect (open_menu);
-
-        Services.EventBus.get_default ().unselect_all.connect (() => {
-            if (items_selected.size > 0) {
-                unselect_all ();
-            }
         });
     }
 
@@ -190,20 +199,19 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         update_items (objects);
     }
 
-    private void set_labels (Gee.HashMap <string, Objects.Label> labels) {
+    private void set_labels (Gee.HashMap <string, Objects.Label> new_labels) {
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
+
         foreach (string key in items_selected.keys) {
-            items_selected[key].update_labels (labels);
+            var item = items_selected[key].item;
+            item.check_labels (new_labels);
+            objects.add (item);
         }
 
-        unselect_all ();
+        update_items (objects);
     }
 
-    private void open_menu () {
-        if (menu_picker != null) {
-            menu_picker.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_menu_popover () {
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");
         
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
@@ -215,17 +223,14 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
-        menu_picker = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM
+            position = Gtk.PositionType.TOP
         };
 
-        menu_picker.set_parent (menu_button);
-        menu_picker.popup();
-
         complete_item.clicked.connect (() => {
-            menu_picker.popdown ();
+            popover.popdown ();
 
             foreach (string key in items_selected.keys) {
                 items_selected[key].checked_toggled (true, 0);
@@ -235,7 +240,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         delete_item.clicked.connect (() => {
-            menu_picker.popdown ();
+            popover.popdown ();
 
             string title = _("Delete To-Do");
             string message = _("Are you sure you want to delete this to-do?");
@@ -264,6 +269,8 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                 }
             });
         });
+
+        return popover;
     }
 
     private void unselect_all () {
@@ -272,12 +279,40 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         }
 
         items_selected.clear ();
+        labels.clear ();
         closed ();
     }
 
     private void check_select_bar () {
         bool active = items_selected.size > 0;
+
+        size_label.label = active ? "(%d)".printf (items_selected.size) : "";
         schedule_button.sensitive = active;
         priority_button.sensitive = active;
+        label_button.sensitive = active;
+        menu_button.sensitive = active;
+    }
+
+    private void check_labels (Objects.Item item, bool active) {
+        if (active) {
+            foreach (Objects.Label label in item._get_labels ()) {
+                if (!labels.has_key (label.id)) {
+                    labels[label.id] = label;
+                }
+            }
+        } else {
+            foreach (Objects.Label label in item._get_labels ()) {
+                if (labels.has_key (label.id)) {
+                    labels.unset (label.id);
+                }
+            }
+        }
+        
+        Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
+        foreach (Objects.Label label in labels.values) {
+            _labels.add (label);
+        }
+
+        label_button.labels = _labels;
     }
 }

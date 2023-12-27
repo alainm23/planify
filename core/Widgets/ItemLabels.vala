@@ -31,10 +31,7 @@ public class Widgets.ItemLabels : Adw.Bin {
     private Gtk.FlowBox flowbox;
     private Gtk.Revealer main_revealer;
 
-    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
-    public signal void dialog_open (bool value);
-
-    private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map;
+    private Gee.HashMap<string, Widgets.ItemLabelChild> item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
     public ItemLabels (Objects.Item item) {
         Object (
@@ -43,8 +40,6 @@ public class Widgets.ItemLabels : Adw.Bin {
     }
 
     construct {
-        item_labels_map = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
-
         flowbox = new Gtk.FlowBox () {
             column_spacing = 6,
             row_spacing = 6,
@@ -63,56 +58,36 @@ public class Widgets.ItemLabels : Adw.Bin {
         child = main_revealer;
         add_labels ();
 
-        //  button_press_event.connect ((sender, evt) => {
-        //      if (evt.type == Gdk.EventType.BUTTON_PRESS && evt.button == 1) {
-        //          var dialog = new Dialogs.LabelPicker.LabelPicker ();
-        //          dialog.item = item;
-                
-        //          dialog.labels_changed.connect ((labels) => {
-        //              labels_changed (labels);
-        //          });
-                
-        //          dialog_open (true);
-        //          dialog.popup ();
-
-        //          dialog.destroy.connect (() => {
-        //              dialog_open (false);
-        //          });
-        //      }
-
-        //      return Gdk.EVENT_PROPAGATE;
-        //  });
-
-        item.item_label_added.connect ((item_label) => {
-            add_item_label (item_label);
+        item.item_label_deleted.connect ((label) => {
+            remove_item_label (label);
         });
 
-        item.item_label_deleted.connect ((item_label) => {
-            remove_item_label (item_label);
+        item.item_label_added.connect ((label) => {
+            add_item_label (label);
         });
     }
 
     public void add_labels () {
-        foreach (Objects.ItemLabel item_label in item.labels.values) {
-            add_item_label (item_label);
+        foreach (Objects.Label label in item._get_labels ()) {
+            add_item_label (label);
         }
 
         main_revealer.reveal_child = has_items;
     }
 
-    public void add_item_label (Objects.ItemLabel item_label) {
-        if (!item_labels_map.has_key (item_label.id_string)) {
-            item_labels_map[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
-            flowbox.append (item_labels_map[item_label.id_string]);
+    public void add_item_label (Objects.Label label) {
+        if (!item_labels_map.has_key (label.id)) {
+            item_labels_map[label.id] = new Widgets.ItemLabelChild (label);
+            flowbox.append (item_labels_map[label.id]);
         }
 
         main_revealer.reveal_child = has_items;
     }
 
-    public void remove_item_label (Objects.ItemLabel item_label) {
-        if (item_labels_map.has_key (item_label.id_string)) {
-            flowbox.remove (item_labels_map[item_label.id_string]);
-            item_labels_map.unset (item_label.id_string);
+    public void remove_item_label (Objects.Label label) {
+        if (item_labels_map.has_key (label.id)) {
+            item_labels_map[label.id].hide_destroy ();
+            item_labels_map.unset (label.id);
         }
 
         main_revealer.reveal_child = has_items;

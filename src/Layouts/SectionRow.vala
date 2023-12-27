@@ -639,10 +639,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
 
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Delete section"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (section.short_name))));
+			var dialog = new Adw.MessageDialog (
+				(Gtk.Window) Planify.instance.main_window,
+			    _("Delete section"), _("Are you sure you want to delete %s?".printf (section.short_name))
+			);
 
-			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
 			dialog.add_response ("delete", _("Delete"));
 			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
@@ -703,7 +704,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			var source_list = (Gtk.ListBox) picked_widget.parent;
 			source_list.remove (picked_widget);
 
-			listbox.append (picked_widget);
+			listbox.insert (picked_widget, 0);
 			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
 			update_items_item_order (listbox);
 

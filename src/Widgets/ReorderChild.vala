@@ -95,21 +95,10 @@ public class Widgets.ReorderChild : Adw.Bin {
         row.add_controller (drop_motion_ctrl);
 
         drop_motion_ctrl.motion .connect ((x, y) => {
-            //  if (row.get_index () == 0) {
-            //      if (y > (row.get_height () / 2)) {
-            //          motion_bottom_revealer.reveal_child = true;
-            //          motion_top_revealer.reveal_child = false;
-            //      } else {
-            //          motion_bottom_revealer.reveal_child = false;
-            //          motion_top_revealer.reveal_child = true;
-            //      }
-            //  } else {
             motion_top_revealer.reveal_child = true;
-            //  }
         });
 
         drop_motion_ctrl.leave.connect (() => {
-            // motion_bottom_revealer.reveal_child = false;
             motion_top_revealer.reveal_child = false;
         });
     }

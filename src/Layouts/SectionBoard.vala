@@ -491,9 +491,8 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             menu_popover.popdown ();
 
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete section"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (section.short_name))));
+            _("Delete section"), _("Are you sure you want to delete %s?".printf (section.short_name)));
 
-            dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);

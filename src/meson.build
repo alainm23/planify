@@ -6,6 +6,7 @@ deps = [
   sqlite3_dep,
   libadwaita_dep,
   webkitgtk_dep,
+  gtksourceview_dep,
   granite_dep,
   json_dep,
   libsoup_dep,

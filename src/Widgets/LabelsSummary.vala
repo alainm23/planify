@@ -29,7 +29,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
     private Adw.Bin more_label_grid;
     private Gtk.Revealer more_label_revealer;
 
-    Gee.HashMap<string, Widgets.ItemLabelChild> labels;
+    Gee.HashMap<string, Widgets.ItemLabelChild> labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
     public bool reveal_child {
         set {
@@ -42,8 +42,6 @@ public class Widgets.LabelsSummary : Adw.Bin {
     }
 
     construct {
-        labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
-
         labels_flowbox = new Gtk.FlowBox () {
             column_spacing = 6,
             row_spacing = 6,
@@ -90,8 +88,8 @@ public class Widgets.LabelsSummary : Adw.Bin {
         child = revealer;
         update_request ();
 
-        item.item_label_deleted.connect ((item_label) => {
-            remove_item_label (item_label);
+        item.item_label_deleted.connect ((label) => {
+            remove_item_label (label);
         });
     }
 
@@ -101,25 +99,25 @@ public class Widgets.LabelsSummary : Adw.Bin {
         string tooltip_text = "";
         more_label_revealer.reveal_child = false;
 
-        foreach (Objects.ItemLabel item_label in item.labels.values) {
-            if (!labels.has_key (item_label.id_string)) {
+        foreach (Objects.Label label in item._get_labels ()) {
+            if (!labels.has_key (label.id)) {
                 if (labels.size >= 3) {
                     more++;
                     more_label.label = "+%d".printf (more);
                     tooltip_text += "- %s%s".printf (
-                        item_label.label.name,
-                        more + 1 >= item.labels.values.size ? "" : "\n"
+                        label.name,
+                        more + 1 >= item._get_labels ().size ? "" : "\n"
                     );
                     more_label_grid.tooltip_text = tooltip_text;
                     more_label_revealer.reveal_child = true;
                 } else {
                     Util.get_default ().set_widget_color (
-                        Util.get_default ().get_color (item_label.label.color),
+                        Util.get_default ().get_color (label.color),
                         more_label_grid
                     );
 
-                    labels[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
-                    labels_flowbox.append (labels[item_label.id_string]);
+                    labels[label.id] = new Widgets.ItemLabelChild (label);
+                    labels_flowbox.append (labels[label.id]);
                 }
 
                 count++;
@@ -127,10 +125,10 @@ public class Widgets.LabelsSummary : Adw.Bin {
         }
     }
 
-    public void remove_item_label (Objects.ItemLabel item_label) {
-        if (labels.has_key (item_label.id_string)) {
-            labels_flowbox.remove (labels[item_label.id_string]);
-            labels.unset (item_label.id_string);
+    public void remove_item_label (Objects.Label label) {
+        if (labels.has_key (label.id)) {
+            labels[label.id].hide_destroy ();
+            labels.unset (label.id);
         }
     }
 

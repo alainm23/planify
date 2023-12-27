@@ -484,14 +484,14 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		// string tooltip_text = "";
 		// more_label_revealer.reveal_child = false;
 
-		foreach (Objects.ItemLabel item_label in item.labels.values) {
-			if (!labels.has_key (item_label.id_string)) {
+		foreach (Objects.Label label in item._get_labels ()) {
+			if (!labels.has_key (label.id)) {
 				//  if (itemrow == null && labels.size >= 1) {
 				//      more++;
 				//      more_label.label = "+%d".printf (more);
 				//      tooltip_text += "- %s%s".printf (
 				//          item_label.label.name,
-				//          more + 1 >= item.labels.values.size ? "" : "\n"
+				//          more + 1 >= item.labels.size ? "" : "\n"
 				//      );
 				//      more_label_grid.tooltip_text = tooltip_text;
 				//      more_label_revealer.reveal_child = true;
@@ -501,8 +501,8 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 				//      more_label_grid
 				//  );
 
-				labels[item_label.id_string] = new Widgets.ItemLabelChild (item_label);
-				labels_flowbox.append (labels[item_label.id_string]);
+				labels[label.id] = new Widgets.ItemLabelChild (label);
+				labels_flowbox.append (labels[label.id]);
 				// }
 
 				// count++;

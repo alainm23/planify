@@ -345,8 +345,8 @@ public class Services.Backups : Object {
 
             builder.set_member_name ("labels");
             builder.begin_array ();
-            foreach (Objects.ItemLabel item_label in item.labels.values) {
-                builder.add_string_value (item_label.label.name);
+            foreach (Objects.Label label in item.labels) {
+                builder.add_string_value (label.name);
             }
             builder.end_array ();
         builder.end_object ();

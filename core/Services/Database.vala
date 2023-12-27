@@ -43,8 +43,8 @@ public class Services.Database : GLib.Object {
     public signal void item_added (Objects.Item item, bool insert = true);
     public signal void item_updated (Objects.Item item, string update_id);
 
-    public signal void item_label_added (Objects.ItemLabel item_label);
-    public signal void item_label_deleted (Objects.ItemLabel item_label);
+    public signal void item_label_added (Objects.Label label);
+    public signal void item_label_deleted (Objects.Label label);
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
@@ -172,6 +172,13 @@ public class Services.Database : GLib.Object {
 
         add_text_column ("Projects", "description", "");
         add_text_column ("Projects", "due_date", "");
+
+        /*
+         * Planify 4.4
+         * - Add labels column to Items
+         */
+
+         add_item_label_column ();
     }
 
     private void create_tables () {
@@ -260,25 +267,11 @@ public class Services.Database : GLib.Object {
                 is_deleted          INTEGER,
                 day_order           INTEGER,
                 collapsed           INTEGER,
-                pinned              INTEGER
+                pinned              INTEGER,
+                labels              TEXT
             );
         """;
 
-        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
-            warning (errormsg);
-        }
-
-        sql = """
-            CREATE TABLE IF NOT EXISTS Items_Labels (
-                id              TEXT PRIMARY KEY,
-                item_id         TEXT,
-                label_id        TEXT,
-                CONSTRAINT unique_items_labels UNIQUE (item_id, label_id),
-                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE,
-                FOREIGN KEY (label_id) REFERENCES Labels (id) ON DELETE CASCADE
-            );
-        """;
-        
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
@@ -682,7 +675,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         lock (_labels) {
             foreach (var label in labels) {
-                if (label.backend_type == backend_type) {
+                if (backend_type == BackendType.ALL ? true : label.backend_type == backend_type) {
                     return_value.add (label);
                 }
             }
@@ -772,24 +765,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Label get_label_by_name (string name, bool lowercase = false) {
+    public Objects.Label get_label_by_name (string name, bool lowercase = false, BackendType backend_type) {
         Objects.Label? return_value = null;
         lock (_labels) {
+            string compare_name = lowercase ? name.down () : name;
+
             foreach (var label in labels) {
-                if (lowercase) {
-                    if (label.name.down () == name.down ()) {
-                        return_value = label;
-                        break;
-                    }
-                } else {
-                    if (label.name == name) {
-                        return_value = label;
-                        break;
-                    }
+                string label_name = lowercase ? label.name.down () : label.name;
+                if (label.backend_type == backend_type && label_name == compare_name) {
+                    return label;
                 }
             }
 
-            return return_value;
+            return null;
         }
     }
 
@@ -839,71 +827,31 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public Gee.HashMap<string, Objects.ItemLabel> get_labels_by_item (Objects.Item item) {
-        Gee.HashMap<string, Objects.ItemLabel> return_value = new Gee.HashMap<string, Objects.ItemLabel> ();
-        Sqlite.Statement stmt;
+    public Gee.ArrayList<Objects.Label> get_labels_by_item_labels (string labels) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
-        sql = """
-            SELECT Items_Labels.id, Items_Labels.item_id, Items_Labels.label_id
-                FROM Items_Labels
-            INNER JOIN Labels ON Items_Labels.label_id = Labels.id
-                WHERE item_id = $id;
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_str (stmt, "$id", item.id);
-
-        while (stmt.step () == Sqlite.ROW) {
-            Objects.ItemLabel item_label = new Objects.ItemLabel ();
-            item_label.id = stmt.column_text (0);
-            item_label.item_id = stmt.column_text (1);
-            item_label.label_id = stmt.column_text (2);
-            return_value [item_label.label_id.to_string ()] = item_label;
+        foreach (string id in labels.split(";")) {
+            Objects.Label? label = get_label (id);
+            if (label != null) {
+                return_value.add (label);
+            }
         }
-        stmt.reset ();
+
         return return_value;
     }
 
-    public void insert_item_label (Objects.ItemLabel item_label) {
-        Sqlite.Statement stmt;
-
-        sql = """
-            INSERT OR IGNORE INTO Items_Labels (id, item_id, label_id)
-            VALUES ($id, $item_id, $label_id);
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_str (stmt, "$id", item_label.id);
-        set_parameter_str (stmt, "$item_id", item_label.item_id);
-        set_parameter_str (stmt, "$label_id", item_label.label_id);
-
-        if (stmt.step () == Sqlite.DONE) {
-            item_label_added (item_label);
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+    public string get_labels_ids (Gee.ArrayList<Objects.Label> labels) {
+        string return_value = "";
+            
+        foreach (Objects.Label label in labels) {
+            return_value += label.id + ";";
         }
 
-        stmt.reset ();
-    }
-
-    public void delete_item_label (Objects.ItemLabel item_label) {
-        Sqlite.Statement stmt;
-
-        sql = """
-            DELETE FROM Items_Labels WHERE id=$id;
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_str (stmt, "$id", item_label.id);
-
-        if (stmt.step () == Sqlite.DONE) {
-            item_label.deleted ();
-            item_label_deleted (item_label);
-        } else {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        if (return_value.length > 0) {
+            return_value = return_value.substring (0, return_value.length - 1);
         }
 
-        stmt.reset ();
+        return return_value;
     }
 
     public int next_item_child_order (string project_id, string section_id) {
@@ -1111,10 +1059,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
-                checked, is_deleted, day_order, collapsed, pinned)
+                checked, is_deleted, day_order, collapsed, pinned, labels)
             VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
-                $checked, $is_deleted, $day_order, $collapsed, $pinned);
+                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1135,6 +1083,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$day_order", item.day_order);
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
+        set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
 
         if (stmt.step () == Sqlite.DONE) {
             add_item (item, insert);
@@ -1162,7 +1111,6 @@ public class Services.Database : GLib.Object {
             }
         }
 
-        item.insert_local_labels ();
         Services.EventBus.get_default ().update_items_position (item.project_id, item.section_id);
     }
 
@@ -1278,6 +1226,7 @@ public class Services.Database : GLib.Object {
         return_value.day_order = stmt.column_int (14);
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
+        return_value.labels = get_labels_by_item_labels (stmt.column_text (17));
 
         return return_value;
     }
@@ -1370,7 +1319,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.labels.has_key (label.id_string) && item.checked == checked) {
+                if (item.get_label (label.id) != null && item.checked == checked) {
                     return_value.add (item);
                 }
             }
@@ -1476,7 +1425,7 @@ public class Services.Database : GLib.Object {
                 section_id=$section_id, project_id=$project_id, parent_id=$parent_id,
                 priority=$priority, child_order=$child_order, checked=$checked,
                 is_deleted=$is_deleted, day_order=$day_order, collapsed=$collapsed,
-                pinned=$pinned
+                pinned=$pinned, labels=$labels
             WHERE id=$id;
         """;
 
@@ -1497,6 +1446,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$day_order", item.day_order);
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
+        set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -2137,6 +2087,33 @@ public class Services.Database : GLib.Object {
         sql = """
             ALTER TABLE %s ADD COLUMN %s INTEGER DEFAULT %i;
         """.printf (table, column, default_value);
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public void add_item_label_column () {
+        if (column_exists ("Items", "labels")) {
+            return;
+        }
+
+        Sqlite.Statement stmt;
+
+        sql = """
+            ALTER TABLE Items ADD COLUMN labels TEXT;
+            
+            UPDATE Items
+            SET labels = (
+                SELECT GROUP_CONCAT(label_id, ';')
+                FROM Items_Labels
+                WHERE item_id = Items.id
+            );
+        """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
 

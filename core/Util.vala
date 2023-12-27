@@ -358,6 +358,7 @@ public class Util : GLib.Object {
     * Replaces all line breaks with a space and
     * replaces multiple spaces with a single one.
     */
+    
     private GLib.Regex line_break_to_space_regex = null;
     public string line_break_to_space (string str) {
         if (line_break_to_space_regex == null) {
@@ -378,7 +379,7 @@ public class Util : GLib.Object {
     }
 
     public string get_dialog_text (string text) {
-        return text.replace ("&", "&amp;").replace ("<", "&lt;").replace (">", "&gt;");
+        return Uri.escape_string (text, null, false);
     }
 
     /*

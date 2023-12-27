@@ -27,6 +27,7 @@ public class Views.Project : Gtk.Grid {
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
+	private Gtk.Revealer indicator_revealer;
 
 	public Project (Objects.Project project) {
 		Object (
@@ -44,6 +45,21 @@ public class Views.Project : Gtk.Grid {
 			css_classes = { "flat" }
 		};
 
+		var indicator_grid = new Gtk.Grid () {
+			width_request = 9,
+			height_request = 9,
+			margin_top = 6,
+			margin_end = 6,
+			css_classes = { "indicator" }
+		};
+
+		indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+			halign = END,
+			valign = START,
+        };
+
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
@@ -51,12 +67,16 @@ public class Views.Project : Gtk.Grid {
 			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
 			css_classes = { "flat" }
 		};
+
+		var view_setting_overlay = new Gtk.Overlay ();
+		view_setting_overlay.child = view_setting_button;
+		view_setting_overlay.add_overlay (indicator_revealer);
 		
 		var headerbar = new Layouts.HeaderBar ();
 		headerbar.title = project.name;
 
 		headerbar.pack_end (menu_button);
-		headerbar.pack_end (view_setting_button);
+		headerbar.pack_end (view_setting_overlay);
 
 		view_stack = new Gtk.Stack () {
 			hexpand = true,
@@ -93,7 +113,8 @@ public class Views.Project : Gtk.Grid {
 
 		attach (toolbar_view, 0, 0);
 		update_project_view (ProjectViewStyle.LIST);
-		show();
+		check_default_view ();
+		show ();
 
 		magic_button.clicked.connect (() => {
 			prepare_new_item ();
@@ -119,6 +140,20 @@ public class Views.Project : Gtk.Grid {
 
 			toolbar_view.reveal_bottom_bars = false;
 		});
+	}
+
+	private void check_default_view () {
+		bool defaults = true;
+		
+		if (project.sort_order != 0) {
+			defaults = false;
+		}
+
+		if (project.show_completed != false) {
+			defaults = false;
+		} 
+
+		indicator_revealer.reveal_child = !defaults;
 	}
 
 	private void update_project_view (ProjectViewStyle view_style) {
@@ -303,8 +338,10 @@ public class Views.Project : Gtk.Grid {
 		delete_item.clicked.connect (() => {
 			popover.popdown ();
 
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Delete project"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
+			var dialog = new Adw.MessageDialog (
+				(Gtk.Window) Planify.instance.main_window,
+			    _("Delete project"), _("Are you sure you want to delete %s?".printf (project.short_name))
+			);
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
@@ -343,7 +380,7 @@ public class Views.Project : Gtk.Grid {
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
 			"planner-check-circle"
-			);
+		);
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -361,6 +398,7 @@ public class Views.Project : Gtk.Grid {
 		order_by_item.selected.connect ((index) => {
 			project.sort_order = index;
 			project.update (false);
+			check_default_view ();
 		});
 
 		show_completed_item.activate_item.connect (() => {
@@ -370,6 +408,7 @@ public class Views.Project : Gtk.Grid {
 			project.update ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
+			check_default_view ();
 		});
 
 		return popover;

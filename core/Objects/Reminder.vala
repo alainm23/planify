@@ -65,43 +65,47 @@ public class Objects.Reminder : Objects.BaseObject {
 
     public override string get_update_json (string uuid, string? temp_id = null) {
         var builder = new Json.Builder ();
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
 
-        // Set type
-        builder.set_member_name ("type");
-        builder.add_string_value (temp_id == null ? "reminder_update" : "reminder_add");
+            builder.begin_array ();
+                builder.begin_object ();
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                // Set type
+                builder.set_member_name ("type");
+                builder.add_string_value (temp_id == null ? "reminder_update" : "reminder_add");
 
-        if (temp_id != null) {
-            builder.set_member_name ("temp_id");
-            builder.add_string_value (temp_id);
-        }
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
+                if (temp_id != null) {
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+                }
 
-            if (temp_id == null) {
-                builder.set_member_name ("id");
-                builder.add_string_value (id);
-            }
+                builder.set_member_name ("args");
+                    builder.begin_object ();
 
-            builder.set_member_name ("item_id");
-            builder.add_string_value (item_id);
+                    if (temp_id == null) {
+                        builder.set_member_name ("id");
+                        builder.add_string_value (id);
+                    }
 
-            builder.set_member_name ("due");
-            builder.begin_object ();
+                    builder.set_member_name ("item_id");
+                    builder.add_string_value (item_id);
 
-            builder.set_member_name ("date");
-            builder.add_string_value (due.date);
+                    builder.set_member_name ("due");
+                    builder.begin_object ();
 
-            builder.end_object ();
+                    builder.set_member_name ("date");
+                    builder.add_string_value (due.date);
 
-            builder.end_object ();
+                    builder.end_object ();
+
+                    builder.end_object ();
+                builder.end_object ();
+            builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();

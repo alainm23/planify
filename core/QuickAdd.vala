@@ -80,8 +80,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         pin_button = new Widgets.PinButton (item);
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton ();
-        label_button.item = item;
+        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 3,
@@ -253,7 +252,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             set_priority (priority);
         });
 
-        item_labels.labels_changed.connect (set_labels);
+        // item_labels.labels_changed.connect (set_labels);
         label_button.labels_changed.connect (set_labels);
 
         var destroy_controller = new Gtk.EventControllerKey ();
@@ -336,9 +335,18 @@ public class Layouts.QuickAdd : Adw.Bin {
         priority_button.update_from_item (item);
     }
 
-    public void set_labels (Gee.HashMap <string, Objects.Label> labels) {
-        item.update_local_labels (labels);
-        item_labels.update_labels ();
+    public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        foreach (var entry in new_labels.entries) {
+            if (item.get_label (entry.key) == null) {
+                item.add_label_if_not_exists (entry.value);
+            }
+        }
+        
+        foreach (var label in item._get_labels ()) {
+            if (!new_labels.has_key (label.id)) {
+                item.delete_item_label (label.id);
+            }
+        }
     }
 
     public void for_project (Objects.Project project) {
