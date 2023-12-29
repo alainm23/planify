@@ -559,10 +559,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var sidebar_group = new Adw.PreferencesGroup ();
 		sidebar_group.title = _("Appearance");
 
-		var sidebar_width_model = new Gtk.StringList (null);
-		sidebar_width_model.append (_("Alphabetically"));
-		sidebar_width_model.append (_("Custom sort order"));
-
 		var spin_button = new Gtk.SpinButton.with_range (300, 400, 1) {
 			valign = Gtk.Align.CENTER,
 			value = Services.Settings.get_default ().settings.get_int ("pane-position")

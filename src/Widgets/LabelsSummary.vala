@@ -21,6 +21,7 @@
 
 public class Widgets.LabelsSummary : Adw.Bin {
     public Objects.Item item { get; construct; }
+    public int max_items { get; construct; }
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.Revealer revealer;
@@ -35,10 +36,17 @@ public class Widgets.LabelsSummary : Adw.Bin {
         set {
             revealer.reveal_child = value;
         }
+
+        get {
+            return revealer.reveal_child;
+        }
     }
 
-    public LabelsSummary (Objects.Item item) {
-        Object (item: item);
+    public LabelsSummary (Objects.Item item, int max_items = 3) {
+        Object (
+            item: item,
+            max_items: max_items
+        );
     }
 
     construct {
@@ -72,9 +80,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = Gtk.Align.START,
-            margin_top = 3,
-            margin_start = 24
+            valign = Gtk.Align.START
         };
 
         content_box.append (labels_flowbox);
@@ -101,7 +107,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
 
         foreach (Objects.Label label in item._get_labels ()) {
             if (!labels.has_key (label.id)) {
-                if (labels.size >= 3) {
+                if (labels.size >= max_items) {
                     more++;
                     more_label.label = "+%d".printf (more);
                     tooltip_text += "- %s%s".printf (

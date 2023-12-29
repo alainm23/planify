@@ -32,7 +32,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Revealer checked_button_revealer;
-    private Widgets.SourceView content_textview;
+    private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
 
@@ -124,10 +124,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
                 project_label_revealer.reveal_child = show_project_label;
-                labels_summary.check_revealer ();
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
+                labels_summary.check_revealer ();
 
                 update_request ();
                 build_drag_and_drop ();
@@ -319,7 +319,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             child = content_label
         };
 
-        content_textview = new Widgets.SourceView ();
+        content_textview = new Widgets.TextView ();
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
         content_textview.buffer.text = item.content;
         content_textview.editable = !item.completed;
@@ -414,7 +414,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
 
-        labels_summary = new Widgets.LabelsSummary (item);
+        labels_summary = new Widgets.LabelsSummary (item) {
+            margin_start = 24,
+            margin_top = 3
+        };
 
         description_textview = new Widgets.HyperTextView (_("Add a description")) {
             height_request = 64,
@@ -582,7 +585,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private void connect_signals () {
         var handle_gesture_click = new Gtk.GestureClick ();
         itemrow_box.add_controller (handle_gesture_click);
-
         handle_gesture_click.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
@@ -612,11 +614,10 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
-
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293) {
                 if (!board) {
-                    edit = false;
+                    Services.EventBus.get_default ().item_selected (null);
                 }
                 
                 return Gdk.EVENT_STOP;
@@ -629,6 +630,9 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         });
 
         content_controller_key.key_released.connect ((keyval, keycode, state) => {
+            debug ("keyval: %s", keyval.to_string ());
+            
+            // Sscape
             if (keyval == 65307) {
                 Services.EventBus.get_default ().item_selected (null);
             } else { 
@@ -638,7 +642,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         var description_controller_key = new Gtk.EventControllerKey ();
         description_textview.add_controller (description_controller_key);
-        
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 Services.EventBus.get_default ().item_selected (null);
@@ -665,12 +668,11 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var hide_loading_gesture = new Gtk.GestureClick ();
         hide_loading_gesture.set_button (1);
         hide_loading_button.add_controller (hide_loading_gesture);
-
         hide_loading_gesture.pressed.connect (() => {
             hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 
             if (!board) {
-                edit = false;
+                Services.EventBus.get_default ().item_selected (null);
             }
         });
 
@@ -734,7 +736,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
-                edit = false;
+                Services.EventBus.get_default ().item_selected (null);
                 select_revealer.reveal_child = true;
                 checked_button_revealer.reveal_child = false;
                 labels_summary.reveal_child = false;
@@ -904,13 +906,13 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     private void build_handle_context_menu (double x, double y) {
         if (menu_handle_popover != null) {
             if (item.has_due) {
-                no_date_item.show ();
+                no_date_item.visible = true;
             } else {
-                no_date_item.hide ();
+                no_date_item.visible = false;
             }
 
             menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-            menu_handle_popover.popup();
+            menu_handle_popover.popup ();
             return;
         }
 
@@ -921,7 +923,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
-
+        no_date_item.visible = item.has_due;
         // var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
         // var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
@@ -937,9 +939,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
-        if (item.has_due) {
-            menu_box.append (no_date_item);
-        }
+        menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (move_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -953,7 +953,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             has_arrow = false,
             child = menu_box,
             position = Gtk.PositionType.RIGHT,
-            width_request = 225
+            width_request = 250
         };
 
         menu_handle_popover.set_parent (this);
@@ -1252,7 +1252,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             timeout = time;
         }
 
-        if (timeout > 0 && !edit) {
+        if (!edit) {
             content_label.add_css_class ("dim-label");
             itemrow_box.add_css_class ("complete-animation");
             if (Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")) {
@@ -1567,9 +1567,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void build_drag_and_drop () {
-        // Clear Signals
-        // dnd_handlerses.clear ();
-
         // Drop Motion
         build_drop_motion ();
 
@@ -1591,7 +1588,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         add_controller (drop_motion_ctrl);
 
         dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
-            motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+            debug ("sort_order: %d", item.project.sort_order);
+            motion_top_revealer.reveal_child = item.project.sort_order == 0 && drop_motion_ctrl.contains_pointer;
         })] = drop_motion_ctrl;
 
         dnd_handlerses[drop_motion_ctrl.leave.connect (() => {
@@ -1784,14 +1782,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         itemrow_box.add_css_class ("drop-begin");
         on_drag = true;
         main_revealer.reveal_child = false;
-        Services.EventBus.get_default ().project_view_drag_action (item.project_id, true);
     }
 
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
         on_drag = false;
         main_revealer.reveal_child = true;
-        Services.EventBus.get_default ().project_view_drag_action (item.project_id, false);
     }
     
     private void update_items_item_order (Gtk.ListBox listbox) {

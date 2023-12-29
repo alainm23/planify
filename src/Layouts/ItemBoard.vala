@@ -22,17 +22,19 @@
 public class Layouts.ItemBoard : Gtk.ListBoxRow {
 	public Objects.Item item { get; construct; }
 
+	private Gtk.Grid motion_top_grid;
+    private Gtk.Revealer motion_top_revealer;
+
 	private Gtk.CheckButton checked_button;
-    private Widgets.SourceView content_textview;
+	private Gtk.Label content_label;
 
     private Widgets.LoadingButton hide_loading_button;
     private Gtk.Revealer hide_loading_revealer;
 
 	private Gtk.Label description_label;
-	private Gtk.Revealer description_label_revealer;
+	private Gtk.Revealer description_revealer;
 
-	private Gtk.FlowBox labels_flowbox;
-	private Gtk.Revealer flowbox_revealer;
+	private Widgets.LabelsSummary labels_summary;
 
 	private Gtk.Label due_label;
 	private Gtk.Box due_box;
@@ -45,7 +47,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
     public int64 update_id { get; set; default = int64.parse (Util.get_default ().generate_id ()); }
 	public uint complete_timeout { get; set; default = 0; }
-	Gee.HashMap<string, Widgets.ItemLabelChild> labels;
+	Gee.HashMap<string, Widgets.ItemLabelChild> labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
 	private bool _is_loading;
 	public bool is_loading {
@@ -66,9 +68,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		}
 	}
 
-	private Gtk.DragSource drag_source;
-	private Gtk.DropTarget drop_target;
-
     public bool on_drag = false;
 
 	public ItemBoard (Objects.Item item) {
@@ -76,60 +75,22 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			item: item,
 			focusable: false,
 			can_focus: true
-			);
-	}
-
-	public ItemBoard.for_item (Objects.Item _item) {
-		var item = new Objects.Item ();
-		item.project_id = _item.project_id;
-		item.section_id = _item.section_id;
-
-		Object (
-			item: item,
-			focusable: false,
-			can_focus: true
-			);
-	}
-
-	public ItemBoard.for_project (Objects.Project project) {
-		var item = new Objects.Item ();
-		item.project_id = project.id;
-
-		Object (
-			item: item,
-			focusable: false,
-			can_focus: true
-			);
-	}
-
-	public ItemBoard.for_parent (Objects.Item _item) {
-		var item = new Objects.Item ();
-		item.project_id = _item.project_id;
-		item.section_id = _item.section_id;
-		item.parent_id = _item.id;
-
-		Object (
-			item: item,
-			focusable: false,
-			can_focus: true
-			);
-	}
-
-	public ItemBoard.for_section (Objects.Section section) {
-		var item = new Objects.Item ();
-		item.section_id = section.id;
-		item.project_id = section.project.id;
-
-		Object (
-			item: item,
-			focusable: false,
-			can_focus: true
-			);
+		);
 	}
 
 	construct {
-		labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 		add_css_class ("row");
+
+		motion_top_grid = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-area", "drop-target" },
+            margin_bottom = 3
+        };
+
+        motion_top_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = motion_top_grid
+        };
 
 		checked_button = new Gtk.CheckButton () {
 			valign = Gtk.Align.START
@@ -137,19 +98,17 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 		checked_button.add_css_class ("priority-color");
 
-        content_textview = new Widgets.SourceView () {
-            hexpand = true
-        };
-        content_textview.wrap_mode = Gtk.WrapMode.WORD;
-        content_textview.buffer.text = item.content;
-        content_textview.editable = !item.completed;
-        content_textview.remove_css_class ("view");
+		content_label = new Gtk.Label (item.content) {
+			wrap = true,
+			xalign = 0,
+			yalign = 0
+		};
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("information", 19) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("information", 16) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            margin_top = 9,
-            margin_end = 9
+            margin_top = 10,
+            margin_end = 10
         };
         hide_loading_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         hide_loading_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
@@ -159,9 +118,10 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         hide_loading_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             valign = Gtk.Align.START,
-            halign = Gtk.Align.END
+            halign = Gtk.Align.END,
+			vexpand = true,
+			child = hide_loading_button
         };
-        hide_loading_revealer.child = hide_loading_button;
 
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
 			margin_top = 6,
@@ -170,52 +130,35 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		};
 
 		content_box.append (checked_button);
-		content_box.append (content_textview);
+		content_box.append (content_label);
 
 		description_label = new Gtk.Label (null) {
 			xalign = 0,
 			lines = 1,
 			ellipsize = Pango.EllipsizeMode.END,
 			margin_start = 30,
-			margin_end = 6
+			margin_end = 6,
+			css_classes = { "dim-label", "small-label" }
 		};
-		description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-		description_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-		description_label_revealer = new Gtk.Revealer () {
+		description_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
 			child = description_label
 		};
 
-		labels_flowbox = new Gtk.FlowBox () {
-			column_spacing = 6,
-			row_spacing = 6,
-			homogeneous = false,
-			hexpand = true,
-			halign = Gtk.Align.START,
-			valign = Gtk.Align.START,
-			min_children_per_line = 3,
-			max_children_per_line = 20,
-			margin_end = 6,
-			margin_start = 30,
-			margin_top = 6
+		labels_summary = new Widgets.LabelsSummary (item, 1);
+
+		due_label = new Gtk.Label (null) {
+			css_classes = { "small-label" }
 		};
 
-		flowbox_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = labels_flowbox
+		due_box = new Gtk.Box (VERTICAL, 0) {
+			margin_end = 6
 		};
-
-		// Due label
-
-		due_label = new Gtk.Label (null);
-		due_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-
-		due_box = new Gtk.Box (VERTICAL, 0);
 		due_box.append (due_label);
 
 		due_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
 			child = due_box
 		};
 
@@ -225,7 +168,9 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			margin_top = 6,
 			margin_end = 6
 		};
+
 		footer_box.append (due_revealer);
+		footer_box.append (labels_summary);
 
 		footer_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -234,15 +179,13 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 		handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_top = 3,
-            margin_start = 3,
             margin_end = 3,
             margin_bottom = 3
         };
 		handle_grid.append (content_box);
-		handle_grid.append (description_label_revealer);
-		handle_grid.append (flowbox_revealer);
+		handle_grid.append (description_revealer);
 		handle_grid.append (footer_revealer);
-		handle_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+		handle_grid.add_css_class ("card");
 		handle_grid.add_css_class ("border-radius-9");
 		handle_grid.add_css_class ("pb-6");
 
@@ -250,11 +193,14 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		overlay.child = handle_grid;
 		overlay.add_overlay (hide_loading_revealer);
 
-		main_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
-		};
+		var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        v_box.append (motion_top_revealer);
+        v_box.append (overlay);
 
-		main_revealer.child = overlay;
+		main_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			child = v_box
+		};
 
 		child = main_revealer;
 		update_request ();
@@ -264,10 +210,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 
 			if (!item.checked) {
 				build_drag_and_drop ();
-			}
-
-			if (item.activate_name_editable) {
-                content_textview.grab_focus ();
 			}
 
 			return GLib.Source.REMOVE;
@@ -283,14 +225,6 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_toggled (checked_button.active);
 		});
 
-        var content_controller_key = new Gtk.EventControllerKey ();
-        content_textview.add_controller (content_controller_key);
-
-        content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            update ();
-        });
-
-
         var motion_gesture = new Gtk.EventControllerMotion ();
         add_controller (motion_gesture);
 
@@ -303,27 +237,11 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
         });
 
 		hide_loading_button.clicked.connect (() => {
-            var dialog = new Dialogs.Item (item);
-            dialog.show ();
-        });
-
-		var handle_gesture_click = new Gtk.GestureClick ();
-        handle_grid.add_controller (handle_gesture_click);
-
-        handle_gesture_click.pressed.connect ((n_press, x, y) => {
-            if (n_press >= 2) {
-                var dialog = new Dialogs.Item (item);
-                dialog.show ();
-            }
+			var item_view = new Layouts.ItemView (item);
+			item_view.set_parent (this);
+            item_view.popup ();
         });
 	}
-
-	private void update () {
-        if (item.content != content_textview.buffer.text) {
-            item.content = content_textview.buffer.text;
-            item.update_async_timeout ("");
-        }
-    }
 
 	public void checked_toggled (bool active, uint? time = null) {
 		bool old_checked = item.checked;
@@ -439,12 +357,13 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 			checked_button.active = item.completed;
 		}
 
-		content_textview.buffer.text = item.content;
+		content_label.label = item.content;
 		description_label.label = Util.get_default ().line_break_to_space (item.description);
-		description_label_revealer.reveal_child = description_label.label.length > 0;
+		description_revealer.reveal_child = description_label.label.length > 0;
 		update_due_label ();
-		update_labels ();
-		footer_revealer.reveal_child = due_revealer.reveal_child;
+		labels_summary.update_request ();
+		labels_summary.check_revealer ();
+		footer_revealer.reveal_child = due_revealer.reveal_child || labels_summary.reveal_child;
 	}
 
 	public void update_due_label () {
@@ -478,109 +397,153 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		}
 	}
 
-	private void update_labels () {
-		// int more = 0;
-		// int count = 0;
-		// string tooltip_text = "";
-		// more_label_revealer.reveal_child = false;
-
-		foreach (Objects.Label label in item._get_labels ()) {
-			if (!labels.has_key (label.id)) {
-				//  if (itemrow == null && labels.size >= 1) {
-				//      more++;
-				//      more_label.label = "+%d".printf (more);
-				//      tooltip_text += "- %s%s".printf (
-				//          item_label.label.name,
-				//          more + 1 >= item.labels.size ? "" : "\n"
-				//      );
-				//      more_label_grid.tooltip_text = tooltip_text;
-				//      more_label_revealer.reveal_child = true;
-				//  } else {
-				//  Util.get_default ().set_widget_color (
-				//      Util.get_default ().get_color (item_label.label.color),
-				//      more_label_grid
-				//  );
-
-				labels[label.id] = new Widgets.ItemLabelChild (label);
-				labels_flowbox.append (labels[label.id]);
-				// }
-
-				// count++;
-			}
-		}
-
-		flowbox_revealer.reveal_child = labels.size > 0;
-	}
-
 	private void build_drag_and_drop () {
-		drag_source = new Gtk.DragSource ();
-		drag_source.set_actions (Gdk.DragAction.MOVE);
+		// Drop Motion
+        build_drop_motion ();
 
-		drag_source.prepare.connect ((source, x, y) => {
-			return new Gdk.ContentProvider.for_value (this);
-		});
+		// Drag Souyrce
+        build_drag_source ();
 
-		drag_source.drag_begin.connect ((source, drag) => {
-			var paintable = new Gtk.WidgetPaintable (handle_grid);
-			source.set_icon (paintable, 0, 0);
-			drag_begin ();
-		});
-
-		drag_source.drag_end.connect ((source, drag, delete_data) => {
-			drag_end ();
-		});
-
-		drag_source.drag_cancel.connect ((source, drag, reason) => {
-			drag_end ();
-			return false;
-		});
-
-		add_controller (drag_source);
-
-		drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
-		drop_target.preload = true;
-
-		drop_target.drop.connect ((value, x, y) => {
-			var picked_widget = (Layouts.ItemBoard) value;
-			var target_widget = this;
-
-			picked_widget.drag_end ();
-			target_widget.drag_end ();
-
-			if (picked_widget == target_widget || target_widget == null) {
-				return false;
-			}
-
-			var source_list = (Gtk.ListBox) picked_widget.parent;
-			var target_list = (Gtk.ListBox) target_widget.parent;
-
-			source_list.remove (picked_widget);
-
-			if (target_widget.get_index () == 0) {
-				if (y < (target_widget.get_height () / 2)) {
-					target_list.insert (picked_widget, 0);
-				} else {
-					target_list.insert (picked_widget, target_widget.get_index () + 1);
-				}
-			} else {
-				target_list.insert (picked_widget, target_widget.get_index () + 1);
-			}
-
-			return true;
-		});
-
-		add_controller (drop_target);
+		// Drop Order
+        build_drop_order_target ();
 	}
+
+	private void build_drop_motion () {
+        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
+        add_controller (drop_motion_ctrl);
+
+        drop_motion_ctrl.motion.connect ((x, y) => {
+            motion_top_revealer.reveal_child = item.project.sort_order == 0 && drop_motion_ctrl.contains_pointer;
+        });
+
+        drop_motion_ctrl.leave.connect (() => {
+            motion_top_revealer.reveal_child = false;
+        });
+    }
+
+	private void build_drag_source () {
+        var drag_source = new Gtk.DragSource ();
+        drag_source.set_actions (Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drag_source);
+
+        drag_source.prepare.connect ((source, x, y) => {
+            return new Gdk.ContentProvider.for_value (this);
+        });
+
+        drag_source.drag_begin.connect ((source, drag) => {
+            var paintable = new Gtk.WidgetPaintable (handle_grid);
+            source.set_icon (paintable, 0, 0);
+            drag_begin ();
+        });
+
+        drag_source.drag_end.connect ((source, drag, delete_data) => {
+            drag_end ();
+        });
+
+        drag_source.drag_cancel.connect ((source, drag, reason) => {
+            drag_end ();
+            return false;
+        });
+	}
+
+	private void build_drop_order_target () {
+        var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
+        motion_top_grid.add_controller (drop_order_target);
+		drop_order_target.drop.connect ((value, x, y) =>  {
+            var picked_widget = (Layouts.ItemBoard) value;
+            var target_widget = this;
+            var old_section_id = "";
+            var old_parent_id = "";
+
+            picked_widget.drag_end ();
+            target_widget.drag_end ();
+
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+
+            old_section_id = picked_widget.item.section_id;
+            old_parent_id = picked_widget.item.parent_id;
+
+            if (picked_widget.item.project_id != target_widget.item.project_id ||
+                picked_widget.item.section_id != target_widget.item.section_id ||
+                picked_widget.item.parent_id != target_widget.item.parent_id) {
+
+                if (picked_widget.item.project_id != target_widget.item.project_id) {
+                    picked_widget.item.project_id = target_widget.item.project_id;
+                }
+
+                if (picked_widget.item.section_id != target_widget.item.section_id) {
+                    picked_widget.item.section_id = target_widget.item.section_id;
+                }
+
+                if (picked_widget.item.parent_id != target_widget.item.parent_id) {
+                    picked_widget.item.parent_id = target_widget.item.parent_id;
+                }
+
+                if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+                    string move_id = picked_widget.item.project_id;
+                    string move_type = "project_id";
+
+                    if (picked_widget.item.section_id != "") {
+                        move_id = picked_widget.item.section_id;
+                        move_type = "section_id";
+                    }
+
+                    if (picked_widget.item.parent_id != "") {
+                        move_id = picked_widget.item.parent_id;
+                        move_type = "parent_id";
+                    }
+                    
+                    Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
+                        if (Services.Todoist.get_default ().move_item.end (res).status) {
+                            Services.Database.get_default ().update_item (picked_widget.item);
+                        }
+                    });
+                } else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().update_item (picked_widget.item);
+                }
+            }
+
+            var source_list = (Gtk.ListBox) picked_widget.parent;
+            var target_list = (Gtk.ListBox) target_widget.parent;
+
+            source_list.remove (picked_widget);
+            target_list.insert (picked_widget, target_widget.get_index ());
+            Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
+            update_items_item_order (target_list);
+
+            return true;
+        });
+    }
 
 	public void drag_begin () {
+        handle_grid.add_css_class ("drop-begin");
         on_drag = true;
-        opacity = 0.3;
-	}
+        main_revealer.reveal_child = false;
+    }
 
-	public void drag_end () {
+    public void drag_end () {
+        handle_grid.remove_css_class ("drop-begin");
         on_drag = false;
-        opacity = 1;
-	}
+        main_revealer.reveal_child = true;
+    }
+
+	private void update_items_item_order (Gtk.ListBox listbox) {
+        unowned Layouts.ItemBoard? item_row = null;
+        var row_index = 0;
+
+        do {
+            item_row = (Layouts.ItemBoard) listbox.get_row_at_index (row_index);
+
+            if (item_row != null) {
+                item_row.item.child_order = row_index;
+                Services.Database.get_default ().update_item (item_row.item);
+            }
+
+            row_index++;
+        } while (item_row != null);
+    }
 
 	public void hide_destroy () {
 		main_revealer.reveal_child = false;

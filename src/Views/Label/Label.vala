@@ -91,7 +91,8 @@ public class Views.Label : Adw.Bin {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24
+            margin_end = 48,
+            margin_bottom = 64,
         };
 
         content_clamp.child = content;

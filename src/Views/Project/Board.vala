@@ -19,9 +19,10 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.Board : Gtk.Grid {
+public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Widgets.HyperTextView description_textview;
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
 
@@ -34,6 +35,24 @@ public class Views.Board : Gtk.Grid {
     }
 
     construct {
+        description_textview = new Widgets.HyperTextView (_("Note")) {
+            left_margin = 3,
+            right_margin = 3,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR
+        };
+        description_textview.set_text (project.description);
+        description_textview.remove_css_class ("view");
+
+        var description_box = new Adw.Bin () {
+            child = description_textview,
+            margin_top = 6,
+            margin_end = 24,
+            margin_start = 24,
+            css_classes = { "description-box" }
+        };
+
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 
         flowbox = new Gtk.FlowBox () {
@@ -55,38 +74,40 @@ public class Views.Board : Gtk.Grid {
             return item1.section.section_order - item2.section.section_order;
         });
 
-        var flowbox_grid = new Gtk.Grid () {
+        var flowbox_grid = new Adw.Bin () {
             vexpand = true,
             margin_top = 12,
-            margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 12,
-            halign = Gtk.Align.START
+            margin_start = 16,
+            margin_end = 16,
+            margin_bottom = 16,
+            halign = Gtk.Align.START,
+            child = flowbox
         };
 
-        flowbox_grid.attach (flowbox, 0, 0);
+        var flowbox_scrolled = new Widgets.ScrolledWindow (flowbox_grid, Gtk.Orientation.HORIZONTAL);
 
-        var flowbox_scrolled = new Gtk.ScrolledWindow () {
-            vscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-            child = flowbox_grid
-        };
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+			hexpand = true,
+			vexpand = true
+		};
 
-        attach (flowbox_scrolled, 0, 0);
+        content_box.append (description_box);
+		content_box.append (flowbox_scrolled);
+
+        child = content_box;
         add_sections ();
 
         project.section_added.connect ((section) => {
             add_section (section);
 
-            if (section.activate_name_editable) {
-                Timeout.add (175, () => {
-                    flowbox_scrolled.hadjustment.set_value (
-                        flowbox_scrolled.hadjustment.get_upper () - flowbox_scrolled.hadjustment.get_page_size ()
-                    );
-                    return GLib.Source.REMOVE;
-                });
-            }
+            //  if (section.activate_name_editable) {
+            //      Timeout.add (175, () => {
+            //          flowbox_scrolled.hadjustment.set_value (
+            //              flowbox_scrolled.hadjustment.get_upper () - flowbox_scrolled.hadjustment.get_page_size ()
+            //          );
+            //          return GLib.Source.REMOVE;
+            //      });
+            //  }
         });
 
         project.section_sort_order_changed.connect (() => {

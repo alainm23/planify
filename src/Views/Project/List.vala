@@ -22,7 +22,7 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Label description_label;
+    private Widgets.HyperTextView description_textview;
     private Widgets.DynamicIcon due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
@@ -49,28 +49,24 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        description_label = new Gtk.Label (_("Add a description")) {
-            halign = Gtk.Align.START,
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
-            use_markup = true,
-            wrap = true
+        description_textview = new Widgets.HyperTextView (_("Note")) {
+            left_margin = 3,
+            right_margin = 3,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR
         };
+        description_textview.set_text (project.description);
+        description_textview.remove_css_class ("view");
 
-        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        description_label.label = Util.get_default ().get_markup_format (project.description);
-
-        var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var description_box = new Adw.Bin () {
+            child = description_textview,
             margin_top = 6,
             margin_end = 6,
-            margin_start = 24
+            margin_start = 24,
+            css_classes = { "description-box" }
         };
         
-        description_box.append (description_label);
-        description_box.add_css_class ("description-box");
-
         due_revealer = build_due_date_widget ();
 
         listbox = new Gtk.ListBox () {
@@ -126,7 +122,8 @@ public class Views.List : Gtk.Grid {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 42,
+            margin_end = 48,
+            margin_bottom = 64,
             child = content_box
         };
 
@@ -198,16 +195,13 @@ public class Views.List : Gtk.Grid {
             }
         });
 
-        var description_gesture = new Gtk.GestureClick ();
-        description_box.add_controller (description_gesture);
-
-        description_gesture.pressed.connect ((n_press, x, y) => {
-            var dialog = new Dialogs.ProjectDescription (project);
-            dialog.show ();
-        });
-
         project.show_completed_changed.connect (() => {
             check_placeholder ();
+        });
+
+        description_textview.changed.connect (() => {
+            project.description = description_textview.get_text ();
+            project.update (false);
         });
     }
 
@@ -263,14 +257,6 @@ public class Views.List : Gtk.Grid {
     }
 
     public void update_request () {
-        description_label.remove_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        string description = Util.get_default ().get_markup_format (project.description);
-        if (description.strip () == "") {
-            description = _("Add a description");
-            description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        }
-
-        description_label.label = description;
         update_duedate ();
     }
 

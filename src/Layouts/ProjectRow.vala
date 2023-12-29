@@ -310,14 +310,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
-            
+            var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
+
             GLib.Value value = Value (typeof (Layouts.ProjectRow));
             drop.drag.content.get_value (ref value);
 
             var picked_widget = (Layouts.ProjectRow) value;
 
             if (picked_widget.project.backend_type == project.backend_type) {
-                motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                motion_top_revealer.reveal_child = projects_sort == 1 && drop_motion_ctrl.contains_pointer;
             }
         });
 
@@ -514,7 +515,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         menu_popover.set_parent (this);
         menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-
         menu_popover.popup();
 
         favorite_item.clicked.connect (() => {

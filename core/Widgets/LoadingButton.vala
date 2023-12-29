@@ -90,7 +90,6 @@ public class Widgets.LoadingButton : Gtk.Button {
         }
         
         submit_stack.add_named (submit_spinner, "spinner");
-
         child = submit_stack;
     }
 

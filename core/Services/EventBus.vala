@@ -73,7 +73,6 @@ public class Services.EventBus : Object {
 
     // Magic Button
     public signal void magic_button_visible (bool active);
-    public signal void project_view_drag_action (string project_id, bool active);
 
     // Quick Add
     public signal void item_added_successfully ();

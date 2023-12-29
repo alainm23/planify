@@ -37,7 +37,10 @@ public class Widgets.Entry : Gtk.Entry {
     }
 }
 
-public class Widgets.SourceView : Gtk.TextView {
+public class Widgets.TextView : Gtk.TextView {
+    public signal void enter ();
+    public signal void leave ();
+
     construct {
         var gesture = new Gtk.EventControllerFocus ();
         add_controller (gesture);
@@ -48,10 +51,12 @@ public class Widgets.SourceView : Gtk.TextView {
 
     private void handle_focus_in () {
         Services.EventBus.get_default ().disconnect_typing_accel ();
+        enter ();
     }
 
     public void update_on_leave () {
         Services.EventBus.get_default ().connect_typing_accel ();
+        leave ();
     }
 }
 
@@ -60,7 +65,9 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
     private uint changed_timeout_id { get; set; default = 0; }
 
-    public signal void updated ();
+    public signal void changed ();
+    public signal void enter ();
+    public signal void leave ();
 
     public bool is_valid {
         get {
@@ -82,28 +89,26 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
         gesture.enter.connect (handle_focus_in);
         gesture.leave.connect (update_on_leave);
-
-        gesture.enter.connect (() => {
-            if (buffer_get_text () == placeholder_text) {
-                buffer.text = "";
-                opacity = 1;
-            }
-        });
-
-        gesture.leave.connect (() => {
-            if (buffer_get_text () == "") {
-                buffer.text = placeholder_text;
-                opacity = 0.7;
-            }
-        });
     }
 
     private void handle_focus_in () {
         Services.EventBus.get_default ().disconnect_typing_accel ();
+        enter ();
+
+        if (buffer_get_text () == placeholder_text) {
+            buffer.text = "";
+            opacity = 1;
+        }
     }
 
     public void update_on_leave () {
         Services.EventBus.get_default ().connect_typing_accel ();
+        leave ();
+
+        if (buffer_get_text () == "") {
+            buffer.text = placeholder_text;
+            opacity = 0.7;
+        }
     }
 
     private string buffer_get_text () {
@@ -137,7 +142,7 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
         changed_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             changed_timeout_id = 0;
-            updated ();
+            changed ();
             return GLib.Source.REMOVE;
         });
     }

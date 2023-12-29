@@ -112,20 +112,12 @@ public class Views.Project : Gtk.Grid {
 		toolbar_view.content = content_overlay;
 
 		attach (toolbar_view, 0, 0);
-		update_project_view (ProjectViewStyle.LIST);
+		update_project_view (project.view_style);
 		check_default_view ();
 		show ();
 
 		magic_button.clicked.connect (() => {
 			prepare_new_item ();
-		});
-
-		magic_button.drag_begin.connect (() => {
-			Services.EventBus.get_default ().project_view_drag_action (project.id, true);
-		});
-
-		magic_button.drag_end.connect (() => {
-			Services.EventBus.get_default ().project_view_drag_action (project.id, false);
 		});
 
 		project.updated.connect (() => {
@@ -368,6 +360,44 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	private Gtk.Popover build_view_setting_popover () {
+		var list_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+
+		list_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-list") {
+			margin_top = 3
+		});
+		list_box.append (new Gtk.Label (_("List")) {
+			css_classes = { "small-label" }
+		});
+
+		var list_button = new Gtk.ToggleButton () {
+			child = list_box,
+			active = project.view_style == ProjectViewStyle.LIST
+		};
+
+		var board_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+
+		board_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-board") {
+			margin_top = 3
+		});
+		board_box.append (new Gtk.Label (_("Board")) {
+			css_classes = { "small-label" }
+		});
+
+		var board_button = new Gtk.ToggleButton () {
+			group = list_button,
+			child = board_box,
+			active = project.view_style == ProjectViewStyle.BOARD
+		};
+
+		var view_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+			css_classes = { "linked" },
+			hexpand = true,
+			homogeneous = true
+		};
+
+		view_box.append (list_button);
+		view_box.append (board_button);
+
 		var order_by_model = new Gee.ArrayList<string> ();
 		order_by_model.add (_("Custom sort order"));
 		order_by_model.add (_("Alphabetically"));
@@ -375,7 +405,9 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), null, order_by_model, project.sort_order);
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), null, order_by_model, project.sort_order) {
+			margin_top = 12
+		};
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
@@ -384,6 +416,7 @@ public class Views.Project : Gtk.Grid {
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (view_box);
 		menu_box.append (order_by_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
@@ -409,6 +442,14 @@ public class Views.Project : Gtk.Grid {
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
 			check_default_view ();
+		});
+
+		list_button.toggled.connect (() => {
+			update_project_view (ProjectViewStyle.LIST);
+		});
+
+		board_button.toggled.connect (() => {
+			update_project_view (ProjectViewStyle.BOARD);
 		});
 
 		return popover;

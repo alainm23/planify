@@ -57,21 +57,14 @@ public class Views.Today : Adw.Bin {
         headerbar = new Layouts.HeaderBar ();
 
         event_list = new Widgets.EventsList.for_day (date) {
-            margin_top = 12
+            margin_top = 12,
+            margin_start = 24
         };
 
         event_list_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             reveal_child = event_list.has_items,
             child = event_list
-        };
-
-        var event_list_clamp = new Adw.Clamp () {
-            maximum_size = 1024,
-            tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 24,
-            child = event_list_revealer
         };
         
         event_list.change.connect (() => {
@@ -94,7 +87,7 @@ public class Views.Today : Adw.Bin {
         reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 2
+            margin_start = 26,
         };
         overdue_header_box.append (overdue_label);
 
@@ -115,12 +108,11 @@ public class Views.Today : Adw.Bin {
 
         var overdue_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
-            margin_start = 3
+            margin_start = 24
         };
 
         var overdue_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 12,
-            margin_start = 2
+            margin_top = 12
         };
 
         overdue_box.append (overdue_header_box);
@@ -141,17 +133,16 @@ public class Views.Today : Adw.Bin {
         today_label.add_css_class ("font-bold");
         
         var today_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 2
+            margin_start = 26
         };
         today_header_box.append (today_label);
 
         var today_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_start = 3
+            margin_start = 24
         };
 
         var today_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12,
-            margin_start = 2
+            margin_top = 12
         };
         today_box.append (today_header_box);
         today_box.append (today_separator);
@@ -199,12 +190,21 @@ public class Views.Today : Adw.Bin {
         listbox_placeholder_stack.add_named (content, "listbox");
         listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
 
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            hexpand = true,
+            vexpand = true
+        };
+
+        content_box.append (event_list_revealer);
+        content_box.append (listbox_placeholder_stack);
+
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24,
-            child = listbox_placeholder_stack
+            margin_end = 48,
+            margin_bottom = 64,
+            child = content_box
         };
 
         scrolled_window = new Gtk.ScrolledWindow () {
@@ -215,14 +215,6 @@ public class Views.Today : Adw.Bin {
 
         scrolled_window.child = content_clamp;
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            vexpand = true
-        };
-
-        content_box.append (event_list_clamp);
-        content_box.append (scrolled_window);
-
         var magic_button = new Widgets.MagicButton ();
 
 		var content_overlay = new Gtk.Overlay () {
@@ -230,7 +222,7 @@ public class Views.Today : Adw.Bin {
 			vexpand = true
 		};
 
-		content_overlay.child = content_box;
+		content_overlay.child = scrolled_window;
 		content_overlay.add_overlay (magic_button);
 
         var toolbar_view = new Adw.ToolbarView ();

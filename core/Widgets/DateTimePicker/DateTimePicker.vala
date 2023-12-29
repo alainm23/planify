@@ -108,7 +108,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         menu_items_box.append (items_box);
         menu_items_box.append (calendar_item_box);
 
-        var calendar_view = new Widgets.Calendar.Calendar (true);
+        var calendar_view = new Widgets.Calendar.Calendar (false);
 
         var calendar_grid = new Gtk.Grid ();
         calendar_grid.attach (calendar_view, 0, 0);

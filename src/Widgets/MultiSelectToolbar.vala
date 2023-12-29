@@ -27,6 +27,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PriorityButton priority_button;
     private Gtk.MenuButton menu_button;
+    private Widgets.LoadingButton done_button;
 
     public Gee.HashMap<string, Layouts.ItemRow> items_selected = new Gee.HashMap <string, Layouts.ItemRow> ();
     public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap <string, Objects.Label> ();
@@ -70,7 +71,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             sensitive = false
         };
 
-        var done_button = new Widgets.LoadingButton.with_label (_("Done")) {
+        done_button = new Widgets.LoadingButton.with_label (_("Done")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_start = 12,
@@ -154,13 +155,15 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
             unselect_all ();
         } else if (project.backend_type == BackendType.TODOIST) {
+            done_button.is_loading =  true;
             Services.Todoist.get_default ().update_items (objects, (obj, res) => {
                 Services.Todoist.get_default ().update_items.end (res);
 
                 foreach (Objects.Item item in objects) {
                     item.update_local ();
                 }
-    
+                
+                done_button.is_loading =  false;
                 unselect_all ();
             });
         }

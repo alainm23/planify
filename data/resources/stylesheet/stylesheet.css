@@ -150,7 +150,7 @@ entry.flat:focus-within {
     font-size: 15pt;
 }
 
-.editable-label entry {
+.editable-label {
     background: transparent;
     border: none;
     box-shadow: none;

@@ -21,6 +21,7 @@
 
 public class Widgets.ScrolledWindow : Adw.Bin {
     public Gtk.Widget widget { get; construct; }
+    public Gtk.Orientation orientation { get; construct; }
     public int margin { get; set; default = 24 ;}
 
     private Gtk.ScrolledWindow scrolled_window;
@@ -28,9 +29,10 @@ public class Widgets.ScrolledWindow : Adw.Bin {
 
     private bool scrolling = false;
 
-    public ScrolledWindow (Gtk.Widget widget) {
+    public ScrolledWindow (Gtk.Widget widget, Gtk.Orientation orientation = Gtk.Orientation.VERTICAL) {
         Object (
-            widget: widget
+            widget: widget,
+            orientation: orientation
         );
     }
 
@@ -38,7 +40,8 @@ public class Widgets.ScrolledWindow : Adw.Bin {
         scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = orientation == Gtk.Orientation.VERTICAL ? Gtk.PolicyType.NEVER : Gtk.PolicyType.AUTOMATIC,
+            vscrollbar_policy = orientation == Gtk.Orientation.VERTICAL ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER,
             child = widget,
             propagate_natural_height = true,
             propagate_natural_width = true
@@ -48,16 +51,30 @@ public class Widgets.ScrolledWindow : Adw.Bin {
         scrolled_window.add_controller (drop_motion_ctrl);
 
         drop_motion_ctrl.motion.connect ((x, y) => {
-            int height = scrolled_window.get_height ();
+            if (orientation == Gtk.Orientation.VERTICAL) {
+                int height = scrolled_window.get_height ();
 
-            if (y < margin) {
-                scrolling = true;
-                GLib.Timeout.add (100, () => _auto_scroll (true));
-            } else if (y > (height - margin)) {
-                scrolling = true;
-                GLib.Timeout.add (100, () => _auto_scroll (false));
+                if (y < margin) {
+                    scrolling = true;
+                    GLib.Timeout.add (100, () => _auto_scroll (true));
+                } else if (y > (height - margin)) {
+                    scrolling = true;
+                    GLib.Timeout.add (100, () => _auto_scroll (false));
+                } else {
+                    scrolling = false;
+                }
             } else {
-                scrolling = false;
+                int width = scrolled_window.get_width ();
+
+                if (x < margin) {
+                    scrolling = true;
+                    GLib.Timeout.add (100, () => _auto_scroll (true));
+                } else if (x > (width - margin)) {
+                    scrolling = true;
+                    GLib.Timeout.add (100, () => _auto_scroll (false));
+                } else {
+                    scrolling = false;
+                }
             }
         });
 
@@ -69,7 +86,7 @@ public class Widgets.ScrolledWindow : Adw.Bin {
             return false;
         }
 
-        var adj = scrolled_window.get_vadjustment ();
+        var adj = orientation == Gtk.Orientation.VERTICAL ? scrolled_window.get_vadjustment () : scrolled_window.get_hadjustment ();
         if (scroll_up) {
             adj.set_value (adj.get_value () - Constants.SCROLL_STEPS);
         } else {
