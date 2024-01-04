@@ -89,9 +89,6 @@ public class Views.List : Gtk.Grid {
             return item1.section.section_order - item2.section.section_order;
         });
 
-        var listbox_grid = new Gtk.Grid ();
-        listbox_grid.attach (listbox, 0, 0);
-
         var listbox_placeholder = new Widgets.Placeholder (
             _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
         );
@@ -102,7 +99,7 @@ public class Views.List : Gtk.Grid {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        listbox_placeholder_stack.add_named (listbox_grid, "listbox");
+        listbox_placeholder_stack.add_named (listbox, "listbox");
         listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -141,12 +138,12 @@ public class Views.List : Gtk.Grid {
         project.section_added.connect ((section) => {
             add_section (section);
             if (section.activate_name_editable) {
-                //  Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-                //      scrolled_window.vadjustment.set_value (
-                //          scrolled_window.vadjustment.get_upper () - scrolled_window.vadjustment.get_page_size ()
-                //      );
-                //      return GLib.Source.REMOVE;
-                //  });
+                Timeout.add (listbox_placeholder_stack.transition_duration, () => {
+                    scrolled_window.vadjustment.set_value (
+                        scrolled_window.vadjustment.get_upper () - scrolled_window.vadjustment.get_page_size ()
+                    );
+                    return GLib.Source.REMOVE;
+                });
             }
         });
 

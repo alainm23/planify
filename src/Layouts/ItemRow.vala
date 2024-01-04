@@ -428,7 +428,8 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             margin_bottom = board ? 12 : 0,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
-            editable = !item.completed
+            editable = !item.completed,
+            css_classes = { "dim-label" }
         };
 
         description_textview.remove_css_class ("view");
@@ -629,9 +630,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             return false;
         });
 
-        content_controller_key.key_released.connect ((keyval, keycode, state) => {
-            debug ("keyval: %s", keyval.to_string ());
-            
+        content_controller_key.key_released.connect ((keyval, keycode, state) => {            
             // Sscape
             if (keyval == 65307) {
                 Services.EventBus.get_default ().item_selected (null);
@@ -696,7 +695,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
             update_pinned (!item.pinned);
         });
 
-        // item_labels.labels_changed.connect (update_labels);
         label_button.labels_changed.connect ((labels) => {
             update_labels (labels);
         });
@@ -710,7 +708,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
-
         menu_handle_gesture.pressed.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
@@ -1454,36 +1451,32 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     }
 
     private void delete_undo () {
-        var toast = new Adw.Toast (_("The task was deleted"));
+        var toast = new Adw.Toast (_("%s was deleted".printf (Util.get_default ().get_short_name (item.content))));
         toast.button_label = _("Undo");
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
         Services.EventBus.get_default ().send_notification (toast);
 
-        uint delete_timeout = 0;
-        delete_timeout = Timeout.add (toast.timeout * 1000, () => {
-            if (item.project.backend_type == BackendType.TODOIST) {
-                is_loading = true;
-                Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-                    if (Services.Todoist.get_default ().delete.end (res).status) {
-                        Services.Database.get_default ().delete_item (item);
-                    } else {
-                        is_loading = false;
-                    }
-                });
-            } else {
-                Services.Database.get_default ().delete_item (item);
+        toast.dismissed.connect (() => {
+            if (!main_revealer.reveal_child) {
+                if (item.project.backend_type == BackendType.TODOIST) {
+                    is_loading = true;
+                    Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
+                        if (Services.Todoist.get_default ().delete.end (res).status) {
+                            Services.Database.get_default ().delete_item (item);
+                        } else {
+                            is_loading = false;
+                        }
+                    });
+                } else if (item.project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().delete_item (item);
+                }
             }
-            
-            return GLib.Source.REMOVE;
         });
 
         toast.button_clicked.connect (() => {
             main_revealer.reveal_child = true;
-            if (delete_timeout != 0) {
-                GLib.Source.remove (delete_timeout);
-            }
         });
     }
 

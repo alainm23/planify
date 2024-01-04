@@ -89,6 +89,11 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
         gesture.enter.connect (handle_focus_in);
         gesture.leave.connect (update_on_leave);
+        
+        if (buffer_get_text () == "") {
+            buffer.text = placeholder_text;
+            opacity = 0.7;
+        }
     }
 
     private void handle_focus_in () {

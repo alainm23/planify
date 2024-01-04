@@ -176,9 +176,13 @@ public class Services.Database : GLib.Object {
         /*
          * Planify 4.4
          * - Add labels column to Items
+         * - Add color column to Section
+         * - Add description column to Section
          */
 
-         add_item_label_column ();
+        add_item_label_column ();
+        add_text_column ("Sections", "color", "blue");
+        add_text_column ("Sections", "description", "");
     }
 
     private void create_tables () {
@@ -241,6 +245,8 @@ public class Services.Database : GLib.Object {
                 collapsed       INTEGER,
                 is_deleted      INTEGER,
                 is_archived     INTEGER,
+                color           TEXT,
+                description     TEXT
                 FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
             );
         """;
@@ -877,9 +883,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, archived_at, added_at, project_id, section_order,
-            collapsed, is_deleted, is_archived)
+            collapsed, is_deleted, is_archived, color, description)
             VALUES ($id, $name, $archived_at, $added_at, $project_id, $section_order,
-            $collapsed, $is_deleted, $is_archived);
+            $collapsed, $is_deleted, $is_archived, $color, $description);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -892,6 +898,8 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", section.collapsed);
         set_parameter_bool (stmt, "$is_deleted", section.is_deleted);
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
+        set_parameter_str (stmt, "$color", section.color);
+        set_parameter_str (stmt, "$description", section.description);
 
         if (stmt.step () == Sqlite.DONE) {
             sections.add (section);
@@ -957,6 +965,8 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 6);
         return_value.is_deleted = get_parameter_bool (stmt, 7);
         return_value.is_archived = get_parameter_bool (stmt, 8);
+        return_value.color = stmt.column_text (9);
+        return_value.description = stmt.column_text (10);
         return return_value;
     }
 
@@ -989,7 +999,7 @@ public class Services.Database : GLib.Object {
         sql = """
             UPDATE Sections SET name=$name, archived_at=$archived_at, added_at=$added_at,
             project_id=$project_id, section_order=$section_order, collapsed=$collapsed,
-            is_deleted=$is_deleted, is_archived=$is_archived
+            is_deleted=$is_deleted, is_archived=$is_archived, color=$color, description=$description
             WHERE id=$id;
         """;
 
@@ -1002,6 +1012,8 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", section.collapsed);
         set_parameter_bool (stmt, "$is_deleted", section.is_deleted);
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
+        set_parameter_str (stmt, "$color", section.color);
+        set_parameter_str (stmt, "$description", section.description);
         set_parameter_str (stmt, "$id", section.id);
 
         if (stmt.step () == Sqlite.DONE) {

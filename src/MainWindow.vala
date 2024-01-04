@@ -398,23 +398,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Views.Project? project_view = (Views.Project) views_stack.visible_child;
 		if (project_view != null) {
-			Objects.Section new_section = project_view.project.prepare_new_section ();
-
-			if (project_view.project.backend_type == BackendType.TODOIST) {
-				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
-
-					if (response.status) {
-						new_section.id = response.data;
-						project_view.project.add_section_if_not_exists (new_section);
-					} else {
-
-					}
-				});
-			} else {
-				new_section.id = Util.get_default ().generate_id (new_section);
-				project_view.project.add_section_if_not_exists (new_section);
-			}
+			project_view.prepare_new_section ();
 		}
 	}
 

@@ -281,25 +281,8 @@ public class Views.Project : Gtk.Grid {
 		});
 
 		add_section_item.activate_item.connect (() => {
-			Objects.Section new_section = prepare_new_section ();
-
-			if (project.backend_type == BackendType.TODOIST) {
-				add_section_item.is_loading = true;
-				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
-
-					if (response.status) {
-						new_section.id = response.data;
-						project.add_section_if_not_exists (new_section);
-						add_section_item.is_loading = false;
-						popover.popdown ();
-					}
-				});
-			} else {
-				new_section.id = Util.get_default ().generate_id (new_section);
-				project.add_section_if_not_exists (new_section);
-				popover.popdown ();
-			}
+			popover.popdown ();
+			prepare_new_section ();
 		});
 
 		paste_item.clicked.connect (() => {
@@ -360,13 +343,14 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	private Gtk.Popover build_view_setting_popover () {
-		var list_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+		var list_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			halign = CENTER
+		};
 
-		list_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-list") {
-			margin_top = 3
-		});
+		list_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-list"));
 		list_box.append (new Gtk.Label (_("List")) {
-			css_classes = { "small-label" }
+			css_classes = { "small-label" },
+			valign = CENTER
 		});
 
 		var list_button = new Gtk.ToggleButton () {
@@ -374,13 +358,14 @@ public class Views.Project : Gtk.Grid {
 			active = project.view_style == ProjectViewStyle.LIST
 		};
 
-		var board_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+		var board_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			halign = CENTER
+		};
 
-		board_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-board") {
-			margin_top = 3
-		});
+		board_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-board"));
 		board_box.append (new Gtk.Label (_("Board")) {
-			css_classes = { "small-label" }
+			css_classes = { "small-label" },
+			valign = CENTER
 		});
 
 		var board_button = new Gtk.ToggleButton () {
@@ -392,7 +377,10 @@ public class Views.Project : Gtk.Grid {
 		var view_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
 			css_classes = { "linked" },
 			hexpand = true,
-			homogeneous = true
+			homogeneous = true,
+			margin_start = 6,
+			margin_end = 6,
+			margin_top = 3
 		};
 
 		view_box.append (list_button);
@@ -405,7 +393,7 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), null, order_by_model, project.sort_order) {
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model, project.sort_order) {
 			margin_top = 12
 		};
 
@@ -455,13 +443,8 @@ public class Views.Project : Gtk.Grid {
 		return popover;
 	}
 
-	public Objects.Section prepare_new_section () {
-		Objects.Section new_section = new Objects.Section ();
-		new_section.project_id = project.id;
-		new_section.name = _("New section");
-		new_section.activate_name_editable = true;
-		new_section.section_order = project.sections.size;
-
-		return new_section;
+	public void prepare_new_section () {
+		var dialog = new Dialogs.Section.new (project);
+		dialog.show ();
 	}
 }

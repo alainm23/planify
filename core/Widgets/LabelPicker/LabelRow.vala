@@ -73,9 +73,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         child = content_box;
 
         var checked_button_gesture = new Gtk.GestureClick ();
-        checked_button_gesture.set_button (1);
-        checked_button.add_controller (checked_button_gesture);
-
+        content_box.add_controller (checked_button_gesture);
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             update_checked_toggled ();

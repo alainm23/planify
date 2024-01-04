@@ -58,7 +58,7 @@ public class Views.Board : Adw.Bin {
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
             max_children_per_line = 1,
-            homogeneous = true,
+            // homogeneous = true,
             orientation = Gtk.Orientation.VERTICAL,
             halign = Gtk.Align.START
         };
@@ -79,12 +79,12 @@ public class Views.Board : Adw.Bin {
             margin_top = 12,
             margin_start = 16,
             margin_end = 16,
-            margin_bottom = 16,
             halign = Gtk.Align.START,
             child = flowbox
         };
 
         var flowbox_scrolled = new Widgets.ScrolledWindow (flowbox_grid, Gtk.Orientation.HORIZONTAL);
+        flowbox_scrolled.margin = 100;
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true,
@@ -100,14 +100,14 @@ public class Views.Board : Adw.Bin {
         project.section_added.connect ((section) => {
             add_section (section);
 
-            //  if (section.activate_name_editable) {
-            //      Timeout.add (175, () => {
-            //          flowbox_scrolled.hadjustment.set_value (
-            //              flowbox_scrolled.hadjustment.get_upper () - flowbox_scrolled.hadjustment.get_page_size ()
-            //          );
-            //          return GLib.Source.REMOVE;
-            //      });
-            //  }
+            if (section.activate_name_editable) {
+                Timeout.add (175, () => {
+                    flowbox_scrolled.hadjustment.set_value (
+                        flowbox_scrolled.hadjustment.get_upper () - flowbox_scrolled.hadjustment.get_page_size ()
+                    );
+                    return GLib.Source.REMOVE;
+                });
+            }
         });
 
         project.section_sort_order_changed.connect (() => {

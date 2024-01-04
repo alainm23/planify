@@ -56,7 +56,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
             reveal_child = false,
             child = menu_icon
         };
-        
 
         if (icon != null) {
             menu_icon_revealer.reveal_child = true;

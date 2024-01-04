@@ -108,7 +108,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             margin_end = 12,
             vexpand = true
         };
-        quick_add_content.add_css_class (Granite.STYLE_CLASS_CARD);
+        quick_add_content.add_css_class ("card");
         quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
         quick_add_content.append (description_textview);

@@ -80,8 +80,8 @@ sources = files(
   'Views/Scheduled/ScheduledMonth.vala',
 
   'Dialogs/Project.vala',
+  'Dialogs/Section.vala',
   'Dialogs/Label.vala',
-  'Dialogs/Item.vala',
   'Dialogs/GoogleOAuth.vala',
   'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',

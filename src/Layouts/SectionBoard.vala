@@ -25,8 +25,15 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     public Gee.HashMap <string, Layouts.ItemBoard> items;
     public Gee.HashMap <string, Layouts.ItemBoard> items_checked;
 
+	private Gtk.Grid motion_bottom_grid;
+    private Gtk.Revealer motion_bottom_revealer;
+
+    private Gtk.Grid widget_color;
     private Widgets.EditableLabel name_editable;
+    private Gtk.Label description_label;
+    private Gtk.Revealer description_revealer;
     private Gtk.ListBox listbox;
+    private Gtk.Box listbox_target;
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
     private Widgets.LoadingButton add_button;
@@ -66,6 +73,15 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         items = new Gee.HashMap <string, Layouts.ItemBoard> ();
         items_checked = new Gee.HashMap <string, Layouts.ItemBoard> ();
 
+        widget_color = new Gtk.Grid () {
+            valign = Gtk.Align.CENTER,
+            height_request = 16,
+            width_request = 16,
+            margin_end = 6,
+            margin_bottom = 2,
+            css_classes = { "circle-color" }
+        };
+
         name_editable = new Widgets.EditableLabel () {
             valign = Gtk.Align.CENTER,
             editable = !is_inbox_section
@@ -85,19 +101,45 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         };
         
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
             margin_start = 6
         };
 
+        header_box.append (widget_color);
         header_box.append (name_editable);
         header_box.append (add_button);
         header_box.append (menu_button);
 
+        description_label = new Gtk.Label (section.description.strip ()) {
+            wrap = true,
+            selectable = true,
+            halign = START,
+            css_classes = { "dim-label" },
+            margin_start = 6,
+            margin_top = 6,
+            margin_bottom = 6
+        };
+
+        description_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = description_label
+        };
+
         listbox = new Gtk.ListBox () {
-            valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background", "drop-target-list" }
+        };
+
+        motion_bottom_grid = new Gtk.Grid () {
+            height_request = 27,
+            css_classes = { "drop-area", "drop-area-active" },
+            margin_top = 3,
+            margin_start = 2,
+            margin_end = 6
+        };
+
+        motion_bottom_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = motion_bottom_grid
         };
 
         checked_listbox = new Gtk.ListBox () {
@@ -111,33 +153,33 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = checked_listbox
         };
-
-        var items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            vexpand = true,
-            margin_end = 6
-        };
-
-        items_box.append (listbox);
-        items_box.append (checked_revealer);
         
-        var items_scrolled = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = items_box
+        listbox_target = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            margin_end = 6,
+            css_classes = { "drop-target-none" },
         };
+
+        listbox_target.append (listbox);
+        listbox_target.append (motion_bottom_revealer);
+        listbox_target.append (checked_revealer);
+
+        var items_scrolled = new Widgets.ScrolledWindow (listbox_target);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
             vexpand = true
         };
 
         content_box.append (header_box);
+        content_box.append (description_revealer);
         content_box.append (items_scrolled);
 
         child = content_box;
 
+        update_request ();
         add_items ();
         show_completed_changed ();
+        build_drag_and_drop ();
 
         Timeout.add (350, () => {            
             if (section.activate_name_editable) {
@@ -158,7 +200,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         });
 
         section.updated.connect (() => {
-            name_editable.text = section.name;
+            update_request ();
         });
 
         Services.Database.get_default ().item_added.connect ((item, insert) => {
@@ -283,6 +325,13 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     //      row.set_item (item);
     //  }
 
+    private void update_request () {
+        name_editable.text = section.name;
+        description_label.label = section.description.strip ();
+        description_revealer.reveal_child = description_label.label.length > 0;
+        Util.get_default ().set_widget_color (Util.get_default ().get_color (section.color), widget_color);
+    }
+
     public void add_items () {
         items.clear ();
         
@@ -391,7 +440,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list-dark");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
         
@@ -406,8 +455,11 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
 
         menu_box.append (move_item);
         menu_box.append (manage_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (delete_item);
+
+        if (!is_inbox_section) {
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (delete_item);
+        }
 
         var menu_popover = new Gtk.Popover () {
             has_arrow = false,
@@ -422,7 +474,9 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
 
         edit_item.clicked.connect (() => {
             menu_popover.popdown ();
-            name_editable.editing (true);
+
+            var dialog = new Dialogs.Section (section);
+			dialog.show ();
         });
 
         move_item.clicked.connect (() => {
@@ -507,6 +561,76 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         if (is_inbox_section) {
             // visible = items.size > 0;
         }
+    }
+
+    private void build_drag_and_drop () {
+        // Drop Motion
+        build_drop_motion ();
+
+        // Drop
+        build_drop_target ();
+    }
+
+    private void build_drop_motion () {
+        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
+        listbox_target.add_controller (drop_motion_ctrl);
+
+        drop_motion_ctrl.motion.connect ((x, y) => {
+            var drop = drop_motion_ctrl.get_drop ();
+            GLib.Value value = Value (typeof (Layouts.ItemBoard));
+            drop.drag.content.get_value (ref value);
+            var picked_widget = (Layouts.ItemBoard) value;
+			motion_bottom_grid.height_request = picked_widget.handle_grid.get_height ();
+
+            motion_bottom_revealer.reveal_child = drop_motion_ctrl.is_pointer;
+        });
+
+        drop_motion_ctrl.leave.connect (() => {
+            motion_bottom_revealer.reveal_child = false;
+        });
+    }
+
+    private void build_drop_target () {
+        var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
+        listbox_target.add_controller (drop_target);
+        drop_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ItemBoard) value;
+			var old_section_id = "";
+
+			picked_widget.drag_end ();
+
+			old_section_id = picked_widget.item.section_id;
+
+			picked_widget.item.project_id = section.project_id;
+			picked_widget.item.section_id = section.id;
+
+			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+				string type = "section_id";
+				string id = section.id;
+
+				if (is_inbox_section) {
+					type = "project_id";
+					id = section.project_id;
+				}
+
+				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
+					if (Services.Todoist.get_default ().move_item.end (res).status) {
+						Services.Database.get_default ().update_item (picked_widget.item);
+					}
+				});
+			} else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+				Services.Database.get_default ().update_item (picked_widget.item);
+			}
+
+			var source_list = (Gtk.ListBox) picked_widget.parent;
+			source_list.remove (picked_widget);
+
+			listbox.append (picked_widget);
+			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
+			// update_items_item_order (listbox);
+
+			return true;
+        });
     }
 
     public void hide_destroy () {

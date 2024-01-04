@@ -564,12 +564,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (add_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-		menu_box.append (edit_item);
+
+		if (!is_inbox_section) {
+			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+			menu_box.append (edit_item);
+		}
+
 		menu_box.append (move_item);
 		menu_box.append (manage_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-		menu_box.append (delete_item);
+
+		if (!is_inbox_section) {
+			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+			menu_box.append (delete_item);
+		}
 
 		var menu_popover = new Gtk.Popover () {
 			has_arrow = false,
@@ -584,7 +591,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		edit_item.clicked.connect (() => {
 			menu_popover.popdown ();
-			name_editable.editing (true);
+			
+			var dialog = new Dialogs.Section (section);
+			dialog.show ();
 		});
 
 		move_item.clicked.connect (() => {

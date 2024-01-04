@@ -49,7 +49,6 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
-            margin_top = 12,
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12

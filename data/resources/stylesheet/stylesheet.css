@@ -325,8 +325,9 @@ entry.flat:focus-within {
     padding: 0;
 }
 
-.label-color {
-    background: @colorAccent;
+.circle-color {
+    background: alpha(@colorAccent, 0.25);
+    border: 2px solid @colorAccent;
     border-radius: 50%;
 }
 
@@ -528,6 +529,18 @@ checkbutton.theme-selector radio:checked {
     background-color: alpha(#1e63ec, 0.35);
 }
 
+.drop-target-none:drop(active) {
+    border-radius: 0;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.drop-target-list:drop(active) {
+    border-radius: 6px;
+}
+
 .drop-begin {
     padding:  3px;
     background: @popover_bg_color;
@@ -538,4 +551,8 @@ checkbutton.theme-selector radio:checked {
 .indicator {
     background: #1e63ec;
     border-radius: 50%;
+}
+
+.drop-area-active {
+    border: 1px solid #1e63ec;
 }

@@ -29,6 +29,18 @@ public class Widgets.ScrolledWindow : Adw.Bin {
 
     private bool scrolling = false;
 
+    public Gtk.Adjustment vadjustment {
+        get {
+            return scrolled_window.vadjustment;
+        }
+    }
+
+    public Gtk.Adjustment hadjustment {
+        get {
+            return scrolled_window.hadjustment;
+        }
+    }
+
     public ScrolledWindow (Gtk.Widget widget, Gtk.Orientation orientation = Gtk.Orientation.VERTICAL) {
         Object (
             widget: widget,

@@ -101,6 +101,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         count_label = new Gtk.Label (project.project_count.to_string ()) {
             hexpand = true,
+            margin_end = 6,
             halign = Gtk.Align.CENTER,
             css_classes = { "small-label", "dim-label" }
         };

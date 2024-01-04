@@ -682,15 +682,6 @@ public class Objects.Project : Objects.BaseObject {
         return ((double) items_checked / (double) items_total);
     }
 
-    public Objects.Section prepare_new_section () {
-        Objects.Section new_section = new Objects.Section ();
-        new_section.project_id = id;
-        new_section.name = _("New section");
-        new_section.activate_name_editable = true;
-
-        return new_section;
-    }
-
     public void share_markdown () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text (to_markdown ());

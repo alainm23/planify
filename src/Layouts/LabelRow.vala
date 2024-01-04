@@ -40,10 +40,9 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
-            height_request = 12,
-            width_request = 12,
-            margin_start = 6,
-            css_classes = { "label-color" }
+            height_request = 16,
+            width_request = 16,
+            css_classes = { "circle-color" }
         };
 
         name_label = new Gtk.Label (label.name) {
