@@ -25,7 +25,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
 
     private Gtk.FlowBox labels_flowbox;
     private Gtk.Revealer revealer;
-
+    public Gtk.Box content_box;
     private Gtk.Label more_label;
     private Adw.Bin more_label_grid;
     private Gtk.Revealer more_label_revealer;
@@ -79,8 +79,9 @@ public class Widgets.LabelsSummary : Adw.Bin {
             child = more_label_grid
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = Gtk.Align.START
+        content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            valign = Gtk.Align.START,
+            margin_top = 3
         };
 
         content_box.append (labels_flowbox);

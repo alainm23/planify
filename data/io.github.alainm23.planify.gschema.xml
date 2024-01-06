@@ -52,8 +52,8 @@
     </enum>
 
     <enum id="io.github.alainm23.planify.projects-sort-by">
-        <value nick="Alphabetically" value="0" />
-        <value nick="Custom sort order" value="1" />
+        <value nick="Custom sort order" value="0" />
+        <value nick="Alphabetically" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.projects-ordered">

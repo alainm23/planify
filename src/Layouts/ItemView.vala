@@ -62,7 +62,7 @@ public class Layouts.ItemView : Gtk.Popover {
         content_textview.remove_css_class ("view");
 
         var hide_loading_button = new Widgets.LoadingButton.with_icon ("pan-down-symbolic", 16) {
-            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.START,
             height_request = 24,
             width_request = 24,
             margin_top = 6,
@@ -104,6 +104,7 @@ public class Layouts.ItemView : Gtk.Popover {
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 34,
             margin_top = 12,
+            margin_bottom = 6,
             sensitive = !item.completed
         };
         

@@ -35,11 +35,12 @@ public class Dialogs.Project : Adw.Window {
         }
     }
 
-    public Project.new (BackendType backend_type, bool backend_picker = false) {
+    public Project.new (BackendType backend_type, bool backend_picker = false, string parent_id = "") {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
         project.id = "";
+        project.parent_id = parent_id;
         project.backend_type = backend_type;
 
         Object (
@@ -48,7 +49,7 @@ public class Dialogs.Project : Adw.Window {
             deletable: true,
             resizable: true,
             modal: true,
-            title: _("New Project"),
+            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project"),
             width_request: 320,
             height_request: 400,
             transient_for: (Gtk.Window) Planify.instance.main_window

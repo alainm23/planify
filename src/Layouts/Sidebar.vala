@@ -124,7 +124,7 @@ public class Layouts.Sidebar : Adw.Bin {
         var whats_new_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_UP,
             child = whats_new_box,
-            reveal_child = true// verify_new_version ()
+            reveal_child = verify_new_version ()
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -406,7 +406,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     private void update_projects_sort () {
-        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1) {
             local_projects_header.set_sort_func (projects_sort_func);
             todoist_projects_header.set_sort_func (projects_sort_func);
         } else {
@@ -418,11 +418,7 @@ public class Layouts.Sidebar : Adw.Bin {
     private int projects_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
         Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
         Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
-
-        if (Services.Settings.get_default ().settings.get_enum ("projects-ordered") == 0) {
-            return project2.name.collate (project1.name);
-        } else {
-            return project1.name.collate (project2.name);
-        }
+        int ordered = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
+        return ordered == 0 ? project2.name.collate (project1.name) : project1.name.collate (project2.name);
     }
 }

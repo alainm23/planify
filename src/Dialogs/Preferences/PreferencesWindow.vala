@@ -253,11 +253,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		general_group.add (home_page_row);
 
 		var sort_projects_model = new Gtk.StringList (null);
+		sort_projects_model.append (_("Custom sort order"));		
 		sort_projects_model.append (_("Alphabetically"));
-		sort_projects_model.append (_("Custom sort order"));
 
 		var sort_projects_row = new Adw.ComboRow ();
-		sort_projects_row.title = _("Sort projects");
+		sort_projects_row.title = _("Sort by");
 		sort_projects_row.model = sort_projects_model;
 		sort_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
 
@@ -266,14 +266,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		sort_order_projects_model.append (_("Descending"));
 
 		var sort_order_projects_row = new Adw.ComboRow ();
-		sort_order_projects_row.title = _("Sort by");
+		sort_order_projects_row.title = _("Ordered");
 		sort_order_projects_row.model = sort_order_projects_model;
 		sort_order_projects_row.selected = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
-
+		sort_order_projects_row.sensitive = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1;
+		
 		var sort_setting_group = new Adw.PreferencesGroup ();
-		sort_setting_group.title = _("Sort Settings");
-		sort_setting_group.add (sort_order_projects_row);
+		sort_setting_group.title = _("Projects");
 		sort_setting_group.add (sort_projects_row);
+		sort_setting_group.add (sort_order_projects_row);
 
 		var de_group = new Adw.PreferencesGroup ();
 		de_group.title = _("DE Integration");
@@ -432,6 +433,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		sort_projects_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("projects-sort-by", (int) sort_projects_row.selected);
+			sort_order_projects_row.sensitive = Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1;
 		});
 
 		sort_order_projects_row.notify["selected"].connect (() => {

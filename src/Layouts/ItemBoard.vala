@@ -151,6 +151,7 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		};
 
 		labels_summary = new Widgets.LabelsSummary (item, 1);
+        labels_summary.content_box.margin_top = 0;
 
 		due_label = new Gtk.Label (null) {
 			css_classes = { "small-label" }
@@ -556,6 +557,12 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
 		// Drag Souyrce
         build_drag_source ();
 
+        // Drop
+        build_drop_target ();
+
+        // Drop Magic Button
+        build_drop_magic_button_target ();
+
 		// Drop Order
         build_drop_order_target ();
 	}
@@ -603,6 +610,76 @@ public class Layouts.ItemBoard : Gtk.ListBoxRow {
             return false;
         });
 	}
+
+    private void build_drop_target () {
+        var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drop_target);
+
+        drop_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ItemBoard) value;
+            var target_widget = this;
+
+            var picked_item = picked_widget.item;
+            var target_item = target_widget.item;
+
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+
+            string old_parent_id = picked_item.parent_id;
+            string old_project_id = picked_item.project_id;
+            string old_section_id = picked_item.section_id;
+
+            picked_item.section_id = "";
+            picked_item.parent_id = target_item.id;
+
+            if (picked_item.project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
+                    if (Services.Todoist.get_default ().move_item.end (res).status) {
+                        target_item.collapsed = true;
+                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                    }
+                });
+            } else if (picked_item.project.backend_type == BackendType.LOCAL) {
+                target_item.collapsed = true;
+                Services.Database.get_default ().update_item (picked_item);
+                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+            }
+
+            return true;
+        });
+    }
+
+    private void build_drop_magic_button_target () {
+        var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drop_magic_button_target);
+
+        drop_magic_button_target.drop.connect ((value, x, y) => {
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.for_base_object (item);
+            dialog.show ();
+
+            return true;
+        });
+
+        var drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
+        motion_top_grid.add_controller (drop_order_magic_button_target);
+        drop_order_magic_button_target.drop.connect ((value, x, y) =>  {            
+            var dialog = new Dialogs.QuickAdd ();
+            dialog.set_index (get_index ());
+
+            if (item.section_id != "") {
+                dialog.for_base_object (item.section);
+            } else {
+                dialog.for_base_object (item.project);
+            }
+
+            dialog.show ();
+
+            return true;
+        });
+    }
 
 	private void build_drop_order_target () {
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);

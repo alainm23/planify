@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.WhatsNew : Adw.Window {
+public class Dialogs.WhatsNew : Adw.PreferencesWindow {
 	private Adw.PreferencesGroup feature_group;
 	private Gtk.TextView textview;
 	private Gtk.Revealer group_revealer;
@@ -30,19 +30,14 @@ public class Dialogs.WhatsNew : Adw.Window {
 			deletable: true,
 			destroy_with_parent: true,
 			modal: true,
-			title: _("What's New"),
+			search_enabled: false,
 			default_width: 450,
-			height_request: 600
+			height_request: 500,
+			title: null
 		);
 	}
 
 	construct {
-		var headerbar = new Adw.HeaderBar () {
-			title_widget = new Gtk.Label (null),
-			hexpand = true,
-			css_classes = { Granite.STYLE_CLASS_FLAT }
-		};
-
 		var title_label = new Gtk.Label (_("What’s new in Planify")) {
 			hexpand = true,
 			halign = CENTER,
@@ -79,24 +74,19 @@ public class Dialogs.WhatsNew : Adw.Window {
 			child = group
 		};
 
-		var video = new Gtk.Video.for_resource ("/io/github/alainm23/planify/test-video.webm") {
-			autoplay = true,
-			loop = true
-		};
+		//  var video = new Gtk.Video.for_resource ("/io/github/alainm23/planify/test-video.webm") {
+		//  	autoplay = true,
+		//  	loop = true
+		//  };
 
-		var content_box = new Gtk.Box (VERTICAL, 6) {
-			margin_start = 24,
-			margin_end = 24
-		};
-
-		//  content_box.append (title_label);
-		//  content_box.append (version_label);
-		//  content_box.append (feature_group);
-		//  content_box.append (group_revealer);
-		content_box.append (video);
+		var content_box = new Gtk.Box (VERTICAL, 6);
+		content_box.append (title_label);
+		content_box.append (version_label);
+		content_box.append (feature_group);
+		content_box.append (group_revealer);
 
 		var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
+            maximum_size = 600,
 			margin_start = 12,
 			margin_end = 12,
 			margin_bottom = 12
@@ -104,22 +94,31 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 		content_clamp.child = content_box;
 
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (headerbar);
-		toolbar_view.content = content_clamp;
+		var content_group = new Adw.PreferencesGroup ();
+		content_group.add (content_clamp);
 
-		content = toolbar_view;
+		var page = new Adw.PreferencesPage ();
+		page.title = _("What's New");
+		page.add (content_group);
 
-		add_feature (_("Quick Add Improvements"), _("Now supports project selection, due date, priority, labels and pinned."));
-		add_feature (_("Sidebar filter settings"), _("It is now possible to re-order, hide filters and the task cutter."));
-		add_feature (_("Backup support"), _("It is now possible to create a backup copy and import it from somewhere else. Planify will import all your tasks and settings."));
-		add_feature (_("Offline support for Todoist"), _("You were without internet, keep using Planify with Todoist, the tasks will be saved locally and synchronized when the connection returns."));
+		add (page);
+
+		add_feature (_("Improved drag-and-drop sorting"), _("Added a new animation and a new way of sorting making it cleaner and easier."), get_dnd_page ());
+		add_feature (_("The Magic Button is coming"), _("Just drag and drop to add tasks wherever you want and in the order you want."));
 	}
 
-	public void add_feature (string title, string description) {
+	public void add_feature (string title, string description, Adw.NavigationPage? page = null) {
 		var row = new Adw.ActionRow ();
 		row.title = title;
 		row.subtitle = description;
+
+		if (page != null) {
+			row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+			row.activatable = true;
+			row.activated.connect (() => {
+				push_subpage (page);
+			});
+		}
 
 		feature_group.add (row);
 	}
@@ -136,5 +135,44 @@ public class Dialogs.WhatsNew : Adw.Window {
 			destroy ();
 			return GLib.Source.REMOVE;
 		});
+	}
+
+	private Adw.NavigationPage get_dnd_page () {
+		var headerbar = new Dialogs.Preferences.SettingsHeader (_("What's New"));
+
+		var webview = new WebKit.WebView ();
+		webview.zoom_level = 0.75;
+        webview.hexpand = true;
+        webview.load_html ("""<iframe width="560" height="315" src="https://www.youtube.com/embed/_Jq4i_BQiTI?si=RUpjdpyMp2ArchHd&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>""", null);
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		content_box.append (webview);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 24,
+			margin_end = 24,
+			margin_top = 12
+		};
+
+		content_clamp.child = content_box;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_clamp;
+
+		var page = new Adw.NavigationPage (toolbar_view, "dnd");
+
+		headerbar.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		return page;
+	}
+
+	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
+		var icon = new Widgets.DynamicIcon.from_icon_name (icon_name);
+		icon.size = size;
+		return icon;
 	}
 }

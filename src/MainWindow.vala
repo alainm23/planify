@@ -429,12 +429,16 @@ public class MainWindow : Adw.ApplicationWindow {
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
+		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
+		whatsnew_item.add_css_class ("no-font-bold");
+
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 		about_item.add_css_class ("no-font-bold");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (preferences_item);
+		menu_box.append (whatsnew_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (keyboard_shortcuts_item);
 		menu_box.append (about_item);
@@ -449,6 +453,13 @@ public class MainWindow : Adw.ApplicationWindow {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Preferences.PreferencesWindow ();
+			dialog.show ();
+		});
+
+		whatsnew_item.clicked.connect (() => {
+			popover.popdown ();
+
+			var dialog = new Dialogs.WhatsNew ();
 			dialog.show ();
 		});
 

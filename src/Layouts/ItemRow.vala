@@ -51,7 +51,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
     
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
-    private Adw.Bin itemrow_box;
+    public Adw.Bin itemrow_box;
     private Gtk.Popover menu_handle_popover = null;
     
     private Gtk.Popover menu_popover = null;
@@ -415,8 +415,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         content_main_box.append (hide_loading_revealer);
 
         labels_summary = new Widgets.LabelsSummary (item) {
-            margin_start = 24,
-            margin_top = 3
+            margin_start = 24
         };
 
         description_textview = new Widgets.HyperTextView (_("Add a description")) {
@@ -1581,7 +1580,12 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         add_controller (drop_motion_ctrl);
 
         dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
-            debug ("sort_order: %d", item.project.sort_order);
+            var drop = drop_motion_ctrl.get_drop ();
+            GLib.Value value = Value (typeof (Layouts.ItemRow));
+            drop.drag.content.get_value (ref value);
+            var picked_widget = (Layouts.ItemRow) value;
+			motion_top_grid.height_request = picked_widget.itemrow_box.get_height ();
+
             motion_top_revealer.reveal_child = item.project.sort_order == 0 && drop_motion_ctrl.contains_pointer;
         })] = drop_motion_ctrl;
 
@@ -1669,9 +1673,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
-        dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) =>  {
-            debug ("Index: %d", get_index ());
-            
+        dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) =>  {            
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
 

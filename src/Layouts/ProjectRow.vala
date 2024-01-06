@@ -172,7 +172,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         var listbox_grid = new Adw.Bin () {
             margin_start = 12,
-            margin_top = 3,
             child = listbox
         };
 
@@ -308,18 +307,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Motion Drop
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-
         drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
-            var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
-
             GLib.Value value = Value (typeof (Layouts.ProjectRow));
             drop.drag.content.get_value (ref value);
 
             var picked_widget = (Layouts.ProjectRow) value;
 
             if (picked_widget.project.backend_type == project.backend_type) {
-                motion_top_revealer.reveal_child = projects_sort == 1 && drop_motion_ctrl.contains_pointer;
+                motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
             }
         });
 
@@ -355,7 +351,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_magic_button_target);
         drop_magic_button_target.drop.connect ((value, x, y) => {
-            var dialog = new Dialogs.Project.new (project.backend_type);
+            var dialog = new Dialogs.Project.new (project.backend_type, false, project.id);
             dialog.show ();
 
             return true;
@@ -420,6 +416,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
+
+            var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
+            if (projects_sort == 1) {
+                Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
+                Services.EventBus.get_default ().send_notification (
+                    Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'."))
+                );
+            }
     
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
@@ -441,7 +445,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             source_list.remove (picked_widget);
             target_list.insert (picked_widget, target_widget.get_index ());
             update_projects_child_order (target_list);
-            
+
             return true;
         });
     }
