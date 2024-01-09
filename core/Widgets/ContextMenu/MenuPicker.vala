@@ -23,7 +23,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     public string title { get; construct; }
     public string? icon { get; construct; }
     public Gee.ArrayList<string> items_list { get; construct; }
-    public int default_value { get; construct; }
 
     private Widgets.DynamicIcon menu_icon;
     private Gtk.Revealer menu_icon_revealer;
@@ -32,14 +31,27 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
     public Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> items_map = new Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> ();
 
-    public signal void selected (int index);
+    public int _selected;
+    public int selected {
+        get {
+            return _selected;
+        }
 
-    public MenuPicker (string title, string? icon = null, Gee.ArrayList<string> items_list, int default_value) {
+        set {
+            _selected = value;
+            items_map[_selected].active = true;
+        }
+    }
+
+    public void update_selected (int index) {
+        items_map[index].active = true;
+    }
+
+    public MenuPicker (string title, string? icon = null, Gee.ArrayList<string> items_list) {
         Object (
             title: title,
             icon: icon,
             items_list: items_list,
-            default_value: default_value,
             hexpand: true,
             can_focus: false
         );
@@ -116,10 +128,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         popover.closed.connect (() => {
             arrow_icon.remove_css_class ("opened");
         });
-
-        listbox.row_activated.connect ((row) => {
-            selected (row.get_index ());
-        });
     }
 
     private void _build_list () {
@@ -133,14 +141,12 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
             items_map[index] = new Widgets.ContextMenu.MenuItemPicker (item, group);
 
             items_map[index].selected.connect ((i) => {
-                selected (i);
+                selected = i;
             });
 
             listbox.append (items_map[index]);
             index++;
         }
-
-        items_map[default_value].active = true;
     }
 }
 
@@ -191,7 +197,10 @@ public class Widgets.ContextMenu.MenuItemPicker : Gtk.ListBoxRow {
         content_box.append (radio_button);
         child = content_box;
 
-        radio_button.toggled.connect (() => {
+        var gesture = new Gtk.GestureClick ();
+        radio_button.add_controller (gesture);
+        gesture.pressed.connect (() => {
+            radio_button.active = !radio_button.active;
             selected (get_index ());
         });
     }

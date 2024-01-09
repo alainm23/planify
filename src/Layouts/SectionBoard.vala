@@ -25,9 +25,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     public Gee.HashMap <string, Layouts.ItemBoard> items;
     public Gee.HashMap <string, Layouts.ItemBoard> items_checked;
 
-	private Gtk.Grid motion_bottom_grid;
-    private Gtk.Revealer motion_bottom_revealer;
-
     private Gtk.Grid widget_color;
     private Widgets.EditableLabel name_editable;
     private Gtk.Label description_label;
@@ -37,6 +34,7 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
     private Widgets.LoadingButton add_button;
+    private Gtk.Box content_box;
 
     public bool is_inbox_section {
         get {
@@ -129,19 +127,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             css_classes = { "listbox-background", "drop-target-list" }
         };
 
-        motion_bottom_grid = new Gtk.Grid () {
-            height_request = 27,
-            css_classes = { "drop-area", "drop-area-active" },
-            margin_top = 3,
-            margin_start = 2,
-            margin_end = 6
-        };
-
-        motion_bottom_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            child = motion_bottom_grid
-        };
-
         checked_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
@@ -153,21 +138,21 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = checked_listbox
         };
-        
+
         listbox_target = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             vexpand = true,
             margin_end = 6,
-            css_classes = { "drop-target-none" },
+            margin_bottom = 12
         };
 
         listbox_target.append (listbox);
-        listbox_target.append (motion_bottom_revealer);
         listbox_target.append (checked_revealer);
 
         var items_scrolled = new Widgets.ScrolledWindow (listbox_target);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true
+        content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            vexpand = true,
+            css_classes = { "transition", "drop-target-list" }
         };
 
         content_box.append (header_box);
@@ -203,12 +188,22 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             update_request ();
         });
 
-        Services.Database.get_default ().item_added.connect ((item, insert) => {
-            if (item.project_id == section.project_id &&
-                item.section_id == section.id && insert) {
-                add_item (item);
-            }
-        });
+        //  Services.Database.get_default ().item_added.connect ((item, insert) => {
+        //      if (item.project_id == section.project_id &&
+        //          item.section_id == section.id && insert) {
+        //          add_item (item);
+        //      }
+        //  });
+
+        if (is_inbox_section) {
+			section.project.item_added.connect ((item) => {
+				add_item (item);
+			});
+		} else {
+			section.item_added.connect ((item) => {
+				add_item (item);
+			});
+		}
         
         Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id &&
@@ -238,10 +233,10 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         });
 
         Services.Database.get_default ().item_updated.connect ((item, update_id) => {
-            if (items.has_key (item.id_string)) {
-                items [item.id_string].update_request ();
-                update_sort ();
-            }
+            //  if (items.has_key (item.id_string)) {
+            //      items [item.id_string].update_request ();
+            //      update_sort ();
+            //  }
 
             if (items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string].update_request ();
@@ -430,7 +425,12 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     public void add_item (Objects.Item item, int position = -1) {
         if (!item.checked && !items.has_key (item.id_string)) {
             items [item.id_string] = new Layouts.ItemBoard (item);
-            listbox.append (items [item.id_string]);
+            
+            if (item.custom_order) {
+				listbox.insert (items [item.id_string], item.child_order);
+			} else {
+				listbox.append (items [item.id_string]);
+			}
         }
 
         check_inbox_visible ();
@@ -564,35 +564,13 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
     }
 
     private void build_drag_and_drop () {
-        // Drop Motion
-        build_drop_motion ();
-
         // Drop
         build_drop_target ();
     }
 
-    private void build_drop_motion () {
-        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
-        listbox_target.add_controller (drop_motion_ctrl);
-
-        drop_motion_ctrl.motion.connect ((x, y) => {
-            var drop = drop_motion_ctrl.get_drop ();
-            GLib.Value value = Value (typeof (Layouts.ItemBoard));
-            drop.drag.content.get_value (ref value);
-            var picked_widget = (Layouts.ItemBoard) value;
-			motion_bottom_grid.height_request = picked_widget.handle_grid.get_height ();
-
-            motion_bottom_revealer.reveal_child = drop_motion_ctrl.is_pointer;
-        });
-
-        drop_motion_ctrl.leave.connect (() => {
-            motion_bottom_revealer.reveal_child = false;
-        });
-    }
-
     private void build_drop_target () {
         var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
-        listbox_target.add_controller (drop_target);
+        content_box.add_controller (drop_target);
         drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
 			var old_section_id = "";

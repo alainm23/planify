@@ -418,7 +418,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             }
 
             var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
-            if (projects_sort == 1) {
+            if (projects_sort != 0) {
                 Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
                 Services.EventBus.get_default ().send_notification (
                     Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'."))

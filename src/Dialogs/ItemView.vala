@@ -19,43 +19,36 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.PinButton : Gtk.Button {
+public class Dialogs.ItemView : Adw.Window {
     public Objects.Item item { get; construct; }
-    private Widgets.DynamicIcon pinned_image;
 
-    public signal void changed ();
-
-    public PinButton (Objects.Item item) {
+    private Adw.NavigationView navigation_view;
+    
+    public ItemView (Objects.Item item) {
         Object (
             item: item,
-            can_focus: false,
-            valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER,
-            tooltip_text: _("Pinned")
+            deletable: true,
+            resizable: true,
+            modal: true,
+            valign: Gtk.Align.START,
+            width_request: 550,
+            transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
 
-    construct {       
-        add_css_class ("flat");
-        
-        pinned_image = new Widgets.DynamicIcon ();
-        pinned_image.size = 16;
+    construct {
+        var parent_page = new Adw.NavigationPage (new Layouts.ItemViewContent (item), item.id);
 
-        child = pinned_image;
+        navigation_view = new Adw.NavigationView () {
+            valign = Gtk.Align.START
+        };
 
-        update_request ();
+		navigation_view.add (parent_page);
 
-        var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
-        add_controller (gesture);
+        content = navigation_view;
 
-        gesture.pressed.connect ((n_press, x, y) => {
-            gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            changed ();
+        Services.EventBus.get_default ().push_item.connect ((item) => {
+            navigation_view.push (new Adw.NavigationPage (new Layouts.ItemViewContent (item), item.id));
         });
-    }
-
-    public void update_request () {
-        pinned_image.update_icon_name (item.pinned_icon);
     }
 }

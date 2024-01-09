@@ -51,9 +51,28 @@
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
   <url type="translate">https://github.com/alainm23/planify/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
-  <url type="help">https://useplanner.com/support/</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.4" date="2024-01-08">
+      <description>
+        <p>Planify 4.4 is here, design improvements and new features available.</p>
+        <p>What’s New</p>
+        <ul>
+          <li>Improved drag-and-drop sorting: Added a new animation and a new way of sorting making it cleaner and easier.</li>
+          <li>Support for sub-projects: Create a sub-project just by dragging and dropping or by using the magic button and dropping into the parent project.</li>
+          <li>Magic Button: Just drag and drop to add tasks wherever you want and in the order you want.</li>
+          <li>Board View: Have an overview of your tasks without losing sight of the details.</li>
+        </ul>
+        <p>Bug Fixed and Translations</p>
+        <ul>
+          <li>Portugués translations thanks to @godinhoana54.</li>
+          <li>Russian translation update thanks to @hachikoharuno.</li>
+          <li>Turkish translation update thanks to @sabriunal.</li>
+          <li>Bugs fixed #1089, #1073.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.3.2" date="2023-12-20">
       <description>
         <ul>

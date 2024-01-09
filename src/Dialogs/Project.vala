@@ -272,7 +272,6 @@ public class Dialogs.Project : Adw.Window {
 
         var name_entry_ctrl_key = new Gtk.EventControllerKey ();
         name_entry.add_controller (name_entry_ctrl_key);
-
         name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();

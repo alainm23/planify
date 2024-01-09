@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.ItemView : Gtk.Popover {
+public class Layouts.ItemViewContent : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.CheckButton checked_button;
@@ -30,22 +30,28 @@ public class Layouts.ItemView : Gtk.Popover {
     private Widgets.PinButton pin_button;
     private Widgets.PriorityButton priority_button;
     private Widgets.LabelPicker.LabelButton label_button;
+    private Widgets.ReminderButton reminder_button;
     private Gtk.Box action_box;
 
     public uint complete_timeout { get; set; default = 0; }
-    public string update_id { get; set; }
+    public string update_id { get; set; default = Util.get_default ().generate_id (); }
 
-    public ItemView (Objects.Item item) {
+    public ItemViewContent (Objects.Item item) {
         Object (
             item: item,
-            position: Gtk.PositionType.RIGHT,
-            width_request: 450,
-            has_arrow: true,
-            autohide: true
+            valign: Gtk.Align.START,
+            hexpand: true,
+            vexpand: true
         );
     }
 
     construct {
+        var headerbar = new Adw.HeaderBar () {
+			title_widget = new Gtk.Label (null),
+			hexpand = true,
+			css_classes = { "flat" }
+		};
+
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.START,
             margin_top = 12,
@@ -60,17 +66,7 @@ public class Layouts.ItemView : Gtk.Popover {
         };
         content_textview.buffer.text = item.content;
         content_textview.remove_css_class ("view");
-
-        var hide_loading_button = new Widgets.LoadingButton.with_icon ("pan-down-symbolic", 16) {
-            valign = Gtk.Align.START,
-            height_request = 24,
-            width_request = 24,
-            margin_top = 6,
-            margin_end = 6,
-            can_focus = false,
-            css_classes = { "flat", "dim-label", "no-padding" }
-        };
-
+        
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
@@ -79,7 +75,6 @@ public class Layouts.ItemView : Gtk.Popover {
         
         content_box.append (checked_button);
         content_box.append (content_textview);
-        content_box.append (hide_loading_button);
 
         description_textview = new Widgets.HyperTextView (_("Add a description")) {
             left_margin = 36,
@@ -95,8 +90,7 @@ public class Layouts.ItemView : Gtk.Popover {
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            vscrollbar_policy = Gtk.PolicyType.AUTOMATIC,
-            height_request = 96,
+            height_request = 128,
             hexpand = true,
             child = description_textview
         };
@@ -114,6 +108,7 @@ public class Layouts.ItemView : Gtk.Popover {
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
         label_button.labels = item._get_labels ();
+        reminder_button = new Widgets.ReminderButton (item);
 
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 26,
@@ -128,16 +123,15 @@ public class Layouts.ItemView : Gtk.Popover {
 
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
+        action_box_right.append (reminder_button);
         action_box_right.append (pin_button);
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
+            margin_start = 24,
+            margin_end = 24,
             valign = START,
             hexpand = true,
             css_classes = { "card", "sidebar-card" }
@@ -148,7 +142,23 @@ public class Layouts.ItemView : Gtk.Popover {
         content.append (item_labels);
         content.append (action_box);
 
-        child = content;
+        // Sub Items
+        var subitems = new Widgets.SubItems.for_board (item) {
+            margin_start = 16,
+            margin_end = 19,
+            margin_top = 6
+        };
+        subitems.reveal_child = true;
+
+        var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = Gtk.Align.START,
+            margin_bottom = 24
+        };
+        v_box.append (headerbar);
+        v_box.append (content);
+        v_box.append (subitems);
+
+        child = v_box;
         update_request ();
 
         Services.Database.get_default ().item_updated.connect ((_item, _update_id) => {
@@ -185,7 +195,7 @@ public class Layouts.ItemView : Gtk.Popover {
         content_textview.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293) {
-                popdown ();
+                // popdown ();
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
                 description_textview.grab_focus ();
@@ -199,7 +209,7 @@ public class Layouts.ItemView : Gtk.Popover {
         content_controller_key.key_released.connect ((keyval, keycode, state) => {            
             // Sscape
             if (keyval == 65307) {
-                popdown ();
+                // popdown ();
             } else { 
                 update ();
             }
@@ -209,7 +219,7 @@ public class Layouts.ItemView : Gtk.Popover {
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
-                popdown ();
+                // popdown ();
             } else if (keyval == 65289) {
                 schedule_button.grab_focus ();
             } else {
@@ -217,12 +227,10 @@ public class Layouts.ItemView : Gtk.Popover {
             }
         });
 
-        hide_loading_button.clicked.connect (() => {
-            popdown ();
-        });
+
 
         item.loading_changed.connect ((value) => {
-            hide_loading_button.is_loading = value;
+            
         });
     }
 

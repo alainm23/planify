@@ -76,4 +76,7 @@ public class Services.EventBus : Object {
 
     // Quick Add
     public signal void item_added_successfully ();
+
+    // Navigate
+    public signal void push_item (Objects.Item item);
 }

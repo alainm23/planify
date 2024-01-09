@@ -35,6 +35,7 @@ sources = files(
   'Services/CalendarEvents/DateRange.vala',
   'Services/CalendarEvents/Util.vala',
 
+  'Layouts/ItemBase.vala',
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneRow.vala',
   'Layouts/ProjectRow.vala',
@@ -51,7 +52,6 @@ sources = files(
   'Widgets/EditableLabel.vala',
   'Widgets/Placeholder.vala',
   'Widgets/SyncButton.vala',
-  'Widgets/ReminderButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
   'Widgets/EventRow.vala',
@@ -62,6 +62,7 @@ sources = files(
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
 
+  'Widgets/ReminderPicker/ReminderButton.vala',
   'Widgets/ReminderPicker/ReminderPicker.vala',
   'Widgets/ReminderPicker/ReminderRow.vala',
 
@@ -82,6 +83,7 @@ sources = files(
   'Dialogs/Project.vala',
   'Dialogs/Section.vala',
   'Dialogs/Label.vala',
+  'Dialogs/ItemView.vala',
   'Dialogs/GoogleOAuth.vala',
   'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',

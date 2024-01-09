@@ -393,9 +393,10 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model, project.sort_order) {
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model) {
 			margin_top = 12
 		};
+		order_by_item.selected = project.sort_order;
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
@@ -416,8 +417,8 @@ public class Views.Project : Gtk.Grid {
 			width_request = 250
 		};
 
-		order_by_item.selected.connect ((index) => {
-			project.sort_order = index;
+		order_by_item.notify["selected"].connect (() => {
+			project.sort_order = order_by_item.selected;
 			project.update (false);
 			check_default_view ();
 		});
@@ -438,6 +439,11 @@ public class Views.Project : Gtk.Grid {
 
 		board_button.toggled.connect (() => {
 			update_project_view (ProjectViewStyle.BOARD);
+		});
+
+		project.sort_order_changed.connect (() => {
+			order_by_item.update_selected (project.sort_order);
+			check_default_view ();
 		});
 
 		return popover;

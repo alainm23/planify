@@ -21,14 +21,16 @@
 
 public class Widgets.SubItems : Adw.Bin {
     public Objects.Item item_parent { get; construct; }
+    public bool is_board { get; construct; }
     
+    private Gtk.Revealer sub_tasks_header_revealer;
     private Gtk.ListBox listbox;
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
     private Gtk.Revealer main_revealer;
 
-    public Gee.HashMap <string, Layouts.ItemRow> items = new Gee.HashMap <string, Layouts.ItemRow> ();
-    public Gee.HashMap <string, Layouts.ItemRow> items_checked = new Gee.HashMap <string, Layouts.ItemRow> ();
+    public Gee.HashMap <string, Layouts.ItemBase> items = new Gee.HashMap <string, Layouts.ItemBase> ();
+    public Gee.HashMap <string, Layouts.ItemBase> items_checked = new Gee.HashMap <string, Layouts.ItemBase> ();
 
     public bool has_children {
         get {
@@ -50,11 +52,41 @@ public class Widgets.SubItems : Adw.Bin {
 
     public SubItems (Objects.Item item_parent) {
         Object (
-            item_parent: item_parent
+            item_parent: item_parent,
+            is_board: false
+        );
+    }
+
+    public SubItems.for_board (Objects.Item item_parent) {
+        Object (
+            item_parent: item_parent,
+            is_board: true
         );
     }
 
     construct {
+        var sub_tasks_title = new Gtk.Label (_("Sub-tasks")) {
+            css_classes = { "h4" }
+        };
+
+        var add_button = new Widgets.LoadingButton.with_icon ("plus", 16) {
+            css_classes = { "flat" },
+            hexpand = true,
+            halign = END
+        };
+
+        var sub_tasks_header = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 6
+        };
+        sub_tasks_header.append (sub_tasks_title);
+        sub_tasks_header.append (add_button);
+
+        sub_tasks_header_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            reveal_child = is_board,
+            child = sub_tasks_header
+        };
+
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
@@ -82,6 +114,7 @@ public class Widgets.SubItems : Adw.Bin {
             margin_start = 3
         };
 
+        main_grid.append (sub_tasks_header_revealer);
         main_grid.append (listbox);
         main_grid.append (checked_revealer);
 
@@ -145,22 +178,32 @@ public class Widgets.SubItems : Adw.Bin {
             if (item.parent.id == item_parent.id) {
                 if (!old_checked) {
                     if (items.has_key (item.id)) {
-                        items [item.id].hide_destroy ();
+                        items [item.id_string].hide_destroy ();
                         items.unset (item.id);
                     }
 
                     if (!items_checked.has_key (item.id)) {
-                        items_checked [item.id] = new Layouts.ItemRow (item);
+                        if (is_board) {
+                            items_checked [item.id] = new Layouts.ItemBoard (item);
+                        } else {
+                            items_checked [item.id] = new Layouts.ItemRow (item);
+                        }
+
                         checked_listbox.insert (items_checked [item.id], 0);
                     }
                 } else {
                     if (items_checked.has_key (item.id)) {
-                        items_checked [item.id].hide_destroy ();
+                        items_checked [item.id_string].hide_destroy ();
                         items_checked.unset (item.id);
                     }
 
                     if (!items.has_key (item.id)) {
-                        items [item.id] = new Layouts.ItemRow (item);
+                        if (is_board) {
+                            items [item.id] = new Layouts.ItemBoard (item);
+                        } else {
+                            items [item.id] = new Layouts.ItemRow (item);
+                        }
+
                         listbox.append (items [item.id]);
                         children_changes ();
                     }
@@ -171,18 +214,20 @@ public class Widgets.SubItems : Adw.Bin {
         });
 
         Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id, old_parent_id) => {
-            var row = (Layouts.ItemRow) _row;
+            if (!is_board) {
+                var row = (Layouts.ItemRow) _row;
 
-            if (old_parent_id == item_parent.id) {
-                if (items.has_key (row.item.id)) {
-                    items.unset (row.item.id);
+                if (old_parent_id == item_parent.id) {
+                    if (items.has_key (row.item.id)) {
+                        items.unset (row.item.id);
+                    }
+    
+                    if (items_checked.has_key (row.item.id)) {
+                        items_checked.unset (row.item.id);
+                    }
+    
+                    children_changes ();
                 }
-
-                if (items_checked.has_key (row.item.id)) {
-                    items_checked.unset (row.item.id);
-                }
-
-                children_changes ();
             }
 		});
 
@@ -199,6 +244,14 @@ public class Widgets.SubItems : Adw.Bin {
                 items_checked.clear ();
             }
         });
+
+        add_button.clicked.connect (() => {
+            prepare_new_item ();
+        });
+
+        item_parent.project.sort_order_changed.connect (() => {
+			update_sort ();
+		});
     }
 
     public void add_items () {
@@ -211,6 +264,8 @@ public class Widgets.SubItems : Adw.Bin {
         if (item_parent.project.show_completed) {
             add_completed_items ();
         }
+
+        update_sort ();
     }
 
     public void add_completed_items () {
@@ -223,20 +278,88 @@ public class Widgets.SubItems : Adw.Bin {
 
     public void add_complete_item (Objects.Item item) {
         if (item_parent.project.show_completed && item.checked) {
-            if (!items_checked.has_key (item.id_string)) {
-                items_checked [item.id_string] = new Layouts.ItemRow (item);
-                checked_listbox.append (items_checked [item.id_string]);
+            if (!items_checked.has_key (item.id)) {
+                if (is_board) {
+                    items_checked [item.id] = new Layouts.ItemBoard (item);
+                } else {
+                    items_checked [item.id] = new Layouts.ItemRow (item);
+                }
+                
+                checked_listbox.append (items_checked [item.id]);
             }
         }
     }
 
     public void add_item (Objects.Item item) {
-        if (!item.checked && !items.has_key (item.id_string)) {
-            items [item.id_string] = new Layouts.ItemRow (item);
-            listbox.append (items [item.id_string]);
+        if (!item.checked && !items.has_key (item.id)) {
+            if (is_board) {
+                items [item.id] = new Layouts.ItemBoard (item);
+            } else {
+                items [item.id] = new Layouts.ItemRow (item);
+            }
+
+            listbox.append (items [item.id]);
             children_changes ();
         }
     }
+
+    private void update_sort () {
+		if (item_parent.project.sort_order == 0) {
+			listbox.set_sort_func (null);
+		} else {
+			listbox.set_sort_func (set_sort_func);
+		}
+	}
+
+    private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+        Objects.Item item1;
+		Objects.Item item2;
+        
+        if (is_board) {
+            item1 = ((Layouts.ItemBoard) lbrow).item;
+            item2 = ((Layouts.ItemBoard) lbbefore).item;
+        } else {
+            item1 = ((Layouts.ItemRow) lbrow).item;
+            item2 = ((Layouts.ItemRow) lbbefore).item;
+        }
+
+		if (item_parent.project.sort_order == 1) {
+			return item1.content.strip ().collate (item2.content.strip ());
+		}
+
+		if (item_parent.project.sort_order == 2) {
+			if (item1.has_due && item2.has_due) {
+				var date1 = item1.due.datetime;
+				var date2 = item2.due.datetime;
+
+				return date1.compare (date2);
+			}
+
+			if (!item1.has_due && item2.has_due) {
+				return 1;
+			}
+
+			return 0;
+		}
+
+		if (item_parent.project.sort_order == 3) {
+			return item1.added_datetime.compare (item2.added_datetime);
+		}
+
+		if (item_parent.project.sort_order == 4) {
+			if (item1.priority < item2.priority) {
+				return 1;
+			}
+
+			if (item1.priority < item2.priority) {
+				return -1;
+			}
+
+			return 0;
+		}
+
+		return 0;
+	}
 
     public void prepare_new_item (string content = "") {
         var dialog = new Dialogs.QuickAdd ();

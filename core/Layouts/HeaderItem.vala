@@ -80,6 +80,8 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
+    public bool autohide_action { get; set; default = true; }
+
     public bool show_action {
         set {
             action_revealer.reveal_child = value;
@@ -225,10 +227,6 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         child = content_revealer;
 
-        //  add_button.clicked.connect (() => {
-        //      add_activated ();
-        //  });
-
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
@@ -241,7 +239,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         });
 
         motion_gesture.leave.connect (() => {
-            action_revealer.reveal_child = false;
+            action_revealer.reveal_child = !autohide_action;
         });
     }
 
@@ -254,14 +252,13 @@ public class Layouts.HeaderItem : Adw.Bin {
         placeholder_label.add_css_class ("dim-label");
         placeholder_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content_box = new Adw.Bin () {
             margin_top = 12,
             margin_bottom = 12,
             margin_start = 12,
             margin_end = 12,
+            child = placeholder_label
         };
-
-        content_box.append (placeholder_label);
 
         return content_box;
     }

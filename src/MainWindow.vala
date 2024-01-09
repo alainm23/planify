@@ -34,7 +34,9 @@ public class MainWindow : Adw.ApplicationWindow {
 			application: application,
 			app: application,
 			icon_name: Build.APPLICATION_ID,
-			title: _("Planify")
+			title: _("Planify"),
+			width_request: 450,
+			height_request: 480
 		);
 	}
 
@@ -98,8 +100,12 @@ public class MainWindow : Adw.ApplicationWindow {
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
 		overlay_split_view.sidebar = sidebar_view;
+		
+		var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 800sp"));
+		breakpoint.add_setter (overlay_split_view, "collapsed", true);
 
-		set_content (overlay_split_view);
+		add_breakpoint (breakpoint);
+		content = overlay_split_view;
 		set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
@@ -180,8 +186,8 @@ public class MainWindow : Adw.ApplicationWindow {
 				add_label_view (id);
 			}
 
-			if (!overlay_split_view.show_sidebar) {
-				show_hide_sidebar ();
+			if (overlay_split_view.collapsed) {
+				overlay_split_view.show_sidebar = false;
 			}
 		});
 

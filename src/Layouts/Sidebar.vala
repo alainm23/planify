@@ -79,7 +79,6 @@ public class Layouts.Sidebar : Adw.Bin {
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
         favorites_header.margin_top = 6;
-        favorites_header.show_action = false;
 
         local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
         local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");

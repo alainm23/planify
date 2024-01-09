@@ -64,6 +64,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
 
         due_image = new Widgets.DynamicIcon ();
+        due_image.size = 19;
         due_image.update_icon_name ("planner-calendar");
 
         due_label = new Gtk.Label (_("Schedule")) {

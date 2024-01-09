@@ -554,5 +554,22 @@ checkbutton.theme-selector radio:checked {
 }
 
 .drop-area-active {
+    border-radius: 6px;
     border: 1px solid #1e63ec;
+}
+
+.drop-area-outline-active {
+    border-radius: 6px;
+    outline: 1px solid #1e63ec;
+}
+
+.view-button {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.video-content,
+.video-content > overlay,
+.video-content > overlay > picture {
+    border-radius: 6px;
 }

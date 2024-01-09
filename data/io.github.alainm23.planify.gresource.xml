@@ -13,7 +13,11 @@
     <file alias="index.css" compressed="true">resources/stylesheet/index.css</file>
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
     <file preprocess="xml-stripblanks">io.github.alainm23.planify.appdata.xml.in.in</file>
-    <file alias="test-video.webm" compressed="true">resources/test-video.webm</file>
+
+    <!-- Videos -->
+    <file alias="dnd-order.webm" compressed="true">resources/videos/dnd-order.webm</file>
+    <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
+    <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
 
     <file alias="planner-inbox.svg">resources/icons/planner-inbox.svg</file>
     <file alias="planner-today.svg">resources/icons/planner-today.svg</file>

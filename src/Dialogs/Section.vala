@@ -150,6 +150,16 @@ public class Dialogs.Section : Adw.Window {
 
         name_entry.entry_activated.connect (add_update_section);
         submit_button.clicked.connect (add_update_section);
+
+        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
+        name_entry.add_controller (name_entry_ctrl_key);
+        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+
+            return false;
+        });
     }
 
     private void add_update_section () {

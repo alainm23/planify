@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.ItemRow : Gtk.ListBoxRow {
+public class Layouts.ItemRow : Layouts.ItemBase {
     public Objects.Item item { get; construct; }
     public bool board { get; construct; }
 
@@ -198,7 +198,6 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
-    public string update_id { get; set; default = Util.get_default ().generate_id (); }
     public bool on_drag = false;
 
     public signal void item_added ();
@@ -801,7 +800,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public void update_request () {
+    public override void update_request () {
         if (complete_timeout <= 0) {
             Util.get_default ().set_widget_priority (item.priority, checked_button);
             checked_button.active = item.completed;
@@ -885,7 +884,7 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
         }
     }
 
-    public void hide_destroy () {
+    public override void hide_destroy () {
         widget_destroyed ();
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
@@ -1581,12 +1580,17 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
         dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
-            GLib.Value value = Value (typeof (Layouts.ItemRow));
+            GLib.Value value = Value (typeof (Gtk.Widget));
             drop.drag.content.get_value (ref value);
-            var picked_widget = (Layouts.ItemRow) value;
-			motion_top_grid.height_request = picked_widget.itemrow_box.get_height ();
 
-            motion_top_revealer.reveal_child = item.project.sort_order == 0 && drop_motion_ctrl.contains_pointer;
+            if (value.dup_object () is Layouts.ItemBoard) {
+                var picked_widget = (Layouts.ItemBoard) value;
+                motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
+            } else {
+                motion_top_grid.height_request = 32;
+            }
+            
+            motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
         })] = drop_motion_ctrl;
 
         dnd_handlerses[drop_motion_ctrl.leave.connect (() => {
@@ -1703,6 +1707,14 @@ public class Layouts.ItemRow : Gtk.ListBoxRow {
 
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
+            }
+
+            if (item.project.sort_order != 0) {
+                item.project.sort_order = 0;
+                Services.EventBus.get_default ().send_notification (
+                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'."))
+                );
+			    item.project.update (false);
             }
 
             old_section_id = picked_widget.item.section_id;

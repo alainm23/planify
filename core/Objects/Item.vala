@@ -204,6 +204,15 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.ArrayList<Objects.Item> items {
         get {
             _items = Services.Database.get_default ().get_subitems (this);
+            _items.sort ((a, b) => {
+                if (a.child_order > b.child_order) {
+                    return 1;
+                } if (a.child_order == b.child_order) {
+                    return 0;
+                }
+                
+                return -1;
+            });
             return _items;
         }
     }
