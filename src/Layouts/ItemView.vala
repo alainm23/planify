@@ -39,7 +39,6 @@ public class Layouts.ItemViewContent : Adw.Bin {
     public ItemViewContent (Objects.Item item) {
         Object (
             item: item,
-            valign: Gtk.Align.START,
             hexpand: true,
             vexpand: true
         );
@@ -61,6 +60,8 @@ public class Layouts.ItemViewContent : Adw.Bin {
         content_textview = new Widgets.TextView () {
             top_margin = 12,
             hexpand = true,
+            vexpand = false,
+            valign = START,
             wrap_mode = Gtk.WrapMode.CHAR,
             editable = !item.completed
         };
@@ -68,7 +69,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
         content_textview.remove_css_class ("view");
         
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.START,
             hexpand = true,
             margin_start = 12
         };

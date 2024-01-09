@@ -37,8 +37,17 @@
     <screenshot>
       <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-02.png</image>
     </screenshot>
-        <screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-03.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-04.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-05.png</image>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-06.png</image>
     </screenshot>
   </screenshots>
   <kudos>
@@ -62,13 +71,21 @@
           <li>Support for sub-projects: Create a sub-project just by dragging and dropping or by using the magic button and dropping into the parent project.</li>
           <li>Magic Button: Just drag and drop to add tasks wherever you want and in the order you want.</li>
           <li>Board View: Have an overview of your tasks without losing sight of the details.</li>
+          <li>Using Adw.OverlaySplitView to have a collapsible sidebar.</li>
+          <li>Sections are now created from a Dialog and support color and a description.</li>
+          <li>Parent and child tasks: It is now easier to create subtasks, just drag the child task to the parent task and drop it.</li>
+          <li>New preference to configure whether to add the task at the beginning or end of the list.</li>
+          <li>Quick Add now allows you to select the target section.</li>
+          <li>Improved integration with Todoist, now allows you to create tasks with strange character content.</li>
+          <li>The description of a project is now editable instead of using a Dialog.</li>
+          <li>The design of the reminder creation has been improved.</li>
         </ul>
         <p>Bug Fixed and Translations</p>
         <ul>
           <li>Portugués translations thanks to @godinhoana54.</li>
           <li>Russian translation update thanks to @hachikoharuno.</li>
           <li>Turkish translation update thanks to @sabriunal.</li>
-          <li>Bugs fixed #1089, #1073.</li>
+          <li>Bugs fixed #1089, #1081, #1099, #1087, #1009, #1008, #1007.</li>
         </ul>
       </description>
     </release>

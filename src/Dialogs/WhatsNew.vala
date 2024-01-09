@@ -31,7 +31,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 			deletable: true,
 			destroy_with_parent: true,
 			modal: true,
-			default_width: 450,
+			default_width: 500,
 			height_request: 500,
 			title: null
 		);

@@ -143,7 +143,6 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-
         create_tables ();
         patch_database ();
         opened ();
@@ -246,7 +245,7 @@ public class Services.Database : GLib.Object {
                 is_deleted      INTEGER,
                 is_archived     INTEGER,
                 color           TEXT,
-                description     TEXT
+                description     TEXT,
                 FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
             );
         """;

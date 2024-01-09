@@ -165,7 +165,8 @@ public class Layouts.HeaderItem : Adw.Bin {
             hexpand = true,
             margin_top = 3,
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            margin_bottom = 3
         };
         
         listbox.set_placeholder (get_placeholder ());

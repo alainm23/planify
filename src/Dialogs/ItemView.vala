@@ -29,9 +29,9 @@ public class Dialogs.ItemView : Adw.Window {
             item: item,
             deletable: true,
             resizable: true,
-            modal: true,
-            valign: Gtk.Align.START,
+            modal: false,
             width_request: 550,
+            valign: Gtk.Align.START,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
@@ -39,10 +39,7 @@ public class Dialogs.ItemView : Adw.Window {
     construct {
         var parent_page = new Adw.NavigationPage (new Layouts.ItemViewContent (item), item.id);
 
-        navigation_view = new Adw.NavigationView () {
-            valign = Gtk.Align.START
-        };
-
+        navigation_view = new Adw.NavigationView ();
 		navigation_view.add (parent_page);
 
         content = navigation_view;

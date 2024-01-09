@@ -201,7 +201,6 @@ public class Views.Project : Gtk.Grid {
 	private Gtk.Popover build_context_menu_popover () {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
-		var description_item = new Widgets.ContextMenu.MenuItem (_("Description"), "planner-note");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
@@ -214,7 +213,6 @@ public class Views.Project : Gtk.Grid {
 
 		if (!project.is_inbox_project) {
 			menu_box.append (edit_item);
-			menu_box.append (description_item);
 			menu_box.append (schedule_item);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
@@ -241,12 +239,6 @@ public class Views.Project : Gtk.Grid {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Project (project);
-			dialog.show ();
-		});
-
-		description_item.activate_item.connect (() => {
-			popover.popdown ();
-			var dialog = new Dialogs.ProjectDescription (project);
 			dialog.show ();
 		});
 

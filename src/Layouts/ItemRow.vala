@@ -21,7 +21,6 @@
 
 public class Layouts.ItemRow : Layouts.ItemBase {
     public Objects.Item item { get; construct; }
-    public bool board { get; construct; }
 
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
@@ -98,10 +97,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 labels_summary.reveal_child = false;
                 hide_subtask_revealer.reveal_child = false;
                 hide_loading_button.remove_css_class ("no-padding");
-
-                if (!board) {
-                    hide_loading_revealer.reveal_child = true;
-                }
+                hide_loading_revealer.reveal_child = true;
 
                 // Due labels
                 due_label_revealer.reveal_child = false;
@@ -206,16 +202,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public ItemRow (Objects.Item item) {
         Object (
             item: item,
-            board: false,
-            focusable: false,
-            can_focus: true
-        );
-    }
-
-    public ItemRow.for_board (Objects.Item item) {
-        Object (
-            item: item,
-            board: true,
             focusable: false,
             can_focus: true
         );
@@ -228,7 +214,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         Object (
             item: item,
-            board: false,
             focusable: false,
             can_focus: true
         );
@@ -240,7 +225,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         Object (
             item: item,
-            board: false,
             focusable: false,
             can_focus: true
         );
@@ -254,7 +238,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         Object (
             item: item,
-            board: false,
             focusable: false,
             can_focus: true
         );
@@ -267,7 +250,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         Object (
             item: item,
-            board: false,
             focusable: false,
             can_focus: true
         );
@@ -423,7 +405,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             right_margin = 6,
             top_margin = 3,
             bottom_margin = 12,
-            margin_bottom = board ? 12 : 0,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
             editable = !item.completed,
@@ -434,8 +415,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            vscrollbar_policy = board ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER,
-            height_request = board ? 96 : -1,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
             child = description_textview
@@ -504,8 +484,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         var handle_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            valign = board ? Gtk.Align.FILL : Gtk.Align.START,
-            vexpand = board,
+            valign = Gtk.Align.START,
             css_classes = { "transition", "drop-target" }
         };
         handle_grid.append (content_main_box);
@@ -591,7 +570,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
                     if (!on_drag) {
-                        Services.EventBus.get_default ().item_selected (item.id);
+                        edit = true;
                     }
 
                     return GLib.Source.REMOVE;
@@ -599,26 +578,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         });
 
-        Services.EventBus.get_default ().item_selected.connect ((id) => {
-            if (item.id == id) {
-                if (!edit) {
-                    edit = true;
-                }
-            } else {
-                if (edit && !board) {
-                    edit = false;
-                }
-            }
-        });
-
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293) {
-                if (!board) {
-                    Services.EventBus.get_default ().item_selected (null);
-                }
-                
+                edit = false;    
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
                 description_textview.grab_focus ();
@@ -629,9 +593,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         content_controller_key.key_released.connect ((keyval, keycode, state) => {            
-            // Sscape
             if (keyval == 65307) {
-                Services.EventBus.get_default ().item_selected (null);
+                edit = false;
             } else { 
                 update ();
             }
@@ -641,7 +604,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
-                Services.EventBus.get_default ().item_selected (null);
+                edit = false;
             } else if (keyval == 65289) {
                 schedule_button.grab_focus ();
             } else {
@@ -667,10 +630,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         hide_loading_button.add_controller (hide_loading_gesture);
         hide_loading_gesture.pressed.connect (() => {
             hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            if (!board) {
-                Services.EventBus.get_default ().item_selected (null);
-            }
+            edit = false;
         });
 
         schedule_button.date_changed.connect ((datetime) => {
@@ -846,7 +806,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         due_label.remove_css_class ("today-grid");
         due_label.remove_css_class ("upcoming-grid");
 
-        if (item.completed && !board) {
+        if (item.completed) {
             due_label.label = Util.get_default ().get_relative_date_from_date (
                 Util.get_default ().get_date_from_string (item.completed_at)
             );
@@ -997,7 +957,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         edit_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            edit = true;
+
+            var dialog = new Dialogs.ItemView (item);
+            dialog.show ();
         });
 
         delete_item.activate_item.connect (() => {
@@ -1412,33 +1374,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void delete_request (bool undo = true) {
-        if (board) {
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Delete To-Do"), _("Are you sure you want to delete this to-do?"));
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
-
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					if (item.project.backend_type == BackendType.TODOIST) {
-						Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-							if (Services.Todoist.get_default ().delete.end (res).status) {
-                                Services.Database.get_default ().delete_item (item);
-                            }
-						});
-					} else if (item.project.backend_type == BackendType.LOCAL) {
-					    Services.Database.get_default ().delete_item (item);
-					}
-				}
-			});
-
-            return;
-        }
-
         main_revealer.reveal_child = false;
 
         if (undo) {

@@ -87,7 +87,6 @@ sources = files(
   'Dialogs/GoogleOAuth.vala',
   'Dialogs/WhatsNew.vala',
   'Dialogs/QuickAdd.vala',
-  'Dialogs/ProjectDescription.vala',
   'Dialogs/ManageSectionOrder.vala',
   'Dialogs/ProjectPicker/ProjectPicker.vala',
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
