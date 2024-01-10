@@ -62,7 +62,7 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-    <release version="4.4" date="2024-01-08">
+    <release version="4.4" date="2024-01-10">
       <description>
         <p>Planify 4.4 is here, design improvements and new features available.</p>
         <p>What’s New</p>
