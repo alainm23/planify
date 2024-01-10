@@ -23,6 +23,14 @@ public class MainWindow : Adw.ApplicationWindow {
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
         quick_add_widget.send_interface_id.connect (send_interface_id);
+        quick_add_widget.add_item_db.connect ((add_item_db));
+    }
+
+    private void add_item_db (Objects.Item item) {
+        if (Services.Database.get_default ().insert_item (item)) {
+            send_interface_id (item.id);
+            Services.EventBus.get_default ().item_added_successfully ();
+        }  
     }
 
     private void send_interface_id (string id) {

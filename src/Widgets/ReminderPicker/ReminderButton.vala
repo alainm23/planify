@@ -19,11 +19,10 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ReminderButton : Gtk.Grid {
+public class Widgets.ReminderButton : Adw.Bin {
     public Objects.Item item { get; construct; }
 
-    private Gtk.Label badge_label;
-    private Gtk.Revealer badge_revealer;
+    private Gtk.Revealer indicator_revealer;
 
     public ReminderButton (Objects.Item item) {
         Object (
@@ -37,34 +36,32 @@ public class Widgets.ReminderButton : Gtk.Grid {
     construct {
         var reminder_picker = new Widgets.ReminderPicker.ReminderPicker (item);
 
-        var bell_image = new Widgets.DynamicIcon ();
-        bell_image.size = 16;
-        bell_image.update_icon_name ("planner-bell");
+        var indicator_grid = new Gtk.Grid () {
+			width_request = 9,
+			height_request = 9,
+			margin_top = 3,
+			margin_end = 3,
+			css_classes = { "indicator" }
+		};
 
-        badge_label = new Gtk.Label (null);
-        badge_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-
-        badge_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+		indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+			halign = END,
+			valign = START,
         };
-
-        badge_revealer.child = badge_label;
-
-        var button_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            valign = Gtk.Align.CENTER
-        };
-
-        button_grid.append (bell_image);
-        button_grid.append (badge_revealer);
 
         var button = new Gtk.MenuButton () {
-            child = button_grid,
-            popover = reminder_picker
+            child = new Widgets.DynamicIcon.from_icon_name ("planner-bell"),
+            popover = reminder_picker,
+            css_classes = { "flat" }
         };
 
-        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        var overlay = new Gtk.Overlay ();
+		overlay.child = button;
+		overlay.add_overlay (indicator_revealer);
 
-        attach (button, 0, 0);
+        child = overlay;
         update_request ();
 
         item.reminder_added.connect (() => {
@@ -77,7 +74,6 @@ public class Widgets.ReminderButton : Gtk.Grid {
     }
 
     public void update_request () {
-        badge_label.label = "%d".printf (item.reminders.size);
-        badge_revealer.reveal_child = item.reminders.size > 0;
+        indicator_revealer.reveal_child = item.reminders.size > 0;
     }
 }

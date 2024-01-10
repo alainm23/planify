@@ -47,7 +47,6 @@ core_files = files(
     'Objects/Color.vala',
     'Objects/DueDate.vala',
     'Objects/Item.vala',
-    'Objects/ItemLabel.vala',
     'Objects/Label.vala',
     'Objects/Project.vala',
     'Objects/Queue.vala',
@@ -70,7 +69,8 @@ core_deps = [
   libadwaita_dep,
   granite_dep,
   json_dep,
-  libsoup_dep
+  libsoup_dep,
+  gtksourceview_dep
 ]
 
 core_lib = shared_library(

@@ -47,14 +47,15 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
 
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var month_label = new Gtk.Label (date.format ("%B").up (1) + date.format ("%B").substring (1)) {
+        var month_label = new Gtk.Label (date.format ("%OB").up (1) + date.format ("%OB").substring (1)) {
             halign = Gtk.Align.START
         };
 
         month_label.add_css_class ("font-bold");
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            hexpand = true
+            hexpand = true,
+            margin_start = 24
         };
 
         title_box.append (month_label);
@@ -62,15 +63,15 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
         event_list = new Widgets.EventsList.for_month (date) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 24
         };
 
         event_list_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = event_list.has_items
+            reveal_child = event_list.has_items,
+            child = event_list
         };
-
-        event_list_revealer.child = event_list;
         
         event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
@@ -106,7 +107,8 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
         content.append (title_box);
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
-            margin_bottom = 3
+            margin_bottom = 3,
+            margin_start = 24
         });
         content.append (event_list_revealer);
         content.append (listbox_revealer);

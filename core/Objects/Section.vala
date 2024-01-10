@@ -27,6 +27,8 @@ public class Objects.Section : Objects.BaseObject {
     public bool collapsed { get; set; default = true; }
     public bool is_deleted { get; set; default = false; }
     public bool is_archived { get; set; default = false; }
+    public string color { get; set; default = ""; }
+    public string description { get; set; default = ""; }
 
     // Tmp
     public bool activate_name_editable { get; set; default = false; }
@@ -201,41 +203,44 @@ public class Objects.Section : Objects.BaseObject {
 
     public override string get_update_json (string uuid, string? temp_id = null) {
         var builder = new Json.Builder ();
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
+            builder.begin_array ();
+                builder.begin_object ();
 
-        // Set type
-        builder.set_member_name ("type");
-        builder.add_string_value (temp_id == null ? "section_update" : "section_add");
+                // Set type
+                builder.set_member_name ("type");
+                builder.add_string_value (temp_id == null ? "section_update" : "section_add");
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-        if (temp_id != null) {
-            builder.set_member_name ("temp_id");
-            builder.add_string_value (temp_id);
-        }
+                if (temp_id != null) {
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
+                }
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
-            
-            if (temp_id == null) {
-                builder.set_member_name ("id");
-                builder.add_string_value (id);
-            }
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+                    
+                    if (temp_id == null) {
+                        builder.set_member_name ("id");
+                        builder.add_string_value (id);
+                    }
 
-            if (temp_id != null) {
-                builder.set_member_name ("project_id");
-                builder.add_string_value (project_id);
-            }
+                    if (temp_id != null) {
+                        builder.set_member_name ("project_id");
+                        builder.add_string_value (project_id);
+                    }
 
-            builder.set_member_name ("name");
-            builder.add_string_value (Util.get_default ().get_encode_text (name));
+                    builder.set_member_name ("name");
+                    builder.add_string_value (Util.get_default ().get_encode_text (name));
 
-            builder.end_object ();
+                    builder.end_object ();
 
+                builder.end_object ();
+                builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();

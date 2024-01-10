@@ -38,34 +38,42 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("row");
+        add_css_class ("selectable-item");
 
         checked_button = new Gtk.CheckButton () {
-            can_focus = false,
             valign = Gtk.Align.CENTER,
-            label = label.name,
-            hexpand = true
+            css_classes = { "checkbutton-label", "priority-color" }
         };
-        checked_button.add_css_class ("checkbutton-label");
-
-        checked_button.add_css_class ("priority-color");
         Util.get_default ().set_widget_priority (Constants.PRIORITY_4, checked_button);
 
-        var main_grid = new Gtk.Grid () {
-            column_spacing = 6,
+        var name_label = new Gtk.Label (label.name) {
+            valign = Gtk.Align.CENTER,
+        };
+        
+        var color_grid = new Gtk.Grid () {
+			width_request = 3,
+			height_request = 16,
+            margin_top = 0,
+			valign = Gtk.Align.CENTER,
+			css_classes = { "event-bar" }
+		};
+        Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
+
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 3,
-            margin_start = 3,
-            margin_end = 3
+            margin_start = 6,
+            margin_end = 6,
+            margin_bottom = 3
         };
 
-        main_grid.attach (checked_button, 0, 0);
+        content_box.append (checked_button);
+        content_box.append (color_grid);
+        content_box.append (name_label);
 
-        child = main_grid;
+        child = content_box;
 
         var checked_button_gesture = new Gtk.GestureClick ();
-        checked_button_gesture.set_button (1);
-        checked_button.add_controller (checked_button_gesture);
-
+        content_box.add_controller (checked_button_gesture);
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             update_checked_toggled ();

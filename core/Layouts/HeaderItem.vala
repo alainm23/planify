@@ -80,6 +80,8 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
+    public bool autohide_action { get; set; default = true; }
+
     public bool show_action {
         set {
             action_revealer.reveal_child = value;
@@ -162,9 +164,9 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox = new Gtk.ListBox () {
             hexpand = true,
             margin_top = 3,
-            margin_bottom = 3,
             margin_start = 3,
-            margin_end = 3
+            margin_end = 3,
+            margin_bottom = 3
         };
         
         listbox.set_placeholder (get_placeholder ());
@@ -226,10 +228,6 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         child = content_revealer;
 
-        //  add_button.clicked.connect (() => {
-        //      add_activated ();
-        //  });
-
         listbox.row_activated.connect ((row) => {
             row_activated (row);
         });
@@ -242,7 +240,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         });
 
         motion_gesture.leave.connect (() => {
-            action_revealer.reveal_child = false;
+            action_revealer.reveal_child = !autohide_action;
         });
     }
 
@@ -255,14 +253,13 @@ public class Layouts.HeaderItem : Adw.Bin {
         placeholder_label.add_css_class ("dim-label");
         placeholder_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content_box = new Adw.Bin () {
             margin_top = 12,
             margin_bottom = 12,
             margin_start = 12,
             margin_end = 12,
+            child = placeholder_label
         };
-
-        content_box.append (placeholder_label);
 
         return content_box;
     }
@@ -274,6 +271,12 @@ public class Layouts.HeaderItem : Adw.Bin {
 
     public void insert_child (Gtk.Widget widget, int position) {
         listbox.insert (widget, position);
+    }
+
+    public void clear () {
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
     }
 
     public void add_widget_end (Gtk.Widget widget) {

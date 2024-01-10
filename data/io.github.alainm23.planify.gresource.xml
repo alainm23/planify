@@ -14,6 +14,11 @@
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>
     <file preprocess="xml-stripblanks">io.github.alainm23.planify.appdata.xml.in.in</file>
 
+    <!-- Videos -->
+    <file alias="dnd-order.webm" compressed="true">resources/videos/dnd-order.webm</file>
+    <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
+    <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
+
     <file alias="planner-inbox.svg">resources/icons/planner-inbox.svg</file>
     <file alias="planner-today.svg">resources/icons/planner-today.svg</file>
     <file alias="planner-scheduled.svg">resources/icons/planner-scheduled.svg</file>
@@ -48,6 +53,7 @@
     <file alias="archive-plus.svg">resources/icons/settings/archive-plus.svg</file>
     <file alias="sidebar.svg">resources/icons/settings/sidebar.svg</file>
     <file alias="telegram.svg">resources/icons/settings/telegram.svg</file>
+    <file alias="file-text.svg">resources/icons/settings/file-text.svg</file>
 
     <file alias="planner-calendar-light.svg">resources/icons/planner-calendar-light.svg</file>
     <file alias="planner-calendar-dark.svg">resources/icons/planner-calendar-dark.svg</file>

@@ -79,7 +79,6 @@ public class Layouts.Sidebar : Adw.Bin {
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
         favorites_header.margin_top = 6;
-        favorites_header.show_action = false;
 
         local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
         local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
@@ -139,15 +138,8 @@ public class Layouts.Sidebar : Adw.Bin {
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
         content_box.append (whats_new_revealer);
-        // content_box.append (google_projects_header);
 
-        var scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-
-        scrolled_window.child = content_box;
+        var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         child = scrolled_window;
         update_projects_sort ();
@@ -412,7 +404,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     private void update_projects_sort () {
-        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 0) {
+        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1) {
             local_projects_header.set_sort_func (projects_sort_func);
             todoist_projects_header.set_sort_func (projects_sort_func);
         } else {
@@ -424,11 +416,7 @@ public class Layouts.Sidebar : Adw.Bin {
     private int projects_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
         Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
         Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
-
-        if (Services.Settings.get_default ().settings.get_enum ("projects-ordered") == 0) {
-            return project2.name.collate (project1.name);
-        } else {
-            return project1.name.collate (project2.name);
-        }
+        int ordered = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
+        return ordered == 0 ? project2.name.collate (project1.name) : project1.name.collate (project2.name);
     }
 }

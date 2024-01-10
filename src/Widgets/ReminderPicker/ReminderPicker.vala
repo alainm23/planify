@@ -22,101 +22,63 @@
 public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {  
     public Objects.Item item { get; construct; }
 
-    private Gtk.ListBox listbox;
+    private Layouts.HeaderItem reminders_view;
     private Widgets.Calendar.Calendar calendar;
     private Widgets.DateTimePicker.TimePicker time_picker;
     private Gtk.Stack main_stack;
     private Widgets.LoadingButton submit_button;
 
-    private Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> reminders_map;
+    private Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> reminders_map = new Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> ();
 
     public ReminderPicker (Objects.Item item) {
         Object (
             item: item,
             has_arrow: false,
-            position: Gtk.PositionType.TOP
+            position: Gtk.PositionType.BOTTOM,
+            width_request: 250
         );
     }
 
     construct {
-        reminders_map = new Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> ();
-
-        var name_label = new Gtk.Label (_("Reminders")) {
-            halign = Gtk.Align.START
+        reminders_view = new Layouts.HeaderItem (_("Reminders")) {
+            margin_bottom = 9
         };
-
-        name_label.add_css_class (Granite.STYLE_CLASS_H4_LABEL);
-        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-
-        var add_image = new Widgets.DynamicIcon () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER,
-        };
-        add_image.size = 16;
-        add_image.update_icon_name ("plus");
+        reminders_view.reveal_child = true;
+        reminders_view.autohide_action = false;
+        reminders_view.show_action = true;
+        reminders_view.placeholder_message = _("Your list of reminders will show up here. Add one by clicking the '+' button.");
 
         var add_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.END,
-            hexpand = true
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
-        add_button.child = add_image;
+        reminders_view.add_widget_end (add_button);
 
-        add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        add_button.add_css_class ("p3");
-
-        var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin_start = 6
-        };
-
-        header_box.append (name_label);
-        header_box.append (add_button);
-
-        listbox = new Gtk.ListBox () {
-            hexpand = true
-        };
-
-        listbox.set_placeholder (get_placeholder ());
-        listbox.add_css_class ("listbox-separator-3");
-        listbox.add_css_class ("listbox-background");
-
-        var listbox_scrolled = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
+        var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
-            height_request = 200
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
+            child = reminders_view
         };
 
-        listbox_scrolled.child = listbox;
-
-        var add_reminder_button = new Gtk.Button.with_label (_("Add reminder"));
-        add_reminder_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        content_box.append (header_box);
-        content_box.append (listbox_scrolled);
-
-        main_stack = new Gtk.Stack ();
-        main_stack.vexpand = true;
-        main_stack.hexpand = true;
-        main_stack.vhomogeneous = false;
-        main_stack.hhomogeneous = false;
-        main_stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-
-        main_stack.add_named (content_box, "listbox");
+        main_stack = new Gtk.Stack () {
+            vexpand = true,
+            hexpand = true,
+            vhomogeneous = false,
+            hhomogeneous = false,
+            transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT
+        };
+        main_stack.add_named (scrolled_window, "listbox");
         main_stack.add_named (get_picker (), "picker");
 
-        var content_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL,
-            hexpand = true,
-            width_request = 200
-        };
-
-        content_grid.attach (main_stack, 0, 0);
-
-        child = content_grid;
+        child = main_stack;
         add_reminders ();
 
         item.reminder_added.connect (add_reminder);
@@ -150,7 +112,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     private void add_reminder (Objects.Reminder reminder) {
         if (!reminders_map.has_key (reminder.id_string)) {
             reminders_map [reminder.id_string] = new Dialogs.ReminderPicker.ReminderRow (reminder);
-            listbox.append (reminders_map[reminder.id_string]);
+            reminders_view.add_child (reminders_map[reminder.id_string]);
         }
     }
 
@@ -173,7 +135,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
                 main_stack.visible_child_name = "listbox";
                 submit_button.is_loading = false;
             });
-        } else {
+        } else if (item.project.backend_type == BackendType.LOCAL) {
             reminder.id = Util.get_default ().generate_id ();
             item.add_reminder_if_not_exists (reminder);
 
@@ -199,67 +161,50 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             hexpand = true
         };
 
-        var calendar_grid = new Gtk.Grid () {
-            orientation = Gtk.Orientation.VERTICAL
+        var calendar_grid = new Adw.Bin () {
+            child = calendar,
+            css_classes = { "card" }
         };
 
-        calendar_grid.attach (calendar, 0, 0);
+        var time_icon = new Widgets.DynamicIcon.from_icon_name ("planner-clock") {
+            margin_start = 9
+        };
 
-        var time_label = new Gtk.Label (_("Time"));
-
-        time_label.add_css_class ("font-bold");
+        var time_label = new Gtk.Label (_("Time")) {
+            margin_start = 6,
+            css_classes = { "font-weight-500" }
+        };
 
         time_picker = new Widgets.DateTimePicker.TimePicker () {
             hexpand = true,
             halign = Gtk.Align.END
         };
 
-        var time_picker_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_top = 12,
-            margin_start = 18
+        var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            margin_top = 6,
+            css_classes = { "card" }
         };
-        time_picker_grid.append (time_label);
-        time_picker_grid.append (time_picker);
+
+        time_box.append (time_icon);
+        time_box.append (time_label);
+        time_box.append (time_picker);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add reminder")) {
             margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 6
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 6,
+            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-        submit_button.add_css_class ("no-padding");
-        submit_button.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         main_grid.append (calendar_grid);
-        main_grid.append (time_picker_grid);
+        main_grid.append (time_box);
         main_grid.append (submit_button);
 
         submit_button.clicked.connect (insert_reminder);
 
         return main_grid;
-    }
-
-    private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("Your list of reminders will show up here. Add one by clicking the button.")) {
-            wrap = true,
-            justify = Gtk.Justification.CENTER
-        };
-        
-        message_label.add_css_class ("dim-label");
-        message_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
-
-        var grid = new Gtk.Grid () {
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
-            valign = Gtk.Align.CENTER
-        };
-
-        grid.attach (message_label, 0, 0);
-
-        return grid;
     }
 }

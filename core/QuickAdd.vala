@@ -1,6 +1,6 @@
 public class Layouts.QuickAdd : Adw.Bin {
     public bool is_window_quick_add { get; construct; }
-    public Objects.Item item { get; set; }
+    public Objects.Item item { get; construct; }
 
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
@@ -17,18 +17,24 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
+    public signal void add_item_db (Objects.Item item);
 
     public QuickAdd (bool is_window_quick_add = false) {
+        var item = new Objects.Item ();
+        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        
+        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
+            item.child_order = 0;
+            item.custom_order = true;
+        }
+
         Object (
-            is_window_quick_add: is_window_quick_add
+            is_window_quick_add: is_window_quick_add,
+            item: item
         );
     }
 
     construct {
-        item = new Objects.Item ();
-        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
-
-
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
@@ -74,7 +80,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         pin_button = new Widgets.PinButton (item);
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton (item);
+        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 3,
@@ -102,7 +108,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             margin_end = 12,
             vexpand = true
         };
-        quick_add_content.add_css_class (Granite.STYLE_CLASS_CARD);
+        quick_add_content.add_css_class ("card");
         quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
         quick_add_content.append (description_textview);
@@ -159,7 +165,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             valign = Gtk.Align.START
         };
         main_content.append (quick_add_content);
-        // main_content.append (error_box);
         main_content.append (footer_content);
 
         var warning_image = new Gtk.Image ();
@@ -223,12 +228,16 @@ public class Layouts.QuickAdd : Adw.Bin {
             hide_destroy ();
         });
 
-        project_picker_button.selected.connect ((project) => {
+        project_picker_button.project_change.connect ((project) => {
             item.project_id = project.id;
 
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
             }
+        });
+
+        project_picker_button.section_change.connect ((section) => {
+            item.section_id = section.id;
         });
 
         schedule_button.date_changed.connect ((datetime) => {
@@ -243,7 +252,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             set_priority (priority);
         });
 
-        item_labels.labels_changed.connect (set_labels);
+        // item_labels.labels_changed.connect (set_labels);
         label_button.labels_changed.connect (set_labels);
 
         var destroy_controller = new Gtk.EventControllerKey ();
@@ -256,6 +265,16 @@ public class Layouts.QuickAdd : Adw.Bin {
 
             return false;
         });
+
+        Services.EventBus.get_default ().item_added_successfully.connect (() => {
+            main_stack.visible_child_name = "added";
+            added_image.add_css_class ("fancy-turn-animation");
+
+            Timeout.add (750, () => {
+                hide_destroy ();
+                return GLib.Source.REMOVE;
+            });
+        });
     }
 
     private void add_item () {        
@@ -267,6 +286,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
         
+        debug ("Content: %s, Index: %d", item.content, item.child_order);
+
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
@@ -286,27 +307,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         }
     }
 
-    private void add_item_db (Objects.Item item) {
-        if (Services.Database.get_default ().insert_item (item)) {
-            send_interface_id (item.id);
-            
-            main_stack.visible_child_name = "added";
-            added_image.add_css_class ("fancy-turn-animation");
-
-            Timeout.add (750, () => {
-                hide_destroy ();
-                return GLib.Source.REMOVE;
-            });
-        }  
-    }
-
     public void update_content (string content = "") {
         content_entry.set_text (content);
-    }
-
-    public void set_project (Objects.Project project) {
-        project_picker_button.project = project;
-        item.project_id = project.id;
     }
 
     public void set_due (GLib.DateTime? datetime) {
@@ -333,8 +335,43 @@ public class Layouts.QuickAdd : Adw.Bin {
         priority_button.update_from_item (item);
     }
 
-    public void set_labels (Gee.HashMap <string, Objects.Label> labels) {
-        item.update_local_labels (labels);
-        item_labels.update_labels ();
+    public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        foreach (var entry in new_labels.entries) {
+            if (item.get_label (entry.key) == null) {
+                item.add_label_if_not_exists (entry.value);
+            }
+        }
+        
+        foreach (var label in item._get_labels ()) {
+            if (!new_labels.has_key (label.id)) {
+                item.delete_item_label (label.id);
+            }
+        }
+    }
+
+    public void for_project (Objects.Project project) {
+        item.project_id = project.id;
+        project_picker_button.project = project;
+    }
+
+    public void for_section (Objects.Section section) {
+        item.section_id = section.id;
+        item.project_id = section.project.id;
+
+        project_picker_button.project = section.project;
+        project_picker_button.section = section;
+    }
+
+    public void for_parent (Objects.Item _item) {
+        item.project_id = _item.project_id;
+        item.section_id = _item.section_id;
+        item.parent_id = _item.id;
+
+        project_picker_button.project = _item.project;
+    }
+
+    public void set_index (int index) {
+        item.child_order = index;
+        item.custom_order = true;
     }
 }

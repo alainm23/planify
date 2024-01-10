@@ -22,14 +22,32 @@
 public class Objects.Item : Objects.BaseObject {
     public string content { get; set; default = ""; }
     public string description { get; set; default = ""; }
-    public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string completed_at { get; set; default = ""; }
     public string updated_at { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
-    
+
+    public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
+    public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
+
+    public Gee.ArrayList<Objects.Label> _get_labels () {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+
+        foreach (Objects.Label label in labels) {
+            return_value.add (label);
+        }
+
+        return return_value;
+    }
+
+    public void debug_labels () {
+        foreach (Objects.Label label in labels) {
+            debug ("ID: %s - %s", label.id, label.name);
+        }
+    }
+
     public int priority { get; set; default = Constants.PRIORITY_4; }
 
     public bool activate_name_editable { get; set; default = false; }
@@ -77,10 +95,22 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public int child_order { get; set; default = 0; }
+    public bool custom_order { get; set; default = false; }
     public int day_order { get; set; default = 0; }
     public bool checked { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
-    public bool collapsed { get; set; default = false; }
+
+    private bool _collapsed = false;
+    public bool collapsed {
+        get {
+            return _collapsed;
+        }
+
+        set {
+            _collapsed = value;
+            collapsed_change ();
+        }
+    }
 
     public bool pinned { get; set; default = false; }
     public string pinned_icon {
@@ -170,23 +200,19 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    Gee.HashMap<string, Objects.ItemLabel> _labels = null;
-    public Gee.HashMap<string, Objects.ItemLabel> labels {
-        get {
-            if (_labels == null) {
-                _labels = Services.Database.get_default ().get_labels_by_item (this);
-            }
-            return _labels;
-        }
-        set {
-            _labels = value;
-        }
-    }
-
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
             _items = Services.Database.get_default ().get_subitems (this);
+            _items.sort ((a, b) => {
+                if (a.child_order > b.child_order) {
+                    return 1;
+                } if (a.child_order == b.child_order) {
+                    return 0;
+                }
+                
+                return -1;
+            });
             return _items;
         }
     }
@@ -199,12 +225,13 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public signal void item_label_added (Objects.ItemLabel item_label);
-    public signal void item_label_deleted (Objects.ItemLabel item_label);
+    public signal void item_label_added (Objects.Label label);
+    public signal void item_label_deleted (Objects.Label label);
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void loading_changed (bool value);
+    public signal void collapsed_change ();
     
     construct {
         deleted.connect (() => {
@@ -217,45 +244,6 @@ public class Objects.Item : Objects.BaseObject {
 
     public Item.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
-        update_from_json (node);
-        update_local_labels (get_labels_from_json (node));
-    }
-
-    public Item.from_import_json (Json.Node node) {
-        id = node.get_object ().get_string_member ("id");
-        content = node.get_object ().get_string_member ("content");
-        description = node.get_object ().get_string_member ("description");
-        added_at = node.get_object ().get_string_member ("added_at");
-        completed_at = node.get_object ().get_string_member ("completed_at");
-        updated_at = node.get_object ().get_string_member ("updated_at");
-        section_id = node.get_object ().get_string_member ("section_id");
-        project_id = node.get_object ().get_string_member ("project_id");
-        parent_id = node.get_object ().get_string_member ("parent_id");
-        priority = (int32) node.get_object ().get_int_member ("priority");
-        child_order = (int32) node.get_object ().get_int_member ("child_order");
-        checked = node.get_object ().get_boolean_member ("checked");
-        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
-        day_order = (int32) node.get_object ().get_int_member ("day_order");
-        due.update_from_json (Services.Database.get_default ().get_due_parameter (node.get_object ().get_string_member ("due")));
-        collapsed = node.get_object ().get_boolean_member ("collapsed");
-        pinned = node.get_object ().get_boolean_member ("pinned");
-        update_local_labels (get_labels_from_json (node));
-    }
-
-    public void update_labels_from_json (Json.Node node) {
-        update_labels_async (get_labels_from_json (node));
-    }
-
-    public Gee.HashMap<string, Objects.Label> get_labels_from_json (Json.Node node) {
-        Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
-        foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string ());
-            return_value [label.id_string] = label;
-        }
-        return return_value;
-    }
-
-    public void update_from_json (Json.Node node) {
         project_id = node.get_object ().get_string_member ("project_id");
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
@@ -263,6 +251,7 @@ public class Objects.Item : Objects.BaseObject {
         priority = (int32) node.get_object ().get_int_member ("priority");
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         added_at = node.get_object ().get_string_member ("added_at");
+        labels = get_labels_from_json (node);
 
         if (!node.get_object ().get_null_member ("section_id")) {
             section_id = node.get_object ().get_string_member ("section_id");
@@ -289,6 +278,94 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public Item.from_import_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        content = node.get_object ().get_string_member ("content");
+        description = node.get_object ().get_string_member ("description");
+        added_at = node.get_object ().get_string_member ("added_at");
+        completed_at = node.get_object ().get_string_member ("completed_at");
+        updated_at = node.get_object ().get_string_member ("updated_at");
+        section_id = node.get_object ().get_string_member ("section_id");
+        project_id = node.get_object ().get_string_member ("project_id");
+        parent_id = node.get_object ().get_string_member ("parent_id");
+        priority = (int32) node.get_object ().get_int_member ("priority");
+        child_order = (int32) node.get_object ().get_int_member ("child_order");
+        checked = node.get_object ().get_boolean_member ("checked");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        day_order = (int32) node.get_object ().get_int_member ("day_order");
+        due.update_from_json (Services.Database.get_default ().get_due_parameter (node.get_object ().get_string_member ("due")));
+        collapsed = node.get_object ().get_boolean_member ("collapsed");
+        pinned = node.get_object ().get_boolean_member ("pinned");
+        labels = get_labels_from_json (node);
+    }
+
+    public void update_from_json (Json.Node node) {
+        project_id = node.get_object ().get_string_member ("project_id");
+        content = node.get_object ().get_string_member ("content");
+        description = node.get_object ().get_string_member ("description");
+        checked = node.get_object ().get_boolean_member ("checked");
+        priority = (int32) node.get_object ().get_int_member ("priority");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        added_at = node.get_object ().get_string_member ("added_at");
+        check_labels (get_labels_maps_from_json (node));
+
+        if (!node.get_object ().get_null_member ("section_id")) {
+            section_id = node.get_object ().get_string_member ("section_id");
+        } else {
+            section_id = "";
+        }
+
+        if (!node.get_object ().get_null_member ("parent_id")) {
+            parent_id = node.get_object ().get_string_member ("parent_id");
+        } else {
+            parent_id = "";
+        }
+
+        if (!node.get_object ().get_null_member ("completed_at")) {
+            completed_at = node.get_object ().get_string_member ("completed_at");
+        } else {
+            completed_at = "";
+        }
+
+        if (!node.get_object ().get_null_member ("due")) {
+            due.update_from_json (node.get_object ().get_object_member ("due"));
+        } else {
+            due.reset ();
+        }
+    }
+
+    public void check_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        foreach (var entry in new_labels.entries) {
+            if (get_label (entry.key) == null) {
+                add_label_if_not_exists (entry.value);
+            }
+        }
+        
+        foreach (var label in _get_labels ()) {
+            if (!new_labels.has_key (label.id)) {
+                delete_item_label (label.id);
+            }
+        }
+    }
+
+    public Gee.ArrayList<Objects.Label> get_labels_from_json (Json.Node node) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.backend_type);
+            return_value.add (label);
+        }
+        return return_value;
+    }
+
+    public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {
+        Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
+        foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.backend_type);
+            return_value [label.id_string] = label;
+        }
+        return return_value;
+    }
+
     public void set_section (Objects.Section section) {
         _section = section;
     }
@@ -308,25 +385,29 @@ public class Objects.Item : Objects.BaseObject {
     public string get_check_json (string uuid, string type) {
         builder.reset ();
 
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
 
-        // Set type
-        builder.set_member_name ("type");
-        builder.add_string_value (type);
+            builder.begin_array ();
+                builder.begin_object ();
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                // Set type
+                builder.set_member_name ("type");
+                builder.add_string_value (type);
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-            builder.set_member_name ("id");
-            builder.add_string_value (id);
+                builder.set_member_name ("args");
+                    builder.begin_object ();
 
-            builder.end_object ();
+                    builder.set_member_name ("id");
+                    builder.add_string_value (id);
+
+                    builder.end_object ();
+                builder.end_object ();
+            builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
@@ -375,7 +456,7 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Database.get_default ().update_item (this, update_id);
                     loading = false;
                 });
-            } else {
+            } else if (project.backend_type == BackendType.LOCAL) {
                 Services.Database.get_default ().update_item (this, update_id);
                 loading = false;
             }
@@ -386,67 +467,15 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update_async (string update_id = "") {
         loading = true;
-        
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_item (this, update_id);
                 loading = false;
             });
-        } else {
+        } else if (project.backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().update_item (this, update_id);
             loading = false;
-        }
-    }
-
-    public void update_local_labels (Gee.HashMap<string, Objects.Label> new_labels) {
-        labels.clear ();
-
-        foreach (var entry in new_labels.entries) {
-            Objects.ItemLabel item_label = new Objects.ItemLabel ();
-            item_label.id = Util.get_default ().generate_id ();
-            item_label.label_id = entry.value.id;
-            item_label.item_id = id;
-            _labels [item_label.label_id.to_string ()] = item_label;
-        }
-    }
-
-    public void insert_local_labels () {
-        foreach (var entry in labels.entries) {
-            entry.value.item_id = id;
-            Services.Database.get_default ().insert_item_label (entry.value);
-        }
-    }
-
-    public void update_labels_async (Gee.HashMap<string, Objects.Label> new_labels) {
-        bool update = false;
-        foreach (var entry in new_labels.entries) {
-            if (!labels.has_key (entry.value.id_string)) {
-                add_label_if_not_exists (entry.value);
-                update = true;
-            }
-        }
-
-        Gee.ArrayList <Objects.ItemLabel> labels_delete = new Gee.ArrayList <Objects.ItemLabel> ();
-        foreach (var entry in labels.entries) {
-            if (!new_labels.has_key (entry.key)) {
-                labels_delete.add (entry.value);
-            }
-        }
-
-        foreach (Objects.ItemLabel item_label in labels_delete) {
-            delete_item_label (item_label);
-            update = true;
-        }
-
-        if (!update) {
-            return;
-        }
-
-        if (project.backend_type == BackendType.TODOIST) {
-            update_async ("");
-        } else {
-            update_local ();
         }
     }
 
@@ -484,45 +513,53 @@ public class Objects.Item : Objects.BaseObject {
         Services.Database.get_default ().delete_reminder (reminder);
     }
 
-    public Objects.ItemLabel add_label_if_not_exists (Objects.Label label) {
-        Objects.ItemLabel? return_value = null;
-        lock (_labels) {
-            return_value = get_label (label.id);
-            if (return_value == null) {
-                return_value = new Objects.ItemLabel ();
-                return_value.id = Util.get_default ().generate_id ();
-                return_value.item_id = id;
-                return_value.label_id = label.id;
-
-                Services.Database.get_default ().insert_item_label (return_value);
-                add_item_label (return_value);
-            }
-            return return_value;
+    // Labels
+    public Objects.Label add_label_if_not_exists (Objects.Label label) {
+        Objects.Label? return_value = null;
+        return_value = get_label (label.id);
+        if (return_value == null) {
+            return_value = label;
+            Services.Database.get_default ().item_label_added (return_value);
+            add_item_label (return_value);
         }
-    }
-
-    public Objects.ItemLabel? get_label (string id) {
-        Objects.ItemLabel? return_value = null;
-        lock (_labels) {
-            foreach (var entry in labels.entries) {
-                if (entry.value.label_id == id) {
-                    return_value = entry.value;
-                    break;
-                }
-            }
-        }
+        
         return return_value;
     }
 
-    public void add_item_label (Objects.ItemLabel item_label) {
-        _labels [item_label.label_id.to_string ()] = item_label;
-        item_label_added (item_label);
+    public Objects.Label? get_label (string id) {
+        Objects.Label? return_value = null;
+        
+        foreach (var label in labels) {
+            if (label.id == id) {
+                return_value = label;
+                break;
+            }
+        }
+
+        return return_value;
     }
 
-    public void delete_item_label (Objects.ItemLabel item_label) {
-        _labels.unset (item_label.label_id.to_string ());
-        Services.Database.get_default ().delete_item_label (item_label);
-        item_label_deleted (item_label);
+    public void add_item_label (Objects.Label label) {
+        if (labels == null) {
+            labels = new Gee.ArrayList<Objects.Label> ();
+        }
+
+        labels.add (label);
+        item_label_added (label);
+    }
+
+    public Objects.Label? delete_item_label (string id) {
+        Objects.Label? return_value = null;
+        return_value = get_label (id);
+
+        if (return_value != null) {
+            Services.Database.get_default ().item_label_deleted (return_value);
+            item_label_deleted (return_value);
+            
+            labels.remove (return_value);
+        }
+
+        return return_value;
     }
 
     public string to_move_json (string type, string move_id) {
@@ -555,27 +592,31 @@ public class Objects.Item : Objects.BaseObject {
     public string get_move_item (string uuid, string type, string move_id) {
         builder.reset ();
 
-        builder.begin_array ();
         builder.begin_object ();
+            builder.set_member_name ("commands");
 
-        builder.set_member_name ("type");
-        builder.add_string_value ("item_move");
+            builder.begin_array ();
+                builder.begin_object ();
 
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
+                builder.set_member_name ("type");
+                builder.add_string_value ("item_move");
 
-        builder.set_member_name ("args");
-            builder.begin_object ();
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-            builder.set_member_name ("id");
-            builder.add_string_value (id);
+                builder.set_member_name ("args");
+                    builder.begin_object ();
 
-            builder.set_member_name (type);
-            builder.add_string_value (move_id);
-            
-            builder.end_object ();
+                    builder.set_member_name ("id");
+                    builder.add_string_value (id);
+
+                    builder.set_member_name (type);
+                    builder.add_string_value (move_id);
+                    
+                    builder.end_object ();
+                builder.end_object ();
+            builder.end_array ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
@@ -587,78 +628,82 @@ public class Objects.Item : Objects.BaseObject {
     public override string get_update_json (string uuid, string? temp_id = null) {
         builder.reset ();
 
-        builder.begin_array ();
+        var builder = new Json.Builder ();
         builder.begin_object ();
-
-        builder.set_member_name ("type");
-        builder.add_string_value (temp_id == null ? "item_update" : "item_add");
-
-        builder.set_member_name ("uuid");
-        builder.add_string_value (uuid);
-
-        if (temp_id != null) {
-            builder.set_member_name ("temp_id");
-            builder.add_string_value (temp_id);
-        }
-
-        builder.set_member_name ("args");
-            builder.begin_object ();
-
-            if (temp_id == null) {
-                builder.set_member_name ("id");
-                builder.add_string_value (id);
-            }
-
-            if (temp_id != null) {
-                builder.set_member_name ("project_id");
-                builder.add_string_value (project_id);
-                
-                if (parent_id != "") {
-                    builder.set_member_name ("parent_id");
-                    builder.add_string_value (parent_id);
-                }
-
-                if (section_id != "") {
-                    builder.set_member_name ("section_id");
-                    builder.add_string_value (section_id);
-                }
-            }
-
-            builder.set_member_name ("content");
-            builder.add_string_value (Util.get_default ().get_encode_text (content));
-
-            builder.set_member_name ("description");
-            builder.add_string_value (Util.get_default ().get_encode_text (description));
-
-            builder.set_member_name ("priority");
-            if (priority == 0) {
-                builder.add_int_value (Constants.PRIORITY_4);
-            } else {
-                builder.add_int_value (priority);
-            }
-
-            if (has_due) {
-                builder.set_member_name ("due");
+            builder.set_member_name ("commands");
+            builder.begin_array ();
                 builder.begin_object ();
 
-                builder.set_member_name ("date");
-                builder.add_string_value (due.date);
+                builder.set_member_name ("type");
+                builder.add_string_value (temp_id == null ? "item_update" : "item_add");
 
-                builder.end_object ();
-            } else {
-                builder.set_member_name ("due");
-                builder.add_null_value ();
-            }
+                builder.set_member_name ("uuid");
+                builder.add_string_value (uuid);
 
-            builder.set_member_name ("labels");
-                builder.begin_array ();
-                foreach (Objects.ItemLabel item_label in labels.values) {
-                    builder.add_string_value (item_label.label.name);
+                if (temp_id != null) {
+                    builder.set_member_name ("temp_id");
+                    builder.add_string_value (temp_id);
                 }
+
+                builder.set_member_name ("args");
+                    builder.begin_object ();
+
+                    if (temp_id == null) {
+                        builder.set_member_name ("id");
+                        builder.add_string_value (id);
+                    }
+
+                    if (temp_id != null) {
+                        builder.set_member_name ("project_id");
+                        builder.add_string_value (project_id);
+                        
+                        if (parent_id != "") {
+                            builder.set_member_name ("parent_id");
+                            builder.add_string_value (parent_id);
+                        }
+
+                        if (section_id != "") {
+                            builder.set_member_name ("section_id");
+                            builder.add_string_value (section_id);
+                        }
+                    }
+
+                    builder.set_member_name ("content");
+                    builder.add_string_value (content);
+
+                    builder.set_member_name ("description");
+                    builder.add_string_value (description);
+
+                    builder.set_member_name ("priority");
+                    if (priority == 0) {
+                        builder.add_int_value (Constants.PRIORITY_4);
+                    } else {
+                        builder.add_int_value (priority);
+                    }
+
+                    if (has_due) {
+                        builder.set_member_name ("due");
+                        builder.begin_object ();
+
+                        builder.set_member_name ("date");
+                        builder.add_string_value (due.date);
+
+                        builder.end_object ();
+                    } else {
+                        builder.set_member_name ("due");
+                        builder.add_null_value ();
+                    }
+
+                    builder.set_member_name ("labels");
+                        builder.begin_array ();
+                        foreach (Objects.Label label in labels) {
+                            builder.add_string_value (label.name);
+                        }
+                        builder.end_array ();
+                    builder.end_object ();
+                builder.end_object ();
                 builder.end_array ();
-            builder.end_object ();
         builder.end_object ();
-        builder.end_array ();
 
         Json.Generator generator = new Json.Generator ();
         Json.Node root = builder.get_root ();
@@ -727,10 +772,8 @@ public class Objects.Item : Objects.BaseObject {
 
         builder.set_member_name ("labels");
         builder.begin_array ();
-        foreach (Objects.ItemLabel item_label in labels.values) {
-            if (item_label.label.backend_type == BackendType.TODOIST) {
-                builder.add_string_value (item_label.label.name);
-            }
+        foreach (Objects.Label label in labels) {
+            builder.add_string_value (label.id);
         }
         builder.end_array ();
         builder.end_object ();
@@ -795,7 +838,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void duplicate () {
         var new_item = generate_copy ();
-        new_item.content = "[%s] %s".printf (_("Diplicate"), content);
+        new_item.content = "[%s] %s".printf (_("Duplicate"), content);
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {

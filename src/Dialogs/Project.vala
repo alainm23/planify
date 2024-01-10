@@ -35,11 +35,12 @@ public class Dialogs.Project : Adw.Window {
         }
     }
 
-    public Project.new (BackendType backend_type, bool backend_picker = false) {
+    public Project.new (BackendType backend_type, bool backend_picker = false, string parent_id = "") {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
         project.id = "";
+        project.parent_id = parent_id;
         project.backend_type = backend_type;
 
         Object (
@@ -48,7 +49,7 @@ public class Dialogs.Project : Adw.Window {
             deletable: true,
             resizable: true,
             modal: true,
-            title: _("New Project"),
+            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project"),
             width_request: 320,
             height_request: 400,
             transient_for: (Gtk.Window) Planify.instance.main_window
@@ -161,16 +162,15 @@ public class Dialogs.Project : Adw.Window {
 
         color_picker_row = new Widgets.ColorPickerRow ();
 
-        var color_group = new Gtk.Grid () {
+        var color_group = new Adw.Bin () {
             margin_end = 12,
             margin_start = 12,
             margin_top = 24,
             margin_bottom = 1,
-            valign = Gtk.Align.START
+            valign = Gtk.Align.START,
+            css_classes = { "card" },
+            child = color_picker_row
         };
-
-        color_group.add_css_class (Granite.STYLE_CLASS_CARD);
-        color_group.attach (color_picker_row, 0, 0);
 
         var color_box_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
@@ -192,15 +192,27 @@ public class Dialogs.Project : Adw.Window {
         submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        
-        content_box.append (headerbar);
         content_box.append (emoji_picker_button);
         content_box.append (name_group);
         content_box.append (backend_revealer);
         content_box.append (color_box_revealer);
         content_box.append (submit_button);
 
-        content = content_box;
+        var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 12,
+			margin_end = 12,
+			margin_bottom = 12,
+            margin_top = 6
+		};
+
+		content_clamp.child = content_box;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_clamp;
+
+        content = toolbar_view;
 
         Timeout.add (emoji_color_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
@@ -218,7 +230,9 @@ public class Dialogs.Project : Adw.Window {
                 backend_row.selected = 1;
             }
 
-            name_entry.grab_focus ();
+            if (is_creating) {
+                name_entry.grab_focus ();
+            }
             
             return GLib.Source.REMOVE;
         });
@@ -258,7 +272,6 @@ public class Dialogs.Project : Adw.Window {
 
         var name_entry_ctrl_key = new Gtk.EventControllerKey ();
         name_entry.add_controller (name_entry_ctrl_key);
-
         name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();

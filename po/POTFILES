@@ -48,7 +48,6 @@ core/Objects/BaseObject.vala
 core/Objects/Color.vala
 core/Objects/DueDate.vala
 core/Objects/Item.vala
-core/Objects/ItemLabel.vala
 core/Objects/Label.vala
 core/Objects/Project.vala
 core/Objects/Queue.vala
@@ -88,14 +87,13 @@ src/Layouts/LabelRow.vala
 src/Layouts/SectionBoard.vala
 src/Layouts/ItemBoard.vala
 src/Layouts/HeaderBar.vala
+src/Layouts/ItemView.vala
 
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
 src/Widgets/Placeholder.vala
 src/Widgets/SyncButton.vala
-src/Widgets/ItemSummary.vala
-src/Widgets/ReminderButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala
 src/Widgets/EventRow.vala
@@ -106,6 +104,7 @@ src/Widgets/SectionsOrderPopover.vala
 
 src/Widgets/ReminderPicker/ReminderPicker.vala
 src/Widgets/ReminderPicker/ReminderRow.vala
+src/Widgets/ReminderPicker/ReminderButton.vala
 
 src/Views/Project/Project.vala
 src/Views/Project/List.vala
@@ -123,19 +122,18 @@ src/Views/Scheduled/ScheduledMonth.vala
 
 src/Dialogs/Project.vala
 src/Dialogs/Label.vala
-src/Dialogs/Item.vala
 src/Dialogs/GoogleOAuth.vala
 src/Dialogs/WhatsNew.vala
 src/Dialogs/QuickAdd.vala
-src/Dialogs/ProjectDescription.vala
+src/Dialogs/ItemView.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
 src/Dialogs/ProjectPicker/SectionPickerRow.vala
-
 src/Dialogs/DatePicker.vala
 src/Dialogs/LabelPicker.vala
 src/Dialogs/RepeatConfig.vala
+src/Dialogs/Section.vala
 
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala

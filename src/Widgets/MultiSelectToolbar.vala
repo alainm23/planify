@@ -19,113 +19,81 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.MultiSelectToolbar : Gtk.Grid {
-    public Gee.HashMap<string, Layouts.ItemRow> items_selected;
+public class Widgets.MultiSelectToolbar : Adw.Bin {
+    public Objects.Project project { get; construct; }
 
-    private Gtk.Revealer main_revealer;
+    private Gtk.Label size_label;
+    private Widgets.ScheduleButton schedule_button;
+    private Widgets.LabelPicker.LabelButton label_button;
+    private Widgets.PriorityButton priority_button;
+    private Gtk.MenuButton menu_button;
+    private Widgets.LoadingButton done_button;
 
-    private Gtk.Button schedule_button;
-    private Widgets.DateTimePicker.DateTimePicker datetime_picker = null;
+    public Gee.HashMap<string, Layouts.ItemRow> items_selected = new Gee.HashMap <string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap <string, Objects.Label> ();
+    public signal void closed ();
 
-    private Gtk.Button label_button;
-    private Widgets.LabelPicker.LabelPicker labels_picker = null;
-
-    private Gtk.Button priority_button;
-    private Gtk.Popover priority_picker = null;
-
-    private Gtk.Button menu_button;
-    private Gtk.Popover menu_picker = null;
-
-    public MultiSelectToolbar () {
+    public MultiSelectToolbar (Objects.Project project) {
         Object (
+            project: project,
             hexpand: true,
-            halign: Gtk.Align.CENTER,
             valign: Gtk.Align.END
         );
     }
 
     construct {
-        items_selected = new Gee.HashMap <string, Layouts.ItemRow> ();
+        css_classes = { "sidebar" };
 
-        var done_button = new Widgets.LoadingButton.with_label (_("Done")) {
+        size_label = new Gtk.Label (null) {
+            css_classes = { "font-bold" }
+        };
+
+        schedule_button = new Widgets.ScheduleButton () {
+            sensitive = false
+        };
+        schedule_button.visible_no_date = true;
+
+        label_button = new Widgets.LabelPicker.LabelButton (project.backend_type) {
+            sensitive = false
+        };
+
+        priority_button = new Widgets.PriorityButton () {
+            sensitive = false
+        };
+        priority_button.set_priority (Constants.PRIORITY_4);
+        
+        menu_button = new Gtk.MenuButton () {
+            css_classes = { Granite.STYLE_CLASS_FLAT },
+            valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            popover = build_menu_popover (),
+            sensitive = false
+        };
+
+        done_button = new Widgets.LoadingButton.with_label (_("Done")) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_start = 12,
-            margin_end = 6
+            width_request = 100,
+            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
 
-        done_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-        done_button.add_css_class ("small-button");
-
-        var schedule_label = new Gtk.Label (_("Schedule")) {
-            xalign = 0
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            margin_top = 9,
+            margin_bottom = 9
         };
 
-        var schedule_image = new Widgets.DynamicIcon ();
-        schedule_image.update_icon_name ("planner-calendar");
-        schedule_image.size = 16;  
-
-        var schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        schedule_box.append (schedule_image);
-        schedule_box.append (schedule_label);
-
-        schedule_button = new Gtk.Button ();
-        schedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        schedule_button.child = schedule_box;
-
-        var label_image = new Widgets.DynamicIcon ();
-        label_image.update_icon_name ("planner-tag");
-        label_image.size = 16;  
-
-        label_button = new Gtk.Button ();
-        label_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        label_button.child = label_image;
-
-        var priority_image = new Widgets.DynamicIcon ();
-        priority_image.update_icon_name ("planner-flag");
-        priority_image.size = 16;  
-
-        priority_button = new Gtk.Button ();
-
-        priority_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        priority_button.child = priority_image;
-
-        var menu_image = new Widgets.DynamicIcon ();
-        menu_image.size = 16;
-        menu_image.update_icon_name ("dots-vertical");
-        
-        menu_button = new Gtk.Button ();
-        menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-        menu_button.child = menu_image;
-
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
-            margin_start = 12,
-            margin_end = 12,
-            margin_top = 12,
-            margin_bottom = 12
-        };
-        content_box.valign = Gtk.Align.CENTER;
-        content_box.halign = Gtk.Align.CENTER;
-        content_box.add_css_class (Granite.STYLE_CLASS_CARD);
-        content_box.add_css_class ("padding-6");
-        content_box.add_css_class (Granite.STYLE_CLASS_VIEW);
-
+        content_box.append (size_label);
         content_box.append (schedule_button);
         content_box.append (label_button);
         content_box.append (priority_button);
-        //  content_box.add (move_button);
         content_box.append (menu_button);
         content_box.append (done_button);
 
-        main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
-            reveal_child = false,
-            hexpand = true
-        };
-
-        main_revealer.child = content_box;
-
-        attach (main_revealer, 0, 0);
+        child = content_box;
 
         Services.EventBus.get_default ().select_item.connect ((_row) => {
             var row = (Layouts.ItemRow) _row;
@@ -138,6 +106,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
                 row.is_row_selected = true;
             }
 
+            check_labels (row.item, true);
             check_select_bar ();
         });
 
@@ -149,134 +118,103 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
                 row.is_row_selected = false;
             }
 
+            check_labels (row.item, false);
             check_select_bar ();
-        });
-
-        Services.EventBus.get_default ().show_multi_select.connect ((value) => {
-            main_revealer.reveal_child = value;
         });
 
         done_button.clicked.connect (() => {
             unselect_all ();
         });
 
-        schedule_button.clicked.connect (open_datetime_picker);
-        label_button.clicked.connect (open_labels_picker);
-        priority_button.clicked.connect (open_priority_picker);
-        menu_button.clicked.connect (open_menu);
+        Services.EventBus.get_default ().request_escape.connect (() => {
+            unselect_all ();
+		});
 
         Services.EventBus.get_default ().unselect_all.connect (() => {
-            if (items_selected.size > 0) {
-                unselect_all ();
-            }
+            unselect_all ();
+        });
+
+        schedule_button.date_changed.connect ((datetime) => {
+            set_datetime (datetime);
+        });
+
+        label_button.labels_changed.connect ((labels) => {
+            set_labels (labels);
+        });
+
+        priority_button.changed.connect ((priority) => {
+            set_priority (priority);
         });
     }
 
-    private void open_datetime_picker () {
-        if (datetime_picker == null) {
-            datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
-            datetime_picker.set_parent (schedule_button);
-                    
-            datetime_picker.date_changed.connect (() => {
-                set_datetime (datetime_picker.datetime);
+    private void update_items (Gee.ArrayList<Objects.Item> objects) {
+        if (project.backend_type == BackendType.LOCAL) {
+            foreach (Objects.Item item in objects) {
+                item.update_async ("");
+            }
+
+            unselect_all ();
+        } else if (project.backend_type == BackendType.TODOIST) {
+            done_button.is_loading =  true;
+            Services.Todoist.get_default ().update_items (objects, (obj, res) => {
+                Services.Todoist.get_default ().update_items.end (res);
+
+                foreach (Objects.Item item in objects) {
+                    item.update_local ();
+                }
+                
+                done_button.is_loading =  false;
+                unselect_all ();
             });
         }
-
-        datetime_picker.visible_no_date = false;
-        datetime_picker.popup ();
     }
 
-    private void set_datetime (DateTime datetime) {
+    private void set_datetime (DateTime? datetime) {
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
         foreach (string key in items_selected.keys) {
-            items_selected[key].update_due (datetime);
+            var item = items_selected[key].item;
+
+            item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+
+            if (item.due.date == "") {
+                item.due.reset ();
+            }
+
+            objects.add (item);
         }
 
-        unselect_all ();
-    }
-
-    private void open_priority_picker () {
-        if (priority_picker != null) {
-            priority_picker.popup ();
-            return;
-        }
-
-        var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: high"), "planner-priority-1");
-        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "planner-priority-2");
-        var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: low"), "planner-priority-3");
-        var priority_4_item = new Widgets.ContextMenu.MenuItem (_("Priority 4: none"), "planner-flag");
-
-        var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (priority_1_item);
-        menu_box.append (priority_2_item);
-        menu_box.append (priority_3_item);
-        menu_box.append (priority_4_item);
-
-        priority_picker = new Gtk.Popover () {
-            has_arrow = false,
-            child = menu_box,
-            position = Gtk.PositionType.BOTTOM
-        };
-
-        priority_picker.set_parent (priority_button);
-        priority_picker.popup();
-
-        priority_1_item.clicked.connect (() => {
-            priority_picker.popdown ();
-            set_priority (Constants.PRIORITY_1);
-        });
-
-        priority_2_item.clicked.connect (() => {
-            priority_picker.popdown ();
-            set_priority (Constants.PRIORITY_2);
-        });
-
-        priority_3_item.clicked.connect (() => {
-            priority_picker.popdown ();
-            set_priority (Constants.PRIORITY_3);
-        });
-
-        priority_4_item.clicked.connect (() => {
-            priority_picker.popdown ();
-            set_priority (Constants.PRIORITY_4);
-        });
+        update_items (objects);
     }
 
     private void set_priority (int priority) {
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
+
         foreach (string key in items_selected.keys) {
-            items_selected[key].update_priority (priority);
+            var item = items_selected[key].item;
+
+            if (item.priority != priority) {
+                item.priority = priority;
+
+                objects.add (item);
+            }
         }
 
-        unselect_all ();
+        update_items (objects);
     }
 
-    private void open_labels_picker () {
-        if (labels_picker == null) {
-            labels_picker = new Widgets.LabelPicker.LabelPicker ();
-            labels_picker.set_parent (label_button);
-            
-            labels_picker.closed.connect (() => {
-                set_labels (labels_picker.labels_map);
-            });
-        }
+    private void set_labels (Gee.HashMap <string, Objects.Label> new_labels) {
+        Gee.ArrayList<Objects.Item> objects = new Gee.ArrayList<Objects.Item> ();
 
-        labels_picker.popup ();
-    }
-
-    private void set_labels (Gee.HashMap <string, Objects.Label> labels) {
         foreach (string key in items_selected.keys) {
-            items_selected[key].update_labels (labels);
+            var item = items_selected[key].item;
+            item.check_labels (new_labels);
+            objects.add (item);
         }
 
-        unselect_all ();
+        update_items (objects);
     }
 
-    private void open_menu () {
-        if (menu_picker != null) {
-            menu_picker.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_menu_popover () {
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");
         
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
@@ -288,17 +226,14 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
-        menu_picker = new Gtk.Popover () {
+        var popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM
+            position = Gtk.PositionType.TOP
         };
 
-        menu_picker.set_parent (menu_button);
-        menu_picker.popup();
-
         complete_item.clicked.connect (() => {
-            menu_picker.popdown ();
+            popover.popdown ();
 
             foreach (string key in items_selected.keys) {
                 items_selected[key].checked_toggled (true, 0);
@@ -308,7 +243,7 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
         });
 
         delete_item.clicked.connect (() => {
-            menu_picker.popdown ();
+            popover.popdown ();
 
             string title = _("Delete To-Do");
             string message = _("Are you sure you want to delete this to-do?");
@@ -337,27 +272,51 @@ public class Widgets.MultiSelectToolbar : Gtk.Grid {
                 }
             });
         });
-    }
 
-    private void check_select_bar () {
-        if (items_selected.size > 0) {
-            Services.EventBus.get_default ().magic_button_visible (false);
-            Services.EventBus.get_default ().disconnect_typing_accel ();
-        } else {
-            Services.EventBus.get_default ().magic_button_visible (true);
-            Services.EventBus.get_default ().connect_typing_accel ();
-        }
+        return popover;
     }
 
     private void unselect_all () {
         foreach (string key in items_selected.keys) {
             items_selected [key].is_row_selected = false;
         }
-
+        
         items_selected.clear ();
-        main_revealer.reveal_child = false;
-        Services.EventBus.get_default ().connect_typing_accel ();
-        Services.EventBus.get_default ().show_multi_select (false);
-        Services.EventBus.get_default ().multi_select_enabled = false;
+        labels.clear ();
+        size_label.label = null;
+        closed ();
+    }
+
+    private void check_select_bar () {
+        bool active = items_selected.size > 0;
+
+        size_label.label = active ? "(%d)".printf (items_selected.size) : "";
+        schedule_button.sensitive = active;
+        priority_button.sensitive = active;
+        label_button.sensitive = active;
+        menu_button.sensitive = active;
+    }
+
+    private void check_labels (Objects.Item item, bool active) {
+        if (active) {
+            foreach (Objects.Label label in item._get_labels ()) {
+                if (!labels.has_key (label.id)) {
+                    labels[label.id] = label;
+                }
+            }
+        } else {
+            foreach (Objects.Label label in item._get_labels ()) {
+                if (labels.has_key (label.id)) {
+                    labels.unset (label.id);
+                }
+            }
+        }
+        
+        Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
+        foreach (Objects.Label label in labels.values) {
+            _labels.add (label);
+        }
+
+        label_button.labels = _labels;
     }
 }

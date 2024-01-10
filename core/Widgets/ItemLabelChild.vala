@@ -20,16 +20,14 @@
 */
 
 public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
-    public Objects.ItemLabel item_label { get; construct; }
+    public Objects.Label label { get; construct; }
     
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
 
-    public signal void delete_request ();
-
-    public ItemLabelChild (Objects.ItemLabel item_label) {
+    public ItemLabelChild (Objects.Label label) {
         Object (
-            item_label: item_label,
+            label: label,
             halign: Gtk.Align.START
         );
     }
@@ -41,15 +39,14 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         name_label.valign = Gtk.Align.CENTER;
         name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
-        var labelrow_grid = new Gtk.Grid () {
-            column_spacing = 6
+        var labelrow_grid = new Adw.Bin () {
+            child = name_label
         };
-        labelrow_grid.attach (name_label, 0, 0);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = labelrow_grid
         };
-        main_revealer.child = labelrow_grid;
 
         child = main_revealer;
         update_request ();
@@ -59,22 +56,22 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
             return GLib.Source.REMOVE;
         });
 
-        item_label.label.deleted.connect (() => {
-            delete_request ();
+        label.deleted.connect (() => {
+            hide_destroy ();
         });
-
-        item_label.label.updated.connect (update_request);
+        
+        label.updated.connect (update_request);
     }
 
     public void update_request () {
-        name_label.label = item_label.label.name;
-        Util.get_default ().set_widget_color (Util.get_default ().get_color (item_label.label.color), this);
+        name_label.label = label.name;
+        Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), this);
     }
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
-            ((Gtk.ListBox) parent).remove (this);
+            ((Gtk.FlowBox) parent).remove (this);
             return GLib.Source.REMOVE;
         });
     }

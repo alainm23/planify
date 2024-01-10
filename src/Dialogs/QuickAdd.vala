@@ -20,6 +20,7 @@
 */
 
 public class Dialogs.QuickAdd : Adw.Window {
+    public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
 	public QuickAdd () {
@@ -38,6 +39,24 @@ public class Dialogs.QuickAdd : Adw.Window {
         set_content (quick_add_widget);
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
+        quick_add_widget.add_item_db.connect ((add_item_db));
+    }
+
+    private void add_item_db (Objects.Item item) {
+        if (item.parent_id != "") {
+			Services.Database.get_default ().get_item (item.parent_id).add_item_if_not_exists (item);
+            Services.EventBus.get_default ().item_added_successfully ();
+			return;
+		}
+
+        if (item.section_id != "") {
+			Services.Database.get_default ().get_section (item.section_id).add_item_if_not_exists (item);
+		} else {
+			Services.Database.get_default ().get_project (item.project_id).add_item_if_not_exists (item);
+		}
+
+        Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);
+        Services.EventBus.get_default ().item_added_successfully ();
     }
 
     public void hide_destroy () {
@@ -54,7 +73,7 @@ public class Dialogs.QuickAdd : Adw.Window {
     }
 
     public void set_project (Objects.Project project) {
-        quick_add_widget.set_project (project);
+        quick_add_widget.for_project (project);
     }
 
     public void set_due (GLib.DateTime date) {
@@ -67,5 +86,19 @@ public class Dialogs.QuickAdd : Adw.Window {
 
     public void set_priority (int priority) {
         quick_add_widget.set_priority (priority);
+    }
+
+    public void for_base_object (Objects.BaseObject base_object) {
+        if (base_object is Objects.Project) {
+            quick_add_widget.for_project (base_object as Objects.Project);
+        } else if (base_object is Objects.Section) {
+            quick_add_widget.for_section (base_object as Objects.Section);
+        } else if (base_object is Objects.Item) {
+            quick_add_widget.for_parent (base_object as Objects.Item);
+        }
+    }
+
+    public void set_index (int index) {
+        quick_add_widget.set_index (index);
     }
 }

@@ -124,25 +124,5 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 
 	private void update_color () {
 		Util.get_default ().set_widget_color (cal.dup_color (), color_grid);
-		//  string color_css = """
-        //      .event-%s {
-        //          background-color: %s;
-        //          border-radius: 1px;
-        //      }
-        //  """;
-
-		//  var provider = new Gtk.CssProvider ();
-
-		//  var colored_css = color_css.printf (
-		//  	component.get_uid (),
-		//  	color
-		//  );
-
-		//  provider.load_from_string (colored_css);
-
-		//  Gtk.StyleContext.add_provider_for_display (
-		//  	Gdk.Display.get_default (), provider,
-		//  	Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-		//  );
 	}
 }

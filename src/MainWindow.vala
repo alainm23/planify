@@ -34,7 +34,9 @@ public class MainWindow : Adw.ApplicationWindow {
 			application: application,
 			app: application,
 			icon_name: Build.APPLICATION_ID,
-			title: _("Planify")
+			title: _("Planify"),
+			width_request: 450,
+			height_request: 480
 		);
 	}
 
@@ -92,20 +94,18 @@ public class MainWindow : Adw.ApplicationWindow {
 		var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		views_content.append (views_stack);
 
-        var multiselect_toolbar = new Widgets.MultiSelectToolbar ();
-
-		var views_overlay = new Gtk.Overlay ();
-		views_overlay.child = views_content;
-		views_overlay.add_overlay (multiselect_toolbar);
-
 		var toast_overlay = new Adw.ToastOverlay ();
-		toast_overlay.child = views_overlay;
+		toast_overlay.child = views_content;
 
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
 		overlay_split_view.sidebar = sidebar_view;
+		
+		var breakpoint = new Adw.Breakpoint (Adw.BreakpointCondition.parse ("max-width: 800sp"));
+		breakpoint.add_setter (overlay_split_view, "collapsed", true);
 
-		set_content (overlay_split_view);
+		add_breakpoint (breakpoint);
+		content = overlay_split_view;
 		set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
@@ -186,8 +186,8 @@ public class MainWindow : Adw.ApplicationWindow {
 				add_label_view (id);
 			}
 
-			if (!overlay_split_view.show_sidebar) {
-				show_hide_sidebar ();
+			if (overlay_split_view.collapsed) {
+				overlay_split_view.show_sidebar = false;
 			}
 		});
 
@@ -200,7 +200,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		settings_popover.show.connect (() => {
-			Services.EventBus.get_default ().unselect_all ();
 		});
 
 		search_button.clicked.connect (() => {
@@ -405,23 +404,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Views.Project? project_view = (Views.Project) views_stack.visible_child;
 		if (project_view != null) {
-			Objects.Section new_section = project_view.project.prepare_new_section ();
-
-			if (project_view.project.backend_type == BackendType.TODOIST) {
-				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
-
-					if (response.status) {
-						new_section.id = response.data;
-						project_view.project.add_section_if_not_exists (new_section);
-					} else {
-
-					}
-				});
-			} else {
-				new_section.id = Util.get_default ().generate_id (new_section);
-				project_view.project.add_section_if_not_exists (new_section);
-			}
+			project_view.prepare_new_section ();
 		}
 	}
 
@@ -452,12 +435,16 @@ public class MainWindow : Adw.ApplicationWindow {
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
+		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
+		whatsnew_item.add_css_class ("no-font-bold");
+
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 		about_item.add_css_class ("no-font-bold");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (preferences_item);
+		menu_box.append (whatsnew_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (keyboard_shortcuts_item);
 		menu_box.append (about_item);
@@ -465,6 +452,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		var popover = new Gtk.Popover () {
 			has_arrow = true,
 			child = menu_box,
+			width_request = 250,
 			position = Gtk.PositionType.BOTTOM
 		};
 
@@ -472,6 +460,13 @@ public class MainWindow : Adw.ApplicationWindow {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Preferences.PreferencesWindow ();
+			dialog.show ();
+		});
+
+		whatsnew_item.clicked.connect (() => {
+			popover.popdown ();
+
+			var dialog = new Dialogs.WhatsNew ();
 			dialog.show ();
 		});
 

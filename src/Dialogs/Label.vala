@@ -107,12 +107,24 @@ public class Dialogs.Label : Adw.Window {
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         
-        content_box.append (headerbar);
         content_box.append (name_group);
         content_box.append (color_group);
         content_box.append (submit_button);
 
-        content = content_box;
+        var content_clamp = new Adw.Clamp () {
+            maximum_size = 600,
+			margin_start = 12,
+			margin_end = 12,
+			margin_bottom = 12
+		};
+
+		content_clamp.child = content_box;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_clamp;
+
+        content = toolbar_view;
 
         Timeout.add (225, () => {
             name_entry.grab_focus ();
@@ -142,7 +154,7 @@ public class Dialogs.Label : Adw.Window {
     }
 
     private bool is_duplicate (string text) {
-        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true);
+        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true, label.backend_type);
         return label != null;
     }
 

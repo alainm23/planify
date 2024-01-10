@@ -61,7 +61,8 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         date_format_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            hexpand = true
+            hexpand = true,
+            margin_start = 24
         };
 
         title_box.append (day_label);
@@ -70,15 +71,15 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         event_list = new Widgets.EventsList.for_day (date) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 24
         };
 
         event_list_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = event_list.has_items
+            reveal_child = event_list.has_items,
+            child = event_list
         };
-
-        event_list_revealer.child = event_list;
         
         event_list.change.connect (() => {
             event_list_revealer.reveal_child = event_list.has_items;
@@ -112,10 +113,10 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         };
 
         content.append (title_box);
-        
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
-            margin_bottom = 3
+            margin_bottom = 3,
+            margin_start = 24
         });
         
         content.append (event_list_revealer);

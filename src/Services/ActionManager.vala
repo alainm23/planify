@@ -43,7 +43,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
     public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_ESC = "action_esc";
-    public const string ACTION_SHOW_HIDE_SIDEBAR = "action_esc";
+    public const string ACTION_SHOW_HIDE_SIDEBAR = "action_show_hide_sidebar";
     
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
     public static Gee.MultiMap<string, string> typing_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -132,82 +132,64 @@ public class Services.ActionManager : Object {
     }
 
     private void action_preferences () {
-        Services.EventBus.get_default ().unselect_all ();
-
         var dialog = new Dialogs.Preferences.PreferencesWindow ();
         dialog.show ();
     }
 
     private void action_open_search () {
-        Services.EventBus.get_default ().unselect_all ();
-
         var dialog = new Dialogs.QuickFind.QuickFind ();
         dialog.show ();
     }
 
     private void action_sync_manually () {
-        Services.EventBus.get_default ().unselect_all ();
-
         if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
     }
 
     private void action_new_project () {
-        Services.EventBus.get_default ().unselect_all ();
-
         // TODO: Update Backend Type instance default by user
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
         dialog.show ();
     }
 
     private void action_view_homepage () {
-        Services.EventBus.get_default ().unselect_all ();
         window.go_homepage ();
     }
 
     private void action_view_inbox () {
-        Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.INBOX.to_string ());
     }
 
     private void action_view_today () {
-        Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ());
     }
 
     private void action_view_scheduled () {
-        Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ());
     }
 
     private void action_view_pinboard () {
-        Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
     }
 
     private void action_esc () {
-        Services.EventBus.get_default ().unselect_all ();
-        Services.EventBus.get_default ().item_selected (null);
+        Services.EventBus.get_default ().request_escape ();
     }
 
     private void action_show_hide_sidebar () {
-        Services.EventBus.get_default ().unselect_all ();
         window.show_hide_sidebar ();
     }
 
     private void action_new_section () {
-        Services.EventBus.get_default ().unselect_all ();
         window.new_section_action ();
     }
 
     private void action_add_task () {
-        Services.EventBus.get_default ().unselect_all ();
         window.add_task_action ();
     }
 
     private void action_add_task_paste () {
-        Services.EventBus.get_default ().unselect_all ();
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 
         clipboard.read_text_async.begin (null, (obj, res) => {
@@ -221,17 +203,14 @@ public class Services.ActionManager : Object {
     }
 
     private void action_shortcuts () {
-        Services.EventBus.get_default ().unselect_all ();
         window.open_shortcuts_window();
     }
 
     private void action_view_home () {
-        Services.EventBus.get_default ().unselect_all ();
         window.go_homepage ();
     }
 
     private void action_open_labels () {
-        Services.EventBus.get_default ().unselect_all ();
         Services.EventBus.get_default ().open_labels ();
     }
 }

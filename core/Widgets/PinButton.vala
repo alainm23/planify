@@ -41,13 +41,7 @@ public class Widgets.PinButton : Gtk.Button {
         pinned_image = new Widgets.DynamicIcon ();
         pinned_image.size = 16;
 
-        var projectbutton_grid = new Gtk.Grid () {
-            column_spacing = 6,
-            valign = Gtk.Align.CENTER
-        };
-        projectbutton_grid.attach (pinned_image, 0, 0);
-
-        child = projectbutton_grid;
+        child = pinned_image;
 
         update_request ();
 

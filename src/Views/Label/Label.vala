@@ -91,7 +91,8 @@ public class Views.Label : Adw.Bin {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24
+            margin_end = 48,
+            margin_bottom = 64,
         };
 
         content_clamp.child = content;
@@ -137,30 +138,30 @@ public class Views.Label : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
-        if (!items.has_key (item.id_string) && item.labels.has_key (label.id_string)
-            && insert) {
-            add_item (item);   
-        }
+        //  if (!items.has_key (item.id_string) && item.labels.has_key (label.id_string)
+        //      && insert) {
+        //      add_item (item);   
+        //  }
 
-        validate_placeholder ();
+        //  validate_placeholder ();
     }
 
     private void valid_delete_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
-        }
+        //  if (items.has_key (item.id_string)) {
+        //      items[item.id_string].hide_destroy ();
+        //      items.unset (item.id_string);
+        //  }
 
-        validate_placeholder ();
+        //  validate_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id_string) && !item.labels.has_key (label.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
-        }
+        //  if (items.has_key (item.id_string) && !item.labels.has_key (label.id_string)) {
+        //      items[item.id_string].hide_destroy ();
+        //      items.unset (item.id_string);
+        //  }
 
-        valid_add_item (item);
+        //  valid_add_item (item);
     }
 
     private void add_items () {        

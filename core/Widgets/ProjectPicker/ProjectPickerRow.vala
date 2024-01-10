@@ -14,8 +14,7 @@ public class Widgets.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
-        add_css_class ("transition");
+        css_classes = { "row" };
 
         icon_project = new Widgets.IconColorProject (10);
         icon_project.project = project;

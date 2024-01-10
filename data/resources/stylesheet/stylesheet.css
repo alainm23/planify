@@ -33,6 +33,10 @@ check {
     border-radius: 9px;
 }
 
+.border-radius-50 {
+    border-radius: 9px;
+}
+
 entry.flat:focus-within {
     outline-style: none;
 }
@@ -75,7 +79,7 @@ entry.flat:focus-within {
 }
 
 .transition {
-    transition: all 115ms ease-in-out;
+    transition: all 175ms ease-in-out;
 }
 
 .hidden-button image {
@@ -150,7 +154,7 @@ entry.flat:focus-within {
     font-size: 15pt;
 }
 
-.editable-label entry {
+.editable-label {
     background: transparent;
     border: none;
     box-shadow: none;
@@ -209,13 +213,13 @@ entry.flat:focus-within {
 }
 
 .card-selected {
-    margin-left: 3px;
+    transition: all 225ms ease-in-out;
+    margin: 24px;
     padding-left: 9px;
     padding-top: 3px;
     padding-right: 3px;
-    padding-bottom: 0px;
-    margin-right: 3px;
-    border: 1px solid @item_border_color;
+    padding-bottom: 3px;
+    box-shadow: 0px 0px 0px 1px @item_border_color;
 }
 
 .card-border {
@@ -236,7 +240,7 @@ entry.flat:focus-within {
 
 .complete-animation {
     background-color: @selected_color;
-    border-radius: 6px;
+    border-radius: 9px;
 }
 
 .action-button {
@@ -325,8 +329,10 @@ entry.flat:focus-within {
     padding: 0;
 }
 
-.label-color {
-    background: @colorAccent;
+
+.circle-color {
+    background: alpha(@colorAccent, 0.25);
+    border: 2px solid @colorAccent;
     border-radius: 50%;
 }
 
@@ -516,4 +522,69 @@ checkbutton.theme-selector radio:checked {
 .event-bar {
     background-color: @colorAccent;
     border-radius: 1px;
+}
+
+.drop-area {
+    background-color: alpha(#1e63ec, 0.25);
+    border-radius: 6px;
+}
+
+.drop-target:drop(active) {
+    border-radius: 6px;
+    background-color: alpha(#1e63ec, 0.35);
+}
+
+.drop-target-none:drop(active) {
+    border-radius: 0;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.drop-target-list:drop(active) {
+    border-radius: 6px;
+}
+
+.drop-begin {
+    padding:  3px;
+    background: @popover_bg_color;
+    border-radius: 9px;
+    border: 1px solid @item_border_color;
+}
+
+.indicator {
+    background: #1e63ec;
+    border-radius: 50%;
+}
+
+.drop-area-active {
+    border-radius: 6px;
+    border: 1px solid #1e63ec;
+}
+
+.drop-area-outline-active {
+    border-radius: 6px;
+    outline: 1px solid #1e63ec;
+}
+
+.view-button {
+    padding: 3px;
+    border-radius: 50%;
+}
+
+.video-content,
+.video-content > overlay,
+.video-content > overlay > picture {
+    border-radius: 6px;
+}
+
+.banner {
+    border-radius: 9px;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+.banner-text {
+    color: #333;
 }

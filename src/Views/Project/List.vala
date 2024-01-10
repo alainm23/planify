@@ -22,7 +22,7 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Label description_label;
+    private Widgets.HyperTextView description_textview;
     private Widgets.DynamicIcon due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
@@ -30,7 +30,7 @@ public class Views.List : Gtk.Grid {
     private Gtk.ListBox listbox;
     private Layouts.SectionRow inbox_section;
     private Gtk.Stack listbox_placeholder_stack;
-    private Gtk.ScrolledWindow scrolled_window;
+    private Widgets.ScrolledWindow scrolled_window;
     
     public bool has_children {
         get {
@@ -49,29 +49,25 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        description_label = new Gtk.Label (_("Add a description")) {
-            halign = Gtk.Align.START,
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
-            use_markup = true,
-            wrap = true
+        description_textview = new Widgets.HyperTextView (_("Note")) {
+            left_margin = 3,
+            right_margin = 3,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR
         };
-        description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        description_label.label = Util.get_default ().get_markup_format (project.description);
+        description_textview.set_text (project.description);
+        description_textview.remove_css_class ("view");
 
-        var description_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var description_box = new Adw.Bin () {
+            child = description_textview,
             margin_top = 6,
-            margin_end = 6
+            margin_end = 6,
+            margin_start = 24,
+            css_classes = { "description-box" }
         };
         
-        description_box.append (description_label);
-        description_box.add_css_class ("description-box");
-
         due_revealer = build_due_date_widget ();
-
-        // label_filter_revealer = build_label_filter_widget ();
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -93,9 +89,6 @@ public class Views.List : Gtk.Grid {
             return item1.section.section_order - item2.section.section_order;
         });
 
-        var listbox_grid = new Gtk.Grid ();
-        listbox_grid.attach (listbox, 0, 0);
-
         var listbox_placeholder = new Widgets.Placeholder (
             _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
         );
@@ -106,7 +99,7 @@ public class Views.List : Gtk.Grid {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        listbox_placeholder_stack.add_named (listbox_grid, "listbox");
+        listbox_placeholder_stack.add_named (listbox, "listbox");
         listbox_placeholder_stack.add_named (listbox_placeholder, "placeholder");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -126,17 +119,12 @@ public class Views.List : Gtk.Grid {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24
+            margin_end = 48,
+            margin_bottom = 64,
+            child = content_box
         };
 
-        content_clamp.child = content_box;
-
-        scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true
-        };
-        scrolled_window.child = content_clamp;
+        scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
         attach (scrolled_window, 0, 0);
         update_request ();
@@ -204,16 +192,13 @@ public class Views.List : Gtk.Grid {
             }
         });
 
-        var description_gesture = new Gtk.GestureClick ();
-        description_box.add_controller (description_gesture);
-
-        description_gesture.pressed.connect ((n_press, x, y) => {
-            var dialog = new Dialogs.ProjectDescription (project);
-            dialog.show ();
-        });
-
         project.show_completed_changed.connect (() => {
             check_placeholder ();
+        });
+
+        description_textview.changed.connect (() => {
+            project.description = description_textview.get_text ();
+            project.update (false);
         });
     }
 
@@ -253,7 +238,7 @@ public class Views.List : Gtk.Grid {
 
     public void prepare_new_item (string content = "") {
         var dialog = new Dialogs.QuickAdd ();
-        dialog.set_project (project);
+        dialog.for_base_object (project);
         dialog.update_content (content);
         dialog.show ();
     }
@@ -269,14 +254,6 @@ public class Views.List : Gtk.Grid {
     }
 
     public void update_request () {
-        description_label.remove_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        string description = Util.get_default ().get_markup_format (project.description);
-        if (description.strip () == "") {
-            description = _("Add a description");
-            description_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-        }
-
-        description_label.label = description;
         update_duedate ();
     }
 

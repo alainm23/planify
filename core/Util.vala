@@ -228,7 +228,7 @@ public class Util : GLib.Object {
     }
 
     public string get_encode_text (string text) {
-        return Uri.escape_string (text, null, false);
+        return text.replace ("&", "%26").replace ("#", "%23");
     }
 
     public string get_theme_name () {
@@ -358,6 +358,7 @@ public class Util : GLib.Object {
     * Replaces all line breaks with a space and
     * replaces multiple spaces with a single one.
     */
+    
     private GLib.Regex line_break_to_space_regex = null;
     public string line_break_to_space (string str) {
         if (line_break_to_space_regex == null) {
@@ -378,7 +379,7 @@ public class Util : GLib.Object {
     }
 
     public string get_dialog_text (string text) {
-        return text.replace ("&", "&amp;").replace ("<", "&lt;").replace (">", "&gt;");
+        return Uri.escape_string (text, null, false);
     }
 
     /*
@@ -1023,7 +1024,7 @@ public class Util : GLib.Object {
             item_02.id = Util.get_default ().generate_id (item_02);
             item_02.project_id = project.id;
             item_02.content = _("Create a new to-do");
-            item_02.description = _("Now it's your turn, tap the '+' button at the top of your project, enter any pending and tap the blue 'Save' button.");
+            item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
 
             var item_03 = new Objects.Item ();
             item_03.id = Util.get_default ().generate_id (item_03);

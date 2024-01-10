@@ -57,9 +57,9 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         labelrow_grid.attach (name_label, 0, 0);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = labelrow_grid
         };
-        main_revealer.child = labelrow_grid;
 
         child = main_revealer;
         update_request ();

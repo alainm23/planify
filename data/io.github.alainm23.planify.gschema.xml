@@ -38,7 +38,7 @@
 
     <enum id="io.github.alainm23.planify.new-tasks-position">
         <value nick="Top" value="0" />
-        <value nick="Bottom" value="-1" />
+        <value nick="Bottom" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.clock-format">
@@ -52,8 +52,8 @@
     </enum>
 
     <enum id="io.github.alainm23.planify.projects-sort-by">
-        <value nick="Alphabetically" value="0" />
-        <value nick="Custom sort order" value="1" />
+        <value nick="Custom sort order" value="0" />
+        <value nick="Alphabetically" value="1" />
     </enum>
 
     <enum id="io.github.alainm23.planify.projects-ordered">
@@ -344,6 +344,12 @@
         </key>
 
         <key name="show-tasks-count" type="b">
+            <default>true</default>
+            <summary>Show Taks Count</summary>
+            <description>Show Taks Count</description>
+        </key>
+
+        <key name="show-support-banner" type="b">
             <default>true</default>
             <summary>Show Taks Count</summary>
             <description>Show Taks Count</description>

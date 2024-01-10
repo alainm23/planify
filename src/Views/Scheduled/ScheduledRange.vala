@@ -62,7 +62,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         date_range_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            hexpand = true
+            hexpand = true,
+            margin_start = 24
         };
 
         title_box.append (month_label);
@@ -71,7 +72,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         event_list = new Widgets.EventsList.for_range (start_date, end_date) {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 6
+            margin_top = 6,
+            margin_start = 24
         };
 
         event_list_revealer = new Gtk.Revealer () {
@@ -116,7 +118,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         
         content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 6,
-            margin_bottom = 3
+            margin_bottom = 3,
+            margin_start = 24
         });
         
         content.append (event_list_revealer);

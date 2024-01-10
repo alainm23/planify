@@ -88,7 +88,8 @@ public class Views.Filter : Adw.Bin {
             maximum_size = 1024,
             tightening_threshold = 800,
             margin_start = 24,
-            margin_end = 24
+            margin_end = 48,
+            margin_bottom = 64
         };
 
         content_clamp.child = content;
@@ -299,7 +300,8 @@ public class Views.Filter : Adw.Bin {
         };
 
         var header_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
-            margin_top = 12
+            margin_top = 12,
+            margin_start = 19
         };
         header_box.append (header_label);
         header_box.append (header_separator);

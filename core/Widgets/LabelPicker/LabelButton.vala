@@ -20,16 +20,22 @@
 */
 
 public class Widgets.LabelPicker.LabelButton : Adw.Bin {
-    public Objects.Item item { get; construct; }
+    public BackendType backend_type { get; construct; }
 
     private Gtk.MenuButton button; 
     private Widgets.LabelPicker.LabelPicker labels_picker;
 
-    public signal void labels_changed (Gee.HashMap <string, Objects.Label> labels);
+    public Gee.ArrayList<Objects.Label> labels {
+        set {
+            labels_picker.labels = value;
+        }
+    }
 
-    public LabelButton (Objects.Item item) {
+    public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
+
+    public LabelButton (BackendType backend_type = BackendType.ALL) {
         Object (
-            item: item,
+            backend_type: backend_type,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add label(s)")
@@ -37,7 +43,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     }
 
     construct {
-        labels_picker = new Widgets.LabelPicker.LabelPicker ();
+        labels_picker = new Widgets.LabelPicker.LabelPicker (backend_type);
 
         button = new Gtk.MenuButton () {
             child = new Widgets.DynamicIcon.from_icon_name ("planner-tag"),
@@ -47,12 +53,8 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         
         child = button;
 
-        labels_picker.show.connect (() => {
-            labels_picker.item = item;
-        });
-
         labels_picker.closed.connect (() => {
-            labels_changed (labels_picker.labels_map);
+            labels_changed (labels_picker.picked);
         });
     }
 }

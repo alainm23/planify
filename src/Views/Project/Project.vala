@@ -24,7 +24,10 @@ public class Views.Project : Gtk.Grid {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Stack view_stack;
+	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
+	private Widgets.MultiSelectToolbar multiselect_toolbar;
+	private Gtk.Revealer indicator_revealer;
 
 	public Project (Objects.Project project) {
 		Object (
@@ -38,23 +41,42 @@ public class Views.Project : Gtk.Grid {
 			halign = Gtk.Align.CENTER,
 			margin_end = 12,
 			popover = build_context_menu_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical")
+			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+			css_classes = { "flat" }
 		};
-		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+		var indicator_grid = new Gtk.Grid () {
+			width_request = 9,
+			height_request = 9,
+			margin_top = 6,
+			margin_end = 6,
+			css_classes = { "indicator" }
+		};
+
+		indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+			halign = END,
+			valign = START,
+        };
 
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_view_setting_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders")
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
+			css_classes = { "flat" }
 		};
-		view_setting_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+		var view_setting_overlay = new Gtk.Overlay ();
+		view_setting_overlay.child = view_setting_button;
+		view_setting_overlay.add_overlay (indicator_revealer);
 		
 		var headerbar = new Layouts.HeaderBar ();
 		headerbar.title = project.name;
 
 		headerbar.pack_end (menu_button);
-		headerbar.pack_end (view_setting_button);
+		headerbar.pack_end (view_setting_overlay);
 
 		view_stack = new Gtk.Stack () {
 			hexpand = true,
@@ -79,13 +101,20 @@ public class Views.Project : Gtk.Grid {
 		content_overlay.child = content_box;
 		content_overlay.add_overlay (magic_button);
 
-		var toolbar_view = new Adw.ToolbarView ();
+		multiselect_toolbar = new Widgets.MultiSelectToolbar (project);
+
+		toolbar_view = new Adw.ToolbarView () {
+			bottom_bar_style = Adw.ToolbarStyle.RAISED_BORDER,
+			reveal_bottom_bars = false
+		};
 		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.add_bottom_bar (multiselect_toolbar);
 		toolbar_view.content = content_overlay;
 
 		attach (toolbar_view, 0, 0);
-		update_project_view (ProjectViewStyle.LIST);
-		show();
+		update_project_view (project.view_style);
+		check_default_view ();
+		show ();
 
 		magic_button.clicked.connect (() => {
 			prepare_new_item ();
@@ -94,6 +123,29 @@ public class Views.Project : Gtk.Grid {
 		project.updated.connect (() => {
 			headerbar.title = project.name;
 		});
+
+		multiselect_toolbar.closed.connect (() => {
+			Services.EventBus.get_default ().multi_select_enabled = false;
+			Services.EventBus.get_default ().show_multi_select (false);
+			Services.EventBus.get_default ().magic_button_visible (true);
+			Services.EventBus.get_default ().connect_typing_accel ();
+
+			toolbar_view.reveal_bottom_bars = false;
+		});
+	}
+
+	private void check_default_view () {
+		bool defaults = true;
+		
+		if (project.sort_order != 0) {
+			defaults = false;
+		}
+
+		if (project.show_completed != false) {
+			defaults = false;
+		} 
+
+		indicator_revealer.reveal_child = !defaults;
 	}
 
 	private void update_project_view (ProjectViewStyle view_style) {
@@ -149,7 +201,6 @@ public class Views.Project : Gtk.Grid {
 	private Gtk.Popover build_context_menu_popover () {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
-		var description_item = new Widgets.ContextMenu.MenuItem (_("Description"), "planner-note");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
@@ -162,7 +213,6 @@ public class Views.Project : Gtk.Grid {
 
 		if (!project.is_inbox_project) {
 			menu_box.append (edit_item);
-			menu_box.append (description_item);
 			menu_box.append (schedule_item);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
@@ -189,12 +239,6 @@ public class Views.Project : Gtk.Grid {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Project (project);
-			dialog.show ();
-		});
-
-		description_item.activate_item.connect (() => {
-			popover.popdown ();
-			var dialog = new Dialogs.ProjectDescription (project);
 			dialog.show ();
 		});
 
@@ -229,25 +273,8 @@ public class Views.Project : Gtk.Grid {
 		});
 
 		add_section_item.activate_item.connect (() => {
-			Objects.Section new_section = prepare_new_section ();
-
-			if (project.backend_type == BackendType.TODOIST) {
-				add_section_item.is_loading = true;
-				Services.Todoist.get_default ().add.begin (new_section, (obj, res) => {
-					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
-
-					if (response.status) {
-						new_section.id = response.data;
-						project.add_section_if_not_exists (new_section);
-						add_section_item.is_loading = false;
-						popover.popdown ();
-					}
-				});
-			} else {
-				new_section.id = Util.get_default ().generate_id (new_section);
-				project.add_section_if_not_exists (new_section);
-				popover.popdown ();
-			}
+			popover.popdown ();
+			prepare_new_section ();
 		});
 
 		paste_item.clicked.connect (() => {
@@ -266,15 +293,22 @@ public class Views.Project : Gtk.Grid {
 
 		select_item.clicked.connect (() => {
 			popover.popdown ();
+
 			Services.EventBus.get_default ().multi_select_enabled = true;
 			Services.EventBus.get_default ().show_multi_select (true);
+			Services.EventBus.get_default ().magic_button_visible (false);
+			Services.EventBus.get_default ().disconnect_typing_accel ();
+
+			toolbar_view.reveal_bottom_bars = true;
 		});
 
 		delete_item.clicked.connect (() => {
 			popover.popdown ();
 
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Delete project"), _("Are you sure you want to delete <b>%s</b>?".printf (Util.get_default ().get_dialog_text (project.short_name))));
+			var dialog = new Adw.MessageDialog (
+				(Gtk.Window) Planify.instance.main_window,
+			    _("Delete project"), _("Are you sure you want to delete %s?".printf (project.short_name))
+			);
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
@@ -301,6 +335,49 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	private Gtk.Popover build_view_setting_popover () {
+		var list_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			halign = CENTER
+		};
+
+		list_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-list"));
+		list_box.append (new Gtk.Label (_("List")) {
+			css_classes = { "small-label" },
+			valign = CENTER
+		});
+
+		var list_button = new Gtk.ToggleButton () {
+			child = list_box,
+			active = project.view_style == ProjectViewStyle.LIST
+		};
+
+		var board_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+			halign = CENTER
+		};
+
+		board_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-board"));
+		board_box.append (new Gtk.Label (_("Board")) {
+			css_classes = { "small-label" },
+			valign = CENTER
+		});
+
+		var board_button = new Gtk.ToggleButton () {
+			group = list_button,
+			child = board_box,
+			active = project.view_style == ProjectViewStyle.BOARD
+		};
+
+		var view_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+			css_classes = { "linked" },
+			hexpand = true,
+			homogeneous = true,
+			margin_start = 6,
+			margin_end = 6,
+			margin_top = 3
+		};
+
+		view_box.append (list_button);
+		view_box.append (board_button);
+
 		var order_by_model = new Gee.ArrayList<string> ();
 		order_by_model.add (_("Custom sort order"));
 		order_by_model.add (_("Alphabetically"));
@@ -308,15 +385,19 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), null, order_by_model, project.sort_order);
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model) {
+			margin_top = 12
+		};
+		order_by_item.selected = project.sort_order;
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
 			"planner-check-circle"
-			);
+		);
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (view_box);
 		menu_box.append (order_by_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
@@ -328,9 +409,10 @@ public class Views.Project : Gtk.Grid {
 			width_request = 250
 		};
 
-		order_by_item.selected.connect ((index) => {
-			project.sort_order = index;
+		order_by_item.notify["selected"].connect (() => {
+			project.sort_order = order_by_item.selected;
 			project.update (false);
+			check_default_view ();
 		});
 
 		show_completed_item.activate_item.connect (() => {
@@ -340,18 +422,27 @@ public class Views.Project : Gtk.Grid {
 			project.update ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
+			check_default_view ();
+		});
+
+		list_button.toggled.connect (() => {
+			update_project_view (ProjectViewStyle.LIST);
+		});
+
+		board_button.toggled.connect (() => {
+			update_project_view (ProjectViewStyle.BOARD);
+		});
+
+		project.sort_order_changed.connect (() => {
+			order_by_item.update_selected (project.sort_order);
+			check_default_view ();
 		});
 
 		return popover;
 	}
 
-	public Objects.Section prepare_new_section () {
-		Objects.Section new_section = new Objects.Section ();
-		new_section.project_id = project.id;
-		new_section.name = _("New section");
-		new_section.activate_name_editable = true;
-		new_section.section_order = project.sections.size;
-
-		return new_section;
+	public void prepare_new_section () {
+		var dialog = new Dialogs.Section.new (project);
+		dialog.show ();
 	}
 }

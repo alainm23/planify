@@ -29,7 +29,8 @@ public class Widgets.EditableLabel : Gtk.Grid {
 	private Gtk.Label title;
 	private Widgets.Entry entry;
 	private Gtk.Stack stack;
-	private Gtk.Grid grid;
+	private Gtk.Box grid;
+	private Gtk.Revealer edit_revealer;
 
 	public string text { get; set; }
 	public bool entry_menu_opened { get; set; default = false; }
@@ -37,6 +38,12 @@ public class Widgets.EditableLabel : Gtk.Grid {
 	public bool is_editing {
 		get {
 			return stack.visible_child == entry;
+		}
+	}
+
+	public bool show_edit {
+		set {
+			edit_revealer.reveal_child = value;
 		}
 	}
 
@@ -75,30 +82,40 @@ public class Widgets.EditableLabel : Gtk.Grid {
 		Object (
 			placeholder_text: placeholder_text,
 			auto_focus: auto_focus
-			);
+		);
 	}
 
 	construct {
-		add_css_class ("editable-label");
-
 		title = new Gtk.Label (null) {
 			ellipsize = Pango.EllipsizeMode.END,
 			xalign = 0
 		};
 
-		grid = new Gtk.Grid () {
-			valign = Gtk.Align.CENTER,
-			column_spacing = 12
+		var edit_icon = new Widgets.DynamicIcon.from_icon_name ("planner-edit") {
+			css_classes = { "dim-label" },
+			size = 13
 		};
 
-		grid.attach (title, 0, 0);
+		edit_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = edit_icon
+        };
+
+		grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+			valign = Gtk.Align.CENTER
+		};
+
+		grid.append (title);
+		grid.append (edit_revealer);
 
 		entry = new Widgets.Entry () {
-			placeholder_text = placeholder_text
+			placeholder_text = placeholder_text,
+			css_classes = { "editable-label" }
 		};
 
 		stack = new Gtk.Stack () {
 			transition_type = Gtk.StackTransitionType.CROSSFADE,
+			transition_duration = 115,
 			hexpand = true
 		};
 
