@@ -591,7 +591,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -599,9 +599,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    // move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Database.get_default ().get_project (id), "");
                 } else {
-                    // move (item.project, id);
+                    move (item.project, id);
                 }
             });
         });

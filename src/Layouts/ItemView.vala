@@ -91,7 +91,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            height_request = 128,
+            height_request = 164,
             hexpand = true,
             child = description_textview
         };

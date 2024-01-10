@@ -919,7 +919,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -1046,7 +1046,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.clicked.connect (() => {            
             menu_popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;

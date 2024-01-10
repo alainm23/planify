@@ -120,7 +120,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         add_projects ();
 
         Timeout.add (Constants.DRAG_TIMEOUT, () => {
-            // main_stack.visible_child_name = picker_type.to_string ();
             return GLib.Source.REMOVE;
         });
 
@@ -170,8 +169,12 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             local_group.reveal = true;
             todoist_group.reveal = true;
         } else if (backend_type == BackendType.LOCAL) {
+            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 0;
             local_group.reveal = true;
+            todoist_group.reveal = false;
         } else if (backend_type == BackendType.TODOIST) {
+            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1;
+            local_group.reveal = false;
             todoist_group.reveal = true;
         }
 
