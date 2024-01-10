@@ -280,9 +280,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         foreach (string key in items_selected.keys) {
             items_selected [key].is_row_selected = false;
         }
-
+        
         items_selected.clear ();
         labels.clear ();
+        size_label.label = null;
         closed ();
     }
 

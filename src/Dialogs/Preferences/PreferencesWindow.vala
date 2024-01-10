@@ -41,6 +41,72 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		page.name = "preferences";
 		page.icon_name = "applications-system-symbolic";
 
+		var banner_image = new Adw.Bin () {
+			css_classes = { "banner", "card" },
+			height_request = 140
+		};
+
+		var banner_title = new Gtk.Label (_("Support Planify")) {
+			halign = START,
+			css_classes = { "font-bold", "banner-text" }
+		};
+
+		var banner_description = new Gtk.Label (_("Planify is being developed with love and passion for open source. However, if you like Planify and want to support its development, please consider supporting us.")) {
+			halign = START,
+			xalign = 0,
+			yalign = 0,
+			wrap = true,
+			css_classes = { "small-label", "banner-text" }
+		};
+
+		var banner_button = new Gtk.Button.with_label (_("Supporting us")) {
+			halign = START,
+			margin_top = 6,
+			css_classes = { "banner-text" }
+		};
+
+		var close_button = new Gtk.Button () {
+			child = new Widgets.DynamicIcon.from_icon_name ("window-close-symbolic"),
+			css_classes = { "border-radius-50", "banner-text" },
+			margin_top = 6,
+			margin_end = 6,
+			valign = START,
+			halign = END
+		};
+
+		var banner_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+			valign = START,
+			halign = START,
+			margin_top = 12,
+			margin_start = 12,
+			margin_end = 12,
+			margin_bottom = 12
+		};
+
+		banner_box.append (banner_title);
+		banner_box.append (banner_description);
+		banner_box.append (banner_button);
+		
+		var banner_overlay = new Gtk.Overlay ();
+		banner_overlay.child = banner_image;
+		banner_overlay.add_overlay (banner_box);
+		banner_overlay.add_overlay (close_button);
+
+		var banner_group = new Adw.PreferencesGroup ();
+		banner_group.add (banner_overlay);
+
+		Services.Settings.get_default ().settings.bind ("show-support-banner", banner_group, "visible", GLib.SettingsBindFlags.DEFAULT);
+
+		banner_button.clicked.connect (() => {
+			push_subpage (get_support_page ());
+		});
+
+		close_button.clicked.connect (() => {
+			Services.Settings.get_default ().settings.set_boolean ("show-support-banner", false);
+		});
+
+		page.add (banner_group);
+
 		// Accounts
 		var accounts_row = new Adw.ActionRow ();
 		accounts_row.activatable = true;
@@ -103,13 +169,30 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_quick_add_page ());
 		});
 
+		var backups_row = new Adw.ActionRow ();
+		backups_row.activatable = true;
+		backups_row.add_prefix (generate_icon ("planner-upload"));
+		backups_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		backups_row.title = _("Backups");
+
+		var tutorial_row = new Adw.ActionRow ();
+		tutorial_row.activatable = true;
+		tutorial_row.add_prefix (generate_icon ("light-bulb"));
+		tutorial_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		tutorial_row.title = _("Create Tutorial Project");
+		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
+
 		var personalization_group = new Adw.PreferencesGroup ();
 		personalization_group.add (general_row);
 		personalization_group.add (sidebar_row);
 		personalization_group.add (appearance_row);
 		personalization_group.add (quick_add_row);
+		personalization_group.add (backups_row);
+		personalization_group.add (tutorial_row);
 
 		page.add (personalization_group);
+
+		// Reach Us Group
 
 		var reach_us_group = new Adw.PreferencesGroup ();
 		reach_us_group.title = _("Reach Us");
@@ -122,7 +205,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		contact_us_row.subtitle = _("Request a feature or ask us anything.");
 
 		contact_us_row.activated.connect (() => {
-			string uri = "mailto:?subject=%s".printf (Constants.CONTACT_US);
+			string uri = "mailto:%s".printf (Constants.CONTACT_US);
 
             try {
                 AppInfo.launch_default_for_uri (uri, null);
@@ -161,58 +244,43 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
         });
 
-		//  var review_app_row = new Adw.ActionRow ();
-		//  review_app_row.activatable = true;
-		//  review_app_row.add_prefix (generate_icon ("planner-heart"));
-		//  review_app_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		//  review_app_row.title = _("Review the app");
-		//  review_app_row.subtitle = _("Tell us what  we are doing correct or wrong.");
+		var supporting_us_row = new Adw.ActionRow ();
+		supporting_us_row.activatable = true;
+		supporting_us_row.add_prefix (generate_icon ("planner-heart"));
+		supporting_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		supporting_us_row.title = _("Support Planify");
+		supporting_us_row.subtitle = _("Want to buy me a drink?");
 
-		//  review_app_row.activated.connect (() => {
-        //      try {
-        //          AppInfo.launch_default_for_uri (Constants.TELEGRAM_GROUP, null);
-        //      } catch (Error e) {
-        //          warning ("%s\n", e.message);
-        //      }
-        //  });
+		supporting_us_row.activated.connect (() => {
+			push_subpage (get_support_page ());
+        });
 
 		reach_us_group.add (contact_us_row);
 		reach_us_group.add (tweet_us_row);
 		reach_us_group.add (telegram_row);
-		// reach_us_group.add (review_app_row);
+		reach_us_group.add (supporting_us_row);
+		
 		page.add (reach_us_group);
-
-		// Support Group
-		var support_group = new Adw.PreferencesGroup ();
-		support_group.title = _("Support");
-
-		var tutorial_row = new Adw.ActionRow ();
-		tutorial_row.activatable = true;
-		tutorial_row.add_prefix (generate_icon ("light-bulb"));
-		tutorial_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		tutorial_row.title = _("Create Tutorial Project");
-		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
-
-		var backups_row = new Adw.ActionRow ();
-		backups_row.activatable = true;
-		backups_row.add_prefix (generate_icon ("planner-upload"));
-		backups_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		backups_row.title = _("Backups");
-
-		support_group.add (tutorial_row);
-		support_group.add (backups_row);
-		page.add (support_group);
 
 		var privacy_group = new Adw.PreferencesGroup ();
 		privacy_group.title = _("Privacy");
 
+		var privacy_policy_row = new Adw.ActionRow ();
+		privacy_policy_row.activatable = true;
+		privacy_policy_row.add_prefix (generate_icon ("planner-shield-tick"));
+		privacy_policy_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		privacy_policy_row.title = _("Privacy policy");
+		privacy_policy_row.subtitle = _("We have nothing on you.");
+		
 		var delete_row = new Adw.ActionRow ();
 		delete_row.activatable = true;
 		delete_row.add_prefix (generate_icon ("trash"));
 		delete_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		delete_row.title = _("Delete Planify Data");
 
+		privacy_group.add (privacy_policy_row);
 		privacy_group.add (delete_row);
+
 		page.add (privacy_group);
 
 		tutorial_row.activated.connect (() => {
@@ -222,6 +290,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		backups_row.activated.connect (() => {
 			push_subpage (get_backups_page ());
+		});
+
+		privacy_policy_row.activated.connect (() => {
+			push_subpage (get_privacy_policy_page ());
 		});
 
 		delete_row.activated.connect (() => {
@@ -1172,6 +1244,193 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			var toast = new Adw.Toast (msg);
 			toast.timeout = 3;
 			add_toast (toast);
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_privacy_policy_page () {
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Privacy policy"));
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+			vexpand = true,
+			hexpand = true
+		};
+
+		content_box.append (new Gtk.Label (_("Personal data")) {
+			css_classes = { "font-bold" },
+			halign = START
+		});
+
+		content_box.append (new Gtk.Label (_("We collect absolutely nothing and all your data is stored in a database on your computer.")) {
+			wrap = true,
+			xalign = 0
+		});
+
+		content_box.append (new Gtk.Label (_("If you choose to integrate Todoist, which is optional and not selected by default, your data will be stored on their private servers, we only display your configured tasks and manage them for you.")) {
+			wrap = true,
+			xalign = 0
+		});
+
+		content_box.append (new Gtk.Label (_("Do you have any questions?")) {
+			css_classes = { "font-bold" },
+			halign = START
+		});
+
+		content_box.append (new Gtk.Label (_("If you have any questions about your data or any other issue, please contact us. We will be happy to answer you.")) {
+			wrap = true,
+			xalign = 0
+		});
+
+		var contact_us_button = new Gtk.Button.with_label (_("Contact us")) {
+			vexpand = true,
+			margin_bottom = 24,
+			valign = END,
+			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+        };
+
+		content_box.append (contact_us_button);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 400,
+			margin_start = 24,
+			margin_end = 24,
+			margin_top = 12
+		};
+
+		content_clamp.child = content_box;
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+			child = content_clamp
+        };
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
+
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		contact_us_button.clicked.connect (() => {
+			string uri = "mailto:%s".printf (Constants.CONTACT_US);
+
+            try {
+                AppInfo.launch_default_for_uri (uri, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_support_page () {
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Supporting us"));
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
+			vexpand = true,
+			hexpand = true
+		};
+
+		content_box.append (new Gtk.Label (_("Our mission is to provide the best open source task management application for users all over the world. Your donations support this work. Want to donate today?")) {
+			wrap = true,
+			xalign = 0
+		});
+		
+		var patreon_row = new Adw.ActionRow ();
+		patreon_row.activatable = true;
+		patreon_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		patreon_row.title = _("Patreon");
+
+		patreon_row.activated.connect (() => {
+			try {
+                AppInfo.launch_default_for_uri (Constants.PATREON_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+		});
+
+		var paypal_row = new Adw.ActionRow ();
+		paypal_row.activatable = true;
+		paypal_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		paypal_row.title = _("PayPal");
+
+		paypal_row.activated.connect (() => {
+			try {
+                AppInfo.launch_default_for_uri (Constants.PAYPAL_ME_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+		});
+
+		var liberapay_row = new Adw.ActionRow ();
+		liberapay_row.activatable = true;
+		liberapay_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		liberapay_row.title = _("Liberapay");
+		
+		liberapay_row.activated.connect (() => {
+			try {
+                AppInfo.launch_default_for_uri (Constants.LIBERAPAY_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+		});
+
+		var kofi_row = new Adw.ActionRow ();
+		kofi_row.activatable = true;
+		kofi_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		kofi_row.title = _("Ko-fi");
+
+		kofi_row.activated.connect (() => {
+			try {
+                AppInfo.launch_default_for_uri (Constants.KOFI_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+		});
+
+		var group = new Adw.PreferencesGroup () {
+			margin_top = 12
+		};
+		group.add (patreon_row);
+		group.add (paypal_row);
+		group.add (liberapay_row);
+		group.add (kofi_row);
+
+		content_box.append (group);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 400,
+			margin_start = 24,
+			margin_end = 24,
+			margin_top = 12
+		};
+
+		content_clamp.child = content_box;
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+            hexpand = true,
+            vexpand = true,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+			child = content_clamp
+        };
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
+
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
 		});
 
 		return page;

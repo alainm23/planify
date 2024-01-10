@@ -33,6 +33,10 @@ check {
     border-radius: 9px;
 }
 
+.border-radius-50 {
+    border-radius: 9px;
+}
+
 entry.flat:focus-within {
     outline-style: none;
 }
@@ -325,6 +329,7 @@ entry.flat:focus-within {
     padding: 0;
 }
 
+
 .circle-color {
     background: alpha(@colorAccent, 0.25);
     border: 2px solid @colorAccent;
@@ -572,4 +577,14 @@ checkbutton.theme-selector radio:checked {
 .video-content > overlay,
 .video-content > overlay > picture {
     border-radius: 6px;
+}
+
+.banner {
+    border-radius: 9px;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+.banner-text {
+    color: #333;
 }

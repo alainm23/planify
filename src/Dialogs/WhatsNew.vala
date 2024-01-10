@@ -31,8 +31,8 @@ public class Dialogs.WhatsNew : Adw.Window {
 			deletable: true,
 			destroy_with_parent: true,
 			modal: true,
-			default_width: 500,
-			height_request: 500,
+			default_width: 475,
+			height_request: 600,
 			title: null
 		);
 	}
@@ -88,8 +88,8 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 		var content_clamp = new Adw.Clamp () {
             maximum_size = 600,
-			margin_start = 12,
-			margin_end = 12,
+			margin_start = 24,
+			margin_end = 24,
 			margin_bottom = 12
 		};
 

@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.4.0'
+  version: '4.4'
 )
 
 gnome = import('gnome')

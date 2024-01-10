@@ -106,6 +106,10 @@ public class Planify : Adw.Application {
 			                                    _("The process removes all stored information without the possibility of undoing it."),
 												main_window);
 		}
+
+		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
+			Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);
+		}
 	}
 
 	public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {

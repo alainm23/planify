@@ -348,5 +348,11 @@
             <summary>Show Taks Count</summary>
             <description>Show Taks Count</description>
         </key>
+
+        <key name="show-support-banner" type="b">
+            <default>true</default>
+            <summary>Show Taks Count</summary>
+            <description>Show Taks Count</description>
+        </key>
     </schema>
 </schemalist>

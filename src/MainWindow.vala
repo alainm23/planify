@@ -452,6 +452,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		var popover = new Gtk.Popover () {
 			has_arrow = true,
 			child = menu_box,
+			width_request = 250,
 			position = Gtk.PositionType.BOTTOM
 		};
 
