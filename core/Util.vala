@@ -1084,6 +1084,38 @@ We hope you’ll enjoy using Planify!""");
 
             section_01.add_item_if_not_exists (item_02_01);
             section_01.add_item_if_not_exists (item_02_02);
+
+            var section_02 = new Objects.Section ();
+            section_02.id = Util.get_default ().generate_id (section_01);
+            section_02.project_id = project.id;
+            section_02.name = _("Boost your productivity");
+
+            project.add_section_if_not_exists (section_02);
+
+            var item_03_01 = new Objects.Item ();
+            item_03_01.id = Util.get_default ().generate_id (item_03_01);
+            item_03_01.project_id = project.id;
+            item_03_01.section_id = section_02.id;
+            item_03_01.content = _("Drag the plus button!");
+            item_03_01.description = _("That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want.");
+
+            var item_03_02 = new Objects.Item ();
+            item_03_02.id = Util.get_default ().generate_id (item_03_02);
+            item_03_02.project_id = project.id;
+            item_03_02.section_id = section_02.id;
+            item_03_02.content = _("Tag your to-dos!");
+            item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
+
+            var item_03_03 = new Objects.Item ();
+            item_03_03.id = Util.get_default ().generate_id (item_03_03);
+            item_03_03.project_id = project.id;
+            item_03_03.section_id = section_02.id;
+            item_03_03.content = _("Set timely reminders!");
+            item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
+            
+            section_02.add_item_if_not_exists (item_03_01);
+            section_02.add_item_if_not_exists (item_03_02);
+            section_02.add_item_if_not_exists (item_03_03);
         }
     }
 
@@ -1125,80 +1157,6 @@ We hope you’ll enjoy using Planify!""");
         Services.Database.get_default ().insert_label (label_05);
     }
 
-    public string get_markup_format (string _text) {
-        var text = get_dialog_text (_text);
-
-        Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
-        Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
-                
-        Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
-        Regex bold_regex = /\*\*(.*?)\*\*/;
-        Regex italic_regex = /\*(.*?)\*/;
-
-        MatchInfo info;
-        try {
-            List<string> urls = new List<string> ();
-            if (url_regex.match (text, 0, out info)) {
-                do {
-                    var url = info.fetch_named ("url");
-                    urls.append (url);
-                } while (info.next ());
-            }
-            List<string> emails = new List<string> ();
-            if (mailto_regex.match (text, 0, out info)) {
-                do {
-                    var email = info.fetch_named ("mailto");
-                    emails.append (email);
-                } while (info.next ());
-            }
-            Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown>();
-            if (bold_regex.match (text, 0, out info)) {
-                do {
-                    bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown> ();
-            if (italic_regex.match (text, 0, out info)) {
-                do {
-                    italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-            Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown>();
-            if (italic_bold_regex.match (text, 0, out info)) {
-                do {
-                    italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
-                } while (info.next ());
-            }
-
-            var converted = text;
-            urls.foreach ((url) => {
-                var url_encoded = url.replace ("&", "&amp;");
-                var url_as_link = @"<a href=\"$url_encoded\">$url_encoded</a>";
-                converted = converted.replace (url, url_as_link);
-            });
-            emails.foreach ((email) => {
-                var email_as_link = @"<a href=\"mailto:$email\">$email</a>";
-                converted = converted.replace (email, email_as_link);
-            });
-            foreach (RegexMarkdown m in italic_bold) {
-                string format = "<i><b>" + m.text + "</b></i>";
-                converted = converted.replace (m.match, format);
-            }
-            foreach (RegexMarkdown m in bolds_01) {
-                string format = "<b>" + m.text + "</b>";
-                converted = converted.replace (m.match, format);
-            }
-            foreach (RegexMarkdown m in italics_01) {
-                string format = "<i>" + m.text + "</i>";
-                converted = converted.replace (m.match, format);
-            }
-
-            return converted;
-        } catch (GLib.RegexError ex) {
-            return text;
-        }
-    }
-
     public BackendType get_backend_type_by_text (string backend_type) {
         if (backend_type == "local") {
             return BackendType.LOCAL;
@@ -1211,16 +1169,5 @@ We hope you’ll enjoy using Planify!""");
         } else {
             return BackendType.NONE;
         }
-    }
-}
-
-public class RegexMarkdown {
-    public string match { get; set; }
-    public string text { get; set; }
-    public string extra { get; set; }
-    public RegexMarkdown (string match, string text, string extra="") {
-        this.match = match;
-        this.text = text;
-        this.extra = extra;
     }
 }

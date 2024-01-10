@@ -41,7 +41,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
     public int count {
         get {
             if (_count == null) {
-                _count = Services.Database.get_default ().get_labels_collection().size;
+                _count = Services.Database.get_default ().get_labels_collection ().size;
             }
 
             return _count;
@@ -59,17 +59,17 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         keywords = "%s".printf (_("labels"));
 
         Services.Database.get_default ().label_added.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection().size;
+            _count = Services.Database.get_default ().get_labels_collection ().size;
             count_updated ();
         });
 
         Services.Database.get_default ().label_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection().size;
+            _count = Services.Database.get_default ().get_labels_collection ().size;
             count_updated ();
         });
 
         Services.Database.get_default ().label_updated.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection().size;
+            _count = Services.Database.get_default ().get_labels_collection ().size;
             count_updated ();
         });
     }
