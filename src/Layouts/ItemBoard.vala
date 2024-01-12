@@ -992,7 +992,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     item.delete_item ();
                 } else if (project.backend_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                        TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                        HttpResponse response = Services.Todoist.get_default ().add.end (res);
                         if (response.status) {
                             new_item.id = response.data;
                             project.add_item_if_not_exists (new_item);

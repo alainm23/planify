@@ -170,7 +170,6 @@ public class Services.Database : GLib.Object {
          */
 
         add_text_column ("Projects", "description", "");
-        add_text_column ("Projects", "due_date", "");
 
         /*
          * Planify 4.4
@@ -613,14 +612,26 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Projects SET name=$name, color=$color, backend_type=$backend_type,
-                inbox_project=$inbox_project, team_inbox=$team_inbox,
-                child_order=$child_order, is_deleted=$is_deleted,
-                is_archived=$is_archived, is_favorite=$is_favorite,
-                shared=$shared, view_style=$view_style,
+            UPDATE Projects SET
+                name=$name,
+                color=$color,
+                backend_type=$backend_type,
+                inbox_project=$inbox_project,
+                team_inbox=$team_inbox,
+                child_order=$child_order,
+                is_deleted=$is_deleted,
+                is_archived=$is_archived,
+                is_favorite=$is_favorite,
+                shared=$shared,
+                view_style=$view_style,
                 sort_order=$sort_order,
-                parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
-                emoji=$emoji, show_completed=$show_completed, description=$description, due_date=$due_date
+                parent_id=$parent_id,
+                collapsed=$collapsed,
+                icon_style=$icon_style,
+                emoji=$emoji,
+                show_completed=$show_completed,
+                description=$description,
+                due_date=$due_date
             WHERE id=$id;
         """;
 

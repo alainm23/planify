@@ -190,7 +190,7 @@ public class Dialogs.Label : Adw.Window {
             if (label.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {
-                    TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
                     if (response.status) {
                         label.id = response.data;

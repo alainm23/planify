@@ -842,7 +842,7 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 if (response.status) {
                     new_item.id = response.data;
                     insert_duplicate (new_item);

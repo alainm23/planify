@@ -776,7 +776,7 @@ public class Services.Todoist : GLib.Object {
 		}
 	}
 
-	public async TodoistResponse add (Objects.BaseObject object) {
+	public async HttpResponse add (Objects.BaseObject object) {
 		string temp_id = Util.get_default ().generate_string ();
 		string uuid = Util.get_default ().generate_string ();
 		string id;
@@ -789,7 +789,7 @@ public class Services.Todoist : GLib.Object {
 		);
 		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 		
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -857,7 +857,7 @@ public class Services.Todoist : GLib.Object {
 		debug ("Code: %s - %s".printf (status_code.to_string (), message));
 	}
 
-	public async TodoistResponse update (Objects.BaseObject object) {
+	public async HttpResponse update (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
 		string json = object.get_update_json (uuid);
 
@@ -868,7 +868,7 @@ public class Services.Todoist : GLib.Object {
 		);
 		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1022,7 +1022,7 @@ public class Services.Todoist : GLib.Object {
         return generator.to_data (null);
     }
 
-	public async TodoistResponse delete (Objects.BaseObject object) {
+	public async HttpResponse delete (Objects.BaseObject object) {
 		string uuid = Util.get_default ().generate_string ();
 		string json = get_delete_json (object.id, object.type_delete, uuid);
 
@@ -1033,7 +1033,7 @@ public class Services.Todoist : GLib.Object {
 		);
 		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1103,7 +1103,7 @@ public class Services.Todoist : GLib.Object {
 	    Items
 	 */
 
-	public async TodoistResponse complete_item (Objects.Item item) {
+	public async HttpResponse complete_item (Objects.Item item) {
 		string uuid = Util.get_default ().generate_string ();
 		string json = item.get_check_json (uuid, item.checked ? "item_complete" : "item_uncomplete");
 
@@ -1114,7 +1114,7 @@ public class Services.Todoist : GLib.Object {
 		);
 		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1208,7 +1208,7 @@ public class Services.Todoist : GLib.Object {
 		return generator.to_data (null);
 	}
 
-	public async TodoistResponse move_item (Objects.Item item, string type, string id) {
+	public async HttpResponse move_item (Objects.Item item, string type, string id) {
 		string uuid = Util.get_default ().generate_string ();
 		string json = item.get_move_item (uuid, type, id);
 
@@ -1219,7 +1219,7 @@ public class Services.Todoist : GLib.Object {
 		);
 		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1276,7 +1276,7 @@ public class Services.Todoist : GLib.Object {
 		return response;
 	}
 
-	public async TodoistResponse move_project_section (Objects.BaseObject base_object, string project_id) {
+	public async HttpResponse move_project_section (Objects.BaseObject base_object, string project_id) {
 		string uuid = Util.get_default ().generate_string ();
 
 		string url = "%s?commands=%s".printf (
@@ -1290,7 +1290,7 @@ public class Services.Todoist : GLib.Object {
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
 
-		TodoistResponse response = new TodoistResponse ();
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -1374,7 +1374,7 @@ public class Services.Todoist : GLib.Object {
     }
 }
 
-public class TodoistResponse {
+public class HttpResponse {
 	public bool status { get; set; }
 	public string error { get; set; default = ""; }
 	public int error_code { get; set; default = 0; }
@@ -1387,5 +1387,12 @@ public class TodoistResponse {
 		error_code = (int) node.get_object ().get_int_member ("error_code");
 		error = node.get_object ().get_string_member ("error");
 		http_code = (int) node.get_object ().get_int_member ("http_code");
+	}
+
+	public void from_error_xml (GXml.DomDocument doc, int error_code) {
+		status = false;
+		error_code = error_code;
+		http_code = error_code;
+		error = doc.get_elements_by_tag_name ("o:hint").get_element (0).text_content;
 	}
 }

@@ -8,6 +8,7 @@ core_files = files(
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/Todoist.vala',
+    'Services/CalDAV/CalDAV.vala',
 
     'Layouts/HeaderItem.vala',
 
@@ -70,7 +71,8 @@ core_deps = [
   granite_dep,
   json_dep,
   libsoup_dep,
-  gtksourceview_dep
+  gtksourceview_dep,
+  libgxml_dep
 ]
 
 core_lib = shared_library(

@@ -291,7 +291,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 submit_button.is_loading = false;
 
                 if (response.status) {

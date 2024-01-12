@@ -26,6 +26,9 @@ libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
 libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
 libical_dep = dependency('libical-glib')
 libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
+libxml_dep = dependency('libxml-2.0')
+libgxml_dep = dependency('gxml-0.20')
+libxmlbird_dep = dependency('xmlbird')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
 ############

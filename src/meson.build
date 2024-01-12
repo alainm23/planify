@@ -14,6 +14,7 @@ deps = [
   libedataserver_dep,
   libical_dep,
   libportal_dep,
+  libgxml_dep,
   m_dep
 ]
 

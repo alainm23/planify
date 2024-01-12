@@ -551,14 +551,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (project.backend_type == BackendType.TODOIST) {
+                    if (project.backend_type == BackendType.LOCAL) {
+                        Services.Database.get_default ().delete_project (project);
+                    } else if (project.backend_type == BackendType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
                             if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_project (project);
                             }
                         });
-                    } else if (project.backend_type == BackendType.LOCAL) {
-                        Services.Database.get_default ().delete_project (project);
+                    } else if (project.backend_type == BackendType.CALDAV) {
+                        Services.CalDAV.get_default ().delete_tasklist.begin (project, (obj, res) => {
+                            if (Services.CalDAV.get_default ().delete_tasklist.end (res)) {
+                                Services.Database.get_default ().delete_project (project);
+                            }
+                        });
                     }
                 }
             });

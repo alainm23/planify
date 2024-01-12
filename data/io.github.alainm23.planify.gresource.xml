@@ -31,6 +31,7 @@
     <file alias="planner-clock.svg">resources/icons/planner-clock.svg</file>
     <file alias="planner-todoist.svg">resources/icons/planner-todoist.svg</file>
     <file alias="google.svg">resources/icons/google.svg</file>
+    <file alias="cloud.svg">resources/icons/cloud.svg</file>
     <file alias="planner-emoji-happy.svg">resources/icons/planner-emoji-happy.svg</file>
     <file alias="planner-label.svg">resources/icons/planner-label.svg</file>
     <file alias="planner-completed.svg">resources/icons/planner-completed.svg</file>

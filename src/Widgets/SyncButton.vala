@@ -24,6 +24,8 @@ public class Widgets.SyncButton : Adw.Bin {
     private Widgets.DynamicIcon sync_icon;
     private Gtk.Stack stack;
 
+    public signal void clicked ();
+
     public bool reveal_child {
         set {
             main_revealer.reveal_child = value;
@@ -59,14 +61,12 @@ public class Widgets.SyncButton : Adw.Bin {
         child = main_revealer;
 
         Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
             network_available ();
-            init_signals ();
             return GLib.Source.REMOVE;
         });
 
         sync_button.clicked.connect (() => {
-            Services.Todoist.get_default ().sync_async ();
+            clicked ();
         });
 
         var network_monitor = GLib.NetworkMonitor.get_default ();
@@ -82,11 +82,6 @@ public class Widgets.SyncButton : Adw.Bin {
             stack.visible_child_name = "error";
             tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
         }
-    }
-
-    private void init_signals () {
-        Services.Todoist.get_default ().sync_started.connect (sync_started);
-        Services.Todoist.get_default ().sync_finished.connect (sync_finished);
     }
 
     public void sync_started () {

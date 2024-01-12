@@ -300,40 +300,52 @@ public class Dialogs.Project : Adw.Window {
         project.icon_style = emoji_switch.active ? ProjectIconStyle.EMOJI : ProjectIconStyle.PROGRESS;
         project.emoji = emoji_label.label;
 
+        submit_button.is_loading = true;
+
         if (!is_creating) {
-            submit_button.is_loading = true;
-            if (project.backend_type == BackendType.TODOIST) {
+            if (project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_project (project);
+                hide_destroy ();
+            } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default().update_project (project);
-                    submit_button.is_loading = false;
                     hide_destroy ();
                 });
-            } else if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_project (project);
-                hide_destroy ();
+            } else if (project.backend_type == BackendType.CALDAV) {
+                Services.CalDAV.get_default ().update_tasklist.begin (project, (obj, res) => {
+                    if (Services.CalDAV.get_default ().update_tasklist.end (res)) {
+                        Services.Database.get_default().update_project (project);
+                        hide_destroy ();
+                    }
+                });
             }
         } else {
             project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
-            if (project.backend_type == BackendType.TODOIST) {
-                submit_button.is_loading = true;
+            if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+                project.id = Util.get_default ().generate_id (project);
+                project.backend_type = BackendType.LOCAL;
+                Services.Database.get_default ().insert_project (project);
+                go_project (project.id_string);
+            } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().add.begin (project, (obj, res) => {
-                    TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
                     if (response.status) {
                         project.id = response.data;
                         Services.Database.get_default().insert_project (project);
                         go_project (project.id_string);
-                    } else {
-
                     }
                 });
-
-            } else if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+            } else if (project.backend_type == BackendType.CALDAV) {
                 project.id = Util.get_default ().generate_id (project);
-                project.backend_type = BackendType.LOCAL;
-                Services.Database.get_default ().insert_project (project);
-                go_project (project.id_string);
+                project.backend_type = BackendType.CALDAV;
+                Services.CalDAV.get_default ().add_tasklist.begin (project, (obj, res) => {
+                    if (Services.CalDAV.get_default ().add_tasklist.end (res)) {
+                        Services.Database.get_default().insert_project (project);
+                        go_project (project.id_string);
+                    }
+                });
             }
         }
     }

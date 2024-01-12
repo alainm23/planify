@@ -354,5 +354,35 @@
             <summary>Show Taks Count</summary>
             <description>Show Taks Count</description>
         </key>
+
+        <key name="caldav-server-url" type="s">
+            <default>""</default>
+            <summary>CalDAV Server URL</summary>
+            <description>CalDAV Server URL</description>
+        </key>
+
+        <key name="caldav-username" type="s">
+            <default>""</default>
+            <summary>CalDAV Username</summary>
+            <description>CalDAV Username</description>
+        </key>
+
+        <key name="caldav-user-email" type="s">
+            <default>""</default>
+            <summary>CalDAV User Email</summary>
+            <description>CalDAV User Email</description>
+        </key>
+
+        <key name="caldav-user-displayname" type="s">
+            <default>""</default>
+            <summary>CalDAV User Displayname</summary>
+            <description>CalDAV User Displayname</description>
+        </key>
+
+        <key name="caldav-credential" type="s">
+            <default>""</default>
+            <summary>CalDAV User Credential</summary>
+            <description>CalDAV User Credential</description>
+        </key>
     </schema>
 </schemalist>
