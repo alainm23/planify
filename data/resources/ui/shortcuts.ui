@@ -9,32 +9,32 @@
         <property name="max-height">12</property>
         <child>
           <object class="GtkShortcutsGroup" id="used-anywhere">
-            <property name="title" translatable="yes" context="shortcut window">Used anywhere</property>
+            <property name="title" translatable="yes" context="shortcut window">Used Anywhere</property>
             <child>
               <object class="GtkShortcutsShortcut" id="create-task">
                 <property name="accelerator">a</property>
-                <property name="title" translatable="yes" context="shortcut window">Create a new task</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a New Task</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="paste-task">
                 <property name="accelerator">&lt;ctrl&gt;v</property>
-                <property name="title" translatable="yes" context="shortcut window">Paste plain text to create new task</property>
+                <property name="title" translatable="yes" context="shortcut window">Paste Plain Text to Create New Task</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="create-project">
                 <property name="accelerator">p</property>
-                <property name="title" translatable="yes" context="shortcut window">Create a new project</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a New Project</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="create-section">
                 <property name="accelerator">s</property>
-                <property name="title" translatable="yes" context="shortcut window">Create a new section in a project</property>
+                <property name="title" translatable="yes" context="shortcut window">Create a New Section in a Project</property>
               </object>
             </child>
           </object>
@@ -54,7 +54,7 @@
 
         <child>
           <object class="GtkShortcutsGroup" id="control-windows">
-            <property name="title" translatable="yes" context="shortcut window">Control windows</property>
+            <property name="title" translatable="yes" context="shortcut window">Control Windows</property>
             <child>
               <object class="GtkShortcutsShortcut" id="quit">
                 <property name="accelerator">&lt;ctrl&gt;q</property>
@@ -65,14 +65,14 @@
             <child>
               <object class="GtkShortcutsShortcut" id="open-preferences">
                 <property name="accelerator">&lt;ctrl&gt;comma</property>
-                <property name="title" translatable="yes" context="shortcut window">Open preferences</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Preferences</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="show-hide-sidebar">
                 <property name="accelerator">m</property>
-                <property name="title" translatable="yes" context="shortcut window">Show/hide Sidebar</property>
+                <property name="title" translatable="yes" context="shortcut window">Toggle Sidebar</property>
               </object>
             </child>
 

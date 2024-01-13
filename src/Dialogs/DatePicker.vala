@@ -68,7 +68,7 @@ public class Dialogs.DatePicker : Adw.Window {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
+        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "planner-scheduled");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );

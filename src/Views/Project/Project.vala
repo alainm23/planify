@@ -307,7 +307,7 @@ public class Views.Project : Gtk.Grid {
 
 			var dialog = new Adw.MessageDialog (
 				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete project"), _("Are you sure you want to delete %s?".printf (project.short_name))
+			    _("Delete Project"), _("Are you sure you want to delete %s?".printf (project.short_name))
 			);
 
 			dialog.body_use_markup = true;
@@ -391,7 +391,7 @@ public class Views.Project : Gtk.Grid {
 		order_by_item.selected = project.sort_order;
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
-			project.show_completed ? _("Hide completed tasks") : _("Show Completed Tasks"),
+			project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks"),
 			"planner-check-circle"
 		);
 
@@ -421,7 +421,7 @@ public class Views.Project : Gtk.Grid {
 			project.show_completed = !project.show_completed;
 			project.update ();
 
-			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show completed tasks");
+			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
 			check_default_view ();
 		});
 

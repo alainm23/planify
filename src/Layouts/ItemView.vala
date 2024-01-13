@@ -77,7 +77,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
         content_box.append (checked_button);
         content_box.append (content_textview);
 
-        description_textview = new Widgets.HyperTextView (_("Add a description")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             left_margin = 36,
             right_margin = 6,
             top_margin = 6,

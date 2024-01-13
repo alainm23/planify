@@ -58,13 +58,13 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			margin_start = 6
 		};
 
-		var add_button = new Gtk.Button.with_label (_("Create backup")) {
+		var add_button = new Gtk.Button.with_label (_("Create Backup")) {
 			margin_top = 12
 		};
 
-		var import_button = new Gtk.Button.with_label (_("Import backup"));
+		var import_button = new Gtk.Button.with_label (_("Import Backup"));
 
-		var backups_group = new Layouts.HeaderItem (_("Backups files")) {
+		var backups_group = new Layouts.HeaderItem (_("Backup Files")) {
 			margin_top = 12,
 			reveal = true
 		};

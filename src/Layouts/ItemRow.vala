@@ -348,7 +348,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 24
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
             left_margin = 24,
             right_margin = 6,
@@ -824,11 +824,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         // var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add subtask"), "plus");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -934,7 +934,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to clipboard"), "planner-clipboard");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "planner-clipboard");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
         var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
@@ -942,7 +942,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
         more_information_item.add_css_class ("small-label");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -1389,7 +1389,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void confirm_move (Objects.Project project, string section_id) {
         var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Move tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
+            _("Move Tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
         );
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("ok", _("Move"));
@@ -1588,7 +1588,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_notification (
-                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'."))
+                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update (false);
             }

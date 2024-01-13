@@ -92,7 +92,7 @@ public class Dialogs.Label : Adw.Window {
         color_group.add_css_class (Granite.STYLE_CLASS_CARD);
         color_group.attach (color_picker_row, 0, 0);
         
-        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add label") : _("Update label")) {
+        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Label") : _("Update Label")) {
             vexpand = true,
             hexpand = true,
             margin_bottom = 12,
@@ -218,3 +218,4 @@ public class Dialogs.Label : Adw.Window {
         });
     }
 }
+

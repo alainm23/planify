@@ -80,7 +80,7 @@ public class Widgets.SyncButton : Adw.Bin {
             stack.visible_child_name = "sync";
         } else {
             stack.visible_child_name = "error";
-            tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline mode is on"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
+            tooltip_markup = "<b>%s</b>\n%s".printf (_("Offline Mode Is On"), _("Looks like you'are not connected to the\ninternet. Changes you make in offline\nmode will be synced when you reconnect")); // vala-lint=line-length
         }
     }
 

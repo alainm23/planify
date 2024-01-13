@@ -232,7 +232,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
 			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Tasks synced successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
+			                                    _("Tasks Synced Successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
@@ -432,7 +432,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
 		preferences_item.add_css_class ("no-font-bold");
 
-		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard shortcuts"));
+		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
