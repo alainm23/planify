@@ -218,4 +218,3 @@ public class Dialogs.Label : Adw.Window {
         });
     }
 }
-
