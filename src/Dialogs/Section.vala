@@ -70,7 +70,7 @@ public class Dialogs.Section : Adw.Window {
         };
 
         name_entry = new Adw.EntryRow ();
-        name_entry.title = _("Section name");
+        name_entry.title = _("Section Name");
         name_entry.text = section.name;
 
         var name_group = new Adw.PreferencesGroup () {
@@ -105,7 +105,7 @@ public class Dialogs.Section : Adw.Window {
 
         description_group.add (description_entry);
 
-        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add section") : _("Update section")) {
+        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Section") : _("Update Section")) {
             vexpand = true,
             hexpand = true,
             margin_bottom = 12,

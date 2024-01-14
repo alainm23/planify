@@ -211,7 +211,7 @@ public enum RecurrencyType {
 	EVERY_YEAR,
 	NONE;
 
-	public string to_friendly_string(int? interval = null) {
+	public string to_friendly_string (int? interval = null) {
 		switch (this) {
 		case NONE:
 			return _("Don't Repeat");

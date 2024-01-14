@@ -59,7 +59,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			css_classes = { "small-label", "banner-text" }
 		};
 
-		var banner_button = new Gtk.Button.with_label (_("Supporting us")) {
+		var banner_button = new Gtk.Button.with_label (_("Supporting Us")) {
 			halign = START,
 			margin_top = 6,
 			css_classes = { "banner-text" }
@@ -113,7 +113,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		accounts_row.add_prefix (generate_icon ("planner-cloud"));
 		accounts_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		accounts_row.title = _("Integrations");
-		accounts_row.subtitle = _("Sync your favorite to-do providers.");
+		accounts_row.subtitle = _("Sync your favorite to-do providers");
 
 		accounts_row.activated.connect (() => {
 			push_subpage (get_accounts_page ());
@@ -130,7 +130,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		general_row.add_prefix (generate_icon ("planner-general"));
 		general_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		general_row.title = _("General");
-		general_row.subtitle = _("Customize to your liking.");
+		general_row.subtitle = _("Customize to your liking");
 
 		general_row.activated.connect (() => {
 			push_subpage (get_general_page ());
@@ -141,7 +141,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		sidebar_row.add_prefix (generate_icon ("sidebar"));
 		sidebar_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		sidebar_row.title = _("Sidebar");
-		sidebar_row.subtitle = _("Customize your sidebar.");
+		sidebar_row.subtitle = _("Customize your sidebar");
 
 		sidebar_row.activated.connect (() => {
 			push_subpage (get_sidebar_page ());
@@ -163,7 +163,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		quick_add_row.add_prefix (generate_icon ("archive-plus"));
 		quick_add_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		quick_add_row.title = _("Quick Add");
-		quick_add_row.subtitle = _("Adding To-Dos From Anywhere.");
+		quick_add_row.subtitle = _("Adding to-do's from anywhere");
 
 		quick_add_row.activated.connect (() => {
 			push_subpage (get_quick_add_page ());
@@ -180,7 +180,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		tutorial_row.add_prefix (generate_icon ("light-bulb"));
 		tutorial_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		tutorial_row.title = _("Create Tutorial Project");
-		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project.");
+		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project");
 
 		var personalization_group = new Adw.PreferencesGroup ();
 		personalization_group.add (general_row);
@@ -201,8 +201,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		contact_us_row.activatable = true;
 		contact_us_row.add_prefix (generate_icon ("planner-mail"));
 		contact_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		contact_us_row.title = _("Contact us");
-		contact_us_row.subtitle = _("Request a feature or ask us anything.");
+		contact_us_row.title = _("Contact Us");
+		contact_us_row.subtitle = _("Request a feature or ask us anything");
 
 		contact_us_row.activated.connect (() => {
 			string uri = "mailto:%s".printf (Constants.CONTACT_US);
@@ -218,8 +218,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		tweet_us_row.activatable = true;
 		tweet_us_row.add_prefix (generate_icon ("planner-annotation-dots"));
 		tweet_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		tweet_us_row.title = _("Tweet us");
-		tweet_us_row.subtitle = _("Share some love.");
+		tweet_us_row.title = _("Tweet Us");
+		tweet_us_row.subtitle = _("Share some love");
 
 		tweet_us_row.activated.connect (() => {
             try {
@@ -234,7 +234,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		telegram_row.add_prefix (generate_icon ("telegram"));
 		telegram_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		telegram_row.title = _("Telegram");
-		telegram_row.subtitle = _("Discuss and share your feedback.");
+		telegram_row.subtitle = _("Discuss and share your feedback");
 
 		telegram_row.activated.connect (() => {
             try {
@@ -269,8 +269,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		privacy_policy_row.activatable = true;
 		privacy_policy_row.add_prefix (generate_icon ("planner-shield-tick"));
 		privacy_policy_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		privacy_policy_row.title = _("Privacy policy");
-		privacy_policy_row.subtitle = _("We have nothing on you.");
+		privacy_policy_row.title = _("Privacy Policy");
+		privacy_policy_row.subtitle = _("We have nothing on you");
 		
 		var delete_row = new Adw.ActionRow ();
 		delete_row.activatable = true;
@@ -285,7 +285,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		tutorial_row.activated.connect (() => {
 			Util.get_default ().create_tutorial_project ();
-			add_toast (Util.get_default ().create_toast (_("A tutorial project has been created.")));
+			add_toast (Util.get_default ().create_toast (_("A tutorial project has been created")));
 		});
 
 		backups_row.activated.connect (() => {
@@ -299,7 +299,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		delete_row.activated.connect (() => {
 			destroy ();
 			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it."),
+			                                    _("The process removes all stored information without the possibility of undoing it"),
 											Planify.instance.main_window);
 		});
 
@@ -325,7 +325,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		general_group.add (home_page_row);
 
 		var sort_projects_model = new Gtk.StringList (null);
-		sort_projects_model.append (_("Custom sort order"));		
+		sort_projects_model.append (_("Custom Sort Order"));
 		sort_projects_model.append (_("Alphabetically"));
 
 		var sort_projects_row = new Adw.ComboRow ();
@@ -357,8 +357,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var run_background_row = new Adw.ActionRow ();
-		run_background_row.title = _("Run in background");
-		run_background_row.subtitle = _("Let Planify run in background and send notifications.");
+		run_background_row.title = _("Run in Background");
+		run_background_row.subtitle = _("Let Planify run in background and send notifications");
 		run_background_row.set_activatable_widget (run_background_switch);
 		run_background_row.add_suffix (run_background_switch);
 
@@ -370,8 +370,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var run_on_startup_row = new Adw.ActionRow ();
-		run_on_startup_row.title = _("Run on startup");
-		run_on_startup_row.subtitle = _("Whether Planify should run on startup.");
+		run_on_startup_row.title = _("Run on Startup");
+		run_on_startup_row.subtitle = _("Whether Planify should run on startup");
 		run_on_startup_row.set_activatable_widget (run_on_startup_switch);
 		run_on_startup_row.add_suffix (run_on_startup_switch);
 
@@ -413,22 +413,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		start_week_model.append (_("Saturday"));
 
 		var start_week_row = new Adw.ComboRow ();
-		start_week_row.title = _("Start of the week");
+		start_week_row.title = _("Start of the Week");
 		start_week_row.model = start_week_model;
 		start_week_row.selected = Services.Settings.get_default ().settings.get_enum ("start-week");
 
 		datetime_group.add (start_week_row);
 
 		var tasks_group = new Adw.PreferencesGroup ();
-		tasks_group.title = _("Task settings");
+		tasks_group.title = _("Task Settings");
 
 		var complete_tasks_model = new Gtk.StringList (null);
 		complete_tasks_model.append (_("Instantly"));
-		complete_tasks_model.append (_("Wait 2500 milliseconds"));
+		complete_tasks_model.append (_("Wait 2500 Milliseconds"));
 
 		var complete_tasks_row = new Adw.ComboRow ();
-		complete_tasks_row.title = _("Complete task");
-		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option.");
+		complete_tasks_row.title = _("Complete Task");
+		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
 		complete_tasks_row.model = complete_tasks_model;
 		complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
 
@@ -441,7 +441,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		default_priority_model.append (_("None"));
 
 		var default_priority_row = new Adw.ComboRow ();
-		default_priority_row.title = _("Default priority");
+		default_priority_row.title = _("Default Priority");
 		default_priority_row.model = default_priority_model;
 		default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
 
@@ -453,7 +453,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var underline_completed_row = new Adw.ActionRow ();
-		underline_completed_row.title = _("Underline completed tasks");
+		underline_completed_row.title = _("Underline Completed Tasks");
 		underline_completed_row.set_activatable_widget (underline_completed_switch);
 		underline_completed_row.add_suffix (underline_completed_switch);
 
@@ -464,7 +464,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		tasks_position_model.append (_("Bottom"));
 
 		var tasks_position_row = new Adw.ComboRow ();
-		tasks_position_row.title = _("New task position");
+		tasks_position_row.title = _("New Task Position");
 		tasks_position_row.model = tasks_position_model;
 		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
 
@@ -578,7 +578,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var system_appearance_row = new Adw.ActionRow ();
-		system_appearance_row.title = _("Use system settings");
+		system_appearance_row.title = _("Use System Settings");
 		system_appearance_row.set_activatable_widget (system_appearance_switch);
 		system_appearance_row.add_suffix (system_appearance_switch);
 
@@ -921,7 +921,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var sync_server_row = new Adw.ActionRow ();
 		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes.");
+		sync_server_row.subtitle = _("Activate this setting so that Planner automatically synchronizes with your Todoist account every 15 minutes");
 		sync_server_row.set_activatable_widget (sync_server_switch);
 		sync_server_row.add_suffix (sync_server_switch);
 
@@ -1030,7 +1030,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var save_last_row = new Adw.ActionRow ();
 		save_last_row.title = _("Save Last Selected Project");
-		save_last_row.subtitle = _("If unchecked, the default project selected is Inbox.");
+		save_last_row.subtitle = _("If unchecked, the default project selected is Inbox");
 		save_last_row.set_activatable_widget (save_last_switch);
 		save_last_row.add_suffix (save_last_switch);
 
@@ -1064,7 +1064,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		copy_button.clicked.connect (() => {
 			Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
 			clipboard.set_text (quick_add_command);
-			add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard.")));
+			add_toast (Util.get_default ().create_toast (_("The command was copied to the clipboard")));
 		});
 
 		settings_header.back_activated.connect (() => {
@@ -1107,7 +1107,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             margin_top = 6
         };
 
-        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes."));
+        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes"));
         sync_label.wrap = true;
         sync_label.justify = Gtk.Justification.CENTER;
         sync_label.margin_top = 12;
@@ -1155,7 +1155,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (state) in redirect_uri)) {
-				settings_header.title = _("Synchronizing. Wait a moment please.");
+				settings_header.title = _("Synchronizing...");
                 get_todoist_token.begin (redirect_uri);
             }
 
@@ -1166,7 +1166,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
 
             if (load_event == WebKit.LoadEvent.FINISHED) {
-                settings_header.title = _("Please enter your credentials");
+                settings_header.title = _("Please Enter Your Credentials");
                 return;
             }
 
@@ -1346,14 +1346,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_privacy_policy_page () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Privacy policy"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Privacy Policy"));
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
 			hexpand = true
 		};
 
-		content_box.append (new Gtk.Label (_("Personal data")) {
+		content_box.append (new Gtk.Label (_("Personal Data")) {
 			css_classes = { "font-bold" },
 			halign = START
 		});
@@ -1378,7 +1378,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			xalign = 0
 		});
 
-		var contact_us_button = new Gtk.Button.with_label (_("Contact us")) {
+		var contact_us_button = new Gtk.Button.with_label (_("Contact Us")) {
 			vexpand = true,
 			margin_bottom = 24,
 			valign = END,
@@ -1428,7 +1428,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_support_page () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Supporting us"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Supporting Us"));
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
@@ -1576,7 +1576,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		}
 
 		var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-		                                    _("Sign off"), message);
+		                                    _("Sign Off"), message);
 
 		dialog.body_use_markup = true;
 		dialog.add_response ("cancel", _("Cancel"));

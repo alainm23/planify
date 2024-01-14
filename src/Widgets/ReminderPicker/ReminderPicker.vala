@@ -190,7 +190,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         time_box.append (time_label);
         time_box.append (time_picker);
 
-        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add reminder")) {
+        submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add Reminder")) {
             margin_top = 12,
             margin_start = 3,
             margin_end = 3,

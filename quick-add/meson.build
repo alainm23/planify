@@ -1,7 +1,6 @@
 quick_find_sources = files(
     'App.vala',
     'MainWindow.vala',
-
     'Services/DBusClient.vala',
 )
 

@@ -67,7 +67,7 @@ public class Views.Label : Adw.Bin {
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Widgets.Placeholder (
-            _("No to-dos for this filter yet."), "planner-check-circle"
+            _("No to-dos for this filter yet"), "planner-check-circle"
         );
 
         listbox_stack = new Gtk.Stack () {

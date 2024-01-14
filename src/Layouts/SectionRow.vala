@@ -89,7 +89,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		items = new Gee.HashMap <string, Layouts.ItemRow> ();
 		items_checked = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-		name_editable = new Widgets.EditableLabel (("New section"), false) {
+		name_editable = new Widgets.EditableLabel (("New Section"), false) {
 			valign = Gtk.Align.CENTER,
 			hexpand = true,
 			margin_start = 6,
@@ -622,7 +622,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			var dialog = new Adw.MessageDialog (
 				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete section"), _("Are you sure you want to delete %s?".printf (section.short_name))
+			    _("Delete Section"), _("Are you sure you want to delete %s?".printf (section.short_name))
 			);
 
 			dialog.add_response ("cancel", _("Cancel"));

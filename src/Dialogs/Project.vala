@@ -179,7 +179,7 @@ public class Dialogs.Project : Adw.Window {
 
         color_box_revealer.child = color_group;
 
-        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add project") : _("Update project")) {
+        submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Project") : _("Update Project")) {
             vexpand = true,
             hexpand = true,
             margin_bottom = 12,

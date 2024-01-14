@@ -846,7 +846,7 @@ public class Services.Database : GLib.Object {
     public Gee.ArrayList<Objects.Label> get_labels_by_item_labels (string labels) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
-        foreach (string id in labels.split(";")) {
+        foreach (string id in labels.split (";")) {
             Objects.Label? label = get_label (id);
             if (label != null) {
                 return_value.add (label);

@@ -104,8 +104,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 repeat_image_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
 
-                content_textview.grab_focus ();
-
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
                     content_label.remove_css_class ("dim-label");
@@ -207,54 +205,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         );
     }
 
-    public ItemRow.for_item (Objects.Item _item) {
-        var item = new Objects.Item ();
-        item.project_id = _item.project_id;
-        item.section_id = _item.section_id;
-
-        Object (
-            item: item,
-            focusable: false,
-            can_focus: true
-        );
-    }
-
-    public ItemRow.for_project (Objects.Project project) {
-        var item = new Objects.Item ();
-        item.project_id = project.id;
-
-        Object (
-            item: item,
-            focusable: false,
-            can_focus: true
-        );
-    }
-
-    public ItemRow.for_parent (Objects.Item _item) {
-        var item = new Objects.Item ();
-        item.project_id = _item.project_id;
-        item.section_id = _item.section_id;
-        item.parent_id = _item.id;
-        
-        Object (
-            item: item,
-            focusable: false,
-            can_focus: true
-        );
-    }
-
-    public ItemRow.for_section (Objects.Section section) {
-        var item = new Objects.Item ();
-        item.section_id = section.id;
-        item.project_id = section.project.id;
-
-        Object (
-            item: item,
-            focusable: false,
-            can_focus: true
-        );
-    }
-
     construct {
         css_classes = { "row", "no-padding" };
 
@@ -316,7 +266,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         hide_loading_button = new Widgets.LoadingButton.with_icon ("pan-down-symbolic", 16) {
             valign = Gtk.Align.START,
-            can_focus = false,
             css_classes = { "flat", "dim-label", "no-padding" }
         };
         
@@ -399,7 +348,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 24
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description")) {
+        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
             left_margin = 24,
             right_margin = 6,
@@ -445,7 +394,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
         
         menu_button = new Gtk.Button () {
-            can_focus = false,
             child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
             css_classes = { "flat" }
         };
@@ -605,17 +553,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 edit = false;
-            } else if (keyval == 65289) {
-                schedule_button.grab_focus ();
             } else {
                 update ();
             }
         });
 
         var checked_button_gesture = new Gtk.GestureClick ();
-        checked_button_gesture.set_button (1);
         checked_button.add_controller (checked_button_gesture);
-
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 
@@ -626,7 +570,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });    
 
         var hide_loading_gesture = new Gtk.GestureClick ();
-        hide_loading_gesture.set_button (1);
         hide_loading_button.add_controller (hide_loading_gesture);
         hide_loading_gesture.pressed.connect (() => {
             hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
@@ -674,13 +617,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var menu_gesture = new Gtk.GestureClick ();
         menu_button.add_controller (menu_gesture);
-
         menu_gesture.pressed.connect ((n_press, x, y) => {
             build_button_context_menu (x, y);
         });
 
         var multiselect_gesture = new Gtk.GestureClick ();
-        multiselect_gesture.set_button (1);
         select_checkbutton.add_controller (multiselect_gesture);
 
         multiselect_gesture.pressed.connect (() => {
@@ -883,11 +824,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         // var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add subtask"), "plus");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -919,7 +860,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -993,7 +934,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to clipboard"), "planner-clipboard");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "planner-clipboard");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
         var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
@@ -1001,7 +942,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
         more_information_item.add_css_class ("small-label");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -1046,7 +987,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.clicked.connect (() => {            
             menu_popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker ();
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -1448,7 +1389,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void confirm_move (Objects.Project project, string section_id) {
         var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Move tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
+            _("Move Tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
         );
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("ok", _("Move"));
@@ -1647,7 +1588,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_notification (
-                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'."))
+                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update (false);
             }

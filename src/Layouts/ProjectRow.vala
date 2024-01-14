@@ -421,7 +421,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (projects_sort != 0) {
                 Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
                 Services.EventBus.get_default ().send_notification (
-                    Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'."))
+                    Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
                 );
             }
     
@@ -482,20 +482,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
-            favorite_item.title = project.is_favorite ? _("Remove from favorites") : _("Add to favorites");
+            favorite_item.title = project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites");
 
             menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
             menu_popover.popup ();
             return;
         }
         
-        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove from favorites") : _("Add to favorites"), "planner-star");
+        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "planner-star");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete project"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share");
-        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by e-mail"), "mail");
+        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by E-Mail"), "mail");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;

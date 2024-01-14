@@ -82,7 +82,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
             margin_top = 6
         };
 
-        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes."));
+        var sync_label = new Gtk.Label (_("Planner is sync your tasks, this may take a few minutes"));
         sync_label.wrap = true;
         sync_label.justify = Gtk.Justification.CENTER;
         sync_label.margin_top = 12;

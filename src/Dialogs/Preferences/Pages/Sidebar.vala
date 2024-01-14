@@ -27,7 +27,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
     construct {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
 
-        var views_group = new Layouts.HeaderItem (_("Show in sidebar")) {
+        var views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
             separator_lines = true,
             listbox_no_margin = true,
             box_shadow = true,
@@ -52,7 +52,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 		};
 
 		var show_count_row = new Adw.ActionRow ();
-		show_count_row.title = _("Show task count");
+		show_count_row.title = _("Show Task Count");
 		show_count_row.set_activatable_widget (show_count_switch);
 		show_count_row.add_suffix (show_count_switch);
 

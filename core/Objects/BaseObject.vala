@@ -112,10 +112,6 @@ public class Objects.BaseObject : GLib.Object {
                 return "item";
             } else if (this is Objects.Label) {
                 return "label";
-            //  } else if (this is Objects.Task) {
-            //      return "task";
-            //  } else if (this is Objects.SourceTaskList) {
-            //      return "source-task";
             } else {
                 return "filter";
             }
