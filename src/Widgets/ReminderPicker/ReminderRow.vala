@@ -53,7 +53,7 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         reminder_image.size = 16;
         reminder_image.update_icon_name (is_creating ? "plus" : "planner-bell");
 
-        var reminder_label = new Gtk.Label (is_creating ? _("Add reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
+        var reminder_label = new Gtk.Label (is_creating ? _("Add Reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
 
         var remove_button = new Widgets.LoadingButton.with_icon ("planner-close-circle") {
             hexpand = true,

@@ -113,7 +113,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             halign = Gtk.Align.CENTER,
             margin_top = 7,
             margin_end = 7,
-            tooltip_text = _("View details"),
+            tooltip_text = _("View Details"),
             css_classes = { "min-height-0", "view-button" }
         };
 
@@ -555,11 +555,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         no_date_item.visible = item.has_due;
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add subtask"), "plus");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -801,7 +801,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_notification (
-                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'."))
+                    Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update (false);
             }

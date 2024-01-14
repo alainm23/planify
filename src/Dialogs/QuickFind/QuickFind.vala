@@ -168,7 +168,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels.")) {
+        var message_label = new Gtk.Label (_("Quickly switch projects and views, find tasks, search by labels")) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
             hexpand = true,

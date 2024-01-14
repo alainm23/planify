@@ -507,8 +507,8 @@ public class Services.Backups : Object {
 
     private void show_message () {
         var dialog = new Adw.MessageDialog (Planify._instance.main_window,
-            _("Backup successfully imported"),
-            _("Process completed, you need to start Planify again.")
+            _("Backup Successfully Imported"),
+            _("Process completed, you need to start Planify again")
         );
 
         dialog.modal = true;
@@ -523,7 +523,7 @@ public class Services.Backups : Object {
     private void add_filters (Gtk.FileDialog file_dialog) {
         Gtk.FileFilter filter = new Gtk.FileFilter ();
         filter.add_pattern ("*.json");
-        filter.set_filter_name (_("Planify backup files"));
+        filter.set_filter_name (_("Planify Backup Files"));
         file_dialog.default_filter = filter;
     }
 }
