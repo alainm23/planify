@@ -286,10 +286,12 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
         
-        debug ("Content: %s, Index: %d", item.content, item.child_order);
+        submit_button.is_loading = true;
 
-        if (item.project.backend_type == BackendType.TODOIST) {
-            submit_button.is_loading = true;
+        if (item.project.backend_type == BackendType.LOCAL) {
+            item.id = Util.get_default ().generate_id ();
+            add_item_db (item);
+        } else if (item.project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 submit_button.is_loading = false;
@@ -301,9 +303,18 @@ public class Layouts.QuickAdd : Adw.Bin {
                     debug ("%s", response.error);
                 }
             });
-        } else if (item.project.backend_type == BackendType.LOCAL) {
+        } else if (item.project.backend_type == BackendType.CALDAV) {
             item.id = Util.get_default ().generate_id ();
-            add_item_db (item);
+            Services.CalDAV.get_default ().add_task.begin (item, (obj, res) => {
+                bool response = Services.CalDAV.get_default ().add_task.end (res);
+                submit_button.is_loading = false;
+
+                if (response) {
+                    add_item_db (item);
+                } else {
+                    
+                }
+            });
         }
     }
 

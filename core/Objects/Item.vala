@@ -42,12 +42,6 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
-    public void debug_labels () {
-        foreach (Objects.Label label in labels) {
-            debug ("ID: %s - %s", label.id, label.name);
-        }
-    }
-
     public int priority { get; set; default = Constants.PRIORITY_4; }
 
     public bool activate_name_editable { get; set; default = false; }
@@ -242,6 +236,7 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
+    // Todoist
     public Item.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         project_id = node.get_object ().get_string_member ("project_id");
@@ -278,6 +273,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    // Backup
     public Item.from_import_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         content = node.get_object ().get_string_member ("content");

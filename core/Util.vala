@@ -371,7 +371,7 @@ public class Util : GLib.Object {
                 0
             );
         // YYYY-MM-DDTHH:MM:SS
-        } else if (date.length == 19) {
+        } else {
             var _date = date.split ("T") [0].split ("-");
             var _time = date.split ("T") [1].split (":");
 
@@ -382,17 +382,6 @@ public class Util : GLib.Object {
                 int.parse (_time [0]),
                 int.parse (_time [1]),
                 int.parse (_time [2])
-            );
-        // YYYY-MM-DDTHH:MM:SSZ
-        } else {
-            var _date = date.split ("T") [0].split ("-");
-            datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
-                0,
-                0,
-                0
             );
         }
 
