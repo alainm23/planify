@@ -73,9 +73,9 @@ core_deps = [
   json_dep,
   libsoup_dep,
   gtksourceview_dep,
-  libgxml_dep,
   libical_dep,
-  libecal_dep
+  libecal_dep,
+  libgxml_dep
 ]
 
 core_lib = shared_library(
@@ -106,6 +106,6 @@ pkgconfig.generate(
     name: 'Planify',
     description: 'Extension endpoint to the Planify application',
     subdirs: 'planify',
-    requires: core_deps
+    libraries: core_deps
 )
 
