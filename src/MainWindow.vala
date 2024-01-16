@@ -97,6 +97,9 @@ public class MainWindow : Adw.ApplicationWindow {
 		var toast_overlay = new Adw.ToastOverlay ();
 		toast_overlay.child = views_content;
 
+		var chrono = new Chrono.Parse ();
+		chrono.parse ("yesterday");
+
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
 		overlay_split_view.sidebar = sidebar_view;
@@ -206,6 +209,31 @@ public class MainWindow : Adw.ApplicationWindow {
 			var dialog = new Dialogs.QuickFind.QuickFind ();
 			dialog.show ();
 		});
+
+		var event_controller_key = new Gtk.EventControllerKey ();
+		((Gtk.Widget) this).add_controller (event_controller_key);
+
+		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+			if (keyval == 65507) {
+				Services.EventBus.get_default ().ctrl_pressed = true;
+			}
+
+			if (keyval == 65513) {
+				Services.EventBus.get_default ().alt_pressed = true;
+            }
+
+			return false;
+        });
+		
+        event_controller_key.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65507) {
+				Services.EventBus.get_default ().ctrl_pressed = false;
+			}
+
+			if (keyval == 65513) {
+				Services.EventBus.get_default ().alt_pressed = false;
+            }
+        });
 	}
 
 	public void show_hide_sidebar () {

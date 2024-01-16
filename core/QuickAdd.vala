@@ -305,14 +305,14 @@ public class Layouts.QuickAdd : Adw.Bin {
             });
         } else if (item.project.backend_type == BackendType.CALDAV) {
             item.id = Util.get_default ().generate_id ();
-            Services.CalDAV.get_default ().add_task.begin (item, (obj, res) => {
-                bool response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.get_default ().add_task.begin (item, false, (obj, res) => {
+                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
                 submit_button.is_loading = false;
 
-                if (response) {
+                if (response.status) {
                     add_item_db (item);
                 } else {
-                    
+                    debug ("%s", response.error);
                 }
             });
         }

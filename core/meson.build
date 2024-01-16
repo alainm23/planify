@@ -1,15 +1,23 @@
 core_files = files(
-    'Util.vala',
     'Enum.vala',
     'Constants.vala',
     'QuickAdd.vala',
+
+    'Util/Util.vala',
+    'Util/Datetime.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/Todoist.vala',
     'Services/CalDAV.vala',
-    'Services/VTodo.vala',
+
+    'Services/Chrono/Chrono.vala',
+    'Services/Chrono/Enum.vala',
+    'Services/Chrono/Types.vala',
+    'Services/Chrono/Locales/En/En.vala',
+    'Services/Chrono/Locales/En/Constants.vala',
+    'Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala',
 
     'Layouts/HeaderItem.vala',
 

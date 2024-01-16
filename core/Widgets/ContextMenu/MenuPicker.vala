@@ -28,6 +28,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.ListBox listbox;
+    private Gtk.Popover popover;
 
     public Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> items_map = new Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> ();
 
@@ -43,17 +44,14 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         }
     }
 
-    public void update_selected (int index) {
-        items_map[index].active = true;
-    }
+    public signal void closed ();
 
     public MenuPicker (string title, string? icon = null, Gee.ArrayList<string> items_list) {
         Object (
             title: title,
             icon: icon,
             items_list: items_list,
-            hexpand: true,
-            can_focus: false
+            hexpand: true
         );
     }
 
@@ -101,13 +99,13 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         listbox = new Gtk.ListBox ();
 
-        var popover = new Gtk.Popover () {
-			has_arrow = true,
+        popover = new Gtk.Popover () {
+			has_arrow = false,
             child = listbox,
 			position = Gtk.PositionType.BOTTOM,
-            width_request = 175
+            width_request = 250
 		};
-        popover.set_parent (arrow_icon);
+        popover.set_parent (this);
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
@@ -127,9 +125,14 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         popover.closed.connect (() => {
             arrow_icon.remove_css_class ("opened");
+            closed ();
         });
     }
 
+    public void update_selected (int index) {
+        items_map[index].active = true;
+    }
+    
     private void _build_list () {
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);
@@ -142,6 +145,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
             items_map[index].selected.connect ((i) => {
                 selected = i;
+                popover.popdown ();
             });
 
             listbox.append (items_map[index]);

@@ -227,7 +227,7 @@ public class Services.Todoist : GLib.Object {
 			if (user_object.get_null_member ("image_id") == false) {
 				Util.get_default ().download_profile_image (
 					"todoist-user", user_object.get_string_member ("avatar_s640")
-					);
+				);
 			}
 
 			first_sync_progress (1);

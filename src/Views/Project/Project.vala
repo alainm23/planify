@@ -42,7 +42,8 @@ public class Views.Project : Gtk.Grid {
 			margin_end = 12,
 			popover = build_context_menu_popover (),
 			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
-			css_classes = { "flat" }
+			css_classes = { "flat" },
+			tooltip_text = _("Open more project actions")
 		};
 
 		var indicator_grid = new Gtk.Grid () {
@@ -60,12 +61,15 @@ public class Views.Project : Gtk.Grid {
 			valign = START,
         };
 
+		var view_setting_popover = build_view_setting_popover ();
+
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			popover = build_view_setting_popover (),
+			popover = view_setting_popover,
 			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
-			css_classes = { "flat" }
+			css_classes = { "flat" },
+			tooltip_text = _("View option menu")
 		};
 
 		var view_setting_overlay = new Gtk.Overlay ();
@@ -370,9 +374,8 @@ public class Views.Project : Gtk.Grid {
 			css_classes = { "linked" },
 			hexpand = true,
 			homogeneous = true,
-			margin_start = 6,
-			margin_end = 6,
-			margin_top = 3
+			margin_start = 3,
+			margin_end = 3
 		};
 
 		view_box.append (list_button);
@@ -413,6 +416,10 @@ public class Views.Project : Gtk.Grid {
 			project.sort_order = order_by_item.selected;
 			project.update (false);
 			check_default_view ();
+		});
+
+		order_by_item.closed.connect (() => {
+			popover.popdown ();
 		});
 
 		show_completed_item.activate_item.connect (() => {

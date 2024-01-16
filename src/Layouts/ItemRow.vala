@@ -584,7 +584,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.priority != priority) {
                 item.priority = priority;
 
-                if (item.project.backend_type == BackendType.TODOIST) {
+                if (item.project.backend_type == BackendType.TODOIST ||
+                    item.project.backend_type == BackendType.CALDAV) {
                     item.update_async ("");
                 } else {
                     item.update_local ();
@@ -796,7 +797,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     
     public void update_pinned (bool pinned) {
         item.pinned = pinned;
-        item.update_local ();
+        
+        if (item.project.backend_type == BackendType.CALDAV) {
+            item.update_async ("");
+        } else {
+            item.update_local ();
+        }
     }
 
     private void build_handle_context_menu (double x, double y) {
