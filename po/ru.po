@@ -925,7 +925,7 @@ msgstr "Выполнено. Следующий раз: %s"
 #: src/Layouts/ItemRow.vala:1328 src/Layouts/ItemBoard.vala:903
 #, c-format
 msgid "%s was deleted"
-msgstr "%s была удалена"
+msgstr "%s удалено"
 
 #: src/Layouts/ItemRow.vala:1329 src/Layouts/ItemBoard.vala:904
 msgid "Undo"
