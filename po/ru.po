@@ -1020,7 +1020,7 @@ msgstr "Добавить напоминание"
 
 #: src/Widgets/ReminderPicker/ReminderButton.vala:32
 msgid "Add reminder(s)"
-msgstr "Добавить напоминания"
+msgstr "Добавить напоминание(я)"
 
 #: src/Views/Project/Project.vala:203 src/Views/Project/Project.vala:248
 #: src/Views/Project/List.vala:313
