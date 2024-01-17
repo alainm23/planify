@@ -825,7 +825,7 @@ msgstr "Удалить"
 
 #: src/Layouts/SectionRow.vala:77 src/Layouts/SectionBoard.vala:58
 msgid "(No Section)"
-msgstr "(Нет разделов)"
+msgstr "(Нет раздела)"
 
 #: src/Layouts/SectionRow.vala:557 src/Layouts/SectionBoard.vala:440
 msgid "Add Task"
