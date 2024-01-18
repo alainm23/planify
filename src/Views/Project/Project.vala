@@ -418,10 +418,6 @@ public class Views.Project : Gtk.Grid {
 			check_default_view ();
 		});
 
-		order_by_item.closed.connect (() => {
-			popover.popdown ();
-		});
-
 		show_completed_item.activate_item.connect (() => {
 			popover.popdown ();
 

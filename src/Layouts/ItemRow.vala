@@ -1340,7 +1340,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
-                if (item.project.backend_type == BackendType.TODOIST) {
+                if (item.project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().delete_item (item);
+                } else if (item.project.backend_type == BackendType.TODOIST) {
                     is_loading = true;
                     Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
                         if (Services.Todoist.get_default ().delete.end (res).status) {
@@ -1349,8 +1351,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                             is_loading = false;
                         }
                     });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_item (item);
+                } else if (item.project.backend_type == BackendType.CALDAV) {
+                    is_loading = true;
+                    Services.CalDAV.get_default ().delete_task.begin (item, (obj, res) => {
+                        if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+                            Services.Database.get_default ().delete_item (item);
+                        } else {
+                            is_loading = false;
+                        }
+                    });
                 }
             }
         });

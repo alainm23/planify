@@ -311,6 +311,10 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public Item.from_caldav_xml (GXml.DomElement element) {
+        update_from_caldav_xml (element);
+    }
+
+    public void update_from_caldav_xml (GXml.DomElement element) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
@@ -342,6 +346,11 @@ public class Objects.Item : Objects.BaseObject {
 
         if (!ical.get_due ().is_null_time ()) {
             due.date = Util.get_default ().ical_to_date_time_local (ical.get_due ()).to_string ();
+        }
+
+        string _parent_id = Util.get_default ().find_string_value ("RELATED-TO", data);
+        if (_parent_id != "") {
+            parent_id = _parent_id;
         }
 
         pinned = Util.get_default ().find_boolean_value ("X-PINNED", data);
@@ -864,18 +873,25 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public string to_vtodo (bool update = false) {
-        ICal.Component ical;
+        ICal.Component ical = new ICal.Component.vtodo ();
 
-        if (update) {
-            ical = new ICal.Component.from_string (calendar_data);
-        } else {
-            ical = new ICal.Component.vtodo ();
-        }
-        
         ical.set_uid (id);
         ical.set_summary (content);
         ical.set_description (description);
 
+        if (pinned) {
+            var pinned_property = new ICal.Property (ICal.PropertyKind.X_PROPERTY);
+            pinned_property.set_x_name ("X-PINNED");
+            pinned_property.set_x (pinned.to_string ());
+            ical.add_property (pinned_property);
+        }
+
+        if (has_due) {
+            var task_tz = ical.get_due ().get_timezone ();
+            ICal.Time new_icaltime = Util.get_default ().datetimes_to_icaltime (due.datetime, due.datetime, null);
+            ical.set_due (new_icaltime);
+        }
+        
         var _priority = 0;
         if (priority == Constants.PRIORITY_4) {
             _priority = 0;
@@ -889,36 +905,8 @@ public class Objects.Item : Objects.BaseObject {
             _priority = 0;
         }
 
-        var priority_property = ical.get_first_property (ICal.PropertyKind.PRIORITY_PROPERTY);
-        if (priority_property != null) {
-            priority_property.set_priority (_priority);
-        } else {
-            ical.add_property (new ICal.Property.priority (_priority));
-        }
-
-        if (pinned) {
-            var pinned_property = new ICal.Property (ICal.PropertyKind.X_PROPERTY);
-            pinned_property.set_x_name ("X-PINNED");
-            pinned_property.set_x (pinned.to_string ());
-            ical.add_property (pinned_property);
-        }
+        ical.add_property (new ICal.Property.priority (_priority));
         
-
-        if (has_due) {
-            var task_tz = ical.get_due ().get_timezone ();
-            ICal.Time new_icaltime = Util.get_default ().datetimes_to_icaltime (due.datetime, due.datetime, null);
-            ical.set_due (new_icaltime);
-        }   
-
-        if (update) {
-            var prodid = ical.get_first_property (ICal.PropertyKind.PRODID_PROPERTY);
-            if (prodid != null) {
-                prodid.set_prodid ("-//Planify App (https://github.com/alainm23/planify)");
-            }
-
-            return ical.as_ical_string ();
-        }
-
         return "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
             ical.as_ical_string (),
@@ -1014,14 +1002,20 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_item () {
-        if (project.backend_type == BackendType.TODOIST) {
+        if (project.backend_type == BackendType.CALDAV) {
+            Services.Database.get_default ().delete_item (this);
+        } else if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                 }
             });
-        } else {
-            Services.Database.get_default ().delete_item (this);
+        } else if (project.backend_type == BackendType.CALDAV) {
+            Services.CalDAV.get_default ().delete_task.begin (this, (obj, res) => {
+                if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+                    Services.Database.get_default ().delete_item (this);
+                }
+            });
         }
     }
 }

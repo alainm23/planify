@@ -28,7 +28,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.ListBox listbox;
-    private Gtk.Popover popover;
 
     public Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> items_map = new Gee.HashMap <int, Widgets.ContextMenu.MenuItemPicker> ();
 
@@ -43,8 +42,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
             items_map[_selected].active = true;
         }
     }
-
-    public signal void closed ();
 
     public MenuPicker (string title, string? icon = null, Gee.ArrayList<string> items_list) {
         Object (
@@ -99,33 +96,28 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         listbox = new Gtk.ListBox ();
 
-        popover = new Gtk.Popover () {
-			has_arrow = false,
-            child = listbox,
-			position = Gtk.PositionType.BOTTOM,
-            width_request = 250
-		};
-        popover.set_parent (this);
+        var listbox_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = listbox
+        };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
         main_grid.append (button);
+        main_grid.append (listbox_revealer);
+
         child = main_grid;
         _build_list ();
 
         button.clicked.connect (() => {
-            popover.popup ();
-        });
-
-        popover.show.connect (() => {
-            arrow_icon.add_css_class ("opened");
-        });
-
-        popover.closed.connect (() => {
-            arrow_icon.remove_css_class ("opened");
-            closed ();
+            listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
+            if (listbox_revealer.reveal_child) {
+                arrow_icon.add_css_class ("opened");
+            } else {
+                arrow_icon.remove_css_class ("opened");
+            }
         });
     }
 
@@ -145,7 +137,6 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
             items_map[index].selected.connect ((i) => {
                 selected = i;
-                popover.popdown ();
             });
 
             listbox.append (items_map[index]);

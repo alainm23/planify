@@ -1135,6 +1135,23 @@ We hope you’ll enjoy using Planify!""");
         return parts[parts.length - 1];
     }
 
+    public static string get_task_uid (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        ICal.Component ical = new ICal.Component.from_string (data);
+        return ical.get_uid ();
+    }
+
+    public static string get_related_to_uid (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        return Util.get_default ().find_string_value ("RELATED-TO", data);
+    }
+
     public static string find_string_value (string key, string data) {
         GLib.Regex? regex = null;
         GLib.MatchInfo match;
@@ -1241,7 +1258,6 @@ We hope you’ll enjoy using Planify!""");
      
      public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime? time_local,
         ICal.Timezone? timezone = ECal.util_get_system_timezone ().copy ()) {
-
         var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
 
         // Check if it's a date. If so, set is_date to true and fix the time to be sure.
@@ -1263,8 +1279,6 @@ We hope you’ll enjoy using Planify!""");
 
             // Set the time with the updated time zone
             result.set_time (time_local.get_hour (), time_local.get_minute (), time_local.get_second ());
-            debug (result.get_tzid ());
-            debug (result.as_ical_string ());
         }
 
         return result;

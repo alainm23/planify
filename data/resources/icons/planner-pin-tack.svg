@@ -7,7 +7,7 @@
    version="1.1"
    id="svg6"
    sodipodi:docname="planner-pin-tack.svg"
-   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
   <g
      id="g1"
      transform="matrix(0.875,0,0,0.875,-2.9375,-2.5)"
-     style="stroke:#f66151;stroke-opacity:1;fill:#f66151;fill-opacity:0.1">
+     style="stroke:#e01b24;stroke-opacity:1;fill:#e01b24;fill-opacity:0.10196079">
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -45,7 +45,7 @@
        stroke-width="1.5"
        d="M 9.2500001,7.7499998 8.2499997,4.7500002 16.75,4.75 l -1,2.9999997 V 9.9999993 C 18.75,11 18.75,14.25 18.75,14.25 H 6.25 c 0,0 0,-3.25 3.0000003,-4.2500007 z"
        id="path2"
-       style="fill:#f66151;fill-opacity:0.1;stroke:#f66151;stroke-opacity:1" />
+       style="fill:#e01b24;fill-opacity:0.10196079;stroke:#e01b24;stroke-opacity:1" />
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -53,6 +53,6 @@
        stroke-width="1.5"
        d="m 12.5,14.5 v 4.75"
        id="path4"
-       style="stroke:#f66151;stroke-opacity:1;fill:#f66151;fill-opacity:0.1" />
+       style="stroke:#e01b24;stroke-opacity:1;fill:#e01b24;fill-opacity:0.10196079" />
   </g>
 </svg>
