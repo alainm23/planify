@@ -207,8 +207,21 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    private bool _show_multi_select = false;
+    public bool show_multi_select {
+        set {
+            _show_multi_select = value;
+            show_multi_select_change ();
+        }
+
+        get {
+            return _show_multi_select;
+        }
+    }
+
     public signal void loading_changed (bool value);
     public signal void project_count_updated ();
+    public signal void show_multi_select_change ();
 
     Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
     public Gee.HashMap <string, Objects.Label> label_filter {

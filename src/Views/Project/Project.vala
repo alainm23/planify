@@ -129,12 +129,23 @@ public class Views.Project : Gtk.Grid {
 		});
 
 		multiselect_toolbar.closed.connect (() => {
-			Services.EventBus.get_default ().multi_select_enabled = false;
-			Services.EventBus.get_default ().show_multi_select (false);
-			Services.EventBus.get_default ().magic_button_visible (true);
-			Services.EventBus.get_default ().connect_typing_accel ();
+			project.show_multi_select = false;
+		});
 
-			toolbar_view.reveal_bottom_bars = false;
+		project.show_multi_select_change.connect (() => {
+			toolbar_view.reveal_bottom_bars = project.show_multi_select;
+			
+			if (project.show_multi_select) {
+				Services.EventBus.get_default ().multi_select_enabled = true;
+				Services.EventBus.get_default ().show_multi_select (true);
+				Services.EventBus.get_default ().magic_button_visible (false);
+				Services.EventBus.get_default ().disconnect_typing_accel ();
+			} else {
+				Services.EventBus.get_default ().multi_select_enabled = false;
+				Services.EventBus.get_default ().show_multi_select (false);
+				Services.EventBus.get_default ().magic_button_visible (true);
+				Services.EventBus.get_default ().connect_typing_accel ();
+			}
 		});
 	}
 
@@ -206,6 +217,8 @@ public class Views.Project : Gtk.Grid {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
+		add_section_item.secondary_text = "S";
+		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "planner-clipboard");
@@ -297,13 +310,7 @@ public class Views.Project : Gtk.Grid {
 
 		select_item.clicked.connect (() => {
 			popover.popdown ();
-
-			Services.EventBus.get_default ().multi_select_enabled = true;
-			Services.EventBus.get_default ().show_multi_select (true);
-			Services.EventBus.get_default ().magic_button_visible (false);
-			Services.EventBus.get_default ().disconnect_typing_accel ();
-
-			toolbar_view.reveal_bottom_bars = true;
+			project.show_multi_select = true;
 		});
 
 		delete_item.clicked.connect (() => {

@@ -23,7 +23,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.CheckButton checked_button;
-    private Widgets.TextView content_textview;
+    private Gtk.Entry content_entry;
     private Widgets.HyperTextView description_textview;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
@@ -53,29 +53,29 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.START,
-            margin_top = 12,
+            margin_top = 3,
             css_classes = { "priority-color" }
         };
 
-        content_textview = new Widgets.TextView () {
-            top_margin = 12,
+        content_entry = new Widgets.Entry () {
             hexpand = true,
-            vexpand = false,
-            valign = START,
-            wrap_mode = Gtk.WrapMode.CHAR,
-            editable = !item.completed
+            placeholder_text = _("To-do name"),
+            editable = !item.completed,
+            text = item.content
         };
-        content_textview.buffer.text = item.content;
-        content_textview.remove_css_class ("view");
+
+        content_entry.add_css_class (Granite.STYLE_CLASS_FLAT);
         
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 12
+            margin_top = 9,
+            margin_start = 12,
+            margin_end = 12
         };
         
         content_box.append (checked_button);
-        content_box.append (content_textview);
+        content_box.append (content_entry);
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             left_margin = 36,
@@ -91,7 +91,8 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            height_request = 164,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
+            height_request = 64,
             hexpand = true,
             child = description_textview
         };
@@ -157,7 +158,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
         };
         v_box.append (headerbar);
         v_box.append (content);
-        v_box.append (subitems);
+        //  v_box.append (subitems);
 
         child = v_box;
         update_request ();
@@ -193,10 +194,9 @@ public class Layouts.ItemViewContent : Adw.Bin {
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();
-        content_textview.add_controller (content_controller_key);
+        content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293) {
-                // popdown ();
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
                 description_textview.grab_focus ();
@@ -210,7 +210,6 @@ public class Layouts.ItemViewContent : Adw.Bin {
         content_controller_key.key_released.connect ((keyval, keycode, state) => {            
             // Sscape
             if (keyval == 65307) {
-                // popdown ();
             } else { 
                 update ();
             }
@@ -220,7 +219,6 @@ public class Layouts.ItemViewContent : Adw.Bin {
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
-                // popdown ();
             } else if (keyval == 65289) {
                 schedule_button.grab_focus ();
             } else {
@@ -228,17 +226,15 @@ public class Layouts.ItemViewContent : Adw.Bin {
             }
         });
 
-
-
         item.loading_changed.connect ((value) => {
             
         });
     }
 
     private void update () {
-        if (item.content != content_textview.buffer.text ||
+        if (item.content != content_entry.text ||
             item.description != description_textview.get_text ()) {
-            item.content = content_textview.buffer.text;
+            item.content = content_entry.text;
             item.description = description_textview.get_text ();
             item.update_async_timeout (update_id);
         }
@@ -295,14 +291,14 @@ public class Layouts.ItemViewContent : Adw.Bin {
             //  }
         }
 
-        content_textview.buffer.text = item.content;
+        content_entry.text = item.content;
         description_textview.set_text (item.description);
                 
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
         pin_button.update_request ();
 
-        content_textview.editable = !item.completed;
+        content_entry.editable = !item.completed;
         description_textview.editable = !item.completed;
         item_labels.sensitive = !item.completed;
         action_box.sensitive = !item.completed;

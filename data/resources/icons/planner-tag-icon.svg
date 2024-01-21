@@ -40,7 +40,7 @@
      r="0.87515086"
      fill="currentColor"
      id="circle2"
-     style="fill:#7e8087;fill-opacity:1;stroke-width:0.875151" />
+     style="fill:#986a44;fill-opacity:1;stroke-width:0.875151" />
   <path
      stroke="currentColor"
      stroke-linecap="round"
@@ -48,5 +48,5 @@
      stroke-width="1.31273"
      d="M 7.9987931,1.6563631 H 14.343637 V 8.0012068 L 8.4831891,13.839163 c -0.6993331,0.69662 -1.835979,0.677542 -2.5115167,-0.04218 L 2.1264696,9.6998746 C 1.4705265,9.0009792 1.4987414,7.9045027 2.1897693,7.2402632 Z"
      id="path4"
-     style="fill:#3d3846;fill-opacity:0.1;stroke:#3d3846;stroke-opacity:1" />
+     style="fill:#986a44;fill-opacity:0.10196079;stroke:#986a44;stroke-opacity:1" />
 </svg>

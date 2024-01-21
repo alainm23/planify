@@ -163,6 +163,12 @@
             <description></description>
         </key>
 
+        <key name="quick-add-create-more" type="b">
+            <default>false</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="window-height" type="i">
             <default>660</default>
             <summary>Most recent window height</summary>

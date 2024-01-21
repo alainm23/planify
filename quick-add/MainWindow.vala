@@ -1,4 +1,6 @@
 public class MainWindow : Adw.ApplicationWindow {
+    private Layouts.QuickAdd quick_add_widget;
+
     public MainWindow (QuickAdd application) {
         Object (
             application: application,
@@ -18,7 +20,7 @@ public class MainWindow : Adw.ApplicationWindow {
     construct {
         Services.Database.get_default ().init_database ();
         
-        var quick_add_widget = new Layouts.QuickAdd (true);
+        quick_add_widget = new Layouts.QuickAdd (true);
         set_content (quick_add_widget);
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
@@ -29,7 +31,7 @@ public class MainWindow : Adw.ApplicationWindow {
     private void add_item_db (Objects.Item item) {
         if (Services.Database.get_default ().insert_item (item)) {
             send_interface_id (item.id);
-            Services.EventBus.get_default ().item_added_successfully ();
+            quick_add_widget.added_successfully ();
         }  
     }
 

@@ -29,7 +29,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private Gtk.MenuButton menu_button;
     private Widgets.LoadingButton done_button;
 
-    public Gee.HashMap<string, Layouts.ItemRow> items_selected = new Gee.HashMap <string, Layouts.ItemRow> ();
+    public Gee.HashMap<string, Layouts.ItemBase> items_selected = new Gee.HashMap <string, Layouts.ItemBase> ();
     public Gee.HashMap<string, Objects.Label> labels = new Gee.HashMap <string, Objects.Label> ();
     public signal void closed ();
 
@@ -96,14 +96,14 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         child = content_box;
 
         Services.EventBus.get_default ().select_item.connect ((_row) => {
-            var row = (Layouts.ItemRow) _row;
+            var row = (Layouts.ItemBase) _row;
 
-            if (items_selected.has_key (row.item.id_string)) {
-                items_selected.unset (row.item.id_string);
-                row.is_row_selected = false;
+            if (items_selected.has_key (row.item.id)) {
+                items_selected.unset (row.item.id);
+                row.select_row (false);
             } else {
-                items_selected [row.item.id_string] = row;
-                row.is_row_selected = true;
+                items_selected [row.item.id] = row;
+                row.select_row (true);
             }
 
             check_labels (row.item, true);
@@ -111,11 +111,11 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         Services.EventBus.get_default ().unselect_item.connect ((_row) => {
-            var row = (Layouts.ItemRow) _row;
+            var row = (Layouts.ItemBase) _row;
 
-            if (items_selected.has_key (row.item.id_string)) {
-                items_selected.unset (row.item.id_string);
-                row.is_row_selected = false;
+            if (items_selected.has_key (row.item.id)) {
+                items_selected.unset (row.item.id);
+                row.select_row (false);
             }
 
             check_labels (row.item, false);
@@ -278,7 +278,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
     private void unselect_all () {
         foreach (string key in items_selected.keys) {
-            items_selected [key].is_row_selected = false;
+            items_selected [key].select_row (false);
         }
         
         items_selected.clear ();

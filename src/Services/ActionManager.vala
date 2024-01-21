@@ -32,7 +32,6 @@ public class Services.ActionManager : Object {
     public const string ACTION_ADD_TASK = "action_add_task";
     public const string ACTION_ADD_TASK_PASTE = "action_add_task_paste";
     public const string ACTION_OPEN_SEARCH = "action_open_search";
-    public const string ACTION_OPEN_LABELS = "action_open_labels";
     public const string ACTION_SYNC_MANUALLY = "action_sync_manually";
     public const string ACTION_NEW_PROJECT = "action_new_project";
     public const string ACTION_NEW_SECTION = "action_new_section";
@@ -41,6 +40,7 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_TODAY = "action_view_today";
     public const string ACTION_VIEW_SCHEDULED = "action_view_scheduled";
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
+    public const string ACTION_VIEW_LABELS = "action_view_labels";
     public const string ACTION_VIEW_HOME = "action_view_home";
     public const string ACTION_ESC = "action_esc";
     public const string ACTION_SHOW_HIDE_SIDEBAR = "action_show_hide_sidebar";
@@ -55,7 +55,6 @@ public class Services.ActionManager : Object {
         { ACTION_ADD_TASK, action_add_task },
         { ACTION_ADD_TASK_PASTE, action_add_task_paste },
         { ACTION_OPEN_SEARCH, action_open_search },
-        { ACTION_OPEN_LABELS, action_open_labels },
         { ACTION_SYNC_MANUALLY, action_sync_manually },
         { ACTION_NEW_PROJECT, action_new_project },
         { ACTION_NEW_SECTION, action_new_section },
@@ -64,6 +63,7 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_TODAY, action_view_today },
         { ACTION_VIEW_SCHEDULED, action_view_scheduled },
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
+        { ACTION_VIEW_LABELS, action_view_labels },
         { ACTION_VIEW_HOME, action_view_home },
         { ACTION_ESC, action_esc },
         { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
@@ -81,13 +81,13 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
         action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
-        action_accelerators.set (ACTION_OPEN_LABELS, "<Control>l");
         action_accelerators.set (ACTION_SYNC_MANUALLY, "<Control>s");
         action_accelerators.set (ACTION_VIEW_HOMEPAGE, "<Control>h");
-        action_accelerators.set (ACTION_VIEW_INBOX, "<Control>1");
-        action_accelerators.set (ACTION_VIEW_TODAY, "<Control>2");
-        action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>3");
-        action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>4");
+        action_accelerators.set (ACTION_VIEW_INBOX, "<Control>i");
+        action_accelerators.set (ACTION_VIEW_TODAY, "<Control>t");
+        action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>u");
+        action_accelerators.set (ACTION_VIEW_LABELS, "<Control>v");
+        action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>p");
         action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
@@ -169,8 +169,12 @@ public class Services.ActionManager : Object {
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ());
     }
 
-    private void action_view_pinboard () {
+    private void action_view_labels () {
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.LABELS.to_string ());
+    }
+
+    private void action_view_pinboard () {
+        Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
     }
 
     private void action_esc () {
@@ -208,9 +212,5 @@ public class Services.ActionManager : Object {
 
     private void action_view_home () {
         window.go_homepage ();
-    }
-
-    private void action_open_labels () {
-        Services.EventBus.get_default ().open_labels ();
     }
 }

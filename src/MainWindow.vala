@@ -65,7 +65,8 @@ public class MainWindow : Adw.ApplicationWindow {
 		settings_button.child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical");
 
 		var search_button = new Gtk.Button () {
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-search")
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-search"),
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F")
 		};
 		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
@@ -458,9 +459,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
+		preferences_item.secondary_text = "Ctrl+,";
 		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
+		keyboard_shortcuts_item.secondary_text = "F1";
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));

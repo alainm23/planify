@@ -20,8 +20,6 @@
 */
 
 public class Layouts.ItemRow : Layouts.ItemBase {
-    public Objects.Item item { get; construct; }
-
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
@@ -129,23 +127,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
         get {
             return _edit;
-        }
-    }
-
-    private bool _is_row_selected = false;
-    public bool is_row_selected {
-        set {
-            _is_row_selected = value;
-
-            if (value) {
-                itemrow_box.add_css_class ("complete-animation");
-            } else {
-                itemrow_box.remove_css_class ("complete-animation");
-            }
-        }
-
-        get {
-            return _is_row_selected;
         }
     }
 
@@ -562,11 +543,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button.add_controller (checked_button_gesture);
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            if (is_row_selected == false) {
-                checked_button.active = !checked_button.active;
-                checked_toggled (checked_button.active);
-            }
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
         });    
 
         var hide_loading_gesture = new Gtk.GestureClick ();
@@ -633,7 +611,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
-                Services.EventBus.get_default ().item_selected (null);
                 select_revealer.reveal_child = true;
                 checked_button_revealer.reveal_child = false;
                 labels_summary.reveal_child = false;
@@ -699,6 +676,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.content = content_textview.buffer.text;
             item.description = description_textview.get_text ();
             item.update_async_timeout (update_id);
+        }
+    }
+
+    public override void select_row (bool active) {
+        if (active) {
+            itemrow_box.add_css_class ("complete-animation");
+        } else {
+            itemrow_box.remove_css_class ("complete-animation");
         }
     }
 
@@ -1113,7 +1098,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         return menu_box;
     }
 
-    public void checked_toggled (bool active, uint? time = null) {
+    public override void checked_toggled (bool active, uint? time = null) {
         bool old_checked = item.checked;
 
         if (active) {
@@ -1320,7 +1305,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.update_async ("");
     }
 
-    public void delete_request (bool undo = true) {
+    public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
 
         if (undo) {

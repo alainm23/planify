@@ -45,7 +45,7 @@ public class Dialogs.QuickAdd : Adw.Window {
     private void add_item_db (Objects.Item item) {
         if (item.parent_id != "") {
 			Services.Database.get_default ().get_item (item.parent_id).add_item_if_not_exists (item);
-            Services.EventBus.get_default ().item_added_successfully ();
+            quick_add_widget.added_successfully ();
 			return;
 		}
 
@@ -56,7 +56,7 @@ public class Dialogs.QuickAdd : Adw.Window {
 		}
 
         Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);
-        Services.EventBus.get_default ().item_added_successfully ();
+        quick_add_widget.added_successfully ();
     }
 
     public void hide_destroy () {

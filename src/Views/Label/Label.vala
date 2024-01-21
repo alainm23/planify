@@ -66,9 +66,9 @@ public class Views.Label : Adw.Bin {
 
         listbox_grid.attach (listbox, 0, 0);
 
-        var listbox_placeholder = new Widgets.Placeholder (
-            _("No to-dos for this filter yet"), "planner-check-circle"
-        );
+        var listbox_placeholder = new Adw.StatusPage ();
+        listbox_placeholder.title = _("No tasks found");
+        listbox_placeholder.description = _("Press 'a' or tap the plus button to create a new to-do");
 
         listbox_stack = new Gtk.Stack () {
             vexpand = true,

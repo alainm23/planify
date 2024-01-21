@@ -92,7 +92,6 @@ src/Layouts/ItemView.vala
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
-src/Widgets/Placeholder.vala
 src/Widgets/SyncButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala

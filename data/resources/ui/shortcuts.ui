@@ -97,28 +97,35 @@
 
             <child>
               <object class="GtkShortcutsShortcut" id="inbox">
-                <property name="accelerator">&lt;ctrl&gt;1</property>
+                <property name="accelerator">&lt;ctrl&gt;i</property>
                 <property name="title" translatable="yes" context="shortcut window">Open Inbox</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="today">
-                <property name="accelerator">&lt;ctrl&gt;2</property>
+                <property name="accelerator">&lt;ctrl&gt;t</property>
                 <property name="title" translatable="yes" context="shortcut window">Open Today</property>
               </object>
             </child>
 
             <child>
               <object class="GtkShortcutsShortcut" id="scheduled">
-                <property name="accelerator">&lt;ctrl&gt;3</property>
+                <property name="accelerator">&lt;ctrl&gt;u</property>
                 <property name="title" translatable="yes" context="shortcut window">Open Scheduled</property>
               </object>
             </child>
 
             <child>
+              <object class="GtkShortcutsShortcut" id="labels">
+                <property name="accelerator">&lt;ctrl&gt;v</property>
+                <property name="title" translatable="yes" context="shortcut window">Open Labels</property>
+              </object>
+            </child>
+
+            <child>
               <object class="GtkShortcutsShortcut" id="pinboard">
-                <property name="accelerator">&lt;ctrl&gt;4</property>
+                <property name="accelerator">&lt;ctrl&gt;p</property>
                 <property name="title" translatable="yes" context="shortcut window">Open Pinboard</property>
               </object>
             </child>

@@ -1125,6 +1125,10 @@ We hope you’ll enjoy using Planify!""");
         }
     }
 
+    public string markup_accel_tooltip (string description, string accels) {
+        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels));
+    }
+
     /*
     *   XML adn CakDAV Util
     */

@@ -133,7 +133,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
             title_image.update_icon_name ("planner-tag-icon");
-            Util.get_default ().set_widget_color ("#3d3846",  this);
+            Util.get_default ().set_widget_color ("#986a44",  this);
         }
     }
 

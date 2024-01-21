@@ -20,7 +20,13 @@
 */
 
 public class Layouts.ItemBase : Gtk.ListBoxRow {
+    public Objects.Item item { get; construct; }
+
     public string update_id { get; set; default = Util.get_default ().generate_id (); }
+
     public virtual void update_request () {}
     public virtual void hide_destroy () {}
+    public virtual void delete_request (bool undo = true) {}
+    public virtual void select_row (bool active) {}
+    public virtual void checked_toggled (bool active, uint? time = null) {}
 }

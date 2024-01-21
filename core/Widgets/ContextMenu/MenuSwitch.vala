@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ContextMenu.MenuItem : Gtk.Button {
+public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
     public string title {
         set {
             menu_title.label = value;
@@ -37,33 +37,24 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    public bool active {
+        set {
+            switch_widget.active = value;
+        }
+
+        get {
+            return switch_widget.active;
+        }
+    }
+
     private Widgets.DynamicIcon menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
-    private Gtk.Label secondary_label;
-    private Gtk.Revealer loading_revealer;
+    private Gtk.Switch switch_widget;
 
     public signal void activate_item ();
 
-    public string secondary_text {
-        set {
-            secondary_label.label = value;
-        }
-    }
-
-    bool _is_loading;
-    public bool is_loading {
-        get {
-            return _is_loading;
-        }
-
-        set {
-            loading_revealer.reveal_child = value;
-            _is_loading = value;
-        }
-    }
-
-    public MenuItem (string title, string? icon = null) {
+    public MenuSwitch (string title, string? icon = null) {
         Object (
             title: title,
             icon: icon,
@@ -90,25 +81,11 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         menu_title = new Gtk.Label (null);
         menu_title.use_markup = true;
 
-        secondary_label = new Gtk.Label (null) {
+        switch_widget = new Gtk.Switch () {
+			valign = CENTER,
             hexpand = true,
-            halign = Gtk.Align.END,
-            margin_end = 0,
-            css_classes = { "dim-label", "no-font-bold" }
-        };
-
-        var loading_spinner = new Gtk.Spinner () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
-        };
-        loading_spinner.add_css_class ("submit-spinner");
-        loading_spinner.start ();
-
-        loading_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
-        };
-
-        loading_revealer.child = loading_spinner;
+            halign = END
+		};
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
@@ -116,13 +93,13 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
         content_box.append (menu_icon_revealer);
         content_box.append (menu_title);
-        content_box.append (secondary_label);
-        content_box.append (loading_revealer);
+        content_box.append (switch_widget);
 
         child = content_box;
 
         clicked.connect (() => {
+            switch_widget.active = !switch_widget.active;
             activate_item ();
-        });
+        });    
     }
 }

@@ -160,6 +160,15 @@ public class Dialogs.Section : Adw.Window {
 
             return false;
         });
+
+        var event_controller_key = new Gtk.EventControllerKey ();
+		((Gtk.Widget) this).add_controller (event_controller_key);
+		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+			if (keyval == 65307) {
+				hide_destroy ();
+			}
+			return false;
+        });
     }
 
     private void add_update_section () {

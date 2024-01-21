@@ -40,7 +40,8 @@ core_files = files(
     'Widgets/ContextMenu/MenuItem.vala',
     'Widgets/ContextMenu/MenuSeparator.vala',
     'Widgets/ContextMenu/MenuPicker.vala',
-
+    'Widgets/ContextMenu/MenuSwitch.vala',
+    
     'Widgets/DateTimePicker/ScheduleButton.vala',
     'Widgets/DateTimePicker/DateTimePicker.vala',
     'Widgets/DateTimePicker/TimePicker.vala',

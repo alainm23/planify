@@ -630,24 +630,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		appearance_group.add (system_appearance_row);
 
-		var sidebar_group = new Adw.PreferencesGroup ();
-		sidebar_group.title = _("Appearance");
-
-		var spin_button = new Gtk.SpinButton.with_range (300, 400, 1) {
-			valign = Gtk.Align.CENTER,
-			value = Services.Settings.get_default ().settings.get_int ("pane-position")
-		};
-
-		var sidebar_width_row = new Adw.ActionRow ();
-		sidebar_width_row.title = _("Sidebar Width");
-		sidebar_width_row.add_suffix (spin_button);
-
-		sidebar_group.add (sidebar_width_row);
-
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (appearance_group);
 		content_box.append (dark_modes_group);
-		content_box.append (sidebar_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -705,10 +690,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
-		});
-
-		spin_button.value_changed.connect (() => {
-			Services.Settings.get_default ().settings.set_int ("pane-position", (int) spin_button.value);
 		});
 
 		return page;

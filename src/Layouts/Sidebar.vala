@@ -66,11 +66,21 @@ public class Layouts.Sidebar : Adw.Bin {
             return row.active ();
         });
 
-        inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX);
-        today_filter = new Layouts.FilterPaneRow (FilterType.TODAY);
-        scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED);
-        labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS);
-        pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD);
+        inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
+        };
+        today_filter = new Layouts.FilterPaneRow (FilterType.TODAY) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
+        };
+        scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
+        };
+        labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+V")
+        };
+        pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD) {
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
+        };
 
         filters_flow.append (inbox_filter);
         filters_flow.append (today_filter);
@@ -157,7 +167,8 @@ public class Layouts.Sidebar : Adw.Bin {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
             },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
         local_projects_header.add_widget_end (add_local_button);
@@ -177,7 +188,8 @@ public class Layouts.Sidebar : Adw.Bin {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
             },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
         todoist_projects_header.add_widget_end (add_todoist_button);
@@ -201,7 +213,8 @@ public class Layouts.Sidebar : Adw.Bin {
                 valign = Gtk.Align.CENTER,
                 halign = Gtk.Align.CENTER,
             },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
         caldav_projects_header.add_widget_end (add_caldav_button);

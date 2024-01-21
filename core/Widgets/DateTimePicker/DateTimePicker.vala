@@ -104,7 +104,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             hexpand = true
         };
 
-        menu_items_box.append (search_entry);
+        //  menu_items_box.append (search_entry);
         menu_items_box.append (items_box);
 
         var calendar_view = new Widgets.Calendar.Calendar (false);

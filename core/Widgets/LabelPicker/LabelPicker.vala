@@ -251,4 +251,12 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         var label = ((Widgets.LabelPicker.LabelRow) row).label;
         return search_entry.text.down () in label.name.down ();
     }
+
+    public void reset () {
+        foreach (var entry in labels_widgets_map.entries) {
+            labels_widgets_map [entry.key].active = false;
+        }
+
+        labels_widgets_map.clear ();
+    }
 }

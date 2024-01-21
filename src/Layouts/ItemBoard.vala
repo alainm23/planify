@@ -20,12 +20,11 @@
 */
 
 public class Layouts.ItemBoard : Layouts.ItemBase {
-	public Objects.Item item { get; construct; }
-
 	private Gtk.Grid motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
 
 	private Gtk.CheckButton checked_button;
+    private Gtk.Revealer checked_button_revealer;
 	private Gtk.Label content_label;
 
     private Widgets.LoadingButton hide_loading_button;
@@ -48,6 +47,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private Gtk.Popover menu_handle_popover = null;
 	private Widgets.ContextMenu.MenuItem no_date_item;
 	private Gtk.Revealer main_revealer;
+
+    private Gtk.CheckButton select_checkbutton;
+    private Gtk.Revealer select_revealer;
 
     public uint complete_timeout { get; set; default = 0; }
 	Gee.HashMap<string, Widgets.ItemLabelChild> labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
@@ -100,6 +102,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		checked_button.add_css_class ("priority-color");
 
+        checked_button_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = checked_button,
+            valign = Gtk.Align.CENTER,
+            reveal_child = true
+        };
+
 		content_label = new Gtk.Label (item.content) {
 			wrap = true,
             hexpand = true,
@@ -125,14 +134,26 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			child = hide_loading_button
         };
 
+        select_checkbutton = new Gtk.CheckButton () {
+            valign = Gtk.Align.CENTER,
+            margin_start = 6,
+            css_classes = { "circular-check" }
+        };
+
+        select_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = select_checkbutton
+        };
+
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
 			margin_top = 6,
 			margin_start = 6,
 			margin_end = 6
 		};
 
-		content_box.append (checked_button);
+		content_box.append (checked_button_revealer);
 		content_box.append (content_label);
+        content_box.append (select_revealer);
 
 		description_label = new Gtk.Label (null) {
 			xalign = 0,
@@ -275,8 +296,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         handle_grid.add_controller (detail_gesture_click);
         detail_gesture_click.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
-                // select_checkbutton.active = !select_checkbutton.active;
-                // selected_toggled (select_checkbutton.active);             
+                select_checkbutton.active = !select_checkbutton.active;
+                selected_toggled (select_checkbutton.active);             
             } else {
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
                     if (!on_drag) {
@@ -337,6 +358,22 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 update_request ();
             }
         });
+
+        Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
+            if (active) {
+                select_revealer.reveal_child = true;
+                checked_button_revealer.reveal_child = false;
+                //  labels_summary.reveal_child = false;
+                //  disable_drag_and_drop ();
+            } else {
+                select_revealer.reveal_child = false;
+                checked_button_revealer.reveal_child = true;
+                //  labels_summary.check_revealer ();
+                //  build_drag_and_drop ();
+
+                select_checkbutton.active = false;
+            }
+        });
 	}
 
     private void open_detail () {
@@ -348,7 +385,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         }
     }
 
-	public void checked_toggled (bool active, uint? time = null) {
+	public override void checked_toggled (bool active, uint? time = null) {
 		bool old_checked = item.checked;
 
         if (active) {
@@ -889,7 +926,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         } while (item_row != null);
     }
 
-    public void delete_request (bool undo = true) {
+    public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
 
         if (undo) {
@@ -1016,6 +1053,22 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         update_request ();
         Services.Database.get_default ().update_item (item);
         Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
+    }
+
+    private void selected_toggled (bool active) {
+        if (select_checkbutton.active) {
+            Services.EventBus.get_default ().select_item (this);
+        } else {
+            Services.EventBus.get_default ().unselect_item (this);
+        }
+    }
+
+    public override void select_row (bool active) {
+        if (active) {
+            handle_grid.add_css_class ("complete-animation");
+        } else {
+            handle_grid.remove_css_class ("complete-animation");
+        }
     }
 
 	public override void hide_destroy () {

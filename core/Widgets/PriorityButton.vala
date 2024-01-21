@@ -85,4 +85,8 @@ public class Widgets.PriorityButton : Adw.Bin {
             priority_image.update_icon_name ("planner-flag");
         }
     }
+    
+    public void reset () {
+        priority_image.update_icon_name ("planner-flag");
+    }
 }
