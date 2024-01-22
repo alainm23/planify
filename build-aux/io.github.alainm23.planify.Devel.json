@@ -143,6 +143,16 @@
             ]
         },
         {
+            "name": "gxml",
+            "buildsystem": "meson",
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://gitlab.gnome.org/GNOME/gxml.git"
+                }
+            ]
+        },
+        {
             "name" : "planify",
             "builddir" : true,
             "buildsystem" : "meson",
