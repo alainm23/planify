@@ -6,4 +6,5 @@ build-aux/flatpak_build
 build-aux/.flatpak-builder
 build-aux/io.github.alainm23.planify.Devel.flatpak
 .flatpak-builder/
+subprojects/gxml
 

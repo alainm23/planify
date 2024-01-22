@@ -26,7 +26,7 @@ public class Dialogs.QuickAdd : Adw.Window {
 	public QuickAdd () {
         Object (
             deletable: true,
-            resizable: true,
+            resizable: false,
             modal: true,
             transient_for: (Gtk.Window) Planify.instance.main_window,
             width_request: 600,

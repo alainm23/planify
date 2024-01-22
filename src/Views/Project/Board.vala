@@ -36,8 +36,8 @@ public class Views.Board : Adw.Bin {
 
     construct {
         description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 3,
-            right_margin = 3,
+            left_margin = 24,
+            right_margin = 24,
             top_margin = 6,
             bottom_margin = 6,
             wrap_mode = Gtk.WrapMode.WORD_CHAR
@@ -45,20 +45,11 @@ public class Views.Board : Adw.Bin {
         description_textview.set_text (project.description);
         description_textview.remove_css_class ("view");
 
-        var description_box = new Adw.Bin () {
-            child = description_textview,
-            margin_top = 6,
-            margin_end = 24,
-            margin_start = 24,
-            css_classes = { "description-box" }
-        };
-
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 
         flowbox = new Gtk.FlowBox () {
             vexpand = true,
             max_children_per_line = 1,
-            // homogeneous = true,
             orientation = Gtk.Orientation.VERTICAL,
             halign = Gtk.Align.START
         };
@@ -91,7 +82,7 @@ public class Views.Board : Adw.Bin {
 			vexpand = true
 		};
 
-        content_box.append (description_box);
+        content_box.append (description_textview);
 		content_box.append (flowbox_scrolled);
 
         child = content_box;

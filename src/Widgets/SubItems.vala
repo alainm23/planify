@@ -83,7 +83,7 @@ public class Widgets.SubItems : Adw.Bin {
 
         sub_tasks_header_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = is_board,
+            //  reveal_child = is_board,
             child = sub_tasks_header
         };
 

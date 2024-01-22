@@ -628,7 +628,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var add_subitem_gesture = new Gtk.GestureClick ();
         add_subitem_gesture.set_button (1);
         add_button.add_controller (add_subitem_gesture);
-
         add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();

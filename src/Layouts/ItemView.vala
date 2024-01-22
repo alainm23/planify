@@ -91,15 +91,21 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            vscrollbar_policy = Gtk.PolicyType.NEVER,
-            height_request = 64,
+            height_request = 164,
             hexpand = true,
             child = description_textview
         };
 
+        var subitems = new Widgets.SubItems.for_board (item) {
+            margin_start = 26,
+            margin_end = 6,
+            margin_top = 6,
+            reveal_child = true
+        };
+
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 34,
-            margin_top = 12,
+            margin_top = 6,
             margin_bottom = 6,
             sensitive = !item.completed
         };
@@ -112,6 +118,14 @@ public class Layouts.ItemViewContent : Adw.Bin {
         label_button.labels = item._get_labels ();
         reminder_button = new Widgets.ReminderButton (item);
 
+        var add_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            tooltip_text = _("Add subtask"),
+            margin_top = 1,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
+            css_classes = { "flat" }
+        };
+
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 26,
             margin_bottom = 3
@@ -123,6 +137,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
             margin_end = 3
         };
 
+        action_box_right.append (add_button);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
@@ -141,16 +156,9 @@ public class Layouts.ItemViewContent : Adw.Bin {
         
         content.append (content_box);
         content.append (description_scrolled_window);
+        content.append (subitems);
         content.append (item_labels);
         content.append (action_box);
-
-        // Sub Items
-        var subitems = new Widgets.SubItems.for_board (item) {
-            margin_start = 16,
-            margin_end = 19,
-            margin_top = 6
-        };
-        subitems.reveal_child = true;
 
         var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.START,
@@ -158,8 +166,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
         };
         v_box.append (headerbar);
         v_box.append (content);
-        //  v_box.append (subitems);
-
+        
         child = v_box;
         update_request ();
 
@@ -228,6 +235,10 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         item.loading_changed.connect ((value) => {
             
+        });
+
+        add_button.clicked.connect (() => {
+            subitems.prepare_new_item ();
         });
     }
 

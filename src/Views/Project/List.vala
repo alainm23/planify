@@ -50,8 +50,8 @@ public class Views.List : Gtk.Grid {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
         description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 3,
-            right_margin = 3,
+            left_margin = 26,
+            right_margin = 12,
             top_margin = 6,
             bottom_margin = 6,
             wrap_mode = Gtk.WrapMode.WORD_CHAR
@@ -59,14 +59,6 @@ public class Views.List : Gtk.Grid {
         description_textview.set_text (project.description);
         description_textview.remove_css_class ("view");
 
-        var description_box = new Adw.Bin () {
-            child = description_textview,
-            margin_top = 6,
-            margin_end = 6,
-            margin_start = 24,
-            css_classes = { "description-box" }
-        };
-        
         due_revealer = build_due_date_widget ();
 
         listbox = new Gtk.ListBox () {
@@ -110,7 +102,7 @@ public class Views.List : Gtk.Grid {
 
         if (!project.is_inbox_project) {
             content_box.append (due_revealer);
-            content_box.append (description_box);
+            content_box.append (description_textview);
         }
 
         content_box.append (listbox_placeholder_stack);

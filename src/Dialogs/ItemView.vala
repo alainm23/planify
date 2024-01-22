@@ -30,7 +30,7 @@ public class Dialogs.ItemView : Adw.Window {
             deletable: true,
             resizable: false,
             modal: false,
-            width_request: 600,
+            width_request: 700,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
