@@ -67,6 +67,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
+        var search_entry = new Gtk.SearchEntry () {
+            css_classes = { "border-radius-9" }
+        };
+
         var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
@@ -85,28 +89,23 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         var date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "planner-scheduled");
 
         var items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true
+            hexpand = true,
+            css_classes = { "card" },
+            margin_top = 9
         };
-
+    
         items_box.append (today_item);
         items_box.append (tomorrow_item);
         items_box.append (next_week_item);
         items_box.append (no_date_item);
-        items_box.add_css_class (Granite.STYLE_CLASS_CARD);
-
-        var calendar_item_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            margin_top = 6
-        };
-        calendar_item_box.add_css_class (Granite.STYLE_CLASS_CARD);
-        calendar_item_box.append (date_item);
+        items_box.append (date_item);
         
         var menu_items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
+        //  menu_items_box.append (search_entry);
         menu_items_box.append (items_box);
-        menu_items_box.append (calendar_item_box);
 
         var calendar_view = new Widgets.Calendar.Calendar (false);
 

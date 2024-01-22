@@ -26,6 +26,7 @@ public class Objects.DueDate : GLib.Object {
     public bool is_recurring { get; set; default = false; }
     public RecurrencyType recurrency_type { get; set; default = RecurrencyType.NONE; }
     public int recurrency_interval { get; set; default = 0; }
+    public bool recurrence_supported { get; set; default = false; }
 
     GLib.DateTime? _datetime = null;
     public GLib.DateTime? datetime {
@@ -52,6 +53,32 @@ public class Objects.DueDate : GLib.Object {
         notify["date"].connect (() => {
             _datetime = null;
         });
+    }
+
+    public void update_from_todoist_json (Json.Object object) {
+        if (object.has_member ("date")) {
+            date = object.get_string_member ("date");
+        }
+        
+        if (object.has_member ("timezone")) {
+            timezone = object.get_string_member ("timezone");
+        }
+
+        if (object.has_member ("is_recurring")) {
+            is_recurring = object.get_boolean_member ("is_recurring");
+            Utils.Datetime.parse_todoist_recurrency (this, object);
+        }
+        //  if (object.has_member ("recurrency_type")) {
+        //      recurrency_type = (RecurrencyType) int.parse (object.get_string_member ("recurrency_type"));
+        //  }
+
+        //  if (object.has_member ("recurrency_interval")) {
+        //      recurrency_interval = int.parse (object.get_string_member ("recurrency_interval"));
+        //  }
+
+        //  if (object.has_member ("recurrency_weeks")) {
+        //      recurrency_weeks = object.get_string_member ("recurrency_weeks");
+        //  }
     }
 
     public void update_from_json (Json.Object object) {

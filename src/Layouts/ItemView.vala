@@ -23,7 +23,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
     public Objects.Item item { get; construct; }
 
     private Gtk.CheckButton checked_button;
-    private Widgets.TextView content_textview;
+    private Gtk.Entry content_entry;
     private Widgets.HyperTextView description_textview;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
@@ -53,29 +53,29 @@ public class Layouts.ItemViewContent : Adw.Bin {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.START,
-            margin_top = 12,
+            margin_top = 3,
             css_classes = { "priority-color" }
         };
 
-        content_textview = new Widgets.TextView () {
-            top_margin = 12,
+        content_entry = new Widgets.Entry () {
             hexpand = true,
-            vexpand = false,
-            valign = START,
-            wrap_mode = Gtk.WrapMode.CHAR,
-            editable = !item.completed
+            placeholder_text = _("To-do name"),
+            editable = !item.completed,
+            text = item.content
         };
-        content_textview.buffer.text = item.content;
-        content_textview.remove_css_class ("view");
+
+        content_entry.add_css_class (Granite.STYLE_CLASS_FLAT);
         
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.START,
             hexpand = true,
-            margin_start = 12
+            margin_top = 9,
+            margin_start = 12,
+            margin_end = 12
         };
         
         content_box.append (checked_button);
-        content_box.append (content_textview);
+        content_box.append (content_entry);
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             left_margin = 36,
@@ -96,9 +96,16 @@ public class Layouts.ItemViewContent : Adw.Bin {
             child = description_textview
         };
 
+        var subitems = new Widgets.SubItems.for_board (item) {
+            margin_start = 26,
+            margin_end = 6,
+            margin_top = 6,
+            reveal_child = true
+        };
+
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 34,
-            margin_top = 12,
+            margin_top = 6,
             margin_bottom = 6,
             sensitive = !item.completed
         };
@@ -111,6 +118,14 @@ public class Layouts.ItemViewContent : Adw.Bin {
         label_button.labels = item._get_labels ();
         reminder_button = new Widgets.ReminderButton (item);
 
+        var add_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            tooltip_text = _("Add subtask"),
+            margin_top = 1,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
+            css_classes = { "flat" }
+        };
+
         action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 26,
             margin_bottom = 3
@@ -122,6 +137,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
             margin_end = 3
         };
 
+        action_box_right.append (add_button);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
@@ -140,16 +156,9 @@ public class Layouts.ItemViewContent : Adw.Bin {
         
         content.append (content_box);
         content.append (description_scrolled_window);
+        content.append (subitems);
         content.append (item_labels);
         content.append (action_box);
-
-        // Sub Items
-        var subitems = new Widgets.SubItems.for_board (item) {
-            margin_start = 16,
-            margin_end = 19,
-            margin_top = 6
-        };
-        subitems.reveal_child = true;
 
         var v_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.START,
@@ -157,8 +166,7 @@ public class Layouts.ItemViewContent : Adw.Bin {
         };
         v_box.append (headerbar);
         v_box.append (content);
-        v_box.append (subitems);
-
+        
         child = v_box;
         update_request ();
 
@@ -193,10 +201,9 @@ public class Layouts.ItemViewContent : Adw.Bin {
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();
-        content_textview.add_controller (content_controller_key);
+        content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293) {
-                // popdown ();
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
                 description_textview.grab_focus ();
@@ -210,7 +217,6 @@ public class Layouts.ItemViewContent : Adw.Bin {
         content_controller_key.key_released.connect ((keyval, keycode, state) => {            
             // Sscape
             if (keyval == 65307) {
-                // popdown ();
             } else { 
                 update ();
             }
@@ -220,7 +226,6 @@ public class Layouts.ItemViewContent : Adw.Bin {
         description_textview.add_controller (description_controller_key);
         description_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
-                // popdown ();
             } else if (keyval == 65289) {
                 schedule_button.grab_focus ();
             } else {
@@ -228,17 +233,19 @@ public class Layouts.ItemViewContent : Adw.Bin {
             }
         });
 
-
-
         item.loading_changed.connect ((value) => {
             
+        });
+
+        add_button.clicked.connect (() => {
+            subitems.prepare_new_item ();
         });
     }
 
     private void update () {
-        if (item.content != content_textview.buffer.text ||
+        if (item.content != content_entry.text ||
             item.description != description_textview.get_text ()) {
-            item.content = content_textview.buffer.text;
+            item.content = content_entry.text;
             item.description = description_textview.get_text ();
             item.update_async_timeout (update_id);
         }
@@ -295,14 +302,14 @@ public class Layouts.ItemViewContent : Adw.Bin {
             //  }
         }
 
-        content_textview.buffer.text = item.content;
+        content_entry.text = item.content;
         description_textview.set_text (item.description);
                 
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
         pin_button.update_request ();
 
-        content_textview.editable = !item.completed;
+        content_entry.editable = !item.completed;
         description_textview.editable = !item.completed;
         item_labels.sensitive = !item.completed;
         action_box.sensitive = !item.completed;

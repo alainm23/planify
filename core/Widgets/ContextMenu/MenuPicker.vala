@@ -43,17 +43,12 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         }
     }
 
-    public void update_selected (int index) {
-        items_map[index].active = true;
-    }
-
     public MenuPicker (string title, string? icon = null, Gee.ArrayList<string> items_list) {
         Object (
             title: title,
             icon: icon,
             items_list: items_list,
-            hexpand: true,
-            can_focus: false
+            hexpand: true
         );
     }
 
@@ -101,35 +96,35 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         listbox = new Gtk.ListBox ();
 
-        var popover = new Gtk.Popover () {
-			has_arrow = true,
-            child = listbox,
-			position = Gtk.PositionType.BOTTOM,
-            width_request = 175
-		};
-        popover.set_parent (arrow_icon);
+        var listbox_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = listbox
+        };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
         main_grid.append (button);
+        main_grid.append (listbox_revealer);
+
         child = main_grid;
         _build_list ();
 
         button.clicked.connect (() => {
-            popover.popup ();
-        });
-
-        popover.show.connect (() => {
-            arrow_icon.add_css_class ("opened");
-        });
-
-        popover.closed.connect (() => {
-            arrow_icon.remove_css_class ("opened");
+            listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
+            if (listbox_revealer.reveal_child) {
+                arrow_icon.add_css_class ("opened");
+            } else {
+                arrow_icon.remove_css_class ("opened");
+            }
         });
     }
 
+    public void update_selected (int index) {
+        items_map[index].active = true;
+    }
+    
     private void _build_list () {
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);

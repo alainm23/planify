@@ -7,7 +7,7 @@
    version="1.1"
    id="svg6"
    sodipodi:docname="planner-inbox.svg"
-   inkscape:version="1.3 (0e150ed6c4, 2023-07-21)"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -26,8 +26,8 @@
      inkscape:zoom="11.041667"
      inkscape:cx="9.8264148"
      inkscape:cy="16.799999"
-     inkscape:window-width="1366"
-     inkscape:window-height="699"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
@@ -36,7 +36,8 @@
      inkscape:deskcolor="#d1d1d1" />
   <g
      id="g1"
-     transform="matrix(0.875,0,0,0.875,-2.5,-2.5)">
+     transform="matrix(0.875,0,0,0.875,-2.5,-2.5)"
+     style="stroke:#3584e4;stroke-opacity:1;fill:#3584e4;fill-opacity:0.1">
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -44,7 +45,7 @@
        stroke-width="1.5"
        d="M 19.25,11.75 17.6644,6.20056 C 17.4191,5.34195 16.6344,4.75 15.7414,4.75 H 8.2586 C 7.36564,4.75 6.58087,5.34196 6.33555,6.20056 L 4.75,11.75"
        id="path2"
-       style="fill:#4a82ef;fill-opacity:0.14902;stroke:#4a82ef;stroke-opacity:1" />
+       style="fill:#3584e4;fill-opacity:0.1;stroke:#3584e4;stroke-opacity:1" />
     <path
        stroke="currentColor"
        stroke-linecap="round"
@@ -52,6 +53,6 @@
        stroke-width="1.5"
        d="M 10.2142,12.3689 C 9.95611,12.0327 9.59467,11.75 9.17085,11.75 H 4.75 v 5.5 c 0,1.1046 0.89543,2 2,2 h 10.5 c 1.1046,0 2,-0.8954 2,-2 v -5.5 h -4.4209 c -0.4238,0 -0.7852,0.2827 -1.0433,0.6189 C 13.3745,12.9046 12.7276,13.25 12,13.25 c -0.7276,0 -1.3745,-0.3454 -1.7858,-0.8811 z"
        id="path4"
-       style="fill:#4a82ef;fill-opacity:0.14902;stroke:#4a82ef;stroke-opacity:1" />
+       style="fill:#3584e4;fill-opacity:0.1;stroke:#3584e4;stroke-opacity:1" />
   </g>
 </svg>

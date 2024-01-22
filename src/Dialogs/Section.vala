@@ -160,6 +160,15 @@ public class Dialogs.Section : Adw.Window {
 
             return false;
         });
+
+        var event_controller_key = new Gtk.EventControllerKey ();
+		((Gtk.Widget) this).add_controller (event_controller_key);
+		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+			if (keyval == 65307) {
+				hide_destroy ();
+			}
+			return false;
+        });
     }
 
     private void add_update_section () {
@@ -190,7 +199,7 @@ public class Dialogs.Section : Adw.Window {
             if (section.project.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
 				Services.Todoist.get_default ().add.begin (section, (obj, res) => {
-					TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+					HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
 					if (response.status) {
 						section.id = response.data;

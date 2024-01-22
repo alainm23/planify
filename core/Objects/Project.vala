@@ -47,6 +47,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    string _color_hex;
+    public string color_hex {
+        get {
+            _color_hex = Util.get_default ().get_color (color);
+            return _color_hex;
+        }
+    }
+
     bool _show_completed = false;
     public bool show_completed {
         get {
@@ -199,8 +207,21 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    private bool _show_multi_select = false;
+    public bool show_multi_select {
+        set {
+            _show_multi_select = value;
+            show_multi_select_change ();
+        }
+
+        get {
+            return _show_multi_select;
+        }
+    }
+
     public signal void loading_changed (bool value);
     public signal void project_count_updated ();
+    public signal void show_multi_select_change ();
 
     Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
     public Gee.HashMap <string, Objects.Label> label_filter {
@@ -275,6 +296,29 @@ public class Objects.Project : Objects.BaseObject {
         id = node.get_object ().get_string_member ("id");
         update_from_google_tasklist_json (node);
         backend_type = BackendType.GOOGLE_TASKS;
+    }
+
+    public Project.from_caldav_xml (GXml.DomElement element) {
+        id = get_id_from_url (element);
+        update_from_xml (element);
+        backend_type = BackendType.CALDAV;
+    }
+
+    public void update_from_xml (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
+        color = get_content (prop.get_elements_by_tag_name ("x1:calendar-color").get_element (0));
+    }
+
+    public string get_id_from_url (GXml.DomElement element) {
+        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
+        string[] parts = href.text_content.split ("/");
+        return parts[parts.length - 2];
+    }
+
+    public string get_content (GXml.DomElement element) {
+        return element.text_content;
     }
 
     public Project.from_import_json (Json.Node node) {

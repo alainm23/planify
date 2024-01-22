@@ -94,11 +94,15 @@ public class Widgets.ItemLabels : Adw.Bin {
     }
 
     public void update_labels () {
+        reset ();
+        add_labels ();
+    }
+
+    public void reset () {
         foreach (Widgets.ItemLabelChild item_label_row in item_labels_map.values) {
             flowbox.remove (item_label_row);
         }
 
         item_labels_map.clear ();
-        add_labels ();
     }
 }

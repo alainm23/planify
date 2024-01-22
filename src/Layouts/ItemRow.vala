@@ -20,8 +20,6 @@
 */
 
 public class Layouts.ItemRow : Layouts.ItemBase {
-    public Objects.Item item { get; construct; }
-
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
@@ -129,23 +127,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
         get {
             return _edit;
-        }
-    }
-
-    private bool _is_row_selected = false;
-    public bool is_row_selected {
-        set {
-            _is_row_selected = value;
-
-            if (value) {
-                itemrow_box.add_css_class ("complete-animation");
-            } else {
-                itemrow_box.remove_css_class ("complete-animation");
-            }
-        }
-
-        get {
-            return _is_row_selected;
         }
     }
 
@@ -562,11 +543,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button.add_controller (checked_button_gesture);
         checked_button_gesture.pressed.connect (() => {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-
-            if (is_row_selected == false) {
-                checked_button.active = !checked_button.active;
-                checked_toggled (checked_button.active);
-            }
+            checked_button.active = !checked_button.active;
+            checked_toggled (checked_button.active);
         });    
 
         var hide_loading_gesture = new Gtk.GestureClick ();
@@ -584,7 +562,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.priority != priority) {
                 item.priority = priority;
 
-                if (item.project.backend_type == BackendType.TODOIST) {
+                if (item.project.backend_type == BackendType.TODOIST ||
+                    item.project.backend_type == BackendType.CALDAV) {
                     item.update_async ("");
                 } else {
                     item.update_local ();
@@ -632,7 +611,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
-                Services.EventBus.get_default ().item_selected (null);
                 select_revealer.reveal_child = true;
                 checked_button_revealer.reveal_child = false;
                 labels_summary.reveal_child = false;
@@ -650,7 +628,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var add_subitem_gesture = new Gtk.GestureClick ();
         add_subitem_gesture.set_button (1);
         add_button.add_controller (add_subitem_gesture);
-
         add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
@@ -698,6 +675,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.content = content_textview.buffer.text;
             item.description = description_textview.get_text ();
             item.update_async_timeout (update_id);
+        }
+    }
+
+    public override void select_row (bool active) {
+        if (active) {
+            itemrow_box.add_css_class ("complete-animation");
+        } else {
+            itemrow_box.remove_css_class ("complete-animation");
         }
     }
 
@@ -796,7 +781,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     
     public void update_pinned (bool pinned) {
         item.pinned = pinned;
-        item.update_local ();
+        
+        if (item.project.backend_type == BackendType.CALDAV) {
+            item.update_async ("");
+        } else {
+            item.update_local ();
+        }
     }
 
     private void build_handle_context_menu (double x, double y) {
@@ -1107,7 +1097,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         return menu_box;
     }
 
-    public void checked_toggled (bool active, uint? time = null) {
+    public override void checked_toggled (bool active, uint? time = null) {
         bool old_checked = item.checked;
 
         if (active) {
@@ -1314,7 +1304,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.update_async ("");
     }
 
-    public void delete_request (bool undo = true) {
+    public override void delete_request (bool undo = true) {
         main_revealer.reveal_child = false;
 
         if (undo) {
@@ -1334,7 +1324,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
-                if (item.project.backend_type == BackendType.TODOIST) {
+                if (item.project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().delete_item (item);
+                } else if (item.project.backend_type == BackendType.TODOIST) {
                     is_loading = true;
                     Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
                         if (Services.Todoist.get_default ().delete.end (res).status) {
@@ -1343,8 +1335,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                             is_loading = false;
                         }
                     });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_item (item);
+                } else if (item.project.backend_type == BackendType.CALDAV) {
+                    is_loading = true;
+                    Services.CalDAV.get_default ().delete_task.begin (item, (obj, res) => {
+                        if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+                            Services.Database.get_default ().delete_item (item);
+                        } else {
+                            is_loading = false;
+                        }
+                    });
                 }
             }
         });
@@ -1407,7 +1406,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     item.delete_item ();
                 } else if (project.backend_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                        TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                        HttpResponse response = Services.Todoist.get_default ().add.end (res);
                         if (response.status) {
                             new_item.id = response.data;
                             project.add_item_if_not_exists (new_item);

@@ -177,9 +177,9 @@ public class Views.Today : Adw.Bin {
         content.append (today_revealer);
         content.append (listbox_grid);
 
-        var listbox_placeholder = new Widgets.Placeholder (
-            _("Press 'a' or tap the plus button to create a new to-do"), "planner-check-circle"
-        );
+        var listbox_placeholder = new Adw.StatusPage ();
+        listbox_placeholder.title = _("No tasks found");
+        listbox_placeholder.description = _("Press 'a' or tap the plus button to create a new to-do");
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,

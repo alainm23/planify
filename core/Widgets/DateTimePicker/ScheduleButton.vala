@@ -92,11 +92,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     public void update_from_item (Objects.Item item) {
-        due_label.label = _("Schedule");
-        tooltip_text = _("Schedule");
-
-        due_image.update_icon_name ("planner-calendar");
-        datetime = null;
+        reset ();
 
         if (item.has_due) {
             due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
@@ -128,5 +124,13 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                 ); 
             }
         }
+    }
+
+    public void reset () {
+        due_label.label = _("Schedule");
+        tooltip_text = _("Schedule");
+
+        due_image.update_icon_name ("planner-calendar");
+        datetime = null;
     }
 }

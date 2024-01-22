@@ -47,21 +47,23 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 		views_group.add_child (pinboard_row);
 		views_group.add_child (labels_row);
 
-		var show_count_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER
-		};
+        var show_count_row = new Adw.SwitchRow ();
+        show_count_row.title = _("Show Task Count");
 
-		var show_count_row = new Adw.ActionRow ();
-		show_count_row.title = _("Show Task Count");
-		show_count_row.set_activatable_widget (show_count_switch);
-		show_count_row.add_suffix (show_count_switch);
+        var sidebar_width_row = new Adw.SpinRow.with_range (300, 400, 1) {
+			valign = Gtk.Align.CENTER,
+            title = _("Sidebar Width"),
+			value = Services.Settings.get_default ().settings.get_int ("pane-position")
+		};
 
         var count_group = new Adw.PreferencesGroup () {
             margin_start = 3,
             margin_end = 3,
             margin_top = 12
         };
+
 		count_group.add (show_count_row);
+        count_group.add (sidebar_width_row);
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (count_group);
@@ -94,7 +96,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 		toolbar_view.add_top_bar (settings_header);
 
 		child = toolbar_view;
-        Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_switch, "active", GLib.SettingsBindFlags.DEFAULT);
+        Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_row, "active", GLib.SettingsBindFlags.DEFAULT);
         
         views_group.set_sort_func ((child1, child2) => {
             int item1 = ((Widgets.SidebarRow) child1).item_order ();
@@ -105,6 +107,10 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
+		});
+
+        sidebar_width_row.output.connect (() => {
+			Services.Settings.get_default ().settings.set_int ("pane-position", (int) sidebar_width_row.value);
 		});
     }
 }

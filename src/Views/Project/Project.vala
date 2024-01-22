@@ -42,7 +42,8 @@ public class Views.Project : Gtk.Grid {
 			margin_end = 12,
 			popover = build_context_menu_popover (),
 			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
-			css_classes = { "flat" }
+			css_classes = { "flat" },
+			tooltip_text = _("Open more project actions")
 		};
 
 		var indicator_grid = new Gtk.Grid () {
@@ -60,12 +61,15 @@ public class Views.Project : Gtk.Grid {
 			valign = START,
         };
 
+		var view_setting_popover = build_view_setting_popover ();
+
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			popover = build_view_setting_popover (),
+			popover = view_setting_popover,
 			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
-			css_classes = { "flat" }
+			css_classes = { "flat" },
+			tooltip_text = _("View option menu")
 		};
 
 		var view_setting_overlay = new Gtk.Overlay ();
@@ -125,12 +129,23 @@ public class Views.Project : Gtk.Grid {
 		});
 
 		multiselect_toolbar.closed.connect (() => {
-			Services.EventBus.get_default ().multi_select_enabled = false;
-			Services.EventBus.get_default ().show_multi_select (false);
-			Services.EventBus.get_default ().magic_button_visible (true);
-			Services.EventBus.get_default ().connect_typing_accel ();
+			project.show_multi_select = false;
+		});
 
-			toolbar_view.reveal_bottom_bars = false;
+		project.show_multi_select_change.connect (() => {
+			toolbar_view.reveal_bottom_bars = project.show_multi_select;
+			
+			if (project.show_multi_select) {
+				Services.EventBus.get_default ().multi_select_enabled = true;
+				Services.EventBus.get_default ().show_multi_select (true);
+				Services.EventBus.get_default ().magic_button_visible (false);
+				Services.EventBus.get_default ().disconnect_typing_accel ();
+			} else {
+				Services.EventBus.get_default ().multi_select_enabled = false;
+				Services.EventBus.get_default ().show_multi_select (false);
+				Services.EventBus.get_default ().magic_button_visible (true);
+				Services.EventBus.get_default ().connect_typing_accel ();
+			}
 		});
 	}
 
@@ -202,6 +217,8 @@ public class Views.Project : Gtk.Grid {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
+		add_section_item.secondary_text = "S";
+		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "planner-clipboard");
@@ -293,13 +310,7 @@ public class Views.Project : Gtk.Grid {
 
 		select_item.clicked.connect (() => {
 			popover.popdown ();
-
-			Services.EventBus.get_default ().multi_select_enabled = true;
-			Services.EventBus.get_default ().show_multi_select (true);
-			Services.EventBus.get_default ().magic_button_visible (false);
-			Services.EventBus.get_default ().disconnect_typing_accel ();
-
-			toolbar_view.reveal_bottom_bars = true;
+			project.show_multi_select = true;
 		});
 
 		delete_item.clicked.connect (() => {
@@ -370,9 +381,8 @@ public class Views.Project : Gtk.Grid {
 			css_classes = { "linked" },
 			hexpand = true,
 			homogeneous = true,
-			margin_start = 6,
-			margin_end = 6,
-			margin_top = 3
+			margin_start = 3,
+			margin_end = 3
 		};
 
 		view_box.append (list_button);

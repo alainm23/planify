@@ -28,10 +28,9 @@ public class Dialogs.ItemView : Adw.Window {
         Object (
             item: item,
             deletable: true,
-            resizable: true,
+            resizable: false,
             modal: false,
-            width_request: 550,
-            valign: Gtk.Align.START,
+            width_request: 700,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }

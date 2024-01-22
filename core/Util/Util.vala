@@ -39,64 +39,25 @@ public class Util : GLib.Object {
             colors = new Gee.HashMap<string, Objects.Color> ();
 
             colors.set ("berry_red", new Objects.Color (30, _("Berry Red"), "#b8256f"));
-            colors.set ("#b8256f", new Objects.Color (30, _("Berry Red"), "berry_red"));
-
             colors.set ("red", new Objects.Color (31, _("Red"), "#db4035"));
-            colors.set ("#db4035", new Objects.Color (31, _("Red"), "red"));
-
             colors.set ("orange", new Objects.Color (32, _("Orange"), "#ff9933"));
-            colors.set ("#ff9933", new Objects.Color (32, _("Orange"), "orange"));
-
             colors.set ("yellow", new Objects.Color (33, _("Olive Green"), "#fad000"));
-            colors.set ("#fad000", new Objects.Color (33, _("Olive Green"), "yellow"));
-
             colors.set ("olive_green", new Objects.Color (34, _("Yellow"), "#afb83b"));
-            colors.set ("#afb83b", new Objects.Color (34, _("Yellow"), "olive_green"));
-
             colors.set ("lime_green", new Objects.Color (35, _("Lime Green"), "#7ecc49"));
-            colors.set ("#7ecc49", new Objects.Color (35, _("Lime Green"), "lime_green"));
-
             colors.set ("green", new Objects.Color (36, _("Green"), "#299438"));
-            colors.set ("#299438", new Objects.Color (36, _("Green"), "green"));
-
             colors.set ("mint_green", new Objects.Color (37, _("Mint Green"), "#6accbc"));
-            colors.set ("#6accbc", new Objects.Color (37, _("Mint Green"), "mint_green"));
-
             colors.set ("teal", new Objects.Color (38, _("Teal"), "#158fad"));
-            colors.set ("#158fad", new Objects.Color (38, _("Teal"), "teal"));
-
             colors.set ("sky_blue", new Objects.Color (39, _("Sky Blue"), "#14aaf5"));
-            colors.set ("#14aaf5", new Objects.Color (39, _("Sky Blue"), "sky_blue"));
-
             colors.set ("light_blue", new Objects.Color (40, _("Light Blue"), "#96c3eb"));
-            colors.set ("#96c3eb", new Objects.Color (40, _("Light Blue"), "light_blue"));
-
             colors.set ("blue", new Objects.Color (41, _("Blue"), "#4073ff"));
-            colors.set ("#4073ff", new Objects.Color (41, _("Blue"), "blue"));
-
             colors.set ("grape", new Objects.Color (42, _("Grape"), "#884dff"));
-            colors.set ("#884dff", new Objects.Color (42, _("Grape"), "grape"));
-
             colors.set ("violet", new Objects.Color (43, _("Violet"), "#af38eb"));
-            colors.set ("#af38eb", new Objects.Color (43, _("Violet"), "violet"));
-
             colors.set ("lavender", new Objects.Color (44, _("Lavander"), "#eb96eb"));
-            colors.set ("#eb96eb", new Objects.Color (44, _("Lavander"), "lavender"));
-
             colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#e05194"));
-            colors.set ("#e05194", new Objects.Color (45, _("Magenta"), "magenta"));
-
             colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#ff8d85"));
-            colors.set ("#ff8d85", new Objects.Color (46, _("Salmon"), "salmon"));
-
             colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#808080"));
-            colors.set ("#808080", new Objects.Color (47, _("Charcoal"), "charcoal"));
-
             colors.set ("grey", new Objects.Color (48, _("Grey"), "#b8b8b8"));
-            colors.set ("#b8b8b8", new Objects.Color (48, _("Grey"), "grey"));
-
             colors.set ("taupe", new Objects.Color (49, _("Taupe"), "#ccac93"));
-            colors.set ("#ccac93", new Objects.Color (49, _("Taupe"), "taupe"));
         }
 
         return colors;
@@ -107,7 +68,11 @@ public class Util : GLib.Object {
     }
 
     public string get_color (string key) {
-        return get_colors ().get (key).hexadecimal;
+        if (get_colors ().has_key (key)) {
+            return get_colors ().get (key).hexadecimal;
+        }
+
+        return key;
     }
 
     public string get_random_color () {
@@ -406,7 +371,7 @@ public class Util : GLib.Object {
                 0
             );
         // YYYY-MM-DDTHH:MM:SS
-        } else if (date.length == 19) {
+        } else {
             var _date = date.split ("T") [0].split ("-");
             var _time = date.split ("T") [1].split (":");
 
@@ -417,17 +382,6 @@ public class Util : GLib.Object {
                 int.parse (_time [0]),
                 int.parse (_time [1]),
                 int.parse (_time [2])
-            );
-        // YYYY-MM-DDTHH:MM:SSZ
-        } else {
-            var _date = date.split ("T") [0].split ("-");
-            datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
-                0,
-                0,
-                0
             );
         }
 
@@ -1169,5 +1123,168 @@ We hope you’ll enjoy using Planify!""");
         } else {
             return BackendType.NONE;
         }
+    }
+
+    public string markup_accel_tooltip (string description, string accels) {
+        return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels));
+    }
+
+    /*
+    *   XML adn CakDAV Util
+    */
+
+    public static string get_task_id_from_url (GXml.DomElement element) {
+        GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
+        string[] parts = href.text_content.split ("/");
+        return parts[parts.length - 1];
+    }
+
+    public static string get_task_uid (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        ICal.Component ical = new ICal.Component.from_string (data);
+        return ical.get_uid ();
+    }
+
+    public static string get_related_to_uid (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        return Util.get_default ().find_string_value ("RELATED-TO", data);
+    }
+
+    public static string find_string_value (string key, string data) {
+        GLib.Regex? regex = null;
+        GLib.MatchInfo match;
+
+        try {
+            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+        } catch (GLib.RegexError e) {
+            critical (e.message);
+        }
+
+        if (regex == null) {
+            return "";
+        }
+
+        if (!regex.match (data, 0, out match)) {
+            return "";
+        }
+
+        return match.fetch_all () [1];
+    }
+
+    public static bool find_boolean_value (string key, string data) {
+        GLib.Regex? regex = null;
+        GLib.MatchInfo match;
+
+        try {
+            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+        } catch (GLib.RegexError e) {
+            critical (e.message);
+        }
+
+        if (regex == null) {
+            return false;
+        }
+
+        if (!regex.match (data, 0, out match)) {
+            return false;
+        }
+
+        return bool.parse (match.fetch_all () [1]);
+    }
+
+    public static string generate_extra_data (string ics, string etag, string data) {
+        var builder = new Json.Builder ();
+        builder.begin_object ();
+
+        builder.set_member_name ("ics");
+        builder.add_string_value (ics);
+
+        builder.set_member_name ("etag");
+        builder.add_string_value (etag);
+        
+        builder.set_member_name ("calendar-data");
+        builder.add_string_value (data);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+        return generator.to_data (null);
+    }
+
+    /**
+     * Converts the given ICal.Time to a GLib.DateTime, represented in the
+     * system timezone.
+     *
+     * All timezone information in the original @date is lost. However, the
+     * {@link GLib.TimeZone} contained in the resulting DateTime is correct,
+     * since there is a well-defined local timezone between both libical and
+     * GLib.
+     */
+
+    public static DateTime ical_to_date_time_local (ICal.Time date) {
+        assert (!date.is_null_time ());
+        var converted = ical_convert_to_local (date);
+        int year, month, day, hour, minute, second;
+        converted.get_date (out year, out month, out day);
+        converted.get_time (out hour, out minute, out second);
+        return new DateTime.local (year, month,
+            day, hour, minute, second);
+    }
+
+    /** Converts the given ICal.Time to the local (or system) timezone */
+    public static ICal.Time ical_convert_to_local (ICal.Time time) {
+        var system_tz = ECal.util_get_system_timezone ();
+        return time.convert_to_zone (system_tz);
+    }
+
+    /**
+     * Converts two DateTimes representing a date and a time to one TimeType.
+     *
+     * The first contains the date; its time settings are ignored. The second
+     * one contains the time itself; its date settings are ignored. If the time
+     * is `null`, the resulting TimeType is of `DATE` type; if it is given, the
+     * TimeType is of `DATE-TIME` type.
+     *
+     * This also accepts an optional `timezone` argument. If it is given a
+     * timezone, the resulting TimeType will be relative to the given timezone.
+     * If it is `null`, the resulting TimeType will be "floating" with no
+     * timezone. If the argument is not given, it will default to the system
+     * timezone.
+     */
+     
+     public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime? time_local,
+        ICal.Timezone? timezone = ECal.util_get_system_timezone ().copy ()) {
+        var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
+
+        // Check if it's a date. If so, set is_date to true and fix the time to be sure.
+        // If it's not a date, first thing set is_date to false.
+        // Then, set the timezone.
+        // Then, set the time.
+        if (time_local == null) {
+            // Date type: ensure that everything corresponds to a date
+            result.set_is_date (true);
+            result.set_time (0, 0, 0);
+        } else {
+            // Includes time
+            // Set is_date first (otherwise timezone won't change)
+            result.set_is_date (false);
+
+            // Set timezone for the time to be relative to
+            // (doesn't affect DATE-type times)
+            result.set_timezone (timezone);
+
+            // Set the time with the updated time zone
+            result.set_time (time_local.get_hour (), time_local.get_minute (), time_local.get_second ());
+        }
+
+        return result;
     }
 }

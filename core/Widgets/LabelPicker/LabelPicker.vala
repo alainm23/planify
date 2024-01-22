@@ -157,7 +157,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             is_loading = true;
             label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
-                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
                 if (response.status) {
                     label.id = response.data;
@@ -250,5 +250,13 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     private bool filter_func (Gtk.ListBoxRow row) {
         var label = ((Widgets.LabelPicker.LabelRow) row).label;
         return search_entry.text.down () in label.name.down ();
+    }
+
+    public void reset () {
+        foreach (var entry in labels_widgets_map.entries) {
+            labels_widgets_map [entry.key].active = false;
+        }
+
+        labels_widgets_map.clear ();
     }
 }

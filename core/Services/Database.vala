@@ -170,7 +170,6 @@ public class Services.Database : GLib.Object {
          */
 
         add_text_column ("Projects", "description", "");
-        add_text_column ("Projects", "due_date", "");
 
         /*
          * Planify 4.4
@@ -182,6 +181,13 @@ public class Services.Database : GLib.Object {
         add_item_label_column ();
         add_text_column ("Sections", "color", "blue");
         add_text_column ("Sections", "description", "");
+
+        /*
+         * Planify 4.5
+         * - Add extra data column to Items
+         */
+
+         add_text_column ("Items", "extra_data", "");
     }
 
     private void create_tables () {
@@ -273,7 +279,8 @@ public class Services.Database : GLib.Object {
                 day_order           INTEGER,
                 collapsed           INTEGER,
                 pinned              INTEGER,
-                labels              TEXT
+                labels              TEXT,
+                extra_data          TEXT
             );
         """;
 
@@ -613,14 +620,26 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            UPDATE Projects SET name=$name, color=$color, backend_type=$backend_type,
-                inbox_project=$inbox_project, team_inbox=$team_inbox,
-                child_order=$child_order, is_deleted=$is_deleted,
-                is_archived=$is_archived, is_favorite=$is_favorite,
-                shared=$shared, view_style=$view_style,
+            UPDATE Projects SET
+                name=$name,
+                color=$color,
+                backend_type=$backend_type,
+                inbox_project=$inbox_project,
+                team_inbox=$team_inbox,
+                child_order=$child_order,
+                is_deleted=$is_deleted,
+                is_archived=$is_archived,
+                is_favorite=$is_favorite,
+                shared=$shared,
+                view_style=$view_style,
                 sort_order=$sort_order,
-                parent_id=$parent_id, collapsed=$collapsed, icon_style=$icon_style,
-                emoji=$emoji, show_completed=$show_completed, description=$description, due_date=$due_date
+                parent_id=$parent_id,
+                collapsed=$collapsed,
+                icon_style=$icon_style,
+                emoji=$emoji,
+                show_completed=$show_completed,
+                description=$description,
+                due_date=$due_date
             WHERE id=$id;
         """;
 
@@ -1070,10 +1089,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
-                checked, is_deleted, day_order, collapsed, pinned, labels)
+                checked, is_deleted, day_order, collapsed, pinned, labels, extra_data)
             VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
-                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels);
+                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1095,6 +1114,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
+        set_parameter_str (stmt, "$extra_data", item.extra_data);
 
         if (stmt.step () == Sqlite.DONE) {
             add_item (item, insert);
@@ -1238,6 +1258,7 @@ public class Services.Database : GLib.Object {
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
         return_value.labels = get_labels_by_item_labels (stmt.column_text (17));
+        return_value.extra_data = stmt.column_text (18);
 
         return return_value;
     }
@@ -1436,7 +1457,7 @@ public class Services.Database : GLib.Object {
                 section_id=$section_id, project_id=$project_id, parent_id=$parent_id,
                 priority=$priority, child_order=$child_order, checked=$checked,
                 is_deleted=$is_deleted, day_order=$day_order, collapsed=$collapsed,
-                pinned=$pinned, labels=$labels
+                pinned=$pinned, labels=$labels, extra_data=$extra_data
             WHERE id=$id;
         """;
 
@@ -1458,6 +1479,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
+        set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1551,6 +1573,19 @@ public class Services.Database : GLib.Object {
         lock (_projects) {
             foreach (var project in projects) {
                 if (project.backend_type == BackendType.TODOIST) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Project> get_all_projects_by_backend_type (BackendType backend_type) {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.backend_type == backend_type) {
                     return_value.add (project);
                 }
             }

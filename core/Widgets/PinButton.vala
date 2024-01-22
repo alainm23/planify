@@ -58,4 +58,8 @@ public class Widgets.PinButton : Gtk.Button {
     public void update_request () {
         pinned_image.update_icon_name (item.pinned_icon);
     }
+
+    public void reset () {
+        pinned_image.update_icon_name ("planner-pinned");
+    }
 }

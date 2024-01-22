@@ -106,6 +106,15 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 		content = navigation_view;
 
+		var event_controller_key = new Gtk.EventControllerKey ();
+		((Gtk.Widget) this).add_controller (event_controller_key);
+		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+			if (keyval == 65307) {
+				hide_destroy ();
+			}
+			return false;
+        });
+		
 		add_feature (
 			_("Improved drag-and-drop sorting"),
 			_("Added a new animation and a new way of sorting making it cleaner and easier."),

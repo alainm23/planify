@@ -65,7 +65,8 @@ public class MainWindow : Adw.ApplicationWindow {
 		settings_button.child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical");
 
 		var search_button = new Gtk.Button () {
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-search")
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-search"),
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F")
 		};
 		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
@@ -96,6 +97,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var toast_overlay = new Adw.ToastOverlay ();
 		toast_overlay.child = views_content;
+
+		var chrono = new Chrono.Parse ();
+		chrono.parse ("yesterday");
 
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
@@ -206,6 +210,31 @@ public class MainWindow : Adw.ApplicationWindow {
 			var dialog = new Dialogs.QuickFind.QuickFind ();
 			dialog.show ();
 		});
+
+		var event_controller_key = new Gtk.EventControllerKey ();
+		((Gtk.Widget) this).add_controller (event_controller_key);
+
+		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+			if (keyval == 65507) {
+				Services.EventBus.get_default ().ctrl_pressed = true;
+			}
+
+			if (keyval == 65513) {
+				Services.EventBus.get_default ().alt_pressed = true;
+            }
+
+			return false;
+        });
+		
+        event_controller_key.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65507) {
+				Services.EventBus.get_default ().ctrl_pressed = false;
+			}
+
+			if (keyval == 65513) {
+				Services.EventBus.get_default ().alt_pressed = false;
+            }
+        });
 	}
 
 	public void show_hide_sidebar () {
@@ -430,9 +459,11 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
+		preferences_item.secondary_text = "Ctrl+,";
 		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
+		keyboard_shortcuts_item.secondary_text = "F1";
 		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));

@@ -1,13 +1,23 @@
 core_files = files(
-    'Util.vala',
     'Enum.vala',
     'Constants.vala',
     'QuickAdd.vala',
+
+    'Util/Util.vala',
+    'Util/Datetime.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/Todoist.vala',
+    'Services/CalDAV.vala',
+
+    'Services/Chrono/Chrono.vala',
+    'Services/Chrono/Enum.vala',
+    'Services/Chrono/Types.vala',
+    'Services/Chrono/Locales/En/En.vala',
+    'Services/Chrono/Locales/En/Constants.vala',
+    'Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala',
 
     'Layouts/HeaderItem.vala',
 
@@ -30,7 +40,8 @@ core_files = files(
     'Widgets/ContextMenu/MenuItem.vala',
     'Widgets/ContextMenu/MenuSeparator.vala',
     'Widgets/ContextMenu/MenuPicker.vala',
-
+    'Widgets/ContextMenu/MenuSwitch.vala',
+    
     'Widgets/DateTimePicker/ScheduleButton.vala',
     'Widgets/DateTimePicker/DateTimePicker.vala',
     'Widgets/DateTimePicker/TimePicker.vala',
@@ -70,7 +81,10 @@ core_deps = [
   granite_dep,
   json_dep,
   libsoup_dep,
-  gtksourceview_dep
+  gtksourceview_dep,
+  libical_dep,
+  libecal_dep,
+  libgxml_dep
 ]
 
 core_lib = shared_library(
@@ -101,6 +115,6 @@ pkgconfig.generate(
     name: 'Planify',
     description: 'Extension endpoint to the Planify application',
     subdirs: 'planify',
-    requires: core_deps
+    libraries: core_deps
 )
 

@@ -1,18 +1,8 @@
 deps = [
   core_dep,
-  glib_dep,
   gee_dep,
-  gtk_dep,
-  sqlite3_dep,
-  libadwaita_dep,
   webkitgtk_dep,
-  gtksourceview_dep,
-  granite_dep,
-  json_dep,
-  libsoup_dep,
-  libecal_dep,
   libedataserver_dep,
-  libical_dep,
   libportal_dep,
   m_dep
 ]
@@ -50,7 +40,6 @@ sources = files(
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',
-  'Widgets/Placeholder.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',

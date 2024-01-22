@@ -57,4 +57,8 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             labels_changed (labels_picker.picked);
         });
     }
+
+    public void reset () {
+        labels_picker.reset ();
+    }
 }

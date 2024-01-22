@@ -28,6 +28,7 @@ public class Objects.Item : Objects.BaseObject {
     public string section_id { get; set; default = ""; }
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
+    public string extra_data { get; set; default = ""; }
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
@@ -40,12 +41,6 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return return_value;
-    }
-
-    public void debug_labels () {
-        foreach (Objects.Label label in labels) {
-            debug ("ID: %s - %s", label.id, label.name);
-        }
     }
 
     public int priority { get; set; default = Constants.PRIORITY_4; }
@@ -146,6 +141,22 @@ public class Objects.Item : Objects.BaseObject {
 
         get {
             return _loading;
+        }
+    }
+
+    string _ics = "";
+    public string ics {
+        get {
+            _ics = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "ics");
+            return _ics;
+        }
+    }
+
+    string _calendar_data = "";
+    public string calendar_data {
+        get {
+            _calendar_data = Services.Todoist.get_default ().get_string_member_by_object (extra_data, "calendar-data");
+            return _calendar_data;
         }
     }
 
@@ -272,7 +283,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
         } else {
             due.reset ();
         }
@@ -297,6 +308,53 @@ public class Objects.Item : Objects.BaseObject {
         collapsed = node.get_object ().get_boolean_member ("collapsed");
         pinned = node.get_object ().get_boolean_member ("pinned");
         labels = get_labels_from_json (node);
+    }
+
+    public Item.from_caldav_xml (GXml.DomElement element) {
+        update_from_caldav_xml (element);
+    }
+
+    public void update_from_caldav_xml (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        ICal.Component ical = new ICal.Component.from_string (data);
+
+        id = ical.get_uid ();
+        content = ical.get_summary ();
+
+        if (ical.get_description () != null) {
+            description = ical.get_description ();
+        }
+
+        if (Util.get_default ().find_string_value ("PRIORITY", data) != "") {
+            int _priority = int.parse (Util.get_default ().find_string_value ("PRIORITY", data));
+            if (_priority <= 0) {
+                priority = Constants.PRIORITY_4;
+            } else if (_priority >= 1 && _priority <= 4) {
+                priority = Constants.PRIORITY_1;
+            } else if (_priority == 5) {
+                priority = Constants.PRIORITY_2;
+            } else if (_priority > 5 && _priority <= 9) {
+                priority = Constants.PRIORITY_3;
+            } else {
+                priority = Constants.PRIORITY_4;
+            }
+        }
+
+        if (!ical.get_due ().is_null_time ()) {
+            due.date = Util.get_default ().ical_to_date_time_local (ical.get_due ()).to_string ();
+        }
+
+        string _parent_id = Util.get_default ().find_string_value ("RELATED-TO", data);
+        if (_parent_id != "") {
+            parent_id = _parent_id;
+        }
+
+        pinned = Util.get_default ().find_boolean_value ("X-PINNED", data);
+        extra_data = Util.get_default ().generate_extra_data (Util.get_default ().get_task_id_from_url (element), etag, ical.as_ical_string ());
     }
 
     public void update_from_json (Json.Node node) {
@@ -428,14 +486,22 @@ public class Objects.Item : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            if (project.backend_type == BackendType.TODOIST) {
+            if (project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_item (this, update_id);
+            } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
                 });
-            } else if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (this, update_id);
-            }
+            } else if (project.backend_type == BackendType.CALDAV) {
+                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+
+                    if (response.status) {
+                        Services.Database.get_default ().update_item (this, update_id);
+                    }
+                });
+            } 
 
             return GLib.Source.REMOVE;
         });
@@ -450,15 +516,25 @@ public class Objects.Item : Objects.BaseObject {
             update_timeout_id = 0;
             loading = true;
 
-            if (project.backend_type == BackendType.TODOIST) {
+            if (project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_item (this, update_id);
+                loading = false;
+            } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_item (this, update_id);
                     loading = false;
                 });
-            } else if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (this, update_id);
-                loading = false;
+            } else if (project.backend_type == BackendType.CALDAV) {
+                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+
+                    if (response.status) {
+                        Services.Database.get_default ().update_item (this, update_id);
+                    }
+                    
+                    loading = false;
+                });
             }
 
             return GLib.Source.REMOVE;
@@ -467,16 +543,27 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update_async (string update_id = "") {
         loading = true;
-        if (project.backend_type == BackendType.TODOIST) {
+
+        if (project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().update_item (this, update_id);
+            loading = false;
+        } else if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_item (this, update_id);
                 loading = false;
             });
-        } else if (project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_item (this, update_id);
-            loading = false;
-        }
+        } else if (project.backend_type == BackendType.CALDAV) {
+            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
+                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+
+                if (response.status) {
+                    Services.Database.get_default ().update_item (this, update_id);
+                }
+                
+                loading = false;
+            });
+        } 
     }
 
     public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder) {
@@ -785,6 +872,48 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
+    public string to_vtodo (bool update = false) {
+        ICal.Component ical = new ICal.Component.vtodo ();
+
+        ical.set_uid (id);
+        ical.set_summary (content);
+        ical.set_description (description);
+
+        if (pinned) {
+            var pinned_property = new ICal.Property (ICal.PropertyKind.X_PROPERTY);
+            pinned_property.set_x_name ("X-PINNED");
+            pinned_property.set_x (pinned.to_string ());
+            ical.add_property (pinned_property);
+        }
+
+        if (has_due) {
+            var task_tz = ical.get_due ().get_timezone ();
+            ICal.Time new_icaltime = Util.get_default ().datetimes_to_icaltime (due.datetime, due.datetime, null);
+            ical.set_due (new_icaltime);
+        }
+        
+        var _priority = 0;
+        if (priority == Constants.PRIORITY_4) {
+            _priority = 0;
+        } else if (priority == Constants.PRIORITY_1) {
+            _priority = 1;
+        } else if (priority == Constants.PRIORITY_2) {
+            _priority = 5;
+        } else if (priority == Constants.PRIORITY_3) {
+            _priority = 9;
+        } else {
+            _priority = 0;
+        }
+
+        ical.add_property (new ICal.Property.priority (_priority));
+        
+        return "%s%s%s".printf (
+            "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
+            ical.as_ical_string (),
+            "END:VCALENDAR\n"
+        );
+    }
+
     public Objects.Item add_item_if_not_exists (Objects.Item new_item, bool insert=true) {
         Objects.Item? return_value = null;
         lock (_items) {
@@ -842,7 +971,7 @@ public class Objects.Item : Objects.BaseObject {
 
         if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                TodoistResponse response = Services.Todoist.get_default ().add.end (res);
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 if (response.status) {
                     new_item.id = response.data;
                     insert_duplicate (new_item);
@@ -873,14 +1002,20 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_item () {
-        if (project.backend_type == BackendType.TODOIST) {
+        if (project.backend_type == BackendType.CALDAV) {
+            Services.Database.get_default ().delete_item (this);
+        } else if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                 }
             });
-        } else {
-            Services.Database.get_default ().delete_item (this);
+        } else if (project.backend_type == BackendType.CALDAV) {
+            Services.CalDAV.get_default ().delete_task.begin (this, (obj, res) => {
+                if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+                    Services.Database.get_default ().delete_item (this);
+                }
+            });
         }
     }
 }

@@ -93,10 +93,9 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         secondary_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.END,
-            margin_end = 0
+            margin_end = 0,
+            css_classes = { "dim-label", "no-font-bold" }
         };
-
-        secondary_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         var loading_spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
