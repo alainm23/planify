@@ -11,9 +11,6 @@ pkgconfig = import('pkgconfig')
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 add_project_arguments('-DLIBICAL_GLIB_UNSTABLE_API=1', language: 'c')
 
-vapi_dirs = []
-gir_dirs = []
-
 gio_dep = dependency('gio-2.0')
 glib_dep = dependency('glib-2.0')
 gee_dep = dependency('gee-0.8')
@@ -29,7 +26,7 @@ libecal_dep = dependency('libecal-2.0', version: '>= 3.45.1')
 libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
 libical_dep = dependency('libical-glib')
 libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
-libgxml_dep = dependency('gxml-0.18', fallback : [ 'gxml', 'libgxml_dep' ])
+libgxml_dep = dependency('gxml-0.20')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
 
