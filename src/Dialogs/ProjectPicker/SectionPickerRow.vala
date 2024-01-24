@@ -25,7 +25,6 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
-    private Gtk.Revealer main_revealer;
 
     public SectionPickerRow (Objects.Section section, string widget_type = "picker") {
         Object (
@@ -59,10 +58,12 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
         selected_revealer.child = selected_icon;
 
-        var order_icon = new Widgets.DynamicIcon () {
-            hexpand = true,
-            halign = Gtk.Align.END
+        var hidded_switch = new Gtk.Switch () {
+            css_classes = { "active-switch" },
+            active = !section.hidded
         };
+
+        var order_icon = new Widgets.DynamicIcon ();
         order_icon.size = 16;
         order_icon.update_icon_name ("menu");
 
@@ -76,7 +77,14 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         content_box.append (name_label);
 
         if (widget_type == "order") {
-            content_box.append (order_icon);
+            var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+                hexpand = true,
+                halign = Gtk.Align.END
+            };
+            box.append (hidded_switch);
+            box.append (order_icon);
+
+            content_box.append (box);
         }
 
         if (widget_type == "picker") {
@@ -93,7 +101,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         if (widget_type == "picker") {
             var select_gesture = new Gtk.GestureClick ();
             add_controller (select_gesture);
-            
+
             select_gesture.pressed.connect (() => {
                 Services.EventBus.get_default ().section_picker_changed (section.id);
             });
@@ -105,6 +113,11 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
         if (widget_type == "order") {
             reorder_child.build_drag_and_drop ();
+
+            hidded_switch.notify["active"].connect (() => {
+                section.hidded = !hidded_switch.active;
+                Services.Database.get_default ().update_section (section);
+            });
         }
     }
 }

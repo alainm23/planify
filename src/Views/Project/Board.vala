@@ -65,6 +65,16 @@ public class Views.Board : Adw.Bin {
             return item1.section.section_order - item2.section.section_order;
         });
 
+        flowbox.set_filter_func ((child) => {
+            Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
+
+            if (item.is_inbox_section) {
+                return false;
+            }
+
+            return !item.section.hidded;
+        });
+
         var flowbox_grid = new Adw.Bin () {
             vexpand = true,
             margin_top = 12,
@@ -103,6 +113,7 @@ public class Views.Board : Adw.Bin {
 
         project.section_sort_order_changed.connect (() => {
             flowbox.invalidate_sort ();
+            flowbox.invalidate_filter ();
         });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {

@@ -218,6 +218,7 @@ public class Views.Project : Gtk.Grid {
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
 		add_section_item.secondary_text = "S";
+		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "ordered-list");
 		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
@@ -235,6 +236,7 @@ public class Views.Project : Gtk.Grid {
 		}
 
 		menu_box.append (add_section_item);
+		menu_box.append (manage_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (select_item);
 		menu_box.append (paste_item);
@@ -292,6 +294,12 @@ public class Views.Project : Gtk.Grid {
 		add_section_item.activate_item.connect (() => {
 			popover.popdown ();
 			prepare_new_section ();
+		});
+
+		manage_item.clicked.connect (() => {
+			popover.popdown ();
+			var dialog = new Dialogs.ManageSectionOrder (project);
+			dialog.show ();
 		});
 
 		paste_item.clicked.connect (() => {

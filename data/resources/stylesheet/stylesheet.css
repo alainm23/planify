@@ -588,3 +588,8 @@ checkbutton.theme-selector radio:checked {
 .banner-text {
     color: #333;
 }
+
+.active-switch slider {
+    min-height: 16px;
+    min-width: 16px;
+}

@@ -187,7 +187,8 @@ public class Services.Database : GLib.Object {
          * - Add extra data column to Items
          */
 
-         add_text_column ("Items", "extra_data", "");
+        add_text_column ("Items", "extra_data", "");
+        add_int_column ("Sections", "hidded", 0);
     }
 
     private void create_tables () {
@@ -252,6 +253,7 @@ public class Services.Database : GLib.Object {
                 is_archived     INTEGER,
                 color           TEXT,
                 description     TEXT,
+                hidded          INTEGER,
                 FOREIGN KEY (project_id) REFERENCES Projects (id) ON DELETE CASCADE
             );
         """;
@@ -789,8 +791,7 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Label get_label_by_name (string name, bool lowercase = false, BackendType backend_type) {
-        Objects.Label? return_value = null;
+    public Objects.Label? get_label_by_name (string name, bool lowercase = false, BackendType backend_type) {
         lock (_labels) {
             string compare_name = lowercase ? name.down () : name;
 
@@ -901,9 +902,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             INSERT OR IGNORE INTO Sections (id, name, archived_at, added_at, project_id, section_order,
-            collapsed, is_deleted, is_archived, color, description)
+            collapsed, is_deleted, is_archived, color, description, hidded)
             VALUES ($id, $name, $archived_at, $added_at, $project_id, $section_order,
-            $collapsed, $is_deleted, $is_archived, $color, $description);
+            $collapsed, $is_deleted, $is_archived, $color, $description, $hidded);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -918,6 +919,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
         set_parameter_str (stmt, "$color", section.color);
         set_parameter_str (stmt, "$description", section.description);
+        set_parameter_bool (stmt, "$hidded", section.hidded);
 
         if (stmt.step () == Sqlite.DONE) {
             sections.add (section);
@@ -985,6 +987,7 @@ public class Services.Database : GLib.Object {
         return_value.is_archived = get_parameter_bool (stmt, 8);
         return_value.color = stmt.column_text (9);
         return_value.description = stmt.column_text (10);
+        return_value.hidded = get_parameter_bool (stmt, 11);
         return return_value;
     }
 
@@ -1016,8 +1019,9 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Sections SET name=$name, archived_at=$archived_at, added_at=$added_at,
-            project_id=$project_id, section_order=$section_order, collapsed=$collapsed,
-            is_deleted=$is_deleted, is_archived=$is_archived, color=$color, description=$description
+                project_id=$project_id, section_order=$section_order, collapsed=$collapsed,
+                is_deleted=$is_deleted, is_archived=$is_archived, color=$color, description=$description,
+                hidded=$hidded
             WHERE id=$id;
         """;
 
@@ -1032,6 +1036,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_archived", section.is_archived);
         set_parameter_str (stmt, "$color", section.color);
         set_parameter_str (stmt, "$description", section.description);
+        set_parameter_bool (stmt, "$hidded", section.hidded);
         set_parameter_str (stmt, "$id", section.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -2001,7 +2006,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        stmt.reset();
     }
 
     public void clear_queue () {

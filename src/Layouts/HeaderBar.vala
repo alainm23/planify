@@ -23,6 +23,7 @@ public class Layouts.HeaderBar : Adw.Bin {
     private Adw.HeaderBar headerbar;
     private Gtk.Label title_label;
     private Gtk.Revealer back_button_revealer;
+    private Gtk.Box start_box;
 
     private string _title;
     public string title {
@@ -68,7 +69,8 @@ public class Layouts.HeaderBar : Adw.Bin {
         // Back Button
         var back_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("go-previous-symbolic")
+            child = new Widgets.DynamicIcon.from_icon_name ("go-previous-symbolic"),
+            margin_end = 6
         };
 
         back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
@@ -84,15 +86,18 @@ public class Layouts.HeaderBar : Adw.Bin {
             use_markup = true,
             css_classes = { "font-bold" }
         };
-        
+    
+        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
+        start_box.append (sidebar_button);
+        start_box.append (back_button_revealer);
+        start_box.append (title_label);
+
         headerbar = new Adw.HeaderBar () {
 			hexpand = true,
             show_title = false
 		};
 
-        headerbar.pack_start (sidebar_button);
-        headerbar.pack_start (back_button_revealer);
-        headerbar.pack_start (title_label);
+        headerbar.pack_start (start_box);
 
         child = headerbar;
 
@@ -105,7 +110,7 @@ public class Layouts.HeaderBar : Adw.Bin {
             back_activated ();
         });
     }
-
+    
     public void pack_end (Gtk.Widget widget) {
         headerbar.pack_end (widget);
     }

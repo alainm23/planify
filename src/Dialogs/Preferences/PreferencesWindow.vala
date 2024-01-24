@@ -723,9 +723,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings") {
-				size = 24
-			},
+			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings"),
 			css_classes = { Granite.STYLE_CLASS_FLAT }
 		};
 
@@ -1409,15 +1407,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		return page;
 	}
-
-	private bool is_valid_url (string uri) {
-        var scheme = Uri.parse_scheme (uri);
-        if (scheme == null) {
-            return false;
-        }
-
-        return scheme.has_prefix ("http");
-    }
 
 	private Adw.NavigationPage get_backups_page () {
 		var backup_page = new Dialogs.Preferences.Pages.Backup ();

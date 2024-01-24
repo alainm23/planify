@@ -199,7 +199,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
         
         if (drag_n_drop) {
-            build_drag_and_drop ();
+            build_drag_and_drop.begin ();
         }
 
         if (show_subprojects) {

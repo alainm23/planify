@@ -329,8 +329,8 @@ public class Objects.Item : Objects.BaseObject {
             description = ical.get_description ();
         }
 
-        if (Util.get_default ().find_string_value ("PRIORITY", data) != "") {
-            int _priority = int.parse (Util.get_default ().find_string_value ("PRIORITY", data));
+        if (Util.find_string_value ("PRIORITY", data) != "") {
+            int _priority = int.parse (Util.find_string_value ("PRIORITY", data));
             if (_priority <= 0) {
                 priority = Constants.PRIORITY_4;
             } else if (_priority >= 1 && _priority <= 4) {
@@ -345,16 +345,29 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.get_default ().ical_to_date_time_local (ical.get_due ()).to_string ();
+            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
 
-        string _parent_id = Util.get_default ().find_string_value ("RELATED-TO", data);
+        string _parent_id = Util.find_string_value ("RELATED-TO", data);
         if (_parent_id != "") {
             parent_id = _parent_id;
         }
 
-        pinned = Util.get_default ().find_boolean_value ("X-PINNED", data);
-        extra_data = Util.get_default ().generate_extra_data (Util.get_default ().get_task_id_from_url (element), etag, ical.as_ical_string ());
+        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
+            checked = true;
+            var completed_datetime = ical.get_first_property (ICal.PropertyKind.COMPLETED_PROPERTY);
+            if (completed_datetime != null) {
+                completed_at = Util.ical_to_date_time_local (completed_datetime.get_completed ()).to_string ();
+            } else {
+                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+            }
+        } else {
+            checked = false;
+            completed_at = "";
+        }
+
+        pinned = Util.find_boolean_value ("X-PINNED", data);
+        extra_data = Util.generate_extra_data (Util.get_task_id_from_url (element), etag, ical.as_ical_string ());
     }
 
     public void update_from_json (Json.Node node) {
@@ -872,7 +885,7 @@ public class Objects.Item : Objects.BaseObject {
         return generator.to_data (null);
     }
 
-    public string to_vtodo (bool update = false) {
+    public string to_vtodo () {
         ICal.Component ical = new ICal.Component.vtodo ();
 
         ical.set_uid (id);
@@ -887,9 +900,17 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            var task_tz = ical.get_due ().get_timezone ();
-            ICal.Time new_icaltime = Util.get_default ().datetimes_to_icaltime (due.datetime, due.datetime, null);
+            //  var task_tz = ical.get_due ().get_timezone ();
+            ICal.Time new_icaltime = Util.datetimes_to_icaltime (due.datetime, due.datetime, null);
             ical.set_due (new_icaltime);
+        }
+
+        if (checked) {
+            ical.set_status (ICal.PropertyStatus.COMPLETED);
+            ical.add_property (new ICal.Property.percentcomplete (100));
+            ical.add_property (new ICal.Property.completed (new ICal.Time.today ()));
+        } else {
+            ical.set_status (ICal.PropertyStatus.NEEDSACTION);
         }
         
         var _priority = 0;

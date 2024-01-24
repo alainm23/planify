@@ -285,12 +285,10 @@ public class Views.List : Gtk.Grid {
         due_box.append (due_label);
 
         var due_date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 6,
-            margin_end = 6
+            margin_start = 21
         };
         
         due_date_box.append (due_box);
-        due_date_box.add_css_class ("description-box");
 
         var due_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN

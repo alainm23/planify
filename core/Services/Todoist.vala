@@ -1391,7 +1391,7 @@ public class HttpResponse {
 
 	public void from_error_xml (GXml.DomDocument doc, int error_code) {
 		status = false;
-		error_code = error_code;
+		this.error_code = error_code;
 		http_code = error_code;
 		error = doc.get_elements_by_tag_name ("o:hint").get_element (0).text_content;
 	}

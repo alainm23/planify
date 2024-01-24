@@ -52,7 +52,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer select_revealer;
 
     public uint complete_timeout { get; set; default = 0; }
-	Gee.HashMap<string, Widgets.ItemLabelChild> labels = new Gee.HashMap<string, Widgets.ItemLabelChild> ();
 
 	private bool _is_loading;
 	public bool is_loading {

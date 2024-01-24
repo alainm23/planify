@@ -22,7 +22,6 @@
 public class Dialogs.ManageSectionOrder : Adw.Window {
     public Objects.Project project { get; construct; }
     private Gtk.ListBox listbox;
-    private Gtk.DropControllerMotion drop_motion_ctrl;
     private Widgets.ScrolledWindow scrolled_window;
 
     public ManageSectionOrder (Objects.Project project) {
@@ -31,7 +30,7 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             deletable: true,
             resizable: true,
             modal: true,
-            title: _("Manage Section Order"),
+            title: _("Manage Sections"),
             width_request: 320,
             height_request: 450,
             transient_for: (Gtk.Window) Planify.instance.main_window

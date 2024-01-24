@@ -250,9 +250,6 @@ public class Services.CalDAV : GLib.Object {
             <x1:filter>
                 <x1:comp-filter name="VCALENDAR">
                     <x1:comp-filter name="VTODO">
-                        <x1:prop-filter name="completed">
-                            <x1:is-not-defined/>
-                        </x1:prop-filter>
                     </x1:comp-filter>
                 </x1:comp-filter>
             </x1:filter>
@@ -392,7 +389,7 @@ public class Services.CalDAV : GLib.Object {
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
             foreach (GXml.DomElement element in response) {
                 Objects.Item? item = Services.Database.get_default ().get_item (
-                    Util.get_default ().get_task_uid (element)
+                    Util.get_task_uid (element)
                 );
 
                 if (item != null) {
@@ -403,8 +400,14 @@ public class Services.CalDAV : GLib.Object {
                     item.update_from_caldav_xml (element);
                     Services.Database.get_default ().update_item (item);
 
+                    // TODO: Fix moved
                     if (old_parent_id != item.parent_id) {
                         Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
+                    }
+
+                    bool old_checked = item.checked;
+                    if (old_checked != item.checked) {
+                        Services.Database.get_default ().checked_toggled (item, old_checked);
                     }
                 } else {
                     add_item_if_not_exists (element, project);
@@ -416,7 +419,7 @@ public class Services.CalDAV : GLib.Object {
     }
 
     private void add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
-        string parent_id = Util.get_default ().get_related_to_uid (element);
+        string parent_id = Util.get_related_to_uid (element);
         if (parent_id != "") {
             Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
             if (parent_item != null) {
@@ -570,13 +573,10 @@ public class Services.CalDAV : GLib.Object {
 
         var ics = update ? item.ics : "%s.ics".printf (item.id);
 
-        print ("%s\n".printf (item.to_vtodo (update)));
-
         var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, ics);
-        print ("URL: %s\n".printf (url));
         var message = new Soup.Message ("PUT", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (credential));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (item.to_vtodo (update).data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (item.to_vtodo ().data));
 
         HttpResponse response = new HttpResponse ();
 
@@ -585,7 +585,7 @@ public class Services.CalDAV : GLib.Object {
 
             if (update ? message.status_code == 204 : message.status_code == 201) {
                 response.status = true;
-                item.extra_data = Util.get_default ().generate_extra_data (ics, "", item.to_vtodo (update));
+                item.extra_data = Util.generate_extra_data (ics, "", item.to_vtodo ());
             }
         } catch (Error e) {
 			debug (e.message);
@@ -615,6 +615,35 @@ public class Services.CalDAV : GLib.Object {
                 response.error_code = (int) message.status_code;
                 response.error = (string) stream.get_data ();
                 print ("Code: %d, Error: %s\n".printf (response.error_code, response.error));
+            }
+        } catch (Error e) {
+			debug (e.message);
+		}
+
+        return response;
+     }
+
+     public async HttpResponse complete_item (Objects.Item item) {
+        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        var credential = Services.Settings.get_default ().settings.get_string ("caldav-credential");
+
+        var ics = item.ics;
+        var body = item.to_vtodo ();
+
+        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, ics);
+        var message = new Soup.Message ("PUT", url);
+		message.request_headers.append ("Authorization", "Basic %s".printf (credential));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (body.data));
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            if (message.status_code == 204) {
+                response.status = true;
+                item.extra_data = Util.generate_extra_data (ics, "", body);
             }
         } catch (Error e) {
 			debug (e.message);

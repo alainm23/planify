@@ -34,8 +34,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private Gtk.Label count_label;
 	private Gtk.Revealer count_revealer;
 	private Gtk.Revealer placeholder_revealer;
-	private Gtk.Grid drop_widget;
-	private Gtk.Revealer drop_widget_revealer;
 
 	public bool is_inbox_section {
 		get {
@@ -420,10 +418,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				name_editable.show_edit = false;
 			}
         });
-	}
-
-	private void check_drop_widget () {
-		drop_widget_revealer.reveal_child = items.size <= 0;
 	}
 
 	private void show_completed_changed () {

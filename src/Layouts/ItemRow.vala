@@ -1113,19 +1113,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 item.checked = false;
                 item.completed_at = "";
 
-                if (item.project.backend_type == BackendType.TODOIST) {
-                    checked_button.sensitive = false;
-                    is_loading = true;
-                    Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                            Services.Database.get_default ().checked_toggled (item, old_checked);
-                            is_loading = false;
-                            checked_button.sensitive = true;
-                        }
-                    });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
-                }
+                _complete_item (old_checked);
             }
         }
     }
@@ -1158,26 +1146,37 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 item.completed_at = Util.get_default ().get_format_date (
                     new GLib.DateTime.now_local ()).to_string ();
                     
-                if (item.project.backend_type == BackendType.TODOIST) {
-                    checked_button.sensitive = false;
-                    is_loading = true;
-                    Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                            Services.Database.get_default ().checked_toggled (item, old_checked);
-                            is_loading = false;
-                            checked_button.sensitive = true;
-                        } else {
-                            is_loading = false;
-                            checked_button.sensitive = true;
-                        }
-                    });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
-                }   
+                _complete_item (old_checked);   
             }
             
             return GLib.Source.REMOVE;
         });
+    }
+
+    private void _complete_item (bool old_checked) {
+        if (item.project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().checked_toggled (item, old_checked);
+        } else if (item.project.backend_type == BackendType.TODOIST) {
+            checked_button.sensitive = false;
+            is_loading = true;
+            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.Todoist.get_default ().complete_item.end (res).status) {
+                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    is_loading = false;
+                    checked_button.sensitive = true;
+                }
+            });
+        } else if (item.project.backend_type == BackendType.CALDAV) {
+            checked_button.sensitive = false;
+            is_loading = true;
+            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    is_loading = false;
+                    checked_button.sensitive = true;
+                }
+            });
+        }
     }
 
     public void update_content (string content = "") {

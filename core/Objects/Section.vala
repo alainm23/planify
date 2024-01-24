@@ -29,6 +29,7 @@ public class Objects.Section : Objects.BaseObject {
     public bool is_archived { get; set; default = false; }
     public string color { get; set; default = ""; }
     public string description { get; set; default = ""; }
+    public bool hidded { get; set; default = false; }
 
     // Tmp
     public bool activate_name_editable { get; set; default = false; }
