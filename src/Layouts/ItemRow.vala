@@ -1361,7 +1361,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (item.project_id != project_id || item.section_id != section_id) {
-            if (item.project.backend_type == BackendType.TODOIST) {
+            if (item.project.backend_type == BackendType.LOCAL) {
+                move_item (project_id, section_id);
+            } else if (item.project.backend_type == BackendType.TODOIST) {
                 is_loading = true;
     
                 string move_id = project_id;
@@ -1376,11 +1378,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         move_item (project_id, section_id);
                         is_loading = false;
                     } else {
-                        main_revealer.reveal_child = true;
+                        is_loading = false;
                     }
                 });
-            } else if (item.project.backend_type == BackendType.LOCAL) {
-                move_item (project_id, section_id);
+            } else if (item.project.backend_type == BackendType.CALDAV) {
+                is_loading = true;
+
+                Services.CalDAV.get_default ().move_task.begin (item, project_id, (obj, res) => {
+                    if (Services.CalDAV.get_default ().move_task.end (res).status) {
+                        move_item (project_id, section_id);
+                        is_loading = false;
+                    } else {
+                        is_loading = false;
+                    }
+                });
             }
         }
     }

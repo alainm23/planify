@@ -348,16 +348,15 @@ public class Objects.Item : Objects.BaseObject {
             due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
 
-        string _parent_id = Util.find_string_value ("RELATED-TO", data);
-        if (_parent_id != "") {
-            parent_id = _parent_id;
-        }
+        parent_id = Util.find_string_value ("RELATED-TO", data);
 
         if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
             checked = true;
-            var completed_datetime = ical.get_first_property (ICal.PropertyKind.COMPLETED_PROPERTY);
-            if (completed_datetime != null) {
-                completed_at = Util.ical_to_date_time_local (completed_datetime.get_completed ()).to_string ();
+            string completed = Util.find_string_value ("COMPLETED", data);
+            if (completed != "") {
+                completed_at = Util.get_default ().get_format_date (
+                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                ).to_string ();
             } else {
                 completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
             }

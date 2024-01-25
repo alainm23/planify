@@ -25,6 +25,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     private Gtk.Label section_label;
     private Layouts.HeaderItem sections_group;
     private Gtk.Popover sections_popover;
+    private Gtk.Revealer section_box_revealer;
     
     public signal void project_change (Objects.Project project);
     public signal void section_change (Objects.Section? section);
@@ -61,16 +62,28 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         };
 
         sections_popover = build_sections_popover ();
+
+        var arrow_label = new Gtk.Label ("→"); 
+
         var section_button = new Gtk.MenuButton () {
             popover = sections_popover,
             child = section_label,
             css_classes = { Granite.STYLE_CLASS_FLAT }
         };
 
+        var section_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        section_box.append (arrow_label);
+        section_box.append (section_button);
+
+        section_box_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            reveal_child = true,
+			child = section_box
+		};
+
         var box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         box.append (project_button);
-        box.append (new Gtk.Label ("→"));
-        box.append (section_button);
+        box.append (section_box_revealer);
 
         child = box;
 
@@ -86,6 +99,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         name_label.label = project.is_inbox_project ? _("Inbox") : project.name;
         icon_project.project = project;
         icon_project.update_request ();
+        section_box_revealer.reveal_child = project.backend_type != BackendType.CALDAV;
     }
 
     private Gtk.Popover build_sections_popover () {

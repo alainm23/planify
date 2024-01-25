@@ -1293,15 +1293,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
 
 		var username_entry = new Adw.EntryRow ();
-		username_entry.text = "estratertux@gmail.com";
         username_entry.title = _("User Name");
 
 		var password_entry = new Adw.PasswordEntryRow ();
-		password_entry.text = "Estrater@200";
         password_entry.title = _("Password");
 
 		var server_entry = new Adw.EntryRow ();
-		server_entry.text = "https://evi.nl.tab.digital/";
         server_entry.title = _("Server URL");
 
 		var providers_model = new Gtk.StringList (null);

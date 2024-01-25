@@ -32,10 +32,16 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         };
         todoist_group.show_action = false;
 
+        var nextcloud_group = new Layouts.HeaderItem (_("Nextcloud")) {
+            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.CALDAV).size > 0
+        };
+        nextcloud_group.show_action = false;
+
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         scrolled_box.append (inbox_group);
         scrolled_box.append (local_group);
         scrolled_box.append (todoist_group);
+        scrolled_box.append (nextcloud_group);
 
         var listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -92,6 +98,8 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
                     local_group.add_child (row);
                 } else if (project.backend_type == BackendType.TODOIST) {
                     todoist_group.add_child (row);
+                } else if (project.backend_type == BackendType.CALDAV) {
+                    nextcloud_group.add_child (row);
                 }
             }
         }

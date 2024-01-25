@@ -333,7 +333,7 @@ public class Services.CalDAV : GLib.Object {
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
             foreach (GXml.DomElement element in response) {
-                if (is_calendar (element)) {
+                if (is_vtodo_calendar (element)) {
                     var project = new Objects.Project.from_caldav_xml (element);
                     Services.Database.get_default ().insert_project (project);
                     yield get_all_tasks_by_tasklist (project);
@@ -394,15 +394,19 @@ public class Services.CalDAV : GLib.Object {
 
                 if (item != null) {
                     string old_project_id = item.project_id;
-				    string old_section_id = item.section_id;
                     string old_parent_id = item.parent_id;
 
                     item.update_from_caldav_xml (element);
+                    item.project_id = project.id;
                     Services.Database.get_default ().update_item (item);
 
-                    // TODO: Fix moved
-                    if (old_parent_id != item.parent_id) {
-                        Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
+                    if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                        print ("old_project_id: %s\n".printf (old_project_id));
+                        print ("old_parent_id: %s\n".printf (old_parent_id));
+                        print ("project_id: %s\n".printf (item.project_id));
+                        print ("parent_id: %s\n".printf (item.parent_id));
+
+                        Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
                     }
 
                     bool old_checked = item.checked;
@@ -462,7 +466,7 @@ public class Services.CalDAV : GLib.Object {
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
             foreach (GXml.DomElement element in response) {
-                if (is_calendar (element)) {
+                if (is_vtodo_calendar (element)) {
                     Objects.Project? project = Services.Database.get_default ().get_project (get_id_from_url (element));
                     if (project == null) {
                         project = new Objects.Project.from_caldav_xml (element);
@@ -652,6 +656,33 @@ public class Services.CalDAV : GLib.Object {
         return response;
      }
 
+     public async HttpResponse move_task (Objects.Item item, string project_id) {
+        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        var credential = Services.Settings.get_default ().settings.get_string ("caldav-credential");
+
+        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, item.ics);
+        var destination = "/remote.php/dav/calendars/%s/%s/%s".printf (username, project_id, item.ics);
+
+        var message = new Soup.Message ("MOVE", url);
+		message.request_headers.append ("Authorization", "Basic %s".printf (credential));
+        message.request_headers.append ("Destination", destination);
+
+        HttpResponse response = new HttpResponse ();
+
+        try {
+			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            if (message.status_code == 201) {
+                response.status = true;
+            }
+        } catch (Error e) {
+			debug (e.message);
+		}
+
+        return response;
+     }
+
      public void remove_items () {
 		Services.Settings.get_default ().settings.set_string ("caldav-server-url", "");
 		Services.Settings.get_default ().settings.set_string ("caldav-username", "");
@@ -699,11 +730,20 @@ public class Services.CalDAV : GLib.Object {
         return server_url != "" && username != "" && credential != "";
     }
 
-    public bool is_calendar (GXml.DomElement element) {
+    public bool is_vtodo_calendar (GXml.DomElement element) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
-        return resourcetype.get_elements_by_tag_name ("cal:calendar").length > 0;
+
+        bool is_calendar = resourcetype.get_elements_by_tag_name ("cal:calendar").length > 0;
+        bool is_vtodo = false;
+        if (is_calendar) {
+            GXml.DomElement supported_calendar = prop.get_elements_by_tag_name ("cal:supported-calendar-component-set").get_element (0);
+            GXml.DomElement calendar_comp = supported_calendar.get_elements_by_tag_name ("cal:comp").get_element (0);
+            is_vtodo = calendar_comp.get_attribute ("name") == "VTODO";
+        }
+
+        return is_vtodo;
     }
 
     public bool is_deleted_calendar (GXml.DomElement element) {

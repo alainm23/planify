@@ -29,6 +29,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     private Layouts.HeaderItem inbox_group;
     private Layouts.HeaderItem local_group;
     private Layouts.HeaderItem todoist_group;
+    private Layouts.HeaderItem caldav_group;
 
     public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> projects_hashmap;
 
@@ -126,6 +127,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         search_entry.search_changed.connect (() => {
             local_group.invalidate_filter ();
             todoist_group.invalidate_filter ();
+            caldav_group.invalidate_filter ();
         });
 
         Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
@@ -164,10 +166,14 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         todoist_group = new Layouts.HeaderItem (_("Todoist"));
         todoist_group.show_action = false;
 
+        caldav_group = new Layouts.HeaderItem (_("Nextcloud"));
+        caldav_group.show_action = false;
+
         if (backend_type == BackendType.ALL) {
             inbox_group.reveal = true;
             local_group.reveal = true;
             todoist_group.reveal = true;
+            caldav_group.reveal = true;
         } else if (backend_type == BackendType.LOCAL) {
             inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 0;
             local_group.reveal = true;
@@ -176,10 +182,16 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1;
             local_group.reveal = false;
             todoist_group.reveal = true;
+        } else if (backend_type == BackendType.CALDAV) {
+            inbox_group.reveal = false;
+            local_group.reveal = false;
+            todoist_group.reveal = false;
+            caldav_group.reveal = true;
         }
 
         local_group.set_filter_func (filter_func);
         todoist_group.set_filter_func (filter_func);
+        caldav_group.set_filter_func (filter_func);
         
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
@@ -188,6 +200,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         scrolled_box.append (inbox_group);
         scrolled_box.append (local_group);
         scrolled_box.append (todoist_group);
+        scrolled_box.append (caldav_group);
 
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -234,15 +247,17 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
 
     private void add_projects () {
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
-            projects_hashmap [project.id_string] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
+            projects_hashmap [project.id] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
             
             if (project.is_inbox_project) {
-                inbox_group.add_child (projects_hashmap [project.id_string]);
+                inbox_group.add_child (projects_hashmap [project.id]);
             } else {
                 if (project.backend_type == BackendType.LOCAL) {
-                    local_group.add_child (projects_hashmap [project.id_string]);
+                    local_group.add_child (projects_hashmap [project.id]);
                 } else if (project.backend_type == BackendType.TODOIST) {
-                    todoist_group.add_child (projects_hashmap [project.id_string]);
+                    todoist_group.add_child (projects_hashmap [project.id]);
+                } else if (project.backend_type == BackendType.CALDAV) {
+                    caldav_group.add_child (projects_hashmap [project.id]);
                 }
             }
         }

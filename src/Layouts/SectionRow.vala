@@ -271,65 +271,65 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			if (item.project_id == section.project_id && item.section_id == section.id &&
 			    item.parent_id == "") {
 				if (!old_checked) {
-					if (items.has_key (item.id_string)) {
-						items [item.id_string].hide_destroy ();
-						items.unset (item.id_string);
+					if (items.has_key (item.id)) {
+						items [item.id].hide_destroy ();
+						items.unset (item.id);
 					}
 
-					if (!items_checked.has_key (item.id_string)) {
-						items_checked [item.id_string] = new Layouts.ItemRow (item);
-						checked_listbox.insert (items_checked [item.id_string], 0);
+					if (!items_checked.has_key (item.id)) {
+						items_checked [item.id] = new Layouts.ItemRow (item);
+						checked_listbox.insert (items_checked [item.id], 0);
 					}
 				} else {
-					if (items_checked.has_key (item.id_string)) {
-						items_checked [item.id_string].hide_destroy ();
-						items_checked.unset (item.id_string);
+					if (items_checked.has_key (item.id)) {
+						items_checked [item.id].hide_destroy ();
+						items_checked.unset (item.id);
 					}
 
-					if (!items.has_key (item.id_string)) {
-						items [item.id_string] = new Layouts.ItemRow (item);
-						listbox.append (items [item.id_string]);
+					if (!items.has_key (item.id)) {
+						items [item.id] = new Layouts.ItemRow (item);
+						listbox.append (items [item.id]);
 					}
 				}
 			}
 		});
 
 		Services.Database.get_default ().item_updated.connect ((item, update_id) => {
-			if (items.has_key (item.id_string)) {
-				if (items [item.id_string].update_id != update_id) {
-					items [item.id_string].update_request ();
+			if (items.has_key (item.id)) {
+				if (items [item.id].update_id != update_id) {
+					items [item.id].update_request ();
 					update_sort ();
 				}
 			}
 
-			if (items_checked.has_key (item.id_string)) {
-				items_checked [item.id_string].update_request ();
+			if (items_checked.has_key (item.id)) {
+				items_checked [item.id].update_request ();
 			}
 		});
 
 		Services.Database.get_default ().item_deleted.connect ((item) => {
-			if (items.has_key (item.id_string)) {
-				items [item.id_string].hide_destroy ();
-				items.unset (item.id_string);
+			if (items.has_key (item.id)) {
+				items [item.id].hide_destroy ();
+				items.unset (item.id);
 			}
 
-			if (items_checked.has_key (item.id_string)) {
-				items_checked [item.id_string].hide_destroy ();
-				items_checked.unset (item.id_string);
+			if (items_checked.has_key (item.id)) {
+				items_checked [item.id].hide_destroy ();
+				items_checked.unset (item.id);
 			}
 		});
 
 		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
 			if (old_project_id == section.project_id &&
 				old_section_id == section.id) {
-				if (items.has_key (item.id_string)) {
-					items [item.id_string].hide_destroy ();
-					items.unset (item.id_string);
+				if (items.has_key (item.id)) {
+					items [item.id].hide_destroy ();
+					items.unset (item.id);
 				}
 
-				if (items_checked.has_key (item.id_string)) {
-					items_checked [item.id_string].hide_destroy ();
-					items_checked.unset (item.id_string);
+				if (items_checked.has_key (item.id)) {
+					items_checked [item.id].hide_destroy ();
+					items_checked.unset (item.id);
 				}
 			}
 
@@ -448,9 +448,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public void add_complete_item (Objects.Item item) {
 		if (section.project.show_completed && item.checked) {
-			if (!items_checked.has_key (item.id_string)) {
-				items_checked [item.id_string] = new Layouts.ItemRow (item);
-				checked_listbox.append (items_checked [item.id_string]);
+			if (!items_checked.has_key (item.id)) {
+				items_checked [item.id] = new Layouts.ItemRow (item);
+				checked_listbox.append (items_checked [item.id]);
 			}
 		}
 	}
@@ -479,13 +479,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	public void add_item (Objects.Item item) {
-		if (!item.checked && !items.has_key (item.id_string)) {
-			items [item.id_string] = new Layouts.ItemRow (item);
+		if (!item.checked && !items.has_key (item.id)) {
+			items [item.id] = new Layouts.ItemRow (item);
 
 			if (item.custom_order) {
-				listbox.insert (items [item.id_string], item.child_order);
+				listbox.insert (items [item.id], item.child_order);
 			} else {
-				listbox.append (items [item.id_string]);
+				listbox.append (items [item.id]);
 			}
 		}
 	}
