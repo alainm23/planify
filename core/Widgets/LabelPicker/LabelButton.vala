@@ -20,8 +20,6 @@
 */
 
 public class Widgets.LabelPicker.LabelButton : Adw.Bin {
-    public BackendType backend_type { get; construct; }
-
     private Gtk.MenuButton button; 
     private Widgets.LabelPicker.LabelPicker labels_picker;
 
@@ -31,11 +29,22 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         }
     }
 
+    BackendType _backend_type;
+    public BackendType backend_type {
+        set {
+            _backend_type = value;
+            labels_picker.backend_type = _backend_type;
+        }
+
+        get {
+            return _backend_type;
+        }
+    }
+
     public signal void labels_changed (Gee.HashMap<string, Objects.Label> labels);
 
-    public LabelButton (BackendType backend_type = BackendType.ALL) {
+    public LabelButton () {
         Object (
-            backend_type: backend_type,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add label(s)")
@@ -43,7 +52,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
     }
 
     construct {
-        labels_picker = new Widgets.LabelPicker.LabelPicker (backend_type);
+        labels_picker = new Widgets.LabelPicker.LabelPicker ();
 
         button = new Gtk.MenuButton () {
             child = new Widgets.DynamicIcon.from_icon_name ("planner-tag"),

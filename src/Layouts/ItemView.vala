@@ -114,7 +114,8 @@ public class Layouts.ItemViewContent : Adw.Bin {
         pin_button = new Widgets.PinButton (item);
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
+        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.backend_type = item.project.backend_type;
         label_button.labels = item._get_labels ();
         reminder_button = new Widgets.ReminderButton (item);
 

@@ -22,13 +22,16 @@
 public class Views.Labels : Adw.Bin {
     private Layouts.HeaderItem labels_local_header;
     private Layouts.HeaderItem labels_todoist_header;
+    private Layouts.HeaderItem labels_caldav_header;
 
     public Gee.HashMap <string, Layouts.LabelRow> labels_local_map;
     public Gee.HashMap <string, Layouts.LabelRow> labels_todoist_map;
+    public Gee.HashMap <string, Layouts.LabelRow> labels_caldav_map;
 
     construct {
         labels_local_map = new Gee.HashMap <string, Layouts.LabelRow> ();
         labels_todoist_map = new Gee.HashMap <string, Layouts.LabelRow> ();
+        labels_caldav_map = new Gee.HashMap <string, Layouts.LabelRow> ();
 
         var headerbar = new Layouts.HeaderBar ();
         headerbar.title = _("Labels");
@@ -45,6 +48,12 @@ public class Views.Labels : Adw.Bin {
         labels_todoist_header.show_separator = true;
         labels_todoist_header.set_sort_func (sort_func);
 
+        labels_caldav_header = new Layouts.HeaderItem (_("Labels: Nextcloud"));
+        labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        labels_caldav_header.card = false;
+        labels_caldav_header.show_separator = true;
+        labels_caldav_header.set_sort_func (sort_func);
+
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
@@ -52,6 +61,7 @@ public class Views.Labels : Adw.Bin {
 
         content.append (labels_local_header);
         content.append (labels_todoist_header);
+        content.append (labels_caldav_header);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
@@ -81,6 +91,7 @@ public class Views.Labels : Adw.Bin {
         Timeout.add (225, () => {
             labels_local_header.set_sort_func (null);
             labels_todoist_header.set_sort_func (null);
+            labels_caldav_header.set_sort_func (null);
             return GLib.Source.REMOVE;
         });
 
@@ -116,6 +127,22 @@ public class Views.Labels : Adw.Bin {
             dialog.show ();
         });
 
+        var add_caldav_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            can_focus = false,
+            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+            },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+        };
+
+        labels_caldav_header.add_widget_end (add_caldav_button);
+        add_caldav_button.clicked.connect (() => {
+            var dialog = new Dialogs.Label.new (BackendType.CALDAV);
+            dialog.show ();
+        });
+
         labels_local_header.row_activated.connect ((row) => {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
         });
@@ -147,6 +174,14 @@ public class Views.Labels : Adw.Bin {
         Services.Todoist.get_default ().log_out.connect (() => {
             labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         });
+
+        Services.CalDAV.get_default ().log_in.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        });
+
+        Services.CalDAV.get_default ().log_out.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        });
     }
 
     private void add_labels () {
@@ -167,12 +202,15 @@ public class Views.Labels : Adw.Bin {
                 labels_local_map[label.id] = new Layouts.LabelRow (label); 
                 labels_local_header.add_child (labels_local_map[label.id]);
             }
-        }
-        
-        if (label.backend_type == BackendType.TODOIST) {
+        } else if (label.backend_type == BackendType.TODOIST) {
             if (!labels_todoist_map.has_key (label.id)) {
                 labels_todoist_map[label.id] = new Layouts.LabelRow (label); 
                 labels_todoist_header.add_child (labels_todoist_map[label.id]);
+            }
+        } else if (label.backend_type == BackendType.CALDAV) {
+            if (!labels_caldav_map.has_key (label.id)) {
+                labels_caldav_map[label.id] = new Layouts.LabelRow (label); 
+                labels_caldav_header.add_child (labels_caldav_map[label.id]);
             }
         }
     }

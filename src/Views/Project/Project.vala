@@ -61,12 +61,10 @@ public class Views.Project : Gtk.Grid {
 			valign = START,
         };
 
-		var view_setting_popover = build_view_setting_popover ();
-
 		var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			popover = view_setting_popover,
+			popover = build_view_setting_popover (),
 			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
 			css_classes = { "flat" },
 			tooltip_text = _("View option menu")
@@ -116,7 +114,7 @@ public class Views.Project : Gtk.Grid {
 		toolbar_view.content = content_overlay;
 
 		attach (toolbar_view, 0, 0);
-		update_project_view (project.view_style);
+		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
 		check_default_view ();
 		show ();
 
@@ -218,7 +216,7 @@ public class Views.Project : Gtk.Grid {
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
 		add_section_item.secondary_text = "S";
-		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "ordered-list");
+		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "ordered-list");
 		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
@@ -235,9 +233,12 @@ public class Views.Project : Gtk.Grid {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
 
-		menu_box.append (add_section_item);
-		menu_box.append (manage_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.TODOIST) {
+			menu_box.append (add_section_item);
+			menu_box.append (manage_sections);
+			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		}
+
 		menu_box.append (select_item);
 		menu_box.append (paste_item);
 		menu_box.append (show_completed_item);
@@ -296,7 +297,7 @@ public class Views.Project : Gtk.Grid {
 			prepare_new_section ();
 		});
 
-		manage_item.clicked.connect (() => {
+		manage_sections.clicked.connect (() => {
 			popover.popdown ();
 			var dialog = new Dialogs.ManageSectionOrder (project);
 			dialog.show ();
@@ -390,7 +391,8 @@ public class Views.Project : Gtk.Grid {
 			hexpand = true,
 			homogeneous = true,
 			margin_start = 3,
-			margin_end = 3
+			margin_end = 3,
+			margin_bottom = 12
 		};
 
 		view_box.append (list_button);
@@ -403,9 +405,7 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model) {
-			margin_top = 12
-		};
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model);
 		order_by_item.selected = project.sort_order;
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
@@ -415,7 +415,11 @@ public class Views.Project : Gtk.Grid {
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (view_box);
+
+		if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.TODOIST) {
+			menu_box.append (view_box);
+		}
+
 		menu_box.append (order_by_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
@@ -460,6 +464,10 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	public void prepare_new_section () {
+		if (project.backend_type == BackendType.CALDAV) {
+			return;
+		}
+
 		var dialog = new Dialogs.Section.new (project);
 		dialog.show ();
 	}

@@ -137,6 +137,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Item> _all_items;
+    public Gee.ArrayList<Objects.Item> all_items {
+        get {
+            _all_items = Services.Database.get_default ().get_items_by_project (this);
+            return _all_items;
+        }
+    }
+
     Gee.ArrayList<Objects.Item> _items_checked;
     public Gee.ArrayList<Objects.Item> items_checked {
         get {

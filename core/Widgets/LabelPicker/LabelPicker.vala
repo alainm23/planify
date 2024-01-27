@@ -20,8 +20,6 @@
 */
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
-    public BackendType backend_type { get; construct; }
-
     private Gtk.SearchEntry search_entry;
     private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
@@ -46,9 +44,20 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-    public LabelPicker (BackendType backend_type = BackendType.ALL) {
+    BackendType _backend_type;
+    public BackendType backend_type {
+        set {
+            _backend_type = value;
+            add_all_labels (_backend_type);
+        }
+
+        get {
+            return _backend_type;
+        }
+    }
+
+    public LabelPicker () {
         Object (
-            backend_type: backend_type,
             has_arrow: false,
             position: Gtk.PositionType.TOP,
             width_request: 275,
@@ -100,7 +109,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 		toolbar_view.content = listbox_scrolled;
 
         child = toolbar_view;
-        add_all_labels ();
 
         var controller_key = new Gtk.EventControllerKey ();
         toolbar_view.add_controller (controller_key);
@@ -182,7 +190,13 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-    private void add_all_labels () {
+    private void add_all_labels (BackendType backend_type) {
+        labels_widgets_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
+
         foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_backend_type (backend_type)) {
             add_label (label);
         }

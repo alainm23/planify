@@ -36,6 +36,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private Gtk.Stack progress_emoji_stack;
     private Gtk.Label due_label;
     private Gtk.Stack menu_stack;
+    private Gtk.Revealer loading_revealer;
 
     public Gtk.Box main_content;
     public Gtk.Revealer main_revealer;
@@ -63,6 +64,16 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         get {
             return main_revealer.reveal_child;
+        }
+    }
+
+    public bool is_loading {
+        set {
+            loading_revealer.reveal_child = value;
+        }
+
+        get {
+            return loading_revealer.reveal_child;
         }
     }
 
@@ -149,6 +160,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         end_box.append (menu_stack);
         end_box.append (arrow_revealer);
 
+        var loading_spinner = new Gtk.Spinner () {
+            valign = Gtk.Align.CENTER,
+            halign = Gtk.Align.CENTER,
+            spinning = true
+        };
+
+        loading_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = loading_spinner
+        };
+
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 6,
             margin_top = 3,
@@ -159,6 +181,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         projectrow_box.append (icon_project);
         projectrow_box.append (name_label);
         projectrow_box.append (end_box);
+        projectrow_box.append (loading_revealer);
 
         handle_grid = new Adw.Bin () {
             css_classes = { "transition", "drop-target" },
@@ -491,6 +514,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "planner-star");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
+        var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "planner-refresh");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
 
@@ -501,6 +525,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
         menu_box.append (edit_item);
+        if (project.backend_type == BackendType.CALDAV) {
+            menu_box.append (refresh_item);
+        }
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
@@ -536,6 +563,16 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             var dialog = new Dialogs.Project (project);
             dialog.show ();
+        });
+
+        refresh_item.clicked.connect (() => {
+            menu_popover.popdown ();
+
+            is_loading = true;
+            Services.CalDAV.get_default ().refresh_tasklist.begin (project, (obj, res) => {
+                HttpResponse response = Services.CalDAV.get_default ().refresh_tasklist.end (res);
+                is_loading = false;
+            });
         });
 
         delete_item.clicked.connect (() => {

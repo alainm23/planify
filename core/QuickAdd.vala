@@ -86,7 +86,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         pin_button = new Widgets.PinButton (item);
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
-        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
+        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 3,
@@ -233,6 +234,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         project_picker_button.project_change.connect ((project) => {
             item.project_id = project.id;
+            label_button.backend_type = project.backend_type;
 
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
@@ -373,6 +375,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     private void reset_item () {
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        label_button.backend_type = item.project.backend_type;
     }
 
     public void update_content (string content = "") {
@@ -420,6 +423,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     public void for_project (Objects.Project project) {
         item.project_id = project.id;
         project_picker_button.project = project;
+        label_button.backend_type = project.backend_type;
     }
 
     public void for_section (Objects.Section section) {
@@ -428,6 +432,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         project_picker_button.project = section.project;
         project_picker_button.section = section;
+        label_button.backend_type = section.project.backend_type;
     }
 
     public void for_parent (Objects.Item _item) {
@@ -436,6 +441,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.parent_id = _item.id;
 
         project_picker_button.project = _item.project;
+        label_button.backend_type = _item.project.backend_type;
     }
 
     public void set_index (int index) {

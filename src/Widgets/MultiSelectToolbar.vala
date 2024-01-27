@@ -53,9 +53,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         };
         schedule_button.visible_no_date = true;
 
-        label_button = new Widgets.LabelPicker.LabelButton (project.backend_type) {
+        label_button = new Widgets.LabelPicker.LabelButton () {
             sensitive = false
         };
+        label_button.backend_type = project.backend_type;
 
         priority_button = new Widgets.PriorityButton () {
             sensitive = false

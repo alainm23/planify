@@ -289,6 +289,41 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public void update_from_json (Json.Node node) {
+        project_id = node.get_object ().get_string_member ("project_id");
+        content = node.get_object ().get_string_member ("content");
+        description = node.get_object ().get_string_member ("description");
+        checked = node.get_object ().get_boolean_member ("checked");
+        priority = (int32) node.get_object ().get_int_member ("priority");
+        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
+        added_at = node.get_object ().get_string_member ("added_at");
+        check_labels (get_labels_maps_from_json (node));
+
+        if (!node.get_object ().get_null_member ("section_id")) {
+            section_id = node.get_object ().get_string_member ("section_id");
+        } else {
+            section_id = "";
+        }
+
+        if (!node.get_object ().get_null_member ("parent_id")) {
+            parent_id = node.get_object ().get_string_member ("parent_id");
+        } else {
+            parent_id = "";
+        }
+
+        if (!node.get_object ().get_null_member ("completed_at")) {
+            completed_at = node.get_object ().get_string_member ("completed_at");
+        } else {
+            completed_at = "";
+        }
+
+        if (!node.get_object ().get_null_member ("due")) {
+            due.update_from_json (node.get_object ().get_object_member ("due"));
+        } else {
+            due.reset ();
+        }
+    }
+
     public Item.from_import_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         content = node.get_object ().get_string_member ("content");
@@ -311,7 +346,63 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public Item.from_caldav_xml (GXml.DomElement element) {
-        update_from_caldav_xml (element);
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        ICal.Component ical = new ICal.Component.from_string (data);
+
+        id = ical.get_uid ();
+        content = ical.get_summary ();
+
+        if (ical.get_description () != null) {
+            description = ical.get_description ();
+        }
+
+        if (Util.find_string_value ("PRIORITY", data) != "") {
+            int _priority = int.parse (Util.find_string_value ("PRIORITY", data));
+            if (_priority <= 0) {
+                priority = Constants.PRIORITY_4;
+            } else if (_priority >= 1 && _priority <= 4) {
+                priority = Constants.PRIORITY_1;
+            } else if (_priority == 5) {
+                priority = Constants.PRIORITY_2;
+            } else if (_priority > 5 && _priority <= 9) {
+                priority = Constants.PRIORITY_3;
+            } else {
+                priority = Constants.PRIORITY_4;
+            }
+        }
+
+        if (!ical.get_due ().is_null_time ()) {
+            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+        }
+
+        parent_id = Util.find_string_value ("RELATED-TO", data);
+
+        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
+            checked = true;
+            string completed = Util.find_string_value ("COMPLETED", data);
+            if (completed != "") {
+                completed_at = Util.get_default ().get_format_date (
+                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                ).to_string ();
+            } else {
+                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+            }
+        } else {
+            checked = false;
+            completed_at = "";
+        }
+
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        if (categories != "") {
+            labels = get_caldav_categories (categories);
+        }
+
+        pinned = Util.find_boolean_value ("X-PINNED", data);
+        extra_data = Util.generate_extra_data (Util.get_task_id_from_url (element), etag, ical.as_ical_string ());
     }
 
     public void update_from_caldav_xml (GXml.DomElement element) {
@@ -365,43 +456,27 @@ public class Objects.Item : Objects.BaseObject {
             completed_at = "";
         }
 
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        check_labels (get_labels_maps_from_caldav (categories));
+
         pinned = Util.find_boolean_value ("X-PINNED", data);
         extra_data = Util.generate_extra_data (Util.get_task_id_from_url (element), etag, ical.as_ical_string ());
     }
 
-    public void update_from_json (Json.Node node) {
-        project_id = node.get_object ().get_string_member ("project_id");
-        content = node.get_object ().get_string_member ("content");
-        description = node.get_object ().get_string_member ("description");
-        checked = node.get_object ().get_boolean_member ("checked");
-        priority = (int32) node.get_object ().get_int_member ("priority");
-        is_deleted = node.get_object ().get_boolean_member ("is_deleted");
-        added_at = node.get_object ().get_string_member ("added_at");
-        check_labels (get_labels_maps_from_json (node));
+    private Gee.ArrayList<Objects.Label> get_caldav_categories (string categories) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
-        if (!node.get_object ().get_null_member ("section_id")) {
-            section_id = node.get_object ().get_string_member ("section_id");
-        } else {
-            section_id = "";
+        //  string _categories = categories.replace ("\\,", ";");
+        string[] categories_list = categories.split (",");
+        foreach (unowned string category in categories_list) {
+            //  string category = str.replace (";", ",");
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+            if (label != null) {
+                return_value.add (label);
+            }
         }
 
-        if (!node.get_object ().get_null_member ("parent_id")) {
-            parent_id = node.get_object ().get_string_member ("parent_id");
-        } else {
-            parent_id = "";
-        }
-
-        if (!node.get_object ().get_null_member ("completed_at")) {
-            completed_at = node.get_object ().get_string_member ("completed_at");
-        } else {
-            completed_at = "";
-        }
-
-        if (!node.get_object ().get_null_member ("due")) {
-            due.update_from_json (node.get_object ().get_object_member ("due"));
-        } else {
-            due.reset ();
-        }
+        return return_value;
     }
 
     public void check_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -431,8 +506,22 @@ public class Objects.Item : Objects.BaseObject {
         Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
             Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.backend_type);
-            return_value [label.id_string] = label;
+            return_value [label.id] = label;
         }
+        return return_value;
+    }
+
+    public Gee.HashMap<string, Objects.Label> get_labels_maps_from_caldav (string categories) {
+        Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
+
+        string[] categories_list = categories.split (",");
+        foreach (unowned string category in categories_list) {
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+            if (label != null) {
+                return_value [label.id] = label;
+            }
+        }
+
         return return_value;
     }
 
@@ -904,6 +993,10 @@ public class Objects.Item : Objects.BaseObject {
             ical.set_due (new_icaltime);
         }
 
+        if (parent_id != "") {
+            ical.add_property (new ICal.Property.relatedto (parent_id));
+        }
+ 
         if (checked) {
             ical.set_status (ICal.PropertyStatus.COMPLETED);
             ical.add_property (new ICal.Property.percentcomplete (100));
@@ -926,7 +1019,13 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         ical.add_property (new ICal.Property.priority (_priority));
+
+        if (labels.size > 0) {
+            ical.add_property (new ICal.Property.categories (get_labels_names (labels)));
+        }
         
+        stdout.printf ("%s\n", ical.as_ical_string ());
+
         return "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
             ical.as_ical_string (),
@@ -1037,5 +1136,19 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         }
+    }
+
+    public string get_labels_names (Gee.ArrayList<Objects.Label> labels) {
+        string return_value = "";
+            
+        foreach (Objects.Label label in labels) {
+            return_value += label.name.replace (",", "\\,") + ",";
+        }
+
+        if (return_value.length > 0) {
+            return_value = return_value.substring (0, return_value.length - 1);
+        }
+
+        return return_value;
     }
 }

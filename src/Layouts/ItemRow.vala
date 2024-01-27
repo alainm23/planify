@@ -359,7 +359,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         schedule_button = new Widgets.ScheduleButton ();
         priority_button = new Widgets.PriorityButton ();
         
-        label_button = new Widgets.LabelPicker.LabelButton (item.project.backend_type);
+        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.backend_type = item.project.backend_type;
         label_button.labels = item._get_labels ();
 
         pin_button = new Widgets.PinButton (item);
@@ -1530,7 +1531,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             picked_item.section_id = "";
             picked_item.parent_id = target_item.id;
 
-            if (picked_item.project.backend_type == BackendType.TODOIST) {
+            if (picked_item.project.backend_type == BackendType.LOCAL) {
+                target_item.collapsed = true;
+                Services.Database.get_default ().update_item (picked_item);
+                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+            } else if (picked_item.project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
                         target_item.collapsed = true;
@@ -1538,10 +1543,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
-            } else if (picked_item.project.backend_type == BackendType.LOCAL) {
-                target_item.collapsed = true;
-                Services.Database.get_default ().update_item (picked_item);
-                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+            } else if (picked_item.project.backend_type == BackendType.CALDAV) {
+                Services.CalDAV.get_default ().add_task.begin (picked_item, true, (obj, res) => {
+                    if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                        target_item.collapsed = true;
+                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                    }
+                });
             }
 
             return true;
@@ -1621,7 +1630,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     picked_widget.item.parent_id = target_widget.item.parent_id;
                 }
 
-                if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+                if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().update_item (picked_widget.item);
+                } else if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
                     string move_id = picked_widget.item.project_id;
                     string move_type = "project_id";
 
@@ -1640,8 +1651,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                             Services.Database.get_default ().update_item (picked_widget.item);
                         }
                     });
-                } else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().update_item (picked_widget.item);
+                } else if (picked_widget.item.project.backend_type == BackendType.CALDAV) {
+                    Services.CalDAV.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
+                        if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                            Services.Database.get_default ().update_item (picked_widget.item);
+                        }
+                    });
                 }
             }
 

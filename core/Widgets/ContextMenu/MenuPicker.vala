@@ -94,7 +94,9 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         button.add_css_class (Granite.STYLE_CLASS_FLAT);
         button.add_css_class ("transition");
 
-        listbox = new Gtk.ListBox ();
+        listbox = new Gtk.ListBox () {
+            css_classes = { "listbox-background" }
+        };
 
         var listbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,

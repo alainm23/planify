@@ -363,15 +363,53 @@ public class Services.CalDAV : GLib.Object {
             
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
+            
+            // Categories
+            Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
             foreach (GXml.DomElement element in response) {
-                add_item_if_not_exists (element, project);
+                setup_categories (element, labels_map);
+            }
+
+            foreach (string category in labels_map.values) {
+                var label = new Objects.Label ();
+                label.id = Util.get_default ().generate_id (label);
+                label.name = category;
+                label.color = Util.get_default ().get_random_color ();
+                label.backend_type = BackendType.CALDAV;
+                Services.Database.get_default ().insert_label (label);
+            }
+
+            foreach (GXml.DomElement element in response) {
+                var item = add_item_if_not_exists (element, project);
             }
         } catch (Error e) {
 			debug (e.message);
 		}
     }
 
-    public async void update_all_tasks_by_tasklist (Objects.Project project) {
+    private void setup_categories (GXml.DomElement element, Gee.HashMap<string, string> labels_map) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        ICal.Component ical = new ICal.Component.from_string (data);
+
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        if (categories != "") {
+            string _categories = categories.replace ("\\,", ";");
+            string[] categories_list = _categories.split (",");
+            foreach (unowned string str in categories_list) {
+                string category = str.replace (";", ",");
+
+                if (!labels_map.has_key (category)) {
+                    labels_map.set (category, category);
+                }
+            }
+        }
+    }
+
+    public async void update_all_tasks_by_tasklist (Objects.Project project, Gee.HashMap<string, string> labels_map) {
         var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
         var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
         var credential = Services.Settings.get_default ().settings.get_string ("caldav-credential");
@@ -387,12 +425,32 @@ public class Services.CalDAV : GLib.Object {
             
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
+
+            foreach (GXml.DomElement element in response) {
+                setup_categories (element, labels_map);
+            }
+
+            foreach (string category in labels_map.values) {
+                var label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+                if (label == null) {
+                    label = new Objects.Label ();
+                    label.id = Util.get_default ().generate_id (label);
+                    label.name = category;
+                    label.color = Util.get_default ().get_random_color ();
+                    label.backend_type = BackendType.CALDAV;
+                    Services.Database.get_default ().insert_label (label);
+                }
+            }
+
+            Gee.HashMap <string, Objects.Item> items_map = new Gee.HashMap <string, Objects.Item> ();
             foreach (GXml.DomElement element in response) {
                 Objects.Item? item = Services.Database.get_default ().get_item (
                     Util.get_task_uid (element)
                 );
 
                 if (item != null) {
+                    items_map.set (item.id, item);
+
                     string old_project_id = item.project_id;
                     string old_parent_id = item.parent_id;
 
@@ -401,11 +459,6 @@ public class Services.CalDAV : GLib.Object {
                     Services.Database.get_default ().update_item (item);
 
                     if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                        print ("old_project_id: %s\n".printf (old_project_id));
-                        print ("old_parent_id: %s\n".printf (old_parent_id));
-                        print ("project_id: %s\n".printf (item.project_id));
-                        print ("parent_id: %s\n".printf (item.parent_id));
-
                         Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
                     }
 
@@ -414,7 +467,14 @@ public class Services.CalDAV : GLib.Object {
                         Services.Database.get_default ().checked_toggled (item, old_checked);
                     }
                 } else {
-                    add_item_if_not_exists (element, project);
+                    item = add_item_if_not_exists (element, project);
+                    items_map.set (item.id, item);
+                }
+            }
+
+            foreach (Objects.Item item in project.all_items) {
+                if (!items_map.has_key (item.id)) {
+                    Services.Database.get_default ().delete_item (item);
                 }
             }
         } catch (Error e) {
@@ -422,24 +482,28 @@ public class Services.CalDAV : GLib.Object {
 		}
     }
 
-    private void add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
+    private Objects.Item add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
+        Objects.Item return_value;
+
         string parent_id = Util.get_related_to_uid (element);
         if (parent_id != "") {
             Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
             if (parent_item != null) {
-                var item = new Objects.Item.from_caldav_xml (element);
-                item.project_id = project.id;
-                parent_item.add_item_if_not_exists (item);
+                return_value = new Objects.Item.from_caldav_xml (element);
+                return_value.project_id = project.id;
+                parent_item.add_item_if_not_exists (return_value);
             } else {
-                var item = new Objects.Item.from_caldav_xml (element);
-                item.project_id = project.id;
-                project.add_item_if_not_exists (item);
+                return_value = new Objects.Item.from_caldav_xml (element);
+                return_value.project_id = project.id;
+                project.add_item_if_not_exists (return_value);
             }
         } else {
-            var item = new Objects.Item.from_caldav_xml (element);
-            item.project_id = project.id;
-            project.add_item_if_not_exists (item);
+            return_value = new Objects.Item.from_caldav_xml (element);
+            return_value.project_id = project.id;
+            project.add_item_if_not_exists (return_value);
         }
+
+        return return_value;
 	}
 
     public void sync_async () {
@@ -465,6 +529,10 @@ public class Services.CalDAV : GLib.Object {
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
+
+            // Categories
+            Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
+ 
             foreach (GXml.DomElement element in response) {
                 if (is_vtodo_calendar (element)) {
                     Objects.Project? project = Services.Database.get_default ().get_project (get_id_from_url (element));
@@ -475,7 +543,7 @@ public class Services.CalDAV : GLib.Object {
                     } else {
                         project.update_from_xml (element);
                         Services.Database.get_default ().update_project (project);
-                        yield update_all_tasks_by_tasklist (project);
+                        yield update_all_tasks_by_tasklist (project, labels_map);
                     }
                 } else if (is_deleted_calendar (element)) {
                     Objects.Project? project = Services.Database.get_default ().get_project (get_id_from_url (element));
@@ -485,10 +553,36 @@ public class Services.CalDAV : GLib.Object {
                 }
             }
 
+            foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_backend_type (BackendType.CALDAV)) {
+                if (!labels_map.has_key (label.name)) {
+                    Services.Database.get_default ().delete_label (label);
+                }
+            }
+
             sync_finished ();
         } catch (Error e) {
 			debug (e.message);
 		}
+    }
+
+    private async void add_project_if_not_exists (GXml.DomElement element, Gee.HashMap<string, string> labels_map) {
+        if (is_vtodo_calendar (element)) {
+            Objects.Project? project = Services.Database.get_default ().get_project (get_id_from_url (element));
+            if (project == null) {
+                project = new Objects.Project.from_caldav_xml (element);
+                Services.Database.get_default ().insert_project (project);
+                yield get_all_tasks_by_tasklist (project);
+            } else {
+                project.update_from_xml (element);
+                Services.Database.get_default ().update_project (project);
+                yield update_all_tasks_by_tasklist (project, labels_map);
+            }
+        } else if (is_deleted_calendar (element)) {
+            Objects.Project? project = Services.Database.get_default ().get_project (get_id_from_url (element));
+            if (project != null) {
+                Services.Database.get_default ().delete_project (project);
+            }
+        }
     }
 
     public string get_id_from_url (GXml.DomElement element) {
@@ -564,6 +658,39 @@ public class Services.CalDAV : GLib.Object {
 		}
 
         return status;
+    }
+
+    public async HttpResponse refresh_tasklist (Objects.Project project) {
+        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        var credential = Services.Settings.get_default ().settings.get_string ("caldav-credential");
+
+        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+        var message = new Soup.Message ("PROPFIND", url);
+		message.request_headers.append ("Authorization", "Basic %s".printf (credential));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((TASKLIST_REQUEST).data));
+
+        HttpResponse return_value = new HttpResponse ();
+
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
+            GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
+            
+            // Categories
+            Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
+
+            foreach (GXml.DomElement element in response) {
+                yield add_project_if_not_exists (element, labels_map);
+            }
+
+            return_value.status = true;
+        } catch (Error e) {
+			debug (e.message);
+		}
+
+        return return_value;
     }
 
     /*
@@ -696,9 +823,9 @@ public class Services.CalDAV : GLib.Object {
 		}
 
 		// Delete all labels;
-		//  foreach (var label in Services.Database.get_default ().get_all_labels_by_todoist ()) {
-		//  	Services.Database.get_default ().delete_label (label);
-		//  }
+		foreach (var label in Services.Database.get_default ().get_labels_by_backend_type (BackendType.CALDAV)) {
+			Services.Database.get_default ().delete_label (label);
+		}
 
 		// Clear Queue
 		//  Services.Database.get_default ().clear_queue ();
