@@ -136,5 +136,7 @@
     <file alias="file-dark.svg">resources/icons/file-dark.svg</file>
     <file alias="gift-light.svg">resources/icons/gift-light.svg</file>
     <file alias="gift-dark.svg">resources/icons/gift-dark.svg</file>
+    <file alias="tag-add-dark.svg">resources/icons/tag-add-dark.svg</file>
+    <file alias="tag-add-light.svg">resources/icons/tag-add-light.svg</file>
   </gresource>
 </gresources>

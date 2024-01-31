@@ -990,17 +990,17 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var sync_server_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
+			active = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")
 		};
 
 		var sync_server_row = new Adw.ActionRow ();
 		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your Todoist account every 15 minutes");
+		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your CalDAV account every 15 minutes");
 		sync_server_row.set_activatable_widget (sync_server_switch);
 		sync_server_row.add_suffix (sync_server_switch);
 
 		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
+			Services.Settings.get_default ().settings.get_string ("caldav-last-sync"), new GLib.TimeZone.local ()
 		);
 
 		var last_sync_label = new Gtk.Label (
@@ -1045,7 +1045,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+			Services.Settings.get_default ().settings.set_boolean ("caldav-sync-server", sync_server_switch.active);
 		});
 
 		return page;

@@ -90,8 +90,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            css_classes = { "card" },
-            margin_top = 9
+            css_classes = { "card" }
         };
     
         items_box.append (today_item);

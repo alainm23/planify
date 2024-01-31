@@ -27,6 +27,7 @@ libedataserver_dep = dependency('libedataserver-1.2', version: '>= 3.45.1')
 libical_dep = dependency('libical-glib')
 libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
 libgxml_dep = dependency('gxml-0.20')
+libsecret_dep = dependency('libsecret-1')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
 
 

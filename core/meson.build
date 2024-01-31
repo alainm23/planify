@@ -84,7 +84,8 @@ core_deps = [
   gtksourceview_dep,
   libical_dep,
   libecal_dep,
-  libgxml_dep
+  libgxml_dep,
+  libsecret_dep
 ]
 
 core_lib = shared_library(

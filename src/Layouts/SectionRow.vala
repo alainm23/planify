@@ -627,12 +627,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			dialog.response.connect ((response) => {
 				if (response == "delete") {
 					if (section.project.backend_type == BackendType.TODOIST) {
-						//  remove_button.is_loading = true;
 						Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
 							Services.Todoist.get_default ().delete.end (res);
 							Services.Database.get_default ().delete_section (section);
-							// remove_button.is_loading = false;
-							// message_dialog.hide_destroy ();
 						});
 					} else {
 						Services.Database.get_default ().delete_section (section);

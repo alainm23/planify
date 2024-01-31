@@ -40,18 +40,24 @@ public class Views.Labels : Adw.Bin {
         labels_local_header.reveal = true;
         labels_local_header.card = false;
         labels_local_header.show_separator = true;
+        labels_local_header.autohide_action = false;
+        labels_local_header.show_action = true;
         labels_local_header.set_sort_func (sort_func);
 
         labels_todoist_header = new Layouts.HeaderItem (_("Labels: Todoist"));
         labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         labels_todoist_header.card = false;
         labels_todoist_header.show_separator = true;
+        labels_todoist_header.autohide_action = false;
+        labels_todoist_header.show_action = true;
         labels_todoist_header.set_sort_func (sort_func);
 
         labels_caldav_header = new Layouts.HeaderItem (_("Labels: Nextcloud"));
         labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
         labels_caldav_header.card = false;
         labels_caldav_header.show_separator = true;
+        labels_caldav_header.autohide_action = false;
+        labels_caldav_header.show_action = true;
         labels_caldav_header.set_sort_func (sort_func);
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {

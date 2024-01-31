@@ -1121,7 +1121,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_item () {
-        if (project.backend_type == BackendType.CALDAV) {
+        if (project.backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().delete_item (this);
         } else if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
@@ -1133,6 +1133,9 @@ public class Objects.Item : Objects.BaseObject {
             Services.CalDAV.get_default ().delete_task.begin (this, (obj, res) => {
                 if (Services.CalDAV.get_default ().delete_task.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
+                    foreach (Objects.Item subitem in this.items) {
+                        subitem.delete_item ();
+                    }
                 }
             });
         }

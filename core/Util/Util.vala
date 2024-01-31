@@ -707,6 +707,7 @@ public class Util : GLib.Object {
                 _dynamic_icons.set ("download", true);
                 _dynamic_icons.set ("file", true);
                 _dynamic_icons.set ("gift", true);
+                _dynamic_icons.set ("tag-add", true);
             }
 
             return _dynamic_icons;

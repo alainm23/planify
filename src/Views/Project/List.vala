@@ -22,6 +22,7 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Label description_label;
     private Widgets.HyperTextView description_textview;
     private Widgets.DynamicIcon due_image;
     private Gtk.Label due_label;
@@ -49,15 +50,20 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 26,
-            right_margin = 12,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR
+        description_label = new Gtk.Label (project.description) {
+            wrap = true,
+            xalign = 0,
+            yalign = 0,
+            margin_start = 26,
+            margin_top = 6,
+            margin_end = 12
         };
-        description_textview.set_text (project.description);
-        description_textview.remove_css_class ("view");
+        
+        var description_gesture_click = new Gtk.GestureClick ();
+        description_label.add_controller (description_gesture_click);
+        description_gesture_click.pressed.connect ((n_press, x, y) => {
+            build_description_popover ();
+        });
 
         due_revealer = build_due_date_widget ();
 
@@ -102,7 +108,7 @@ public class Views.List : Gtk.Grid {
 
         if (!project.is_inbox_project) {
             content_box.append (due_revealer);
-            content_box.append (description_textview);
+            content_box.append (description_label);
         }
 
         content_box.append (listbox_placeholder_stack);
@@ -187,11 +193,6 @@ public class Views.List : Gtk.Grid {
         project.show_completed_changed.connect (() => {
             check_placeholder ();
         });
-
-        description_textview.changed.connect (() => {
-            project.description = description_textview.get_text ();
-            project.update (false);
-        });
     }
 
     private void check_placeholder () {
@@ -246,6 +247,7 @@ public class Views.List : Gtk.Grid {
     }
 
     public void update_request () {
+        description_label.label = project.description;
         update_duedate ();
     }
 
@@ -321,5 +323,46 @@ public class Views.List : Gtk.Grid {
         });
 
         return due_revealer;
+    }
+
+    private Gtk.Popover description_popover = null;
+    private void build_description_popover () {
+        if (description_popover != null) {
+            description_popover.popup ();
+            return;
+        }
+
+        description_textview = new Widgets.HyperTextView (_("Note")) {
+            left_margin = 6,
+            right_margin = 6,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR,
+            hexpand = true,
+            vexpand = true
+        };
+        description_textview.set_text (project.description);
+        description_textview.remove_css_class ("view");
+
+        var description_card = new Adw.Bin () {
+            child = description_textview,
+            css_classes = { "card" }
+        };
+
+        description_popover = new Gtk.Popover () {
+            has_arrow = false,
+            child = description_card,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 500,
+            height_request = 128
+        };
+
+        description_popover.set_parent (description_label);
+        description_popover.popup ();
+
+        description_textview.changed.connect (() => {
+            project.description = description_textview.get_text ();
+            project.update (false);
+        });
     }
 }

@@ -298,7 +298,12 @@ public class Widgets.SubItems : Adw.Bin {
                 items [item.id] = new Layouts.ItemRow (item);
             }
 
-            listbox.append (items [item.id]);
+            if (item.custom_order) {
+				listbox.insert (items [item.id], item.child_order);
+			} else {
+				listbox.append (items [item.id]);
+			}
+            
             children_changes ();
         }
     }

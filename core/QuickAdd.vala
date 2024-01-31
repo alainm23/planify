@@ -242,7 +242,11 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
 
         project_picker_button.section_change.connect ((section) => {
-            item.section_id = section.id;
+            if (section == null) {
+                item.section_id = "";
+            } else {
+                item.section_id = section.id;
+            }
         });
 
         schedule_button.date_changed.connect ((datetime) => {

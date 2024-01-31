@@ -275,8 +275,15 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		if (!Services.Todoist.get_default ().invalid_token ()) {
-			Timeout.add (Constants.TODOIST_SYNC_TIMEOUT, () => {
+			Timeout.add (Constants.SYNC_TIMEOUT, () => {
 				Services.Todoist.get_default ().run_server ();
+				return GLib.Source.REMOVE;
+			});
+		}
+
+		if (Services.CalDAV.get_default ().is_logged_in ()) {
+			Timeout.add (Constants.SYNC_TIMEOUT, () => {
+				Services.CalDAV.get_default ().run_server ();
 				return GLib.Source.REMOVE;
 			});
 		}

@@ -361,7 +361,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         label_button = new Widgets.LabelPicker.LabelButton ();
         label_button.backend_type = item.project.backend_type;
-        label_button.labels = item._get_labels ();
 
         pin_button = new Widgets.PinButton (item);
 
@@ -705,6 +704,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         description_textview.set_text (item.description);
                 
         labels_summary.update_request ();
+        label_button.labels = item._get_labels ();
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
         pin_button.update_request ();
@@ -1324,27 +1324,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
-                if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_item (item);
-                } else if (item.project.backend_type == BackendType.TODOIST) {
-                    is_loading = true;
-                    Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().delete.end (res).status) {
-                            Services.Database.get_default ().delete_item (item);
-                        } else {
-                            is_loading = false;
-                        }
-                    });
-                } else if (item.project.backend_type == BackendType.CALDAV) {
-                    is_loading = true;
-                    Services.CalDAV.get_default ().delete_task.begin (item, (obj, res) => {
-                        if (Services.CalDAV.get_default ().delete_task.end (res).status) {
-                            Services.Database.get_default ().delete_item (item);
-                        } else {
-                            is_loading = false;
-                        }
-                    });
-                }
+                item.delete_item ();
             }
         });
 
@@ -1574,15 +1554,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) =>  {            
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
-
-            if (item.section_id != "") {
-                dialog.for_base_object (item.section);
+            
+            if (item.parent_id != "") {
+                dialog.for_base_object (item.parent);
             } else {
-                dialog.for_base_object (item.project);
+                if (item.section_id != "") {
+                    dialog.for_base_object (item.section);
+                } else {
+                    dialog.for_base_object (item.project);
+                }
             }
 
             dialog.show ();
-
             return true;
         })] = drop_order_magic_button_target;
     }

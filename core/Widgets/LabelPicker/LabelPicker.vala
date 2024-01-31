@@ -21,12 +21,11 @@
 
 public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     private Gtk.SearchEntry search_entry;
-    private Gtk.Stack placeholder_stack;
     private Gtk.ListBox listbox;
+    private Gtk.Label placeholder_message_label;
+    private Gtk.Revealer add_tag_revealer;
+    private Gtk.Revealer spinner_revealer;
     
-    public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map;
-
-    public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
     public Gee.ArrayList<Objects.Label> labels {
         set {
             picked.clear ();
@@ -35,12 +34,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
                 labels_widgets_map [label.id].active = true;
                 picked[label.id] = label;
             }
-        }
-    }
-
-    public bool is_loading {
-        set {
-            placeholder_stack.visible_child_name = value ? "spinner" : "message";
         }
     }
 
@@ -55,6 +48,18 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
             return _backend_type;
         }
     }
+    
+    public bool is_loading {
+        set {
+            spinner_revealer.reveal_child = value;
+        }
+    }
+
+    public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
+    public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
+
+    private string PLACEHOLDER_MESSAGE = _("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.");
+    private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'");
 
     public LabelPicker () {
         Object (
@@ -67,9 +72,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
 
     construct {
         css_classes = { "popover-contents" };
-
-        labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
-
+        
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Search or Create"),
             valign = Gtk.Align.CENTER,
@@ -85,7 +88,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         };
 
         listbox.set_placeholder (get_placeholder ());
-        listbox.set_filter_func (filter_func);
         listbox.add_css_class ("listbox-separator-3");
         listbox.add_css_class ("listbox-background");
 
@@ -135,7 +137,20 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         });
 
         search_entry.search_changed.connect (() => {
-            listbox.invalidate_filter ();
+            int size = 0;
+            listbox.set_filter_func ((row) => {
+                var label = ((Widgets.LabelPicker.LabelRow) row).label;
+                var return_value = search_entry.text.down () in label.name.down ();
+
+                if (return_value) {
+                    size++;
+                }
+
+                return return_value;
+            });
+
+            add_tag_revealer.reveal_child = size <= 0;
+            placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
         });
 
         search_entry.activate.connect (() => {
@@ -161,7 +176,15 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         label.color = Util.get_default ().get_random_color ();
         label.name = search_entry.text;
 
-        if (backend_type == BackendType.TODOIST) {
+        if (backend_type == BackendType.LOCAL || backend_type == BackendType.CALDAV) {
+            label.id = Util.get_default ().generate_id (label);
+            label.backend_type = BackendType.LOCAL;
+            Services.Database.get_default ().insert_label (label);
+            checked_toggled (label, true);
+
+            search_entry.text = "";
+            popdown ();
+        } else if (backend_type == BackendType.TODOIST) {
             is_loading = true;
             label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
@@ -171,22 +194,12 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
                     label.id = response.data;
                     Services.Database.get_default ().insert_label (label);
                     checked_toggled (label, true);
-                    
-                    popdown ();
-                    is_loading = false;
-                    search_entry.text = "";
-                } else {
-                    
                 }
-            });
-        } else if (backend_type == BackendType.LOCAL) {
-            label.id = Util.get_default ().generate_id (label);
-            label.backend_type = BackendType.LOCAL;
-            Services.Database.get_default ().insert_label (label);
 
-            popdown ();
-            is_loading = false;
-            search_entry.text = "";
+                popdown ();
+                is_loading = false;
+                search_entry.text = "";
+            });
         }
     }
 
@@ -209,44 +222,47 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     private Gtk.Widget get_placeholder () {
-        var message_label = new Gtk.Label (_("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.")) {
-            wrap = true,
-            justify = Gtk.Justification.CENTER
+        var add_tag_icon = new Widgets.DynamicIcon.from_icon_name ("tag-add") {
+            size = 24,
+            margin_bottom = 12
         };
-        
-        message_label.add_css_class ("dim-label");
-        message_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        add_tag_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            child = add_tag_icon
+        };
+
+        placeholder_message_label = new Gtk.Label (PLACEHOLDER_MESSAGE) {
+            wrap = true,
+            justify = Gtk.Justification.CENTER,
+            css_classes = { "dim-label", Granite.STYLE_CLASS_SMALL_LABEL }
+        };
         
         var spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
-            valign = Gtk.Align.CENTER,
-            height_request = 32,
-            width_request = 32
+            halign = Gtk.Align.CENTER,
+            height_request = 24,
+            width_request = 24,
+            margin_top = 12,
+            css_classes = { "text-color" },
+            spinning = true
         };
 
-        spinner.add_css_class ("text-color");
-        spinner.start ();
-
-        placeholder_stack = new Gtk.Stack () {
-            vexpand = true,
-            hexpand = true,
-            transition_type = Gtk.StackTransitionType.CROSSFADE
+        spinner_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_UP,
+            child = spinner
         };
 
-        placeholder_stack.add_named (message_label, "message");
-        placeholder_stack.add_named (spinner, "spinner");
-
-        var grid = new Gtk.Grid () {
-            margin_top = 6,
-            margin_bottom = 6,
-            margin_start = 6,
-            margin_end = 6,
-            valign = Gtk.Align.CENTER
+        var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = CENTER,
+            margin_start = 12,
+            margin_end = 12
         };
+        box.append (add_tag_revealer);
+        box.append (placeholder_message_label);
+        box.append (spinner_revealer);
 
-        grid.attach (placeholder_stack, 0, 0);
-
-        return grid;
+        return box;
     }
 
     private void checked_toggled (Objects.Label label, bool active) {
@@ -259,11 +275,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
                 picked.unset (label.id);
             }
         }
-    }
-
-    private bool filter_func (Gtk.ListBoxRow row) {
-        var label = ((Widgets.LabelPicker.LabelRow) row).label;
-        return search_entry.text.down () in label.name.down ();
     }
 
     public void reset () {

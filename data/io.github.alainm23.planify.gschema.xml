@@ -367,6 +367,12 @@
             <description>CalDAV Server URL</description>
         </key>
 
+        <key name="caldav-sync-server" type="b">
+            <default>true</default>
+            <summary>CalDAV Sync Server</summary>
+            <description>CalDAV Sync Server</description>
+        </key>
+
         <key name="caldav-username" type="s">
             <default>""</default>
             <summary>CalDAV Username</summary>
@@ -385,10 +391,10 @@
             <description>CalDAV User Displayname</description>
         </key>
 
-        <key name="caldav-credential" type="s">
+        <key name="caldav-last-sync" type="s">
             <default>""</default>
-            <summary>CalDAV User Credential</summary>
-            <description>CalDAV User Credential</description>
+            <summary>CalDAV last sync</summary>
+            <description>CalDAV last sync</description>
         </key>
     </schema>
 </schemalist>

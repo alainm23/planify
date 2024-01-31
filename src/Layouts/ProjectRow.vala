@@ -547,7 +547,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         menu_popover.set_parent (this);
         menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-        menu_popover.popup();
+        menu_popover.popup ();
 
         favorite_item.clicked.connect (() => {
             menu_popover.popdown ();

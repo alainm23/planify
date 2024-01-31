@@ -945,18 +945,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
-                if (item.project.backend_type == BackendType.TODOIST) {
-                    is_loading = true;
-                    Services.Todoist.get_default ().delete.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().delete.end (res).status) {
-                            Services.Database.get_default ().delete_item (item);
-                        } else {
-                            is_loading = false;
-                        }
-                    });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_item (item);
-                }
+                item.delete_item ();
             }
         });
 

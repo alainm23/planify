@@ -1440,8 +1440,10 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
-            foreach (Objects.Item subitem in item.items) {
-                delete_item (subitem);
+            if (item.project.backend_type == BackendType.LOCAL || item.project.backend_type == BackendType.TODOIST) {
+                foreach (Objects.Item subitem in item.items) {
+                    delete_item (subitem);
+                }
             }
 
             item.deleted ();
