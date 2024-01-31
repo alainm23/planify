@@ -870,8 +870,8 @@ public class Services.CalDAV : GLib.Object {
 		//  }
 
 		// Remove server_timeout
-		//  Source.remove (server_timeout);
-		//  server_timeout = 0;
+		Source.remove (server_timeout);
+		server_timeout = 0;
 
 		log_out ();
 	}
