@@ -33,7 +33,8 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     construct {
-        reset_item ();
+        item = new Objects.Item ();
+        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
 
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
@@ -316,12 +317,11 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
         
-        submit_button.is_loading = true;
-
         if (item.project.backend_type == BackendType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
             add_item_db (item);
         } else if (item.project.backend_type == BackendType.TODOIST) {
+            submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 submit_button.is_loading = false;
@@ -329,11 +329,10 @@ public class Layouts.QuickAdd : Adw.Bin {
                 if (response.status) {
                     item.id = response.data;
                     add_item_db (item);
-                } else {
-                    debug ("%s", response.error);
                 }
             });
         } else if (item.project.backend_type == BackendType.CALDAV) {
+            submit_button.is_loading = true;
             item.id = Util.get_default ().generate_id ();
             Services.CalDAV.get_default ().add_task.begin (item, false, (obj, res) => {
                 HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
@@ -341,8 +340,6 @@ public class Layouts.QuickAdd : Adw.Bin {
 
                 if (response.status) {
                     add_item_db (item);
-                } else {
-                    debug ("%s", response.error);
                 }
             });
         }
@@ -377,8 +374,15 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     private void reset_item () {
+        string old_project_id = item.project_id;
+        string old_section_id = item.section_id;
+        string old_parent_id = item.parent_id;
+
         item = new Objects.Item ();
-        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        item.project_id = old_project_id;
+        item.section_id = old_section_id;
+        item.parent_id = old_parent_id;
+
         label_button.backend_type = item.project.backend_type;
     }
 
@@ -446,6 +450,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         project_picker_button.project = _item.project;
         label_button.backend_type = _item.project.backend_type;
+        project_picker_button.sensitive = false;
     }
 
     public void set_index (int index) {

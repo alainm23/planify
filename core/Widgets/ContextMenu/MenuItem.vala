@@ -42,24 +42,52 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     private Gtk.Label menu_title;
     private Gtk.Label secondary_label;
     private Gtk.Revealer loading_revealer;
+    private Gtk.Revealer secondary_label_revealer;
+    private Gtk.Revealer select_revealer;
+    private Gtk.Revealer arrow_revealer;
 
     public signal void activate_item ();
 
     public string secondary_text {
         set {
             secondary_label.label = value;
+            secondary_label_revealer.reveal_child = value.length  > 0;
         }
     }
 
-    bool _is_loading;
+    bool _is_loading = false;
     public bool is_loading {
         get {
             return _is_loading;
         }
 
         set {
-            loading_revealer.reveal_child = value;
             _is_loading = value;
+            loading_revealer.reveal_child = _is_loading;
+        }
+    }
+
+    bool _selected = false;
+    public bool selected {
+        get {
+            return _selected;
+        }
+
+        set {
+            _selected = value;
+            select_revealer.reveal_child = _selected;
+        }
+    }
+
+    bool _arrow = false;
+    public bool arrow {
+        get {
+            return _arrow;
+        }
+
+        set {
+            _arrow = value;
+            arrow_revealer.reveal_child = _arrow;
         }
     }
 
@@ -78,46 +106,70 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         menu_icon = new Widgets.DynamicIcon () {
             valign = Gtk.Align.CENTER
         };
-        menu_icon.size = 16;
 
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = menu_icon,
             reveal_child = true
         };
         
-        menu_icon_revealer.child = menu_icon;
+        menu_title = new Gtk.Label (null) {
+            use_markup = true
+        };
 
-        menu_title = new Gtk.Label (null);
-        menu_title.use_markup = true;
+        var select_icon = new Widgets.DynamicIcon.from_icon_name ("object-select-symbolic");
+
+        select_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = select_icon
+        };
+
+        var arrow_icon = new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic") {
+            css_classes = { "dim-label" },
+            margin_start = 6
+        };
+
+        arrow_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = arrow_icon
+        };
 
         secondary_label = new Gtk.Label (null) {
-            hexpand = true,
-            halign = Gtk.Align.END,
-            margin_end = 0,
             css_classes = { "dim-label", "no-font-bold" }
         };
 
-        var loading_spinner = new Gtk.Spinner () {
-            valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
+        secondary_label_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = secondary_label
         };
-        loading_spinner.add_css_class ("submit-spinner");
-        loading_spinner.start ();
+
+        var loading_spinner = new Gtk.Spinner () {
+            css_classes = { "submit-spinner" },
+            spinning = true
+        };
 
         loading_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT
+            transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
+            child = loading_spinner
         };
 
-        loading_revealer.child = loading_spinner;
+        var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            hexpand = true,
+            halign = END
+        };
 
+        end_box.append (secondary_label_revealer);
+        end_box.append (loading_revealer);
+        end_box.append (select_revealer);
+        end_box.append (arrow_revealer);
+        
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
         };
 
         content_box.append (menu_icon_revealer);
         content_box.append (menu_title);
-        content_box.append (secondary_label);
-        content_box.append (loading_revealer);
+        content_box.append (end_box);
 
         child = content_box;
 

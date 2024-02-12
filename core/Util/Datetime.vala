@@ -26,4 +26,46 @@ public class Utils.Datetime {
             return;
         }
     }
+
+    public static bool has_time (GLib.DateTime datetime) {
+        if (datetime == null) {
+            return false;
+        }
+
+        bool returned = true;
+        
+        if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
+            returned = false;
+        }
+
+        return returned;
+    }
+
+    public static bool is_today (GLib.DateTime date) {
+        if (date == null) {
+            return false;
+        }
+
+        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ());
+    }
+
+    public static bool is_tomorrow (GLib.DateTime date) {
+        if (date == null) {
+            return false;
+        }
+
+        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
+    }
+
+    public static bool is_next_week (GLib.DateTime date) {
+        if (date == null) {
+            return false;
+        }
+        
+        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (7));
+    }
+
+    public static GLib.DateTime get_date_from_string (string date) {
+        return new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
+    }
 }

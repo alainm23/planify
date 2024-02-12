@@ -30,17 +30,27 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     private int year_nav;
     private int day_nav;
 
-    private GLib.DateTime current_date;
-
-    private GLib.DateTime _date;
-    public GLib.DateTime date {
+    GLib.DateTime _current_date;
+    public GLib.DateTime current_date {
         get {
-            _date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
+            _current_date = new GLib.DateTime.now_local ();
+            return _current_date;
+        }
+    }
+
+    GLib.DateTime _date;
+    public GLib.DateTime date {
+        set {
+            _date = value;
+            view_date (_date);
+        }
+
+        get {
             return _date;
         }
     }
 
-    public signal void selection_changed (GLib.DateTime date);
+    public signal void day_selected ();
 
     public Calendar (bool block_past_days = false) {
         Object (
@@ -50,8 +60,6 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
     }
 
     construct {
-        current_date = new GLib.DateTime.now_local ();
-
         calendar_header = new Widgets.Calendar.CalendarHeader ();
         calendar_week = new Widgets.Calendar.CalendarWeek ();
         calendar_view = new Widgets.Calendar.CalendarView ();
@@ -76,7 +84,8 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
         calendar_view.day_selected.connect ((day) => {
             day_nav = day;
-            selection_changed (new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0));
+            _date = new DateTime.local (year_nav, month_nav, day_nav, 0, 0, 0);
+            day_selected ();
         });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
@@ -96,22 +105,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         }
 
         var date = new GLib.DateTime.local (year_nav, month_nav, 1, 0, 0, 0);
-        var firts_week = new DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
-        int start_day = firts_week.get_day_of_week () - Services.Settings.get_default ().settings.get_enum ("start-week");
-        if (start_day < 0) {
-            start_day += 7;
-        }
-        start_day = (start_day + 7) % 7;
-
-        int max_days = Util.get_default ().get_days_of_month (date.get_month (), year_nav);
-        calendar_view.fill_grid_days (start_day,
-                                      max_days,
-                                      date.get_day_of_month (),
-                                      Util.get_default ().is_current_month (date),
-                                      block_past_days,
-                                      date);
-
-        calendar_header.date = date;
+        fill_days (date);
     }
 
     public void previous_month () {
@@ -123,7 +117,31 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         }
 
         var date = new GLib.DateTime.local (year_nav, month_nav, 1, 0, 0, 0);
-        var firts_week = new DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
+        fill_days (date);
+    }
+
+    private void today () {
+        year_nav = current_date.get_year ();
+        month_nav = current_date.get_month ();
+        day_nav = current_date.get_day_of_month ();
+
+        fill_days (current_date);
+    }
+
+    private void view_date (GLib.DateTime date) {
+        if (date == null) {
+            return;
+        }
+
+        year_nav = date.get_year ();
+        month_nav = date.get_month ();
+        day_nav = date.get_day_of_month ();
+
+        fill_days (date, true);
+    }
+
+    private void fill_days (GLib.DateTime date, bool show_day = false) {
+        var firts_week = new DateTime.local (year_nav, month_nav, 1, 0, 0, 0);
         int start_day = firts_week.get_day_of_week () - Services.Settings.get_default ().settings.get_enum ("start-week");
         if (start_day < 0) {
             start_day += 7;
@@ -131,42 +149,11 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         start_day = (start_day + 7) % 7;
 
         int max_days = Util.get_default ().get_days_of_month (date.get_month (), year_nav);
-        calendar_view.fill_grid_days (start_day,
-                                      max_days,
-                                      date.get_day_of_month (),
-                                      Util.get_default ().is_current_month (date),
-                                      block_past_days,
-                                      date);
-
+        calendar_view.fill_grid_days (start_day, max_days, date, show_day, block_past_days);
         calendar_header.date = date;
     }
 
-    private void today () {
-        int year = current_date.get_year ();
-        int month = current_date.get_month ();
-        int day = current_date.get_day_of_month ();
-
-        month_nav = month;
-        year_nav = year;
-        day_nav = day;
-
-        var firts_week = new DateTime.local (year, month, 1, 0, 0, 0);
-        int start_day = firts_week.get_day_of_week () - Services.Settings.get_default ().settings.get_enum ("start-week");
-        if (start_day < 0) {
-            start_day += 7;
-        }
-        start_day = (start_day + 7) % 7;
-
-        int max_days = Util.get_default ().get_days_of_month (current_date.get_month (), year_nav);
-        calendar_view.fill_grid_days (
-            start_day,
-            max_days,
-            day,
-            true,
-            block_past_days,
-            current_date
-        );
-
-        calendar_header.date = current_date;
+    public void reset () {
+        calendar_view.clear_style ();
     }
 }

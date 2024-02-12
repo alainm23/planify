@@ -361,6 +361,12 @@
             <description>Show Taks Count</description>
         </key>
 
+        <key name="always-show-completed-subtasks" type="b">
+            <default>false</default>
+            <summary>Always Show Completed Sub-Tasks</summary>
+            <description>Always Show Completed Sub-Tasks</description>
+        </key>
+
         <key name="caldav-server-url" type="s">
             <default>""</default>
             <summary>CalDAV Server URL</summary>

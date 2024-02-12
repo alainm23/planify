@@ -138,5 +138,6 @@
     <file alias="gift-dark.svg">resources/icons/gift-dark.svg</file>
     <file alias="tag-add-dark.svg">resources/icons/tag-add-dark.svg</file>
     <file alias="tag-add-light.svg">resources/icons/tag-add-light.svg</file>
+    <file alias="office-calendar-symbolic.svg">resources/icons/office-calendar-symbolic.svg</file>
   </gresource>
 </gresources>

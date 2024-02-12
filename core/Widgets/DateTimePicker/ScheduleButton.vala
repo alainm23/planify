@@ -78,22 +78,53 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var button = new Gtk.MenuButton () {
             child = schedule_box,
-            popover = datetime_picker
+            popover = datetime_picker,
+            css_classes = { "flat" }
         };
 
-        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        var clear_button = new Gtk.Button () {
+            child = new Widgets.DynamicIcon.from_icon_name ("window-close"),
+            css_classes = { "flat" }
+        };
+
+        var clear_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+			child = clear_button
+		};
 
         attach (button, 0, 0);
+        attach (clear_revealer, 1, 0);
 
         datetime_picker.date_changed.connect (() => {
             datetime = datetime_picker.datetime;
+            clear_revealer.reveal_child = false;
             date_changed (datetime);
+        });
+
+        var motion_gesture = new Gtk.EventControllerMotion ();
+        add_controller (motion_gesture);
+
+        motion_gesture.enter.connect (() => {
+            clear_revealer.reveal_child = datetime != null;
+        });
+
+        motion_gesture.leave.connect (() => {
+            clear_revealer.reveal_child = false;
+        });
+
+        clear_button.clicked.connect (() => {
+            datetime = null;
+            date_changed (datetime);
+            clear_revealer.reveal_child = false;
+            datetime_picker.reset ();
         });
     }
 
     public void update_from_item (Objects.Item item) {
-        reset ();
-
+        due_label.label = _("Schedule");
+        tooltip_text = _("Schedule");
+        due_image.update_icon_name ("planner-calendar");
+        
         if (item.has_due) {
             due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
 
@@ -115,11 +146,26 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             }
 
             if (item.due.is_recurring) {
+                var end_label = "";
+                if (item.due.end_type == RecurrencyEndType.ON_DATE) {
+                    var date_label = Util.get_default ().get_default_date_format_from_date (
+                        Util.get_default ().get_format_date (
+                            Utils.Datetime.get_date_from_string (item.due.recurrency_end)
+                        )
+                    );
+                    end_label = _("until") + " " + date_label;
+                } else if (item.due.end_type == RecurrencyEndType.AFTER) {
+                    int count = item.due.recurrency_count;
+                    end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
+                }
+
                 due_image.update_icon_name ("planner-repeat");
                 due_label.label += " <small>%s</small>".printf (
                     Util.get_default ().get_recurrency_weeks (
-                        item.due.recurrency_type, item.due.recurrency_interval,
-                        item.due.recurrency_weeks
+                        item.due.recurrency_type,
+                        item.due.recurrency_interval,
+                        item.due.recurrency_weeks,
+                        end_label
                     )
                 ); 
             }
@@ -129,8 +175,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public void reset () {
         due_label.label = _("Schedule");
         tooltip_text = _("Schedule");
-
         due_image.update_icon_name ("planner-calendar");
         datetime = null;
+        datetime_picker.reset ();
     }
 }

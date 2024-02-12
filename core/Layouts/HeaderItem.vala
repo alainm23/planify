@@ -80,14 +80,6 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
-    public bool autohide_action { get; set; default = true; }
-
-    public bool show_action {
-        set {
-            action_revealer.reveal_child = value;
-        }
-    }
-
     public bool show_separator {
         set {
             separator_revealer.reveal_child = value;
@@ -185,11 +177,6 @@ public class Layouts.HeaderItem : Adw.Bin {
             halign = END
         };
 
-        action_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            child = action_box
-        };
-
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 6,
@@ -197,7 +184,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         };
 
         header_box.append (name_label);
-        header_box.append (action_revealer);
+        header_box.append (action_box);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             margin_top = 3,
@@ -230,17 +217,6 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         listbox.row_activated.connect ((row) => {
             row_activated (row);
-        });
-
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        add_controller (motion_gesture);
-
-        motion_gesture.enter.connect (() => {
-            action_revealer.reveal_child = true;
-        });
-
-        motion_gesture.leave.connect (() => {
-            action_revealer.reveal_child = !autohide_action;
         });
     }
 

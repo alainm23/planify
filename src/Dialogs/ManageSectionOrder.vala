@@ -91,6 +91,10 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             Objects.Section item1 = ((Dialogs.ProjectPicker.SectionPickerRow) row1).section;
             Objects.Section item2 = ((Dialogs.ProjectPicker.SectionPickerRow) row2).section;
 
+            if (item1.id == "") {
+                return 0;
+            }
+
             return item1.section_order - item2.section_order;
         });
 
@@ -115,6 +119,11 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
 
 
     public void add_sections () {
+        var inbox_section = new Objects.Section ();
+        inbox_section.project_id = project.id;
+        inbox_section.name = _("(No Section)");
+
+        listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
             listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
         }

@@ -23,7 +23,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private Gtk.Grid motion_top_grid;
     private Gtk.Revealer motion_top_revealer;
 
-	private Gtk.CheckButton checked_button;
+    private Gtk.CheckButton checked_button;
+    private Gtk.Button checked_repeat_button;
+    private Gtk.Stack checked_stack;
     private Gtk.Revealer checked_button_revealer;
 	private Gtk.Label content_label;
 
@@ -96,10 +98,22 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         };
 
 		checked_button = new Gtk.CheckButton () {
-			valign = Gtk.Align.START
+			valign = Gtk.Align.START,
+            css_classes = { "priority-color" }
 		};
 
-		checked_button.add_css_class ("priority-color");
+        checked_repeat_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            child = new Widgets.DynamicIcon.from_icon_name ("view-refresh-symbolic"),
+            css_classes = { "flat", "no-padding" }
+        };
+        
+        checked_stack = new Gtk.Stack () {
+			transition_type = Gtk.StackTransitionType.CROSSFADE
+		};
+
+        //  checked_stack.add_named (checked_button, "check-button");
+        //  checked_stack.add_named (checked_repeat_button, "repeat-button");
 
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -290,6 +304,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			checked_toggled (checked_button.active);
 		});
 
+        var repeat_button_gesture = new Gtk.GestureClick ();
+        checked_repeat_button.add_controller (repeat_button_gesture);
+        repeat_button_gesture.pressed.connect (() => {
+            repeat_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            update_next_recurrency ();
+        });
+
         var detail_gesture_click = new Gtk.GestureClick ();
         detail_gesture_click.set_button (1);
         handle_grid.add_controller (detail_gesture_click);
@@ -373,7 +394,21 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 select_checkbutton.active = false;
             }
         });
+
+        item.show_item_changed.connect (() => {
+            main_revealer.reveal_child = item.show_item;
+        });
 	}
+
+    private void update_next_recurrency () {
+        var promise = new Services.Promise<GLib.DateTime> ();
+
+        promise.resolved.connect ((result) => {
+            recurrency_update_complete (result);
+        });
+
+        item.update_next_recurrency (promise);
+    }
 
     private void open_detail () {
         if (item.parent_id == "") {
@@ -399,20 +434,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             } else {
                 item.checked = false;
                 item.completed_at = "";
-
-                if (item.project.backend_type == BackendType.TODOIST) {
-                    checked_button.sensitive = false;
-                    is_loading = true;
-                    Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                        if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                            Services.Database.get_default ().checked_toggled (item, old_checked);
-                            is_loading = false;
-                            checked_button.sensitive = true;
-                        }
-                    });
-                } else if (item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
-                }
+                _complete_item (old_checked);
             }
         }
 	}
@@ -436,60 +458,45 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		complete_timeout = Timeout.add (timeout, () => {
 			complete_timeout = 0;
 
-			if (item.due.is_recurring) {
-				update_recurrency ();
+			if (item.due.is_recurring && !item.due.is_recurrency_end) {
+				update_next_recurrency ();
 			} else {
 				item.checked = true;
 				item.completed_at = Util.get_default ().get_format_date (
-					new GLib.DateTime.now_local ()).to_string ();
-
-				if (item.project.backend_type == BackendType.TODOIST) {
-					checked_button.sensitive = false;
-					is_loading = true;
-					Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-						if (Services.Todoist.get_default ().complete_item.end (res).status) {
-							Services.Database.get_default ().checked_toggled (item, old_checked);
-							is_loading = false;
-							checked_button.sensitive = true;
-						} else {
-							is_loading = false;
-							checked_button.sensitive = true;
-						}
-					});
-				} else {
-					Services.Database.get_default ().checked_toggled (item, old_checked);
-				}
+					new GLib.DateTime.now_local ()
+                ).to_string ();
+                _complete_item (old_checked);
 			}
 
 			return GLib.Source.REMOVE;
 		});
 	}
 
-	private void update_recurrency () {
-		var next_recurrency = Util.get_default ().next_recurrency (item.due.datetime, item.due);
-		item.due.date = Util.get_default ().get_todoist_datetime_format (
-			next_recurrency
-		);
-
-		if (item.project.backend_type == BackendType.TODOIST) {
-			checked_button.sensitive = false;
-			is_loading = true;
-			Services.Todoist.get_default ().update.begin (item, (obj, res) => {
-				if (Services.Todoist.get_default ().update.end (res).status) {
-					Services.Database.get_default ().update_item (item);
-					is_loading = false;
-					checked_button.sensitive = true;
-					recurrency_update_complete (next_recurrency);
-				} else {
-					is_loading = false;
-					checked_button.sensitive = true;
-				}
-			});
-		} else if (item.project.backend_type == BackendType.LOCAL) {
-			Services.Database.get_default ().update_item (item);
-			recurrency_update_complete (next_recurrency);
-		}
-	}
+    private void _complete_item (bool old_checked) {
+        if (item.project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().checked_toggled (item, old_checked);
+        } else if (item.project.backend_type == BackendType.TODOIST) {
+            checked_button.sensitive = false;
+            is_loading = true;
+            Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.Todoist.get_default ().complete_item.end (res).status) {
+                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    is_loading = false;
+                    checked_button.sensitive = true;
+                }
+            });
+        } else if (item.project.backend_type == BackendType.CALDAV) {
+            checked_button.sensitive = false;
+            is_loading = true;
+            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    is_loading = false;
+                    checked_button.sensitive = true;
+                }
+            });
+        }
+    }
 
 	private void recurrency_update_complete (GLib.DateTime next_recurrency) {
 		checked_button.active = false;
@@ -544,6 +551,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
 			due_revealer.reveal_child = true;
 
+            //  checked_stack.visible_child_name = item.due.is_recurring ? "repeat-button" : "check-button";
+
+            //  if (item.due.is_recurring) {
+            //      repeat_image.tooltip_text = Util.get_default ().get_recurrency_weeks (
+            //          item.due.recurrency_type, item.due.recurrency_interval,
+            //          item.due.recurrency_weeks
+            //      );
+            //  }
+
 			if (Util.get_default ().is_today (item.due.datetime)) {
 				due_box.add_css_class ("today-grid");
 			} else if (Util.get_default ().is_overdue (item.due.datetime)) {
@@ -554,6 +570,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		} else {
 			due_label.label = "";
 			due_revealer.reveal_child = false;
+            //  checked_stack.visible_child_name = "check-button";
 		}
 	}
 
@@ -839,7 +856,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 Services.EventBus.get_default ().send_notification (
                     Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
-			    item.project.update (false);
+			    item.project.update_local ();
             }
 
             old_section_id = picked_widget.item.section_id;
@@ -906,7 +923,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     public void drag_end () {
         handle_grid.remove_css_class ("drop-begin");
         on_drag = false;
-        main_revealer.reveal_child = true;
+        main_revealer.reveal_child = item.show_item;
     }
 
 	private void update_items_item_order (Gtk.ListBox listbox) {
@@ -957,33 +974,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
 
-        if (item.project.backend_type != project.backend_type) {
-            confirm_move (project, section_id);
-            return;
-        }
-
         if (item.project_id != project_id || item.section_id != section_id) {
-            if (item.project.backend_type == BackendType.TODOIST) {
-                is_loading = true;
-    
-                string move_id = project_id;
-                string move_type = "project_id";
-                if (section_id != "") {
-                    move_type = "section_id";
-                    move_id = section_id;
-                }
-    
-                Services.Todoist.get_default ().move_item.begin (item, move_type, move_id, (obj, res) => {
-                    if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        move_item (project_id, section_id);
-                        is_loading = false;
-                    } else {
-                        main_revealer.reveal_child = true;
-                    }
-                });
-            } else if (item.project.backend_type == BackendType.LOCAL) {
-                move_item (project_id, section_id);
-            }
+            item.move (project, section_id);            
         }
     }
 
@@ -1027,20 +1019,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 }
             }
         });
-    }
-
-    private void move_item (string project_id, string section_id) {
-        string old_project_id = item.project_id;
-        string old_section_id = item.section_id;
-        string old_parent_id = item.parent_id;
-
-        item.project_id = project_id;
-        item.section_id = section_id;
-        item.parent_id = "";
-
-        update_request ();
-        Services.Database.get_default ().update_item (item);
-        Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
     }
 
     private void selected_toggled (bool active) {

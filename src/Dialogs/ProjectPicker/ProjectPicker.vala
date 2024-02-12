@@ -158,16 +158,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         inbox_group = new Layouts.HeaderItem (null) {
             margin_top = 12
         };
-        inbox_group.show_action = false;
-
         local_group = new Layouts.HeaderItem (_("On this Computer"));
-        local_group.show_action = false;
-
         todoist_group = new Layouts.HeaderItem (_("Todoist"));
-        todoist_group.show_action = false;
-
         caldav_group = new Layouts.HeaderItem (_("Nextcloud"));
-        caldav_group.show_action = false;
 
         if (backend_type == BackendType.ALL) {
             inbox_group.reveal = true;

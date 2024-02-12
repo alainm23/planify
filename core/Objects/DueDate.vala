@@ -26,6 +26,8 @@ public class Objects.DueDate : GLib.Object {
     public bool is_recurring { get; set; default = false; }
     public RecurrencyType recurrency_type { get; set; default = RecurrencyType.NONE; }
     public int recurrency_interval { get; set; default = 0; }
+    public int recurrency_count { get; set; default = 0; }
+    public string recurrency_end { get; set; default = ""; }
     public bool recurrence_supported { get; set; default = false; }
 
     GLib.DateTime? _datetime = null;
@@ -39,9 +41,44 @@ public class Objects.DueDate : GLib.Object {
         }
     }
 
+    GLib.DateTime _end_datetime;
+    public GLib.DateTime end_datetime {
+        get {
+            _end_datetime = Utils.Datetime.get_date_from_string (recurrency_end);
+            return _end_datetime;
+        }
+    }
+
     public bool has_weeks {
         get {
             return recurrency_weeks != "";
+        }
+    }
+
+    public RecurrencyEndType end_type {
+        get {
+            if (recurrency_end != "") {
+                return RecurrencyEndType.ON_DATE;
+            }
+
+            if (recurrency_count > 0) {
+                return RecurrencyEndType.AFTER;
+            }
+
+            return RecurrencyEndType.NEVER;
+        }
+    }
+
+    public bool is_recurrency_end {
+        get {
+            if (end_type == RecurrencyEndType.ON_DATE) {
+                var next_recurrency = Util.get_default ().next_recurrency (datetime, this);
+                return next_recurrency.compare (end_datetime) > -1;
+            } else if (end_type == RecurrencyEndType.AFTER) {
+                return recurrency_count - 1 <= 0;
+            }
+
+            return false;
         }
     }
 
@@ -105,6 +142,14 @@ public class Objects.DueDate : GLib.Object {
         if (object.has_member ("recurrency_weeks")) {
             recurrency_weeks = object.get_string_member ("recurrency_weeks");
         }
+
+        if (object.has_member ("recurrency_count")) {
+            recurrency_count = int.parse (object.get_string_member ("recurrency_count"));
+        }
+
+        if (object.has_member ("recurrency_end")) {
+            recurrency_end = object.get_string_member ("recurrency_end");
+        }
     }
 
     public void reset () {
@@ -129,13 +174,19 @@ public class Objects.DueDate : GLib.Object {
         builder.add_boolean_value (is_recurring);
 
         builder.set_member_name ("recurrency_type");
-        builder.add_string_value (((int)recurrency_type).to_string ());
+        builder.add_string_value (((int) recurrency_type).to_string ());
 
         builder.set_member_name ("recurrency_interval");
         builder.add_string_value (recurrency_interval.to_string ());
 
         builder.set_member_name ("recurrency_weeks");
         builder.add_string_value (recurrency_weeks);
+
+        builder.set_member_name ("recurrency_count");
+        builder.add_string_value (recurrency_count.to_string ());
+
+        builder.set_member_name ("recurrency_end");
+        builder.add_string_value (recurrency_end);
 
         builder.end_object ();
 
@@ -150,6 +201,8 @@ public class Objects.DueDate : GLib.Object {
         return ((int) recurrency_type == (int) duedate.recurrency_type &&
         recurrency_interval == duedate.recurrency_interval &&
         recurrency_weeks == duedate.recurrency_weeks &&
+        recurrency_count == duedate.recurrency_count &&
+        recurrency_end == duedate.recurrency_end &&
         is_recurring == duedate.is_recurring);
     }
 

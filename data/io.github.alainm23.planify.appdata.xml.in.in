@@ -54,7 +54,7 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
-  <developer_name translatable="no">Alain Yoyce Meza Huaman</developer_name>
+  <developer_name translatable="no">Alain</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>
   <url type="homepage">https://github.com/alainm23/planify</url>
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>

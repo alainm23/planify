@@ -34,7 +34,17 @@ public class Widgets.SubItems : Adw.Bin {
 
     public bool has_children {
         get {
-            return items.size > 0 || (items_checked.size > 0 && item_parent.project.show_completed);
+            return items.size > 0 || (items_checked.size > 0 && show_completed);
+        }
+    }
+
+    public bool show_completed {
+        get {
+            if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
+                return true;
+            } else {
+                return item_parent.project.show_completed;
+            }
         }
     }
 
@@ -83,7 +93,7 @@ public class Widgets.SubItems : Adw.Bin {
 
         sub_tasks_header_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            //  reveal_child = is_board,
+            reveal_child = is_board,
             child = sub_tasks_header
         };
 
@@ -105,7 +115,7 @@ public class Widgets.SubItems : Adw.Bin {
 
         checked_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = item_parent.project.show_completed,
+            reveal_child = show_completed,
             child = checked_listbox
         };
 
@@ -232,16 +242,18 @@ public class Widgets.SubItems : Adw.Bin {
 		});
 
         item_parent.project.show_completed_changed.connect (() => {
-            checked_revealer.reveal_child = item_parent.project.show_completed;
+            if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
+                checked_revealer.reveal_child = item_parent.project.show_completed;
 
-            if (item_parent.project.show_completed) {
-                add_completed_items ();
-            } else {
-                foreach (var entry in items_checked.entries) {
-                    entry.value.hide_destroy ();
+                if (item_parent.project.show_completed) {
+                    add_completed_items ();
+                } else {
+                    items_checked.clear ();
+                    
+                    foreach (unowned Gtk.Widget child in Util.get_default ().get_children (checked_listbox) ) {
+                        checked_listbox.remove (child);
+                    }
                 }
-
-                items_checked.clear ();
             }
         });
 
@@ -252,6 +264,15 @@ public class Widgets.SubItems : Adw.Bin {
         item_parent.project.sort_order_changed.connect (() => {
 			update_sort ();
 		});
+
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
+			if (key == "always-show-completed-subtasks") {
+                checked_revealer.reveal_child = show_completed;
+                if (show_completed) {
+                    add_completed_items ();
+                }
+			}
+		});
     }
 
     public void add_items () {
@@ -261,7 +282,7 @@ public class Widgets.SubItems : Adw.Bin {
             add_item (item);
         }
 
-        if (item_parent.project.show_completed) {
+        if (show_completed) {
             add_completed_items ();
         }
 
@@ -271,13 +292,17 @@ public class Widgets.SubItems : Adw.Bin {
     public void add_completed_items () {
         items_checked.clear ();
 
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (checked_listbox) ) {
+            checked_listbox.remove (child);
+        }
+
         foreach (Objects.Item item in item_parent.items) {
             add_complete_item (item);
         }
     }
 
     public void add_complete_item (Objects.Item item) {
-        if (item_parent.project.show_completed && item.checked) {
+        if (show_completed && item.checked) {
             if (!items_checked.has_key (item.id)) {
                 if (is_board) {
                     items_checked [item.id] = new Layouts.ItemBoard (item);

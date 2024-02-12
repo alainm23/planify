@@ -143,6 +143,8 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        print ("db path: %s\n", db_path);
+        
         create_tables ();
         patch_database ();
         opened ();
@@ -189,6 +191,7 @@ public class Services.Database : GLib.Object {
 
         add_text_column ("Items", "extra_data", "");
         add_int_column ("Sections", "hidded", 0);
+        add_int_column ("Projects", "inbox_section_hidded", 0);
     }
 
     private void create_tables () {
@@ -213,26 +216,27 @@ public class Services.Database : GLib.Object {
 
         sql = """
             CREATE TABLE IF NOT EXISTS Projects (
-                id               TEXT PRIMARY KEY,
-                name             TEXT NOT NULL,
-                color            TEXT,
-                backend_type     TEXT,
-                inbox_project    INTEGER,
-                team_inbox       INTEGER,
-                child_order      INTEGER,
-                is_deleted       INTEGER,
-                is_archived      INTEGER,
-                is_favorite      INTEGER,
-                shared           INTEGER,
-                view_style       TEXT,
-                sort_order       INTEGER,
-                parent_id        TEXT,
-                collapsed        INTEGER,
-                icon_style       TEXT,
-                emoji            TEXT,
-                show_completed   INTEGER,
-                description      TEXT,
-                due_date         TEXT
+                id                      TEXT PRIMARY KEY,
+                name                    TEXT NOT NULL,
+                color                   TEXT,
+                backend_type            TEXT,
+                inbox_project           INTEGER,
+                team_inbox              INTEGER,
+                child_order             INTEGER,
+                is_deleted              INTEGER,
+                is_archived             INTEGER,
+                is_favorite             INTEGER,
+                shared                  INTEGER,
+                view_style              TEXT,
+                sort_order              INTEGER,
+                parent_id               TEXT,
+                collapsed               INTEGER,
+                icon_style              TEXT,
+                emoji                   TEXT,
+                show_completed          INTEGER,
+                description             TEXT,
+                due_date                TEXT,
+                inbox_section_hidded    INTEGER
             );
         """;
 
@@ -456,6 +460,7 @@ public class Services.Database : GLib.Object {
         return_value.show_completed = get_parameter_bool (stmt, 17);
         return_value.description = stmt.column_text (18);
         return_value.due_date = stmt.column_text (19);
+        return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return return_value;
     }
 
@@ -509,10 +514,12 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
-                sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date)
+                sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
+                inbox_section_hidded)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
-                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date);
+                $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
+                $inbox_section_hidded);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -536,6 +543,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
+        set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -641,7 +649,8 @@ public class Services.Database : GLib.Object {
                 emoji=$emoji,
                 show_completed=$show_completed,
                 description=$description,
-                due_date=$due_date
+                due_date=$due_date,
+                inbox_section_hidded=$inbox_section_hidded
             WHERE id=$id;
         """;
 
@@ -665,6 +674,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$show_completed", project.show_completed);
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
+        set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {

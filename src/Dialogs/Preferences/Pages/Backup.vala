@@ -71,6 +71,12 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		
 		backups_group.set_sort_func (set_sort_func);
 
+		var import_planner_button = new Gtk.Button.with_label (_("Select Database File"));
+
+		var migrate_group = new Adw.PreferencesGroup ();
+		migrate_group.title = _("Migrate From Planner");
+		migrate_group.add (import_planner_button);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
 			hexpand = true
@@ -80,6 +86,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		content_box.append (add_button);
 		content_box.append (import_button);
 		content_box.append (backups_group);
+		content_box.append (migrate_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
@@ -121,6 +128,16 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 				} else {
 					debug ("%s", backup.error);
 					popup_toast (_("Selected file is invalid"));
+				}
+			});
+		});
+
+		import_planner_button.clicked.connect (() => {
+			Services.Migrate.get_default ().select_file.begin ((obj, res) => {
+				GLib.File file = Services.Migrate.get_default ().select_file.end (res);
+				if (Services.Migrate.get_default ().migrate_from_file (file)) {
+					popup_toast (_("Tasks Migrate Successfully"));
+					pop_subpage ();
 				}
 			});
 		});

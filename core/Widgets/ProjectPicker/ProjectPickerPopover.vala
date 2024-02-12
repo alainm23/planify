@@ -25,17 +25,14 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var local_group = new Layouts.HeaderItem (_("On this Computer")) {
             reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.LOCAL).size > 0
         };
-        local_group.show_action = false;
-
+        
         var todoist_group = new Layouts.HeaderItem (_("Todoist")) {
             reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.TODOIST).size > 0
         };
-        todoist_group.show_action = false;
 
         var nextcloud_group = new Layouts.HeaderItem (_("Nextcloud")) {
             reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.CALDAV).size > 0
         };
-        nextcloud_group.show_action = false;
 
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         scrolled_box.append (inbox_group);

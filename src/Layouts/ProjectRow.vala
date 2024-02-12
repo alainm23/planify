@@ -280,7 +280,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             arrow_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             listbox_revealer.reveal_child = !listbox_revealer.reveal_child;
             update_listbox_revealer ();
-            project.update ();
+            project.update_local ();
         });
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
@@ -328,47 +328,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private async void build_drag_and_drop () {
         // Motion Drop
-        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
-        add_controller (drop_motion_ctrl);
-        drop_motion_ctrl.motion.connect ((x, y) => {
-            var drop = drop_motion_ctrl.get_drop ();
-            GLib.Value value = Value (typeof (Layouts.ProjectRow));
-            drop.drag.content.get_value (ref value);
-
-            var picked_widget = (Layouts.ProjectRow) value;
-
-            if (picked_widget.project.backend_type == project.backend_type) {
-                motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
-            }
-        });
-
-        drop_motion_ctrl.leave.connect (() => {
-            motion_top_revealer.reveal_child = false;
-        });
+        build_drop_motion ();
 
         // Drag Souyrce
-        var drag_source = new Gtk.DragSource ();
-        drag_source.set_actions (Gdk.DragAction.MOVE);
-        handle_grid.add_controller (drag_source);
-
-        drag_source.prepare.connect ((source, x, y) => {
-            return new Gdk.ContentProvider.for_value (this);
-        });
-
-        drag_source.drag_begin.connect ((source, drag) => {
-            var paintable = new Gtk.WidgetPaintable (handle_grid);
-            source.set_icon (paintable, 0, 0);
-            drag_begin ();
-        });
-        
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
-            drag_end ();
-        });
-
-        drag_source.drag_cancel.connect ((source, drag, reason) => {
-            drag_end ();
-            return false;
-        });
+        build_drag_source ();
 
         // Magic Button
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
@@ -381,50 +344,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         // Drop
-        var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
-        handle_grid.add_controller (drop_target);
-
-        drop_target.accept.connect ((drop) => {
-            GLib.Value value = Value (typeof (Layouts.ProjectRow));
-            drop.drag.content.get_value (ref value);
-
-            var picked_widget = (Layouts.ProjectRow) value;
-
-            if (picked_widget.project.backend_type == project.backend_type) {
-                return true;
-            }
-
-            return false;
-        });
-
-        drop_target.drop.connect ((value, x, y) => {
-            var picked_widget = (Layouts.ProjectRow) value;
-            var target_widget = this;
-
-            var picked_project = picked_widget.project;
-            var target_project = target_widget.project;
-
-            if (picked_widget == target_widget || target_widget == null) {
-                return false;
-            }
-
-            string old_parent_id = picked_project.parent_id;
-            picked_project.parent_id = target_project.id;
-            
-            if (picked_project.backend_type == BackendType.TODOIST) {
-                Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
-                    if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-                        Services.Database.get_default ().update_project (picked_project);
-                        Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
-                    }
-                });
-            } else if (picked_project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_project (picked_project);
-                Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
-            }
-
-            return true;
-        });
+        build_drop_project_target ();
+        build_drop_item_target ();
 
         // Drop Order
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
@@ -469,6 +390,169 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             target_list.insert (picked_widget, target_widget.get_index ());
             update_projects_child_order (target_list);
 
+            return true;
+        });
+    }
+
+    private void build_drop_motion () {
+        var drop_motion_ctrl = new Gtk.DropControllerMotion ();
+        add_controller (drop_motion_ctrl);
+        drop_motion_ctrl.motion.connect ((x, y) => {
+            var drop = drop_motion_ctrl.get_drop ();
+            GLib.Value value = Value (typeof (Gtk.Widget));
+
+            try {
+                drop.drag.content.get_value (ref value);
+
+                if (value.dup_object () is Layouts.ProjectRow) {
+                    var picked_widget = (Layouts.ProjectRow) value;
+                    if (picked_widget.project.backend_type == project.backend_type) {
+                        motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+                    }
+                }
+            } catch (Error e) {
+                debug (e.message);
+            }
+        });
+
+        drop_motion_ctrl.leave.connect (() => {
+            motion_top_revealer.reveal_child = false;
+        });
+    }
+
+    private void build_drag_source () {
+        var drag_source = new Gtk.DragSource ();
+        drag_source.set_actions (Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drag_source);
+
+        drag_source.prepare.connect ((source, x, y) => {
+            return new Gdk.ContentProvider.for_value (this);
+        });
+
+        drag_source.drag_begin.connect ((source, drag) => {
+            var paintable = new Gtk.WidgetPaintable (handle_grid);
+            source.set_icon (paintable, 0, 0);
+            drag_begin ();
+        });
+        
+        drag_source.drag_end.connect ((source, drag, delete_data) => {
+            drag_end ();
+        });
+
+        drag_source.drag_cancel.connect ((source, drag, reason) => {
+            drag_end ();
+            return false;
+        });
+    }
+
+    private void build_drop_project_target () {
+        var drop_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drop_target);
+        drop_target.accept.connect ((drop) => {
+            GLib.Value value = Value (typeof (Gtk.Widget));
+
+            try {
+                drop.drag.content.get_value (ref value);
+            } catch (Error e) {
+                debug (e.message);
+            }
+
+            if (value.dup_object () is Layouts.ProjectRow) {
+                var picked_widget = (Layouts.ProjectRow) value;
+                if (picked_widget.project.backend_type == project.backend_type) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        drop_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ProjectRow) value;
+            var target_widget = this;
+
+            var picked_project = picked_widget.project;
+            var target_project = target_widget.project;
+
+            if (picked_widget == target_widget || target_widget == null) {
+                return false;
+            }
+
+            string old_parent_id = picked_project.parent_id;
+            picked_project.parent_id = target_project.id;
+            
+            if (picked_project.backend_type == BackendType.TODOIST) {
+                Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
+                    if (Services.Todoist.get_default ().move_project_section.end (res).status) {
+                        Services.Database.get_default ().update_project (picked_project);
+                        Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
+                    }
+                });
+            } else if (picked_project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_project (picked_project);
+                Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
+            }
+
+            return true;
+        });
+    }
+
+    private void build_drop_item_target () {
+        var drop_row_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drop_row_target);
+
+        drop_row_target.accept.connect ((drop) => {
+            GLib.Value value = Value (typeof (Gtk.Widget));
+
+            try {
+                drop.drag.content.get_value (ref value);
+            } catch (Error e) {
+                debug (e.message);
+            }
+
+            if (value.dup_object () is Layouts.ItemRow) {
+                var picked_widget = (Layouts.ItemRow) value;
+                if (picked_widget.item.project.backend_type == project.backend_type) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        drop_row_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ItemRow) value;
+            var target_widget = this;
+            picked_widget.item.move (target_widget.project, "");
+            return true;
+        });
+
+        var drop_board_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
+        handle_grid.add_controller (drop_board_target);
+
+        drop_board_target.accept.connect ((drop) => {
+            GLib.Value value = Value (typeof (Gtk.Widget));
+
+            try {
+                drop.drag.content.get_value (ref value);
+            } catch (Error e) {
+                debug (e.message);
+            }
+
+            if (value.dup_object () is Layouts.ItemBoard) {
+                var picked_widget = (Layouts.ItemBoard) value;
+                if (picked_widget.item.project.backend_type == project.backend_type) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        drop_board_target.drop.connect ((value, x, y) => {
+            var picked_widget = (Layouts.ItemBoard) value;
+            var target_widget = this;
+            picked_widget.item.move (target_widget.project, "");
             return true;
         });
     }
@@ -555,7 +639,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             project.is_favorite = !project.is_favorite;
             Services.Database.get_default ().update_project (project);
             Services.EventBus.get_default ().favorite_toggled (project);
-            project.update (true);
+            project.update ();
         });
 
         edit_item.clicked.connect (() => {
@@ -570,7 +654,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             is_loading = true;
             Services.CalDAV.get_default ().refresh_tasklist.begin (project, (obj, res) => {
-                HttpResponse response = Services.CalDAV.get_default ().refresh_tasklist.end (res);
+                Services.CalDAV.get_default ().refresh_tasklist.end (res);
                 is_loading = false;
             });
         });

@@ -86,7 +86,7 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_INBOX, "<Control>i");
         action_accelerators.set (ACTION_VIEW_TODAY, "<Control>t");
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>u");
-        action_accelerators.set (ACTION_VIEW_LABELS, "<Control>v");
+        action_accelerators.set (ACTION_VIEW_LABELS, "<Control>l");
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>p");
         action_accelerators.set (ACTION_ESC, "Escape");
 

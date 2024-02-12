@@ -28,6 +28,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
+    private Gtk.Button checked_repeat_button;
+    private Gtk.Stack checked_stack;
     private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
@@ -51,8 +53,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public Adw.Bin itemrow_box;
     private Gtk.Popover menu_handle_popover = null;
     
-    private Gtk.Popover menu_popover = null;
-    private Widgets.ContextMenu.MenuItem more_information_item;
     private Widgets.LoadingButton hide_loading_button;
     private Widgets.HyperTextView description_textview;
     private Widgets.ItemLabels item_labels;
@@ -66,7 +66,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Box action_box;
 
     private Widgets.SubItems subitems;
-    private Gtk.Button menu_button;
+    private Gtk.MenuButton menu_button;
     private Gtk.Button hide_subtask_button;
     private Gtk.Revealer hide_subtask_revealer;
     private Widgets.ContextMenu.MenuItem no_date_item;
@@ -87,6 +87,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (value) {
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
+                itemrow_box.add_css_class ("card-border");
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
@@ -111,6 +112,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
+                itemrow_box.remove_css_class ("card-border");
 
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
@@ -210,6 +212,19 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             css_classes = { "priority-color" }
         };
 
+        checked_repeat_button = new Gtk.Button () {
+            valign = Gtk.Align.CENTER,
+            child = new Widgets.DynamicIcon.from_icon_name ("view-refresh-symbolic"),
+            css_classes = { "flat", "no-padding" }
+        };
+        
+        checked_stack = new Gtk.Stack () {
+			transition_type = Gtk.StackTransitionType.CROSSFADE
+		};
+
+        //  checked_stack.add_named (checked_button, "check-button");
+        //  checked_stack.add_named (checked_repeat_button, "repeat-button");
+
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
             child = checked_button,
@@ -236,6 +251,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview.buffer.text = item.content;
         content_textview.editable = !item.completed;
         content_textview.remove_css_class ("view");
+        content_textview.add_css_class ("font-bold");
 
         content_entry_revealer = new Gtk.Revealer () {
             valign = Gtk.Align.CENTER,
@@ -337,8 +353,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             bottom_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
-            editable = !item.completed,
-            css_classes = { "dim-label" }
+            editable = !item.completed
         };
 
         description_textview.remove_css_class ("view");
@@ -370,12 +385,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             valign = Gtk.Align.CENTER,
             tooltip_text = _("Add subtask"),
             margin_top = 1,
+            can_focus = false,
+            focusable = false,
             child = new Widgets.DynamicIcon.from_icon_name ("plus"),
             css_classes = { "flat" }
         };
         
-        menu_button = new Gtk.Button () {
+        menu_button = new Gtk.MenuButton () {
             child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            popover = build_button_context_menu (),
             css_classes = { "flat" }
         };
     
@@ -545,7 +563,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             checked_button.active = !checked_button.active;
             checked_toggled (checked_button.active);
-        });    
+        });
+
+        var repeat_button_gesture = new Gtk.GestureClick ();
+        checked_repeat_button.add_controller (repeat_button_gesture);
+        repeat_button_gesture.pressed.connect (() => {
+            repeat_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+            update_next_recurrency ();
+        });
 
         var hide_loading_gesture = new Gtk.GestureClick ();
         hide_loading_button.add_controller (hide_loading_gesture);
@@ -592,12 +617,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
             }
-        });
-
-        var menu_gesture = new Gtk.GestureClick ();
-        menu_button.add_controller (menu_gesture);
-        menu_gesture.pressed.connect ((n_press, x, y) => {
-            build_button_context_menu (x, y);
         });
 
         var multiselect_gesture = new Gtk.GestureClick ();
@@ -654,6 +673,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 hide_subtask_button.remove_css_class ("opened");
             }
+        });
+
+        item.show_item_changed.connect (() => {
+            main_revealer.reveal_child = item.show_item;
         });
     }
 
@@ -747,7 +770,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (!edit) {
                 due_label_revealer.reveal_child = true;
-                repeat_image_revealer.reveal_child = item.due.is_recurring;
+                //  checked_stack.visible_child_name = item.due.is_recurring ? "repeat-button" : "check-button";
             }
 
             if (item.due.is_recurring) {
@@ -767,7 +790,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         } else {
             due_label.label = "";
             due_label_revealer.reveal_child = false;
-            repeat_image_revealer.reveal_child = false;
+            //  checked_stack.visible_child_name = "check-button";
         }
     }
 
@@ -908,7 +931,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
     }
 
-    private void build_button_context_menu (double x, double y) {
+    private string get_updated_info () {
         string added_at = _("Added at");
         string updated_at = _("Updated at");
         string added_date = Util.get_default ().get_relative_date_from_date (item.added_datetime);
@@ -917,24 +940,27 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             updated_date = Util.get_default ().get_relative_date_from_date (item.updated_datetime);
         }
 
-        string added_updated_format = "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
+        return "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
+    }
 
-        if (menu_popover != null) {
-            more_information_item.title = added_updated_format;
-            menu_popover.popup ();
-            return;
-        }
-
+    private Gtk.Popover build_button_context_menu () {
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "planner-clipboard");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
         var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
-
-        more_information_item = new Widgets.ContextMenu.MenuItem (added_updated_format, null);
-        more_information_item.add_css_class ("small-label");
+        repeat_item.arrow = true;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");
+
+        var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
+        more_information_item.add_css_class ("small-label");
+
+        var popover = new Gtk.Popover () {
+            has_arrow = false,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 225
+        };
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -953,30 +979,22 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         menu_stack.add_named (menu_box, "menu");
-        menu_stack.add_named (get_repeat_widget (), "repeat");
+        menu_stack.add_named (get_repeat_widget (popover), "repeat");
 
-        menu_popover = new Gtk.Popover () {
-            has_arrow = false,
-            child = menu_stack,
-            position = Gtk.PositionType.BOTTOM,
-            width_request = 225
-        };
-
-        menu_popover.set_parent (menu_button);
-        menu_popover.popup ();
+        popover.child = menu_stack;
 
         copy_clipboard_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
             item.copy_clipboard ();
         });
 
         duplicate_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
             item.duplicate ();
         });
 
         move_item.clicked.connect (() => {            
-            menu_popover.popdown ();
+            popover.popdown ();
             
             var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
             dialog.add_sections (item.project.sections);
@@ -997,17 +1015,23 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_stack.set_visible_child_name ("repeat");
         });
 
-        menu_popover.closed.connect (() => {
+        popover.closed.connect (() => {
             menu_stack.set_visible_child_name ("menu");
         });
 
+        popover.show.connect (() => {
+            more_information_item.title = get_updated_info ();
+        });
+
         delete_item.activate_item.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
             delete_request ();
         });
+
+        return popover;
     }
 
-    private Gtk.Widget get_repeat_widget () {
+    private Gtk.Widget get_repeat_widget (Gtk.Popover popover) {
         var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
         var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
         var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
@@ -1026,62 +1050,62 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.append (custom_item);
         
         daily_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var duedate = new Objects.DueDate ();
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_DAY;
             duedate.recurrency_interval = 1;
 
-            set_recurrency (duedate);
+            item.set_recurrency (duedate);
         });
 
         weekly_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var duedate = new Objects.DueDate ();
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_WEEK;
             duedate.recurrency_interval = 1;
 
-            set_recurrency (duedate);
+            item.set_recurrency (duedate);
         });
 
         monthly_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var duedate = new Objects.DueDate ();
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_MONTH;
             duedate.recurrency_interval = 1;
 
-            set_recurrency (duedate);
+            item.set_recurrency (duedate);
         });
 
         yearly_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var duedate = new Objects.DueDate ();
             duedate.is_recurring = true;
             duedate.recurrency_type = RecurrencyType.EVERY_YEAR;
             duedate.recurrency_interval = 1;
 
-            set_recurrency (duedate);
+            item.set_recurrency (duedate);
         });
 
         none_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var duedate = new Objects.DueDate ();
             duedate.is_recurring = false;
             duedate.recurrency_type = RecurrencyType.NONE;
             duedate.recurrency_interval = 0;
 
-            set_recurrency (duedate);
+            item.set_recurrency (duedate);
         });
 
         custom_item.clicked.connect (() => {
-            menu_popover.popdown ();
+            popover.popdown ();
 
             var dialog = new Dialogs.RepeatConfig ();
             dialog.show ();
@@ -1090,8 +1114,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 dialog.duedate = item.due;
             }
 
-            dialog.changed.connect ((duedate) => {
-                set_recurrency (duedate);
+            dialog.change.connect ((duedate) => {
+                item.set_recurrency (duedate);
             });
         });
 
@@ -1113,7 +1137,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 item.checked = false;
                 item.completed_at = "";
-
                 _complete_item (old_checked);
             }
         }
@@ -1140,13 +1163,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         complete_timeout = Timeout.add (timeout, () => {
             complete_timeout = 0;
 
-            if (item.due.is_recurring) {
-                update_recurrency ();
+            if (item.due.is_recurring && !item.due.is_recurrency_end) {
+                update_next_recurrency ();
             } else {
                 item.checked = true;
                 item.completed_at = Util.get_default ().get_format_date (
-                    new GLib.DateTime.now_local ()).to_string ();
-                    
+                    new GLib.DateTime.now_local ()
+                ).to_string ();    
                 _complete_item (old_checked);   
             }
             
@@ -1199,72 +1222,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.update_async ("");
     }
 
-    public void set_recurrency (Objects.DueDate duedate) {
-        if (item.due.is_recurrency_equal (duedate)) {
-            return;
-        }
+    private void update_next_recurrency () {
+        var promise = new Services.Promise<GLib.DateTime> ();
 
-        if (duedate.recurrency_type == RecurrencyType.EVERY_DAY ||
-            duedate.recurrency_type == RecurrencyType.EVERY_MONTH || 
-            duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
-            if (!item.has_due) {
-                item.due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
-                );
-            }
-        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
-            if (duedate.has_weeks) {
-                var today = Util.get_default ().get_today_format_date ();
-                int day_of_week = today.get_day_of_week ();
-                int next_day = Util.get_default ().get_next_day_of_week_from_recurrency_week (today, duedate);
-                GLib.DateTime due_date = null;
+        promise.resolved.connect ((result) => {
+            recurrency_update_complete (result);
+        });
 
-                if (day_of_week == next_day) {
-                    due_date = today;
-                } else {
-                    due_date = Util.get_default ().next_recurrency_week (today, duedate);
-                }
-
-                item.due.date = Util.get_default ().get_todoist_datetime_format (due_date);
-            } else {
-                item.due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
-                );
-            }
-        }
-
-        item.due.is_recurring = duedate.is_recurring;
-        item.due.recurrency_type = duedate.recurrency_type;
-        item.due.recurrency_interval = duedate.recurrency_interval;
-        item.due.recurrency_weeks = duedate.recurrency_weeks;
-
-        item.update_async ("");
-    }
-
-    private void update_recurrency () {
-        var next_recurrency = Util.get_default ().next_recurrency (item.due.datetime, item.due);
-        item.due.date = Util.get_default ().get_todoist_datetime_format (
-            next_recurrency
-        );
-
-        if (item.project.backend_type == BackendType.TODOIST) {
-            checked_button.sensitive = false;
-            is_loading = true;
-            Services.Todoist.get_default ().update.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().update.end (res).status) {
-                    Services.Database.get_default ().update_item (item);
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                    recurrency_update_complete (next_recurrency);
-                } else {
-                    is_loading = false;
-                    checked_button.sensitive = true;
-                }
-            });
-        } else {
-            Services.Database.get_default ().update_item (item);
-            recurrency_update_complete (next_recurrency);
-        }  
+        item.update_next_recurrency (promise);
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
@@ -1274,9 +1239,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("dim-label");
         content_label.remove_css_class ("line-through");
 
-        var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
+        var title = _("Completed. Next occurrence: %s".printf (
+            Util.get_default ().get_default_date_format_from_date (next_recurrency)
+        ));
         var toast = Util.get_default ().create_toast (title, 3);
-
         Services.EventBus.get_default ().send_notification (toast);
     }
 
@@ -1336,93 +1302,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
 
-        if (item.project.backend_type != project.backend_type) {
-            confirm_move (project, section_id);
-            return;
-        }
-
         if (item.project_id != project_id || item.section_id != section_id) {
-            if (item.project.backend_type == BackendType.LOCAL) {
-                move_item (project_id, section_id);
-            } else if (item.project.backend_type == BackendType.TODOIST) {
-                is_loading = true;
-    
-                string move_id = project_id;
-                string move_type = "project_id";
-                if (section_id != "") {
-                    move_type = "section_id";
-                    move_id = section_id;
-                }
-    
-                Services.Todoist.get_default ().move_item.begin (item, move_type, move_id, (obj, res) => {
-                    if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        move_item (project_id, section_id);
-                        is_loading = false;
-                    } else {
-                        is_loading = false;
-                    }
-                });
-            } else if (item.project.backend_type == BackendType.CALDAV) {
-                is_loading = true;
-
-                Services.CalDAV.get_default ().move_task.begin (item, project_id, (obj, res) => {
-                    if (Services.CalDAV.get_default ().move_task.end (res).status) {
-                        move_item (project_id, section_id);
-                        is_loading = false;
-                    } else {
-                        is_loading = false;
-                    }
-                });
-            }
+            item.move (project, section_id);
         }
     }
-
-    private void confirm_move (Objects.Project project, string section_id) {
-        var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Move Tasks"), _("Are you sure you want to move your task to %s?".printf (project.short_name))
-        );
-        dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("ok", _("Move"));
-        dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
-        dialog.show ();
-
-        dialog.response.connect ((resp) => {
-            if (resp == "ok") {
-                var new_item = item.generate_copy ();
-                new_item.project_id = project.id;
-                new_item.section_id = "";
-
-                if (project.backend_type == BackendType.LOCAL) {
-                    project.add_item_if_not_exists (new_item);
-                    item.delete_item ();
-                } else if (project.backend_type == BackendType.TODOIST) {
-                    Services.Todoist.get_default ().add.begin (item, (obj, res) => {
-                        HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                        if (response.status) {
-                            new_item.id = response.data;
-                            project.add_item_if_not_exists (new_item);
-                            item.delete_item ();
-                        }
-                    });
-                }
-            }
-        });
-    }
-
-    private void move_item (string project_id, string section_id) {
-        string old_project_id = item.project_id;
-        string old_section_id = item.section_id;
-        string old_parent_id = item.parent_id;
-
-        item.project_id = project_id;
-        item.section_id = section_id;
-        item.parent_id = "";
-
-        update_request ();
-        Services.Database.get_default ().update_item (item);
-        Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
-    }
-
     private void build_drag_and_drop () {
         // Drop Motion
         build_drop_motion ();
@@ -1447,7 +1330,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_motion_ctrl.motion.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
-            drop.drag.content.get_value (ref value);
+
+            try {
+                drop.drag.content.get_value (ref value);
+            } catch (Error e) {
+                debug (e.message);
+            }
 
             if (value.dup_object () is Layouts.ItemBoard) {
                 var picked_widget = (Layouts.ItemBoard) value;
@@ -1591,7 +1479,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 Services.EventBus.get_default ().send_notification (
                     Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
-			    item.project.update (false);
+			    item.project.update_local ();
             }
 
             old_section_id = picked_widget.item.section_id;
@@ -1677,7 +1565,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
         on_drag = false;
-        main_revealer.reveal_child = true;
+        main_revealer.reveal_child = item.show_item;
     }
     
     private void update_items_item_order (Gtk.ListBox listbox) {

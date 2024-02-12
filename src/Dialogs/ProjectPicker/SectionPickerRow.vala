@@ -53,14 +53,13 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         selected_icon.add_css_class ("color-primary");
 
         var selected_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = selected_icon
         };
-
-        selected_revealer.child = selected_icon;
 
         var hidded_switch = new Gtk.Switch () {
             css_classes = { "active-switch" },
-            active = !section.hidded
+            active = section.id == "" ? !section.project.inbox_section_hidded : !section.hidded
         };
 
         var order_icon = new Widgets.DynamicIcon ();
@@ -115,8 +114,13 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             reorder_child.build_drag_and_drop ();
 
             hidded_switch.notify["active"].connect (() => {
-                section.hidded = !hidded_switch.active;
-                Services.Database.get_default ().update_section (section);
+                if (section.id == "") {
+                    section.project.inbox_section_hidded = !hidded_switch.active;
+                    section.project.update_local ();
+                } else {
+                    section.hidded = !hidded_switch.active;
+                    Services.Database.get_default ().update_section (section);
+                }
             });
         }
     }

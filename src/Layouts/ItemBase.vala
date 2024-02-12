@@ -19,14 +19,14 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.ItemBase : Gtk.ListBoxRow {
+public abstract class Layouts.ItemBase : Gtk.ListBoxRow {
     public Objects.Item item { get; construct; }
 
     public string update_id { get; set; default = Util.get_default ().generate_id (); }
 
-    public virtual void update_request () {}
-    public virtual void hide_destroy () {}
-    public virtual void delete_request (bool undo = true) {}
-    public virtual void select_row (bool active) {}
-    public virtual void checked_toggled (bool active, uint? time = null) {}
+    public abstract void update_request ();
+    public abstract void hide_destroy ();
+    public abstract void delete_request (bool undo = true);
+    public abstract void select_row (bool active);
+    public abstract void checked_toggled (bool active, uint? time = null);
 }

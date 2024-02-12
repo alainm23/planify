@@ -144,6 +144,18 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    bool _show_item = true;
+    public bool show_item {
+        set {
+            _show_item = value;
+            show_item_changed ();
+        }
+
+        get {
+            return _show_item;
+        }
+    }
+
     string _ics = "";
     public string ics {
         get {
@@ -242,6 +254,7 @@ public class Objects.Item : Objects.BaseObject {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void loading_changed (bool value);
+    public signal void show_item_changed ();
     public signal void collapsed_change ();
     
     construct {
@@ -351,61 +364,27 @@ public class Objects.Item : Objects.BaseObject {
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
         string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
 
-        ICal.Component ical = new ICal.Component.from_string (data);
-
-        id = ical.get_uid ();
-        content = ical.get_summary ();
-
-        if (ical.get_description () != null) {
-            description = ical.get_description ();
-        }
-
-        if (Util.find_string_value ("PRIORITY", data) != "") {
-            int _priority = int.parse (Util.find_string_value ("PRIORITY", data));
-            if (_priority <= 0) {
-                priority = Constants.PRIORITY_4;
-            } else if (_priority >= 1 && _priority <= 4) {
-                priority = Constants.PRIORITY_1;
-            } else if (_priority == 5) {
-                priority = Constants.PRIORITY_2;
-            } else if (_priority > 5 && _priority <= 9) {
-                priority = Constants.PRIORITY_3;
-            } else {
-                priority = Constants.PRIORITY_4;
-            }
-        }
-
-        if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
-        }
-
-        parent_id = Util.find_string_value ("RELATED-TO", data);
-
-        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
-            checked = true;
-            string completed = Util.find_string_value ("COMPLETED", data);
-            if (completed != "") {
-                completed_at = Util.get_default ().get_format_date (
-                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
-                ).to_string ();
-            } else {
-                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
-            }
-        } else {
-            checked = false;
-            completed_at = "";
-        }
+        patch_from_caldav_xml (element);
 
         var categories = Util.find_string_value ("CATEGORIES", data);
         if (categories != "") {
             labels = get_caldav_categories (categories);
         }
-
-        pinned = Util.find_boolean_value ("X-PINNED", data);
-        extra_data = Util.generate_extra_data (Util.get_task_id_from_url (element), etag, ical.as_ical_string ());
     }
 
     public void update_from_caldav_xml (GXml.DomElement element) {
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
+        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
+
+        patch_from_caldav_xml (element);
+
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        check_labels (get_labels_maps_from_caldav (categories));
+    }
+
+    public void patch_from_caldav_xml (GXml.DomElement element) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
@@ -438,8 +417,28 @@ public class Objects.Item : Objects.BaseObject {
         if (!ical.get_due ().is_null_time ()) {
             due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
+        
+        var rrules = Util.find_string_value ("RRULE", data);
+        if (rrules != "") {
+            ICal.Recurrence recurrence = new ICal.Recurrence.from_string (rrules);
+            ICal.RecurrenceFrequency freq = recurrence.get_freq ();
+            short interval = recurrence.get_interval ();
+            int count = recurrence.get_count ();
+            GLib.Array<short> get_by_day_array = recurrence.get_by_day_array ();
+ 
+            print ("freq: %s\n".printf (freq.to_string ()));
+            print ("interval: %s\n".printf (interval.to_string ()));
+            print ("count: %d\n".printf (count));
+
+            foreach (short day in get_by_day_array) {
+                print ("Short: %s\n", day.to_string ());
+            }
+        }
 
         parent_id = Util.find_string_value ("RELATED-TO", data);
+        if (parent_id == "") {
+            parent_id = Util.find_string_value ("RELATED-TO;RELTYPE=PARENT", data);
+        }
 
         if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
             checked = true;
@@ -455,9 +454,6 @@ public class Objects.Item : Objects.BaseObject {
             checked = false;
             completed_at = "";
         }
-
-        var categories = Util.find_string_value ("CATEGORIES", data);
-        check_labels (get_labels_maps_from_caldav (categories));
 
         pinned = Util.find_boolean_value ("X-PINNED", data);
         extra_data = Util.generate_extra_data (Util.get_task_id_from_url (element), etag, ical.as_ical_string ());
@@ -988,9 +984,84 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            //  var task_tz = ical.get_due ().get_timezone ();
-            ICal.Time new_icaltime = Util.datetimes_to_icaltime (due.datetime, due.datetime, null);
+            ICal.Time new_icaltime = Util.datetimes_to_icaltime (
+                due.datetime,
+                Utils.Datetime.has_time (due.datetime) ? due.datetime : null,
+                null
+            );
+
             ical.set_due (new_icaltime);
+
+            if (due.is_recurring) {
+                var rrule = new ICal.Recurrence ();
+
+                if (due.recurrency_type == RecurrencyType.MINUTELY) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.MINUTELY_RECURRENCE);
+                } else if (due.recurrency_type == RecurrencyType.HOURLY) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.HOURLY_RECURRENCE);
+                } else if (due.recurrency_type == RecurrencyType.EVERY_DAY) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.DAILY_RECURRENCE);
+                } else if (due.recurrency_type == RecurrencyType.EVERY_WEEK) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.WEEKLY_RECURRENCE);
+
+                    Array<short> values = new Array<short> ();
+
+                    if (due.recurrency_weeks.split (",").length > 0) {
+                        if (due.recurrency_weeks.contains ("1")) {
+                            values.append_val (((short) "TU"));
+                        }
+                
+                        if (due.recurrency_weeks.contains ("2")) {
+                            //  values.append_val ((short) "TU");
+                        }
+                
+                        if (due.recurrency_weeks.contains ("3")) {
+                            //  values.append_val ((short) "WE");
+                        }
+                
+                        if (due.recurrency_weeks.contains ("4")) {
+                            //  values.append_val ((short) "TH");
+                        }
+                
+                        if (due.recurrency_weeks.contains ("5")) {
+                            //  values.append_val ((short) "FR");
+                        }
+                
+                        if (due.recurrency_weeks.contains ("6")) {
+                            //  values.append_val ((short) "SA");
+                        }
+                
+                        if (due.recurrency_weeks.contains ("7")) {
+                            //  values.append_val ((short) "SU");
+                        }
+                    }
+
+                    rrule.set_by_day_array (values);
+                } else if (due.recurrency_type == RecurrencyType.EVERY_MONTH) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.MONTHLY_RECURRENCE);
+                } else if (due.recurrency_type == RecurrencyType.EVERY_YEAR) {
+                    rrule.set_freq (ICal.RecurrenceFrequency.YEARLY_RECURRENCE);
+                }
+
+                rrule.set_interval ((short) due.recurrency_interval);
+
+                if (due.recurrency_count > 0) {
+                    rrule.set_count (due.recurrency_count);
+                }
+                
+                if (due.recurrency_end != "") {
+                    ICal.Time until_icaltime = Util.datetimes_to_icaltime (
+                        due.end_datetime,
+                        null,
+                        null
+                    );
+
+                    rrule.set_until (until_icaltime);
+                }
+
+                var rrule_property = new ICal.Property.rrule (rrule);
+                ical.add_property (rrule_property);
+            }
         }
 
         if (parent_id != "") {
@@ -1153,5 +1224,148 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return return_value;
+    }
+
+    public void set_recurrency (Objects.DueDate duedate) {
+        if (due.is_recurrency_equal (duedate)) {
+            return;
+        }
+
+        if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
+            duedate.recurrency_type == RecurrencyType.HOURLY) {
+            if (!has_due) {
+                due.date = Util.get_default ().get_todoist_datetime_format (
+                    new DateTime.now_local ()
+                );
+            }
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_DAY ||
+            duedate.recurrency_type == RecurrencyType.EVERY_MONTH || 
+            duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
+            if (!has_due) {
+                due.date = Util.get_default ().get_todoist_datetime_format (
+                    Util.get_default ().get_today_format_date ()
+                );
+            }
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
+            if (duedate.has_weeks) {
+                var today = Util.get_default ().get_today_format_date ();
+                int day_of_week = today.get_day_of_week ();
+                int next_day = Util.get_default ().get_next_day_of_week_from_recurrency_week (today, duedate);
+                GLib.DateTime due_date = null;
+
+                if (day_of_week == next_day) {
+                    due_date = today;
+                } else {
+                    due_date = Util.get_default ().next_recurrency_week (today, duedate);
+                }
+
+                due.date = Util.get_default ().get_todoist_datetime_format (due_date);
+            } else {
+                due.date = Util.get_default ().get_todoist_datetime_format (
+                    Util.get_default ().get_today_format_date ()
+                );
+            }
+        }
+
+        due.is_recurring = duedate.is_recurring;
+        due.recurrency_type = duedate.recurrency_type;
+        due.recurrency_interval = duedate.recurrency_interval;
+        due.recurrency_weeks = duedate.recurrency_weeks;
+        due.recurrency_count = duedate.recurrency_count;
+        due.recurrency_end = duedate.recurrency_end;
+        
+        update_async ("");
+    }
+
+    public void update_next_recurrency (Services.Promise<GLib.DateTime>? promise) {
+        var next_recurrency = Util.get_default ().next_recurrency (due.datetime, due);
+        due.date = Util.get_default ().get_todoist_datetime_format (
+            next_recurrency
+        );
+
+        if (due.end_type == RecurrencyEndType.AFTER) {
+            due.recurrency_count = due.recurrency_count - 1;
+        }
+
+        if (project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().update_item (this);
+            promise.resolve (next_recurrency);
+        } else if (project.backend_type == BackendType.TODOIST) {
+            loading = true;
+            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
+                var response = Services.Todoist.get_default ().update.end (res);
+                loading = false;
+
+                if (response.status) {
+                    Services.Database.get_default ().update_item (this);
+                    promise.resolve (next_recurrency);
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            loading = true;
+            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
+                var response = Services.CalDAV.get_default ().add_task.end (res);
+                loading = false;
+
+                if (response.status) {
+                    Services.Database.get_default ().update_item (this);
+                    promise.resolve (next_recurrency);
+                }
+            });
+        }  
+    }
+
+    public void move (Objects.Project project, string section_id) {
+        show_item = false;
+
+        if (project.backend_type == BackendType.LOCAL) {
+            _move (project.id, section_id);
+        } else if (project.backend_type == BackendType.TODOIST) {
+            loading = true;
+
+            string move_id = project_id;
+            string move_type = "project_id";
+            if (section_id != "") {
+                move_type = "section_id";
+                move_id = section_id;
+            }
+
+            Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
+                var response = Services.Todoist.get_default ().move_item.end (res);
+                loading = false;
+
+                if (response.status) {
+                    _move (project.id, section_id);
+                } else {
+                    show_item = true;
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            loading = true;
+
+            Services.CalDAV.get_default ().move_task.begin (this, project_id, (obj, res) => {
+                var response = Services.CalDAV.get_default ().move_task.end (res);
+                loading = false;
+
+                if (response.status) {
+                    _move (project.id, section_id);
+                } else {
+                    show_item = true;
+                }
+            });
+        }
+    }
+
+    private void _move (string _project_id, string _section_id) {
+        string old_project_id = this.project_id;
+        string old_section_id = this.section_id;
+        string old_parent_id = this.parent_id;
+
+        this.project_id = _project_id;
+        this.section_id = _section_id;
+        this.parent_id = "";
+
+        Services.Database.get_default ().update_item (this);
+        Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
     }
 }

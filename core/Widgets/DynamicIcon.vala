@@ -53,9 +53,7 @@ public class Widgets.DynamicIcon : Adw.Bin {
         notify["size"].connect (() => {
             generate_icon ();
         });
-
-
-
+        
         Services.Settings.get_default ().settings.changed.connect ((key) => {
 			if (key == "system-appearance" || key == "appearance" || key == "dark-mode") {
                 generate_icon ();

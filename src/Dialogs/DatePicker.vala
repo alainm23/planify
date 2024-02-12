@@ -140,8 +140,8 @@ public class Dialogs.DatePicker : Adw.Window {
             hide_destroy ();
         });
 
-        calendar_view.selection_changed.connect ((date) => {
-            _datetime = date;
+        calendar_view.day_selected.connect (() => {
+            _datetime = calendar_view.date;
         });
 
         done_button.clicked.connect (() => {

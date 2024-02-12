@@ -46,5 +46,18 @@ public class Dialogs.ItemView : Adw.Window {
         Services.EventBus.get_default ().push_item.connect ((item) => {
             navigation_view.push (new Adw.NavigationPage (new Layouts.ItemViewContent (item), item.id));
         });
+
+        item.deleted.connect (() => {
+            hide_destroy ();
+        });
+    }
+
+    public void hide_destroy () {
+        hide ();
+
+        Timeout.add (500, () => {
+            destroy ();
+            return GLib.Source.REMOVE;
+        });
     }
 }

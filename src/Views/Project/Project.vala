@@ -192,7 +192,7 @@ public class Views.Project : Gtk.Grid {
 
 		view_stack.set_visible_child_name (view_style.to_string ());
 		project.view_style = view_style;
-		project.update (false);
+		project.update_local ();
 	}
 
 	public void prepare_new_item (string content = "") {
@@ -276,7 +276,7 @@ public class Views.Project : Gtk.Grid {
 					project.due_date = dialog.datetime.to_string ();
 				}
 
-				project.update_no_timeout ();
+				project.update_local ();
 			});
 		});
 
@@ -433,7 +433,7 @@ public class Views.Project : Gtk.Grid {
 
 		order_by_item.notify["selected"].connect (() => {
 			project.sort_order = order_by_item.selected;
-			project.update (false);
+			project.update_local ();
 			check_default_view ();
 		});
 
@@ -441,7 +441,7 @@ public class Views.Project : Gtk.Grid {
 			popover.popdown ();
 
 			project.show_completed = !project.show_completed;
-			project.update ();
+			project.update_local ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
 			check_default_view ();

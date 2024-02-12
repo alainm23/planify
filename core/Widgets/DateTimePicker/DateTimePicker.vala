@@ -20,11 +20,30 @@
 */
 
 public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
-    private Widgets.ContextMenu.MenuItem no_date_item;
+    private Widgets.ContextMenu.MenuItem today_item;
+    private Widgets.ContextMenu.MenuItem tomorrow_item;
+    private Widgets.ContextMenu.MenuItem date_item;
+    private Widgets.ContextMenu.MenuItem next_week_item;
     private Widgets.DateTimePicker.TimePicker time_picker;
+    private Widgets.Calendar.Calendar calendar_view;
+    private Gtk.Revealer action_revealer;
 
     private GLib.DateTime _datetime = null;
     public GLib.DateTime datetime {
+        set {
+            _datetime = value;
+            if (_datetime != null) {
+                calendar_view.date = _datetime;
+            }
+
+            check_items (_datetime);
+
+            if (Util.get_default ().has_time (_datetime)) {
+                time_picker.time = _datetime;
+                time_picker.has_time = true;
+            }
+        }
+        
         get {
             if (time_picker.has_time) {
                 if (_datetime == null) {
@@ -40,20 +59,11 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             return _datetime;
         }
-
-        set {
-            _datetime = value;
-
-            if (Util.get_default ().has_time (_datetime)) {
-                time_picker.time = _datetime;
-                time_picker.has_time = true;
-            }
-        }
     }
 
     public bool visible_no_date {
         set {
-            no_date_item.visible = value;
+            action_revealer.reveal_child = value;
         }
     }
 
@@ -62,55 +72,17 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     public DateTimePicker () {
         Object (
             has_arrow: false,
-            position: Gtk.PositionType.RIGHT
+            position: Gtk.PositionType.RIGHT,
+            width_request: 275
         );
     }
 
     construct {
-        var search_entry = new Gtk.SearchEntry () {
-            css_classes = { "border-radius-9" }
-        };
-
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
-        today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
-
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
-        tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
-
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle") {
-            visible = false
-        };
-
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
-        next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
-            Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
-        );
-
-        var date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "planner-scheduled");
-
-        var items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true,
-            css_classes = { "card" }
-        };
-    
-        items_box.append (today_item);
-        items_box.append (tomorrow_item);
-        items_box.append (next_week_item);
-        items_box.append (no_date_item);
-        items_box.append (date_item);
-        
-        var menu_items_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            hexpand = true
-        };
-
-        //  menu_items_box.append (search_entry);
-        menu_items_box.append (items_box);
-
-        var calendar_view = new Widgets.Calendar.Calendar (false);
-
-        var calendar_grid = new Gtk.Grid ();
-        calendar_grid.attach (calendar_view, 0, 0);
-        calendar_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
+        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
+        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
+        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "planner-scheduled");
+        date_item.arrow = true;
 
         var time_icon = new Widgets.DynamicIcon.from_icon_name ("planner-clock") {
             margin_start = 9
@@ -128,8 +100,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
         var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            margin_top = 6,
-            css_classes = { "card" }
+            margin_top = 6
         };
 
         time_box.append (time_icon);
@@ -137,18 +108,47 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         time_box.append (time_picker);
 
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
-            margin_top = 12,
-            margin_bottom = 3,
             css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
+
+        var clear_button = new Widgets.LoadingButton.with_label (_("Clear")) {
+            css_classes = { Granite.STYLE_CLASS_DESTRUCTIVE_ACTION }
+        };
+
+        var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_top = 12,
+            homogeneous = true
+        };
+        action_box.append (clear_button);
+        action_box.append (submit_button);
+
+        action_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			child = action_box
+		};
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            width_request = 225
+        };  
+
+        content_box.append (today_item);
+        content_box.append (tomorrow_item);
+        content_box.append (next_week_item);
+        content_box.append (date_item);
+        content_box.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
+            margin_start = 6,
+            margin_top = 6
+        });
+        content_box.append (time_box);
+        content_box.append (action_revealer);
+
+        calendar_view = new Widgets.Calendar.Calendar (true);
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
-        calendar_box.append (calendar_grid);
-        calendar_box.append (time_box);
-        calendar_box.append (submit_button);
+        calendar_box.append (calendar_view);
 
         var content_stack = new Gtk.Stack () {
             hexpand = true,
@@ -158,16 +158,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             hhomogeneous = true
         };
 
-        content_stack.add_named (menu_items_box, "items");
+        content_stack.add_named (content_box, "items");
         content_stack.add_named (calendar_box, "calendar");
 
-        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            width_request = 225
-        };
-        
-        content_box.append (content_stack);
-
-        child = content_box;
+        child = content_stack;
 
         today_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ());
@@ -181,28 +175,39 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             set_date (new DateTime.now_local ().add_days (7));
         });
 
-        no_date_item.activate_item.connect (() => {
-            time_picker.has_time = false;
-            _datetime = null;
-            popdown ();
-            date_changed ();
-        });
-
-        calendar_view.selection_changed.connect ((date) => {
-            _datetime = Util.get_default ().get_format_date (date);
+        calendar_view.day_selected.connect (() => {
+            datetime = Util.get_default ().get_format_date (calendar_view.date);
+            visible_no_date = true;
+            content_stack.visible_child_name = "items";
         });
 
         time_picker.time_changed.connect (() => {
-            _datetime = Util.get_default ().get_format_date (datetime);
+            datetime = Util.get_default ().get_format_date (datetime);
         });
 
-        date_item.clicked.connect (() => {
-            content_stack.visible_child_name = "calendar";
+        time_picker.time_added.connect (() => {
+            visible_no_date = true;
+
+            if (datetime == null) {
+                datetime = time_picker.time;
+            }
         });
 
         submit_button.clicked.connect (() => {
             date_changed ();
             popdown ();
+        });
+
+        clear_button.clicked.connect (() => {
+            time_picker.has_time = false;
+            _datetime = null;
+            popdown ();
+            date_changed ();
+            check_items (null);
+        });
+
+        date_item.clicked.connect (() => {
+            content_stack.visible_child_name = "calendar";
         });
 
         closed.connect (() => {
@@ -211,7 +216,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void set_date (DateTime date) {
-        _datetime = Util.get_default ().get_format_date (date);
+        datetime = Util.get_default ().get_format_date (date);
         popdown ();
         date_changed ();
     }
@@ -225,5 +230,36 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
             time.get_minute (),
             time.get_second ()
         );
+    }
+
+    public void reset () {
+        time_picker.reset ();
+        visible_no_date = false;
+        calendar_view.reset ();
+        check_items (null);
+    }
+
+    private void check_items (GLib.DateTime? datetime) {
+        today_item.selected = false;
+        tomorrow_item.selected = false;
+        next_week_item.selected = false;
+        date_item.selected = false;
+        date_item.secondary_text = "";
+
+        if (datetime == null) {
+            return;
+        }
+
+        if (Utils.Datetime.is_today (datetime)) {
+            today_item.selected = true;
+        } else if (Utils.Datetime.is_tomorrow (datetime)) {
+            tomorrow_item.selected = true;
+        } else if (Utils.Datetime.is_next_week (datetime)) {
+            next_week_item.selected = true;
+        } else {
+            date_item.secondary_text = Util.get_default ().get_relative_date_from_date (
+                Util.get_default ().get_format_date (datetime)
+            );
+        }
     }
 }

@@ -24,6 +24,8 @@ public class Views.List : Gtk.Grid {
 
     private Gtk.Label description_label;
     private Widgets.HyperTextView description_textview;
+    private Gtk.Popover description_popover = null;
+
     private Widgets.DynamicIcon due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
@@ -50,7 +52,7 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        description_label = new Gtk.Label (project.description) {
+        description_label = new Gtk.Label (null) {
             wrap = true,
             xalign = 0,
             yalign = 0,
@@ -85,6 +87,16 @@ public class Views.List : Gtk.Grid {
             }
 
             return item1.section.section_order - item2.section.section_order;
+        });
+
+        listbox.set_filter_func ((child) => {
+            Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
+
+            if (item.is_inbox_section) {
+                return true;
+            }
+
+            return !item.section.hidded;
         });
 
         var listbox_placeholder = new Adw.StatusPage ();
@@ -248,6 +260,11 @@ public class Views.List : Gtk.Grid {
 
     public void update_request () {
         description_label.label = project.description;
+        if (description_label.label.length <= 0) {
+            description_label.label = _("Note");
+            description_label.add_css_class ("dim-label");
+        }
+
         update_duedate ();
     }
 
@@ -318,16 +335,16 @@ public class Views.List : Gtk.Grid {
                     project.due_date = dialog.datetime.to_string ();
                 }
                 
-                project.update (false);
+                project.update_local ();
             });
         });
 
         return due_revealer;
     }
 
-    private Gtk.Popover description_popover = null;
     private void build_description_popover () {
         if (description_popover != null) {
+            description_popover.width_request = description_label.get_width ();
             description_popover.popup ();
             return;
         }
@@ -353,8 +370,8 @@ public class Views.List : Gtk.Grid {
             has_arrow = false,
             child = description_card,
             position = Gtk.PositionType.BOTTOM,
-            width_request = 500,
-            height_request = 128
+            width_request = description_label.get_width (),
+            height_request = 96
         };
 
         description_popover.set_parent (description_label);
@@ -362,7 +379,7 @@ public class Views.List : Gtk.Grid {
 
         description_textview.changed.connect (() => {
             project.description = description_textview.get_text ();
-            project.update (false);
+            project.update_local ();
         });
     }
 }

@@ -34,6 +34,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool is_favorite { get; set; default = false; }
     public bool shared { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
+    public bool inbox_section_hidded { get; set; default = false; }
     
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -399,51 +400,49 @@ public class Objects.Project : Objects.BaseObject {
         name = node.get_object ().get_string_member ("title");
     }
 
-    public void update_no_timeout () {
-        if (backend_type == BackendType.TODOIST) {
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                Services.Todoist.get_default ().update.end (res);
-                Services.Database.get_default ().update_project (this);
-            });
-        } else if (backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_project (this);
-        }
+    public void update_local () {
+        Services.Database.get_default ().update_project (this);
     }
 
-    public void update (bool cloud = true) {
+    public void update (bool use_timeout = true, bool show_loading = true) {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
 
-        update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
+        uint timeout = Constants.UPDATE_TIMEOUT;
+        if (use_timeout) {
+            timeout = 0;
+        }
+
+        update_timeout_id = Timeout.add (timeout, () => {
             update_timeout_id = 0;
 
-            if (backend_type == BackendType.TODOIST && cloud) {
+            if (backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_project (this);
+            } else if (backend_type == BackendType.TODOIST) {
+                if (show_loading) {
+                    loading = true;
+                }
+
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Database.get_default ().update_project (this);
+                    loading = false;
                 });
-            } else {
-                Services.Database.get_default ().update_project (this);
+            } else if (backend_type == BackendType.CALDAV) {
+                if (show_loading) {
+                    loading = true;
+                }
+
+                Services.CalDAV.get_default ().update_tasklist.begin (this, (obj, res) => {
+                    Services.CalDAV.get_default ().update_tasklist.end (res);
+                    Services.Database.get_default().update_project (this);
+                    loading = false;
+                });
             }
 
             return GLib.Source.REMOVE;
         });
-    }
-
-    public void update_async () {
-        loading = true;
-        
-        if (backend_type == BackendType.TODOIST) {
-            Services.Todoist.get_default ().update.begin (this, (obj, res) => {
-                Services.Todoist.get_default ().update.end (res);
-                Services.Database.get_default ().update_project (this);
-                loading = false;
-            });
-        } else if (backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_project (this);
-            loading = false;
-        }
     }
 
     public Objects.Project? add_subproject_if_not_exists (Objects.Project new_project) {

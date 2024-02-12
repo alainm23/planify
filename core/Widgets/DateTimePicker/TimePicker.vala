@@ -66,6 +66,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     private bool changing_time = false;
 
     public signal void time_changed ();
+    public signal void time_added ();
 
     construct {
         if (format_12 == null) {
@@ -135,6 +136,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         add_time_button.clicked.connect (() => {
             time_stack.visible_child_name = "time-box";
             update_text ();
+            time_added ();
         });
 
         // Connecting to events allowing manual changes
@@ -166,9 +168,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         time_entry.activate.connect (is_unfocused);
 
         no_time_button.clicked.connect (() => {
-            time_stack.visible_child_name = "add-time";
-            _time = null;
-            update_text ();
+            reset ();
         });
     }
 
@@ -276,5 +276,11 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         if (no_signal == false) {
             time_changed ();
         }
+    }
+    
+    public void reset () {
+        time_stack.visible_child_name = "add-time";
+        _time = null;
+        update_text ();
     }
 }

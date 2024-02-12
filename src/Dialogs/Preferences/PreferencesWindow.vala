@@ -276,7 +276,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		delete_row.activatable = true;
 		delete_row.add_prefix (generate_icon ("trash"));
 		delete_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
-		delete_row.title = _("Delete Planify Data");
+		delete_row.title = _("Delete App Data");
 
 		privacy_group.add (privacy_policy_row);
 		privacy_group.add (delete_row);
@@ -469,6 +469,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
 
 		tasks_group.add (tasks_position_row);
+
+		var show_completed_subtasks = new Adw.SwitchRow ();
+		show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
+		Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		tasks_group.add (show_completed_subtasks);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);

@@ -23,6 +23,24 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
     private Gee.ArrayList <Widgets.Calendar.CalendarDay> days_arraylist;
     private Gtk.Grid days_grid;
 
+    private GLib.DateTime _current_date;
+    public GLib.DateTime current_date {
+        get {
+            var today = new GLib.DateTime.now_local ();
+            
+            _current_date = new DateTime.local (
+                today.get_year (),
+                today.get_month (),
+                today.get_day_of_month (),
+                0,
+                0,
+                0
+            );
+
+            return _current_date;
+        }
+    }
+    
     public signal void day_selected (int day);
 
     public CalendarView () {
@@ -45,7 +63,11 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
 
         for (int i = 0; i < 42; i++) {
             var day = new Widgets.Calendar.CalendarDay ();
-            day.day_selected.connect (day_selected_style);
+            
+            day.day_selected.connect ((day) => {
+                day_selected_style (day);
+            });
+
             days_grid.attach (day, col, row, 1, 1);
             col = col + 1;
 
@@ -61,19 +83,9 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
         child = days_grid;
     }
 
-    public void fill_grid_days (int start_day,
-                                int max_day,
-                                int current_day,
-                                bool is_current_month,
-                                bool block_past_days = false,
-                                GLib.DateTime month = new GLib.DateTime.now_local ()) {
+    public void fill_grid_days (int start_day, int max_day,
+        GLib.DateTime day, bool show_day, bool block_past_days) {
         var day_number = 1;
-
-        int _current_day = current_day;
-        if (is_current_month) {
-            var current_date = new GLib.DateTime.now_local ();
-            _current_day = current_date.get_day_of_month ();
-        }
 
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
@@ -81,44 +93,47 @@ public class Widgets.Calendar.CalendarView : Adw.Bin {
             item.visible = true;
 
             item.remove_css_class ("calendar-today");
+            item.remove_css_class ("calendar-day-selected");
 
             if (i < start_day || i >= max_day + start_day) {
                 item.visible = false;
             } else {
-                if (day_number < _current_day) {
-                    if (block_past_days && is_current_month) {
-                        item.sensitive = false;
-                    }
+                if (block_past_days && generate_date (day, day_number).compare (current_date) <= -1) {
+                    item.sensitive = false;
                 }
 
-                if (_current_day != -1 && (i + 1) == _current_day + start_day) {
-                    if (is_current_month) {
-                        item.add_css_class ("calendar-today");
-                    }
+                if (generate_date (day, day_number).compare (current_date) == 0) {
+                    item.add_css_class ("calendar-today");
+                }
+
+                if (show_day && Util.get_default ().get_format_date (day).compare (generate_date (day, day_number)) == 0) {
+                    item.add_css_class ("calendar-day-selected");
                 }
 
                 item.day = day_number;
                 day_number = day_number + 1;
             }
-
-            if (block_past_days) {
-                if (is_current_month == false) {
-                    if (month.compare (new GLib.DateTime.now_local ()) == -1) {
-                        item.sensitive = false;
-                    }
-                }
-            }
         }
-
-        clear_style ();
     }
 
-    private void clear_style () {
+    public void clear_style () {
         for (int i = 0; i < 42; i++) {
             var item = days_arraylist [i];
             item.remove_css_class ("calendar-day-selected");
         }
     }
+
+    private GLib.DateTime generate_date (GLib.DateTime date, int day) {
+        return new DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            day,
+            0,
+            0,
+            0
+        );
+    }
+
     private void day_selected_style (int day) {
         day_selected (day);
 

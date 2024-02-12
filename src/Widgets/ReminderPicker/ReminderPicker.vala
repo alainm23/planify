@@ -44,8 +44,6 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             margin_bottom = 9
         };
         reminders_view.reveal_child = true;
-        reminders_view.autohide_action = false;
-        reminders_view.show_action = true;
         reminders_view.placeholder_message = _("Your list of reminders will show up here. Add one by clicking the '+' button.");
 
         var add_button = new Gtk.Button () {

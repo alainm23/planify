@@ -188,13 +188,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             update_request ();
         });
 
-        //  Services.Database.get_default ().item_added.connect ((item, insert) => {
-        //      if (item.project_id == section.project_id &&
-        //          item.section_id == section.id && insert) {
-        //          add_item (item);
-        //      }
-        //  });
-
         if (is_inbox_section) {
 			section.project.item_added.connect ((item) => {
 				add_item (item);
@@ -308,17 +301,6 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
             prepare_new_item ();
         });
     }
-
-    //  void setup_listitem_cb (Gtk.ListItemFactory factory, Gtk.ListItem list_item) {
-    //      var row = new Layouts.ItemBoard ();
-    //      list_item.set_child (row);
-    //  }
-
-    //  void bind_listitem_cb (Gtk.ListItemFactory factory, Gtk.ListItem list_item) {
-    //      var item = list_item.get_item () as Objects.Item;
-    //      var row = list_item.get_child () as Layouts.ItemBoard;
-    //      row.set_item (item);
-    //  }
 
     private void update_request () {
         name_editable.text = section.name;
@@ -447,24 +429,24 @@ public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (add_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-
-        if (!is_inbox_section) {
-            menu_box.append (edit_item);
-        }
-
-        menu_box.append (move_item);
-        menu_box.append (manage_item);
 
         if (!is_inbox_section) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (edit_item);
+            menu_box.append (move_item);
+            menu_box.append (manage_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (delete_item);
+        } else {
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (manage_item);
         }
 
         var menu_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM
+            position = Gtk.PositionType.BOTTOM,
+            width_request = 250
         };
 
         add_item.clicked.connect (() => {

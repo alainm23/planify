@@ -34,7 +34,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			application: application,
 			app: application,
 			icon_name: Build.APPLICATION_ID,
-			title: _("Planify"),
+			title: "Planify",
 			width_request: 450,
 			height_request: 480
 		);
@@ -448,11 +448,11 @@ public class MainWindow : Adw.ApplicationWindow {
 		if (use_todoist) {
 			var old_inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
 			old_inbox_project.inbox_project = false;
-			old_inbox_project.update ();
+			old_inbox_project.update_local ();
 
 			var new_inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
 			new_inbox_project.inbox_project = true;
-			old_inbox_project.update ();
+			old_inbox_project.update_local ();
 
 			Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project_id);
 			Services.Settings.get_default ().settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
@@ -534,20 +534,25 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void about_dialog () {
-		string appdata_path = "/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in";
-		debug (appdata_path);
+		Adw.AboutWindow dialog;
 
-		var dialog = new Adw.AboutWindow.from_appdata (appdata_path, Build.VERSION) {
-			transient_for = (Gtk.Window) Planify.instance.main_window,
-			modal = true,
-			application_icon = Build.APPLICATION_ID,
-			application_name = "Planify",
-			developer_name = "Alain",
-			designers = { "Alain" },
-			website = "https://github.com/alainm23/planify",
-			developers = { "Alain" },
-			issue_url = "https://github.com/alainm23/planify/issues"
-		};
+		if (Build.PROFILE == "development") {
+			dialog = new Adw.AboutWindow ();
+		} else {
+			dialog = new Adw.AboutWindow.from_appdata (
+				"/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
+			);
+		}
+
+		dialog.transient_for = (Gtk.Window) Planify.instance.main_window;
+		dialog.modal = true;
+		dialog.application_icon = Build.APPLICATION_ID;
+		dialog.application_name = "Planify";
+		dialog.developer_name = "Alain";
+		dialog.designers = { "Alain" };
+		dialog.website = "https://github.com/alainm23/planify";
+		dialog.developers = { "Alain" };
+		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 
 		dialog.show ();
 	}

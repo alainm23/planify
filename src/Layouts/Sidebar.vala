@@ -76,7 +76,7 @@ public class Layouts.Sidebar : Adw.Bin {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
         };
         labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS) {
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+V")
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
         };
         pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")

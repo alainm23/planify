@@ -449,7 +449,11 @@ public class Util : GLib.Object {
     public GLib.DateTime next_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
         GLib.DateTime returned = datetime;
 
-        if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
+        if (duedate.recurrency_type == RecurrencyType.MINUTELY) {
+            returned = returned.add_minutes (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.HOURLY) {
+            returned = returned.add_hours (duedate.recurrency_interval);
+        } else if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
             returned = returned.add_days (duedate.recurrency_interval);
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
             if (duedate.recurrency_weeks == "") {
@@ -516,7 +520,7 @@ public class Util : GLib.Object {
     }
 
     public string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
-        string recurrency_weeks) {
+        string recurrency_weeks, string end = "") {
         string returned = recurrency_type.to_friendly_string (recurrency_interval);
 
         if (recurrency_type == RecurrencyType.EVERY_WEEK &&
@@ -554,7 +558,7 @@ public class Util : GLib.Object {
             returned = "%s (%s)".printf (returned, weeks);
         }
 
-        return returned;
+        return returned + " " + end;
     }
 
     public GLib.DateTime get_today_format_date () {
@@ -1272,7 +1276,7 @@ We hope you’ll enjoy using Planify!""");
         if (time_local == null) {
             // Date type: ensure that everything corresponds to a date
             result.set_is_date (true);
-            result.set_time (0, 0, 0);
+            // result.set_time (0, 0, 0);
         } else {
             // Includes time
             // Set is_date first (otherwise timezone won't change)

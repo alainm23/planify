@@ -63,9 +63,7 @@ public class Widgets.Calendar.CalendarDay : Adw.Bin {
         child = main_grid;
 
         var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
         add_controller (gesture);
-
         gesture.pressed.connect (() => {
             day_selected (int.parse (label.label));
             add_css_class ("calendar-day-selected");

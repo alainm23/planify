@@ -22,7 +22,10 @@
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Label description_label;
     private Widgets.HyperTextView description_textview;
+    private Gtk.Popover description_popover = null;
+
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
 
@@ -35,15 +38,20 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
-        description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 24,
-            right_margin = 24,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR
+        description_label = new Gtk.Label (null) {
+            wrap = true,
+            xalign = 0,
+            yalign = 0,
+            margin_start = 26,
+            margin_top = 6,
+            margin_end = 12
         };
-        description_textview.set_text (project.description);
-        description_textview.remove_css_class ("view");
+        
+        var description_gesture_click = new Gtk.GestureClick ();
+        description_label.add_controller (description_gesture_click);
+        description_gesture_click.pressed.connect ((n_press, x, y) => {
+            build_description_popover ();
+        });
 
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 
@@ -69,7 +77,7 @@ public class Views.Board : Adw.Bin {
             Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
 
             if (item.is_inbox_section) {
-                return false;
+                return !project.inbox_section_hidded;
             }
 
             return !item.section.hidded;
@@ -92,10 +100,11 @@ public class Views.Board : Adw.Bin {
 			vexpand = true
 		};
 
-        content_box.append (description_textview);
+        content_box.append (description_label);
 		content_box.append (flowbox_scrolled);
 
         child = content_box;
+        update_request ();
         add_sections ();
 
         project.section_added.connect ((section) => {
@@ -134,8 +143,20 @@ public class Views.Board : Adw.Bin {
                 sections_map.unset (section.id_string);
             }
         });
+
+        project.updated.connect (() => {
+            update_request ();
+        });
     }
     
+    public void update_request () {
+        description_label.label = project.description;
+        if (description_label.label.length <= 0) {
+            description_label.label = _("Note");
+            description_label.add_css_class ("dim-label");
+        }
+    }
+
     public void add_sections () {
         add_inbox_section ();
         foreach (Objects.Section section in project.sections) {
@@ -157,5 +178,46 @@ public class Views.Board : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         inbox_board.prepare_new_item (content);
+    }
+
+    private void build_description_popover () {
+        if (description_popover != null) {
+            description_popover.width_request = description_label.get_width ();
+            description_popover.popup ();
+            return;
+        }
+
+        description_textview = new Widgets.HyperTextView (_("Note")) {
+            left_margin = 6,
+            right_margin = 6,
+            top_margin = 6,
+            bottom_margin = 6,
+            wrap_mode = Gtk.WrapMode.WORD_CHAR,
+            hexpand = true,
+            vexpand = true
+        };
+        description_textview.set_text (project.description);
+        description_textview.remove_css_class ("view");
+
+        var description_card = new Adw.Bin () {
+            child = description_textview,
+            css_classes = { "card" }
+        };
+
+        description_popover = new Gtk.Popover () {
+            has_arrow = false,
+            child = description_card,
+            position = Gtk.PositionType.BOTTOM,
+            width_request = description_label.get_width (),
+            height_request = 96
+        };
+
+        description_popover.set_parent (description_label);
+        description_popover.popup ();
+
+        description_textview.changed.connect (() => {
+            project.description = description_textview.get_text ();
+            project.update_local ();
+        });
     }
 }

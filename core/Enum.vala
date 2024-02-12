@@ -204,7 +204,15 @@ public enum ObjectType {
 	}
 }
 
+public enum RecurrencyEndType {
+	NEVER,
+	ON_DATE,
+	AFTER
+}
+
 public enum RecurrencyType {
+	MINUTELY,
+	HOURLY,
 	EVERY_DAY,
 	EVERY_WEEK,
 	EVERY_MONTH,
@@ -215,6 +223,18 @@ public enum RecurrencyType {
 		switch (this) {
 		case NONE:
 			return _("Don't Repeat");
+		case MINUTELY:
+			if (interval == null || interval == 0) {
+				return _("Every minute");
+			} else {
+				return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
+			}
+		case HOURLY:
+			if (interval == null || interval == 0) {
+				return _("Every hour");
+			} else {
+				return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
+			}
 		case EVERY_DAY:
 			if (interval == null || interval == 0) {
 				return _("Every day");

@@ -575,7 +575,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var menu_popover = new Gtk.Popover () {
 			has_arrow = false,
 			child = menu_box,
-			position = Gtk.PositionType.BOTTOM
+			position = Gtk.PositionType.BOTTOM,
+			width_request = 250
 		};
 
 		add_item.clicked.connect (() => {
