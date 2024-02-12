@@ -1,0 +1,150 @@
+name: planify 
+base: core22
+adopt-info: planify
+grade: stable
+confinement: strict
+compression: lzo
+
+layout:
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkitgtk-6.0:
+    bind: $SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkitgtk-6.0
+
+parts:
+  granite:
+    plugin: meson
+    source: https://github.com/elementary/granite.git
+    source-tag: '7.2.0'
+    source-depth: 1
+    meson-parameters:
+      - --prefix=/usr
+    build-packages:
+      - intltool
+    prime:
+      - -usr/include
+      - -usr/lib/*/pkgconfig
+
+  libical:
+    plugin: cmake
+    source: https://github.com/libical/libical.git
+    source-tag: 'v3.0.17'
+    source-depth: 1
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_INSTALL_LIBDIR=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_SHARED_LIBS=ON
+      - -DGOBJECT_INTROSPECTION=true
+      - -DICAL_GLIB_VAPI=true
+      - -DICAL_GLIB=true
+      - -DICAL_BUILD_DOCS=false
+      - -DWITH_CXX_BINDINGS=false
+    prime:
+      - -usr/include
+      - -usr/lib/*/cmake
+      - -usr/libexec
+      - -usr/lib/*/pkgconfig
+
+  evolution-data-server:
+    after: [libical]
+    plugin: cmake
+    source: https://download.gnome.org/sources/evolution-data-server/3.50/evolution-data-server-3.50.3.tar.xz 
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/snap/planify/current/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DENABLE_FILE_LOCKING=fcntl
+      - -DENABLE_DOT_LOCKING=OFF
+      - -DENABLE_OAUTH2=ON
+      - -DENABLE_CANBERRA=OFF
+      - -DENABLE_GTK=ON
+      - -DENABLE_UOA=OFF
+      - -DENABLE_GOA=OFF
+      - -DENABLE_GOOGLE=OFF
+      - -DENABLE_EXAMPLES=OFF
+      - -DENABLE_INTROSPECTION=ON
+      - -DENABLE_VALA_BINDINGS=ON
+      - -DENABLE_INSTALLED_TESTS=OFF
+      - -DENABLE_GTK_DOC=OFF
+      - -DWITH_PRIVATE_DOCS=OFF
+      - -DWITH_PHONENUMBER=OFF
+      - -DWITH_SYSTEMDUSERUNITDIR=OFF
+      - -DWITH_LIBDB=OFF
+      - -DWITH_OPENLDAP=OFF
+      - -DENABLE_WEATHER=OFF
+      - -DENABLE_OAUTH2_WEBKITGTK4=OFF
+    override-pull: |
+      craftctl default
+      sed -i "s|#include \"nss.h\"|#include \"nss/nss.h\"|g" src/camel/camel.c
+      sed -i "s|#include <nss.h>|#include <nss/nss.h>|g" src/libedataserverui/e-certificate-widget.c
+    build-packages:
+      - libkrb5-dev
+      - gperf
+      - libnss3-dev
+      - libnspr4-dev
+      - librest-dev
+      - libxml2-dev
+    organize:
+      snap/planify/current: .
+      usr/include/evolution-data-server: usr/include
+    prime:
+      - -usr/lib/*/pkgconfig
+      - -usr/include
+      - -usr/lib/*/evolution-data-server/*-backends
+      - -usr/libexec
+      - -usr/share/dbus-1/services
+
+  planify:
+    after: [granite, evolution-data-server, libical]
+    plugin: meson
+    source: https://github.com/alainm23/planify.git
+    source-tag: '4.4'
+    source-depth: 1
+    build-environment:
+      - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/pkgconfig:${PKG_CONFIG_PATH}
+      - LD_LIBRARY_PATH: ${CRAFT_STAGE}/usr/lib:${CRAFT_STAGE}/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}:${CRAFT_STAGE}/usr/lib/evolution-data-server:${LD_LIBRARY_PATH}
+    meson-parameters:
+      - --prefix=/snap/planify/current/usr
+    build-snaps:
+      - webkitgtk-6-gnome-2204-sdk
+    parse-info: [usr/share/appdata/io.github.alainm23.planify.appdata.xml]
+    organize:
+      snap/planify/current: .
+
+  # deps:
+  #   plugin: nil
+  #   stage-packages:
+  #     - libgssapi-krb5-2
+  #     - libkrb5-3
+  #
+slots:
+  planify:
+    interface: dbus
+    bus: session
+    name: io.github.alainm23.planify
+
+plugs:
+  webkitgtk-6-gnome-2204:
+    interface: content
+    target: $SNAP/webkitgtk-platform
+    default-provider: webkitgtk-6-gnome-2204
+
+apps:
+  planify:
+    command: usr/bin/io.github.alainm23.planify
+    desktop: usr/share/applications/io.github.alainm23.planify.desktop
+    environment: &environment
+      LD_LIBRARY_PATH: $SNAP/webkitgtk-platform/usr/lib:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
+      GI_TYPELIB_PATH: ${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/girepository-1.0:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/gjs/girepository-1.0:${SNAP}/webkitgtk-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/girepository-1.0
+    extensions: [gnome]
+    plugs: &plugs
+      - home
+      - calendar-service
+      - accounts-service
+      - contacts-service
+      - network
+      - network-status
+      - unity7
+  quick-add:
+    command: usr/bin/io.github.alainm23.planify.quick-add
+    extensions: [gnome]
+    environment: *environment
+    plugs: *plugs
