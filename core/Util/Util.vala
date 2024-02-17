@@ -52,7 +52,7 @@ public class Util : GLib.Object {
             colors.set ("blue", new Objects.Color (41, _("Blue"), "#4073ff"));
             colors.set ("grape", new Objects.Color (42, _("Grape"), "#884dff"));
             colors.set ("violet", new Objects.Color (43, _("Violet"), "#af38eb"));
-            colors.set ("lavender", new Objects.Color (44, _("Lavander"), "#eb96eb"));
+            colors.set ("lavender", new Objects.Color (44, _("Lavender"), "#eb96eb"));
             colors.set ("magenta", new Objects.Color (45, _("Magenta"), "#e05194"));
             colors.set ("salmon", new Objects.Color (46, _("Salmon"), "#ff8d85"));
             colors.set ("charcoal", new Objects.Color (47, _("Charcoal"), "#808080"));
@@ -1032,7 +1032,7 @@ We hope you’ll enjoy using Planify!""");
             item_02_01.project_id = project.id;
             item_02_01.section_id = section_01.id;
             item_02_01.content = _("Show your calendar events");
-            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 Calendar Events to turn ir on.");
+            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 Calendar Events to turn it on.");
 
             var item_02_02 = new Objects.Item ();
             item_02_02.id = Util.get_default ().generate_id (item_02_02);

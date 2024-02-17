@@ -216,7 +216,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private Gtk.Popover build_menu_popover () {
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mask as Completed"), "planner-check-circle");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mark as Completed"), "planner-check-circle");
         
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
         delete_item.add_css_class ("menu-item-danger");

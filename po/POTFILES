@@ -1,6 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-core/Util.vala
+core/Util/Util.vala
+core/Util/Datetime.vala
 core/Enum.vala
 core/Constants.vala
 core/QuickAdd.vala
