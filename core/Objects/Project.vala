@@ -228,6 +228,12 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    public bool is_deck {
+        get {
+            return id.contains ("deck--board");
+        }
+    }
+
     public signal void loading_changed (bool value);
     public signal void project_count_updated ();
     public signal void show_multi_select_change ();

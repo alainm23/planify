@@ -77,7 +77,10 @@ public class Views.Project : Gtk.Grid {
 		var headerbar = new Layouts.HeaderBar ();
 		headerbar.title = project.name;
 
-		headerbar.pack_end (menu_button);
+		if (!project.is_deck) {
+			headerbar.pack_end (menu_button);
+		}
+
 		headerbar.pack_end (view_setting_overlay);
 
 		view_stack = new Gtk.Stack () {
@@ -101,7 +104,10 @@ public class Views.Project : Gtk.Grid {
 		};
 
 		content_overlay.child = content_box;
-		content_overlay.add_overlay (magic_button);
+
+		if (!project.is_deck) {
+			content_overlay.add_overlay (magic_button);
+		}
 
 		multiselect_toolbar = new Widgets.MultiSelectToolbar (project);
 
@@ -196,6 +202,10 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	public void prepare_new_item (string content = "") {
+		if (project.is_deck) {
+			return;
+		}
+
 		if (project.view_style == ProjectViewStyle.LIST) {
 			Views.List? list_view;
 			list_view = (Views.List) view_stack.get_child_by_name (project.view_style.to_string ());
@@ -226,7 +236,6 @@ public class Views.Project : Gtk.Grid {
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
-
 		if (!project.is_inbox_project) {
 			menu_box.append (edit_item);
 			menu_box.append (schedule_item);

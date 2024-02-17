@@ -362,7 +362,6 @@ public class Objects.Item : Objects.BaseObject {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
 
         patch_from_caldav_xml (element);
 
@@ -376,7 +375,6 @@ public class Objects.Item : Objects.BaseObject {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-        string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
 
         patch_from_caldav_xml (element);
 
@@ -420,19 +418,7 @@ public class Objects.Item : Objects.BaseObject {
         
         var rrules = Util.find_string_value ("RRULE", data);
         if (rrules != "") {
-            ICal.Recurrence recurrence = new ICal.Recurrence.from_string (rrules);
-            ICal.RecurrenceFrequency freq = recurrence.get_freq ();
-            short interval = recurrence.get_interval ();
-            int count = recurrence.get_count ();
-            GLib.Array<short> get_by_day_array = recurrence.get_by_day_array ();
- 
-            print ("freq: %s\n".printf (freq.to_string ()));
-            print ("interval: %s\n".printf (interval.to_string ()));
-            print ("count: %d\n".printf (count));
-
-            foreach (short day in get_by_day_array) {
-                print ("Short: %s\n", day.to_string ());
-            }
+            Utils.Datetime.recurrence_to_due (rrules, due);
         }
 
         parent_id = Util.find_string_value ("RELATED-TO", data);
@@ -1005,34 +991,42 @@ public class Objects.Item : Objects.BaseObject {
                     rrule.set_freq (ICal.RecurrenceFrequency.WEEKLY_RECURRENCE);
 
                     Array<short> values = new Array<short> ();
+                    short val;
 
                     if (due.recurrency_weeks.split (",").length > 0) {
                         if (due.recurrency_weeks.contains ("1")) {
-                            values.append_val (((short) "TU"));
+                            val = (short) 2;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("2")) {
-                            //  values.append_val ((short) "TU");
+                            val = (short) 3;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("3")) {
-                            //  values.append_val ((short) "WE");
+                            val = (short) 4;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("4")) {
-                            //  values.append_val ((short) "TH");
+                            val = (short) 5;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("5")) {
-                            //  values.append_val ((short) "FR");
+                            val = (short) 6;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("6")) {
-                            //  values.append_val ((short) "SA");
+                            val = (short) 7;
+                            values.append_val (val);
                         }
                 
                         if (due.recurrency_weeks.contains ("7")) {
-                            //  values.append_val ((short) "SU");
+                            val = (short) 1;
+                            values.append_val (val);
                         }
                     }
 

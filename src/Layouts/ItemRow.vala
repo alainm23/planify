@@ -249,7 +249,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_textview = new Widgets.TextView ();
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
         content_textview.buffer.text = item.content;
-        content_textview.editable = !item.completed;
+        content_textview.editable = !item.completed && !item.project.is_deck;
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
 
@@ -353,7 +353,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             bottom_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true,
-            editable = !item.completed
+            editable = !item.completed && !item.project.is_deck
         };
 
         description_textview.remove_css_class ("view");
@@ -368,7 +368,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
-            sensitive = !item.completed
+            sensitive = !item.completed && !item.project.is_deck
         };
 
         schedule_button = new Widgets.ScheduleButton ();
@@ -401,7 +401,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 16,
             margin_top = 6,
             hexpand = true,
-            sensitive = !item.completed
+            sensitive = !item.completed && !item.project.is_deck
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -495,7 +495,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         child = main_revealer;
         update_request ();
 
-        if (!item.checked) {                
+        if (!item.checked && !item.project.is_deck) {                
             build_drag_and_drop ();
         }
 
@@ -614,7 +614,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
         menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            if (!item.completed) {
+            if (!item.completed && !item.project.is_deck) {
                 build_handle_context_menu (x, y);
             }
         });
@@ -740,10 +740,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (edit) {
-            content_textview.editable = !item.completed;
-            description_textview.editable = !item.completed;
-            item_labels.sensitive = !item.completed;
-            action_box.sensitive = !item.completed;
+            content_textview.editable = !item.completed && !item.project.is_deck;
+            description_textview.editable = !item.completed && !item.project.is_deck;
+            item_labels.sensitive = !item.completed && !item.project.is_deck;
+            action_box.sensitive = !item.completed && !item.project.is_deck;
         }
     }
 

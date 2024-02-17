@@ -608,7 +608,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
-        menu_box.append (edit_item);
+
+        if (!project.is_deck) {
+            menu_box.append (edit_item);
+        }
+        
         if (project.backend_type == BackendType.CALDAV) {
             menu_box.append (refresh_item);
         }
@@ -618,8 +622,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         if (project.id != Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id") &&
         project.id != Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")) {
-            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-            menu_box.append (delete_item);
+            if (!project.is_deck) {
+                menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+                menu_box.append (delete_item);
+            }
         }
 
         menu_popover = new Gtk.Popover () {

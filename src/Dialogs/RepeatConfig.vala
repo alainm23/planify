@@ -127,6 +127,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
             hexpand = true,
             selected = 0,
             valign = CENTER,
+            selected = 2
         };
 
         var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
