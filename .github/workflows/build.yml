@@ -31,3 +31,18 @@ jobs:
         cache-key: flatpak-builder-${{ github.sha }}
         repository-name: flathub-beta
         repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo # until GNOME 45
+  snap:
+    name: "Snap"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+      - name: Build Snap
+        uses: snapcore/action-build@v1
+        id: snapcraft-build
+        with:
+          snapcraft-args: "--verbosity debug"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: planify_amd64_snap
+          path: ${{ steps.snapcraft-build.outputs.snap }}
