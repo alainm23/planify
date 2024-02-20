@@ -4,12 +4,35 @@ adopt-info: planify
 grade: stable
 confinement: strict
 compression: lzo
+contact: alainmh23@gmail.com
+license: GPL-3.0
 
 layout:
   /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkitgtk-6.0:
     bind: $SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/webkitgtk-6.0
 
 parts:
+  gxml:
+    source: https://gitlab.gnome.org/GNOME/gxml.git
+    source-depth: 1
+    plugin: meson
+    build-packages:
+      - valadoc
+    override-pull: |
+      craftctl default
+      sed -i "s|--doclet=devhelp|--doclet=/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/valadoc-0.56/doclets/devhelp/libdoclet.so|" docs/meson.build
+      sed -i s#@prefix@/include#$CRAFT_STAGE/usr/include/gxml-0.20#g  gxml/gxml.pc.in
+      sed -i s#@prefix@#$CRAFT_STAGE/usr#g  gxml/gxml.pc.in
+    meson-parameters:
+      - --prefix=/usr
+      - -Ddocs=false
+    prime:
+      - -usr/share/doc
+      - -usr/lib/*/pkgconfig
+      - -usr/include
+    organize:
+      usr/include/gxml-0.20: usr/include
+
   granite:
     plugin: meson
     source: https://github.com/elementary/granite.git
@@ -93,10 +116,10 @@ parts:
       - -usr/share/dbus-1/services
 
   planify:
-    after: [granite, evolution-data-server, libical]
+    after: [granite, evolution-data-server, libical, gxml]
     plugin: meson
     source: https://github.com/alainm23/planify.git
-    source-tag: '4.4'
+    #source-tag: '4.5'
     source-depth: 1
     build-environment:
       - PKG_CONFIG_PATH: /snap/webkitgtk-6-gnome-2204-sdk/current/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/pkgconfig:${PKG_CONFIG_PATH}
@@ -109,12 +132,6 @@ parts:
     organize:
       snap/planify/current: .
 
-  # deps:
-  #   plugin: nil
-  #   stage-packages:
-  #     - libgssapi-krb5-2
-  #     - libkrb5-3
-  #
 slots:
   planify:
     interface: dbus
@@ -132,7 +149,7 @@ apps:
     command: usr/bin/io.github.alainm23.planify
     desktop: usr/share/applications/io.github.alainm23.planify.desktop
     environment: &environment
-      LD_LIBRARY_PATH: $SNAP/webkitgtk-platform/usr/lib:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET:$LD_LIBRARY_PATH
+      LD_LIBRARY_PATH: $SNAP/webkitgtk-platform/usr/lib:$SNAP/webkitgtk-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$LD_LIBRARY_PATH
       GI_TYPELIB_PATH: ${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/girepository-1.0:${SNAP}/gnome-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/gjs/girepository-1.0:${SNAP}/webkitgtk-platform/usr/lib/${CRAFT_ARCH_TRIPLET_BUILD_FOR}/girepository-1.0
     extensions: [gnome]
     plugs: &plugs
@@ -143,6 +160,7 @@ apps:
       - network
       - network-status
       - unity7
+
   quick-add:
     command: usr/bin/io.github.alainm23.planify.quick-add
     extensions: [gnome]
