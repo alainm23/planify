@@ -15,7 +15,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- public class Services.CalendarEvents : Object  {
+ public class Services.CalendarEvents : Object {
     /* The data_range is the range of dates for which this model is storing
     * data.
     *
@@ -55,7 +55,7 @@
     }
 
     public CalendarEvents (GLib.DateTime month_start) {
-        Object(
+        Object (
             month_start: month_start
         );
     }

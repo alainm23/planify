@@ -2017,7 +2017,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset();
+        stmt.reset ();
     }
 
     public void clear_queue () {

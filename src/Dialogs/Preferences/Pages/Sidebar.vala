@@ -194,7 +194,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
         });
 	}
 
-    private void updateView (Array<string> views, string view, bool active) {
+    private void updateView (Array<string> views, string view, bool active) { // vala-lint=naming-convention
         if (active) {
             if (!find_view (views.data, view)) {
                 views.append_val (view);

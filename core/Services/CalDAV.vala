@@ -50,7 +50,7 @@ public class Services.CalDAV : GLib.Object {
                 <d:current-user-principal />
             </d:prop>
         </d:propfind>
-    """;
+    """; // vala-lint=naming-convention
 
     public static string USER_DATA_REQUEST = """
         <x0:propfind xmlns:x0="DAV:">
@@ -59,7 +59,7 @@ public class Services.CalDAV : GLib.Object {
                 <x2:email-address xmlns:x2="http://sabredav.org/ns"/>
             </x0:prop>
         </x0:propfind>
-    """;
+    """; // vala-lint=naming-convention
 
     public static string TASKLIST_REQUEST = """
         <x0:propfind xmlns:x0="DAV:">
@@ -202,7 +202,7 @@ public class Services.CalDAV : GLib.Object {
             <x0:current-user-privilege-set/>
         </x0:prop>
     </x0:propfind>
-    """;
+    """; // vala-lint=naming-convention
 
     public static string CREATE_TASKLIST_REQUEST = """
         <x0:mkcol xmlns:x0="DAV:">
@@ -221,7 +221,7 @@ public class Services.CalDAV : GLib.Object {
                 </x0:prop>
             </x0:set>
         </x0:mkcol>
-    """;
+    """; // vala-lint=naming-convention
 
     public static string UPDATE_TASKLIST_REQUEST = """
         <x0:propertyupdate xmlns:x0="DAV:">
@@ -232,7 +232,7 @@ public class Services.CalDAV : GLib.Object {
                 </x0:prop>
             </x0:set>
         </x0:propertyupdate>
-    """;
+    """; // vala-lint=naming-convention
 
     public static string TASKS_REQUEST = """
         <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
@@ -257,7 +257,7 @@ public class Services.CalDAV : GLib.Object {
                 </x1:comp-filter>
             </x1:filter>
         </x1:calendar-query>
-    """;
+    """; // vala-lint=naming-convention
 
 	public CalDAV () {
 		session = new Soup.Session ();
@@ -291,8 +291,8 @@ public class Services.CalDAV : GLib.Object {
 
     public async HttpResponse login (string server_url, string username, string password) {
         var url = "%s/remote.php/dav/".printf (server_url);
-        string credentials = "%s:%s".printf(username, password);
-        string base64_credentials = Base64.encode(credentials.data);
+        string credentials = "%s:%s".printf (username, password);
+        string base64_credentials = Base64.encode (credentials.data);
 
         var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
@@ -928,8 +928,8 @@ public class Services.CalDAV : GLib.Object {
     private async void set_credential (Soup.Message message) {
         string username = Services.Settings.get_default ().settings.get_string ("caldav-username");
         string password = yield Secret.password_lookupv (schema, get_attributes (), null);
-        string credentials = "%s:%s".printf(username, password);
-        string base64_credentials = Base64.encode(credentials.data);
+        string credentials = "%s:%s".printf (username, password);
+        string base64_credentials = Base64.encode (credentials.data);
         message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
     }
 }

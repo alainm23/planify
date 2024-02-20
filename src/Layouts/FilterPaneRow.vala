@@ -117,23 +117,23 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
             title_image.update_icon_name ("planner-today");
-            Util.get_default ().set_widget_color ("#33d17a",  this);
+            Util.get_default ().set_widget_color ("#33d17a", this);
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
             title_image.update_icon_name ("planner-inbox");
-            Util.get_default ().set_widget_color ("#3584e4",  this);
+            Util.get_default ().set_widget_color ("#3584e4", this);
         } else if (filter_type == FilterType.SCHEDULED) {
             title_label.label = _("Scheduled");
             title_image.update_icon_name ("planner-scheduled");
-            Util.get_default ().set_widget_color ("#9141ac",  this);
+            Util.get_default ().set_widget_color ("#9141ac", this);
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
             title_image.update_icon_name ("planner-pin-tack");
-            Util.get_default ().set_widget_color ("#e01b24",  this);
+            Util.get_default ().set_widget_color ("#e01b24", this);
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
             title_image.update_icon_name ("planner-tag-icon");
-            Util.get_default ().set_widget_color ("#986a44",  this);
+            Util.get_default ().set_widget_color ("#986a44", this);
         }
     }
 

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Layouts.SectionBoard :  Gtk.FlowBoxChild {
+public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     public Objects.Section section { get; construct; }
 
     public Gee.HashMap <string, Layouts.ItemBoard> items;

@@ -26,14 +26,14 @@ public class Widgets.DynamicIcon : Gtk.Grid {
     private Gtk.Image icon;
 
     public DynamicIcon () {
-        Object(
+        Object (
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER
         );
     }
 
     public DynamicIcon.from_icon_name (string icon_name) {
-        Object(
+        Object (
             halign: Gtk.Align.CENTER,
             valign: Gtk.Align.CENTER,
             icon_name: icon_name

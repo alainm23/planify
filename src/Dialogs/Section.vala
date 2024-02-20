@@ -187,7 +187,7 @@ public class Dialogs.Section : Adw.Window {
             if (section.project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (section, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default().update_section (section);
+                    Services.Database.get_default ().update_section (section);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });

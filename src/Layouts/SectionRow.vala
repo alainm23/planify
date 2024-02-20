@@ -200,7 +200,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		bottom_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			reveal_child =  true
+			reveal_child = true
 		};
 
 		bottom_revealer.child = bottom_grid;

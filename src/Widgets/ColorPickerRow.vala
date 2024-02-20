@@ -27,7 +27,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
     private Gee.HashMap <string, Gtk.CheckButton> colors_hashmap;
 
     public ColorPickerRow () {
-        Object(
+        Object (
 
         );
     }
@@ -77,7 +77,7 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             }
         }
 
-        attach(colors_flowbox, 0, 0);
+        attach (colors_flowbox, 0, 0);
 
         notify["color"].connect (() => {
             if (colors_hashmap.has_key (color)) {

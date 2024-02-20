@@ -58,8 +58,8 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     public Gee.HashMap <string, Widgets.LabelPicker.LabelRow> labels_widgets_map = new Gee.HashMap <string, Widgets.LabelPicker.LabelRow> ();
     public Gee.HashMap<string, Objects.Label> picked = new Gee.HashMap<string, Objects.Label> ();
 
-    private string PLACEHOLDER_MESSAGE = _("Your list of filters will show up here. Create one by entering the name and pressing the Enter key.");
-    private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'");
+    private string PLACEHOLDER_MESSAGE = _("Your list of filters will show up here. Create one by entering the name and pressing the Enter key."); // vala-lint=naming-convention
+    private string PLACEHOLDER_CREATE_MESSAGE = _("Create '%s'"); // vala-lint=naming-convention
 
     public LabelPicker () {
         Object (

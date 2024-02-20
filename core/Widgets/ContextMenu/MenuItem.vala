@@ -51,7 +51,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     public string secondary_text {
         set {
             secondary_label.label = value;
-            secondary_label_revealer.reveal_child = value.length  > 0;
+            secondary_label_revealer.reveal_child = value.length > 0;
         }
     }
 
