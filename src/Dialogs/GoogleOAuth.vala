@@ -44,12 +44,13 @@ public class Dialogs.GoogleOAuth : Adw.Window {
     }
 
     construct {
+        // vala-lint=naming-convention
         string authorizationUrl = AUTH_ENDPOINT + "?client_id=" + CLIENT_ID +
                                   "&redirect_uri=" + REDIRECT_URI +
                                   "&scope=" + SCOPE +
                                   "&prompt=consent" +
                                   "&access_type=offline" +
-                                  "&response_type=code"; // vala-lint=naming-convention
+                                  "&response_type=code"; 
 
         var info_label = new Gtk.Label (_("Loading"));
 
@@ -175,6 +176,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
         });
     }
 
+    // vala-lint=naming-convention
     private string? extractAuthorizationCode (string uri) {
         string[] query = uri.split ("?");
     

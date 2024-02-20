@@ -56,6 +56,7 @@ public class Services.GoogleTasks : GLib.Object {
     }
 
     public async void request_access_token (string authorization_code) {
+        // vala-lint=naming-convention
         string requestBody = "code=" + authorization_code +
                              "&client_id=" + CLIENT_ID +
                              "&client_secret=" + CLIENT_SECRET +

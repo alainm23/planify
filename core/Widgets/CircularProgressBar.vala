@@ -74,7 +74,7 @@ public class _CircularProgressBar : Gtk.DrawingArea { // vala-lint=naming-conven
     [Description (nick = "Radius Fill", blurb = "Radius Fill toggle")]
     public bool radius_filled {set; get; default = false;}
 
-    [Description(nick = "Font", blurb = "Font description without size, just the font name")]
+    [Description (nick = "Font", blurb = "Font description without size, just the font name")]
     public string font {set; get; default = "URW Gothic";}
 
     [Description (nick = "Line Cap", blurb = "Line Cap for stroke as in Cairo.LineCap")]

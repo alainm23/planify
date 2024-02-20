@@ -44,14 +44,16 @@ public class Services.CalDAV : GLib.Object {
 
     private uint server_timeout = 0;
 
+    // vala-lint=naming-convention
     public static string USER_PRINCIPAL_REQUEST = """
         <d:propfind xmlns:d="DAV:">
             <d:prop>
                 <d:current-user-principal />
             </d:prop>
         </d:propfind>
-    """; // vala-lint=naming-convention
+    """;
 
+    // vala-lint=naming-convention
     public static string USER_DATA_REQUEST = """
         <x0:propfind xmlns:x0="DAV:">
             <x0:prop>
@@ -59,8 +61,9 @@ public class Services.CalDAV : GLib.Object {
                 <x2:email-address xmlns:x2="http://sabredav.org/ns"/>
             </x0:prop>
         </x0:propfind>
-    """; // vala-lint=naming-convention
+    """;
 
+    // vala-lint=naming-convention
     public static string TASKLIST_REQUEST = """
         <x0:propfind xmlns:x0="DAV:">
         <x0:prop>
@@ -202,8 +205,9 @@ public class Services.CalDAV : GLib.Object {
             <x0:current-user-privilege-set/>
         </x0:prop>
     </x0:propfind>
-    """; // vala-lint=naming-convention
-
+    """; 
+    
+    // vala-lint=naming-convention
     public static string CREATE_TASKLIST_REQUEST = """
         <x0:mkcol xmlns:x0="DAV:">
             <x0:set>
@@ -221,8 +225,9 @@ public class Services.CalDAV : GLib.Object {
                 </x0:prop>
             </x0:set>
         </x0:mkcol>
-    """; // vala-lint=naming-convention
-
+    """; 
+    
+    // vala-lint=naming-convention
     public static string UPDATE_TASKLIST_REQUEST = """
         <x0:propertyupdate xmlns:x0="DAV:">
             <x0:set>
@@ -232,8 +237,9 @@ public class Services.CalDAV : GLib.Object {
                 </x0:prop>
             </x0:set>
         </x0:propertyupdate>
-    """; // vala-lint=naming-convention
-
+    """; 
+    
+    // vala-lint=naming-convention
     public static string TASKS_REQUEST = """
         <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
             <x0:prop xmlns:x0="DAV:">
@@ -257,7 +263,7 @@ public class Services.CalDAV : GLib.Object {
                 </x1:comp-filter>
             </x1:filter>
         </x1:calendar-query>
-    """; // vala-lint=naming-convention
+    """;
 
 	public CalDAV () {
 		session = new Soup.Session ();
