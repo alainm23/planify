@@ -72,10 +72,10 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		backups_group.set_sort_func (set_sort_func);
 
 		var import_planner_button = new Gtk.Button.with_label (_("Select Database File"));
-
-		var migrate_group = new Adw.PreferencesGroup ();
-		migrate_group.title = _("Migrate From Planner");
-		migrate_group.add (import_planner_button);
+		
+		var migrate_group = new Layouts.HeaderItem (_("Migrate From Planner"));
+		migrate_group.reveal = true;
+		migrate_group.add_child (import_planner_button);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
@@ -87,6 +87,12 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		content_box.append (import_button);
 		content_box.append (backups_group);
 		content_box.append (migrate_group);
+		content_box.append (new Gtk.Label (_("The Planner database should be located in the following path: /home/<username>/.var/app/com.github.alainm23.planner/data/com.github.alainm23.planner/database.db")) {
+			wrap = true,
+			css_classes = { "dim-label", "small-label" },
+			xalign = 0,
+			margin_start = 9
+		});
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,

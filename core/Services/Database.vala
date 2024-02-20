@@ -143,8 +143,7 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-        print ("db path: %s\n", db_path);
-        
+                
         create_tables ();
         patch_database ();
         opened ();

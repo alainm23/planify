@@ -174,6 +174,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		backups_row.add_prefix (generate_icon ("planner-upload"));
 		backups_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
 		backups_row.title = _("Backups");
+		backups_row.subtitle = _("Backup or migrate from Planner.");
 
 		var tutorial_row = new Adw.ActionRow ();
 		tutorial_row.activatable = true;

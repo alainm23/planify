@@ -63,6 +63,29 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5" date="2024-02-20">
+      <description translatable="no">
+        <p>Planify 4.5 is here, design improvements and new features available.</p>
+        <p>What’s New</p>
+        <ul>
+          <li>Nextcloud integration is available.</li>
+          <li>Snap support thanks to @soumyaDghosh</li>
+          <li>Option to migrate tasks from Planner</li>
+          <li>Redesigned date and time selection widget</li>
+          <li>It is now possible to move tasks by dragging them to the task list</li>
+          <li>Option to show completed subtasks always</li>
+          <li>Added option to hide sections.</li>
+        </ul>
+        <p>Bug Fixed and Translations</p>
+        <ul>
+          <li>German translation add thanks to @bestlinuxgamers</li>
+          <li>Russian translation update thanks to @hachikoharuno</li>
+          <li>Turkish translation update thanks to @sabriunal</li>
+          <li>Bugs fixed #1123, #1122, #1121, #1106, #1126, #1113</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.4" date="2024-01-10">
       <description translatable="no">
         <p>Planify 4.4 is here, design improvements and new features available.</p>
