@@ -114,37 +114,15 @@ public class Dialogs.WhatsNew : Adw.Window {
 			}
 			return false;
         });
-		
+
 		add_feature (
-			_("Improved drag-and-drop sorting"),
-			_("Added a new animation and a new way of sorting making it cleaner and easier."),
-			create_video_page (
-				_("Drag and drop has been improved, now it shows you a friendly animation to sort the elements in an easier way."),
-				"/io/github/alainm23/planify/dnd-order.webm"
-			)
+			_("Nextcloud integration is available"),
+			_("Synchronise your task lists from Nextcloud.")
 		);
 
 		add_feature (
-			_("Support for sub-projects"),
-			_("Create a sub-project just by dragging and dropping or by using the magic button and dropping into the parent project."),
-			create_video_page (
-				_("Creating sub projects is now easier, just drag the child sub project into the parent project, Planify will do the rest.\nIf you want a sub project to no longer be part of a parent project, just drag it out."),
-				"/io/github/alainm23/planify/subprojects.webm"
-			)
-		);
-
-		add_feature (
-			_("The Magic Button"),
-			_("Just drag and drop to add tasks wherever you want and in the order you want."),
-			create_video_page (
-				_("Drag the magic button to create your tasks wherever you want. You can also create sub-tasks by dropping the magic button inside a parent task."),
-				"/io/github/alainm23/planify/magic-button.webm"
-			)
-		);
-
-		add_feature (
-			_("Board View"),
-			_("Have an overview of your tasks without losing sight of the details.")
+			_("Option to migrate from Planner"),
+			_("Planner is no longer available, migrate your tasks from the Backups option in the preferences..")
 		);
 	}
 
