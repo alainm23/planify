@@ -1060,7 +1060,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_quick_add_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Quick Add"));
-		string quick_add_command = "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
+		string quick_add_command = GLib.Environment.get_variable("SNAP") != "" ? "planify.quick-add" : "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
 		
 		var description_label = new Gtk.Label (
             _("Use Quick Add to create to-dos from anywhere on your desktop with just a few keystrokes. You don’t even have to leave the app you’re currently in.") // vala-lint=line-length
