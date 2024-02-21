@@ -28,12 +28,6 @@ public class Services.Migrate : GLib.Object {
         });
     }
 
-    private void add_filters (Gtk.FileDialog file_dialog) {
-        Gtk.FileFilter filter = new Gtk.FileFilter ();
-        filter.add_pattern ("*.db");
-        file_dialog.default_filter = filter;
-    }
-
     public bool migrate_from_file (GLib.File file) {
         string db_path = file.get_path ();
 
