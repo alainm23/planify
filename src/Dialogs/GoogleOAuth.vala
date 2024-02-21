@@ -44,12 +44,13 @@ public class Dialogs.GoogleOAuth : Adw.Window {
     }
 
     construct {
+        // vala-lint=naming-convention
         string authorizationUrl = AUTH_ENDPOINT + "?client_id=" + CLIENT_ID +
                                   "&redirect_uri=" + REDIRECT_URI +
                                   "&scope=" + SCOPE +
                                   "&prompt=consent" +
                                   "&access_type=offline" +
-                                  "&response_type=code";
+                                  "&response_type=code"; 
 
         var info_label = new Gtk.Label (_("Loading"));
 
@@ -129,7 +130,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
             var redirect_uri = webview.get_uri ();
             
             if (redirect_uri.has_prefix (REDIRECT_URI)) {
-                string authorization_code = extractAuthorizationCode(redirect_uri);
+                string authorization_code = extractAuthorizationCode (redirect_uri);
                 get_token (authorization_code);
                 spinner.stop ();
             }
@@ -175,14 +176,15 @@ public class Dialogs.GoogleOAuth : Adw.Window {
         });
     }
 
-    private string? extractAuthorizationCode(string uri) {
-        string[] query = uri.split("?");
+    // vala-lint=naming-convention
+    private string? extractAuthorizationCode (string uri) {
+        string[] query = uri.split ("?");
     
         if (query.length >= 2) {
-            string[] params = query[1].split("&");
+            string[] params = query[1].split ("&");
             
             foreach (string param in params) {
-                string[] keyValue = param.split("=");
+                string[] keyValue = param.split ("="); // vala-lint=naming-convention
                 
                 if (keyValue.length >= 2 && keyValue[0] == "code") {
                     return keyValue[1];

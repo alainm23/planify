@@ -125,7 +125,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         arrow_button = new Gtk.Button () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            child =  new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic"),
+            child = new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic"),
             css_classes = { "flat", "transparent", "hidden-button", "no-padding" },
             margin_start = 6
         };
@@ -350,7 +350,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         // Drop Order
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ProjectRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        drop_order_target.drop.connect ((value, x, y) =>  {
+        drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
 

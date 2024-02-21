@@ -414,7 +414,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         if (item.parent_id == "") {
             var dialog = new Dialogs.ItemView (item);
             dialog.show ();
-        } else  {
+        } else {
             Services.EventBus.get_default ().push_item (item);
         }
     }
@@ -819,7 +819,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
-        drop_order_magic_button_target.drop.connect ((value, x, y) =>  {            
+        drop_order_magic_button_target.drop.connect ((value, x, y) => {            
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
 
@@ -838,7 +838,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private void build_drop_order_target () {
         var drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemBoard), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-		drop_order_target.drop.connect ((value, x, y) =>  {
+		drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
             var old_section_id = "";

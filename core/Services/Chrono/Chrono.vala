@@ -42,13 +42,13 @@ public class Chrono.Parse : GLib.Object {
         }
     }
 
-    public void parse(string text) {
+    public void parse (string text) {
         Gee.ArrayList<Chrono.ParsingResult> results = new Gee.ArrayList<Chrono.ParsingResult> ();
 
         GLib.MatchInfo match;
         foreach (Chrono.AbstractParser parser in configuration.parsers) {
             if (parser.inner_pattern ().match_all (text, 0, out match)) {
-                Chrono.ParsingResult result =  parser.inner_extract (match);
+                Chrono.ParsingResult result = parser.inner_extract (match);
                 results.add (result);
             }
         }

@@ -20,7 +20,7 @@
 */
 
 public class Chrono.En.ENCasualDateParser : GLib.Object, Chrono.AbstractParser {
-    GLib.Regex PATTERN = /(now|today|tonight|tomorrow|tmr|tmrw|yesterday|last\s*night)(?=\W|$)/;
+    GLib.Regex PATTERN = /(now|today|tonight|tomorrow|tmr|tmrw|yesterday|last\s*night)(?=\W|$)/; // vala-lint=naming-convention, space-before-paren
 
     public GLib.Regex inner_pattern () {
         return PATTERN;
@@ -28,7 +28,7 @@ public class Chrono.En.ENCasualDateParser : GLib.Object, Chrono.AbstractParser {
 
     public Chrono.ParsingResult inner_extract (GLib.MatchInfo match) {
         var component = new Chrono.ParsingResult ();
-        var lowerText = match.fetch_all () [0].down ();
+        var lowerText = match.fetch_all () [0].down (); // vala-lint=naming-convention
         component.text = lowerText;
 
         switch (lowerText) {

@@ -200,7 +200,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		bottom_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			reveal_child =  true
+			reveal_child = true
 		};
 
 		bottom_revealer.child = bottom_grid;
@@ -320,6 +320,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		});
 
 		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+			// vala-lint=no-space
 			if (old_project_id == section.project_id &&
 				old_section_id == section.id) {
 				if (items.has_key (item.id)) {
@@ -333,6 +334,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 			}
 
+			// vala-lint=no-space
 			if (item.project_id == section.project_id &&
 				item.section_id == section.id &&
 			    item.parent_id == "") {
@@ -361,6 +363,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 			}
 
+			// vala-lint=no-space
 			if (row.item.project_id == section.project_id &&
 			    row.item.section_id != section.id &&
 				old_section_id == section.id) {

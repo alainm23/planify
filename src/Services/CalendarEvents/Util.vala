@@ -36,14 +36,14 @@
      * Gets the timezone of the given TimeType as a GLib.TimeZone.
      */
     public TimeZone timezone_from_ical (ICal.Time date) {
-        // Special case: dates are floating, so return local time zone
+        // Special case: dates are floating, so return local time zone // vala-lint=note
         if (date.is_date ()) {
             return new GLib.TimeZone.local ();
         }
 
         unowned string? tzid = date.get_tzid ();
         if (tzid == null) {
-            // In libical, null tzid means floating time
+            // In libical, null tzid means floating time // vala-lint=note
             assert (date.get_timezone () == null);
             return new GLib.TimeZone.local ();
         }
@@ -149,6 +149,7 @@
         ICal.Time? end_time = icomp.get_dtend ();
 
         if (due_time != null && !due_time.is_null_time ()) {
+            // vala-lint=note
             // RFC 2445 Section 4.8.2.3: The property DUE
             // can only be specified in a "VTODO" calendar
             // component. Therefore we are dealing with a
@@ -194,6 +195,7 @@
         ICal.Time? end_time = icomp.get_dtend ();
 
         if (due_time != null && !due_time.is_null_time ()) {
+            // vala-lint=note
             // RFC 2445 Section 4.8.2.3: The property DUE
             // can only be specified in a "VTODO" calendar
             // component. Therefore we are dealing with a

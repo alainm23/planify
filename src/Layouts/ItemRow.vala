@@ -288,7 +288,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 6
         };
 
-        project_label_revealer  = new Gtk.Revealer () {
+        project_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
             child = project_label
         };
@@ -1439,7 +1439,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         drop_order_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_magic_button_target);
-        dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) =>  {            
+        dnd_handlerses[drop_order_magic_button_target.drop.connect ((value, x, y) => {            
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
             
@@ -1461,7 +1461,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void build_drop_order_target () {
         drop_order_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         motion_top_grid.add_controller (drop_order_target);
-        dnd_handlerses[drop_order_target.drop.connect ((value, x, y) =>  {
+        dnd_handlerses[drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemRow) value;
             var target_widget = this;
             var old_section_id = "";

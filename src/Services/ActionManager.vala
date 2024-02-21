@@ -148,7 +148,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
-        // TODO: Update Backend Type instance default by user
+        // TODO: Update Backend Type instance default by user // vala-lint=note
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
         dialog.show ();
     }
@@ -207,7 +207,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_shortcuts () {
-        window.open_shortcuts_window();
+        window.open_shortcuts_window ();
     }
 
     private void action_view_home () {

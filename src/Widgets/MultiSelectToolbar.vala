@@ -156,7 +156,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
 
             unselect_all ();
         } else if (project.backend_type == BackendType.TODOIST) {
-            done_button.is_loading =  true;
+            done_button.is_loading = true;
             Services.Todoist.get_default ().update_items.begin (objects, (obj, res) => {
                 Services.Todoist.get_default ().update_items.end (res);
 
@@ -164,7 +164,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
                     item.update_local ();
                 }
                 
-                done_button.is_loading =  false;
+                done_button.is_loading = false;
                 unselect_all ();
             });
         }

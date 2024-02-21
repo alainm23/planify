@@ -56,16 +56,17 @@ public class Services.GoogleTasks : GLib.Object {
     }
 
     public async void request_access_token (string authorization_code) {
+        // vala-lint=naming-convention
         string requestBody = "code=" + authorization_code +
                              "&client_id=" + CLIENT_ID +
                              "&client_secret=" + CLIENT_SECRET +
                              "&redirect_uri=" + REDIRECT_URI +
-                             "&grant_type=authorization_code";
+                             "&grant_type=authorization_code"; // vala-lint=naming-convention
         
         var message = new Soup.Message ("POST", TOKEN_ENDPOINT);
 
-        message.request_headers.append("Content-Type", "application/x-www-form-urlencoded");
-        message.set_request_body_from_bytes("application/x-www-form-urlencoded", new GLib.Bytes (requestBody.data));
+        message.request_headers.append ("Content-Type", "application/x-www-form-urlencoded");
+        message.set_request_body_from_bytes ("application/x-www-form-urlencoded", new GLib.Bytes (requestBody.data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -123,7 +124,7 @@ public class Services.GoogleTasks : GLib.Object {
         }
     }
 
-    private async void  get_taskslist (string access_token) {
+    private async void get_taskslist (string access_token) {
         string url = API_ENDPOINT + "tasks/v1/users/@me/lists";
 
         var message = new Soup.Message ("GET", url);

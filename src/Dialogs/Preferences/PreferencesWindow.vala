@@ -1060,7 +1060,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_quick_add_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Quick Add"));
-		
+    
 		string quick_add_command = "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
 		if (GLib.Environment.get_variable("SNAP") != null) {
 			quick_add_command = "planify.quick-add";
@@ -1240,7 +1240,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (state) in redirect_uri)) {
-				settings_header.title = _("Synchronizing...");
+				settings_header.title = _("Synchronizing..."); // vala-lint=ellipsis
                 get_todoist_token.begin (redirect_uri);
             }
 

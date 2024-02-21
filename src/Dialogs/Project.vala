@@ -318,13 +318,13 @@ public class Dialogs.Project : Adw.Window {
             } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default().update_project (project);
+                    Services.Database.get_default ().update_project (project);
                     hide_destroy ();
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
                 Services.CalDAV.get_default ().update_tasklist.begin (project, (obj, res) => {
                     if (Services.CalDAV.get_default ().update_tasklist.end (res)) {
-                        Services.Database.get_default().update_project (project);
+                        Services.Database.get_default ().update_project (project);
                         hide_destroy ();
                     }
                 });
@@ -342,7 +342,7 @@ public class Dialogs.Project : Adw.Window {
 
                     if (response.status) {
                         project.id = response.data;
-                        Services.Database.get_default().insert_project (project);
+                        Services.Database.get_default ().insert_project (project);
                         go_project (project.id_string);
                     }
                 });
@@ -351,7 +351,7 @@ public class Dialogs.Project : Adw.Window {
                 project.backend_type = BackendType.CALDAV;
                 Services.CalDAV.get_default ().add_tasklist.begin (project, (obj, res) => {
                     if (Services.CalDAV.get_default ().add_tasklist.end (res)) {
-                        Services.Database.get_default().insert_project (project);
+                        Services.Database.get_default ().insert_project (project);
                         go_project (project.id_string);
                     }
                 });
