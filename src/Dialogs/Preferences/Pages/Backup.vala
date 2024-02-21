@@ -71,7 +71,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		
 		backups_group.set_sort_func (set_sort_func);
 
-		var import_planner_button = new Gtk.Button.with_label (_("Select Database File"));
+		var import_planner_button = new Gtk.Button.with_label (_("Migrate"));
 		
 		var migrate_group = new Layouts.HeaderItem (_("Migrate From Planner"));
 		migrate_group.reveal = true;
@@ -87,12 +87,6 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		content_box.append (import_button);
 		content_box.append (backups_group);
 		content_box.append (migrate_group);
-		content_box.append (new Gtk.Label (_("The Planner database should be located in the following path: /home/<username>/.var/app/com.github.alainm23.planner/data/com.github.alainm23.planner/database.db")) {
-			wrap = true,
-			css_classes = { "dim-label", "small-label" },
-			xalign = 0,
-			margin_start = 9
-		});
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
@@ -139,13 +133,17 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		});
 
 		import_planner_button.clicked.connect (() => {
-			Services.Migrate.get_default ().select_file.begin ((obj, res) => {
-				GLib.File file = Services.Migrate.get_default ().select_file.end (res);
+			string path = Environment.get_home_dir () + "/.var/app/com.github.alainm23.planner/data/com.github.alainm23.planner/database.db";
+			GLib.File file = GLib.File.new_for_path (path);
+
+			if (file.query_exists ()) {
 				if (Services.Migrate.get_default ().migrate_from_file (file)) {
 					popup_toast (_("Tasks Migrate Successfully"));
 					pop_subpage ();
 				}
-			});
+			} else {
+				popup_toast (_("The database file does not exist."));
+			}
 		});
 
 		foreach (Objects.Backup backup in Services.Backups.get_default ().backups) {

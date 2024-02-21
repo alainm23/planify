@@ -28,20 +28,6 @@ public class Services.Migrate : GLib.Object {
         });
     }
 
-    public async GLib.File? select_file () {
-        var dialog = new Gtk.FileDialog ();
-        add_filters (dialog);
-
-        try {
-            var file = yield dialog.open (Planify._instance.main_window, null);
-            return file;
-        } catch (Error e) {
-            debug ("Error during import database: %s".printf (e.message));
-        }
-
-        return null;
-    }
-
     private void add_filters (Gtk.FileDialog file_dialog) {
         Gtk.FileFilter filter = new Gtk.FileFilter ();
         filter.add_pattern ("*.db");
