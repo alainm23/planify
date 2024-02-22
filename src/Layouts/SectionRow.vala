@@ -334,9 +334,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			// vala-lint=no-space
-			if (item.project_id == section.project_id && 
-				item.section_id == section.id && 
-				item.parent_id == "") {
+			if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
 				add_item (item);
 			}
 		});
@@ -354,8 +352,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
 			var row = (Layouts.ItemRow) _row;
 
-			if (row.item.project_id == section.project_id &&
-			    row.item.section_id == section.id) {
+			if (row.item.project_id == section.project_id && row.item.section_id == section.id) {
 				if (!items.has_key (row.item.id)) {
 					items [row.item.id] = row;
 					update_sort ();
@@ -363,9 +360,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			// vala-lint=no-space
-			if (row.item.project_id == section.project_id && 
-				row.item.section_id != section.id && 
-				old_section_id == section.id) {
+			if (row.item.project_id == section.project_id && row.item.section_id != section.id && old_section_id == section.id) {
 				if (items.has_key (row.item.id)) {
 					items.unset (row.item.id);
 				}
