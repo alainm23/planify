@@ -321,8 +321,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
 			// vala-lint=no-space
-			if (old_project_id == section.project_id &&
-				old_section_id == section.id) {
+			if (old_project_id == section.project_id && old_section_id == section.id) {
 				if (items.has_key (item.id)) {
 					items [item.id].hide_destroy ();
 					items.unset (item.id);
@@ -332,12 +331,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 					items_checked [item.id].hide_destroy ();
 					items_checked.unset (item.id);
 				}
-			}
+			}:
 
 			// vala-lint=no-space
-			if (item.project_id == section.project_id &&
-				item.section_id == section.id &&
-			    item.parent_id == "") {
+			if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
 				add_item (item);
 			}
 		});

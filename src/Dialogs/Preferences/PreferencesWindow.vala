@@ -1062,7 +1062,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Quick Add"));
     
 		string quick_add_command = "flatpak run --command=io.github.alainm23.planify.quick-add %s".printf (Build.APPLICATION_ID);
-		if (GLib.Environment.get_variable("SNAP") != null) {
+		if (GLib.Environment.get_variable ("SNAP") != null) {
 			quick_add_command = "planify.quick-add";
 		}
 		
