@@ -331,10 +331,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 					items_checked [item.id].hide_destroy ();
 					items_checked.unset (item.id);
 				}
-			}:
+			}
 
 			// vala-lint=no-space
-			if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
+			if (item.project_id == section.project_id && 
+				item.section_id == section.id && 
+				item.parent_id == "") {
 				add_item (item);
 			}
 		});
@@ -361,8 +363,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			// vala-lint=no-space
-			if (row.item.project_id == section.project_id &&
-			    row.item.section_id != section.id &&
+			if (row.item.project_id == section.project_id && 
+				row.item.section_id != section.id && 
 				old_section_id == section.id) {
 				if (items.has_key (row.item.id)) {
 					items.unset (row.item.id);
