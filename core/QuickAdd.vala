@@ -51,12 +51,11 @@ public class Layouts.QuickAdd : Adw.Bin {
 			css_classes = { "flat" }
 		};
 
-        content_entry = new Widgets.Entry () {
+        content_entry = new Gtk.Entry () {
             hexpand = true,
-            placeholder_text = _("To-do name")
+            placeholder_text = _("To-do name"),
+            css_classes = { "flat" }
         };
-
-        content_entry.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
@@ -279,8 +278,9 @@ public class Layouts.QuickAdd : Adw.Bin {
         description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if ((ctrl_pressed || shift_pressed) && keyval == 65293) {
                 add_item ();
-                return true;
             }
+
+            return false;
         });
 
         var event_controller_key = new Gtk.EventControllerKey ();

@@ -271,7 +271,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			});
 		});
 
-		if (!Services.Todoist.get_default ().invalid_token ()) {
+		if (Services.Todoist.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
 				Services.Todoist.get_default ().run_server ();
 				return GLib.Source.REMOVE;
