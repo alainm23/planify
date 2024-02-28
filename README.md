@@ -45,6 +45,12 @@
   <img alt="Get it from the Snap Store" src="https://snapcraft.io/static/images/badges/en/snap-store-black.svg"  loading="lazy" width='240' draggable="false"/>
 </a>
 
+Until there is an auto connect to the content snap, please run this, after installing
+
+```bash
+sudo snap connect planify:webkitgtk-6-gnome-2204 webkitgtk-6-gnome-2204
+```
+
 ## 🛠 Compile
 
 You'll need the following dependencies:
