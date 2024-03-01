@@ -309,6 +309,7 @@ public class Services.CalDAV : GLib.Object {
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            
             if (message.status_code == 207) {
                 Services.Settings.get_default ().settings.set_string ("caldav-server-url", server_url);
                 Services.Settings.get_default ().settings.set_string ("caldav-username", username);
