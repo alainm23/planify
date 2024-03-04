@@ -659,8 +659,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
 
             is_loading = true;
-            Services.CalDAV.get_default ().refresh_tasklist.begin (project, (obj, res) => {
-                Services.CalDAV.get_default ().refresh_tasklist.end (res);
+            Services.CalDAV.get_default ().sync_tasklist.begin (project, (obj, res) => {
+                Services.CalDAV.get_default ().sync_tasklist.end (res);
                 is_loading = false;
             });
         });

@@ -1148,7 +1148,6 @@ We hope you’ll enjoy using Planify!""");
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
-        //  string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
 
         ICal.Component ical = new ICal.Component.from_string (data);
         return ical.get_uid ();

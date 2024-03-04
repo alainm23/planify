@@ -35,6 +35,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool shared { get; set; default = false; }
     public bool collapsed { get; set; default = false; }
     public bool inbox_section_hidded { get; set; default = false; }
+    public string sync_id { get; set; default = ""; }
     
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -324,6 +325,11 @@ public class Objects.Project : Objects.BaseObject {
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
         color = get_content (prop.get_elements_by_tag_name ("x1:calendar-color").get_element (0));
+
+        GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
+        if (sync_token_collection.length > 0) {
+            sync_id = get_content (sync_token_collection.get_element (0));
+        }
     }
 
     public string get_id_from_url (GXml.DomElement element) {

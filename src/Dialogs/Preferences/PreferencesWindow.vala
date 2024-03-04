@@ -1321,9 +1321,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var entries_group = new Adw.PreferencesGroup ();
 
+		entries_group.add (server_entry);
 		entries_group.add (username_entry);
 		entries_group.add (password_entry);
-		entries_group.add (server_entry);
 		entries_group.add (providers_row);
 		
 		// Message Response Box

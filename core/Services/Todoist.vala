@@ -56,8 +56,7 @@ public class Services.Todoist : GLib.Object {
 
 		var network_monitor = GLib.NetworkMonitor.get_default ();
 		network_monitor.network_changed.connect (() => {
-			if (GLib.NetworkMonitor.get_default ().network_available &&
-				is_logged_in () &&
+			if (GLib.NetworkMonitor.get_default ().network_available && is_logged_in () &&
 			    Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")) {
 				sync_async ();
 			}

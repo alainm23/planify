@@ -371,6 +371,80 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public Item.from_vtodo (string data, string _ics) {
+        patch_from_vtodo (data, _ics);
+
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        if (categories != "") {
+            labels = get_caldav_categories (categories);
+        }
+    }
+
+    public void update_from_vtodo (string data, string _ics) {
+        patch_from_vtodo (data, _ics);
+
+        var categories = Util.find_string_value ("CATEGORIES", data);
+        check_labels (get_labels_maps_from_caldav (categories));
+    }
+
+    public void patch_from_vtodo (string data, string _ics) {
+        ICal.Component ical = new ICal.Component.from_string (data);
+
+        id = ical.get_uid ();
+        content = ical.get_summary ();
+
+        if (ical.get_description () != null) {
+            description = ical.get_description ();
+        }
+
+        if (Util.find_string_value ("PRIORITY", data) != "") {
+            int _priority = int.parse (Util.find_string_value ("PRIORITY", data));
+            if (_priority <= 0) {
+                priority = Constants.PRIORITY_4;
+            } else if (_priority >= 1 && _priority <= 4) {
+                priority = Constants.PRIORITY_1;
+            } else if (_priority == 5) {
+                priority = Constants.PRIORITY_2;
+            } else if (_priority > 5 && _priority <= 9) {
+                priority = Constants.PRIORITY_3;
+            } else {
+                priority = Constants.PRIORITY_4;
+            }
+        }
+
+        if (!ical.get_due ().is_null_time ()) {
+            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+        }
+        
+        var rrules = Util.find_string_value ("RRULE", data);
+        if (rrules != "") {
+            Utils.Datetime.recurrence_to_due (rrules, due);
+        }
+
+        parent_id = Util.find_string_value ("RELATED-TO", data);
+        if (parent_id == "") {
+            parent_id = Util.find_string_value ("RELATED-TO;RELTYPE=PARENT", data);
+        }
+
+        if (ical.get_status () == ICal.PropertyStatus.COMPLETED) {
+            checked = true;
+            string completed = Util.find_string_value ("COMPLETED", data);
+            if (completed != "") {
+                completed_at = Util.get_default ().get_format_date (
+                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                ).to_string ();
+            } else {
+                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+            }
+        } else {
+            checked = false;
+            completed_at = "";
+        }
+
+        pinned = Util.find_boolean_value ("X-PINNED", data);
+        extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
+    }
+
     public void update_from_caldav_xml (GXml.DomElement element) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);

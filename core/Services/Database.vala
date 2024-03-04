@@ -191,6 +191,13 @@ public class Services.Database : GLib.Object {
         add_text_column ("Items", "extra_data", "");
         add_int_column ("Sections", "hidded", 0);
         add_int_column ("Projects", "inbox_section_hidded", 0);
+
+        /*
+         * Planify 4.5.2
+         * - Add sync_id column to Projects
+         */
+
+        add_text_column ("Projects", "sync_id", "");
     }
 
     private void create_tables () {
@@ -235,7 +242,8 @@ public class Services.Database : GLib.Object {
                 show_completed          INTEGER,
                 description             TEXT,
                 due_date                TEXT,
-                inbox_section_hidded    INTEGER
+                inbox_section_hidded    INTEGER,
+                sync_id                 TEXT
             );
         """;
 
@@ -460,6 +468,7 @@ public class Services.Database : GLib.Object {
         return_value.description = stmt.column_text (18);
         return_value.due_date = stmt.column_text (19);
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
+        return_value.sync_id = stmt.column_text (21);
         return return_value;
     }
 
@@ -514,11 +523,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded)
+                inbox_section_hidded, sync_id)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded);
+                $inbox_section_hidded, $sync_id);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -543,6 +552,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
+        set_parameter_str (stmt, "$sync_id", project.sync_id);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -649,7 +659,8 @@ public class Services.Database : GLib.Object {
                 show_completed=$show_completed,
                 description=$description,
                 due_date=$due_date,
-                inbox_section_hidded=$inbox_section_hidded
+                inbox_section_hidded=$inbox_section_hidded,
+                sync_id=$sync_id
             WHERE id=$id;
         """;
 
@@ -674,6 +685,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$description", project.description);
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
+        set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -1187,6 +1199,20 @@ public class Services.Database : GLib.Object {
             return return_value;
         }
     }
+
+    public Objects.Item get_item_by_ics (string ics) {
+        Objects.Item? return_value = null;
+        lock (_items) {
+            foreach (var item in items) {
+                if (item.ics == ics) {
+                    return_value = item;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    } 
 
     public Objects.Item get_item_by_id (string id) {
         Objects.Item returned = new Objects.Item ();
