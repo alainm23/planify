@@ -56,7 +56,8 @@ public class Services.Todoist : GLib.Object {
 
 		var network_monitor = GLib.NetworkMonitor.get_default ();
 		network_monitor.network_changed.connect (() => {
-			if (GLib.NetworkMonitor.get_default ().network_available && is_logged_in () &&
+			if (GLib.NetworkMonitor.get_default ().network_available &&
+				is_logged_in () &&
 			    Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")) {
 				sync_async ();
 			}
@@ -1211,6 +1212,7 @@ public class Services.Todoist : GLib.Object {
 	public async HttpResponse move_item (Objects.Item item, string type, string id) {
 		string uuid = Util.get_default ().generate_string ();
 		string json = item.get_move_item (uuid, type, id);
+		print ("%s\n".printf (json));
 
 		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
@@ -1223,6 +1225,7 @@ public class Services.Todoist : GLib.Object {
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			print ("%s\n".printf ((string) stream.get_data ()));
 			parser.load_from_data ((string) stream.get_data ());
 
 			print_root (parser.get_root ());

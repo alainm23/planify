@@ -1383,7 +1383,7 @@ public class Objects.Item : Objects.BaseObject {
         }  
     }
 
-    public void move (Objects.Project project, string section_id) {
+    public void move (Objects.Project project, string _section_id) {
         show_item = false;
 
         if (project.backend_type == BackendType.LOCAL) {
@@ -1391,11 +1391,11 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.backend_type == BackendType.TODOIST) {
             loading = true;
 
-            string move_id = project_id;
+            string move_id = project.id;
             string move_type = "project_id";
-            if (section_id != "") {
+            if (_section_id != "") {
                 move_type = "section_id";
-                move_id = section_id;
+                move_id = _section_id;
             }
 
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
@@ -1411,7 +1411,7 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.backend_type == BackendType.CALDAV) {
             loading = true;
 
-            Services.CalDAV.get_default ().move_task.begin (this, project_id, (obj, res) => {
+            Services.CalDAV.get_default ().move_task.begin (this, project.id, (obj, res) => {
                 var response = Services.CalDAV.get_default ().move_task.end (res);
                 loading = false;
 

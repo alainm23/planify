@@ -929,7 +929,6 @@ public class Services.CalDAV : GLib.Object {
      public async HttpResponse move_task (Objects.Item item, string project_id) {
         var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
         var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        
 
         var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, item.ics);
         var destination = "/remote.php/dav/calendars/%s/%s/%s".printf (username, project_id, item.ics);
@@ -943,7 +942,7 @@ public class Services.CalDAV : GLib.Object {
         try {
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-            if (message.status_code == 201) {
+            if (message.status_code == 201 || message.status_code == 204) {
                 response.status = true;
             }
         } catch (Error e) {

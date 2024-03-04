@@ -339,7 +339,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.Project.new (project.backend_type, false, project.id);
             dialog.show ();
-
             return true;
         });
 
