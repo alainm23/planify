@@ -435,13 +435,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             drag_begin ();
         });
         
-        drag_source.drag_end.connect ((source, drag, delete_data) => {
-            drag_end ();
-        });
-
         drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
-            return false;
+            return true;
+        });
+
+        drag_source.drag_end.connect ((source, drag, delete_data) => {
+            drag_end ();
         });
     }
 

@@ -146,6 +146,8 @@ public class Planify : Adw.Application {
 	public static int main (string[] args) {
 		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1069
 		GLib.Environment.set_variable ("WEBKIT_DISABLE_COMPOSITING_MODE", "1", true);
+		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1120
+		GLib.Environment.set_variable ("WEBKIT_DISABLE_DMABUF_RENDERER", "1", true);
 
 		Planify app = Planify.instance;
 		return app.run (args);
