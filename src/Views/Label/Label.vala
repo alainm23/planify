@@ -138,7 +138,7 @@ public class Views.Label : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
-        //  if (!items.has_key (item.id_string) && item.labels.has_key (label.id_string)
+        //  if (!items.has_key (item.id) && item.labels.has_key (label.id)
         //      && insert) {
         //      add_item (item);   
         //  }
@@ -147,18 +147,18 @@ public class Views.Label : Adw.Bin {
     }
 
     private void valid_delete_item (Objects.Item item) {
-        //  if (items.has_key (item.id_string)) {
-        //      items[item.id_string].hide_destroy ();
-        //      items.unset (item.id_string);
+        //  if (items.has_key (item.id)) {
+        //      items[item.id].hide_destroy ();
+        //      items.unset (item.id);
         //  }
 
         //  validate_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {
-        //  if (items.has_key (item.id_string) && !item.labels.has_key (label.id_string)) {
-        //      items[item.id_string].hide_destroy ();
-        //      items.unset (item.id_string);
+        //  if (items.has_key (item.id) && !item.labels.has_key (label.id)) {
+        //      items[item.id].hide_destroy ();
+        //      items.unset (item.id);
         //  }
 
         //  valid_add_item (item);
@@ -179,10 +179,11 @@ public class Views.Label : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item) {
+        items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        listbox.append (items [item.id_string]);
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
     }
 
     public void update_request () { 

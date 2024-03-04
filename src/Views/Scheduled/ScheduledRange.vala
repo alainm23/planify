@@ -139,8 +139,8 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+            if (items.has_key (item.id)) {
+                items[item.id].update_request ();
             }
         });
     }
@@ -152,48 +152,50 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item) {
+        items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        listbox.append (items [item.id_string]);
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
     }
 
     private void valid_add_item (Objects.Item item) {
-        if (!items.has_key (item.id_string) &&
+        if (!items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_date_range (item, start_date, end_date, false)) {
-            items [item.id_string] = new Layouts.ItemRow (item) {
+            items [item.id] = new Layouts.ItemRow (item) {
                 show_project_label = true
             };
-            listbox.append (items [item.id_string]);
+            items [item.id].disable_drag_and_drop ();
+            listbox.append (items [item.id]);
         }
 
         listbox_revealer.reveal_child = has_items;
     }
 
     private void valid_delete_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id)) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
         listbox_revealer.reveal_child = has_items;
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].update_request ();
+        if (items.has_key (item.id)) {
+            items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id_string) && !item.has_due) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id) && !item.has_due) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
 
-        if (items.has_key (item.id_string) && item.has_due) {
+        if (items.has_key (item.id) && item.has_due) {
             if (!Services.Database.get_default ().valid_item_by_date_range (item, start_date, end_date, false)) {
-                items[item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
             }
         }
 

@@ -63,6 +63,15 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5.2" date="2024-03-04">
+      <description translatable="no">
+        <ul>
+          <li>Fixed bug that improves CalDAV sync.</li>
+          <li>Fixed bug when moving tasks.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.1" date="2024-03-01">
       <description translatable="no">
         <ul>

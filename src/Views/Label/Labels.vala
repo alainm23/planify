@@ -144,11 +144,11 @@ public class Views.Labels : Adw.Bin {
         });
 
         labels_local_header.row_activated.connect ((row) => {
-            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
         });
 
         labels_todoist_header.row_activated.connect ((row) => {
-            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
         });
 
         Services.Database.get_default ().label_added.connect ((label) => {

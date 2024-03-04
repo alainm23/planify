@@ -108,7 +108,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     content_label.remove_css_class ("dim-label");
                 }
 
-                disable_drag_and_drop ();
+                _disable_drag_and_drop ();
             } else {
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
@@ -124,7 +124,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 labels_summary.check_revealer ();
 
                 update_request ();
-                build_drag_and_drop ();
+
+                if (drag_enabled) {
+                    build_drag_and_drop ();   
+                }
             }
         }
         get {
@@ -176,6 +179,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
     public bool on_drag = false;
+    public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
     public signal void widget_destroyed ();
@@ -1306,7 +1310,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.move (project, section_id);
         }
     }
-    private void build_drag_and_drop () {
+    public void build_drag_and_drop () {
         // Drop Motion
         build_drop_motion ();
 
@@ -1543,7 +1547,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         })] = drop_order_target;
     }
 
-    private void disable_drag_and_drop () {
+    public void disable_drag_and_drop () {
+        drag_enabled = false;
+        _disable_drag_and_drop ();
+    }
+
+    private void _disable_drag_and_drop () {
         remove_controller (drop_motion_ctrl);
         itemrow_box.remove_controller (drag_source);
         itemrow_box.remove_controller (drop_target);

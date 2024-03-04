@@ -129,8 +129,8 @@ public class Views.Filter : Adw.Bin {
         Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+            if (items.has_key (item.id)) {
+                items[item.id].update_request ();
             }
         });
 
@@ -190,21 +190,22 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item) {
+        items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        listbox.append (items [item.id_string]);
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
         if (filter is Objects.Priority) {
             Objects.Priority priority = ((Objects.Priority) filter);
             
-            if (!items.has_key (item.id_string) && item.priority == priority.priority && insert) {
+            if (!items.has_key (item.id) && item.priority == priority.priority && insert) {
                 add_item (item);   
             }
         } else if (filter is Objects.Completed) {
-            if (!items.has_key (item.id_string) && item.checked && insert) {
+            if (!items.has_key (item.id) && item.checked && insert) {
                 add_item (item);   
             }
         }
@@ -213,9 +214,9 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_delete_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id)) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
         validate_placeholder ();
@@ -225,21 +226,21 @@ public class Views.Filter : Adw.Bin {
         if (filter is Objects.Priority) {
             Objects.Priority priority = ((Objects.Priority) filter);
 
-            if (items.has_key (item.id_string) && item.priority != priority.priority) {
-                items[item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+            if (items.has_key (item.id) && item.priority != priority.priority) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
             }
 
-            if (items.has_key (item.id_string) && !item.checked) {
-                items[item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+            if (items.has_key (item.id) && !item.checked) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
             }
     
             valid_add_item (item);
         } else if (filter is Objects.Completed) {
-            if (items.has_key (item.id_string) && item.checked) {
-                items[item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+            if (items.has_key (item.id) && item.checked) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
             }
     
             valid_add_item (item);
@@ -251,9 +252,9 @@ public class Views.Filter : Adw.Bin {
     private void valid_checked_item (Objects.Item item, bool old_checked) {
         if (filter is Objects.Priority) {
             if (!old_checked) {
-                if (items.has_key (item.id_string) && item.completed) {
-                    items[item.id_string].hide_destroy ();
-                    items.unset (item.id_string);
+                if (items.has_key (item.id) && item.completed) {
+                    items[item.id].hide_destroy ();
+                    items.unset (item.id);
                 }
             } else {
                 valid_update_item (item);
@@ -262,9 +263,9 @@ public class Views.Filter : Adw.Bin {
             if (!old_checked) {
                 valid_update_item (item);
             } else {
-                if (items.has_key (item.id_string) && !item.completed) {
-                    items[item.id_string].hide_destroy ();
-                    items.unset (item.id_string);
+                if (items.has_key (item.id) && !item.completed) {
+                    items[item.id].hide_destroy ();
+                    items.unset (item.id);
                 }
             }
         }

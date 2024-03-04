@@ -249,12 +249,12 @@ public class Views.Today : Adw.Bin {
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+            if (items.has_key (item.id)) {
+                items[item.id].update_request ();
             }
 
-            if (overdue_items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+            if (overdue_items.has_key (item.id)) {
+                items[item.id].update_request ();
             }
         });
 
@@ -296,30 +296,32 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item) {
+        items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        listbox.append (items [item.id_string]);
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
         update_headers ();
         check_placeholder ();
     }
 
     private void add_overdue_item (Objects.Item item) {
-        overdue_items [item.id_string] = new Layouts.ItemRow (item) {
+        overdue_items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        overdue_listbox.append (overdue_items [item.id_string]);
+        overdue_items [item.id].disable_drag_and_drop ();
+        overdue_listbox.append (overdue_items [item.id]);
         update_headers ();
         check_placeholder ();
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
-        if (!items.has_key (item.id_string) &&
+        if (!items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_date (item, date, false)) {
             add_item (item);   
         }
 
-        if (!overdue_items.has_key (item.id_string) &&
+        if (!overdue_items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
             add_overdue_item (item);
         }
@@ -329,14 +331,14 @@ public class Views.Today : Adw.Bin {
     }
 
     private void valid_delete_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id)) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
-        if (overdue_items.has_key (item.id_string)) {
-            overdue_items[item.id_string].hide_destroy ();
-            overdue_items.unset (item.id_string);
+        if (overdue_items.has_key (item.id)) {
+            overdue_items[item.id].hide_destroy ();
+            overdue_items.unset (item.id);
         }
 
         update_headers ();
@@ -344,35 +346,35 @@ public class Views.Today : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].update_request ();
+        if (items.has_key (item.id)) {
+            items[item.id].update_request ();
         }
 
-        if (overdue_items.has_key (item.id_string)) {
-            overdue_items[item.id_string].update_request ();
+        if (overdue_items.has_key (item.id)) {
+            overdue_items[item.id].update_request ();
         }
 
-        if (items.has_key (item.id_string) && !item.has_due) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id) && !item.has_due) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
-        if (overdue_items.has_key (item.id_string) && !item.has_due) {
-            overdue_items[item.id_string].hide_destroy ();
-            overdue_items.unset (item.id_string);
+        if (overdue_items.has_key (item.id) && !item.has_due) {
+            overdue_items[item.id].hide_destroy ();
+            overdue_items.unset (item.id);
         }
 
-        if (items.has_key (item.id_string) && item.has_due) {
+        if (items.has_key (item.id) && item.has_due) {
             if (!Services.Database.get_default ().valid_item_by_date (item, date, false)) {
-                items[item.id_string].hide_destroy ();
-                items.unset (item.id_string);
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
             }
         }
 
-        if (overdue_items.has_key (item.id_string) && item.has_due) {
+        if (overdue_items.has_key (item.id) && item.has_due) {
             if (!Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
-                overdue_items[item.id_string].hide_destroy ();
-                overdue_items.unset (item.id_string);
+                overdue_items[item.id].hide_destroy ();
+                overdue_items.unset (item.id);
             }
         }
 

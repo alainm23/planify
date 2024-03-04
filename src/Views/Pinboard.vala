@@ -117,8 +117,8 @@ public class Views.Pinboard : Adw.Bin {
         Services.Database.get_default ().item_updated.connect (valid_update_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
-            if (items.has_key (item.id_string)) {
-                items[item.id_string].update_request ();
+            if (items.has_key (item.id)) {
+                items[item.id].update_request ();
             }
         });
 
@@ -144,7 +144,7 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {        
-        if (!items.has_key (item.id_string) && item.pinned && !item.checked) {
+        if (!items.has_key (item.id) && item.pinned && !item.checked) {
             add_item (item);   
         }
 
@@ -152,18 +152,18 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void valid_delete_item (Objects.Item item) {
-        if (items.has_key (item.id_string)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id)) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
         validate_placeholder ();
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id_string) && (!item.pinned || item.checked)) {
-            items[item.id_string].hide_destroy ();
-            items.unset (item.id_string);
+        if (items.has_key (item.id) && (!item.pinned || item.checked)) {
+            items[item.id].hide_destroy ();
+            items.unset (item.id);
         }
 
         valid_add_item (item);
@@ -176,9 +176,10 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id_string] = new Layouts.ItemRow (item) {
+        items [item.id] = new Layouts.ItemRow (item) {
             show_project_label = true
         };
-        listbox.append (items [item.id_string]);
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
     }
 }
