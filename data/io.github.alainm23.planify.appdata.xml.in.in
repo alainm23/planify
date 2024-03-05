@@ -68,6 +68,7 @@
         <ul>
           <li>Fixed bug that improves CalDAV sync.</li>
           <li>Fixed bug when moving tasks.</li>
+          <li>Fixed bug where task disappeared when dragging from Today views to a project.</li>
         </ul>
       </description>
     </release>
