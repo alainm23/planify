@@ -122,7 +122,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (action_box);
         
         // Alert Box
-        var error_icon = new Widgets.DynamicIcon.from_icon_name ("dialog-warning-symbolic");
+        var error_icon = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
         var error_label = new Gtk.Label ("Error de casa");
 
         var error_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -141,7 +141,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_context_menu_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+			icon_name = "view-more-symbolic",
 			css_classes = { "flat" }
 		};
 

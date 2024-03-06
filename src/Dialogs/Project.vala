@@ -112,9 +112,7 @@ public class Dialogs.Project : Adw.Window {
         name_entry.title = _("Give your project a name");
         name_entry.text = project.name;
 
-        var emoji_icon = new Widgets.DynamicIcon ();
-        emoji_icon.size = 21;
-        emoji_icon.update_icon_name ("emoji-happy");
+        var emoji_icon = new Gtk.Image.from_icon_name ("reaction-add2-symbolic");
 
         emoji_switch = new Gtk.Switch () {
             valign = Gtk.Align.CENTER

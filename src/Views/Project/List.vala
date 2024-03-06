@@ -26,7 +26,7 @@ public class Views.List : Gtk.Grid {
     private Widgets.HyperTextView description_textview;
     private Gtk.Popover description_popover = null;
 
-    private Widgets.DynamicIcon due_image;
+    private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
 
@@ -269,7 +269,7 @@ public class Views.List : Gtk.Grid {
     }
 
     private void update_duedate () {
-        due_image.update_icon_name ("planner-calendar");
+        due_image.icon_name = "month-symbolic";
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
@@ -277,9 +277,9 @@ public class Views.List : Gtk.Grid {
             due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
 
             if (Util.get_default ().is_today (datetime)) {
-                due_image.update_icon_name ("planner-today");
+                due_image.icon_name = "today";
             } else {
-                due_image.update_icon_name ("planner-calendar");
+                due_image.icon_name = "month-symbolic";
             }
 
             due_revealer.reveal_child = true;
@@ -287,9 +287,7 @@ public class Views.List : Gtk.Grid {
     }
 
     private Gtk.Revealer build_due_date_widget () {
-        due_image = new Widgets.DynamicIcon ();
-        due_image.update_icon_name ("planner-calendar");
-        due_image.size = 16;        
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");   
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0

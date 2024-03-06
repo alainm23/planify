@@ -67,7 +67,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             css_classes = { Granite.STYLE_CLASS_FLAT },
             valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            icon_name = "view-more-symbolic",
             popover = build_menu_popover (),
             sensitive = false
         };
@@ -216,9 +216,9 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private Gtk.Popover build_menu_popover () {
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mark as Completed"), "planner-check-circle");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Mark as Completed"), "check-round-outline-symbolic");
         
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

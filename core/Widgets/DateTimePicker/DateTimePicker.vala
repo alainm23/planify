@@ -78,14 +78,14 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
-        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
-        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "planner-scheduled");
-        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "planner-scheduled");
+        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "today");
+        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "scheduled");
+        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "scheduled");
+        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "scheduled");
         date_item.arrow = true;
 
-        var time_icon = new Widgets.DynamicIcon.from_icon_name ("planner-clock") {
-            margin_start = 9
+        var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic") {
+            margin_start = 12
         };
 
         var time_label = new Gtk.Label (_("Time")) {

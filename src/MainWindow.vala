@@ -59,16 +59,16 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var settings_popover = build_menu_app ();
 
-		settings_button = new Gtk.MenuButton ();
-		settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		settings_button.popover = settings_popover;
-		settings_button.child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical");
-
-		var search_button = new Gtk.Button () {
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-search"),
-			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F")
+		settings_button = new Gtk.MenuButton () {
+			css_classes = { "flat" },
+			popover = settings_popover,
+			child = new Gtk.Image.from_icon_name ("open-menu-symbolic")
 		};
-		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+		var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F"),
+			css_classes = { "flat" }
+		};
 
 		var sidebar_header = new Adw.HeaderBar () {
 			title_widget = new Gtk.Label (null),

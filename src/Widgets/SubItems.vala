@@ -79,7 +79,7 @@ public class Widgets.SubItems : Adw.Bin {
             css_classes = { "h4" }
         };
 
-        var add_button = new Widgets.LoadingButton.with_icon ("plus", 16) {
+        var add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
             css_classes = { "flat" },
             hexpand = true,
             halign = END

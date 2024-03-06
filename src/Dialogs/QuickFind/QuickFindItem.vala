@@ -106,11 +106,9 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         } else if (base_object is Objects.Today || base_object is Objects.Scheduled ||
             base_object is Objects.Pinboard) {
 
-            var filter_icon = new Widgets.DynamicIcon () {
+            var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
                 valign = Gtk.Align.CENTER
             };
-            filter_icon.size = 16;
-            filter_icon.update_icon_name (base_object.icon_name);
 
             var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {
                 ellipsize = Pango.EllipsizeMode.END,

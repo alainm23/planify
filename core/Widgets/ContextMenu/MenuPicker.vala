@@ -24,7 +24,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     public string? icon { get; construct; }
     public Gee.ArrayList<string> items_list { get; construct; }
 
-    private Widgets.DynamicIcon menu_icon;
+    private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.ListBox listbox;
@@ -53,10 +53,9 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
     }
 
     construct {
-        menu_icon = new Widgets.DynamicIcon () {
+        menu_icon = new Gtk.Image () {
             valign = Gtk.Align.CENTER
         };
-        menu_icon.size = 16;
 
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
@@ -66,7 +65,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         if (icon != null) {
             menu_icon_revealer.reveal_child = true;
-            menu_icon.update_icon_name (icon);
+            menu_icon.icon_name = icon;
         }
 
         menu_title = new Gtk.Label (title);

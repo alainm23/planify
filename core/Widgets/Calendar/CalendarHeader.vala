@@ -52,30 +52,18 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
         year_label = new Gtk.Label (new GLib.DateTime.now_local ().format (_("%Y")));
         year_label.add_css_class ("font-bold");
         year_label.add_css_class ("primary-color");
-
-        var chevron_left_image = new Widgets.DynamicIcon ();
-        chevron_left_image.size = 16;
-        chevron_left_image.update_icon_name ("pan-start-symbolic");
         
-        left_button = new Gtk.Button () {
+        left_button = new Gtk.Button.from_icon_name ("pan-start-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false
+            can_focus = false,
+            css_classes = { "flat" }
         };
 
-        left_button.child = chevron_left_image;
-        left_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-
-        var chevron_right_image = new Widgets.DynamicIcon ();
-        chevron_right_image.size = 16;
-        chevron_right_image.update_icon_name ("pan-end-symbolic");
-
-        right_button = new Gtk.Button () {
+        right_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false
+            can_focus = false,
+            css_classes = { "flat" }
         };
-
-        right_button.child = chevron_right_image;
-        right_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var date_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
         date_grid.append (month_label);

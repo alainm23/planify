@@ -204,9 +204,9 @@ public class Dialogs.WhatsNew : Adw.Window {
 		return page;
 	}
 	
-	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
-		var icon = new Widgets.DynamicIcon.from_icon_name (icon_name);
-		icon.size = size;
-		return icon;
+	private Gtk.Widget generate_icon (string icon_name, int pixel_size = 32) {
+		return new Gtk.Image.from_icon_name (icon_name) {
+			pixel_size = pixel_size
+		};
 	}
 }

@@ -26,7 +26,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public string title;
     public string icon_name;
 
-    private Widgets.DynamicIcon title_image;
+    private Gtk.Image title_image;
     private Gtk.Label title_label;
     private Gtk.Label count_label;
 
@@ -41,12 +41,9 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         add_css_class ("card");
         add_css_class ("filter-pane-row");
 
-        title_image = new Widgets.DynamicIcon () {
-            hexpand = true,
-            halign = Gtk.Align.START,
+        title_image = new Gtk.Image () {
             margin_start = 3
-        };
-        title_image.size = 16;
+        };        
 
         title_label = new Gtk.Label (null) {
             hexpand = true,
@@ -116,23 +113,23 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private void build_filter_data () {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
-            title_image.update_icon_name ("planner-today");
+            title_image.gicon = new ThemedIcon ("today");
             Util.get_default ().set_widget_color ("#33d17a", this);
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
-            title_image.update_icon_name ("planner-inbox");
+            title_image.gicon = new ThemedIcon ("inbox");
             Util.get_default ().set_widget_color ("#3584e4", this);
         } else if (filter_type == FilterType.SCHEDULED) {
             title_label.label = _("Scheduled");
-            title_image.update_icon_name ("planner-scheduled");
+            title_image.gicon = new ThemedIcon ("scheduled");
             Util.get_default ().set_widget_color ("#9141ac", this);
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
-            title_image.update_icon_name ("planner-pin-tack");
+            title_image.gicon = new ThemedIcon ("pinboard");
             Util.get_default ().set_widget_color ("#e01b24", this);
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
-            title_image.update_icon_name ("planner-tag-icon");
+            title_image.gicon = new ThemedIcon ("labels");
             Util.get_default ().set_widget_color ("#986a44", this);
         }
     }

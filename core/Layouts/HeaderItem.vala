@@ -66,7 +66,7 @@ public class Layouts.HeaderItem : Adw.Bin {
     private Gtk.Label name_label;
     private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
-    private Gtk.Grid content_grid;
+    private Adw.Bin content_grid;
     private Gtk.Box action_box;
     private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
@@ -92,18 +92,6 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
-    public bool card {
-        set {
-            if (value) {
-                content_grid.add_css_class ("card");
-                content_grid.add_css_class ("sidebar-card");
-            } else {
-                content_grid.remove_css_class ("card");
-                content_grid.remove_css_class ("sidebar-card");
-            }
-        }
-    }
-
     public bool separator_space {
         set {
             if (value) {
@@ -116,14 +104,6 @@ public class Layouts.HeaderItem : Adw.Bin {
         set {
             if (value) {
                 listbox.add_css_class ("separator-lines");
-            }
-        }
-    }
-
-    public bool box_shadow {
-        set {
-            if (value) {
-                content_grid.remove_css_class ("sidebar-card");
             }
         }
     }
@@ -164,15 +144,11 @@ public class Layouts.HeaderItem : Adw.Bin {
         listbox.set_placeholder (get_placeholder ());
         listbox.add_css_class ("bg-transparent");
 
-        content_grid = new Gtk.Grid () {
-            margin_end = 3
+        content_grid = new Adw.Bin () {
+            child = listbox
         };
 
-        content_grid.add_css_class ("card");
-        content_grid.add_css_class ("sidebar-card");
-        content_grid.attach (listbox, 0, 0, 1, 1);
-
-        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             halign = END
         };
@@ -180,7 +156,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 6,
-            margin_end = 3
+            margin_end = 12
         };
 
         header_box.append (name_label);

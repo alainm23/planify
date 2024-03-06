@@ -222,8 +222,8 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     }
 
     private Gtk.Widget get_placeholder () {
-        var add_tag_icon = new Widgets.DynamicIcon.from_icon_name ("tag-add") {
-            size = 24,
+        var add_tag_icon = new Gtk.Image.from_icon_name ("tag-outline-add-symbolic") {
+            pixel_size = 24,
             margin_bottom = 12
         };
 

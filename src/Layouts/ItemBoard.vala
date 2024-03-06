@@ -102,9 +102,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             css_classes = { "priority-color" }
 		};
 
-        checked_repeat_button = new Gtk.Button () {
+        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("view-refresh-symbolic"),
             css_classes = { "flat", "no-padding" }
         };
         
@@ -200,7 +199,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         labels_summary.content_box.margin_top = 0;
 
         var pinned_icon = new Adw.Bin () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-pinned"),
+            child = new Gtk.Image.from_icon_name ("pin-symbolic"),
             css_classes = { "upcoming-grid" },
             tooltip_text = _("Pinned"),
             margin_end = 6
@@ -212,7 +211,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		};
 
         var reminder_icon = new Adw.Bin () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-bell"),
+            child =new Gtk.Image.from_icon_name ("alarm-symbolic"),
             margin_end = 6,
             css_classes = { "upcoming-grid" }
         };
@@ -850,7 +849,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
-;
+
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_notification (

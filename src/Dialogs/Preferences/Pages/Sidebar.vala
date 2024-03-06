@@ -30,7 +30,6 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         var views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
             separator_lines = true,
             listbox_no_margin = true,
-            box_shadow = true,
 			reveal = true,
             margin_top = 12
 		};
@@ -160,9 +159,7 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
             margin_bottom = 9
         };
 
-		handle_grid.append (new Widgets.DynamicIcon.from_icon_name (icon) {
-            size = 19
-        });
+		handle_grid.append (new Gtk.Image.from_icon_name (icon));
         handle_grid.append (name_label);
 		handle_grid.append (check_button);
 

@@ -89,12 +89,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         name_editable.text = section.name;
 
         var menu_button = new Gtk.MenuButton () {
-            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            icon_name = "view-more-symbolic",
             popover = build_context_menu (),
             css_classes = { "flat" }
         };
 
-        add_button = new Widgets.LoadingButton.with_icon ("plus", 16) {
+        add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
             css_classes = { "flat" }
         };
         
@@ -419,11 +419,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
     }
 
     private Gtk.Popover build_context_menu () {
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
-        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "planner-trash");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus-large-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
+        var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
         
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

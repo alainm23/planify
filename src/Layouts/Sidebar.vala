@@ -105,7 +105,7 @@ public class Layouts.Sidebar : Adw.Bin {
         google_projects_header = new Layouts.HeaderItem ();
         google_projects_header.margin_top = 6;
 
-        var whats_new_icon = new Widgets.DynamicIcon.from_icon_name ("gift") {
+        var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
             css_classes = { "gift-animation" }
         };
         
@@ -113,8 +113,7 @@ public class Layouts.Sidebar : Adw.Bin {
             css_classes = { "underline" }
         };
 
-        var close_button = new Gtk.Button () {
-            child = new Widgets.DynamicIcon.from_icon_name ("window-close"),
+        var close_button = new Gtk.Button.from_icon_name ("window-close") {
             css_classes = { "flat", "no-padding" },
             hexpand = true,
             halign = END,
@@ -145,7 +144,7 @@ public class Layouts.Sidebar : Adw.Bin {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            margin_top = 3
+            margin_top = 6
         };
 
         content_box.append (filters_flow);
@@ -160,14 +159,9 @@ public class Layouts.Sidebar : Adw.Bin {
         child = scrolled_window;
         update_projects_sort ();
 
-        var add_local_button = new Gtk.Button () {
+        var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
@@ -181,14 +175,9 @@ public class Layouts.Sidebar : Adw.Bin {
         };
         todoist_projects_header.add_widget_end (todoist_sync_button);
         
-        var add_todoist_button = new Gtk.Button () {
+        var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
@@ -206,14 +195,9 @@ public class Layouts.Sidebar : Adw.Bin {
         };
         caldav_projects_header.add_widget_end (caldav_sync_button);
 
-        var add_caldav_button = new Gtk.Button () {
+        var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" },
+            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 

@@ -291,7 +291,7 @@ public class Util : GLib.Object {
         } else {
             window_bg_color = "#fafafa";
             popover_bg_color = "#ffffff";
-            sidebar_bg_color = "#f6f5f4";
+            sidebar_bg_color = "#f2f2f2";
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";

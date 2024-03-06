@@ -63,13 +63,11 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         };
 
-        var edit_button = new Gtk.Button () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-edit"),
+        var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic") {
             css_classes = { "flat", "padding-3" }
         };
 
-        var trash_button = new Gtk.Button () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-trash"),
+        var trash_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
             css_classes = { "flat", "padding-3" }
         };
 
