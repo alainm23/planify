@@ -34,11 +34,11 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
             margin_top = 12
 		};
 
-		var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "planner-inbox");
-		var today_row = new Widgets.SidebarRow (FilterType.TODAY, _("Today"), "planner-today");
-		var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "planner-scheduled");
-		var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "planner-pin-tack");
-		var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "planner-tag-icon");
+		var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "inbox");
+		var today_row = new Widgets.SidebarRow (FilterType.TODAY, _("Today"), "today");
+		var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "scheduled");
+		var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "pinboard");
+		var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "labels");
 
 		views_group.add_child (inbox_row);
 		views_group.add_child (today_row);

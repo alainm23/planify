@@ -197,17 +197,14 @@ public class Layouts.QuickAdd : Adw.Bin {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        added_image = new Gtk.Image ();
-        added_image.gicon = new ThemedIcon ("planner-completed");
-        added_image.pixel_size = 64;
+        added_image = new Gtk.Image.from_icon_name ("check-round-outline-symbolic") {
+            pixel_size = 64
+        };
 
-        var added_label = new Gtk.Label (_("To-do added"));
-
-        var added_box = new Gtk.Box (VERTICAL, 0);
+        var added_box = new Gtk.Box (VERTICAL, 6);
         added_box.halign = Gtk.Align.CENTER;
         added_box.valign = Gtk.Align.CENTER;
         added_box.append (added_image);
-        added_box.append (added_label);
 
         main_stack.add_named (main_content, "main");
         main_stack.add_named (warning_box, "warning");

@@ -464,17 +464,13 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
 		preferences_item.secondary_text = "Ctrl+,";
-		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
 		keyboard_shortcuts_item.secondary_text = "F1";
-		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
-		whatsnew_item.add_css_class ("no-font-bold");
 
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
-		about_item.add_css_class ("no-font-bold");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;

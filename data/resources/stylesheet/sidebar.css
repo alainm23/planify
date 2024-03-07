@@ -32,7 +32,7 @@
 
 .selectable-item {
     padding: 0;
-    border-radius: 12px;
+    border-radius: 9px;
     transition: all 220ms ease-in-out;
     background-color: transparent;
     outline: none;
@@ -40,7 +40,7 @@
 
 .selectable-item:selected,
 .selectable-item:hover {
-    background-color: transparent;
+    background-color: alpha(@shade_color, 0.65);
     outline: none;
 }
 

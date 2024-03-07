@@ -1,6 +1,6 @@
 .calendar-today {
     color: #33d17a;
-    border-radius: 6px;
+    border-radius: 9px;
     padding: 3px;
     font-weight: bold;
 }
@@ -8,6 +8,6 @@
 .calendar-day-selected {
     background-color: #4a82ef;
     color: #fafafa;
-    border-radius: 6px;
+    border-radius: 9px;
     padding: 3px;
 }

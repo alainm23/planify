@@ -102,8 +102,11 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("no-font-bold");
 
-        menu_icon = new Gtk.Image ();
+        menu_icon = new Gtk.Image () {
+            css_classes = { "dim-label" }
+        };
         
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,

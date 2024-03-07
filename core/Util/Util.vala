@@ -894,17 +894,30 @@ public class Util : GLib.Object {
         }
     }
 
-    public string get_priority_icon (int priority) {
+    public Gtk.Image get_priority_icon (int priority) {
         if (priority == Constants.PRIORITY_1) {
-            return "planner-priority-1";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_2) {
-            return "planner-priority-2";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_3) {
-            return "planner-priority-3";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_4) {
-            return "planner-flag";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                pixel_size = 19
+            };
         } else {
-            return "planner-flag";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                pixel_size = 19
+            };
         }
     }
 

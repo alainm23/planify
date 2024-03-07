@@ -68,7 +68,6 @@ public class Layouts.HeaderItem : Adw.Bin {
     private Gtk.ListBox listbox;
     private Adw.Bin content_grid;
     private Gtk.Box action_box;
-    private Gtk.Revealer action_revealer;
     private Gtk.Revealer content_revealer;
     private Gtk.Revealer separator_revealer;
     public signal void add_activated ();
@@ -134,11 +133,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
         listbox = new Gtk.ListBox () {
-            hexpand = true,
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3
+            hexpand = true
         };
         
         listbox.set_placeholder (get_placeholder ());
@@ -156,7 +151,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         var header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
             margin_start = 6,
-            margin_end = 12
+            margin_end = 6
         };
 
         header_box.append (name_label);
@@ -175,9 +170,7 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
-            margin_start = 3,
-            margin_top = 3,
-            margin_bottom = 3
+            margin_top = 3
         };
 
         content_box.append (header_box);

@@ -178,8 +178,9 @@ public class Views.Today : Adw.Bin {
         content.append (listbox_grid);
 
         var listbox_placeholder = new Adw.StatusPage ();
-        listbox_placeholder.title = _("No tasks found");
-        listbox_placeholder.description = _("Press 'a' or tap the plus button to create a new to-do");
+        listbox_placeholder.icon_name = "check-round-outline-symbolic";
+        listbox_placeholder.title = _("Add Some Tasks");
+        listbox_placeholder.description = _("Press a to create a new task");
 
         listbox_placeholder_stack = new Gtk.Stack () {
             vexpand = true,
@@ -416,6 +417,6 @@ public class Views.Today : Adw.Bin {
             date.format (
             Granite.DateTime.get_default_date_format (false, true, false)
         ));
-        headerbar.title = "%s <small>%s</small>".printf (today_label, date_format);
+        headerbar.title = "%s   <small>%s</small>".printf (today_label, date_format);
     }
 }

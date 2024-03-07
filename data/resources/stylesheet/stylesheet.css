@@ -103,11 +103,6 @@ entry.flat:focus-within {
     border-radius: 50%;
 }
 
-.circular-progress-bar-min {
-    border: 1px solid @colorAccent;
-    border-radius: 50%;
-}
-
 .listbox-separator-3 row:not(:first-child) {
     margin-top: 3px;
 }
@@ -343,6 +338,10 @@ entry.flat:focus-within {
     color: #1e63ec;
     padding: 3px 6px;
     font-weight: bold;
+}
+
+.completed-color {
+    color: #4a82ef;
 }
 
 .is_loading image {

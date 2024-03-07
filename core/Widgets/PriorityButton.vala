@@ -77,11 +77,11 @@ public class Widgets.PriorityButton : Adw.Bin {
     
     public void update_from_item (Objects.Item item) {
         if (item.priority == Constants.PRIORITY_1) {
-            priority_image.css_classes = { "flat", "priority-1-icon" };
+            priority_image.css_classes = { "priority-1-icon" };
         } else if (item.priority == Constants.PRIORITY_2) {
-            priority_image.css_classes = { "flat", "priority-2-icon" };
+            priority_image.css_classes = { "priority-2-icon" };
         } else if (item.priority == Constants.PRIORITY_3) {
-            priority_image.css_classes = { "flat", "priority-3-icon" };
+            priority_image.css_classes = { "priority-3-icon" };
         } else {
             priority_image.css_classes = {  };
         }
@@ -89,13 +89,13 @@ public class Widgets.PriorityButton : Adw.Bin {
 
     public void set_priority (int priority) {
         if (priority == Constants.PRIORITY_1) {
-            priority_image.css_classes = { "flat", "priority-1-icon" };
+            priority_image.css_classes = { "priority-1-icon" };
         } else if (priority == Constants.PRIORITY_2) {
-            priority_image.css_classes = { "flat", "priority-2-icon" };
+            priority_image.css_classes = { "priority-2-icon" };
         } else if (priority == Constants.PRIORITY_3) {
-            priority_image.css_classes = { "flat", "priority-3-icon" };
+            priority_image.css_classes = { "priority-3-icon" };
         } else {
-            priority_image.css_classes = { "flat" };
+            priority_image.css_classes = {  };
         }
     }
     
