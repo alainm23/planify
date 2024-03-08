@@ -83,7 +83,7 @@ public class Widgets.SectionsOrderItem : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
+        add_css_class ("no-selectable");
         add_css_class ("transition");
 
         var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic") {

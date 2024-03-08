@@ -615,3 +615,9 @@ checkbutton.theme-selector radio:checked {
     min-height: 16px;
     min-width: 16px;
 }
+
+.no-selectable:hover,
+.no-selectable:selected,
+.no-selectable {
+    background: transparent;
+}

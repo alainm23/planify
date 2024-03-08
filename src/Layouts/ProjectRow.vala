@@ -290,9 +290,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id_string == id) {
-                handle_grid.add_css_class ("selectable-item-selected");
+                add_css_class ("selected");
             } else {
-                handle_grid.remove_css_class ("selectable-item-selected");
+                remove_css_class ("selected");
             }
         });
 

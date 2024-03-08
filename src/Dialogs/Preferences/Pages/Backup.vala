@@ -302,7 +302,7 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
 	}
 
 	construct {
-		add_css_class ("selectable-item");
+		add_css_class ("no-selectable");
         add_css_class ("transition");
 
 		var name_label = new Gtk.Label (backup.title);

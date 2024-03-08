@@ -7,11 +7,12 @@
     color: @colorAccent;
 }
 
-.filter-pane-row.selected image {
+.filter-pane-row.animation image {
     animation: fancy-turn 0.7s ease-in-out;
 }
 
-.filter-pane-row:selected {
+.filter-pane-row:hover,
+.filter-pane-row.selected {
     box-shadow: 0px 0px 3px 1px @colorAccent;
 }
 
@@ -38,13 +39,12 @@
     outline: none;
 }
 
-.selectable-item:selected,
 .selectable-item:hover {
     background-color: alpha(@shade_color, 0.65);
     outline: none;
 }
 
-.selectable-item-selected {
+.selectable-item.selected {
     background-color: @shade_color;
     border-radius: 9px;
 }

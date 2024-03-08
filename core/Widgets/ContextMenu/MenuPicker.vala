@@ -54,6 +54,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
     construct {
         menu_icon = new Gtk.Image () {
+            css_classes = { "dim-label" },
             valign = Gtk.Align.CENTER
         };
 
@@ -92,6 +93,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         button.child = itemselector_grid;
         button.add_css_class (Granite.STYLE_CLASS_FLAT);
         button.add_css_class ("transition");
+        button.add_css_class ("no-font-bold");
 
         listbox = new Gtk.ListBox () {
             css_classes = { "listbox-background" }
@@ -172,7 +174,7 @@ public class Widgets.ContextMenu.MenuItemPicker : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
+        add_css_class ("no-selectable");
         add_css_class ("transition");
 
         radio_button = new Gtk.CheckButton.with_label (title) {

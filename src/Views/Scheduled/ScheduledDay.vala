@@ -42,7 +42,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
+        add_css_class ("no-selectable");
         add_css_class ("transition");
 
         items = new Gee.HashMap <string, Layouts.ItemRow> ();

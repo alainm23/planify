@@ -36,7 +36,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "selectable-item", "transition" };
+        css_classes = { "no-selectable", "transition" };
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,

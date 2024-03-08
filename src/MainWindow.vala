@@ -107,7 +107,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		add_breakpoint (breakpoint);
 		content = overlay_split_view;
-		set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
+		//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
@@ -139,7 +139,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			} else if (key == "appearance" || key == "dark-mode") {
 				Util.get_default ().update_theme ();
 			} else if (key == "run-in-background") {
-				set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
+				//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 			} else if (key == "run-on-startup") {
 				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
 				if (active) {

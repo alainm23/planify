@@ -362,7 +362,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		run_background_row.set_activatable_widget (run_background_switch);
 		run_background_row.add_suffix (run_background_switch);
 
-		de_group.add (run_background_row);
+		//  de_group.add (run_background_row);
 
 		var run_on_startup_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,

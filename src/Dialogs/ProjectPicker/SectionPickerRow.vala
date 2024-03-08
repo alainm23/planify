@@ -34,7 +34,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
+        add_css_class ("no-selectable");
         add_css_class ("transition");
 
         name_label = new Gtk.Label (section.name);
