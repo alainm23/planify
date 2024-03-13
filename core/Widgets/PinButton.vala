@@ -54,10 +54,14 @@ public class Widgets.PinButton : Gtk.Button {
     }
 
     public void update_request () {
-        pinned_image.icon_name = item.pinned ? "pinboard" : "pin-symbolic";
+        if (item.pinned) {
+            pinned_image.add_css_class ("pinboard-color");
+        } else {
+            pinned_image.remove_css_class ("pinboard-color");
+        }
     }
 
     public void reset () {
-        pinned_image.icon_name = "pin-symbolic";
+        pinned_image.css_classes = {  };
     }
 }

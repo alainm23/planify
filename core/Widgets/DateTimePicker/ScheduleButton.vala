@@ -136,7 +136,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             );
             
             if (Util.get_default ().is_today (item.due.datetime)) {
-                due_image.icon_name = "today-symbolic";
+                due_image.icon_name = "star-outline-thick-symbolic";
             } else if (Util.get_default ().is_overdue (item.due.datetime)) {
 
             } else {

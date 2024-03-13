@@ -621,3 +621,7 @@ checkbutton.theme-selector radio:checked {
 .no-selectable {
     background: transparent;
 }
+
+.pinboard-color {
+    color: #ed333b;
+}

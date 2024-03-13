@@ -78,10 +78,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     construct {
-        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "today");
-        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "scheduled");
-        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "scheduled");
-        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "scheduled");
+        today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
+        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
+        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "month-symbolic");
+        date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic");
         date_item.arrow = true;
 
         var time_icon = new Gtk.Image.from_icon_name ("clock-symbolic") {

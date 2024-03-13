@@ -122,7 +122,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
             title_image.icon_name = "pin-symbolic";
-            Util.get_default ().set_widget_color ("#e01b24", this);
+            Util.get_default ().set_widget_color ("#ed333b", this);
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
             title_image.icon_name = "tag-outline-symbolic";
