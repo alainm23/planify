@@ -92,7 +92,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
                 width_request = 16
             };
     
-            widget_color.add_css_class ("label-color");
+            widget_color.add_css_class ("circle-color");
             Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), widget_color);
 
             var name_label = new Gtk.Label (markup_string_with_search (label.name, pattern)) {
@@ -108,7 +108,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
                 valign = Gtk.Align.CENTER,
-                pixel_size = 19
+                pixel_size = 16
             };
 
             var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {

@@ -61,14 +61,14 @@ public class Dialogs.DatePicker : Adw.Window {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
         today_item.margin_top = 6;
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "scheduled");
+        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "month-symbolic");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );

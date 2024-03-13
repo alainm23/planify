@@ -278,7 +278,7 @@ public class Views.List : Gtk.Grid {
             due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
 
             if (Util.get_default ().is_today (datetime)) {
-                due_image.icon_name = "today";
+                due_image.icon_name = "star-outline-thick-symbolic";
             } else {
                 due_image.icon_name = "month-symbolic";
             }

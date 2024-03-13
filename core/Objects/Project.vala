@@ -320,14 +320,14 @@ public class Objects.Project : Objects.BaseObject {
         backend_type = BackendType.CALDAV;
     }
 
-    public void update_from_xml (GXml.DomElement element) {
+    public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
         color = get_content (prop.get_elements_by_tag_name ("x1:calendar-color").get_element (0));
 
         GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
-        if (sync_token_collection.length > 0) {
+        if (update_sync_token && sync_token_collection.length > 0) {
             sync_id = get_content (sync_token_collection.get_element (0));
         }
     }

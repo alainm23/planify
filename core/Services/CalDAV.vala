@@ -583,7 +583,7 @@ public class Services.CalDAV : GLib.Object {
                         Services.Database.get_default ().insert_project (project);
                         yield get_all_tasks_by_tasklist (project);
                     } else {
-                        project.update_from_xml (element);
+                        project.update_from_xml (element, false);
                         Services.Database.get_default ().update_project (project);
                     }
                 } else if (is_deleted_calendar (element)) {
@@ -610,9 +610,14 @@ public class Services.CalDAV : GLib.Object {
         var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
 
         var url = "%s/remote.php/dav/calendars/%s/%s".printf (server_url, username, project.id);
+        print ("URL: %s\n".printf (url));
         var message = new Soup.Message ("REPORT", url);
         yield set_credential (message);
         message.set_request_body_from_bytes ("application/xml", new Bytes ((SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
+
+        if (project.sync_id == "") {
+            return;
+        }
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -631,13 +636,14 @@ public class Services.CalDAV : GLib.Object {
                     }
                 } else {
                     string vtodo = yield get_vtodo_by_url (project.id, ics);
+
                     ICal.Component ical = new ICal.Component.from_string (vtodo);
                     Objects.Item? item = Services.Database.get_default ().get_item (ical.get_uid ());
     
-                    if (item != null) {        
+                    if (item != null) {
                         string old_project_id = item.project_id;
                         string old_parent_id = item.parent_id;
-    
+                        
                         item.update_from_vtodo (vtodo, ics);
                         item.project_id = project.id;
                         Services.Database.get_default ().update_item (item);
@@ -874,7 +880,6 @@ public class Services.CalDAV : GLib.Object {
         
 
         var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, item.ics);
-        print ("url: %s\n".printf (url));
         var message = new Soup.Message ("DELETE", url);
 		yield set_credential (message);
 

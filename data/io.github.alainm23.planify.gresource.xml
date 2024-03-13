@@ -22,11 +22,6 @@
     <!-- Icons -->
     <file alias="todoist.svg">resources/icons/todoist.svg</file>
     <file alias="cloud.svg">resources/icons/cloud.svg</file>
-    <file alias="pinboard.svg">resources/icons/pinboard.svg</file>
-    <file alias="inbox.svg">resources/icons/inbox.svg</file>
-    <file alias="today.svg">resources/icons/today.svg</file>
-    <file alias="scheduled.svg">resources/icons/scheduled.svg</file>
-    <file alias="labels.svg">resources/icons/labels.svg</file>
   </gresource>
 
    <gresource prefix="/io/github/alainm23/planify/icons/scalable/actions">
@@ -76,5 +71,6 @@
     <file alias="paper-symbolic.svg">resources/icons/paper-symbolic.svg</file>
     <file alias="folder-download-symbolic.svg">resources/icons/folder-download-symbolic.svg</file>
     <file alias="list-drag-handle-symbolic.svg">resources/icons/list-drag-handle-symbolic.svg</file>
+    <file alias="mailbox-symbolic.svg">resources/icons/mailbox-symbolic.svg</file>
   </gresource>
 </gresources>

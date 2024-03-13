@@ -50,7 +50,8 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         var listbox_grid = new Gtk.Grid () {
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 6,
+            margin_top = 3
         };
         
         listbox_grid.attach (listbox, 0, 0);

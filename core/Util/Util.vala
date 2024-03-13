@@ -1178,7 +1178,7 @@ We hope you’ll enjoy using Planify!""");
         GLib.MatchInfo match;
 
         try {
-            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+            regex = new GLib.Regex ("%s:(.*)".printf (key));
         } catch (GLib.RegexError e) {
             critical (e.message);
         }
@@ -1187,11 +1187,11 @@ We hope you’ll enjoy using Planify!""");
             return "";
         }
 
-        if (!regex.match (data, 0, out match)) {
+        if (!regex.match (data.strip (), 0, out match)) {
             return "";
         }
 
-        return match.fetch_all () [1];
+        return match.fetch_all ()[1];
     }
 
     public static bool find_boolean_value (string key, string data) {
@@ -1199,7 +1199,7 @@ We hope you’ll enjoy using Planify!""");
         GLib.MatchInfo match;
 
         try {
-            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+            regex = new GLib.Regex ("%s:(.*)".printf (key));
         } catch (GLib.RegexError e) {
             critical (e.message);
         }

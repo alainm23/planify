@@ -384,10 +384,12 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ics);
 
         var categories = Util.find_string_value ("CATEGORIES", data);
+        print ("categories: %s\n".printf (categories));
         check_labels (get_labels_maps_from_caldav (categories));
     }
 
     public void patch_from_vtodo (string data, string _ics) {
+        ECal.Component ecal = new ECal.Component.from_string (data);
         ICal.Component ical = new ICal.Component.from_string (data);
 
         id = ical.get_uid ();
@@ -522,10 +524,8 @@ public class Objects.Item : Objects.BaseObject {
     private Gee.ArrayList<Objects.Label> get_caldav_categories (string categories) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
 
-        //  string _categories = categories.replace ("\\,", ";");
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            //  string category = str.replace (";", ",");
             Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
             if (label != null) {
                 return_value.add (label);
@@ -575,6 +575,15 @@ public class Objects.Item : Objects.BaseObject {
             Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
             if (label != null) {
                 return_value [label.id] = label;
+            } else {
+                label = new Objects.Label ();
+                label.id = Util.get_default ().generate_id (label);
+                label.color = Util.get_default ().get_random_color ();
+                label.name = category;
+                label.backend_type = BackendType.CALDAV;
+                if (Services.Database.get_default ().insert_label (label)) {
+                    return_value [label.id] = label;
+                }
             }
         }
 
@@ -1163,8 +1172,6 @@ public class Objects.Item : Objects.BaseObject {
             ical.add_property (new ICal.Property.categories (get_labels_names (labels)));
         }
         
-        stdout.printf ("%s\n", ical.as_ical_string ());
-
         return "%s%s%s".printf (
             "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Planify App (https://github.com/alainm23/planify)\n",
             ical.as_ical_string (),

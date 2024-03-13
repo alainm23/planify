@@ -109,23 +109,23 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private void build_filter_data () {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
-            title_image.gicon = new ThemedIcon ("today");
+            title_image.icon_name = "star-outline-thick-symbolic";
             Util.get_default ().set_widget_color ("#33d17a", this);
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
-            title_image.gicon = new ThemedIcon ("inbox");
+            title_image.icon_name = "mailbox-symbolic";
             Util.get_default ().set_widget_color ("#3584e4", this);
         } else if (filter_type == FilterType.SCHEDULED) {
             title_label.label = _("Scheduled");
-            title_image.gicon = new ThemedIcon ("scheduled");
+            title_image.icon_name = "month-symbolic";
             Util.get_default ().set_widget_color ("#9141ac", this);
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
-            title_image.gicon = new ThemedIcon ("pinboard");
+            title_image.icon_name = "pin-symbolic";
             Util.get_default ().set_widget_color ("#e01b24", this);
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
-            title_image.gicon = new ThemedIcon ("labels");
+            title_image.icon_name = "tag-outline-symbolic";
             Util.get_default ().set_widget_color ("#986a44", this);
         }
     }

@@ -65,6 +65,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		var import_button = new Gtk.Button.with_label (_("Import Backup"));
 
 		var backups_group = new Layouts.HeaderItem (_("Backup Files")) {
+			card = true,
 			margin_top = 12,
 			reveal = true
 		};
@@ -318,10 +319,10 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
 		};
 
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
-            margin_start = 9,
-            margin_end = 3,
-            margin_bottom = 3
+            margin_top = 6,
+            margin_start = 12,
+            margin_end = 6,
+            margin_bottom = 6
         };
 
 		content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));

@@ -133,6 +133,10 @@ public class Views.Labels : Adw.Bin {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
         });
 
+        labels_caldav_header.row_activated.connect ((row) => {
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
+        });
+
         Services.Database.get_default ().label_added.connect ((label) => {
             add_label (label);
         });
@@ -146,6 +150,11 @@ public class Views.Labels : Adw.Bin {
             if (labels_todoist_map.has_key (label.id)) {
                 labels_todoist_map[label.id].hide_destroy ();
                 labels_todoist_map.unset (label.id);
+            }
+
+            if (labels_caldav_map.has_key (label.id)) {
+                labels_caldav_map[label.id].hide_destroy ();
+                labels_caldav_map.unset (label.id);
             }
         });
 

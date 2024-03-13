@@ -117,6 +117,24 @@ public class Layouts.HeaderItem : Adw.Bin {
             }
         }
     }
+
+    public bool card {
+        set {
+            if (value) {
+                listbox.css_classes = { "boxed-list" };
+                listbox.margin_top = 3;
+                listbox.margin_bottom = 3;
+                listbox.margin_start = 3;
+                listbox.margin_end = 3;
+            } else {
+                listbox.css_classes = {  };
+                listbox.margin_top = 0;
+                listbox.margin_bottom = 0;
+                listbox.margin_start = 0;
+                listbox.margin_end = 0;
+            }
+        }
+    }
     
     public HeaderItem (string? header_title = null) {
         Object (
