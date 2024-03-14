@@ -45,6 +45,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Label due_label;
     private Gtk.Revealer due_label_revealer;
     private Gtk.Revealer description_image_revealer;
+    private Gtk.Revealer pin_image_revealer;
     private Gtk.Image repeat_image;
     private Gtk.Revealer repeat_image_revealer;
     
@@ -102,6 +103,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 due_label_revealer.reveal_child = false;
                 repeat_image_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
+                pin_image_revealer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
@@ -338,6 +340,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         };
 
+        // Pin Icon
+        pin_image_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = new Gtk.Image.from_icon_name ("pin-symbolic") {
+                valign = Gtk.Align.CENTER,
+                margin_start = 6,
+                css_classes = { "dim-label" },
+                pixel_size = 13
+            }
+        };
+
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (due_label_revealer);
@@ -447,6 +460,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_end = 3
         };
         _itemrow_box.append (handle_grid);
+        _itemrow_box.append (pin_image_revealer);
         _itemrow_box.append (description_image_revealer);
         _itemrow_box.append (repeat_image_revealer);
         _itemrow_box.append (select_revealer);
@@ -735,6 +749,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         check_due ();
         check_description ();
+        check_pinboard ();
 
         if (!edit) {
             labels_summary.check_revealer ();
@@ -750,6 +765,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_description () {
         description_image_revealer.reveal_child = !edit && Util.get_default ().line_break_to_space (item.description).length > 0;
+    }
+
+    private void check_pinboard () {
+        pin_image_revealer.reveal_child = item.pinned;
     }
 
     private void check_due () {
@@ -827,11 +846,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
+
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
@@ -849,6 +870,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
+        menu_box.append (pinboard_item);
         menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (move_item);
@@ -897,6 +919,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
+        });
+
+        pinboard_item.activate_item.connect (() => {
+            menu_handle_popover.popdown ();
+            update_pinned (!item.pinned);
         });
 
         no_date_item.activate_item.connect (() => {

@@ -597,21 +597,23 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
+
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -666,6 +668,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
+        });
+
+        pinboard_item.activate_item.connect (() => {
+            menu_handle_popover.popdown ();
+            update_pinned (!item.pinned);
         });
 
         no_date_item.activate_item.connect (() => {
@@ -1025,6 +1032,16 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Services.EventBus.get_default ().select_item (this);
         } else {
             Services.EventBus.get_default ().unselect_item (this);
+        }
+    }
+
+    public void update_pinned (bool pinned) {
+        item.pinned = pinned;
+        
+        if (item.project.backend_type == BackendType.CALDAV) {
+            item.update_async ("");
+        } else {
+            item.update_local ();
         }
     }
 
