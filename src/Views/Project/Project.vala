@@ -20,11 +20,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.Project : Gtk.Grid {
+public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Stack view_stack;
 	private Adw.ToolbarView toolbar_view;
+	private Layouts.ItemSidebarView item_sidebar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
@@ -119,7 +120,17 @@ public class Views.Project : Gtk.Grid {
 		toolbar_view.add_bottom_bar (multiselect_toolbar);
 		toolbar_view.content = content_overlay;
 
-		attach (toolbar_view, 0, 0);
+		item_sidebar_view = new Layouts.ItemSidebarView ();
+
+		var overlay_split_view = new Adw.OverlaySplitView () {
+			sidebar_position = Gtk.PackType.END,
+			collapsed = true,
+			max_sidebar_width = 375
+		};
+		overlay_split_view.content = toolbar_view;
+		overlay_split_view.sidebar = item_sidebar_view;
+
+		child = overlay_split_view;
 		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
 		check_default_view ();
 		show ();
@@ -150,6 +161,14 @@ public class Views.Project : Gtk.Grid {
 				Services.EventBus.get_default ().magic_button_visible (true);
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
+		});
+
+		Services.EventBus.get_default ().open_item.connect ((item) => {
+			overlay_split_view.show_sidebar = true;
+		});
+
+		Services.EventBus.get_default ().close_item.connect (() => {
+			overlay_split_view.show_sidebar = false;
 		});
 	}
 

@@ -80,5 +80,7 @@ public class Services.EventBus : Object {
     public signal void item_added_successfully ();
 
     // Navigate
+    public signal void open_item (Objects.Item item);
     public signal void push_item (Objects.Item item);
+    public signal void close_item ();
 }

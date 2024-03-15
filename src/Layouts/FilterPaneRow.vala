@@ -136,9 +136,9 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     
     public void init () {
         if (filter_type == FilterType.TODAY) {
-            update_count_label (Objects.Today.get_default ().today_count);
+            update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
             Objects.Today.get_default ().today_count_updated.connect (() => {
-                update_count_label (Objects.Today.get_default ().today_count);
+                update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
             });
         } else if (filter_type == FilterType.INBOX) {
             init_inbox_count ();            
