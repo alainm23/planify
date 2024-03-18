@@ -78,7 +78,7 @@ public class Layouts.HeaderBar : Adw.Bin {
             css_classes = { "font-bold" }
         };
     
-        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
+        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         start_box.append (sidebar_button);
         start_box.append (back_button_revealer);
         start_box.append (title_label);

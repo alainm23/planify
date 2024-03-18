@@ -162,6 +162,10 @@ public class Views.Pinboard : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item) {
+        if (items.has_key (item.id)) {
+            items[item.id].update_request ();
+        }
+
         if (items.has_key (item.id) && (!item.pinned || item.checked)) {
             items[item.id].hide_destroy ();
             items.unset (item.id);
