@@ -9,6 +9,7 @@
     <file alias="sidebar.css" compressed="true">resources/stylesheet/sidebar.css</file>
     <file alias="typography.css" compressed="true">resources/stylesheet/typography.css</file>
   </gresource>
+  
   <gresource prefix="/io/github/alainm23/planify">
     <file alias="index.css" compressed="true">resources/stylesheet/index.css</file>
     <file alias="shortcuts.ui" compressed="true">resources/ui/shortcuts.ui</file>

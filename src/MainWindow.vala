@@ -42,7 +42,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	static construct {
 		weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-		default_theme.add_resource_path ("/io/github/alainm23/planify");
+		default_theme.add_resource_path ("/io/github/alainm23/planify/");
 	}
 
 	construct {

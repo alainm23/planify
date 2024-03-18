@@ -410,13 +410,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void open_detail () {
-        Services.EventBus.get_default ().open_item (item);
-        //  if (item.parent_id == "") {
-        //      var dialog = new Dialogs.ItemView (item);
-        //      dialog.show ();
-        //  } else {
-        //      Services.EventBus.get_default ().push_item (item);
-        //  }
+        //  Services.EventBus.get_default ().open_item (item);
+        if (item.parent_id == "") {
+            var dialog = new Dialogs.ItemView (item);
+            dialog.show ();
+        } else {
+            Services.EventBus.get_default ().push_item (item);
+        }
     }
 
 	public override void checked_toggled (bool active, uint? time = null) {

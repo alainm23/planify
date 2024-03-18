@@ -54,7 +54,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry = new Gtk.Entry () {
             hexpand = true,
             placeholder_text = _("To-do name"),
-            css_classes = { "flat" }
+            css_classes = { "flat", "font-bold" }
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -79,7 +79,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         description_textview.remove_css_class ("view");
 
         item_labels = new Widgets.ItemLabels (item) {
-            margin_start = 12
+            margin_start = 6,
+            top_margin = 12
         };
 
         schedule_button = new Widgets.ScheduleButton ();
@@ -90,9 +91,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_start = 3,
-            margin_top = 6,
-            margin_bottom = 3
+            margin_top = 6
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -159,7 +158,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var footer_content = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_bottom = 12,
-            margin_start = 6,
+            margin_start = 12,
             margin_end = 12
         };
 
