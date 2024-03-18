@@ -73,5 +73,6 @@
     <file alias="folder-download-symbolic.svg">resources/icons/folder-download-symbolic.svg</file>
     <file alias="list-drag-handle-symbolic.svg">resources/icons/list-drag-handle-symbolic.svg</file>
     <file alias="mailbox-symbolic.svg">resources/icons/mailbox-symbolic.svg</file>
+    <file alias="checkmark-small-symbolic.svg">resources/icons/checkmark-small-symbolic.svg</file>
   </gresource>
 </gresources>
