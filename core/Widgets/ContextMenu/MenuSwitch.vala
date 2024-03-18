@@ -30,7 +30,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
         set {
             if (value != null) {
                 menu_icon_revealer.reveal_child = true;
-                menu_icon.update_icon_name (value);
+                menu_icon.icon_name = value;
             } else {
                 menu_icon_revealer.reveal_child = false;
             }
@@ -47,7 +47,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
         }
     }
 
-    private Widgets.DynamicIcon menu_icon;
+    private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.Switch switch_widget;
@@ -65,11 +65,12 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
 
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("no-font-bold");
 
-        menu_icon = new Widgets.DynamicIcon () {
+        menu_icon = new Gtk.Image () {
+            css_classes = { "dim-label" },
             valign = Gtk.Align.CENTER
         };
-        menu_icon.size = 16;
 
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,

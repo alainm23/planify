@@ -26,7 +26,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     public string title;
     public string icon_name;
 
-    private Widgets.DynamicIcon title_image;
+    private Gtk.Image title_image;
     private Gtk.Label title_label;
     private Gtk.Label count_label;
 
@@ -41,12 +41,9 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         add_css_class ("card");
         add_css_class ("filter-pane-row");
 
-        title_image = new Widgets.DynamicIcon () {
-            hexpand = true,
-            halign = Gtk.Align.START,
+        title_image = new Gtk.Image () {
             margin_start = 3
-        };
-        title_image.size = 16;
+        };        
 
         title_label = new Gtk.Label (null) {
             hexpand = true,
@@ -91,24 +88,20 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         add_controller (select_gesture);
 
         select_gesture.pressed.connect (() => {
-            add_css_class ("selected");
-            Timeout.add (1000, () => {
-                remove_css_class ("selected"); 
-                return GLib.Source.REMOVE;
-            });
-
             Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter_type.to_string ());
         });
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
                 add_css_class ("selected");
+                add_css_class ("animation");
                 Timeout.add (1000, () => {
-                    remove_css_class ("selected"); 
+                    remove_css_class ("animation"); 
                     return GLib.Source.REMOVE;
                 });
             } else {
                 remove_css_class ("selected"); 
+                remove_css_class ("animation");
             }
         });
     }
@@ -116,23 +109,23 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     private void build_filter_data () {
         if (filter_type == FilterType.TODAY) {
             title_label.label = _("Today");
-            title_image.update_icon_name ("planner-today");
+            title_image.icon_name = "star-outline-thick-symbolic";
             Util.get_default ().set_widget_color ("#33d17a", this);
         } else if (filter_type == FilterType.INBOX) {
             title_label.label = _("Inbox");
-            title_image.update_icon_name ("planner-inbox");
+            title_image.icon_name = "mailbox-symbolic";
             Util.get_default ().set_widget_color ("#3584e4", this);
         } else if (filter_type == FilterType.SCHEDULED) {
             title_label.label = _("Scheduled");
-            title_image.update_icon_name ("planner-scheduled");
+            title_image.icon_name = "month-symbolic";
             Util.get_default ().set_widget_color ("#9141ac", this);
         } else if (filter_type == FilterType.PINBOARD) {
             title_label.label = _("Pinboard");
-            title_image.update_icon_name ("planner-pin-tack");
-            Util.get_default ().set_widget_color ("#e01b24", this);
+            title_image.icon_name = "pin-symbolic";
+            Util.get_default ().set_widget_color ("#ed333b", this);
         } else if (filter_type == FilterType.LABELS) {
             title_label.label = _("Labels");
-            title_image.update_icon_name ("planner-tag-icon");
+            title_image.icon_name = "tag-outline-symbolic";
             Util.get_default ().set_widget_color ("#986a44", this);
         }
     }
@@ -143,9 +136,9 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     
     public void init () {
         if (filter_type == FilterType.TODAY) {
-            update_count_label (Objects.Today.get_default ().today_count);
+            update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
             Objects.Today.get_default ().today_count_updated.connect (() => {
-                update_count_label (Objects.Today.get_default ().today_count);
+                update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
             });
         } else if (filter_type == FilterType.INBOX) {
             init_inbox_count ();            

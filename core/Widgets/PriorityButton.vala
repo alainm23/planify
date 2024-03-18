@@ -1,5 +1,5 @@
 public class Widgets.PriorityButton : Adw.Bin {
-    private Widgets.DynamicIcon priority_image;
+    private Gtk.Image priority_image;
     private Gtk.MenuButton button; 
     private Gtk.Popover priority_picker = null;
 
@@ -14,8 +14,7 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     construct {
-        priority_image = new Widgets.DynamicIcon ();
-        priority_image.size = 16;
+        priority_image = new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic");
 
         button = new Gtk.MenuButton () {
             css_classes = { Granite.STYLE_CLASS_FLAT },
@@ -29,10 +28,16 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     public Gtk.Popover build_popover () {
-        var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: high"), "planner-priority-1");
-        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "planner-priority-2");
-        var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: low"), "planner-priority-3");
-        var priority_4_item = new Widgets.ContextMenu.MenuItem (_("Priority 4: none"), "planner-flag");
+        var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: high"), "flag-outline-thick-symbolic");
+        priority_1_item.add_css_class ("priority-1-button");
+
+        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "flag-outline-thick-symbolic");
+        priority_2_item.add_css_class ("priority-2-button");
+
+        var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: low"), "flag-outline-thick-symbolic");
+        priority_3_item.add_css_class ("priority-3-button");
+
+        var priority_4_item = new Widgets.ContextMenu.MenuItem (_("Priority 4: none"), "flag-outline-thick-symbolic");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -71,22 +76,30 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
     
     public void update_from_item (Objects.Item item) {
-        priority_image.update_icon_name (item.priority_icon);
+        if (item.priority == Constants.PRIORITY_1) {
+            priority_image.css_classes = { "priority-1-icon" };
+        } else if (item.priority == Constants.PRIORITY_2) {
+            priority_image.css_classes = { "priority-2-icon" };
+        } else if (item.priority == Constants.PRIORITY_3) {
+            priority_image.css_classes = { "priority-3-icon" };
+        } else {
+            priority_image.css_classes = {  };
+        }
     }
 
     public void set_priority (int priority) {
         if (priority == Constants.PRIORITY_1) {
-            priority_image.update_icon_name ("planner-priority-1");
+            priority_image.css_classes = { "priority-1-icon" };
         } else if (priority == Constants.PRIORITY_2) {
-            priority_image.update_icon_name ("planner-priority-2");
+            priority_image.css_classes = { "priority-2-icon" };
         } else if (priority == Constants.PRIORITY_3) {
-            priority_image.update_icon_name ("planner-priority-3");
+            priority_image.css_classes = { "priority-3-icon" };
         } else {
-            priority_image.update_icon_name ("planner-flag");
+            priority_image.css_classes = {  };
         }
     }
     
     public void reset () {
-        priority_image.update_icon_name ("planner-flag");
+        priority_image.icon_name = "flag-outline-thick-symbolic";
     }
 }

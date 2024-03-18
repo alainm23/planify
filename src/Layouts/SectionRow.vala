@@ -110,21 +110,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		count_revealer.child = count_label;
 
-		var add_button = new Gtk.Button () {
+		var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			child = new Widgets.DynamicIcon.from_icon_name ("plus")
+			css_classes = { "flat" }
 		};
-
-		add_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
 		var menu_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_context_menu (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical")
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat" }
 		};
-		menu_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
 		var actions_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
 		actions_box.append (add_button);
@@ -545,11 +543,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	}
 
 	private Gtk.Popover build_context_menu () {
-		var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus");
-		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "planner-edit");
-		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "chevron-right");
-		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "ordered-list");
-		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "planner-trash");
+		var add_item = new Widgets.ContextMenu.MenuItem (_("Add Task"), "plus-large-symbolic");
+		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
+		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
+		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

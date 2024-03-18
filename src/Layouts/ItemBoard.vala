@@ -102,9 +102,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             css_classes = { "priority-color" }
 		};
 
-        checked_repeat_button = new Gtk.Button () {
+        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("view-refresh-symbolic"),
             css_classes = { "flat", "no-padding" }
         };
         
@@ -200,7 +199,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         labels_summary.content_box.margin_top = 0;
 
         var pinned_icon = new Adw.Bin () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-pinned"),
+            child = new Gtk.Image.from_icon_name ("pin-symbolic"),
             css_classes = { "upcoming-grid" },
             tooltip_text = _("Pinned"),
             margin_end = 6
@@ -212,7 +211,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		};
 
         var reminder_icon = new Adw.Bin () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-bell"),
+            child =new Gtk.Image.from_icon_name ("alarm-symbolic"),
             margin_end = 6,
             css_classes = { "upcoming-grid" }
         };
@@ -411,6 +410,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void open_detail () {
+        //  Services.EventBus.get_default ().open_item (item);
         if (item.parent_id == "") {
             var dialog = new Dialogs.ItemView (item);
             dialog.show ();
@@ -598,21 +598,23 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
+
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -667,6 +669,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
+        });
+
+        pinboard_item.activate_item.connect (() => {
+            menu_handle_popover.popdown ();
+            update_pinned (!item.pinned);
         });
 
         no_date_item.activate_item.connect (() => {
@@ -850,7 +857,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
-;
+
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
                 Services.EventBus.get_default ().send_notification (
@@ -1026,6 +1033,16 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             Services.EventBus.get_default ().select_item (this);
         } else {
             Services.EventBus.get_default ().unselect_item (this);
+        }
+    }
+
+    public void update_pinned (bool pinned) {
+        item.pinned = pinned;
+        
+        if (item.project.backend_type == BackendType.CALDAV) {
+            item.update_async ("");
+        } else {
+            item.update_local ();
         }
     }
 

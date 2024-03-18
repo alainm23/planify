@@ -20,11 +20,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.Project : Gtk.Grid {
+public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
 	private Gtk.Stack view_stack;
 	private Adw.ToolbarView toolbar_view;
+	private Layouts.ItemSidebarView item_sidebar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
@@ -41,7 +42,7 @@ public class Views.Project : Gtk.Grid {
 			halign = Gtk.Align.CENTER,
 			margin_end = 12,
 			popover = build_context_menu_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+			icon_name = "view-more-symbolic",
 			css_classes = { "flat" },
 			tooltip_text = _("Open more project actions")
 		};
@@ -65,7 +66,7 @@ public class Views.Project : Gtk.Grid {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_view_setting_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings-sliders"),
+			icon_name = "view-sort-descending-rtl-symbolic",
 			css_classes = { "flat" },
 			tooltip_text = _("View option menu")
 		};
@@ -119,7 +120,17 @@ public class Views.Project : Gtk.Grid {
 		toolbar_view.add_bottom_bar (multiselect_toolbar);
 		toolbar_view.content = content_overlay;
 
-		attach (toolbar_view, 0, 0);
+		item_sidebar_view = new Layouts.ItemSidebarView ();
+
+		var overlay_split_view = new Adw.OverlaySplitView () {
+			sidebar_position = Gtk.PackType.END,
+			collapsed = true,
+			max_sidebar_width = 375
+		};
+		overlay_split_view.content = toolbar_view;
+		overlay_split_view.sidebar = item_sidebar_view;
+
+		child = overlay_split_view;
 		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
 		check_default_view ();
 		show ();
@@ -150,6 +161,14 @@ public class Views.Project : Gtk.Grid {
 				Services.EventBus.get_default ().magic_button_visible (true);
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
+		});
+
+		Services.EventBus.get_default ().open_item.connect ((item) => {
+			overlay_split_view.show_sidebar = true;
+		});
+
+		Services.EventBus.get_default ().close_item.connect (() => {
+			overlay_split_view.show_sidebar = false;
 		});
 	}
 
@@ -222,16 +241,16 @@ public class Views.Project : Gtk.Grid {
 	}
 
 	private Gtk.Popover build_context_menu_popover () {
-		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "planner-calendar");
-		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "planner-section");
+		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
+		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "month-symbolic");
+		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "tab-new-symbolic");
 		add_section_item.secondary_text = "S";
-		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "ordered-list");
+		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "list-large-symbolic");
 		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
-		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "unordered-list");
-		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "planner-clipboard");
-		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "planner-trash");
+		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");
+		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "tabs-stack-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -368,7 +387,7 @@ public class Views.Project : Gtk.Grid {
 			halign = CENTER
 		};
 
-		list_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-list"));
+		list_box.append (new Gtk.Image.from_icon_name ("list-symbolic"));
 		list_box.append (new Gtk.Label (_("List")) {
 			css_classes = { "small-label" },
 			valign = CENTER
@@ -383,7 +402,7 @@ public class Views.Project : Gtk.Grid {
 			halign = CENTER
 		};
 
-		board_box.append (new Widgets.DynamicIcon.from_icon_name ("planner-board"));
+		board_box.append (new Gtk.Image.from_icon_name ("view-columns-symbolic"));
 		board_box.append (new Gtk.Label (_("Board")) {
 			css_classes = { "small-label" },
 			valign = CENTER
@@ -414,12 +433,12 @@ public class Views.Project : Gtk.Grid {
 		order_by_model.add (_("Date added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "ordered-list", order_by_model);
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
 		order_by_item.selected = project.sort_order;
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks"),
-			"planner-check-circle"
+			"check-round-outline-symbolic"
 		);
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

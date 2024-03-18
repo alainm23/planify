@@ -61,20 +61,20 @@ public class Dialogs.DatePicker : Adw.Window {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
         today_item.margin_top = 6;
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "planner-scheduled");
+        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "month-symbolic");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
         next_week_item.margin_bottom = 6;
 
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = false;
 
         var items_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {

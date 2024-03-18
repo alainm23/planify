@@ -82,10 +82,9 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             margin_start = 12
         };
         
-        var no_time_button = new Gtk.Button () {
+        var no_time_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-close-circle"),
             css_classes = { "flat" }
         };
 
@@ -104,16 +103,16 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
         time_box.append (time_entry);
         time_box.append (no_time_revealer);
 
-        var add_time_button = new Gtk.Button () {
+        var add_time_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.END,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
             css_classes = { "flat" }
         };
 
         time_stack = new Gtk.Stack () {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
+
         time_stack.add_named (add_time_button, "add-time");
         time_stack.add_named (time_box, "time-box");
         

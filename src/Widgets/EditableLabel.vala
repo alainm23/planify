@@ -91,9 +91,9 @@ public class Widgets.EditableLabel : Gtk.Grid {
 			xalign = 0
 		};
 
-		var edit_icon = new Widgets.DynamicIcon.from_icon_name ("planner-edit") {
+		var edit_icon = new Gtk.Image.from_icon_name ("edit-symbolic") {
 			css_classes = { "dim-label" },
-			size = 13
+			pixel_size = 16
 		};
 
 		edit_revealer = new Gtk.Revealer () {

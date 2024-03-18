@@ -28,8 +28,8 @@ public class Widgets.IconColorProject : Adw.Bin {
         color_emoji_stack.add_named (circular_progress_bar, "color");
         color_emoji_stack.add_named (emoji_label, "emoji");
 
-        var inbox_icon = new Widgets.DynamicIcon.from_icon_name ("planner-inbox") {
-            size = 19
+        var inbox_icon = new Gtk.Image.from_icon_name ("mailbox-symbolic") {
+            pixel_size = 16
         };
 
         stack = new Gtk.Stack () {

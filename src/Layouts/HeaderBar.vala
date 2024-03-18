@@ -24,6 +24,8 @@ public class Layouts.HeaderBar : Adw.Bin {
     private Gtk.Label title_label;
     private Gtk.Revealer back_button_revealer;
     private Gtk.Box start_box;
+    private Gtk.Button back_button;
+    private Gtk.Button sidebar_button;
 
     private string _title;
     public string title {
@@ -50,30 +52,19 @@ public class Layouts.HeaderBar : Adw.Bin {
     public signal void back_activated ();
 
     construct {
-        // Sidebar   
-        var sidebar_image = new Widgets.DynamicIcon ();
-
-		if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
-			sidebar_image.update_icon_name ("sidebar-left");
-		} else {
-			sidebar_image.update_icon_name ("sidebar-right");
-		}
-
-		var sidebar_button = new Gtk.Button () {
+		sidebar_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
-            child = sidebar_image
+            css_classes = { "flat" }
 		};
 
-		sidebar_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        update_sidebar_icon ();
 
         // Back Button
-        var back_button = new Gtk.Button () {
+        back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("go-previous-symbolic"),
-            margin_end = 6
+            margin_end = 6,
+            css_classes = { "flat" }
         };
-
-        back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         back_button_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
@@ -109,6 +100,20 @@ public class Layouts.HeaderBar : Adw.Bin {
         back_button.clicked.connect (() => {
             back_activated ();
         });
+
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
+			if (key == "slim-mode") {
+                update_sidebar_icon ();
+            }
+        });
+    }
+
+    private void update_sidebar_icon () {
+        if (Services.Settings.get_default ().settings.get_boolean ("slim-mode")) {
+            sidebar_button.icon_name = "dock-left-symbolic";
+        } else {
+            sidebar_button.icon_name = "dock-right-symbolic";
+        }
     }
     
     public void pack_end (Gtk.Widget widget) {

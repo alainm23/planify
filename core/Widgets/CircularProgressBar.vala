@@ -42,11 +42,7 @@ public class Widgets.CircularProgressBar : Adw.Bin {
     }
 
     construct {
-        if (size <= 10) {
-            add_css_class ("circular-progress-bar-min");
-        } else {
-            add_css_class ("circular-progress-bar");
-        }
+        add_css_class ("circular-progress-bar");
 
         circularProgressBar = new _CircularProgressBar (size) {
             margin_start = 2,

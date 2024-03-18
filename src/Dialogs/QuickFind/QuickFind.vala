@@ -75,6 +75,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 
         content = toolbar_view;
 
+        Timeout.add (250, () => {
+            search_entry.grab_focus ();
+			return GLib.Source.REMOVE;
+		});
+
+
         search_entry.search_changed.connect (() => {
             search_changed ();
         });
@@ -131,13 +137,13 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
     private void search_changed () {
         if (search_entry.text.strip () != "") {
             clean_results ();
-            search_local_todoist ();
+            search ();
         } else {
             clean_results ();
         }
     }
 
-    private void search_local_todoist () {
+    private void search () {
         Objects.BaseObject[] filters = {
             Objects.Today.get_default (),
             Objects.Scheduled.get_default (),
@@ -164,9 +170,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         }
 
         foreach (Objects.Item item in Services.Database.get_default ().get_all_items_by_search (search_entry.text)) {
-            var row = new Dialogs.QuickFind.QuickFindItem (item, search_entry.text);
-            listbox.append (row);
-            items.add (row);
+            if (item.project != null) {
+                var row = new Dialogs.QuickFind.QuickFindItem (item, search_entry.text);
+                listbox.append (row);
+                items.add (row);
+            }
         }
 
         foreach (Objects.Label label in Services.Database.get_default ().get_all_labels_by_search (search_entry.text)) {

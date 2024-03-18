@@ -30,14 +30,14 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         set {
             if (value != null) {
                 menu_icon_revealer.reveal_child = true;
-                menu_icon.update_icon_name (value);
+                menu_icon.gicon = new ThemedIcon (value);
             } else {
                 menu_icon_revealer.reveal_child = false;
             }
         }
     }
 
-    private Widgets.DynamicIcon menu_icon;
+    private Gtk.Image menu_icon;
     private Gtk.Revealer menu_icon_revealer;
     private Gtk.Label menu_title;
     private Gtk.Label secondary_label;
@@ -102,11 +102,12 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
 
     construct {
         add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("no-font-bold");
 
-        menu_icon = new Widgets.DynamicIcon () {
-            valign = Gtk.Align.CENTER
+        menu_icon = new Gtk.Image () {
+            css_classes = { "dim-label" }
         };
-
+        
         menu_icon_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             child = menu_icon,
@@ -117,14 +118,14 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             use_markup = true
         };
 
-        var select_icon = new Widgets.DynamicIcon.from_icon_name ("object-select-symbolic");
+        var select_icon = new Gtk.Image.from_icon_name ("object-select-symbolic");
 
         select_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
             child = select_icon
         };
 
-        var arrow_icon = new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic") {
+        var arrow_icon = new Gtk.Image.from_icon_name ("pan-end-symbolic") {
             css_classes = { "dim-label" },
             margin_start = 6
         };

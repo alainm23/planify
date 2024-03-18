@@ -28,18 +28,17 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
 
         var views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
-            separator_lines = true,
             listbox_no_margin = true,
-            box_shadow = true,
+            card = true,
 			reveal = true,
             margin_top = 12
 		};
 
-		var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "planner-inbox");
-		var today_row = new Widgets.SidebarRow (FilterType.TODAY, _("Today"), "planner-today");
-		var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "planner-scheduled");
-		var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "planner-pin-tack");
-		var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "planner-tag-icon");
+		var inbox_row = new Widgets.SidebarRow (FilterType.INBOX, _("Inbox"), "mailbox-symbolic");
+		var today_row = new Widgets.SidebarRow (FilterType.TODAY, _("Today"), "star-outline-thick-symbolic");
+		var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "month-symbolic");
+		var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "pin-symbolic");
+		var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "tag-outline-symbolic");
 
 		views_group.add_child (inbox_row);
 		views_group.add_child (today_row);
@@ -154,15 +153,13 @@ public class Widgets.SidebarRow : Gtk.ListBoxRow {
 		};
 
 		handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 9) {
-            margin_top = 9,
-            margin_start = 9,
-            margin_end = 9,
-            margin_bottom = 9
+            margin_top = 12,
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 12
         };
 
-		handle_grid.append (new Widgets.DynamicIcon.from_icon_name (icon) {
-            size = 19
-        });
+		handle_grid.append (new Gtk.Image.from_icon_name (icon));
         handle_grid.append (name_label);
 		handle_grid.append (check_button);
 

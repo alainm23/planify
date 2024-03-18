@@ -121,11 +121,11 @@ public class Objects.BaseObject : GLib.Object {
     public string icon_name {
         get {
             if (this is Objects.Today) {
-                return "planner-today";
+                return "star-outline-thick-symbolic";
             } else if (this is Objects.Scheduled) {
-                return "planner-scheduled";
+                return "month-symbolic";
             } else if (this is Objects.Pinboard) {
-                return "planner-pin-tack";
+                return "pin-symbolic";
             } else {
                 return "";
             }

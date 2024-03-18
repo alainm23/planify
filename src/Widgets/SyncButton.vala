@@ -21,8 +21,8 @@
 
 public class Widgets.SyncButton : Adw.Bin {
     private Gtk.Revealer main_revealer;
-    private Widgets.DynamicIcon sync_icon;
     private Gtk.Stack stack;
+    private Gtk.Button sync_button;
 
     public signal void clicked ();
 
@@ -33,13 +33,10 @@ public class Widgets.SyncButton : Adw.Bin {
     }
 
     construct {
-        sync_icon = new Widgets.DynamicIcon.from_icon_name ("planner-refresh");
-
-        var sync_button = new Gtk.Button () {
+        sync_button = new Gtk.Button.from_icon_name ("update-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = sync_icon
+            css_classes = { "flat", "header-item-button", "dim-label" }
         };
-        sync_button.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         var error_image = new Gtk.Image () {
             gicon = new ThemedIcon ("dialog-warning-symbolic"),
@@ -85,10 +82,10 @@ public class Widgets.SyncButton : Adw.Bin {
     }
 
     public void sync_started () {
-        sync_icon.add_css_class ("is_loading");
+        sync_button.add_css_class ("is_loading");
     }
     
     public void sync_finished () {
-        sync_icon.remove_css_class ("is_loading");
+        sync_button.remove_css_class ("is_loading");
     }
 }

@@ -34,7 +34,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     }
 
     construct {
-        add_css_class ("selectable-item");
+        add_css_class ("no-selectable");
         add_css_class ("transition");
 
         name_label = new Gtk.Label (section.name);
@@ -62,9 +62,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             active = section.id == "" ? !section.project.inbox_section_hidded : !section.hidded
         };
 
-        var order_icon = new Widgets.DynamicIcon ();
-        order_icon.size = 16;
-        order_icon.update_icon_name ("menu");
+        var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic");
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 9,

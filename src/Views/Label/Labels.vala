@@ -39,18 +39,15 @@ public class Views.Labels : Adw.Bin {
         labels_local_header = new Layouts.HeaderItem (_("Labels: On This Computer"));
         labels_local_header.reveal = true;
         labels_local_header.show_separator = true;
-        labels_local_header.card = false;
         labels_local_header.set_sort_func (sort_func);
 
         labels_todoist_header = new Layouts.HeaderItem (_("Labels: Todoist"));
         labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         labels_todoist_header.show_separator = true;
-        labels_todoist_header.card = false;
         labels_todoist_header.set_sort_func (sort_func);
 
         labels_caldav_header = new Layouts.HeaderItem (_("Labels: Nextcloud"));
         labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
-        labels_caldav_header.card = false;
         labels_caldav_header.show_separator = true;
         labels_caldav_header.set_sort_func (sort_func);
 
@@ -95,13 +92,8 @@ public class Views.Labels : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        var add_local_button = new Gtk.Button () {
+        var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
             css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
@@ -111,13 +103,8 @@ public class Views.Labels : Adw.Bin {
             dialog.show ();
         });
 
-        var add_todoist_button = new Gtk.Button () {
+        var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
             css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
@@ -127,13 +114,8 @@ public class Views.Labels : Adw.Bin {
             dialog.show ();
         });
 
-        var add_caldav_button = new Gtk.Button () {
+        var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
             css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
@@ -151,6 +133,10 @@ public class Views.Labels : Adw.Bin {
             Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
         });
 
+        labels_caldav_header.row_activated.connect ((row) => {
+            Services.EventBus.get_default ().pane_selected (PaneType.LABEL, ((Layouts.LabelRow) row).label.id);
+        });
+
         Services.Database.get_default ().label_added.connect ((label) => {
             add_label (label);
         });
@@ -164,6 +150,11 @@ public class Views.Labels : Adw.Bin {
             if (labels_todoist_map.has_key (label.id)) {
                 labels_todoist_map[label.id].hide_destroy ();
                 labels_todoist_map.unset (label.id);
+            }
+
+            if (labels_caldav_map.has_key (label.id)) {
+                labels_caldav_map[label.id].hide_destroy ();
+                labels_caldav_map.unset (label.id);
             }
         });
 

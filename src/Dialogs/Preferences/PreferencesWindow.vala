@@ -65,8 +65,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			css_classes = { "banner-text" }
 		};
 
-		var close_button = new Gtk.Button () {
-			child = new Widgets.DynamicIcon.from_icon_name ("window-close-symbolic"),
+		var close_button = new Gtk.Button.from_icon_name ("window-close-symbolic") {
 			css_classes = { "border-radius-50", "banner-text" },
 			margin_top = 6,
 			margin_end = 6,
@@ -110,8 +109,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		// Accounts
 		var accounts_row = new Adw.ActionRow ();
 		accounts_row.activatable = true;
-		accounts_row.add_prefix (generate_icon ("planner-cloud"));
-		accounts_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		accounts_row.add_prefix (generate_icon ("cloud-outline-thick-symbolic"));
+		accounts_row.add_suffix (generate_icon ("go-next-symbolic"));
 		accounts_row.title = _("Integrations");
 		accounts_row.subtitle = _("Sync your favorite to-do providers");
 
@@ -127,8 +126,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		// Personalization
 		var general_row = new Adw.ActionRow ();
 		general_row.activatable = true;
-		general_row.add_prefix (generate_icon ("planner-general"));
-		general_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		general_row.add_prefix (generate_icon ("settings-symbolic"));
+		general_row.add_suffix (generate_icon ("go-next-symbolic"));
 		general_row.title = _("General");
 		general_row.subtitle = _("Customize to your liking");
 
@@ -138,8 +137,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var sidebar_row = new Adw.ActionRow ();
 		sidebar_row.activatable = true;
-		sidebar_row.add_prefix (generate_icon ("sidebar"));
-		sidebar_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		sidebar_row.add_prefix (generate_icon ("dock-left-symbolic"));
+		sidebar_row.add_suffix (generate_icon ("go-next-symbolic"));
 		sidebar_row.title = _("Sidebar");
 		sidebar_row.subtitle = _("Customize your sidebar");
 
@@ -149,8 +148,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var appearance_row = new Adw.ActionRow ();
 		appearance_row.activatable = true;
-		appearance_row.add_prefix (generate_icon ("planner-appearance"));
-		appearance_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		appearance_row.add_prefix (generate_icon ("color-symbolic"));
+		appearance_row.add_suffix (generate_icon ("go-next-symbolic"));
 		appearance_row.title = _("Appearance");
 		appearance_row.subtitle = Util.get_default ().get_theme_name ();
 
@@ -160,8 +159,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var quick_add_row = new Adw.ActionRow ();
 		quick_add_row.activatable = true;
-		quick_add_row.add_prefix (generate_icon ("archive-plus"));
-		quick_add_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		quick_add_row.add_prefix (generate_icon ("tab-new-symbolic"));
+		quick_add_row.add_suffix (generate_icon ("go-next-symbolic"));
 		quick_add_row.title = _("Quick Add");
 		quick_add_row.subtitle = _("Adding to-do's from anywhere");
 
@@ -171,15 +170,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var backups_row = new Adw.ActionRow ();
 		backups_row.activatable = true;
-		backups_row.add_prefix (generate_icon ("planner-upload"));
-		backups_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		backups_row.add_prefix (generate_icon ("arrow3-down-symbolic"));
+		backups_row.add_suffix (generate_icon ("go-next-symbolic"));
 		backups_row.title = _("Backups");
 		backups_row.subtitle = _("Backup or migrate from Planner.");
 
 		var tutorial_row = new Adw.ActionRow ();
 		tutorial_row.activatable = true;
-		tutorial_row.add_prefix (generate_icon ("light-bulb"));
-		tutorial_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		tutorial_row.add_prefix (generate_icon ("rescue-symbolic"));
+		tutorial_row.add_suffix (generate_icon ("go-next-symbolic"));
 		tutorial_row.title = _("Create Tutorial Project");
 		tutorial_row.subtitle = _("Learn the app step by step with a short tutorial project");
 
@@ -200,8 +199,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var contact_us_row = new Adw.ActionRow ();
 		contact_us_row.activatable = true;
-		contact_us_row.add_prefix (generate_icon ("planner-mail"));
-		contact_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		contact_us_row.add_prefix (generate_icon ("mail-symbolic"));
+		contact_us_row.add_suffix (generate_icon ("go-next-symbolic"));
 		contact_us_row.title = _("Contact Us");
 		contact_us_row.subtitle = _("Request a feature or ask us anything");
 
@@ -217,8 +216,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var tweet_us_row = new Adw.ActionRow ();
 		tweet_us_row.activatable = true;
-		tweet_us_row.add_prefix (generate_icon ("planner-annotation-dots"));
-		tweet_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		tweet_us_row.add_prefix (generate_icon ("chat-bubble-text-symbolic"));
+		tweet_us_row.add_suffix (generate_icon ("go-next-symbolic"));
 		tweet_us_row.title = _("Tweet Us");
 		tweet_us_row.subtitle = _("Share some love");
 
@@ -232,8 +231,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var telegram_row = new Adw.ActionRow ();
 		telegram_row.activatable = true;
-		telegram_row.add_prefix (generate_icon ("telegram"));
-		telegram_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		telegram_row.add_prefix (generate_icon ("navigate-symbolic"));
+		telegram_row.add_suffix (generate_icon ("go-next-symbolic"));
 		telegram_row.title = _("Telegram");
 		telegram_row.subtitle = _("Discuss and share your feedback");
 
@@ -247,8 +246,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var supporting_us_row = new Adw.ActionRow ();
 		supporting_us_row.activatable = true;
-		supporting_us_row.add_prefix (generate_icon ("planner-heart"));
-		supporting_us_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
+		supporting_us_row.add_suffix (generate_icon ("go-next-symbolic"));
 		supporting_us_row.title = _("Support Planify");
 		supporting_us_row.subtitle = _("Want to buy me a drink?");
 
@@ -268,15 +267,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var privacy_policy_row = new Adw.ActionRow ();
 		privacy_policy_row.activatable = true;
-		privacy_policy_row.add_prefix (generate_icon ("planner-shield-tick"));
-		privacy_policy_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		privacy_policy_row.add_prefix (generate_icon ("shield-safe-symbolic"));
+		privacy_policy_row.add_suffix (generate_icon ("go-next-symbolic"));
 		privacy_policy_row.title = _("Privacy Policy");
 		privacy_policy_row.subtitle = _("We have nothing on you");
 		
 		var delete_row = new Adw.ActionRow ();
 		delete_row.activatable = true;
-		delete_row.add_prefix (generate_icon ("trash"));
-		delete_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		delete_row.add_prefix (generate_icon ("user-trash-symbolic"));
+		delete_row.add_suffix (generate_icon ("go-next-symbolic"));
 		delete_row.title = _("Delete App Data");
 
 		privacy_group.add (privacy_policy_row);
@@ -363,7 +362,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		run_background_row.set_activatable_widget (run_background_switch);
 		run_background_row.add_suffix (run_background_switch);
 
-		de_group.add (run_background_row);
+		//  de_group.add (run_background_row);
 
 		var run_on_startup_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
@@ -726,11 +725,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			active = Services.Todoist.get_default ().is_logged_in ()
 		};
 
-		var todoist_setting_button = new Gtk.Button () {
+		var todoist_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings"),
 			css_classes = { Granite.STYLE_CLASS_FLAT }
 		};
 
@@ -746,7 +744,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		todoist_row.subtitle = _("Synchronize with your Todoist Account");
 		todoist_row.add_suffix (todoist_setting_revealer);
 		todoist_row.add_suffix (todoist_switch);
-        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("planner-todoist") {
+        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("todoist") {
 			pixel_size = 32
 		});
 
@@ -756,11 +754,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			active = Services.CalDAV.get_default ().is_logged_in ()
 		};
 
-		var caldav_setting_button = new Gtk.Button () {
+		var caldav_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-settings"),
 			css_classes = { "flat" }
 		};
 
@@ -1180,12 +1177,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         webview.load_uri (oauth_open_url);
 
-        var sync_image = new Widgets.DynamicIcon () {
+        var sync_image = new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic") {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
+            halign = Gtk.Align.CENTER,
+			pixel_size = 128
         };
-        sync_image.update_icon_name ("planner-cloud");
-        sync_image.size = 128;
 
         // Loading
         var progress_bar = new Gtk.ProgressBar () {
@@ -1530,7 +1526,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		
 		var patreon_row = new Adw.ActionRow ();
 		patreon_row.activatable = true;
-		patreon_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		patreon_row.add_suffix (generate_icon ("go-next-symbolic", 16));
 		patreon_row.title = _("Patreon");
 
 		patreon_row.activated.connect (() => {
@@ -1543,7 +1539,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var paypal_row = new Adw.ActionRow ();
 		paypal_row.activatable = true;
-		paypal_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		paypal_row.add_suffix (generate_icon ("go-next-symbolic", 16));
 		paypal_row.title = _("PayPal");
 
 		paypal_row.activated.connect (() => {
@@ -1556,7 +1552,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var liberapay_row = new Adw.ActionRow ();
 		liberapay_row.activatable = true;
-		liberapay_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		liberapay_row.add_suffix (generate_icon ("go-next-symbolic", 16));
 		liberapay_row.title = _("Liberapay");
 		
 		liberapay_row.activated.connect (() => {
@@ -1569,7 +1565,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var kofi_row = new Adw.ActionRow ();
 		kofi_row.activatable = true;
-		kofi_row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+		kofi_row.add_suffix (generate_icon ("go-next-symbolic", 16));
 		kofi_row.title = _("Ko-fi");
 
 		kofi_row.activated.connect (() => {
@@ -1685,9 +1681,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 	}
 
-	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
-		var icon = new Widgets.DynamicIcon.from_icon_name (icon_name);
-		icon.size = size;
-		return icon;
+	private Gtk.Widget generate_icon (string icon_name, int size = 16) {
+		return new Gtk.Image.from_icon_name (icon_name) {
+			pixel_size = size
+		};
 	}
 }

@@ -35,9 +35,7 @@ public class Widgets.SettingsHeader : Adw.Bin {
     }
 
     construct {
-        var back_image = new Widgets.DynamicIcon ();
-        back_image.size = 16;
-        back_image.update_icon_name ("go-previous-symbolic");
+        var back_image = new Gtk.Image.from_icon_name ("go-previous-symbolic");
 
         // var back_label = new Gtk.Label (_("Back"));
 

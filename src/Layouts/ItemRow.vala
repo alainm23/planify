@@ -45,7 +45,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Label due_label;
     private Gtk.Revealer due_label_revealer;
     private Gtk.Revealer description_image_revealer;
-    private Widgets.DynamicIcon repeat_image;
+    private Gtk.Revealer pin_image_revealer;
+    private Gtk.Image repeat_image;
     private Gtk.Revealer repeat_image_revealer;
     
     private Gtk.Revealer detail_revealer;
@@ -102,6 +103,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 due_label_revealer.reveal_child = false;
                 repeat_image_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
+                pin_image_revealer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
@@ -216,9 +218,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             css_classes = { "priority-color" }
         };
 
-        checked_repeat_button = new Gtk.Button () {
+        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("view-refresh-symbolic"),
             css_classes = { "flat", "no-padding" }
         };
         
@@ -318,7 +319,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         // Repeat Icon
-        repeat_image = new Widgets.DynamicIcon.from_icon_name ("planner-rotate") {
+        repeat_image = new Gtk.Image.from_icon_name ("arrow-circular-top-right-symbolic") {
             valign = Gtk.Align.CENTER,
             margin_start = 6,
             css_classes = { "dim-label" }
@@ -332,10 +333,21 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         // Description Icon
         description_image_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-note") {
+            child = new Gtk.Image.from_icon_name ("text-justify-left-symbolic") {
                 valign = Gtk.Align.CENTER,
                 margin_start = 6,
                 css_classes = { "dim-label" }
+            }
+        };
+
+        // Pin Icon
+        pin_image_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = new Gtk.Image.from_icon_name ("pin-symbolic") {
+                valign = Gtk.Align.CENTER,
+                margin_start = 6,
+                css_classes = { "dim-label" },
+                pixel_size = 13
             }
         };
 
@@ -385,18 +397,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         reminder_button = new Widgets.ReminderButton (item);
 
-        add_button = new Gtk.Button () {
+        add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             tooltip_text = _("Add subtask"),
             margin_top = 1,
             can_focus = false,
             focusable = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
             css_classes = { "flat" }
         };
         
         menu_button = new Gtk.MenuButton () {
-            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            icon_name = "view-more-symbolic",
             popover = build_button_context_menu (),
             css_classes = { "flat" }
         };
@@ -449,6 +460,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_end = 3
         };
         _itemrow_box.append (handle_grid);
+        _itemrow_box.append (pin_image_revealer);
         _itemrow_box.append (description_image_revealer);
         _itemrow_box.append (repeat_image_revealer);
         _itemrow_box.append (select_revealer);
@@ -466,10 +478,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         box.append (itemrow_box);
         box.append (subitems);
 
-        hide_subtask_button = new Gtk.Button () {
+        hide_subtask_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.START,
             margin_top = 3,
-            child = new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic"),
             css_classes = { "flat", "dim-label", "no-padding", "hidden-button" }
         };
 
@@ -738,6 +749,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         check_due ();
         check_description ();
+        check_pinboard ();
 
         if (!edit) {
             labels_summary.check_revealer ();
@@ -753,6 +765,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_description () {
         description_image_revealer.reveal_child = !edit && Util.get_default ().line_break_to_space (item.description).length > 0;
+    }
+
+    private void check_pinboard () {
+        pin_image_revealer.reveal_child = item.pinned;
     }
 
     private void check_due () {
@@ -830,29 +846,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             return;
         }
 
-        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "planner-today");
+        var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "planner-scheduled");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
+
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
         
-        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "planner-close-circle");
+        no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
-        // var labels_item = new Widgets.ContextMenu.MenuItem (_("Labels"), "planner-tag");
-        // var reminders_item = new Widgets.ContextMenu.MenuItem (_("Reminders"), "planner-bell");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
 
-        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus");
-        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "planner-check-circle");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "planner-edit");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
+        var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
+        var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
+
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
+        menu_box.append (pinboard_item);
         menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (move_item);
@@ -903,6 +921,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
         });
 
+        pinboard_item.activate_item.connect (() => {
+            menu_handle_popover.popdown ();
+            update_pinned (!item.pinned);
+        });
+
         no_date_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             update_due (null);
@@ -948,13 +971,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private Gtk.Popover build_button_context_menu () {
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "planner-clipboard");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "arrow-circular-top-right-symbolic");
         repeat_item.arrow = true;
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);

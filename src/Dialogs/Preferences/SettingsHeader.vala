@@ -42,7 +42,7 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
     }
 
     construct {
-        var back_image = new Widgets.DynamicIcon.from_icon_name ("go-previous-symbolic");
+        var back_image = new Gtk.Image.from_icon_name ("go-previous-symbolic");
 
         var back_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         back_grid.append (back_image);

@@ -39,6 +39,12 @@ public class Widgets.ItemLabels : Adw.Bin {
         );
     }
 
+    public int top_margin {
+        set {
+            flowbox.margin_top = value;
+        }
+    }
+
     construct {
         flowbox = new Gtk.FlowBox () {
             column_spacing = 6,

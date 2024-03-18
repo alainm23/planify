@@ -21,7 +21,7 @@
 
 public class Widgets.PinButton : Gtk.Button {
     public Objects.Item item { get; construct; }
-    private Widgets.DynamicIcon pinned_image;
+    private Gtk.Image pinned_image;
 
     public signal void changed ();
 
@@ -38,15 +38,13 @@ public class Widgets.PinButton : Gtk.Button {
     construct {       
         add_css_class ("flat");
         
-        pinned_image = new Widgets.DynamicIcon ();
-        pinned_image.size = 16;
+        pinned_image = new Gtk.Image.from_icon_name ("pin-symbolic");
 
         child = pinned_image;
 
         update_request ();
 
         var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
         add_controller (gesture);
 
         gesture.pressed.connect ((n_press, x, y) => {
@@ -56,10 +54,14 @@ public class Widgets.PinButton : Gtk.Button {
     }
 
     public void update_request () {
-        pinned_image.update_icon_name (item.pinned_icon);
+        if (item.pinned) {
+            pinned_image.add_css_class ("pinboard-color");
+        } else {
+            pinned_image.remove_css_class ("pinboard-color");
+        }
     }
 
     public void reset () {
-        pinned_image.update_icon_name ("planner-pinned");
+        pinned_image.css_classes = {  };
     }
 }

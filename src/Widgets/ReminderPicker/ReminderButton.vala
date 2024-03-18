@@ -52,7 +52,7 @@ public class Widgets.ReminderButton : Adw.Bin {
         };
 
         var button = new Gtk.MenuButton () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-bell"),
+            icon_name = "alarm-symbolic",
             popover = reminder_picker,
             css_classes = { "flat" }
         };

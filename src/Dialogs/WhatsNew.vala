@@ -116,13 +116,8 @@ public class Dialogs.WhatsNew : Adw.Window {
         });
 
 		add_feature (
-			_("Nextcloud integration is available"),
-			_("Synchronise your task lists from Nextcloud.")
-		);
-
-		add_feature (
-			_("Option to migrate from Planner"),
-			_("Planner is no longer available, migrate your tasks from the Backups option in the preferences..")
+			_("New look"),
+			_("The design has been improved and new icons have been added making the user interface simpler to understand and use..")
 		);
 	}
 
@@ -204,9 +199,9 @@ public class Dialogs.WhatsNew : Adw.Window {
 		return page;
 	}
 	
-	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
-		var icon = new Widgets.DynamicIcon.from_icon_name (icon_name);
-		icon.size = size;
-		return icon;
+	private Gtk.Widget generate_icon (string icon_name, int pixel_size = 32) {
+		return new Gtk.Image.from_icon_name (icon_name) {
+			pixel_size = pixel_size
+		};
 	}
 }

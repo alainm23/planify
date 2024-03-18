@@ -63,6 +63,18 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5.4" date="2024-03-18">
+      <description translatable="no">
+        <ul>
+          <li>Improved design and new UI icons.</li>
+          <li>It is now possible to mark a task as Pinned from the context menu.</li>
+          <li>Fixed bug that improves CalDAV sync.</li>
+          <li>Spanish translations added thanks to @haggen88.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.2" date="2024-03-04">
       <description translatable="no">
         <ul>

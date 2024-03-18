@@ -23,7 +23,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     private Gtk.Label due_label;
     
     private Gtk.Box schedule_box;
-    private Widgets.DynamicIcon due_image;
+    private Gtk.Image due_image;
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
 
     private GLib.DateTime _datetime;
@@ -63,9 +63,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     construct {
         datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
 
-        due_image = new Widgets.DynamicIcon ();
-        due_image.size = 19;
-        due_image.update_icon_name ("planner-calendar");
+        due_image = new Gtk.Image ();
+        due_image.icon_name = "month-symbolic";
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0,
@@ -82,8 +81,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             css_classes = { "flat" }
         };
 
-        var clear_button = new Gtk.Button () {
-            child = new Widgets.DynamicIcon.from_icon_name ("window-close"),
+        var clear_button = new Gtk.Button.from_icon_name ("window-close") {
             css_classes = { "flat" }
         };
 
@@ -123,7 +121,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public void update_from_item (Objects.Item item) {
         due_label.label = _("Schedule");
         tooltip_text = _("Schedule");
-        due_image.update_icon_name ("planner-calendar");
+        due_image.icon_name = "month-symbolic";
         
         if (item.has_due) {
             due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
@@ -138,11 +136,11 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             );
             
             if (Util.get_default ().is_today (item.due.datetime)) {
-                due_image.update_icon_name ("planner-today");
+                due_image.icon_name = "star-outline-thick-symbolic";
             } else if (Util.get_default ().is_overdue (item.due.datetime)) {
 
             } else {
-                due_image.update_icon_name ("planner-scheduled");
+                due_image.icon_name = "month-symbolic";
             }
 
             if (item.due.is_recurring) {
@@ -159,7 +157,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                     end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
                 }
 
-                due_image.update_icon_name ("planner-repeat");
+                due_image.icon_name = "arrow-circular-top-right-symbolic";
                 due_label.label += " <small>%s</small>".printf (
                     Util.get_default ().get_recurrency_weeks (
                         item.due.recurrency_type,
@@ -175,7 +173,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public void reset () {
         due_label.label = _("Schedule");
         tooltip_text = _("Schedule");
-        due_image.update_icon_name ("planner-calendar");
+        due_image.icon_name = "month-symbolic";
         datetime = null;
         datetime_picker.reset ();
     }

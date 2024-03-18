@@ -54,7 +54,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry = new Gtk.Entry () {
             hexpand = true,
             placeholder_text = _("To-do name"),
-            css_classes = { "flat" }
+            css_classes = { "flat", "font-bold" }
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -79,7 +79,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         description_textview.remove_css_class ("view");
 
         item_labels = new Widgets.ItemLabels (item) {
-            margin_start = 12
+            margin_start = 6,
+            top_margin = 12
         };
 
         schedule_button = new Widgets.ScheduleButton ();
@@ -90,9 +91,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_start = 3,
-            margin_top = 6,
-            margin_bottom = 3
+            margin_top = 6
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -122,7 +121,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (action_box);
         
         // Alert Box
-        var error_icon = new Widgets.DynamicIcon.from_icon_name ("dialog-warning-symbolic");
+        var error_icon = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
         var error_label = new Gtk.Label ("Error de casa");
 
         var error_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -141,7 +140,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			popover = build_context_menu_popover (),
-			child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+			icon_name = "view-more-symbolic",
 			css_classes = { "flat" }
 		};
 
@@ -159,7 +158,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         var footer_content = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_bottom = 12,
-            margin_start = 6,
+            margin_start = 12,
             margin_end = 12
         };
 
@@ -197,17 +196,14 @@ public class Layouts.QuickAdd : Adw.Bin {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        added_image = new Gtk.Image ();
-        added_image.gicon = new ThemedIcon ("planner-completed");
-        added_image.pixel_size = 64;
+        added_image = new Gtk.Image.from_icon_name ("check-round-outline-symbolic") {
+            pixel_size = 64
+        };
 
-        var added_label = new Gtk.Label (_("To-do added"));
-
-        var added_box = new Gtk.Box (VERTICAL, 0);
+        var added_box = new Gtk.Box (VERTICAL, 6);
         added_box.halign = Gtk.Align.CENTER;
         added_box.valign = Gtk.Align.CENTER;
         added_box.append (added_image);
-        added_box.append (added_label);
 
         main_stack.add_named (main_content, "main");
         main_stack.add_named (warning_box, "warning");

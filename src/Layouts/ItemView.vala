@@ -132,16 +132,15 @@ public class Layouts.ItemViewContent : Adw.Bin {
         reminder_button = new Widgets.ReminderButton (item);
 
         menu_button = new Gtk.MenuButton () {
-            child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical"),
+            icon_name = "view-more-symbolic",
             popover = build_button_context_menu (),
             css_classes = { "flat" }
         };
 
-        var add_button = new Gtk.Button () {
+        var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             tooltip_text = _("Add subtask"),
             margin_top = 1,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus"),
             css_classes = { "flat" }
         };
 
@@ -446,16 +445,16 @@ public class Layouts.ItemViewContent : Adw.Bin {
     }
 
     private Gtk.Popover build_button_context_menu () {
-        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "planner-clipboard");
-        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "planner-copy");
-        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "chevron-right");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "planner-rotate");
+        var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
+        var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "arrow-circular-top-right-symbolic");
         repeat_item.arrow = true;
 
         var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
         more_information_item.add_css_class ("small-label");
 
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "planner-trash");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

@@ -65,8 +65,9 @@ public class Views.Filter : Adw.Bin {
         listbox_grid.attach (listbox, 0, 0);
 
         var listbox_placeholder = new Adw.StatusPage ();
-        listbox_placeholder.title = _("No tasks found");
-        listbox_placeholder.description = _("Press 'a' or tap the plus button to create a new to-do");
+        listbox_placeholder.icon_name = "check-round-outline-symbolic";
+        listbox_placeholder.title = _("Add Some Tasks");
+        listbox_placeholder.description = _("Press a to create a new task");
 
         listbox_stack = new Gtk.Stack () {
             hexpand = true,

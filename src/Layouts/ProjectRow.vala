@@ -100,7 +100,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = motion_top_grid
         };
 
-        icon_project = new Widgets.IconColorProject (10);
+        icon_project = new Widgets.IconColorProject (12) {
+            margin_top = 3,
+            margin_bottom = 3,
+            margin_start = 3,
+            margin_end = 3
+        };
+
         icon_project.project = project;
 
         name_label = new Gtk.Label (project.name) {
@@ -122,10 +128,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = count_label
         };
 
-        arrow_button = new Gtk.Button () {
+        arrow_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            child = new Widgets.DynamicIcon.from_icon_name ("pan-end-symbolic"),
             css_classes = { "flat", "transparent", "hidden-button", "no-padding" },
             margin_start = 6
         };
@@ -172,7 +177,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         };
 
         var projectrow_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 6,
+            margin_start = 3,
             margin_top = 3,
             margin_end = 3,
             margin_bottom = 3
@@ -285,9 +290,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id_string == id) {
-                handle_grid.add_css_class ("selectable-item-selected");
+                add_css_class ("selected");
             } else {
-                handle_grid.remove_css_class ("selectable-item-selected");
+                remove_css_class ("selected");
             }
         });
 
@@ -595,14 +600,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             return;
         }
         
-        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "planner-star");
-        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "planner-edit");
-        var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "planner-refresh");
-        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "planner-trash");
+        favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "star-outline-thick-symbolic");
+        var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
+        var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "update-symbolic");
+        var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share");
-        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by E-Mail"), "mail");
+        var share_markdown_item = new Widgets.ContextMenu.MenuItem (_("Share"), "share-alt-symbolic");
+        var share_email_item = new Widgets.ContextMenu.MenuItem (_("Send by E-Mail"), "mail-symbolic");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;

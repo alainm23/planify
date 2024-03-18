@@ -46,13 +46,9 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         reminders_view.reveal_child = true;
         reminders_view.placeholder_message = _("Your list of reminders will show up here. Add one by clicking the '+' button.");
 
-        var add_button = new Gtk.Button () {
+        var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             can_focus = false,
-            child = new Widgets.DynamicIcon.from_icon_name ("plus") {
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-            },
             css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
         };
 
@@ -164,7 +160,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             css_classes = { "card" }
         };
 
-        var time_icon = new Widgets.DynamicIcon.from_icon_name ("planner-clock") {
+        var time_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
             margin_start = 9
         };
 

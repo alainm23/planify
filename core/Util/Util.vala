@@ -291,7 +291,7 @@ public class Util : GLib.Object {
         } else {
             window_bg_color = "#fafafa";
             popover_bg_color = "#ffffff";
-            sidebar_bg_color = "#f6f5f4";
+            sidebar_bg_color = "#f2f2f2";
             item_border_color = "@borders";
             upcoming_bg_color = "#ededef";
             upcoming_fg_color = "shade(#ededef, 0)";
@@ -894,17 +894,30 @@ public class Util : GLib.Object {
         }
     }
 
-    public string get_priority_icon (int priority) {
+    public Gtk.Image get_priority_icon (int priority) {
         if (priority == Constants.PRIORITY_1) {
-            return "planner-priority-1";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_2) {
-            return "planner-priority-2";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_3) {
-            return "planner-priority-3";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                css_classes = { "priority-1-icon"  },
+                pixel_size = 19
+            };
         } else if (priority == Constants.PRIORITY_4) {
-            return "planner-flag";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                pixel_size = 19
+            };
         } else {
-            return "planner-flag";
+            return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
+                pixel_size = 19
+            };
         }
     }
 
@@ -1165,7 +1178,7 @@ We hope you’ll enjoy using Planify!""");
         GLib.MatchInfo match;
 
         try {
-            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+            regex = new GLib.Regex ("%s:(.*)".printf (key));
         } catch (GLib.RegexError e) {
             critical (e.message);
         }
@@ -1174,11 +1187,11 @@ We hope you’ll enjoy using Planify!""");
             return "";
         }
 
-        if (!regex.match (data, 0, out match)) {
+        if (!regex.match (data.strip (), 0, out match)) {
             return "";
         }
 
-        return match.fetch_all () [1];
+        return match.fetch_all ()[1];
     }
 
     public static bool find_boolean_value (string key, string data) {
@@ -1186,7 +1199,7 @@ We hope you’ll enjoy using Planify!""");
         GLib.MatchInfo match;
 
         try {
-            regex = new GLib.Regex ("%s:(.*?)\n".printf (key));
+            regex = new GLib.Regex ("%s:(.*)".printf (key));
         } catch (GLib.RegexError e) {
             critical (e.message);
         }

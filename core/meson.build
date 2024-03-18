@@ -21,7 +21,6 @@ core_files = files(
 
     'Layouts/HeaderItem.vala',
 
-    'Widgets/DynamicIcon.vala',
     'Widgets/LoadingButton.vala',
     'Widgets/Entries.vala',
     'Widgets/IconColorProject.vala',

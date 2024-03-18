@@ -42,7 +42,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	static construct {
 		weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_for_display (Gdk.Display.get_default ());
-		default_theme.add_resource_path ("/io/github/alainm23/planify");
+		default_theme.add_resource_path ("/io/github/alainm23/planify/");
 	}
 
 	construct {
@@ -59,16 +59,16 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var settings_popover = build_menu_app ();
 
-		settings_button = new Gtk.MenuButton ();
-		settings_button.add_css_class (Granite.STYLE_CLASS_FLAT);
-		settings_button.popover = settings_popover;
-		settings_button.child = new Widgets.DynamicIcon.from_icon_name ("dots-vertical");
-
-		var search_button = new Gtk.Button () {
-			child = new Widgets.DynamicIcon.from_icon_name ("planner-search"),
-			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F")
+		settings_button = new Gtk.MenuButton () {
+			css_classes = { "flat" },
+			popover = settings_popover,
+			child = new Gtk.Image.from_icon_name ("open-menu-symbolic")
 		};
-		search_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+
+		var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
+			tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open Quick Find"), "Ctrl+F"),
+			css_classes = { "flat" }
+		};
 
 		var sidebar_header = new Adw.HeaderBar () {
 			title_widget = new Gtk.Label (null),
@@ -107,7 +107,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		add_breakpoint (breakpoint);
 		content = overlay_split_view;
-		set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
+		//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
@@ -139,7 +139,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			} else if (key == "appearance" || key == "dark-mode") {
 				Util.get_default ().update_theme ();
 			} else if (key == "run-in-background") {
-				set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
+				//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 			} else if (key == "run-on-startup") {
 				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
 				if (active) {
@@ -464,17 +464,13 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
 		preferences_item.secondary_text = "Ctrl+,";
-		preferences_item.add_css_class ("no-font-bold");
 
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
 		keyboard_shortcuts_item.secondary_text = "F1";
-		keyboard_shortcuts_item.add_css_class ("no-font-bold");
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
-		whatsnew_item.add_css_class ("no-font-bold");
 
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
-		about_item.add_css_class ("no-font-bold");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;

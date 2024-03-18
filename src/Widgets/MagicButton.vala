@@ -39,13 +39,9 @@ public class Widgets.MagicButton : Adw.Bin {
     }
 
     construct {
-        magic_button = new Gtk.Button () {
+        magic_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             height_request = 48,
             width_request = 48,
-            child = new Gtk.Image () {
-                gicon = new ThemedIcon ("list-add-symbolic"),
-                pixel_size = 16
-            },
             css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "magic-button" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add task"), "A")
         };

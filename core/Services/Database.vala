@@ -406,11 +406,11 @@ public class Services.Database : GLib.Object {
         return return_value;
     }
 
-    public Gee.ArrayList<Objects.Project> get_subprojects (Objects.Project p) {
+    public Gee.ArrayList<Objects.Project> get_subprojects (Objects.Project _project) {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
             foreach (var project in projects) {
-                if (project.parent_id == p.id) {
+                if (project.parent_id == _project.id) {
                     return_value.add (project);
                 }
             }
@@ -595,15 +595,15 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
-            foreach (Objects.Section section in project.sections) {
+            foreach (Objects.Section section in get_sections_by_project (project)) {
                 delete_section (section);
             }
 
-            foreach (Objects.Item item in project.items) {
+            foreach (Objects.Item item in get_items_by_project (project)) {
                 delete_item (item);
             }
 
-            foreach (Objects.Project subproject in project.subprojects) {
+            foreach (Objects.Project subproject in get_subprojects (project)) {
                 delete_project (subproject);
             }
 

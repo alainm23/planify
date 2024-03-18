@@ -55,7 +55,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         labels_picker = new Widgets.LabelPicker.LabelPicker ();
 
         button = new Gtk.MenuButton () {
-            child = new Widgets.DynamicIcon.from_icon_name ("planner-tag"),
+            icon_name = "tag-outline-symbolic",
             popover = labels_picker,
             css_classes = { Granite.STYLE_CLASS_FLAT }
         };

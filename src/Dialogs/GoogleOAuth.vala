@@ -70,13 +70,11 @@ public class Dialogs.GoogleOAuth : Adw.Window {
 
         webview.load_uri (authorizationUrl);
 
-        var sync_image = new Widgets.DynamicIcon () {
+        var sync_image = new Gtk.Image.from_icon_name ("planner-cloud") {
             valign = Gtk.Align.CENTER,
-            halign = Gtk.Align.CENTER
+            halign = Gtk.Align.CENTER,
+            pixel_size = 128
         };
-
-        sync_image.update_icon_name ("planner-cloud");
-        sync_image.size = 128;
 
         // Loading
         var progress_bar = new Gtk.ProgressBar () {
