@@ -142,12 +142,15 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         content_box.append (time_box);
         content_box.append (action_revealer);
 
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
         calendar_view = new Widgets.Calendar.Calendar (true);
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
+        calendar_box.append (back_item);
+        calendar_box.append (new Widgets.ContextMenu.MenuSeparator ());
         calendar_box.append (calendar_view);
 
         var content_stack = new Gtk.Stack () {
@@ -178,6 +181,10 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         calendar_view.day_selected.connect (() => {
             datetime = Util.get_default ().get_format_date (calendar_view.date);
             visible_no_date = true;
+            content_stack.visible_child_name = "items";
+        });
+
+        back_item.clicked.connect (() => {
             content_stack.visible_child_name = "items";
         });
 

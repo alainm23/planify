@@ -1299,14 +1299,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
 
+		var server_entry = new Adw.EntryRow ();
+        server_entry.title = _("Server URL");
+
 		var username_entry = new Adw.EntryRow ();
         username_entry.title = _("User Name");
 
 		var password_entry = new Adw.PasswordEntryRow ();
         password_entry.title = _("Password");
-
-		var server_entry = new Adw.EntryRow ();
-        server_entry.title = _("Server URL");
 
 		var providers_model = new Gtk.StringList (null);
 		providers_model.append (_("Nextcloud"));
@@ -1322,8 +1322,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		entries_group.add (password_entry);
 		entries_group.add (providers_row);
 		
-		// Message Response Box
-
 		var message_label = new Gtk.Label ("""Server URL examples:
   - https://evi.nl.tab.digital/
   - https://use01.thegood.cloud/""") {
@@ -1353,6 +1351,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
 			margin_top = 12,
+			sensitive = false,
 			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
 
@@ -1384,19 +1383,62 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			pop_subpage ();
 		});
 
+		server_entry.changed.connect (() => {
+			if (server_entry.text != null && server_entry.text != "") {
+                var is_valid_url = is_valid_url (server_entry.text);
+				if (!is_valid_url) {
+					server_entry.add_css_class ("error");
+				} else {
+					server_entry.remove_css_class ("error");
+				}
+            } else {
+                server_entry.remove_css_class ("error");
+            }
+
+			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
+		username_entry.changed.connect (() => {
+			if (username_entry.text != null && username_entry.text != "") {
+				username_entry.remove_css_class ("error");
+			} else {
+				username_entry.add_css_class ("error");
+			}
+
+			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
+		password_entry.changed.connect (() => {
+			if (password_entry.text != null && password_entry.text != "") {
+				password_entry.remove_css_class ("error");
+			} else {
+				password_entry.add_css_class ("error");
+			}
+
+			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
 		login_button.clicked.connect (() => {
 			login_button.is_loading = true;
-			message_label.label = null;
-			message_revealer.reveal_child = false;
 			Services.CalDAV.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, (obj, res) => {
 				HttpResponse response = Services.CalDAV.get_default ().login.end (res);
 				if (response.status) {
 					Services.CalDAV.get_default ().first_sync.begin ();
 				} else {
 					login_button.is_loading = false;
-					message_box.css_classes = { "error" };
-					message_label.label = response.error.strip ();
-					message_revealer.reveal_child = true;
+					show_message_error (_("Failed to login"), response.error.strip ());
 				}
 			});
 		});
@@ -1410,6 +1452,47 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		return page;
+	}
+
+	private bool is_valid_url (string uri) {
+        var scheme = Uri.parse_scheme (uri);
+        if (scheme == null) {
+            return false;
+        }
+
+        return scheme.has_prefix ("http");
+    }
+
+	private void show_message_error (string title, string error) {
+		var dialog = new Adw.MessageDialog (Planify._instance.main_window, title, null);
+
+		var textview = new Gtk.TextView () {
+			left_margin = 12,
+			top_margin = 12,
+			bottom_margin = 12,
+			right_margin = 12,
+			wrap_mode = Gtk.WrapMode.WORD
+		};
+		textview.buffer.text = error;
+		textview.add_css_class ("monospace");
+		textview.add_css_class ("error-message");
+
+		var textview_scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hexpand = true,
+            vexpand = true,
+			child = textview,
+			width_request = 500,
+			height_request = 430
+        };
+
+		var textview_frame = new Gtk.Frame (null) {
+			child = textview_scrolled_window
+		};
+
+        dialog.add_response ("ok", _("Ok"));
+		dialog.extra_child = textview_frame;
+        dialog.show ();
 	}
 
 	private Adw.NavigationPage get_backups_page () {
@@ -1686,4 +1769,36 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			pixel_size = size
 		};
 	}
+}
+
+private class ValidationMessage : Gtk.Box {
+    public Gtk.Label label_widget { get; construct; }
+    public string label { get; construct set; }
+    public bool reveal_child { get; set; }
+
+    public ValidationMessage (string label) {
+        Object (label: label);
+    }
+
+    construct {
+        label_widget = new Gtk.Label (label) {
+            halign = Gtk.Align.END,
+            justify = Gtk.Justification.RIGHT,
+            max_width_chars = 55,
+            wrap = true,
+            xalign = 1
+        };
+        label_widget.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+
+        var revealer = new Gtk.Revealer () {
+            child = label_widget,
+            transition_type = CROSSFADE
+        };
+
+        append (revealer);
+
+        bind_property ("reveal-child", revealer, "reveal-child", BIDIRECTIONAL | SYNC_CREATE);
+
+        bind_property ("label", label_widget, "label");
+    }
 }
