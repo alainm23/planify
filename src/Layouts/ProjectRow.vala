@@ -672,11 +672,27 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
             
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete project"), _("Are you sure you want to delete %s?").printf (project.short_name));
+            var dialog = new Adw.MessageDialog (
+                (Gtk.Window) Planify.instance.main_window, 
+                _("Delete project"),
+                _("Are you sure you want to delete %s?").printf (project.short_name)
+            );
 
+            var spinner = new Gtk.Spinner () {
+                margin_top = 6,
+                valign = Gtk.Align.CENTER,
+                halign = Gtk.Align.CENTER,
+                spinning = true
+            };
+
+            var spinner_revealer = new Gtk.Revealer () {
+                child = spinner
+            };
+
+            dialog.extra_child = spinner_revealer;
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
+            dialog.close_response = "cancel";
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
             dialog.show ();
 
@@ -685,12 +701,20 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     if (project.backend_type == BackendType.LOCAL) {
                         Services.Database.get_default ().delete_project (project);
                     } else if (project.backend_type == BackendType.TODOIST) {
+                        dialog.set_response_enabled ("cancel", false);
+                        dialog.set_response_enabled ("delete", false);
+                        spinner_revealer.reveal_child = true;
+
                         Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
                             if (Services.Todoist.get_default ().delete.end (res).status) {
                                 Services.Database.get_default ().delete_project (project);
                             }
                         });
                     } else if (project.backend_type == BackendType.CALDAV) {
+                        dialog.set_response_enabled ("cancel", false);
+                        dialog.set_response_enabled ("delete", false);
+                        spinner_revealer.reveal_child = true;
+
                         Services.CalDAV.get_default ().delete_tasklist.begin (project, (obj, res) => {
                             if (Services.CalDAV.get_default ().delete_tasklist.end (res)) {
                                 Services.Database.get_default ().delete_project (project);
