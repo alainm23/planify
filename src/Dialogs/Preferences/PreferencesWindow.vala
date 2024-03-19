@@ -1168,7 +1168,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		oauth_open_url = oauth_open_url.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, state);
 
 		WebKit.WebView webview = new WebKit.WebView ();
-        webview.zoom_level = 0.75;
+        webview.zoom_level = 0.85;
         webview.vexpand = true;
         webview.hexpand = true;
 

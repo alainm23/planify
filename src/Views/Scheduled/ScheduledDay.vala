@@ -47,13 +47,13 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
 
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var day_label = new Gtk.Label (date.format ("%a").up (1) + date.format ("%a").substring (1)) {
+        var day_label = new Gtk.Label (date.get_day_of_month ().to_string ()) {
             halign = Gtk.Align.START
         };
         day_label.add_css_class ("font-bold");
 
         var date_format_label = new Gtk.Label (
-            Util.get_default ().get_default_date_format_from_date (date)
+            date.format ("%a")
         ) {
             halign = Gtk.Align.START
         };
