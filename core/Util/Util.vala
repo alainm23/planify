@@ -784,6 +784,8 @@ public class Util : GLib.Object {
                 return FilterType.SCHEDULED;
             case 3:
                 return FilterType.LABELS;
+            case 4:
+                return FilterType.PINBOARD;
             default:
                 assert_not_reached ();
         }

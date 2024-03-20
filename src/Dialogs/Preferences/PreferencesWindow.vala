@@ -314,6 +314,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		home_page_model.append (_("Today"));
 		home_page_model.append (_("Scheduled"));
 		home_page_model.append (_("Labels"));
+		home_page_model.append (_("Pinboard"));
 		
 		var home_page_row = new Adw.ComboRow ();
 		home_page_row.title = _("Home Page");
