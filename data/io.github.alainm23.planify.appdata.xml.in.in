@@ -63,6 +63,18 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5.6" date="2024-03-20">
+      <description translatable="no">
+        <ul>
+          <li>A URL validation was added when syncing with Nextcloud.</li>
+          <li>The Pinboard view can now be selected as the homepage.</li>
+          <li>Fixed bug where the completion icon was not displayed.</li>
+          <li>Fixed bug that did not update tasks in the Pinboard view.</li>
+          <li>Fixed bug that displayed the incorrect date format in the Scheduled view.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.4" date="2024-03-18">
       <description translatable="no">
         <ul>

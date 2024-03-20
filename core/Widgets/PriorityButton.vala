@@ -83,7 +83,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         } else if (item.priority == Constants.PRIORITY_3) {
             priority_image.css_classes = { "priority-3-icon" };
         } else {
-            priority_image.css_classes = {  };
+            priority_image.css_classes = { };
         }
     }
 
@@ -95,7 +95,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         } else if (priority == Constants.PRIORITY_3) {
             priority_image.css_classes = { "priority-3-icon" };
         } else {
-            priority_image.css_classes = {  };
+            priority_image.css_classes = { };
         }
     }
     

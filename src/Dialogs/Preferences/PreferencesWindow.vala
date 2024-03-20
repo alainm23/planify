@@ -1396,7 +1396,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
                 server_entry.remove_css_class ("error");
             }
 
-			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
 				login_button.sensitive = false;
 			} else {
 				login_button.sensitive = true;
@@ -1410,7 +1410,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 				username_entry.add_css_class ("error");
 			}
 
-			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
 				login_button.sensitive = false;
 			} else {
 				login_button.sensitive = true;
@@ -1424,7 +1424,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 				password_entry.add_css_class ("error");
 			}
 
-			if (server_entry.has_css_class("error") || username_entry.has_css_class("error") | password_entry.has_css_class("error")) {
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
 				login_button.sensitive = false;
 			} else {
 				login_button.sensitive = true;

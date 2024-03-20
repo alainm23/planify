@@ -62,6 +62,6 @@ public class Widgets.PinButton : Gtk.Button {
     }
 
     public void reset () {
-        pinned_image.css_classes = {  };
+        pinned_image.css_classes = { };
     }
 }

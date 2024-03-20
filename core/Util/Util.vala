@@ -899,17 +899,17 @@ public class Util : GLib.Object {
     public Gtk.Image get_priority_icon (int priority) {
         if (priority == Constants.PRIORITY_1) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
+                css_classes = { "priority-1-icon" },
                 pixel_size = 19
             };
         } else if (priority == Constants.PRIORITY_2) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
+                css_classes = { "priority-1-icon" },
                 pixel_size = 19
             };
         } else if (priority == Constants.PRIORITY_3) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
+                css_classes = { "priority-1-icon" },
                 pixel_size = 19
             };
         } else if (priority == Constants.PRIORITY_4) {

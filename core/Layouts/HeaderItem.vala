@@ -127,7 +127,7 @@ public class Layouts.HeaderItem : Adw.Bin {
                 listbox.margin_start = 3;
                 listbox.margin_end = 3;
             } else {
-                listbox.css_classes = {  };
+                listbox.css_classes = { };
                 listbox.margin_top = 0;
                 listbox.margin_bottom = 0;
                 listbox.margin_start = 0;

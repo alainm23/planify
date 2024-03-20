@@ -13,7 +13,6 @@ core/Services/Todoist.vala
 
 core/Layouts/HeaderItem.vala
 
-core/Widgets/DynamicIcon.vala
 core/Widgets/LoadingButton.vala
 core/Widgets/Entries.vala
 core/Widgets/IconColorProject.vala
