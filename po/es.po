@@ -169,11 +169,11 @@ msgstr "Jue,"
 
 #: core/Util/Util.vala:546
 msgid "Fr,"
-msgstr "VIe,"
+msgstr "Vie,"
 
 #: core/Util/Util.vala:550
 msgid "Sa,"
-msgstr "Sáb,"
+msgstr "Sab,"
 
 #: core/Util/Util.vala:554
 msgid "Su,"
@@ -356,7 +356,7 @@ msgstr ""
 
 #: core/Util/Util.vala:1056
 msgid "Enable synchronization with third-party service."
-msgstr "Activar sincronización con servicio de terceros."
+msgstr "Habilitar sincronización con servicio de terceros."
 
 #: core/Util/Util.vala:1057
 msgid ""
@@ -441,7 +441,7 @@ msgstr "Planificado"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:317
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:39
 msgid "Pinboard"
-msgstr "Tablón de anuncios"
+msgstr "Importantes"
 
 #: core/Enum.vala:181 src/Dialogs/Preferences/PreferencesWindow.vala:348
 #: src/Dialogs/Preferences/Pages/Backup.vala:182
@@ -764,7 +764,7 @@ msgstr "El proyecto fue copiado al Portapapeles."
 
 #: core/Objects/Filters/Pinboard.vala:51
 msgid "pinboard"
-msgstr "tablón de anuncios"
+msgstr "importante"
 
 #: core/Objects/Filters/Scheduled.vala:51
 #, c-format
@@ -881,7 +881,7 @@ msgstr "Ir a Etiquetas"
 
 #: src/Layouts/Sidebar.vala:82
 msgid "Go to Pinboard"
-msgstr "Ir al Tablón de anuncios"
+msgstr "Ir a Importantes"
 
 #: src/Layouts/Sidebar.vala:91
 msgid "Favorites"
@@ -2180,7 +2180,7 @@ msgstr "Abrir Etiquetas"
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
 msgid "Open Pinboard"
-msgstr "Abrir Tablón de anuncios"
+msgstr "Abrir Importantes"
 
 #~ msgid "Reset all"
 #~ msgstr "Reiniciar todo"
