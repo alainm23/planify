@@ -28,7 +28,6 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
 
         var views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
-            listbox_no_margin = true,
             card = true,
 			reveal = true,
             margin_top = 12

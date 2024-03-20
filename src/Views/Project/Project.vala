@@ -245,7 +245,7 @@ public class Views.Project : Adw.Bin {
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "month-symbolic");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "tab-new-symbolic");
 		add_section_item.secondary_text = "S";
-		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "list-large-symbolic");
+		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "permissions-generic-symbolic");
 		
 		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");

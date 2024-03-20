@@ -65,10 +65,10 @@ public class Dialogs.DatePicker : Adw.Window {
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
         today_item.margin_top = 6;
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "month-symbolic");
+        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "work-week-symbolic");
         next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
             Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );

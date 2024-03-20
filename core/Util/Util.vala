@@ -749,7 +749,7 @@ public class Util : GLib.Object {
 
         dialog.body_use_markup = true;
         dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("delete", _("Reset all"));
+        dialog.add_response ("delete", _("Delete All"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.show ();
 

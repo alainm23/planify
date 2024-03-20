@@ -209,7 +209,10 @@ entry.flat:focus-within {
 
 .card-selected {
     transition: all 225ms ease-in-out;
-    margin: 24px;
+    margin-bottom: 24px;
+    margin-top: 24px;
+    margin-left: 3px;
+    margin-right: 3px;
     padding-left: 9px;
     padding-top: 3px;
     padding-right: 3px;
@@ -535,7 +538,8 @@ checkbutton.theme-selector radio:checked {
     color: @theme_selected_fg_color;
 }
 
-.header-item-button {
+.header-item-button,
+.header-item-button button {
     padding: 3px;
     min-height: 16px;
     min-width: 16px;

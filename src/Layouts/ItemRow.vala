@@ -266,7 +266,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = content_textview
         };
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("pan-down-symbolic", 16) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
             valign = Gtk.Align.START,
             css_classes = { "flat", "dim-label", "no-padding" }
         };
@@ -971,6 +971,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private Gtk.Popover build_button_context_menu () {
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
@@ -1006,7 +1008,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         menu_stack.add_named (menu_box, "menu");
-        menu_stack.add_named (get_repeat_widget (popover), "repeat");
+        menu_stack.add_named (get_repeat_widget (popover, back_item), "repeat");
 
         popover.child = menu_stack;
 
@@ -1046,6 +1048,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_stack.set_visible_child_name ("menu");
         });
 
+        back_item.clicked.connect (() => {
+            menu_stack.set_visible_child_name ("menu");
+        });
+
         popover.show.connect (() => {
             more_information_item.title = get_updated_info ();
         });
@@ -1058,7 +1064,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         return popover;
     }
 
-    private Gtk.Widget get_repeat_widget (Gtk.Popover popover) {
+    private Gtk.Widget get_repeat_widget (Gtk.Popover popover, Widgets.ContextMenu.MenuItem back_item) {
         var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
         var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
         var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
@@ -1068,6 +1074,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (back_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (daily_item);
         menu_box.append (weekly_item);
         menu_box.append (monthly_item);

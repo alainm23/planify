@@ -101,7 +101,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
     }
 
     construct {
-        add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("flat");
         add_css_class ("no-font-bold");
 
         menu_icon = new Gtk.Image () {
@@ -125,7 +125,7 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             child = select_icon
         };
 
-        var arrow_icon = new Gtk.Image.from_icon_name ("pan-end-symbolic") {
+        var arrow_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
             css_classes = { "dim-label" },
             margin_start = 6
         };
