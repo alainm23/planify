@@ -21,12 +21,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
 
-    public QuickAdd (bool is_window_quick_add = false) {        
-        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
-            item.child_order = 0;
-            item.custom_order = true;
-        }
-
+    public QuickAdd (bool is_window_quick_add = false) {
         Object (
             is_window_quick_add: is_window_quick_add
         );
@@ -36,6 +31,11 @@ public class Layouts.QuickAdd : Adw.Bin {
         item = new Objects.Item ();
         item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
 
+        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
+            item.child_order = 0;
+            item.custom_order = true;
+        }
+        
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
