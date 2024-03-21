@@ -7,7 +7,7 @@
   <h3 align="center">Never worry about forgetting things again</h3>
 </div>
 
-![Planify Screenshot](https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-01.png)
+![Planify Screenshot](https://raw.githubusercontent.com/alainm23/planify/master/data/resources/screenshot/screenshot-03.png)
 
 ## Planify is here...
 
