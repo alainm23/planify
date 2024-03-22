@@ -106,13 +106,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             valign = Gtk.Align.CENTER,
             css_classes = { "flat", "no-padding" }
         };
-        
-        checked_stack = new Gtk.Stack () {
-			transition_type = Gtk.StackTransitionType.CROSSFADE
-		};
-
-        //  checked_stack.add_named (checked_button, "check-button");
-        //  checked_stack.add_named (checked_repeat_button, "repeat-button");
 
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -303,6 +296,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			checked_toggled (checked_button.active);
 		});
 
+        var select_button_gesture = new Gtk.GestureClick ();
+		select_checkbutton.add_controller (select_button_gesture);
+
+		select_button_gesture.pressed.connect (() => {
+			select_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+			select_checkbutton.active = !select_checkbutton.active;
+            selected_toggled (select_checkbutton.active);   
+		});
+
         var repeat_button_gesture = new Gtk.GestureClick ();
         checked_repeat_button.add_controller (repeat_button_gesture);
         repeat_button_gesture.pressed.connect (() => {
@@ -311,7 +313,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         });
 
         var detail_gesture_click = new Gtk.GestureClick ();
-        detail_gesture_click.set_button (1);
         handle_grid.add_controller (detail_gesture_click);
         detail_gesture_click.pressed.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
