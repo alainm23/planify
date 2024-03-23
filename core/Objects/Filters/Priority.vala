@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Priority : Objects.BaseObject {
+public class Objects.Filters.Priority : Objects.BaseObject {
     public int priority { get; construct; }
 
     private static Priority? _instance;

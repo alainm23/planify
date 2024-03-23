@@ -32,7 +32,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
     string _view_id;
     public string view_id {
         get {
-            _view_id = "labels-view";
+            _view_id = FilterType.LABELS.to_string ();
             return _view_id;
         }
     }
@@ -57,6 +57,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
     construct {
         name = _("Labels");
         keywords = "%s".printf (_("labels"));
+        icon_name = "tag-outline-symbolic";
 
         Services.Database.get_default ().label_added.connect (() => {
             _count = Services.Database.get_default ().get_labels_collection ().size;

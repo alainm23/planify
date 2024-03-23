@@ -27,8 +27,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         Object (
             base_object: base_object,
             pattern: pattern,
-            margin_start: 3,
-            margin_end: 3
+            margin_start: 6,
+            margin_end: 6
         );
     }
 
@@ -40,7 +40,7 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             margin_top = 3,
             margin_bottom = 3,
             margin_end = 3,
-            margin_start = 6
+            margin_start = 3
         };
 
         if (base_object is Objects.Project) {
@@ -103,24 +103,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             main_grid.attach (widget_color, 0, 0);
             main_grid.attach (name_label, 1, 0);
-        } else if (base_object is Objects.Today || base_object is Objects.Scheduled ||
-            base_object is Objects.Pinboard) {
-
-            var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
-                valign = Gtk.Align.CENTER,
-                pixel_size = 16
-            };
-
-            var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {
-                ellipsize = Pango.EllipsizeMode.END,
-                xalign = 0,
-                use_markup = true
-            };
-
-            main_grid.attach (filter_icon, 0, 0);
-            main_grid.attach (name_label, 1, 0);
-        } else if (base_object is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) base_object);
+        } else if (base_object is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) base_object);
 
             var priority_icon = Util.get_default ().get_priority_icon (priority.priority);
 
@@ -132,16 +116,16 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             main_grid.attach (priority_icon, 0, 0);
             main_grid.attach (name_label, 1, 0);
-        } else if (base_object is Objects.Completed) {
-            Objects.Completed completed = ((Objects.Completed) base_object);
-
-            var filter_icon = new Gtk.Image.from_icon_name ("check-round-outline-whole-symbolic") {
+        } else if (base_object is Objects.Filters.Today || base_object is Objects.Filters.Scheduled ||
+            base_object is Objects.Filters.Completed || base_object is Objects.Filters.Tomorrow ||
+            base_object is Objects.Filters.Labels || base_object is Objects.Filters.Scheduled ||
+            base_object is Objects.Filters.Pinboard) {
+            var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
                 valign = Gtk.Align.CENTER,
-                css_classes = { "completed-color" },
-                pixel_size = 19
+                pixel_size = 16
             };
 
-            var name_label = new Gtk.Label (markup_string_with_search (completed.name, pattern)) {
+            var name_label = new Gtk.Label (markup_string_with_search (base_object.name, pattern)) {
                 ellipsize = Pango.EllipsizeMode.END,
                 xalign = 0,
                 use_markup = true

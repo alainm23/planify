@@ -51,14 +51,16 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 
         headerbar.title_widget = search_entry;
 
-        listbox = new Gtk.ListBox ();
-        listbox.hexpand = true;
-        listbox.vexpand = true;
+        listbox = new Gtk.ListBox () {
+            hexpand = true,
+            vexpand = true
+        };
+        
         listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
         var listbox_grid = new Gtk.Grid () {
-            margin_bottom = 12
+            margin_bottom = 6
         };
         listbox_grid.attach (listbox, 0, 0);
 
@@ -145,14 +147,16 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 
     private void search () {
         Objects.BaseObject[] filters = {
-            Objects.Today.get_default (),
-            Objects.Scheduled.get_default (),
-            Objects.Pinboard.get_default (),
-            new Objects.Priority (Constants.PRIORITY_1),
-            new Objects.Priority (Constants.PRIORITY_2),
-            new Objects.Priority (Constants.PRIORITY_3),
-            new Objects.Priority (Constants.PRIORITY_4),
-            Objects.Completed.get_default ()
+            Objects.Filters.Today.get_default (),
+            Objects.Filters.Scheduled.get_default (),
+            Objects.Filters.Pinboard.get_default (),
+            new Objects.Filters.Priority (Constants.PRIORITY_1),
+            new Objects.Filters.Priority (Constants.PRIORITY_2),
+            new Objects.Filters.Priority (Constants.PRIORITY_3),
+            new Objects.Filters.Priority (Constants.PRIORITY_4),
+            Objects.Filters.Labels.get_default (),
+            Objects.Filters.Completed.get_default (),
+            Objects.Filters.Tomorrow.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {
@@ -224,18 +228,24 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
                 ((Objects.Label) base_object).id_string
             );
         } else if (base_object.object_type == ObjectType.FILTER) {
-            if (base_object is Objects.Today) {
+            if (base_object is Objects.Filters.Today) {
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ()); 
-            } else if (base_object is Objects.Scheduled) {
+            } else if (base_object is Objects.Filters.Scheduled) {
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
-            } else if (base_object is Objects.Pinboard) {
+            } else if (base_object is Objects.Filters.Pinboard) {
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
-            } else if (base_object is Objects.Priority) {
-                Objects.Priority priority = ((Objects.Priority) base_object);
+            } else if (base_object is Objects.Filters.Priority) {
+                Objects.Filters.Priority priority = ((Objects.Filters.Priority) base_object);
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, priority.view_id);
-            } else if (base_object is Objects.Completed) {
-                Objects.Completed completed = ((Objects.Completed) base_object);
+            } else if (base_object is Objects.Filters.Labels) {
+                Objects.Filters.Labels labels = ((Objects.Filters.Labels) base_object);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, labels.view_id);
+            } else if (base_object is Objects.Filters.Completed) {
+                Objects.Filters.Completed completed = ((Objects.Filters.Completed) base_object);
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, completed.view_id);
+            } else if (base_object is Objects.Filters.Tomorrow) {
+                Objects.Filters.Tomorrow tomorrow = ((Objects.Filters.Tomorrow) base_object);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, tomorrow.view_id);
             }
         }
 
@@ -270,7 +280,9 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         }
 
         var header_label = new Granite.HeaderLabel (row.base_object.object_type.get_header ()) {
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 6,
+            margin_top = 6
         };
 
         row.set_header (header_label);

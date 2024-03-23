@@ -27,6 +27,7 @@ public class Layouts.Sidebar : Adw.Bin {
     private Layouts.FilterPaneRow scheduled_filter;
     private Layouts.FilterPaneRow labels_filter;
     private Layouts.FilterPaneRow pinboard_filter;
+    private Layouts.FilterPaneRow completed_filter;
     
     private Layouts.HeaderItem favorites_header;
     private Layouts.HeaderItem local_projects_header;
@@ -69,17 +70,25 @@ public class Layouts.Sidebar : Adw.Bin {
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
         };
+        
         today_filter = new Layouts.FilterPaneRow (FilterType.TODAY) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Today"), "Ctrl+T")
         };
+        
         scheduled_filter = new Layouts.FilterPaneRow (FilterType.SCHEDULED) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Scheduled"), "Ctrl+U")
         };
+        
         labels_filter = new Layouts.FilterPaneRow (FilterType.LABELS) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Labels"), "Ctrl+L")
         };
+
         pinboard_filter = new Layouts.FilterPaneRow (FilterType.PINBOARD) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
+        };
+
+        completed_filter = new Layouts.FilterPaneRow (FilterType.COMPLETED) {
+            //  tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Completed"), "Ctrl+P")
         };
 
         filters_flow.append (inbox_filter);
@@ -87,6 +96,7 @@ public class Layouts.Sidebar : Adw.Bin {
         filters_flow.append (scheduled_filter);
         filters_flow.append (labels_filter);
         filters_flow.append (pinboard_filter);
+        filters_flow.append (completed_filter);
 
         favorites_header = new Layouts.HeaderItem (_("Favorites"));
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
@@ -410,6 +420,7 @@ public class Layouts.Sidebar : Adw.Bin {
         scheduled_filter.init ();
         labels_filter.init ();
         pinboard_filter.init ();
+        completed_filter.init ();
         
         local_projects_header.reveal = true;
 

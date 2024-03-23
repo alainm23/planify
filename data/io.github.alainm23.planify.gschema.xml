@@ -13,6 +13,7 @@
         <value nick="Scheduled" value="2" />
         <value nick="Labels" value="3" />
         <value nick="Pinboard" value="4" />
+        <value nick="Completed" value="5" />
     </enum>
 
     <enum id="io.github.alainm23.planify.appearance">

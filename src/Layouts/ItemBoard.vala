@@ -25,7 +25,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private Gtk.CheckButton checked_button;
     private Gtk.Button checked_repeat_button;
-    private Gtk.Stack checked_stack;
     private Gtk.Revealer checked_button_revealer;
 	private Gtk.Label content_label;
 
@@ -383,14 +382,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             if (active) {
                 select_revealer.reveal_child = true;
                 checked_button_revealer.reveal_child = false;
-                //  labels_summary.reveal_child = false;
-                //  disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
                 checked_button_revealer.reveal_child = true;
-                //  labels_summary.check_revealer ();
-                //  build_drag_and_drop ();
-
                 select_checkbutton.active = false;
             }
         });
@@ -411,7 +405,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void open_detail () {
-        //  Services.EventBus.get_default ().open_item (item);
         if (item.parent_id == "") {
             var dialog = new Dialogs.ItemView (item);
             dialog.show ();
@@ -552,15 +545,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
 			due_revealer.reveal_child = true;
 
-            //  checked_stack.visible_child_name = item.due.is_recurring ? "repeat-button" : "check-button";
-
-            //  if (item.due.is_recurring) {
-            //      repeat_image.tooltip_text = Util.get_default ().get_recurrency_weeks (
-            //          item.due.recurrency_type, item.due.recurrency_interval,
-            //          item.due.recurrency_weeks
-            //      );
-            //  }
-
 			if (Util.get_default ().is_today (item.due.datetime)) {
 				due_box.add_css_class ("today-grid");
 			} else if (Util.get_default ().is_overdue (item.due.datetime)) {
@@ -571,7 +555,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		} else {
 			due_label.label = "";
 			due_revealer.reveal_child = false;
-            //  checked_stack.visible_child_name = "check-button";
 		}
 	}
 
@@ -602,7 +585,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
         var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");

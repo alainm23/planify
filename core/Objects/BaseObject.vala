@@ -23,6 +23,7 @@ public class Objects.BaseObject : GLib.Object {
     public string id { get; set; default = ""; }
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
+    public string icon_name { get; set; default = ""; }
     public signal void deleted ();
     public signal void updated ();
 
@@ -117,21 +118,7 @@ public class Objects.BaseObject : GLib.Object {
             }
         }
     }
-
-    public string icon_name {
-        get {
-            if (this is Objects.Today) {
-                return "star-outline-thick-symbolic";
-            } else if (this is Objects.Scheduled) {
-                return "month-symbolic";
-            } else if (this is Objects.Pinboard) {
-                return "pin-symbolic";
-            } else {
-                return "";
-            }
-        }
-    }
-
+    
     public string table_name {
         get {
             if (this is Objects.Item) {

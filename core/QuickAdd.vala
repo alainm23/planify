@@ -91,13 +91,14 @@ public class Layouts.QuickAdd : Adw.Bin {
         label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_top = 6
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            halign = Gtk.Align.END,
-            margin_end = 3
+            halign = Gtk.Align.END
         };
 
         action_box_right.append (label_button);
@@ -119,17 +120,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.append (description_textview);
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
-        
-        // Alert Box
-        var error_icon = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
-        var error_label = new Gtk.Label ("Error de casa");
-
-        var error_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true
-        };
-
-        error_box.append (error_icon);
-        error_box.append (error_label);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             valign = CENTER,

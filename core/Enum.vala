@@ -67,12 +67,12 @@ public enum ProjectIconStyle {
 }
 
 public enum FilterType {
-	TODAY = 0,
-	INBOX = 1,
+	INBOX = 0,
+	TODAY = 1,
 	SCHEDULED = 2,
 	PINBOARD = 3,
-	LABEL = 4,
-	LABELS = 5;
+	LABELS = 4,
+	COMPLETED = 5;
 
 	public string to_string () {
 		switch (this) {
@@ -88,11 +88,11 @@ public enum FilterType {
 		case PINBOARD:
 			return "pinboard";
 
-		case LABEL:
-			return "label";
-
 		case LABELS:
 			return "labels";
+
+		case COMPLETED:
+			return "completed";
 
 		default:
 			assert_not_reached ();

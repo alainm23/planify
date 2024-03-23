@@ -923,17 +923,17 @@ public class Util : GLib.Object {
         }
     }
 
-    private Gee.HashMap<string, Objects.Priority> priority_views;
-    public Objects.Priority get_priority_filter (string view_id) {
+    private Gee.HashMap<string, Objects.Filters.Priority> priority_views;
+    public Objects.Filters.Priority get_priority_filter (string view_id) {
         if (priority_views == null) {
-            priority_views = new Gee.HashMap<string, Objects.Priority> ();
+            priority_views = new Gee.HashMap<string, Objects.Filters.Priority> ();
         }
 
         if (priority_views.has_key (view_id)) {
             return priority_views[view_id];
         } else {
             int priority = int.parse (view_id.split ("-")[1]);
-            priority_views[view_id] = new Objects.Priority (priority);
+            priority_views[view_id] = new Objects.Filters.Priority (priority);
             return priority_views[view_id];
         }
     }

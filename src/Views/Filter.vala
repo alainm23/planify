@@ -149,25 +149,35 @@ public class Views.Filter : Adw.Bin {
         dialog.set_project (inbox_project);
         dialog.update_content (content);
         
-        if (filter is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) filter);
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             dialog.set_priority (priority.priority);
-            dialog.show ();
+        } else if (filter is Objects.Filters.Tomorrow) {
+            dialog.set_due (Util.get_default ().get_format_date (
+                new GLib.DateTime.now_local ().add_days (1)
+            ));
         }
+
+        dialog.show ();
     }
 
     private void update_request () {
-        if (filter is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) filter);
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             headerbar.title = priority.name;
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
-        } else if (filter is Objects.Completed) {
+        } else if (filter is Objects.Filters.Completed) {
             headerbar.title = _("Completed");
             listbox.set_header_func (header_completed_function);
             listbox_grid.margin_top = 0;
             magic_button.visible = false;
+        } else if (filter is Objects.Filters.Tomorrow) {
+            headerbar.title = _("Tomorrow");
+            listbox.set_header_func (null);
+            listbox_grid.margin_top = 12;
+            magic_button.visible = true;
         }
     }
 
@@ -178,13 +188,17 @@ public class Views.Filter : Adw.Bin {
 
         items.clear ();
 
-        if (filter is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) filter);
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
                 add_item (item);
             }
-        } else if (filter is Objects.Completed) {
+        } else if (filter is Objects.Filters.Completed) {
             foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Tomorrow) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
                 add_item (item);
             }
         }
@@ -199,14 +213,19 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
-        if (filter is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) filter);
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             
             if (!items.has_key (item.id) && item.priority == priority.priority && insert) {
                 add_item (item);   
             }
-        } else if (filter is Objects.Completed) {
+        } else if (filter is Objects.Filters.Completed) {
             if (!items.has_key (item.id) && item.checked && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.Tomorrow) {
+            if (!items.has_key (item.id) && item.has_due &&
+                Util.get_default ().is_tomorrow (item.due.datetime) && insert) {
                 add_item (item);   
             }
         }
@@ -224,8 +243,12 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_update_item (Objects.Item item) {
-        if (filter is Objects.Priority) {
-            Objects.Priority priority = ((Objects.Priority) filter);
+        if (items.has_key (item.id)) {
+            items[item.id].update_request ();
+        }
+
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
 
             if (items.has_key (item.id) && item.priority != priority.priority) {
                 items[item.id].hide_destroy ();
@@ -238,12 +261,19 @@ public class Views.Filter : Adw.Bin {
             }
     
             valid_add_item (item);
-        } else if (filter is Objects.Completed) {
+        } else if (filter is Objects.Filters.Completed) {
             if (items.has_key (item.id) && item.checked) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
     
+            valid_add_item (item);
+        } else if (filter is Objects.Filters.Tomorrow) {
+            if (items.has_key (item.id) && (!item.has_due || !Util.get_default ().is_tomorrow (item.due.datetime))) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+
             valid_add_item (item);
         }
 
@@ -251,7 +281,7 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void valid_checked_item (Objects.Item item, bool old_checked) {
-        if (filter is Objects.Priority) {
+        if (filter is Objects.Filters.Priority) {
             if (!old_checked) {
                 if (items.has_key (item.id) && item.completed) {
                     items[item.id].hide_destroy ();
@@ -260,7 +290,7 @@ public class Views.Filter : Adw.Bin {
             } else {
                 valid_update_item (item);
             }
-        } else if (filter is Objects.Completed) {
+        } else if (filter is Objects.Filters.Completed) {
             if (!old_checked) {
                 valid_update_item (item);
             } else {
