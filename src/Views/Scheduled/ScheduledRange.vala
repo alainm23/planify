@@ -49,7 +49,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
 
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var month_label = new Gtk.Label (start_date.format ("%B").up (1) + start_date.format ("%B").substring (1)) {
+        var month_label = new Gtk.Label (start_date.format ("%B")) {
             halign = Gtk.Align.START
         };
 
