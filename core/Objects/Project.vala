@@ -324,7 +324,11 @@ public class Objects.Project : Objects.BaseObject {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
-        color = get_content (prop.get_elements_by_tag_name ("x1:calendar-color").get_element (0));
+
+        GXml.DomHTMLCollection colorElements = prop.get_elements_by_tag_name ("x1:calendar-color");
+        if (colorElements.length > 0) {
+            color = get_content (colorElements.get_element (0));
+        }
 
         GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
         if (update_sync_token && sync_token_collection.length > 0) {
