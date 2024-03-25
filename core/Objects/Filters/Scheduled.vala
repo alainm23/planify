@@ -48,7 +48,7 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
 
     construct {
         name = _("Scheduled");
-        keywords = "%s;%s".printf (_("scheduled"), _("upcoming"));
+        keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filter"));
         icon_name = "month-symbolic";
         
         Services.Database.get_default ().item_added.connect (() => {

@@ -157,7 +157,9 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             Objects.Filters.Labels.get_default (),
             Objects.Filters.Completed.get_default (),
             Objects.Filters.Tomorrow.get_default (),
-            Objects.Filters.Anytime.get_default ()
+            Objects.Filters.Anytime.get_default (),
+            Objects.Filters.Repeating.get_default (),
+            Objects.Filters.Unlabeled.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {
@@ -249,6 +251,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, tomorrow.view_id);
             } else if (base_object is Objects.Filters.Anytime) {
                 Objects.Filters.Anytime _object = ((Objects.Filters.Anytime) base_object);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
+            } else if (base_object is Objects.Filters.Repeating) {
+                Objects.Filters.Repeating _object = ((Objects.Filters.Repeating) base_object);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
+            } else if (base_object is Objects.Filters.Unlabeled) {
+                Objects.Filters.Unlabeled _object = ((Objects.Filters.Unlabeled) base_object);
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
             }
         }

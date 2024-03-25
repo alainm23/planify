@@ -63,7 +63,19 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-  <release version="4.5.8" date="2024-03-21">
+    <release version="4.5.10" date="2024-03-25">
+      <description translatable="no">
+        <ul>
+          <li>Tomorrow and Anytime’s filter added from Quick Find.</li>
+          <li>Completed view added to the sidebar.</li>
+          <li>Dutch translations added thanks to @Gert-dev.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Fixed bug with translations not being displayed in Quick Add.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.8" date="2024-03-21">
       <description translatable="no">
         <ul>
           <li>Fixed bug that icons are not displayed in Quick Add.</li>

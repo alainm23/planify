@@ -39,7 +39,7 @@ public class Objects.Filters.Anytime : Objects.BaseObject {
 
     construct {
         name = _("Anytime");
-        keywords = "%s;%s".printf (_("anytime"), _("no date"));
+        keywords = "%s;%s;%s".printf (_("anytime"), _("filter"), _("no date"));
         icon_name = "grid-large-symbolic";
     }
 }

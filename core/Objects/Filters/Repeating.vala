@@ -19,11 +19,11 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Filters.Tomorrow : Objects.BaseObject {
-    private static Tomorrow? _instance;
-    public static Tomorrow get_default () {
+public class Objects.Filters.Repeating : Objects.BaseObject {
+    private static Repeating? _instance;
+    public static Repeating get_default () {
         if (_instance == null) {
-            _instance = new Tomorrow ();
+            _instance = new Repeating ();
         }
 
         return _instance;
@@ -32,14 +32,14 @@ public class Objects.Filters.Tomorrow : Objects.BaseObject {
     string _view_id;
     public string view_id {
         get {
-            _view_id = "tomorrow-view";
+            _view_id = "repeating-view";
             return _view_id;
         }
     }
 
     construct {
-        name = _("Tomorrow");
-        keywords = "%s;%s;%s".printf (_("tomorrow"), _("filter"), _("date"));
-        icon_name = "today-calendar-symbolic";
+        name = _("Repeating");
+        keywords = "%s;%s".printf (_("repeating"), _("filter"));
+        icon_name = "arrow-circular-top-right-symbolic";
     }
 }

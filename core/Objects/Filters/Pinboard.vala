@@ -48,7 +48,7 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
 
     construct {
         name = ("Pinboard");
-        keywords = _("pinboard");
+        keywords = _("Pinboard") + ";" + _("filter");
         icon_name = "pin-symbolic";
 
         Services.Database.get_default ().item_added.connect (() => {

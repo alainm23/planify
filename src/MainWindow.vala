@@ -186,6 +186,10 @@ public class MainWindow : Adw.ApplicationWindow {
 					add_tomorrow_view ();
 				} else if (id == "anytime-view") {
 					add_anytime_view ();
+				} else if (id == "repeating-view") {
+					add_filter_view (Objects.Filters.Repeating.get_default ());
+				} else if (id == "unlabeled-view") {
+					add_filter_view (Objects.Filters.Unlabeled.get_default ());
 				}
 			} else if (pane_type == PaneType.LABEL) {
 				add_label_view (id);
@@ -421,6 +425,18 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		filter_view.filter = Objects.Filters.Anytime.get_default ();
+		views_stack.set_visible_child_name ("filter-view");
+	}
+
+	private void add_filter_view (Objects.BaseObject base_object) {
+		Views.Filter? filter_view;
+		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
+		if (filter_view == null) {
+			filter_view = new Views.Filter ();
+			views_stack.add_named (filter_view, "filter-view");
+		}
+
+		filter_view.filter = base_object;
 		views_stack.set_visible_child_name ("filter-view");
 	}
 

@@ -119,7 +119,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         } else if (base_object is Objects.Filters.Today || base_object is Objects.Filters.Scheduled ||
             base_object is Objects.Filters.Completed || base_object is Objects.Filters.Tomorrow ||
             base_object is Objects.Filters.Labels || base_object is Objects.Filters.Scheduled ||
-            base_object is Objects.Filters.Pinboard || base_object is Objects.Filters.Anytime) {
+            base_object is Objects.Filters.Pinboard || base_object is Objects.Filters.Anytime ||
+            base_object is Objects.Filters.Repeating || base_object is Objects.Filters.Unlabeled) {
             var filter_icon = new Gtk.Image.from_icon_name (base_object.icon_name) {
                 valign = Gtk.Align.CENTER,
                 pixel_size = 16

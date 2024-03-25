@@ -56,7 +56,7 @@ public class Objects.Filters.Completed : Objects.BaseObject {
 
     construct {
         name = _("Completed");
-        keywords = "%s;%s".printf (_("completed"), _("logbook"));
+        keywords = "%s;%s;%s".printf (_("completed"), _("filter"), _("logbook"));
         icon_name = "check-round-outline-symbolic";
 
         Services.Database.get_default ().item_added.connect (() => {

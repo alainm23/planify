@@ -1329,6 +1329,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_repeating (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.has_due && item.due.is_recurring && item.checked == checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_items_by_date_range (GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -1390,12 +1403,6 @@ public class Services.Database : GLib.Object {
                 }
             }
 
-            return_value.sort ((a, b) => {
-                var completed_a = Util.get_default ().get_date_from_string (a.completed_at);
-                var completed_b = Util.get_default ().get_date_from_string (b.completed_at);
-                return completed_b.compare (completed_a);
-            });
-
             return return_value;
         }
     }
@@ -1405,6 +1412,19 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.get_label (label.id) != null && item.checked == checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_unlabeled (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.labels.size <= 0 && item.checked == checked) {
                     return_value.add (item);
                 }
             }

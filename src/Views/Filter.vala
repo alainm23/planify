@@ -163,27 +163,44 @@ public class Views.Filter : Adw.Bin {
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             headerbar.title = priority.name;
+            listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Completed) {
             headerbar.title = _("Completed");
+            listbox.set_sort_func (sort_completed_function);
             listbox.set_header_func (header_completed_function);
             listbox_grid.margin_top = 0;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Tomorrow) {
             headerbar.title = _("Tomorrow");
+            listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Pinboard) {
             headerbar.title = _("Pinboard");
+            listbox.set_sort_func (null);
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Anytime) {
-            headerbar.title = _("Pinboard");
-            listbox.set_header_func (null);
+            headerbar.title = _("Anytime");
+            listbox.set_sort_func (sort_project_function);
+            listbox.set_header_func (header_project_function);
+            listbox_grid.margin_top = 12;
+            magic_button.visible = true;
+        } else if (filter is Objects.Filters.Repeating) {
+            headerbar.title = _("Repeating");
+            listbox.set_sort_func (sort_project_function);
+            listbox.set_header_func (header_project_function);
+            listbox_grid.margin_top = 12;
+            magic_button.visible = false;
+        } else if (filter is Objects.Filters.Unlabeled) {
+            headerbar.title = _("Unlabeled");
+            listbox.set_sort_func (sort_project_function);
+            listbox.set_header_func (header_project_function);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
         }
@@ -196,36 +213,52 @@ public class Views.Filter : Adw.Bin {
 
         items.clear ();
 
-        if (filter is Objects.Filters.Priority) {
-            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
-                add_item (item);
+        new Thread<void*> ("add_items", () => {
+            if (filter is Objects.Filters.Priority) {
+                Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Completed) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Tomorrow) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Pinboard) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Anytime) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Repeating) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_repeating (false)) {
+                    add_item (item);
+                }
+            } else if (filter is Objects.Filters.Unlabeled) {
+                foreach (Objects.Item item in Services.Database.get_default ().get_items_unlabeled (false)) {
+                    add_item (item);
+                }
             }
-        } else if (filter is Objects.Filters.Completed) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
-                add_item (item);
-            }
-        } else if (filter is Objects.Filters.Tomorrow) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
-                add_item (item);
-            }
-        } else if (filter is Objects.Filters.Pinboard) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
-                add_item (item);
-            }
-        } else if (filter is Objects.Filters.Anytime) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
-                add_item (item);
-            }
-        }
+
+            return null;
+        });
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item) {
-            show_project_label = true
-        };
-        items [item.id].disable_drag_and_drop ();
-        listbox.append (items [item.id]);
+        Idle.add (() => {
+            items [item.id] = new Layouts.ItemRow (item) {
+                show_project_label = true
+            };
+            items [item.id].disable_drag_and_drop ();
+            listbox.append (items [item.id]);
+
+            return false;
+        });
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -250,6 +283,14 @@ public class Views.Filter : Adw.Bin {
             }
         } else if (filter is Objects.Filters.Anytime) {
             if (!items.has_key (item.id) && !item.has_due && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.Repeating) {
+            if (!items.has_key (item.id) && item.has_due && item.due.is_recurring && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.Unlabeled) {
+            if (!items.has_key (item.id) && item.labels.size <= 0 && insert) {
                 add_item (item);   
             }
         }
@@ -312,15 +353,31 @@ public class Views.Filter : Adw.Bin {
                 items.unset (item.id);
             }
     
-            valid_add_item (item); 
+            valid_add_item (item);
+        } else if (filter is Objects.Filters.Repeating) {
+            if (items.has_key (item.id) && (!item.has_due || !item.due.is_recurring)) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+    
+            valid_add_item (item);
+        } else if (filter is Objects.Filters.Unlabeled) {
+            if (items.has_key (item.id) && item.labels.size > 0) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+    
+            valid_add_item (item);
         }
 
         validate_placeholder ();
     }
 
     private void valid_checked_item (Objects.Item item, bool old_checked) {
-        if (filter is Objects.Filters.Priority || filter is Objects.Filters.Tomorrow
-            || filter is Objects.Filters.Pinboard || filter is Objects.Filters.Anytime) {
+        if (filter is Objects.Filters.Priority || filter is Objects.Filters.Tomorrow ||
+            filter is Objects.Filters.Pinboard || filter is Objects.Filters.Anytime ||
+            filter is Objects.Filters.Repeating || filter is Objects.Filters.Unlabeled
+        ) {
             if (!old_checked) {
                 if (items.has_key (item.id) && item.completed) {
                     items[item.id].hide_destroy ();
@@ -357,12 +414,58 @@ public class Views.Filter : Adw.Bin {
             }
         }
 
-        var header_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
-            Util.get_default ().get_date_from_string (row.item.completed_at)
-        ));
-        header_label.add_css_class ("font-bold");
-        header_label.halign = Gtk.Align.START;
-        header_label.margin_start = 3;
+        row.set_header (
+            get_header_box (
+                Util.get_default ().get_relative_date_from_date (
+                    Util.get_default ().get_date_from_string (row.item.completed_at)
+                )
+            )
+        );
+    }
+
+    private void header_project_function (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow? lbbefore) {
+        if (!(lbrow is Layouts.ItemRow)) {
+            return;
+        }
+
+        var row = (Layouts.ItemRow) lbrow;
+        if (lbbefore != null && lbbefore is Layouts.ItemRow) {
+            var before = (Layouts.ItemRow) lbbefore;
+            if (row.project_id == before.project_id) {
+                row.set_header (null);
+                return;
+            }
+        }
+
+        row.set_header (get_header_box (row.item.project.name));
+    }
+
+    private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+        var completed_a = Util.get_default ().get_date_from_string (((Layouts.ItemRow) row1).item.completed_at);
+        var completed_b = Util.get_default ().get_date_from_string (((Layouts.ItemRow) row2).item.completed_at);
+        return completed_b.compare (completed_a);
+    }
+
+    private int sort_project_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
+        var item1 = ((Layouts.ItemRow) row1).item;
+        var item2 = ((Layouts.ItemRow) row2).item;
+        return item1.project_id.strip ().collate (item2.project_id.strip ());
+    }
+
+    private void validate_placeholder () {
+        listbox.invalidate_filter ();
+        listbox.invalidate_sort ();
+        listbox.invalidate_headers ();
+        
+        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+    }
+
+    private Gtk.Widget get_header_box (string title) {
+        var header_label = new Gtk.Label (title) {
+            css_classes = { "heading" },
+            halign = START,
+            margin_start = 3
+        };
 
         var header_separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
             hexpand = true,
@@ -374,13 +477,10 @@ public class Views.Filter : Adw.Bin {
             margin_top = 12,
             margin_start = 19
         };
+
         header_box.append (header_label);
         header_box.append (header_separator);
 
-        row.set_header (header_box);
-    }
-
-    private void validate_placeholder () {
-        listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
+        return header_box;
     }
 }

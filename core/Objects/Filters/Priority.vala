@@ -64,7 +64,7 @@ public class Objects.Filters.Priority : Objects.BaseObject {
 
     construct {
         name = Util.get_default ().get_priority_title (priority);
-        keywords = Util.get_default ().get_priority_keywords (priority);
+        keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filter");
 
         Services.Database.get_default ().item_added.connect (() => {
             _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;

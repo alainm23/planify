@@ -64,7 +64,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
 
     construct {
         name = _("Today");
-        keywords = _("today");
+        keywords = _("today") + ";" + _("filter");
         icon_name = "star-outline-thick-symbolic";
         
         Services.Database.get_default ().item_added.connect (() => {

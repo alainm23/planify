@@ -23,8 +23,6 @@ public class QuickAdd : Adw.Application {
     }
 
     protected override void activate () {
-        GLib.Environment.set_variable ("LANGUAGE", "fr", true);
-
         main_window = new MainWindow (this);
         main_window.show ();
         

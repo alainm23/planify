@@ -56,7 +56,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
 
     construct {
         name = _("Labels");
-        keywords = "%s".printf (_("labels"));
+        keywords = "%s;%s".printf (_("labels"), _("filter"));
         icon_name = "tag-outline-symbolic";
 
         Services.Database.get_default ().label_added.connect (() => {
