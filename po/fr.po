@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-20 07:23-0500\n"
-"PO-Revision-Date: 2024-03-08 20:06+0100\n"
+"PO-Revision-Date: 2024-03-23 10:05+0100\n"
 "Last-Translator: Irénée Thirion <irenee.thirion@e.email>\n"
 "Language-Team: French <gnomefr@traduc.org>\n"
 "Language: fr\n"
@@ -192,9 +192,8 @@ msgid "Cancel"
 msgstr "Annuler"
 
 #: core/Util/Util.vala:752
-#, fuzzy
 msgid "Delete All"
-msgstr "Supprimer l’étiquette"
+msgstr "Tout supprimer"
 
 #: core/Util/Util.vala:766
 msgid "Process completed, you need to start Planify again."
@@ -694,9 +693,8 @@ msgstr "Effacer"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
 #: src/Layouts/ItemRow.vala:974
-#, fuzzy
 msgid "Back"
-msgstr "Sauvegardes"
+msgstr "Retour"
 
 #: core/Widgets/LabelPicker/LabelPicker.vala:61
 #: src/Dialogs/LabelPicker.vala:153
@@ -1100,7 +1098,6 @@ msgid "Edit Label"
 msgstr "Modifier l’étiquette"
 
 #: src/Layouts/LabelRow.vala:144
-#, fuzzy
 msgid "Delete Label"
 msgstr "Supprimer l’étiquette"
 
@@ -1268,16 +1265,14 @@ msgstr "Afficher les tâches accomplies"
 #: src/Views/Project/List.vala:104 src/Views/Today.vala:182
 #: src/Views/Pinboard.vala:57 src/Views/Label/Label.vala:71
 #: src/Views/Filter.vala:69
-#, fuzzy
 msgid "Add Some Tasks"
-msgstr "Ajouter la tâche"
+msgstr "Ajoutez des tâches"
 
 #: src/Views/Project/List.vala:105 src/Views/Today.vala:183
 #: src/Views/Pinboard.vala:58 src/Views/Label/Label.vala:72
 #: src/Views/Filter.vala:70
-#, fuzzy
 msgid "Press a to create a new task"
-msgstr "Coller du texte brut pour créer une nouvelle tâche"
+msgstr "Tapez A pour créer une nouvelle tâche"
 
 #: src/Views/Project/List.vala:265 src/Views/Project/List.vala:351
 #: src/Views/Project/Board.vala:155 src/Views/Project/Board.vala:190
@@ -1354,7 +1349,7 @@ msgstr "Chargement"
 
 #: src/Dialogs/GoogleOAuth.vala:84
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "Planify synchronise vos tâches, cela peut prendre quelques minutes."
+msgstr "Planify synchronise vos tâches, cela peut prendre quelques minutes"
 
 #: src/Dialogs/GoogleOAuth.vala:137
 msgid "Please enter your credentials"
@@ -1368,13 +1363,15 @@ msgstr "Réseau indisponible"
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid "New look"
-msgstr ""
+msgstr "Nouveau look"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid ""
 "The design has been improved and new icons have been added making the user "
 "interface simpler to understand and use.."
 msgstr ""
+"Le design a été amélioré et de nouvelles icônes ont été ajoutées, clarifiant "
+"l’interface utilisateur…"
 
 #: src/Dialogs/ManageSectionOrder.vala:62
 msgid "Update"
@@ -1568,9 +1565,8 @@ msgid "Backups"
 msgstr "Sauvegardes"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
-#, fuzzy
 msgid "Backup or migrate from Planner."
-msgstr "Migrer depuis Planner"
+msgstr "Sauvegarder ou migrer depuis Planner."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:182
 msgid "Create Tutorial Project"
@@ -1636,13 +1632,12 @@ msgid "A tutorial project has been created"
 msgstr "Un projet tutoriel a été créé"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:301
-#, fuzzy
 msgid "Delete All Data?"
-msgstr "Supprimer les données de l’application"
+msgstr "Supprimer toutes les données ?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:302
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "Supprime toutes vos listes, tâches et rappels de manière irréversible"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:320
 msgid "Home Page"
@@ -1918,7 +1913,7 @@ msgstr "Se connecter"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1442
 msgid "Failed to login"
-msgstr ""
+msgstr "Échec de la connexion"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1524
 msgid "Personal Data"
@@ -2023,7 +2018,7 @@ msgstr "Fichiers de sauvegarde"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Migrate"
-msgstr ""
+msgstr "Migrer"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:77
 msgid "Migrate From Planner"
@@ -2039,7 +2034,7 @@ msgstr "Tâches migrées avec succès"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:146
 msgid "The database file does not exist."
-msgstr ""
+msgstr "Le fichier de la base de données n’existe pas."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:162
 msgid "Import Overview"
