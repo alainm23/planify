@@ -109,7 +109,6 @@ src/Views/Project/Project.vala
 src/Views/Project/List.vala
 src/Views/Project/Board.vala
 src/Views/Today.vala
-src/Views/Pinboard.vala
 src/Views/Label/Label.vala
 src/Views/Label/Labels.vala
 src/Views/Filter.vala

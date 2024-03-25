@@ -26,7 +26,7 @@ public class Views.Filter : Adw.Bin {
     private Gtk.Stack listbox_stack;
     private Widgets.MagicButton magic_button;
 
-    public Gee.HashMap <string, Layouts.ItemRow> items;
+    private Gee.HashMap <string, Layouts.ItemRow> items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
     Objects.BaseObject _filter;
     public Objects.BaseObject filter {
@@ -47,9 +47,7 @@ public class Views.Filter : Adw.Bin {
         }
     }
 
-    construct {
-        items = new Gee.HashMap <string, Layouts.ItemRow> ();
-
+    construct {        
         headerbar = new Layouts.HeaderBar ();
 
         listbox = new Gtk.ListBox () {
@@ -178,6 +176,16 @@ public class Views.Filter : Adw.Bin {
             listbox.set_header_func (null);
             listbox_grid.margin_top = 12;
             magic_button.visible = true;
+        } else if (filter is Objects.Filters.Pinboard) {
+            headerbar.title = _("Pinboard");
+            listbox.set_header_func (null);
+            listbox_grid.margin_top = 12;
+            magic_button.visible = true;
+        } else if (filter is Objects.Filters.Anytime) {
+            headerbar.title = _("Pinboard");
+            listbox.set_header_func (null);
+            listbox_grid.margin_top = 12;
+            magic_button.visible = true;
         }
     }
 
@@ -199,6 +207,14 @@ public class Views.Filter : Adw.Bin {
             }
         } else if (filter is Objects.Filters.Tomorrow) {
             foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Pinboard) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Anytime) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
                 add_item (item);
             }
         }
@@ -226,6 +242,14 @@ public class Views.Filter : Adw.Bin {
         } else if (filter is Objects.Filters.Tomorrow) {
             if (!items.has_key (item.id) && item.has_due &&
                 Util.get_default ().is_tomorrow (item.due.datetime) && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.Pinboard) {
+            if (!items.has_key (item.id) && item.pinned && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.Anytime) {
+            if (!items.has_key (item.id) && !item.has_due && insert) {
                 add_item (item);   
             }
         }
@@ -275,13 +299,28 @@ public class Views.Filter : Adw.Bin {
             }
 
             valid_add_item (item);
+        } else if (filter is Objects.Filters.Pinboard) {
+            if (items.has_key (item.id) && item.pinned) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+    
+            valid_add_item (item);
+        } else if (filter is Objects.Filters.Anytime) {
+            if (items.has_key (item.id) && item.has_due) {
+                items[item.id].hide_destroy ();
+                items.unset (item.id);
+            }
+    
+            valid_add_item (item); 
         }
 
         validate_placeholder ();
     }
 
     private void valid_checked_item (Objects.Item item, bool old_checked) {
-        if (filter is Objects.Filters.Priority) {
+        if (filter is Objects.Filters.Priority || filter is Objects.Filters.Tomorrow
+            || filter is Objects.Filters.Pinboard || filter is Objects.Filters.Anytime) {
             if (!old_checked) {
                 if (items.has_key (item.id) && item.completed) {
                     items[item.id].hide_destroy ();

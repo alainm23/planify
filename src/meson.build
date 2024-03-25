@@ -61,7 +61,6 @@ sources = files(
   'Views/Project/List.vala',
   'Views/Project/Board.vala',
   'Views/Today.vala',
-  'Views/Pinboard.vala',
   'Views/Label/Label.vala',
   'Views/Label/Labels.vala',
   'Views/Filter.vala',

@@ -156,7 +156,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             new Objects.Filters.Priority (Constants.PRIORITY_4),
             Objects.Filters.Labels.get_default (),
             Objects.Filters.Completed.get_default (),
-            Objects.Filters.Tomorrow.get_default ()
+            Objects.Filters.Tomorrow.get_default (),
+            Objects.Filters.Anytime.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {
@@ -246,6 +247,9 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             } else if (base_object is Objects.Filters.Tomorrow) {
                 Objects.Filters.Tomorrow tomorrow = ((Objects.Filters.Tomorrow) base_object);
                 Services.EventBus.get_default ().pane_selected (PaneType.FILTER, tomorrow.view_id);
+            } else if (base_object is Objects.Filters.Anytime) {
+                Objects.Filters.Anytime _object = ((Objects.Filters.Anytime) base_object);
+                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
             }
         }
 
