@@ -29,7 +29,7 @@ public class Widgets.ReminderButton : Adw.Bin {
             item: item,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
-            tooltip_text: _("Add reminder(s)")
+            tooltip_text: _("Add Reminders")
         );
     }
 

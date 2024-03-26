@@ -635,7 +635,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.RIGHT,
+            position = Gtk.PositionType.BOTTOM,
             width_request = 250
         };
 

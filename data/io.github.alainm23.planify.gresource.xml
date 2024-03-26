@@ -78,6 +78,7 @@
     <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
     <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
     <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -133,6 +134,7 @@
     <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
     <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
     <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -188,5 +190,6 @@
     <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
     <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
     <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
   </gresource>
 </gresources>

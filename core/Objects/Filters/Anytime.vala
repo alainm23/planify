@@ -29,17 +29,10 @@ public class Objects.Filters.Anytime : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "anytime-view";
-            return _view_id;
-        }
-    }
-
     construct {
         name = _("Anytime");
         keywords = "%s;%s;%s".printf (_("anytime"), _("filter"), _("no date"));
         icon_name = "grid-large-symbolic";
+        view_id = "anytime-view";
     }
 }

@@ -29,17 +29,10 @@ public class Objects.Filters.Repeating : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "repeating-view";
-            return _view_id;
-        }
-    }
-
     construct {
         name = _("Repeating");
         keywords = "%s;%s".printf (_("repeating"), _("filter"));
         icon_name = "arrow-circular-top-right-symbolic";
+        view_id = "repeating-view";
     }
 }

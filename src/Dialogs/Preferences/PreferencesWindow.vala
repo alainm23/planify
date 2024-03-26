@@ -297,7 +297,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		delete_row.activated.connect (() => {
-			destroy ();
 			Util.get_default ().clear_database (_("Delete All Data?"),
 			                                    _("Deletes all your lists, tasks, and reminders irreversibly"),
 											Planify.instance.main_window);

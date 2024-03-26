@@ -47,7 +47,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         Object (
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
-            tooltip_text: _("Add label(s)")
+            tooltip_text: _("Add Labels")
         );
     }
 

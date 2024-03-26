@@ -175,17 +175,17 @@ public class MainWindow : Adw.ApplicationWindow {
 				} else if (id == FilterType.SCHEDULED.to_string ()) {
 					add_scheduled_view ();
 				} else if (id == FilterType.PINBOARD.to_string ()) {
-					add_pinboard_view ();
+					add_filter_view (Objects.Filters.Pinboard.get_default ());
 				} else if (id == FilterType.LABELS.to_string ()) {
 					add_labels_view ();
 				} else if (id.has_prefix ("priority")) {
 					add_priority_view (id);
 				} else if (id == FilterType.COMPLETED.to_string ()) {
-					add_completed_view ();
+					add_filter_view (Objects.Filters.Completed.get_default ());
 				} else if (id == "tomorrow-view") {
-					add_tomorrow_view ();
+					add_filter_view (Objects.Filters.Tomorrow.get_default ());
 				} else if (id == "anytime-view") {
-					add_anytime_view ();
+					add_filter_view (Objects.Filters.Anytime.get_default ());
 				} else if (id == "repeating-view") {
 					add_filter_view (Objects.Filters.Repeating.get_default ());
 				} else if (id == "unlabeled-view") {
@@ -367,19 +367,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack.set_visible_child_name ("label-view");
 	}
 
-
-	public void add_pinboard_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
-		}
-
-		filter_view.filter = Objects.Filters.Pinboard.get_default ();
-		views_stack.set_visible_child_name ("filter-view");
-	}
-
 	public void add_priority_view (string view_id) {
 		Views.Filter? filter_view;
 		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
@@ -389,42 +376,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
-		views_stack.set_visible_child_name ("filter-view");
-	}
-
-	private void add_completed_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
-		}
-
-		filter_view.filter = Objects.Filters.Completed.get_default ();
-		views_stack.set_visible_child_name ("filter-view");
-	}
-
-	private void add_tomorrow_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
-		}
-
-		filter_view.filter = Objects.Filters.Tomorrow.get_default ();
-		views_stack.set_visible_child_name ("filter-view");
-	}
-
-	private void add_anytime_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
-		}
-
-		filter_view.filter = Objects.Filters.Anytime.get_default ();
 		views_stack.set_visible_child_name ("filter-view");
 	}
 
@@ -485,6 +436,10 @@ public class MainWindow : Adw.ApplicationWindow {
 			if (filter_view != null) {
 				filter_view.prepare_new_item (content);
 			}
+		} else {
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.update_content (content);
+        	dialog.show ();
 		}
 	}
 

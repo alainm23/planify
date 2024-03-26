@@ -37,6 +37,8 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
+    public string view_id { get; set; default = ""; }
+
     public string type_delete {
         get {
             if (this is Objects.Item) {

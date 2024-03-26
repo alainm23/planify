@@ -50,7 +50,8 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
         name = _("Scheduled");
         keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filter"));
         icon_name = "month-symbolic";
-        
+        view_id = FilterType.SCHEDULED.to_string ();
+
         Services.Database.get_default ().item_added.connect (() => {
             _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();

@@ -42,22 +42,23 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
 
         listbox = new Gtk.ListBox () {
-            hexpand = true
+            hexpand = true,
+            valign = START
         };
 
         listbox.add_css_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid () {
+        var listbox_card = new Adw.Bin () {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 6,
-            margin_top = 3
+            margin_top = 3,
+            css_classes = { "card" },
+            child = listbox,
+            valign = START
         };
-        
-        listbox_grid.attach (listbox, 0, 0);
-        listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        scrolled_window = new Widgets.ScrolledWindow (listbox_grid);
+        scrolled_window = new Widgets.ScrolledWindow (listbox_card);
 
         var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Update")) {
             margin_top = 12,

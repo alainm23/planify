@@ -53,7 +53,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            css_classes = { "listbox-background" }
         };
         
         listbox.set_placeholder (get_placeholder ());
@@ -176,6 +177,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             items.add (row);
         }
 
+        foreach (Objects.Section section in Services.Database.get_default ().get_all_sections_by_search (search_entry.text)) {
+            var row = new Dialogs.QuickFind.QuickFindItem (section, search_entry.text);
+            listbox.append (row);
+            items.add (row);
+        }
+
         foreach (Objects.Item item in Services.Database.get_default ().get_all_items_by_search (search_entry.text)) {
             if (item.project != null) {
                 var row = new Dialogs.QuickFind.QuickFindItem (item, search_entry.text);
@@ -222,6 +229,10 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 
         if (base_object.object_type == ObjectType.PROJECT) {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, base_object.id_string);
+        } else if (base_object.object_type == ObjectType.SECTION) {
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
+                ((Objects.Section) base_object).project_id.to_string ()
+            );
         } else if (base_object.object_type == ObjectType.ITEM) {
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT,
                 ((Objects.Item) base_object).project_id.to_string ()
@@ -231,34 +242,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
                 ((Objects.Label) base_object).id_string
             );
         } else if (base_object.object_type == ObjectType.FILTER) {
-            if (base_object is Objects.Filters.Today) {
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.TODAY.to_string ()); 
-            } else if (base_object is Objects.Filters.Scheduled) {
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.SCHEDULED.to_string ()); 
-            } else if (base_object is Objects.Filters.Pinboard) {
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
-            } else if (base_object is Objects.Filters.Priority) {
-                Objects.Filters.Priority priority = ((Objects.Filters.Priority) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, priority.view_id);
-            } else if (base_object is Objects.Filters.Labels) {
-                Objects.Filters.Labels labels = ((Objects.Filters.Labels) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, labels.view_id);
-            } else if (base_object is Objects.Filters.Completed) {
-                Objects.Filters.Completed completed = ((Objects.Filters.Completed) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, completed.view_id);
-            } else if (base_object is Objects.Filters.Tomorrow) {
-                Objects.Filters.Tomorrow tomorrow = ((Objects.Filters.Tomorrow) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, tomorrow.view_id);
-            } else if (base_object is Objects.Filters.Anytime) {
-                Objects.Filters.Anytime _object = ((Objects.Filters.Anytime) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
-            } else if (base_object is Objects.Filters.Repeating) {
-                Objects.Filters.Repeating _object = ((Objects.Filters.Repeating) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
-            } else if (base_object is Objects.Filters.Unlabeled) {
-                Objects.Filters.Unlabeled _object = ((Objects.Filters.Unlabeled) base_object);
-                Services.EventBus.get_default ().pane_selected (PaneType.FILTER, _object.view_id);
-            }
+            Services.EventBus.get_default ().pane_selected (PaneType.FILTER, base_object.view_id); 
         }
 
         hide_destroy ();

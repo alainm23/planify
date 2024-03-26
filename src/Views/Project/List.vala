@@ -148,14 +148,6 @@ public class Views.List : Gtk.Grid {
 
         project.section_added.connect ((section) => {
             add_section (section);
-            if (section.activate_name_editable) {
-                Timeout.add (listbox_placeholder_stack.transition_duration, () => {
-                    scrolled_window.vadjustment.set_value (
-                        scrolled_window.vadjustment.get_upper () - scrolled_window.vadjustment.get_page_size ()
-                    );
-                    return GLib.Source.REMOVE;
-                });
-            }
         });
 
         project.section_sort_order_changed.connect (() => {

@@ -29,17 +29,10 @@ public class Objects.Filters.Unlabeled : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "unlabeled-view";
-            return _view_id;
-        }
-    }
-
     construct {
         name = _("Unlabeled");
         keywords = "%s;%s;%s".printf (_("no label"), _("unlabeled"), _("filter"));
         icon_name = "tag-outline-remove-symbolic";
+        view_id = "unlabeled-view";
     }
 }

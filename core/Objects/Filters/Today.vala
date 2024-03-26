@@ -66,7 +66,8 @@ public class Objects.Filters.Today : Objects.BaseObject {
         name = _("Today");
         keywords = _("today") + ";" + _("filter");
         icon_name = "star-outline-thick-symbolic";
-        
+        view_id = FilterType.TODAY.to_string ();
+
         Services.Database.get_default ().item_added.connect (() => {
             _today_count = Services.Database.get_default ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;

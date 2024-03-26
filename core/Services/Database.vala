@@ -1643,6 +1643,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Section> get_all_sections_by_search (string search_text) {
+        Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
+        lock (_projects) {
+            foreach (var section in sections) {
+                if (search_text.down () in section.name.down ()) {
+                    return_value.add (section);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Project> get_all_projects_by_todoist () {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {

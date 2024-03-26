@@ -115,10 +115,11 @@ public class Dialogs.WhatsNew : Adw.Window {
 			return false;
         });
 
-		add_feature (
-			_("New look"),
-			_("The design has been improved and new icons have been added making the user interface simpler to understand and use..")
-		);
+		add_feature (_("New Filters"), _("New filters available in Quick Add."));
+		add_feature (_("Repeating"), _("All your repeating to-dos in one, convenient place (finally!)."));
+		add_feature (_("Tomorrow"), _("A nice focused list to plan tomorrow, today."));
+		add_feature (_("Anytime"), _("All your unlabel to-dos in one place."));
+		add_feature (_("Search by Sections"), _("Quick Find now supports section searching."));
 	}
 
 	public void add_feature (string title, string description, Adw.NavigationPage? page = null) {

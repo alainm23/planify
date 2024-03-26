@@ -5,6 +5,10 @@
   <project_license>GPL-3.0+</project_license>
   <name translatable="no">Planify</name>
   <summary>Forget about forgetting things</summary>
+  <branding>
+    <color type="primary" scheme_preference="light">#f9f06b</color>
+    <color type="primary" scheme_preference="dark">#9141ac</color>
+  </branding>
   <description>
     <p>🚀️ Planify is here...</p>
     <ul>
@@ -63,14 +67,15 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
-    <release version="4.5.10" date="2024-03-25">
+    <release version="4.5.10" date="2024-03-26">
       <description translatable="no">
         <ul>
-          <li>Tomorrow and Anytime’s filter added from Quick Find.</li>
+          <li>Morning, Untagged, Repeat and Anytime filter added from Quick Search.</li>
           <li>Completed view added to the sidebar.</li>
           <li>Dutch translations added thanks to @Gert-dev.</li>
           <li>French translation update thanks to @rene-coty.</li>
           <li>Fixed bug with translations not being displayed in Quick Add.</li>
+          <li>Fixed bug when syncing uncolored task list in Nextcloud.</li>
         </ul>
       </description>
     </release>

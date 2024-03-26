@@ -26,6 +26,8 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
 
+    public signal void update_section ();
+
     public SectionPickerRow (Objects.Section section, string widget_type = "picker") {
         Object (
             section: section,
@@ -119,6 +121,8 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
                     section.hidded = !hidded_switch.active;
                     Services.Database.get_default ().update_section (section);
                 }
+
+                update_section ();
             });
         }
     }

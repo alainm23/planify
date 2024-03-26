@@ -29,14 +29,6 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = FilterType.LABELS.to_string ();
-            return _view_id;
-        }
-    }
-
     int? _count = null;
     public int count {
         get {
@@ -58,6 +50,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         name = _("Labels");
         keywords = "%s;%s".printf (_("labels"), _("filter"));
         icon_name = "tag-outline-symbolic";
+        view_id = FilterType.LABELS.to_string ();
 
         Services.Database.get_default ().label_added.connect (() => {
             _count = Services.Database.get_default ().get_labels_collection ().size;

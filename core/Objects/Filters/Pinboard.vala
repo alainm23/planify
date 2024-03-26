@@ -50,6 +50,7 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
         name = ("Pinboard");
         keywords = _("Pinboard") + ";" + _("filter");
         icon_name = "pin-symbolic";
+        view_id = FilterType.PINBOARD.to_string ();
 
         Services.Database.get_default ().item_added.connect (() => {
             _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;

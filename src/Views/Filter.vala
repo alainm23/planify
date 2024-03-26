@@ -22,7 +22,7 @@
 public class Views.Filter : Adw.Bin {
     private Layouts.HeaderBar headerbar;
     private Gtk.ListBox listbox;
-    private Gtk.Grid listbox_grid;
+    private Adw.Bin listbox_content;
     private Gtk.Stack listbox_stack;
     private Widgets.MagicButton magic_button;
 
@@ -52,15 +52,14 @@ public class Views.Filter : Adw.Bin {
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
-            activate_on_single_click = true,
-            selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+			selection_mode = Gtk.SelectionMode.NONE,
+			hexpand = true,
+			css_classes = { "listbox-background" }
         };
 
-        listbox.add_css_class ("listbox-background");
-
-        listbox_grid = new Gtk.Grid ();
-        listbox_grid.attach (listbox, 0, 0);
+        listbox_content = new Adw.Bin () {
+            child = listbox
+        };
 
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
@@ -73,7 +72,7 @@ public class Views.Filter : Adw.Bin {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        listbox_stack.add_named (listbox_grid, "listbox");
+        listbox_stack.add_named (listbox_content, "listbox");
         listbox_stack.add_named (listbox_placeholder, "placeholder");
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -96,10 +95,9 @@ public class Views.Filter : Adw.Bin {
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = content_clamp
         };
-
-        scrolled_window.child = content_clamp;
 
         magic_button = new Widgets.MagicButton ();
 
@@ -165,43 +163,43 @@ public class Views.Filter : Adw.Bin {
             headerbar.title = priority.name;
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Completed) {
             headerbar.title = _("Completed");
             listbox.set_sort_func (sort_completed_function);
             listbox.set_header_func (header_completed_function);
-            listbox_grid.margin_top = 0;
+            listbox_content.margin_top = 0;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Tomorrow) {
             headerbar.title = _("Tomorrow");
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Pinboard) {
             headerbar.title = _("Pinboard");
             listbox.set_sort_func (null);
             listbox.set_header_func (null);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Anytime) {
             headerbar.title = _("Anytime");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = true;
         } else if (filter is Objects.Filters.Repeating) {
             headerbar.title = _("Repeating");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = false;
         } else if (filter is Objects.Filters.Unlabeled) {
             headerbar.title = _("Unlabeled");
             listbox.set_sort_func (sort_project_function);
             listbox.set_header_func (header_project_function);
-            listbox_grid.margin_top = 12;
+            listbox_content.margin_top = 12;
             magic_button.visible = true;
         }
     }
@@ -213,52 +211,44 @@ public class Views.Filter : Adw.Bin {
 
         items.clear ();
 
-        new Thread<void*> ("add_items", () => {
-            if (filter is Objects.Filters.Priority) {
-                Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Completed) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Tomorrow) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Pinboard) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Anytime) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Repeating) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_repeating (false)) {
-                    add_item (item);
-                }
-            } else if (filter is Objects.Filters.Unlabeled) {
-                foreach (Objects.Item item in Services.Database.get_default ().get_items_unlabeled (false)) {
-                    add_item (item);
-                }
+        if (filter is Objects.Filters.Priority) {
+            Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
+                add_item (item);
             }
-
-            return null;
-        });
+        } else if (filter is Objects.Filters.Completed) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Tomorrow) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Pinboard) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Anytime) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Repeating) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_repeating (false)) {
+                add_item (item);
+            }
+        } else if (filter is Objects.Filters.Unlabeled) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_unlabeled (false)) {
+                add_item (item);
+            }
+        }
     }
 
     private void add_item (Objects.Item item) {
-        Idle.add (() => {
-            items [item.id] = new Layouts.ItemRow (item) {
-                show_project_label = true
-            };
-            items [item.id].disable_drag_and_drop ();
-            listbox.append (items [item.id]);
-
-            return false;
-        });
+        items [item.id] = new Layouts.ItemRow (item) {
+            show_project_label = true
+        };
+        items [item.id].disable_drag_and_drop ();
+        listbox.append (items [item.id]);
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -453,9 +443,9 @@ public class Views.Filter : Adw.Bin {
     }
 
     private void validate_placeholder () {
-        listbox.invalidate_filter ();
-        listbox.invalidate_sort ();
-        listbox.invalidate_headers ();
+        //  listbox.invalidate_filter ();
+        //  listbox.invalidate_sort ();
+        //  listbox.invalidate_headers ();
         
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }

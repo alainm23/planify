@@ -57,6 +57,28 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             main_grid.attach (icon_project, 0, 0);
             main_grid.attach (name_label, 1, 0);
+        } else if (base_object is Objects.Section) {
+            Objects.Section section = ((Objects.Section) base_object);
+
+            var section_icon = new Gtk.Image.from_icon_name ("carousel-symbolic") {
+                valign = Gtk.Align.CENTER
+            };
+
+            var name_label = new Gtk.Label (markup_string_with_search (section.name, pattern)) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                use_markup = true
+            };
+
+            var project_label = new Gtk.Label (section.project.name) {
+                ellipsize = Pango.EllipsizeMode.END,
+                xalign = 0,
+                css_classes = { "dim-label", "small-label" }
+            };
+
+            main_grid.attach (section_icon, 0, 0, 1, 2);
+            main_grid.attach (name_label, 1, 0, 1, 1);
+            main_grid.attach (project_label, 1, 1, 1, 1);
         } else if (base_object is Objects.Item) {
             Objects.Item item = ((Objects.Item) base_object);
 
@@ -74,11 +96,9 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
 
             var project_label = new Gtk.Label (item.project.name) {
                 ellipsize = Pango.EllipsizeMode.END,
-                xalign = 0
+                xalign = 0,
+                css_classes = { "dim-label", "small-label" }
             };
-
-            project_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-            project_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
 
             main_grid.attach (checked_button, 0, 0, 1, 2);
             main_grid.attach (content_label, 1, 0, 1, 1);

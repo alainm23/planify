@@ -31,14 +31,6 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "priority-%d".printf (priority);
-            return _view_id;
-        }
-    }
-
     public Priority (int priority) {
         Object (
             priority: priority
@@ -65,6 +57,7 @@ public class Objects.Filters.Priority : Objects.BaseObject {
     construct {
         name = Util.get_default ().get_priority_title (priority);
         keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filter");
+        view_id = "priority-%d".printf (priority);
 
         Services.Database.get_default ().item_added.connect (() => {
             _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;

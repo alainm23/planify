@@ -29,17 +29,10 @@ public class Objects.Filters.Tomorrow : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "tomorrow-view";
-            return _view_id;
-        }
-    }
-
     construct {
         name = _("Tomorrow");
         keywords = "%s;%s;%s".printf (_("tomorrow"), _("filter"), _("date"));
         icon_name = "today-calendar-symbolic";
+        view_id = "tomorrow-view";
     }
 }

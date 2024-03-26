@@ -399,10 +399,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            tooltip_text = _("Add subtask"),
-            margin_top = 1,
-            can_focus = false,
-            focusable = false,
+            tooltip_text = _("Add Subtasks"),
             css_classes = { "flat" }
         };
         
@@ -660,7 +657,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         var add_subitem_gesture = new Gtk.GestureClick ();
-        add_subitem_gesture.set_button (1);
         add_button.add_controller (add_subitem_gesture);
         add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
@@ -884,7 +880,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.RIGHT,
+            position = Gtk.PositionType.BOTTOM,
             width_request = 250
         };
 

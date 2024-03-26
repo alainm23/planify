@@ -9,7 +9,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         Object (
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
-            tooltip_text: _("Set the priority")
+            tooltip_text: _("Set The Priority")
         );
     }
 
@@ -28,16 +28,16 @@ public class Widgets.PriorityButton : Adw.Bin {
     }
 
     public Gtk.Popover build_popover () {
-        var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: high"), "flag-outline-thick-symbolic");
+        var priority_1_item = new Widgets.ContextMenu.MenuItem (_("Priority 1: High"), "flag-outline-thick-symbolic");
         priority_1_item.add_css_class ("priority-1-button");
 
-        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: medium"), "flag-outline-thick-symbolic");
+        var priority_2_item = new Widgets.ContextMenu.MenuItem (_("Priority 2: Medium"), "flag-outline-thick-symbolic");
         priority_2_item.add_css_class ("priority-2-button");
 
-        var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: low"), "flag-outline-thick-symbolic");
+        var priority_3_item = new Widgets.ContextMenu.MenuItem (_("Priority 3: Low"), "flag-outline-thick-symbolic");
         priority_3_item.add_css_class ("priority-3-button");
 
-        var priority_4_item = new Widgets.ContextMenu.MenuItem (_("Priority 4: none"), "flag-outline-thick-symbolic");
+        var priority_4_item = new Widgets.ContextMenu.MenuItem (_("Priority 4: None"), "flag-outline-thick-symbolic");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
