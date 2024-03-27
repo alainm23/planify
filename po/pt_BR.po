@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-26 15:21-0500\n"
+"POT-Creation-Date: 2024-03-27 18:37-0500\n"
 "PO-Revision-Date: 2023-06-04 16:50-0300\n"
 "Last-Translator: Fúlvio Leo <fulviokaldas@outlook.com>\n"
 "Language: pt_BR\n"
@@ -143,7 +143,8 @@ msgstr "Hoje + Caixa de Entrada"
 
 #: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
 #: src/Layouts/ItemRow.vala:848 src/Layouts/ItemBoard.vala:588
-#: src/Views/Filter.vala:175 src/Dialogs/DatePicker.vala:68
+#: src/Views/Filter.vala:175 src/Dialogs/WhatsNew.vala:120
+#: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
 msgstr "Amanhã"
 
@@ -755,7 +756,7 @@ msgstr "Este projeto foi copiado para a Área de Transferência."
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
 #: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
 #, fuzzy
-msgid "filter"
+msgid "filters"
 msgstr "Filtro"
 
 #: core/Objects/Filters/Scheduled.vala:51
@@ -823,20 +824,20 @@ msgstr "Tarefas sincronizadas com sucesso"
 msgid "Do you want to use Todoist as your default Inbox Project?"
 msgstr "Você quer usar o Todoist como sua Caixa de Entrada de Projetos padrão?"
 
-#: src/MainWindow.vala:478 src/Dialogs/Preferences/PreferencesWindow.vala:40
+#: src/MainWindow.vala:460 src/Dialogs/Preferences/PreferencesWindow.vala:40
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:481
+#: src/MainWindow.vala:463
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos de teclado"
 
-#: src/MainWindow.vala:484 src/Dialogs/WhatsNew.vala:155
+#: src/MainWindow.vala:466 src/Dialogs/WhatsNew.vala:156
 msgid "What's New"
 msgstr ""
 
-#: src/MainWindow.vala:486
+#: src/MainWindow.vala:468
 #, fuzzy
 msgid "About Planify"
 msgstr "Sobre o Planner"
@@ -1324,11 +1325,11 @@ msgstr "Rótulos: Todoist"
 msgid "Labels: Nextcloud"
 msgstr "Rótulos: Todoist"
 
-#: src/Views/Filter.vala:187
+#: src/Views/Filter.vala:187 src/Dialogs/WhatsNew.vala:121
 msgid "Anytime"
 msgstr ""
 
-#: src/Views/Filter.vala:193
+#: src/Views/Filter.vala:193 src/Dialogs/WhatsNew.vala:119
 #, fuzzy
 msgid "Repeating"
 msgstr "Repetir"
@@ -1405,14 +1406,34 @@ msgstr "Insira suas credenciais"
 msgid "Network Is Not Available"
 msgstr "A Internet Não Está Disponível"
 
+#: src/Dialogs/WhatsNew.vala:118
+#, fuzzy
+msgid "New Filters"
+msgstr "Filtros"
+
+#: src/Dialogs/WhatsNew.vala:118
+msgid "New filters available in Quick Add."
+msgstr ""
+
 #: src/Dialogs/WhatsNew.vala:119
-msgid "New look"
+msgid "All your repeating to-dos in one, convenient place (finally!)."
 msgstr ""
 
 #: src/Dialogs/WhatsNew.vala:120
-msgid ""
-"The design has been improved and new icons have been added making the user "
-"interface simpler to understand and use.."
+msgid "A nice focused list to plan tomorrow, today."
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:121
+msgid "All your unlabel to-dos in one place."
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:122
+#, fuzzy
+msgid "Search by Sections"
+msgstr "Nova seção"
+
+#: src/Dialogs/WhatsNew.vala:122
+msgid "Quick Find now supports section searching."
 msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:63

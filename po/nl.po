@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-26 15:21-0500\n"
+"POT-Creation-Date: 2024-03-27 18:37-0500\n"
 "PO-Revision-Date: 2024-03-23 19:44+0100\n"
 "Last-Translator: Gert-dev\n"
 "Language-Team: Dutch <>\n"
@@ -144,7 +144,8 @@ msgstr "Vandaag + Inbox"
 
 #: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
 #: src/Layouts/ItemRow.vala:848 src/Layouts/ItemBoard.vala:588
-#: src/Views/Filter.vala:175 src/Dialogs/DatePicker.vala:68
+#: src/Views/Filter.vala:175 src/Dialogs/WhatsNew.vala:120
+#: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -782,7 +783,7 @@ msgstr "Het project werd naar het klembord gekopieerd."
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
 #: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
 #, fuzzy
-msgid "filter"
+msgid "filters"
 msgstr "Filteren"
 
 #: core/Objects/Filters/Scheduled.vala:51
@@ -849,19 +850,19 @@ msgstr "Taken met succes gesynchroniseerd"
 msgid "Do you want to use Todoist as your default Inbox Project?"
 msgstr "Wil je Todoist gebruiken als je standaardproject voor de Inbox?"
 
-#: src/MainWindow.vala:478 src/Dialogs/Preferences/PreferencesWindow.vala:40
+#: src/MainWindow.vala:460 src/Dialogs/Preferences/PreferencesWindow.vala:40
 msgid "Preferences"
 msgstr "Voorkeuren"
 
-#: src/MainWindow.vala:481
+#: src/MainWindow.vala:463
 msgid "Keyboard Shortcuts"
 msgstr "Sneltoetsen"
 
-#: src/MainWindow.vala:484 src/Dialogs/WhatsNew.vala:155
+#: src/MainWindow.vala:466 src/Dialogs/WhatsNew.vala:156
 msgid "What's New"
 msgstr "Wat is er nieuw"
 
-#: src/MainWindow.vala:486
+#: src/MainWindow.vala:468
 msgid "About Planify"
 msgstr "Over Planify"
 
@@ -1320,12 +1321,12 @@ msgstr "Labels: Todoist"
 msgid "Labels: Nextcloud"
 msgstr "Labels: Nextcloud"
 
-#: src/Views/Filter.vala:187
+#: src/Views/Filter.vala:187 src/Dialogs/WhatsNew.vala:121
 #, fuzzy
 msgid "Anytime"
 msgstr "tijd"
 
-#: src/Views/Filter.vala:193
+#: src/Views/Filter.vala:193 src/Dialogs/WhatsNew.vala:119
 #, fuzzy
 msgid "Repeating"
 msgstr "Herhalen"
@@ -1398,17 +1399,35 @@ msgstr "Gelieve je aanmeldgegevens in te geven"
 msgid "Network Is Not Available"
 msgstr "Netwerk niet beschikbaar"
 
+#: src/Dialogs/WhatsNew.vala:118
+#, fuzzy
+msgid "New Filters"
+msgstr "Filters"
+
+#: src/Dialogs/WhatsNew.vala:118
+msgid "New filters available in Quick Add."
+msgstr ""
+
 #: src/Dialogs/WhatsNew.vala:119
-msgid "New look"
-msgstr "Nieuwe look"
+msgid "All your repeating to-dos in one, convenient place (finally!)."
+msgstr ""
 
 #: src/Dialogs/WhatsNew.vala:120
-msgid ""
-"The design has been improved and new icons have been added making the user "
-"interface simpler to understand and use.."
+msgid "A nice focused list to plan tomorrow, today."
 msgstr ""
-"Het design is verbeterd en nieuwe icoontjes werden toegevoegd zodat de "
-"gebruikersinterface makkelijker te begrijpen en gebruiken is."
+
+#: src/Dialogs/WhatsNew.vala:121
+msgid "All your unlabel to-dos in one place."
+msgstr ""
+
+#: src/Dialogs/WhatsNew.vala:122
+#, fuzzy
+msgid "Search by Sections"
+msgstr "Nieuwe onderverdeling"
+
+#: src/Dialogs/WhatsNew.vala:122
+msgid "Quick Find now supports section searching."
+msgstr ""
 
 #: src/Dialogs/ManageSectionOrder.vala:63
 msgid "Update"
@@ -2218,6 +2237,16 @@ msgstr "Labels weergeven"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Prikbord weergeven"
+
+#~ msgid "New look"
+#~ msgstr "Nieuwe look"
+
+#~ msgid ""
+#~ "The design has been improved and new icons have been added making the "
+#~ "user interface simpler to understand and use.."
+#~ msgstr ""
+#~ "Het design is verbeterd en nieuwe icoontjes werden toegevoegd zodat de "
+#~ "gebruikersinterface makkelijker te begrijpen en gebruiken is."
 
 #~ msgid "Add label(s)"
 #~ msgstr "Label(s) toewijzen"
