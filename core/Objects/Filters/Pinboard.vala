@@ -48,7 +48,7 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
 
     construct {
         name = ("Pinboard");
-        keywords = _("Pinboard") + ";" + _("filter");
+        keywords = _("Pinboard") + ";" + _("filters");
         icon_name = "pin-symbolic";
         view_id = FilterType.PINBOARD.to_string ();
 

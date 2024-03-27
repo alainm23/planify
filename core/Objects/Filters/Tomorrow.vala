@@ -31,7 +31,7 @@ public class Objects.Filters.Tomorrow : Objects.BaseObject {
 
     construct {
         name = _("Tomorrow");
-        keywords = "%s;%s;%s".printf (_("tomorrow"), _("filter"), _("date"));
+        keywords = "%s;%s;%s".printf (_("tomorrow"), _("filters"), _("date"));
         icon_name = "today-calendar-symbolic";
         view_id = "tomorrow-view";
     }

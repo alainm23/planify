@@ -64,7 +64,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
 
     construct {
         name = _("Today");
-        keywords = _("today") + ";" + _("filter");
+        keywords = _("today") + ";" + _("filters");
         icon_name = "star-outline-thick-symbolic";
         view_id = FilterType.TODAY.to_string ();
 

@@ -31,7 +31,7 @@ public class Objects.Filters.Repeating : Objects.BaseObject {
 
     construct {
         name = _("Repeating");
-        keywords = "%s;%s".printf (_("repeating"), _("filter"));
+        keywords = "%s;%s".printf (_("repeating"), _("filters"));
         icon_name = "arrow-circular-top-right-symbolic";
         view_id = "repeating-view";
     }

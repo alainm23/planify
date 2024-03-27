@@ -48,7 +48,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
 
     construct {
         name = _("Labels");
-        keywords = "%s;%s".printf (_("labels"), _("filter"));
+        keywords = "%s;%s".printf (_("labels"), _("filters"));
         icon_name = "tag-outline-symbolic";
         view_id = FilterType.LABELS.to_string ();
 

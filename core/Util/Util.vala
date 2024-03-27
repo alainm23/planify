@@ -900,25 +900,25 @@ public class Util : GLib.Object {
         if (priority == Constants.PRIORITY_1) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
                 css_classes = { "priority-1-icon" },
-                pixel_size = 19
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_2) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
                 css_classes = { "priority-1-icon" },
-                pixel_size = 19
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_3) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
                 css_classes = { "priority-1-icon" },
-                pixel_size = 19
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_4) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 19
+                pixel_size = 16
             };
         } else {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 19
+                pixel_size = 16
             };
         }
     }

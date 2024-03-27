@@ -70,7 +70,7 @@
     <release version="4.5.10" date="2024-03-26">
       <description translatable="no">
         <ul>
-          <li>Morning, Untagged, Repeat and Anytime filter added from Quick Search.</li>
+          <li>Tomorrow, Untagged, Repeat and Anytime filter added from Quick Search.</li>
           <li>Completed view added to the sidebar.</li>
           <li>Dutch translations added thanks to @Gert-dev.</li>
           <li>French translation update thanks to @rene-coty.</li>

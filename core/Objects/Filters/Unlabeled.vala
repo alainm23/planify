@@ -31,7 +31,7 @@ public class Objects.Filters.Unlabeled : Objects.BaseObject {
 
     construct {
         name = _("Unlabeled");
-        keywords = "%s;%s;%s".printf (_("no label"), _("unlabeled"), _("filter"));
+        keywords = "%s;%s;%s".printf (_("no label"), _("unlabeled"), _("filters"));
         icon_name = "tag-outline-remove-symbolic";
         view_id = "unlabeled-view";
     }

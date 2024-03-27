@@ -301,8 +301,6 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public Views.Project add_project_view (Objects.Project project) {
-		remove_filter_view ();
-
 		Views.Project? project_view;
 		project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
 		if (project_view == null) {
@@ -315,8 +313,6 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void add_today_view () {
-		remove_filter_view ();
-
 		Views.Today? today_view;
 		today_view = (Views.Today) views_stack.get_child_by_name ("today-view");
 		if (today_view == null) {
@@ -328,8 +324,6 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void add_scheduled_view () {
-		remove_filter_view ();
-
 		Views.Scheduled.Scheduled? scheduled_view;
 		scheduled_view = (Views.Scheduled.Scheduled) views_stack.get_child_by_name ("scheduled-view");
 		if (scheduled_view == null) {
@@ -340,9 +334,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack.set_visible_child_name ("scheduled-view");
 	}
 
-	public void add_labels_view () {
-		remove_filter_view ();
-		
+	public void add_labels_view () {		
 		Views.Labels? labels_view;
 		labels_view = (Views.Labels) views_stack.get_child_by_name ("labels-view");
 		if (labels_view == null) {
@@ -354,8 +346,6 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void add_label_view (string id) {
-		remove_filter_view ();
-		
 		Views.Label? label_view;
 		label_view = (Views.Label) views_stack.get_child_by_name ("label-view");
 		if (label_view == null) {
@@ -369,34 +359,26 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	public void add_priority_view (string view_id) {
 		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
+		filter_view = (Views.Filter) views_stack.get_child_by_name (view_id);
 		if (filter_view == null) {
 			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
+			views_stack.add_named (filter_view, view_id);
 		}
 
 		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
-		views_stack.set_visible_child_name ("filter-view");
+		views_stack.set_visible_child_name (view_id);
 	}
 
 	private void add_filter_view (Objects.BaseObject base_object) {
 		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
+		filter_view = (Views.Filter) views_stack.get_child_by_name (base_object.view_id);
 		if (filter_view == null) {
 			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "filter-view");
+			filter_view.filter = base_object;
+			views_stack.add_named (filter_view, base_object.view_id);
 		}
 
-		filter_view.filter = base_object;
-		views_stack.set_visible_child_name ("filter-view");
-	}
-
-	private void remove_filter_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
-		if (filter_view != null) {
-			views_stack.remove (filter_view);
-		}
+		views_stack.set_visible_child_name (base_object.view_id);
 	}
 
 	public void go_homepage () {

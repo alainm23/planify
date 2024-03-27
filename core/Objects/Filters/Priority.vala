@@ -56,7 +56,7 @@ public class Objects.Filters.Priority : Objects.BaseObject {
 
     construct {
         name = Util.get_default ().get_priority_title (priority);
-        keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filter");
+        keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filters");
         view_id = "priority-%d".printf (priority);
 
         Services.Database.get_default ().item_added.connect (() => {

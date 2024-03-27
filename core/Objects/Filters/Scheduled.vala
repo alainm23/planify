@@ -48,7 +48,7 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
 
     construct {
         name = _("Scheduled");
-        keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filter"));
+        keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filters"));
         icon_name = "month-symbolic";
         view_id = FilterType.SCHEDULED.to_string ();
 
