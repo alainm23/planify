@@ -215,7 +215,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "priority-color" }
+            css_classes = { "priority-color" },
+            sensitive = !item.completed && !item.project.is_deck
         };
 
         checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
@@ -226,9 +227,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_stack = new Gtk.Stack () {
 			transition_type = Gtk.StackTransitionType.CROSSFADE
 		};
-
-        //  checked_stack.add_named (checked_button, "check-button");
-        //  checked_stack.add_named (checked_repeat_button, "repeat-button");
 
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,

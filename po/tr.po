@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.alainm23.planner\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 18:37-0500\n"
+"POT-Creation-Date: 2024-03-27 18:42-0500\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: \n"
@@ -116,7 +116,7 @@ msgstr "Koyu"
 msgid "Dark Blue"
 msgstr "Koyu Mavi"
 
-#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1064
+#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1062
 #: src/Layouts/ItemView.vala:536
 #: src/Dialogs/Preferences/PreferencesWindow.vala:441
 msgid "None"
@@ -135,7 +135,7 @@ msgstr "Gelen Kutusu"
 #: core/Util/Util.vala:230 core/Util/Util.vala:395 core/Enum.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:81
 #: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:111
-#: src/Layouts/ItemRow.vala:845 src/Layouts/ItemBoard.vala:585
+#: src/Layouts/ItemRow.vala:843 src/Layouts/ItemBoard.vala:585
 #: src/Views/Today.vala:51 src/Views/Today.vala:127
 #: src/Dialogs/DatePicker.vala:64
 #: src/Dialogs/Preferences/PreferencesWindow.vala:313
@@ -148,7 +148,7 @@ msgid "Today + Inbox"
 msgstr "Bugün + Gelen Kutusu"
 
 #: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
-#: src/Layouts/ItemRow.vala:848 src/Layouts/ItemBoard.vala:588
+#: src/Layouts/ItemRow.vala:846 src/Layouts/ItemBoard.vala:588
 #: src/Views/Filter.vala:175 src/Dialogs/WhatsNew.vala:120
 #: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
@@ -536,7 +536,7 @@ msgstr "Her %d yılda bir"
 msgid "To-do name"
 msgstr "Yapılacak adı"
 
-#: core/QuickAdd.vala:70 src/Layouts/ItemRow.vala:364
+#: core/QuickAdd.vala:70 src/Layouts/ItemRow.vala:362
 #: src/Layouts/ItemView.vala:93
 msgid "Add a description…"
 msgstr "Açıklama ekle…"
@@ -591,7 +591,7 @@ msgstr "Sunucu şu anda isteği işleyemiyor."
 msgid "Unknown error"
 msgstr "Bilinmeyen hata"
 
-#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:851
+#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:849
 #: src/Layouts/ItemBoard.vala:196 src/Layouts/ItemBoard.vala:591
 msgid "Pinned"
 msgstr "İğnelenmiş"
@@ -713,7 +713,7 @@ msgid "Clear"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
-#: src/Layouts/ItemRow.vala:970
+#: src/Layouts/ItemRow.vala:968
 #, fuzzy
 msgid "Back"
 msgstr "Yedekler"
@@ -776,7 +776,7 @@ msgstr "Bölüm Yok"
 msgid "Task copied to clipboard"
 msgstr "Görev panoya kopyalandı"
 
-#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:973
+#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:971
 #: src/Layouts/ItemView.vala:449
 #, c-format
 msgid "Duplicate"
@@ -1028,17 +1028,17 @@ msgstr "Bölüm Sıralamasını Yönet"
 msgid "Delete Section"
 msgstr "Bölümü Sil"
 
-#: src/Layouts/ItemRow.vala:402
+#: src/Layouts/ItemRow.vala:400
 #, fuzzy
 msgid "Add Subtasks"
 msgstr "Alt Görev Ekle"
 
-#: src/Layouts/ItemRow.vala:853 src/Layouts/ItemBoard.vala:593
+#: src/Layouts/ItemRow.vala:851 src/Layouts/ItemBoard.vala:593
 #: src/Dialogs/DatePicker.vala:77
 msgid "No Date"
 msgstr "Tarih Yok"
 
-#: src/Layouts/ItemRow.vala:856 src/Layouts/ItemRow.vala:974
+#: src/Layouts/ItemRow.vala:854 src/Layouts/ItemRow.vala:972
 #: src/Layouts/ItemBoard.vala:595 src/Layouts/ItemBoard.vala:988
 #: src/Layouts/ItemView.vala:450
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:74
@@ -1046,80 +1046,80 @@ msgstr "Tarih Yok"
 msgid "Move"
 msgstr "Taşı"
 
-#: src/Layouts/ItemRow.vala:858 src/Layouts/ItemBoard.vala:597
+#: src/Layouts/ItemRow.vala:856 src/Layouts/ItemBoard.vala:597
 msgid "Add Subtask"
 msgstr "Alt Görev Ekle"
 
-#: src/Layouts/ItemRow.vala:859 src/Layouts/ItemBoard.vala:598
+#: src/Layouts/ItemRow.vala:857 src/Layouts/ItemBoard.vala:598
 msgid "Complete"
 msgstr "Tamamlandı"
 
-#: src/Layouts/ItemRow.vala:860 src/Layouts/ItemBoard.vala:599
+#: src/Layouts/ItemRow.vala:858 src/Layouts/ItemBoard.vala:599
 msgid "Edit"
 msgstr "Düzenle"
 
-#: src/Layouts/ItemRow.vala:862 src/Layouts/ItemRow.vala:978
+#: src/Layouts/ItemRow.vala:860 src/Layouts/ItemRow.vala:976
 #: src/Layouts/ItemBoard.vala:601 src/Layouts/ItemView.vala:457
 msgid "Delete Task"
 msgstr "Görevi Sil"
 
-#: src/Layouts/ItemRow.vala:958 src/Layouts/ItemView.vala:436
+#: src/Layouts/ItemRow.vala:956 src/Layouts/ItemView.vala:436
 msgid "Added at"
 msgstr "Eklenme tarihi"
 
-#: src/Layouts/ItemRow.vala:959 src/Layouts/ItemView.vala:437
+#: src/Layouts/ItemRow.vala:957 src/Layouts/ItemView.vala:437
 msgid "Updated at"
 msgstr "Güncellenme tarihi"
 
-#: src/Layouts/ItemRow.vala:961 src/Layouts/ItemView.vala:439
+#: src/Layouts/ItemRow.vala:959 src/Layouts/ItemView.vala:439
 msgid "Not available"
 msgstr "Kullanılamıyor"
 
-#: src/Layouts/ItemRow.vala:972 src/Layouts/ItemView.vala:448
+#: src/Layouts/ItemRow.vala:970 src/Layouts/ItemView.vala:448
 msgid "Copy to Clipboard"
 msgstr "Panoya Kopyala"
 
-#: src/Layouts/ItemRow.vala:975 src/Layouts/ItemView.vala:451
+#: src/Layouts/ItemRow.vala:973 src/Layouts/ItemView.vala:451
 #: src/Dialogs/RepeatConfig.vala:90
 msgid "Repeat"
 msgstr "Yinele"
 
-#: src/Layouts/ItemRow.vala:1065 src/Layouts/ItemView.vala:537
+#: src/Layouts/ItemRow.vala:1063 src/Layouts/ItemView.vala:537
 msgid "Daily"
 msgstr "Günlük"
 
-#: src/Layouts/ItemRow.vala:1066 src/Layouts/ItemView.vala:538
+#: src/Layouts/ItemRow.vala:1064 src/Layouts/ItemView.vala:538
 msgid "Weekly"
 msgstr "Haftalık"
 
-#: src/Layouts/ItemRow.vala:1067 src/Layouts/ItemView.vala:539
+#: src/Layouts/ItemRow.vala:1065 src/Layouts/ItemView.vala:539
 msgid "Monthly"
 msgstr "Aylık"
 
-#: src/Layouts/ItemRow.vala:1068 src/Layouts/ItemView.vala:540
+#: src/Layouts/ItemRow.vala:1066 src/Layouts/ItemView.vala:540
 msgid "Yearly"
 msgstr "Yıllık"
 
-#: src/Layouts/ItemRow.vala:1069 src/Layouts/ItemView.vala:541
+#: src/Layouts/ItemRow.vala:1067 src/Layouts/ItemView.vala:541
 msgid "Custom"
 msgstr "Özel"
 
-#: src/Layouts/ItemRow.vala:1273 src/Layouts/ItemBoard.vala:499
+#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemBoard.vala:499
 #: src/Layouts/ItemView.vala:355
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Tamamlandı. Sonraki gerçekleşme: %s"
 
-#: src/Layouts/ItemRow.vala:1315 src/Layouts/ItemBoard.vala:947
+#: src/Layouts/ItemRow.vala:1313 src/Layouts/ItemBoard.vala:947
 #, c-format
 msgid "%s was deleted"
 msgstr "%s silindi"
 
-#: src/Layouts/ItemRow.vala:1316 src/Layouts/ItemBoard.vala:948
+#: src/Layouts/ItemRow.vala:1314 src/Layouts/ItemBoard.vala:948
 msgid "Undo"
 msgstr "Geri Al"
 
-#: src/Layouts/ItemRow.vala:1511 src/Layouts/ItemBoard.vala:848
+#: src/Layouts/ItemRow.vala:1509 src/Layouts/ItemBoard.vala:848
 msgid "Order changed to 'Custom sort order'"
 msgstr "Sıralama 'Özel Sıralama Düzeni' olarak değiştirildi"
 
