@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 18:42-0500\n"
+"POT-Creation-Date: 2024-03-28 07:34-0500\n"
 "PO-Revision-Date: 2023-06-04 16:50-0300\n"
 "Last-Translator: Fúlvio Leo <fulviokaldas@outlook.com>\n"
 "Language: pt_BR\n"
@@ -110,7 +110,7 @@ msgstr "Escuro"
 msgid "Dark Blue"
 msgstr "Azul Escuro"
 
-#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1062
+#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1094
 #: src/Layouts/ItemView.vala:536
 #: src/Dialogs/Preferences/PreferencesWindow.vala:441
 msgid "None"
@@ -129,7 +129,7 @@ msgstr "Caixa de Entrada"
 #: core/Util/Util.vala:230 core/Util/Util.vala:395 core/Enum.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:81
 #: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:111
-#: src/Layouts/ItemRow.vala:843 src/Layouts/ItemBoard.vala:585
+#: src/Layouts/ItemRow.vala:864 src/Layouts/ItemBoard.vala:585
 #: src/Views/Today.vala:51 src/Views/Today.vala:127
 #: src/Dialogs/DatePicker.vala:64
 #: src/Dialogs/Preferences/PreferencesWindow.vala:313
@@ -142,7 +142,7 @@ msgid "Today + Inbox"
 msgstr "Hoje + Caixa de Entrada"
 
 #: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
-#: src/Layouts/ItemRow.vala:846 src/Layouts/ItemBoard.vala:588
+#: src/Layouts/ItemRow.vala:867 src/Layouts/ItemBoard.vala:588
 #: src/Views/Filter.vala:175 src/Dialogs/WhatsNew.vala:120
 #: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
@@ -556,7 +556,7 @@ msgstr "O servidor não pode processar a requisição no momento."
 msgid "Unknown error"
 msgstr ""
 
-#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:849
+#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:870
 #: src/Layouts/ItemBoard.vala:196 src/Layouts/ItemBoard.vala:591
 msgid "Pinned"
 msgstr "Fixado"
@@ -678,7 +678,7 @@ msgid "Clear"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
-#: src/Layouts/ItemRow.vala:968
+#: src/Layouts/ItemRow.vala:995
 #, fuzzy
 msgid "Back"
 msgstr "Voltar"
@@ -742,7 +742,7 @@ msgstr "Nenhuma Seção"
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
-#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:971
+#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:998
 #: src/Layouts/ItemView.vala:449
 #, fuzzy, c-format
 msgid "Duplicate"
@@ -1000,17 +1000,17 @@ msgstr "Gerenciar Ordem de Seção"
 msgid "Delete Section"
 msgstr "Deletar Seção"
 
-#: src/Layouts/ItemRow.vala:400
+#: src/Layouts/ItemRow.vala:412
 #, fuzzy
 msgid "Add Subtasks"
 msgstr "Adicionar subtarefa"
 
-#: src/Layouts/ItemRow.vala:851 src/Layouts/ItemBoard.vala:593
+#: src/Layouts/ItemRow.vala:872 src/Layouts/ItemBoard.vala:593
 #: src/Dialogs/DatePicker.vala:77
 msgid "No Date"
 msgstr "Sem Data"
 
-#: src/Layouts/ItemRow.vala:854 src/Layouts/ItemRow.vala:972
+#: src/Layouts/ItemRow.vala:875 src/Layouts/ItemRow.vala:999
 #: src/Layouts/ItemBoard.vala:595 src/Layouts/ItemBoard.vala:988
 #: src/Layouts/ItemView.vala:450
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:74
@@ -1018,86 +1018,86 @@ msgstr "Sem Data"
 msgid "Move"
 msgstr "Mover"
 
-#: src/Layouts/ItemRow.vala:856 src/Layouts/ItemBoard.vala:597
+#: src/Layouts/ItemRow.vala:877 src/Layouts/ItemBoard.vala:597
 #, fuzzy
 msgid "Add Subtask"
 msgstr "Adicionar subtarefa"
 
-#: src/Layouts/ItemRow.vala:857 src/Layouts/ItemBoard.vala:598
+#: src/Layouts/ItemRow.vala:878 src/Layouts/ItemBoard.vala:598
 msgid "Complete"
 msgstr "Completar"
 
-#: src/Layouts/ItemRow.vala:858 src/Layouts/ItemBoard.vala:599
+#: src/Layouts/ItemRow.vala:879 src/Layouts/ItemBoard.vala:599
 msgid "Edit"
 msgstr "Editar"
 
-#: src/Layouts/ItemRow.vala:860 src/Layouts/ItemRow.vala:976
+#: src/Layouts/ItemRow.vala:881 src/Layouts/ItemRow.vala:1003
 #: src/Layouts/ItemBoard.vala:601 src/Layouts/ItemView.vala:457
 #, fuzzy
 msgid "Delete Task"
 msgstr "Deletar tarefa"
 
-#: src/Layouts/ItemRow.vala:956 src/Layouts/ItemView.vala:436
+#: src/Layouts/ItemRow.vala:983 src/Layouts/ItemView.vala:436
 msgid "Added at"
 msgstr "Adicionado em"
 
-#: src/Layouts/ItemRow.vala:957 src/Layouts/ItemView.vala:437
+#: src/Layouts/ItemRow.vala:984 src/Layouts/ItemView.vala:437
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: src/Layouts/ItemRow.vala:959 src/Layouts/ItemView.vala:439
+#: src/Layouts/ItemRow.vala:986 src/Layouts/ItemView.vala:439
 msgid "Not available"
 msgstr "Não disponível"
 
-#: src/Layouts/ItemRow.vala:970 src/Layouts/ItemView.vala:448
+#: src/Layouts/ItemRow.vala:997 src/Layouts/ItemView.vala:448
 #, fuzzy
 msgid "Copy to Clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
-#: src/Layouts/ItemRow.vala:973 src/Layouts/ItemView.vala:451
+#: src/Layouts/ItemRow.vala:1000 src/Layouts/ItemView.vala:451
 #: src/Dialogs/RepeatConfig.vala:90
 msgid "Repeat"
 msgstr "Repetir"
 
-#: src/Layouts/ItemRow.vala:1063 src/Layouts/ItemView.vala:537
+#: src/Layouts/ItemRow.vala:1095 src/Layouts/ItemView.vala:537
 msgid "Daily"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1064 src/Layouts/ItemView.vala:538
+#: src/Layouts/ItemRow.vala:1096 src/Layouts/ItemView.vala:538
 #, fuzzy
 msgid "Weekly"
 msgstr "Semana(s)"
 
-#: src/Layouts/ItemRow.vala:1065 src/Layouts/ItemView.vala:539
+#: src/Layouts/ItemRow.vala:1097 src/Layouts/ItemView.vala:539
 #, fuzzy
 msgid "Monthly"
 msgstr "Mês(es)"
 
-#: src/Layouts/ItemRow.vala:1066 src/Layouts/ItemView.vala:540
+#: src/Layouts/ItemRow.vala:1098 src/Layouts/ItemView.vala:540
 #, fuzzy
 msgid "Yearly"
 msgstr "Ano(s)"
 
-#: src/Layouts/ItemRow.vala:1067 src/Layouts/ItemView.vala:541
+#: src/Layouts/ItemRow.vala:1099 src/Layouts/ItemView.vala:541
 msgid "Custom"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemBoard.vala:499
+#: src/Layouts/ItemRow.vala:1303 src/Layouts/ItemBoard.vala:499
 #: src/Layouts/ItemView.vala:355
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Concluído. Próxima ocorrência: %s"
 
-#: src/Layouts/ItemRow.vala:1313 src/Layouts/ItemBoard.vala:947
+#: src/Layouts/ItemRow.vala:1345 src/Layouts/ItemBoard.vala:947
 #, fuzzy, c-format
 msgid "%s was deleted"
 msgstr "A tarefa foi deletada"
 
-#: src/Layouts/ItemRow.vala:1314 src/Layouts/ItemBoard.vala:948
+#: src/Layouts/ItemRow.vala:1346 src/Layouts/ItemBoard.vala:948
 msgid "Undo"
 msgstr "Desfazer"
 
-#: src/Layouts/ItemRow.vala:1509 src/Layouts/ItemBoard.vala:848
+#: src/Layouts/ItemRow.vala:1541 src/Layouts/ItemBoard.vala:848
 #, fuzzy
 msgid "Order changed to 'Custom sort order'"
 msgstr ""

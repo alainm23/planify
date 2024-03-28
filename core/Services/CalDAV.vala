@@ -629,56 +629,57 @@ public class Services.CalDAV : GLib.Object {
                 GXml.DomHTMLCollection status = element.get_elements_by_tag_name ("d:status");
                 string ics = get_task_ics_from_url (element);
                 bool is_vtodo = is_vtodo (element);
-                print ("is_vtodo: %s\n".printf (is_vtodo.to_string ()));
+                
+                if (!is_vtodo) {
+                    continue;
+                }
 
-                if (is_vtodo) {
-                    if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
-                        Objects.Item? item = Services.Database.get_default ().get_item_by_ics (ics);
-                        if (item != null) {
-                            Services.Database.get_default ().delete_item (item);
+                if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
+                    Objects.Item? item = Services.Database.get_default ().get_item_by_ics (ics);
+                    if (item != null) {
+                        Services.Database.get_default ().delete_item (item);
+                    }
+                } else {
+                    string vtodo = yield get_vtodo_by_url (project.id, ics);
+
+                    ICal.Component ical = new ICal.Component.from_string (vtodo);
+                    Objects.Item? item = Services.Database.get_default ().get_item (ical.get_uid ());
+    
+                    if (item != null) {
+                        string old_project_id = item.project_id;
+                        string old_parent_id = item.parent_id;
+                        
+                        item.update_from_vtodo (vtodo, ics);
+                        item.project_id = project.id;
+                        Services.Database.get_default ().update_item (item);
+    
+                        if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                            Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
+                        }
+    
+                        bool old_checked = item.checked;
+                        if (old_checked != item.checked) {
+                            Services.Database.get_default ().checked_toggled (item, old_checked);
                         }
                     } else {
-                        string vtodo = yield get_vtodo_by_url (project.id, ics);
-    
-                        ICal.Component ical = new ICal.Component.from_string (vtodo);
-                        Objects.Item? item = Services.Database.get_default ().get_item (ical.get_uid ());
-        
-                        if (item != null) {
-                            string old_project_id = item.project_id;
-                            string old_parent_id = item.parent_id;
-                            
-                            item.update_from_vtodo (vtodo, ics);
-                            item.project_id = project.id;
-                            Services.Database.get_default ().update_item (item);
-        
-                            if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                                Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-                            }
-        
-                            bool old_checked = item.checked;
-                            if (old_checked != item.checked) {
-                                Services.Database.get_default ().checked_toggled (item, old_checked);
-                            }
-                        } else {
-                            string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
-                            if (parent_id != "") {
-                                Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
-                                if (parent_item != null) {
-                                    var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                                    new_item.project_id = project.id;
-                                    parent_item.add_item_if_not_exists (new_item);
-                                } else {
-                                    var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                                    new_item.project_id = project.id;
-                                    project.add_item_if_not_exists (new_item);
-                                }
+                        string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
+                        if (parent_id != "") {
+                            Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
+                            if (parent_item != null) {
+                                var new_item = new Objects.Item.from_vtodo (vtodo, ics);
+                                new_item.project_id = project.id;
+                                parent_item.add_item_if_not_exists (new_item);
                             } else {
                                 var new_item = new Objects.Item.from_vtodo (vtodo, ics);
                                 new_item.project_id = project.id;
                                 project.add_item_if_not_exists (new_item);
                             }
-                        }  
-                    }
+                        } else {
+                            var new_item = new Objects.Item.from_vtodo (vtodo, ics);
+                            new_item.project_id = project.id;
+                            project.add_item_if_not_exists (new_item);
+                        }
+                    }  
                 }
             }
 

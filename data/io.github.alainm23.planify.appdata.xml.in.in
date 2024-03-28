@@ -67,6 +67,18 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5.11" date="2024-03-28">
+      <description translatable="no">
+        <ul>
+          <li>Improved performance when using the Completed view.</li>
+          <li>Added the option to delete a completed task from the context menu.</li>
+          <li>The sync keyboard shortcut also syncs your Nextcloud account.</li>
+          <li>Fixed error when viewing calendar event as a task in Nextcloud.</li>
+          <li>Hindu translations added thanks to Nitin.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.10" date="2024-03-26">
       <description translatable="no">
         <ul>

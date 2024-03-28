@@ -111,6 +111,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 _disable_drag_and_drop ();
+
+                Timeout.add (250, () => {
+                    content_textview.grab_focus ();
+                    return GLib.Source.REMOVE;
+                });        
             } else {
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
@@ -546,6 +551,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     return GLib.Source.REMOVE;
                 });
             }
+        });
+
+        var description_gesture_click = new Gtk.GestureClick ();
+        description_textview.add_controller (description_gesture_click);
+        description_gesture_click.pressed.connect ((n_press, x, y) => {
+            description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+            description_textview.grab_focus ();
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();

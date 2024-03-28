@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-27 18:42-0500\n"
+"POT-Creation-Date: 2024-03-28 07:34-0500\n"
 "PO-Revision-Date: 2023-08-20 03:43+0800\n"
 "Last-Translator: YaoSheng <henryau53@gmail.com>\n"
 "Language-Team: \n"
@@ -110,7 +110,7 @@ msgstr "深色"
 msgid "Dark Blue"
 msgstr "深蓝色"
 
-#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1062
+#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1094
 #: src/Layouts/ItemView.vala:536
 #: src/Dialogs/Preferences/PreferencesWindow.vala:441
 msgid "None"
@@ -129,7 +129,7 @@ msgstr "待办收件箱"
 #: core/Util/Util.vala:230 core/Util/Util.vala:395 core/Enum.vala:105
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:81
 #: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:111
-#: src/Layouts/ItemRow.vala:843 src/Layouts/ItemBoard.vala:585
+#: src/Layouts/ItemRow.vala:864 src/Layouts/ItemBoard.vala:585
 #: src/Views/Today.vala:51 src/Views/Today.vala:127
 #: src/Dialogs/DatePicker.vala:64
 #: src/Dialogs/Preferences/PreferencesWindow.vala:313
@@ -142,7 +142,7 @@ msgid "Today + Inbox"
 msgstr "今日任务 + 待办收件夹"
 
 #: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
-#: src/Layouts/ItemRow.vala:846 src/Layouts/ItemBoard.vala:588
+#: src/Layouts/ItemRow.vala:867 src/Layouts/ItemBoard.vala:588
 #: src/Views/Filter.vala:175 src/Dialogs/WhatsNew.vala:120
 #: src/Dialogs/DatePicker.vala:68
 msgid "Tomorrow"
@@ -576,7 +576,7 @@ msgstr "服务器当前无法处理请求。"
 msgid "Unknown error"
 msgstr ""
 
-#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:849
+#: core/Widgets/PinButton.vala:34 src/Layouts/ItemRow.vala:870
 #: src/Layouts/ItemBoard.vala:196 src/Layouts/ItemBoard.vala:591
 msgid "Pinned"
 msgstr "已置顶"
@@ -698,7 +698,7 @@ msgid "Clear"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
-#: src/Layouts/ItemRow.vala:968
+#: src/Layouts/ItemRow.vala:995
 #, fuzzy
 msgid "Back"
 msgstr "返回"
@@ -759,7 +759,7 @@ msgstr "无分区"
 msgid "Task copied to clipboard"
 msgstr "任务已复制到剪切板"
 
-#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:971
+#: core/Objects/Item.vala:1235 src/Layouts/ItemRow.vala:998
 #: src/Layouts/ItemView.vala:449
 #, c-format
 msgid "Duplicate"
@@ -1015,17 +1015,17 @@ msgstr "管理分区顺序"
 msgid "Delete Section"
 msgstr "删除分区"
 
-#: src/Layouts/ItemRow.vala:400
+#: src/Layouts/ItemRow.vala:412
 #, fuzzy
 msgid "Add Subtasks"
 msgstr "添加子任务"
 
-#: src/Layouts/ItemRow.vala:851 src/Layouts/ItemBoard.vala:593
+#: src/Layouts/ItemRow.vala:872 src/Layouts/ItemBoard.vala:593
 #: src/Dialogs/DatePicker.vala:77
 msgid "No Date"
 msgstr "无日期"
 
-#: src/Layouts/ItemRow.vala:854 src/Layouts/ItemRow.vala:972
+#: src/Layouts/ItemRow.vala:875 src/Layouts/ItemRow.vala:999
 #: src/Layouts/ItemBoard.vala:595 src/Layouts/ItemBoard.vala:988
 #: src/Layouts/ItemView.vala:450
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:74
@@ -1033,83 +1033,83 @@ msgstr "无日期"
 msgid "Move"
 msgstr "移动"
 
-#: src/Layouts/ItemRow.vala:856 src/Layouts/ItemBoard.vala:597
+#: src/Layouts/ItemRow.vala:877 src/Layouts/ItemBoard.vala:597
 #, fuzzy
 msgid "Add Subtask"
 msgstr "添加子任务"
 
-#: src/Layouts/ItemRow.vala:857 src/Layouts/ItemBoard.vala:598
+#: src/Layouts/ItemRow.vala:878 src/Layouts/ItemBoard.vala:598
 msgid "Complete"
 msgstr "完成"
 
-#: src/Layouts/ItemRow.vala:858 src/Layouts/ItemBoard.vala:599
+#: src/Layouts/ItemRow.vala:879 src/Layouts/ItemBoard.vala:599
 msgid "Edit"
 msgstr "编辑"
 
-#: src/Layouts/ItemRow.vala:860 src/Layouts/ItemRow.vala:976
+#: src/Layouts/ItemRow.vala:881 src/Layouts/ItemRow.vala:1003
 #: src/Layouts/ItemBoard.vala:601 src/Layouts/ItemView.vala:457
 #, fuzzy
 msgid "Delete Task"
 msgstr "删除任务"
 
-#: src/Layouts/ItemRow.vala:956 src/Layouts/ItemView.vala:436
+#: src/Layouts/ItemRow.vala:983 src/Layouts/ItemView.vala:436
 msgid "Added at"
 msgstr "在…中添加"
 
-#: src/Layouts/ItemRow.vala:957 src/Layouts/ItemView.vala:437
+#: src/Layouts/ItemRow.vala:984 src/Layouts/ItemView.vala:437
 msgid "Updated at"
 msgstr "在…中更新"
 
-#: src/Layouts/ItemRow.vala:959 src/Layouts/ItemView.vala:439
+#: src/Layouts/ItemRow.vala:986 src/Layouts/ItemView.vala:439
 msgid "Not available"
 msgstr "不可用"
 
-#: src/Layouts/ItemRow.vala:970 src/Layouts/ItemView.vala:448
+#: src/Layouts/ItemRow.vala:997 src/Layouts/ItemView.vala:448
 #, fuzzy
 msgid "Copy to Clipboard"
 msgstr "复制到剪切板"
 
-#: src/Layouts/ItemRow.vala:973 src/Layouts/ItemView.vala:451
+#: src/Layouts/ItemRow.vala:1000 src/Layouts/ItemView.vala:451
 #: src/Dialogs/RepeatConfig.vala:90
 msgid "Repeat"
 msgstr "重复"
 
-#: src/Layouts/ItemRow.vala:1063 src/Layouts/ItemView.vala:537
+#: src/Layouts/ItemRow.vala:1095 src/Layouts/ItemView.vala:537
 msgid "Daily"
 msgstr "每天"
 
-#: src/Layouts/ItemRow.vala:1064 src/Layouts/ItemView.vala:538
+#: src/Layouts/ItemRow.vala:1096 src/Layouts/ItemView.vala:538
 msgid "Weekly"
 msgstr "每周"
 
-#: src/Layouts/ItemRow.vala:1065 src/Layouts/ItemView.vala:539
+#: src/Layouts/ItemRow.vala:1097 src/Layouts/ItemView.vala:539
 msgid "Monthly"
 msgstr "每月"
 
-#: src/Layouts/ItemRow.vala:1066 src/Layouts/ItemView.vala:540
+#: src/Layouts/ItemRow.vala:1098 src/Layouts/ItemView.vala:540
 msgid "Yearly"
 msgstr "每年"
 
-#: src/Layouts/ItemRow.vala:1067 src/Layouts/ItemView.vala:541
+#: src/Layouts/ItemRow.vala:1099 src/Layouts/ItemView.vala:541
 msgid "Custom"
 msgstr "自定义"
 
-#: src/Layouts/ItemRow.vala:1271 src/Layouts/ItemBoard.vala:499
+#: src/Layouts/ItemRow.vala:1303 src/Layouts/ItemBoard.vala:499
 #: src/Layouts/ItemView.vala:355
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "已完成，下一个事件：%s"
 
-#: src/Layouts/ItemRow.vala:1313 src/Layouts/ItemBoard.vala:947
+#: src/Layouts/ItemRow.vala:1345 src/Layouts/ItemBoard.vala:947
 #, fuzzy, c-format
 msgid "%s was deleted"
 msgstr "任务已删除"
 
-#: src/Layouts/ItemRow.vala:1314 src/Layouts/ItemBoard.vala:948
+#: src/Layouts/ItemRow.vala:1346 src/Layouts/ItemBoard.vala:948
 msgid "Undo"
 msgstr "撤销"
 
-#: src/Layouts/ItemRow.vala:1509 src/Layouts/ItemBoard.vala:848
+#: src/Layouts/ItemRow.vala:1541 src/Layouts/ItemBoard.vala:848
 #, fuzzy
 msgid "Order changed to 'Custom sort order'"
 msgstr "项目列表顺序改变至自定义顺序。"
