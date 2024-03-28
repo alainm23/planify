@@ -297,8 +297,8 @@ public class Views.Filter : Adw.Bin {
         validate_placeholder ();
     }
 
-    private void valid_update_item (Objects.Item item) {
-        if (items.has_key (item.id)) {
+    private void valid_update_item (Objects.Item item, string update_id = "") {
+        if (items.has_key (item.id) && items [item.id].update_id != update_id) {
             items[item.id].update_request ();
         }
 
@@ -331,7 +331,7 @@ public class Views.Filter : Adw.Bin {
 
             valid_add_item (item);
         } else if (filter is Objects.Filters.Pinboard) {
-            if (items.has_key (item.id) && item.pinned) {
+            if (items.has_key (item.id) && !item.pinned) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }

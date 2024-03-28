@@ -216,7 +216,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
             css_classes = { "priority-color" },
-            sensitive = !item.completed && !item.project.is_deck
+            sensitive = !item.project.is_deck
         };
 
         checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
@@ -382,23 +382,36 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
-            sensitive = !item.completed && !item.project.is_deck
+            sensitive = !item.completed
         };
 
-        schedule_button = new Widgets.ScheduleButton ();
-        priority_button = new Widgets.PriorityButton ();
+        schedule_button = new Widgets.ScheduleButton () {
+            sensitive = !item.completed
+        };
+
+        priority_button = new Widgets.PriorityButton () {
+            sensitive = !item.completed
+        };
         
-        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button = new Widgets.LabelPicker.LabelButton () {
+            sensitive = !item.completed
+        };
+        
         label_button.backend_type = item.project.backend_type;
 
-        pin_button = new Widgets.PinButton (item);
+        pin_button = new Widgets.PinButton (item) {
+            sensitive = !item.completed
+        };
 
-        reminder_button = new Widgets.ReminderButton (item);
+        reminder_button = new Widgets.ReminderButton (item) {
+            sensitive = !item.completed
+        };
 
         add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             tooltip_text = _("Add Subtasks"),
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            sensitive = !item.completed
         };
         
         menu_button = new Gtk.MenuButton () {
@@ -411,7 +424,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 16,
             margin_top = 6,
             hexpand = true,
-            sensitive = !item.completed && !item.project.is_deck
+            sensitive = !item.project.is_deck
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -624,7 +637,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
         menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            if (!item.completed && !item.project.is_deck) {
+            if (!item.project.is_deck) {
                 build_handle_context_menu (x, y);
             }
         });
@@ -753,7 +766,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             content_textview.editable = !item.completed && !item.project.is_deck;
             description_textview.editable = !item.completed && !item.project.is_deck;
             item_labels.sensitive = !item.completed && !item.project.is_deck;
-            action_box.sensitive = !item.completed && !item.project.is_deck;
+            
+            schedule_button.sensitive = !item.completed;
+            priority_button.sensitive = !item.completed;
+            label_button.sensitive = !item.completed;
+            pin_button.sensitive = !item.completed;
+            reminder_button.sensitive = !item.completed;
+            add_button.sensitive = !item.completed;
         }
     }
 
@@ -762,7 +781,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void check_pinboard () {
-        pin_image_revealer.reveal_child = item.pinned;
+        pin_image_revealer.reveal_child = !edit && item.pinned;
     }
 
     private void check_due () {
@@ -772,7 +791,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (item.completed) {
             due_label.label = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_date_from_string (item.completed_at)
+                Util.get_default ().get_format_date (
+                    Util.get_default ().get_date_from_string (item.completed_at)
+                )
             );
             due_label.add_css_class ("completed-grid");
             due_label_revealer.reveal_child = true;
@@ -835,7 +856,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
-            menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+            menu_handle_popover.pointing_to = { ((int) x) + 125, (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
         }
@@ -862,18 +883,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (today_item);
-        menu_box.append (tomorrow_item);
-        menu_box.append (pinboard_item);
-        menu_box.append (no_date_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (move_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (complete_item);
-        menu_box.append (edit_item);
-        menu_box.append (add_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (delete_item);
+
+        if (!item.completed && !item.project.is_deck) {
+            menu_box.append (today_item);
+            menu_box.append (tomorrow_item);
+            menu_box.append (pinboard_item);
+            menu_box.append (no_date_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (move_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (complete_item);
+            menu_box.append (edit_item);
+            menu_box.append (add_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
+        if (!item.project.is_deck) {
+            menu_box.append (delete_item);
+        }
 
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
@@ -883,7 +910,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         menu_handle_popover.set_parent (this);
-        menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+        menu_handle_popover.pointing_to = { ((int) x) + 125, (int) y, 1, 1 };
 
         menu_handle_popover.popup ();
 
@@ -987,11 +1014,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (copy_clipboard_item);
-        menu_box.append (duplicate_item);
-        menu_box.append (move_item);
-        menu_box.append (repeat_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        if (!item.completed) {
+            menu_box.append (copy_clipboard_item);
+            menu_box.append (duplicate_item);
+            menu_box.append (move_item);
+            menu_box.append (repeat_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
+        
         menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
