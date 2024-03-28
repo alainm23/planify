@@ -246,6 +246,7 @@ public class Services.CalDAV : GLib.Object {
             <d:sync-level>1</d:sync-level>
             <d:prop>
                 <d:getetag/>
+                <d:getcontenttype/>
             </d:prop>
         </d:sync-collection>
     """; 
@@ -610,7 +611,6 @@ public class Services.CalDAV : GLib.Object {
         var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
 
         var url = "%s/remote.php/dav/calendars/%s/%s".printf (server_url, username, project.id);
-        print ("URL: %s\n".printf (url));
         var message = new Soup.Message ("REPORT", url);
         yield set_credential (message);
         message.set_request_body_from_bytes ("application/xml", new Bytes ((SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
@@ -628,53 +628,57 @@ public class Services.CalDAV : GLib.Object {
             foreach (GXml.DomElement element in response) {
                 GXml.DomHTMLCollection status = element.get_elements_by_tag_name ("d:status");
                 string ics = get_task_ics_from_url (element);
+                bool is_vtodo = is_vtodo (element);
+                print ("is_vtodo: %s\n".printf (is_vtodo.to_string ()));
 
-                if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
-                    Objects.Item? item = Services.Database.get_default ().get_item_by_ics (ics);
-                    if (item != null) {
-                        Services.Database.get_default ().delete_item (item);
-                    }
-                } else {
-                    string vtodo = yield get_vtodo_by_url (project.id, ics);
-
-                    ICal.Component ical = new ICal.Component.from_string (vtodo);
-                    Objects.Item? item = Services.Database.get_default ().get_item (ical.get_uid ());
-    
-                    if (item != null) {
-                        string old_project_id = item.project_id;
-                        string old_parent_id = item.parent_id;
-                        
-                        item.update_from_vtodo (vtodo, ics);
-                        item.project_id = project.id;
-                        Services.Database.get_default ().update_item (item);
-    
-                        if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
-                            Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
-                        }
-    
-                        bool old_checked = item.checked;
-                        if (old_checked != item.checked) {
-                            Services.Database.get_default ().checked_toggled (item, old_checked);
+                if (is_vtodo) {
+                    if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
+                        Objects.Item? item = Services.Database.get_default ().get_item_by_ics (ics);
+                        if (item != null) {
+                            Services.Database.get_default ().delete_item (item);
                         }
                     } else {
-                        string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
-                        if (parent_id != "") {
-                            Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
-                            if (parent_item != null) {
-                                var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                                new_item.project_id = project.id;
-                                parent_item.add_item_if_not_exists (new_item);
+                        string vtodo = yield get_vtodo_by_url (project.id, ics);
+    
+                        ICal.Component ical = new ICal.Component.from_string (vtodo);
+                        Objects.Item? item = Services.Database.get_default ().get_item (ical.get_uid ());
+        
+                        if (item != null) {
+                            string old_project_id = item.project_id;
+                            string old_parent_id = item.parent_id;
+                            
+                            item.update_from_vtodo (vtodo, ics);
+                            item.project_id = project.id;
+                            Services.Database.get_default ().update_item (item);
+        
+                            if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
+                                Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
+                            }
+        
+                            bool old_checked = item.checked;
+                            if (old_checked != item.checked) {
+                                Services.Database.get_default ().checked_toggled (item, old_checked);
+                            }
+                        } else {
+                            string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
+                            if (parent_id != "") {
+                                Objects.Item? parent_item = Services.Database.get_default ().get_item (parent_id);
+                                if (parent_item != null) {
+                                    var new_item = new Objects.Item.from_vtodo (vtodo, ics);
+                                    new_item.project_id = project.id;
+                                    parent_item.add_item_if_not_exists (new_item);
+                                } else {
+                                    var new_item = new Objects.Item.from_vtodo (vtodo, ics);
+                                    new_item.project_id = project.id;
+                                    project.add_item_if_not_exists (new_item);
+                                }
                             } else {
                                 var new_item = new Objects.Item.from_vtodo (vtodo, ics);
                                 new_item.project_id = project.id;
                                 project.add_item_if_not_exists (new_item);
                             }
-                        } else {
-                            var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                            new_item.project_id = project.id;
-                            project.add_item_if_not_exists (new_item);
-                        }
-                    }  
+                        }  
+                    }
                 }
             }
 
@@ -738,6 +742,19 @@ public class Services.CalDAV : GLib.Object {
         GXml.DomElement href = element.get_elements_by_tag_name ("d:href").get_element (0);
         string[] parts = href.text_content.split ("/");
         return parts[parts.length - 1];
+    }
+
+    public bool is_vtodo (GXml.DomElement element) {
+        bool return_value = false;
+        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
+        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
+        GXml.DomElement getcontenttype = prop.get_elements_by_tag_name ("d:getcontenttype").get_element (0);
+
+        if (getcontenttype.text_content.index_of ("vtodo") > -1) {
+            return_value = true;
+        }
+
+        return return_value;
     }
 
     /*
