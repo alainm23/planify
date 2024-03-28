@@ -129,6 +129,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 labels_summary.check_revealer ();
+                print ("edit - check_revealer\n");
 
                 update_request ();
 
@@ -672,9 +673,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 select_revealer.reveal_child = false;
                 checked_button_revealer.reveal_child = true;
-                labels_summary.check_revealer ();
-                build_drag_and_drop ();
 
+                if (!edit) {
+                    labels_summary.check_revealer ();
+                }
+                
+                build_drag_and_drop ();
                 select_checkbutton.active = false;
             }
         });

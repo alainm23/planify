@@ -152,6 +152,8 @@ public class Views.Filter : Adw.Bin {
             dialog.set_due (Util.get_default ().get_format_date (
                 new GLib.DateTime.now_local ().add_days (1)
             ));
+        } else if (filter is Objects.Filters.Pinboard) {
+            dialog.set_pinned (true);
         }
 
         dialog.show ();

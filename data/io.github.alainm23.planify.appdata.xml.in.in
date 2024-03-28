@@ -71,6 +71,7 @@
       <description translatable="no">
         <ul>
           <li>Improved performance when using the Completed view.</li>
+          <li>Added the option to close an open task with the ESC key.</li>
           <li>Added the option to delete a completed task from the context menu.</li>
           <li>The sync keyboard shortcut also syncs your Nextcloud account.</li>
           <li>Fixed error when viewing calendar event as a task in Nextcloud.</li>

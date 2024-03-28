@@ -413,15 +413,15 @@ public class MainWindow : Adw.ApplicationWindow {
 			if (scheduled_view != null) {
 			    scheduled_view.prepare_new_item (content);
 			}
-		} else if (views_stack.visible_child_name.has_prefix ("filter-view")) {
-			Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name ("filter-view");
+		} else {
+			Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
 			if (filter_view != null) {
 				filter_view.prepare_new_item (content);
+			} else {
+				var dialog = new Dialogs.QuickAdd ();
+				dialog.update_content (content);
+				dialog.show ();
 			}
-		} else {
-			var dialog = new Dialogs.QuickAdd ();
-			dialog.update_content (content);
-        	dialog.show ();
 		}
 	}
 
