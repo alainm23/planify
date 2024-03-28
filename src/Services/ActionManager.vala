@@ -145,6 +145,10 @@ public class Services.ActionManager : Object {
         if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
+
+        if (Services.CalDAV.get_default ().is_logged_in ()) {
+            Services.CalDAV.get_default ().sync_async ();
+        }
     }
 
     private void action_new_project () {
