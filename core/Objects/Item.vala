@@ -389,7 +389,6 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void patch_from_vtodo (string data, string _ics) {
-        ECal.Component ecal = new ECal.Component.from_string (data);
         ICal.Component ical = new ICal.Component.from_string (data);
 
         id = ical.get_uid ();

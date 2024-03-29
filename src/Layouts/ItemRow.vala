@@ -129,7 +129,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
                 labels_summary.check_revealer ();
-                print ("edit - check_revealer\n");
 
                 update_request ();
 
