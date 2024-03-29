@@ -8,16 +8,16 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-28 07:34-0500\n"
-"PO-Revision-Date: 2024-02-13 23:44+0100\n"
+"PO-Revision-Date: 2024-03-29 04:53+0100\n"
 "Last-Translator: bestlinuxgamers <52172848+bestlinuxgamers@users.noreply."
 "github.com>\n"
-"Language-Team: German <>\n"
+"Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Gtranslator 45.3\n"
+"X-Generator: Gtranslator 46.0\n"
 
 #: core/Util/Util.vala:41
 msgid "Berry Red"
@@ -75,9 +75,7 @@ msgstr "Traube"
 msgid "Violet"
 msgstr "Violett"
 
-# Assumed error "Lavander" -> "Lavender"
 #: core/Util/Util.vala:55
-#, fuzzy
 msgid "Lavender"
 msgstr "Lavendel"
 
@@ -116,7 +114,6 @@ msgstr "Dunkelblau"
 #: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1094
 #: src/Layouts/ItemView.vala:536
 #: src/Dialogs/Preferences/PreferencesWindow.vala:441
-#, fuzzy
 msgid "None"
 msgstr "Keine"
 
@@ -196,13 +193,12 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: core/Util/Util.vala:752
-#, fuzzy
 msgid "Delete All"
-msgstr "Kennzeichnung löschen"
+msgstr "Alles löschen"
 
 #: core/Util/Util.vala:766
 msgid "Process completed, you need to start Planify again."
-msgstr "Prozess abgeschlossen, bitte Planify erneut starten."
+msgstr "Aufgabe abgeschlossen, bitte Planify erneut starten."
 
 #: core/Util/Util.vala:769 src/MainWindow.vala:273
 #: src/Services/Backups.vala:515
@@ -348,9 +344,7 @@ msgstr "Richte deine Umgebung ein"
 msgid "Show your calendar events"
 msgstr "Termine aus dem Kalender anzeigen"
 
-# Assumed error "turn ir on" -> "turn it on"
 #: core/Util/Util.vala:1050
-#, fuzzy
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 Calendar Events to turn it on."
@@ -430,7 +424,6 @@ msgid "🏡️Home"
 msgstr "🏡️Zuhause"
 
 #: core/Util/Util.vala:1124
-#, fuzzy
 msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Nochmal aufgreifen"
 
@@ -483,24 +476,22 @@ msgid "Don't Repeat"
 msgstr "Nicht wiederholen"
 
 #: core/Enum.vala:228 core/Enum.vala:230
-#, fuzzy
 msgid "Every minute"
-msgstr "Jeden Monat"
+msgstr "Jede Minute"
 
 #: core/Enum.vala:230
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d minutes"
-msgstr "Alle %d Monate"
+msgstr "Alle %d Minuten"
 
 #: core/Enum.vala:234 core/Enum.vala:236
-#, fuzzy
 msgid "Every hour"
-msgstr "Jedes Jahr"
+msgstr "Jede Stunde"
 
 #: core/Enum.vala:236
-#, fuzzy, c-format
+#, c-format
 msgid "Every %d hours"
-msgstr "Alle %d Jahre"
+msgstr "Alle %d Stunden"
 
 #: core/Enum.vala:240 core/Enum.vala:242
 msgid "Every day"
@@ -561,9 +552,8 @@ msgstr ""
 "ein Projekt in Planify zu erstellen."
 
 #: core/QuickAdd.vala:448
-#, fuzzy
 msgid "Create more"
-msgstr "Erstelle ein Projekt"
+msgstr "Weitere erstellen"
 
 #: core/Services/Todoist.vala:1365
 msgid "The request was incorrect."
@@ -607,29 +597,24 @@ msgid "Pinned"
 msgstr "Angeheftet"
 
 #: core/Widgets/PriorityButton.vala:12
-#, fuzzy
 msgid "Set The Priority"
 msgstr "Priorität setzen"
 
 #: core/Widgets/PriorityButton.vala:31
-#, fuzzy
 msgid "Priority 1: High"
-msgstr "Priorität 1: hoch"
+msgstr "Priorität 1: Hoch"
 
 #: core/Widgets/PriorityButton.vala:34
-#, fuzzy
 msgid "Priority 2: Medium"
-msgstr "Priorität 2: mittel"
+msgstr "Priorität 2: Mittel"
 
 #: core/Widgets/PriorityButton.vala:37
-#, fuzzy
 msgid "Priority 3: Low"
-msgstr "Priorität 3: niedrig"
+msgstr "Priorität 3: Niedrig"
 
 #: core/Widgets/PriorityButton.vala:40
-#, fuzzy
 msgid "Priority 4: None"
-msgstr "Priorität 4: keine"
+msgstr "Priorität 4: Keine"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:49
@@ -682,22 +667,22 @@ msgstr "Planen"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:154
 #: src/Dialogs/RepeatConfig.vala:413
 msgid "until"
-msgstr ""
+msgstr "bis"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:157
 #: src/Dialogs/RepeatConfig.vala:417
 msgid "for"
-msgstr ""
+msgstr "für"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:157
 #: src/Dialogs/RepeatConfig.vala:417
 msgid "times"
-msgstr ""
+msgstr "mal"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:157
 #: src/Dialogs/RepeatConfig.vala:417
 msgid "time"
-msgstr ""
+msgstr "mal"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:83
 msgid "Next week"
@@ -720,13 +705,12 @@ msgstr "Fertig"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:114
 msgid "Clear"
-msgstr ""
+msgstr "Löschen"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
 #: src/Layouts/ItemRow.vala:995
-#, fuzzy
 msgid "Back"
-msgstr "Sicherungen"
+msgstr "Zurück"
 
 #: core/Widgets/LabelPicker/LabelPicker.vala:61
 #: src/Dialogs/LabelPicker.vala:153
@@ -741,16 +725,15 @@ msgstr ""
 #: core/Widgets/LabelPicker/LabelPicker.vala:62
 #, c-format
 msgid "Create '%s'"
-msgstr ""
+msgstr "'%s' erstellen"
 
 #: core/Widgets/LabelPicker/LabelPicker.vala:77 src/Dialogs/LabelPicker.vala:71
 msgid "Search or Create"
 msgstr "Suchen oder Erstellen"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:50
-#, fuzzy
 msgid "Add Labels"
-msgstr "Kennzeichnung hinzufügen"
+msgstr "Kennzeichnungen hinzufügen"
 
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:161
@@ -772,7 +755,7 @@ msgstr "Todoist"
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:163
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1312
 msgid "Nextcloud"
-msgstr ""
+msgstr "Nextcloud"
 
 #. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:59
@@ -799,9 +782,8 @@ msgstr "Das Projekt wurde in die Zwischenablage kopiert"
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
 #: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
-#, fuzzy
 msgid "filters"
-msgstr "Filter"
+msgstr "filter"
 
 #: core/Objects/Filters/Scheduled.vala:51
 #, c-format
@@ -857,7 +839,6 @@ msgstr ""
 "Aufgabenbenachrichtigungen senden kann."
 
 #: src/MainWindow.vala:69
-#, fuzzy
 msgid "Open Quick Find"
 msgstr "Schnelle Suche öffnen"
 
@@ -902,29 +883,24 @@ msgid "On this computer"
 msgstr "Auf diesem Computer"
 
 #: src/Layouts/Sidebar.vala:71
-#, fuzzy
 msgid "Go to Inbox"
-msgstr "Heute + Eingang"
+msgstr "Zum Eingang"
 
 #: src/Layouts/Sidebar.vala:75
-#, fuzzy
 msgid "Go to Today"
-msgstr "Heute"
+msgstr "Nach 'Heute'"
 
 #: src/Layouts/Sidebar.vala:79
-#, fuzzy
 msgid "Go to Scheduled"
-msgstr "Geplant"
+msgstr "Nach 'Geplant'"
 
 #: src/Layouts/Sidebar.vala:83
-#, fuzzy
 msgid "Go to Labels"
-msgstr "Kennzeichnungen"
+msgstr "Zu 'Kennzeichnungen'"
 
 #: src/Layouts/Sidebar.vala:87
-#, fuzzy
 msgid "Go to Pinboard"
-msgstr "Pinnwand"
+msgstr "Zu 'Pinnwand'"
 
 #: src/Layouts/Sidebar.vala:101
 msgid "Favorites"
@@ -983,7 +959,7 @@ msgstr "Projekt bearbeiten"
 
 #: src/Layouts/ProjectRow.vala:605
 msgid "Refresh"
-msgstr ""
+msgstr "Neu laden"
 
 #: src/Layouts/ProjectRow.vala:606 src/Views/Project/Project.vala:253
 #: src/Views/Project/Project.vala:358
@@ -1045,9 +1021,8 @@ msgid "Delete Section"
 msgstr "Abschnitt löschen"
 
 #: src/Layouts/ItemRow.vala:412
-#, fuzzy
 msgid "Add Subtasks"
-msgstr "Unteraufgabe hinzufügen"
+msgstr "Unteraufgaben hinzufügen"
 
 #: src/Layouts/ItemRow.vala:872 src/Layouts/ItemBoard.vala:593
 #: src/Dialogs/DatePicker.vala:77
@@ -1144,7 +1119,6 @@ msgid "Edit Label"
 msgstr "Kennzeichnung bearbeiten"
 
 #: src/Layouts/LabelRow.vala:144
-#, fuzzy
 msgid "Delete Label"
 msgstr "Kennzeichnung löschen"
 
@@ -1178,7 +1152,6 @@ msgid "Are you sure you want to delete this to-do?"
 msgstr "Bist du sicher, dass du diese Aufgabe löschen möchtest?"
 
 #: src/Widgets/MagicButton.vala:46
-#, fuzzy
 msgid "Add task"
 msgstr "Aufgabe hinzufügen"
 
@@ -1199,7 +1172,6 @@ msgstr ""
 
 # Assumed error "Mask" -> "Mark"
 #: src/Widgets/MultiSelectToolbar.vala:219
-#, fuzzy
 msgid "Mark as Completed"
 msgstr "Als Erledigt markieren"
 
@@ -1243,18 +1215,16 @@ msgid "Add Reminder"
 msgstr "Erinnerung hinzufügen"
 
 #: src/Widgets/ReminderPicker/ReminderButton.vala:32
-#, fuzzy
 msgid "Add Reminders"
-msgstr "Erinnerung hinzufügen"
+msgstr "Erinnerungen hinzufügen"
 
 #: src/Views/Project/Project.vala:47
-#, fuzzy
 msgid "Open more project actions"
-msgstr "Gib deinem Projekt einen Namen"
+msgstr "Weitere Projektaktionen öffnen"
 
 #: src/Views/Project/Project.vala:71
 msgid "View option menu"
-msgstr ""
+msgstr "Menü Option anzeigen"
 
 #: src/Views/Project/Project.vala:245 src/Views/Project/Project.vala:296
 #: src/Views/Project/List.vala:313
@@ -1262,9 +1232,8 @@ msgid "When?"
 msgstr "Wann?"
 
 #: src/Views/Project/Project.vala:248 src/Dialogs/ManageSectionOrder.vala:33
-#, fuzzy
 msgid "Manage Sections"
-msgstr "Reihenfolge der Abschnitte verändern"
+msgstr "Abschnitte verwalten"
 
 #: src/Views/Project/Project.vala:250
 msgid "Filter by Labels"
@@ -1321,20 +1290,19 @@ msgstr "Erledigte Aufgaben anzeigen"
 
 #: src/Views/Project/List.vala:104 src/Views/Today.vala:182
 #: src/Views/Label/Label.vala:71 src/Views/Filter.vala:66
-#, fuzzy
 msgid "Add Some Tasks"
-msgstr "Aufgabe hinzufügen"
+msgstr "Aufgaben hinzufügen"
 
 #: src/Views/Project/List.vala:105 src/Views/Today.vala:183
 #: src/Views/Label/Label.vala:72 src/Views/Filter.vala:67
-#, fuzzy
 msgid "Press a to create a new task"
-msgstr "Unformatierten Text einfügen, um eine neue Aufgabe zu erstellen"
+msgstr "Drücke a, um eine neue Aufgabe zu erstellen"
 
 #: src/Views/Project/List.vala:257 src/Views/Project/List.vala:343
 #: src/Views/Project/Board.vala:155 src/Views/Project/Board.vala:190
+#, fuzzy
 msgid "Note"
-msgstr ""
+msgstr "Notiz"
 
 #: src/Views/Today.vala:74
 msgid "Overdue"
@@ -1353,23 +1321,20 @@ msgid "Labels: Todoist"
 msgstr "Kennzeichnungen: Todoist"
 
 #: src/Views/Label/Labels.vala:49
-#, fuzzy
 msgid "Labels: Nextcloud"
-msgstr "Kennzeichnungen: Todoist"
+msgstr "Kennzeichnungen: Nextcloud"
 
 #: src/Views/Filter.vala:187 src/Dialogs/WhatsNew.vala:121
 msgid "Anytime"
-msgstr ""
+msgstr "Jederzeit"
 
 #: src/Views/Filter.vala:193 src/Dialogs/WhatsNew.vala:119
-#, fuzzy
 msgid "Repeating"
-msgstr "Wiederholen"
+msgstr "Wiederholend"
 
 #: src/Views/Filter.vala:199
-#, fuzzy
 msgid "Unlabeled"
-msgstr "Kennzeichnungen"
+msgstr "Nicht gekennzeichnet"
 
 #: src/Dialogs/Project.vala:52
 msgid "New Project"
@@ -1483,11 +1448,11 @@ msgstr "Filter"
 
 #: src/Dialogs/RepeatConfig.vala:123
 msgid "Minute(s)"
-msgstr ""
+msgstr "Minute(n)"
 
 #: src/Dialogs/RepeatConfig.vala:123
 msgid "Hour(s)"
-msgstr ""
+msgstr "Stunde(n)"
 
 #: src/Dialogs/RepeatConfig.vala:123
 msgid "Day(s)"
@@ -1542,29 +1507,27 @@ msgstr "Sonntag"
 
 #: src/Dialogs/RepeatConfig.vala:174
 msgid "Never"
-msgstr ""
+msgstr "Nie"
 
 #: src/Dialogs/RepeatConfig.vala:178
-#, fuzzy
 msgid "On Date"
-msgstr "Kein Datum"
+msgstr "An Datum"
 
 #: src/Dialogs/RepeatConfig.vala:182
 msgid "After"
-msgstr ""
+msgstr "Nach"
 
 #: src/Dialogs/RepeatConfig.vala:247
 msgid "Summary"
-msgstr ""
+msgstr "Zusmamenfassung"
 
 #: src/Dialogs/RepeatConfig.vala:252
-#, fuzzy
 msgid "Repeat every"
-msgstr "Wiederholen"
+msgstr "Wiederholungszyklus"
 
 #: src/Dialogs/RepeatConfig.vala:258
 msgid "End"
-msgstr ""
+msgstr "Ende"
 
 #: src/Dialogs/Section.vala:47
 msgid "New Section"
@@ -1628,7 +1591,7 @@ msgstr "Allgemein"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:132
 msgid "Customize to your liking"
-msgstr "Auf deinen Geschmack an anpassen"
+msgstr "An deinen Geschmack anpassen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:142
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
@@ -1660,7 +1623,7 @@ msgstr "Sicherungen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
 msgid "Backup or migrate from Planner."
-msgstr ""
+msgstr "Sichern oder von Planner migrieren."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:182
 msgid "Create Tutorial Project"
@@ -1690,7 +1653,6 @@ msgid "Tweet Us"
 msgstr "Tweete uns"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:222
-#, fuzzy
 msgid "Share some love"
 msgstr "Teile etwas Liebe"
 
@@ -1716,27 +1678,24 @@ msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:273
-#, fuzzy
 msgid "We have nothing on you"
 msgstr "Wir besitzen keine Daten über dich"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:279
-#, fuzzy
 msgid "Delete App Data"
-msgstr "Planify-Daten löschen"
+msgstr "App-Daten löschen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:288
 msgid "A tutorial project has been created"
 msgstr "Es wurde ein Tutorial-Projekt erstellt"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:300
-#, fuzzy
 msgid "Delete All Data?"
-msgstr "Planify-Daten löschen"
+msgstr "Alle Daten löschen?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:301
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "Löscht alle Listen, Aufgaben und Erinnerungen unwiderruflich"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Home Page"
@@ -1862,9 +1821,8 @@ msgid "New Task Position"
 msgstr "Position für neue Aufgaben"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:474
-#, fuzzy
 msgid "Always Show Completed Sub-Tasks"
-msgstr "Erledigte Aufgaben anzeigen"
+msgstr "Erledigte Unteraufgaben immer anzeigen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:579
 msgid "App Theme"
@@ -1902,11 +1860,11 @@ msgstr "Mit deinem Todoist Account synchronisieren"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:771
 #: src/Dialogs/Preferences/PreferencesWindow.vala:973
 msgid "CalDAV"
-msgstr ""
+msgstr "CalDAV"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:772
 msgid "Synchronization based on open Internet standards"
-msgstr ""
+msgstr "Synchronisierung auf der Grundlage offener Internet-Standards"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:915
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1001
@@ -1915,12 +1873,11 @@ msgstr "Mit Server synchronisieren"
 
 # Assumed error "Planner" -> "Planify"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:916
-#, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "Todoist account every 15 minutes"
 msgstr ""
-"Aktiviere diese Einstellung, damit Planify automatisch alle 15 Minuten mit "
+"Aktiviere diese Einstellung, damit Planify alle 15 Minuten automatisch mit "
 "deinem Todoist-Konto synchronisiert wird"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:930
@@ -1930,13 +1887,12 @@ msgstr "Letzte Synchronisation"
 
 # Assumed error "Planner" -> "Planify"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1002
-#, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "CalDAV account every 15 minutes"
 msgstr ""
-"Aktiviere diese Einstellung, damit Planify automatisch alle 15 Minuten mit "
-"deinem Todoist-Konto synchronisiert wird"
+"Aktiviere diese Einstellung, damit Planify alle 15 Minuten automatisch mit "
+"deinem CalDAV-Konto synchronisiert wird"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1067
 msgid ""
@@ -1980,9 +1936,9 @@ msgstr "Laden…"
 
 # Assumed error "Planner" -> "Planify" and "is sync" -> "is syncing"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1191
-#, fuzzy
 msgid "Planify is is syncing your tasks, this may take a few minutes"
-msgstr "Planify synchronisiert deine Aufgaben, das kann einige Minuten dauern"
+msgstr ""
+"Planify synchronisiert deine Aufgaben, das kann ein paar Minuten dauern"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1239
 msgid "Synchronizing..."
@@ -1994,31 +1950,31 @@ msgstr "Bitte gib deine Anmeldedaten ein"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1300
 msgid "CalDAV Setup"
-msgstr ""
+msgstr "CalDAV Einrichtung"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1303
 msgid "Server URL"
-msgstr ""
+msgstr "Server URL"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1306
 msgid "User Name"
-msgstr ""
+msgstr "Nutzername"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1309
 msgid "Password"
-msgstr ""
+msgstr "Passwort"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1315
 msgid "Provider"
-msgstr ""
+msgstr "Anbieter"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1352
 msgid "Log In"
-msgstr ""
+msgstr "Anmelden"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1441
 msgid "Failed to login"
-msgstr ""
+msgstr "Anmeldung fehlgeschlagen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1523
 msgid "Personal Data"
@@ -2090,12 +2046,11 @@ msgstr ""
 "Dadurch werden alle deine Aufgaben und Einstellungen gelöscht."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1742
-#, fuzzy
 msgid ""
 "Are you sure you want to remove the CalDAV sync? This action will delete all "
 "your tasks and settings."
 msgstr ""
-"Bist du sicher, dass du die Todoist-Synchronisierung entfernen möchtest? "
+"Bist du sicher, dass du die CalDAV-Synchronisierung entfernen möchtest? "
 "Dadurch werden alle deine Aufgaben und Einstellungen gelöscht."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1746
@@ -2125,24 +2080,23 @@ msgstr "Sicherungsdateien"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Migrate"
-msgstr ""
+msgstr "Migrieren"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:77
 msgid "Migrate From Planner"
-msgstr ""
+msgstr "Von Planner migrieren"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:131
 msgid "Selected file is invalid"
 msgstr "Ausgewählte Datei ist ungültig"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:142
-#, fuzzy
 msgid "Tasks Migrate Successfully"
-msgstr "Aufgaben erfolgreich synchronisiert"
+msgstr "Aufgaben erfolgreich migriert"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:146
 msgid "The database file does not exist."
-msgstr ""
+msgstr "Die Datenbankdatei ist nicht vorhanden."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:162
 msgid "Import Overview"
@@ -2282,10 +2236,9 @@ msgid "Open Scheduled"
 msgstr "'Geplant' öffnen"
 
 #: data/resources/ui/shortcuts.ui:122
-#, fuzzy
 msgctxt "shortcut window"
 msgid "Open Labels"
-msgstr "Kennzeichnungen"
+msgstr "'Kennzeichnungen' öffnen"
 
 #: data/resources/ui/shortcuts.ui:129
 msgctxt "shortcut window"
