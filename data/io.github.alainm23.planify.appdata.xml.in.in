@@ -67,6 +67,18 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.5.12" date="2024-03-29">
+      <description translatable="no">
+        <ul>
+          <li>Fixed bug when syncing on Nextcloud.</li>
+          <li>Dutch translation update thanks to @Gert-dev.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+          <li>German translation update thanks to @bestlinuxgamers.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.11" date="2024-03-28">
       <description translatable="no">
         <ul>
