@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-28 07:34-0500\n"
-"PO-Revision-Date: 2024-03-15 14:48-0300\n"
+"PO-Revision-Date: 2024-03-28 16:52-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -192,9 +192,8 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: core/Util/Util.vala:752
-#, fuzzy
 msgid "Delete All"
-msgstr "Eliminar etiqueta"
+msgstr "Borrar todo"
 
 #: core/Util/Util.vala:766
 msgid "Process completed, you need to start Planify again."
@@ -592,29 +591,24 @@ msgid "Pinned"
 msgstr "Fijado"
 
 #: core/Widgets/PriorityButton.vala:12
-#, fuzzy
 msgid "Set The Priority"
-msgstr "Establecer la prioridad"
+msgstr "Establecer prioridad"
 
 #: core/Widgets/PriorityButton.vala:31
-#, fuzzy
 msgid "Priority 1: High"
-msgstr "Prioridad 1: alta"
+msgstr "Prioridad 1: Alta"
 
 #: core/Widgets/PriorityButton.vala:34
-#, fuzzy
 msgid "Priority 2: Medium"
-msgstr "Prioridad 2: media"
+msgstr "Prioridad 2: Media"
 
 #: core/Widgets/PriorityButton.vala:37
-#, fuzzy
 msgid "Priority 3: Low"
-msgstr "Prioridad 3: baja"
+msgstr "Prioridad 3: Baja"
 
 #: core/Widgets/PriorityButton.vala:40
-#, fuzzy
 msgid "Priority 4: None"
-msgstr "Prioridad 4: ninguna"
+msgstr "Prioridad 4: Ninguna"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:49
@@ -709,9 +703,8 @@ msgstr "Eliminar"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
 #: src/Layouts/ItemRow.vala:995
-#, fuzzy
 msgid "Back"
-msgstr "Copias de seguridad"
+msgstr "Atrás"
 
 #: core/Widgets/LabelPicker/LabelPicker.vala:61
 #: src/Dialogs/LabelPicker.vala:153
@@ -733,9 +726,8 @@ msgid "Search or Create"
 msgstr "Buscar o crear"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:50
-#, fuzzy
 msgid "Add Labels"
-msgstr "Añadir etiqueta"
+msgstr "Añadir etiquetas"
 
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:161
@@ -784,9 +776,8 @@ msgstr "El proyecto fue copiado al Portapapeles."
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
 #: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
-#, fuzzy
 msgid "filters"
-msgstr "Filtro"
+msgstr "filtros"
 
 #: core/Objects/Filters/Scheduled.vala:51
 #, c-format
@@ -1022,9 +1013,8 @@ msgid "Delete Section"
 msgstr "Eliminar sección"
 
 #: src/Layouts/ItemRow.vala:412
-#, fuzzy
 msgid "Add Subtasks"
-msgstr "Añadir subtarea"
+msgstr "Añadir Subtarea"
 
 #: src/Layouts/ItemRow.vala:872 src/Layouts/ItemBoard.vala:593
 #: src/Dialogs/DatePicker.vala:77
@@ -1121,9 +1111,8 @@ msgid "Edit Label"
 msgstr "Editar etiqueta"
 
 #: src/Layouts/LabelRow.vala:144
-#, fuzzy
 msgid "Delete Label"
-msgstr "Eliminar etiqueta"
+msgstr "Eliminar Etiqueta"
 
 #: src/Layouts/LabelRow.vala:174
 msgid "Delete label"
@@ -1217,9 +1206,8 @@ msgid "Add Reminder"
 msgstr "Añadir recordatorio"
 
 #: src/Widgets/ReminderPicker/ReminderButton.vala:32
-#, fuzzy
 msgid "Add Reminders"
-msgstr "Añadir recordatorio"
+msgstr "Añadir Recordatorio"
 
 #: src/Views/Project/Project.vala:47
 msgid "Open more project actions"
@@ -1293,15 +1281,13 @@ msgstr "Mostrar tareas completadas"
 
 #: src/Views/Project/List.vala:104 src/Views/Today.vala:182
 #: src/Views/Label/Label.vala:71 src/Views/Filter.vala:66
-#, fuzzy
 msgid "Add Some Tasks"
-msgstr "Añadir tarea"
+msgstr "Añadir algunas tareas"
 
 #: src/Views/Project/List.vala:105 src/Views/Today.vala:183
 #: src/Views/Label/Label.vala:72 src/Views/Filter.vala:67
-#, fuzzy
 msgid "Press a to create a new task"
-msgstr "Pegar texto sin formato para crear una nueva tarea"
+msgstr "Pulse a para crear una nueva tarea"
 
 #: src/Views/Project/List.vala:257 src/Views/Project/List.vala:343
 #: src/Views/Project/Board.vala:155 src/Views/Project/Board.vala:190
@@ -1329,19 +1315,16 @@ msgid "Labels: Nextcloud"
 msgstr "Etiquetas: Nextcloud"
 
 #: src/Views/Filter.vala:187 src/Dialogs/WhatsNew.vala:121
-#, fuzzy
 msgid "Anytime"
-msgstr "hora"
+msgstr "En cualquier momento"
 
 #: src/Views/Filter.vala:193 src/Dialogs/WhatsNew.vala:119
-#, fuzzy
 msgid "Repeating"
-msgstr "Repetir"
+msgstr "Repitiendo"
 
 #: src/Views/Filter.vala:199
-#, fuzzy
 msgid "Unlabeled"
-msgstr "etiquetas"
+msgstr "Sin etiquetar"
 
 #: src/Dialogs/Project.vala:52
 msgid "New Project"
@@ -1406,34 +1389,32 @@ msgid "Network Is Not Available"
 msgstr "La red no está disponible"
 
 #: src/Dialogs/WhatsNew.vala:118
-#, fuzzy
 msgid "New Filters"
-msgstr "Filtros"
+msgstr "Nuevos filtros"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid "New filters available in Quick Add."
-msgstr ""
+msgstr "Nuevos filtros disponibles en Añadir rápido."
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid "All your repeating to-dos in one, convenient place (finally!)."
-msgstr ""
+msgstr "Todas las tareas pendientes en un único y práctico lugar (¡por fin!)."
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid "A nice focused list to plan tomorrow, today."
-msgstr ""
+msgstr "Una lista bien enfocada para planificar el mañana, hoy."
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid "All your unlabel to-dos in one place."
-msgstr ""
+msgstr "Todas tus tareas pendientes sin etiquetar en un solo lugar."
 
 #: src/Dialogs/WhatsNew.vala:122
-#, fuzzy
 msgid "Search by Sections"
-msgstr "Nueva sección"
+msgstr "Búsqueda por secciones"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid "Quick Find now supports section searching."
-msgstr ""
+msgstr "Búsqueda rápida permite ahora la búsqueda por secciones."
 
 #: src/Dialogs/ManageSectionOrder.vala:63
 msgid "Update"
@@ -1627,9 +1608,8 @@ msgid "Backups"
 msgstr "Copias de seguridad"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:176
-#, fuzzy
 msgid "Backup or migrate from Planner."
-msgstr "Migrar desde Planner"
+msgstr "Copia de seguridad o migrar desde Planner."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:182
 msgid "Create Tutorial Project"
@@ -1694,13 +1674,12 @@ msgid "A tutorial project has been created"
 msgstr "Se ha creado un proyecto tutorial"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:300
-#, fuzzy
 msgid "Delete All Data?"
-msgstr "Borrar datos de la aplicación"
+msgstr "¿Borrar todos los datos?"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:301
 msgid "Deletes all your lists, tasks, and reminders irreversibly"
-msgstr ""
+msgstr "Borra todas tus listas, tareas y recordatorios de forma irreversible"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:319
 msgid "Home Page"
@@ -1975,7 +1954,7 @@ msgstr "Iniciar sesión"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1441
 msgid "Failed to login"
-msgstr ""
+msgstr "Error al iniciar sesión"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1523
 msgid "Personal Data"
@@ -2079,7 +2058,7 @@ msgstr "Archivos de copia de seguridad"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
 msgid "Migrate"
-msgstr ""
+msgstr "Migrar"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:77
 msgid "Migrate From Planner"
@@ -2095,7 +2074,7 @@ msgstr "Tareas migradas con éxito"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:146
 msgid "The database file does not exist."
-msgstr ""
+msgstr "El archivo de base de datos no existe."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:162
 msgid "Import Overview"
