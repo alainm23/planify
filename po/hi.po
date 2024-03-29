@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-28 07:34-0500\n"
-"PO-Revision-Date: 2024-03-28 00:29+0530\n"
+"PO-Revision-Date: 2024-03-29 12:47+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi\n"
 "Language: hi\n"
@@ -538,7 +538,7 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
-"मुझे खेद है, क्विक ऐड को कोई भी प्रोजेक्ट उपलब्ध नहीं मिल सका, Planify से एक प्रोजेक्ट "
+"मुझे खेद है, त्वरित जोड़ें को कोई भी प्रोजेक्ट उपलब्ध नहीं मिल सका, Planify से एक प्रोजेक्ट "
 "बनाने का प्रयास करें।"
 
 #: core/QuickAdd.vala:448
@@ -768,7 +768,6 @@ msgstr "प्रोजेक्ट को क्लिपबोर्ड पर
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
 #: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
-#, fuzzy
 msgid "filters"
 msgstr "फिल्टर"
 
@@ -1373,34 +1372,32 @@ msgid "Network Is Not Available"
 msgstr "नेटवर्क उपलब्ध नहीं है"
 
 #: src/Dialogs/WhatsNew.vala:118
-#, fuzzy
 msgid "New Filters"
-msgstr "फिल्टर"
+msgstr "नए फिल्टर"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid "New filters available in Quick Add."
-msgstr ""
+msgstr "त्वरित जोड़ें में नए फिल्टर उपलब्ध हैं."
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid "All your repeating to-dos in one, convenient place (finally!)."
-msgstr ""
+msgstr "आपके सभी दोहराए जाने वाले to-do's एक, सुविधाजनक स्थान पर (आखिरकार!)।"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid "A nice focused list to plan tomorrow, today."
-msgstr ""
+msgstr "कल, आज की योजना बनाने के लिए अच्छी केंद्रित सूची।"
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid "All your unlabel to-dos in one place."
-msgstr ""
+msgstr "आपके सभी अनलेबल to-do's एक ही स्थान पर।"
 
 #: src/Dialogs/WhatsNew.vala:122
-#, fuzzy
 msgid "Search by Sections"
-msgstr "नया अनुभाग"
+msgstr "अनुभागों द्वारा खोजें"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid "Quick Find now supports section searching."
-msgstr ""
+msgstr "त्वरित खोज अब अनुभाग खोज का समर्थन करता है।"
 
 #: src/Dialogs/ManageSectionOrder.vala:63
 msgid "Update"
