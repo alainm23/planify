@@ -82,6 +82,14 @@ public class Objects.Project : Objects.BaseObject {
     }
     
     public int child_order { get; set; default = 0; }
+    
+    string _view_id;
+    public string view_id {
+        get {
+            _view_id ="project-%s".printf (id_string);
+            return _view_id;
+        }
+    }
 
     string _parent_id_string;
     public string parent_id_string {
@@ -246,8 +254,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void label_filter_change ();
 
     construct {
-        view_id ="project-%s".printf (id_string);
-
         deleted.connect (() => {
             Idle.add (() => {
                 Services.Database.get_default ().project_deleted (this);
