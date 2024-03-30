@@ -3,7 +3,7 @@
   <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name translatable="no">Planify</name>
+  <name translate="no">Planify</name>
   <summary>Forget about forgetting things</summary>
   <branding>
     <color type="primary" scheme_preference="light">#f9f06b</color>
@@ -58,7 +58,7 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
-  <developer_name translatable="no">Alain</developer_name>
+  <developer_name translate="no">Alain</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>
   <url type="homepage">https://github.com/alainm23/planify</url>
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
@@ -68,7 +68,7 @@
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
     <release version="4.5.12" date="2024-03-29">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed bug when syncing on Nextcloud.</li>
           <li>Dutch translation update thanks to @Gert-dev.</li>
@@ -80,7 +80,7 @@
     </release>
 
     <release version="4.5.11" date="2024-03-28">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Improved performance when using the Completed view.</li>
           <li>Added the option to close an open task with the ESC key.</li>
@@ -93,7 +93,7 @@
     </release>
 
     <release version="4.5.10" date="2024-03-26">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Tomorrow, Untagged, Repeat and Anytime filter added from Quick Search.</li>
           <li>Completed view added to the sidebar.</li>
@@ -106,7 +106,7 @@
     </release>
 
     <release version="4.5.8" date="2024-03-21">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed bug that icons are not displayed in Quick Add.</li>
         </ul>
@@ -114,7 +114,7 @@
     </release>
 
     <release version="4.5.6" date="2024-03-20">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>A URL validation was added when syncing with Nextcloud</li>
           <li>The Pinboard view can now be selected as the homepage</li>
@@ -127,7 +127,7 @@
     </release>
 
     <release version="4.5.4" date="2024-03-18">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Improved design and new UI icons.</li>
           <li>It is now possible to mark a task as Pinned from the context menu.</li>
@@ -139,7 +139,7 @@
     </release>
 
     <release version="4.5.2" date="2024-03-04">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed bug that improves CalDAV sync.</li>
           <li>Fixed bug when moving tasks.</li>
@@ -149,7 +149,7 @@
     </release>
 
     <release version="4.5.1" date="2024-03-01">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed adding description from Quick Add.</li>
         </ul>
@@ -157,7 +157,7 @@
     </release>
 
     <release version="4.5" date="2024-02-20">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.5 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -180,7 +180,7 @@
     </release>
 
     <release version="4.4" date="2024-01-10">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.4 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -208,7 +208,7 @@
     </release>
 
     <release version="4.3.2" date="2023-12-20">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed the functionality of adding tags.</li>
         </ul>
@@ -216,7 +216,7 @@
     </release>
 
     <release version="4.3.1" date="2023-12-19">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Russian translations thanks to @hachikoharuno.</li>
           <li>French translation update thanks to @rene-coty.</li>
@@ -225,7 +225,7 @@
     </release>
 
     <release version="4.3" date="2023-12-18">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.3 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -245,7 +245,7 @@
     </release>
 
     <release version="4.2.1" date="2023-12-11">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>French translation update thanks to @rene-coty.</li>
           <li>Bugs fixed #1071.</li>
@@ -254,7 +254,7 @@
     </release>
 
     <release version="4.2" date="2023-12-10">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Icon size update.</li>
           <li>Custom decoration layout support.</li>
@@ -269,7 +269,7 @@
     </release>
 
     <release version="4.1.4" date="2023-12-05">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Dark mode bug fix.</li>
           <li>Design and UX changes.</li>
@@ -280,7 +280,7 @@
     </release>
 
     <release version="4.1.1" date="2023-06-27">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Bug #1019 fixed.</li>
           <li>Chinese translations thanks to @Fr4nk1in-USTC.</li>
@@ -291,7 +291,7 @@
     </release>
 
     <release version="4.1" date="2023-06-23">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.1 here it is!</p>
         <ul>
           <li>Planify has a new icon thanks to Tobias Bernard.</li>
@@ -306,7 +306,7 @@
     </release>
 
     <release version="4.0" date="2023-05-26">
-      <description translatable="no">
+      <description translate="no">
         <p>Initial release</p>
       </description>
     </release>
