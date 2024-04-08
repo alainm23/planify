@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-28 07:34-0500\n"
-"PO-Revision-Date: 2024-03-28 16:52-0300\n"
+"PO-Revision-Date: 2024-04-01 00:33-0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -309,7 +309,7 @@ msgid ""
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
 "¡Organice mejor sus tareas pendientes! Vaya al panel izquierdo y haga clic "
-"en el botón '+' en la sección 'En esta computadora' y agregue su propio "
+"en el botón '+' en la sección 'En este ordenador' y agregue su propio "
 "proyecto."
 
 #: core/Util/Util.vala:1024
@@ -732,7 +732,7 @@ msgstr "Añadir etiquetas"
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:161
 msgid "On this Computer"
-msgstr "En esta computadora"
+msgstr "En este ordenador"
 
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:29
 #: src/Layouts/Sidebar.vala:109 src/Dialogs/Project.vala:139
@@ -875,7 +875,7 @@ msgstr "Archivos de copia de seguridad de Planify"
 
 #: src/Services/CalendarEvents/Util.vala:245
 msgid "On this computer"
-msgstr "En esta computadora"
+msgstr "En este ordenador"
 
 #: src/Layouts/Sidebar.vala:71
 msgid "Go to Inbox"
@@ -908,7 +908,7 @@ msgstr "No hay favoritos disponibles. Cree uno haciendo clic en el botón \"+\""
 #: src/Layouts/Sidebar.vala:105 src/Dialogs/Project.vala:138
 #: src/Dialogs/Preferences/PreferencesWindow.vala:712
 msgid "On This Computer"
-msgstr "En Esta computadora"
+msgstr "En este ordenador"
 
 #: src/Layouts/Sidebar.vala:106 src/Layouts/Sidebar.vala:349
 #: src/Layouts/Sidebar.vala:360 src/Layouts/Sidebar.vala:371
@@ -1304,7 +1304,7 @@ msgstr "Reprogramar"
 
 #: src/Views/Label/Labels.vala:39
 msgid "Labels: On This Computer"
-msgstr "Etiquetas: En esta computadora"
+msgstr "Etiquetas: En este ordenador"
 
 #: src/Views/Label/Labels.vala:44
 msgid "Labels: Todoist"
