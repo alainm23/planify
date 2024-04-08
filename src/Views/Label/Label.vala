@@ -190,4 +190,10 @@ public class Views.Label : Adw.Bin {
     public void update_request () { 
         headerbar.title = label.name;
     }
+
+    public void prepare_new_item (string content = "") {
+        var dialog = new Dialogs.QuickAdd ();
+        dialog.update_content (content);
+        dialog.show ();
+    }
 }

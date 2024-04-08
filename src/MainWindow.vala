@@ -432,7 +432,14 @@ public class MainWindow : Adw.ApplicationWindow {
 			    scheduled_view.prepare_new_item (content);
 			}
 		} else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
-			
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.update_content (content);
+			dialog.show ();
+		} else if (views_stack.visible_child_name.has_prefix ("label-view")) {
+			Views.Label? label_view = (Views.Label) views_stack.visible_child;
+			if (label_view != null) {
+			    label_view.prepare_new_item (content);
+			}
 		} else {
 			Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
 			if (filter_view != null) {

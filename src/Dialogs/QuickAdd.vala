@@ -101,4 +101,8 @@ public class Dialogs.QuickAdd : Adw.Window {
     public void set_index (int index) {
         quick_add_widget.set_index (index);
     }
+
+    public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        quick_add_widget.set_labels (new_labels);
+    }
 }
