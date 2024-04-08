@@ -116,7 +116,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             halign = Gtk.Align.START,
         };
 
-        count_label = new Gtk.Label (project.project_count.to_string ()) {
+        count_label = new Gtk.Label (null) {
             hexpand = true,
             margin_end = 6,
             halign = Gtk.Align.CENTER,
@@ -224,6 +224,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
+        update_count_label (project.project_count);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
         
         if (drag_n_drop) {
