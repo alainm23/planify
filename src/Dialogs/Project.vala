@@ -320,8 +320,8 @@ public class Dialogs.Project : Adw.Window {
                     hide_destroy ();
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().update_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.get_default ().update_tasklist.end (res)) {
+                Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
+                    if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
                         Services.Database.get_default ().update_project (project);
                         hide_destroy ();
                     }
@@ -347,8 +347,8 @@ public class Dialogs.Project : Adw.Window {
             } else if (project.backend_type == BackendType.CALDAV) {
                 project.id = Util.get_default ().generate_id (project);
                 project.backend_type = BackendType.CALDAV;
-                Services.CalDAV.get_default ().add_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.get_default ().add_tasklist.end (res)) {
+                Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
+                    if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
                         Services.Database.get_default ().insert_project (project);
                         go_project (project.id_string);
                     }

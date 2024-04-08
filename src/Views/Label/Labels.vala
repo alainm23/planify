@@ -47,7 +47,7 @@ public class Views.Labels : Adw.Bin {
         labels_todoist_header.set_sort_func (sort_func);
 
         labels_caldav_header = new Layouts.HeaderItem (_("Labels: Nextcloud"));
-        labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         labels_caldav_header.show_separator = true;
         labels_caldav_header.set_sort_func (sort_func);
 
@@ -166,12 +166,12 @@ public class Views.Labels : Adw.Bin {
             labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         });
 
-        Services.CalDAV.get_default ().log_in.connect (() => {
-            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        Services.CalDAV.Core.get_default ().log_in.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         });
 
-        Services.CalDAV.get_default ().log_out.connect (() => {
-            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        Services.CalDAV.Core.get_default ().log_out.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         });
     }
 

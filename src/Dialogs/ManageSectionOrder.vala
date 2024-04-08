@@ -32,7 +32,7 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             modal: true,
             title: _("Manage Sections"),
             width_request: 320,
-            height_request: 450,
+            height_request: 425,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
@@ -60,17 +60,8 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
 
         scrolled_window = new Widgets.ScrolledWindow (listbox_card);
 
-        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Update")) {
-            margin_top = 12,
-            margin_start = 12,
-            margin_end = 12,
-            margin_bottom = 12
-        };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-        toolbar_view.add_bottom_bar (submit_button);
 		toolbar_view.content = scrolled_window;
 
         content = toolbar_view;
@@ -79,12 +70,6 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         Timeout.add (225, () => {
             set_sort_func ();
             return GLib.Source.REMOVE;
-        });
-
-        submit_button.clicked.connect (() => {
-            update_section_section_order ();
-            project.section_sort_order_changed ();
-            hide_destroy ();
         });
     }
     
@@ -125,10 +110,19 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         inbox_section.project_id = project.id;
         inbox_section.name = _("(No Section)");
 
-        listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
+        add_section (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
-            listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+            add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
         }
+    }
+
+    public void add_section (Dialogs.ProjectPicker.SectionPickerRow row) {
+        row.update_section.connect (() => {
+            update_section_section_order ();
+            project.section_sort_order_changed ();
+        });
+
+        listbox.append (row);
     }
 
     public void hide_destroy () {

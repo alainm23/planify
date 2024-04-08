@@ -320,8 +320,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         } else if (item.project.backend_type == BackendType.CALDAV) {
             submit_button.is_loading = true;
             item.id = Util.get_default ().generate_id ();
-            Services.CalDAV.get_default ().add_task.begin (item, false, (obj, res) => {
-                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
                 submit_button.is_loading = false;
 
                 if (response.status) {

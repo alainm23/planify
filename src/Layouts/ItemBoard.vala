@@ -405,12 +405,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     private void open_detail () {
-        if (item.parent_id == "") {
-            var dialog = new Dialogs.ItemView (item);
-            dialog.show ();
-        } else {
-            Services.EventBus.get_default ().push_item (item);
-        }
+        Services.EventBus.get_default ().open_item (item);
+        //  if (item.parent_id == "") {
+        //      var dialog = new Dialogs.ItemView (item);
+        //      dialog.show ();
+        //  } else {
+        //      Services.EventBus.get_default ().push_item (item);
+        //  }
     }
 
 	public override void checked_toggled (bool active, uint? time = null) {
@@ -482,8 +483,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         } else if (item.project.backend_type == BackendType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
-            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
@@ -605,6 +606,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (today_item);
         menu_box.append (tomorrow_item);
+        menu_box.append (pinboard_item);
         menu_box.append (no_date_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (move_item);
@@ -618,13 +620,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM,
+            halign = Gtk.Align.START,
             width_request = 250
         };
 
         menu_handle_popover.set_parent (this);
         menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {

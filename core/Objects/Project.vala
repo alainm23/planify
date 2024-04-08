@@ -450,8 +450,8 @@ public class Objects.Project : Objects.BaseObject {
                     loading = true;
                 }
 
-                Services.CalDAV.get_default ().update_tasklist.begin (this, (obj, res) => {
-                    Services.CalDAV.get_default ().update_tasklist.end (res);
+                Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
+                    Services.CalDAV.Core.get_default ().update_tasklist.end (res);
                     Services.Database.get_default ().update_project (this);
                     loading = false;
                 });

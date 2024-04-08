@@ -485,8 +485,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete Section"), _("Are you sure you want to delete %s?".printf (section.short_name)));
+            var dialog = new Adw.MessageDialog (
+				(Gtk.Window) Planify.instance.main_window,
+			    _("Delete Section %s".printf (section.name)),
+				_("This can not be undone")
+			);
 
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));

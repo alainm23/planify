@@ -52,8 +52,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         count_label = new Gtk.Label (label.label_count.to_string ()) {
             hexpand = true,
-            halign = Gtk.Align.END,
-            css_classes = { "dim-label", "small-label" }
+            halign = Gtk.Align.END
         };
 
         count_revealer = new Gtk.Revealer () {
@@ -171,7 +170,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             Services.EventBus.get_default ().close_labels ();
             
             var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete label"), _("Are you sure you want to delete %s?".printf (label.short_name)));
+            _("Delete Label %s".printf (label.name)), _("This can not be undone"));
 
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));

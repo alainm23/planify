@@ -38,6 +38,11 @@
         <value nick="Saturday" value="6" />
     </enum>
 
+    <enum id="io.github.alainm23.planify.caldav-type">
+        <value nick="Nextcloud" value="0" />
+        <value nick="Radicale" value="1" />
+    </enum>
+
     <enum id="io.github.alainm23.planify.new-tasks-position">
         <value nick="Top" value="0" />
         <value nick="Bottom" value="1" />
@@ -403,6 +408,12 @@
             <default>""</default>
             <summary>CalDAV last sync</summary>
             <description>CalDAV last sync</description>
+        </key>
+
+        <key name="caldav-type" enum="io.github.alainm23.planify.caldav-type">
+            <default>"Nextcloud"</default>
+            <summary>CalDAV backend type</summary>
+            <description>CalDAV backend type</description>
         </key>
     </schema>
 </schemalist>

@@ -659,8 +659,8 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Database.get_default ().update_item (this, update_id);
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
                         Services.Database.get_default ().update_item (this, update_id);
@@ -691,8 +691,8 @@ public class Objects.Item : Objects.BaseObject {
                     loading = false;
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
                         Services.Database.get_default ().update_item (this, update_id);
@@ -719,8 +719,8 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } else if (project.backend_type == BackendType.CALDAV) {
-            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                 if (response.status) {
                     Services.Database.get_default ().update_item (this, update_id);
@@ -1275,8 +1275,8 @@ public class Objects.Item : Objects.BaseObject {
                 }
             });
         } else if (project.backend_type == BackendType.CALDAV) {
-            Services.CalDAV.get_default ().delete_task.begin (this, (obj, res) => {
-                if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+            Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                     foreach (Objects.Item subitem in this.items) {
                         subitem.delete_item ();
@@ -1377,8 +1377,8 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.backend_type == BackendType.CALDAV) {
             loading = true;
-            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                var response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                var response = Services.CalDAV.Core.get_default ().add_task.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1417,8 +1417,8 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.backend_type == BackendType.CALDAV) {
             loading = true;
 
-            Services.CalDAV.get_default ().move_task.begin (this, project.id, (obj, res) => {
-                var response = Services.CalDAV.get_default ().move_task.end (res);
+            Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
+                var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
 
                 if (response.status) {

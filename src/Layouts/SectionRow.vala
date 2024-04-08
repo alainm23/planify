@@ -166,18 +166,15 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		listbox = new Gtk.ListBox () {
 			valign = Gtk.Align.START,
-			selection_mode = Gtk.SelectionMode.NONE,
 			hexpand = true,
 			css_classes = { "listbox-background" }
 		};
 
 		checked_listbox = new Gtk.ListBox () {
 			valign = Gtk.Align.START,
-			selection_mode = Gtk.SelectionMode.NONE,
-			hexpand = true
+			hexpand = true,
+			css_classes = { "listbox-background" }
 		};
-
-		checked_listbox.add_css_class ("listbox-background");
 
 		var checked_listbox_grid = new Gtk.Grid ();
 		checked_listbox_grid.attach (checked_listbox, 0, 0);
@@ -231,6 +228,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			return GLib.Source.REMOVE;
 		});
+
+		listbox.row_activated.connect ((row) => {
+			((Layouts.ItemRow) row).edit = true;
+		});
+
+		//  checked_listbox.row_activated.connect ((row) => {
+		//  	((Layouts.ItemRow) row).edit = true;
+		//  });
 
 		name_editable.changed.connect (() => {
 			section.name = name_editable.text;
@@ -612,7 +617,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			var dialog = new Adw.MessageDialog (
 				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete Section"), _("Are you sure you want to delete %s?".printf (section.short_name))
+			    _("Delete Section %s".printf (section.name)),
+				_("This can not be undone")
 			);
 
 			dialog.add_response ("cancel", _("Cancel"));

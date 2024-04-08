@@ -20,8 +20,18 @@
 */
 
 public class Layouts.ItemSidebarView : Adw.Bin {
+    public Objects.Item item { get; set; }
+
     construct {
         var close_button = new Gtk.Button.from_icon_name ("window-close-symbolic");
+
+        var menu_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			//  popover = build_context_menu (),
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat", "header-item-button", "dim-label" }
+		};
 
         var headerbar = new Adw.HeaderBar () {
 			title_widget = new Gtk.Label (null),
@@ -31,17 +41,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		};
 
         headerbar.pack_end (close_button);
+        headerbar.pack_end (menu_button);
 
         var content_textview = new Widgets.TextView () {
-            left_margin = 6,
-            right_margin = 6,
-            top_margin = 6,
-            bottom_margin = 6,
-            height_request = 128
+            left_margin = 12,
+            right_margin = 12,
+            top_margin = 12,
+            bottom_margin = 12,
+            height_request = 64
         };
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
-        //  content_textview.buffer.text = item.content;
-        //  content_textview.editable = !item.completed && !item.project.is_deck;
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("card");
 
@@ -64,6 +73,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         close_button.clicked.connect (() => {
             Services.EventBus.get_default ().close_item ();
+        });
+
+        notify["item"].connect (() => {
+            content_textview.buffer.text = item.content;
+            content_textview.editable = !item.completed && !item.project.is_deck;
         });
     }
 }

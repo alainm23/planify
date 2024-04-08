@@ -26,6 +26,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Stack views_stack;
 	private Adw.OverlaySplitView overlay_split_view;
 	private Gtk.MenuButton settings_button;
+	private Layouts.ItemSidebarView item_sidebar_view;
 
 	public Services.ActionManager action_manager;
 
@@ -88,15 +89,22 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack = new Gtk.Stack () {
 			hexpand = true,
 			vexpand = true,
-			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT,
-			transition_duration = 125
+			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
 		};
 
-		var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		views_content.append (views_stack);
+		item_sidebar_view = new Layouts.ItemSidebarView ();
+		
+		var views_split_view = new Adw.OverlaySplitView () {
+			sidebar_position = Gtk.PackType.END,
+			collapsed = true,
+			max_sidebar_width = 375,
+			content = views_stack,
+			sidebar = item_sidebar_view
+		};
 
-		var toast_overlay = new Adw.ToastOverlay ();
-		toast_overlay.child = views_content;
+		var toast_overlay = new Adw.ToastOverlay () {
+			child = views_split_view
+		};
 
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
@@ -107,7 +115,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		add_breakpoint (breakpoint);
 		content = overlay_split_view;
-		//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
@@ -208,12 +215,8 @@ public class MainWindow : Adw.ApplicationWindow {
 			add_inbox_view ();
 		});
 
-		settings_popover.show.connect (() => {
-		});
-
 		search_button.clicked.connect (() => {
-			var dialog = new Dialogs.QuickFind.QuickFind ();
-			dialog.show ();
+			(new Dialogs.QuickFind.QuickFind ()).show ();
 		});
 
 		var event_controller_key = new Gtk.EventControllerKey ();
@@ -240,6 +243,21 @@ public class MainWindow : Adw.ApplicationWindow {
 				Services.EventBus.get_default ().alt_pressed = false;
             }
         });
+
+		Services.EventBus.get_default ().open_item.connect ((item) => {
+			item_sidebar_view.item = item;
+			views_split_view.show_sidebar = true;
+		});
+
+		Services.EventBus.get_default ().close_item.connect (() => {
+			views_split_view.show_sidebar = false;
+		});
+
+		views_split_view.notify["show-sidebar"].connect (() => {
+			if (!views_split_view.show_sidebar) {
+				search_button.grab_focus ();
+			}
+		});
 	}
 
 	public void show_hide_sidebar () {
@@ -286,9 +304,9 @@ public class MainWindow : Adw.ApplicationWindow {
 			});
 		}
 
-		if (Services.CalDAV.get_default ().is_logged_in ()) {
+		if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
-				Services.CalDAV.get_default ().run_server ();
+				Services.CalDAV.Core.get_default ().run_server ();
 				return GLib.Source.REMOVE;
 			});
 		}
@@ -413,6 +431,8 @@ public class MainWindow : Adw.ApplicationWindow {
 			if (scheduled_view != null) {
 			    scheduled_view.prepare_new_item (content);
 			}
+		} else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
+			
 		} else {
 			Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
 			if (filter_view != null) {

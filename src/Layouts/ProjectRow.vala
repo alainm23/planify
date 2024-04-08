@@ -254,10 +254,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             });
         });
 
-        var menu_gesture = new Gtk.GestureClick ();
-        menu_gesture.set_button (3);
+        var menu_gesture = new Gtk.GestureClick () {
+            button = 3
+        };
         handle_grid.add_controller (menu_gesture);
-
         menu_gesture.pressed.connect ((n_press, x, y) => {
             build_context_menu (x, y);
         });
@@ -594,8 +594,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
             favorite_item.title = project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites");
-
-            menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+            menu_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_popover.popup ();
             return;
         }
@@ -634,13 +633,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         menu_popover = new Gtk.Popover () {
             has_arrow = false,
+            halign = Gtk.Align.START,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM,
             width_request = 250
         };
 
         menu_popover.set_parent (this);
-        menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+        menu_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
         menu_popover.popup ();
 
         favorite_item.clicked.connect (() => {
@@ -663,8 +662,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
 
             is_loading = true;
-            Services.CalDAV.get_default ().sync_tasklist.begin (project, (obj, res) => {
-                Services.CalDAV.get_default ().sync_tasklist.end (res);
+            Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
+                Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
                 is_loading = false;
             });
         });
@@ -674,8 +673,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             
             var dialog = new Adw.MessageDialog (
                 (Gtk.Window) Planify.instance.main_window, 
-                _("Delete project"),
-                _("Are you sure you want to delete %s?").printf (project.short_name)
+                _("Delete Project %s?".printf (project.name)),
+                _("This can not be undone")
             );
 
             var spinner = new Gtk.Spinner () {
@@ -715,8 +714,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                         dialog.set_response_enabled ("delete", false);
                         spinner_revealer.reveal_child = true;
 
-                        Services.CalDAV.get_default ().delete_tasklist.begin (project, (obj, res) => {
-                            if (Services.CalDAV.get_default ().delete_tasklist.end (res)) {
+                        Services.CalDAV.Core.get_default ().delete_tasklist.begin (project, (obj, res) => {
+                            if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
                                 Services.Database.get_default ().delete_project (project);
                             }
                         });

@@ -279,14 +279,14 @@ public enum PickerType {
 
 	public string to_string () {
 		switch (this) {
-		case PROJECTS:
-			return "projects";
+			case PROJECTS:
+				return "projects";
 
-		case SECTIONS:
-			return "sections";
+			case SECTIONS:
+				return "sections";
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -294,4 +294,22 @@ public enum PickerType {
 public enum NewTaskPosition {
 	TOP = 0,
 	BOTTOM = 1,
+}
+
+public enum CalDAVType {
+	NEXTCLOUD = 0,
+	RADICALE = 1;
+
+	public string to_string () {
+		switch (this) {
+			case NEXTCLOUD:
+				return "nextcloud";
+
+			case RADICALE:
+				return "radicale";
+
+			default:
+				assert_not_reached ();
+		}
+	}
 }

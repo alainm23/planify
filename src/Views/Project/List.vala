@@ -90,10 +90,10 @@ public class Views.List : Gtk.Grid {
         });
 
         listbox.set_filter_func ((child) => {
-            Layouts.SectionBoard item = ((Layouts.SectionBoard) child);
+            Layouts.SectionRow item = ((Layouts.SectionRow) child);
 
             if (item.is_inbox_section) {
-                return true;
+                return !project.inbox_section_hidded;
             }
 
             return !item.section.hidded;
@@ -152,6 +152,7 @@ public class Views.List : Gtk.Grid {
 
         project.section_sort_order_changed.connect (() => {
             listbox.invalidate_sort ();
+            listbox.invalidate_filter ();
         });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {

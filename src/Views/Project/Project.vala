@@ -25,7 +25,6 @@ public class Views.Project : Adw.Bin {
 
 	private Gtk.Stack view_stack;
 	private Adw.ToolbarView toolbar_view;
-	private Layouts.ItemSidebarView item_sidebar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
@@ -44,7 +43,7 @@ public class Views.Project : Adw.Bin {
 			popover = build_context_menu_popover (),
 			icon_name = "view-more-symbolic",
 			css_classes = { "flat" },
-			tooltip_text = _("Open more project actions")
+			tooltip_text = _("Project Actions")
 		};
 
 		var indicator_grid = new Gtk.Grid () {
@@ -120,17 +119,7 @@ public class Views.Project : Adw.Bin {
 		toolbar_view.add_bottom_bar (multiselect_toolbar);
 		toolbar_view.content = content_overlay;
 
-		item_sidebar_view = new Layouts.ItemSidebarView ();
-
-		var overlay_split_view = new Adw.OverlaySplitView () {
-			sidebar_position = Gtk.PackType.END,
-			collapsed = true,
-			max_sidebar_width = 375
-		};
-		overlay_split_view.content = toolbar_view;
-		overlay_split_view.sidebar = item_sidebar_view;
-
-		child = overlay_split_view;
+		child = toolbar_view;
 		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
 		check_default_view ();
 		show ();
@@ -162,14 +151,6 @@ public class Views.Project : Adw.Bin {
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
 		});
-
-		Services.EventBus.get_default ().open_item.connect ((item) => {
-			overlay_split_view.show_sidebar = true;
-		});
-
-		Services.EventBus.get_default ().close_item.connect (() => {
-			overlay_split_view.show_sidebar = false;
-		});
 	}
 
 	private void check_default_view () {
@@ -194,24 +175,12 @@ public class Views.Project : Adw.Bin {
 				list_view = new Views.List (project);
 				view_stack.add_named (list_view, view_style.to_string ());
 			}
-
-			Views.Board? board_view;
-			board_view = (Views.Board) view_stack.get_child_by_name ("board");
-			if (board_view != null) {
-				view_stack.remove (board_view);
-			}
 		} else if (view_style == ProjectViewStyle.BOARD) {
 			Views.Board? board_view;
 			board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
 			if (board_view == null) {
 				board_view = new Views.Board (project);
 				view_stack.add_named (board_view, view_style.to_string ());
-			}
-
-			Views.List? list_view;
-			list_view = (Views.List) view_stack.get_child_by_name ("list");
-			if (list_view != null) {
-				view_stack.remove (list_view);
 			}
 		}
 

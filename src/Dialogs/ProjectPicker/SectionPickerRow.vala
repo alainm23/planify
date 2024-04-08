@@ -111,8 +111,10 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
         }
 
         if (widget_type == "order") {
-            reorder_child.build_drag_and_drop ();
-
+            if (section.id != "") {
+                reorder_child.build_drag_and_drop ();
+            }
+            
             hidded_switch.notify["active"].connect (() => {
                 if (section.id == "") {
                     section.project.inbox_section_hidded = !hidded_switch.active;
@@ -122,6 +124,10 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
                     Services.Database.get_default ().update_section (section);
                 }
 
+                update_section ();
+            });
+
+            reorder_child.on_drop_end.connect (() => {
                 update_section ();
             });
         }

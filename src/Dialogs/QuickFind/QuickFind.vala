@@ -37,18 +37,16 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
     construct {
         items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
 
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
-
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Quick Find"),
             hexpand = true,
             margin_bottom = 3,
-            margin_top = 3
+            margin_top = 3,
+            css_classes = { "border-radius-9" }
         };
 
-        search_entry.add_css_class ("border-radius-9");
-
+        var headerbar = new Adw.HeaderBar ();
+        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
         headerbar.title_widget = search_entry;
 
         listbox = new Gtk.ListBox () {
@@ -60,16 +58,16 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
-        var listbox_grid = new Gtk.Grid () {
-            margin_bottom = 6
+        var listbox_content = new Adw.Bin () {
+            margin_bottom = 6,
+            child = listbox
         };
-        listbox_grid.attach (listbox, 0, 0);
 
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = listbox_grid
+            child = listbox_content
         };
 
         var toolbar_view = new Adw.ToolbarView ();
@@ -82,7 +80,6 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             search_entry.grab_focus ();
 			return GLib.Source.REMOVE;
 		});
-
 
         search_entry.search_changed.connect (() => {
             search_changed ();

@@ -26,7 +26,8 @@ public class Services.ActionManager : Object {
     public SimpleActionGroup actions { get; construct; }
 
     public const string ACTION_PREFIX = "win.";
-    public const string ACTION_QUIT = "action_quit";
+    public const string ACTION_QUIT_Q = "action_quit_q";
+    public const string ACTION_QUIT_W = "action_quit_w";
     public const string ACTION_PREFERENCES = "action_preferences";
     public const string ACTION_SHORTCUTS = "action_shortcuts";
     public const string ACTION_ADD_TASK = "action_add_task";
@@ -49,7 +50,8 @@ public class Services.ActionManager : Object {
     public static Gee.MultiMap<string, string> typing_accelerators = new Gee.HashMultiMap<string, string> ();
 
     private const ActionEntry[] ACTION_ENTRIES = {
-        { ACTION_QUIT, action_quit },
+        { ACTION_QUIT_Q, action_quit },
+        { ACTION_QUIT_W, action_quit },
         { ACTION_PREFERENCES, action_preferences },
         { ACTION_SHORTCUTS, action_shortcuts },
         { ACTION_ADD_TASK, action_add_task },
@@ -77,7 +79,8 @@ public class Services.ActionManager : Object {
     }
 
     static construct {
-        action_accelerators.set (ACTION_QUIT, "<Control>q");
+        action_accelerators.set (ACTION_QUIT_Q, "<Control>q");
+        action_accelerators.set (ACTION_QUIT_W, "<Control>w");
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
         action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
@@ -146,8 +149,8 @@ public class Services.ActionManager : Object {
             Services.Todoist.get_default ().sync_async ();
         }
 
-        if (Services.CalDAV.get_default ().is_logged_in ()) {
-            Services.CalDAV.get_default ().sync_async ();
+        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+            Services.CalDAV.Core.get_default ().sync_async ();
         }
     }
 

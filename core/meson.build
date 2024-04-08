@@ -10,7 +10,9 @@ core_files = files(
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/Todoist.vala',
-    'Services/CalDAV.vala',
+    'Services/CalDAV/Core.vala',
+    'Services/CalDAV/Constants.vala',
+    'Services/CalDAV/Backend.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',

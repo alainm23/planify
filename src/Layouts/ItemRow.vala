@@ -86,6 +86,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             _edit = value;
             
             if (value) {
+                add_css_class ("row");
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
                 itemrow_box.add_css_class ("card-border");
@@ -117,6 +118,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     return GLib.Source.REMOVE;
                 });        
             } else {
+                remove_css_class ("row");
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
                 itemrow_box.remove_css_class ("card-border");
@@ -200,7 +202,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     construct {
-        css_classes = { "row", "no-padding" };
+        css_classes = { "no-selectable", "no-padding" };
 
         project_id = item.project_id;
         section_id = item.section_id;
@@ -221,7 +223,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
             css_classes = { "priority-color" },
-            sensitive = !item.project.is_deck
+            sensitive = !item.project.is_deck,
+            tooltip_text = item.content
         };
 
         checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
@@ -871,7 +874,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
-            menu_handle_popover.pointing_to = { ((int) x) + 125, (int) y, 1, 1 };
+            menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
         }
@@ -920,13 +923,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.BOTTOM,
+            halign = Gtk.Align.START,
             width_request = 250
         };
 
         menu_handle_popover.set_parent (this);
-        menu_handle_popover.pointing_to = { ((int) x) + 125, (int) y, 1, 1 };
-
+        menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
@@ -1269,8 +1271,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         } else if (item.project.backend_type == BackendType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
-            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
@@ -1488,8 +1490,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     }
                 });
             } else if (picked_item.project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (picked_item, true, (obj, res) => {
-                    if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
+                    if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                         target_item.collapsed = true;
                         Services.Database.get_default ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
@@ -1599,8 +1601,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         }
                     });
                 } else if (picked_widget.item.project.backend_type == BackendType.CALDAV) {
-                    Services.CalDAV.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
-                        if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                    Services.CalDAV.Core.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
+                        if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                             Services.Database.get_default ().update_item (picked_widget.item);
                         }
                     });

@@ -1,8 +1,10 @@
+checkbutton,
 check {
     min-height: 12px;
     min-width: 12px;
     -gtk-icon-size: 12px;
     padding: 3px;
+    border-radius: 6px;
 }
 
 .font-bold {
@@ -164,6 +166,7 @@ entry.flat:focus-within {
 
 .row {
     border-radius: 9px;
+    background-color: transparent;
     transition: all 115ms ease-in-out;
 }
 

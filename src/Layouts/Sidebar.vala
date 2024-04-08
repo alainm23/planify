@@ -201,7 +201,7 @@ public class Layouts.Sidebar : Adw.Bin {
         });
 
         var caldav_sync_button = new Widgets.SyncButton () {
-            reveal_child = Services.CalDAV.get_default ().is_logged_in ()
+            reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ()
         };
         caldav_projects_header.add_widget_end (caldav_sync_button);
 
@@ -213,7 +213,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         caldav_projects_header.add_widget_end (add_caldav_button);
         add_caldav_button.clicked.connect (() => {
-            bool is_logged_in = Services.CalDAV.get_default ().is_logged_in ();
+            bool is_logged_in = Services.CalDAV.Core.get_default ().is_logged_in ();
             
             if (is_logged_in) {
                 prepare_new_project (BackendType.CALDAV);
@@ -259,12 +259,12 @@ public class Layouts.Sidebar : Adw.Bin {
             todoist_sync_button.reveal_child = false;
         });
 
-        Services.CalDAV.get_default ().log_in.connect (() => {
+        Services.CalDAV.Core.get_default ().log_in.connect (() => {
             caldav_projects_header.reveal = true;
             caldav_sync_button.reveal_child = true;
         });
 
-        Services.CalDAV.get_default ().log_out.connect (() => {
+        Services.CalDAV.Core.get_default ().log_out.connect (() => {
             caldav_projects_header.reveal = false;
             caldav_sync_button.reveal_child = false;
         });
@@ -321,14 +321,14 @@ public class Layouts.Sidebar : Adw.Bin {
         });
 
         caldav_sync_button.clicked.connect (() => {
-            Services.CalDAV.get_default ().sync_async ();
+            Services.CalDAV.Core.get_default ().sync_async ();
         });
 
-        Services.CalDAV.get_default ().sync_started.connect (() => {
+        Services.CalDAV.Core.get_default ().sync_started.connect (() => {
             caldav_sync_button.sync_started ();
         });
         
-        Services.CalDAV.get_default ().sync_finished.connect (() => {
+        Services.CalDAV.Core.get_default ().sync_finished.connect (() => {
             caldav_sync_button.sync_finished ();
         });
     }
@@ -364,7 +364,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     public void verify_caldav_account () {
-        bool is_logged_in = Services.CalDAV.get_default ().is_logged_in ();
+        bool is_logged_in = Services.CalDAV.Core.get_default ().is_logged_in ();
         
         if (is_logged_in) {
             caldav_projects_header.reveal = true;

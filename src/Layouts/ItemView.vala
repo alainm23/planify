@@ -328,8 +328,8 @@ public class Layouts.ItemViewContent : Adw.Bin {
         } else if (item.project.backend_type == BackendType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
-            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;

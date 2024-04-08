@@ -751,7 +751,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		// CalDAV
 		var caldav_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
-			active = Services.CalDAV.get_default ().is_logged_in ()
+			active = Services.CalDAV.Core.get_default ().is_logged_in ()
 		};
 
 		var caldav_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
@@ -763,7 +763,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var caldav_setting_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.CalDAV.get_default ().is_logged_in (),
+			reveal_child = Services.CalDAV.Core.get_default ().is_logged_in (),
 			child = caldav_setting_button
 		};
 
@@ -840,9 +840,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			});
 		});
 
-		Services.CalDAV.get_default ().first_sync_finished.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.get_default ().is_logged_in ();
+		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
+			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
+			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
 
 			Timeout.add (250, () => {
 				destroy ();
@@ -855,9 +855,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
 		});
 
-		Services.CalDAV.get_default ().log_out.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.get_default ().is_logged_in ();
+		Services.CalDAV.Core.get_default ().log_out.connect (() => {
+			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
+			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
 		});
 
 		todoist_setting_button.clicked.connect (() => {
@@ -1298,18 +1298,22 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
-
+		
 		var server_entry = new Adw.EntryRow ();
+		server_entry.text = "https://radicale.xlumurb.eu/";
         server_entry.title = _("Server URL");
 
 		var username_entry = new Adw.EntryRow ();
+		username_entry.text = "alainm23";
         username_entry.title = _("User Name");
 
 		var password_entry = new Adw.PasswordEntryRow ();
+		password_entry.text = "4pD@9XVKo678!bLzX^DH";
         password_entry.title = _("Password");
 
 		var providers_model = new Gtk.StringList (null);
 		providers_model.append (_("Nextcloud"));
+		//  providers_model.append (_("Radicale"));
 		
 		var providers_row = new Adw.ComboRow ();
 		providers_row.title = _("Provider");
@@ -1355,6 +1359,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
 
+		var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+			css_classes = { "flat" },
+			visible = false
+		};
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
 			hexpand = true
@@ -1363,6 +1372,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		content_box.append (entries_group);
 		content_box.append (message_revealer);
 		content_box.append (login_button);
+		content_box.append (cancel_button);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
@@ -1431,23 +1441,31 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		login_button.clicked.connect (() => {
+			GLib.Cancellable cancellable = new GLib.Cancellable ();
 			login_button.is_loading = true;
-			Services.CalDAV.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, (obj, res) => {
-				HttpResponse response = Services.CalDAV.get_default ().login.end (res);
+			cancel_button.visible = true;
+
+			cancel_button.clicked.connect (() => {
+				cancellable.cancel ();
+			});
+
+			Services.CalDAV.Core.get_default ().login.begin ((CalDAVType) providers_row.selected, server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
+				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
-					Services.CalDAV.get_default ().first_sync.begin ();
+					Services.CalDAV.Core.get_default ().first_sync.begin ();
 				} else {
 					login_button.is_loading = false;
+					cancel_button.visible = false;
 					show_message_error (_("Failed to login"), response.error.strip ());
 				}
 			});
 		});
 
-		Services.CalDAV.get_default ().first_sync_started.connect (() => {
+		Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
 			login_button.is_loading = true;
 		});
 		
-		Services.CalDAV.get_default ().first_sync_finished.connect (() => {
+		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
 			pop_subpage ();
 		});
 
@@ -1756,7 +1774,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 				if (backend_type == BackendType.TODOIST) {
 					Services.Todoist.get_default ().remove_items ();
 				} else if (backend_type == BackendType.CALDAV) {
-					Services.CalDAV.get_default ().remove_items ();
+					Services.CalDAV.Core.get_default ().remove_items ();
 				}
 			} else {
 				switch_widget.active = true;
