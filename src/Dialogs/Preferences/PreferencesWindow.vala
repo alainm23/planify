@@ -1300,15 +1300,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
 		
 		var server_entry = new Adw.EntryRow ();
-		server_entry.text = "https://radicale.xlumurb.eu/";
         server_entry.title = _("Server URL");
 
 		var username_entry = new Adw.EntryRow ();
-		username_entry.text = "alainm23";
         username_entry.title = _("User Name");
 
 		var password_entry = new Adw.PasswordEntryRow ();
-		password_entry.text = "4pD@9XVKo678!bLzX^DH";
         password_entry.title = _("Password");
 
 		var providers_model = new Gtk.StringList (null);
@@ -1449,7 +1446,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 				cancellable.cancel ();
 			});
 
-			Services.CalDAV.Core.get_default ().login.begin ((CalDAVType) providers_row.selected, server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
+			Services.CalDAV.Core.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
 				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
 					Services.CalDAV.Core.get_default ().first_sync.begin ();

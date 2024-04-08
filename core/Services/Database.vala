@@ -221,6 +221,23 @@ public class Services.Database : GLib.Object {
         }
 
         sql = """
+            CREATE TABLE IF NOT EXISTS Sources (
+                id                  TEXT PRIMARY KEY,
+                type                TEXT,
+                username            TEXT,
+                email               TEXT,
+                credentials         TEXT,
+                sync_token          TEXT,
+                last_sync           TEXT,
+                inbox_project_id    TEXT
+            );
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
             CREATE TABLE IF NOT EXISTS Projects (
                 id                      TEXT PRIMARY KEY,
                 name                    TEXT NOT NULL,
