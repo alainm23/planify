@@ -30,6 +30,7 @@ public class Views.Today : Adw.Bin {
     private Gtk.Grid listbox_grid;
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Stack listbox_placeholder_stack;
+    private Gtk.Revealer indicator_revealer;
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
@@ -54,7 +55,36 @@ public class Views.Today : Adw.Bin {
         overdue_items = new Gee.HashMap <string, Layouts.ItemRow> ();
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
         
+        var indicator_grid = new Gtk.Grid () {
+			width_request = 9,
+			height_request = 9,
+			margin_top = 6,
+			margin_end = 6,
+			css_classes = { "indicator" }
+		};
+
+        indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+			halign = END,
+			valign = START,
+        };
+
+        var view_setting_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			popover = build_view_setting_popover (),
+			icon_name = "view-sort-descending-rtl-symbolic",
+			css_classes = { "flat" },
+			tooltip_text = _("View option menu")
+		};
+
+		var view_setting_overlay = new Gtk.Overlay ();
+		view_setting_overlay.child = view_setting_button;
+		view_setting_overlay.add_overlay (indicator_revealer);
+
         headerbar = new Layouts.HeaderBar ();
+        headerbar.pack_end (view_setting_overlay);
 
         event_list = new Widgets.EventsList.for_day (date) {
             margin_top = 12,
@@ -95,10 +125,10 @@ public class Views.Today : Adw.Bin {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+            hexpand = true,
+            css_classes = { "listbox-background" }
         };
-
-        overdue_listbox.add_css_class ("listbox-background");
+        overdue_listbox.set_sort_func (set_sort_func);
 
         var overdue_listbox_grid = new Gtk.Grid () {
             margin_top = 6
@@ -156,10 +186,10 @@ public class Views.Today : Adw.Bin {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+            hexpand = true,
+            css_classes = { "listbox-background" }
         };
-
-        listbox.add_css_class ("listbox-background");
+        listbox.set_sort_func (set_sort_func);
 
         listbox_grid = new Gtk.Grid () {
             margin_top = 6,
@@ -233,6 +263,7 @@ public class Views.Today : Adw.Bin {
         child = toolbar_view;
         update_today_label ();
         add_today_items ();
+        check_default_view ();
 
         Timeout.add (listbox_placeholder_stack.transition_duration, () => {
             check_placeholder ();
@@ -262,6 +293,14 @@ public class Views.Today : Adw.Bin {
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+        Services.Settings.get_default ().settings.changed.connect ((key) => {
+			if (key == "today-sort-order") {
+                listbox.invalidate_sort ();
+                overdue_listbox.invalidate_sort ();
+                check_default_view ();
+            }
+        });
     }
 
     private void check_placeholder () {
@@ -270,6 +309,10 @@ public class Views.Today : Adw.Bin {
         } else {
             listbox_placeholder_stack.visible_child_name = "placeholder";
         }
+
+        listbox.invalidate_sort ();
+        overdue_listbox.invalidate_sort ();
+        check_default_view ();
     }
 
     private void add_today_items () {
@@ -419,4 +462,86 @@ public class Views.Today : Adw.Bin {
         ));
         headerbar.title = "%s   <small>%s</small>".printf (today_label, date_format);
     }
+
+    private Gtk.Popover build_view_setting_popover () {
+		var order_by_model = new Gee.ArrayList<string> ();
+		order_by_model.add (_("Due Date"));
+        order_by_model.add (_("Alphabetically"));
+		order_by_model.add (_("Date Added"));
+		order_by_model.add (_("Priority"));
+
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
+		order_by_item.selected = Services.Settings.get_default ().settings.get_int ("today-sort-order");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (order_by_item);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = false,
+			position = Gtk.PositionType.BOTTOM,
+			child = menu_box,
+			width_request = 250
+		};
+
+		order_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_int ("today-sort-order", order_by_item.selected);
+		});
+
+		return popover;
+	}
+
+    private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+		Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
+		Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
+        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
+
+		if (sort_order == 0) {
+			if (item1.has_due && item2.has_due) {
+				var date1 = item1.due.datetime;
+				var date2 = item2.due.datetime;
+
+				return date1.compare (date2);
+			}
+
+			if (!item1.has_due && item2.has_due) {
+				return 1;
+			}
+
+			return 0;
+		}
+
+        if (sort_order == 1) {
+			return item1.content.strip ().collate (item2.content.strip ());
+		}
+
+		if (sort_order == 2) {
+			return item1.added_datetime.compare (item2.added_datetime);
+		}
+
+		if (sort_order == 3) {
+			if (item1.priority < item2.priority) {
+				return 1;
+			}
+
+			if (item1.priority < item2.priority) {
+				return -1;
+			}
+
+			return 0;
+		}
+
+		return 0;
+	}
+
+    private void check_default_view () {
+		bool defaults = true;
+        int sort_order = Services.Settings.get_default ().settings.get_int ("today-sort-order");
+		
+		if (sort_order != 0) {
+			defaults = false;
+		}
+
+		indicator_revealer.reveal_child = !defaults;
+	}
 }

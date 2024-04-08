@@ -398,8 +398,8 @@ public class Views.Project : Adw.Bin {
 		var order_by_model = new Gee.ArrayList<string> ();
 		order_by_model.add (_("Custom sort order"));
 		order_by_model.add (_("Alphabetically"));
-		order_by_model.add (_("Due date"));
-		order_by_model.add (_("Date added"));
+		order_by_model.add (_("Due Date"));
+		order_by_model.add (_("Date Added"));
 		order_by_model.add (_("Priority"));
 
 		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
