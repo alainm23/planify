@@ -26,6 +26,7 @@ public class Views.Project : Adw.Bin {
 	private Gtk.Stack view_stack;
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
+	private Widgets.ContextMenu.MenuItem delete_all_completed;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
 
@@ -410,6 +411,11 @@ public class Views.Project : Adw.Bin {
 			"check-round-outline-symbolic"
 		);
 
+		delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic") {
+			visible = false
+		};
+		delete_all_completed.add_css_class ("menu-item-danger");
+
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 
@@ -420,6 +426,7 @@ public class Views.Project : Adw.Bin {
 		menu_box.append (order_by_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
+		menu_box.append (delete_all_completed);
 
 		var popover = new Gtk.Popover () {
 			has_arrow = false,
@@ -441,6 +448,7 @@ public class Views.Project : Adw.Bin {
 			project.update_local ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
+			delete_all_completed.visible = project.show_completed;
 			check_default_view ();
 		});
 
@@ -455,6 +463,29 @@ public class Views.Project : Adw.Bin {
 		project.sort_order_changed.connect (() => {
 			order_by_item.update_selected (project.sort_order);
 			check_default_view ();
+		});
+
+		delete_all_completed.activate_item.connect (() => {
+			//  popover.popdown ();
+
+			//  var items = Services.Database.get_default ().get_items_checked_by_project (project);
+
+			//  var dialog = new Adw.MessageDialog (
+			//  	(Gtk.Window) Planify.instance.main_window,
+			//      _("Delete All Completed Tasks"), _("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+			//  );
+
+			//  dialog.body_use_markup = true;
+			//  dialog.add_response ("cancel", _("Cancel"));
+			//  dialog.add_response ("delete", _("Delete"));
+			//  dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			//  dialog.show ();
+
+			//  dialog.response.connect ((response) => {
+			//  	if (response == "delete") {
+
+			//  	}
+			//  });
 		});
 
 		return popover;

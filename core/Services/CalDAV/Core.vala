@@ -765,21 +765,29 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public bool is_vtodo (GXml.DomElement element) {
-        bool return_value = false;
+        GXml.DomHTMLCollection propstat = element.get_elements_by_tag_name ("d:propstat");
 
-        GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
-        GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
-        GXml.DomHTMLCollection getcontenttype = prop.get_elements_by_tag_name ("d:getcontenttype");
+        if (propstat.length <= 0) {
+            return false;
+        }
+
+        GXml.DomHTMLCollection prop = propstat.get_element (0).get_elements_by_tag_name ("d:prop");
+
+        if (prop.length <= 0) {
+            return false;
+        }
+
+        GXml.DomHTMLCollection getcontenttype = prop.get_element (0).get_elements_by_tag_name ("d:getcontenttype");
 
         if (getcontenttype.length <= 0) {
-            return return_value;
+            return false;
         }
 
         if (getcontenttype.get_element (0).text_content.index_of ("vtodo") > -1) {
-            return_value = true;
+            return true;
         }
 
-        return return_value;
+        return false;
     }
 
     /*
