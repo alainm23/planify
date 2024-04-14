@@ -239,15 +239,17 @@ public class Widgets.ScheduleButton : Gtk.Grid {
                 end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
             }
 
-            due_image.icon_name = "arrow-circular-top-right-symbolic";
-            due_label.label += " <small>%s</small>".printf (
-                Util.get_default ().get_recurrency_weeks (
-                    item.due.recurrency_type,
-                    item.due.recurrency_interval,
-                    item.due.recurrency_weeks,
-                    end_label
-                )
-            ); 
+            due_image.icon_name = "playlist-repeat-symbolic";
+            
+            string repeat_text = Util.get_default ().get_recurrency_weeks (
+                item.due.recurrency_type,
+                item.due.recurrency_interval,
+                item.due.recurrency_weeks,
+                end_label
+            ).down ();
+
+            due_label.label += ", <small>%s</small>".printf (repeat_text);
+            due_label.tooltip_text = repeat_text;
         }
     }
 

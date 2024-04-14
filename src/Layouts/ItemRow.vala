@@ -43,11 +43,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer content_entry_revealer;
 
     private Gtk.Label due_label;
-    private Gtk.Revealer due_label_revealer;
+    private Gtk.Box due_box;
+    private Gtk.Label repeat_label;
+    private Gtk.Revealer repeat_revealer;
+    private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
     private Gtk.Revealer pin_image_revealer;
-    private Gtk.Image repeat_image;
-    private Gtk.Revealer repeat_image_revealer;
     
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
@@ -101,8 +102,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_revealer.reveal_child = true;
 
                 // Due labels
-                due_label_revealer.reveal_child = false;
-                repeat_image_revealer.reveal_child = false;
+                due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
                 pin_image_revealer.reveal_child = false;
 
@@ -314,26 +314,41 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         // Due Label
         due_label = new Gtk.Label (null) {
-            margin_start = 6,
             valign = Gtk.Align.CENTER,
             css_classes = { "small-label" }
         };
-    
-        due_label_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = due_label
+
+        var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
+            pixel_size = 12,
+            margin_top = 3
         };
 
-        // Repeat Icon
-        repeat_image = new Gtk.Image.from_icon_name ("arrow-circular-top-right-symbolic") {
+        repeat_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            css_classes = { "dim-label" }
+            css_classes = { "small-label" }
         };
 
-        repeat_image_revealer = new Gtk.Revealer () {
+        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6
+        };
+
+        repeat_box.append (repeat_image);
+        repeat_box.append (repeat_label);
+
+        repeat_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = repeat_image
+            child = repeat_box
+        };
+
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 6
+        };
+        due_box.append (due_label);
+        due_box.append (repeat_revealer);
+    
+        due_box_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = due_box
         };
 
         // Description Icon
@@ -359,7 +374,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
-        content_main_box.append (due_label_revealer);
+        content_main_box.append (due_box_revealer);
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
 
@@ -478,7 +493,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (pin_image_revealer);
         _itemrow_box.append (description_image_revealer);
-        _itemrow_box.append (repeat_image_revealer);
         _itemrow_box.append (select_revealer);
         _itemrow_box.append (project_label_revealer);
 
@@ -804,9 +818,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void check_due () {
-        due_label.remove_css_class ("overdue-grid");
-        due_label.remove_css_class ("today-grid");
-        due_label.remove_css_class ("upcoming-grid");
+        due_box.remove_css_class ("overdue-grid");
+        due_box.remove_css_class ("today-grid");
+        due_box.remove_css_class ("upcoming-grid");
 
         if (item.completed) {
             due_label.label = Util.get_default ().get_relative_date_from_date (
@@ -814,8 +828,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     Util.get_default ().get_date_from_string (item.completed_at)
                 )
             );
-            due_label.add_css_class ("completed-grid");
-            due_label_revealer.reveal_child = true;
+            due_box.add_css_class ("completed-grid");
+            due_box_revealer.reveal_child = true;
             return;
         }
 
@@ -823,28 +837,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
 
             if (!edit) {
-                due_label_revealer.reveal_child = true;
-                //  checked_stack.visible_child_name = item.due.is_recurring ? "repeat-button" : "check-button";
+                due_box_revealer.reveal_child = true;
             }
 
+            repeat_revealer.reveal_child = item.due.is_recurring;
             if (item.due.is_recurring) {
-                repeat_image.tooltip_text = Util.get_default ().get_recurrency_weeks (
+                due_label.label += ", ";
+                repeat_label.label = Util.get_default ().get_recurrency_weeks (
                     item.due.recurrency_type, item.due.recurrency_interval,
                     item.due.recurrency_weeks
-                );
+                ).down ();
             }
 
             if (Util.get_default ().is_today (item.due.datetime)) {
-                due_label.add_css_class ("today-grid");
+                due_box.add_css_class ("today-grid");
             } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-                due_label.add_css_class ("overdue-grid");
+                due_box.add_css_class ("overdue-grid");
             } else {
-                due_label.add_css_class ("upcoming-grid");
+                due_box.add_css_class ("upcoming-grid");
             }
         } else {
             due_label.label = "";
-            due_label_revealer.reveal_child = false;
-            //  checked_stack.visible_child_name = "check-button";
+            repeat_label.label = "";
+
+            due_box_revealer.reveal_child = false;
+            repeat_revealer.reveal_child = false;
         }
     }
 

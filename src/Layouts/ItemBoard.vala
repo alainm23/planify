@@ -35,8 +35,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private Gtk.Revealer description_revealer;
 
     private Gtk.Label due_label;
-	private Gtk.Box due_box;
-	private Gtk.Revealer due_revealer;
+    private Gtk.Box due_box;
+    private Gtk.Label repeat_label;
+    private Gtk.Revealer repeat_revealer;
+    private Gtk.Revealer due_box_revealer;
 	private Widgets.LabelsSummary labels_summary;
     private Gtk.Revealer pinned_revealer;
     private Gtk.Revealer reminder_revealer;
@@ -173,19 +175,44 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			child = description_label
 		};
 
-		due_label = new Gtk.Label (null) {
-			css_classes = { "small-label" }
-		};
+		// Due Label
+        due_label = new Gtk.Label (null) {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "small-label" }
+        };
 
-		due_box = new Gtk.Box (VERTICAL, 0) {
-			margin_end = 6
-		};
-		due_box.append (due_label);
+        var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
+            pixel_size = 12,
+            margin_top = 3
+        };
 
-		due_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-			child = due_box
-		};
+        repeat_label = new Gtk.Label (null) {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "small-label" }
+        };
+
+        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6
+        };
+
+        repeat_box.append (repeat_image);
+        repeat_box.append (repeat_label);
+
+        repeat_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = repeat_box
+        };
+
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 6
+        };
+        due_box.append (due_label);
+        due_box.append (repeat_revealer);
+    
+        due_box_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = due_box
+        };
 
 		labels_summary = new Widgets.LabelsSummary (item, 1);
         labels_summary.content_box.margin_top = 0;
@@ -234,7 +261,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			margin_end = 6
 		};
 
-		footer_box.append (due_revealer);
+		footer_box.append (due_box_revealer);
 		footer_box.append (labels_summary);
         footer_box.append (pinned_revealer);
         footer_box.append (reminder_revealer);
@@ -530,39 +557,53 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         pinned_revealer.reveal_child = item.pinned;
         reminder_revealer.reveal_child = item.reminders.size > 0;
         update_subtasks ();
-		footer_revealer.reveal_child = due_revealer.reveal_child || labels_summary.reveal_child ||
+		footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
             pinned_revealer.reveal_child || reminder_revealer.reveal_child || subtaks_revealer.reveal_child;
 	}
 
 	public void update_due_label () {
-		due_box.remove_css_class ("overdue-grid");
-		due_box.remove_css_class ("today-grid");
-		due_box.remove_css_class ("upcoming-grid");
+        due_box.remove_css_class ("overdue-grid");
+        due_box.remove_css_class ("today-grid");
+        due_box.remove_css_class ("upcoming-grid");
 
-		if (item.completed) {
-			due_label.label = Util.get_default ().get_relative_date_from_date (
-				Util.get_default ().get_date_from_string (item.completed_at)
-				);
-			due_box.add_css_class ("completed-grid");
-			due_revealer.reveal_child = true;
-			return;
-		}
+        if (item.completed) {
+            due_label.label = Util.get_default ().get_relative_date_from_date (
+                Util.get_default ().get_format_date (
+                    Util.get_default ().get_date_from_string (item.completed_at)
+                )
+            );
+            due_box.add_css_class ("completed-grid");
+            due_box_revealer.reveal_child = true;
+            return;
+        }
 
-		if (item.has_due) {
-			due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
-			due_revealer.reveal_child = true;
+        if (item.has_due) {
+            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+            due_box_revealer.reveal_child = true;
 
-			if (Util.get_default ().is_today (item.due.datetime)) {
-				due_box.add_css_class ("today-grid");
-			} else if (Util.get_default ().is_overdue (item.due.datetime)) {
-				due_box.add_css_class ("overdue-grid");
-			} else {
-				due_box.add_css_class ("upcoming-grid");
-			}
-		} else {
-			due_label.label = "";
-			due_revealer.reveal_child = false;
-		}
+            repeat_revealer.reveal_child = item.due.is_recurring;
+            if (item.due.is_recurring) {
+                due_label.label += ", ";
+                repeat_label.label = Util.get_default ().get_recurrency_weeks (
+                    item.due.recurrency_type, item.due.recurrency_interval,
+                    item.due.recurrency_weeks
+                ).down ();
+            }
+
+            if (Util.get_default ().is_today (item.due.datetime)) {
+                due_box.add_css_class ("today-grid");
+            } else if (Util.get_default ().is_overdue (item.due.datetime)) {
+                due_box.add_css_class ("overdue-grid");
+            } else {
+                due_box.add_css_class ("upcoming-grid");
+            }
+        } else {
+            due_label.label = "";
+            repeat_label.label = "";
+
+            due_box_revealer.reveal_child = false;
+            repeat_revealer.reveal_child = false;
+        }
 	}
 
     private void update_subtasks () {
