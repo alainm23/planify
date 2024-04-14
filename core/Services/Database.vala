@@ -1584,6 +1584,39 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
+    public void move_item (Objects.Item item) {
+        item.updated_at = new GLib.DateTime.now_local ().to_string ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Items SET
+                section_id=$section_id,
+                project_id=$project_id,
+                parent_id=$parent_id
+            WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$section_id", item.section_id);
+        set_parameter_str (stmt, "$project_id", item.project_id);
+        set_parameter_str (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$id", item.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Item subitem in item.items) {
+                subitem.project_id = item.project_id;
+                move_item (subitem);
+            }
+            
+            item.updated ();
+            item_updated (item, "");
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
     public void checked_toggled (Objects.Item item, bool old_checked) {
         Sqlite.Statement stmt;
 

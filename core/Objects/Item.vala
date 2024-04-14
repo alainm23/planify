@@ -1442,7 +1442,7 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Database.get_default ().update_item (this);
+        Services.Database.get_default ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
     }
 }
