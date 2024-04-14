@@ -27,6 +27,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Adw.OverlaySplitView overlay_split_view;
 	private Gtk.MenuButton settings_button;
 	private Layouts.ItemSidebarView item_sidebar_view;
+	private Gtk.Button fake_button;
 
 	public Services.ActionManager action_manager;
 
@@ -60,6 +61,10 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var settings_popover = build_menu_app ();
 
+		fake_button = new Gtk.Button () {
+			visible = false
+		};
+
 		settings_button = new Gtk.MenuButton () {
 			css_classes = { "flat" },
 			popover = settings_popover,
@@ -79,6 +84,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		sidebar_header.add_css_class ("flat");
 		sidebar_header.pack_end (settings_button);
 		sidebar_header.pack_end (search_button);
+		sidebar_header.pack_end (fake_button);
 
 		sidebar = new Layouts.Sidebar ();
 
@@ -122,6 +128,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		Timeout.add (250, () => {
 			init_backend ();
 			overlay_split_view.show_sidebar = true;
+			fake_button.grab_focus ();
 			return GLib.Source.REMOVE;
 		});
 
@@ -265,7 +272,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_split_view.notify["show-sidebar"].connect (() => {
 			if (!views_split_view.show_sidebar) {
 				item_sidebar_view.disconnect_all ();
-				search_button.grab_focus ();
+				fake_button.grab_focus ();
 			}
 		});
 	}

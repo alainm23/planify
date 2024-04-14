@@ -20,6 +20,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
+    public bool create_more { get; set; default = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more"); }
 
     public QuickAdd (bool is_window_quick_add = false) {
         Object (
@@ -215,7 +216,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        content_entry.activate.connect (add_item);
         submit_button.clicked.connect (add_item);
 
         project_picker_button.project_change.connect ((project) => {
@@ -254,6 +254,23 @@ public class Layouts.QuickAdd : Adw.Bin {
         destroy_controller.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
+            }
+
+            return false;
+        });
+
+        content_entry.activate.connect (() => {
+            create_more = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more");
+            add_item ();
+        });
+
+        var content_controller_key = new Gtk.EventControllerKey ();
+        content_entry.add_controller (content_controller_key);
+        content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65293 && (ctrl_pressed || shift_pressed)) {
+                create_more = true;
+                add_item ();
+                return false;
             }
 
             return false;
@@ -306,6 +323,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         if (item.project.backend_type == BackendType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
             add_item_db (item);
+
+            if (item.parent_id != "") {
+                item.parent.collapsed = true;
+            }
         } else if (item.project.backend_type == BackendType.TODOIST) {
             submit_button.is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
@@ -315,6 +336,10 @@ public class Layouts.QuickAdd : Adw.Bin {
                 if (response.status) {
                     item.id = response.data;
                     add_item_db (item);
+                    
+                    if (item.parent_id != "") {
+                        item.parent.collapsed = true;
+                    }
                 }
             });
         } else if (item.project.backend_type == BackendType.CALDAV) {
@@ -326,6 +351,10 @@ public class Layouts.QuickAdd : Adw.Bin {
 
                 if (response.status) {
                     add_item_db (item);
+                    
+                    if (item.parent_id != "") {
+                        item.parent.collapsed = true;
+                    }
                 }
             });
         }
@@ -336,7 +365,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         added_image.add_css_class ("fancy-turn-animation");
 
         Timeout.add (750, () => {
-            if (Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")) {
+            if (create_more) {
                 main_stack.visible_child_name = "main";
                 added_image.remove_css_class ("fancy-turn-animation");
 

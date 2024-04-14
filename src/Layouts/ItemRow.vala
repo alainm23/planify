@@ -736,7 +736,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void check_hide_subtask_button () {
-        hide_subtask_revealer.reveal_child = subitems.has_children;
+        if (!edit) {
+            hide_subtask_revealer.reveal_child = subitems.has_children;
+        }
     }
 
     private void selected_toggled (bool active) {
