@@ -29,6 +29,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private Gtk.ListBox checked_listbox;
 	private Gtk.Revealer checked_revealer;
 	private Gtk.Revealer content_revealer;
+	private Gtk.Grid drop_widget;
+	private Gtk.Revealer drop_revealer;
 	private Adw.Bin handle_grid;
 	private Gtk.Box sectionrow_grid;
 	private Gtk.Label count_label;
@@ -164,6 +166,17 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			child = sectionrow_revealer
 		};
 
+		drop_widget = new Gtk.Grid () {
+			css_classes = { "transition", "drop-target" },
+			height_request = 32,
+			margin_start = 18
+		};
+
+		drop_revealer = new Gtk.Revealer () {
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			child = drop_widget
+		};
+
 		listbox = new Gtk.ListBox () {
 			valign = Gtk.Align.START,
 			hexpand = true,
@@ -205,6 +218,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		};
 
 		content_box.append (handle_grid);
+		content_box.append (drop_revealer);
 		content_box.append (bottom_revealer);
 
 		content_revealer = new Gtk.Revealer () {
@@ -228,14 +242,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			return GLib.Source.REMOVE;
 		});
-
-		listbox.row_activated.connect ((row) => {
-			((Layouts.ItemRow) row).edit = true;
-		});
-
-		//  checked_listbox.row_activated.connect ((row) => {
-		//  	((Layouts.ItemRow) row).edit = true;
-		//  });
 
 		name_editable.changed.connect (() => {
 			section.name = name_editable.text;
@@ -418,6 +424,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				name_editable.show_edit = false;
 			}
         });
+
+		Services.EventBus.get_default ().drag_n_drop_active.connect ((project_id, active) => {
+			if (is_inbox_section && section.project_id == project_id) {
+				drop_revealer.reveal_child = active;
+			}
+		});
 	}
 
 	private void show_completed_changed () {
@@ -647,6 +659,48 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var drop_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
 		sectionrow_grid.add_controller (drop_target);
 		drop_target.drop.connect ((target, value, x, y) => {
+			var picked_widget = (Layouts.ItemRow) value;
+			var old_section_id = "";
+
+			picked_widget.drag_end ();
+
+			old_section_id = picked_widget.item.section_id;
+
+			picked_widget.item.project_id = section.project_id;
+			picked_widget.item.section_id = section.id;
+			picked_widget.item.parent_id = "";
+
+			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+				string type = "section_id";
+				string id = section.id;
+
+				if (is_inbox_section) {
+					type = "project_id";
+					id = section.project_id;
+				}
+
+				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
+					if (Services.Todoist.get_default ().move_item.end (res).status) {
+						Services.Database.get_default ().update_item (picked_widget.item);
+					}
+				});
+			} else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+				Services.Database.get_default ().update_item (picked_widget.item);
+			}
+
+			var source_list = (Gtk.ListBox) picked_widget.parent;
+			source_list.remove (picked_widget);
+
+			listbox.insert (picked_widget, 0);
+			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
+			update_items_item_order (listbox);
+
+			return true;
+		});
+
+		var drop_inbox_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
+		drop_widget.add_controller (drop_inbox_target);
+		drop_inbox_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
 			var old_section_id = "";
 

@@ -119,7 +119,6 @@ public class Widgets.SubItems : Adw.Bin {
 
         checked_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = show_completed,
             child = checked_listbox
         };
 
@@ -144,6 +143,7 @@ public class Widgets.SubItems : Adw.Bin {
         item_parent = _item_parent;
 
         add_items ();
+        checked_revealer.reveal_child = show_completed;
 
         signals_map[item_parent.item_added.connect (add_item)] = item_parent;
 
@@ -252,9 +252,9 @@ public class Widgets.SubItems : Adw.Bin {
 
         signals_map[item_parent.project.show_completed_changed.connect (() => {
             if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
-                checked_revealer.reveal_child = item_parent.project.show_completed;
+                checked_revealer.reveal_child = show_completed;
 
-                if (item_parent.project.show_completed) {
+                if (show_completed) {
                     add_completed_items ();
                 } else {
                     items_checked.clear ();

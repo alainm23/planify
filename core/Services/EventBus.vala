@@ -60,6 +60,7 @@ public class Services.EventBus : Object {
     public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
     public signal void request_escape ();
+    public signal void drag_n_drop_active (string project_id, bool active);
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);
