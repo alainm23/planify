@@ -1451,7 +1451,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         dnd_handlerses[drag_source.drag_cancel.connect ((source, drag, reason) => {
             drag_end ();
-            return false;
+            return true;
         })] = drag_source;
     }
 
@@ -1648,6 +1648,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
         on_drag = false;
+
+        print ("show_item: %s\n".printf (item.show_item.to_string ()));
         main_revealer.reveal_child = item.show_item;
     }
     

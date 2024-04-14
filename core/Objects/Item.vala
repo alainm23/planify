@@ -1393,12 +1393,11 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
-        show_item = false;
-
         if (project.backend_type == BackendType.LOCAL) {
             _move (project.id, _section_id);
         } else if (project.backend_type == BackendType.TODOIST) {
             loading = true;
+            show_item = false;
 
             string move_id = project.id;
             string move_type = "project_id";
@@ -1410,24 +1409,23 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
+                show_item = true;
 
                 if (response.status) {
                     _move (project.id, _section_id);
-                } else {
-                    show_item = true;
                 }
             });
         } else if (project.backend_type == BackendType.CALDAV) {
             loading = true;
-
+            show_item = false;
+            
             Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
                 var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
+                show_item = true;
 
                 if (response.status) {
                     _move (project.id, _section_id);
-                } else {
-                    show_item = true;
                 }
             });
         }
