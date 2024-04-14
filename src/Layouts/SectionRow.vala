@@ -656,6 +656,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			picked_widget.item.project_id = section.project_id;
 			picked_widget.item.section_id = section.id;
+			picked_widget.item.parent_id = "";
 
 			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
 				string type = "section_id";
