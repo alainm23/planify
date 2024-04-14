@@ -84,7 +84,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton ();
-        pin_button = new Widgets.PinButton (item);
+        pin_button = new Widgets.PinButton ();
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton ();
@@ -388,7 +388,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void set_pinned (bool pinned) {
         item.pinned = pinned;
-        pin_button.update_request ();
+        pin_button.update_request (pinned);
     }
 
     public void set_priority (int priority) {

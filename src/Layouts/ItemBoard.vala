@@ -101,16 +101,16 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             css_classes = { "priority-color" }
 		};
 
-        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "no-padding" }
-        };
-
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
             child = checked_button,
-            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.START,
             reveal_child = true
+        };
+
+        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "flat", "no-padding" }
         };
 
 		content_label = new Gtk.Label (item.content) {
@@ -267,9 +267,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         v_box.append (motion_top_revealer);
         v_box.append (overlay);
 
+        var scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            vscrollbar_policy = Gtk.PolicyType.NEVER,
+            child = v_box
+        };
+
 		main_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = v_box
+			child = scrolled_window
 		};
 
 		child = main_revealer;

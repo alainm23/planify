@@ -42,9 +42,8 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "checkbutton-label", "priority-color" }
+            css_classes = { "checkbutton-label" }
         };
-        Util.get_default ().set_widget_priority (Constants.PRIORITY_4, checked_button);
 
         var name_label = new Gtk.Label (label.name) {
             valign = Gtk.Align.CENTER,
@@ -60,10 +59,8 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_top = 3,
             margin_start = 6,
-            margin_end = 6,
-            margin_bottom = 3
+            margin_end = 6
         };
 
         content_box.append (checked_button);

@@ -156,11 +156,21 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
 
     private Gtk.Widget build_projects_view () {
         inbox_group = new Layouts.HeaderItem (null) {
-            margin_top = 12
+            margin_top = 12,
+            card = true
         };
-        local_group = new Layouts.HeaderItem (_("On this Computer"));
-        todoist_group = new Layouts.HeaderItem (_("Todoist"));
-        caldav_group = new Layouts.HeaderItem (_("Nextcloud"));
+        
+        local_group = new Layouts.HeaderItem (_("On this Computer")) {
+            card = true
+        };
+        
+        todoist_group = new Layouts.HeaderItem (_("Todoist")) {
+            card = true
+        };
+
+        caldav_group = new Layouts.HeaderItem (_("Nextcloud")) {
+            card = true
+        };
 
         if (backend_type == BackendType.ALL) {
             inbox_group.reveal = true;
@@ -186,7 +196,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         todoist_group.set_filter_func (filter_func);
         caldav_group.set_filter_func (filter_func);
         
-        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_start = 12,
             margin_end = 12
         };

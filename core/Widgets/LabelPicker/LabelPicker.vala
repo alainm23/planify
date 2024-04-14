@@ -88,7 +88,6 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         };
 
         listbox.set_placeholder (get_placeholder ());
-        listbox.add_css_class ("listbox-separator-3");
         listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Adw.Bin () {

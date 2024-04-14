@@ -136,6 +136,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             time_stack.visible_child_name = "time-box";
             update_text ();
             time_added ();
+            time_entry.grab_focus ();
         });
 
         // Connecting to events allowing manual changes

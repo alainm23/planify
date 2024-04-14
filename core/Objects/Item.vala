@@ -47,6 +47,14 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool activate_name_editable { get; set; default = false; }
 
+    string _short_content;
+    public string short_content {
+        get {
+            _short_content = Util.get_default ().get_short_name (content);
+            return _short_content;
+        }
+    }
+
     public string priority_icon {
         get {
             if (priority == Constants.PRIORITY_1) {
@@ -737,7 +745,7 @@ public class Objects.Item : Objects.BaseObject {
             return_value = get_reminder (reminder);
             if (return_value == null) {
                 Services.Database.get_default ().insert_reminder (reminder);
-                add_reminder (return_value);
+                add_reminder (reminder);
             }
             return return_value;
         }
@@ -758,11 +766,6 @@ public class Objects.Item : Objects.BaseObject {
 
     private void add_reminder (Objects.Reminder reminder) {
         _reminders.add (reminder);
-        reminder_added (reminder);
-    }
-
-    public void delete_reminder (Objects.Reminder reminder) {
-        Services.Database.get_default ().delete_reminder (reminder);
     }
 
     // Labels
@@ -1393,7 +1396,7 @@ public class Objects.Item : Objects.BaseObject {
         show_item = false;
 
         if (project.backend_type == BackendType.LOCAL) {
-            _move (project.id, section_id);
+            _move (project.id, _section_id);
         } else if (project.backend_type == BackendType.TODOIST) {
             loading = true;
 
@@ -1409,7 +1412,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
 
                 if (response.status) {
-                    _move (project.id, section_id);
+                    _move (project.id, _section_id);
                 } else {
                     show_item = true;
                 }
@@ -1422,7 +1425,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
 
                 if (response.status) {
-                    _move (project.id, section_id);
+                    _move (project.id, _section_id);
                 } else {
                     show_item = true;
                 }

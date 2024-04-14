@@ -20,7 +20,7 @@
 */
 
 public class Widgets.SubItems : Adw.Bin {
-    public Objects.Item item_parent { get; construct; }
+    public Objects.Item item_parent { get; set; }
     public bool is_board { get; construct; }
     
     private Gtk.Revealer sub_tasks_header_revealer;
@@ -28,7 +28,9 @@ public class Widgets.SubItems : Adw.Bin {
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
     private Gtk.Revealer main_revealer;
+    private Widgets.LoadingButton add_button;
 
+    private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     public Gee.HashMap <string, Layouts.ItemBase> items = new Gee.HashMap <string, Layouts.ItemBase> ();
     public Gee.HashMap <string, Layouts.ItemBase> items_checked = new Gee.HashMap <string, Layouts.ItemBase> ();
 
@@ -60,33 +62,31 @@ public class Widgets.SubItems : Adw.Bin {
 
     public signal void children_changes ();
 
-    public SubItems (Objects.Item item_parent) {
+    public SubItems () {
         Object (
-            item_parent: item_parent,
             is_board: false
         );
     }
 
-    public SubItems.for_board (Objects.Item item_parent) {
+    public SubItems.for_board () {
         Object (
-            item_parent: item_parent,
             is_board: true
         );
     }
 
     construct {
         var sub_tasks_title = new Gtk.Label (_("Sub-tasks")) {
-            css_classes = { "h4" }
+            css_classes = { "heading", "h4" }
         };
 
-        var add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
+        add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic", 16) {
             css_classes = { "flat" },
             hexpand = true,
             halign = END
         };
 
         var sub_tasks_header = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 6
+            margin_start = 9
         };
         sub_tasks_header.append (sub_tasks_title);
         sub_tasks_header.append (add_button);
@@ -102,7 +102,9 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_start = 3,
+            margin_end = 6
         };
         
         checked_listbox = new Gtk.ListBox () {
@@ -110,7 +112,9 @@ public class Widgets.SubItems : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "listbox-background" }
+            css_classes = { "listbox-background" },
+            margin_start = 3,
+            margin_end = 6
         };
 
         checked_revealer = new Gtk.Revealer () {
@@ -134,11 +138,16 @@ public class Widgets.SubItems : Adw.Bin {
         };
         
         child = main_revealer;
+    }
+
+    public void present_item (Objects.Item _item_parent) {
+        item_parent = _item_parent;
+
         add_items ();
 
-        item_parent.item_added.connect (add_item);
+        signals_map[item_parent.item_added.connect (add_item)] = item_parent;
 
-        Services.Database.get_default ().item_updated.connect ((item, update_id) => {
+        signals_map[Services.Database.get_default ().item_updated.connect ((item, update_id) => {
             if (items.has_key (item.id_string)) {
                 if (items [item.id_string].update_id != update_id) {
                     items [item.id_string].update_request ();
@@ -148,9 +157,9 @@ public class Widgets.SubItems : Adw.Bin {
             if (items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string].update_request ();
             }
-        });
+        })] = Services.Database.get_default ();
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
+        signals_map[Services.Database.get_default ().item_deleted.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items [item.id_string].hide_destroy ();
                 items.unset (item.id_string);
@@ -162,9 +171,9 @@ public class Widgets.SubItems : Adw.Bin {
             }
 
             children_changes ();
-        });
+        })] = Services.Database.get_default ();
 
-        Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
+        signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (old_parent_id == item_parent.id) {
                 if (items.has_key (item.id_string)) {
                     items [item.id_string].hide_destroy ();
@@ -182,9 +191,9 @@ public class Widgets.SubItems : Adw.Bin {
             }
 
             children_changes ();
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
+        signals_map[Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.parent.id == item_parent.id) {
                 if (!old_checked) {
                     if (items.has_key (item.id)) {
@@ -221,9 +230,9 @@ public class Widgets.SubItems : Adw.Bin {
 
                 children_changes ();
             }
-        });
+        })] = Services.EventBus.get_default ();
 
-        Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id, old_parent_id) => {
+        signals_map[Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id, old_parent_id) => {
             if (!is_board) {
                 var row = (Layouts.ItemRow) _row;
 
@@ -239,9 +248,9 @@ public class Widgets.SubItems : Adw.Bin {
                     children_changes ();
                 }
             }
-		});
+		})] = Services.EventBus.get_default ();
 
-        item_parent.project.show_completed_changed.connect (() => {
+        signals_map[item_parent.project.show_completed_changed.connect (() => {
             if (!Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
                 checked_revealer.reveal_child = item_parent.project.show_completed;
 
@@ -255,28 +264,32 @@ public class Widgets.SubItems : Adw.Bin {
                     }
                 }
             }
-        });
+        })] = item_parent.project;
 
-        add_button.clicked.connect (() => {
+        signals_map[add_button.clicked.connect (() => {
             prepare_new_item ();
-        });
+        })] = add_button;
 
-        item_parent.project.sort_order_changed.connect (() => {
+        signals_map[item_parent.project.sort_order_changed.connect (() => {
 			update_sort ();
-		});
+		})] = item_parent.project;
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
+        signals_map[Services.Settings.get_default ().settings.changed.connect ((key) => {
 			if (key == "always-show-completed-subtasks") {
                 checked_revealer.reveal_child = show_completed;
                 if (show_completed) {
                     add_completed_items ();
                 }
 			}
-		});
+		})] = Services.Settings.get_default ().settings;
     }
 
     public void add_items () {
         items.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
 
         foreach (Objects.Item item in item_parent.items) {
             add_item (item);
@@ -396,5 +409,13 @@ public class Widgets.SubItems : Adw.Bin {
         dialog.for_base_object (item_parent);
         dialog.update_content (content);
         dialog.show ();
+    }
+
+    public void disconnect_all () {
+        foreach (var entry in signals_map.entries) {
+            entry.value.disconnect (entry.key);
+        }
+
+        signals_map.clear ();
     }
 }

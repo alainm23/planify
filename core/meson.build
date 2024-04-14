@@ -31,6 +31,7 @@ core_files = files(
     'Widgets/ItemLabels.vala',
     'Widgets/ItemLabelChild.vala',
     'Widgets/CircularProgressBar.vala',
+    'Widgets/StatusButton.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -54,6 +55,14 @@ core_files = files(
     'Widgets/ProjectPicker/ProjectPickerPopover.vala',
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',
+
+    'Widgets/SectionPicker/SectionButton.vala',
+    'Widgets/SectionPicker/SectionPicker.vala',
+    'Widgets/SectionPicker/SectionPickerRow.vala',
+
+    'Widgets/ReminderPicker/ReminderButton.vala',
+    'Widgets/ReminderPicker/ReminderPicker.vala',
+    'Widgets/ReminderPicker/ReminderRow.vala',
 
     'Objects/BaseObject.vala',
     'Objects/Color.vala',

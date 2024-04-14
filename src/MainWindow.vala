@@ -245,8 +245,17 @@ public class MainWindow : Adw.ApplicationWindow {
         });
 
 		Services.EventBus.get_default ().open_item.connect ((item) => {
-			item_sidebar_view.item = item;
-			views_split_view.show_sidebar = true;
+			if (views_split_view.show_sidebar) {
+				views_split_view.show_sidebar = false;
+				Timeout.add (275, () => {
+					views_split_view.show_sidebar = true;
+					item_sidebar_view.present_item (item);
+					return GLib.Source.REMOVE;
+				});
+			} else {
+				views_split_view.show_sidebar = true;
+				item_sidebar_view.present_item (item);
+			}
 		});
 
 		Services.EventBus.get_default ().close_item.connect (() => {
@@ -255,6 +264,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		views_split_view.notify["show-sidebar"].connect (() => {
 			if (!views_split_view.show_sidebar) {
+				item_sidebar_view.disconnect_all ();
 				search_button.grab_focus ();
 			}
 		});

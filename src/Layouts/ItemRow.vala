@@ -407,7 +407,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         label_button.backend_type = item.project.backend_type;
 
-        pin_button = new Widgets.PinButton (item) {
+        pin_button = new Widgets.PinButton () {
             sensitive = !item.completed
         };
 
@@ -487,7 +487,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = _itemrow_box
         };
 
-        subitems = new Widgets.SubItems (item);
+        subitems = new Widgets.SubItems ();
+        subitems.present_item (item);
         subitems.reveal_child = item.collapsed;
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -770,7 +771,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         label_button.labels = item._get_labels ();
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
-        pin_button.update_request ();
+        pin_button.update_from_item (item);
         
         check_due ();
         check_description ();
@@ -977,9 +978,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         edit_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-
-            var dialog = new Dialogs.ItemView (item);
-            dialog.show ();
+            Services.EventBus.get_default ().open_item (item);
         });
 
         delete_item.activate_item.connect (() => {
@@ -1384,6 +1383,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             item.move (project, section_id);
         }
     }
+    
     public void build_drag_and_drop () {
         // Drop Motion
         build_drop_motion ();

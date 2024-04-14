@@ -124,6 +124,7 @@ entry.flat:focus-within {
 .listbox-separator-24 row:not(:first-child) {
     margin-top: 24px;
 }
+
 /*
  * MENU STYLE
  */
@@ -131,10 +132,6 @@ entry.flat:focus-within {
 .menu-item-danger:hover {
     background-color: alpha(#e01b24, 0.25);
 }
-
-/*
- *
- */
 
 .magic-button {
     border-radius: 50%;
@@ -346,8 +343,9 @@ entry.flat:focus-within {
     font-weight: bold;
 }
 
-.completed-color {
-    color: #4a82ef;
+.completed-image-color,
+.completed-color image {
+    color: #ff7800;
 }
 
 .is_loading image {

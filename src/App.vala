@@ -33,14 +33,14 @@ public class Planify : Adw.Application {
 	}
 
 	//  private static bool run_in_background = false;
-	private static bool version = false;
+	private static bool n_version = false;
 	private static bool clear_database = false;
 	private static string lang = "";
 
 	private Xdp.Portal? portal = null;
 
 	private const OptionEntry[] OPTIONS = {
-		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
+		{ "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
 		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
 		//  { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
 		{ "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
@@ -67,9 +67,20 @@ public class Planify : Adw.Application {
 			GLib.Environment.set_variable ("LANGUAGE", lang, true);
 		}
 
-		if (version) {
+		if (n_version) {
 			debug ("%s\n".printf (Build.VERSION));
 			return;
+		}
+
+		if (clear_database) {
+			stdout.printf (_("Are you sure you want to reset all? (y/n): "));
+			string? option = stdin.read_line ();
+
+			if (option.down () == _("y") || option.down () == _("yes")) {
+				Services.Database.get_default ().clear_database ();
+                Services.Settings.get_default ().reset_settings ();
+				return;
+			}
 		}
 
 		if (main_window != null) {
@@ -98,12 +109,6 @@ public class Planify : Adw.Application {
 		);
 
 		Util.get_default ().update_theme ();
-
-		if (clear_database) {
-			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it"),
-												main_window);
-		}
 
 		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
 			Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);

@@ -47,7 +47,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 		var title_label = new Gtk.Label (_("What’s new in Planify")) {
 			hexpand = true,
 			halign = CENTER,
-			css_classes = { "h1" }
+			css_classes = { "title-1" }
 		};
 
 		var version_label = new Gtk.Label (Build.VERSION) {
