@@ -447,7 +447,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
-        repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "arrow-circular-top-right-symbolic");
+        repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic");
         repeat_item.arrow = true;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");

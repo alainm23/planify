@@ -239,7 +239,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
             child = checked_button,
-            valign = Gtk.Align.CENTER,
+            valign = Gtk.Align.START,
             reveal_child = true
         };
 
@@ -1032,7 +1032,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "arrow-circular-top-right-symbolic");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic");
         repeat_item.arrow = true;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
