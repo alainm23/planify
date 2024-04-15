@@ -67,6 +67,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
     public signal void time_changed ();
     public signal void time_added ();
+    public signal void activate ();
 
     construct {
         if (format_12 == null) {
@@ -165,7 +166,10 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             return false;
         });
 
-        time_entry.activate.connect (is_unfocused);
+        time_entry.activate.connect (() => {
+            is_unfocused ();
+            activate ();
+        });
 
         no_time_button.clicked.connect (() => {
             reset ();

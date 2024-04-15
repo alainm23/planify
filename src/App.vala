@@ -113,6 +113,9 @@ public class Planify : Adw.Application {
 		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
 			Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);
 		}
+
+		// Actions
+        build_shortcuts ();
 	}
 
 	public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
@@ -145,6 +148,16 @@ public class Planify : Adw.Application {
 			GLib.DirUtils.create_with_parents (path, 0775);
 		}
 	}
+
+	private void build_shortcuts () {
+        var show_item = new SimpleAction ("show-item", VariantType.STRING);
+        show_item.activate.connect ((parameter) => {
+            Planify.instance.main_window.view_item (parameter.get_string ());
+            activate ();
+        });
+
+        add_action (show_item);
+    }
 
 	public static int main (string[] args) {
 		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1069

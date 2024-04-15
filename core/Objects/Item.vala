@@ -1272,18 +1272,24 @@ public class Objects.Item : Objects.BaseObject {
         if (project.backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().delete_item (this);
         } else if (project.backend_type == BackendType.TODOIST) {
+            loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                 }
+
+                loading = false;
             });
         } else if (project.backend_type == BackendType.CALDAV) {
+            loading = true;
             Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                     foreach (Objects.Item subitem in this.items) {
                         subitem.delete_item ();
                     }
+
+                    loading = false;
                 }
             });
         }

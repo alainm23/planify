@@ -76,11 +76,16 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         child = main_stack;
 
         add_button.clicked.connect (() => {
+            calendar.date = new GLib.DateTime.now_local ();
+    
             time_picker.has_time = true;
             time_picker.no_time_visible = false;
             time_picker.time = new GLib.DateTime.now_local ().add_hours (1);
+
             main_stack.visible_child_name = "picker";
         });
+
+        time_picker.activate.connect (insert_reminder);
 
         closed.connect (() => {
             main_stack.visible_child_name = "listbox";
@@ -89,6 +94,14 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
     }
 
     private void insert_reminder () {
+        if (calendar.date == null) {
+            return;
+        }
+
+        if (time_picker.time == null) {
+            return;
+        }
+
         var reminder = new Objects.Reminder ();
         reminder.due.date = Util.get_default ().get_todoist_datetime_format (get_datetime_picker ());
 
@@ -104,7 +117,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
             calendar.date.get_day_of_month (),
             time_picker.time.get_hour (),
             time_picker.time.get_minute (),
-            0
+            time_picker.time.get_seconds ()
         );
     }
 

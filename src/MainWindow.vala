@@ -423,6 +423,11 @@ public class MainWindow : Adw.ApplicationWindow {
 		);
 	}
 
+	public void view_item (string id) {
+		var item = Services.Database.get_default ().get_item_by_id (id);
+		Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, item.project_id);
+	}
+
 	public void valid_view_removed (Objects.Project project) {
 		Views.Project? project_view;
 		project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);

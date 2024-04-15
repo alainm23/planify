@@ -28,9 +28,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
 
     public signal void reminder_added (Objects.Reminder reminder);
     
+
     public ReminderButton () {
         Object (
             is_board: false,
+            valign: Gtk.Align.CENTER,
+            halign: Gtk.Align.CENTER,
             tooltip_text: _("Add Reminders")
         );
     }
@@ -43,6 +46,8 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     }
 
     construct {
+        picker = new Widgets.ReminderPicker._ReminderPicker ();
+
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
                 halign = START,
@@ -70,7 +75,6 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             card_grid.attach (title_label, 1, 0, 1, 1);
             card_grid.attach (value_label, 1, 1, 1, 1);
 
-            picker = new Widgets.ReminderPicker._ReminderPicker ();
             picker.set_parent (card_grid);
 
             css_classes = { "card" };
@@ -83,49 +87,38 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
             click_gesture.pressed.connect ((n_press, x, y) => {
                 picker.show ();
             });
-
-            picker.reminder_added.connect ((reminder) => {
-                reminder_added (reminder);
-            });
         } else {
-            //  var reminder_picker = new Widgets.ReminderPicker.ReminderPicker (item);
+            var indicator_grid = new Gtk.Grid () {
+                width_request = 9,
+                height_request = 9,
+                margin_top = 3,
+                margin_end = 3,
+                css_classes = { "indicator" }
+            };
 
-            //  var indicator_grid = new Gtk.Grid () {
-            //      width_request = 9,
-            //      height_request = 9,
-            //      margin_top = 3,
-            //      margin_end = 3,
-            //      css_classes = { "indicator" }
-            //  };
+            indicator_revealer = new Gtk.Revealer () {
+                transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+                child = indicator_grid,
+                halign = END,
+                valign = START,
+            };
 
-            //  indicator_revealer = new Gtk.Revealer () {
-            //      transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            //      child = indicator_grid,
-            //      halign = END,
-            //      valign = START,
-            //  };
+            var button = new Gtk.MenuButton () {
+                icon_name = "alarm-symbolic",
+                popover = picker,
+                css_classes = { "flat" }
+            };
 
-            //  var button = new Gtk.MenuButton () {
-            //      icon_name = "alarm-symbolic",
-            //      popover = reminder_picker,
-            //      css_classes = { "flat" }
-            //  };
+            var overlay = new Gtk.Overlay ();
+            overlay.child = button;
+            overlay.add_overlay (indicator_revealer);
 
-            //  var overlay = new Gtk.Overlay ();
-            //  overlay.child = button;
-            //  overlay.add_overlay (indicator_revealer);
-
-            //  child = overlay;
-            //  update_request ();
-
-            //  item.reminder_added.connect (() => {
-            //      update_request ();
-            //  });
-
-            //  item.reminder_deleted.connect (() => {
-            //      update_request ();
-            //  });
+            child = overlay;
         }
+
+        picker.reminder_added.connect ((reminder) => {
+            reminder_added (reminder);
+        });
     }
 
     public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {

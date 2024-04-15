@@ -52,10 +52,6 @@ sources = files(
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
 
-  'Widgets/ReminderPicker/ReminderButton.vala',
-  'Widgets/ReminderPicker/ReminderPicker.vala',
-  'Widgets/ReminderPicker/ReminderRow.vala',
-
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
   'Views/Project/Board.vala',

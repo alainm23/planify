@@ -466,26 +466,26 @@ public class Views.Project : Adw.Bin {
 		});
 
 		delete_all_completed.activate_item.connect (() => {
-			//  popover.popdown ();
+			popover.popdown ();
 
-			//  var items = Services.Database.get_default ().get_items_checked_by_project (project);
+			var items = Services.Database.get_default ().get_items_checked_by_project (project);
 
-			//  var dialog = new Adw.MessageDialog (
-			//  	(Gtk.Window) Planify.instance.main_window,
-			//      _("Delete All Completed Tasks"), _("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
-			//  );
+			var dialog = new Adw.MessageDialog (
+				(Gtk.Window) Planify.instance.main_window,
+			    _("Delete All Completed Tasks"), _("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+			);
 
-			//  dialog.body_use_markup = true;
-			//  dialog.add_response ("cancel", _("Cancel"));
-			//  dialog.add_response ("delete", _("Delete"));
-			//  dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			//  dialog.show ();
+			dialog.body_use_markup = true;
+			dialog.add_response ("cancel", _("Cancel"));
+			dialog.add_response ("delete", _("Delete"));
+			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			dialog.show ();
 
-			//  dialog.response.connect ((response) => {
-			//  	if (response == "delete") {
-
-			//  	}
-			//  });
+			dialog.response.connect ((response) => {
+				if (response == "delete") {
+					delete_all_action (items);
+				}
+			});
 		});
 
 		return popover;
@@ -498,5 +498,11 @@ public class Views.Project : Adw.Bin {
 
 		var dialog = new Dialogs.Section.new (project);
 		dialog.show ();
+	}
+
+	public void delete_all_action (Gee.ArrayList<Objects.Item> items) {
+		foreach (Objects.Item item in items) {
+			item.delete_item ();
+		}
 	}
 }

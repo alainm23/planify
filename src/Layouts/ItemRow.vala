@@ -28,7 +28,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Button checked_repeat_button;
     private Gtk.Stack checked_stack;
     private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
@@ -63,7 +62,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Widgets.PriorityButton priority_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
-    private Widgets.ReminderButton reminder_button;
+    private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Gtk.Button add_button;
     private Gtk.Box action_box;
 
@@ -227,19 +226,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             tooltip_text = item.content
         };
 
-        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "no-padding" }
-        };
-        
-        checked_stack = new Gtk.Stack () {
-			transition_type = Gtk.StackTransitionType.CROSSFADE
-		};
-
         checked_button_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
             child = checked_button,
-            valign = Gtk.Align.START,
+            valign = Gtk.Align.CENTER,
             reveal_child = true
         };
 
@@ -426,7 +416,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
 
-        reminder_button = new Widgets.ReminderButton (item) {
+        reminder_button = new Widgets.ReminderPicker.ReminderButton () {
             sensitive = !item.completed
         };
 
@@ -618,13 +608,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         });
 
-        var repeat_button_gesture = new Gtk.GestureClick ();
-        checked_repeat_button.add_controller (repeat_button_gesture);
-        repeat_button_gesture.pressed.connect (() => {
-            repeat_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            update_next_recurrency ();
-        });
-
         var hide_loading_gesture = new Gtk.GestureClick ();
         hide_loading_button.add_controller (hide_loading_gesture);
         hide_loading_gesture.pressed.connect (() => {
@@ -733,6 +716,37 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.show_item_changed.connect (() => {
             main_revealer.reveal_child = item.show_item;
         });
+
+        reminder_button.reminder_added.connect ((reminder) => {
+            reminder.item_id = item.id;
+
+            if (item.project.backend_type == BackendType.TODOIST) {
+                item.loading = true;
+                Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
+                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                    item.loading = false;
+
+                    if (response.status) {
+                        reminder.id = response.data;
+                    } else {
+                        reminder.id = Util.get_default ().generate_id (reminder);
+                    }
+
+                    item.add_reminder_if_not_exists (reminder);
+                });
+            } else {
+                reminder.id = Util.get_default ().generate_id (reminder);
+                item.add_reminder_if_not_exists (reminder);
+            }
+        });
+
+        item.reminder_added.connect ((reminder) => {
+            reminder_button.add_reminder (reminder, item.reminders);
+        });
+
+        item.reminder_deleted.connect ((reminder) => {
+            reminder_button.delete_reminder (reminder, item.reminders);
+        });
     }
 
     public void check_hide_subtask_button () {
@@ -788,6 +802,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
         pin_button.update_from_item (item);
+        reminder_button.set_reminders (item.reminders);
         
         check_due ();
         check_description ();
