@@ -114,18 +114,20 @@ public class Dialogs.WhatsNew : Adw.Window {
 			}
 			return false;
         });
-
-		add_feature (_("New Filters"), _("New filters available in Quick Add."));
-		add_feature (_("Repeating"), _("All your repeating to-dos in one, convenient place (finally!)."));
-		add_feature (_("Tomorrow"), _("A nice focused list to plan tomorrow, today."));
-		add_feature (_("Anytime"), _("All your unlabel to-dos in one place."));
-		add_feature (_("Search by Sections"), _("Quick Find now supports section searching."));
+		
+		add_feature (_("Now you can sort tasks in the Today view."), null);
+		add_feature (_("We've added a new detailed task view on the sidebar when opening a task in Board view."), null);
+		add_feature (_("We've introduced the ability to delete completed tasks."), null);
+		add_feature (_("You can now use the Ctrl key when creating a task to continue adding."), null);
 	}
 
-	public void add_feature (string title, string description, Adw.NavigationPage? page = null) {
+	public void add_feature (string title, string? description, Adw.NavigationPage? page = null) {
 		var row = new Adw.ActionRow ();
 		row.title = title;
-		row.subtitle = description;
+
+		if (description != null) {
+			row.subtitle = description;
+		}
 
 		if (page != null) {
 			row.add_suffix (generate_icon ("pan-end-symbolic", 16));

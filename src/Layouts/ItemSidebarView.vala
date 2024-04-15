@@ -394,7 +394,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        if (item ==  null) {
+        if (item == null) {
             return;
         }
 

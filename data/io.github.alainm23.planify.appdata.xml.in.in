@@ -67,6 +67,21 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.6" date="2024-04-15">
+      <description translate="no">
+        <ul>
+          <li>Now you can sort tasks in the Today view.</li>
+          <li>We've added a new detailed task view on the sidebar when opening a task in Board view.</li>
+          <li>We've introduced the ability to delete completed tasks.</li>
+          <li>You can now use the Ctrl key when creating a task to continue adding.</li>
+          <li>We've fixed a bug when moving tasks between projects and sections.</li>
+          <li>We've addressed an animation bug when adding subtasks.</li>
+          <li>Brazilian Portuguese translation has been updated, thanks to @Penfore.</li>
+          <li>Spanish translation has been updated, thanks to @d0vi.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.12" date="2024-03-29">
       <description translate="no">
         <ul>
