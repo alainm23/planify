@@ -309,20 +309,30 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             add_subproject (subproject);
         });
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((subproject, old_parent_id, collapsed) => {
+        Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
-                if (subprojects_hashmap.has_key (subproject.id_string)) {
-                    subprojects_hashmap [subproject.id_string].hide_destroy ();
-                    subprojects_hashmap.unset (subproject.id_string);
+                if (subprojects_hashmap.has_key (_project.id)) {
+                    subprojects_hashmap [_project.id].hide_destroy ();
+                    subprojects_hashmap.unset (_project.id);
                 }
             }
 
-            if (subproject.parent_id == project.id) {
-                add_subproject (subproject);
+            if (_project.parent_id == project.id) {
+                add_subproject (_project);
 
                 if (collapsed) {
                     project.collapsed = true;
                     arrow_button.add_css_class ("opened");
+                }
+            }
+        });
+
+        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+            var row = (Layouts.ProjectRow) _row;
+
+            if (old_parent_id == project.id) {
+                if (subprojects_hashmap.has_key (row.project.id)) {
+                    subprojects_hashmap.unset (row.project.id);
                 }
             }
         });
@@ -376,6 +386,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
+            
+            string old_parent_id = picked_project.parent_id;
 
             if (picked_project.parent_id != target_project.parent_id) {
                 picked_project.parent_id = target_project.parent_id;
@@ -384,10 +396,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                             Services.Database.get_default ().update_project (picked_project);
+                            Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                         }
                     });
-                } else if (picked_project.backend_type == BackendType.LOCAL) {
+                } else {
                     Services.Database.get_default ().update_project (picked_project);
+                    Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                 }
             }
 
@@ -493,7 +507,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                         Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
                     }
                 });
-            } else if (picked_project.backend_type == BackendType.LOCAL) {
+            } else {
                 Services.Database.get_default ().update_project (picked_project);
                 Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
             }
@@ -778,9 +792,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     public void add_subproject (Objects.Project project) {
-        if (!subprojects_hashmap.has_key (project.id_string) && show_subprojects) {
-            subprojects_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-            listbox.append (subprojects_hashmap [project.id_string]);
+        if (!subprojects_hashmap.has_key (project.id) && show_subprojects) {
+            subprojects_hashmap [project.id] = new Layouts.ProjectRow (project);
+            listbox.append (subprojects_hashmap [project.id]);
         }
     }
 }

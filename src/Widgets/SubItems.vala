@@ -86,7 +86,8 @@ public class Widgets.SubItems : Adw.Bin {
         };
 
         var sub_tasks_header = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 9
+            margin_start = 9,
+            margin_end = 9
         };
         sub_tasks_header.append (sub_tasks_title);
         sub_tasks_header.append (add_button);

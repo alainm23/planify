@@ -45,6 +45,7 @@ public class Services.EventBus : Object {
     public signal void project_picker_changed (string id);
     public signal void section_picker_changed (string id);
     public signal void project_parent_changed (Objects.Project project, string old_parent_id, bool collapsed = false);
+    public signal void update_inserted_project_map (Gtk.Widget row, string old_parent_id);
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "");

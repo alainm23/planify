@@ -37,7 +37,6 @@ public class Layouts.Sidebar : Adw.Bin {
 
     public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-    public Gee.HashMap <string, Layouts.ProjectRow> google_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     public Gee.HashMap <string, Layouts.ProjectRow> caldav_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
 
@@ -387,15 +386,26 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
 
         Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
+            print ("project: %s\n".printf (project.name));
+            print ("project parent id: %s\n".printf (project.parent.name));
+            print ("old_parent_id: %s\n".printf (old_parent_id));
+
             if (old_parent_id == "") {
-                if (local_hashmap.has_key (project.id_string)) {
-                    local_hashmap [project.id_string].hide_destroy ();
-                    local_hashmap.unset (project.id_string);
+                if (local_hashmap.has_key (project.id)) {
+                    local_hashmap [project.id].hide_destroy ();
+                    local_hashmap.unset (project.id);
+
+                    print ("Elimina sub project\n");
                 }
 
-                if (todoist_hashmap.has_key (project.id_string)) {
-                    todoist_hashmap [project.id_string].hide_destroy ();
-                    todoist_hashmap.unset (project.id_string);
+                if (todoist_hashmap.has_key (project.id)) {
+                    todoist_hashmap [project.id].hide_destroy ();
+                    todoist_hashmap.unset (project.id);
+                }
+
+                if (caldav_hashmap.has_key (project.id)) {
+                    caldav_hashmap [project.id].hide_destroy ();
+                    caldav_hashmap.unset (project.id);
                 }
             }
 
@@ -404,10 +414,44 @@ public class Layouts.Sidebar : Adw.Bin {
             }
         });
 
+        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+            var row = (Layouts.ProjectRow) _row;
+
+            if (old_parent_id == "") {
+                if (local_hashmap.has_key (row.project.id)) {
+                    local_hashmap.unset (row.project.id);
+                }
+
+                if (todoist_hashmap.has_key (row.project.id)) {
+                    todoist_hashmap.unset (row.project.id);
+                }
+
+                if (caldav_hashmap.has_key (row.project.id)) {
+                    caldav_hashmap.unset (row.project.id);
+                }
+            }
+
+            if (!row.project.is_inbox_project && row.project.parent_id == "") {
+                if (row.project.backend_type == BackendType.TODOIST) {
+                    if (!todoist_hashmap.has_key (row.project.id)) {
+                        todoist_hashmap[row.project.id] = row;
+                    }
+                } else if (row.project.backend_type == BackendType.LOCAL) {
+                    if (!local_hashmap.has_key (row.project.id)) {
+                        local_hashmap[row.project.id] = row;
+                    }
+                } else if (row.project.backend_type == BackendType.CALDAV) {
+                    if (!caldav_hashmap.has_key (row.project.id)) {
+                        caldav_hashmap[row.project.id] = row;
+                    }
+                }
+            }
+        });
+
         Services.EventBus.get_default ().favorite_toggled.connect ((project) => {
-            if (favorites_hashmap.has_key (project.id_string)) {
-                favorites_hashmap [project.id_string].hide_destroy ();
-                favorites_hashmap.unset (project.id_string);
+            if (favorites_hashmap.has_key (project.id)) {
+                favorites_hashmap [project.id].hide_destroy ();
+                favorites_hashmap.unset (project.id);
             } else {
                 add_row_favorite (project);
             }
@@ -461,11 +505,6 @@ public class Layouts.Sidebar : Adw.Bin {
                 if (!todoist_hashmap.has_key (project.id_string)) {
                     todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);
                     todoist_projects_header.add_child (todoist_hashmap [project.id_string]);
-                }
-            } else if (project.backend_type == BackendType.GOOGLE_TASKS) {
-                if (!google_hashmap.has_key (project.id_string)) {
-                    google_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-                    google_projects_header.add_child (google_hashmap [project.id_string]);
                 }
             } else if (project.backend_type == BackendType.LOCAL) {
                 if (!local_hashmap.has_key (project.id_string)) {

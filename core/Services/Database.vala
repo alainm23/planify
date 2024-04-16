@@ -694,6 +694,7 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+        
         stmt.reset ();
     }
 
