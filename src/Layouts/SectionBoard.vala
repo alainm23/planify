@@ -558,11 +558,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         content_box.add_controller (drop_target);
         drop_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
-			var old_section_id = "";
 
 			picked_widget.drag_end ();
 
-			old_section_id = picked_widget.item.section_id;
+			string old_section_id = picked_widget.item.section_id;
+			string old_parent_id = picked_widget.item.parent_id;
 
 			picked_widget.item.project_id = section.project_id;
 			picked_widget.item.section_id = section.id;
@@ -589,9 +589,8 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 			source_list.remove (picked_widget);
 
 			listbox.append (picked_widget);
-			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
-			// update_items_item_order (listbox);
-
+			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
+            
 			return true;
         });
     }

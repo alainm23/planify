@@ -702,11 +702,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		drop_widget.add_controller (drop_inbox_target);
 		drop_inbox_target.drop.connect ((target, value, x, y) => {
 			var picked_widget = (Layouts.ItemRow) value;
-			var old_section_id = "";
 
 			picked_widget.drag_end ();
 
-			old_section_id = picked_widget.item.section_id;
+			string old_section_id = picked_widget.item.section_id;
+			string old_parent_id = picked_widget.item.parent_id;
 
 			picked_widget.item.project_id = section.project_id;
 			picked_widget.item.section_id = section.id;
@@ -734,7 +734,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			source_list.remove (picked_widget);
 
 			listbox.insert (picked_widget, 0);
-			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, "");
+			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
 			update_items_item_order (listbox);
 
 			return true;

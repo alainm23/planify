@@ -386,16 +386,10 @@ public class Layouts.Sidebar : Adw.Bin {
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
 
         Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
-            print ("project: %s\n".printf (project.name));
-            print ("project parent id: %s\n".printf (project.parent.name));
-            print ("old_parent_id: %s\n".printf (old_parent_id));
-
             if (old_parent_id == "") {
                 if (local_hashmap.has_key (project.id)) {
                     local_hashmap [project.id].hide_destroy ();
                     local_hashmap.unset (project.id);
-
-                    print ("Elimina sub project\n");
                 }
 
                 if (todoist_hashmap.has_key (project.id)) {
