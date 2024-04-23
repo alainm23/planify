@@ -308,13 +308,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		child = main_revealer;
 		update_request ();
 
+        if (!item.checked) {
+            build_drag_and_drop ();
+        }
+
 		Timeout.add (main_revealer.transition_duration, () => {
 			main_revealer.reveal_child = true;
-
-			if (!item.checked) {
-				build_drag_and_drop ();
-			}
-
 			return GLib.Source.REMOVE;
 		});
 
@@ -826,18 +825,23 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             picked_item.section_id = "";
             picked_item.parent_id = target_item.id;
 
-            if (picked_item.project.backend_type == BackendType.TODOIST) {
+            if (picked_item.project.backend_type == BackendType.LOCAL) {
+                Services.Database.get_default ().update_item (picked_item);
+                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+            } else if (picked_item.project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        target_item.collapsed = true;
                         Services.Database.get_default ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
-            } else if (picked_item.project.backend_type == BackendType.LOCAL) {
-                target_item.collapsed = true;
-                Services.Database.get_default ().update_item (picked_item);
-                Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+            } else if (picked_item.project.backend_type == BackendType.CALDAV) {
+                Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
+                    if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
+                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
+                    }
+                });
             }
 
             return true;

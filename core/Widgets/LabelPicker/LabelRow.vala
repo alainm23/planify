@@ -58,10 +58,7 @@ public class Widgets.LabelPicker.LabelRow : Gtk.ListBoxRow {
 		};
         Util.get_default ().set_widget_color (Util.get_default ().get_color (label.color), color_grid);
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
-            margin_start = 6,
-            margin_end = 6
-        };
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
 
         content_box.append (checked_button);
         content_box.append (color_grid);

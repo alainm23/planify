@@ -34,7 +34,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.PinButton pin_button;
     private Widgets.SectionPicker.SectionButton section_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
-    private Gtk.Button add_subtask_button;
     private Widgets.SubItems subitems;
 
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
@@ -255,7 +254,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         section_button.selected.connect ((section) => {
-            move (item.project, section.id);
+            move (item.project, section.id, "");
         });
 
         reminder_button.reminder_added.connect ((reminder) => {
@@ -279,10 +278,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 reminder.id = Util.get_default ().generate_id (reminder);
                 item.add_reminder_if_not_exists (reminder);
             }
-        });
-
-        add_subtask_button.clicked.connect (() => {
-            prepare_new_item ();
         });
 
         status_button.changed.connect ((active) => {
@@ -386,11 +381,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         pin_button.sensitive = !item.completed;
         section_button.sensitive = !item.completed;
         reminder_button.sensitive = !item.completed;
-        add_subtask_button.sensitive = !item.completed;
         copy_clipboard_item.sensitive = !item.completed;
         duplicate_item.sensitive = !item.completed;
         move_item.sensitive = !item.completed;
-        repeat_item.sensitive= !item.completed;
+        repeat_item.sensitive = !item.completed;
+        subitems.add_button.sensitive = !item.completed;
     }
 
     public void update_due (GLib.DateTime? datetime) {
@@ -633,10 +628,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         return menu_box;
     }
 
-    public void move (Objects.Project project, string section_id) {
+    public void move (Objects.Project project, string section_id, string parent_id = "") {
         string project_id = project.id;
 
-        if (item.project_id != project_id || item.section_id != section_id) {
+        if (item.project_id != project_id || item.section_id != section_id || item.parent_id != parent_id) {
             item.move (project, section_id);
         }
     }

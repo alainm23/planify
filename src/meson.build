@@ -41,6 +41,7 @@ sources = files(
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
   'Widgets/EditableLabel.vala',
+  'Widgets/EditableTextView.vala',
   'Widgets/SyncButton.vala',
   'Widgets/MultiSelectToolbar.vala',
   'Widgets/EventsList.vala',
@@ -51,6 +52,7 @@ sources = files(
   'Widgets/SectionsOrderPopover.vala',
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
+  'Widgets/FilterFlowBox.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

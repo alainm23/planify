@@ -32,6 +32,7 @@ core_files = files(
     'Widgets/ItemLabelChild.vala',
     'Widgets/CircularProgressBar.vala',
     'Widgets/StatusButton.vala',
+    'Widgets/LabelsPickerCore.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -42,6 +43,7 @@ core_files = files(
     'Widgets/ContextMenu/MenuItem.vala',
     'Widgets/ContextMenu/MenuSeparator.vala',
     'Widgets/ContextMenu/MenuPicker.vala',
+    'Widgets/ContextMenu/MenuCheckPicker.vala',
     'Widgets/ContextMenu/MenuSwitch.vala',
     
     'Widgets/DateTimePicker/ScheduleButton.vala',
@@ -84,7 +86,8 @@ core_files = files(
     'Objects/Filters/Tomorrow.vala',
     'Objects/Filters/Anytime.vala',
     'Objects/Filters/Repeating.vala',
-    'Objects/Filters/Unlabeled.vala'
+    'Objects/Filters/Unlabeled.vala',
+    'Objects/Filters/FilterItem.vala'
 )
 
 core_deps = [

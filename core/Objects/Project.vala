@@ -239,19 +239,10 @@ public class Objects.Project : Objects.BaseObject {
     public signal void project_count_updated ();
     public signal void show_multi_select_change ();
 
-    Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
-    public Gee.HashMap <string, Objects.Label> label_filter {
-        get {
-            return _label_filter;
-        }
-
-        set {
-            _label_filter = value;
-            label_filter_change ();
-        }
-    }
-
-    public signal void label_filter_change ();
+    public Gee.HashMap <string, Objects.Filters.FilterItem> filters = new Gee.HashMap <string, Objects.Filters.FilterItem> ();
+    public signal void filter_added (Objects.Filters.FilterItem filters);
+    public signal void filter_removed (Objects.Filters.FilterItem filters);
+    public signal void filter_updated (Objects.Filters.FilterItem filters);
 
     construct {
         deleted.connect (() => {
@@ -797,5 +788,34 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+    }
+
+    public void add_filter (Objects.Filters.FilterItem filter) {
+        if (!filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_added (filters[filter.id]);
+        }
+    }
+
+    public void remove_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters.unset (filter.id);
+            filter_removed (filter);
+        }
+    }
+
+    public void update_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_updated (filter);
+        }
+    }
+
+    public Objects.Filters.FilterItem? get_filter (string id) {
+        if (filters.has_key (id)) {
+            return filters.get (id);
+        }
+
+        return null;
     }
 }

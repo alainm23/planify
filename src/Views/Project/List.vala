@@ -22,10 +22,6 @@
 public class Views.List : Gtk.Grid {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Label description_label;
-    private Widgets.HyperTextView description_textview;
-    private Gtk.Popover description_popover = null;
-
     private Gtk.Image due_image;
     private Gtk.Label due_label;
     private Gtk.Revealer due_revealer;
@@ -52,52 +48,32 @@ public class Views.List : Gtk.Grid {
     construct {
         sections_map = new Gee.HashMap <string, Layouts.SectionRow> ();
 
-        description_label = new Gtk.Label (null) {
-            wrap = true,
-            xalign = 0,
-            yalign = 0,
-            margin_start = 26,
+        var description_widget = new Widgets.EditableTextView (_("Note")) {
+            text = project.description,
             margin_top = 6,
+            margin_start = 27,
             margin_end = 12
         };
-        
-        var description_gesture_click = new Gtk.GestureClick ();
-        description_label.add_controller (description_gesture_click);
-        description_gesture_click.pressed.connect ((n_press, x, y) => {
-            build_description_popover ();
-        });
 
         due_revealer = build_due_date_widget ();
+
+        var filters = new Widgets.FilterFlowBox (project) {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_top = 12;
+        filters.flowbox.margin_end = 12;
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
             selection_mode = Gtk.SelectionMode.NONE,
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            css_classes = { "listbox-background" }
         };
-
-        listbox.add_css_class ("listbox-background");
-
-        listbox.set_sort_func ((row1, row2) => {
-            Layouts.SectionRow item1 = ((Layouts.SectionRow) row1);
-            Layouts.SectionRow item2 = ((Layouts.SectionRow) row2);
-
-            if (item1.is_inbox_section) {
-                return 0;
-            }
-
-            return item1.section.section_order - item2.section.section_order;
-        });
-
-        listbox.set_filter_func ((child) => {
-            Layouts.SectionRow item = ((Layouts.SectionRow) child);
-
-            if (item.is_inbox_section) {
-                return !project.inbox_section_hidded;
-            }
-
-            return !item.section.hidded;
-        });
 
         var listbox_placeholder = new Adw.StatusPage ();
         listbox_placeholder.icon_name = "check-round-outline-symbolic";
@@ -116,14 +92,16 @@ public class Views.List : Gtk.Grid {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true,
+            valign = Gtk.Align.BASELINE,
             margin_bottom = 24
         };
 
         if (!project.is_inbox_project) {
             content_box.append (due_revealer);
-            content_box.append (description_label);
+            content_box.append (description_widget);
         }
 
+        content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -199,6 +177,32 @@ public class Views.List : Gtk.Grid {
         project.show_completed_changed.connect (() => {
             check_placeholder ();
         });
+
+        listbox.set_sort_func ((row1, row2) => {
+            Layouts.SectionRow item1 = ((Layouts.SectionRow) row1);
+            Layouts.SectionRow item2 = ((Layouts.SectionRow) row2);
+
+            if (item1.is_inbox_section) {
+                return 0;
+            }
+
+            return item1.section.section_order - item2.section.section_order;
+        });
+
+        listbox.set_filter_func ((child) => {
+            Layouts.SectionRow item = ((Layouts.SectionRow) child);
+
+            if (item.is_inbox_section) {
+                return !project.inbox_section_hidded;
+            }
+
+            return !item.section.hidded;
+        });
+
+        description_widget.changed.connect (() => {
+            project.description = description_widget.text;
+            project.update_local ();
+        });
     }
 
     private void check_placeholder () {
@@ -253,12 +257,6 @@ public class Views.List : Gtk.Grid {
     }
 
     public void update_request () {
-        description_label.label = project.description;
-        if (description_label.label.length <= 0) {
-            description_label.label = _("Note");
-            description_label.add_css_class ("dim-label");
-        }
-
         update_duedate ();
     }
 
@@ -334,44 +332,44 @@ public class Views.List : Gtk.Grid {
         return due_revealer;
     }
 
-    private void build_description_popover () {
-        if (description_popover != null) {
-            description_popover.width_request = description_label.get_width ();
-            description_popover.popup ();
-            return;
-        }
+    //  private void build_description_popover () {
+    //      if (description_popover != null) {
+    //          description_popover.width_request = description_label.get_width ();
+    //          description_popover.popup ();
+    //          return;
+    //      }
 
-        description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 6,
-            right_margin = 6,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
-            vexpand = true
-        };
-        description_textview.set_text (project.description);
-        description_textview.remove_css_class ("view");
+    //      description_textview = new Widgets.HyperTextView (_("Note")) {
+    //          left_margin = 6,
+    //          right_margin = 6,
+    //          top_margin = 6,
+    //          bottom_margin = 6,
+    //          wrap_mode = Gtk.WrapMode.WORD_CHAR,
+    //          hexpand = true,
+    //          vexpand = true
+    //      };
+    //      description_textview.set_text (project.description);
+    //      description_textview.remove_css_class ("view");
 
-        var description_card = new Adw.Bin () {
-            child = description_textview,
-            css_classes = { "card" }
-        };
+    //      var description_card = new Adw.Bin () {
+    //          child = description_textview,
+    //          css_classes = { "card" }
+    //      };
 
-        description_popover = new Gtk.Popover () {
-            has_arrow = false,
-            child = description_card,
-            position = Gtk.PositionType.BOTTOM,
-            width_request = description_label.get_width (),
-            height_request = 96
-        };
+    //      description_popover = new Gtk.Popover () {
+    //          has_arrow = false,
+    //          child = description_card,
+    //          position = Gtk.PositionType.BOTTOM,
+    //          width_request = description_label.get_width (),
+    //          height_request = 96
+    //      };
 
-        description_popover.set_parent (description_label);
-        description_popover.popup ();
+    //      description_popover.set_parent (description_label);
+    //      description_popover.popup ();
 
-        description_textview.changed.connect (() => {
-            project.description = description_textview.get_text ();
-            project.update_local ();
-        });
-    }
+    //      description_textview.changed.connect (() => {
+    //          project.description = description_textview.get_text ();
+    //          project.update_local ();
+    //      });
+    //  }
 }

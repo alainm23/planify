@@ -27,6 +27,7 @@ public class Views.Project : Adw.Bin {
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.ContextMenu.MenuItem delete_all_completed;
+	private Widgets.ContextMenu.MenuCheckPicker priority_filter;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
 
@@ -152,6 +153,10 @@ public class Views.Project : Adw.Bin {
 				Services.EventBus.get_default ().connect_typing_accel ();
 			}
 		});
+
+		project.filter_removed.connect ((filter) => {
+			priority_filter.unchecked (filter);
+		});
 	}
 
 	private void check_default_view () {
@@ -217,7 +222,6 @@ public class Views.Project : Adw.Bin {
 		add_section_item.secondary_text = "S";
 		var manage_sections = new Widgets.ContextMenu.MenuItem (_("Manage Sections"), "permissions-generic-symbolic");
 		
-		var filter_by_tags = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "planner-tag");
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "tabs-stack-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
@@ -275,18 +279,6 @@ public class Views.Project : Adw.Bin {
 				}
 
 				project.update_local ();
-			});
-		});
-
-		filter_by_tags.activate_item.connect (() => {
-			popover.popdown ();
-
-			var dialog = new Dialogs.LabelPicker ();
-			dialog.labels = project.label_filter;
-			dialog.show ();
-
-			dialog.labels_changed.connect ((labels) => {
-				project.label_filter = labels;
 			});
 		});
 
@@ -403,8 +395,54 @@ public class Views.Project : Adw.Bin {
 		order_by_model.add (_("Date Added"));
 		order_by_model.add (_("Priority"));
 
-		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Sorting"), "vertical-arrows-long-symbolic", order_by_model);
 		order_by_item.selected = project.sort_order;
+
+		// Filters
+		var due_date_model = new Gee.ArrayList<string> ();
+		due_date_model.add (_("All (default)"));
+		due_date_model.add (_("Today"));
+		due_date_model.add (_("This Week"));
+		due_date_model.add (_("Next 7 Days"));
+		due_date_model.add (_("This Month"));
+		due_date_model.add (_("Next 30 Days"));
+		due_date_model.add (_("No Date"));
+
+		var due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic", due_date_model);
+		due_date_item.selected = 0;
+
+		var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P1"),
+			value = Constants.PRIORITY_1.to_string ()
+		});
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P2"),
+			value = Constants.PRIORITY_2.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P3"),
+			value = Constants.PRIORITY_3.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P4"),
+			value = Constants.PRIORITY_4.to_string ()
+		});
+
+		priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
+		priority_filter.set_items (priority_items);
+
+		var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
+			arrow = true
+		};
 
 		show_completed_item = new Widgets.ContextMenu.MenuItem (
 			project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks"),
@@ -421,9 +459,28 @@ public class Views.Project : Adw.Bin {
 
 		if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.TODOIST) {
 			menu_box.append (view_box);
+			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
 
+		menu_box.append (new Gtk.Label (_("Sort By")) {
+			css_classes = { "heading", "h4" },
+			margin_start = 6,
+			margin_top = 6,
+			margin_bottom = 6,
+			halign = Gtk.Align.START
+		});
 		menu_box.append (order_by_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (new Gtk.Label (_("Filter By")) {
+			css_classes = { "heading", "h4" },
+			margin_start = 6,
+			margin_top = 6,
+			margin_bottom = 6,
+			halign = Gtk.Align.START
+		});
+		menu_box.append (due_date_item);
+		menu_box.append (priority_filter);
+		menu_box.append (labels_filter);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (show_completed_item);
 		menu_box.append (delete_all_completed);
@@ -485,6 +542,94 @@ public class Views.Project : Adw.Bin {
 			dialog.response.connect ((response) => {
 				if (response == "delete") {
 					delete_all_action (items);
+				}
+			});
+		});
+
+		due_date_item.notify["selected"].connect (() => {
+			if (due_date_item.selected <= 0) {
+				Objects.Filters.FilterItem filter = project.get_filter (FilterItemType.DUE_DATE.to_string ());
+				if (filter != null) {
+					project.remove_filter (filter);
+				}
+			} else {
+				Objects.Filters.FilterItem filter = project.get_filter (FilterItemType.DUE_DATE.to_string ());
+				bool insert = false;
+
+				if (filter == null) {
+					filter = new Objects.Filters.FilterItem ();
+					filter.filter_type = FilterItemType.DUE_DATE;
+					insert = true;
+				}				
+				
+				if (due_date_item.selected == 1) {
+					filter.name = _("Today");
+				} else if (due_date_item.selected == 2) {
+					filter.name = _("This Week");
+				} else if (due_date_item.selected == 3) {
+					filter.name = _("Next 7 Days");
+				} else if (due_date_item.selected == 4) {
+					filter.name = _("This Month");
+				} else if (due_date_item.selected == 5) {
+					filter.name = _("Next 30 Days");
+				} else if (due_date_item.selected == 6) {
+					filter.name = _("No Date");
+				}
+
+				filter.value = due_date_item.selected.to_string ();
+				
+				if (insert) {
+					project.add_filter (filter);
+				} else {
+					project.update_filter (filter);
+				}
+			}
+		});
+
+		priority_filter.filter_change.connect ((filter, active) => {
+			if (active) {
+				project.add_filter (filter);
+			} else {
+				project.remove_filter (filter);
+			}
+		});
+
+		labels_filter.activate_item.connect (() => {
+			popover.popdown ();
+
+			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
+			foreach (Objects.Filters.FilterItem filter in project.filters.values) {
+				if (filter.filter_type == FilterItemType.LABEL) {
+					_labels.add (Services.Database.get_default ().get_label (filter.value));
+				}
+			}
+
+			var dialog = new Dialogs.LabelPicker ();
+			dialog.add_labels (project.backend_type);
+			dialog.labels = _labels;
+			dialog.show ();
+
+			dialog.labels_changed.connect ((labels) => {				
+				foreach (Objects.Label label in labels.values) {
+					var filter = new Objects.Filters.FilterItem ();
+					filter.filter_type = FilterItemType.LABEL;
+					filter.name = label.name;
+					filter.value = label.id;
+
+					project.add_filter (filter);
+				}
+
+				Gee.ArrayList<Objects.Filters.FilterItem> to_remove = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+				foreach (Objects.Filters.FilterItem filter in project.filters.values) {
+					if (filter.filter_type == FilterItemType.LABEL) {
+						if (!labels.has_key (filter.value)) {
+							to_remove.add (filter);
+						}
+					}
+				}
+
+				foreach (Objects.Filters.FilterItem filter in to_remove) {
+					project.remove_filter (filter);
 				}
 			});
 		});

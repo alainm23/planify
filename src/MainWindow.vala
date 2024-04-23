@@ -156,6 +156,7 @@ public class MainWindow : Adw.ApplicationWindow {
 				//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 			} else if (key == "run-on-startup") {
 				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+
 				if (active) {
 					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
 						if (Planify.instance.ask_for_background.end (res)) {
@@ -274,6 +275,14 @@ public class MainWindow : Adw.ApplicationWindow {
 				item_sidebar_view.disconnect_all ();
 				fake_button.grab_focus ();
 			}
+		});
+
+		breakpoint.apply.connect (() => {
+			print ("Apply\n");
+		});
+
+		breakpoint.unapply.connect (() => {
+			print ("Unapply\n");
 		});
 	}
 

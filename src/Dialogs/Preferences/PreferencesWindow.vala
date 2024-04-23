@@ -244,6 +244,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
         });
 
+		var matrix_row = new Adw.ActionRow ();
+		matrix_row.activatable = true;
+		matrix_row.add_prefix (generate_icon ("chat-bubble-text-symbolic"));
+		matrix_row.add_suffix (generate_icon ("go-next-symbolic"));
+		matrix_row.title = _("Matrix Room");
+		matrix_row.subtitle = _("Discuss and share your feedback");
+
+		matrix_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.MATRIX_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
 		var supporting_us_row = new Adw.ActionRow ();
 		supporting_us_row.activatable = true;
 		supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
@@ -256,7 +271,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
 		reach_us_group.add (contact_us_row);
-		reach_us_group.add (tweet_us_row);
+		reach_us_group.add (matrix_row);
 		reach_us_group.add (telegram_row);
 		reach_us_group.add (supporting_us_row);
 		

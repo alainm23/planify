@@ -81,6 +81,7 @@
     <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -139,6 +140,7 @@
     <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -197,5 +199,6 @@
     <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
   </gresource>
 </gresources>

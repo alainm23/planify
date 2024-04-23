@@ -22,10 +22,6 @@
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Label description_label;
-    private Widgets.HyperTextView description_textview;
-    private Gtk.Popover description_popover = null;
-
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
 
@@ -38,20 +34,22 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
-        description_label = new Gtk.Label (null) {
-            wrap = true,
-            xalign = 0,
-            yalign = 0,
-            margin_start = 26,
+        var description_widget = new Widgets.EditableTextView (_("Note")) {
+            text = project.description,
             margin_top = 6,
+            margin_start = 27,
             margin_end = 12
         };
-        
-        var description_gesture_click = new Gtk.GestureClick ();
-        description_label.add_controller (description_gesture_click);
-        description_gesture_click.pressed.connect ((n_press, x, y) => {
-            build_description_popover ();
-        });
+
+        var filters = new Widgets.FilterFlowBox (project) {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_top = 12;
+        filters.flowbox.margin_end = 12;
 
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 
@@ -100,7 +98,10 @@ public class Views.Board : Adw.Bin {
 			vexpand = true
 		};
 
-        content_box.append (description_label);
+        if (!project.is_inbox_project) {
+            content_box.append (description_widget);
+        }
+        content_box.append (filters);
 		content_box.append (flowbox_scrolled);
 
         child = content_box;
@@ -147,15 +148,14 @@ public class Views.Board : Adw.Bin {
         project.updated.connect (() => {
             update_request ();
         });
+
+        description_widget.changed.connect (() => {
+            project.description = description_widget.text;
+            project.update_local ();
+        });
     }
     
-    public void update_request () {
-        description_label.label = project.description;
-        if (description_label.label.length <= 0) {
-            description_label.label = _("Note");
-            description_label.add_css_class ("dim-label");
-        }
-    }
+    public void update_request () {}
 
     public void add_sections () {
         add_inbox_section ();
@@ -178,46 +178,5 @@ public class Views.Board : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         inbox_board.prepare_new_item (content);
-    }
-
-    private void build_description_popover () {
-        if (description_popover != null) {
-            description_popover.width_request = description_label.get_width ();
-            description_popover.popup ();
-            return;
-        }
-
-        description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 6,
-            right_margin = 6,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
-            vexpand = true
-        };
-        description_textview.set_text (project.description);
-        description_textview.remove_css_class ("view");
-
-        var description_card = new Adw.Bin () {
-            child = description_textview,
-            css_classes = { "card" }
-        };
-
-        description_popover = new Gtk.Popover () {
-            has_arrow = false,
-            child = description_card,
-            position = Gtk.PositionType.BOTTOM,
-            width_request = description_label.get_width (),
-            height_request = 96
-        };
-
-        description_popover.set_parent (description_label);
-        description_popover.popup ();
-
-        description_textview.changed.connect (() => {
-            project.description = description_textview.get_text ();
-            project.update_local ();
-        });
     }
 }

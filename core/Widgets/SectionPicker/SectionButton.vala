@@ -84,6 +84,11 @@ public class Widgets.SectionPicker.SectionButton : Adw.Bin {
     public void update_from_item (Objects.Item item) {
         section_label.label = _("No Section");
         section_label.tooltip_text = null;
+
+        if (item.parent_id != "") {
+            return;
+        }
+
         if (item.section_id != "") {
             section_label.label = item.section.name;
             section_label.tooltip_text = item.section.name;

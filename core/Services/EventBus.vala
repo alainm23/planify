@@ -78,9 +78,6 @@ public class Services.EventBus : Object {
     // Magic Button
     public signal void magic_button_visible (bool active);
 
-    // Quick Add
-    public signal void item_added_successfully ();
-
     // Navigate
     public signal void open_item (Objects.Item item);
     public signal void push_item (Objects.Item item);

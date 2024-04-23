@@ -794,6 +794,14 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
+    public bool has_label (string id) {
+        if (get_label (id) == null) {
+            return false;
+        }
+
+        return true;
+    }
+
     public void add_item_label (Objects.Label label) {
         if (labels == null) {
             labels = new Gee.ArrayList<Objects.Label> ();

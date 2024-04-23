@@ -313,3 +313,57 @@ public enum CalDAVType {
 		}
 	}
 }
+
+public enum FilterItemType {
+	PRIORITY = 0,
+	LABEL = 1,
+	DUE_DATE = 2;
+
+	public string to_string () {
+		switch (this) {
+			case PRIORITY:
+				return "priority";
+
+			case LABEL:
+				return "label";
+			
+			case DUE_DATE:
+				return "due-date";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_title () {
+		switch (this) {
+			case PRIORITY:
+				return _("Priority");
+
+			case LABEL:
+				return _("Label");
+
+			case DUE_DATE:
+				return _("Due Date");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_icon () {
+		switch (this) {
+			case PRIORITY:
+				return "flag-outline-thick-symbolic";
+
+			case LABEL:
+				return "tag-outline-symbolic";
+
+			case DUE_DATE:
+				return "month-symbolic";
+
+			default:
+				assert_not_reached ();
+		}
+	} 
+}

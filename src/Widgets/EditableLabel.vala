@@ -128,9 +128,7 @@ public class Widgets.EditableLabel : Gtk.Grid {
 
 		if (auto_focus) {
 			var gesture_click = new Gtk.GestureClick ();
-			gesture_click.set_button (1);
 			add_controller (gesture_click);
-
 			gesture_click.pressed.connect (() => {
 				editing (true);
 			});

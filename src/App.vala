@@ -32,7 +32,7 @@ public class Planify : Adw.Application {
 		}
 	}
 
-	//  private static bool run_in_background = false;
+	private static bool run_in_background = false;
 	private static bool n_version = false;
 	private static bool clear_database = false;
 	private static string lang = "";
@@ -42,7 +42,7 @@ public class Planify : Adw.Application {
 	private const OptionEntry[] OPTIONS = {
 		{ "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
 		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
-		//  { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
+		{ "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
 		{ "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
 		{ null }
 	};
@@ -84,7 +84,7 @@ public class Planify : Adw.Application {
 		}
 
 		if (main_window != null) {
-			main_window.show ();
+			main_window.present ();
 			return;
 		}
 
@@ -97,7 +97,9 @@ public class Planify : Adw.Application {
 			main_window.maximize ();
 		}
 
-		main_window.show ();
+		if (!run_in_background) {
+			main_window.show ();
+		}
 
 		Services.Settings.get_default ().settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
 

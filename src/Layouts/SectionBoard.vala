@@ -171,13 +171,46 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 name_editable.editing (true, true);
             }
 
-            check_inbox_visible ();
             return GLib.Source.REMOVE;
         });
 
         listbox.row_selected.connect ((row) => {
             var item = ((Layouts.ItemBoard) row).item;
         });
+
+        listbox.set_filter_func ((row) => {
+			var item = ((Layouts.ItemBoard) row).item;
+			bool return_value = true;
+
+			if (section.project.filters.size <= 0) {
+				return true;
+			}
+
+			return_value = false;
+			foreach (Objects.Filters.FilterItem filter in section.project.filters.values) {
+				if (filter.filter_type == FilterItemType.PRIORITY) {
+					return_value = return_value || item.priority == int.parse (filter.value);
+				} else if (filter.filter_type == FilterItemType.LABEL) {
+					return_value = return_value || item.has_label (filter.value);
+				} else if (filter.filter_type == FilterItemType.DUE_DATE) {
+					if (filter.value == "1") {
+						return_value = return_value || (item.has_due && Utils.Datetime.is_today (item.due.datetime));
+					} else if (filter.value == "2") {
+						return_value = return_value || (item.has_due && Utils.Datetime.is_this_week (item.due.datetime));
+					} else if (filter.value == "3") {
+						return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 7));
+					} else if (filter.value == "4") {
+						return_value = return_value || (item.has_due && Utils.Datetime.is_this_month (item.due.datetime));
+					} else if (filter.value == "5") {
+						return_value = return_value || (item.has_due && Utils.Datetime.is_next_x_week (item.due.datetime, 30));
+					} else if (filter.value == "6") {
+						return_value = return_value || !item.has_due;
+					}
+				}
+			}
+
+			return return_value;
+		});
 
         name_editable.changed.connect (() => {
             section.name = name_editable.text;
@@ -226,10 +259,9 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         });
 
         Services.Database.get_default ().item_updated.connect ((item, update_id) => {
-            //  if (items.has_key (item.id_string)) {
-            //      items [item.id_string].update_request ();
-            //      update_sort ();
-            //  }
+            if (items.has_key (item.id_string)) {
+                listbox.invalidate_filter ();
+            }
 
             if (items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string].update_request ();
@@ -246,8 +278,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 items_checked [item.id_string].hide_destroy ();
                 items_checked.unset (item.id_string);
             }
-
-            check_inbox_visible ();
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
@@ -263,17 +293,11 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 }
             }
 
-            if (item.project_id == section.project_id && item.section_id == section.id &&
-                item.parent_id == "") {
+            if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
                 add_item (item);
             }
 
-            check_inbox_visible ();
-        });
-
-        Services.EventBus.get_default ().update_items_position.connect ((project_id, section_id) => {
-            if (section.project_id == project_id && section.id == section_id) {
-            }
+            listbox.invalidate_filter ();
         });
 
         section.project.show_completed_changed.connect (show_completed_changed);
@@ -300,6 +324,38 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         add_button.clicked.connect (() => {
             prepare_new_item ();
         });
+
+        Services.EventBus.get_default ().update_inserted_item_map.connect ((_row, old_section_id) => {
+            if (_row is Layouts.ItemBoard) {
+                var row = (Layouts.ItemBoard) _row;
+
+                if (row.item.project_id == section.project_id && row.item.section_id == section.id) {
+                    if (!items.has_key (row.item.id)) {
+                        items [row.item.id] = row;
+                        update_sort ();
+                    }
+                }
+                
+                // vala-lint=no-space
+                if (row.item.project_id == section.project_id && row.item.section_id != section.id && old_section_id == section.id) {
+                    if (items.has_key (row.item.id)) {
+                        items.unset (row.item.id);
+                    }
+                }
+            }
+		});
+
+        section.project.filter_added.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+		section.project.filter_removed.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+		section.project.filter_updated.connect (() => {
+			listbox.invalidate_filter ();
+		});
     }
 
     private void update_request () {
@@ -325,6 +381,8 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         } else {
             listbox.set_sort_func (set_sort_func);
         }
+
+        listbox.invalidate_filter ();
     }
 
     private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
@@ -414,8 +472,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 				listbox.append (items [item.id_string]);
 			}
         }
-
-        check_inbox_visible ();
     }
 
     private Gtk.Popover build_context_menu () {
@@ -542,12 +598,6 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         }
     }
 
-    private void check_inbox_visible () {
-        if (is_inbox_section) {
-            // visible = items.size > 0;
-        }
-    }
-
     private void build_drag_and_drop () {
         // Drop
         build_drop_target ();
@@ -566,6 +616,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
 			picked_widget.item.project_id = section.project_id;
 			picked_widget.item.section_id = section.id;
+            picked_widget.item.parent_id = "";
 
 			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
 				string type = "section_id";
@@ -590,10 +641,27 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
 			listbox.append (picked_widget);
 			Services.EventBus.get_default ().update_inserted_item_map (picked_widget, old_section_id, old_parent_id);
-            
+            update_items_item_order (listbox);
+
 			return true;
         });
     }
+
+    private void update_items_item_order (Gtk.ListBox listbox) {
+		unowned Layouts.ItemBoard? item_row = null;
+		var row_index = 0;
+
+		do {
+			item_row = (Layouts.ItemBoard) listbox.get_row_at_index (row_index);
+
+			if (item_row != null) {
+				item_row.item.child_order = row_index;
+				Services.Database.get_default ().update_item (item_row.item);
+			}
+
+			row_index++;
+		} while (item_row != null);
+	}
 
     public void hide_destroy () {
         visible = false;

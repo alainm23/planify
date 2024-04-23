@@ -20,4 +20,5 @@ namespace Constants {
     public const string PAYPAL_ME_URL = "https://www.paypal.com/paypalme/alainm23";
     public const string LIBERAPAY_URL = "https://liberapay.com/Alain/";
     public const string KOFI_URL = "https://ko-fi.com/alainm23";
+    public const string MATRIX_URL = "https://matrix.to/#/#useplanify:matrix.org";
 }

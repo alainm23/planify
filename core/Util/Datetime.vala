@@ -154,4 +154,46 @@ public class Utils.Datetime {
 
         return false;
     }
+
+    public static GLib.DateTime format_date (GLib.DateTime date) {
+        return new DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            0,
+            0,
+            0
+        );
+    }
+    
+    public static bool is_this_week (GLib.DateTime date) {
+        var current_date = new GLib.DateTime.now_local ();
+
+        var start_of_week = current_date.add_days ((current_date.get_day_of_week () - 1) * -1);
+        var end_of_week = current_date.add_days (6);
+
+        if (date.compare (format_date (start_of_week)) >= 0 &&
+            date.compare (format_date (end_of_week)) <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static bool is_next_x_week (GLib.DateTime date, int days) {
+        var current_date = new GLib.DateTime.now_local ();
+        var end_date = current_date.add_days (days);
+
+        if (date.compare (format_date (current_date)) >= 0 &&
+            date.compare (format_date (end_date)) <= 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static bool is_this_month (GLib.DateTime date) {
+        var current_date = new GLib.DateTime.now_local ();
+        return current_date.get_month () == date.get_month () && current_date.get_year () == date.get_year ();
+    }
 }

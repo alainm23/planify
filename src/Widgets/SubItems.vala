@@ -28,7 +28,7 @@ public class Widgets.SubItems : Adw.Bin {
     private Gtk.ListBox checked_listbox;
     private Gtk.Revealer checked_revealer;
     private Gtk.Revealer main_revealer;
-    private Widgets.LoadingButton add_button;
+    public Widgets.LoadingButton add_button;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     public Gee.HashMap <string, Layouts.ItemBase> items = new Gee.HashMap <string, Layouts.ItemBase> ();
