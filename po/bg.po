@@ -1,0 +1,2338 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.alainm23.planify package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# twlvnn <kraft_werk@tutanota.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.alainm23.planify\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-15 17:43-0500\n"
+"PO-Revision-Date: 2024-04-26 22:37+0200\n"
+"Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
+"Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: Gtranslator 46.0\n"
+
+#: core/Enum.vala:105 core/Util/Util.vala:230 core/Util/Util.vala:395
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:81
+#: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:111
+#: src/Layouts/ItemRow.vala:917 src/Layouts/ItemBoard.vala:633
+#: src/Views/Today.vala:52 src/Views/Today.vala:157
+#: src/Dialogs/DatePicker.vala:64
+#: src/Dialogs/Preferences/PreferencesWindow.vala:313
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:37
+msgid "Today"
+msgstr "Днес"
+
+#: core/Enum.vala:108 core/Util/Util.vala:227 core/Util/Util.vala:967
+#: core/Widgets/ProjectPicker/ProjectPickerRow.vala:77
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:99
+#: src/Layouts/FilterPaneRow.vala:115
+#: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:101
+#: src/Dialogs/Preferences/PreferencesWindow.vala:312
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:36
+msgid "Inbox"
+msgstr "Входящи"
+
+#: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
+#: src/Layouts/FilterPaneRow.vala:119 src/Views/Scheduled/Scheduled.vala:32
+#: src/Dialogs/Preferences/PreferencesWindow.vala:314
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:38
+msgid "Scheduled"
+msgstr "Насрочени"
+
+#: core/Enum.vala:114 core/Objects/Filters/Pinboard.vala:51
+#: src/Layouts/FilterPaneRow.vala:123 src/Views/Filter.vala:183
+#: src/Dialogs/Preferences/PreferencesWindow.vala:316
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:39
+msgid "Pinboard"
+msgstr "Закачени"
+
+#: core/Enum.vala:181 src/Dialogs/Preferences/PreferencesWindow.vala:347
+#: src/Dialogs/Preferences/Pages/Backup.vala:182
+msgid "Projects"
+msgstr "Проекти"
+
+#: core/Enum.vala:184 src/Dialogs/Preferences/Pages/Backup.vala:186
+msgid "Sections"
+msgstr "Раздели"
+
+#: core/Enum.vala:187 core/Enum.vala:196
+msgid "Tasks"
+msgstr "Задачи"
+
+#: core/Enum.vala:190 core/Widgets/LabelPicker/LabelButton.vala:69
+#: core/Objects/Filters/Labels.vala:50 src/Layouts/FilterPaneRow.vala:127
+#: src/Views/Label/Labels.vala:37 src/Dialogs/LabelPicker.vala:57
+#: src/Dialogs/Preferences/PreferencesWindow.vala:315
+#: src/Dialogs/Preferences/Pages/Backup.vala:194
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:40
+msgid "Labels"
+msgstr "Етикети"
+
+#: core/Enum.vala:193
+msgid "Filters"
+msgstr "Филтри"
+
+#: core/Enum.vala:199
+msgid "Lists"
+msgstr "Списъци"
+
+#: core/Enum.vala:225
+msgid "Don't Repeat"
+msgstr "Не повтаряй"
+
+#: core/Enum.vala:228 core/Enum.vala:230
+msgid "Every minute"
+msgstr "Всяка минута"
+
+#: core/Enum.vala:230
+#, c-format
+msgid "Every %d minutes"
+msgstr "Всеки %d минути"
+
+#: core/Enum.vala:234 core/Enum.vala:236
+msgid "Every hour"
+msgstr "Всеки час"
+
+#: core/Enum.vala:236
+#, c-format
+msgid "Every %d hours"
+msgstr "Всеки %d часа"
+
+#: core/Enum.vala:240 core/Enum.vala:242
+msgid "Every day"
+msgstr "Всеки ден"
+
+#: core/Enum.vala:242
+#, c-format
+msgid "Every %d days"
+msgstr "Всеки %d дни"
+
+#: core/Enum.vala:246 core/Enum.vala:248
+msgid "Every week"
+msgstr "Всяка седмица"
+
+#: core/Enum.vala:248
+#, c-format
+msgid "Every %d weeks"
+msgstr "Всеки %d седмици"
+
+#: core/Enum.vala:253 core/Enum.vala:255
+msgid "Every month"
+msgstr "Всеки месец"
+
+#: core/Enum.vala:255
+#, c-format
+msgid "Every %d months"
+msgstr "Всеки %d месеца"
+
+#: core/Enum.vala:260 core/Enum.vala:262
+msgid "Every year"
+msgstr "Всяка година"
+
+#: core/Enum.vala:262
+#, c-format
+msgid "Every %d years"
+msgstr "Всеки %d години"
+
+#: core/QuickAdd.vala:57
+msgid "To-do name"
+msgstr "Име на задачата"
+
+#: core/QuickAdd.vala:71 src/Layouts/ItemRow.vala:375
+msgid "Add a description…"
+msgstr "Добавете описание…"
+
+#: core/QuickAdd.vala:125
+msgid "Add To-Do"
+msgstr "Добавяне на задача"
+
+#: core/QuickAdd.vala:171
+msgid ""
+"I'm sorry, Quick Add can't find any project available, try creating a "
+"project from Planify."
+msgstr ""
+"„Бързо добавяне“ не може да намери наличен проект, опитайте да създадете "
+"проект от „Planify“."
+
+#: core/QuickAdd.vala:477
+msgid "Create more"
+msgstr "Създаване на повече"
+
+#: core/Util/Util.vala:41
+msgid "Berry Red"
+msgstr "Ягодово червено"
+
+#: core/Util/Util.vala:42
+msgid "Red"
+msgstr "Червено"
+
+#: core/Util/Util.vala:43
+msgid "Orange"
+msgstr "Оранжево"
+
+#: core/Util/Util.vala:44
+msgid "Olive Green"
+msgstr "Маслинено зелено"
+
+#: core/Util/Util.vala:45
+msgid "Yellow"
+msgstr "Жълто"
+
+#: core/Util/Util.vala:46
+msgid "Lime Green"
+msgstr "Лаймско зелен"
+
+#: core/Util/Util.vala:47
+msgid "Green"
+msgstr "Зелено"
+
+#: core/Util/Util.vala:48
+msgid "Mint Green"
+msgstr "Ментово зелено"
+
+#: core/Util/Util.vala:49
+msgid "Teal"
+msgstr "Тил"
+
+#: core/Util/Util.vala:50
+msgid "Sky Blue"
+msgstr "Небесно синьо"
+
+#: core/Util/Util.vala:51
+msgid "Light Blue"
+msgstr "Светло синьо"
+
+#: core/Util/Util.vala:52
+msgid "Blue"
+msgstr "Синьо"
+
+#: core/Util/Util.vala:53
+msgid "Grape"
+msgstr "Грозде"
+
+#: core/Util/Util.vala:54
+msgid "Violet"
+msgstr "Лилаво"
+
+#: core/Util/Util.vala:55
+msgid "Lavender"
+msgstr "Лавандула"
+
+#: core/Util/Util.vala:56
+msgid "Magenta"
+msgstr "Маджента"
+
+#: core/Util/Util.vala:57
+msgid "Salmon"
+msgstr "Сьомга"
+
+#: core/Util/Util.vala:58
+msgid "Charcoal"
+msgstr "Въглен"
+
+#: core/Util/Util.vala:59
+msgid "Grey"
+msgstr "Сиво"
+
+#: core/Util/Util.vala:60
+msgid "Taupe"
+msgstr "Тъмно кафяво"
+
+#: core/Util/Util.vala:205
+msgid "Light"
+msgstr "Светла"
+
+#: core/Util/Util.vala:208
+msgid "Dark"
+msgstr "Тъмна"
+
+#: core/Util/Util.vala:211
+msgid "Dark Blue"
+msgstr "Тъмно синьо"
+
+#: core/Util/Util.vala:224 src/Layouts/ItemRow.vala:1144
+#: src/Layouts/ItemSidebarView.vala:544
+#: src/Dialogs/Preferences/PreferencesWindow.vala:441
+msgid "None"
+msgstr "Без"
+
+#: core/Util/Util.vala:233
+msgid "Today + Inbox"
+msgstr "Днес + Входящи"
+
+#: core/Util/Util.vala:397 core/Widgets/DateTimePicker/DateTimePicker.vala:82
+#: core/Objects/Filters/Tomorrow.vala:33 src/Layouts/ItemRow.vala:920
+#: src/Layouts/ItemBoard.vala:636 src/Views/Filter.vala:177
+#: src/Dialogs/WhatsNew.vala:120 src/Dialogs/DatePicker.vala:68
+msgid "Tomorrow"
+msgstr "Утре"
+
+#: core/Util/Util.vala:399
+msgid "Yesterday"
+msgstr "Вчера"
+
+#: core/Util/Util.vala:530
+msgid "Mo,"
+msgstr "Пн,"
+
+#: core/Util/Util.vala:534
+msgid "Tu,"
+msgstr "Вт,"
+
+#: core/Util/Util.vala:538
+msgid "We,"
+msgstr "Ср,"
+
+#: core/Util/Util.vala:542
+msgid "Th,"
+msgstr "Чт,"
+
+#: core/Util/Util.vala:546
+msgid "Fr,"
+msgstr "Пт,"
+
+#: core/Util/Util.vala:550
+msgid "Sa,"
+msgstr "Сб,"
+
+#: core/Util/Util.vala:554
+msgid "Su,"
+msgstr "Нд,"
+
+#: core/Util/Util.vala:751 src/MainWindow.vala:307
+#: src/Layouts/ProjectRow.vala:693 src/Layouts/SectionRow.vala:636
+#: src/Layouts/LabelRow.vala:175 src/Layouts/ItemSidebarView.vala:663
+#: src/Layouts/SectionBoard.vala:494 src/Widgets/MultiSelectToolbar.vala:261
+#: src/Views/Project/Project.vala:332 src/Views/Project/Project.vala:479
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1359
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1764
+#: src/Dialogs/Preferences/Pages/Backup.vala:206
+#: src/Dialogs/Preferences/Pages/Backup.vala:263
+msgid "Cancel"
+msgstr "Отказване"
+
+#: core/Util/Util.vala:752
+msgid "Delete All"
+msgstr "Изтриване на всички файлове"
+
+#: core/Util/Util.vala:766
+msgid "Process completed, you need to start Planify again."
+msgstr "Процесът е завършен, трябва да стартирате „Planify“ наново."
+
+#: core/Util/Util.vala:769 src/MainWindow.vala:308
+#: src/Services/Backups.vala:515
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1270
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1508
+msgid "Ok"
+msgstr "Добре"
+
+#: core/Util/Util.vala:873 core/Objects/Item.vala:89
+msgid "Priority 1: high"
+msgstr "Приоритет 1: високо"
+
+#: core/Util/Util.vala:875 core/Objects/Item.vala:91
+msgid "Priority 2: medium"
+msgstr "Приоритет 2: средно"
+
+#: core/Util/Util.vala:877 core/Objects/Item.vala:93
+msgid "Priority 3: low"
+msgstr "Приоритет 3: ниско"
+
+#: core/Util/Util.vala:879 core/Util/Util.vala:881 core/Objects/Item.vala:95
+msgid "Priority 4: none"
+msgstr "Priority 4: без"
+
+#: core/Util/Util.vala:887
+msgid "high"
+msgstr "високо"
+
+#: core/Util/Util.vala:889
+msgid "medium"
+msgstr "средно"
+
+#: core/Util/Util.vala:891
+msgid "low"
+msgstr "ниско"
+
+#: core/Util/Util.vala:893
+msgid "none"
+msgstr "без"
+
+#: core/Util/Util.vala:985
+msgid "Meet Planify"
+msgstr "Запознайте се с „Planify“"
+
+#: core/Util/Util.vala:988
+msgid ""
+"This project shows you everything you need to know to hit the ground "
+"running. Don’t hesitate to play around in it – you can always create a new "
+"one from settings."
+msgstr ""
+"Този проект ви показва всичко, което трябва да знаете, за да започнете "
+"работа. Не се колебайте да си поиграете с него - винаги може да създадете "
+"нов проект от настройките."
+
+#: core/Util/Util.vala:994
+msgid "Tap this to-do"
+msgstr "Натиснете тази задача"
+
+#: core/Util/Util.vala:995
+msgid ""
+"You're looking at a to-do! Complete it by tapping the checkbox on the left. "
+"Completed to-dos are collected al the bottom of your project."
+msgstr ""
+"Гледате към една задача! Завършете я, като натиснете полето за избор вляво. "
+"Завършените задачи се събират най-отдоло на вашия проект."
+
+#: core/Util/Util.vala:1000
+msgid "Create a new to-do"
+msgstr "Създайте нова задача"
+
+#: core/Util/Util.vala:1001
+msgid ""
+"Now it's your turn, tap the '+' button at the bottom of your project, enter "
+"any pending and tap the blue 'Save' button."
+msgstr ""
+"Сега е ваш ред, натиснете бутона „+“ в долната част на проекта, въведете "
+"всички неизпълнени и докоснете синия бутон „Запазване“."
+
+#: core/Util/Util.vala:1006
+msgid "Plan this to-do by today or later"
+msgstr "Планирайте тази задача до днес или по-късно"
+
+#: core/Util/Util.vala:1007
+msgid "Tap the calendar button at the bottom to decide when to do this to-do."
+msgstr ""
+"Натиснете бутона на календара в долната част, за да решите кога да направите "
+"тази задача."
+
+#: core/Util/Util.vala:1012
+msgid "Reorder yours to-dos"
+msgstr "Пренаредете вашите задачи"
+
+#: core/Util/Util.vala:1013
+msgid ""
+"To reorder your list, tap and hold a to-do, then drag it to where it should "
+"go."
+msgstr ""
+"За да пренаредите списъка, натиснете и задръжте дадена задача, след което я "
+"изтеглете до мястото, където трябва да бъде."
+
+#: core/Util/Util.vala:1018
+msgid "Create a project"
+msgstr "Създаване на проект"
+
+#: core/Util/Util.vala:1019
+msgid ""
+"Organize your to-dos better! Go to the left panel and click the '+' button "
+"in the 'On This Computer' section and add a project of your own."
+msgstr ""
+"Организирайте задачите си по-добре! Отидете в левия панел, натиснете бутона "
+"„+“ в раздела „На този компютър“ и добавете свой проект."
+
+#: core/Util/Util.vala:1024
+msgid "You’re done!"
+msgstr "Готови сте!"
+
+#: core/Util/Util.vala:1025
+msgid ""
+"That’s all you really need to know. Feel free to start adding your own "
+"projects and to-dos.\n"
+"\n"
+"You can come back to this project later to learn the advanced features "
+"below..\n"
+"\n"
+"We hope you’ll enjoy using Planify!"
+msgstr ""
+"Това е всичко, което трябва да знаете. Чувствайте се свободни да добавяте "
+"свои собствени проекти и задачи.\n"
+"\n"
+"Можете да се върнете към този проект по-късно, за да се запознаете с "
+"допълнителните функции по-долу.\n"
+"\n"
+"Надяваме се, че ще ви хареса да използвате „Planify“!"
+
+#: core/Util/Util.vala:1041
+msgid "Tune your setup"
+msgstr "Персонализирайте по свой вкус"
+
+#: core/Util/Util.vala:1049
+msgid "Show your calendar events"
+msgstr "Покажете събитията от календара си"
+
+#: core/Util/Util.vala:1050
+msgid ""
+"You can display your system's calendar events in Planify. Go to "
+"'Preferences' 🡒 Calendar Events to turn it on."
+msgstr ""
+"Може да показвате събитията от календара на системата си в „Planify“. "
+"Отидете в „Настройки“ 🡒 „Календарни събития“, за да го включите."
+
+#: core/Util/Util.vala:1056
+msgid "Enable synchronization with third-party service."
+msgstr "Активирайте синхронизацията с услуга на трето лице."
+
+#: core/Util/Util.vala:1057
+msgid ""
+"Planify not only creates tasks locally, it can also synchronize your Todoist "
+"account. Go to 'Preferences' 🡒 'Accounts'."
+msgstr ""
+"„Planify“ не само създава задачи локално, но и може да синхронизира профила "
+"ви в „Todoist“. Отидете в „Настройки“ 🡒 „Профили“."
+
+#: core/Util/Util.vala:1065
+msgid "Boost your productivity"
+msgstr "Увеличете производителността си"
+
+#: core/Util/Util.vala:1073
+msgid "Drag the plus button!"
+msgstr "Изтеглете „плюс“ бутона!"
+
+#: core/Util/Util.vala:1074
+msgid ""
+"That blue button you see at the bottom of each screen is more powerful than "
+"it looks: it's made to move! Drag it up to create a task wherever you want."
+msgstr ""
+"Синият бутон, който виждате в долната част на всеки екран, е по-мощен, "
+"отколкото изглежда: той е създаден да се движи! Изтеглете го нагоре, за да "
+"създадете задача, където пожелаете."
+
+#: core/Util/Util.vala:1080
+msgid "Tag your to-dos!"
+msgstr "Етикирайте вашите задачи!"
+
+#: core/Util/Util.vala:1081
+msgid ""
+"Tags allow you to improve your workflow in Planify. To add a Tag click on "
+"the tag button at the bottom."
+msgstr ""
+"Етикетите ви позволяват да подобрите работния си процес в „Planify“. За да "
+"добавите етикет, натиснете върху бутона за етикет в долната част."
+
+#: core/Util/Util.vala:1087
+msgid "Set timely reminders!"
+msgstr "Задавайте напомняния!"
+
+#: core/Util/Util.vala:1088
+msgid ""
+"You want Planify to send you a notification to remind you of an important "
+"event or something special. Tap the bell button below to add a reminder."
+msgstr ""
+"Искате „Planify“ да ви изпрати известие, което да ви напомни за важно "
+"събитие или нещо специално. Натиснете звънец бутона по-долу, за да добавите "
+"напомняне."
+
+#: core/Util/Util.vala:1100
+msgid "💼️Work"
+msgstr "💼️Работа"
+
+#: core/Util/Util.vala:1106
+msgid "🎒️School"
+msgstr "🎒️Училище"
+
+#: core/Util/Util.vala:1112
+msgid "👉️Delegated"
+msgstr "👉️Делегирано"
+
+#: core/Util/Util.vala:1118
+msgid "🏡️Home"
+msgstr "🏡️Вкъщи"
+
+#: core/Util/Util.vala:1124
+msgid "🏃‍♀️️Follow Up"
+msgstr "🏃‍♀️️Следващо"
+
+#: core/Services/Todoist.vala:1365
+msgid "The request was incorrect."
+msgstr "Заявката е неправилна."
+
+#: core/Services/Todoist.vala:1366
+msgid ""
+"Authentication is required, and has failed, or has not yet been provided."
+msgstr ""
+"Упълномощаване е задължително, но е неуспешно или все още не е предоставено."
+
+#: core/Services/Todoist.vala:1367
+msgid "The request was valid, but for something that is forbidden."
+msgstr "Заявката е правилна, но за нещо, което е забранено."
+
+#: core/Services/Todoist.vala:1368
+msgid "The requested resource could not be found."
+msgstr "Заявеният ресурс не може да бъде намерен."
+
+#: core/Services/Todoist.vala:1369
+msgid "The user has sent too many requests in a given amount of time."
+msgstr ""
+"Потребителят е изпратил твърде много заявки за определен период от време."
+
+#: core/Services/Todoist.vala:1370
+msgid "The request failed due to a server error."
+msgstr "Заявката е неуспешна поради грешка на сървъра."
+
+#: core/Services/Todoist.vala:1371
+msgid "The server is currently unable to handle the request."
+msgstr "В момента сървърът не може да обработи заявката."
+
+#: core/Services/Todoist.vala:1373
+msgid "Unknown error"
+msgstr "Непозната грешка"
+
+# This word is being used as a verb but also as an indicator that a task is pinned, they should be two different fields like "Pin" and "Pinned".
+#: core/Widgets/PinButton.vala:31 src/Layouts/ItemRow.vala:923
+#: src/Layouts/ItemBoard.vala:223 src/Layouts/ItemBoard.vala:639
+msgid "Pinned"
+msgstr "Закачване"
+
+#: core/Widgets/PriorityButton.vala:37 core/Widgets/PriorityButton.vala:44
+#: core/Widgets/StatusButton.vala:33
+msgid "Set The Priority"
+msgstr "Задаване на приоритета"
+
+#: core/Widgets/PriorityButton.vala:73 src/Views/Project/Project.vala:404
+#: src/Views/Today.vala:471
+msgid "Priority"
+msgstr "Приоритет"
+
+#: core/Widgets/PriorityButton.vala:78 core/Widgets/PriorityButton.vala:125
+#: core/Widgets/PriorityButton.vala:190
+msgid "Priority 4: None"
+msgstr "Priority 4: без"
+
+#: core/Widgets/PriorityButton.vala:116 core/Widgets/PriorityButton.vala:172
+msgid "Priority 1: High"
+msgstr "Приоритет 1: Високо"
+
+#: core/Widgets/PriorityButton.vala:119
+msgid "Priority 2: Medium"
+msgstr "Приоритет 2: Средно"
+
+#: core/Widgets/PriorityButton.vala:122
+msgid "Priority 3: Low"
+msgstr "Приоритет 3: Ниско"
+
+#: core/Widgets/PriorityButton.vala:178
+msgid "Priority 1: Medium"
+msgstr "Приоритет 1: Средно"
+
+#: core/Widgets/PriorityButton.vala:184
+msgid "Priority 1: Low"
+msgstr "Приоритет 1: Ниско"
+
+#: core/Widgets/StatusButton.vala:40
+msgid "Status"
+msgstr "Състояние"
+
+#: core/Widgets/StatusButton.vala:45 core/Widgets/StatusButton.vala:84
+#: core/Widgets/StatusButton.vala:122
+msgid "To Do"
+msgstr "Задача"
+
+#: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
+#: src/Layouts/ItemRow.vala:931 src/Layouts/ItemBoard.vala:646
+msgid "Complete"
+msgstr "Завършено"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:35
+#: core/Widgets/Calendar/CalendarHeader.vala:49
+msgid "%OB"
+msgstr "%OB"
+
+#: core/Widgets/Calendar/CalendarHeader.vala:36
+#: core/Widgets/Calendar/CalendarHeader.vala:52
+msgid "%Y"
+msgstr "%Y"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:35
+msgid "Su"
+msgstr "Нд"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:36
+msgid "Mo"
+msgstr "Пн"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:37
+msgid "Tu"
+msgstr "Вт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:38
+msgid "We"
+msgstr "Ср"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:39
+msgid "Th"
+msgstr "Чт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:40
+msgid "Fr"
+msgstr "Пт"
+
+#: core/Widgets/Calendar/CalendarWeek.vala:41
+msgid "Sa"
+msgstr "Сб"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:62
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:69
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:87
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:142
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:194
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:197
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:198
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:257
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:258
+#: src/Views/Project/List.vala:286
+msgid "Schedule"
+msgstr "Насрочване"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:147
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:193
+msgid "Set a Due Date"
+msgstr "Задаване на краен срок"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:236
+#: src/Dialogs/RepeatConfig.vala:413
+msgid "until"
+msgstr "до"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:239
+#: src/Dialogs/RepeatConfig.vala:417
+msgid "for"
+msgstr "за"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:239
+#: src/Dialogs/RepeatConfig.vala:417
+msgid "times"
+msgstr "времена"
+
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:239
+#: src/Dialogs/RepeatConfig.vala:417
+msgid "time"
+msgstr "време"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:83
+msgid "Next week"
+msgstr "Следващата седмица"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:84
+msgid "Choose a date"
+msgstr "Избиране на дата"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:91
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:139
+msgid "Time"
+msgstr "Време"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:110
+#: src/Widgets/MultiSelectToolbar.vala:75 src/Dialogs/DatePicker.vala:106
+#: src/Dialogs/RepeatConfig.vala:232
+msgid "Done"
+msgstr "Приключили, Готово"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:114
+msgid "Clear"
+msgstr "Изчистване"
+
+#: core/Widgets/DateTimePicker/DateTimePicker.vala:145
+#: src/Layouts/ItemRow.vala:1045 src/Layouts/ItemSidebarView.vala:445
+msgid "Back"
+msgstr "Назад"
+
+#: core/Widgets/LabelPicker/LabelPicker.vala:61
+#: src/Dialogs/LabelPicker.vala:153
+msgid ""
+"Your list of filters will show up here. Create one by entering the name and "
+"pressing the Enter key."
+msgstr ""
+"Списъкът с филтри ще бъде показан тук. Създайте такъв, като въведете името "
+"му и натиснете „Enter“ клавиша."
+
+#. vala-lint=naming-convention
+#: core/Widgets/LabelPicker/LabelPicker.vala:62
+#, c-format
+msgid "Create '%s'"
+msgstr "Създаване на „%s“"
+
+#: core/Widgets/LabelPicker/LabelPicker.vala:77 src/Dialogs/LabelPicker.vala:71
+msgid "Search or Create"
+msgstr "Търсене или Създаване"
+
+#: core/Widgets/LabelPicker/LabelButton.vala:54
+#: core/Widgets/LabelPicker/LabelButton.vala:61
+msgid "Add Labels"
+msgstr "Добавяне на етикети"
+
+#: core/Widgets/LabelPicker/LabelButton.vala:74
+#: core/Widgets/LabelPicker/LabelButton.vala:129
+msgid "Select Labels"
+msgstr "Избиране на етикети"
+
+#: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:163
+msgid "On this Computer"
+msgstr "На този компютър"
+
+#: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:29
+#: src/Layouts/Sidebar.vala:109 src/Dialogs/Project.vala:139
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:167
+#: src/Dialogs/Preferences/PreferencesWindow.vala:713
+#: src/Dialogs/Preferences/PreferencesWindow.vala:743
+#: src/Dialogs/Preferences/PreferencesWindow.vala:884
+#: src/Dialogs/Preferences/Pages/Backup.vala:173
+msgid "Todoist"
+msgstr "Todoist"
+
+#: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:33
+#: src/Layouts/Sidebar.vala:112
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:171
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1312
+msgid "Nextcloud"
+msgstr "Nextcloud"
+
+#. Section Button
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:59
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:130
+#: core/Widgets/ProjectPicker/ProjectPickerButton.vala:139
+#: core/Widgets/SectionPicker/SectionButton.vala:85
+#: core/Widgets/SectionPicker/SectionPicker.vala:98
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:271
+msgid "No Section"
+msgstr "Без раздел"
+
+#: core/Widgets/SectionPicker/SectionButton.vala:30
+msgid "Set Section"
+msgstr "Задаване на раздел"
+
+#: core/Widgets/SectionPicker/SectionButton.vala:35
+msgid "Section"
+msgstr "Раздел"
+
+#: core/Widgets/SectionPicker/SectionButton.vala:40
+msgid "Select Section"
+msgstr "Избиране на раздел"
+
+#: core/Widgets/SectionPicker/SectionPicker.vala:40
+msgid "Search"
+msgstr "Търсене"
+
+#: core/Widgets/ReminderPicker/ReminderButton.vala:37
+#: core/Widgets/ReminderPicker/ReminderButton.vala:44
+#: core/Widgets/ReminderPicker/ReminderButton.vala:57
+#: core/Widgets/ReminderPicker/ReminderButton.vala:125
+#: core/Widgets/ReminderPicker/ReminderButton.vala:146
+msgid "Add Reminders"
+msgstr "Добавяне на напомняния"
+
+#: core/Widgets/ReminderPicker/ReminderButton.vala:52
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:43
+msgid "Reminders"
+msgstr "Напомняние"
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:48
+msgid ""
+"Your list of reminders will show up here. Add one by clicking the '+' button."
+msgstr ""
+"Списъкът с напомняния ще се появи тук. Добавете ново, като натиснете върху "
+"„+“ бутона."
+
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:159
+#: core/Widgets/ReminderPicker/ReminderRow.vala:52
+msgid "Add Reminder"
+msgstr "Добавяне на напомняне"
+
+#: core/Objects/Item.vala:1219
+msgid "Task copied to clipboard"
+msgstr "Задачата е копирана в буфера за обмен"
+
+#: core/Objects/Item.vala:1237 src/Layouts/ItemRow.vala:1048
+#: src/Layouts/ItemSidebarView.vala:448
+#, c-format
+msgid "Duplicate"
+msgstr "Дублиране"
+
+#: core/Objects/Project.vala:756
+msgid "The project was copied to the Clipboard."
+msgstr "Проектът е копиран в буфера за обмен."
+
+#: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
+#: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
+#: core/Objects/Filters/Completed.vala:51 core/Objects/Filters/Labels.vala:51
+#: core/Objects/Filters/Tomorrow.vala:34 core/Objects/Filters/Anytime.vala:34
+#: core/Objects/Filters/Repeating.vala:34
+#: core/Objects/Filters/Unlabeled.vala:34
+msgid "filters"
+msgstr "филтри"
+
+#: core/Objects/Filters/Scheduled.vala:51
+#, c-format
+msgid "scheduled"
+msgstr "насрочени"
+
+#: core/Objects/Filters/Scheduled.vala:51
+msgid "upcoming"
+msgstr "предстоящи"
+
+#: core/Objects/Filters/Today.vala:67
+msgid "today"
+msgstr "днес"
+
+#: core/Objects/Filters/Completed.vala:50 src/Layouts/FilterPaneRow.vala:131
+#: src/Views/Filter.vala:171 src/Dialogs/Preferences/Pages/Sidebar.vala:41
+msgid "Completed"
+msgstr "Завършено"
+
+#: core/Objects/Filters/Completed.vala:51
+#, c-format
+msgid "completed"
+msgstr "завършено"
+
+#: core/Objects/Filters/Completed.vala:51
+msgid "logbook"
+msgstr "журнал"
+
+#: core/Objects/Filters/Labels.vala:51
+#, c-format
+msgid "labels"
+msgstr "етикети"
+
+#: core/Objects/Filters/Tomorrow.vala:34
+#, c-format
+msgid "tomorrow"
+msgstr "утре"
+
+#: core/Objects/Filters/Tomorrow.vala:34
+msgid "date"
+msgstr "дата"
+
+#: core/Objects/Filters/Anytime.vala:33 src/Views/Filter.vala:189
+#: src/Dialogs/WhatsNew.vala:121
+msgid "Anytime"
+msgstr "По всяко време"
+
+#: core/Objects/Filters/Anytime.vala:34
+#, c-format
+msgid "anytime"
+msgstr "по всяко време"
+
+#: core/Objects/Filters/Anytime.vala:34
+msgid "no date"
+msgstr "без дата"
+
+#: core/Objects/Filters/Repeating.vala:33 src/Views/Filter.vala:195
+#: src/Dialogs/WhatsNew.vala:119
+msgid "Repeating"
+msgstr "Повтарящ"
+
+#: core/Objects/Filters/Repeating.vala:34
+#, c-format
+msgid "repeating"
+msgstr "повтарящ"
+
+#: core/Objects/Filters/Unlabeled.vala:33 src/Views/Filter.vala:201
+msgid "Unlabeled"
+msgstr "Без етикет"
+
+#: core/Objects/Filters/Unlabeled.vala:34
+#, c-format
+msgid "no label"
+msgstr "без етикет"
+
+#: core/Objects/Filters/Unlabeled.vala:34
+msgid "unlabeled"
+msgstr "без етикет"
+
+#: src/App.vala:76
+#, c-format
+msgid "Are you sure you want to reset all? (y/n): "
+msgstr "Сигурни ли сте, че искате да върнете всичко? (y/n): "
+
+#: src/App.vala:79
+msgid "y"
+msgstr "y"
+
+#: src/App.vala:79
+msgid "yes"
+msgstr "да"
+
+#: src/App.vala:128
+msgid ""
+"Planify will automatically start when this device turns on and run when its "
+"window is closed so that it can send to-do notifications."
+msgstr ""
+"„Planify“ ще се стартира автоматично, когато това устройство се включи, и ще "
+"работи във фонов режим, когато прозорецът му бъде затворен, за да може да "
+"изпраща известия за задачи."
+
+#: src/MainWindow.vala:75
+msgid "Open Quick Find"
+msgstr "Отваряне на „Бързо Търсене“"
+
+#: src/MainWindow.vala:304
+msgid "Tasks Synced Successfully"
+msgstr "Задачите са синхронизирани успешно"
+
+#: src/MainWindow.vala:304
+msgid "Do you want to use Todoist as your default Inbox Project?"
+msgstr ""
+"Искате ли да използвате „Todoist“ като проект „Входящи“ по подразбиране?"
+
+#: src/MainWindow.vala:509 src/Dialogs/Preferences/PreferencesWindow.vala:40
+msgid "Preferences"
+msgstr "Настройки"
+
+#: src/MainWindow.vala:512
+msgid "Keyboard Shortcuts"
+msgstr "Клавишни комбинации"
+
+#: src/MainWindow.vala:515 src/Dialogs/WhatsNew.vala:156
+msgid "What's New"
+msgstr "Какво ново има"
+
+#: src/MainWindow.vala:517
+msgid "About Planify"
+msgstr "Относно „Planify“"
+
+#: src/Services/Backups.vala:510
+msgid "Backup Successfully Imported"
+msgstr "Резервата е внесена успешно"
+
+#: src/Services/Backups.vala:511
+msgid "Process completed, you need to start Planify again"
+msgstr "Процесът е завършен, трябва да стартирате „Planify“ наново"
+
+#: src/Services/Backups.vala:526
+msgid "Planify Backup Files"
+msgstr "Резервни „Planify“ файлове"
+
+#: src/Services/CalendarEvents/Util.vala:245
+msgid "On this computer"
+msgstr "На този компютър"
+
+#: src/Layouts/Sidebar.vala:71
+msgid "Go to Inbox"
+msgstr "Към „Входящи“"
+
+#: src/Layouts/Sidebar.vala:75
+msgid "Go to Today"
+msgstr "Към „Днес“"
+
+#: src/Layouts/Sidebar.vala:79
+msgid "Go to Scheduled"
+msgstr "Към „Насрочени“"
+
+#: src/Layouts/Sidebar.vala:83
+msgid "Go to Labels"
+msgstr "Към „Етикети“"
+
+#: src/Layouts/Sidebar.vala:87
+msgid "Go to Pinboard"
+msgstr "Към „Закачени“"
+
+#: src/Layouts/Sidebar.vala:101
+msgid "Favorites"
+msgstr "Любими"
+
+#: src/Layouts/Sidebar.vala:102
+msgid "No favorites available. Create one by clicking on the '+' button"
+msgstr "Няма налични любими. Създайте такъв, като натиснете върху „+“ бутона."
+
+#: src/Layouts/Sidebar.vala:105 src/Dialogs/Project.vala:138
+#: src/Dialogs/Preferences/PreferencesWindow.vala:712
+msgid "On This Computer"
+msgstr "На този компютър"
+
+#: src/Layouts/Sidebar.vala:106 src/Layouts/Sidebar.vala:349
+#: src/Layouts/Sidebar.vala:360 src/Layouts/Sidebar.vala:371
+msgid "No project available. Create one by clicking on the '+' button"
+msgstr "Няма наличен проект. Създайте такъв, като натиснете върху „+“ бутона."
+
+#: src/Layouts/Sidebar.vala:122 src/Dialogs/WhatsNew.vala:47
+msgid "What’s new in Planify"
+msgstr "Какво ново има в „Planify“"
+
+#: src/Layouts/Sidebar.vala:175 src/Layouts/Sidebar.vala:191
+#: src/Layouts/Sidebar.vala:211 src/Dialogs/Project.vala:180
+msgid "Add Project"
+msgstr "Добавяне на проект"
+
+#: src/Layouts/Sidebar.vala:351 src/Layouts/Sidebar.vala:362
+#: src/Layouts/Sidebar.vala:373
+msgid "No account available, Sync one by clicking the '+' button"
+msgstr ""
+"Няма наличен профил. Синхронизирайте такъв, като натиснете върху „+“ бутона."
+
+#: src/Layouts/ProjectRow.vala:373
+msgid "Projects sort changed to 'Custom sort order'"
+msgstr "Сортирането на проектите е променено на „Друг ред на подредба“"
+
+#: src/Layouts/ProjectRow.vala:597 src/Layouts/ProjectRow.vala:603
+msgid "Remove From Favorites"
+msgstr "Премахване от „Любими“"
+
+#: src/Layouts/ProjectRow.vala:597 src/Layouts/ProjectRow.vala:603
+msgid "Add to Favorites"
+msgstr "Добавяне в „Любими“"
+
+#: src/Layouts/ProjectRow.vala:604 src/Views/Project/Project.vala:214
+#: src/Dialogs/Project.vala:66
+msgid "Edit Project"
+msgstr "Редактиране на проекта"
+
+#: src/Layouts/ProjectRow.vala:605
+msgid "Refresh"
+msgstr "Презареждане"
+
+#: src/Layouts/ProjectRow.vala:606 src/Views/Project/Project.vala:223
+#: src/Views/Project/Project.vala:328
+msgid "Delete Project"
+msgstr "Премахване на проект"
+
+#: src/Layouts/ProjectRow.vala:609
+msgid "Share"
+msgstr "Ползвам съвместно"
+
+#: src/Layouts/ProjectRow.vala:610
+msgid "Send by E-Mail"
+msgstr "Изпращане като писмо"
+
+#: src/Layouts/ProjectRow.vala:677
+#, c-format
+msgid "Delete Project %s?"
+msgstr "Да се премахне ли проекта %s?"
+
+#: src/Layouts/ProjectRow.vala:678 src/Layouts/SectionRow.vala:633
+#: src/Layouts/LabelRow.vala:173 src/Layouts/ItemSidebarView.vala:660
+#: src/Layouts/SectionBoard.vala:491
+msgid "This can not be undone"
+msgstr "Това не може да бъде върнато"
+
+#: src/Layouts/ProjectRow.vala:694 src/Layouts/SectionRow.vala:637
+#: src/Layouts/LabelRow.vala:176 src/Layouts/ItemSidebarView.vala:664
+#: src/Layouts/SectionBoard.vala:495 src/Widgets/MultiSelectToolbar.vala:221
+#: src/Widgets/MultiSelectToolbar.vala:262 src/Views/Project/Project.vala:333
+#: src/Views/Project/Project.vala:480
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1765
+msgid "Delete"
+msgstr "Изтриване"
+
+#: src/Layouts/SectionRow.vala:77 src/Layouts/SectionBoard.vala:58
+#: src/Dialogs/ManageSectionOrder.vala:111
+msgid "(No Section)"
+msgstr "(Без раздел)"
+
+#: src/Layouts/SectionRow.vala:563 src/Layouts/SectionBoard.vala:422
+msgid "Add Task"
+msgstr "Добавяне на задача"
+
+#: src/Layouts/SectionRow.vala:564 src/Layouts/SectionBoard.vala:423
+#: src/Dialogs/Section.vala:60
+msgid "Edit Section"
+msgstr "Редактиране на раздела"
+
+#: src/Layouts/SectionRow.vala:565 src/Layouts/SectionBoard.vala:424
+msgid "Move Section"
+msgstr "Преместване на раздела"
+
+#: src/Layouts/SectionRow.vala:566 src/Layouts/SectionBoard.vala:425
+msgid "Manage Section Order"
+msgstr "Управляване на реда на разделите"
+
+#: src/Layouts/SectionRow.vala:567 src/Layouts/SectionBoard.vala:426
+msgid "Delete Section"
+msgstr "Премахване на раздела"
+
+#: src/Layouts/SectionRow.vala:632 src/Layouts/SectionBoard.vala:490
+#, c-format
+msgid "Delete Section %s"
+msgstr "Премахване на раздела %s"
+
+#: src/Layouts/ItemRow.vala:425
+msgid "Add Subtasks"
+msgstr "Добавяне на подзадачи"
+
+#: src/Layouts/ItemRow.vala:925 src/Layouts/ItemBoard.vala:641
+#: src/Dialogs/DatePicker.vala:77
+msgid "No Date"
+msgstr "Без дата"
+
+#: src/Layouts/ItemRow.vala:928 src/Layouts/ItemRow.vala:1049
+#: src/Layouts/ItemBoard.vala:643 src/Layouts/ItemSidebarView.vala:449
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:74
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:106
+msgid "Move"
+msgstr "Преместване"
+
+#: src/Layouts/ItemRow.vala:930 src/Layouts/ItemBoard.vala:645
+msgid "Add Subtask"
+msgstr "Добавяне на подзадача"
+
+#: src/Layouts/ItemRow.vala:932 src/Layouts/ItemBoard.vala:647
+msgid "Edit"
+msgstr "Редактиране"
+
+#: src/Layouts/ItemRow.vala:934 src/Layouts/ItemRow.vala:1053
+#: src/Layouts/ItemBoard.vala:649 src/Layouts/ItemSidebarView.vala:453
+msgid "Delete Task"
+msgstr "Премахване на задачата"
+
+#: src/Layouts/ItemRow.vala:1033 src/Layouts/ItemSidebarView.vala:645
+msgid "Added at"
+msgstr "Добавено в"
+
+#: src/Layouts/ItemRow.vala:1034 src/Layouts/ItemSidebarView.vala:646
+msgid "Updated at"
+msgstr "Обновено в"
+
+#: src/Layouts/ItemRow.vala:1036 src/Layouts/ItemSidebarView.vala:648
+msgid "Not available"
+msgstr "Не е достъпен"
+
+#: src/Layouts/ItemRow.vala:1047 src/Layouts/ItemSidebarView.vala:447
+msgid "Copy to Clipboard"
+msgstr "Копиране в буфера за обмен"
+
+#: src/Layouts/ItemRow.vala:1050 src/Layouts/ItemSidebarView.vala:450
+#: src/Dialogs/RepeatConfig.vala:90
+msgid "Repeat"
+msgstr "Повтаряне"
+
+#: src/Layouts/ItemRow.vala:1145 src/Layouts/ItemSidebarView.vala:545
+msgid "Daily"
+msgstr "Ежедневно"
+
+#: src/Layouts/ItemRow.vala:1146 src/Layouts/ItemSidebarView.vala:546
+msgid "Weekly"
+msgstr "Ежеседмично"
+
+#: src/Layouts/ItemRow.vala:1147 src/Layouts/ItemSidebarView.vala:547
+msgid "Monthly"
+msgstr "Ежемесечно"
+
+#: src/Layouts/ItemRow.vala:1148 src/Layouts/ItemSidebarView.vala:548
+msgid "Yearly"
+msgstr "Годишно"
+
+#: src/Layouts/ItemRow.vala:1149 src/Layouts/ItemSidebarView.vala:549
+msgid "Custom"
+msgstr "По поръчка, Поръчан (заб.: произлиза от израза Custom-made)"
+
+#: src/Layouts/ItemRow.vala:1353 src/Layouts/ItemBoard.vala:533
+#: src/Layouts/ItemSidebarView.vala:742
+#, c-format
+msgid "Completed. Next occurrence: %s"
+msgstr "Завършено. Следващо съвпадение: %s"
+
+#: src/Layouts/ItemRow.vala:1395 src/Layouts/ItemBoard.vala:995
+#, c-format
+msgid "%s was deleted"
+msgstr "%s е премахнато"
+
+#: src/Layouts/ItemRow.vala:1396 src/Layouts/ItemBoard.vala:996
+msgid "Undo"
+msgstr "Отмяна"
+
+#: src/Layouts/ItemRow.vala:1592 src/Layouts/ItemBoard.vala:896
+msgid "Order changed to 'Custom sort order'"
+msgstr "Редът е променен на „Друг ред на подредба“"
+
+#: src/Layouts/ItemBoard.vala:131
+msgid "View Details"
+msgstr "Показване на подробностите"
+
+#: src/Layouts/LabelRow.vala:142 src/Dialogs/Label.vala:59
+msgid "Edit Label"
+msgstr "Редактиране на етикета"
+
+#: src/Layouts/LabelRow.vala:143
+msgid "Delete Label"
+msgstr "Премахване на етикета"
+
+#: src/Layouts/LabelRow.vala:173
+#, c-format
+msgid "Delete Label %s"
+msgstr "Премахване на етикета %s"
+
+#: src/Layouts/ItemSidebarView.vala:76
+msgid "Close Detail"
+msgstr "Затваряне на подробностите"
+
+#: src/Layouts/ItemSidebarView.vala:128
+msgid "Title"
+msgstr "Заглавие"
+
+#: src/Layouts/ItemSidebarView.vala:158
+msgid "Properties"
+msgstr "Свойства"
+
+#: src/Layouts/ItemSidebarView.vala:177 src/Dialogs/Section.vala:97
+msgid "Description"
+msgstr "Описание"
+
+#: src/Layouts/ItemSidebarView.vala:659
+msgid "Are you sure you want to delete?"
+msgstr "Сигурни ли сте, че искате да премахнете?"
+
+#: src/Widgets/MagicButton.vala:46
+msgid "Add task"
+msgstr "Добавяне на задача"
+
+#: src/Widgets/SyncButton.vala:80
+#, c-format
+msgid "Offline Mode Is On"
+msgstr "Режим „Изключен“ е включен"
+
+#: src/Widgets/SyncButton.vala:80
+msgid ""
+"Looks like you'are not connected to the\n"
+"internet. Changes you make in offline\n"
+"mode will be synced when you reconnect"
+msgstr ""
+"Изглежда, че не сте свързани с Интернет мрежата.\n"
+"Промените, които правите в режим „Изключен“ ще бъдат\n"
+"синхронизирани, когато възстановите връзката"
+
+#: src/Widgets/MultiSelectToolbar.vala:219
+msgid "Mark as Completed"
+msgstr "Маркиране като завършено"
+
+#: src/Widgets/MultiSelectToolbar.vala:249
+msgid "Delete To-Do"
+msgstr "Премахване на задачата"
+
+#: src/Widgets/MultiSelectToolbar.vala:250
+msgid "Are you sure you want to delete this to-do?"
+msgstr "Сигурни ли сте, че искате да премахнете задачата?"
+
+#: src/Widgets/MultiSelectToolbar.vala:252
+#, c-format
+msgid "Delete %d To-Dos"
+msgstr "Премахване на %d задачи"
+
+#: src/Widgets/MultiSelectToolbar.vala:253
+#, c-format
+msgid "Are you sure you want to delete these %d to-dos?"
+msgstr "Сигурни ли сте, че искате да премахнете %d задачи?"
+
+#: src/Widgets/SubItems.vala:78
+msgid "Sub-tasks"
+msgstr "Подзадачи"
+
+#: src/Widgets/LabelChild.vala:39
+msgid "All"
+msgstr "Всички"
+
+#: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:216
+#: src/Dialogs/Section.vala:108
+msgid "Add Section"
+msgstr "Добавяне на раздел"
+
+#: src/Views/Project/Project.vala:47
+msgid "Project Actions"
+msgstr "Действия по проекта"
+
+#: src/Views/Project/Project.vala:71 src/Views/Today.vala:79
+msgid "View option menu"
+msgstr "Показване на менюто с опции"
+
+#: src/Views/Project/Project.vala:215 src/Views/Project/Project.vala:266
+#: src/Views/Project/List.vala:314
+msgid "When?"
+msgstr "Кога?"
+
+#: src/Views/Project/Project.vala:218 src/Dialogs/ManageSectionOrder.vala:33
+msgid "Manage Sections"
+msgstr "Управление на разделите"
+
+#: src/Views/Project/Project.vala:220
+msgid "Filter by Labels"
+msgstr "Търсене по „Етикети“"
+
+#: src/Views/Project/Project.vala:221
+msgid "Select"
+msgstr "Избор"
+
+#: src/Views/Project/Project.vala:222
+msgid "Paste"
+msgstr "Поставяне постави, Поставете"
+
+#: src/Views/Project/Project.vala:328
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "Сигурни ли сте, че искате да премахнете %s?"
+
+#: src/Views/Project/Project.vala:361
+msgid "List"
+msgstr "Списък (не: листа)"
+
+#: src/Views/Project/Project.vala:376
+msgid "Board"
+msgstr "Табло"
+
+#: src/Views/Project/Project.vala:400
+msgid "Custom sort order"
+msgstr "Друг ред на подредба"
+
+#: src/Views/Project/Project.vala:401 src/Views/Today.vala:469
+#: src/Dialogs/Preferences/PreferencesWindow.vala:329
+msgid "Alphabetically"
+msgstr "Азбучен ред"
+
+#: src/Views/Project/Project.vala:402 src/Views/Today.vala:468
+msgid "Due Date"
+msgstr "Краен срок"
+
+#: src/Views/Project/Project.vala:403 src/Views/Today.vala:470
+msgid "Date Added"
+msgstr "Дата на добавяне"
+
+#: src/Views/Project/Project.vala:406 src/Views/Today.vala:473
+msgid "Order by"
+msgstr "Подреждане по"
+
+#: src/Views/Project/Project.vala:410 src/Views/Project/Project.vala:450
+msgid "Hide Completed Tasks"
+msgstr "Скриване на завършените задачи"
+
+#: src/Views/Project/Project.vala:410 src/Views/Project/Project.vala:450
+msgid "Show Completed Tasks"
+msgstr "Показване на завършените задачи"
+
+#: src/Views/Project/Project.vala:414 src/Views/Project/Project.vala:475
+msgid "Delete All Completed Tasks"
+msgstr "Премахване на всички завършени задачи"
+
+#: src/Views/Project/Project.vala:475
+#, c-format
+msgid "This will delete %d completed tasks and their subtasks from project %s"
+msgstr "Това ще премахне %d завършени задачи и техните подзадачи от проект %s"
+
+#: src/Views/Project/List.vala:104 src/Views/Today.vala:212
+#: src/Views/Label/Label.vala:71 src/Views/Filter.vala:66
+msgid "Add Some Tasks"
+msgstr "Добавяне на задачи"
+
+#: src/Views/Project/List.vala:105 src/Views/Today.vala:213
+#: src/Views/Label/Label.vala:72 src/Views/Filter.vala:67
+msgid "Press a to create a new task"
+msgstr "Натиснете „а“, за да създадете нова задача"
+
+#: src/Views/Project/List.vala:258 src/Views/Project/List.vala:344
+#: src/Views/Project/Board.vala:155 src/Views/Project/Board.vala:190
+msgid "Note"
+msgstr "Бележка"
+
+#: src/Views/Today.vala:104
+msgid "Overdue"
+msgstr "Просрочено"
+
+#: src/Views/Today.vala:112
+msgid "Reschedule"
+msgstr "Изместване"
+
+#: src/Views/Label/Labels.vala:39
+msgid "Labels: On This Computer"
+msgstr "Етикети: на този компютър"
+
+#: src/Views/Label/Labels.vala:44
+msgid "Labels: Todoist"
+msgstr "Етикети: Todoist"
+
+#: src/Views/Label/Labels.vala:49
+msgid "Labels: Nextcloud"
+msgstr "Етикети: Nextcloud"
+
+#: src/Dialogs/Project.vala:52
+msgid "New Project"
+msgstr "Нов проект"
+
+#: src/Dialogs/Project.vala:112
+msgid "Give your project a name"
+msgstr "Дайте име на проекта си"
+
+#: src/Dialogs/Project.vala:123
+msgid "Use Emoji"
+msgstr "Използване на емотикона"
+
+#: src/Dialogs/Project.vala:142
+msgid "Source"
+msgstr "Източник"
+
+#: src/Dialogs/Project.vala:180
+msgid "Update Project"
+msgstr "Обновяване на проекта"
+
+#: src/Dialogs/Project.vala:363
+msgid "Project added successfully!"
+msgstr "Проектът е добавен успешно!"
+
+#: src/Dialogs/Section.vala:47
+msgid "New Section"
+msgstr "Нов раздел"
+
+#: src/Dialogs/Section.vala:73
+msgid "Section Name"
+msgstr "Име на раздела"
+
+#: src/Dialogs/Section.vala:108
+msgid "Update Section"
+msgstr "Обновяване на раздела"
+
+#: src/Dialogs/Label.vala:46
+msgid "New Label"
+msgstr "Нов етикет"
+
+#: src/Dialogs/Label.vala:71
+msgid "Give your label a name"
+msgstr "Дайте име на етикета си"
+
+#: src/Dialogs/Label.vala:95
+msgid "Add Label"
+msgstr "Добавяне на етикет"
+
+#: src/Dialogs/Label.vala:95
+msgid "Update Label"
+msgstr "Обновяване на етикет"
+
+#: src/Dialogs/GoogleOAuth.vala:40
+msgid "Todoist Sync"
+msgstr "Todoist Синхронизация"
+
+#: src/Dialogs/GoogleOAuth.vala:55 src/Dialogs/GoogleOAuth.vala:144
+msgid "Loading"
+msgstr "Зареждане"
+
+#: src/Dialogs/GoogleOAuth.vala:84
+msgid "Planner is sync your tasks, this may take a few minutes"
+msgstr ""
+"„Planner“ синхронизира задачите ви, което може да отнеме няколко минути."
+
+#: src/Dialogs/GoogleOAuth.vala:137
+msgid "Please enter your credentials"
+msgstr "Въведете данни за идентификация"
+
+#: src/Dialogs/GoogleOAuth.vala:157
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1267
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1269
+msgid "Network Is Not Available"
+msgstr "Мрежата не е достъпна"
+
+#: src/Dialogs/WhatsNew.vala:118
+msgid "New Filters"
+msgstr "Нови филтри"
+
+#: src/Dialogs/WhatsNew.vala:118
+msgid "New filters available in Quick Add."
+msgstr "Налични са нови филтри в „Бързо добавяне“."
+
+#: src/Dialogs/WhatsNew.vala:119
+msgid "All your repeating to-dos in one, convenient place (finally!)."
+msgstr "Всички ваши повтарящи се задачи на едно удобно място (най-накрая!)."
+
+#: src/Dialogs/WhatsNew.vala:120
+msgid "A nice focused list to plan tomorrow, today."
+msgstr "Хубав целенасочен списък за планиране на утрешния ден, днес."
+
+#: src/Dialogs/WhatsNew.vala:121
+msgid "All your unlabel to-dos in one place."
+msgstr "Всички задачи без етикет на едно място."
+
+#: src/Dialogs/WhatsNew.vala:122
+msgid "Search by Sections"
+msgstr "Търсене по раздели"
+
+#: src/Dialogs/WhatsNew.vala:122
+msgid "Quick Find now supports section searching."
+msgstr "„Бързо търсене“ вече поддържа търсене в раздели."
+
+#: src/Dialogs/ProjectPicker/ProjectPicker.vala:88
+msgid "Type a search"
+msgstr "Въведете термин за търсене"
+
+#: src/Dialogs/DatePicker.vala:71
+msgid "Next Week"
+msgstr "Следващата седмица"
+
+#: src/Dialogs/LabelPicker.vala:110
+msgid "Filter"
+msgstr "филтър"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Minute(s)"
+msgstr "Минута/и"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Hour(s)"
+msgstr "Час(ове)"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Day(s)"
+msgstr "Ден(дни)"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Week(s)"
+msgstr "Седмица/и"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Month(s)"
+msgstr "Месец(и)"
+
+#: src/Dialogs/RepeatConfig.vala:123
+msgid "Year(s)"
+msgstr "Година/и"
+
+#: src/Dialogs/RepeatConfig.vala:142
+#: src/Dialogs/Preferences/PreferencesWindow.vala:408
+msgid "Monday"
+msgstr "Понеделник"
+
+#: src/Dialogs/RepeatConfig.vala:143
+#: src/Dialogs/Preferences/PreferencesWindow.vala:409
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: src/Dialogs/RepeatConfig.vala:144
+#: src/Dialogs/Preferences/PreferencesWindow.vala:410
+msgid "Wednesday"
+msgstr "Сряда"
+
+#: src/Dialogs/RepeatConfig.vala:145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:411
+msgid "Thursday"
+msgstr "Четвъртък"
+
+#: src/Dialogs/RepeatConfig.vala:146
+#: src/Dialogs/Preferences/PreferencesWindow.vala:412
+msgid "Friday"
+msgstr "Петък"
+
+#: src/Dialogs/RepeatConfig.vala:147
+#: src/Dialogs/Preferences/PreferencesWindow.vala:413
+msgid "Saturday"
+msgstr "Събота"
+
+#: src/Dialogs/RepeatConfig.vala:148
+#: src/Dialogs/Preferences/PreferencesWindow.vala:407
+msgid "Sunday"
+msgstr "Неделя"
+
+#: src/Dialogs/RepeatConfig.vala:174
+msgid "Never"
+msgstr "Никога"
+
+#: src/Dialogs/RepeatConfig.vala:178
+msgid "On Date"
+msgstr "На дата"
+
+#: src/Dialogs/RepeatConfig.vala:182
+msgid "After"
+msgstr "След"
+
+#: src/Dialogs/RepeatConfig.vala:247
+msgid "Summary"
+msgstr "Обобщение"
+
+#: src/Dialogs/RepeatConfig.vala:252
+msgid "Repeat every"
+msgstr "Повтаряйте всеки"
+
+#: src/Dialogs/RepeatConfig.vala:258
+msgid "End"
+msgstr "Край"
+
+#: src/Dialogs/QuickFind/QuickFind.vala:41
+msgid "Quick Find"
+msgstr "Бързо търсене"
+
+#: src/Dialogs/QuickFind/QuickFind.vala:199
+msgid "Quickly switch projects and views, find tasks, search by labels"
+msgstr ""
+"Бързо сменяне на проекти и изгледи, намиране на задачи, търсене по етикети"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/Dialogs/Preferences/PreferencesWindow.vala:251
+msgid "Support Planify"
+msgstr "Подкрепете Planify"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:54
+msgid ""
+"Planify is being developed with love and passion for open source. However, "
+"if you like Planify and want to support its development, please consider "
+"supporting us."
+msgstr ""
+"„Planify“ се разработва с любов и страст към отворения код. Въпреки това, "
+"ако харесвате „Planify“ и искате да подкрепите развитието му, моля, "
+"помислете дали да не ни подкрепите."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:62
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1613
+msgid "Supporting Us"
+msgstr "Подкрепят ни"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:114
+msgid "Integrations"
+msgstr "Интеграции"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:115
+msgid "Sync your favorite to-do providers"
+msgstr "Синхронизирайте вашите любими услуги за задачи"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:131
+#: src/Dialogs/Preferences/PreferencesWindow.vala:309
+#: src/Dialogs/Preferences/PreferencesWindow.vala:324
+msgid "General"
+msgstr "Общи"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:132
+msgid "Customize to your liking"
+msgstr "Персонализирайте по свой вкус"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:142
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:28
+msgid "Sidebar"
+msgstr "Странична лента"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:143
+msgid "Customize your sidebar"
+msgstr "Персонализирайте страничната лента"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:153
+#: src/Dialogs/Preferences/PreferencesWindow.vala:576
+msgid "Appearance"
+msgstr "Изглед"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:164
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1059
+msgid "Quick Add"
+msgstr "Бързо добавяне"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:165
+msgid "Adding to-do's from anywhere"
+msgstr "Добавяне на задачи отвсякъде"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:175
+#: src/Dialogs/Preferences/Pages/Backup.vala:28
+msgid "Backups"
+msgstr "Резерви"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:176
+msgid "Backup or migrate from Planner."
+msgstr "Направете резерва или мигрирайте от „Planner“."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:182
+msgid "Create Tutorial Project"
+msgstr "Създаване на проект за обучение"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:183
+msgid "Learn the app step by step with a short tutorial project"
+msgstr "Научете приложението стъпка по стъпка с кратък проект за обучение"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:198
+msgid "Reach Us"
+msgstr "Потърсете ни"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:204
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1563
+msgid "Contact Us"
+msgstr "Свържете се с нас"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:205
+msgid "Request a feature or ask us anything"
+msgstr "Направете заявка за нова функция, или ни попитайте нещо"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:221
+msgid "Tweet Us"
+msgstr "Пишете ни в Twitter"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:222
+msgid "Share some love"
+msgstr "Споделете малко любов"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:236
+msgid "Telegram"
+msgstr "Telegram"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:237
+msgid "Discuss and share your feedback"
+msgstr "Обсъждайте и споделяйте отзивите си"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:252
+msgid "Want to buy me a drink?"
+msgstr "Искаш ли да ми купиш напитка?"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:266
+msgid "Privacy"
+msgstr "Дискретност"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:272
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1531
+msgid "Privacy Policy"
+msgstr "Настройки за лични данни"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:273
+msgid "We have nothing on you"
+msgstr "Не запазваме нищо общо с вас"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:279
+msgid "Delete App Data"
+msgstr "Премахване на данните на приложението"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:288
+msgid "A tutorial project has been created"
+msgstr "Проект за обучение е създаден"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:300
+msgid "Delete All Data?"
+msgstr "Искате ли да премахнете всички данни?"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:301
+msgid "Deletes all your lists, tasks, and reminders irreversibly"
+msgstr "Премахва всички ваши списъци, задачи, и напомняния без връщане."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:319
+msgid "Home Page"
+msgstr "Начална страница"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:328
+msgid "Custom Sort Order"
+msgstr "Друг ред на подредба"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:332
+msgid "Sort by"
+msgstr "Подреждане по"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:337
+msgid "Ascending"
+msgstr "Възходящо"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:338
+msgid "Descending"
+msgstr "Низходящо"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:341
+msgid "Ordered"
+msgstr "Подредени"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:352
+msgid "DE Integration"
+msgstr "Интеграция с работната среда"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:360
+msgid "Run in Background"
+msgstr "Фонов режим"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:361
+msgid "Let Planify run in background and send notifications"
+msgstr "Позволете на „Planify“ да работи във фонов режим и да изпраща известия"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:373
+msgid "Run on Startup"
+msgstr "Пускане при стартиране"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:374
+msgid "Whether Planify should run on startup"
+msgstr "Дали „Planify“ да се пусне при стартиране"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:386
+msgid "Calendar Events"
+msgstr "Календарни събития"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:393
+msgid "Date and Time"
+msgstr "Дата и време"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:396
+msgid "24h"
+msgstr "24-часов"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:397
+msgid "12h"
+msgstr "12-часов"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:400
+msgid "Clock Format"
+msgstr "Формат на часовника"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:416
+msgid "Start of the Week"
+msgstr "Начало на седмицата"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:423
+msgid "Task Settings"
+msgstr "Настройки на задачата"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:426
+msgid "Instantly"
+msgstr "Мигновено"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:427
+msgid "Wait 2500 Milliseconds"
+msgstr "Изчакайте 2500 милисекунди"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:430
+msgid "Complete Task"
+msgstr "Завършване на задачата"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:431
+msgid ""
+"Complete your to-do instantly or wait 2500 milliseconds with the undo option"
+msgstr ""
+"Завършете задачата си веднага или изчакайте 2500 милисекунди с опцията за "
+"отмяна"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:438
+msgid "Priority 1"
+msgstr "Приоритет 1"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:439
+msgid "Priority 2"
+msgstr "Приоритет 2"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:440
+msgid "Priority 3"
+msgstr "Приоритет 3"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:444
+msgid "Default Priority"
+msgstr "Стандартен приоритет"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:456
+msgid "Underline Completed Tasks"
+msgstr "Подчертаване на завършените задачи"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:463
+msgid "Top"
+msgstr "Горе"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:464
+msgid "Bottom"
+msgstr "Доло"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:467
+msgid "New Task Position"
+msgstr "Нова позиция на задачата"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:474
+msgid "Always Show Completed Sub-Tasks"
+msgstr "Винаги показване на завършените подзадачи"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:579
+msgid "App Theme"
+msgstr "Тема"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:587
+msgid "Use System Settings"
+msgstr "Използване на стандартните настройки"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:596
+msgid "Light Style"
+msgstr "Светъл стил"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:605
+msgid "Dark Style"
+msgstr "Тъмен стил"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:614
+msgid "Dark Blue Style"
+msgstr "Тъмно син стил"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:705
+#: src/Dialogs/Preferences/PreferencesWindow.vala:780
+msgid "Accounts"
+msgstr "Профили"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:716
+msgid "Default Inbox Project"
+msgstr "Проект „Входящи“ по подразбиране"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:744
+msgid "Synchronize with your Todoist Account"
+msgstr "Синхронизиране с профила ви в „Todoist“"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:771
+#: src/Dialogs/Preferences/PreferencesWindow.vala:973
+msgid "CalDAV"
+msgstr "CalDAV"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:772
+msgid "Synchronization based on open Internet standards"
+msgstr "Синхронизация според отворени Интернет стандарти"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:915
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1001
+msgid "Sync Server"
+msgstr "Сървър за синхронизация"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:916
+msgid ""
+"Activate this setting so that Planify automatically synchronizes with your "
+"Todoist account every 15 minutes"
+msgstr ""
+"Активирайте тази настройка, за да може „Planify“ автоматично да се "
+"синхронизира с профила ви в „Todoist“ на всеки 15 минути."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:930
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1016
+msgid "Last Sync"
+msgstr "Последна синхронизация"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1002
+msgid ""
+"Activate this setting so that Planify automatically synchronizes with your "
+"CalDAV account every 15 minutes"
+msgstr ""
+"Активирайте тази настройка, за да може „Planify“ автоматично да се "
+"синхронизира с вашия CalDAV профил на всеки 15 минути."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1067
+msgid ""
+"Use Quick Add to create to-dos from anywhere on your desktop with just a few "
+"keystrokes. You don’t even have to leave the app you’re currently in."
+msgstr ""
+"Използвайте „Бързо добавяне“, за да създавате задачи по всяко време от "
+"работния плот само с няколко натискания на клавиши. Дори не е необходимо да "
+"напускате приложението, в което се намирате в момента."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1078
+msgid ""
+"Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
+"shortcut with the following:"
+msgstr ""
+"Отидете в „Стандартни настройки“ → „Клавиатура“ → „Клавишни комбинации“ → "
+"„Друг“, след което добавете нова комбинация със следното:"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1106
+msgid "Settings"
+msgstr "Настройки"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1114
+msgid "Save Last Selected Project"
+msgstr "Запазване на последно избрания проект"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1115
+msgid "If unchecked, the default project selected is Inbox"
+msgstr ""
+"Ако е премахната отметката, по подразбиране се избира проекта „Входящи“"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1149
+msgid "The command was copied to the clipboard"
+msgstr "Командата е копирана в буфера за обмен"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1164
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1255
+msgid "Loading…"
+msgstr "Зареждане…"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1191
+msgid "Planify is is syncing your tasks, this may take a few minutes"
+msgstr "Planify синхронизира задачите ви, което може да отнеме няколко минути."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1239
+msgid "Synchronizing..."
+msgstr "Синхронизиране…"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1250
+msgid "Please Enter Your Credentials"
+msgstr "Въведете данни за идентификация"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1300
+msgid "CalDAV Setup"
+msgstr "Настройване на CalDAV"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1303
+msgid "Server URL"
+msgstr "Адрес на сървъра"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1306
+msgid "User Name"
+msgstr "Потребителско име"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1309
+msgid "Password"
+msgstr "Парола"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1316
+msgid "Provider"
+msgstr "Услуга"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1353
+msgid "Log In"
+msgstr "Вписване"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1456
+msgid "Failed to login"
+msgstr "Неуспешно вписване"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1538
+msgid "Personal Data"
+msgstr "Лична информация"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1543
+msgid ""
+"We collect absolutely nothing and all your data is stored in a database on "
+"your computer."
+msgstr ""
+"Не събираме абсолютно нищо и всички ваши данни се съхраняват в база данни на "
+"вашия компютър."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1548
+msgid ""
+"If you choose to integrate Todoist, which is optional and not selected by "
+"default, your data will be stored on their private servers, we only display "
+"your configured tasks and manage them for you."
+msgstr ""
+"Ако изберете да интегрирате Todoist, което не е задължително и не е избрано "
+"по подразбиране, данните ви ще се съхраняват на техните частни сървъри, а "
+"ние само ще показваме конфигурираните от вас задачи и ще ги управляваме за "
+"вас."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1553
+msgid "Do you have any questions?"
+msgstr "Имате ли въпроси?"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1558
+msgid ""
+"If you have any questions about your data or any other issue, please contact "
+"us. We will be happy to answer you."
+msgstr ""
+"Ако имате въпроси относно вашите данните или друг проблем, моля, свържете се "
+"с нас. Ще се радваме да ви отговорим."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1620
+msgid ""
+"Our mission is to provide the best open source task management application "
+"for users all over the world. Your donations support this work. Want to "
+"donate today?"
+msgstr ""
+"Нашата мисия е да предоставим най-доброто приложение с отворен код за "
+"управление на задачи за потребители от цял свят. Вашите дарения подпомагат "
+"тази дейност. Искате ли да дарите днес?"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1628
+msgid "Patreon"
+msgstr "Patreon"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1641
+msgid "PayPal"
+msgstr "PayPal"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1654
+msgid "Liberapay"
+msgstr "Liberapay"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1667
+msgid "Ko-fi"
+msgstr "Ko-fi"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1755
+msgid ""
+"Are you sure you want to remove the Todoist sync? This action will delete "
+"all your tasks and settings."
+msgstr ""
+"Сигурни ли сте, че искате да премахнете Todoist синхронизацията? Това "
+"действие ще премахне всички ваши задачи и настройки."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1757
+msgid ""
+"Are you sure you want to remove the CalDAV sync? This action will delete all "
+"your tasks and settings."
+msgstr ""
+"Сигурни ли сте, че искате да премахнете CalDAV синхронизацията? Това "
+"действие ще премахне всички ваши задачи и настройки."
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1761
+msgid "Sign Off"
+msgstr "Изход"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:51
+msgid ""
+"Never worry about losing your data. You can create backups of your active "
+"projects, tasks and comments and import them later."
+msgstr ""
+"Никога не се притеснявайте, че ще загубите данните си. Може да създавате "
+"резервни копия на текущите си проекти, задачи и коментари и да ги внесете по-"
+"късно."
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:61
+msgid "Create Backup"
+msgstr "Създаване на резервен файл"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:65
+msgid "Import Backup"
+msgstr "Внасяне на резервен файл"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:67
+msgid "Backup Files"
+msgstr "Резервни Файлове"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:75
+msgid "Migrate"
+msgstr "Мигриране"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:77
+msgid "Migrate From Planner"
+msgstr "Мигриране от „Planner“"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:131
+msgid "Selected file is invalid"
+msgstr "Избраният файл е невалиден"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:142
+msgid "Tasks Migrate Successfully"
+msgstr "Задачите са мигрирани успешно"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:146
+msgid "The database file does not exist."
+msgstr "Не съществува базата от данни."
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:162
+msgid "Import Overview"
+msgstr "Преглед на внасяне"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:190
+msgid "Items"
+msgstr "Елементи"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:211
+msgid "Confirm"
+msgstr "Потвърждаване"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:260
+msgid "Restore backup"
+msgstr "Възстановяване от резервно копие"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:260
+msgid ""
+"Are you sure you want to continue? This operation will delete your current "
+"data and replace it with the backup data."
+msgstr ""
+"Сигурни ли сте, че искате да продължите? Тази операция ще премахне текущите "
+"ви данни и ще ги замести с резервните данни."
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:264
+msgid "Restore Backup"
+msgstr "Възстановяване от резервно копие"
+
+#: src/Dialogs/Preferences/Pages/Backup.vala:318
+msgid "Download"
+msgstr "Свалям, Изтеглям, Източвам"
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:30
+msgid "Show in Sidebar"
+msgstr "Показване в страничната лента"
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:51
+msgid "Show Task Count"
+msgstr "Показване на броя задачи"
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:55
+msgid "Sidebar Width"
+msgstr "Широчина на страничната лента"
+
+#: src/Dialogs/Preferences/Pages/Sidebar.vala:71
+msgid "You can sort your views by dragging and dropping"
+msgstr "Може да сортирате изгледите си чрез изтегляне и пускане"
+
+#: quick-add/MainWindow.vala:8
+msgid "Planify - Quick Add"
+msgstr "„Planify“ - Бързо добавяне"
+
+#: data/resources/ui/shortcuts.ui:12
+msgctxt "shortcut window"
+msgid "Used Anywhere"
+msgstr "Навсякъде"
+
+#: data/resources/ui/shortcuts.ui:16
+msgctxt "shortcut window"
+msgid "Create a New Task"
+msgstr "Създаване на нова задача"
+
+#: data/resources/ui/shortcuts.ui:23
+msgctxt "shortcut window"
+msgid "Paste Plain Text to Create New Task"
+msgstr "Поставяне на обикновен текст за създаване на нова задача"
+
+#: data/resources/ui/shortcuts.ui:30
+msgctxt "shortcut window"
+msgid "Create a New Project"
+msgstr "Създаване на нов проект"
+
+#: data/resources/ui/shortcuts.ui:37
+msgctxt "shortcut window"
+msgid "Create a New Section in a Project"
+msgstr "Създаване на нов раздел в проект"
+
+#: data/resources/ui/shortcuts.ui:45
+msgctxt "shortcut window"
+msgid "Search"
+msgstr "Търсене"
+
+#: data/resources/ui/shortcuts.ui:49
+msgctxt "shortcut window"
+msgid "Open Quick Find"
+msgstr "Отваряне на „Бързо Търсене“"
+
+#: data/resources/ui/shortcuts.ui:57
+msgctxt "shortcut window"
+msgid "Control Windows"
+msgstr "Управление на прозорци"
+
+#: data/resources/ui/shortcuts.ui:61
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Спиране на програмата"
+
+#: data/resources/ui/shortcuts.ui:68
+msgctxt "shortcut window"
+msgid "Open Preferences"
+msgstr "Отваряне на настройките"
+
+#: data/resources/ui/shortcuts.ui:75
+msgctxt "shortcut window"
+msgid "Toggle Sidebar"
+msgstr "Превключване на страничната лента"
+
+#: data/resources/ui/shortcuts.ui:82
+msgctxt "shortcut window"
+msgid "Open Keyboard Shortcuts"
+msgstr "Отваряне на клавишните комбинации"
+
+#: data/resources/ui/shortcuts.ui:90
+msgctxt "shortcut window"
+msgid "Navigate"
+msgstr "Навигация"
+
+#: data/resources/ui/shortcuts.ui:94
+msgctxt "shortcut window"
+msgid "Open Homepage"
+msgstr "Отваряне на началната страница"
+
+#: data/resources/ui/shortcuts.ui:101
+msgctxt "shortcut window"
+msgid "Open Inbox"
+msgstr "Отваряне на „Входящи“"
+
+#: data/resources/ui/shortcuts.ui:108
+msgctxt "shortcut window"
+msgid "Open Today"
+msgstr "Отваряне на „Днес“"
+
+#: data/resources/ui/shortcuts.ui:115
+msgctxt "shortcut window"
+msgid "Open Scheduled"
+msgstr "Отваряне на „Насрочени“"
+
+#: data/resources/ui/shortcuts.ui:122
+msgctxt "shortcut window"
+msgid "Open Labels"
+msgstr "Отваряне на „Етикети“"
+
+#: data/resources/ui/shortcuts.ui:129
+msgctxt "shortcut window"
+msgid "Open Pinboard"
+msgstr "Отваряне на „Закачени“"
