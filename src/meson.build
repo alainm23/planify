@@ -53,6 +53,7 @@ sources = files(
   'Widgets/ScrolledWindow.vala',
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
+  'Widgets/Attachments.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

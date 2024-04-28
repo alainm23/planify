@@ -505,8 +505,7 @@ public class Views.Project : Adw.Bin {
 			project.update_local ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
-			delete_all_completed.visible = project.show_completed &&
-				Services.Database.get_default ().get_items_checked_by_project (project).size > 0;
+			delete_all_completed.visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0;
 			check_default_view ();
 		});
 

@@ -49,6 +49,8 @@ public class Services.Database : GLib.Object {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
 
+    public signal void attachment_deleted (Objects.Attachment attachment);
+
     private static Database? _instance;
     public static Database get_default () {
         if (_instance == null) {
@@ -109,6 +111,17 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    Gee.ArrayList<Objects.Attachment> _attachments = null;
+    public Gee.ArrayList<Objects.Attachment> attachments {
+        get {
+            if (_attachments == null) {
+                _attachments = get_attachments_collection ();
+            }
+
+            return _attachments;
+        }
+    }
+
     construct {
         label_deleted.connect ((label) => {
             if (_labels.remove (label)) {
@@ -137,6 +150,12 @@ public class Services.Database : GLib.Object {
         reminder_deleted.connect ((reminder) => {
             if (_reminders.remove (reminder)) {
                 debug ("Reminder Removed: %s", reminder.id.to_string ());
+            }
+        });
+
+        attachment_deleted.connect ((attachment) => {
+            if (_attachments.remove (attachment)) {
+                debug ("Attachment Removed: %s", attachment.id.to_string ());
             }
         });
     }
@@ -339,6 +358,22 @@ public class Services.Database : GLib.Object {
                 id          TEXT PRIMARY KEY,
                 temp_id     TEXT,
                 object      TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Attachments (
+                id              TEXT PRIMARY KEY,
+                item_id         TEXT,
+                file_type       TEXT,
+                file_name       TEXT,
+                file_size       TEXT,
+                file_path       TEXT,
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
             );
         """;
         
@@ -1744,7 +1779,6 @@ public class Services.Database : GLib.Object {
     }
 
     // Reminders
-
     public void insert_reminder (Objects.Reminder reminder) {
         Sqlite.Statement stmt;
         string sql;
@@ -1842,9 +1876,98 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-     /*
-        Queue
-    */
+    // Atrachments
+    public void insert_attachment (Objects.Attachment attachment) {
+        Sqlite.Statement stmt;
+        string sql;
+
+        sql = """
+            INSERT OR IGNORE INTO Attachments (id, item_id, file_type, file_name, file_size, file_path)
+            VALUES ($id, $item_id, $file_type, $file_name, $file_size, $file_path);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", attachment.id);
+        set_parameter_str (stmt, "$item_id", attachment.item_id);
+        set_parameter_str (stmt, "$file_type", attachment.file_type);
+        set_parameter_str (stmt, "$file_name", attachment.file_name);
+        set_parameter_int64 (stmt, "$file_size", attachment.file_size);
+        set_parameter_str (stmt, "$file_path", attachment.file_path);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            attachments.add (attachment);
+            attachment.item.attachment_added (attachment);
+        }
+
+        stmt.reset ();
+    }
+
+    public Gee.ArrayList<Objects.Attachment> get_attachments_collection () {
+        Gee.ArrayList<Objects.Attachment> return_value = new Gee.ArrayList<Objects.Attachment> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT * FROM Attachments;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_attachment (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.Attachment _fill_attachment (Sqlite.Statement stmt) {
+        Objects.Attachment return_value = new Objects.Attachment ();
+        return_value.id = stmt.column_text (0);
+        return_value.item_id = stmt.column_text (1);
+        return_value.file_type = stmt.column_text (2);
+        return_value.file_name = stmt.column_text (3);
+        return_value.file_size = stmt.column_int64 (4);
+        return_value.file_path = stmt.column_text (5);
+        return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Attachment> get_attachments_by_item (Objects.Item item) {
+        Gee.ArrayList<Objects.Attachment> return_value = new Gee.ArrayList<Objects.Attachment> ();
+        lock (_attachments) {
+            foreach (var attachment in attachments) {
+                if (attachment.item_id == item.id) {
+                    return_value.add (attachment);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public void delete_attachment (Objects.Attachment attachment) {
+        Sqlite.Statement stmt;
+    
+        sql = """
+            DELETE FROM Attachments WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", attachment.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            attachment.deleted ();
+            attachment.item.attachment_deleted (attachment);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        
+        stmt.reset ();
+    }
+
+    /*
+     * Queue
+     */
 
     public void insert_queue (Objects.Queue queue) {
         Sqlite.Statement stmt;
@@ -2170,10 +2293,10 @@ public class Services.Database : GLib.Object {
         stmt.bind_int (par_position, val);
     }
 
-    //  private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
-    //      int par_position = stmt.bind_parameter_index (par);
-    //      stmt.bind_int64 (par_position, val);
-    //  }
+    private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
+        int par_position = stmt.bind_parameter_index (par);
+        stmt.bind_int64 (par_position, val);
+    }
 
     private void set_parameter_str (Sqlite.Statement? stmt, string par, string val) {
         int par_position = stmt.bind_parameter_index (par);
