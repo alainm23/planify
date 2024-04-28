@@ -256,6 +256,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Attachment> _attachments;
+    public Gee.ArrayList<Objects.Attachment> attachments {
+        get {
+            _attachments = Services.Database.get_default ().get_attachments_by_item (this);
+            return _attachments;
+        }
+    }
+
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
     public signal void item_added (Objects.Item item);
@@ -264,6 +272,8 @@ public class Objects.Item : Objects.BaseObject {
     public signal void loading_changed (bool value);
     public signal void show_item_changed ();
     public signal void collapsed_change ();
+    public signal void attachment_added (Objects.Attachment attachment);
+    public signal void attachment_deleted (Objects.Attachment attachment);
     
     construct {
         deleted.connect (() => {
@@ -766,6 +776,37 @@ public class Objects.Item : Objects.BaseObject {
 
     private void add_reminder (Objects.Reminder reminder) {
         _reminders.add (reminder);
+    }
+
+    public Objects.Attachment? add_attachment_if_not_exists (Objects.Attachment attachment) {
+        Objects.Attachment? return_value = null;
+        lock (_attachments) {
+            return_value = get_attachment (attachment);
+            if (return_value == null) {
+                Services.Database.get_default ().insert_attachment (attachment);
+                add_attachment (attachment);
+            }
+
+            return return_value;
+        }
+    }
+
+    private Objects.Attachment? get_attachment (Objects.Attachment attachment) {
+        Objects.Attachment? return_value = null;
+        lock (_attachments) {
+            foreach (var _attachment in _attachments) {
+                if (_attachment.file_path == attachment.file_path) {
+                    return_value = _attachment;
+                    break;
+                }
+            }
+        }
+
+        return return_value;
+    }
+
+    private void add_attachment (Objects.Attachment attachment) {
+        _attachments.add (attachment);
     }
 
     // Labels

@@ -35,6 +35,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.SectionPicker.SectionButton section_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.SubItems subitems;
+    private Widgets.Attachments attachments;
 
     private Widgets.ContextMenu.MenuItem copy_clipboard_item;
     private Widgets.ContextMenu.MenuItem duplicate_item;
@@ -179,6 +180,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
         };
+
+        attachments = new Widgets.Attachments (true) {
+            margin_top = 12
+        };
         
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = Gtk.Align.START,
@@ -191,6 +196,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         content.append (properties_group);
         content.append (description_group);
         content.append (subitems);
+        content.append (attachments);
         
         var scrolled_window = new Widgets.ScrolledWindow (content);
 
@@ -308,6 +314,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         label_button.backend_type = item.project.backend_type;
         update_request ();
         subitems.present_item (item);
+        attachments.present_item (item);
         subitems.reveal_child = true;
         
         if (item.parent_id != "") {
@@ -353,6 +360,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         
         signals_map.clear ();
         subitems.disconnect_all ();
+        attachments.disconnect_all ();
     }
 
     public void update_request () {
@@ -688,6 +696,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void complete_item (bool old_checked) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+        
         if (item.due.is_recurring && !item.due.is_recurrency_end) {
             update_next_recurrency ();
         } else {

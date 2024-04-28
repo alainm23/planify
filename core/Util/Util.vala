@@ -88,7 +88,6 @@ public class Util : GLib.Object {
     }
 
     // Providers
-    
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
     public void set_widget_color (string color, Gtk.Widget widget) {
         if (providers == null) {
@@ -345,6 +344,15 @@ public class Util : GLib.Object {
 
     public string get_dialog_text (string text) {
         return Uri.escape_string (text, null, false);
+    }
+
+    private Gtk.MediaFile soud_medida = null;
+    public void play_audio () {
+        if (soud_medida == null) {
+            soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
+        }
+
+        soud_medida.play ();
     }
 
     /*

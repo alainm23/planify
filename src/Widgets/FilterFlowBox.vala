@@ -37,9 +37,9 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         flowbox = new Gtk.FlowBox () {
             column_spacing = 12,
             row_spacing = 12,
-            halign = Gtk.Align.FILL,
-            orientation = Gtk.Orientation.HORIZONTAL,
-            homogeneous = true
+            halign = Gtk.Align.START,
+            orientation = Gtk.Orientation.VERTICAL,
+            homogeneous = false
         };
 
         var revealer = new Gtk.Revealer () {

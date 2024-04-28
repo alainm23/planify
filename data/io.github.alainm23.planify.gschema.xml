@@ -374,6 +374,12 @@
             <description>Always Show Completed Sub-Tasks</description>
         </key>
 
+        <key name="task-complete-tone" type="b">
+            <default>true</default>
+            <summary>Play a sound when tasks are completed</summary>
+            <description>Play a sound when tasks are completed</description>
+        </key>
+
         <key name="caldav-server-url" type="s">
             <default>""</default>
             <summary>CalDAV Server URL</summary>

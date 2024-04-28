@@ -491,6 +491,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		tasks_group.add (show_completed_subtasks);
 
+		var task_complete_tone = new Adw.SwitchRow ();
+		task_complete_tone.title = _("Task Complete Tone");
+		task_complete_tone.subtitle = _("Play a sound when tasks are completed");
+		Services.Settings.get_default ().settings.bind ("task-complete-tone", task_complete_tone, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		tasks_group.add (task_complete_tone);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
 		content_box.append (sort_setting_group);

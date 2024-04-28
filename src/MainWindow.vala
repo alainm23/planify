@@ -229,7 +229,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
-
 		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65507) {
 				Services.EventBus.get_default ().ctrl_pressed = true;

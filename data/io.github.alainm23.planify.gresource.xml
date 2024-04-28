@@ -20,6 +20,9 @@
     <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
     <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
 
+    <!-- Audios -->
+    <file alias="success.ogg" compressed="true">resources/sounds/success.ogg</file>
+
     <!-- Icons -->
     <file alias="todoist.svg">resources/icons/todoist.svg</file>
     <file alias="cloud.svg">resources/icons/cloud.svg</file>
@@ -82,6 +85,7 @@
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -141,6 +145,7 @@
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -200,5 +205,6 @@
     <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
   </gresource>
 </gresources>

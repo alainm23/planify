@@ -467,6 +467,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	}
 
 	private void complete_item (bool old_checked, uint? time = null) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+        
 		uint timeout = 2500;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
@@ -635,7 +639,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
         
-        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pin"), "pin-symbolic");
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;

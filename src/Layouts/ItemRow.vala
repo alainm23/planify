@@ -64,6 +64,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Widgets.PinButton pin_button;
     private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Gtk.Button add_button;
+    private Gtk.MenuButton attachments_button;
     private Gtk.Box action_box;
 
     private Widgets.SubItems subitems;
@@ -426,6 +427,19 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             css_classes = { "flat" },
             sensitive = !item.completed
         };
+
+        var attachments = new Widgets.Attachments ();
+        attachments.present_item (item);
+        
+        attachments_button = new Gtk.MenuButton () {
+            icon_name = "mail-attachment-symbolic",
+            tooltip_text = _("Add Attachments"),
+            popover = new Gtk.Popover () {
+                child = attachments,
+                width_request = 350
+            },
+            css_classes = { "flat" }
+        };
         
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
@@ -446,6 +460,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         action_box_right.append (add_button);
+        action_box_right.append (attachments_button);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
@@ -920,7 +935,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pin"), "pin-symbolic");
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
@@ -1254,6 +1269,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void complete_item (bool old_checked, uint? time = null) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+
         uint timeout = 2500;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
