@@ -20,6 +20,9 @@
     <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
     <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
 
+    <!-- Audios -->
+    <file alias="success.ogg" compressed="true">resources/sounds/success.ogg</file>
+
     <!-- Icons -->
     <file alias="todoist.svg">resources/icons/todoist.svg</file>
     <file alias="cloud.svg">resources/icons/cloud.svg</file>

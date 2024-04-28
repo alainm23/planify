@@ -102,7 +102,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		
 		var views_split_view = new Adw.OverlaySplitView () {
 			sidebar_position = Gtk.PackType.END,
-			collapsed = false,
+			collapsed = true,
 			max_sidebar_width = 375,
 			content = views_stack,
 			sidebar = item_sidebar_view

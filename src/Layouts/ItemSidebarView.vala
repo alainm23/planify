@@ -696,6 +696,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void complete_item (bool old_checked) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+        
         if (item.due.is_recurring && !item.due.is_recurrency_end) {
             update_next_recurrency ();
         } else {

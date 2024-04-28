@@ -467,6 +467,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	}
 
 	private void complete_item (bool old_checked, uint? time = null) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+        
 		uint timeout = 2500;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
