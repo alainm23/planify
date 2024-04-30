@@ -278,7 +278,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
 			if (item.project_id == section.project_id && item.section_id == section.id &&
-			    item.parent_id == "") {
+			    !item.has_parent ()) {
 				if (!old_checked) {
 					if (items.has_key (item.id)) {
 						items [item.id].hide_destroy ();
@@ -345,7 +345,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			// vala-lint=no-space
-			if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
+			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent ()) {
 				add_item (item);
 			}
 

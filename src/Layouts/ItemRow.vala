@@ -438,7 +438,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 child = attachments,
                 width_request = 350
             },
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            sensitive = !item.completed
         };
         
         menu_button = new Gtk.MenuButton () {
@@ -838,6 +839,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             pin_button.sensitive = !item.completed;
             reminder_button.sensitive = !item.completed;
             add_button.sensitive = !item.completed;
+            attachments_button.sensitive = !item.completed;
         }
     }
 
@@ -1574,7 +1576,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
             
-            if (item.parent_id != "") {
+            if (item.has_parent ()) {
                 dialog.for_base_object (item.parent);
             } else {
                 if (item.section_id != "") {
@@ -1643,7 +1645,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         move_type = "section_id";
                     }
 
-                    if (picked_widget.item.parent_id != "") {
+                    if (picked_widget.item.has_parent ()) {
                         move_id = picked_widget.item.parent_id;
                         move_type = "parent_id";
                     }

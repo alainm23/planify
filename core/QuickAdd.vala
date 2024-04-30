@@ -324,7 +324,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             item.id = Util.get_default ().generate_id ();
             add_item_db (item);
 
-            if (item.parent_id != "") {
+            if (item.has_parent ()) {
                 item.parent.collapsed = true;
             }
         } else if (item.project.backend_type == BackendType.TODOIST) {
@@ -337,7 +337,7 @@ public class Layouts.QuickAdd : Adw.Bin {
                     item.id = response.data;
                     add_item_db (item);
                     
-                    if (item.parent_id != "") {
+                    if (item.has_parent ()) {
                         item.parent.collapsed = true;
                     }
                 }
@@ -352,7 +352,7 @@ public class Layouts.QuickAdd : Adw.Bin {
                 if (response.status) {
                     add_item_db (item);
                     
-                    if (item.parent_id != "") {
+                    if (item.has_parent ()) {
                         item.parent.collapsed = true;
                     }
                 }

@@ -402,7 +402,6 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ics);
 
         var categories = Util.find_string_value ("CATEGORIES", data);
-        print ("categories: %s\n".printf (categories));
         check_labels (get_labels_maps_from_caldav (categories));
     }
 
@@ -460,6 +459,11 @@ public class Objects.Item : Objects.BaseObject {
             completed_at = "";
         }
 
+        var sort_order = Util.find_string_value ("X-APPLE-SORT-ORDER", data);
+        if (sort_order != "") {
+            child_order = int.parse (sort_order);
+        }
+        
         pinned = Util.find_boolean_value ("X-PINNED", data);
         extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
     }
@@ -532,6 +536,11 @@ public class Objects.Item : Objects.BaseObject {
         } else {
             checked = false;
             completed_at = "";
+        }
+
+        var sort_order = Util.find_string_value ("X-APPLE-SORT-ORDER", data);
+        if (sort_order != "") {
+            child_order = int.parse (sort_order);
         }
 
         pinned = Util.find_boolean_value ("X-PINNED", data);
@@ -1497,5 +1506,13 @@ public class Objects.Item : Objects.BaseObject {
 
         Services.Database.get_default ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
+    }
+
+    public bool has_parent () {
+        if (parent_id != null) {
+            return Services.Database.get_default ().get_item (parent_id) != null;
+        }
+
+        return false;
     }
 }

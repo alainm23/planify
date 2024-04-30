@@ -43,7 +43,7 @@ public class Dialogs.QuickAdd : Adw.Window {
     }
 
     private void add_item_db (Objects.Item item) {
-        if (item.parent_id != "") {
+        if (item.has_parent ()) {
 			Services.Database.get_default ().get_item (item.parent_id).add_item_if_not_exists (item);
             quick_add_widget.added_successfully ();
 			return;

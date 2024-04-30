@@ -476,7 +476,7 @@ public class Services.Backups : Object {
 
         // Create Items
         foreach (Objects.Item item in backup.items) {
-            if (item.parent_id != "") {
+            if (item.has_parent ()) {
                 Objects.Item? _item = Services.Database.get_default ().get_item (item.parent_id);
                 if (_item != null) {
                     _item.add_item_if_not_exists (item);

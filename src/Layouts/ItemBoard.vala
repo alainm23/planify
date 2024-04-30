@@ -438,12 +438,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void open_detail () {
         Services.EventBus.get_default ().open_item (item);
-        //  if (item.parent_id == "") {
-        //      var dialog = new Dialogs.ItemView (item);
-        //      dialog.show ();
-        //  } else {
-        //      Services.EventBus.get_default ().push_item (item);
-        //  }
     }
 
 	public override void checked_toggled (bool active, uint? time = null) {
@@ -934,7 +928,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                         move_type = "section_id";
                     }
 
-                    if (picked_widget.item.parent_id != "") {
+                    if (picked_widget.item.has_parent ()) {
                         move_id = picked_widget.item.parent_id;
                         move_type = "parent_id";
                     }

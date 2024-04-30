@@ -233,7 +233,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         
         Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
             if (item.project_id == section.project_id && item.section_id == section.id &&
-                item.parent_id == "") {
+                !item.has_parent ()) {
                 if (!old_checked) {
                     if (items.has_key (item.id_string)) {
                         items [item.id_string].hide_destroy ();
@@ -293,7 +293,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 }
             }
 
-            if (item.project_id == section.project_id && item.section_id == section.id && item.parent_id == "") {
+            if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent ()) {
                 add_item (item);
             }
 

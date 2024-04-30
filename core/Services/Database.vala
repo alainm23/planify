@@ -1272,13 +1272,13 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (var item in items) {
                 if (object is Objects.Project) {
-                    if (item.project_id == object.id && item.section_id == "" && item.parent_id == "") {
+                    if (item.project_id == object.id && item.section_id == "" && !item.has_parent ()) {
                         return_value.add (item);
                     }
                 }
                 
                 if (object is Objects.Section) {
-                    if (item.section_id == object.id && item.parent_id == "") {
+                    if (item.section_id == object.id && !item.has_parent ()) {
                         return_value.add (item);
                     }
                 }
