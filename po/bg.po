@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-04-15 17:43-0500\n"
-"PO-Revision-Date: 2024-04-26 22:37+0200\n"
+"PO-Revision-Date: 2024-04-28 17:39+0200\n"
 "Last-Translator: twlvnn <kraft_werk@tutanota.com>\n"
 "Language-Team: Bulgarian <dict-notifications@fsa-bg.org>\n"
 "Language: bg\n"
@@ -428,7 +428,7 @@ msgstr ""
 
 #: core/Util/Util.vala:1018
 msgid "Create a project"
-msgstr "Създаване на проект"
+msgstr "Създайте проект"
 
 #: core/Util/Util.vala:1019
 msgid ""
