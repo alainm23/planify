@@ -66,6 +66,7 @@ public class Views.List : Gtk.Grid {
         filters.flowbox.margin_start = 24;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
+        filters.flowbox.margin_bottom = 3;
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,

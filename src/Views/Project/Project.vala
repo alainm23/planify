@@ -28,6 +28,7 @@ public class Views.Project : Adw.Bin {
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.ContextMenu.MenuItem delete_all_completed;
 	private Widgets.ContextMenu.MenuCheckPicker priority_filter;
+	private Widgets.ContextMenu.MenuPicker due_date_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
 
@@ -123,7 +124,7 @@ public class Views.Project : Adw.Bin {
 
 		child = toolbar_view;
 		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
-		check_default_view ();
+		check_default_filters ();
 		show ();
 
 		magic_button.clicked.connect (() => {
@@ -154,12 +155,26 @@ public class Views.Project : Adw.Bin {
 			}
 		});
 
+		project.filter_added.connect (() => {
+			check_default_filters ();
+		});
+
+		project.filter_updated.connect (() => {
+			check_default_filters ();
+		});
+
 		project.filter_removed.connect ((filter) => {
 			priority_filter.unchecked (filter);
+			
+			if (filter.filter_type == FilterItemType.DUE_DATE) {
+				due_date_item.selected = 0;
+			}
+
+			check_default_filters ();
 		});
 	}
 
-	private void check_default_view () {
+	private void check_default_filters () {
 		bool defaults = true;
 		
 		if (project.sort_order != 0) {
@@ -168,7 +183,11 @@ public class Views.Project : Adw.Bin {
 
 		if (project.show_completed != false) {
 			defaults = false;
-		} 
+		}
+
+		if (project.filters.size > 0) {
+			defaults = false;
+		}
 
 		indicator_revealer.reveal_child = !defaults;
 	}
@@ -408,7 +427,7 @@ public class Views.Project : Adw.Bin {
 		due_date_model.add (_("Next 30 Days"));
 		due_date_model.add (_("No Date"));
 
-		var due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic", due_date_model);
+		due_date_item = new Widgets.ContextMenu.MenuPicker (_("Duedate"), "month-symbolic", due_date_model);
 		due_date_item.selected = 0;
 
 		var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
@@ -495,7 +514,7 @@ public class Views.Project : Adw.Bin {
 		order_by_item.notify["selected"].connect (() => {
 			project.sort_order = order_by_item.selected;
 			project.update_local ();
-			check_default_view ();
+			check_default_filters ();
 		});
 
 		show_completed_item.activate_item.connect (() => {
@@ -506,7 +525,7 @@ public class Views.Project : Adw.Bin {
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
 			delete_all_completed.visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0;
-			check_default_view ();
+			check_default_filters ();
 		});
 
 		list_button.toggled.connect (() => {
@@ -519,7 +538,7 @@ public class Views.Project : Adw.Bin {
 
 		project.sort_order_changed.connect (() => {
 			order_by_item.update_selected (project.sort_order);
-			check_default_view ();
+			check_default_filters ();
 		});
 
 		delete_all_completed.activate_item.connect (() => {

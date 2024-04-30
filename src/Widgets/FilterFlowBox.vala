@@ -20,14 +20,14 @@
 */
 
 public class Widgets.FilterFlowBox : Adw.Bin {
-    public Objects.Project project { get; construct; }
+    public Objects.BaseObject base_object { get; construct; }
 
     public Gtk.FlowBox flowbox;
     private Gee.HashMap<string, Widgets.FilterFlowBoxChild> filters_map;
 
-    public FilterFlowBox (Objects.Project project) {
+    public FilterFlowBox (Objects.BaseObject base_object) {
         Object (
-            project: project
+            base_object: base_object
         );
     }
 
@@ -50,24 +50,24 @@ public class Widgets.FilterFlowBox : Adw.Bin {
         child = revealer;
         add_filters ();
 
-        project.filter_added.connect ((filter) => {
+        base_object.filter_added.connect ((filter) => {
 			add_filter (filter);
-            revealer.reveal_child = project.filters.size > 0;
+            revealer.reveal_child = base_object.filters.size > 0;
 		});
 
-		project.filter_removed.connect ((filter) => {
+		base_object.filter_removed.connect ((filter) => {
 			remove_filter (filter);
-            revealer.reveal_child = project.filters.size > 0;
+            revealer.reveal_child = base_object.filters.size > 0;
 		});
 
-        project.filter_updated.connect ((filter) => {
+        base_object.filter_updated.connect ((filter) => {
 			update_filter (filter);
-            revealer.reveal_child = project.filters.size > 0;
+            revealer.reveal_child = base_object.filters.size > 0;
 		});
     }
 
     private void add_filters () {
-        foreach (Objects.Filters.FilterItem filter in project.filters.values) {
+        foreach (Objects.Filters.FilterItem filter in base_object.filters.values) {
             add_filter (filter);
 		}
     }
@@ -77,7 +77,7 @@ public class Widgets.FilterFlowBox : Adw.Bin {
             filters_map[filter.id] = new Widgets.FilterFlowBoxChild (filter);
 
             filters_map[filter.id].remove_filter.connect ((_filter) => {
-                project.remove_filter (_filter);
+                base_object.remove_filter (_filter);
             });
 
             flowbox.append (filters_map[filter.id]);

@@ -444,11 +444,7 @@ public class Views.Filter : Adw.Bin {
         return item1.project_id.strip ().collate (item2.project_id.strip ());
     }
 
-    private void validate_placeholder () {
-        //  listbox.invalidate_filter ();
-        //  listbox.invalidate_sort ();
-        //  listbox.invalidate_headers ();
-        
+    private void validate_placeholder () {        
         listbox_stack.visible_child_name = has_items ? "listbox" : "placeholder";
     }
 

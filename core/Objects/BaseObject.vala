@@ -29,6 +29,11 @@ public class Objects.BaseObject : GLib.Object {
 
     public uint update_timeout_id { get; set; default = 0; }
 
+    public Gee.HashMap <string, Objects.Filters.FilterItem> filters = new Gee.HashMap <string, Objects.Filters.FilterItem> ();
+    public signal void filter_added (Objects.Filters.FilterItem filters);
+    public signal void filter_removed (Objects.Filters.FilterItem filters);
+    public signal void filter_updated (Objects.Filters.FilterItem filters);
+
     string _id_string;
     public string id_string {
         get {
@@ -167,5 +172,34 @@ public class Objects.BaseObject : GLib.Object {
 
     public virtual string to_json () {
         return "";
+    }
+    
+    public void add_filter (Objects.Filters.FilterItem filter) {
+        if (!filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_added (filters[filter.id]);
+        }
+    }
+
+    public void remove_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters.unset (filter.id);
+            filter_removed (filter);
+        }
+    }
+
+    public void update_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_updated (filter);
+        }
+    }
+
+    public Objects.Filters.FilterItem? get_filter (string id) {
+        if (filters.has_key (id)) {
+            return filters.get (id);
+        }
+
+        return null;
     }
 }

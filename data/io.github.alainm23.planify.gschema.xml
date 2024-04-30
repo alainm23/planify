@@ -200,6 +200,12 @@
             <description></description>
         </key>
 
+        <key name="scheduled-sort-order" type="i">
+            <default>0</default>
+            <summary></summary>
+            <description></description>
+        </key>
+
         <key name="underline-completed-tasks" type="b">
             <default>false</default>
             <summary>Underline completed tasks.</summary>

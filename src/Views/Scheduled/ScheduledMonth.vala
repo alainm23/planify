@@ -81,10 +81,9 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+            hexpand = true,
+            css_classes = { "listbox-background" }
         };
-
-        listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
             margin_top = 6
@@ -131,6 +130,85 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
                 items[item.id].update_request ();
             }
         });
+
+        Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
+            listbox.invalidate_sort ();
+        });
+
+        listbox.set_sort_func ((lbrow, lbbefore) => {
+            Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
+            Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
+            int sort_order = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
+    
+            if (sort_order == 0) {
+                if (item1.has_due && item2.has_due) {
+                    var date1 = item1.due.datetime;
+                    var date2 = item2.due.datetime;
+    
+                    return date1.compare (date2);
+                }
+    
+                if (!item1.has_due && item2.has_due) {
+                    return 1;
+                }
+    
+                return 0;
+            }
+    
+            if (sort_order == 1) {
+                return item1.content.strip ().collate (item2.content.strip ());
+            }
+    
+            if (sort_order == 2) {
+                return item1.added_datetime.compare (item2.added_datetime);
+            }
+    
+            if (sort_order == 3) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            }
+    
+            return 0;
+        });
+
+        listbox.set_filter_func ((row) => {
+			var item = ((Layouts.ItemRow) row).item;
+			bool return_value = true;
+
+			if (Objects.Filters.Scheduled.get_default ().filters.size <= 0) {
+				return true;
+			}
+
+			return_value = false;
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.PRIORITY) {
+					return_value = return_value || item.priority == int.parse (filter.value);
+				} else if (filter.filter_type == FilterItemType.LABEL) {
+					return_value = return_value || item.has_label (filter.value);
+				}
+			}
+
+			return return_value;
+		});
+
+        Objects.Filters.Scheduled.get_default ().filter_added.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+		Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+	    Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
+			listbox.invalidate_filter ();
+		});
     }
 
     private void add_items () {

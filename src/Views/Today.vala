@@ -31,6 +31,7 @@ public class Views.Today : Adw.Bin {
     private Gtk.ScrolledWindow scrolled_window;
     private Gtk.Stack listbox_placeholder_stack;
     private Gtk.Revealer indicator_revealer;
+    private Widgets.ContextMenu.MenuCheckPicker priority_filter;
 
     public Gee.HashMap <string, Layouts.ItemRow> overdue_items;
     public Gee.HashMap <string, Layouts.ItemRow> items;
@@ -73,6 +74,7 @@ public class Views.Today : Adw.Bin {
         var view_setting_button = new Gtk.MenuButton () {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
+            margin_end = 12,
 			popover = build_view_setting_popover (),
 			icon_name = "view-sort-descending-rtl-symbolic",
 			css_classes = { "flat" },
@@ -96,10 +98,17 @@ public class Views.Today : Adw.Bin {
             reveal_child = event_list.has_items,
             child = event_list
         };
-        
-        event_list.change.connect (() => {
-            event_list_revealer.reveal_child = event_list.has_items;
-        });
+
+        var filters = new Widgets.FilterFlowBox (Objects.Filters.Today.get_default ()) {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_top = 12;
+        filters.flowbox.margin_end = 12;
+        filters.flowbox.margin_bottom = 3;
 
         var overdue_label = new Gtk.Label (_("Overdue")) {
             halign = Gtk.Align.START,
@@ -227,6 +236,7 @@ public class Views.Today : Adw.Bin {
         };
 
         content_box.append (event_list_revealer);
+        content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
         var content_clamp = new Adw.Clamp () {
@@ -288,19 +298,78 @@ public class Views.Today : Adw.Bin {
             if (overdue_items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
+
+            listbox.invalidate_filter ();
         });
 
         magic_button.clicked.connect (() => {
             prepare_new_item ();
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-			if (key == "today-sort-order") {
-                listbox.invalidate_sort ();
-                overdue_listbox.invalidate_sort ();
-                check_default_view ();
-            }
+        event_list.change.connect (() => {
+            event_list_revealer.reveal_child = event_list.has_items;
         });
+
+        Services.Settings.get_default ().settings.changed["today-sort-order"].connect (() => {
+            listbox.invalidate_sort ();
+            overdue_listbox.invalidate_sort ();
+            check_default_view ();
+        });
+
+        listbox.set_filter_func ((row) => {
+			var item = ((Layouts.ItemRow) row).item;
+			bool return_value = true;
+
+			if (Objects.Filters.Today.get_default ().filters.size <= 0) {
+				return true;
+			}
+
+			return_value = false;
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.PRIORITY) {
+					return_value = return_value || item.priority == int.parse (filter.value);
+				} else if (filter.filter_type == FilterItemType.LABEL) {
+					return_value = return_value || item.has_label (filter.value);
+				}
+			}
+
+			return return_value;
+		});
+
+        overdue_listbox.set_filter_func ((row) => {
+			var item = ((Layouts.ItemRow) row).item;
+			bool return_value = true;
+
+			if (Objects.Filters.Today.get_default ().filters.size <= 0) {
+				return true;
+			}
+
+			return_value = false;
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.PRIORITY) {
+					return_value = return_value || item.priority == int.parse (filter.value);
+				} else if (filter.filter_type == FilterItemType.LABEL) {
+					return_value = return_value || item.has_label (filter.value);
+				}
+			}
+
+			return return_value;
+		});
+
+        Objects.Filters.Today.get_default ().filter_added.connect (() => {
+			listbox.invalidate_filter ();
+            overdue_listbox.invalidate_filter ();
+		});
+
+		Objects.Filters.Today.get_default ().filter_removed.connect (() => {
+			listbox.invalidate_filter ();
+            overdue_listbox.invalidate_filter ();
+		});
+
+	    Objects.Filters.Today.get_default ().filter_updated.connect (() => {
+			listbox.invalidate_filter ();
+            overdue_listbox.invalidate_filter ();
+		});
     }
 
     private void check_placeholder () {
@@ -347,6 +416,8 @@ public class Views.Today : Adw.Bin {
         listbox.append (items [item.id]);
         update_headers ();
         check_placeholder ();
+        listbox.invalidate_filter ();
+        overdue_listbox.invalidate_filter ();
     }
 
     private void add_overdue_item (Objects.Item item) {
@@ -357,6 +428,8 @@ public class Views.Today : Adw.Bin {
         overdue_listbox.append (overdue_items [item.id]);
         update_headers ();
         check_placeholder ();
+        listbox.invalidate_filter ();
+        overdue_listbox.invalidate_filter ();
     }
 
     private void valid_add_item (Objects.Item item, bool insert = true) {
@@ -372,6 +445,8 @@ public class Views.Today : Adw.Bin {
 
         update_headers ();
         check_placeholder ();
+        listbox.invalidate_filter ();
+        overdue_listbox.invalidate_filter ();
     }
 
     private void valid_delete_item (Objects.Item item) {
@@ -387,6 +462,8 @@ public class Views.Today : Adw.Bin {
 
         update_headers ();
         check_placeholder ();
+        listbox.invalidate_filter ();
+        overdue_listbox.invalidate_filter ();
     }
 
     private void valid_update_item (Objects.Item item) {
@@ -428,6 +505,8 @@ public class Views.Today : Adw.Bin {
 
         update_headers ();
         check_placeholder ();
+        listbox.invalidate_filter ();
+        overdue_listbox.invalidate_filter ();
     }
 
     public void prepare_new_item (string content = "") {
@@ -473,9 +552,53 @@ public class Views.Today : Adw.Bin {
 		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
 		order_by_item.selected = Services.Settings.get_default ().settings.get_int ("today-sort-order");
 
+        // Filters
+        var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P1"),
+			value = Constants.PRIORITY_1.to_string ()
+		});
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P2"),
+			value = Constants.PRIORITY_2.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P3"),
+			value = Constants.PRIORITY_3.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P4"),
+			value = Constants.PRIORITY_4.to_string ()
+		});
+
+		priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
+		priority_filter.set_items (priority_items);
+
+        var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
+			arrow = true
+		};
+
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (order_by_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (new Gtk.Label (_("Filter By")) {
+			css_classes = { "heading", "h4" },
+			margin_start = 6,
+			margin_top = 6,
+			margin_bottom = 6,
+			halign = Gtk.Align.START
+		});
+		menu_box.append (priority_filter);
+		menu_box.append (labels_filter);
 
 		var popover = new Gtk.Popover () {
 			has_arrow = false,
@@ -486,6 +609,54 @@ public class Views.Today : Adw.Bin {
 
 		order_by_item.notify["selected"].connect (() => {
             Services.Settings.get_default ().settings.set_int ("today-sort-order", order_by_item.selected);
+		});
+
+        priority_filter.filter_change.connect ((filter, active) => {
+			if (active) {
+				Objects.Filters.Today.get_default ().add_filter (filter);
+			} else {
+				Objects.Filters.Today.get_default ().remove_filter (filter);
+			}
+		});
+
+		labels_filter.activate_item.connect (() => {
+			popover.popdown ();
+
+			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.LABEL) {
+					_labels.add (Services.Database.get_default ().get_label (filter.value));
+				}
+			}
+
+			var dialog = new Dialogs.LabelPicker ();
+			dialog.add_labels (BackendType.ALL);
+			dialog.labels = _labels;
+			dialog.show ();
+
+			dialog.labels_changed.connect ((labels) => {				
+				foreach (Objects.Label label in labels.values) {
+					var filter = new Objects.Filters.FilterItem ();
+					filter.filter_type = FilterItemType.LABEL;
+					filter.name = label.name;
+					filter.value = label.id;
+
+					Objects.Filters.Today.get_default ().add_filter (filter);
+				}
+
+				Gee.ArrayList<Objects.Filters.FilterItem> to_remove = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+				foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
+					if (filter.filter_type == FilterItemType.LABEL) {
+						if (!labels.has_key (filter.value)) {
+							to_remove.add (filter);
+						}
+					}
+				}
+
+				foreach (Objects.Filters.FilterItem filter in to_remove) {
+					Objects.Filters.Today.get_default ().remove_filter (filter);
+				}
+			});
 		});
 
 		return popover;
