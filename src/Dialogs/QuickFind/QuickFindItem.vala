@@ -83,7 +83,8 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
             Objects.Item item = ((Objects.Item) base_object);
 
             var checked_button = new Gtk.CheckButton () {
-                valign = Gtk.Align.CENTER
+                valign = Gtk.Align.CENTER,
+                sensitive = false
             };
             checked_button.add_css_class ("priority-color");
             Util.get_default ().set_widget_priority (item.priority, checked_button);
