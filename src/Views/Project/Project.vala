@@ -62,6 +62,7 @@ public class Views.Project : Adw.Bin {
             child = indicator_grid,
 			halign = END,
 			valign = START,
+			sensitive = false,
         };
 
 		var view_setting_button = new Gtk.MenuButton () {
