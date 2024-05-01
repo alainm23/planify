@@ -50,6 +50,7 @@ public class Views.Board : Adw.Bin {
         filters.flowbox.margin_start = 24;
         filters.flowbox.margin_top = 12;
         filters.flowbox.margin_end = 12;
+        filters.flowbox.margin_bottom = 3;
 
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 

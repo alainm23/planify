@@ -67,6 +67,20 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.7" date="2024-05-01">
+      <description translate="no">
+        <ul>
+          <li>Added feat to filter to-dos within a project.</li>
+          <li>Added feat to attach attachments to a task.</li>
+          <li>Added feat to play a sound when completing a task  (if you want to).</li>
+          <li>Fixed bug that duplicated projects when dragging into a sub-project (#1252).</li>
+          <li>Fixed a bug when dragging a subtask out of a section and dragging it back in, the subtask would disappear (#1253).</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Bulgarian translation added thanks to @twlvnn.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.6" date="2024-04-15">
       <description translate="no">
         <ul>

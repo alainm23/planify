@@ -115,10 +115,12 @@ public class Dialogs.WhatsNew : Adw.Window {
 			return false;
         });
 		
-		add_feature (_("Now you can sort tasks in the Today view."), null);
-		add_feature (_("We've added a new detailed task view on the sidebar when opening a task in Board view."), null);
-		add_feature (_("We've introduced the ability to delete completed tasks."), null);
-		add_feature (_("You can now use the Ctrl key when creating a task to continue adding."), null);
+		add_feature (_("Advanced Filtering Function"), _("Now in Planify, you can filter your tasks within a project based on priority, due date, and assigned tags. Take control of your tasks like never before!"));
+		add_feature (_("Custom Sorting in Today View"), _("Personalize the Today view by sorting your tasks the way you prefer. Make your day more productive by organizing tasks your way!"));
+		add_feature (_("Instant Task Details"), _("With our new task detail view in the sidebar, you can quickly access all relevant task information while in the Board view. Keep your workflow uninterrupted!"));
+		add_feature (_("Efficient Management of Completed Tasks"), _("Now, deleting completed tasks is easier than ever. Keep your workspace clean and organized with just a few clicks!"));
+		add_feature (_("Attach Files to Your Tasks"), _("Never lose track of important files related to your tasks. With the file attachment feature, keep all relevant information in one place."));
+		add_feature (_("Celebrate Achievements with Sound"), _("Want a fun way to celebrate your achievements? Now you can play a sound when completing a task. Make every accomplishment even more satisfying!"));
 	}
 
 	public void add_feature (string title, string? description, Adw.NavigationPage? page = null) {

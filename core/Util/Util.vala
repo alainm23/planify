@@ -351,7 +351,7 @@ public class Util : GLib.Object {
         if (soud_medida == null) {
             soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
         }
-
+        
         soud_medida.play ();
     }
 
