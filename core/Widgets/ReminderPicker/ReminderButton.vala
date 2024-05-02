@@ -101,6 +101,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 child = indicator_grid,
                 halign = END,
                 valign = START,
+                sensitive = false,
             };
 
             var button = new Gtk.MenuButton () {
