@@ -102,12 +102,6 @@ public class Services.Todoist : GLib.Object {
 		// Clear CurTempIds
 		Services.Database.get_default ().clear_cur_temp_ids ();
 
-		// Check Inbox Project
-		if (Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1) {
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", 0);
-			Util.get_default ().change_default_inbox ();
-		}
-
 		// Remove server_timeout
 		Source.remove (server_timeout);
 		server_timeout = 0;

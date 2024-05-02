@@ -401,7 +401,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             return;
         }
 
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
         if (item.due.date == "") {
             item.due.reset ();
@@ -647,10 +647,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private string get_updated_info () {
         string added_at = _("Added at");
         string updated_at = _("Updated at");
-        string added_date = Util.get_default ().get_relative_date_from_date (item.added_datetime);
+        string added_date = Utils.Datetime.get_relative_date_from_date (item.added_datetime);
         string updated_date = "(" + _("Not available") + ")";
         if (item.updated_at != "") {
-            updated_date = Util.get_default ().get_relative_date_from_date (item.updated_datetime);
+            updated_date = Utils.Datetime.get_relative_date_from_date (item.updated_datetime);
         }
 
         return "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
@@ -704,7 +704,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             update_next_recurrency ();
         } else {
             item.checked = true;
-            item.completed_at = Util.get_default ().get_format_date (
+            item.completed_at = Utils.Datetime.get_format_date (
                 new GLib.DateTime.now_local ()
             ).to_string ();
             _complete_item (old_checked);
@@ -746,7 +746,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
-		var title = _("Completed. Next occurrence: %s".printf (Util.get_default ().get_default_date_format_from_date (next_recurrency)));
+		var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
 		Services.EventBus.get_default ().send_notification (toast);
 	}

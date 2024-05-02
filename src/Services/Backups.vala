@@ -123,9 +123,6 @@ public class Services.Backups : Object {
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
 
-        builder.set_member_name ("todoist-inbox-project-id");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id"));
-
         builder.set_member_name ("todoist-access-token");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-access-token"));
 
@@ -429,11 +426,9 @@ public class Services.Backups : Object {
         Services.Settings.get_default ().reset_settings ();
 
         Services.Settings.get_default ().settings.set_enum ("default-inbox", backup.default_inbox);
-        Services.Settings.get_default ().settings.set_string ("inbox-project-id", backup.inbox_project_id);
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
         
         if (backup.todoist_backend) {
-            Services.Settings.get_default ().settings.set_string ("todoist-inbox-project-id", backup.todoist_inbox_project_id);
             Services.Settings.get_default ().settings.set_string ("todoist-sync-token", backup.todoist_sync_token);
             Services.Settings.get_default ().settings.set_string ("todoist-access-token", backup.todoist_access_token);
             Services.Settings.get_default ().settings.set_string ("todoist-user-image-id", backup.todoist_user_image_id);

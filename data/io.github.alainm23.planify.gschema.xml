@@ -53,11 +53,6 @@
         <value nick="12h" value="1" />
     </enum>
 
-    <enum id="io.github.alainm23.planify.default-inbox">
-        <value nick="local" value="0" />
-        <value nick="todoist" value="1" />
-    </enum>
-
     <enum id="io.github.alainm23.planify.projects-sort-by">
         <value nick="Custom sort order" value="0" />
         <value nick="Alphabetically" value="1" />
@@ -88,12 +83,6 @@
 
         <key name="clock-format" enum="io.github.alainm23.planify.clock-format">
             <default>"24h"</default>
-            <summary></summary>
-            <description></description>
-        </key>
-
-        <key name="default-inbox" enum="io.github.alainm23.planify.default-inbox">
-            <default>"local"</default>
             <summary></summary>
             <description></description>
         </key>
@@ -212,12 +201,6 @@
             <description>Underline completed tasks.</description>
         </key>
 
-        <key name="inbox-project-id" type="s">
-            <default>""</default>
-            <summary>Inbox Project ID</summary>
-            <description>Inbox Project ID</description>
-        </key>
-
         <key name="local-inbox-project-id" type="s">
             <default>""</default>
             <summary>Inbox Project ID</summary>
@@ -300,12 +283,6 @@
             <default>false</default>
             <summary>Todoist user is premium</summary>
             <description>Todoist user is premium</description>
-        </key>
-
-        <key name="todoist-inbox-project-id" type="s">
-            <default>""</default>
-            <summary>Todoist Inbox Project ID</summary>
-            <description>Todoist Inbox Project ID</description>
         </key>
 
         <key name="slim-mode" type="b">

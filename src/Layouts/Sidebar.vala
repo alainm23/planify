@@ -228,26 +228,6 @@ public class Layouts.Sidebar : Adw.Bin {
             }
         });
 
-        Services.EventBus.get_default ().inbox_project_changed.connect (() => {
-            add_all_projects ();
-            add_all_favorites ();
-
-            var default_inbox = (DefaultInboxProject) Services.Settings.get_default ().settings.get_enum ("default-inbox");
-            if (default_inbox == DefaultInboxProject.LOCAL) {
-                string id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
-                if (local_hashmap.has_key (id)) {
-                    local_hashmap [id].hide_destroy ();
-                    local_hashmap.unset (id);
-                }
-            } else if (default_inbox == DefaultInboxProject.TODOIST) {
-                string id = Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id");
-                if (todoist_hashmap.has_key (id)) {
-                    todoist_hashmap [id].hide_destroy ();
-                    todoist_hashmap.unset (id);
-                }
-            }
-        });
-
         Services.Todoist.get_default ().log_in.connect (() => {
             todoist_projects_header.reveal = true;
             todoist_sync_button.reveal_child = true;
@@ -287,7 +267,6 @@ public class Layouts.Sidebar : Adw.Bin {
         });
 
         var whats_new_gesture = new Gtk.GestureClick ();
-        whats_new_gesture.set_button (1);
         whats_new_box.add_controller (whats_new_gesture);
 
         whats_new_gesture.pressed.connect (() => {
@@ -374,7 +353,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     public void select_project (Objects.Project project) {
-        Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
+        Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
     }
 
     public void select_filter (FilterType filter_type) {
@@ -486,9 +465,9 @@ public class Layouts.Sidebar : Adw.Bin {
 
     private void add_row_favorite (Objects.Project project) {
         if (project.is_favorite) {
-            if (!favorites_hashmap.has_key (project.id_string)) {
-                favorites_hashmap [project.id_string] = new Layouts.ProjectRow (project, false, false);
-                favorites_header.add_child (favorites_hashmap [project.id_string]);
+            if (!favorites_hashmap.has_key (project.id)) {
+                favorites_hashmap [project.id] = new Layouts.ProjectRow (project, false, false);
+                favorites_header.add_child (favorites_hashmap [project.id]);
             }
         }
     }
@@ -496,19 +475,19 @@ public class Layouts.Sidebar : Adw.Bin {
     private void add_row_project (Objects.Project project) {
         if (!project.is_inbox_project && project.parent_id == "") {
             if (project.backend_type == BackendType.TODOIST) {
-                if (!todoist_hashmap.has_key (project.id_string)) {
-                    todoist_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-                    todoist_projects_header.add_child (todoist_hashmap [project.id_string]);
+                if (!todoist_hashmap.has_key (project.id)) {
+                    todoist_hashmap [project.id] = new Layouts.ProjectRow (project);
+                    todoist_projects_header.add_child (todoist_hashmap [project.id]);
                 }
             } else if (project.backend_type == BackendType.LOCAL) {
-                if (!local_hashmap.has_key (project.id_string)) {
-                    local_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-                    local_projects_header.add_child (local_hashmap [project.id_string]);
+                if (!local_hashmap.has_key (project.id)) {
+                    local_hashmap [project.id] = new Layouts.ProjectRow (project);
+                    local_projects_header.add_child (local_hashmap [project.id]);
                 }
             } else if (project.backend_type == BackendType.CALDAV) {
-                if (!caldav_hashmap.has_key (project.id_string)) {
-                    caldav_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-                    caldav_projects_header.add_child (caldav_hashmap [project.id_string]);
+                if (!caldav_hashmap.has_key (project.id)) {
+                    caldav_hashmap [project.id] = new Layouts.ProjectRow (project);
+                    caldav_projects_header.add_child (caldav_hashmap [project.id]);
                 }
             }
         }

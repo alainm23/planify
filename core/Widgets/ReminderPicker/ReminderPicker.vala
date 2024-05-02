@@ -103,7 +103,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         }
 
         var reminder = new Objects.Reminder ();
-        reminder.due.date = Util.get_default ().get_todoist_datetime_format (get_datetime_picker ());
+        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (get_datetime_picker ());
 
         reminder_added (reminder);
         main_stack.visible_child_name = "listbox";

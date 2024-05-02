@@ -1495,9 +1495,9 @@ public class Services.Database : GLib.Object {
             return false;
         }
 
-        var date = Util.get_default ().get_format_date (item.due.datetime);
-        var start = Util.get_default ().get_format_date (start_date);
-        var end = Util.get_default ().get_format_date (end_date);
+        var date = Utils.Datetime.get_format_date (item.due.datetime);
+        var start = Utils.Datetime.get_format_date (start_date);
+        var end = Utils.Datetime.get_format_date (end_date);
 
         return (item.checked == checked &&
             date.compare (start) >= 0 && date.compare (end) <= 0);

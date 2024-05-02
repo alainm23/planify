@@ -69,8 +69,8 @@ public class Dialogs.DatePicker : Adw.Window {
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
         var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "work-week-symbolic");
-        next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
-            Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
+        next_week_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
+            Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
         next_week_item.margin_bottom = 6;
 
@@ -152,7 +152,7 @@ public class Dialogs.DatePicker : Adw.Window {
     }
 
     private void set_date (DateTime? date) {
-        _datetime = Util.get_default ().get_format_date (date);
+        _datetime = Utils.Datetime.get_format_date (date);
         date_changed ();
         hide_destroy ();
     }

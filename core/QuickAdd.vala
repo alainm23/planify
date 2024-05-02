@@ -30,7 +30,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     construct {
         item = new Objects.Item ();
-        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
 
         if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
             item.child_order = 0;
@@ -406,7 +406,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     public void set_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
         if (item.due.date == "") {
             item.due.reset ();

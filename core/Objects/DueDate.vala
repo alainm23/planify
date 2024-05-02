@@ -34,7 +34,7 @@ public class Objects.DueDate : GLib.Object {
     public GLib.DateTime? datetime {
         get {
             if (_datetime == null) {
-                _datetime = Util.get_default ().get_todoist_datetime (date);
+                _datetime = Utils.Datetime.get_todoist_datetime (date);
             }
 
             return _datetime;
@@ -72,7 +72,7 @@ public class Objects.DueDate : GLib.Object {
     public bool is_recurrency_end {
         get {
             if (end_type == RecurrencyEndType.ON_DATE) {
-                var next_recurrency = Util.get_default ().next_recurrency (datetime, this);
+                var next_recurrency = Utils.Datetime.next_recurrency (datetime, this);
                 return next_recurrency.compare (end_datetime) > -1;
             } else if (end_type == RecurrencyEndType.AFTER) {
                 return recurrency_count - 1 <= 0;

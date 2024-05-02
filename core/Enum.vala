@@ -268,11 +268,6 @@ public enum RecurrencyType {
 	}
 }
 
-public enum DefaultInboxProject {
-	LOCAL = 0,
-	TODOIST = 1
-}
-
 public enum PickerType {
 	PROJECTS,
 	SECTIONS;

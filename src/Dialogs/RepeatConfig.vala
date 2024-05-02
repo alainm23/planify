@@ -204,8 +204,8 @@ public class Dialogs.RepeatConfig : Adw.Window {
         };
 
         datepicker_button = new Gtk.MenuButton () {
-            label = Util.get_default ().get_default_date_format_from_date (
-                Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1))
+            label = Utils.Datetime.get_default_date_format_from_date (
+                Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1))
             ),
             popover = calendar_popover
         };
@@ -407,8 +407,8 @@ public class Dialogs.RepeatConfig : Adw.Window {
     private void update_repeat_label () {
         var end_label = "";
         if (on_button.active) {
-            var date_label = Util.get_default ().get_default_date_format_from_date (
-                Util.get_default ().get_format_date (calendar.get_date ())
+            var date_label = Utils.Datetime.get_default_date_format_from_date (
+                Utils.Datetime.get_format_date (calendar.get_date ())
             );
             end_label = _("until") + " " + date_label;
             datepicker_button.label = date_label;
@@ -418,7 +418,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
         }
 
         RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.selected;
-        string label = Util.get_default ().get_recurrency_weeks (
+        string label = Utils.Datetime.get_recurrency_weeks (
             selected_option,
             (int) recurrency_interval.value,
             get_recurrency_weeks (),

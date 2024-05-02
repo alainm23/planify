@@ -139,7 +139,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     private void add_days () {
         var date = new GLib.DateTime.now_local ();
-        var month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        var month_days = Utils.Datetime.get_days_of_month (date.get_month (), date.get_year ());
         var remaining_days = month_days - date.add_days (7).get_day_of_month ();
         var days_to_iterate = 7;
 
@@ -154,7 +154,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             listbox.append (row);
         }
 
-        month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        month_days = Utils.Datetime.get_days_of_month (date.get_month (), date.get_year ());
         remaining_days = month_days - date.get_day_of_month ();
 
         if (remaining_days > 3) {
@@ -171,13 +171,13 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         var inbox_project = Services.Database.get_default ().get_project (
-            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+            Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.set_project (inbox_project);
-        dialog.set_due (Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1)));
+        dialog.set_due (Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1)));
         dialog.show ();
     }
 

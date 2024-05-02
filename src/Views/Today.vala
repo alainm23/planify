@@ -511,13 +511,13 @@ public class Views.Today : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         var inbox_project = Services.Database.get_default ().get_project (
-            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+            Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.set_project (inbox_project);
-        dialog.set_due (Util.get_default ().get_format_date (date));
+        dialog.set_due (Utils.Datetime.get_format_date (date));
         dialog.show ();
     }
     

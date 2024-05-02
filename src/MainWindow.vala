@@ -219,10 +219,6 @@ public class MainWindow : Adw.ApplicationWindow {
 			toast_overlay.add_toast (toast);
 		});
 
-		Services.EventBus.get_default ().inbox_project_changed.connect (() => {
-			add_inbox_view ();
-		});
-
 		search_button.clicked.connect (() => {
 			(new Dialogs.QuickFind.QuickFind ()).show ();
 		});
@@ -307,21 +303,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
 
-		Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Tasks Synced Successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("ok", _("Ok"));
-			dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
-			dialog.show ();
-
-			dialog.response.connect ((response) => {
-				change_todoist_default (response == "ok", inbox_project_id);
-			});
-		});
-
 		if (Services.Todoist.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
 				Services.Todoist.get_default ().run_server ();
@@ -339,7 +320,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private void add_inbox_view () {
 		add_project_view (
-			Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
+			Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"))
 		);
 	}
 
@@ -490,26 +471,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		Views.Project? project_view = (Views.Project) views_stack.visible_child;
 		if (project_view != null) {
 			project_view.prepare_new_section ();
-		}
-	}
-
-	private void change_todoist_default (bool use_todoist, string inbox_project_id) {
-		if (use_todoist) {
-			var old_inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
-			old_inbox_project.inbox_project = false;
-			old_inbox_project.update_local ();
-
-			var new_inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
-			new_inbox_project.inbox_project = true;
-			old_inbox_project.update_local ();
-
-			Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project_id);
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
-			Services.EventBus.get_default ().inbox_project_changed ();
-
-			if (views_stack.visible_child_name == old_inbox_project.view_id) {
-				add_project_view (new_inbox_project);
-			}
 		}
 	}
 

@@ -49,7 +49,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     construct {
         add_css_class ("row");
 
-        var reminder_label = new Gtk.Label (is_creating ? _("Add Reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
+        var reminder_label = new Gtk.Label (is_creating ? _("Add Reminder") : Utils.Datetime.get_relative_date_from_date (reminder.due.datetime));
 
         var remove_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
             hexpand = true,

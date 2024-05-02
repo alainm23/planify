@@ -857,9 +857,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         due_box.remove_css_class ("upcoming-grid");
 
         if (item.completed) {
-            due_label.label = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_format_date (
-                    Util.get_default ().get_date_from_string (item.completed_at)
+            due_label.label = Utils.Datetime.get_relative_date_from_date (
+                Utils.Datetime.get_format_date (
+                    Utils.Datetime.get_date_from_string (item.completed_at)
                 )
             );
             due_box.add_css_class ("completed-grid");
@@ -868,7 +868,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
 
         if (item.has_due) {
-            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+            due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
 
             if (!edit) {
                 due_box_revealer.reveal_child = true;
@@ -877,15 +877,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             repeat_revealer.reveal_child = item.due.is_recurring;
             if (item.due.is_recurring) {
                 due_label.label += ", ";
-                repeat_label.label = Util.get_default ().get_recurrency_weeks (
+                repeat_label.label = Utils.Datetime.get_recurrency_weeks (
                     item.due.recurrency_type, item.due.recurrency_interval,
                     item.due.recurrency_weeks
                 ).down ();
             }
 
-            if (Util.get_default ().is_today (item.due.datetime)) {
+            if (Utils.Datetime.is_today (item.due.datetime)) {
                 due_box.add_css_class ("today-grid");
-            } else if (Util.get_default ().is_overdue (item.due.datetime)) {
+            } else if (Utils.Datetime.is_overdue (item.due.datetime)) {
                 due_box.add_css_class ("overdue-grid");
             } else {
                 due_box.add_css_class ("upcoming-grid");
@@ -1003,12 +1003,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         today_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Util.get_default ().get_format_date (new DateTime.now_local ()));
+            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ()));
         });
 
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
+            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ().add_days (1)));
         });
 
         pinboard_item.activate_item.connect (() => {
@@ -1049,10 +1049,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private string get_updated_info () {
         string added_at = _("Added at");
         string updated_at = _("Updated at");
-        string added_date = Util.get_default ().get_relative_date_from_date (item.added_datetime);
+        string added_date = Utils.Datetime.get_relative_date_from_date (item.added_datetime);
         string updated_date = "(" + _("Not available") + ")";
         if (item.updated_at != "") {
-            updated_date = Util.get_default ().get_relative_date_from_date (item.updated_datetime);
+            updated_date = Utils.Datetime.get_relative_date_from_date (item.updated_datetime);
         }
 
         return "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
@@ -1299,7 +1299,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 update_next_recurrency ();
             } else {
                 item.checked = true;
-                item.completed_at = Util.get_default ().get_format_date (
+                item.completed_at = Utils.Datetime.get_format_date (
                     new GLib.DateTime.now_local ()
                 ).to_string ();    
                 _complete_item (old_checked);   
@@ -1345,7 +1345,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
         if (item.due.date == "") {
             item.due.reset ();
@@ -1372,7 +1372,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
 
         var title = _("Completed. Next occurrence: %s".printf (
-            Util.get_default ().get_default_date_format_from_date (next_recurrency)
+            Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_notification (toast);

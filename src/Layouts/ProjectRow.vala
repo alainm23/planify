@@ -531,6 +531,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemRow) {
                 var picked_widget = (Layouts.ItemRow) value;
+
+                if (picked_widget.item.project.is_inbox_project) {
+                    return true;
+                }
+
                 if (picked_widget.item.project.backend_type == project.backend_type) {
                     return true;
                 }
@@ -540,9 +545,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         drop_row_target.drop.connect ((value, x, y) => {
-            var picked_widget = (Layouts.ItemRow) value;
+            var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            picked_widget.item.move (target_widget.project, "");
+
+            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+                print ("Mover entre backends\n");
+            } else {
+                picked_widget.item.move (target_widget.project, "");
+            }
+
             return true;
         });
 
@@ -560,6 +571,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemBoard) {
                 var picked_widget = (Layouts.ItemBoard) value;
+                
+                if (picked_widget.item.project.is_inbox_project) {
+                    return true;
+                }
+                
                 if (picked_widget.item.project.backend_type == project.backend_type) {
                     return true;
                 }
@@ -571,7 +587,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drop_board_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            picked_widget.item.move (target_widget.project, "");
+
+            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+                print ("Mover entre backends\n");
+            } else {
+                picked_widget.item.move (target_widget.project, "");
+            }
+
             return true;
         });
     }
@@ -638,12 +660,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 
-        if (project.id != Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id") &&
-        project.id != Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")) {
-            if (!project.is_deck) {
-                menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-                menu_box.append (delete_item);
-            }
+        if (!project.is_deck) {
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (delete_item);
         }
 
         menu_popover = new Gtk.Popover () {
@@ -768,8 +787,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private void check_due_date () {
         if (project.due_date != "") {
-            var datetime = Util.get_default ().get_date_from_string (project.due_date);
-            due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
+            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
         }
 
         // Workaround to fix small bug when collapsing/expanding project - this causes save and would

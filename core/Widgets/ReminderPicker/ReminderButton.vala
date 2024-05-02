@@ -154,7 +154,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
         value_label.label = "";        
         for (int index = 0; index < reminders.size; index++) {
-            var date = Util.get_default ().get_relative_date_from_date (reminders[index].due.datetime);
+            var date = Utils.Datetime.get_relative_date_from_date (reminders[index].due.datetime);
 
             if (index < reminders.size - 1) {
                 value_label.label += date + ", ";

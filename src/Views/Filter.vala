@@ -138,7 +138,7 @@ public class Views.Filter : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         var inbox_project = Services.Database.get_default ().get_project (
-            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+            Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
         var dialog = new Dialogs.QuickAdd ();
@@ -149,7 +149,7 @@ public class Views.Filter : Adw.Bin {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
             dialog.set_priority (priority.priority);
         } else if (filter is Objects.Filters.Tomorrow) {
-            dialog.set_due (Util.get_default ().get_format_date (
+            dialog.set_due (Utils.Datetime.get_format_date (
                 new GLib.DateTime.now_local ().add_days (1)
             ));
         } else if (filter is Objects.Filters.Pinboard) {
@@ -266,7 +266,7 @@ public class Views.Filter : Adw.Bin {
             }
         } else if (filter is Objects.Filters.Tomorrow) {
             if (!items.has_key (item.id) && item.has_due &&
-                Util.get_default ().is_tomorrow (item.due.datetime) && insert) {
+                Utils.Datetime.is_tomorrow (item.due.datetime) && insert) {
                 add_item (item);   
             }
         } else if (filter is Objects.Filters.Pinboard) {
@@ -326,7 +326,7 @@ public class Views.Filter : Adw.Bin {
     
             valid_add_item (item);
         } else if (filter is Objects.Filters.Tomorrow) {
-            if (items.has_key (item.id) && (!item.has_due || !Util.get_default ().is_tomorrow (item.due.datetime))) {
+            if (items.has_key (item.id) && (!item.has_due || !Utils.Datetime.is_tomorrow (item.due.datetime))) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
@@ -400,16 +400,16 @@ public class Views.Filter : Adw.Bin {
 
         if (lbbefore != null) {
             var before = (Layouts.ItemRow) lbbefore;
-            var comp_before = Util.get_default ().get_date_from_string (before.item.completed_at);
-            if (comp_before.compare (Util.get_default ().get_date_from_string (row.item.completed_at)) == 0) {
+            var comp_before = Utils.Datetime.get_date_from_string (before.item.completed_at);
+            if (comp_before.compare (Utils.Datetime.get_date_from_string (row.item.completed_at)) == 0) {
                 return;
             }
         }
 
         row.set_header (
             get_header_box (
-                Util.get_default ().get_relative_date_from_date (
-                    Util.get_default ().get_date_from_string (row.item.completed_at)
+                Utils.Datetime.get_relative_date_from_date (
+                    Utils.Datetime.get_date_from_string (row.item.completed_at)
                 )
             )
         );
@@ -433,8 +433,8 @@ public class Views.Filter : Adw.Bin {
     }
 
     private int sort_completed_function (Gtk.ListBoxRow row1, Gtk.ListBoxRow? row2) {
-        var completed_a = Util.get_default ().get_date_from_string (((Layouts.ItemRow) row1).item.completed_at);
-        var completed_b = Util.get_default ().get_date_from_string (((Layouts.ItemRow) row2).item.completed_at);
+        var completed_a = Utils.Datetime.get_date_from_string (((Layouts.ItemRow) row1).item.completed_at);
+        var completed_b = Utils.Datetime.get_date_from_string (((Layouts.ItemRow) row2).item.completed_at);
         return completed_b.compare (completed_a);
     }
 

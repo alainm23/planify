@@ -266,10 +266,10 @@ public class Views.List : Gtk.Grid {
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
-            var datetime = Util.get_default ().get_date_from_string (project.due_date);
-            due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
+            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
 
-            if (Util.get_default ().is_today (datetime)) {
+            if (Utils.Datetime.is_today (datetime)) {
                 due_image.icon_name = "star-outline-thick-symbolic";
             } else {
                 due_image.icon_name = "month-symbolic";
@@ -313,7 +313,7 @@ public class Views.List : Gtk.Grid {
             var dialog = new Dialogs.DatePicker (_("When?"));
 
             if (project.due_date != "") {
-                dialog.datetime = Util.get_default ().get_date_from_string (project.due_date);
+                dialog.datetime = Utils.Datetime.get_date_from_string (project.due_date);
                 dialog.clear = true;
             }
 

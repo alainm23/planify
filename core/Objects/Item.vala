@@ -431,7 +431,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
         
         var rrules = Util.find_string_value ("RRULE", data);
@@ -448,11 +448,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Util.get_default ().get_format_date (
-                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                completed_at = Utils.Datetime.get_format_date (
+                    Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -510,7 +510,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
         
         var rrules = Util.find_string_value ("RRULE", data);
@@ -527,11 +527,11 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Util.get_default ().get_format_date (
-                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                completed_at = Utils.Datetime.get_format_date (
+                    Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
@@ -1113,7 +1113,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            ICal.Time new_icaltime = Util.datetimes_to_icaltime (
+            ICal.Time new_icaltime = Utils.Datetime.datetimes_to_icaltime (
                 due.datetime,
                 Utils.Datetime.has_time (due.datetime) ? due.datetime : null,
                 null
@@ -1187,7 +1187,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
                 
                 if (due.recurrency_end != "") {
-                    ICal.Time until_icaltime = Util.datetimes_to_icaltime (
+                    ICal.Time until_icaltime = Utils.Datetime.datetimes_to_icaltime (
                         due.end_datetime,
                         null,
                         null
@@ -1323,7 +1323,7 @@ public class Objects.Item : Objects.BaseObject {
             return " ";
         }
 
-        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
     public void delete_item () {
@@ -1375,7 +1375,7 @@ public class Objects.Item : Objects.BaseObject {
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
             if (!has_due) {
-                due.date = Util.get_default ().get_todoist_datetime_format (
+                due.date = Utils.Datetime.get_todoist_datetime_format (
                     new DateTime.now_local ()
                 );
             }
@@ -1383,27 +1383,27 @@ public class Objects.Item : Objects.BaseObject {
             duedate.recurrency_type == RecurrencyType.EVERY_MONTH || 
             duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
             if (!has_due) {
-                due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
+                due.date = Utils.Datetime.get_todoist_datetime_format (
+                    Utils.Datetime.get_today_format_date ()
                 );
             }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
             if (duedate.has_weeks) {
-                var today = Util.get_default ().get_today_format_date ();
+                var today = Utils.Datetime.get_today_format_date ();
                 int day_of_week = today.get_day_of_week ();
-                int next_day = Util.get_default ().get_next_day_of_week_from_recurrency_week (today, duedate);
+                int next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (today, duedate);
                 GLib.DateTime due_date = null;
 
                 if (day_of_week == next_day) {
                     due_date = today;
                 } else {
-                    due_date = Util.get_default ().next_recurrency_week (today, duedate);
+                    due_date = Utils.Datetime.next_recurrency_week (today, duedate);
                 }
 
-                due.date = Util.get_default ().get_todoist_datetime_format (due_date);
+                due.date = Utils.Datetime.get_todoist_datetime_format (due_date);
             } else {
-                due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
+                due.date = Utils.Datetime.get_todoist_datetime_format (
+                    Utils.Datetime.get_today_format_date ()
                 );
             }
         }
@@ -1419,8 +1419,8 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_next_recurrency (Services.Promise<GLib.DateTime>? promise) {
-        var next_recurrency = Util.get_default ().next_recurrency (due.datetime, due);
-        due.date = Util.get_default ().get_todoist_datetime_format (
+        var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
+        due.date = Utils.Datetime.get_todoist_datetime_format (
             next_recurrency
         );
 

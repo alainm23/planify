@@ -3,9 +3,7 @@ public class Objects.Backup : Object {
     public string date { get; set; default = new GLib.DateTime.now_local ().to_string (); }
 
     public int default_inbox { get; set; default = 0; }
-    public string inbox_project_id { get; set; default = ""; }
     public string local_inbox_project_id { get; set; default = ""; }
-    public string todoist_inbox_project_id { get; set; default = ""; }
     public string todoist_access_token { get; set; default = ""; }
     public string todoist_sync_token { get; set; default = ""; }
     public string todoist_user_name { get; set; default = ""; }
@@ -62,9 +60,7 @@ public class Objects.Backup : Object {
             // Set Settings
             var settings = node.get_object_member ("settings");
             default_inbox = (int32) settings.get_int_member ("default-inbox");
-            inbox_project_id = settings.get_string_member ("inbox-project-id");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
-            todoist_inbox_project_id = settings.get_string_member ("todoist-inbox-project-id");
             todoist_access_token = settings.get_string_member ("todoist-access-token");
             todoist_sync_token = settings.get_string_member ("todoist-sync-token");
             todoist_user_name = settings.get_string_member ("todoist-user-name");

@@ -269,7 +269,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     }
 
     private void update_text (bool no_signal = false) {
-        if (Util.get_default ().is_clock_format_12h ()) {
+        if (Utils.Datetime.is_clock_format_12h ()) {
             time_entry.set_text (time.format (format_12));
         } else {
             time_entry.set_text (time.format (format_24));

@@ -109,7 +109,7 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_inbox_project {
         get {
-            return id == Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+            return id == Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         }
     }
 
@@ -782,6 +782,6 @@ public class Objects.Project : Objects.BaseObject {
             return " ";
         }
 
-        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 }

@@ -725,22 +725,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-
-		var default_group = new Adw.PreferencesGroup () {
-			visible = Services.Todoist.get_default ().is_logged_in ()
-		};
-
-		var inbox_project_model = new Gtk.StringList (null);
-		inbox_project_model.append (_("On This Computer"));
-		inbox_project_model.append (_("Todoist"));
-
-		var inbox_project_row = new Adw.ComboRow ();
-		inbox_project_row.title = _("Default Inbox Project");
-		inbox_project_row.model = inbox_project_model;
-		inbox_project_row.selected = Services.Settings.get_default ().settings.get_enum ("default-inbox");
-
-		default_group.add (inbox_project_row);
-
+		
 		// Todoist
 		var todoist_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
@@ -804,7 +789,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		accounts_group.add (caldav_row);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		content_box.append (default_group);
 		content_box.append (accounts_group);
 
 		var content_clamp = new Adw.Clamp () {
@@ -890,11 +874,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_caldav_view ());
 		});
 
-		inbox_project_row.notify["selected"].connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", (int) inbox_project_row.selected);
-			Util.get_default ().change_default_inbox ();
-		});
-
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
 		});
@@ -943,7 +922,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
 			);
 
-		var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
+		var last_sync_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (
 												 last_sync_date
 												 ));
 
@@ -1030,7 +1009,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		);
 
 		var last_sync_label = new Gtk.Label (
-			Util.get_default ().get_relative_date_from_date (last_sync_date)
+			Utils.Datetime.get_relative_date_from_date (last_sync_date)
 		);
 
 		var last_sync_row = new Adw.ActionRow ();

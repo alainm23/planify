@@ -175,7 +175,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
 
-            item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+            item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
             if (item.due.date == "") {
                 item.due.reset ();

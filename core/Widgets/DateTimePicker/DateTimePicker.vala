@@ -38,7 +38,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             check_items (_datetime);
 
-            if (Util.get_default ().has_time (_datetime)) {
+            if (Utils.Datetime.has_time (_datetime)) {
                 time_picker.time = _datetime;
                 time_picker.has_time = true;
             }
@@ -53,7 +53,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 }
             } else {
                 if (_datetime != null) {
-                    _datetime = Util.get_default ().get_format_date (_datetime);
+                    _datetime = Utils.Datetime.get_format_date (_datetime);
                 }
             }
 
@@ -179,7 +179,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         calendar_view.day_selected.connect (() => {
-            datetime = Util.get_default ().get_format_date (calendar_view.date);
+            datetime = Utils.Datetime.get_format_date (calendar_view.date);
             visible_no_date = true;
             content_stack.visible_child_name = "items";
         });
@@ -189,7 +189,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         time_picker.time_changed.connect (() => {
-            datetime = Util.get_default ().get_format_date (datetime);
+            datetime = Utils.Datetime.get_format_date (datetime);
         });
 
         time_picker.time_added.connect (() => {
@@ -223,7 +223,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void set_date (DateTime date) {
-        datetime = Util.get_default ().get_format_date (date);
+        datetime = Utils.Datetime.get_format_date (date);
         popdown ();
         date_changed ();
     }
@@ -264,8 +264,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         } else if (Utils.Datetime.is_next_week (datetime)) {
             next_week_item.selected = true;
         } else {
-            date_item.secondary_text = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_format_date (datetime)
+            date_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
+                Utils.Datetime.get_format_date (datetime)
             );
         }
     }

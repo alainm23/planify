@@ -203,7 +203,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             return;
         }
 
-        due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+        due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
         due_label.tooltip_text = due_label.label;
     
         datetime = new GLib.DateTime.local (
@@ -215,11 +215,11 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             item.due.datetime.get_second ()
         );
         
-        if (Util.get_default ().is_today (item.due.datetime)) {
+        if (Utils.Datetime.is_today (item.due.datetime)) {
             due_image.icon_name = "star-outline-thick-symbolic";
-        } else if (Util.get_default ().is_tomorrow (item.due.datetime)) {
+        } else if (Utils.Datetime.is_tomorrow (item.due.datetime)) {
             due_image.icon_name = "today-calendar-symbolic";
-        } else if (Util.get_default ().is_overdue (item.due.datetime)) {
+        } else if (Utils.Datetime.is_overdue (item.due.datetime)) {
             due_image.icon_name = "month-symbolic";
         } else {
             due_image.icon_name = "month-symbolic";
@@ -228,8 +228,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         if (item.due.is_recurring) {
             var end_label = "";
             if (item.due.end_type == RecurrencyEndType.ON_DATE) {
-                var date_label = Util.get_default ().get_default_date_format_from_date (
-                    Util.get_default ().get_format_date (
+                var date_label = Utils.Datetime.get_default_date_format_from_date (
+                    Utils.Datetime.get_format_date (
                         Utils.Datetime.get_date_from_string (item.due.recurrency_end)
                     )
                 );
@@ -241,7 +241,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
             due_image.icon_name = "playlist-repeat-symbolic";
             
-            string repeat_text = Util.get_default ().get_recurrency_weeks (
+            string repeat_text = Utils.Datetime.get_recurrency_weeks (
                 item.due.recurrency_type,
                 item.due.recurrency_interval,
                 item.due.recurrency_weeks,
