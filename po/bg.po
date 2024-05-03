@@ -879,7 +879,7 @@ msgstr "днес"
 #: core/Objects/Filters/Completed.vala:50 src/Layouts/FilterPaneRow.vala:131
 #: src/Views/Filter.vala:171 src/Dialogs/Preferences/Pages/Sidebar.vala:41
 msgid "Completed"
-msgstr "Завършено"
+msgstr "Завършени"
 
 #: core/Objects/Filters/Completed.vala:51
 #, c-format
@@ -1360,7 +1360,7 @@ msgstr "Избор"
 
 #: src/Views/Project/Project.vala:245
 msgid "Paste"
-msgstr "Поставяне постави, Поставете"
+msgstr "Поставяне"
 
 #: src/Views/Project/Project.vala:339
 #, c-format
@@ -1369,7 +1369,7 @@ msgstr "Сигурни ли сте, че искате да премахнете 
 
 #: src/Views/Project/Project.vala:372
 msgid "List"
-msgstr "Списък (не: листа)"
+msgstr "Списък"
 
 #: src/Views/Project/Project.vala:387
 msgid "Board"
@@ -1773,7 +1773,7 @@ msgstr ""
 #: src/Dialogs/Preferences/PreferencesWindow.vala:62
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1635
 msgid "Supporting Us"
-msgstr "Подкрепят ни"
+msgstr "Подкрепете ни"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:114
 msgid "Integrations"
@@ -1865,7 +1865,7 @@ msgstr "Обсъждайте и споделяйте отзивите си"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:251
 msgid "Matrix Room"
-msgstr ""
+msgstr "Matrix стая"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:267
 msgid "Want to buy me a drink?"
