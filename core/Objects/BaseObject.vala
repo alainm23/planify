@@ -42,6 +42,20 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
+    bool _loading = false;
+    public bool loading {
+        set {
+            _loading = value;
+            loading_change ();
+        }
+
+        get {
+            return _loading;
+        }
+    }
+
+    public signal void loading_change ();
+
     public string view_id { get; set; default = ""; }
 
     public string type_delete {

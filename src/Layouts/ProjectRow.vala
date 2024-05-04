@@ -336,6 +336,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 }
             }
         });
+
+        project.loading_change.connect (() => {
+            is_loading = project.loading;
+        });
     }
 
     private void update_count_label (int count) {
@@ -549,7 +553,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var target_widget = this;
 
             if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
-                print ("Mover entre backends\n");
+                Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
             } else {
                 picked_widget.item.move (target_widget.project, "");
             }
@@ -589,7 +593,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var target_widget = this;
 
             if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
-                print ("Mover entre backends\n");
+                Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
             } else {
                 picked_widget.item.move (target_widget.project, "");
             }
@@ -704,58 +708,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
-            
-            var dialog = new Adw.MessageDialog (
-                (Gtk.Window) Planify.instance.main_window, 
-                _("Delete Project %s?".printf (project.name)),
-                _("This can not be undone")
-            );
-
-            var spinner = new Gtk.Spinner () {
-                margin_top = 6,
-                valign = Gtk.Align.CENTER,
-                halign = Gtk.Align.CENTER,
-                spinning = true
-            };
-
-            var spinner_revealer = new Gtk.Revealer () {
-                child = spinner
-            };
-
-            dialog.extra_child = spinner_revealer;
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.close_response = "cancel";
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    if (project.backend_type == BackendType.LOCAL) {
-                        Services.Database.get_default ().delete_project (project);
-                    } else if (project.backend_type == BackendType.TODOIST) {
-                        dialog.set_response_enabled ("cancel", false);
-                        dialog.set_response_enabled ("delete", false);
-                        spinner_revealer.reveal_child = true;
-
-                        Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-                            if (Services.Todoist.get_default ().delete.end (res).status) {
-                                Services.Database.get_default ().delete_project (project);
-                            }
-                        });
-                    } else if (project.backend_type == BackendType.CALDAV) {
-                        dialog.set_response_enabled ("cancel", false);
-                        dialog.set_response_enabled ("delete", false);
-                        spinner_revealer.reveal_child = true;
-
-                        Services.CalDAV.Core.get_default ().delete_tasklist.begin (project, (obj, res) => {
-                            if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
-                                Services.Database.get_default ().delete_project (project);
-                            }
-                        });
-                    }
-                }
-            });
+            project.delete_project ((Gtk.Window) Planify.instance.main_window);
         });
 
         share_markdown_item.clicked.connect (() => {

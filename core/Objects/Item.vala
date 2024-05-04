@@ -140,18 +140,6 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    bool _loading = false;
-    public bool loading {
-        set {
-            _loading = value;
-            loading_changed (_loading);
-        }
-
-        get {
-            return _loading;
-        }
-    }
-
     bool _show_item = true;
     public bool show_item {
         set {
@@ -163,6 +151,18 @@ public class Objects.Item : Objects.BaseObject {
             return _show_item;
         }
     }
+
+    bool _sensitive = true;
+    public bool sensitive {
+        set {
+            _sensitive = value;
+            sensitive_change ();
+        }
+
+        get {
+            return _sensitive;
+        }
+    } 
 
     string _ics = "";
     public string ics {
@@ -269,8 +269,8 @@ public class Objects.Item : Objects.BaseObject {
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
-    public signal void loading_changed (bool value);
     public signal void show_item_changed ();
+    public signal void sensitive_change ();
     public signal void collapsed_change ();
     public signal void attachment_added (Objects.Attachment attachment);
     public signal void attachment_deleted (Objects.Attachment attachment);
@@ -1290,33 +1290,45 @@ public class Objects.Item : Objects.BaseObject {
         return new_item;
     }
 
-    public void duplicate () {
-        var new_item = generate_copy ();
-        new_item.content = "[%s] %s".printf (_("Duplicate"), content);
+    //  public void duplicate () {
+    //      var new_item = generate_copy ();
+    //      new_item.content = "[%s] %s".printf (_("Duplicate"), content);
 
-        if (project.backend_type == BackendType.TODOIST) {
-            Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                if (response.status) {
-                    new_item.id = response.data;
-                    insert_duplicate (new_item);
-                }
-            });
-        } else {
-            new_item.id = Util.get_default ().generate_id (new_item);
-            insert_duplicate (new_item);
-        }
+    //      if (project.backend_type == BackendType.TODOIST) {
+    //          Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
+    //              HttpResponse response = Services.Todoist.get_default ().add.end (res);
+    //              if (response.status) {
+    //                  new_item.id = response.data;
+    //                  insert_duplicate (new_item);
+    //              }
+    //          });
+    //      } else {
+    //          new_item.id = Util.get_default ().generate_id (new_item);
+    //          insert_duplicate (new_item);
+    //      }
+    //  }
+
+    public Objects.Item duplicate () {
+        var new_item = new Objects.Item ();
+        new_item.content = content;
+        new_item.description = description;
+        new_item.due = due.duplicate ();
+        new_item.pinned = pinned;
+        new_item.priority = priority;
+        new_item.labels = labels;
+
+        return new_item;
     }
 
-    public void insert_duplicate (Objects.Item new_item) {
-        if (new_item.section_id != "") {
-            Services.Database.get_default ().get_section (new_item.section_id)
-                .add_item_if_not_exists (new_item);
-        } else {
-            Services.Database.get_default ().get_project (new_item.project_id)
-                .add_item_if_not_exists (new_item);
-        }
-    }
+    //  public void insert_duplicate (Objects.Item new_item) {
+    //      if (new_item.section_id != "") {
+    //          Services.Database.get_default ().get_section (new_item.section_id)
+    //              .add_item_if_not_exists (new_item);
+    //      } else {
+    //          Services.Database.get_default ().get_project (new_item.project_id)
+    //              .add_item_if_not_exists (new_item);
+    //      }
+    //  }
 
     private string get_format_date (Objects.Item item) {
         if (!item.has_due) {
@@ -1457,12 +1469,12 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
+        loading = true;
+        show_item = false;
+
         if (project.backend_type == BackendType.LOCAL) {
             _move (project.id, _section_id);
         } else if (project.backend_type == BackendType.TODOIST) {
-            loading = true;
-            show_item = false;
-
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1479,10 +1491,7 @@ public class Objects.Item : Objects.BaseObject {
                     _move (project.id, _section_id);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
-            loading = true;
-            show_item = false;
-            
+        } else if (project.backend_type == BackendType.CALDAV) {            
             Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
                 var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
@@ -1506,6 +1515,10 @@ public class Objects.Item : Objects.BaseObject {
 
         Services.Database.get_default ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
+        Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
+        Services.EventBus.get_default ().send_notification (
+            Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+        );
     }
 
     public bool has_parent () {

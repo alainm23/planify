@@ -843,4 +843,62 @@ We hope you’ll enjoy using Planify!""");
         generator.set_root (root);
         return generator.to_data (null);
     }
+
+    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "") {
+        var new_item = item.duplicate ();
+        new_item.project_id = target_project.id;
+        new_item.parent_id = parent_id;
+
+        item.loading = true;
+        item.sensitive = false;
+
+        if (target_project.backend_type == BackendType.LOCAL) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+            yield add_final_duplicate_item (new_item, item);
+        } else if (target_project.backend_type == BackendType.TODOIST) {
+            HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
+            item.loading = false;
+
+            if (response.status) {
+                new_item.id = response.data;
+                yield add_final_duplicate_item (new_item, item);
+            }
+        } else if (target_project.backend_type == BackendType.CALDAV) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+            item.loading = false;
+
+            if (response.status) {
+                yield add_final_duplicate_item (new_item, item);
+            }
+        }
+    }
+
+    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item) {
+        new_item.project.add_item_if_not_exists (new_item);
+
+        foreach (Objects.Reminder reminder in item.reminders) {
+            var _reminder = reminder.duplicate ();
+            _reminder.id = Util.get_default ().generate_id (_reminder);
+            _reminder.item_id = new_item.id;
+            new_item.add_reminder_if_not_exists (_reminder);
+        }
+
+        foreach (Objects.Attachment attachment in item.attachments) {
+            var _attachment = attachment.duplicate ();
+            _attachment.id = Util.get_default ().generate_id ();
+            _attachment.item_id = new_item.id;
+            new_item.add_attachment_if_not_exists (_attachment);
+        }
+
+        foreach (Objects.Item subitem in item.items) {
+            yield move_backend_type_item (subitem, new_item.project, new_item.id);
+        }
+
+        Services.EventBus.get_default ().send_notification (
+            create_toast (_("Task moved to %s".printf (new_item.project.name)))
+        );
+
+        item.delete_item ();
+    }
 }

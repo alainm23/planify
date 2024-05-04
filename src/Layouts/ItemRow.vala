@@ -706,8 +706,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             subitems.prepare_new_item ();
         });
 
-        item.loading_changed.connect ((value) => {
-            is_loading = value;
+        item.loading_change.connect (() => {
+            is_loading = item.loading;
+        });
+
+        item.sensitive_change.connect (() => {
+            sensitive = item.sensitive;
         });
 
         hide_subtask_button.clicked.connect (() => {

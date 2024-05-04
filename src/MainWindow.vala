@@ -320,7 +320,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 	private void add_inbox_view () {
 		add_project_view (
-			Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"))
+			Services.Database.get_default ().get_project (
+				Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
+			)
 		);
 	}
 

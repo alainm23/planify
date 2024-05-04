@@ -129,4 +129,15 @@ public class Objects.Reminder : Objects.BaseObject {
             loading = false;
         }
     }
+
+    public Objects.Reminder duplicate () {
+        var new_reminder = new Objects.Reminder ();
+        new_reminder.notify_uid = notify_uid;
+        new_reminder.service = service;
+        new_reminder.due = due;
+        new_reminder.mm_offset = mm_offset;
+        new_reminder.mm_offset = mm_offset;
+
+        return new_reminder;
+    }
 }

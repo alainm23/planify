@@ -70,4 +70,14 @@ public class Objects.Attachment : GLib.Object {
     public void delete () {
         Services.Database.get_default ().delete_attachment (this);
     }
+
+    public Objects.Attachment duplicate () {
+        var new_attachment = new Objects.Attachment ();
+        new_attachment.file_type = file_type;
+        new_attachment.file_name = file_name;
+        new_attachment.file_size = file_size;
+        new_attachment.file_path = file_path;
+
+        return new_attachment;
+    }
 }

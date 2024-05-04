@@ -424,6 +424,14 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         item.show_item_changed.connect (() => {
             main_revealer.reveal_child = item.show_item;
         });
+
+        item.loading_change.connect (() => {
+            is_loading = item.loading;
+        });
+
+        item.sensitive_change.connect (() => {
+            sensitive = item.sensitive;
+        });
 	}
 
     private void update_next_recurrency () {

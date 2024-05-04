@@ -205,18 +205,6 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
     
-    bool _loading = false;
-    public bool loading {
-        set {
-            _loading = value;
-            loading_changed (_loading);
-        }
-
-        get {
-            return _loading;
-        }
-    }
-
     private bool _show_multi_select = false;
     public bool show_multi_select {
         set {
@@ -783,5 +771,48 @@ public class Objects.Project : Objects.BaseObject {
         }
 
         return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
+    }
+
+    public void delete_project (Gtk.Window window) {
+        var dialog = new Adw.MessageDialog (
+            window, 
+            _("Delete Project %s?".printf (name)),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.close_response = "cancel";
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                loading = true;
+                if (backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().delete_project (this);
+                } else if (backend_type == BackendType.TODOIST) {
+                    dialog.set_response_enabled ("cancel", false);
+                    dialog.set_response_enabled ("delete", false);
+
+                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                        if (Services.Todoist.get_default ().delete.end (res).status) {
+                            Services.Database.get_default ().delete_project (this);
+                            loading = false;
+                        }
+                    });
+                } else if (backend_type == BackendType.CALDAV) {
+                    dialog.set_response_enabled ("cancel", false);
+                    dialog.set_response_enabled ("delete", false);
+
+                    Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
+                        if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
+                            Services.Database.get_default ().delete_project (this);
+                            loading = false;
+                        }
+                    });
+                }
+            }
+        });
     }
 }

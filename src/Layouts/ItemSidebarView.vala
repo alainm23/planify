@@ -348,8 +348,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             reminder_button.delete_reminder (reminder, item.reminders);
         })] = item;
 
-        item.loading_changed.connect ((value) => {
-            spinner_revealer.reveal_child = value;
+        item.loading_change.connect (() => {
+            spinner_revealer.reveal_child = item.loading;
         });
     }
 

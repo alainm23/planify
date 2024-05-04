@@ -209,4 +209,19 @@ public class Objects.DueDate : GLib.Object {
     public string to_friendly_string () {
         return recurrency_type.to_friendly_string (recurrency_interval);
     }
+
+    public Objects.DueDate duplicate () {
+        var new_due = new Objects.DueDate ();
+        new_due.date = date;
+        new_due.timezone = timezone;
+        new_due.recurrency_weeks = recurrency_weeks;
+        new_due.is_recurring = is_recurring;
+        new_due.recurrency_type = recurrency_type;
+        new_due.recurrency_interval = recurrency_interval;
+        new_due.recurrency_count = recurrency_count;
+        new_due.recurrency_end = recurrency_end;
+        new_due.recurrence_supported = recurrence_supported;
+
+        return new_due;
+    }
 }

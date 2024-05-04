@@ -334,31 +334,7 @@ public class Views.Project : Adw.Bin {
 
 		delete_item.clicked.connect (() => {
 			popover.popdown ();
-
-			var dialog = new Adw.MessageDialog (
-				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete Project"), _("Are you sure you want to delete %s?".printf (project.short_name))
-			);
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
-
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					if (project.backend_type == BackendType.TODOIST) {
-						Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-							if (Services.Todoist.get_default ().delete.end (res).status) {
-								Services.Database.get_default ().delete_project (project);
-							}
-						});
-					} else if (project.backend_type == BackendType.LOCAL) {
-						Services.Database.get_default ().delete_project (project);
-					}
-				}
-			});
+			project.delete_project ((Gtk.Window) Planify.instance.main_window);
 		});
 
 		return popover;
