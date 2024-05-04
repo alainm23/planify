@@ -498,7 +498,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         duplicate_item.clicked.connect (() => {
             popover.popdown ();
-            item.duplicate ();
+            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
         });
 
         move_item.clicked.connect (() => {            

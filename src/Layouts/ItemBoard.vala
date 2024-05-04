@@ -650,6 +650,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
@@ -666,6 +667,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         menu_box.append (complete_item);
         menu_box.append (edit_item);
         menu_box.append (add_item);
+        menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (delete_item);
 
@@ -740,6 +742,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
             dialog.show ();
+        });
+
+        duplicate_item.clicked.connect (() => {
+            menu_handle_popover.popdown ();
+            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
         });
     }
 

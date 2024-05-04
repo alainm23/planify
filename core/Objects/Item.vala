@@ -1319,17 +1319,7 @@ public class Objects.Item : Objects.BaseObject {
 
         return new_item;
     }
-
-    //  public void insert_duplicate (Objects.Item new_item) {
-    //      if (new_item.section_id != "") {
-    //          Services.Database.get_default ().get_section (new_item.section_id)
-    //              .add_item_if_not_exists (new_item);
-    //      } else {
-    //          Services.Database.get_default ().get_project (new_item.project_id)
-    //              .add_item_if_not_exists (new_item);
-    //      }
-    //  }
-
+    
     private string get_format_date (Objects.Item item) {
         if (!item.has_due) {
             return " ";
