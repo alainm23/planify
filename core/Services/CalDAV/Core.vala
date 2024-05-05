@@ -1025,18 +1025,6 @@ public class Services.CalDAV.Core : GLib.Object {
 			Services.Database.get_default ().delete_label (label);
 		}
 
-		// Clear Queue
-		//  Services.Database.get_default ().clear_queue ();
-
-		// Clear CurTempIds
-		//  Services.Database.get_default ().clear_cur_temp_ids ();
-
-		// Check Inbox Project
-		//  if (Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1) {
-		//  	Services.Settings.get_default ().settings.set_enum ("default-inbox", 0);
-		//  	Util.get_default ().change_default_inbox ();
-		//  }
-
 		// Remove server_timeout
 		Source.remove (server_timeout);
 		server_timeout = 0;

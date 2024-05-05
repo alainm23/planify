@@ -107,10 +107,10 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             margin_top = 12,
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 12,
+            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-
+        
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
         content_box.append (search_entry);
@@ -172,21 +172,21 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             card = true
         };
 
+        inbox_group.reveal = true;
+
         if (backend_type == BackendType.ALL) {
-            inbox_group.reveal = true;
             local_group.reveal = true;
             todoist_group.reveal = true;
             caldav_group.reveal = true;
         } else if (backend_type == BackendType.LOCAL) {
-            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 0;
             local_group.reveal = true;
             todoist_group.reveal = false;
+            caldav_group.reveal = false;
         } else if (backend_type == BackendType.TODOIST) {
-            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1;
             local_group.reveal = false;
             todoist_group.reveal = true;
+            caldav_group.reveal = false;
         } else if (backend_type == BackendType.CALDAV) {
-            inbox_group.reveal = false;
             local_group.reveal = false;
             todoist_group.reveal = false;
             caldav_group.reveal = true;

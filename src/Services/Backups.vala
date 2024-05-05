@@ -113,9 +113,6 @@ public class Services.Backups : Object {
         // Preferences
         builder.set_member_name ("settings");
         builder.begin_object ();
-        
-        builder.set_member_name ("default-inbox");
-        builder.add_int_value (Services.Settings.get_default ().settings.get_enum ("default-inbox"));
 
         builder.set_member_name ("inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
@@ -425,7 +422,6 @@ public class Services.Backups : Object {
     public void patch_backup (Objects.Backup backup) {
         Services.Settings.get_default ().reset_settings ();
 
-        Services.Settings.get_default ().settings.set_enum ("default-inbox", backup.default_inbox);
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
         
         if (backup.todoist_backend) {

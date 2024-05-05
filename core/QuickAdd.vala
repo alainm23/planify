@@ -135,12 +135,22 @@ public class Layouts.QuickAdd : Adw.Bin {
 			css_classes = { "flat" }
 		};
 
-        var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+        var switch_button = new Gtk.Switch () {
+            css_classes = { "switch-min" },
+            valign = Gtk.Align.CENTER
+        };
+
+        //  var switch_button = new Gtk.ToggleButton () {
+        //      css_classes = { "flat" },
+        //      icon_name = "arrow3-right-symbolic"
+        //  };
+
+        var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             hexpand = true,
             halign = END
         };
 
-        submit_cancel_grid.append (menu_button);
+        submit_cancel_grid.append (switch_button);
         submit_cancel_grid.append (submit_button);
         
         project_picker_button = new Widgets.ProjectPicker.ProjectPickerButton ();

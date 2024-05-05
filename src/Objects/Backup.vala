@@ -59,7 +59,6 @@ public class Objects.Backup : Object {
     
             // Set Settings
             var settings = node.get_object_member ("settings");
-            default_inbox = (int32) settings.get_int_member ("default-inbox");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
             todoist_access_token = settings.get_string_member ("todoist-access-token");
             todoist_sync_token = settings.get_string_member ("todoist-sync-token");
