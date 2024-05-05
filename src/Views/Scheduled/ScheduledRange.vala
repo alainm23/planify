@@ -102,10 +102,9 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
 
         listbox_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = has_items
+            reveal_child = has_items,
+            child = listbox_grid
         };
-
-        listbox_revealer.child = listbox_grid;
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,

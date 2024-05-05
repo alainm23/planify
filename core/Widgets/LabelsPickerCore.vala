@@ -82,10 +82,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             margin_top = 3,
             margin_start = 3,
             margin_end = 3,
-            margin_bottom = 3
+            margin_bottom = 3,
+            css_classes = { "listbox-background" }
         };
         listbox.set_placeholder (get_placeholder ());
-        listbox.add_css_class ("listbox-background");
+        listbox.set_sort_func ((row1, row2) => {
+            Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
+            Objects.Label item2 = ((Widgets.LabelPicker.LabelRow) row2).label;
+            return item1.item_order - item2.item_order;
+        });
 
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
