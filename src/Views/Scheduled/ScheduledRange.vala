@@ -122,7 +122,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
         });
         
         content.append (event_list_revealer);
-        content.append (listbox_grid);
+        content.append (listbox_revealer);
 
         child = content;
 
