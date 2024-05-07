@@ -498,6 +498,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		tasks_group.add (task_complete_tone);
 
+		var open_task_sidebar = new Adw.SwitchRow ();
+		open_task_sidebar.title = _("Open Task In Sidebar View");
+		Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		tasks_group.add (open_task_sidebar);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
 		content_box.append (sort_setting_group);

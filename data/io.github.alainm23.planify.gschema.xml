@@ -363,6 +363,12 @@
             <description>Play a sound when tasks are completed</description>
         </key>
 
+        <key name="open-task-sidebar" type="b">
+            <default>false</default>
+            <summary>Open Task In Sidebar View</summary>
+            <description>Open Task In Sidebar View</description>
+        </key>
+
         <key name="caldav-server-url" type="s">
             <default>""</default>
             <summary>CalDAV Server URL</summary>

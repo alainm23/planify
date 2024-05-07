@@ -592,7 +592,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else {
                 Timeout.add (Constants.DRAG_TIMEOUT, () => {
                     if (!on_drag) {
-                        edit = true;
+                        if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+                            Services.EventBus.get_default ().open_item (item);
+                        } else {
+                            edit = true;
+                        }
                     }
 
                     return GLib.Source.REMOVE;
