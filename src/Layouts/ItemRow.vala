@@ -28,7 +28,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Stack checked_stack;
     private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
@@ -48,6 +47,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
     private Gtk.Revealer pin_image_revealer;
+    private Gtk.Revealer reminder_revelaer;
+    private Gtk.Label reminder_count;
     
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
@@ -105,6 +106,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
                 pin_image_revealer.reveal_child = false;
+                reminder_revelaer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
@@ -363,6 +365,27 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         };
 
+        // Reminder Icon
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
+            pixel_size = 13
+        };
+
+        reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        
+        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = Gtk.Align.CENTER,
+            margin_start = 6,
+            css_classes = { "dim-label" },
+        };
+        
+        reminder_box.append (reminder_icon);
+        reminder_box.append (reminder_count);
+
+        reminder_revelaer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = reminder_box
+        };
+
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         content_main_box.append (checked_button_revealer);
         content_main_box.append (due_box_revealer);
@@ -472,7 +495,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         action_box.append (action_box_right);
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-
         details_grid.append (description_scrolled_window);
         details_grid.append (item_labels);
         details_grid.append (action_box);
@@ -498,6 +520,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (pin_image_revealer);
+        _itemrow_box.append (reminder_revelaer);
         _itemrow_box.append (description_image_revealer);
         _itemrow_box.append (select_revealer);
         _itemrow_box.append (project_label_revealer);
@@ -762,10 +785,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         item.reminder_added.connect ((reminder) => {
             reminder_button.add_reminder (reminder, item.reminders);
+            check_reminders ();
         });
 
         item.reminder_deleted.connect ((reminder) => {
             reminder_button.delete_reminder (reminder, item.reminders);
+            check_reminders ();
         });
     }
 
@@ -827,6 +852,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         check_due ();
         check_description ();
         check_pinboard ();
+        check_reminders ();
 
         if (!edit) {
             labels_summary.check_revealer ();
@@ -853,6 +879,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void check_pinboard () {
         pin_image_revealer.reveal_child = !edit && item.pinned;
+    }
+
+    private void check_reminders () {
+        reminder_count.label = item.reminders.size.to_string ();
+        reminder_revelaer.reveal_child = !edit && item.reminders.size > 0;
     }
 
     private void check_due () {
@@ -1053,7 +1084,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         duplicate_item.clicked.connect (() => {
             menu_handle_popover.popdown ();
-            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
     }
 

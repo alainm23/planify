@@ -19,7 +19,9 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {  
+public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
+    public bool is_creating { get; construct; }
+
     private Layouts.HeaderItem reminders_view;
     private Widgets.Calendar.Calendar calendar;
     private Widgets.DateTimePicker.TimePicker time_picker;
@@ -30,8 +32,9 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
 
     public signal void reminder_added (Objects.Reminder reminder);
 
-    public _ReminderPicker () {
+    public _ReminderPicker (bool is_creating = false) {
         Object (
+            is_creating: is_creating,
             position: Gtk.PositionType.BOTTOM,
             width_request: 250
         );
@@ -190,14 +193,33 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
     public void add_reminder (Objects.Reminder reminder) {
         if (!reminders_map.has_key (reminder.id)) {
             reminders_map [reminder.id] = new Widgets.ReminderPicker.ReminderRow (reminder);
-            reminders_view.add_child (reminders_map[reminder.id_string]);
+
+            reminders_map [reminder.id].deleted.connect (() => {
+                if (!is_creating) {
+                    reminder.delete ();
+                } else {
+                    delete_reminder (reminder);
+                }
+            });
+
+            reminders_view.add_child (reminders_map[reminder.id]);
         }
     }
 
     public void delete_reminder (Objects.Reminder reminder) {
-        if (reminders_map.has_key (reminder.id_string)) {
-            reminders_map[reminder.id_string].hide_destroy ();
-            reminders_map.unset (reminder.id_string);
+        if (reminders_map.has_key (reminder.id)) {
+            reminders_map[reminder.id].hide_destroy ();
+            reminders_map.unset (reminder.id);
         }
+    }
+
+    public Gee.ArrayList<Objects.Reminder> reminders () {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+
+        foreach (Widgets.ReminderPicker.ReminderRow row in reminders_map.values) {
+            return_value.add (row.reminder);
+        }
+
+        return return_value;
     }
 }

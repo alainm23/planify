@@ -321,4 +321,13 @@ public class Objects.Section : Objects.BaseObject {
         }
         return returned;
     }
+
+    public Objects.Section duplicate () {
+        var new_section = new Objects.Section ();
+        new_section.name = name;
+        new_section.color = color;
+        new_section.description = description;
+
+        return new_section;
+    }
 }

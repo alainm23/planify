@@ -458,7 +458,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
             foreach (var project in projects) {
-                if (project.backend_type == backend_type) {
+                if (project.backend_type == backend_type && !project.is_inbox_project) {
                     return_value.add (project);
                 }
             }

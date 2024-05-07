@@ -180,7 +180,6 @@ public class Dialogs.Section : Adw.Window {
         section.name = name_entry.text;
         section.description = description_entry.text;
         section.color = color_picker_row.color;
-        section.section_order = section.project.sections.size;
 
         if (!is_creating) {
             submit_button.is_loading = true;

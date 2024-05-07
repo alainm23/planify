@@ -115,9 +115,8 @@ public class Objects.Reminder : Objects.BaseObject {
     }
 
     public void delete () {
-        loading = true;
-
         if (item.project.backend_type == BackendType.TODOIST) {
+            loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_reminder (this);

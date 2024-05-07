@@ -168,7 +168,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var loading_spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            spinning = true
+            spinning = true,
+            margin_end = 6
         };
 
         loading_revealer = new Gtk.Revealer () {
@@ -642,6 +643,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "star-outline-thick-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "update-symbolic");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
@@ -660,6 +662,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         if (project.backend_type == BackendType.CALDAV) {
             menu_box.append (refresh_item);
         }
+
+        menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
@@ -719,6 +723,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         share_email_item.clicked.connect (() => {
             menu_popover.popdown ();
             project.share_mail ();
+        });
+
+        duplicate_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            Util.get_default ().duplicate_project.begin (project, project.parent_id);
         });
     }
 

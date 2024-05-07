@@ -42,6 +42,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 	private Widgets.LabelsSummary labels_summary;
     private Gtk.Revealer pinned_revealer;
     private Gtk.Revealer reminder_revealer;
+    private Gtk.Label reminder_count;
     private Gtk.Label subtaks_label;
     private Gtk.Revealer subtaks_revealer;
     private Gtk.Revealer footer_revealer;
@@ -229,15 +230,22 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			child = pinned_icon
 		};
 
-        var reminder_icon = new Adw.Bin () {
-            child =new Gtk.Image.from_icon_name ("alarm-symbolic"),
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic");
+
+        reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        
+        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = Gtk.Align.CENTER,
             margin_end = 6,
-            css_classes = { "upcoming-grid" }
+            css_classes = { "upcoming-grid" },
         };
+
+        reminder_box.append (reminder_icon);
+        reminder_box.append (reminder_count);
 
         reminder_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.SLIDE_RIGHT,
-			child = reminder_icon
+			child = reminder_box
 		};
 
         subtaks_label = new Gtk.Label (null) {
@@ -560,6 +568,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		labels_summary.update_request ();
 		labels_summary.check_revealer ();
         pinned_revealer.reveal_child = item.pinned;
+        reminder_count.label = item.reminders.size.to_string ();
         reminder_revealer.reveal_child = item.reminders.size > 0;
         update_subtasks ();
 		footer_revealer.reveal_child = due_box_revealer.reveal_child || labels_summary.reveal_child ||
@@ -746,7 +755,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         duplicate_item.clicked.connect (() => {
             menu_handle_popover.popdown ();
-            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
     }
 

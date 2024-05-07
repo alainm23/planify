@@ -902,9 +902,9 @@ We hope you’ll enjoy using Planify!""");
         item.delete_item ();
     }
 
-    public async void duplicate_item (Objects.Item item, string section_id = "", string parent_id = "") {
+    public async void duplicate_item (Objects.Item item, string project_id, string section_id = "", string parent_id = "", bool notify = true) {
         var new_item = item.duplicate ();
-        new_item.project_id = item.project_id;
+        new_item.project_id = project_id;
         new_item.section_id = section_id;
         new_item.parent_id = parent_id;
 
@@ -917,7 +917,7 @@ We hope you’ll enjoy using Planify!""");
             item.loading = false;
             item.sensitive = true;
 
-            yield insert_duplicate_item (new_item, item);
+            yield insert_duplicate_item (new_item, item, notify);
         } else if (item.project.backend_type == BackendType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             
@@ -926,7 +926,7 @@ We hope you’ll enjoy using Planify!""");
 
             if (response.status) {
                 new_item.id = response.data;
-                yield insert_duplicate_item (new_item, item);
+                yield insert_duplicate_item (new_item, item, notify);
             }
         } else if (item.project.backend_type == BackendType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
@@ -936,12 +936,12 @@ We hope you’ll enjoy using Planify!""");
             item.sensitive = true;
 
             if (response.status) {
-                yield insert_duplicate_item (new_item, item);
+                yield insert_duplicate_item (new_item, item, notify);
             }
         }
     }
 
-    private async void insert_duplicate_item (Objects.Item new_item, Objects.Item item) {
+    private async void insert_duplicate_item (Objects.Item new_item, Objects.Item item, bool notify = true) {
         if (new_item.has_parent ()) {
 			new_item.parent.add_item_if_not_exists (new_item);
 		} else {
@@ -969,11 +969,103 @@ We hope you’ll enjoy using Planify!""");
         }
 
         foreach (Objects.Item subitem in item.items) {
-            yield duplicate_item (subitem, new_item.section_id, new_item.id);
+            yield duplicate_item (subitem, new_item.project_id, new_item.section_id, new_item.id, notify);
         }
 
-        Services.EventBus.get_default ().send_notification (
-            Util.get_default ().create_toast (_("Task duplicated"))
-        );
+        if (notify) {
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Task duplicated"))
+            );
+        }
+    }
+
+    public async void duplicate_section (Objects.Section section, string project_id, bool notify = true) {
+        var new_section = section.duplicate ();
+        new_section.project_id = project_id;
+
+        section.loading = true;
+        section.sensitive = false;
+
+        if (new_section.project.backend_type == BackendType.LOCAL) {
+            new_section.id = Util.get_default ().generate_id (new_section);
+            yield insert_duplicate_section (new_section, section, notify);
+        } else if (new_section.project.backend_type == BackendType.TODOIST) {
+            HttpResponse response = yield Services.Todoist.get_default ().add (new_section);
+            if (response.status) {
+                new_section.id = response.data;
+                yield insert_duplicate_section (new_section, section, notify);
+            }
+        }
+    }
+
+    private async void insert_duplicate_section (Objects.Section new_section, Objects.Section section, bool notify = true) {
+        new_section.project.add_section_if_not_exists (new_section);
+
+        foreach (Objects.Item item in section.items) {
+            yield duplicate_item (item, new_section.project_id, new_section.id, item.parent_id, false);
+        }
+
+        section.loading = false;
+        section.sensitive = true;
+
+        if (notify) {
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Section duplicated"))
+            );
+        }
+    }
+
+    public async void duplicate_project (Objects.Project project, string parent_id = "") {
+        var new_project = project.duplicate ();
+        new_project.parent_id = parent_id;
+
+        project.loading = true;
+
+        if (project.backend_type == BackendType.LOCAL) {
+            new_project.id = Util.get_default ().generate_id (new_project);
+            new_project.backend_type = BackendType.CALDAV;
+            Services.Database.get_default ().insert_project (new_project);
+
+            foreach (Objects.Item item in project.items) {
+                yield duplicate_item (item, new_project.id, item.section_id, item.parent_id, false);
+            }
+
+            foreach (Objects.Section section in project.sections) {
+                yield duplicate_section (section, new_project.id, false);
+            }
+
+            project.loading = false;
+
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Project duplicated"))
+            );
+        } else if (project.backend_type == BackendType.TODOIST) {            
+            Services.Todoist.get_default ().duplicate_project.begin (project, (obj, res) => {
+                project.loading = false;
+                
+                if (Services.Todoist.get_default ().duplicate_project.end (res).status) {
+                    Services.Todoist.get_default ().sync_async ();
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            new_project.id = Util.get_default ().generate_id (new_project);
+            new_project.backend_type = BackendType.CALDAV;
+
+            bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
+
+            if (status) {
+                Services.Database.get_default ().insert_project (new_project);
+            
+                foreach (Objects.Item item in project.items) {
+                    yield duplicate_item (item, new_project.id, "", item.parent_id, false);
+                }
+    
+                project.loading = false;
+    
+                Services.EventBus.get_default ().send_notification (
+                    Util.get_default ().create_toast (_("Project duplicated"))
+                );
+            }
+        }
     }
 }

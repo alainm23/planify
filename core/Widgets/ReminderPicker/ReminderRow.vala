@@ -31,6 +31,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     }
 
     public signal void activated ();
+    public signal void deleted ();
 
     public ReminderRow (Objects.Reminder reminder) {
         Object (
@@ -84,7 +85,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         });
 
         remove_button.clicked.connect (() => {
-            reminder.delete ();
+            deleted ();
         });
 
         reminder.loading_changed.connect ((value) => {

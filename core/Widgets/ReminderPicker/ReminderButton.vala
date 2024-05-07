@@ -21,17 +21,18 @@
 
 public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     public bool is_board { get; construct; }
+    public bool is_creating { get; construct; }
 
     private Gtk.Revealer indicator_revealer;
     private Gtk.Label value_label;
     private Widgets.ReminderPicker._ReminderPicker picker;
 
     public signal void reminder_added (Objects.Reminder reminder);
-    
 
-    public ReminderButton () {
+    public ReminderButton (bool is_creating = false) {
         Object (
             is_board: false,
+            is_creating: is_creating,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Add Reminders")
@@ -41,12 +42,13 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
     public ReminderButton.for_board () {
         Object (
             is_board: true,
+            is_creating: false,
             tooltip_text: _("Add Reminders")
         );
     }
 
     construct {
-        picker = new Widgets.ReminderPicker._ReminderPicker ();
+        picker = new Widgets.ReminderPicker._ReminderPicker (is_creating);
 
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
@@ -118,7 +120,12 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         }
 
         picker.reminder_added.connect ((reminder) => {
-            reminder_added (reminder);
+            if (!is_creating) {
+                reminder_added (reminder);
+            } else {
+                reminder.id = Util.get_default ().generate_id (reminder);
+                add_reminder (reminder, new Gee.ArrayList<Objects.Reminder> ());
+            }
         });
     }
 
@@ -165,5 +172,9 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         }
 
         value_label.tooltip_text = value_label.label;
+    }
+
+    public Gee.ArrayList<Objects.Reminder> reminders () {
+        return picker.reminders ();
     }
 }

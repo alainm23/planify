@@ -152,18 +152,6 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    bool _sensitive = true;
-    public bool sensitive {
-        set {
-            _sensitive = value;
-            sensitive_change ();
-        }
-
-        get {
-            return _sensitive;
-        }
-    } 
-
     string _ics = "";
     public string ics {
         get {
@@ -259,7 +247,10 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Attachment> _attachments;
     public Gee.ArrayList<Objects.Attachment> attachments {
         get {
-            _attachments = Services.Database.get_default ().get_attachments_by_item (this);
+            if (_attachments == null) {
+                _attachments = Services.Database.get_default ().get_attachments_by_item (this);
+            }
+            
             return _attachments;
         }
     }
@@ -270,7 +261,6 @@ public class Objects.Item : Objects.BaseObject {
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
     public signal void show_item_changed ();
-    public signal void sensitive_change ();
     public signal void collapsed_change ();
     public signal void attachment_added (Objects.Attachment attachment);
     public signal void attachment_deleted (Objects.Attachment attachment);
@@ -758,12 +748,17 @@ public class Objects.Item : Objects.BaseObject {
         } 
     }
 
-    public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder) {
+    public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder, bool insert_db = true) {
         Objects.Reminder? return_value = null;
         lock (_reminders) {
             return_value = get_reminder (reminder);
             if (return_value == null) {
-                Services.Database.get_default ().insert_reminder (reminder);
+                if (insert_db) {
+                    Services.Database.get_default ().insert_reminder (reminder);
+                } else {
+                    reminder_added (reminder);
+                }
+                
                 add_reminder (reminder);
             }
             return return_value;

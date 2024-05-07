@@ -10,17 +10,24 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PinButton pin_button;
     private Widgets.PriorityButton priority_button;
+    private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
-    public signal void add_item_db (Objects.Item item);
+    public signal void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders);
 
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
     public bool create_more { get; set; default = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more"); }
+
+    public bool is_loading {
+        set {
+            submit_button.is_loading = value;
+        }
+    }
 
     public QuickAdd (bool is_window_quick_add = false) {
         Object (
@@ -89,6 +96,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton ();
+        reminder_button = new Widgets.ReminderPicker.ReminderButton (true);
         label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
@@ -103,6 +111,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         action_box_right.append (label_button);
+        action_box_right.append (reminder_button);
         action_box_right.append (priority_button);
         action_box_right.append (pin_button);
 
@@ -332,41 +341,37 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         if (item.project.backend_type == BackendType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
-            add_item_db (item);
-
-            if (item.has_parent ()) {
-                item.parent.collapsed = true;
-            }
+            _add_item (item);
         } else if (item.project.backend_type == BackendType.TODOIST) {
-            submit_button.is_loading = true;
+            is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                submit_button.is_loading = false;
+                is_loading = false;
 
                 if (response.status) {
                     item.id = response.data;
-                    add_item_db (item);
-                    
-                    if (item.has_parent ()) {
-                        item.parent.collapsed = true;
-                    }
+                    _add_item (item);
                 }
             });
         } else if (item.project.backend_type == BackendType.CALDAV) {
-            submit_button.is_loading = true;
+            is_loading = true;
             item.id = Util.get_default ().generate_id ();
             Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
                 HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
-                submit_button.is_loading = false;
+                is_loading = false;
 
                 if (response.status) {
-                    add_item_db (item);
-                    
-                    if (item.has_parent ()) {
-                        item.parent.collapsed = true;
-                    }
+                    _add_item (item);
                 }
             });
+        }
+    }
+
+    private void _add_item (Objects.Item item) {
+        add_item_db (item, reminder_button.reminders ());
+                    
+        if (item.has_parent ()) {
+            item.parent.collapsed = true;
         }
     }
 

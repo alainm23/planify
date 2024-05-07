@@ -36,6 +36,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	private Gtk.Label count_label;
 	private Gtk.Revealer count_revealer;
 	private Gtk.Revealer placeholder_revealer;
+	private Widgets.LoadingButton add_button;
 
 	public bool is_inbox_section {
 		get {
@@ -53,6 +54,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	public bool is_creating {
 		get {
 			return section.id == "";
+		}
+	}
+
+	public bool is_loading {
+		set {
+			add_button.is_loading = value;
 		}
 	}
 
@@ -112,7 +119,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		count_revealer.child = count_label;
 
-		var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
+		add_button = new Widgets.LoadingButton.with_icon ("plus-large-symbolic") {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			css_classes = { "flat" }
@@ -132,7 +139,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		var actions_box_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            reveal_child = false,
+            reveal_child = true,
 			child = actions_box,
 			margin_end = 6
         };
@@ -200,7 +207,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		checked_revealer.child = checked_listbox_grid;
 
 		var bottom_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			hexpand = true
+			hexpand = true,
+			margin_end = 12
 		};
 
 		bottom_grid.append (listbox);
@@ -222,10 +230,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		content_box.append (bottom_revealer);
 
 		content_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+			transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+			child = content_box
 		};
-
-		content_revealer.child = content_box;
 
 		child = content_revealer;
 
@@ -410,13 +417,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         sectionrow_grid.add_controller (motion_gesture);
 
         motion_gesture.enter.connect (() => {
-            actions_box_revealer.reveal_child = true;
+            //  actions_box_revealer.reveal_child = true;
 			name_editable.show_edit = true;
         });
 
         motion_gesture.leave.connect (() => {
 			if (!menu_button.active) {
-				actions_box_revealer.reveal_child = false;
+				//  actions_box_revealer.reveal_child = false;
 				name_editable.show_edit = false;
 			}
         });
@@ -471,6 +478,14 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		section.project.filter_updated.connect (() => {
 			listbox.invalidate_filter ();
+		});
+
+		section.sensitive_change.connect (() => {
+			sensitive = section.sensitive;
+		});
+
+		section.loading_change.connect (() => {
+			is_loading = section.loading;
 		});
 	}
 
@@ -608,6 +623,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
 		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
+		var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
@@ -622,6 +638,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		menu_box.append (move_item);
 		menu_box.append (manage_item);
+		menu_box.append (duplicate_item);
 
 		if (!is_inbox_section) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -684,6 +701,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			dialog.response.connect ((response) => {
 				if (response == "delete") {
+					is_loading = true;
 					if (section.project.backend_type == BackendType.TODOIST) {
 						Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
 							Services.Todoist.get_default ().delete.end (res);
@@ -695,6 +713,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 				}
 			});
 		});
+
+		duplicate_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            Util.get_default ().duplicate_section.begin (section, section.project_id);
+        });
 
 		return menu_popover;
 	}
@@ -828,18 +851,19 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		string old_section_id = section.project_id;
 		section.project_id = project_id;
 
+		is_loading = true;
+
 		if (section.project.backend_type == BackendType.TODOIST) {
-			// menu_loading_button.is_loading = true;
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
 				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
 					Services.Database.get_default ().move_section (section, old_section_id);
-					// menu_loading_button.is_loading = false;
-				} else {
-					// menu_loading_button.is_loading = false;
 				}
+
+				is_loading = false;
 			});
 		} else if (section.project.backend_type == BackendType.LOCAL) {
 			Services.Database.get_default ().move_section (section, project_id);
+			is_loading = false;
 		}
 	}
 }

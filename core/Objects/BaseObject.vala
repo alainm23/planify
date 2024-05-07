@@ -54,8 +54,21 @@ public class Objects.BaseObject : GLib.Object {
         }
     }
 
-    public signal void loading_change ();
+    bool _sensitive = true;
+    public bool sensitive {
+        set {
+            _sensitive = value;
+            sensitive_change ();
+        }
 
+        get {
+            return _sensitive;
+        }
+    }
+
+    public signal void loading_change ();
+    public signal void sensitive_change ();
+    
     public string view_id { get; set; default = ""; }
 
     public string type_delete {

@@ -42,19 +42,43 @@ public class Dialogs.QuickAdd : Adw.Window {
         quick_add_widget.add_item_db.connect ((add_item_db));
     }
 
-    private void add_item_db (Objects.Item item) {
+    private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
         if (item.has_parent ()) {
-			Services.Database.get_default ().get_item (item.parent_id).add_item_if_not_exists (item);
-            quick_add_widget.added_successfully ();
-			return;
-		}
-
-        if (item.section_id != "") {
-			Services.Database.get_default ().get_section (item.section_id).add_item_if_not_exists (item);
+			item.parent.add_item_if_not_exists (item);
 		} else {
-			Services.Database.get_default ().get_project (item.project_id).add_item_if_not_exists (item);
-		}
+            if (item.section_id != "") {
+                item.section.add_item_if_not_exists (item);
+            } else {
+                item.project.add_item_if_not_exists (item);
+            }
+        }
 
+        if (reminders.size > 0) {
+            quick_add_widget.is_loading = true;
+
+            foreach (Objects.Reminder reminder in reminders) {
+                reminder.item_id = item.id;
+
+                if (item.project.backend_type == BackendType.TODOIST) {
+                    Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
+                        HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                        item.loading = false;
+    
+                        if (response.status) {
+                            reminder.id = response.data;
+                        } else {
+                            reminder.id = Util.get_default ().generate_id (reminder);
+                        }
+    
+                        item.add_reminder_if_not_exists (reminder);
+                    });
+                } else {
+                    reminder.id = Util.get_default ().generate_id (reminder);
+                    item.add_reminder_if_not_exists (reminder);
+                }
+            }
+        }
+        
         Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);
         quick_add_widget.added_successfully ();
     }

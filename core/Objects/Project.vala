@@ -471,6 +471,7 @@ public class Objects.Project : Objects.BaseObject {
             return_value = get_section (new_section.id);
             if (return_value == null) {
                 new_section.set_project (this);
+                new_section.section_order = new_section.project.sections.size;
                 add_section (new_section);
                 Services.Database.get_default ().insert_section (new_section);
                 return_value = new_section;
@@ -814,5 +815,18 @@ public class Objects.Project : Objects.BaseObject {
                 }
             }
         });
+    }
+
+    public Objects.Project duplicate () {
+        var new_project = new Objects.Project ();
+        new_project.name = name;
+        new_project.due_date = due_date;
+        new_project.color = color;
+        new_project.emoji = emoji;
+        new_project.description = description;
+        new_project.icon_style = icon_style;
+        new_project.backend_type = backend_type;
+
+        return new_project;
     }
 }

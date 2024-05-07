@@ -42,6 +42,12 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         }
     }
 
+    public bool is_loading {
+		set {
+			add_button.is_loading = value;
+		}
+	}
+
     public SectionBoard (Objects.Section section) {
         Object (
             section: section,
@@ -356,6 +362,14 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 		section.project.filter_updated.connect (() => {
 			listbox.invalidate_filter ();
 		});
+
+        section.sensitive_change.connect (() => {
+			sensitive = section.sensitive;
+		});
+
+		section.loading_change.connect (() => {
+			is_loading = section.loading;
+		});
     }
 
     private void update_request () {
@@ -479,6 +493,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Section"), "edit-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
         var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
         
@@ -491,6 +506,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             menu_box.append (edit_item);
             menu_box.append (move_item);
             menu_box.append (manage_item);
+            menu_box.append (duplicate_item);
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (delete_item);
         } else {
@@ -554,19 +570,23 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
+                    is_loading = true;
+
                     if (section.project.backend_type == BackendType.TODOIST) {
-                        //  remove_button.is_loading = true;
                         Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
                             Services.Database.get_default ().delete_section (section);
-                            // remove_button.is_loading = false;
-                            // message_dialog.hide_destroy ();
                         });
                     } else {
                         Services.Database.get_default ().delete_section (section);
                     }
                 }
             });
+        });
+
+        duplicate_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            Util.get_default ().duplicate_section.begin (section, section.project_id);
         });
 
         return menu_popover;
@@ -584,17 +604,17 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         section.project_id = project_id;
 
         if (section.project.backend_type == BackendType.TODOIST) {
-            // menu_loading_button.is_loading = true;
+            is_loading = true;
+
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
                 if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                     Services.Database.get_default ().move_section (section, old_section_id);
-                    // menu_loading_button.is_loading = false;
-                } else {
-                    // menu_loading_button.is_loading = false;
+                    is_loading = false;
                 }
             });
         } else if (section.project.backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().move_section (section, project_id);
+            is_loading = false;
         }
     }
 
