@@ -468,19 +468,25 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
             popover = build_button_context_menu (),
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            hexpand = Services.EventBus.get_default ().mobile_mode ? true : false,
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.END : Gtk.Align.FILL
         };
     
-        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
             margin_top = 6,
             hexpand = true,
             sensitive = !item.project.is_deck
         };
 
+        if (Services.EventBus.get_default ().mobile_mode) {
+            action_box.orientation = Gtk.Orientation.VERTICAL;
+        }
+
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            halign = Gtk.Align.END
+            hexpand = Services.EventBus.get_default ().mobile_mode ? false : true,
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END
         };
 
         action_box_right.append (add_button);
@@ -493,6 +499,26 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         action_box.append (schedule_button);
         action_box.append (action_box_right);
+
+        Services.EventBus.get_default ().mobile_mode_change.connect (() => {
+            if (Services.EventBus.get_default ().mobile_mode) {
+                action_box_right.hexpand = false;
+                action_box_right.halign = Gtk.Align.FILL;
+
+                menu_button.hexpand = true;
+                menu_button.halign = Gtk.Align.END;
+
+                action_box.orientation = Gtk.Orientation.VERTICAL;
+            } else {
+                action_box_right.hexpand = true;
+                action_box_right.halign = Gtk.Align.END;
+
+                menu_button.hexpand = false;
+                menu_button.halign = Gtk.Align.FILL;
+
+                action_box.orientation = Gtk.Orientation.HORIZONTAL;
+            }
+        });
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         details_grid.append (description_scrolled_window);

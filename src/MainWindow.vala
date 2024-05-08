@@ -124,6 +124,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("mobile-mode", overlay_split_view, "collapsed", GLib.SettingsBindFlags.DEFAULT);
 
 		Timeout.add (250, () => {
 			init_backend ();
@@ -174,6 +175,8 @@ public class MainWindow : Adw.ApplicationWindow {
 						}
 					});
 				}
+			} else if (key == "mobile-mode") {
+				Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
 			}
 		});
 

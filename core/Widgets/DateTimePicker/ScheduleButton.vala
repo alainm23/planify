@@ -58,7 +58,6 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         Object (
             is_board: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER,
             tooltip_text: _("Schedule")
         );
     }
