@@ -14,6 +14,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.LabelPicker.LabelButton label_button;
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
+    private Gtk.ToggleButton create_more_button;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
@@ -21,7 +22,6 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
-    public bool create_more { get; set; default = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more"); }
 
     public bool is_loading {
         set {
@@ -136,12 +136,12 @@ public class Layouts.QuickAdd : Adw.Bin {
             css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
         };
 
-        var create_more_button = new Gtk.ToggleButton () {
+        create_more_button = new Gtk.ToggleButton () {
             css_classes = { "flat" },
             tooltip_text = _("Create More"),
-            icon_name = "arrow-turn-down-right-symbolic"
+            icon_name = "arrow-turn-down-right-symbolic",
+            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
         };
-        Services.Settings.get_default ().settings.bind ("quick-add-create-more", create_more_button, "active", GLib.SettingsBindFlags.DEFAULT);
 
         var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -268,7 +268,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
 
         content_entry.activate.connect (() => {
-            create_more = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more");
             add_item ();
         });
 
@@ -276,7 +275,6 @@ public class Layouts.QuickAdd : Adw.Bin {
         content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             if (keyval == 65293 && (ctrl_pressed || shift_pressed)) {
-                create_more = true;
                 add_item ();
                 return false;
             }
@@ -299,10 +297,12 @@ public class Layouts.QuickAdd : Adw.Bin {
 		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65507) {
 				ctrl_pressed = true;
+                create_more_button.active = ctrl_pressed || shift_pressed;
 			}
 
             if (keyval == 65505) {
                 shift_pressed = true;
+                create_more_button.active = ctrl_pressed || shift_pressed;
             }
 
 			return false;
@@ -311,11 +311,17 @@ public class Layouts.QuickAdd : Adw.Bin {
         event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65507) {
 				ctrl_pressed = false;
+                create_more_button.active = ctrl_pressed || shift_pressed;
 			}
 
             if (keyval == 65505) {
                 shift_pressed = false;
+                create_more_button.active = ctrl_pressed || shift_pressed;
             }
+        });
+
+        create_more_button.activate.connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         });
     }
 
@@ -369,7 +375,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         added_image.add_css_class ("fancy-turn-animation");
 
         Timeout.add (750, () => {
-            if (create_more) {
+            if (create_more_button.active) {
                 main_stack.visible_child_name = "main";
                 added_image.remove_css_class ("fancy-turn-animation");
 
