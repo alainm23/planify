@@ -136,30 +136,19 @@ public class Layouts.QuickAdd : Adw.Bin {
             css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
         };
 
-        var menu_button = new Gtk.MenuButton () {
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			popover = build_context_menu_popover (),
-			icon_name = "view-more-symbolic",
-			css_classes = { "flat" }
-		};
-
-        var switch_button = new Gtk.Switch () {
-            css_classes = { "switch-min" },
-            valign = Gtk.Align.CENTER
+        var create_more_button = new Gtk.ToggleButton () {
+            css_classes = { "flat" },
+            tooltip_text = _("Create More"),
+            icon_name = "arrow-turn-down-right-symbolic"
         };
+        Services.Settings.get_default ().settings.bind ("quick-add-create-more", create_more_button, "active", GLib.SettingsBindFlags.DEFAULT);
 
-        //  var switch_button = new Gtk.ToggleButton () {
-        //      css_classes = { "flat" },
-        //      icon_name = "arrow3-right-symbolic"
-        //  };
-
-        var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             halign = END
         };
 
-        submit_cancel_grid.append (switch_button);
+        submit_cancel_grid.append (create_more_button);
         submit_cancel_grid.append (submit_button);
         
         project_picker_button = new Widgets.ProjectPicker.ProjectPickerButton ();
@@ -487,27 +476,4 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.child_order = index;
         item.custom_order = true;
     }
-
-    private Gtk.Popover build_context_menu_popover () {
-        var item_switch = new Widgets.ContextMenu.MenuSwitch (_("Create more"), null) {
-            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
-        };
-
-		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (item_switch);
-
-		var popover = new Gtk.Popover () {
-			has_arrow = false,
-			position = Gtk.PositionType.BOTTOM,
-			child = menu_box,
-			width_request = 250
-		};
-
-        item_switch.activate_item.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", item_switch.active);
-        });
-
-		return popover;
-	}
 }

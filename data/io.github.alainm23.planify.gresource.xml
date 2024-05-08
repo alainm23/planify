@@ -86,6 +86,7 @@
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
     <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -146,6 +147,7 @@
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
     <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -206,5 +208,6 @@
     <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
     <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
     <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
   </gresource>
 </gresources>
