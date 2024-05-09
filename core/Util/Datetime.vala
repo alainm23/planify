@@ -77,6 +77,10 @@ public class Utils.Datetime {
         return returned;
     }
 
+    public static string get_relative_datetime (GLib.DateTime datetime) {
+        return Granite.DateTime.get_relative_datetime (datetime);
+    }
+
     public static string get_default_time_format () {
         return Granite.DateTime.get_default_time_format (
             is_clock_format_12h (), false

@@ -98,8 +98,8 @@ public class Views.List : Gtk.Grid {
         };
 
         if (!project.is_inbox_project) {
-            content_box.append (due_revealer);
             content_box.append (description_widget);
+            content_box.append (due_revealer);
         }
 
         content_box.append (filters);
@@ -263,16 +263,22 @@ public class Views.List : Gtk.Grid {
 
     private void update_duedate () {
         due_image.icon_name = "month-symbolic";
+        due_image.css_classes = { };
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
+            due_label.label = Utils.Datetime.get_relative_datetime (datetime);
 
             if (Utils.Datetime.is_today (datetime)) {
                 due_image.icon_name = "star-outline-thick-symbolic";
+                due_image.add_css_class ("today-color");
+            } else if (Utils.Datetime.is_overdue (datetime)) {
+                due_image.icon_name = "month-symbolic";
+                due_image.add_css_class ("overdue-color");
             } else {
                 due_image.icon_name = "month-symbolic";
+                due_image.add_css_class ("upcoming-color");
             }
 
             due_revealer.reveal_child = true;
@@ -286,29 +292,27 @@ public class Views.List : Gtk.Grid {
             xalign = 0
         };
 
-        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
-            margin_top = 6,
-            margin_bottom = 6,
+        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3
         };
         due_box.append (due_image);
         due_box.append (due_label);
 
-        var due_date_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_start = 21
+        var due_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12,
+            margin_start = 24
         };
-        
-        due_date_box.append (due_box);
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        due_content.append (due_box);
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
 
         var due_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = due_content
         };
-        due_revealer.child = due_date_box;
 
         var gesture = new Gtk.GestureClick ();
-        gesture.set_button (1);
-        due_date_box.add_controller (gesture);
-
+        due_box.add_controller (gesture);
         gesture.pressed.connect ((n_press, x, y) => {
             var dialog = new Dialogs.DatePicker (_("When?"));
 
@@ -332,45 +336,4 @@ public class Views.List : Gtk.Grid {
 
         return due_revealer;
     }
-
-    //  private void build_description_popover () {
-    //      if (description_popover != null) {
-    //          description_popover.width_request = description_label.get_width ();
-    //          description_popover.popup ();
-    //          return;
-    //      }
-
-    //      description_textview = new Widgets.HyperTextView (_("Note")) {
-    //          left_margin = 6,
-    //          right_margin = 6,
-    //          top_margin = 6,
-    //          bottom_margin = 6,
-    //          wrap_mode = Gtk.WrapMode.WORD_CHAR,
-    //          hexpand = true,
-    //          vexpand = true
-    //      };
-    //      description_textview.set_text (project.description);
-    //      description_textview.remove_css_class ("view");
-
-    //      var description_card = new Adw.Bin () {
-    //          child = description_textview,
-    //          css_classes = { "card" }
-    //      };
-
-    //      description_popover = new Gtk.Popover () {
-    //          has_arrow = false,
-    //          child = description_card,
-    //          position = Gtk.PositionType.BOTTOM,
-    //          width_request = description_label.get_width (),
-    //          height_request = 96
-    //      };
-
-    //      description_popover.set_parent (description_label);
-    //      description_popover.popup ();
-
-    //      description_textview.changed.connect (() => {
-    //          project.description = description_textview.get_text ();
-    //          project.update_local ();
-    //      });
-    //  }
 }

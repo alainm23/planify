@@ -22,6 +22,10 @@
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
+    private Gtk.Image due_image;
+    private Gtk.Label due_label;
+    private Gtk.Revealer due_revealer;
+
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
 
@@ -40,6 +44,8 @@ public class Views.Board : Adw.Bin {
             margin_start = 27,
             margin_end = 12
         };
+
+        due_revealer = build_due_date_widget ();
 
         var filters = new Widgets.FilterFlowBox (project) {
             valign = Gtk.Align.START,
@@ -101,7 +107,9 @@ public class Views.Board : Adw.Bin {
 
         if (!project.is_inbox_project) {
             content_box.append (description_widget);
+            content_box.append (due_revealer);
         }
+
         content_box.append (filters);
 		content_box.append (flowbox_scrolled);
 
@@ -156,7 +164,9 @@ public class Views.Board : Adw.Bin {
         });
     }
     
-    public void update_request () {}
+    public void update_request () {
+        update_duedate ();
+    }
 
     public void add_sections () {
         add_inbox_section ();
@@ -179,5 +189,81 @@ public class Views.Board : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         inbox_board.prepare_new_item (content);
+    }
+
+    private void update_duedate () {
+        due_image.icon_name = "month-symbolic";
+        due_revealer.reveal_child = false;
+
+        if (project.due_date != "") {
+            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
+
+            if (Utils.Datetime.is_today (datetime)) {
+                due_image.icon_name = "star-outline-thick-symbolic";
+                due_image.add_css_class ("today-color");
+            } else if (Utils.Datetime.is_overdue (datetime)) {
+                due_image.icon_name = "month-symbolic";
+                due_image.add_css_class ("overdue-color");
+            } else {
+                due_image.icon_name = "month-symbolic";
+                due_image.add_css_class ("upcoming-color");
+            }
+
+            due_revealer.reveal_child = true;
+        }
+    }
+
+    private Gtk.Revealer build_due_date_widget () {
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");   
+
+        due_label = new Gtk.Label (_("Schedule")) {
+            xalign = 0
+        };
+
+        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 3
+        };
+        due_box.append (due_image);
+        due_box.append (due_label);
+
+        var due_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12,
+            margin_start = 24,
+            margin_end = 24
+        };
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        due_content.append (due_box);
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var due_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = due_content
+        };
+
+        var gesture = new Gtk.GestureClick ();
+        due_box.add_controller (gesture);
+        gesture.pressed.connect ((n_press, x, y) => {
+            var dialog = new Dialogs.DatePicker (_("When?"));
+
+            if (project.due_date != "") {
+                dialog.datetime = Utils.Datetime.get_date_from_string (project.due_date);
+                dialog.clear = true;
+            }
+
+            dialog.show ();
+
+            dialog.date_changed.connect (() => {
+                if (dialog.datetime == null) {
+                    project.due_date = "";
+                } else {
+                    project.due_date = dialog.datetime.to_string ();
+                }
+                
+                project.update_local ();
+            });
+        });
+
+        return due_revealer;
     }
 }

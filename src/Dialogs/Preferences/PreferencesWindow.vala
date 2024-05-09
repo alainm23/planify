@@ -135,6 +135,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_general_page ());
 		});
 
+		var task_setting_row = new Adw.ActionRow ();
+		task_setting_row.activatable = true;
+		task_setting_row.add_prefix (generate_icon ("check-round-outline-symbolic"));
+		task_setting_row.add_suffix (generate_icon ("go-next-symbolic"));
+		task_setting_row.title = _("Task Setting");
+
+		task_setting_row.activated.connect (() => {
+			push_subpage (get_task_setting_page ());
+		});
+
 		var sidebar_row = new Adw.ActionRow ();
 		sidebar_row.activatable = true;
 		sidebar_row.add_prefix (generate_icon ("dock-left-symbolic"));
@@ -184,6 +194,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var personalization_group = new Adw.PreferencesGroup ();
 		personalization_group.add (general_row);
+		personalization_group.add (task_setting_row);
 		personalization_group.add (sidebar_row);
 		personalization_group.add (appearance_row);
 		personalization_group.add (quick_add_row);
@@ -434,82 +445,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		datetime_group.add (start_week_row);
 
-		var tasks_group = new Adw.PreferencesGroup ();
-		tasks_group.title = _("Task Settings");
-
-		var complete_tasks_model = new Gtk.StringList (null);
-		complete_tasks_model.append (_("Instantly"));
-		complete_tasks_model.append (_("Wait 2500 Milliseconds"));
-
-		var complete_tasks_row = new Adw.ComboRow ();
-		complete_tasks_row.title = _("Complete Task");
-		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
-		complete_tasks_row.model = complete_tasks_model;
-		complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
-
-		tasks_group.add (complete_tasks_row);
-
-		var default_priority_model = new Gtk.StringList (null);
-		default_priority_model.append (_("Priority 1"));
-		default_priority_model.append (_("Priority 2"));
-		default_priority_model.append (_("Priority 3"));
-		default_priority_model.append (_("None"));
-
-		var default_priority_row = new Adw.ComboRow ();
-		default_priority_row.title = _("Default Priority");
-		default_priority_row.model = default_priority_model;
-		default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
-
-		tasks_group.add (default_priority_row);
-
-		var underline_completed_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
-		};
-
-		var underline_completed_row = new Adw.ActionRow ();
-		underline_completed_row.title = _("Underline Completed Tasks");
-		underline_completed_row.set_activatable_widget (underline_completed_switch);
-		underline_completed_row.add_suffix (underline_completed_switch);
-
-		tasks_group.add (underline_completed_row);
-
-		var tasks_position_model = new Gtk.StringList (null);
-		tasks_position_model.append (_("Top"));
-		tasks_position_model.append (_("Bottom"));
-
-		var tasks_position_row = new Adw.ComboRow ();
-		tasks_position_row.title = _("New Task Position");
-		tasks_position_row.model = tasks_position_model;
-		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
-
-		tasks_group.add (tasks_position_row);
-
-		var show_completed_subtasks = new Adw.SwitchRow ();
-		show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
-		Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks, "active", GLib.SettingsBindFlags.DEFAULT);
-
-		tasks_group.add (show_completed_subtasks);
-
-		var task_complete_tone = new Adw.SwitchRow ();
-		task_complete_tone.title = _("Task Complete Tone");
-		task_complete_tone.subtitle = _("Play a sound when tasks are completed");
-		Services.Settings.get_default ().settings.bind ("task-complete-tone", task_complete_tone, "active", GLib.SettingsBindFlags.DEFAULT);
-
-		tasks_group.add (task_complete_tone);
-
-		var open_task_sidebar = new Adw.SwitchRow ();
-		open_task_sidebar.title = _("Open Task In Sidebar View");
-		Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active", GLib.SettingsBindFlags.DEFAULT);
-
-		tasks_group.add (open_task_sidebar);
-
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
 		content_box.append (sort_setting_group);
 		content_box.append (de_group);
 		content_box.append (datetime_group);
-		content_box.append (tasks_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -566,6 +506,111 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_enum ("start-week", (int) start_week_row.selected);
 		});
 
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_task_setting_page () {
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Task Settings"));
+
+		var group = new Adw.PreferencesGroup ();
+
+		var complete_tasks_model = new Gtk.StringList (null);
+		complete_tasks_model.append (_("Instantly"));
+		complete_tasks_model.append (_("Wait 2500 Milliseconds"));
+
+		var complete_tasks_row = new Adw.ComboRow ();
+		complete_tasks_row.title = _("Complete Task");
+		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
+		complete_tasks_row.model = complete_tasks_model;
+		complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
+
+		group.add (complete_tasks_row);
+
+		var default_priority_model = new Gtk.StringList (null);
+		default_priority_model.append (_("Priority 1"));
+		default_priority_model.append (_("Priority 2"));
+		default_priority_model.append (_("Priority 3"));
+		default_priority_model.append (_("None"));
+
+		var default_priority_row = new Adw.ComboRow ();
+		default_priority_row.title = _("Default Priority");
+		default_priority_row.model = default_priority_model;
+		default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
+
+		group.add (default_priority_row);
+
+		var underline_completed_switch = new Gtk.Switch () {
+			valign = Gtk.Align.CENTER,
+			active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
+		};
+
+		var underline_completed_row = new Adw.ActionRow ();
+		underline_completed_row.title = _("Underline Completed Tasks");
+		underline_completed_row.set_activatable_widget (underline_completed_switch);
+		underline_completed_row.add_suffix (underline_completed_switch);
+
+		group.add (underline_completed_row);
+
+		var tasks_position_model = new Gtk.StringList (null);
+		tasks_position_model.append (_("Top"));
+		tasks_position_model.append (_("Bottom"));
+
+		var tasks_position_row = new Adw.ComboRow ();
+		tasks_position_row.title = _("New Task Position");
+		tasks_position_row.model = tasks_position_model;
+		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
+
+		group.add (tasks_position_row);
+
+		var show_completed_subtasks = new Adw.SwitchRow ();
+		show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
+		Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (show_completed_subtasks);
+
+		var task_complete_tone = new Adw.SwitchRow ();
+		task_complete_tone.title = _("Task Complete Tone");
+		task_complete_tone.subtitle = _("Play a sound when tasks are completed");
+		Services.Settings.get_default ().settings.bind ("task-complete-tone", task_complete_tone, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (task_complete_tone);
+
+		var open_task_sidebar = new Adw.SwitchRow ();
+		open_task_sidebar.title = _("Open Task In Sidebar View");
+		Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (open_task_sidebar);
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		content_box.append (group);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 24,
+			margin_end = 24,
+			margin_bottom = 24,
+			margin_top = 24
+		};
+
+		content_clamp.child = content_box;
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+			hscrollbar_policy = Gtk.PolicyType.NEVER,
+			hexpand = true,
+			vexpand = true
+		};
+		scrolled_window.child = content_clamp;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "general");
+
 		complete_tasks_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
 		});
@@ -580,10 +625,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		underline_completed_switch.notify["active"].connect (() => {
 			Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
-		});
-
-		settings_header.back_activated.connect (() => {
-			pop_subpage ();
 		});
 
 		return page;

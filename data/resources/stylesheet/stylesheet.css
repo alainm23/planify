@@ -319,6 +319,10 @@ entry.flat:focus-within {
     font-weight: bold;
 }
 
+.today-color {
+    color: #16af54;
+}
+
 .upcoming-grid {
     background-color: @upcoming_bg_color;
     border-radius: 6px;
@@ -327,12 +331,20 @@ entry.flat:focus-within {
     font-weight: bold;
 }
 
+.upcoming-color {
+    color: #9141ac;
+}
+
 .overdue-grid {
     background-color: alpha(#fa1955, 0.125);
     border-radius: 6px;
     padding: 3px 6px;
     color: #fa1955;
     font-weight: bold;
+}
+
+.overdue-color {
+    color: #fa1955;
 }
 
 .completed-grid {
