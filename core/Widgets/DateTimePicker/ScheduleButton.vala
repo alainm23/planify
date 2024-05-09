@@ -85,7 +85,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         due_label = new Gtk.Label (_("Schedule")) {
             xalign = 0,
-            use_markup = true
+            use_markup = true,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);

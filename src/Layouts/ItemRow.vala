@@ -318,7 +318,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         repeat_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" }
+            css_classes = { "small-label" },
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
