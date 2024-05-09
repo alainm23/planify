@@ -404,7 +404,7 @@ msgstr "इस करने-योग्य को टैप करें"
 #: core/Util/Util.vala:1003
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
+"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "आप एक करने-योग्य को देख रहे हैं! बाईं ओर चेकबॉक्स पर टैप करके इसे पूरा करें। पूर्ण किए गए करने-"
 "योग्य आपके परियोजना के निचले भाग में एकत्र किए जाते हैं।"

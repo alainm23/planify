@@ -598,7 +598,7 @@ public class Util : GLib.Object {
             item_01.id = Util.get_default ().generate_id (item_01);
             item_01.project_id = project.id;
             item_01.content = _("Tap this to-do");
-            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected al the bottom of your project.");
+            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
 
             var item_02 = new Objects.Item ();
             item_02.id = Util.get_default ().generate_id (item_02);
