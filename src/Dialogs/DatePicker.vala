@@ -72,10 +72,10 @@ public class Dialogs.DatePicker : Adw.Window {
         next_week_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
             Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
-        next_week_item.margin_bottom = 6;
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = false;
+        no_date_item.margin_bottom = 6;
 
         var items_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
@@ -89,7 +89,7 @@ public class Dialogs.DatePicker : Adw.Window {
         items_card.append (no_date_item);
         items_card.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        calendar_view = new Widgets.Calendar.Calendar (true) {
+        calendar_view = new Widgets.Calendar.Calendar (false) {
             margin_top = 6,
             margin_bottom = 6
         };

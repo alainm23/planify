@@ -121,6 +121,14 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Section> _sections_archived;
+    public Gee.ArrayList<Objects.Section> sections_archived {
+        get {
+            _sections_archived = Services.Database.get_default ().get_sections_archived_by_project (this);
+            return _sections_archived;
+        }
+    }
+
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
@@ -269,6 +277,22 @@ public class Objects.Project : Objects.BaseObject {
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
+                _project_count = update_project_count ();
+                _percentage = update_percentage ();
+                project_count_updated ();
+            }
+        });
+
+        Services.Database.get_default ().item_archived.connect ((item) => {
+            if (item.project_id == id) {
+                _project_count = update_project_count ();
+                _percentage = update_percentage ();
+                project_count_updated ();
+            }
+        });
+
+        Services.Database.get_default ().item_unarchived.connect ((item) => {
+            if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
                 project_count_updated ();
@@ -704,7 +728,7 @@ public class Objects.Project : Objects.BaseObject {
     private int update_project_count () {
         int returned = 0;
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
-            if (!item.checked) {
+            if (!item.checked && !item.was_archived ()) {
                 returned++;
             }
         }
@@ -716,7 +740,7 @@ public class Objects.Project : Objects.BaseObject {
         int items_checked = 0;
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
             items_total++;
-            if (item.checked) {
+            if (!item.checked && !item.was_archived ()) {
                 items_checked++;
             }
         }
@@ -815,6 +839,32 @@ public class Objects.Project : Objects.BaseObject {
                 }
             }
         });
+    }
+
+    public void archive_project (Gtk.Window window) {
+        var dialog = new Adw.MessageDialog (
+            window, 
+            _("Archive?"),
+            _("This will archive %s and all its tasks.".printf (name))
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("archive", _("Archive"));
+        dialog.close_response = "cancel";
+        dialog.set_response_appearance ("archive", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            if (response == "archive") {
+                is_archived = true;
+                Services.Database.get_default ().archive_project (this);
+            }
+        });
+    }
+
+    public void unarchive_project () {
+        is_archived = false;
+        Services.Database.get_default ().archive_project (this);
     }
 
     public Objects.Project duplicate () {

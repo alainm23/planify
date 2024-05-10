@@ -305,6 +305,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		go_homepage ();
 
 		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
+		Services.Database.get_default ().project_archived.connect (valid_view_removed);
 
 		if (Services.Todoist.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
@@ -487,13 +488,15 @@ public class MainWindow : Adw.ApplicationWindow {
 		keyboard_shortcuts_item.secondary_text = "F1";
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
-
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
+		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (preferences_item);
 		menu_box.append (whatsnew_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (archive_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (keyboard_shortcuts_item);
 		menu_box.append (about_item);
@@ -527,6 +530,12 @@ public class MainWindow : Adw.ApplicationWindow {
 		keyboard_shortcuts_item.clicked.connect (() => {
 			popover.popdown ();
 			open_shortcuts_window ();
+		});
+
+		archive_item.clicked.connect (() => {
+			popover.popdown ();
+			var dialog = new Dialogs.ManageProjects ();
+			dialog.show ();
 		});
 
 		return popover;

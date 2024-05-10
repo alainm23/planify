@@ -953,7 +953,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                         move_type = "section_id";
                     }
 
-                    if (picked_widget.item.has_parent ()) {
+                    if (picked_widget.item.has_parent) {
                         move_id = picked_widget.item.parent_id;
                         move_type = "parent_id";
                     }

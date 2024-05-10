@@ -266,6 +266,24 @@ public class Layouts.Sidebar : Adw.Bin {
             }
         });
 
+        Services.Database.get_default ().project_archived.connect ((project) => {
+            if (favorites_hashmap.has_key (project.id)) {
+                favorites_hashmap.unset (project.id);
+            }
+
+            if (local_hashmap.has_key (project.id)) {
+                local_hashmap.unset (project.id);
+            }
+
+            if (todoist_hashmap.has_key (project.id)) {
+                todoist_hashmap.unset (project.id);
+            }
+
+            if (caldav_hashmap.has_key (project.id)) {
+                caldav_hashmap.unset (project.id);
+            }
+        });
+
         var whats_new_gesture = new Gtk.GestureClick ();
         whats_new_box.add_controller (whats_new_gesture);
 
@@ -363,6 +381,7 @@ public class Layouts.Sidebar : Adw.Bin {
     public void init () {
         Services.Database.get_default ().project_added.connect (add_row_project);
         Services.Database.get_default ().project_updated.connect (update_projects_sort);
+        Services.Database.get_default ().project_unarchived.connect (add_row_project);
 
         Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
             if (old_parent_id == "") {
@@ -473,7 +492,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     private void add_row_project (Objects.Project project) {
-        if (!project.is_inbox_project && project.parent_id == "") {
+        if (!project.is_inbox_project && project.parent_id == "" && !project.is_archived) {
             if (project.backend_type == BackendType.TODOIST) {
                 if (!todoist_hashmap.has_key (project.id)) {
                     todoist_hashmap [project.id] = new Layouts.ProjectRow (project);

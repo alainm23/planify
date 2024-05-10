@@ -82,6 +82,20 @@ public class Objects.Filters.Today : Objects.BaseObject {
             today_count_updated ();
         });
 
+        Services.Database.get_default ().item_archived.connect (() => {
+            _today_count = Services.Database.get_default ().get_items_by_date (
+                new GLib.DateTime.now_local (), false).size;
+            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            today_count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
+            _today_count = Services.Database.get_default ().get_items_by_date (
+                new GLib.DateTime.now_local (), false).size;
+            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            today_count_updated ();
+        });
+
         Services.Database.get_default ().item_updated.connect (() => {
             _today_count = Services.Database.get_default ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;

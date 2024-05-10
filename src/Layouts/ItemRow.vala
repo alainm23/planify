@@ -1649,7 +1649,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
             
-            if (item.has_parent ()) {
+            if (item.has_parent) {
                 dialog.for_base_object (item.parent);
             } else {
                 if (item.section_id != "") {
@@ -1718,7 +1718,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         move_type = "section_id";
                     }
 
-                    if (picked_widget.item.has_parent ()) {
+                    if (picked_widget.item.has_parent) {
                         move_id = picked_widget.item.parent_id;
                         move_type = "parent_id";
                     }

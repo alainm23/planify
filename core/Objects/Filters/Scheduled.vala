@@ -66,5 +66,15 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
             _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+            scheduled_count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
+            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+            scheduled_count_updated ();
+        });
     }
 }

@@ -43,7 +43,7 @@ public class Dialogs.QuickAdd : Adw.Window {
     }
 
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
-        if (item.has_parent ()) {
+        if (item.has_parent) {
 			item.parent.add_item_if_not_exists (item);
 		} else {
             if (item.section_id != "") {

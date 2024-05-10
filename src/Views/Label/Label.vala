@@ -114,6 +114,10 @@ public class Views.Label : Adw.Bin {
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
+        Services.Database.get_default ().item_archived.connect (valid_delete_item);
+        Services.Database.get_default ().item_unarchived.connect ((item) => {
+            valid_add_item (item);
+        });
 
         scrolled_window.vadjustment.value_changed.connect (() => {
             if (scrolled_window.vadjustment.value > 50) {

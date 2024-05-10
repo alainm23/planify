@@ -942,7 +942,7 @@ We hope you’ll enjoy using Planify!""");
     }
 
     private async void insert_duplicate_item (Objects.Item new_item, Objects.Item item, bool notify = true) {
-        if (new_item.has_parent ()) {
+        if (new_item.has_parent) {
 			new_item.parent.add_item_if_not_exists (new_item);
 		} else {
             if (new_item.section_id != "") {

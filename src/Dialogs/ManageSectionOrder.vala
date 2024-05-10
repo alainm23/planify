@@ -21,7 +21,9 @@
 
 public class Dialogs.ManageSectionOrder : Adw.Window {
     public Objects.Project project { get; construct; }
+
     private Gtk.ListBox listbox;
+    private Gtk.ListBox archived_listbox;
     private Widgets.ScrolledWindow scrolled_window;
 
     public ManageSectionOrder (Objects.Project project) {
@@ -32,7 +34,7 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             modal: true,
             title: _("Manage Sections"),
             width_request: 320,
-            height_request: 425,
+            height_request: 420,
             transient_for: (Gtk.Window) Planify.instance.main_window
         );
     }
@@ -43,10 +45,9 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
-            valign = START
+            valign = START,
+            css_classes = { "listbox-background" }
         };
-
-        listbox.add_css_class ("listbox-background");
 
         var listbox_card = new Adw.Bin () {
             margin_start = 12,
@@ -58,7 +59,45 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             valign = START
         };
 
-        scrolled_window = new Widgets.ScrolledWindow (listbox_card);
+        var archived_title = new Gtk.Label (_("Archived")) {
+            halign = START,
+            css_classes = { "heading", "h4" },
+            margin_start = 16
+        };
+
+        archived_listbox = new Gtk.ListBox () {
+            hexpand = true,
+            valign = START,
+            css_classes = { "listbox-background" }
+        };
+
+        var archived_listbox_card = new Adw.Bin () {
+            margin_start = 12,
+            margin_end = 12,
+            margin_bottom = 6,
+            margin_top = 3,
+            css_classes = { "card" },
+            child = archived_listbox,
+            valign = START
+        };
+
+        var archived_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12
+        };
+        archived_box.append (archived_title);
+        archived_box.append (archived_listbox_card);
+
+        var archived_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = archived_box,
+            reveal_child = project.sections_archived.size > 0
+        };
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.append (listbox_card);
+        content_box.append (archived_revealer);
+
+        scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
@@ -70,6 +109,18 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         Timeout.add (225, () => {
             set_sort_func ();
             return GLib.Source.REMOVE;
+        });
+
+        Services.Database.get_default ().section_deleted.connect ((section) => {
+            if (section.project_id == project.id) {
+                archived_revealer.reveal_child = project.sections_archived.size > 0;
+            }
+        });
+
+        Services.Database.get_default ().section_unarchived.connect ((section) => {
+            if (section.project_id == project.id) {
+                archived_revealer.reveal_child = project.sections_archived.size > 0;
+            }
         });
     }
     
@@ -112,7 +163,11 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
 
         add_section (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
-            add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+            if (!section.was_archived ()) {
+                add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+            } else {
+                archived_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "menu"));
+            }
         }
     }
 

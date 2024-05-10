@@ -78,6 +78,7 @@ sources = files(
   'Dialogs/ProjectPicker/ProjectPicker.vala',
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'Dialogs/ProjectPicker/SectionPickerRow.vala',
+  'Dialogs/ManageProjects.vala',
 
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',

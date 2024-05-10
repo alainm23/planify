@@ -73,5 +73,15 @@ public class Objects.Filters.Priority : Objects.BaseObject {
             _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
+            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+            count_updated ();
+        });
     }
 }

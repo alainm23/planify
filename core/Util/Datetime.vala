@@ -81,6 +81,21 @@ public class Utils.Datetime {
         return Granite.DateTime.get_relative_datetime (datetime);
     }
 
+    public static string days_left (GLib.DateTime datetime, bool show_today = false) {
+        string return_value = "";
+        var days = datetime.difference (new GLib.DateTime.now_local ()) / TimeSpan.DAY;
+
+        if (is_today (datetime)) {
+            return_value = show_today ? _("Today") : "";
+        } else if (is_overdue (datetime)) {
+            return_value = _("%s %s ago".printf ((days * -1).to_string (), days > 1 ? _("days") : _("day"))); 
+        } else {
+            return_value = _("%s %s left".printf ((days + 1).to_string (), days > 1 ? _("days") : _("day"))); 
+        }
+
+        return return_value;
+    }
+
     public static string get_default_time_format () {
         return Granite.DateTime.get_default_time_format (
             is_clock_format_12h (), false

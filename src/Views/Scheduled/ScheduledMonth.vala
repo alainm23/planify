@@ -124,7 +124,9 @@ public class Views.Scheduled.ScheduledMonth : Gtk.ListBoxRow {
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
-
+        Services.Database.get_default ().item_archived.connect (valid_delete_item);
+        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
+        
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();

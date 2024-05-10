@@ -66,5 +66,15 @@ public class Objects.Filters.Completed : Objects.BaseObject {
             _count = Services.Database.get_default ().get_items_completed ().size;
             count_updated ();
         });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _count = Services.Database.get_default ().get_items_completed ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
+            _count = Services.Database.get_default ().get_items_completed ().size;
+            count_updated ();
+        });
     }
 }

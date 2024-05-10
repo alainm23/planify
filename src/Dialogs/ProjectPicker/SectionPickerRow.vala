@@ -25,6 +25,7 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
     
     private Gtk.Label name_label;
     private Gtk.Grid handle_grid;
+    private Gtk.Revealer main_revealer;
 
     public signal void update_section ();
 
@@ -66,6 +67,14 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
 
         var order_icon = new Gtk.Image.from_icon_name ("list-drag-handle-symbolic");
 
+        var menu_button = new Gtk.MenuButton () {
+            hexpand = true,
+            halign = END,
+			popover = build_context_menu (),
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat" }
+		};
+        
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 9,
             margin_start = 12,
@@ -90,12 +99,28 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
             content_box.append (selected_revealer);
         }
 
+        if (widget_type == "menu") {
+            content_box.margin_top = 3;
+            content_box.margin_bottom = 3;
+            content_box.append (menu_button);
+        }
+
         handle_grid = new Gtk.Grid ();
         handle_grid.attach (content_box, 0, 0);
 
         var reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
-        child = reorder_child;
+        main_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = reorder_child
+        };
+        
+        child = main_revealer;
+
+        Timeout.add (main_revealer.transition_duration, () => {
+            main_revealer.reveal_child = true;
+            return GLib.Source.REMOVE;
+        });
 
         if (widget_type == "picker") {
             var select_gesture = new Gtk.GestureClick ();
@@ -131,5 +156,54 @@ public class Dialogs.ProjectPicker.SectionPickerRow : Gtk.ListBoxRow {
                 update_section ();
             });
         }
+
+        if (widget_type == "menu") {
+            section.unarchived.connect (() => {
+                hide_destroy ();
+            });
+        }
+
+        section.deleted.connect (() => {
+            hide_destroy ();
+        });
     }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            ((Gtk.ListBox) parent).remove (this);
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private Gtk.Popover build_context_menu () {
+		var unarchive_item = new Widgets.ContextMenu.MenuItem (_("Unarchive"), "shoe-box-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
+		delete_item.add_css_class ("menu-item-danger");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+
+        menu_box.append (unarchive_item);
+        menu_box.append (delete_item);
+
+		var menu_popover = new Gtk.Popover () {
+			has_arrow = false,
+			child = menu_box,
+			position = Gtk.PositionType.BOTTOM,
+			width_request = 250
+		};
+
+		delete_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			section.delete_section ((Gtk.Window) Planify.instance.main_window);
+		});
+
+		unarchive_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			section.unarchive_section ();
+		});
+
+		return menu_popover;
+	}
 }

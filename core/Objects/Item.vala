@@ -134,9 +134,15 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public bool has_parent {
+        get {
+            return Services.Database.get_default ().get_item (parent_id) != null;
+        }
+    }
+
     public bool has_section {
         get {
-            return section_id != "";
+            return Services.Database.get_default ().get_section (section_id) != null;
         }
     }
 
@@ -847,6 +853,10 @@ public class Objects.Item : Objects.BaseObject {
         return true;
     }
 
+    public bool has_labels () {
+        return labels.size > 0;
+    }
+
     public void add_item_label (Objects.Label label) {
         if (labels == null) {
             labels = new Gee.ArrayList<Objects.Label> ();
@@ -1506,11 +1516,15 @@ public class Objects.Item : Objects.BaseObject {
         );
     }
 
-    public bool has_parent () {
-        if (parent_id != null) {
-            return Services.Database.get_default ().get_item (parent_id) != null;
+    public bool was_archived () {
+        if (has_parent) {
+            return parent.was_archived ();
         }
 
-        return false;
+        if (has_section) {
+            return section.was_archived ();
+        }
+
+        return project.is_archived;
     }
 }

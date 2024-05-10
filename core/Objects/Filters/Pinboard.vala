@@ -66,5 +66,15 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
             _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
+        
+        Services.Database.get_default ().item_archived.connect (() => {
+            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+            pinboard_count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
+            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+            pinboard_count_updated ();
+        });
     }
 }

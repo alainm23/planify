@@ -290,6 +290,8 @@ public class Views.Today : Adw.Bin {
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
+        Services.Database.get_default ().item_archived.connect (valid_delete_item);
+        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
@@ -386,16 +388,6 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_today_items () {
-        items.clear ();
-
-        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
-            listbox.remove (child);
-        }
-
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
-            add_item (item);
-        }
-
         overdue_items.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox) ) {
@@ -404,6 +396,16 @@ public class Views.Today : Adw.Bin {
 
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_overdeue_view (false)) {
             add_overdue_item (item);
+        }
+
+        items.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
+
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
+            add_item (item);
         }
 
         update_headers ();
@@ -433,7 +435,7 @@ public class Views.Today : Adw.Bin {
         overdue_listbox.invalidate_filter ();
     }
 
-    private void valid_add_item (Objects.Item item, bool insert = true) {
+    private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_date (item, date, false)) {
             add_item (item);   

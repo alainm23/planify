@@ -26,6 +26,8 @@ public class Objects.BaseObject : GLib.Object {
     public string icon_name { get; set; default = ""; }
     public signal void deleted ();
     public signal void updated ();
+    public signal void archived ();
+    public signal void unarchived ();
 
     public uint update_timeout_id { get; set; default = 0; }
 

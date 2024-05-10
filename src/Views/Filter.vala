@@ -124,6 +124,10 @@ public class Views.Filter : Adw.Bin {
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
         Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
+        Services.Database.get_default ().item_archived.connect (valid_delete_item);
+        Services.Database.get_default ().item_unarchived.connect ((item) => {
+            valid_add_item (item);
+        });
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {

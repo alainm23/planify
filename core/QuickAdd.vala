@@ -365,7 +365,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     private void _add_item (Objects.Item item) {
         add_item_db (item, reminder_button.reminders ());
                     
-        if (item.has_parent ()) {
+        if (item.has_parent) {
             item.parent.collapsed = true;
         }
     }

@@ -291,7 +291,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
 
         parent_back_button.clicked.connect (() => {
-            if (item.has_parent ()) {
+            if (item.has_parent) {
                 Services.EventBus.get_default ().open_item (item.parent);
             } else {
                 Services.EventBus.get_default ().close_item ();
@@ -317,7 +317,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         attachments.present_item (item);
         subitems.reveal_child = true;
         
-        if (item.has_parent ()) {
+        if (item.has_parent) {
             parent_label.label = item.parent.content;
             parent_label.tooltip_text = item.parent.content;
         } else {

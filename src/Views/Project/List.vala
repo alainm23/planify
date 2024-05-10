@@ -24,6 +24,7 @@ public class Views.List : Gtk.Grid {
 
     private Gtk.Image due_image;
     private Gtk.Label due_label;
+    private Gtk.Label days_left_label;
     private Gtk.Revealer due_revealer;
 
     private Gtk.ListBox listbox;
@@ -135,21 +136,21 @@ public class Views.List : Gtk.Grid {
         });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
-            if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
-                    sections_map [section.id_string].hide_destroy ();
-                    sections_map.unset (section.id_string);
+            if (project.id == old_project_id && sections_map.has_key (section.id)) {
+                    sections_map [section.id].hide_destroy ();
+                    sections_map.unset (section.id);
             }
 
             if (project.id == section.project_id &&
-                !sections_map.has_key (section.id_string)) {
+                !sections_map.has_key (section.id)) {
                     add_section (section);
             }
         });
 
         Services.Database.get_default ().section_deleted.connect ((section) => {
-            if (sections_map.has_key (section.id_string)) {
-                sections_map [section.id_string].hide_destroy ();
-                sections_map.unset (section.id_string);
+            if (sections_map.has_key (section.id)) {
+                sections_map [section.id].hide_destroy ();
+                sections_map.unset (section.id);
             }
 
             check_placeholder ();
@@ -204,6 +205,21 @@ public class Views.List : Gtk.Grid {
             project.description = description_widget.text;
             project.update_local ();
         });
+
+        Services.Database.get_default ().section_archived.connect ((section) => {
+            if (sections_map.has_key (section.id)) {
+                sections_map [section.id].hide_destroy ();
+                sections_map.unset (section.id);
+            }
+
+            check_placeholder ();
+        });
+
+        Services.Database.get_default ().section_unarchived.connect ((section) => {
+            if (project.id == section.project_id) {
+                add_section (section);
+            }
+        });
     }
 
     private void check_placeholder () {
@@ -232,7 +248,7 @@ public class Views.List : Gtk.Grid {
     }
 
     private void add_section (Objects.Section section) {
-        if (!sections_map.has_key (section.id)) {
+        if (!sections_map.has_key (section.id) && !section.was_archived ()) {
             sections_map [section.id] = new Layouts.SectionRow (section);
             listbox.append (sections_map [section.id]);
         }
@@ -264,21 +280,27 @@ public class Views.List : Gtk.Grid {
     private void update_duedate () {
         due_image.icon_name = "month-symbolic";
         due_image.css_classes = { };
+        due_label.css_classes = { };
         due_revealer.reveal_child = false;
 
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            due_label.label = Utils.Datetime.get_relative_datetime (datetime);
+            
+            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
+            days_left_label.label = Utils.Datetime.days_left (datetime);
 
             if (Utils.Datetime.is_today (datetime)) {
                 due_image.icon_name = "star-outline-thick-symbolic";
                 due_image.add_css_class ("today-color");
+                due_label.add_css_class ("today-color");
             } else if (Utils.Datetime.is_overdue (datetime)) {
                 due_image.icon_name = "month-symbolic";
                 due_image.add_css_class ("overdue-color");
+                due_label.add_css_class ("overdue-color");
             } else {
                 due_image.icon_name = "month-symbolic";
-                due_image.add_css_class ("upcoming-color");
+                due_image.css_classes = { };
+                due_label.css_classes = { };
             }
 
             due_revealer.reveal_child = true;
@@ -292,11 +314,19 @@ public class Views.List : Gtk.Grid {
             xalign = 0
         };
 
+        days_left_label = new Gtk.Label (null) {
+            xalign = 0,
+            css_classes = { "dim-label", "small-label" }
+        };
+        days_left_label.yalign = float.parse ("0.7");
+
         var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_start = 3
         };
+
         due_box.append (due_image);
         due_box.append (due_label);
+        due_box.append (days_left_label);
 
         var due_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_top = 12,

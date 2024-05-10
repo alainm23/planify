@@ -20,15 +20,17 @@
 */
 
 public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
+    public string widget_type { get; construct; }
     public Objects.Project project { get; construct; }
     
     private Gtk.Label name_label;
     private Gtk.Revealer main_revealer;
     private Widgets.IconColorProject icon_project;
 
-    public ProjectPickerRow (Objects.Project project) {
+    public ProjectPickerRow (Objects.Project project, string widget_type = "picker") {
         Object (
-            project: project
+            project: project,
+            widget_type: widget_type
         );
     }
 
@@ -60,6 +62,14 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
 
         selected_revealer.child = selected_icon;
 
+        var menu_button = new Gtk.MenuButton () {
+            hexpand = true,
+            halign = END,
+			popover = build_context_menu (),
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat" }
+		};
+
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 9,
             margin_start = 9,
@@ -68,16 +78,23 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         };
         content_box.append (icon_project);        
         content_box.append (name_label);
-        content_box.append (selected_revealer);
+
+        if (widget_type == "picker") {
+            content_box.append (selected_revealer);
+        }
+
+        if (widget_type == "menu") {
+            content_box.margin_top = 3;
+            content_box.margin_bottom = 3;
+            content_box.append (menu_button);
+        }
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = content_box
         };
 
-        main_revealer.child = content_box;
-
         child = main_revealer;
-        
         update_request ();
 
         Timeout.add (main_revealer.transition_duration, () => {
@@ -95,10 +112,57 @@ public class Dialogs.ProjectPicker.ProjectPickerRow : Gtk.ListBoxRow {
         Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
             selected_revealer.reveal_child = project.id == id;
         });
+
+        project.deleted.connect (() => {
+            hide_destroy ();
+        });
+
+        project.unarchived.connect (() => {
+            hide_destroy ();
+        });
     }
 
     public void update_request () {
         name_label.label = project.inbox_project ? _("Inbox") : project.name;
         icon_project.update_request ();
     }
+
+    public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            ((Gtk.ListBox) parent).remove (this);
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private Gtk.Popover build_context_menu () {
+		var unarchive_item = new Widgets.ContextMenu.MenuItem (_("Unarchive"), "shoe-box-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
+		delete_item.add_css_class ("menu-item-danger");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+
+        menu_box.append (unarchive_item);
+        menu_box.append (delete_item);
+
+		var menu_popover = new Gtk.Popover () {
+			has_arrow = false,
+			child = menu_box,
+			position = Gtk.PositionType.BOTTOM,
+			width_request = 250
+		};
+
+		delete_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			project.delete_project ((Gtk.Window) Planify.instance.main_window);
+		});
+
+		unarchive_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			project.unarchive_project ();
+		});
+
+		return menu_popover;
+	}
 }

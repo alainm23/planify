@@ -300,6 +300,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         project.updated.connect (update_request);
         project.deleted.connect (hide_destroy);
+        project.archived.connect (hide_destroy);
 
         project.project_count_updated.connect (() => {
             update_count_label (project.project_count);
@@ -645,6 +646,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "update-symbolic");
+
+        var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
@@ -670,6 +673,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         if (!project.is_deck) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (archive_item);
             menu_box.append (delete_item);
         }
 
@@ -729,6 +733,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
             Util.get_default ().duplicate_project.begin (project, project.parent_id);
         });
+
+        archive_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            project.archive_project ((Gtk.Window) Planify.instance.main_window);
+        });
     }
 
     private void update_listbox_revealer () {
@@ -750,7 +759,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void check_due_date () {
         if (project.due_date != "") {
             var datetime = Utils.Datetime.get_date_from_string (project.due_date);
-            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
+            due_label.label = Utils.Datetime.days_left (datetime, true);
         }
 
         // Workaround to fix small bug when collapsing/expanding project - this causes save and would

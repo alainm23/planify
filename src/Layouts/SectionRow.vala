@@ -285,7 +285,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
 			if (item.project_id == section.project_id && item.section_id == section.id &&
-			    !item.has_parent ()) {
+			    !item.has_parent) {
 				if (!old_checked) {
 					if (items.has_key (item.id)) {
 						items [item.id].hide_destroy ();
@@ -352,7 +352,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 
 			// vala-lint=no-space
-			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent ()) {
+			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
 				add_item (item);
 			}
 
@@ -624,6 +624,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var move_item = new Widgets.ContextMenu.MenuItem (_("Move Section"), "arrow3-right-symbolic");
 		var manage_item = new Widgets.ContextMenu.MenuItem (_("Manage Section Order"), "view-list-ordered-symbolic");
 		var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
+
+		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Section"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
@@ -642,6 +644,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		if (!is_inbox_section) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+			menu_box.append (archive_item);
 			menu_box.append (delete_item);
 		}
 
@@ -687,31 +690,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
+			section.delete_section ((Gtk.Window) Planify.instance.main_window);
+		});
 
-			var dialog = new Adw.MessageDialog (
-				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete Section %s".printf (section.name)),
-				_("This can not be undone")
-			);
-
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("delete", _("Delete"));
-			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
-
-			dialog.response.connect ((response) => {
-				if (response == "delete") {
-					is_loading = true;
-					if (section.project.backend_type == BackendType.TODOIST) {
-						Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
-							Services.Todoist.get_default ().delete.end (res);
-							Services.Database.get_default ().delete_section (section);
-						});
-					} else {
-						Services.Database.get_default ().delete_section (section);
-					}
-				}
-			});
+		archive_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			section.archive_section ((Gtk.Window) Planify.instance.main_window);
 		});
 
 		duplicate_item.clicked.connect (() => {
