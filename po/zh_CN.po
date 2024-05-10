@@ -409,7 +409,7 @@ msgstr "点击此待办事项"
 #: core/Util/Util.vala:1003
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
+"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "你正在看一个待办事项！点击左边的复选框来完成它。完成的待办事项会被收集在你的"
 "项目底部。"

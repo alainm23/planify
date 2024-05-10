@@ -398,7 +398,7 @@ msgstr ""
 #: core/Util/Util.vala:1003
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
+"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 
 #: core/Util/Util.vala:1008
