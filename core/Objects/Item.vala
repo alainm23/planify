@@ -1527,4 +1527,12 @@ public class Objects.Item : Objects.BaseObject {
 
         return project.is_archived;
     }
+
+    public bool exists_project (Objects.Project project) {
+        if (has_parent) {
+            return parent.exists_project (project);
+        }
+
+        return project_id == project.id;
+    }
 }

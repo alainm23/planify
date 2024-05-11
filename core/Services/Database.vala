@@ -1389,7 +1389,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.project_id == project.id) {
+                if (item.exists_project (project)) {
                     return_value.add (item);
                 }
             }
