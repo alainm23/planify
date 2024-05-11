@@ -208,6 +208,15 @@ public class Services.CalDAV.Core : GLib.Object {
     """; 
     
     // vala-lint=naming-convention
+    public static string GET_SYNC_TOKEN_REQUEST = """
+    <x0:propfind xmlns:x0="DAV:">
+        <x0:prop>
+            <x0:sync-token/>
+        </x0:prop>
+    </x0:propfind>
+    """;
+
+    // vala-lint=naming-convention
     public static string CREATE_TASKLIST_REQUEST = """
         <x0:mkcol xmlns:x0="DAV:">
             <x0:set>
@@ -646,11 +655,6 @@ public class Services.CalDAV.Core : GLib.Object {
             foreach (GXml.DomElement element in response) {
                 GXml.DomHTMLCollection status = element.get_elements_by_tag_name ("d:status");
                 string ics = get_task_ics_from_url (element);
-                bool is_vtodo = is_vtodo (element);
-                
-                if (!is_vtodo) {
-                    continue;
-                }
 
                 if (status.length > 0 && status.get_element (0).text_content == "HTTP/1.1 404 Not Found") {
                     Objects.Item? item = Services.Database.get_default ().get_item_by_ics (ics);
@@ -658,6 +662,10 @@ public class Services.CalDAV.Core : GLib.Object {
                         Services.Database.get_default ().delete_item (item);
                     }
                 } else {
+                    if (!is_vtodo (element)) {
+                        continue;
+                    }
+                    
                     string vtodo = yield get_vtodo_by_url (project.id, ics);
 
                     ICal.Component ical = new ICal.Component.from_string (vtodo);
@@ -885,6 +893,37 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             return_value.status = true;
+        } catch (Error e) {
+			debug (e.message);
+		}
+
+        return return_value;
+    }
+
+    public async HttpResponse get_sync_token (Objects.Project project) {
+        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+
+        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+        var message = new Soup.Message ("PROPFIND", url);
+
+        HttpResponse return_value = new HttpResponse ();
+
+        try {
+            yield set_credential (message);
+            message.set_request_body_from_bytes ("application/xml", new Bytes ((GET_SYNC_TOKEN_REQUEST).data));
+
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            print_root ("get_tasklist", (string) stream.get_data ());
+
+            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
+            GXml.DomHTMLCollection sync_token_collection = doc.get_elements_by_tag_name ("d:sync-token"); 
+            
+            if (sync_token_collection.length > 0) {
+                return_value.status = true;
+                return_value.data = sync_token_collection.get_element (0).text_content;
+            }
         } catch (Error e) {
 			debug (e.message);
 		}

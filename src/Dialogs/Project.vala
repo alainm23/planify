@@ -310,50 +310,70 @@ public class Dialogs.Project : Adw.Window {
         submit_button.is_loading = true;
 
         if (!is_creating) {
-            if (project.backend_type == BackendType.LOCAL) {
+            update_project ();
+        } else {
+            add_project ();
+        }
+    }
+
+
+    private void update_project () {
+        if (project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().update_project (project);
+            hide_destroy ();
+        } else if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (project, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_project (project);
                 hide_destroy ();
-            } else if (project.backend_type == BackendType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (project, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
                     Services.Database.get_default ().update_project (project);
                     hide_destroy ();
-                });
-            } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
-                        Services.Database.get_default ().update_project (project);
-                        hide_destroy ();
-                    }
-                });
-            }
-        } else {
-            project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
-            if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
-                project.id = Util.get_default ().generate_id (project);
-                project.backend_type = BackendType.LOCAL;
-                Services.Database.get_default ().insert_project (project);
-                go_project (project.id_string);
-            } else if (project.backend_type == BackendType.TODOIST) {
-                Services.Todoist.get_default ().add.begin (project, (obj, res) => {
-                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                }
+            });
+        }
+    }
 
-                    if (response.status) {
-                        project.id = response.data;
+    private void add_project () {
+        project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
+
+        if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+            project.id = Util.get_default ().generate_id (project);
+            project.backend_type = BackendType.LOCAL;
+
+            Services.Database.get_default ().insert_project (project);
+            go_project (project.id_string);
+        } else if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (project, (obj, res) => {
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+
+                if (response.status) {
+                    project.id = response.data;
+                    Services.Database.get_default ().insert_project (project);
+                    go_project (project.id_string);
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            project.id = Util.get_default ().generate_id (project);
+            project.backend_type = BackendType.CALDAV;
+
+            Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
+                    Services.CalDAV.Core.get_default ().get_sync_token.begin (project, (obj, res) => {
+                        HttpResponse response = Services.CalDAV.Core.get_default ().get_sync_token.end (res);
+
+                        if (response.status) {
+                            project.sync_id = response.data;
+                        }
+
                         Services.Database.get_default ().insert_project (project);
                         go_project (project.id_string);
-                    }
-                });
-            } else if (project.backend_type == BackendType.CALDAV) {
-                project.id = Util.get_default ().generate_id (project);
-                project.backend_type = BackendType.CALDAV;
-                Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
-                        Services.Database.get_default ().insert_project (project);
-                        go_project (project.id_string);
-                    }
-                });
-            }
+                    });
+                }
+            });
         }
     }
 

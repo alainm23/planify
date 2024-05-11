@@ -707,11 +707,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         refresh_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            is_loading = true;
-            Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
-                Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
-                is_loading = false;
-            });
+            if (project.sync_id == "") {
+                is_loading = true;
+                Services.CalDAV.Core.get_default ().refresh_tasklist.begin (project, (obj, res) => {
+                    Services.CalDAV.Core.get_default ().refresh_tasklist.end (res);
+                    is_loading = false;
+                });
+            } else {
+                sync_project ();
+            }
         });
 
         delete_item.clicked.connect (() => {
@@ -737,6 +741,14 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         archive_item.clicked.connect (() => {
             menu_popover.popdown ();
             project.archive_project ((Gtk.Window) Planify.instance.main_window);
+        });
+    }
+
+    private void sync_project () {
+        is_loading = true;
+        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
+            Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
+            is_loading = false;
         });
     }
 
