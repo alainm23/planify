@@ -67,6 +67,20 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.7.2" date="2024-05-11">
+      <description translate="no">
+        <ul>
+          <li>Inbox as Independent Project: We've completely rebuilt the functionality of Inbox. Now, it's an independent project with the ability to move your tasks between different synchronized services. The Inbox is the default place to add new tasks, allowing you to quickly get your ideas out of your head and then plan them when you're ready.</li>
+          <li>Enhanced Task Duplication: When you duplicate a task now, all subtasks and labels are automatically duplicated, saving you time and effort in managing your projects.</li>
+          <li>Duplication of Sections and Projects: You can now easily duplicate entire sections and projects, making it easier to create new projects based on existing structures.</li>
+          <li>Improvements in Quick Add: We've improved the usability of Quick Add. Now, the "Create More" option is directly displayed in the user interface, making it easier to visualize and configure your new tasks.</li>
+          <li>Improvements on Small Screens: For those working on devices with small screens, we've enhanced the user experience to ensure smooth and efficient navigation.</li>
+          <li>Project Expiry Date: Your project's expiry date now clearly shows the remaining days, helping you keep track of your deadlines more effectively.</li>
+          <li>Archiving of Projects and Sections: You can now archive entire projects and sections! This feature helps you keep your workspace organized and clutter-free.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.7" date="2024-05-01">
       <description translate="no">
         <ul>

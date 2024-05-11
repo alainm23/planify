@@ -627,6 +627,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
 		});
 
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
 		return page;
 	}
 
