@@ -270,9 +270,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 
 		var edit_gesture = new Gtk.GestureClick ();
-		edit_gesture.set_button (1);
-		handle_grid.add_controller (edit_gesture);
-
+		name_editable.add_controller (edit_gesture);
 		edit_gesture.pressed.connect (() => {
 			Timeout.add (Constants.DRAG_TIMEOUT, () => {
 				if (!on_drag) {
@@ -417,13 +415,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
         sectionrow_grid.add_controller (motion_gesture);
 
         motion_gesture.enter.connect (() => {
-            //  actions_box_revealer.reveal_child = true;
 			name_editable.show_edit = true;
         });
 
         motion_gesture.leave.connect (() => {
 			if (!menu_button.active) {
-				//  actions_box_revealer.reveal_child = false;
 				name_editable.show_edit = false;
 			}
         });
