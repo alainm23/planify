@@ -410,7 +410,7 @@ msgstr "Clique nesta tarefa"
 #: core/Util/Util.vala:1003
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
+"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "Está a olhar para uma tarefa! Conclua a tarefa ao clicar na caixa à esquerda."
 "Tarefas completas ficarão guardadas na parte inferior do seu projeto."

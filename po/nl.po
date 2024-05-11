@@ -408,7 +408,7 @@ msgstr "Klik op deze taak"
 #: core/Util/Util.vala:1003
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
-"Completed to-dos are collected al the bottom of your project."
+"Completed to-dos are collected at the bottom of your project."
 msgstr ""
 "Dit is dus een taak! Rond de taak af door op de checkbox aan de linkerkant "
 "te klikken. Afgeronde taken worden onderaan je project bijgehouden."
