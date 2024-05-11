@@ -748,7 +748,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     labels_summary.check_revealer ();
                 }
                 
-                build_drag_and_drop ();
+                if (drag_enabled) {
+                    build_drag_and_drop ();   
+                }
+                
                 select_checkbutton.active = false;
             }
         });
