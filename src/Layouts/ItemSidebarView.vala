@@ -503,8 +503,15 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         move_item.clicked.connect (() => {            
             popover.popdown ();
-            
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
+
+            BackendType backend_type;
+            if (item.project.is_inbox_project) {
+                backend_type = BackendType.ALL;
+            } else {
+                backend_type = item.project.backend_type;
+            }
+
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -639,8 +646,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void move (Objects.Project project, string section_id, string parent_id = "") {
         string project_id = project.id;
 
-        if (item.project_id != project_id || item.section_id != section_id || item.parent_id != parent_id) {
-            item.move (project, section_id);
+        if (item.project.backend_type != project.backend_type) {
+            Util.get_default ().move_backend_type_item.begin (item, project);
+        } else {
+            if (item.project_id != project_id || item.section_id != section_id || item.parent_id != parent_id) {
+                item.move (project, section_id);
+            }
         }
     }
 

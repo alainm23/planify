@@ -237,6 +237,7 @@ public class Views.Project : Adw.Bin {
 
 	private Gtk.Popover build_context_menu_popover () {
 		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
+		var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 		var schedule_item = new Widgets.ContextMenu.MenuItem (_("When?"), "month-symbolic");
 		var add_section_item = new Widgets.ContextMenu.MenuItem (_("Add Section"), "tab-new-symbolic");
 		add_section_item.secondary_text = "S";
@@ -244,6 +245,7 @@ public class Views.Project : Adw.Bin {
 		
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "tabs-stack-symbolic");
+		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
 
@@ -252,6 +254,7 @@ public class Views.Project : Adw.Bin {
 		if (!project.is_inbox_project) {
 			menu_box.append (edit_item);
 			menu_box.append (schedule_item);
+			menu_box.append (duplicate_item);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
 
@@ -267,6 +270,7 @@ public class Views.Project : Adw.Bin {
 
 		if (!project.inbox_project) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+			menu_box.append (archive_item);
 			menu_box.append (delete_item);
 		}
 
@@ -336,7 +340,17 @@ public class Views.Project : Adw.Bin {
 			popover.popdown ();
 			project.delete_project ((Gtk.Window) Planify.instance.main_window);
 		});
+		
+		duplicate_item.clicked.connect (() => {
+            popover.popdown ();
+            Util.get_default ().duplicate_project.begin (project, project.parent_id);
+        });
 
+		archive_item.clicked.connect (() => {
+            popover.popdown ();
+            project.archive_project ((Gtk.Window) Planify.instance.main_window);
+        });
+		
 		return popover;
 	}
 

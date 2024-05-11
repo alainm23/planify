@@ -173,7 +173,6 @@ public class Services.Todoist : GLib.Object {
 
 			// Set Inbox
 			string inbox_project_id = user_object.get_string_member ("inbox_project_id");
-			Services.Settings.get_default ().settings.set_string ("todoist-inbox-project-id", inbox_project_id);
 			Services.Settings.get_default ().settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
 			Services.Settings.get_default ().settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
 			Services.Settings.get_default ().settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));

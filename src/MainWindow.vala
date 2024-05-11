@@ -274,14 +274,6 @@ public class MainWindow : Adw.ApplicationWindow {
 				fake_button.grab_focus ();
 			}
 		});
-
-		breakpoint.apply.connect (() => {
-			print ("Apply\n");
-		});
-
-		breakpoint.unapply.connect (() => {
-			print ("Unapply\n");
-		});
 	}
 
 	public void show_hide_sidebar () {

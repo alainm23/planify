@@ -115,12 +115,11 @@ public class Dialogs.WhatsNew : Adw.Window {
 			return false;
         });
 		
-		add_feature (_("Advanced Filtering Function"), _("Now in Planify, you can filter your tasks within a project based on priority, due date, and assigned tags. Take control of your tasks like never before!"));
-		add_feature (_("Custom Sorting in Today View"), _("Personalize the Today view by sorting your tasks the way you prefer. Make your day more productive by organizing tasks your way!"));
-		add_feature (_("Instant Task Details"), _("With our new task detail view in the sidebar, you can quickly access all relevant task information while in the Board view. Keep your workflow uninterrupted!"));
-		add_feature (_("Efficient Management of Completed Tasks"), _("Now, deleting completed tasks is easier than ever. Keep your workspace clean and organized with just a few clicks!"));
-		add_feature (_("Attach Files to Your Tasks"), _("Never lose track of important files related to your tasks. With the file attachment feature, keep all relevant information in one place."));
-		add_feature (_("Celebrate Achievements with Sound"), _("Want a fun way to celebrate your achievements? Now you can play a sound when completing a task. Make every accomplishment even more satisfying!"));
+		add_feature (_("Inbox as Independent Project"), _("The Inbox is the default place to add new tasks, allowing you to quickly get your ideas out of your head and then plan them when you’re ready."));
+		add_feature (_("Enhanced Task Duplication"), _("When you duplicate a task now, all subtasks and labels are automatically duplicated, saving you time and effort in managing your projects."));
+		add_feature (_("Duplication of Sections and Projects"), _("You can now easily duplicate entire sections and projects, making it easier to create new projects based on existing structures."));
+		add_feature (_("Project Expiry Date"), _("Your project’s expiry date now clearly shows the remaining days, helping you keep track of your deadlines more effectively."));
+		add_feature (_("Archiving of Projects and Sections"), _("You can now archive entire projects and sections! This feature helps you keep your workspace organized and clutter-free."));
 	}
 
 	public void add_feature (string title, string? description, Adw.NavigationPage? page = null) {

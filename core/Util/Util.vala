@@ -1023,7 +1023,7 @@ We hope you’ll enjoy using Planify!""");
 
         if (project.backend_type == BackendType.LOCAL) {
             new_project.id = Util.get_default ().generate_id (new_project);
-            new_project.backend_type = BackendType.CALDAV;
+            new_project.backend_type = BackendType.LOCAL;
             Services.Database.get_default ().insert_project (new_project);
 
             foreach (Objects.Item item in project.items) {
