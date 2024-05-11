@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the io.github.alainm23.planify package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-01 05:03-0500\n"
-"PO-Revision-Date: 2024-04-01 00:33-0300\n"
+"PO-Revision-Date: 2024-05-10 20:37-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -151,13 +150,11 @@ msgid "Priority"
 msgstr "Prioridad"
 
 #: core/Enum.vala:344
-#, fuzzy
 msgid "Label"
-msgstr "Etiquetas"
+msgstr "Etiqueta"
 
 #: core/Enum.vala:347 src/Views/Project/Project.vala:413
 #: src/Views/Today.vala:547 src/Views/Scheduled/Scheduled.vala:186
-#, fuzzy
 msgid "Due Date"
 msgstr "Fecha de vencimiento"
 
@@ -632,23 +629,21 @@ msgid "Priority 3: Low"
 msgstr "Prioridad 3: Baja"
 
 #: core/Widgets/PriorityButton.vala:178
-#, fuzzy
 msgid "Priority 1: Medium"
-msgstr "Prioridad 2: Media"
+msgstr "Prioridad 1: Media"
 
 #: core/Widgets/PriorityButton.vala:184
-#, fuzzy
 msgid "Priority 1: Low"
-msgstr "Prioridad 3: Baja"
+msgstr "Prioridad 1: Baja"
 
 #: core/Widgets/StatusButton.vala:40
 msgid "Status"
-msgstr ""
+msgstr "Estado"
 
 #: core/Widgets/StatusButton.vala:45 core/Widgets/StatusButton.vala:84
 #: core/Widgets/StatusButton.vala:122
 msgid "To Do"
-msgstr ""
+msgstr "Por hacer"
 
 #: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
 #: src/Layouts/ItemRow.vala:948 src/Layouts/ItemBoard.vala:643
@@ -708,9 +703,8 @@ msgstr "Cronograma"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:147
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:193
-#, fuzzy
 msgid "Set a Due Date"
-msgstr "Fecha de vencimiento"
+msgstr "Fijar una fecha de vencimiento"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:236
 #: src/Dialogs/RepeatConfig.vala:413
@@ -767,9 +761,8 @@ msgstr "Añadir etiquetas"
 
 #: core/Widgets/LabelPicker/LabelButton.vala:74
 #: core/Widgets/LabelPicker/LabelButton.vala:129
-#, fuzzy
 msgid "Select Labels"
-msgstr "Eliminar Etiqueta"
+msgstr "Seleccionar etiquetas"
 
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:25
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:163
@@ -804,22 +797,18 @@ msgid "No Section"
 msgstr "Sin secciones"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:30
-#, fuzzy
 msgid "Set Section"
-msgstr "Nueva sección"
+msgstr "Establecer sección"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:35
-#, fuzzy
 msgid "Section"
-msgstr "Secciones"
+msgstr "Seccion"
 
 #: core/Widgets/SectionPicker/SectionButton.vala:40
-#, fuzzy
 msgid "Select Section"
-msgstr "Eliminar sección"
+msgstr "Seleccionar sección"
 
 #: core/Widgets/SectionPicker/SectionPicker.vala:40
-#, fuzzy
 msgid "Search"
 msgstr "Buscar"
 
@@ -904,64 +893,61 @@ msgid "labels"
 msgstr "etiquetas"
 
 #: core/Objects/Filters/Tomorrow.vala:34
-#, fuzzy, c-format
+#, c-format
 msgid "tomorrow"
-msgstr "Mañana"
+msgstr "mañana"
 
 #: core/Objects/Filters/Tomorrow.vala:34
-#, fuzzy
 msgid "date"
-msgstr "Actualizar"
+msgstr "fecha"
 
 #: core/Objects/Filters/Anytime.vala:33 src/Views/Filter.vala:189
 msgid "Anytime"
 msgstr "En cualquier momento"
 
 #: core/Objects/Filters/Anytime.vala:34
-#, fuzzy, c-format
+#, c-format
 msgid "anytime"
-msgstr "En cualquier momento"
+msgstr "en cualquier momento"
 
 #: core/Objects/Filters/Anytime.vala:34
-#, fuzzy
 msgid "no date"
-msgstr "Fecha de vencimiento"
+msgstr "sin fecha"
 
 #: core/Objects/Filters/Repeating.vala:33 src/Views/Filter.vala:195
 msgid "Repeating"
 msgstr "Repitiendo"
 
 #: core/Objects/Filters/Repeating.vala:34
-#, fuzzy, c-format
+#, c-format
 msgid "repeating"
-msgstr "Repitiendo"
+msgstr "repitiendo"
 
 #: core/Objects/Filters/Unlabeled.vala:33 src/Views/Filter.vala:201
 msgid "Unlabeled"
 msgstr "Sin etiquetar"
 
 #: core/Objects/Filters/Unlabeled.vala:34
-#, fuzzy, c-format
+#, c-format
 msgid "no label"
-msgstr "etiquetas"
+msgstr "sin etiqueta"
 
 #: core/Objects/Filters/Unlabeled.vala:34
-#, fuzzy
 msgid "unlabeled"
-msgstr "Sin etiquetar"
+msgstr "sin etiquetar"
 
 #: src/App.vala:76
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to reset all? (y/n): "
-msgstr "¿Está seguro de que quiere reiniciar todo?"
+msgstr "¿Está seguro de que quiere reiniciar todo? "
 
 #: src/App.vala:79
 msgid "y"
-msgstr ""
+msgstr "y"
 
 #: src/App.vala:79
 msgid "yes"
-msgstr ""
+msgstr "si"
 
 #: src/App.vala:130
 msgid ""
@@ -1107,15 +1093,15 @@ msgid "Send by E-Mail"
 msgstr "Enviar por E-Mail"
 
 #: src/Layouts/ProjectRow.vala:691
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Project %s?"
-msgstr "Eliminar proyecto"
+msgstr "¿Eliminar proyecto %s?"
 
 #: src/Layouts/ProjectRow.vala:692 src/Layouts/SectionRow.vala:677
 #: src/Layouts/LabelRow.vala:173 src/Layouts/ItemSidebarView.vala:663
 #: src/Layouts/SectionBoard.vala:547
 msgid "This can not be undone"
-msgstr ""
+msgstr "Esto no se puede deshacer"
 
 #: src/Layouts/ProjectRow.vala:708 src/Layouts/SectionRow.vala:681
 #: src/Layouts/LabelRow.vala:176 src/Layouts/ItemSidebarView.vala:667
@@ -1153,23 +1139,21 @@ msgid "Delete Section"
 msgstr "Eliminar sección"
 
 #: src/Layouts/SectionRow.vala:676 src/Layouts/SectionBoard.vala:546
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Section %s"
-msgstr "Eliminar sección"
+msgstr "Eliminar sección %s"
 
 #: src/Layouts/ItemRow.vala:426
 msgid "Add Subtasks"
 msgstr "Añadir Subtarea"
 
 #: src/Layouts/ItemRow.vala:436
-#, fuzzy
 msgid "Add Attachments"
-msgstr "Añadir tarea"
+msgstr "Agregar archivos adjuntos"
 
 #: src/Layouts/ItemRow.vala:940 src/Layouts/ItemBoard.vala:636
-#, fuzzy
 msgid "Pin"
-msgstr "Fijado"
+msgstr "Fijar"
 
 #: src/Layouts/ItemRow.vala:942 src/Layouts/ItemBoard.vala:638
 #: src/Views/Project/Project.vala:428 src/Views/Project/Project.vala:594
@@ -1270,31 +1254,29 @@ msgid "Delete Label"
 msgstr "Eliminar Etiqueta"
 
 #: src/Layouts/LabelRow.vala:173
-#, fuzzy, c-format
+#, c-format
 msgid "Delete Label %s"
-msgstr "Eliminar Etiqueta"
+msgstr "Eliminar Etiqueta %s"
 
 #: src/Layouts/ItemSidebarView.vala:76
-#, fuzzy
 msgid "Close Detail"
-msgstr "Ver detalles"
+msgstr "Cerrar Detalle"
 
 #: src/Layouts/ItemSidebarView.vala:128
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: src/Layouts/ItemSidebarView.vala:158
 msgid "Properties"
-msgstr ""
+msgstr "Propiedades"
 
 #: src/Layouts/ItemSidebarView.vala:177 src/Dialogs/Section.vala:97
 msgid "Description"
 msgstr "Descripción"
 
 #: src/Layouts/ItemSidebarView.vala:662
-#, fuzzy
 msgid "Are you sure you want to delete?"
-msgstr "¿Está seguro de que quiere borrar %s?"
+msgstr "¿Seguro que quieres borrarlo?"
 
 #: src/Widgets/MagicButton.vala:46
 msgid "Add task"
@@ -1351,9 +1333,8 @@ msgid "Add Section"
 msgstr "Agregar sección"
 
 #: src/Views/Project/Project.vala:49
-#, fuzzy
 msgid "Project Actions"
-msgstr "Projectos"
+msgstr "Acciones del proyecto"
 
 #: src/Views/Project/Project.vala:73 src/Views/Today.vala:81
 #: src/Views/Scheduled/Scheduled.vala:55
@@ -1402,60 +1383,57 @@ msgstr "Alfabéticamente"
 
 #: src/Views/Project/Project.vala:414 src/Views/Today.vala:549
 #: src/Views/Scheduled/Scheduled.vala:188
-#, fuzzy
 msgid "Date Added"
-msgstr "Fecha en que se añadió"
+msgstr "Fecha de adición"
 
 #: src/Views/Project/Project.vala:417
-#, fuzzy
 msgid "Sorting"
-msgstr "Apóyenos"
+msgstr "Clasificación"
 
 #. Filters
 #: src/Views/Project/Project.vala:422
 msgid "All (default)"
-msgstr ""
+msgstr "Todos (por defecto)"
 
 #: src/Views/Project/Project.vala:424 src/Views/Project/Project.vala:586
 msgid "This Week"
-msgstr ""
+msgstr "Esta semana"
 
 #: src/Views/Project/Project.vala:425 src/Views/Project/Project.vala:588
 msgid "Next 7 Days"
-msgstr ""
+msgstr "Próximos 7 días"
 
 #: src/Views/Project/Project.vala:426 src/Views/Project/Project.vala:590
 msgid "This Month"
-msgstr ""
+msgstr "Este mes"
 
 #: src/Views/Project/Project.vala:427 src/Views/Project/Project.vala:592
 msgid "Next 30 Days"
-msgstr ""
+msgstr "Próximos 30 días"
 
 #: src/Views/Project/Project.vala:430
-#, fuzzy
 msgid "Duedate"
-msgstr "Actualizar"
+msgstr "Fecha de vencimiento"
 
 #: src/Views/Project/Project.vala:437 src/Views/Today.vala:560
 #: src/Views/Scheduled/Scheduled.vala:199
 msgid "P1"
-msgstr ""
+msgstr "P1"
 
 #: src/Views/Project/Project.vala:443 src/Views/Today.vala:566
 #: src/Views/Scheduled/Scheduled.vala:205
 msgid "P2"
-msgstr ""
+msgstr "P2"
 
 #: src/Views/Project/Project.vala:449 src/Views/Today.vala:572
 #: src/Views/Scheduled/Scheduled.vala:211
 msgid "P3"
-msgstr ""
+msgstr "P3"
 
 #: src/Views/Project/Project.vala:455 src/Views/Today.vala:578
 #: src/Views/Scheduled/Scheduled.vala:217
 msgid "P4"
-msgstr ""
+msgstr "P4"
 
 #: src/Views/Project/Project.vala:462 src/Views/Today.vala:585
 #: src/Views/Scheduled/Scheduled.vala:224
@@ -1471,25 +1449,22 @@ msgid "Show Completed Tasks"
 msgstr "Mostrar tareas completadas"
 
 #: src/Views/Project/Project.vala:471 src/Views/Project/Project.vala:551
-#, fuzzy
 msgid "Delete All Completed Tasks"
-msgstr "Subraye las tareas completadas"
+msgstr "Eliminar todas las tareas completadas"
 
 #: src/Views/Project/Project.vala:484
-#, fuzzy
 msgid "Sort By"
 msgstr "Ordenar por"
 
 #: src/Views/Project/Project.vala:493 src/Views/Today.vala:593
 #: src/Views/Scheduled/Scheduled.vala:232
-#, fuzzy
 msgid "Filter By"
-msgstr "Filtro"
+msgstr "Filtrar por"
 
 #: src/Views/Project/Project.vala:551
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr ""
+msgstr "Esto eliminará %d tareas completadas y sus subtareas del proyecto %s"
 
 #: src/Views/Project/List.vala:51 src/Views/Project/Board.vala:37
 msgid "Note"
@@ -1605,7 +1580,7 @@ msgstr "La red no está disponible"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid "Advanced Filtering Function"
-msgstr ""
+msgstr "Función de filtrado avanzado"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid ""
@@ -1613,21 +1588,25 @@ msgid ""
 "priority, due date, and assigned tags. Take control of your tasks like never "
 "before!"
 msgstr ""
+"Ahora en Planify, puedes filtrar sus tareas dentro de un proyecto en función "
+"de la prioridad, la fecha de vencimiento y las etiquetas asignadas. ¡Tome el "
+"control de sus tareas como nunca antes!"
 
 #: src/Dialogs/WhatsNew.vala:119
-#, fuzzy
 msgid "Custom Sorting in Today View"
-msgstr "Orden de clasificación personalizado"
+msgstr "Clasificación personalizada en la vista Hoy"
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid ""
 "Personalize the Today view by sorting your tasks the way you prefer. Make "
 "your day more productive by organizing tasks your way!"
 msgstr ""
+"Personaliza la vista Hoy ordenando tus tareas como prefiera. ¡Haz que tu día "
+"sea más productivo organizando las tareas a tu manera!"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid "Instant Task Details"
-msgstr ""
+msgstr "Detalles instantáneos de la tarea"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid ""
@@ -1635,37 +1614,48 @@ msgid ""
 "relevant task information while in the Board view. Keep your workflow "
 "uninterrupted!"
 msgstr ""
+"Con nuestra nueva vista detallada de tareas en la barra lateral, puede "
+"acceder rápidamente a toda la información relevante de la tarea mientras se "
+"encuentra en la vista del Consejo. ¡Mantenga su flujo de trabajo sin "
+"interrupciones!"
 
 #: src/Dialogs/WhatsNew.vala:121
-#, fuzzy
 msgid "Efficient Management of Completed Tasks"
-msgstr "Subraye las tareas completadas"
+msgstr "Gestión eficaz de las tareas realizadas"
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid ""
 "Now, deleting completed tasks is easier than ever. Keep your workspace clean "
 "and organized with just a few clicks!"
 msgstr ""
+"Ahora, eliminar tareas completadas es más fácil que nunca. ¡Mantén tu "
+"espacio de trabajo limpio y organizado con sólo unos clics!"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid "Attach Files to Your Tasks"
-msgstr ""
+msgstr "Adjunte archivos a sus tareas"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid ""
 "Never lose track of important files related to your tasks. With the file "
 "attachment feature, keep all relevant information in one place."
 msgstr ""
+"No pierdas nunca de vista los archivos importantes relacionados con tus "
+"tareas. Con la función de adjuntar archivos, guarda toda la información "
+"relevante en un solo lugar."
 
 #: src/Dialogs/WhatsNew.vala:123
 msgid "Celebrate Achievements with Sound"
-msgstr ""
+msgstr "Celebre sus logros con sonido"
 
 #: src/Dialogs/WhatsNew.vala:123
 msgid ""
 "Want a fun way to celebrate your achievements? Now you can play a sound when "
 "completing a task. Make every accomplishment even more satisfying!"
 msgstr ""
+"¿Quieres una forma divertida de celebrar tus logros? Ahora puedes reproducir "
+"un sonido al completar una tarea. ¡Haz que cada logro sea aún más "
+"satisfactorio!"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:88
 msgid "Type a search"
@@ -1882,7 +1872,7 @@ msgstr "Discuta y comparta sus comentarios"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:251
 msgid "Matrix Room"
-msgstr ""
+msgstr "Sala de Matrix"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:267
 msgid "Want to buy me a drink?"
@@ -2045,13 +2035,12 @@ msgid "Always Show Completed Sub-Tasks"
 msgstr "Mostrar siempre las subtareas completadas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:495
-#, fuzzy
 msgid "Task Complete Tone"
-msgstr "Completar tarea"
+msgstr "Tono de tarea completada"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:496
 msgid "Play a sound when tasks are completed"
-msgstr ""
+msgstr "Reproducir un sonido cuando se completen las tareas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:601
 msgid "App Theme"
