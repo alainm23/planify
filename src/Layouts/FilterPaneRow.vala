@@ -94,14 +94,16 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
                 add_css_class ("selected");
-                add_css_class ("animation");
-                Timeout.add (1000, () => {
-                    remove_css_class ("animation"); 
-                    return GLib.Source.REMOVE;
-                });
+
+                if (!has_css_class ("animation")) {
+                    add_css_class ("animation");
+                    Timeout.add (700, () => {
+                        remove_css_class ("animation");
+                        return GLib.Source.REMOVE;
+                    });
+                }
             } else {
                 remove_css_class ("selected"); 
-                remove_css_class ("animation");
             }
         });
     }
