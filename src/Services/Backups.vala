@@ -114,9 +114,6 @@ public class Services.Backups : Object {
         builder.set_member_name ("settings");
         builder.begin_object ();
 
-        builder.set_member_name ("inbox-project-id");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
-
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
 
