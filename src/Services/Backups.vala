@@ -117,6 +117,7 @@ public class Services.Backups : Object {
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
 
+        // Todoist
         builder.set_member_name ("todoist-access-token");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-access-token"));
 
@@ -236,6 +237,9 @@ public class Services.Backups : Object {
             builder.set_member_name ("due_date");
             builder.add_string_value (project.due_date);
 
+            builder.set_member_name ("sync_id");
+            builder.add_string_value (project.sync_id);
+
             builder.end_object ();
         }
         builder.end_array ();
@@ -340,6 +344,9 @@ public class Services.Backups : Object {
                 builder.add_string_value (label.name);
             }
             builder.end_array ();
+
+            builder.set_member_name ("extra_data");
+            builder.add_string_value (item.extra_data);
         builder.end_object ();
 
             builder.end_object ();

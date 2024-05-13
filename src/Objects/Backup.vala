@@ -43,7 +43,8 @@ public class Objects.Backup : Object {
             return _todoist_backend;
         }
     }
-    public bool google_backend { get; set; default = false; }
+
+    public signal void deleted ();
 
     public Backup.from_file (File file) {
         var parser = new Json.Parser ();
@@ -118,5 +119,33 @@ public class Objects.Backup : Object {
         }
 
         return true;
+    }
+
+    public void delete_backup (Gtk.Window window) {
+        var dialog = new Adw.MessageDialog (
+            window,
+            _("Delete Backup"),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.show ();
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                File db_file = File.new_for_path (path);
+                if (db_file.query_exists ()) {
+                    try {
+                        if (db_file.delete ()) {
+                            deleted ();
+                        }
+                    } catch (Error err) {
+                        warning (err.message);
+                    }
+                }
+            }
+        });
     }
 }
