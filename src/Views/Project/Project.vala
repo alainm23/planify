@@ -251,8 +251,12 @@ public class Views.Project : Adw.Bin {
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
+
+		if (!project.is_deck && !project.inbox_project) {
+            menu_box.append (edit_item);
+        }
+
 		if (!project.is_inbox_project) {
-			menu_box.append (edit_item);
 			menu_box.append (schedule_item);
 			menu_box.append (duplicate_item);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -268,7 +272,7 @@ public class Views.Project : Adw.Bin {
 		menu_box.append (paste_item);
 		menu_box.append (show_completed_item);
 
-		if (!project.inbox_project) {
+		if (!project.is_deck && !project.inbox_project) {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 			menu_box.append (archive_item);
 			menu_box.append (delete_item);

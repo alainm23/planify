@@ -658,7 +658,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
 
-        if (!project.is_deck) {
+        if (!project.is_deck && !project.inbox_project) {
             menu_box.append (edit_item);
         }
         
@@ -671,7 +671,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 
-        if (!project.is_deck) {
+        if (!project.is_deck && !project.inbox_project) {
             menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (archive_item);
             menu_box.append (delete_item);
