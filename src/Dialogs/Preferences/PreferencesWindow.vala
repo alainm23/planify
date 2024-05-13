@@ -549,7 +549,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var underline_completed_row = new Adw.ActionRow ();
-		underline_completed_row.title = _("Underline Completed Tasks");
+		underline_completed_row.title = _("Cross Out Completed Tasks");
 		underline_completed_row.set_activatable_widget (underline_completed_switch);
 		underline_completed_row.add_suffix (underline_completed_switch);
 
