@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-11 06:12-0500\n"
-"PO-Revision-Date: 2024-05-04 09:31+0530\n"
+"PO-Revision-Date: 2024-05-13 13:54+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
-"Language-Team: Hindi\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -174,7 +174,6 @@ msgid "Add To-Do"
 msgstr "करने-योग्य जोड़ें"
 
 #: core/QuickAdd.vala:141
-#, fuzzy
 msgid "Create More"
 msgstr "और बनाएं"
 
@@ -526,24 +525,21 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️अनुसरण करें"
 
 #: core/Util/Util.vala:899 core/Objects/Item.vala:1515
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
-msgstr "कार्य को क्लिपबोर्ड पर कॉपी किया गया"
+msgstr "कार्य %s पर ले जाया गया"
 
 #: core/Util/Util.vala:977
-#, fuzzy
 msgid "Task duplicated"
-msgstr "प्रतिरूप"
+msgstr "कार्य प्रतिरूपित"
 
 #: core/Util/Util.vala:1013
-#, fuzzy
 msgid "Section duplicated"
-msgstr "अनुभाग का नाम"
+msgstr "अनुभाग प्रतिरूपित"
 
 #: core/Util/Util.vala:1040 core/Util/Util.vala:1066
-#, fuzzy
 msgid "Project duplicated"
-msgstr "परियोजना कार्रवाई"
+msgstr "परियोजना प्रतिरूपित"
 
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -559,22 +555,21 @@ msgstr "बिता कल"
 
 #: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "दिन"
 
 #: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
-#, fuzzy
 msgid "day"
-msgstr "आज"
+msgstr "दिन"
 
 #: core/Util/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "%s %s पहले"
 
 #: core/Util/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s शेष"
 
 #: core/Util/Datetime.vala:391
 msgid "Mo,"
@@ -898,18 +893,18 @@ msgstr "मिटाएं"
 
 #: core/Objects/Project.vala:847 core/Objects/Section.vala:364
 msgid "Archive?"
-msgstr ""
+msgstr "संग्रहित करें?"
 
 #: core/Objects/Project.vala:848 core/Objects/Section.vala:365
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "यह %s और उसके सभी कार्यों को संग्रहीत करेगा।"
 
 #: core/Objects/Project.vala:852 core/Objects/Section.vala:369
 #: src/Layouts/ProjectRow.vala:650 src/Layouts/SectionRow.vala:624
 #: src/Views/Project/Project.vala:248
 msgid "Archive"
-msgstr ""
+msgstr "संग्रहीत करें"
 
 #: core/Objects/Section.vala:337 src/Layouts/SectionBoard.vala:562
 #, c-format
@@ -1043,9 +1038,8 @@ msgid "About Planify"
 msgstr "Planify के बारे में"
 
 #: src/MainWindow.vala:484
-#, fuzzy
 msgid "Archived Projects"
-msgstr "परियोजना जोड़ें"
+msgstr "संग्रहीत परियोजनाएं"
 
 #: src/Services/Backups.vala:501
 msgid "Backup Successfully Imported"
@@ -1614,59 +1608,68 @@ msgstr "नेटवर्क उपलब्ध नहीं है"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid "Inbox as Independent Project"
-msgstr ""
+msgstr "स्वतंत्र परियोजना के रूप में इनबॉक्स"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid ""
 "The Inbox is the default place to add new tasks, allowing you to quickly get "
 "your ideas out of your head and then plan them when you’re ready."
 msgstr ""
+"इनबॉक्स नए कार्यों को जोड़ने के लिए तयशुदा स्थान है, जिससे आप अपने विचारों को तुरंत अपने "
+"दिमाग से निकाल सकते हैं और जब आप तैयार हों तो उनकी योजना बना सकते हैं।"
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid "Enhanced Task Duplication"
-msgstr ""
+msgstr "संवर्धित कार्य प्रतिरूपण"
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid ""
 "When you duplicate a task now, all subtasks and labels are automatically "
 "duplicated, saving you time and effort in managing your projects."
 msgstr ""
+"जब आप अब किसी कार्य को प्रतिरूपित करते हैं, तो सभी उप-कार्य और लेबल स्वचालित रूप से "
+"प्रतिरूपित हो जाते हैं, जिससे आपकी परियोजनाओं को प्रबंधित करने में आपका समय और प्रयास "
+"बचता है।"
 
 #: src/Dialogs/WhatsNew.vala:120
-#, fuzzy
 msgid "Duplication of Sections and Projects"
-msgstr "किसी परियोजना में एक नया अनुभाग बनाएं"
+msgstr "अनुभागों और परियोजनाओं का प्रतिरूपण"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid ""
 "You can now easily duplicate entire sections and projects, making it easier "
 "to create new projects based on existing structures."
 msgstr ""
+"अब आप आसानी से संपूर्ण अनुभागों और परियोजनाओं का प्रतिरूप बना सकते हैं, जिससे मौजूदा "
+"संरचनाओं के आधार पर नई परियोजनाएं बनाना आसान हो जाएगा।"
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid "Project Expiry Date"
-msgstr ""
+msgstr "परियोजना समाप्ति तिथि"
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid ""
 "Your project’s expiry date now clearly shows the remaining days, helping you "
 "keep track of your deadlines more effectively."
 msgstr ""
+"अपनी परियोजना की समाप्ति तिथि अब शेष दिनों को स्पष्ट रूप से दिखाती है, जिससे आपको "
+"अपनी समय-सीमाओं पर अधिक प्रभावी ढंग से नज़र रखने में मदद मिलती है।"
 
 #: src/Dialogs/WhatsNew.vala:122
-#, fuzzy
 msgid "Archiving of Projects and Sections"
-msgstr "अधिक प्रोजेक्ट क्रियाएँ खोलें"
+msgstr "परियोजनाओं और अनुभागों का संग्रहण"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid ""
 "You can now archive entire projects and sections! This feature helps you "
 "keep your workspace organized and clutter-free."
 msgstr ""
+"अब आप संपूर्ण परियोजनाओं और अनुभागों को संग्रहीत कर सकते हैं! यह सुविधा आपके कार्यक्षेत्र को "
+"व्यवस्थित और अव्यवस्था-मुक्त रखने में आपकी सहायता करती है।"
 
 #: src/Dialogs/ManageSectionOrder.vala:62
 msgid "Archived"
-msgstr ""
+msgstr "संग्रहीत"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:88
 msgid "Type a search"
@@ -1675,7 +1678,7 @@ msgstr "खोज लिखें"
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:139
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:180
 msgid "Unarchive"
-msgstr ""
+msgstr "असंग्रहित करें"
 
 #: src/Dialogs/DatePicker.vala:71
 msgid "Next Week"
@@ -1815,9 +1818,8 @@ msgid "Customize to your liking"
 msgstr "अपनी पसंद के अनुसार अनुकूलित करें"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:142
-#, fuzzy
 msgid "Task Setting"
-msgstr "कार्य सेटिंग्स"
+msgstr "कार्य सेटिंग"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:152
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
@@ -1964,11 +1966,11 @@ msgstr "Planify को पृष्ठभूमि में चलने दे
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:399
 msgid "Run on Startup"
-msgstr "स्टार्टअप पर चलाएं"
+msgstr "शुरुआत पर चलाएं"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:400
 msgid "Whether Planify should run on startup"
-msgstr "क्या Planify को स्टार्टअप पर चलना चाहिए"
+msgstr "क्या Planify को शुरुआत पर चलना चाहिए"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:412
 msgid "Calendar Events"
@@ -2061,7 +2063,7 @@ msgstr "कार्य पूरा होने पर ध्वनि बज�
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:583
 msgid "Open Task In Sidebar View"
-msgstr ""
+msgstr "पार्श्वपट्टी दृश्य में कार्य खोलें"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:648
 msgid "App Theme"
@@ -2469,146 +2471,3 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
-
-#~ msgid "Tasks Synced Successfully"
-#~ msgstr "कार्य सफलतापूर्वक समन्वयित हुए"
-
-#~ msgid "Do you want to use Todoist as your default Inbox Project?"
-#~ msgstr ""
-#~ "क्या आप Todoist को अपने तयशुदा इनबॉक्स परियोजना के रूप में उपयोग करना चाहते हैं?"
-
-#, c-format
-#~ msgid "Are you sure you want to delete %s?"
-#~ msgstr "क्या आप वाकई %s को मिटाना चाहते हैं?"
-
-#~ msgid "Advanced Filtering Function"
-#~ msgstr "उन्नत छनन प्रकार्य"
-
-#~ msgid ""
-#~ "Now in Planify, you can filter your tasks within a project based on "
-#~ "priority, due date, and assigned tags. Take control of your tasks like "
-#~ "never before!"
-#~ msgstr ""
-#~ "अब Planify में, आप प्राथमिकता, नियत तिथि और निर्दिष्ट टैग के आधार पर किसी "
-#~ "परियोजना के भीतर अपने कार्यों को फिल्टर कर सकते हैं। अपने कार्यों पर पहले जैसा नियंत्रण "
-#~ "रखें!"
-
-#~ msgid "Custom Sorting in Today View"
-#~ msgstr "'आज दृश्य' में तदनुकूल छंटाई"
-
-#~ msgid ""
-#~ "Personalize the Today view by sorting your tasks the way you prefer. Make "
-#~ "your day more productive by organizing tasks your way!"
-#~ msgstr ""
-#~ "अपने कार्यों को अपनी पसंद के अनुसार क्रमबद्ध करके 'आज दृश्य' को वैयक्तिकृत करें। कार्यों को "
-#~ "अपने तरीके से व्यवस्थित करके अपने दिन को अधिक उत्पादक बनाएं!"
-
-#~ msgid "Instant Task Details"
-#~ msgstr "त्वरित कार्य विवरण"
-
-#~ msgid ""
-#~ "With our new task detail view in the sidebar, you can quickly access all "
-#~ "relevant task information while in the Board view. Keep your workflow "
-#~ "uninterrupted!"
-#~ msgstr ""
-#~ "पार्श्वपट्टी में हमारे नए कार्य विवरण दृश्य के साथ, आप बोर्ड दृश्य में रहते हुए सभी "
-#~ "प्रासंगिक कार्य जानकारी तक तुरंत पहुंच सकते हैं। अपना कार्यप्रवाह निर्बाध रखें!"
-
-#~ msgid "Efficient Management of Completed Tasks"
-#~ msgstr "पूर्ण किये गये कार्यों का कुशल प्रबंधन"
-
-#~ msgid ""
-#~ "Now, deleting completed tasks is easier than ever. Keep your workspace "
-#~ "clean and organized with just a few clicks!"
-#~ msgstr ""
-#~ "अब, पूर्ण किए गए कार्यों को मिटाना पहले से कहीं अधिक आसान है। बस कुछ ही क्लिक से अपने "
-#~ "कार्यक्षेत्र को साफ और व्यवस्थित रखें!"
-
-#~ msgid "Attach Files to Your Tasks"
-#~ msgstr "अपने कार्यों में फाइलें अनुलग्नक करें"
-
-#~ msgid ""
-#~ "Never lose track of important files related to your tasks. With the file "
-#~ "attachment feature, keep all relevant information in one place."
-#~ msgstr ""
-#~ "अपने कार्यों से संबंधित महत्वपूर्ण फाइलों का ट्रैक कभी न खोएं। फाइल अनुलग्नक सुविधा के "
-#~ "साथ, सभी प्रासंगिक जानकारी एक ही स्थान पर रखें।"
-
-#~ msgid "Celebrate Achievements with Sound"
-#~ msgstr "ध्वनि के साथ उपलब्धियों का जश्न मनाएं"
-
-#~ msgid ""
-#~ "Want a fun way to celebrate your achievements? Now you can play a sound "
-#~ "when completing a task. Make every accomplishment even more satisfying!"
-#~ msgstr ""
-#~ "क्या आप अपनी उपलब्धियों का जश्न मनाने हेतु मजेदार तरीका चाहते हैं? अब आप कोई कार्य "
-#~ "पूरा करते समय ध्वनि बजा सकते हैं। प्रत्येक उपलब्धि को और भी अधिक संतोषजनक बनाएं!"
-
-#~ msgid "Default Inbox Project"
-#~ msgstr "तयशुदा इनबॉक्स परियोजना"
-
-#~ msgid ""
-#~ "Your list of filters will show up here. Create one by entering the name "
-#~ "and pressing the Enter key."
-#~ msgstr ""
-#~ "आपके फिल्टर की सूची यहां दिखाई देगी। नाम दर्ज करके और Enter कुंजी दबाकर एक बनाएं।"
-
-#, c-format
-#~ msgid "Create '%s'"
-#~ msgstr "'%s' बनाएं"
-
-#~ msgid "Search or Create"
-#~ msgstr "खोजें या बनाएं"
-
-#~ msgid "New Filters"
-#~ msgstr "नए फिल्टर"
-
-#~ msgid "New filters available in Quick Add."
-#~ msgstr "त्वरित जोड़ें में नए फिल्टर उपलब्ध हैं।"
-
-#~ msgid "All your repeating to-dos in one, convenient place (finally!)."
-#~ msgstr "आपके सभी दोहराए जाने वाले करने-योग्य एक, सुविधाजनक स्थान पर (आखिरकार!)।"
-
-#~ msgid "A nice focused list to plan tomorrow, today."
-#~ msgstr "कल, आज की योजना बनाने के लिए अच्छी केंद्रित सूची।"
-
-#~ msgid "All your unlabel to-dos in one place."
-#~ msgstr "आपके सभी अनलेबल करने-योग्य एक ही स्थान पर।"
-
-#~ msgid "Search by Sections"
-#~ msgstr "अनुभागों द्वारा खोजें"
-
-#~ msgid "Quick Find now supports section searching."
-#~ msgstr "त्वरित खोज अब अनुभाग खोज का समर्थन करता है।"
-
-#~ msgid ""
-#~ "The process removes all stored information without the possibility of "
-#~ "undoing it"
-#~ msgstr ""
-#~ "यह प्रक्रिया पूर्ववत करने की संभावना के बिना सभी संग्रहीत जानकारी को हटा देती है"
-
-#~ msgid "Delete project"
-#~ msgstr "प्रोजेक्ट हटाएँ"
-
-#~ msgid "Delete label"
-#~ msgstr "लेबल हटाएँ"
-
-#~ msgid "Move tasks"
-#~ msgstr "कार्यों को स्थानांतरित करें"
-
-#, c-format
-#~ msgid "Are you sure you want to move your task to %s?"
-#~ msgstr "क्या आप वाकई अपने कार्य को %s पर ले जाना चाहते हैं?"
-
-#~ msgid "Add subtask"
-#~ msgstr "उपकार्य जोड़ें"
-
-#~ msgid "New look"
-#~ msgstr "नया रूप"
-
-#~ msgid ""
-#~ "The design has been improved and new icons have been added making the "
-#~ "user interface simpler to understand and use.."
-#~ msgstr ""
-#~ "डिज़ाइन में सुधार किया गया है और नए आइकन जोड़े गए हैं जिससे उपयोगकर्ता इंटरफ़ेस को "
-#~ "समझना और उपयोग करना आसान हो गया है।"
