@@ -65,7 +65,7 @@ To install, use `ninja install`, then execute with `io.github.alainm23.planify`
 
 ## Code of conduct
 
-Decibels follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
+Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
 
 - **Be friendly.** Use welcoming and inclusive language.
 - **Be empathetic.** Be respectful of differing viewpoints and experiences.
