@@ -343,13 +343,9 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                    if (!on_drag) {
-                        open_detail ();
-                    }
-
-                    return GLib.Source.REMOVE;
-                });
+                if (!on_drag) {
+                    open_detail ();
+                }
             }
         });
 

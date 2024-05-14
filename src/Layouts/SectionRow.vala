@@ -65,7 +65,6 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public Gee.HashMap <string, Layouts.ItemRow> items;
 	public Gee.HashMap <string, Layouts.ItemRow> items_checked;
-	public bool on_drag = false;
 
 	public signal void children_size_changed ();
 
@@ -176,7 +175,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		drop_widget = new Gtk.Grid () {
 			css_classes = { "transition", "drop-target" },
 			height_request = 32,
-			margin_start = 18
+			margin_start = 21,
+			margin_end = 12
 		};
 
 		drop_revealer = new Gtk.Revealer () {
@@ -271,14 +271,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		var edit_gesture = new Gtk.GestureClick ();
 		name_editable.add_controller (edit_gesture);
-		edit_gesture.pressed.connect (() => {
-			Timeout.add (Constants.DRAG_TIMEOUT, () => {
-				if (!on_drag) {
-					name_editable.editing (true);
-				}
-
-				return GLib.Source.REMOVE;
-			});
+		edit_gesture.released.connect (() => {
+			name_editable.editing (true);
 		});
 
 		Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
@@ -817,14 +811,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	public void drag_begin () {
 		sectionrow_grid.add_css_class ("card");
 		opacity = 0.3;
-		on_drag = true;
 		bottom_revealer.reveal_child = false;
 	}
 
 	public void drag_end () {
 		sectionrow_grid.remove_css_class ("card");
 		opacity = 1;
-		on_drag = false;
 	}
 
 	private void move_section (string project_id) {

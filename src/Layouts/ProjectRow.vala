@@ -49,8 +49,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     
-    public bool on_drag = false;
-
     private bool has_subprojects {
         get {
             return Util.get_default ().get_children (listbox).length () > 0;
@@ -243,17 +241,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         var select_gesture = new Gtk.GestureClick ();
-        select_gesture.set_button (1);
         handle_grid.add_controller (select_gesture);
-
-        select_gesture.pressed.connect (() => {
-            Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                if (!on_drag) {
-                    Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
-                }
-
-                return GLib.Source.REMOVE;
-            });
+        select_gesture.released.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
         });
 
         var menu_gesture = new Gtk.GestureClick () {
@@ -606,14 +596,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     public void drag_begin () {
         handle_grid.add_css_class ("drop-begin");
-        on_drag = true;
         main_revealer.reveal_child = false;
         listbox_revealer.reveal_child = false;
     }
 
     public void drag_end () {
         handle_grid.remove_css_class ("drop-begin");
-        on_drag = false;
         main_revealer.reveal_child = true;
         listbox_revealer.reveal_child = project.collapsed;
     }

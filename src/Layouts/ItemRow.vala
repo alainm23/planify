@@ -180,7 +180,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
-    public bool on_drag = false;
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
@@ -611,21 +610,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                    if (!on_drag) {
-                        if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
-                            Services.EventBus.get_default ().open_item (item);
-                        } else {
-                            if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-                                Services.EventBus.get_default ().item_selected (item.id);
-                            } else {
-                                edit = true;
-                            }
-                        }
+                if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+                    Services.EventBus.get_default ().open_item (item);
+                } else {
+                    if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+                        Services.EventBus.get_default ().item_selected (item.id);
+                    } else {
+                        edit = true;
                     }
-
-                    return GLib.Source.REMOVE;
-                });
+                }
             }
         });
 
@@ -1791,14 +1784,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public void drag_begin () {
         itemrow_box.add_css_class ("drop-begin");
-        on_drag = true;
         main_revealer.reveal_child = false;
         Services.EventBus.get_default ().drag_n_drop_active (item.project_id, true);
     }
 
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
-        on_drag = false;
         main_revealer.reveal_child = item.show_item;
         Services.EventBus.get_default ().drag_n_drop_active (item.project_id, false);
     }

@@ -120,10 +120,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         content = content_box;
         add_projects ();
 
-        Timeout.add (Constants.DRAG_TIMEOUT, () => {
-            return GLib.Source.REMOVE;
-        });
-
         search_entry.search_changed.connect (() => {
             local_group.invalidate_filter ();
             todoist_group.invalidate_filter ();
