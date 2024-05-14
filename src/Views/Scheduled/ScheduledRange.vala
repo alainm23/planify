@@ -231,9 +231,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item) {
-            show_project_label = true
-        };
+        items [item.id] = new Layouts.ItemRow (item);
         items [item.id].disable_drag_and_drop ();
         listbox.append (items [item.id]);
     }
@@ -241,9 +239,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_date_range (item, start_date, end_date, false)) {
-            items [item.id] = new Layouts.ItemRow (item) {
-                show_project_label = true
-            };
+            items [item.id] = new Layouts.ItemRow (item);
             items [item.id].disable_drag_and_drop ();
             listbox.append (items [item.id]);
         }

@@ -209,8 +209,8 @@ entry.flat:focus-within {
 
 .card-selected {
     transition: all 225ms ease-in-out;
-    margin-bottom: 24px;
-    margin-top: 24px;
+    margin-bottom: 12px;
+    margin-top: 12px;
     margin-left: 3px;
     margin-right: 3px;
     padding-left: 9px;

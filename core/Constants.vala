@@ -5,7 +5,7 @@ namespace Constants {
     public const string BACKUP_VERSION = "1.0";
     public const int UPDATE_TIMEOUT = 1500;
     public const int DESTROY_TIMEOUT = 750;
-    public const int DRAG_TIMEOUT = 250;
+    public const int DRAG_TIMEOUT = 125;
     public const int SYNC_TIMEOUT = 2500;
     public const int SHORT_NAME_SIZE = 20;
     public const int PRIORITY_1 = 4;

@@ -24,7 +24,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Button checked_repeat_button;
     private Gtk.Revealer checked_button_revealer;
 	private Gtk.Label content_label;
 
@@ -109,11 +108,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = checked_button,
             valign = Gtk.Align.START,
             reveal_child = true
-        };
-
-        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "no-padding" }
         };
 
 		content_label = new Gtk.Label (item.content) {
@@ -327,9 +321,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		});
 
 		var checked_button_gesture = new Gtk.GestureClick ();
-		checked_button_gesture.set_button (1);
 		checked_button.add_controller (checked_button_gesture);
-
 		checked_button_gesture.pressed.connect (() => {
 			checked_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 			checked_button.active = !checked_button.active;
@@ -338,23 +330,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         var select_button_gesture = new Gtk.GestureClick ();
 		select_checkbutton.add_controller (select_button_gesture);
-
 		select_button_gesture.pressed.connect (() => {
 			select_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
 			select_checkbutton.active = !select_checkbutton.active;
             selected_toggled (select_checkbutton.active);   
 		});
 
-        var repeat_button_gesture = new Gtk.GestureClick ();
-        checked_repeat_button.add_controller (repeat_button_gesture);
-        repeat_button_gesture.pressed.connect (() => {
-            repeat_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            update_next_recurrency ();
-        });
-
         var detail_gesture_click = new Gtk.GestureClick ();
         handle_grid.add_controller (detail_gesture_click);
-        detail_gesture_click.pressed.connect ((n_press, x, y) => {
+        detail_gesture_click.released.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
@@ -372,7 +356,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         handle_grid.add_controller (menu_handle_gesture);
-        menu_handle_gesture.pressed.connect ((n_press, x, y) => {
+        menu_handle_gesture.released.connect ((n_press, x, y) => {
             if (!item.completed) {
                 build_handle_context_menu (x, y);
             }

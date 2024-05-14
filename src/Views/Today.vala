@@ -412,9 +412,7 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item) {
-            show_project_label = true
-        };
+        items [item.id] = new Layouts.ItemRow (item);
         items [item.id].disable_drag_and_drop ();
         listbox.append (items [item.id]);
         update_headers ();
@@ -424,9 +422,7 @@ public class Views.Today : Adw.Bin {
     }
 
     private void add_overdue_item (Objects.Item item) {
-        overdue_items [item.id] = new Layouts.ItemRow (item) {
-            show_project_label = true
-        };
+        overdue_items [item.id] = new Layouts.ItemRow (item);
         overdue_items [item.id].disable_drag_and_drop ();
         overdue_listbox.append (overdue_items [item.id]);
         update_headers ();

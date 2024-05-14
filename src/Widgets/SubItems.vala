@@ -20,8 +20,10 @@
 */
 
 public class Widgets.SubItems : Adw.Bin {
-    public Objects.Item item_parent { get; set; }
     public bool is_board { get; construct; }
+    public bool is_project_view { get; construct; }
+
+    public Objects.Item item_parent { get; set; }
     
     private Gtk.Revealer sub_tasks_header_revealer;
     private Gtk.ListBox listbox;
@@ -62,15 +64,17 @@ public class Widgets.SubItems : Adw.Bin {
 
     public signal void children_changes ();
 
-    public SubItems () {
+    public SubItems (bool is_project_view = false) {
         Object (
-            is_board: false
+            is_board: false,
+            is_project_view: is_project_view
         );
     }
 
     public SubItems.for_board () {
         Object (
-            is_board: true
+            is_board: true,
+            is_project_view: false
         );
     }
 
@@ -206,7 +210,7 @@ public class Widgets.SubItems : Adw.Bin {
                         if (is_board) {
                             items_checked [item.id] = new Layouts.ItemBoard (item);
                         } else {
-                            items_checked [item.id] = new Layouts.ItemRow (item);
+                            items_checked [item.id] = new Layouts.ItemRow (item, is_project_view);
                         }
 
                         checked_listbox.insert (items_checked [item.id], 0);
@@ -221,7 +225,7 @@ public class Widgets.SubItems : Adw.Bin {
                         if (is_board) {
                             items [item.id] = new Layouts.ItemBoard (item);
                         } else {
-                            items [item.id] = new Layouts.ItemRow (item);
+                            items [item.id] = new Layouts.ItemRow (item, is_project_view);
                         }
 
                         listbox.append (items [item.id]);
@@ -321,7 +325,7 @@ public class Widgets.SubItems : Adw.Bin {
                 if (is_board) {
                     items_checked [item.id] = new Layouts.ItemBoard (item);
                 } else {
-                    items_checked [item.id] = new Layouts.ItemRow (item);
+                    items_checked [item.id] = new Layouts.ItemRow (item, is_project_view);
                 }
                 
                 checked_listbox.append (items_checked [item.id]);
@@ -334,7 +338,7 @@ public class Widgets.SubItems : Adw.Bin {
             if (is_board) {
                 items [item.id] = new Layouts.ItemBoard (item);
             } else {
-                items [item.id] = new Layouts.ItemRow (item);
+                items [item.id] = new Layouts.ItemRow (item, is_project_view);
             }
 
             if (item.custom_order) {

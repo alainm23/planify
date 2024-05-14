@@ -585,6 +585,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		group.add (open_task_sidebar);
 
+		var attention_at_one = new Adw.SwitchRow ();
+		attention_at_one.title = _("Attention at One");
+		Services.Settings.get_default ().settings.bind ("attention-at-one", attention_at_one, "active", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("open-task-sidebar", attention_at_one, "sensitive", GLib.SettingsBindFlags.INVERT_BOOLEAN);
+
+		group.add (attention_at_one);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (group);
 

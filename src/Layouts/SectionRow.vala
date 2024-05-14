@@ -291,7 +291,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 					}
 
 					if (!items_checked.has_key (item.id)) {
-						items_checked [item.id] = new Layouts.ItemRow (item);
+						items_checked [item.id] = new Layouts.ItemRow (item, true);
 						checked_listbox.insert (items_checked [item.id], 0);
 					}
 				} else {
@@ -301,7 +301,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 					}
 
 					if (!items.has_key (item.id)) {
-						items [item.id] = new Layouts.ItemRow (item);
+						items [item.id] = new Layouts.ItemRow (item, true);
 						listbox.append (items [item.id]);
 					}
 				}
@@ -514,7 +514,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 	public void add_complete_item (Objects.Item item) {
 		if (section.project.show_completed && item.checked) {
 			if (!items_checked.has_key (item.id)) {
-				items_checked [item.id] = new Layouts.ItemRow (item);
+				items_checked [item.id] = new Layouts.ItemRow (item, true);
 				checked_listbox.append (items_checked [item.id]);
 			}
 		}
@@ -547,7 +547,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 	public void add_item (Objects.Item item) {
 		if (!item.checked && !items.has_key (item.id)) {
-			items [item.id] = new Layouts.ItemRow (item);
+			items [item.id] = new Layouts.ItemRow (item, true);
 
 			if (item.custom_order) {
 				listbox.insert (items [item.id], item.child_order);

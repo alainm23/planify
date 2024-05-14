@@ -20,6 +20,8 @@
 */
 
 public class Layouts.ItemRow : Layouts.ItemBase {
+    public bool is_project_view { get; construct; }
+
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
@@ -32,6 +34,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
+    private Gtk.Label project_label;
 
     private Gtk.CheckButton select_checkbutton;
     private Gtk.Revealer select_revealer;
@@ -128,7 +131,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
-                project_label_revealer.reveal_child = show_project_label;
+                project_label_revealer.reveal_child = !is_project_view;
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
@@ -175,18 +178,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
     }
 
-    private bool _show_project_label = false;
-    public bool show_project_label {
-        set {
-            _show_project_label = value;
-            project_label_revealer.reveal_child = _show_project_label;
-        }
-
-        get {
-            return _show_project_label;
-        }
-    }
-
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
     public bool on_drag = false;
@@ -195,9 +186,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public signal void item_added ();
     public signal void widget_destroyed ();
 
-    public ItemRow (Objects.Item item) {
+    public ItemRow (Objects.Item item, bool is_project_view = false) {
         Object (
             item: item,
+            is_project_view: is_project_view,
             focusable: false,
             can_focus: true
         );
@@ -287,14 +279,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        var project_label = new Gtk.Label (item.project.short_name) {
+        project_label = new Gtk.Label (null) {
             css_classes = { "small-label", "dim-label" },
-            margin_start = 6
+            margin_start = 6,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         project_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = project_label
+            child = project_label,
+            reveal_child = !is_project_view
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -557,7 +551,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = _itemrow_box
         };
 
-        subitems = new Widgets.SubItems ();
+        subitems = new Widgets.SubItems (is_project_view);
         subitems.present_item (item);
         subitems.reveal_child = item.collapsed;
 
@@ -612,7 +606,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void connect_signals () {
         var handle_gesture_click = new Gtk.GestureClick ();
         itemrow_box.add_controller (handle_gesture_click);
-        handle_gesture_click.pressed.connect ((n_press, x, y) => {
+        handle_gesture_click.released.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
@@ -622,13 +616,21 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
                             Services.EventBus.get_default ().open_item (item);
                         } else {
-                            edit = true;
+                            if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+                                Services.EventBus.get_default ().item_selected (item.id);
+                            } else {
+                                edit = true;
+                            }
                         }
                     }
 
                     return GLib.Source.REMOVE;
                 });
             }
+        });
+
+        Services.EventBus.get_default ().item_selected.connect ((item_id) => {
+            edit = item.id == item_id;
         });
 
         var description_gesture_click = new Gtk.GestureClick ();
@@ -678,10 +680,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         });
 
-        var hide_loading_gesture = new Gtk.GestureClick ();
-        hide_loading_button.add_controller (hide_loading_gesture);
-        hide_loading_gesture.pressed.connect (() => {
-            hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+        hide_loading_button.clicked.connect (() => {
             edit = false;
         });
 
@@ -719,7 +718,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
-        menu_handle_gesture.pressed.connect ((n_press, x, y) => {
+        menu_handle_gesture.released.connect ((n_press, x, y) => {
             if (!item.project.is_deck) {
                 build_handle_context_menu (x, y);
             }
@@ -727,7 +726,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var multiselect_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (multiselect_gesture);
-
         multiselect_gesture.pressed.connect (() => {
             multiselect_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             select_checkbutton.active = !select_checkbutton.active;
@@ -875,7 +873,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.tooltip_text = item.content;
         content_textview.buffer.text = item.content;
         description_textview.set_text (item.description);
-                
+        
+        project_label.label = item.project.name;
+        if (item.has_parent) {
+            if (item.parent.has_parent) {
+                project_label.label += " /.../ " + item.parent.content;
+            } else {
+                project_label.label += " / " + item.parent.content;
+            }
+        }
+        project_label.tooltip_text = project_label.label;
+        
         labels_summary.update_request ();
         label_button.labels = item._get_labels ();
         schedule_button.update_from_item (item);

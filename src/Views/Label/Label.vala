@@ -178,9 +178,7 @@ public class Views.Label : Adw.Bin {
     }
 
     private void add_item (Objects.Item item) {
-        items [item.id] = new Layouts.ItemRow (item) {
-            show_project_label = true
-        };
+        items [item.id] = new Layouts.ItemRow (item);
         items [item.id].disable_drag_and_drop ();
         listbox.append (items [item.id]);
     }
