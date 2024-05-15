@@ -87,8 +87,8 @@ public class Views.Label : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
             child = content
         };
@@ -190,6 +190,6 @@ public class Views.Label : Adw.Bin {
     public void prepare_new_item (string content = "") {
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 }

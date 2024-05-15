@@ -799,8 +799,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void delete_project (Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (
-            window, 
+        var dialog = new Adw.AlertDialog (
             _("Delete Project %s?".printf (name)),
             _("This can not be undone")
         );
@@ -809,7 +808,7 @@ public class Objects.Project : Objects.BaseObject {
         dialog.add_response ("delete", _("Delete"));
         dialog.close_response = "cancel";
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
@@ -842,8 +841,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void archive_project (Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (
-            window, 
+        var dialog = new Adw.AlertDialog (
             _("Archive?"),
             _("This will archive %s and all its tasks.".printf (name))
         );
@@ -852,7 +850,7 @@ public class Objects.Project : Objects.BaseObject {
         dialog.add_response ("archive", _("Archive"));
         dialog.close_response = "cancel";
         dialog.set_response_appearance ("archive", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             if (response == "archive") {

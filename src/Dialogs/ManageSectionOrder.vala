@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ManageSectionOrder : Adw.Window {
+public class Dialogs.ManageSectionOrder : Adw.Dialog {
     public Objects.Project project { get; construct; }
 
     private Gtk.ListBox listbox;
@@ -29,13 +29,9 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
     public ManageSectionOrder (Objects.Project project) {
         Object (
             project: project,
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Manage Sections"),
-            width_request: 320,
-            height_request: 420,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
@@ -103,8 +99,9 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = scrolled_window;
 
-        content = toolbar_view;
+        child = toolbar_view;
         add_sections ();
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         Timeout.add (225, () => {
             set_sort_func ();
@@ -121,6 +118,18 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
             }
+        });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
     
@@ -181,11 +190,6 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

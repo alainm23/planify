@@ -245,14 +245,16 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		});
 
 		confirm_button.clicked.connect (() => {
-			var dialog = new Adw.MessageDialog (Planify._instance.main_window,
-				_("Restore backup"), _("Are you sure you want to continue? This operation will delete your current data and replace it with the backup data."));
+			var dialog = new Adw.AlertDialog (
+				_("Restore backup"),
+				_("Are you sure you want to continue? This operation will delete your current data and replace it with the backup data.")
+			);
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
 			dialog.add_response ("restore", _("Restore Backup"));
 			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 	
 			dialog.response.connect ((response) => {
 				if (response == "restore") {

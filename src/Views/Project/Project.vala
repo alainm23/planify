@@ -289,7 +289,7 @@ public class Views.Project : Adw.Bin {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Project (project);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		schedule_item.activate_item.connect (() => {
@@ -297,7 +297,7 @@ public class Views.Project : Adw.Bin {
 
 			var dialog = new Dialogs.DatePicker (_("When?"));
 			dialog.clear = project.due_date != "";
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.date_changed.connect (() => {
 				if (dialog.datetime == null) {
@@ -318,7 +318,7 @@ public class Views.Project : Adw.Bin {
 		manage_sections.clicked.connect (() => {
 			popover.popdown ();
 			var dialog = new Dialogs.ManageSectionOrder (project);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		paste_item.clicked.connect (() => {
@@ -541,16 +541,16 @@ public class Views.Project : Adw.Bin {
 
 			var items = Services.Database.get_default ().get_items_checked_by_project (project);
 
-			var dialog = new Adw.MessageDialog (
-				(Gtk.Window) Planify.instance.main_window,
-			    _("Delete All Completed Tasks"), _("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
+			var dialog = new Adw.AlertDialog (
+			    _("Delete All Completed Tasks"),
+				_("This will delete %d completed tasks and their subtasks from project %s".printf (items.size, project.name))
 			);
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
 			dialog.add_response ("delete", _("Delete"));
 			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.response.connect ((response) => {
 				if (response == "delete") {
@@ -620,7 +620,7 @@ public class Views.Project : Adw.Bin {
 			var dialog = new Dialogs.LabelPicker ();
 			dialog.add_labels (project.backend_type);
 			dialog.labels = _labels;
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.labels_changed.connect ((labels) => {				
 				foreach (Objects.Label label in labels.values) {
@@ -656,7 +656,7 @@ public class Views.Project : Adw.Bin {
 		}
 
 		var dialog = new Dialogs.Section.new (project);
-		dialog.show ();
+		dialog.present (Planify._instance.main_window);
 	}
 
 	public void delete_all_action (Gee.ArrayList<Objects.Item> items) {

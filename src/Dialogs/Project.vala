@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Project : Adw.Window {
+public class Dialogs.Project : Adw.Dialog {
     public Objects.Project project { get; construct; }
     public bool backend_picker { get; construct; }
 
@@ -46,13 +46,7 @@ public class Dialogs.Project : Adw.Window {
         Object (
             project: project,
             backend_picker: backend_picker,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project")
         );
     }
 
@@ -60,13 +54,7 @@ public class Dialogs.Project : Adw.Window {
         Object (
             project: project,
             backend_picker: false,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("Edit Project"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("Edit Project")
         );
     }
 
@@ -85,9 +73,9 @@ public class Dialogs.Project : Adw.Window {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        emoji_color_stack.add_named (emoji_label, "emoji");
         emoji_color_stack.add_named (progress_bar, "color");
-
+        emoji_color_stack.add_named (emoji_label, "emoji");
+        
         var emoji_picker_button = new Gtk.Button () {
             hexpand = true,
             halign = Gtk.Align.CENTER,
@@ -210,8 +198,9 @@ public class Dialogs.Project : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = content_clamp;
 
-        content = toolbar_view;
-
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+        
         Timeout.add (emoji_color_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
                 emoji_color_stack.visible_child_name = "color";
@@ -268,16 +257,6 @@ public class Dialogs.Project : Adw.Window {
             }
         });
 
-        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
-        name_entry.add_controller (name_entry_ctrl_key);
-        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-
-            return false;
-        });
-
         backend_row.notify["selected"].connect (() => {
             if (backend_row.selected == 0) {
                 project.backend_type = BackendType.LOCAL;
@@ -286,13 +265,16 @@ public class Dialogs.Project : Adw.Window {
             }
         });
 
-        var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
-			return false;
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -389,11 +371,6 @@ public class Dialogs.Project : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

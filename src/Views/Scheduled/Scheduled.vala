@@ -101,8 +101,8 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
         };
 
@@ -179,7 +179,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
         dialog.update_content (content);
         dialog.set_project (inbox_project);
         dialog.set_due (Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1)));
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private Gtk.Popover build_view_setting_popover () {
@@ -272,7 +272,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 			var dialog = new Dialogs.LabelPicker ();
 			dialog.add_labels (BackendType.ALL);
 			dialog.labels = _labels;
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.labels_changed.connect ((labels) => {				
 				foreach (Objects.Label label in labels.values) {

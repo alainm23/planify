@@ -259,12 +259,10 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         var destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
-        destroy_controller.key_pressed.connect ((keyval, keycode, state) => {
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
             }
-
-            return false;
         });
 
         content_entry.activate.connect (() => {

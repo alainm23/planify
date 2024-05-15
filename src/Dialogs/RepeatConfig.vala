@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.RepeatConfig : Adw.Window {
+public class Dialogs.RepeatConfig : Adw.Dialog {
     private Gtk.SpinButton recurrency_interval;
     private Gtk.DropDown recurrency_combobox;
     private Gtk.Label repeat_label;
@@ -84,13 +84,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
 
     public RepeatConfig () {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("Repeat"),
-            width_request: 320,
-            height_request: 375,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("Repeat")
         );
     }
 
@@ -246,26 +240,30 @@ public class Dialogs.RepeatConfig : Adw.Window {
         content_box.append (headerbar);
         content_box.append (new Granite.HeaderLabel (_("Summary")) {
             margin_top = 6,
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 6
         });
         content_box.append (repeat_preview_box);
         content_box.append (new Granite.HeaderLabel (_("Repeat every")) {
             margin_top = 6,
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 6
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
         content_box.append (new Granite.HeaderLabel (_("End")) {
             margin_top = 6,
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 6
         });
         content_box.append (ends_grid);
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        content = content_box;
+        child = content_box;
         update_repeat_label ();
-        
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+
         recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
         });
@@ -334,6 +332,18 @@ public class Dialogs.RepeatConfig : Adw.Window {
 
         count_interval.value_changed.connect (() => {
             update_repeat_label ();
+        });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -428,11 +438,6 @@ public class Dialogs.RepeatConfig : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

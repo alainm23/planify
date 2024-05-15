@@ -39,7 +39,6 @@ public class Widgets.ColorPickerRow : Gtk.Grid {
             column_spacing = 6,
             row_spacing = 6,
             max_children_per_line = 10,
-            min_children_per_line = 10,
             homogeneous = true,
             margin_top = 9,
             margin_bottom = 9,

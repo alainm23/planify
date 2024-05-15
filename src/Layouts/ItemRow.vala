@@ -94,7 +94,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 add_css_class ("row");
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
-                itemrow_box.add_css_class ("card-border");
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
@@ -126,7 +125,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 remove_css_class ("row");
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
-                itemrow_box.remove_css_class ("card-border");
 
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
@@ -610,15 +608,19 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
-                    Services.EventBus.get_default ().open_item (item);
-                } else {
-                    if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
-                        Services.EventBus.get_default ().item_selected (item.id);
+                Timeout.add (100, () => {
+                    if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+                        Services.EventBus.get_default ().open_item (item);
                     } else {
-                        edit = true;
+                        if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+                            Services.EventBus.get_default ().item_selected (item.id);
+                        } else {
+                            edit = true;
+                        }
                     }
-                }
+
+                    return GLib.Source.REMOVE;
+                });
             }
         });
 
@@ -1069,7 +1071,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -1121,7 +1123,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         duplicate_item.clicked.connect (() => {
@@ -1206,7 +1208,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -1320,7 +1322,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             popover.popdown ();
 
             var dialog = new Dialogs.RepeatConfig ();
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             if (item.has_due) {
                 dialog.duedate = item.due;
@@ -1653,7 +1655,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             return true;
         })] = drop_magic_button_target;
@@ -1674,7 +1676,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
 
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
             return true;
         })] = drop_order_magic_button_target;
     }

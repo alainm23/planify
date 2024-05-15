@@ -70,21 +70,16 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             placeholder_text = _("Search or Create"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_top = 9,
-            margin_start = 9,
-            margin_end = 9,
-            margin_bottom = 9
+            margin_start = 12,
+            margin_end = 12
         };
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = Gtk.Align.START,
-            margin_top = 3,
-            margin_start = 3,
-            margin_end = 3,
-            margin_bottom = 3,
             css_classes = { "listbox-background" }
         };
+
         listbox.set_placeholder (get_placeholder ());
         listbox.set_sort_func ((row1, row2) => {
             Objects.Label item1 = ((Widgets.LabelPicker.LabelRow) row1).label;
@@ -95,10 +90,8 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var listbox_grid = new Adw.Bin () {
             margin_start = 9,
             margin_end = 9,
-            margin_bottom = 9,
-            margin_top = 3,
+            margin_top = 12,
             child = listbox,
-            css_classes = { "card" },
             valign = Gtk.Align.START
         };
 

@@ -282,7 +282,7 @@ public class Views.Board : Adw.Bin {
                 dialog.clear = true;
             }
 
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {

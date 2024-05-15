@@ -109,8 +109,8 @@ public class Views.List : Gtk.Grid {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
             child = content_box
         };
@@ -260,7 +260,7 @@ public class Views.List : Gtk.Grid {
         var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (project);
         dialog.update_content (content);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     public bool validate_children () {
@@ -351,7 +351,7 @@ public class Views.List : Gtk.Grid {
                 dialog.clear = true;
             }
 
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.date_changed.connect (() => {
                 if (dialog.datetime == null) {

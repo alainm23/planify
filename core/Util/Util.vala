@@ -374,13 +374,13 @@ public class Util : GLib.Object {
     }
 
     public void clear_database (string title, string message, Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (window, title, message);
+        var dialog = new Adw.AlertDialog (title, message);
 
         dialog.body_use_markup = true;
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("delete", _("Delete All"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
@@ -392,11 +392,10 @@ public class Util : GLib.Object {
     }
 
     public void show_alert_destroy (Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (window, null, _("Process completed, you need to start Planify again."));
+        var dialog = new Adw.AlertDialog (null, _("Process completed, you need to start Planify again."));
 
-        dialog.modal = true;
         dialog.add_response ("ok", _("Ok"));
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             window.destroy ();
@@ -629,9 +628,7 @@ public class Util : GLib.Object {
             item_06.project_id = project.id;
             item_06.content = _("You’re done!");
             item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
-
 You can come back to this project later to learn the advanced features below..
-
 We hope you’ll enjoy using Planify!""");
 
             project.add_item_if_not_exists (item_01);

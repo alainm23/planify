@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.WhatsNew : Adw.Window {
+public class Dialogs.WhatsNew : Adw.Dialog {
 	private Adw.NavigationView navigation_view;
 	private Adw.PreferencesGroup feature_group;
 	private Gtk.TextView textview;
@@ -27,12 +27,8 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 	public WhatsNew () {
 		Object (
-			transient_for: (Gtk.Window) Planify.instance.main_window,
-			deletable: true,
-			destroy_with_parent: true,
-			modal: true,
-			default_width: 475,
-			height_request: 600,
+			content_width: 475,
+			content_height: 600,
 			title: null
 		);
 	}
@@ -104,15 +100,19 @@ public class Dialogs.WhatsNew : Adw.Window {
 		navigation_view = new Adw.NavigationView ();
 		navigation_view.add (home_page);
 
-		content = navigation_view;
+		child = navigation_view;
+		Services.EventBus.get_default ().disconnect_typing_accel ();
 
-		var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
-			return false;
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
 		
 		add_feature (_("Inbox as Independent Project"), _("The Inbox is the default place to add new tasks, allowing you to quickly get your ideas out of your head and then plan them when you’re ready."));
@@ -147,12 +147,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 	}
 
 	public void hide_destroy () {
-		hide ();
-
-		Timeout.add (500, () => {
-			destroy ();
-			return GLib.Source.REMOVE;
-		});
+		close ();
 	}
 
 	private Adw.NavigationPage create_video_page (string description, string video_url) {

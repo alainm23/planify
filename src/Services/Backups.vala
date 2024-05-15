@@ -501,14 +501,13 @@ public class Services.Backups : Object {
     }
 
     private void show_message () {
-        var dialog = new Adw.MessageDialog (Planify._instance.main_window,
+        var dialog = new Adw.AlertDialog (
             _("Backup Successfully Imported"),
             _("Process completed, you need to start Planify again")
         );
 
-        dialog.modal = true;
         dialog.add_response ("ok", _("Ok"));
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
 
         dialog.response.connect ((response) => {
             Planify._instance.main_window.destroy ();

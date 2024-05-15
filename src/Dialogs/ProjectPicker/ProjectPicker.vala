@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
+public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     public BackendType backend_type { get; construct; }
     public PickerType picker_type { get; construct; }
 
@@ -68,13 +68,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         Object (
             picker_type: picker_type,
             backend_type: backend_type,
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Move"),
-            width_request: 375,
-            height_request: 500,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
@@ -117,8 +113,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         content_box.append (main_stack);
         content_box.append (submit_button);
 
-        content = content_box;
+        child = content_box;
         add_projects ();
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         search_entry.search_changed.connect (() => {
             local_group.invalidate_filter ();
@@ -147,6 +144,18 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             }
 
             hide_destroy ();
+        });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -280,11 +289,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

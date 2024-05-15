@@ -161,7 +161,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             Services.EventBus.get_default ().close_labels ();
             var dialog = new Dialogs.Label (label);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
@@ -169,13 +169,15 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             Services.EventBus.get_default ().close_labels ();
             
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete Label %s".printf (label.name)), _("This can not be undone"));
+            var dialog = new Adw.AlertDialog (
+                _("Delete Label %s".printf (label.name)),
+                _("This can not be undone")
+            );
 
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {

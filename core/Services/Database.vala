@@ -1871,6 +1871,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Project> get_all_projects_archived () {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.is_archived) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Label> get_all_labels_by_todoist () {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         lock (_labels) {

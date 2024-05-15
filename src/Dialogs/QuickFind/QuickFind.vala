@@ -29,7 +29,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             deletable: false,
             modal: true,
             margin_bottom: 164,
-            width_request: 400,
+            width_request: 350,
             height_request: 325
         );
     }
@@ -40,14 +40,25 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Quick Find"),
             hexpand = true,
-            margin_bottom = 3,
-            margin_top = 3,
             css_classes = { "border-radius-9" }
         };
+        
+        var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+            css_classes = { "flat" }
+        };
+
+        var headerbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            hexpand = true,
+            margin_top = 6,
+            margin_bottom = 6
+        };
+
+        headerbar_box.append (search_entry);
+        headerbar_box.append (cancel_button);
 
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
-        headerbar.title_widget = search_entry;
+        headerbar.add_css_class ("flat");
+        headerbar.title_widget = headerbar_box;
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -130,7 +141,12 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
 			if (keyval == 65307) {
 				hide_destroy ();
 			}
+
 			return false;
+        });
+
+        cancel_button.clicked.connect (() => {
+            hide_destroy ();
         });
     }
 

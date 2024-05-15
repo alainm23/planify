@@ -182,7 +182,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         };
 
         attachments = new Widgets.Attachments (true) {
-            margin_top = 12
+            margin_top = 12,
+            card = true
         };
         
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -515,7 +516,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -629,7 +630,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             popover.popdown ();
 
             var dialog = new Dialogs.RepeatConfig ();
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             if (item.has_due) {
                 dialog.duedate = item.due;
@@ -668,8 +669,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     }
 
     public void delete_request (bool undo = true) {
-        var dialog = new Adw.MessageDialog (
-            (Gtk.Window) Planify.instance.main_window,
+        var dialog = new Adw.AlertDialog (
             _("Are you sure you want to delete?"),
             _("This can not be undone")
         );
@@ -677,7 +677,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("delete", _("Delete"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
@@ -691,7 +691,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (item);
         dialog.update_content (content);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     public void checked_toggled (bool active) {

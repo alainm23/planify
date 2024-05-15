@@ -28,6 +28,8 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.MenuButton settings_button;
 	private Layouts.ItemSidebarView item_sidebar_view;
 	private Gtk.Button fake_button;
+	private Widgets.ContextMenu.MenuItem archive_item;
+	private Widgets.ContextMenu.MenuSeparator archive_separator;
 
 	public Services.ActionManager action_manager;
 
@@ -37,7 +39,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			app: application,
 			icon_name: Build.APPLICATION_ID,
 			title: "Planify",
-			width_request: 450,
+			width_request: 400,
 			height_request: 480
 		);
 	}
@@ -68,6 +70,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		settings_button = new Gtk.MenuButton () {
 			css_classes = { "flat" },
 			popover = settings_popover,
+			tooltip_text = _("Main Menu"),
 			child = new Gtk.Image.from_icon_name ("open-menu-symbolic")
 		};
 
@@ -274,6 +277,9 @@ public class MainWindow : Adw.ApplicationWindow {
 				fake_button.grab_focus ();
 			}
 		});
+
+		Services.Database.get_default ().project_archived.connect (check_archived);
+		Services.Database.get_default ().project_unarchived.connect (check_archived);
 	}
 
 	public void show_hide_sidebar () {
@@ -312,6 +318,13 @@ public class MainWindow : Adw.ApplicationWindow {
 				return GLib.Source.REMOVE;
 			});
 		}
+
+		check_archived ();
+	}
+
+	private void check_archived () {
+		archive_item.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
+		archive_separator.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
 	}
 
 	private void add_inbox_view () {
@@ -443,7 +456,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		} else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.update_content (content);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		} else if (views_stack.visible_child_name.has_prefix ("label-view")) {
 			Views.Label? label_view = (Views.Label) views_stack.visible_child;
 			if (label_view != null) {
@@ -456,7 +469,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			} else {
 				var dialog = new Dialogs.QuickAdd ();
 				dialog.update_content (content);
-				dialog.show ();
+				dialog.present (Planify._instance.main_window);
 			}
 		}
 	}
@@ -481,7 +494,9 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
-		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
+
+		archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
+		archive_separator = new Widgets.ContextMenu.MenuSeparator ();
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
@@ -489,7 +504,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		menu_box.append (whatsnew_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		menu_box.append (archive_item);
-		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (archive_separator);
 		menu_box.append (keyboard_shortcuts_item);
 		menu_box.append (about_item);
 
@@ -504,14 +519,14 @@ public class MainWindow : Adw.ApplicationWindow {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Preferences.PreferencesWindow ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		whatsnew_item.clicked.connect (() => {
 			popover.popdown ();
 
 			var dialog = new Dialogs.WhatsNew ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		about_item.clicked.connect (() => {
@@ -527,7 +542,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		archive_item.clicked.connect (() => {
 			popover.popdown ();
 			var dialog = new Dialogs.ManageProjects ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		return popover;
@@ -546,18 +561,16 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void about_dialog () {
-		Adw.AboutWindow dialog;
+		Adw.AboutDialog dialog;
 
 		if (Build.PROFILE == "development") {
-			dialog = new Adw.AboutWindow ();
+			dialog = new Adw.AboutDialog ();
 		} else {
-			dialog = new Adw.AboutWindow.from_appdata (
+			dialog = new Adw.AboutDialog.from_appdata (
 				"/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
 			);
 		}
 
-		dialog.transient_for = (Gtk.Window) Planify.instance.main_window;
-		dialog.modal = true;
 		dialog.application_icon = Build.APPLICATION_ID;
 		dialog.application_name = "Planify";
 		dialog.developer_name = "Alain";
@@ -566,6 +579,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		dialog.developers = { "Alain" };
 		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 
-		dialog.show ();
+		dialog.present (Planify._instance.main_window);
 	}
 }

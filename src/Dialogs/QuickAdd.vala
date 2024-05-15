@@ -19,27 +19,22 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.QuickAdd : Adw.Window {
+public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
-	public QuickAdd () {
-        Object (
-            deletable: true,
-            resizable: false,
-            modal: true,
-            transient_for: (Gtk.Window) Planify.instance.main_window,
-            width_request: 600,
-            halign: Gtk.Align.START
-        );
-    }
-
     construct {
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+
         quick_add_widget = new Layouts.QuickAdd ();
-        set_content (quick_add_widget);
+        child = quick_add_widget;
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
         quick_add_widget.add_item_db.connect ((add_item_db));
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -84,12 +79,7 @@ public class Dialogs.QuickAdd : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        force_close ();
     }
 
     public void update_content (string content = "") {

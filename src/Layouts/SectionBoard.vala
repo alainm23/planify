@@ -530,7 +530,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             menu_popover.popdown ();
 
             var dialog = new Dialogs.Section (section);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
         });
 
         move_item.clicked.connect (() => {
@@ -538,7 +538,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 
             var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.backend_type);
             dialog.project = section.project;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -551,14 +551,13 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             menu_popover.popdown ();
             
             var dialog = new Dialogs.ManageSectionOrder (section.project);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            var dialog = new Adw.MessageDialog (
-				(Gtk.Window) Planify.instance.main_window,
+            var dialog = new Adw.AlertDialog (
 			    _("Delete Section %s".printf (section.name)),
 				_("This can not be undone")
 			);
@@ -566,7 +565,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
@@ -596,7 +595,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (section);
         dialog.update_content (content);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void move_section (string project_id) {

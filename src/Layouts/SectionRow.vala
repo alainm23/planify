@@ -555,7 +555,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		var dialog = new Dialogs.QuickAdd ();
         dialog.for_base_object (section);
         dialog.update_content (content);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
 	}
 
 	private int set_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
@@ -654,7 +654,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			menu_popover.popdown ();
 			
 			var dialog = new Dialogs.Section (section);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		move_item.clicked.connect (() => {
@@ -662,7 +662,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.backend_type);
 			dialog.project = section.project;
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.changed.connect ((type, id) => {
 				if (type == "project") {
@@ -675,7 +675,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			menu_popover.popdown ();
 
 			var dialog = new Dialogs.ManageSectionOrder (section.project);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		delete_item.clicked.connect (() => {
@@ -786,7 +786,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		drop_magic_button_target.drop.connect ((target, value, x, y) => {
 			var dialog = new Dialogs.QuickAdd ();
 			dialog.for_base_object (section);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
 			return true;
 		});

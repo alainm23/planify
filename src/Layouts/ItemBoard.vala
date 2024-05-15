@@ -686,7 +686,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -738,7 +738,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         duplicate_item.clicked.connect (() => {
@@ -865,7 +865,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             return true;
         });
@@ -882,7 +882,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                 dialog.for_base_object (item.project);
             }
 
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             return true;
         });

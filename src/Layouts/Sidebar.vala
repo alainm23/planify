@@ -289,7 +289,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         whats_new_gesture.pressed.connect (() => {
 			var dialog = new Dialogs.WhatsNew ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
             update_version ();
             whats_new_revealer.reveal_child = verify_new_version ();
@@ -514,7 +514,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
     private void prepare_new_project (BackendType backend_type) {
         var dialog = new Dialogs.Project.new (backend_type);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void update_projects_sort () {

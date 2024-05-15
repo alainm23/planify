@@ -122,8 +122,7 @@ public class Objects.Backup : Object {
     }
 
     public void delete_backup (Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (
-            window,
+        var dialog = new Adw.AlertDialog (
             _("Delete Backup"),
             _("This can not be undone")
         );
@@ -131,7 +130,7 @@ public class Objects.Backup : Object {
         dialog.add_response ("cancel", _("Cancel"));
         dialog.add_response ("delete", _("Delete"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             if (response == "delete") {

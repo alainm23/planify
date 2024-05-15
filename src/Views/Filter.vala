@@ -85,8 +85,8 @@ public class Views.Filter : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64
         };
 
@@ -160,7 +160,7 @@ public class Views.Filter : Adw.Bin {
             dialog.set_pinned (true);
         }
 
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void update_request () {

@@ -19,20 +19,29 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
+public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	public PreferencesWindow () {
 		Object (
-			transient_for: (Gtk.Window) Planify.instance.main_window,
-			deletable: true,
-			destroy_with_parent: true,
-			modal: true,
-			default_width: 450,
-			height_request: 500
+			content_width: 450,
+			content_height: 600
 		);
 	}
 
 	construct {
 		add (get_preferences_home ());
+		Services.EventBus.get_default ().disconnect_typing_accel ();
+		
+		var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                close ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
 	}
 
 	private Adw.PreferencesPage get_preferences_home () {
@@ -1538,7 +1547,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
     }
 
 	private void show_message_error (string title, string error) {
-		var dialog = new Adw.MessageDialog (Planify._instance.main_window, title, null);
+		var dialog = new Adw.AlertDialog (title, null);
 
 		var textview = new Gtk.TextView () {
 			left_margin = 12,
@@ -1566,7 +1575,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
         dialog.add_response ("ok", _("Ok"));
 		dialog.extra_child = textview_frame;
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
 	}
 
 	private Adw.NavigationPage get_backups_page () {
@@ -1816,14 +1825,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			message = _("Are you sure you want to remove the CalDAV sync? This action will delete all your tasks and settings.");
 		}
 
-		var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-		                                    _("Sign Off"), message);
+		var dialog = new Adw.AlertDialog (_("Sign Off"), message);
 
 		dialog.body_use_markup = true;
 		dialog.add_response ("cancel", _("Cancel"));
 		dialog.add_response ("delete", _("Delete"));
 		dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-		dialog.show ();
+		dialog.present (Planify._instance.main_window);
 
 		dialog.response.connect ((response) => {
 			if (response == "delete") {

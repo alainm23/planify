@@ -243,8 +243,8 @@ public class Views.Today : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
             child = content_box
         };
@@ -517,7 +517,7 @@ public class Views.Today : Adw.Bin {
         dialog.update_content (content);
         dialog.set_project (inbox_project);
         dialog.set_due (Utils.Datetime.get_format_date (date));
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
     
     private void update_headers () {
@@ -631,7 +631,7 @@ public class Views.Today : Adw.Bin {
 			var dialog = new Dialogs.LabelPicker ();
 			dialog.add_labels (BackendType.ALL);
 			dialog.labels = _labels;
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 
 			dialog.labels_changed.connect ((labels) => {				
 				foreach (Objects.Label label in labels.values) {

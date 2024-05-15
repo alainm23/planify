@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.DatePicker : Adw.Window {
+public class Dialogs.DatePicker : Adw.Dialog {
     private Gtk.Revealer clear_revealer;
     private Widgets.Calendar.Calendar calendar_view;
     private Widgets.ContextMenu.MenuItem no_date_item;
@@ -47,13 +47,9 @@ public class Dialogs.DatePicker : Adw.Window {
 
     public DatePicker (string title) {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: title,
-            width_request: 320,
-            height_request: 450,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
@@ -120,7 +116,8 @@ public class Dialogs.DatePicker : Adw.Window {
         content_box.append (calendar_card);
         content_box.append (done_button);
 
-        content = content_box;
+        child = content_box;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         today_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ());
@@ -149,6 +146,18 @@ public class Dialogs.DatePicker : Adw.Window {
             date_changed ();
             hide_destroy ();
         });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     private void set_date (DateTime? date) {
@@ -158,11 +167,6 @@ public class Dialogs.DatePicker : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

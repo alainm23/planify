@@ -254,14 +254,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
 
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            title, message);
+            var dialog = new Adw.AlertDialog (title, message);
 
             dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {

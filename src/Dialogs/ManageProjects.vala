@@ -19,19 +19,15 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ManageProjects : Adw.Window {
+public class Dialogs.ManageProjects : Adw.Dialog {
     private Gtk.ListBox listbox;
     private Widgets.ScrolledWindow scrolled_window;
 
     public ManageProjects () {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Archived Projects"),
-            width_request: 320,
-            height_request: 420,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 420
         );
     }
 
@@ -64,12 +60,35 @@ public class Dialogs.ManageProjects : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = scrolled_window;
 
-        content = toolbar_view;
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Database.get_default ().get_all_projects_archived ()) {
             if (project.is_archived) {
                 listbox.append (new Dialogs.ProjectPicker.ProjectPickerRow (project, "menu"));
             }
         }
+
+        Services.Database.get_default ().project_unarchived.connect (() => {
+            if (Services.Database.get_default ().get_all_projects_archived ().size <= 0) {
+                hide_destroy ();
+            }
+        });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
+    }
+
+    private void hide_destroy () {
+        close ();
     }
 }

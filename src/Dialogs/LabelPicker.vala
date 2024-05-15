@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.LabelPicker : Adw.Window {
+public class Dialogs.LabelPicker : Adw.Dialog {
     private Widgets.LabelsPickerCore picker;
 
     public Gee.ArrayList<Objects.Label> labels {
@@ -32,13 +32,9 @@ public class Dialogs.LabelPicker : Adw.Window {
 
     public LabelPicker () {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Labels"),
-            width_request: 320,
-            height_request: 450,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
@@ -61,7 +57,8 @@ public class Dialogs.LabelPicker : Adw.Window {
         toolbar_view.add_bottom_bar (button);
 		toolbar_view.content = picker;
 
-        content = toolbar_view;
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         button.clicked.connect (() => {
             labels_changed (picker.picked);
@@ -72,6 +69,18 @@ public class Dialogs.LabelPicker : Adw.Window {
             labels_changed (picker.picked);
             hide_destroy ();
         });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     public void add_labels (BackendType backend_type) {
@@ -79,11 +88,6 @@ public class Dialogs.LabelPicker : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

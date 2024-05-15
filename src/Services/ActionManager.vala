@@ -136,7 +136,7 @@ public class Services.ActionManager : Object {
 
     private void action_preferences () {
         var dialog = new Dialogs.Preferences.PreferencesWindow ();
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_open_search () {
@@ -157,7 +157,7 @@ public class Services.ActionManager : Object {
     private void action_new_project () {
         // TODO: Update Backend Type instance default by user // vala-lint=note
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_view_homepage () {

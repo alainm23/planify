@@ -26,6 +26,18 @@ public class Widgets.Attachments : Adw.Bin {
     private Widgets.LoadingButton add_button;
     private Gtk.ListBox listbox;
 
+    public bool card {
+        set {
+            if (value) {
+                listbox.add_css_class ("boxed-list");
+                listbox.remove_css_class ("listbox-background");
+            } else {
+                listbox.remove_css_class ("boxed-list");
+                listbox.add_css_class ("listbox-background");
+            }
+        }
+    }
+
     public Gee.HashMap <string, Widgets.AttachmentRow> attachments = new Gee.HashMap <string, Widgets.AttachmentRow> ();
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
 
@@ -58,8 +70,9 @@ public class Widgets.Attachments : Adw.Bin {
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
-            css_classes = { "boxed-list" }
+            css_classes = { "listbox-background" }
         };
+
         listbox.set_placeholder (get_placeholder ());
 
         var listbox_card = new Adw.Bin () {
