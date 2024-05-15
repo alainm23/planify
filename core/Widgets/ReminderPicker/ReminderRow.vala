@@ -58,7 +58,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             halign = Gtk.Align.END
         };
         
-        remove_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        remove_button.add_css_class ("flat");
         remove_button.add_css_class ("no-padding");
         
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

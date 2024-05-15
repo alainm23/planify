@@ -57,7 +57,7 @@ public class Widgets.PriorityButton : Adw.Bin {
         priority_image = new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic");
 
         button = new Gtk.MenuButton () {
-            css_classes = { Granite.STYLE_CLASS_FLAT },
+            css_classes = { "flat" },
             valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
             child = priority_image,

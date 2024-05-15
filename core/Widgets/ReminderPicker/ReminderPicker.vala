@@ -53,7 +53,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             can_focus = false,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         reminders_view.add_widget_end (add_button);
@@ -164,7 +164,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
             margin_start = 3,
             margin_end = 3,
             margin_bottom = 6,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

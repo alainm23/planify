@@ -94,7 +94,7 @@ public class Views.Labels : Adw.Bin {
 
         var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_local_header.add_widget_end (add_local_button);
@@ -105,7 +105,7 @@ public class Views.Labels : Adw.Bin {
 
         var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_todoist_header.add_widget_end (add_todoist_button);
@@ -116,7 +116,7 @@ public class Views.Labels : Adw.Bin {
 
         var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_caldav_header.add_widget_end (add_caldav_button);

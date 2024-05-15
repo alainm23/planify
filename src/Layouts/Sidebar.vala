@@ -170,7 +170,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
+            css_classes = { "flat", "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
@@ -186,7 +186,7 @@ public class Layouts.Sidebar : Adw.Bin {
         
         var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
+            css_classes = { "flat", "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 
@@ -206,7 +206,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button", "dim-label" },
+            css_classes = { "flat", "header-item-button", "dim-label" },
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
         };
 

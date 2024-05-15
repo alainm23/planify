@@ -133,7 +133,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             valign = CENTER,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
+            css_classes = { "suggested-action", "border-radius-6" }
         };
 
         create_more_button = new Gtk.ToggleButton () {

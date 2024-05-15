@@ -40,7 +40,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         picker = new Widgets.LabelsPickerCore ();
 
@@ -49,7 +49,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var toolbar_view = new Adw.ToolbarView ();

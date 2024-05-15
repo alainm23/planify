@@ -33,7 +33,7 @@ public class Dialogs.ManageProjects : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         listbox = new Gtk.ListBox () {
             hexpand = true,

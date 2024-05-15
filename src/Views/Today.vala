@@ -124,7 +124,7 @@ public class Views.Today : Adw.Bin {
             halign = Gtk.Align.END
         };
 
-        reschedule_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        reschedule_button.add_css_class ("flat");
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 26,

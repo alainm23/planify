@@ -42,7 +42,7 @@ public class Widgets.Calendar.CalendarWeek : Gtk.Box {
         };
 
         foreach (var label in day_labels) {
-            label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+            label.add_css_class ("dim-label");
             append (label);
         }
 

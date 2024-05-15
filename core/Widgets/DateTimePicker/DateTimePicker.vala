@@ -108,11 +108,11 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         time_box.append (time_picker);
 
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var clear_button = new Widgets.LoadingButton.with_label (_("Clear")) {
-            css_classes = { Granite.STYLE_CLASS_DESTRUCTIVE_ACTION }
+            css_classes = { "destructive-action" }
         };
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

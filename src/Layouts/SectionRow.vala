@@ -108,8 +108,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			halign = Gtk.Align.CENTER
 		};
 
-		count_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
-		count_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+		count_label.add_css_class ("dim-label");
+		count_label.add_css_class ("small-label");
 
 		count_revealer = new Gtk.Revealer () {
 			reveal_child = int.parse (count_label.label) > 0,

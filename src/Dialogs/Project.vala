@@ -60,7 +60,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         emoji_label = new Gtk.Label (project.emoji);
 
@@ -93,7 +93,7 @@ public class Dialogs.Project : Adw.Dialog {
 
         emoji_picker_button.child = emoji_color_stack;
         
-        emoji_picker_button.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
+        emoji_picker_button.add_css_class ("title-2");
         emoji_picker_button.add_css_class ("button-emoji-picker");
 
         name_entry = new Adw.EntryRow ();
@@ -175,7 +175,7 @@ public class Dialogs.Project : Adw.Dialog {
             valign = Gtk.Align.END
         };
 
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (emoji_picker_button);

@@ -64,7 +64,7 @@ public class Widgets.ContextMenu.MenuSwitch : Gtk.Button {
     }
 
     construct {
-        add_css_class (Granite.STYLE_CLASS_FLAT);
+        add_css_class ("flat");
         add_css_class ("no-font-bold");
 
         menu_icon = new Gtk.Image () {

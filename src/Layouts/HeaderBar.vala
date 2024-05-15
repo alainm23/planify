@@ -54,7 +54,8 @@ public class Layouts.HeaderBar : Adw.Bin {
     construct {
 		sidebar_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open/Close Sidebar"), "M"),
 		};
 
         update_sidebar_icon ();
@@ -63,7 +64,8 @@ public class Layouts.HeaderBar : Adw.Bin {
         back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
             margin_end = 6,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_text = _("Back")
         };
 
         back_button_revealer = new Gtk.Revealer () {

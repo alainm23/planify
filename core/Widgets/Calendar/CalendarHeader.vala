@@ -74,7 +74,7 @@ public class Widgets.Calendar.CalendarHeader : Gtk.Box {
             hexpand = true
         };
 
-        center_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        center_button.add_css_class ("flat");
         center_button.can_focus = false;
         center_button.child = date_grid;
 

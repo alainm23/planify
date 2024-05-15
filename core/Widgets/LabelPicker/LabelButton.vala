@@ -110,7 +110,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
             button = new Gtk.MenuButton () {
                 icon_name = "tag-outline-symbolic",
                 popover = labels_picker,
-                css_classes = { Granite.STYLE_CLASS_FLAT }
+                css_classes = { "flat" }
             };
             
             child = button;

@@ -82,7 +82,7 @@ public class Widgets.ContextMenu.MenuCheckPicker : Adw.Bin {
 
         var button = new Gtk.Button ();
         button.child = itemselector_grid;
-        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        button.add_css_class ("flat");
         button.add_css_class ("transition");
         button.add_css_class ("no-font-bold");
 

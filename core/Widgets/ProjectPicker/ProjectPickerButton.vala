@@ -52,7 +52,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         var project_button = new Gtk.MenuButton () {
             popover = project_picker_popover,
             child = project_box,
-            css_classes = { Granite.STYLE_CLASS_FLAT }
+            css_classes = { "flat" }
         };
 
         // Section Button
@@ -68,7 +68,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         var section_button = new Gtk.MenuButton () {
             popover = sections_popover,
             child = section_label,
-            css_classes = { Granite.STYLE_CLASS_FLAT }
+            css_classes = { "flat" }
         };
 
         var section_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

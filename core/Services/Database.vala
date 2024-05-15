@@ -1587,7 +1587,7 @@ public class Services.Database : GLib.Object {
             return false;
         }
 
-        return (item.checked == checked && Granite.DateTime.is_same_day (item.due.datetime, date));
+        return (item.checked == checked && Utils.Datetime.is_same_day (item.due.datetime, date));
     }
 
     public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
@@ -1620,7 +1620,7 @@ public class Services.Database : GLib.Object {
                     item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (date_now) < 0 &&
-                    !Granite.DateTime.is_same_day (item.due.datetime, date_now)) {
+                    !Utils.Datetime.is_same_day (item.due.datetime, date_now)) {
                     return_value.add (item);
                 }
             }
@@ -1636,7 +1636,7 @@ public class Services.Database : GLib.Object {
 
         return (item.checked == checked &&
             item.due.datetime.compare (new GLib.DateTime.now_local ()) < 0 &&
-            !Granite.DateTime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
+            !Utils.Datetime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
     }
 
     public void delete_item (Objects.Item item) {

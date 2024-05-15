@@ -53,7 +53,7 @@ public class Dialogs.Label : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         name_entry = new Adw.EntryRow ();
         name_entry.title = _("Give your label a name");
@@ -77,7 +77,7 @@ public class Dialogs.Label : Adw.Dialog {
             valign = Gtk.Align.START
         };
 
-        color_group.add_css_class (Granite.STYLE_CLASS_CARD);
+        color_group.add_css_class ("card");
         color_group.attach (color_picker_row, 0, 0);
         
         submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Label") : _("Update Label")) {
@@ -91,7 +91,7 @@ public class Dialogs.Label : Adw.Dialog {
         };
 
         submit_button.sensitive = !is_creating;
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         

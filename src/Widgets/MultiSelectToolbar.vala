@@ -64,7 +64,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         priority_button.set_priority (Constants.PRIORITY_4);
         
         menu_button = new Gtk.MenuButton () {
-            css_classes = { Granite.STYLE_CLASS_FLAT },
+            css_classes = { "flat" },
             valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
             icon_name = "view-more-symbolic",
@@ -77,7 +77,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             halign = Gtk.Align.CENTER,
             margin_start = 12,
             width_request = 100,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {

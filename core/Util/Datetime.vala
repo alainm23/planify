@@ -107,11 +107,11 @@ public class Utils.Datetime {
     }
 
     public static bool is_yesterday (GLib.DateTime date) {
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (-1));
+        return is_same_day (date, new GLib.DateTime.now_local ().add_days (-1));
     }
 
     public static bool is_same_day (GLib.DateTime day1, GLib.DateTime day2) {
-        return Granite.DateTime.is_same_day (day1, day2);
+        return day1.get_day_of_year () == day2.get_day_of_year () && day1.get_year () == day2.get_year ();
     }
 
     public static bool is_overdue (GLib.DateTime date) {
@@ -156,7 +156,7 @@ public class Utils.Datetime {
             return false;
         }
 
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ());
+        return is_same_day (date, new GLib.DateTime.now_local ());
     }
 
     public static bool is_tomorrow (GLib.DateTime date) {
@@ -164,7 +164,7 @@ public class Utils.Datetime {
             return false;
         }
 
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
+        return is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
     }
 
     public static bool is_next_week (GLib.DateTime date) {
@@ -172,7 +172,7 @@ public class Utils.Datetime {
             return false;
         }
         
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (7));
+        return is_same_day (date, new GLib.DateTime.now_local ().add_days (7));
     }
 
     public static GLib.DateTime get_date_from_string (string date) {

@@ -90,7 +90,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         repeat_label = new Gtk.Label (null) {
             margin_top = 9,
@@ -231,7 +231,7 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
             vexpand = true,
             valign = Gtk.Align.END
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             width_request = 225

@@ -78,7 +78,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> ();
 
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a search"),
@@ -104,7 +104,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 12,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
         
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -240,7 +240,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         };
         
         sections_listbox_grid.attach (sections_listbox, 0, 0);
-        sections_listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        sections_listbox_grid.add_css_class ("card");
 
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,

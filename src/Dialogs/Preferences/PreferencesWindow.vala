@@ -803,7 +803,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			css_classes = { Granite.STYLE_CLASS_FLAT }
+			css_classes = { "flat" }
 		};
 
 		var todoist_setting_revealer = new Gtk.Revealer () {
@@ -965,7 +965,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		todoist_user.add_css_class ("title-1");
 
 		var todoist_email = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-		todoist_email.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+		todoist_email.add_css_class ("dim-label");
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
@@ -1046,11 +1046,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		};
 
 		var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-email")) {
-			css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+			css_classes = { "dim-label" }
 		};
 
 		var server_url_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-server-url")) {
-			css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+			css_classes = { "dim-label" }
 		};
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -1421,7 +1421,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
 			margin_top = 12,
 			sensitive = false,
-			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+			css_classes = { "suggested-action" }
         };
 
 		var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
@@ -1632,7 +1632,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			vexpand = true,
 			margin_bottom = 24,
 			valign = END,
-			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+			css_classes = { "suggested-action" }
         };
 
 		content_box.append (contact_us_button);
@@ -1870,7 +1870,7 @@ private class ValidationMessage : Gtk.Box {
             wrap = true,
             xalign = 1
         };
-        label_widget.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        label_widget.add_css_class ("small-label");
 
         var revealer = new Gtk.Revealer () {
             child = label_widget,

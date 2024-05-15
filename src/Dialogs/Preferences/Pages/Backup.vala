@@ -199,7 +199,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 		var confirm_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Confirm")) {
             valign = CENTER,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
+            css_classes = { "suggested-action", "border-radius-6" }
         };
 
 		var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

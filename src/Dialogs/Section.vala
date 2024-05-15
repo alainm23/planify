@@ -103,7 +103,7 @@ public class Dialogs.Section : Adw.Dialog {
             valign = Gtk.Align.END
         };
 
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (name_group);

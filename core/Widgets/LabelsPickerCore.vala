@@ -232,7 +232,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         placeholder_message_label = new Gtk.Label (PLACEHOLDER_MESSAGE) {
             wrap = true,
             justify = Gtk.Justification.CENTER,
-            css_classes = { "dim-label", Granite.STYLE_CLASS_SMALL_LABEL }
+            css_classes = { "dim-label", "small-label" }
         };
         
         var spinner = new Gtk.Spinner () {

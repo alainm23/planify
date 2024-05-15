@@ -62,7 +62,7 @@ public class Services.Notification : GLib.Object {
             GLib.Notification notification = build_notification (reminder);
             Planify.instance.send_notification (reminder.id, notification);
             Services.Database.get_default ().delete_reminder (reminder);
-        } else if (Granite.DateTime.is_same_day (reminder.due.datetime, new GLib.DateTime.now_local ())) {
+        } else if (Utils.Datetime.is_same_day (reminder.due.datetime, new GLib.DateTime.now_local ())) {
             var interval = (uint) time_until_now (reminder.due.datetime);
             var uid = "%u-%u".printf (interval, GLib.Random.next_int ());
             reminders.set (reminder.id_string, uid);

@@ -55,7 +55,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
@@ -83,7 +83,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
         items_card.append (tomorrow_item);
         items_card.append (next_week_item);
         items_card.append (no_date_item);
-        items_card.add_css_class (Granite.STYLE_CLASS_CARD);
+        items_card.add_css_class ("card");
 
         calendar_view = new Widgets.Calendar.Calendar (false) {
             margin_top = 6,
@@ -97,7 +97,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
         };
 
         calendar_card.append (calendar_view);
-        calendar_card.add_css_class (Granite.STYLE_CLASS_CARD);
+        calendar_card.add_css_class ("card");
 
         var done_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
             margin_start = 12,
@@ -105,7 +105,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
             margin_bottom = 12
         };
 
-        done_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        done_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             width_request = 225
