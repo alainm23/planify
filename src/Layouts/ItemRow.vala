@@ -872,7 +872,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         project_label.label = item.project.name;
         if (item.has_parent) {
             if (item.parent.has_parent) {
-                project_label.label += " /.../ " + item.parent.content;
+                project_label.label += " /…/ " + item.parent.content;
             } else {
                 project_label.label += " / " + item.parent.content;
             }
