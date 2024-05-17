@@ -277,7 +277,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         project_label = new Gtk.Label (null) {
-            css_classes = { "small-label", "dim-label" },
+            css_classes = { "caption", "dim-label" },
             margin_start = 6,
             ellipsize = Pango.EllipsizeMode.END
         };
@@ -299,7 +299,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         // Due Label
         due_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
@@ -309,7 +309,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         repeat_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" },
+            css_classes = { "caption" },
             ellipsize = Pango.EllipsizeMode.END
         };
 
@@ -1157,7 +1157,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
-        more_information_item.add_css_class ("small-label");
+        more_information_item.add_css_class ("caption");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,

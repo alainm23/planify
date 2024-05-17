@@ -246,7 +246,7 @@ public class Views.Board : Adw.Bin {
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
             //  yalign = 0.7,
-            css_classes = { "dim-label", "small-label" }
+            css_classes = { "dim-label", "caption" }
         };
         days_left_label.yalign = float.parse ("0.7");
 

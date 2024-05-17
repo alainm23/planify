@@ -141,7 +141,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
         var title_label = new Gtk.Label (_("Schedule")) {
             halign = START,
-            css_classes = { "title-4", "small-label" }
+            css_classes = { "title-4", "caption" }
         };
 
         due_label = new Gtk.Label (_("Set a Due Date")) {
@@ -149,7 +149,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             use_markup = true,
             halign = START,
             ellipsize = Pango.EllipsizeMode.END,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var card_grid = new Gtk.Grid () {

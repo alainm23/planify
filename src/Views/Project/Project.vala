@@ -365,7 +365,7 @@ public class Views.Project : Adw.Bin {
 
 		list_box.append (new Gtk.Image.from_icon_name ("list-symbolic"));
 		list_box.append (new Gtk.Label (_("List")) {
-			css_classes = { "small-label" },
+			css_classes = { "caption" },
 			valign = CENTER
 		});
 
@@ -380,7 +380,7 @@ public class Views.Project : Adw.Bin {
 
 		board_box.append (new Gtk.Image.from_icon_name ("view-columns-symbolic"));
 		board_box.append (new Gtk.Label (_("Board")) {
-			css_classes = { "small-label" },
+			css_classes = { "caption" },
 			valign = CENTER
 		});
 

@@ -65,7 +65,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			xalign = 0,
 			yalign = 0,
 			wrap = true,
-			css_classes = { "small-label", "banner-text" }
+			css_classes = { "caption", "banner-text" }
 		};
 
 		var banner_button = new Gtk.Button.with_label (_("Supporting Us")) {
@@ -1162,7 +1162,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var command_entry = new Adw.ActionRow ();
 		command_entry.add_suffix (copy_button);
 		command_entry.title = quick_add_command;
-		command_entry.add_css_class ("small-label");
+		command_entry.add_css_class ("caption");
 		command_entry.add_css_class ("monospace");
 
 		var command_group = new Adw.PreferencesGroup () {
@@ -1870,7 +1870,7 @@ private class ValidationMessage : Gtk.Box {
             wrap = true,
             xalign = 1
         };
-        label_widget.add_css_class ("small-label");
+        label_widget.add_css_class ("caption");
 
         var revealer = new Gtk.Revealer () {
             child = label_widget,

@@ -77,9 +77,10 @@ public class Layouts.HeaderBar : Adw.Bin {
         // Title
         title_label = new Gtk.Label (null) {
             use_markup = true,
-            css_classes = { "font-bold" }
+            css_classes = { "font-bold" },
+            ellipsize = Pango.EllipsizeMode.END
         };
-    
+            
         start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         start_box.append (sidebar_button);
         start_box.append (back_button_revealer);

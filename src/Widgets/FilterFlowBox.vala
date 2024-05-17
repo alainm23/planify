@@ -123,14 +123,14 @@ public class Widgets.FilterFlowBoxChild : Gtk.FlowBoxChild {
 
         title_label = new Gtk.Label (null) {
             halign = START,
-            css_classes = { "title-4", "small-label" }
+            css_classes = { "title-4", "caption" }
         };
 
         value_label = new Gtk.Label (null) {
             xalign = 0,
             use_markup = true,
             halign = START,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var close_button = new Gtk.Button.from_icon_name ("cross-large-circle-filled-symbolic") {

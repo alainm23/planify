@@ -34,7 +34,7 @@ public class Widgets.SectionPicker.SectionButton : Adw.Bin {
     construct {
         var title_label = new Gtk.Label (_("Section")) {
             halign = START,
-            css_classes = { "title-4", "small-label" }
+            css_classes = { "title-4", "caption" }
         };
 
         section_label = new Gtk.Label (_("Select Section")) {
@@ -42,7 +42,7 @@ public class Widgets.SectionPicker.SectionButton : Adw.Bin {
             use_markup = true,
             halign = START,
             ellipsize = Pango.EllipsizeMode.END,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var card_grid = new Gtk.Grid () {

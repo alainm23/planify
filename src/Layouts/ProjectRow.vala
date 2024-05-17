@@ -118,7 +118,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             hexpand = true,
             margin_end = 6,
             halign = Gtk.Align.CENTER,
-            css_classes = { "small-label", "dim-label" }
+            css_classes = { "caption", "dim-label" }
         };
 
         count_revealer = new Gtk.Revealer () {
@@ -150,7 +150,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             use_markup = true,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            css_classes = { "pane-due-button", "small-label" }
+            css_classes = { "pane-due-button", "caption" }
         };
 
         menu_stack.add_named (due_label, "due_label");

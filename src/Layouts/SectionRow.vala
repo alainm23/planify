@@ -109,7 +109,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		};
 
 		count_label.add_css_class ("dim-label");
-		count_label.add_css_class ("small-label");
+		count_label.add_css_class ("caption");
 
 		count_revealer = new Gtk.Revealer () {
 			reveal_child = int.parse (count_label.label) > 0,

@@ -316,7 +316,7 @@ public class Views.List : Gtk.Grid {
 
         days_left_label = new Gtk.Label (null) {
             xalign = 0,
-            css_classes = { "dim-label", "small-label" }
+            css_classes = { "dim-label", "caption" }
         };
         days_left_label.yalign = float.parse ("0.7");
 

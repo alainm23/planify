@@ -238,23 +238,29 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
         };
         
         content_box.append (headerbar);
-        content_box.append (new Granite.HeaderLabel (_("Summary")) {
+        content_box.append (new Gtk.Label (_("Summary")) {
+            css_classes = { "heading", "h4" },
             margin_top = 6,
             margin_start = 12,
-            margin_bottom = 6
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (repeat_preview_box);
-        content_box.append (new Granite.HeaderLabel (_("Repeat every")) {
-            margin_top = 6,
+        content_box.append (new Gtk.Label (_("Repeat every")) {
+            css_classes = { "heading", "h4" },
+            margin_top = 12,
             margin_start = 12,
-            margin_bottom = 6
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
-        content_box.append (new Granite.HeaderLabel (_("End")) {
-            margin_top = 6,
+        content_box.append (new Gtk.Label (_("End")) {
+            css_classes = { "heading", "h4" },
+            margin_top = 12,
             margin_start = 12,
-            margin_bottom = 6
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (ends_grid);
         content_box.append (ends_stack);

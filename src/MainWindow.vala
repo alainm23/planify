@@ -71,7 +71,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			css_classes = { "flat" },
 			popover = settings_popover,
 			tooltip_text = _("Main Menu"),
-			child = new Gtk.Image.from_icon_name ("open-menu-symbolic")
+			icon_name = "open-menu-symbolic"
 		};
 
 		var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -226,7 +226,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		search_button.clicked.connect (() => {
-			(new Dialogs.QuickFind.QuickFind ()).show ();
+			(new Dialogs.QuickFind.QuickFind ()).present (Planify._instance.main_window);
 		});
 
 		var event_controller_key = new Gtk.EventControllerKey ();

@@ -141,7 +141,7 @@ public class Services.ActionManager : Object {
 
     private void action_open_search () {
         var dialog = new Dialogs.QuickFind.QuickFind ();
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_sync_manually () {

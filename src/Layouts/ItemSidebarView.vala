@@ -458,7 +458,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         delete_item.add_css_class ("menu-item-danger");
 
         var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
-        more_information_item.add_css_class ("small-label");
+        more_information_item.add_css_class ("caption");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,

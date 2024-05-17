@@ -53,7 +53,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         if (is_board) {
             var title_label = new Gtk.Label (_("Reminders")) {
                 halign = START,
-                css_classes = { "title-4", "small-label" }
+                css_classes = { "title-4", "caption" }
             };
 
             value_label = new Gtk.Label (_("Add Reminders")) {
@@ -61,7 +61,7 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
                 use_markup = true,
                 halign = START,
                 ellipsize = Pango.EllipsizeMode.END,
-                css_classes = { "small-label" }
+                css_classes = { "caption" }
             };
 
             var card_grid = new Gtk.Grid () {

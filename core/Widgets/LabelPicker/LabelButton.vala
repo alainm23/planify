@@ -68,7 +68,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         if (is_board) {
             var title_label = new Gtk.Label (_("Labels")) {
                 halign = START,
-                css_classes = { "title-4", "small-label" }
+                css_classes = { "title-4", "caption" }
             };
 
             labels_label = new Gtk.Label (_("Select Labels")) {
@@ -76,7 +76,7 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
                 use_markup = true,
                 halign = START,
                 ellipsize = Pango.EllipsizeMode.END,
-                css_classes = { "small-label" }
+                css_classes = { "caption" }
             };
 
             var card_grid = new Gtk.Grid () {

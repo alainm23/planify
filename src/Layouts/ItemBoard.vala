@@ -162,7 +162,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			ellipsize = Pango.EllipsizeMode.END,
 			margin_start = 30,
 			margin_end = 6,
-			css_classes = { "dim-label", "small-label" }
+			css_classes = { "dim-label", "caption" }
 		};
 
 		description_revealer = new Gtk.Revealer () {
@@ -173,7 +173,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		// Due Label
         due_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
@@ -183,7 +183,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
         repeat_label = new Gtk.Label (null) {
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" },
+            css_classes = { "caption" },
             ellipsize = Pango.EllipsizeMode.END
         };
 
@@ -244,7 +244,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		};
 
         subtaks_label = new Gtk.Label (null) {
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
 
         var subtaks_container = new Adw.Bin () {

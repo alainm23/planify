@@ -66,7 +66,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
 			top_margin = 12,
 			bottom_margin = 12,
 			editable = false,
-			css_classes = { "card", "small-label" }
+			css_classes = { "card", "caption" }
 		};
 		textview.remove_css_class ("view");
 		group.add (textview);

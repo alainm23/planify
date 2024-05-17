@@ -215,7 +215,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         };
         
         placeholder_label.add_css_class ("dim-label");
-        placeholder_label.add_css_class ("small-label");
+        placeholder_label.add_css_class ("caption");
 
         var content_box = new Adw.Bin () {
             margin_top = 12,

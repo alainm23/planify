@@ -19,18 +19,16 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.QuickFind.QuickFind : Adw.Window {
+public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
     private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items;
+
     public QuickFind () {
         Object (
-            transient_for: Planify.instance.main_window,
-            deletable: false,
-            modal: true,
-            margin_bottom: 164,
-            width_request: 350,
-            height_request: 325
+            content_width: 350,
+            content_height: 325,
+            presentation_mode: Adw.DialogPresentationMode.FLOATING
         );
     }
 
@@ -50,15 +48,19 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         var headerbar_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             margin_top = 6,
-            margin_bottom = 6
+            margin_bottom = 6,
+            margin_start = 6
         };
 
         headerbar_box.append (search_entry);
         headerbar_box.append (cancel_button);
 
-        var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class ("flat");
-        headerbar.title_widget = headerbar_box;
+        var headerbar = new Adw.HeaderBar () {
+            title_widget = headerbar_box,
+            show_start_title_buttons = false,
+            show_end_title_buttons = false,
+            css_classes = { "flat" }
+        };
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -69,57 +71,28 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         listbox.set_placeholder (get_placeholder ());
         listbox.set_header_func (header_function);
 
-        var listbox_content = new Adw.Bin () {
-            margin_bottom = 6,
-            child = listbox
-        };
-
         var listbox_scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
             hscrollbar_policy = Gtk.PolicyType.NEVER,
-            child = listbox_content
+            child = listbox
         };
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = listbox_scrolled;
 
-        content = toolbar_view;
-
-        Timeout.add (250, () => {
-            search_entry.grab_focus ();
-			return GLib.Source.REMOVE;
-		});
+        child = toolbar_view;
+        default_widget = search_entry;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         search_entry.search_changed.connect (() => {
             search_changed ();
         });
 
-        var controller_key = new Gtk.EventControllerKey ();
-        content.add_controller (controller_key);
-
-        controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            var key = Gdk.keyval_name (keyval).replace ("KP_", "");
-                        
-            if (key == "Up" || key == "Down") {
-                return false;
-            } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-                row_activated (listbox.get_selected_row ());
-                return false;
-            } else {
-                if (!search_entry.has_focus) {
-                    search_entry.grab_focus ();
-                    if (search_entry.cursor_position < search_entry.text.length) {
-                        search_entry.set_position (search_entry.text.length);
-                    }
-                }
-
-                return false;
-            }
-
-            return true;
-        });
+        var listbox_controller_key = new Gtk.EventControllerKey ();
+        listbox.add_controller (listbox_controller_key);
+        listbox_controller_key.key_pressed.connect (key_pressed);
 
         listbox.row_activated.connect ((row) => {
             row_activated (row);
@@ -148,6 +121,36 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
         cancel_button.clicked.connect (() => {
             hide_destroy ();
         });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
+    }
+
+    private bool key_pressed (uint keyval, uint keycode, Gdk.ModifierType state) {
+        var key = Gdk.keyval_name (keyval).replace ("KP_", "");
+        
+        if (key == "Up" || key == "Down") {
+        } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
+            row_activated (listbox.get_selected_row ());
+        } else {
+            if (!search_entry.has_focus) {
+                search_entry.grab_focus ();
+                if (search_entry.cursor_position < search_entry.text.length) {
+                    search_entry.set_position (search_entry.text.length);
+                }
+            }
+        }
+
+        return false;
     }
 
     private void search_changed () {
@@ -262,12 +265,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
     }
 
     private void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 
     private void clean_results () {
@@ -288,7 +286,9 @@ public class Dialogs.QuickFind.QuickFind : Adw.Window {
             }
         }
 
-        var header_label = new Granite.HeaderLabel (row.base_object.object_type.get_header ()) {
+        var header_label = new Gtk.Label (row.base_object.object_type.get_header ()) {
+            css_classes = { "heading", "h4" },
+            halign = Gtk.Align.START,
             margin_start = 12,
             margin_bottom = 6,
             margin_top = 6
