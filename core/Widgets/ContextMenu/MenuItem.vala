@@ -20,6 +20,17 @@
 */
 
 public class Widgets.ContextMenu.MenuItem : Gtk.Button {
+    private Gtk.Image menu_icon;
+    private Gtk.Revealer menu_icon_revealer;
+    private Gtk.Label menu_title;
+    private Gtk.Label secondary_label;
+    private Gtk.Revealer loading_revealer;
+    private Gtk.Revealer secondary_label_revealer;
+    private Gtk.Revealer select_revealer;
+    private Gtk.Revealer arrow_revealer;
+
+    public signal void activate_item ();
+
     public string title {
         set {
             menu_title.label = value;
@@ -36,17 +47,6 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
             }
         }
     }
-
-    private Gtk.Image menu_icon;
-    private Gtk.Revealer menu_icon_revealer;
-    private Gtk.Label menu_title;
-    private Gtk.Label secondary_label;
-    private Gtk.Revealer loading_revealer;
-    private Gtk.Revealer secondary_label_revealer;
-    private Gtk.Revealer select_revealer;
-    private Gtk.Revealer arrow_revealer;
-
-    public signal void activate_item ();
 
     public string secondary_text {
         set {
@@ -91,6 +91,12 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         }
     }
 
+    public int max_width_chars {
+        set {
+            menu_title.max_width_chars = value;
+        }
+    }
+
     public MenuItem (string title, string? icon = null) {
         Object (
             title: title,
@@ -115,7 +121,8 @@ public class Widgets.ContextMenu.MenuItem : Gtk.Button {
         };
         
         menu_title = new Gtk.Label (null) {
-            use_markup = true
+            use_markup = true,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         var select_icon = new Gtk.Image.from_icon_name ("object-select-symbolic");
