@@ -46,7 +46,7 @@ public class Dialogs.Project : Adw.Dialog {
         Object (
             project: project,
             backend_picker: backend_picker,
-            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project")
+            title: project.parent_id == "" ? _("New Project") : project.parent.name + " → " + _("New Project")
         );
     }
 

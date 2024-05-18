@@ -492,7 +492,9 @@ public class MainWindow : Adw.ApplicationWindow {
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
 		keyboard_shortcuts_item.secondary_text = "F1";
 
-		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
+		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New")) {
+			visible = Constants.SHOW_WHATSNEW
+		};
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
 
 		archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));

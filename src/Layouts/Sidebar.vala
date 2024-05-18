@@ -161,7 +161,10 @@ public class Layouts.Sidebar : Adw.Bin {
         content_box.append (local_projects_header);
         content_box.append (todoist_projects_header);
         content_box.append (caldav_projects_header);
-        content_box.append (whats_new_revealer);
+
+        if (Constants.SHOW_WHATSNEW) {
+            content_box.append (whats_new_revealer);
+        }
 
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 

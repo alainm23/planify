@@ -539,9 +539,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		content_label.label = item.content;
 		content_label.tooltip_text = item.content.strip ();
 
-		description_label.label = Util.get_default ().get_short_name (
-			Util.get_default ().line_break_to_space (item.description), 50
-		);
+		description_label.label = Util.get_default ().line_break_to_space (item.description);
 		description_label.tooltip_text = item.description.strip ();
 		description_revealer.reveal_child = description_label.label.length > 0;
 

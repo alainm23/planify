@@ -67,6 +67,16 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.7.4" date="2024-05-18">
+      <description translate="no">
+        <ul>
+          <li>Support for Libadwaita 1.5 and Adaptive Dialogs</li>
+          <li>Design, Usability, and Performance Improvements</li>
+          <li>Updated Translations for Hindi and Chinese</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.7.2" date="2024-05-11">
       <description translate="no">
         <ul>

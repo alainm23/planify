@@ -90,7 +90,7 @@ public class Services.Notification : GLib.Object {
     }
 
     public GLib.Notification build_notification (Objects.Reminder reminder) {
-        var notification = new GLib.Notification (reminder.item.project.short_name);
+        var notification = new GLib.Notification (reminder.item.project.name);
         notification.set_body (reminder.item.content);
         notification.set_icon (new ThemedIcon ("io.github.alainm23.planify"));
         notification.set_priority (GLib.NotificationPriority.URGENT);
