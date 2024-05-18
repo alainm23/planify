@@ -1411,6 +1411,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_checked () {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Objects.Item _fill_item (Sqlite.Statement stmt) {
         Objects.Item return_value = new Objects.Item ();
         return_value.id = stmt.column_text (0);

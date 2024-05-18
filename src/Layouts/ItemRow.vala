@@ -279,7 +279,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         project_label = new Gtk.Label (null) {
             css_classes = { "caption", "dim-label" },
             margin_start = 6,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            max_width_chars = 16
         };
 
         project_label_revealer = new Gtk.Revealer () {

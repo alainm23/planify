@@ -53,7 +53,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 			popover = build_view_setting_popover (),
 			icon_name = "view-sort-descending-rtl-symbolic",
 			css_classes = { "flat" },
-			tooltip_text = _("View option menu")
+			tooltip_text = _("View Option Menu")
 		};
 
 		var view_setting_overlay = new Gtk.Overlay ();

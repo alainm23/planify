@@ -25,6 +25,7 @@ public class Views.Filter : Adw.Bin {
     private Adw.Bin listbox_content;
     private Gtk.Stack listbox_stack;
     private Widgets.MagicButton magic_button;
+    private Gtk.Revealer view_setting_revealer;
 
     private Gee.HashMap <string, Layouts.ItemRow> items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
@@ -47,8 +48,24 @@ public class Views.Filter : Adw.Bin {
         }
     }
 
-    construct {        
+    construct {
+        var view_setting_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+            margin_end = 12,
+			popover = build_view_setting_popover (),
+			icon_name = "view-sort-descending-rtl-symbolic",
+			css_classes = { "flat" },
+			tooltip_text = _("View Option Menu")
+		};
+
+        view_setting_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = view_setting_button
+        };
+
         headerbar = new Layouts.HeaderBar ();
+        headerbar.pack_end (view_setting_revealer);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -208,6 +225,8 @@ public class Views.Filter : Adw.Bin {
             listbox_content.margin_top = 12;
             magic_button.visible = true;
         }
+
+        view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
     }
 
     private void add_items () {        
@@ -473,4 +492,47 @@ public class Views.Filter : Adw.Bin {
 
         return header_box;
     }
+
+    private Gtk.Popover build_view_setting_popover () {
+		var delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic");
+		delete_all_completed.add_css_class ("menu-item-danger");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (delete_all_completed);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = false,
+			position = Gtk.PositionType.BOTTOM,
+			child = menu_box,
+			width_request = 250
+		};
+
+        delete_all_completed.activate_item.connect (() => {
+			popover.popdown ();
+
+			var items = Services.Database.get_default ().get_items_checked ();
+
+			var dialog = new Adw.AlertDialog (
+			    _("Delete All Completed Tasks"),
+				_("This will delete %d completed tasks and their subtasks".printf (items.size))
+			);
+
+			dialog.body_use_markup = true;
+			dialog.add_response ("cancel", _("Cancel"));
+			dialog.add_response ("delete", _("Delete"));
+			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+			dialog.present (Planify._instance.main_window);
+
+			dialog.response.connect ((response) => {
+				if (response == "delete") {
+					foreach (Objects.Item item in items) {
+                        item.delete_item ();
+                    }
+				}
+			});
+		});
+
+		return popover;
+	}
 }
