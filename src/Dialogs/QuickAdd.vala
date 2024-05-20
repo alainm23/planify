@@ -79,7 +79,7 @@ public class Dialogs.QuickAdd : Adw.Dialog {
     }
 
     public void hide_destroy () {
-        force_close ();
+        close ();
     }
 
     public void update_content (string content = "") {

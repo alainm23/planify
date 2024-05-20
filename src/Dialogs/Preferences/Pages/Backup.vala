@@ -399,7 +399,7 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
 			width_request = 250
 		};
 
-		delete_item.clicked.connect (() => {
+		download_item.clicked.connect (() => {
 			menu_popover.popdown ();
 			Services.Backups.get_default ().save_file_as (backup);
 		});
