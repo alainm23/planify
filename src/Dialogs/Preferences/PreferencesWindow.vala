@@ -908,7 +908,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
 
 			Timeout.add (250, () => {
-				destroy ();
+				close ();
 				return GLib.Source.REMOVE;
 			});
 		});
@@ -918,7 +918,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
 
 			Timeout.add (250, () => {
-				destroy ();
+				close ();
 				return GLib.Source.REMOVE;
 			});
 		});
