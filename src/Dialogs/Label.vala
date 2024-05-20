@@ -201,11 +201,6 @@ public class Dialogs.Label : Adw.Dialog {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }
