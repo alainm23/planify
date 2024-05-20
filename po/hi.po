@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-18 05:12-0500\n"
-"PO-Revision-Date: 2024-05-13 13:54+0530\n"
+"PO-Revision-Date: 2024-05-18 23:42+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -421,7 +421,6 @@ msgid "You’re done!"
 msgstr "आपका काम हो गया!"
 
 #: core/Util/Util.vala:630
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -431,9 +430,7 @@ msgid ""
 msgstr ""
 "वास्तव में आपको बस इतना ही जानने की जरूरत है। बेझिझक अपनी खुद की परियोजनाएं और करने-"
 "योग्य जोड़ना शुरू करें।\n"
-"\n"
 "नीचे दी गई उन्नत सुविधाओं को जानने के लिए आप बाद में इस परियोजना पर वापस आ सकते हैं..\n"
-"\n"
 "हमें आशा है कि आप Planify का उपयोग करके आनंद लेंगे!"
 
 #: core/Util/Util.vala:644
@@ -1016,7 +1013,7 @@ msgstr ""
 
 #: src/MainWindow.vala:73
 msgid "Main Menu"
-msgstr ""
+msgstr "मुख्य मेनू"
 
 #: src/MainWindow.vala:78
 msgid "Open Quick Find"
@@ -1043,9 +1040,8 @@ msgid "Archived Projects"
 msgstr "संग्रहीत परियोजनाएं"
 
 #: src/Objects/Backup.vala:126
-#, fuzzy
 msgid "Delete Backup"
-msgstr "बैकअप बनाएं"
+msgstr "बैकअप मिटाएं"
 
 #: src/Services/Backups.vala:505
 msgid "Backup Successfully Imported"
@@ -1319,9 +1315,8 @@ msgid "Are you sure you want to delete?"
 msgstr "क्या आप वाकई मिटाना चाहते हैं?"
 
 #: src/Layouts/HeaderBar.vala:58
-#, fuzzy
 msgid "Open/Close Sidebar"
-msgstr "पार्श्वपट्टी टॉगल करें"
+msgstr "पार्श्वपट्टी खोलें/बंद करें"
 
 #: src/Widgets/SyncButton.vala:80
 msgid "Offline Mode Is On"
@@ -1378,7 +1373,6 @@ msgstr "परियोजना कार्रवाई"
 
 #: src/Views/Project/Project.vala:74 src/Views/Today.vala:82
 #: src/Views/Filter.vala:59 src/Views/Scheduled/Scheduled.vala:56
-#, fuzzy
 msgid "View Option Menu"
 msgstr "विकल्प मेनू देखें"
 
@@ -1542,9 +1536,9 @@ msgid "Labels: Nextcloud"
 msgstr "लेबल: Nextcloud"
 
 #: src/Views/Filter.vala:518
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed tasks and their subtasks"
-msgstr "यह परियोजना %2$s से %1$d पूर्ण किए गए कार्यों और उनके उप-कार्यों को मिटा देगा"
+msgstr "यह %d पूर्ण किए गए कार्यों और उनके उप-कार्यों को हटा देगा"
 
 #: src/Dialogs/Project.vala:49
 msgid "New Project"
@@ -2048,9 +2042,8 @@ msgid "Default Priority"
 msgstr "तयशुदा प्राथमिकता"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:561
-#, fuzzy
 msgid "Cross Out Completed Tasks"
-msgstr "पूर्ण कार्य दिखाएं"
+msgstr "पूर्ण कार्य पर काटा लगाएं"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:568
 msgid "Top"
@@ -2082,7 +2075,7 @@ msgstr "पार्श्वपट्टी दृश्य में कार
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:598
 msgid "Attention at One"
-msgstr ""
+msgstr "एक पर ध्यान"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:668
 msgid "App Theme"
@@ -2345,9 +2338,8 @@ msgid "Import Overview"
 msgstr "आयात अवलोकन"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:179
-#, fuzzy
 msgid "To-Dos"
-msgstr "करने-योग्य जोड़ें"
+msgstr "करने-योग्य"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:200
 msgid "Confirm"
@@ -2374,9 +2366,8 @@ msgid "Selected file is invalid"
 msgstr "चयनित फाइल अमान्य है"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:332
-#, fuzzy
 msgid "View Backup"
-msgstr "बैकअप बनाएं"
+msgstr "बैकअप देखें"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:384
 msgid "Download"
@@ -2496,12 +2487,3 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
-
-#~ msgid "Add task"
-#~ msgstr "कार्य जोड़ें"
-
-#~ msgid "Underline Completed Tasks"
-#~ msgstr "पूर्ण किये गये कार्यों को रेखांकित करें"
-
-#~ msgid "Items"
-#~ msgstr "वस्तुएं"
