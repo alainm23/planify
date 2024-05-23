@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-18 05:12-0500\n"
-"PO-Revision-Date: 2024-05-16 23:19+0800\n"
+"POT-Creation-Date: 2024-05-11 06:12-0500\n"
+"PO-Revision-Date: 2024-05-17 20:46+0800\n"
 "Last-Translator: Flysoft <flysoftbeta@outlook.com>\n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -622,7 +622,7 @@ msgstr "服务器当前无法处理请求。"
 
 #: core/Services/Todoist.vala:1522
 msgid "Unknown error"
-msgstr ""
+msgstr "未知错误"
 
 #: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:219
 msgid "Pinned"
@@ -874,7 +874,7 @@ msgstr "删除项目 %s 吗？"
 #: src/Objects/Backup.vala:127 src/Layouts/LabelRow.vala:174
 #: src/Layouts/ItemSidebarView.vala:674 src/Layouts/SectionBoard.vala:562
 msgid "This can not be undone"
-msgstr "此操作不能被撤销。"
+msgstr "此操作不能被撤销"
 
 #: core/Objects/Project.vala:808 core/Objects/Section.vala:341
 #: src/Objects/Backup.vala:131 src/Layouts/LabelRow.vala:178
@@ -889,12 +889,12 @@ msgstr "删除"
 
 #: core/Objects/Project.vala:845 core/Objects/Section.vala:362
 msgid "Archive?"
-msgstr "存档"
+msgstr "存档吗？"
 
 #: core/Objects/Project.vala:846 core/Objects/Section.vala:363
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr "这将会存档 %s 和它的所有代办项目。"
+msgstr "这将会存档 %s 和它的所有待办项目。"
 
 #: core/Objects/Project.vala:850 core/Objects/Section.vala:367
 #: src/Layouts/ProjectRow.vala:638 src/Layouts/SectionRow.vala:618
@@ -987,7 +987,7 @@ msgstr "无标签"
 
 #: src/App.vala:76
 msgid "Are you sure you want to reset all? (y/n): "
-msgstr "确定要重置所有设置吗？"
+msgstr "确定要重置所有设置吗？(是/否)："
 
 #: src/App.vala:79
 msgid "y"
@@ -1043,11 +1043,11 @@ msgstr "备份成功导入"
 
 #: src/Services/Backups.vala:506
 msgid "Process completed, you need to start Planify again"
-msgstr "操作完成，你需要再次启动 Planify。"
+msgstr "操作完成，你需要重启 Planify"
 
 #: src/Services/Backups.vala:520
 msgid "Planify Backup Files"
-msgstr ""
+msgstr "Planify 备份文件"
 
 #: src/Services/CalendarEvents/Util.vala:245
 msgid "On this computer"
@@ -1110,11 +1110,11 @@ msgstr "项目列表顺序改变至自定义顺序。"
 
 #: src/Layouts/ProjectRow.vala:627 src/Layouts/ProjectRow.vala:633
 msgid "Remove From Favorites"
-msgstr "从 ‘最爱’ 移除"
+msgstr "取消收藏"
 
 #: src/Layouts/ProjectRow.vala:627 src/Layouts/ProjectRow.vala:633
 msgid "Add to Favorites"
-msgstr "添加至 ‘最爱’"
+msgstr "收藏"
 
 #: src/Layouts/ProjectRow.vala:634 src/Views/Project/Project.vala:239
 #: src/Dialogs/Project.vala:57
@@ -1213,11 +1213,11 @@ msgstr "删除任务"
 
 #: src/Layouts/ItemRow.vala:1137 src/Layouts/ItemSidebarView.vala:660
 msgid "Added at"
-msgstr "在…中添加"
+msgstr "添加日期"
 
 #: src/Layouts/ItemRow.vala:1138 src/Layouts/ItemSidebarView.vala:661
 msgid "Updated at"
-msgstr "在…中更新"
+msgstr "更新日期"
 
 #: src/Layouts/ItemRow.vala:1140 src/Layouts/ItemSidebarView.vala:663
 msgid "Not available"
@@ -1480,12 +1480,12 @@ msgstr "删除所有完成的人物"
 
 #: src/Views/Project/Project.vala:479
 msgid "Sort By"
-msgstr "按…排序"
+msgstr "排序"
 
 #: src/Views/Project/Project.vala:488 src/Views/Today.vala:592
 #: src/Views/Scheduled/Scheduled.vala:233
 msgid "Filter By"
-msgstr "按...过滤"
+msgstr "过滤"
 
 #: src/Views/Project/Project.vala:546
 #, c-format
@@ -1494,7 +1494,7 @@ msgstr "这将删除 %d 个已完成的任务及其子任务从项目 %s 中"
 
 #: src/Views/Project/List.vala:52 src/Views/Project/Board.vala:42
 msgid "Note"
-msgstr ""
+msgstr "注释"
 
 #: src/Views/Project/List.vala:82 src/Views/Today.vala:222
 #: src/Views/Label/Label.vala:69 src/Views/Filter.vala:83
@@ -1504,7 +1504,7 @@ msgstr "添加任务"
 #: src/Views/Project/List.vala:83 src/Views/Today.vala:223
 #: src/Views/Label/Label.vala:70 src/Views/Filter.vala:84
 msgid "Press a to create a new task"
-msgstr "按 `A` 创建新任务"
+msgstr "按 “A“ 创建新任务"
 
 #: src/Views/Today.vala:114
 msgid "Overdue"
@@ -1597,7 +1597,7 @@ msgstr "加载中"
 
 #: src/Dialogs/GoogleOAuth.vala:84
 msgid "Planner is sync your tasks, this may take a few minutes"
-msgstr "Planner 正在同步你的任务，这可能会用上几分钟。"
+msgstr "Planify 正在同步你的任务，这可能会用上几分钟"
 
 #: src/Dialogs/GoogleOAuth.vala:137
 msgid "Please enter your credentials"
@@ -1757,7 +1757,7 @@ msgstr "摘要"
 
 #: src/Dialogs/RepeatConfig.vala:249
 msgid "Repeat every"
-msgstr "重复每"
+msgstr "重复周期"
 
 #: src/Dialogs/RepeatConfig.vala:258
 msgid "End"
@@ -1769,7 +1769,7 @@ msgstr "快速查找"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:218
 msgid "Quickly switch projects and views, find tasks, search by labels"
-msgstr "快速选择项目和视图，查找任务，搜索标签。"
+msgstr "快速选择项目和视图，查找任务，搜索标签"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:58
 #: src/Dialogs/Preferences/PreferencesWindow.vala:286
@@ -1792,7 +1792,7 @@ msgstr "支持"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:123
 msgid "Integrations"
-msgstr "桌面环境集成"
+msgstr "集成"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:124
 msgid "Sync your favorite to-do providers"
@@ -1842,7 +1842,7 @@ msgstr "备份"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:195
 msgid "Backup or migrate from Planner."
-msgstr "备份数据或从 Planner 迁移数据"
+msgstr "备份数据或从 Planner 迁移数据。"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:201
 msgid "Create Tutorial Project"
@@ -1989,7 +1989,7 @@ msgstr "一周的起始日"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:526
 msgid "Task Settings"
-msgstr "任务设置 "
+msgstr "任务设置"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:531
 msgid "Instantly"
@@ -2156,7 +2156,7 @@ msgstr "命令已复制到剪切板"
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1232
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1323
 msgid "Loading…"
-msgstr "加载中..."
+msgstr "加载中…"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1259
 msgid "Planify is is syncing your tasks, this may take a few minutes"
