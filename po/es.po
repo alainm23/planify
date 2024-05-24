@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-18 05:12-0500\n"
-"PO-Revision-Date: 2024-05-10 20:37-0400\n"
+"PO-Revision-Date: 2024-05-22 16:01-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #: core/Enum.vala:105 core/Util/Util.vala:229 core/Util/Datetime.vala:64
 #: core/Util/Datetime.vala:89
@@ -172,7 +172,6 @@ msgid "Add To-Do"
 msgstr "Añadir tarea pendiente"
 
 #: core/QuickAdd.vala:141
-#, fuzzy
 msgid "Create More"
 msgstr "Crear más"
 
@@ -425,7 +424,6 @@ msgid "You’re done!"
 msgstr "¡Ha terminado!"
 
 #: core/Util/Util.vala:630
-#, fuzzy
 msgid ""
 "That’s all you really need to know. Feel free to start adding your own "
 "projects and to-dos.\n"
@@ -433,13 +431,11 @@ msgid ""
 "below..\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
-"Eso es todo lo que necesita saber. Siéntase libre de empezar a añadir sus "
+"Eso es todo lo que necesitas saber. Siéntete libre de empezar a añadir tus "
 "propios proyectos y tareas.\n"
-"\n"
-"Puede volver a este proyecto más tarde para aprender las características "
+"Puedes volver a este proyecto más tarde para aprender las características "
 "avanzadas a continuación..\n"
-"\n"
-"¡Esperamos que disfrute usando Planify!"
+"¡Esperamos que disfrutes usando Planify!"
 
 #: core/Util/Util.vala:644
 msgid "Tune your setup"
@@ -533,24 +529,21 @@ msgid "🏃‍♀️️Follow Up"
 msgstr "🏃‍♀️️Dar seguimiento"
 
 #: core/Util/Util.vala:896 core/Objects/Item.vala:1515
-#, fuzzy, c-format
+#, c-format
 msgid "Task moved to %s"
-msgstr "Tarea copiada al portapapeles"
+msgstr "Tarea movida a %s"
 
 #: core/Util/Util.vala:974
-#, fuzzy
 msgid "Task duplicated"
-msgstr "Duplicada"
+msgstr "Tarea duplicada"
 
 #: core/Util/Util.vala:1010
-#, fuzzy
 msgid "Section duplicated"
-msgstr "Nombre de la sección"
+msgstr "Sección duplicada"
 
 #: core/Util/Util.vala:1037 core/Util/Util.vala:1063
-#, fuzzy
 msgid "Project duplicated"
-msgstr "Acciones del proyecto"
+msgstr "Proyecto duplicado"
 
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -566,22 +559,21 @@ msgstr "Ayer"
 
 #: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
 msgid "days"
-msgstr ""
+msgstr "días"
 
 #: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
-#, fuzzy
 msgid "day"
-msgstr "Hoy"
+msgstr "día"
 
 #: core/Util/Datetime.vala:91
 #, c-format
 msgid "%s %s ago"
-msgstr ""
+msgstr "hace %s %s"
 
 #: core/Util/Datetime.vala:93
 #, c-format
 msgid "%s %s left"
-msgstr ""
+msgstr "%s %s restantes"
 
 #: core/Util/Datetime.vala:391
 msgid "Mo,"
@@ -911,18 +903,18 @@ msgstr "Eliminar"
 
 #: core/Objects/Project.vala:845 core/Objects/Section.vala:362
 msgid "Archive?"
-msgstr ""
+msgstr "Archivar?"
 
 #: core/Objects/Project.vala:846 core/Objects/Section.vala:363
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Esto archivará %s y todas sus tareas."
 
 #: core/Objects/Project.vala:850 core/Objects/Section.vala:367
 #: src/Layouts/ProjectRow.vala:638 src/Layouts/SectionRow.vala:618
 #: src/Views/Project/Project.vala:248
 msgid "Archive"
-msgstr ""
+msgstr "Archivo"
 
 #: core/Objects/Section.vala:336 src/Layouts/SectionBoard.vala:561
 #, c-format
@@ -1030,7 +1022,7 @@ msgstr ""
 
 #: src/MainWindow.vala:73
 msgid "Main Menu"
-msgstr ""
+msgstr "Menú principal"
 
 #: src/MainWindow.vala:78
 msgid "Open Quick Find"
@@ -1053,14 +1045,12 @@ msgid "About Planify"
 msgstr "Acerca de Planify"
 
 #: src/MainWindow.vala:500
-#, fuzzy
 msgid "Archived Projects"
-msgstr "Añadir proyecto"
+msgstr "Proyectos archivados"
 
 #: src/Objects/Backup.vala:126
-#, fuzzy
 msgid "Delete Backup"
-msgstr "Crear copia de seguridad"
+msgstr "Eliminar copia de seguridad"
 
 #: src/Services/Backups.vala:505
 msgid "Backup Successfully Imported"
@@ -1337,9 +1327,8 @@ msgid "Are you sure you want to delete?"
 msgstr "¿Seguro que quieres borrarlo?"
 
 #: src/Layouts/HeaderBar.vala:58
-#, fuzzy
 msgid "Open/Close Sidebar"
-msgstr "Activar/Desactivar barra lateral"
+msgstr "Abrir/Cerrar la barra lateral"
 
 #: src/Widgets/SyncButton.vala:80
 msgid "Offline Mode Is On"
@@ -1396,9 +1385,8 @@ msgstr "Acciones del proyecto"
 
 #: src/Views/Project/Project.vala:74 src/Views/Today.vala:82
 #: src/Views/Filter.vala:59 src/Views/Scheduled/Scheduled.vala:56
-#, fuzzy
 msgid "View Option Menu"
-msgstr "Ver menú de opciones"
+msgstr "Ver el menú de opciones"
 
 #: src/Views/Project/Project.vala:241 src/Views/Project/Project.vala:298
 #: src/Views/Project/List.vala:347 src/Views/Project/Board.vala:278
@@ -1560,9 +1548,9 @@ msgid "Labels: Nextcloud"
 msgstr "Etiquetas: Nextcloud"
 
 #: src/Views/Filter.vala:518
-#, fuzzy, c-format
+#, c-format
 msgid "This will delete %d completed tasks and their subtasks"
-msgstr "Esto eliminará %d tareas completadas y sus subtareas del proyecto %s"
+msgstr "Esto eliminará %d tareas completadas y sus subtareas"
 
 #: src/Dialogs/Project.vala:49
 msgid "New Project"
@@ -1640,59 +1628,69 @@ msgstr "La red no está disponible"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid "Inbox as Independent Project"
-msgstr ""
+msgstr "Bandeja de entrada como proyecto independiente"
 
 #: src/Dialogs/WhatsNew.vala:118
 msgid ""
 "The Inbox is the default place to add new tasks, allowing you to quickly get "
 "your ideas out of your head and then plan them when you’re ready."
 msgstr ""
+"La Bandeja de entrada es el lugar por defecto para añadir nuevas tareas, lo "
+"que te permite sacar rápidamente tus ideas de la cabeza y planificarlas "
+"cuando estés listo."
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid "Enhanced Task Duplication"
-msgstr ""
+msgstr "Duplicación de tareas mejorada"
 
 #: src/Dialogs/WhatsNew.vala:119
 msgid ""
 "When you duplicate a task now, all subtasks and labels are automatically "
 "duplicated, saving you time and effort in managing your projects."
 msgstr ""
+"Ahora, cuando duplica una tarea, todas las subtareas y etiquetas se duplican "
+"automáticamente, lo que le ahorra tiempo y esfuerzo en la gestión de sus "
+"proyectos."
 
 #: src/Dialogs/WhatsNew.vala:120
-#, fuzzy
 msgid "Duplication of Sections and Projects"
-msgstr "Crear una nueva sección en un proyecto"
+msgstr "Duplicación de secciones y proyectos"
 
 #: src/Dialogs/WhatsNew.vala:120
 msgid ""
 "You can now easily duplicate entire sections and projects, making it easier "
 "to create new projects based on existing structures."
 msgstr ""
+"Ahora puede duplicar fácilmente secciones y proyectos enteros, lo que "
+"facilita la creación de nuevos proyectos basados en estructuras existentes."
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid "Project Expiry Date"
-msgstr ""
+msgstr "Fecha de expiración del proyecto"
 
 #: src/Dialogs/WhatsNew.vala:121
 msgid ""
 "Your project’s expiry date now clearly shows the remaining days, helping you "
 "keep track of your deadlines more effectively."
 msgstr ""
+"La fecha de vencimiento de su proyecto muestra ahora claramente los días "
+"restantes, lo que le ayudará a controlar mejor sus plazos."
 
 #: src/Dialogs/WhatsNew.vala:122
-#, fuzzy
 msgid "Archiving of Projects and Sections"
-msgstr "Abrir más acciones del proyecto"
+msgstr "Archivo de proyectos y secciones"
 
 #: src/Dialogs/WhatsNew.vala:122
 msgid ""
 "You can now archive entire projects and sections! This feature helps you "
 "keep your workspace organized and clutter-free."
 msgstr ""
+"Ahora puedes archivar proyectos y secciones enteras. Esta función te ayuda a "
+"mantener tu espacio de trabajo organizado y despejado."
 
 #: src/Dialogs/ManageSectionOrder.vala:58
 msgid "Archived"
-msgstr ""
+msgstr "Archivados"
 
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:84
 msgid "Type a search"
@@ -1701,7 +1699,7 @@ msgstr "Escriba una búsqueda"
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:139
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:180
 msgid "Unarchive"
-msgstr ""
+msgstr "Desarchivar"
 
 #: src/Dialogs/DatePicker.vala:67
 msgid "Next Week"
@@ -1843,9 +1841,8 @@ msgid "Customize to your liking"
 msgstr "Personalícelo a su gusto"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:151
-#, fuzzy
 msgid "Task Setting"
-msgstr "Configuración de tareas"
+msgstr "Configuración de tarea"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:161
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:28
@@ -2062,9 +2059,8 @@ msgid "Default Priority"
 msgstr "Prioridad por defecto"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:561
-#, fuzzy
 msgid "Cross Out Completed Tasks"
-msgstr "Mostrar tareas completadas"
+msgstr "Tachar las tareas completadas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:568
 msgid "Top"
@@ -2092,11 +2088,11 @@ msgstr "Reproducir un sonido cuando se completen las tareas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:592
 msgid "Open Task In Sidebar View"
-msgstr ""
+msgstr "Abrir una tarea en la barra lateral"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:598
 msgid "Attention at One"
-msgstr ""
+msgstr "Concentrarse en una"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:668
 msgid "App Theme"
@@ -2363,9 +2359,8 @@ msgid "Import Overview"
 msgstr "Descripción general de la importación"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:179
-#, fuzzy
 msgid "To-Dos"
-msgstr "Añadir tarea pendiente"
+msgstr "Tareas pendientes"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:200
 msgid "Confirm"
@@ -2392,9 +2387,8 @@ msgid "Selected file is invalid"
 msgstr "El archivo seleccionado no es válido"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:332
-#, fuzzy
 msgid "View Backup"
-msgstr "Crear copia de seguridad"
+msgstr "Ver copia de seguridad"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:384
 msgid "Download"
