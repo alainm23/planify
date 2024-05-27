@@ -59,7 +59,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Popover menu_handle_popover = null;
     
     private Widgets.LoadingButton hide_loading_button;
-    private Widgets.HyperTextView description_textview;
+    private Widgets.Markdown.Buffer current_buffer;
+    private Widgets.Markdown.EditView markdown_edit_view;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.LabelsSummary labels_summary;
@@ -84,6 +85,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.DropTarget drop_magic_button_target;
     private Gtk.DropTarget drop_order_magic_button_target;
     private Gee.HashMap<ulong, GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, GLib.Object> ();
+    private ulong description_handler_change_id = 0;
 
     bool _edit = false;
     public bool edit {
@@ -133,9 +135,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
+                check_description ();
                 labels_summary.check_revealer ();
-
-                update_request ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();   
@@ -389,25 +390,22 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 24
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
-            height_request = 64,
+        current_buffer = new Widgets.Markdown.Buffer ();
+
+        markdown_edit_view = new Widgets.Markdown.EditView () {
             left_margin = 24,
             right_margin = 6,
             top_margin = 3,
-            bottom_margin = 12,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
-            editable = !item.completed && !item.project.is_deck
+            bottom_margin = 12
         };
-
-        description_textview.remove_css_class ("view");
+        markdown_edit_view.buffer = current_buffer;
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             vscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
             vexpand = true,
-            child = description_textview
+            child = markdown_edit_view
         };
 
         item_labels = new Widgets.ItemLabels (item) {
@@ -630,10 +628,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         var description_gesture_click = new Gtk.GestureClick ();
-        description_textview.add_controller (description_gesture_click);
+        markdown_edit_view.add_controller (description_gesture_click);
         description_gesture_click.pressed.connect ((n_press, x, y) => {
             description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
-            description_textview.grab_focus ();
+            markdown_edit_view.view_focus ();
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();
@@ -643,7 +641,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 edit = false;    
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
-                description_textview.grab_focus ();
+                markdown_edit_view.view_focus ();
                 return Gdk.EVENT_STOP;
             }
 
@@ -654,18 +652,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (keyval == 65307) {
                 edit = false;
             } else { 
-                update ();
+                update_content_description ();
             }
         });
 
-        var description_controller_key = new Gtk.EventControllerKey ();
-        description_textview.add_controller (description_controller_key);
-        description_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                edit = false;
-            } else {
-                update ();
-            }
+        markdown_edit_view.escape.connect (() => {
+            edit = false;
         });
 
         var checked_button_gesture = new Gtk.GestureClick ();
@@ -836,20 +828,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
     }
 
-    private void update () {
-        if (item.content != content_textview.buffer.text ||
-            item.description != description_textview.get_text ()) {
-            item.content = content_textview.buffer.text;
-            item.description = description_textview.get_text ();
-            item.update_async_timeout (update_id);
-        }
-    }
-
     public override void select_row (bool active) {
         if (active) {
             itemrow_box.add_css_class ("complete-animation");
         } else {
             itemrow_box.remove_css_class ("complete-animation");
+        }
+    }
+
+
+    private void update_content_description () {
+        if (item.content != content_textview.buffer.text ||
+            item.description != current_buffer.get_all_text ().chomp ()) {
+            item.content = content_textview.buffer.text;
+            content_label.label = item.content;
+            content_label.tooltip_text = item.content;
+
+            item.description = current_buffer.get_all_text ().chomp ();
+            item.update_async_timeout (update_id);
         }
     }
 
@@ -868,7 +864,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.label = item.content;
         content_label.tooltip_text = item.content;
         content_textview.buffer.text = item.content;
-        description_textview.set_text (item.description);
+
+        // Update Description
+        if (description_handler_change_id != 0) {
+            current_buffer.disconnect (description_handler_change_id);
+            description_handler_change_id = 0;
+        }
+        
+        current_buffer.text = item.description;
+
+        if (description_handler_change_id == 0) {
+            description_handler_change_id = current_buffer.changed.connect (() => {
+                update_content_description ();
+            });
+        }
         
         project_label.label = item.project.name;
         if (item.has_parent) {
@@ -898,7 +907,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (edit) {
             content_textview.editable = !item.completed && !item.project.is_deck;
-            description_textview.editable = !item.completed && !item.project.is_deck;
+            markdown_edit_view.is_editable = !item.completed && !item.project.is_deck;
             item_labels.sensitive = !item.completed && !item.project.is_deck;
             
             schedule_button.sensitive = !item.completed;

@@ -26,7 +26,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Label parent_label;
     private Gtk.Revealer spinner_revealer;
     private Widgets.TextView content_textview;
-    private Widgets.TextView description_textview;
+    private Widgets.Markdown.Buffer current_buffer;
+    private Widgets.Markdown.EditView markdown_edit_view;
     private Widgets.StatusButton status_button;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PriorityButton priority_button;
@@ -43,7 +44,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Widgets.ContextMenu.MenuItem repeat_item;
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
-
+    public string update_id { get; set; default = Util.get_default ().generate_id (); }
+    
     public bool show_completed {
         get {
             if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
@@ -115,9 +117,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             right_margin = 12,
             top_margin = 12,
             bottom_margin = 12,
-            height_request = 64
+            height_request = 64,
+            wrap_mode = Gtk.WrapMode.WORD
         };
-        content_textview.wrap_mode = Gtk.WrapMode.WORD;
+
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("card");
 
@@ -158,16 +161,16 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 		properties_group.title = _("Properties");
         properties_group.add (properties_grid);
 
-        description_textview = new Widgets.TextView () {
+        current_buffer = new Widgets.Markdown.Buffer ();
+
+        markdown_edit_view = new Widgets.Markdown.EditView () {
+            card = true,
             left_margin = 12,
             right_margin = 12,
             top_margin = 12,
             bottom_margin = 12,
-            height_request = 64
         };
-        description_textview.wrap_mode = Gtk.WrapMode.WORD;
-        description_textview.remove_css_class ("view");
-        description_textview.add_css_class ("card");
+        markdown_edit_view.buffer = current_buffer;
 
         var description_group = new Adw.PreferencesGroup () {
             margin_start = 12,
@@ -175,7 +178,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             margin_top = 12
         };
 		description_group.title = _("Description");
-        description_group.add (description_textview);
+        description_group.add (markdown_edit_view);
 
         subitems = new Widgets.SubItems.for_board () {
             margin_top = 12
@@ -216,25 +219,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
-
         content_controller_key.key_released.connect ((keyval, keycode, state) => {            
-            if (keyval == 65307) {
-                //  Services.EventBus.get_default ().close_item ();
-            } else { 
-                update ();
-            }
+            update_content_description ();
         });
 
-        var description_controller_key = new Gtk.EventControllerKey ();
-        description_textview.add_controller (description_controller_key);
-        description_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                
-            } else {
-                update ();
-            }
-        });
-        
         schedule_button.date_changed.connect ((datetime) => {
             update_due (datetime);
         });
@@ -300,17 +288,18 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
     }
 
-    private void update () {
+    private void update_content_description() {
         if (item.content != content_textview.buffer.text ||
-            item.description != description_textview.buffer.text) {
+            item.description != current_buffer.get_all_text ().chomp ()) {
             item.content = content_textview.buffer.text;
-            item.description = description_textview.buffer.text;
-            item.update_async_timeout ();
+            item.description = current_buffer.get_all_text ().chomp ();
+            item.update_async_timeout (update_id);
         }
     }
 
     public void present_item (Objects.Item _item) {
         item = _item;
+        update_id = Util.get_default ().generate_id ();
 
         label_button.backend_type = item.project.backend_type;
         update_request ();
@@ -337,8 +326,10 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             }
         })] = Services.EventBus.get_default ();
 
-        signals_map[item.updated.connect (() => {
-            update_request ();
+        signals_map[item.updated.connect ((_update_id) => {
+            if (update_id != _update_id) {
+                update_request ();
+            }
         })] = item;
 
         signals_map[item.reminder_added.connect ((reminder) => {
@@ -349,9 +340,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             reminder_button.delete_reminder (reminder, item.reminders);
         })] = item;
 
-        item.loading_change.connect (() => {
+        signals_map[item.loading_change.connect (() => {
             spinner_revealer.reveal_child = item.loading;
-        });
+        })] = item;
+
+        signals_map[current_buffer.changed.connect_after (() => {
+            update_content_description ();
+        })] = current_buffer;
     }
 
     public void disconnect_all () {
@@ -366,7 +361,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     public void update_request () {
         content_textview.buffer.text = item.content;
-        description_textview.buffer.text = item.description;
+        current_buffer.text = item.description;
 
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
@@ -383,7 +378,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         reminder_button.set_reminders (item.reminders);
 
         content_textview.sensitive = !item.completed;
-        description_textview.sensitive = !item.completed;
+        markdown_edit_view.sensitive = !item.completed;
         schedule_button.sensitive = !item.completed;
         priority_button.sensitive = !item.completed;
         label_button.sensitive = !item.completed;

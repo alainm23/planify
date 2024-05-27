@@ -51,7 +51,7 @@ public class Views.Labels : Adw.Bin {
         labels_caldav_header.show_separator = true;
         labels_caldav_header.set_sort_func (sort_func);
 
-        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             hexpand = true,
             vexpand = true
         };

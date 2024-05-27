@@ -842,7 +842,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		};
 
 		var caldav_row = new Adw.ActionRow ();
-		caldav_row.title = _("CalDAV");
+		caldav_row.title = _("Nextcloud");
 		caldav_row.subtitle = _("Synchronization based on open Internet standards");
 		caldav_row.add_suffix (caldav_setting_revealer);
 		caldav_row.add_suffix (caldav_switch);
@@ -890,7 +890,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		});
 
 		var caldav_switch_gesture = new Gtk.GestureClick ();
-		caldav_switch_gesture.set_button (1);
 		caldav_switch.add_controller (caldav_switch_gesture);
 		caldav_switch_gesture.pressed.connect (() => {
 			caldav_switch.active = !caldav_switch.active;
@@ -1365,7 +1364,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	}
 
 	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
 		
 		var server_entry = new Adw.EntryRow ();
         server_entry.title = _("Server URL");

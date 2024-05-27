@@ -1713,7 +1713,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
-            item.updated ();
+            item.updated (update_id);
             item_updated (item, update_id);
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());

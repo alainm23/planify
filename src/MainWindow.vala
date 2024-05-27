@@ -152,7 +152,7 @@ public class MainWindow : Adw.ApplicationWindow {
 				Services.Settings.get_default ().settings.set_boolean (
 					"dark-mode",
 					granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
-					);
+				);
 				Util.get_default ().update_theme ();
 			} else if (key == "appearance" || key == "dark-mode") {
 				Util.get_default ().update_theme ();

@@ -25,7 +25,7 @@ public class Objects.BaseObject : GLib.Object {
     public string keywords { get; set; default = ""; }
     public string icon_name { get; set; default = ""; }
     public signal void deleted ();
-    public signal void updated ();
+    public signal void updated (string update_id = "");
     public signal void archived ();
     public signal void unarchived ();
 

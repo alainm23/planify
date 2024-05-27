@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Author: Jean-Philippe Fleury
+  Copyright (C) 2011 Jean-Philippe Fleury <contact@jpfleury.net>
+  GtkSourceView is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+  GtkSourceView is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+-->
+<!-- Note: this language definition file adds support for Markdown syntax,
+     described in the following websites:
+     * (fr) <http://michelf.com/projets/php-markdown/syntaxe/>
+     * (en) <http://daringfireball.net/projects/widgets/markdown/syntax> -->
+
+<language id="markdownpp" _name="Markdown" version="2.0" _section="Markup">
+  <metadata>
+    <property name="mimetypes">text/x-markdown</property>
+    <property name="globs">*.markdown;*.md;*.mkd</property>
+    <property name="block-comment-start">&lt;!--</property>
+    <property name="block-comment-end">--&gt;</property>
+  </metadata>
+
+  <styles>
+    <style id="h1" _name="Heading 1" map-to="def:heading1"/>
+    <style id="h2" _name="Heading 2" map-to="def:heading2"/>
+    <style id="h3" _name="Heading 3" map-to="def:heading3"/>
+    <style id="h4" _name="Heading 4" map-to="def:heading4"/>
+    <style id="h5" _name="Heading 5" map-to="def:heading5"/>
+    <style id="h6" _name="Heading 6" map-to="def:heading6"/>
+    <style id="heading-hash" _name="Heading Hash"/>
+  </styles>
+
+  <definitions>
+    <!-- Examples:
+         # Header 1 #
+         ## Header 2
+         ###Header 3###
+    -->
+    <context id="h1" style-ref="h1">
+      <match>^(#[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="h2" style-ref="h2">
+      <match>^(##[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="h3" style-ref="h3">
+      <match>^(#{3}[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="h4" style-ref="h4">
+      <match>^(#{4}[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="h5" style-ref="h5">
+      <match>^(#{5}[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="h6" style-ref="h6">
+      <match>^(#{6}[ ])[^#].*</match>
+      <include>
+        <context id="heading-hash" sub-pattern="1" style-ref="heading-hash"/>
+      </include>
+    </context>
+
+    <context id="markdownpp">
+      <include>
+        <context ref="h1"/>
+        <context ref="h2"/>
+        <context ref="h3"/>
+        <context ref="h4"/>
+        <context ref="h5"/>
+        <context ref="h6"/>
+        <context ref="markdown:markdown"/>
+      </include>
+    </context>
+  </definitions>
+</language>
