@@ -768,34 +768,22 @@ public class Objects.Project : Objects.BaseObject {
 
     private string to_markdown () {
         string text = "";
-        text += "# %s\n".printf (name);
-
+        text += "## %s\n".printf (name);
 
         foreach (Objects.Item item in items) {
-            text += "- [%s] %s\n".printf (item.checked ? "x" : " ", item.content);
+            text += item.to_markdown ();
         }
 
         foreach (Objects.Section section in sections) {
             text += "\n";
-            text += "## %s\n".printf (section.name);
+            text += "### %s\n".printf (section.name);
 
             foreach (Objects.Item item in section.items) {
-                text += "- [%s]%s%s\n".printf (item.checked ? "x" : " ", get_format_date (item), item.content);
-                foreach (Objects.Item check in item.items) {
-                    text += "  - [%s]%s%s\n".printf (check.checked ? "x" : " ", get_format_date (check), check.content);
-                }
+                text += item.to_markdown ();
             }
         }
 
         return text;
-    }
-
-    private string get_format_date (Objects.Item item) {
-        if (!item.has_due) {
-            return " ";
-        }
-
-        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
     public void delete_project (Gtk.Window window) {

@@ -568,4 +568,12 @@ public class Utils.Datetime {
 
         return result;
     }
+
+    public static string get_markdown_format_date (Objects.Item item) {
+        if (!item.has_due) {
+            return " ";
+        }
+
+        return " (" + get_relative_date_from_date (item.due.datetime) + ") ";
+    }
 }

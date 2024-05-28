@@ -1535,4 +1535,14 @@ public class Objects.Item : Objects.BaseObject {
 
         return project_id == project.id;
     }
+
+    public string to_markdown (int level = 0) {
+        string text = "%*s- %s%s%s\n".printf (level * 2, "", checked ? "[x]" : "[ ]", Utils.Datetime.get_markdown_format_date(this), content);
+
+        foreach (Objects.Item item in items) {
+            text += item.to_markdown (level + 1);
+        }
+
+        return text;
+    }
 }
