@@ -230,7 +230,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             hexpand = true,
             xalign = 0,
             wrap = false,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            use_markup = true
         };
 
         content_label_revealer = new Gtk.Revealer () {
@@ -841,7 +842,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         if (item.content != content_textview.buffer.text ||
             item.description != current_buffer.get_all_text ().chomp ()) {
             item.content = content_textview.buffer.text;
-            content_label.label = item.content;
+            content_label.label = Util.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content;
 
             item.description = current_buffer.get_all_text ().chomp ();
@@ -861,7 +862,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         }
 
-        content_label.label = item.content;
+        content_label.label = Util.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
         content_textview.buffer.text = item.content;
 
