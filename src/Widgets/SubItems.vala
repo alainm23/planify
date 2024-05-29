@@ -423,4 +423,10 @@ public class Widgets.SubItems : Adw.Bin {
 
         signals_map.clear ();
     }
+
+    public void disable_drag_and_drop () {
+        foreach (Layouts.ItemBase row in items.values) {
+            ((Layouts.ItemRow) row).disable_drag_and_drop ();
+        }
+    }
 }

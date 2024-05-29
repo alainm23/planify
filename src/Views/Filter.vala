@@ -150,6 +150,8 @@ public class Views.Filter : Adw.Bin {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
+
+            listbox.invalidate_sort ();
         });
 
         magic_button.clicked.connect (() => {
@@ -224,6 +226,12 @@ public class Views.Filter : Adw.Bin {
             listbox.set_header_func (header_project_function);
             listbox_content.margin_top = 12;
             magic_button.visible = true;
+        } else if (filter is Objects.Filters.AllItems) {
+            headerbar.title = _("All Tasks");
+            listbox.set_sort_func (sort_project_function);
+            listbox.set_header_func (header_project_function);
+            listbox_content.margin_top = 12;
+            magic_button.visible = true;
         }
 
         view_setting_revealer.reveal_child = filter is Objects.Filters.Completed;
@@ -265,6 +273,10 @@ public class Views.Filter : Adw.Bin {
             foreach (Objects.Item item in Services.Database.get_default ().get_items_unlabeled (false)) {
                 add_item (item);
             }
+        } else if (filter is Objects.Filters.AllItems) {
+            foreach (Objects.Item item in Services.Database.get_default ().items) {
+                add_item (item);
+            }
         }
     }
 
@@ -304,6 +316,10 @@ public class Views.Filter : Adw.Bin {
             }
         } else if (filter is Objects.Filters.Unlabeled) {
             if (!items.has_key (item.id) && item.labels.size <= 0 && insert) {
+                add_item (item);   
+            }
+        } else if (filter is Objects.Filters.AllItems) {
+            if (!items.has_key (item.id) && insert) {
                 add_item (item);   
             }
         }
@@ -389,7 +405,8 @@ public class Views.Filter : Adw.Bin {
     private void valid_checked_item (Objects.Item item, bool old_checked) {
         if (filter is Objects.Filters.Priority || filter is Objects.Filters.Tomorrow ||
             filter is Objects.Filters.Pinboard || filter is Objects.Filters.Anytime ||
-            filter is Objects.Filters.Repeating || filter is Objects.Filters.Unlabeled
+            filter is Objects.Filters.Repeating || filter is Objects.Filters.Unlabeled ||
+            filter is Objects.Filters.AllItems
         ) {
             if (!old_checked) {
                 if (items.has_key (item.id) && item.completed) {

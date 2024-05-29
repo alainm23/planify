@@ -93,7 +93,8 @@ core_files = files(
     'Objects/Filters/Anytime.vala',
     'Objects/Filters/Repeating.vala',
     'Objects/Filters/Unlabeled.vala',
-    'Objects/Filters/FilterItem.vala'
+    'Objects/Filters/FilterItem.vala',
+    'Objects/Filters/AllItems.vala'
 )
 
 core_deps = [

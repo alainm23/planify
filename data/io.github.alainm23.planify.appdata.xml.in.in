@@ -70,8 +70,8 @@
     <release version="4.7.6" date="2024-05-20">
       <description translate="no">
         <ul>
-          <li>Fixed bug when editing a label.</li>
-          <li>Fixed bug when downloading a backup.</li>
+          <li>Fixed bug when editing a label</li>
+          <li>Fixed bug when downloading a backup</li>
           <li>Updated Translations for Hindi</li>
         </ul>
       </description>

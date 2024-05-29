@@ -211,6 +211,8 @@ public class MainWindow : Adw.ApplicationWindow {
 					add_filter_view (Objects.Filters.Repeating.get_default ());
 				} else if (id == "unlabeled-view") {
 					add_filter_view (Objects.Filters.Unlabeled.get_default ());
+				} else if (id == "all-items-view") {
+					add_filter_view (Objects.Filters.AllItems.get_default ());
 				}
 			} else if (pane_type == PaneType.LABEL) {
 				add_label_view (id);

@@ -60,7 +60,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     
     private Widgets.LoadingButton hide_loading_button;
     private Widgets.Markdown.Buffer current_buffer;
-    private Widgets.Markdown.EditView markdown_edit_view;
+    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Gtk.Revealer markdown_revealer;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.LabelsSummary labels_summary;
@@ -96,6 +97,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 add_css_class ("row");
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
+
+                if (markdown_edit_view == null) {
+                    build_markdown_edit_view ();
+                }
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
@@ -389,15 +394,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         current_buffer = new Widgets.Markdown.Buffer ();
-
-        markdown_edit_view = new Widgets.Markdown.EditView () {
-            left_margin = 24,
-            right_margin = 6,
-            top_margin = 3,
-            bottom_margin = 12
-        };
-        
-        markdown_edit_view.buffer = current_buffer;
+        markdown_revealer = new Gtk.Revealer ();
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
@@ -503,7 +500,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        details_grid.append (markdown_edit_view);
+        details_grid.append (markdown_revealer);
         details_grid.append (item_labels);
         details_grid.append (action_box);
 
@@ -618,13 +615,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             edit = item.id == item_id;
         });
 
-        var description_gesture_click = new Gtk.GestureClick ();
-        markdown_edit_view.add_controller (description_gesture_click);
-        description_gesture_click.released.connect ((n_press, x, y) => {
-            description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
-            markdown_edit_view.view_focus ();
-        });
-
         var content_controller_key = new Gtk.EventControllerKey ();
         content_textview.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
@@ -645,10 +635,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             } else { 
                 update_content_description ();
             }
-        });
-
-        markdown_edit_view.escape.connect (() => {
-            edit = false;
         });
 
         var checked_button_gesture = new Gtk.GestureClick ();
@@ -1770,6 +1756,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void disable_drag_and_drop () {
         drag_enabled = false;
         _disable_drag_and_drop ();
+
+        subitems.disable_drag_and_drop ();
     }
 
     private void _disable_drag_and_drop () {
@@ -1811,5 +1799,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             row_index++;
         } while (item_row != null);
+    }
+
+    private void build_markdown_edit_view () {
+        markdown_edit_view = new Widgets.Markdown.EditView () {
+            left_margin = 24,
+            right_margin = 6,
+            top_margin = 3,
+            bottom_margin = 12
+        };
+        
+        markdown_edit_view.buffer = current_buffer;
+
+        markdown_revealer.child = markdown_edit_view;
+        markdown_revealer.reveal_child = true;
+
+        var description_gesture_click = new Gtk.GestureClick ();
+        markdown_edit_view.add_controller (description_gesture_click);
+        description_gesture_click.released.connect ((n_press, x, y) => {
+            description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+            markdown_edit_view.view_focus ();
+        });
+
+        markdown_edit_view.escape.connect (() => {
+            edit = false;
+        });
     }
 }

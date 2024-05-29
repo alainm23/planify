@@ -168,7 +168,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             Objects.Filters.Tomorrow.get_default (),
             Objects.Filters.Anytime.get_default (),
             Objects.Filters.Repeating.get_default (),
-            Objects.Filters.Unlabeled.get_default ()
+            Objects.Filters.Unlabeled.get_default (),
+            Objects.Filters.AllItems.get_default ()
         };
 
         foreach (Objects.BaseObject object in filters) {

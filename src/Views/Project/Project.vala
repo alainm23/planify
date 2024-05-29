@@ -27,10 +27,18 @@ public class Views.Project : Adw.Bin {
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.ContextMenu.MenuItem delete_all_completed;
+	private Widgets.ContextMenu.MenuItem expand_all_item;
+	private Widgets.ContextMenu.MenuItem collapse_all_item;
 	private Widgets.ContextMenu.MenuCheckPicker priority_filter;
 	private Widgets.ContextMenu.MenuPicker due_date_item;
 	private Widgets.MultiSelectToolbar multiselect_toolbar;
 	private Gtk.Revealer indicator_revealer;
+
+	public ProjectViewStyle view_style {
+        get {
+            return project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
+        }
+    }
 
 	public Project (Objects.Project project) {
 		Object (
@@ -132,7 +140,7 @@ public class Views.Project : Adw.Bin {
 		toolbar_view.content = content_overlay;
 
 		child = toolbar_view;
-		update_project_view (project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style);
+		update_project_view ();
 		check_default_filters ();
 		show ();
 
@@ -181,6 +189,13 @@ public class Views.Project : Adw.Bin {
 
 			check_default_filters ();
 		});
+
+		project.view_style_changed.connect (() => {
+			update_project_view ();
+
+			expand_all_item.visible = view_style == ProjectViewStyle.LIST;
+			collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
+		});
 	}
 
 	private void check_default_filters () {
@@ -201,7 +216,7 @@ public class Views.Project : Adw.Bin {
 		indicator_revealer.reveal_child = !defaults;
 	}
 
-	private void update_project_view (ProjectViewStyle view_style) {
+	private void update_project_view () {
 		view_stack.visible_child_name = "loading";
 
 		Timeout.add (275, () => {
@@ -222,8 +237,6 @@ public class Views.Project : Adw.Bin {
 			}
 	
 			view_stack.set_visible_child_name (view_style.to_string ());
-			project.view_style = view_style;
-			project.update_local ();
 			
 			return GLib.Source.REMOVE;
 		});
@@ -234,15 +247,15 @@ public class Views.Project : Adw.Bin {
 			return;
 		}
 
-		if (project.view_style == ProjectViewStyle.LIST) {
+		if (view_style == ProjectViewStyle.LIST) {
 			Views.List? list_view;
-			list_view = (Views.List) view_stack.get_child_by_name (project.view_style.to_string ());
+			list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
 			if (list_view != null) {
 				list_view.prepare_new_item (content);
 			}
 		} else {
 			Views.Board? board_view;
-			board_view = (Views.Board) view_stack.get_child_by_name (project.view_style.to_string ());
+			board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
 			if (board_view != null) {
                 board_view.prepare_new_item (content);
 			}
@@ -259,8 +272,12 @@ public class Views.Project : Adw.Bin {
 		
 		var select_item = new Widgets.ContextMenu.MenuItem (_("Select"), "list-large-symbolic");
 		var paste_item = new Widgets.ContextMenu.MenuItem (_("Paste"), "tabs-stack-symbolic");
-		var expand_all_item = new Widgets.ContextMenu.MenuItem (_("Expand All"), "size-vertically-symbolic");
-		var collapse_all_item = new Widgets.ContextMenu.MenuItem (_("Collapse All"), "size-vertically-symbolic");
+		expand_all_item = new Widgets.ContextMenu.MenuItem (_("Expand All"), "size-vertically-symbolic") {
+			visible = view_style == ProjectViewStyle.LIST
+		};
+		collapse_all_item = new Widgets.ContextMenu.MenuItem (_("Collapse All"), "size-vertically-symbolic") {
+			visible = view_style == ProjectViewStyle.LIST
+		};
 		var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
 		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
 		delete_item.add_css_class ("menu-item-danger");
@@ -399,7 +416,7 @@ public class Views.Project : Adw.Bin {
 
 		var list_button = new Gtk.ToggleButton () {
 			child = list_box,
-			active = project.view_style == ProjectViewStyle.LIST
+			active = view_style == ProjectViewStyle.LIST
 		};
 
 		var board_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -415,7 +432,7 @@ public class Views.Project : Adw.Bin {
 		var board_button = new Gtk.ToggleButton () {
 			group = list_button,
 			child = board_box,
-			active = project.view_style == ProjectViewStyle.BOARD
+			active = view_style == ProjectViewStyle.BOARD
 		};
 
 		var view_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
@@ -552,11 +569,17 @@ public class Views.Project : Adw.Bin {
 		});
 
 		list_button.toggled.connect (() => {
-			update_project_view (ProjectViewStyle.LIST);
+			popover.popdown ();
+
+			project.view_style = ProjectViewStyle.LIST;
+			project.update_local ();
 		});
 
 		board_button.toggled.connect (() => {
-			update_project_view (ProjectViewStyle.BOARD);
+			popover.popdown ();
+			
+			project.view_style = ProjectViewStyle.BOARD;
+			project.update_local ();
 		});
 
 		project.sort_order_changed.connect (() => {
