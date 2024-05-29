@@ -234,6 +234,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void loading_changed (bool value);
     public signal void project_count_updated ();
     public signal void show_multi_select_change ();
+    public signal void expand_all_items (bool value);
 
     construct {
         deleted.connect (() => {

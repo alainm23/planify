@@ -399,14 +399,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         markdown_edit_view.buffer = current_buffer;
 
-        var description_scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            vscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-            child = markdown_edit_view
-        };
-
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
             sensitive = !item.completed
@@ -511,7 +503,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-        details_grid.append (description_scrolled_window);
+        details_grid.append (markdown_edit_view);
         details_grid.append (item_labels);
         details_grid.append (action_box);
 
@@ -628,7 +620,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var description_gesture_click = new Gtk.GestureClick ();
         markdown_edit_view.add_controller (description_gesture_click);
-        description_gesture_click.pressed.connect ((n_press, x, y) => {
+        description_gesture_click.released.connect ((n_press, x, y) => {
             description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
             markdown_edit_view.view_focus ();
         });

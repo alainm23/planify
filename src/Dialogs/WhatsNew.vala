@@ -103,14 +103,6 @@ public class Dialogs.WhatsNew : Adw.Dialog {
 		child = navigation_view;
 		Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller (destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-        });
-
         closed.connect (() => {
             Services.EventBus.get_default ().connect_typing_accel ();
         });

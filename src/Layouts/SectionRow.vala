@@ -477,6 +477,12 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		section.loading_change.connect (() => {
 			is_loading = section.loading;
 		});
+
+		section.project.expand_all_items.connect ((value) => {
+			foreach (Layouts.ItemRow row in items.values) {
+				row.edit = value;
+			}
+		});
 	}
 
 	private void show_completed_changed () {

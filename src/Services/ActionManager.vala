@@ -43,7 +43,6 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
     public const string ACTION_VIEW_LABELS = "action_view_labels";
     public const string ACTION_VIEW_HOME = "action_view_home";
-    //  public const string ACTION_ESC = "action_esc";
     public const string ACTION_SHOW_HIDE_SIDEBAR = "action_show_hide_sidebar";
     
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -67,7 +66,6 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
         { ACTION_VIEW_LABELS, action_view_labels },
         { ACTION_VIEW_HOME, action_view_home },
-        //  { ACTION_ESC, action_esc },
         { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
     };
 
@@ -91,7 +89,6 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>u");
         action_accelerators.set (ACTION_VIEW_LABELS, "<Control>l");
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>p");
-        //  action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
@@ -182,10 +179,6 @@ public class Services.ActionManager : Object {
 
     private void action_view_pinboard () {
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
-    }
-
-    private void action_esc () {
-        //  Services.EventBus.get_default ().request_escape ();
     }
 
     private void action_show_hide_sidebar () {

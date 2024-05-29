@@ -120,14 +120,6 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             }
         });
 
-        var destroy_controller = new Gtk.EventControllerKey ();
-        add_controller (destroy_controller);
-        destroy_controller.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-        });
-
         closed.connect (() => {
             Services.EventBus.get_default ().connect_typing_accel ();
         });
