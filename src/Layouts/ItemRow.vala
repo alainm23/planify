@@ -215,8 +215,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
             css_classes = { "priority-color" },
-            sensitive = !item.project.is_deck,
-            tooltip_text = item.content
+            sensitive = !item.project.is_deck
         };
 
         checked_button_revealer = new Gtk.Revealer () {
@@ -226,7 +225,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             reveal_child = true
         };
 
-        content_label = new Gtk.Label (item.content) {
+        content_label = new Gtk.Label (null) {
             hexpand = true,
             xalign = 0,
             wrap = false,
@@ -243,8 +242,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_textview = new Widgets.TextView ();
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
-        content_textview.buffer.text = item.content;
-        content_textview.editable = !item.completed && !item.project.is_deck;
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
 
@@ -399,6 +396,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             top_margin = 3,
             bottom_margin = 12
         };
+        
         markdown_edit_view.buffer = current_buffer;
 
         var description_scrolled_window = new Gtk.ScrolledWindow () {
