@@ -196,6 +196,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			css_classes = { "listbox-background" }
 		};
 
+		checked_listbox.set_sort_func (set_checked_sort_func);
+
 		var checked_listbox_grid = new Gtk.Grid ();
 		checked_listbox_grid.attach (checked_listbox, 0, 0);
 
@@ -299,6 +301,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 						listbox.append (items [item.id]);
 					}
 				}
+
+				checked_listbox.invalidate_sort ();
 			}
 		});
 
@@ -511,6 +515,8 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		foreach (Objects.Item item in is_inbox_section ? section.project.items : section.items) {
 			add_complete_item (item);
 		}
+
+		checked_listbox.invalidate_sort ();
 	}
 
 	public void add_complete_item (Objects.Item item) {
@@ -530,6 +536,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		}
 
 		listbox.invalidate_filter ();
+		checked_listbox.invalidate_sort ();
 	}
 
 	public void add_items () {
@@ -588,6 +595,50 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			return 0;
 		}
+
+		if (section.project.sort_order == 3) {
+			return item1.added_datetime.compare (item2.added_datetime);
+		}
+
+		if (section.project.sort_order == 4) {
+			if (item1.priority < item2.priority) {
+				return 1;
+			}
+
+			if (item1.priority < item2.priority) {
+				return -1;
+			}
+
+			return 0;
+		}
+
+		return 0;
+	}
+
+	private int set_checked_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
+		Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
+		Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
+
+		if (section.project.sort_order == 0 || section.project.sort_order == 2) {
+			if (item1.has_due && item2.has_due) {
+				var date1 = item1.due.datetime;
+				var date2 = item2.due.datetime;
+
+				return date1.compare (date2);
+			}
+
+			if (!item1.has_due && item2.has_due) {
+				return 1;
+			}
+
+			return 0;
+		}
+		
+		if (section.project.sort_order == 1) {
+			return item1.content.strip ().collate (item2.content.strip ());
+		}
+
+		
 
 		if (section.project.sort_order == 3) {
 			return item1.added_datetime.compare (item2.added_datetime);

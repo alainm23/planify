@@ -140,7 +140,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
+                
+                check_due ();
                 check_description ();
+                check_pinboard ();
+                check_reminders ();
                 labels_summary.check_revealer ();
 
                 if (drag_enabled) {
