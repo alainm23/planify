@@ -67,6 +67,20 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.8" date="2024-05-31">
+      <description translate="no">
+        <ul>
+          <li>Markdown Support in Task Descriptions.</li>
+          <li>Markdown Support in Task Titles.</li>
+          <li>New All Tasks View.</li>
+          <li>Expand or Collapse Tasks Functionality.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+          <li>Chinese translations update thanks to @FlysoftBeta.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.7.6" date="2024-05-20">
       <description translate="no">
         <ul>
