@@ -137,7 +137,9 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         label_button.labels_changed.connect ((labels) => {
-            set_labels (labels);
+            if (labels.size > 0) {
+                set_labels (labels);
+            }
         });
 
         priority_button.changed.connect ((priority) => {
