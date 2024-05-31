@@ -184,8 +184,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		});
 
 		Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
-			Services.EventBus.get_default ().unselect_all ();
-
 			if (pane_type == PaneType.PROJECT) {
 				add_project_view (Services.Database.get_default ().get_project (id));
 			} else if (pane_type == PaneType.FILTER) {

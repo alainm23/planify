@@ -274,7 +274,7 @@ public class Views.Filter : Adw.Bin {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.AllItems) {
-            foreach (Objects.Item item in Services.Database.get_default ().items) {
+            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_parent (false)) {
                 add_item (item);
             }
         }

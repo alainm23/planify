@@ -45,13 +45,18 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         css_classes = { "sidebar" };
 
         size_label = new Gtk.Label (null) {
-            css_classes = { "font-bold" }
+            css_classes = { "font-bold", "card" },
+            width_request = 32,
+            height_request = 24,
+            valign = Gtk.Align.CENTER,
+            margin_end = 6
         };
 
         schedule_button = new Widgets.ScheduleButton () {
-            sensitive = false
+            sensitive = false,
+            visible_clear_button = false,
+            visible_no_date = true
         };
-        schedule_button.visible_no_date = true;
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             sensitive = false
@@ -80,7 +85,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             css_classes = { "suggested-action" }
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_top = 9,
@@ -124,14 +129,6 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         });
 
         done_button.clicked.connect (() => {
-            unselect_all ();
-        });
-
-        Services.EventBus.get_default ().request_escape.connect (() => {
-            unselect_all ();
-		});
-
-        Services.EventBus.get_default ().unselect_all.connect (() => {
             unselect_all ();
         });
 
@@ -290,7 +287,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private void check_select_bar () {
         bool active = items_selected.size > 0;
 
-        size_label.label = active ? "(%d)".printf (items_selected.size) : "";
+        size_label.label = active ? items_selected.size.to_string () : "";
         schedule_button.sensitive = active;
         priority_button.sensitive = active;
         label_button.sensitive = active;

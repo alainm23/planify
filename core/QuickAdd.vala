@@ -4,7 +4,8 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     private Gtk.Entry content_entry;
     private Widgets.LoadingButton submit_button;
-    private Widgets.HyperTextView description_textview;
+    private Widgets.Markdown.Buffer current_buffer;
+    private Widgets.Markdown.EditView markdown_edit_view;
     private Widgets.ItemLabels item_labels;
     private Widgets.ProjectPicker.ProjectPickerButton project_picker_button;
     private Widgets.ScheduleButton schedule_button;
@@ -75,16 +76,16 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         content_box.append (content_entry);
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
-            height_request = 64,
+        current_buffer = new Widgets.Markdown.Buffer ();
+
+        markdown_edit_view = new Widgets.Markdown.EditView () {
             left_margin = 14,
             right_margin = 6,
             top_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true
+            connect_typing = false
         };
-
-        description_textview.remove_css_class ("view");
+        
+        markdown_edit_view.buffer = current_buffer;
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 6,
@@ -127,7 +128,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.add_css_class ("card");
         quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
-        quick_add_content.append (description_textview);
+        quick_add_content.append (markdown_edit_view);
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
 
@@ -280,15 +281,15 @@ public class Layouts.QuickAdd : Adw.Bin {
             return false;
         });
 
-        var description_controller_key = new Gtk.EventControllerKey ();
-        description_textview.add_controller (description_controller_key);
-        description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-            if ((ctrl_pressed || shift_pressed) && keyval == 65293) {
-                add_item ();
-            }
+        //  var description_controller_key = new Gtk.EventControllerKey ();
+        //  description_textview.add_controller (description_controller_key);
+        //  description_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        //      if ((ctrl_pressed || shift_pressed) && keyval == 65293) {
+        //          add_item ();
+        //      }
 
-            return false;
-        });
+        //      return false;
+        //  });
 
         var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
@@ -330,7 +331,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         }
 
         item.content = content_entry.get_text ();
-        item.description = description_textview.get_text ();
+        item.description = current_buffer.get_all_text ().chomp ();
         
         if (item.project.backend_type == BackendType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
@@ -380,7 +381,7 @@ public class Layouts.QuickAdd : Adw.Bin {
                 reset_item ();
 
                 content_entry.text = "";
-                description_textview.set_text ("");
+                current_buffer.set_text ("");
                 schedule_button.reset ();
                 priority_button.reset ();
                 pin_button.reset ();

@@ -478,9 +478,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			is_loading = section.loading;
 		});
 
-		section.project.expand_all_items.connect ((value) => {
-			foreach (Layouts.ItemRow row in items.values) {
-				row.edit = value;
+		Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
+			if (section.project_id == project_id) {
+				foreach (Layouts.ItemRow row in items.values) {
+					row.edit = value;
+				}
 			}
 		});
 	}

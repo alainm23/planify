@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.7.6'
+  version: '4.8'
 )
 
 gnome = import('gnome')
@@ -51,23 +51,31 @@ if profile == 'development'
   rev_txt = run_command('git','rev-parse','--short','HEAD').stdout().strip()
   rev = '-@0@'.format(rev_txt)
   application_id = 'io.github.alainm23.planify.Devel'
+  application_path = '/io/github/alainm23/planify/Devel'
 else
   rev = ''
   application_id = 'io.github.alainm23.planify'
+  application_path = '/io/github/alainm23/planify'
 endif
 
 ############
 # Config #
 ############
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+datadir = prefix / get_option('datadir')
+localedir = prefix / get_option ('localedir')
+libexecdir = prefix / get_option('libexecdir')
 
 conf_data = configuration_data()
 conf_data.set_quoted('APPLICATION_ID', application_id)
 conf_data.set_quoted('GETTEXT_PACKAGE', application_id)
+conf_data.set_quoted('GNOMELOCALEDIR', localedir)
 conf_data.set_quoted('VERSION', meson.project_version())
-conf_data.set_quoted('LOCALEDIR', get_option('prefix') / get_option('localedir'))
+conf_data.set_quoted('LOCALEDIR', localedir)
 conf_data.set_quoted('PACKAGE_VERSION', meson.project_version())
-conf_data.set_quoted('PREFIX', get_option('prefix'))
-conf_data.set_quoted('DATADIR', join_paths (get_option('prefix'), get_option('datadir')))
+conf_data.set_quoted('PREFIX', prefix)
+conf_data.set_quoted('DATADIR', datadir)
 conf_data.set_quoted('PROFILE', profile)
 
 config_file = configure_file(
@@ -80,6 +88,7 @@ subdir('core')
 subdir('src')
 subdir('quick-add')
 subdir('data')
+# subdir('search-provider')
 subdir('po')
 
 summary({

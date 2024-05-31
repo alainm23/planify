@@ -108,8 +108,7 @@ public class Widgets.SubItems : Adw.Bin {
             selection_mode = Gtk.SelectionMode.SINGLE,
             hexpand = true,
             css_classes = { "listbox-background" },
-            margin_start = 3,
-            margin_end = 6
+            margin_start = 3
         };
         
         checked_listbox = new Gtk.ListBox () {
@@ -287,6 +286,16 @@ public class Widgets.SubItems : Adw.Bin {
                 }
 			}
 		})] = Services.Settings.get_default ().settings;
+
+        signals_map[Services.EventBus.get_default ().expand_all.connect ((project_id, value) => {
+			if (item_parent.project_id == project_id) {
+				foreach (Layouts.ItemBase row_base in items.values) {
+                    if (row_base is Layouts.ItemRow) {
+                        ((Layouts.ItemRow) row_base).edit = value;
+                    }
+				}
+			}
+		})] = Services.Settings.get_default ();
     }
 
     public void add_items () {

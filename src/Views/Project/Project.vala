@@ -372,12 +372,12 @@ public class Views.Project : Adw.Bin {
 
 		expand_all_item.clicked.connect (() => {
 			popover.popdown ();
-			project.expand_all_items (true);
+			Services.EventBus.get_default ().expand_all (project.id, true);
 		});
 
 		collapse_all_item.clicked.connect (() => {
 			popover.popdown ();
-			project.expand_all_items (false);
+			Services.EventBus.get_default ().expand_all (project.id, false);
 		});
 
 		select_item.clicked.connect (() => {

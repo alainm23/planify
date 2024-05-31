@@ -62,4 +62,14 @@ install_data('markdownpp.lang',
   install_dir: get_option('datadir') / 'gtksourceview-5' / 'language-specs'
 )
 
+# service_conf = configuration_data()
+# service_conf.set('appid', application_id)
+# service_conf.set('bindir', bindir)
+# configure_file(
+#   input: 'io.github.alainm23.planify.service.in',
+#   output: '@0@.service'.format(application_id),
+#   configuration: service_conf,
+#   install_dir: datadir / 'dbus-1' / 'services'
+# )
+
 subdir('icons')

@@ -27,6 +27,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
+    private Gtk.Revealer clear_revealer;
 
     private GLib.DateTime _datetime;
     public GLib.DateTime datetime {
@@ -49,6 +50,12 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public bool visible_no_date {
         set {
             datetime_picker.visible_no_date = value;
+        }
+    }
+
+    public bool visible_clear_button {
+        set {
+            clear_revealer.visible = value;
         }
     }
 
@@ -103,7 +110,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             css_classes = { "flat" }
         };
 
-        var clear_revealer = new Gtk.Revealer () {
+        clear_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
 			child = clear_button
 		};

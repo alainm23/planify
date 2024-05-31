@@ -1595,6 +1595,21 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_no_parent (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (!item.was_archived () &&
+                    item.checked == checked &&
+                    !item.has_parent) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
         if (!item.has_due || item.was_archived ()) {
             return false;

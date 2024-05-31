@@ -47,10 +47,15 @@ public class Planify : Adw.Application {
 		{ null }
 	};
 
-	construct {
-		application_id = Build.APPLICATION_ID;
-		flags |= ApplicationFlags.HANDLES_OPEN;
+	public Planify () {
+        Object (
+            application_id: Build.APPLICATION_ID,
+            flags: ApplicationFlags.HANDLES_OPEN
+        );
+    }
 
+
+	construct {
 		Intl.setlocale (LocaleCategory.ALL, "");
 		string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
 		Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);

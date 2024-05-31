@@ -4,7 +4,7 @@
  * https://github.com/toolstack/Folio
  */
 
- public class Widgets.Markdown.EditView : Adw.Bin {    
+ public class Widgets.Markdown.EditView : Adw.Bin {
     public bool text_mode {
         set {
             markdown_view.text_mode = value;
@@ -68,12 +68,13 @@
 		}
 	}
 
+	public bool connect_typing { get; set; default = false; }
+
 	private Widgets.Markdown.View markdown_view;
 
     private bool is_ctrl = false;
 
 	public bool is_editable { get; set; }
-	
 	public signal void enter ();
     public signal void leave ();
 	public signal void changed ();
@@ -166,7 +167,6 @@
 
 		var gesture = new Gtk.EventControllerFocus ();
         markdown_view.add_controller (gesture);
-
         gesture.enter.connect (handle_focus_in);
         gesture.leave.connect (update_on_leave);
 
@@ -190,8 +190,10 @@
     }
 
     public void update_on_leave () {
-        Services.EventBus.get_default ().connect_typing_accel ();
-        leave ();
+		if (connect_typing) {
+			Services.EventBus.get_default ().connect_typing_accel ();
+			leave ();
+		}
     }
 
 	public void on_dark_changed (bool dark) {
