@@ -15,6 +15,6 @@ public class Widgets.Markdown.Buffer : GtkSource.Buffer {
 		Gtk.TextIter start, end;
 		get_start_iter (out start);
 		get_end_iter (out end);
-		return get_text(start, end, true);
+		return get_text (start, end, true);
 	}
 }

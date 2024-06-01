@@ -24,5 +24,4 @@ public class Planify.SearchProvider : Gtk.Application {
 
         return true;
     }
-
 }

@@ -288,7 +288,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         });
     }
 
-    private void update_content_description() {
+    private void update_content_description () {
         if (item.content != content_textview.buffer.text ||
             item.description != current_buffer.get_all_text ().chomp ()) {
             item.content = content_textview.buffer.text;

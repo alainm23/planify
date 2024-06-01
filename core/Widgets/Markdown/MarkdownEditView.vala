@@ -199,7 +199,7 @@
 	public void on_dark_changed (bool dark) {
 		markdown_view.dark = dark;
 	}
-	
+
 	private void format_selection (string affix, string second_affix) {
 		var buffer = markdown_view.buffer;
 
@@ -258,19 +258,19 @@
 	}
 
 	public void format_selection_bold () {
-		format_selection("**", "__");
+		format_selection ("**", "__");
 	}
 
 	public void format_selection_italic () {
-		format_selection("_", "*");
+		format_selection ("_", "*");
 	}
 
 	public void format_selection_strikethrough () {
-		format_selection("~~", "~");
+		format_selection ("~~", "~");
 	}
 
 	public void format_selection_highlight () {
-		format_selection("==", "");
+		format_selection ("==", "");
 	}
 
 	public void insert_link () {
@@ -335,7 +335,7 @@
 	}
 
 	public void insert_code_span () {
-		format_selection("`", "");
+		format_selection ("`", "");
 	}
 
 	public void insert_horizontal_rule () {
@@ -389,14 +389,14 @@
 		}
 		// Since we are now on the end condition, move forward one character as long as
 		// we're not at the very begining of the buffer.
-		if (!selection_start.is_start()) {
-			selection_start.forward_char();
+		if (!selection_start.is_start ()) {
+			selection_start.forward_char ();
 		}
 		current_char = selection_end.get_char ();
 		// If we're at the end of line, we're done.
 		if( current_char != '\n') {
 			while (current_char != '\n' && current_char != ' ' && current_char != '\t' && !selection_end.is_end ()) {
-				selection_end.forward_char();
+				selection_end.forward_char ();
 				current_char = selection_end.get_char ();
 			}
 		}
