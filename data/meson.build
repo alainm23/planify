@@ -52,10 +52,10 @@ if compile_schemas.found()
   )
 endif
 
-install_data('folio_markdown.xml',
+install_data('markdown.xml',
   install_dir: get_option('datadir') / 'gtksourceview-5' / 'styles'
 )
-install_data('folio_markdown_dark.xml',
+install_data('markdown_dark.xml',
   install_dir: get_option('datadir') / 'gtksourceview-5' / 'styles'
 )
 install_data('markdownpp.lang',
