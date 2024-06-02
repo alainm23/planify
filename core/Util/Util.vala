@@ -651,7 +651,7 @@ We hope you’ll enjoy using Planify!""");
             item_02_01.project_id = project.id;
             item_02_01.section_id = section_01.id;
             item_02_01.content = _("Show your calendar events");
-            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 Calendar Events to turn it on.");
+            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
 
             var item_02_02 = new Objects.Item ();
             item_02_02.id = Util.get_default ().generate_id (item_02_02);
