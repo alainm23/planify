@@ -52,7 +52,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void day_selected ();
 
-    public Calendar (bool block_past_days = false) {
+    public Calendar (bool block_past_days = Constants.BLOCK_PAST_DAYS) {
         Object (
             block_past_days: block_past_days,
             orientation: Gtk.Orientation.VERTICAL

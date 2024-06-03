@@ -118,18 +118,17 @@ public class Views.Today : Adw.Bin {
         };
 
         overdue_label.add_css_class ("font-bold");
-        
-        var reschedule_button = new Gtk.Button.with_label (_("Reschedule")) {
-            hexpand = true,
-            halign = Gtk.Align.END
-        };
 
-        reschedule_button.add_css_class ("flat");
+        var reschedule_button = new Widgets.ScheduleButton (_("Reschedule")) {
+            visible_clear_button = false,
+            visible_no_date = true
+        };
 
         var overdue_header_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 26,
         };
         overdue_header_box.append (overdue_label);
+        overdue_header_box.append (reschedule_button);
 
         overdue_listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -373,6 +372,12 @@ public class Views.Today : Adw.Bin {
 			listbox.invalidate_filter ();
             overdue_listbox.invalidate_filter ();
 		});
+
+        reschedule_button.date_changed.connect ((datetime) => {
+            foreach (unowned Gtk.Widget child in Util.get_default ().get_children (overdue_listbox) ) {
+                ((Layouts.ItemRow) child).update_due (datetime);
+            }
+        });
     }
 
     private void check_placeholder () {

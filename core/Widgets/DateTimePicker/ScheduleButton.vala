@@ -21,6 +21,7 @@
 
 public class Widgets.ScheduleButton : Gtk.Grid {
     public bool is_board { get; construct; }
+    public string label { get; construct; }
 
     private Gtk.Label due_label;
     
@@ -61,18 +62,20 @@ public class Widgets.ScheduleButton : Gtk.Grid {
 
     public signal void date_changed (GLib.DateTime? date);
 
-    public ScheduleButton () {
+    public ScheduleButton (string label = _("Schedule")) {
         Object (
             is_board: false,
             valign: Gtk.Align.CENTER,
-            tooltip_text: _("Schedule")
+            tooltip_text: label,
+            label: label
         );
     }
 
-    public ScheduleButton.for_board () {
+    public ScheduleButton.for_board (string label = _("Schedule")) {
         Object (
             is_board: true,
-            tooltip_text: _("Schedule")
+            tooltip_text: label,
+            label: label
         );
     }
 
@@ -90,7 +93,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         due_image = new Gtk.Image ();
         due_image.icon_name = "month-symbolic";
 
-        due_label = new Gtk.Label (_("Schedule")) {
+        due_label = new Gtk.Label (label) {
             xalign = 0,
             use_markup = true,
             ellipsize = Pango.EllipsizeMode.END
@@ -146,7 +149,7 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     private void build_card_ui () {
         due_image = new Gtk.Image.from_icon_name ("month-symbolic");
 
-        var title_label = new Gtk.Label (_("Schedule")) {
+        var title_label = new Gtk.Label (label) {
             halign = START,
             css_classes = { "title-4", "caption" }
         };
@@ -198,11 +201,11 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     public void update_from_item (Objects.Item item) {
         if (is_board) {
             due_label.label = _("Set a Due Date");
-            tooltip_text = _("Schedule");
+            tooltip_text = label;
             due_image.icon_name = "month-symbolic";
         } else {
-            due_label.label = _("Schedule");
-            tooltip_text = _("Schedule");
+            due_label.label = label;
+            tooltip_text = label;
             due_image.icon_name = "month-symbolic";
         }
 
@@ -261,8 +264,8 @@ public class Widgets.ScheduleButton : Gtk.Grid {
     }
 
     public void reset () {
-        due_label.label = _("Schedule");
-        tooltip_text = _("Schedule");
+        due_label.label = label;
+        tooltip_text = label;
         due_image.icon_name = "month-symbolic";
         datetime = null;
         datetime_picker.reset ();

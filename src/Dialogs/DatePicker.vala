@@ -85,7 +85,7 @@ public class Dialogs.DatePicker : Adw.Dialog {
         items_card.append (no_date_item);
         items_card.add_css_class ("card");
 
-        calendar_view = new Widgets.Calendar.Calendar (false) {
+        calendar_view = new Widgets.Calendar.Calendar () {
             margin_top = 6,
             margin_bottom = 6
         };

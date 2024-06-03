@@ -125,7 +125,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
     }
 
     private Gtk.Widget get_picker () {
-        calendar = new Widgets.Calendar.Calendar (true) {
+        calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,
             hexpand = true
         };

@@ -67,6 +67,14 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.8.2" date="2024-06-03">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug not showing overdue tasks.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.8" date="2024-05-31">
       <description translate="no">
         <ul>

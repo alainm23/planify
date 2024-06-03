@@ -143,7 +143,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         content_box.append (action_revealer);
 
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
-        calendar_view = new Widgets.Calendar.Calendar (false);
+        calendar_view = new Widgets.Calendar.Calendar ();
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
