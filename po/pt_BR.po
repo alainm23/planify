@@ -549,7 +549,7 @@ msgstr "Nome da Seção"
 #: core/Util/Util.vala:1038 core/Util/Util.vala:1064
 #, fuzzy
 msgid "Project duplicated"
-msgstr "Descrição do Projeto"
+msgstr "Projeto duplicado"
 
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -919,23 +919,23 @@ msgstr "Deletar"
 
 #: core/Objects/Project.vala:833 core/Objects/Section.vala:362
 msgid "Archive?"
-msgstr ""
+msgstr "Arquivar?"
 
 #: core/Objects/Project.vala:834 core/Objects/Section.vala:363
 #, c-format
 msgid "This will archive %s and all its tasks."
-msgstr ""
+msgstr "Isto irá arquivar %s e todas suas tarefas."
 
 #: core/Objects/Project.vala:838 core/Objects/Section.vala:367
 #: src/Layouts/ProjectRow.vala:638 src/Layouts/SectionRow.vala:626
 #: src/Views/Project/Project.vala:281
 msgid "Archive"
-msgstr ""
+msgstr "Arquivar"
 
 #: core/Objects/Section.vala:336 src/Layouts/SectionBoard.vala:561
 #, fuzzy, c-format
 msgid "Delete Section %s"
-msgstr "Deletar Seção"
+msgstr "Deletar Seção %s"
 
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
@@ -978,7 +978,7 @@ msgstr "rótulos"
 #: core/Objects/Filters/Tomorrow.vala:34
 #, fuzzy
 msgid "tomorrow"
-msgstr "Amanhã"
+msgstr "amanhã"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 #, fuzzy
@@ -992,12 +992,12 @@ msgstr "A qualquer momento"
 #: core/Objects/Filters/Anytime.vala:34
 #, fuzzy
 msgid "anytime"
-msgstr "A qualquer momento"
+msgstr "a qualquer momento"
 
 #: core/Objects/Filters/Anytime.vala:34
 #, fuzzy
 msgid "no date"
-msgstr "Data de vencimento"
+msgstr "sem data de vencimento"
 
 #: core/Objects/Filters/Repeating.vala:33 src/Views/Filter.vala:218
 msgid "Repeating"
@@ -1006,21 +1006,21 @@ msgstr "Repetindo"
 #: core/Objects/Filters/Repeating.vala:34
 #, fuzzy
 msgid "repeating"
-msgstr "Repetindo"
+msgstr "repetindo"
 
 #: core/Objects/Filters/Unlabeled.vala:33 src/Views/Filter.vala:224
 msgid "Unlabeled"
-msgstr "Sem rótulo"
+msgstr "Sem rótulos"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 #, fuzzy
 msgid "no label"
-msgstr "rótulos"
+msgstr "sem rótulos"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 #, fuzzy
 msgid "unlabeled"
-msgstr "Sem rótulo"
+msgstr "Sem rótulos"
 
 #: src/App.vala:81
 #, fuzzy
@@ -1341,11 +1341,11 @@ msgstr "Ver Detalhes"
 
 #: src/Layouts/ItemSidebarView.vala:131
 msgid "Title"
-msgstr ""
+msgstr "Título"
 
 #: src/Layouts/ItemSidebarView.vala:161
 msgid "Properties"
-msgstr ""
+msgstr "Propriedades"
 
 #: src/Layouts/ItemSidebarView.vala:180 src/Dialogs/Section.vala:85
 msgid "Description"
@@ -1440,11 +1440,11 @@ msgstr "Colar"
 
 #: src/Views/Project/Project.vala:275
 msgid "Expand All"
-msgstr ""
+msgstr "Expandir todas"
 
 #: src/Views/Project/Project.vala:278
 msgid "Collapse All"
-msgstr ""
+msgstr "Recolher todas"
 
 #: src/Views/Project/Project.vala:412
 msgid "List"
@@ -1478,28 +1478,28 @@ msgstr "Nos Apoiando"
 #. Filters
 #: src/Views/Project/Project.vala:462
 msgid "All (default)"
-msgstr ""
+msgstr "Todas (padão)"
 
 #: src/Views/Project/Project.vala:464 src/Views/Project/Project.vala:632
 msgid "This Week"
-msgstr ""
+msgstr "Esta semana"
 
 #: src/Views/Project/Project.vala:465 src/Views/Project/Project.vala:634
 msgid "Next 7 Days"
-msgstr ""
+msgstr "Próximos 7 dias"
 
 #: src/Views/Project/Project.vala:466 src/Views/Project/Project.vala:636
 msgid "This Month"
-msgstr ""
+msgstr "Este mês"
 
 #: src/Views/Project/Project.vala:467 src/Views/Project/Project.vala:638
 msgid "Next 30 Days"
-msgstr ""
+msgstr "Próximos 30 dias"
 
 #: src/Views/Project/Project.vala:470
 #, fuzzy
 msgid "Duedate"
-msgstr "Atualizar"
+msgstr "Data de vencimento"
 
 #: src/Views/Project/Project.vala:477 src/Views/Today.vala:559
 #: src/Views/Scheduled/Scheduled.vala:200
@@ -1538,7 +1538,7 @@ msgstr "Mostrar Tarefas Concluídas"
 #: src/Views/Filter.vala:514 src/Views/Filter.vala:534
 #, fuzzy
 msgid "Delete All Completed Tasks"
-msgstr "Sublinhar Tarefas Concluídas"
+msgstr "Deletar Todas Tarefas Concluídas"
 
 #: src/Views/Project/Project.vala:524
 #, fuzzy
@@ -1549,12 +1549,12 @@ msgstr "Ordenar por"
 #: src/Views/Scheduled/Scheduled.vala:233
 #, fuzzy
 msgid "Filter By"
-msgstr "Filtro"
+msgstr "Filtrar por"
 
 #: src/Views/Project/Project.vala:597
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
-msgstr ""
+msgstr "Isto irá deletar %d tarefas concluídas e suas subtarefas do projeto %s"
 
 #: src/Views/Project/List.vala:52 src/Views/Project/Board.vala:42
 #, fuzzy
@@ -1603,7 +1603,7 @@ msgstr "Tarefas"
 #: src/Views/Filter.vala:535
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks"
-msgstr ""
+msgstr "Isto irá deletar %d tarefas completadas e suas subtarefas"
 
 #: src/Dialogs/Project.vala:49
 msgid "New Project"
