@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the io.github.alainm23.planify package.
 # bestlinuxgamers <52172848+bestlinuxgamers@users.noreply.github.com>, 2024.
 # BlueFox < bluefox@privacynerd.de>, 2024.
+# alp10711 <93343276+alp10711@users.noreply.github.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-05-31 11:01-0500\n"
-"PO-Revision-Date: 2024-03-29 04:53+0100\n"
-"Last-Translator: bestlinuxgamers <52172848+bestlinuxgamers@users.noreply."
-"github.com>\n"
+"PO-Revision-Date: 2024-06-03 01:28+0200\n"
+"Last-Translator: alp10711 <93343276+alp10711@users.noreply.github.com>\n"
 "Language-Team: German\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -170,7 +170,7 @@ msgstr "Aufgabenname"
 
 #: core/QuickAdd.vala:135
 msgid "Add"
-msgstr ""
+msgstr "Hinzufügen"
 
 #: core/QuickAdd.vala:142
 #, fuzzy
@@ -612,7 +612,7 @@ msgstr "So,"
 
 #: core/Services/Todoist.vala:1514
 msgid "The request was incorrect."
-msgstr "Der Anfrage war falsch."
+msgstr "Die Anfrage war falsch."
 
 #: core/Services/Todoist.vala:1515
 msgid ""
@@ -623,7 +623,7 @@ msgstr ""
 
 #: core/Services/Todoist.vala:1516
 msgid "The request was valid, but for something that is forbidden."
-msgstr "Der Anfrage war gültig, aber für etwas, das verboten ist."
+msgstr "Die Anfrage war gültig, aber für etwas, das verboten ist."
 
 #: core/Services/Todoist.vala:1517
 msgid "The requested resource could not be found."
@@ -901,7 +901,7 @@ msgstr "Das Projekt wurde in die Zwischenablage kopiert"
 #: core/Objects/Project.vala:791
 #, fuzzy, c-format
 msgid "Delete Project %s?"
-msgstr "Projekt löschen"
+msgstr "Projekt %s löschen?"
 
 #: core/Objects/Project.vala:792 core/Objects/Section.vala:337
 #: src/Objects/Backup.vala:127 src/Layouts/LabelRow.vala:174
@@ -938,7 +938,7 @@ msgstr "Archiv"
 #: core/Objects/Section.vala:336 src/Layouts/SectionBoard.vala:561
 #, fuzzy, c-format
 msgid "Delete Section %s"
-msgstr "Abschnitt löschen"
+msgstr "Abschnitt %s löschen"
 
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
@@ -1115,7 +1115,7 @@ msgstr "Zu 'Kennzeichnungen'"
 
 #: src/Layouts/Sidebar.vala:86
 msgid "Go to Pinboard"
-msgstr "Zu 'Pinnwand'"
+msgstr "Zur 'Pinnwand'"
 
 #: src/Layouts/Sidebar.vala:100
 msgid "Favorites"
@@ -1150,7 +1150,7 @@ msgstr "Projekt hinzufügen"
 #: src/Layouts/Sidebar.vala:372
 msgid "No account available, Sync one by clicking the '+' button"
 msgstr ""
-"Kein Account vorhanden, synchronisiere einen Account, indem du auf den '+'-"
+"Es ist kein Account vorhanden, synchronisiere einen Account, indem du auf den '+'-"
 "Knopf klickst"
 
 #: src/Layouts/ProjectRow.vala:379
@@ -1562,7 +1562,7 @@ msgstr "Filter"
 #, c-format
 msgid "This will delete %d completed tasks and their subtasks from project %s"
 msgstr ""
-"Dies wird %d vollendete Aufgaben und deren Unteraufgaben aus Projekt %s "
+"Dies wird %d vollendete Aufgaben und deren Unteraufgaben aus dem Projekt %s "
 "löschen"
 
 #: src/Views/Project/List.vala:52 src/Views/Project/Board.vala:42
@@ -1697,7 +1697,10 @@ msgstr "Posteingang als unabhängiges Projekt"
 msgid ""
 "The Inbox is the default place to add new tasks, allowing you to quickly get "
 "your ideas out of your head and then plan them when you’re ready."
-msgstr "Der "
+msgstr ""
+"Der Posteingang ist der Standardbereich, um neue Aufgaben hinzuzufügen."
+"So kannst du dir deine Ideen schnell aus dem Kopf schlagen und sie dann "
+"planen, wenn du bereit bist."
 
 #: src/Dialogs/WhatsNew.vala:111
 msgid "Enhanced Task Duplication"
