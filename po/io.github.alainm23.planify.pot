@@ -422,7 +422,7 @@ msgstr ""
 #: core/Util/Util.vala:654
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
-"'Preferences' 🡒 Calendar Events to turn it on."
+"'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
 
 #: core/Util/Util.vala:660
