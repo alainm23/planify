@@ -41,7 +41,7 @@ namespace Color {
 		Gtk.rgb_to_hsv (rgb.r, rgb.g, rgb.b, out hsl.h, out s, out v);
 		hsl.l = v - v * s / 2;
 		float m = float.min (hsl.l, 1 - hsl.l);
-		hsl.s = (m != 0) ? (v-hsl.l) / m : 0;
+		hsl.s = (m != 0) ? (v - hsl.l) / m : 0;
 		return hsl;
 	}
 

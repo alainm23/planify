@@ -1037,7 +1037,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	}
 
 	private Adw.NavigationPage get_caldav_view () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud"));
 
 		var username_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-displayname")) {
 			margin_top = 12,
