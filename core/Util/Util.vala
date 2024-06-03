@@ -1071,13 +1071,13 @@ We hope you’ll enjoy using Planify!""");
         var text = escape_text (_text);
 
         try {
-            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/;
-            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/;
+            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/; // vala-lint=space-before-paren
+            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/; // vala-lint=space-before-paren
             Regex url_markdown = new Regex ("\\[([^\\]]+)\\]\\(([^\\)]+)\\)");
                     
-            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/;
-            Regex bold_regex = /\*\*(.*?)\*\*/;
-            Regex italic_regex = /\*(.*?)\*/;
+            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/; // vala-lint=space-before-paren
+            Regex bold_regex = /\*\*(.*?)\*\*/; // vala-lint=space-before-paren
+            Regex italic_regex = /\*(.*?)\*/; // vala-lint=space-before-paren
 
             MatchInfo info;
 

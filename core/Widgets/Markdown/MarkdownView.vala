@@ -144,7 +144,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 	public bool check_if_bare_link (string text) {
 		MatchInfo matches;
 		try {
-			if( is_bare_link.match_full (text, text.length, 0, 0, out matches)) {
+			if ( is_bare_link.match_full (text, text.length, 0, 0, out matches)) {
 				return true;
 			}
 		} catch (Error e) {}
@@ -1043,7 +1043,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 		if (is_blockquote.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
 				int start_marker_pos, end_marker_pos;
-				int start_full_pos,   end_full_pos;
+				int start_full_pos, end_full_pos;
 				bool have_marker = matches.fetch_pos (1, out start_marker_pos, out end_marker_pos);
 				bool have_full = matches.fetch_pos (0, out start_full_pos, out end_full_pos);
 
@@ -1138,8 +1138,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 		if (is_code_block.match_full (buffer_text, buffer_text.length, 0, 0, out matches)) {
 			do {
 				int start_before_pos, end_before_pos;
-				int start_code_pos,   end_code_pos;
-				int start_after_pos,  end_after_pos;
+				int start_code_pos, end_code_pos;
+				int start_after_pos, end_after_pos;
 				bool have_code_start = matches.fetch_pos (1, out start_before_pos, out end_before_pos);
 				bool have_code = matches.fetch_pos (2, out start_code_pos, out end_code_pos);
 				bool have_code_close = matches.fetch_pos (3, out start_after_pos, out end_after_pos);
@@ -1154,8 +1154,8 @@ public class Widgets.Markdown.View : GtkSource.View {
 
 					// Convert the character offsets to TextIter's
 					Gtk.TextIter start_before_iter, end_before_iter;
-					Gtk.TextIter start_code_iter,   end_code_iter;
-					Gtk.TextIter start_after_iter,  end_after_iter;
+					Gtk.TextIter start_code_iter, end_code_iter;
+					Gtk.TextIter start_after_iter, end_after_iter;
 					buffer.get_iter_at_offset (out start_before_iter, start_before_pos);
 					buffer.get_iter_at_offset (out end_before_iter, end_before_pos);
 					buffer.get_iter_at_offset (out start_code_iter, start_code_pos);
@@ -1259,11 +1259,7 @@ public class Widgets.Markdown.View : GtkSource.View {
 					buffer.get_iter_at_offset (out end_after_iter, end_after_pos);
 
 					// Check to see if the tag has already been applied, if so, skip it.
-					if (start_code_iter.has_tag (text_tag) && 
-					    end_code_iter.has_tag (text_tag) && 
-						start_before_iter.has_tag (text_tag_around) && 
-						start_after_iter.has_tag (text_tag_around)
-					) {
+					if (start_code_iter.has_tag (text_tag) && end_code_iter.has_tag (text_tag) && start_before_iter.has_tag (text_tag_around) && start_after_iter.has_tag (text_tag_around)) {
 						continue;
 					}
 

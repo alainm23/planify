@@ -206,8 +206,7 @@
 		buffer.begin_user_action ();
 
 		if ( !markdown_view.remove_formatting (markdown_view, affix) &&
-			 !markdown_view.remove_formatting (markdown_view, second_affix))
-			{
+			 !markdown_view.remove_formatting (markdown_view, second_affix)) {
 			Gtk.TextIter selection_start, selection_end, cursor;
 			Gtk.TextMark cursor_mark, selection_start_mark, selection_end_mark;
 			buffer.get_selection_bounds (out selection_start, out selection_end);
@@ -372,18 +371,18 @@
 	private void find_word_selection (ref Gtk.TextIter selection_start, ref Gtk.TextIter selection_end) {
 		var current_char = selection_start.get_char ();
 		// If we're at the end of line, move back one.
-		if( current_char == '\n') {
+		if ( current_char == '\n') {
 			selection_start.backward_char ();
 			current_char = selection_start.get_char ();
 		}
 		// If the cursor is in a blank spot (1 or more spaces/tabs) then go backwards until
 		// we find a word/start of line/start of buffer.
-		while ((current_char == ' ' || current_char == '\t') && current_char != '\n' && !selection_start.is_start()) {
+		while ( (current_char == ' ' || current_char == '\t') && current_char != '\n' && !selection_start.is_start ()) {
 			selection_start.backward_char ();
 			current_char = selection_start.get_char ();
 		}
 		// Now continue going backwards until we find the start of the word of end condition.
-		while (current_char != '\n' && current_char != ' ' && current_char != '\t' && !selection_start.is_start()){
+		while (current_char != '\n' && current_char != ' ' && current_char != '\t' && !selection_start.is_start ()) {
 			selection_start.backward_char ();
 			current_char = selection_start.get_char ();
 		}
@@ -394,7 +393,7 @@
 		}
 		current_char = selection_end.get_char ();
 		// If we're at the end of line, we're done.
-		if( current_char != '\n') {
+		if ( current_char != '\n') {
 			while (current_char != '\n' && current_char != ' ' && current_char != '\t' && !selection_end.is_end ()) {
 				selection_end.forward_char ();
 				current_char = selection_end.get_char ();
@@ -430,4 +429,4 @@
 	public void view_focus () {
 		markdown_view.grab_focus ();
 	}
- }
+}
