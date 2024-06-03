@@ -1645,7 +1645,7 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.has_due &&
-                    item.was_archived () &&
+                    !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (date_now) < 0 &&
                     !Utils.Datetime.is_same_day (item.due.datetime, date_now)) {
