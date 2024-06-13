@@ -620,18 +620,10 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
 
 		if (section.project.sort_order == 0 || section.project.sort_order == 2) {
-			if (item1.has_due && item2.has_due) {
-				var date1 = item1.due.datetime;
-				var date2 = item2.due.datetime;
+			var date1 = item1.completed_date;
+			var date2 = item2.completed_date;
 
-				return date1.compare (date2);
-			}
-
-			if (!item1.has_due && item2.has_due) {
-				return 1;
-			}
-
-			return 0;
+			return date2.compare (date1);
 		}
 		
 		if (section.project.sort_order == 1) {

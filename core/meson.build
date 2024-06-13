@@ -82,6 +82,7 @@ core_files = files(
     'Objects/Section.vala',
     'Objects/Promise.vala',
     'Objects/Attachment.vala',
+    'Objects/ObjectEvent.vala',
     
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',

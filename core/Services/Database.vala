@@ -386,6 +386,23 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS ObjectEvents (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_date          TEXT,
+                event_type          TEXT,
+                extra_data          TEXT,
+                object_id           TEXT,
+                object_type         TEXT,
+                parent_item_id      TEXT,
+                parent_project_id   TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
         
         sql = """PRAGMA foreign_keys = ON;""";
         
@@ -1277,6 +1294,7 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             add_item (item, insert);
+            //  add_item_event (Objects.ObjectEvent.for_add_item (item));
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
@@ -1692,7 +1710,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item (Objects.Item item, string update_id = "") {
+    public void update_item (Objects.Item item, string update_id = "", string key = "") {
         item.updated_at = new GLib.DateTime.now_local ().to_string ();
         Sqlite.Statement stmt;
 
@@ -1730,6 +1748,7 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             item.updated (update_id);
             item_updated (item, update_id);
+            //  add_item_event (Objects.ObjectEvent.for_update_item (item, key));
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
@@ -1841,6 +1860,29 @@ public class Services.Database : GLib.Object {
         foreach (Objects.Item subitem in item.items) {
             archive_item (subitem, is_archived);
         }
+    }
+
+    private void add_item_event (Objects.ObjectEvent object_event) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            INSERT OR IGNORE INTO ObjectEvents (event_date, event_type, extra_data, object_id, object_type, parent_project_id)
+            VALUES ($event_date, $event_type, $extra_data, $object_id, $object_type, $parent_project_id);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$event_date", object_event.event_date);
+        set_parameter_str (stmt, "$event_type", object_event.event_type);
+        set_parameter_str (stmt, "$extra_data", object_event.extra_data);
+        set_parameter_str (stmt, "$object_id", object_event.object_id);
+        set_parameter_str (stmt, "$object_type", object_event.object_type);
+        set_parameter_str (stmt, "$parent_project_id", object_event.parent_project_id);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
     }
 
     /*

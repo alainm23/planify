@@ -819,14 +819,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
 
     private void update_content_description () {
-        if (item.content != content_textview.buffer.text ||
-            item.description != current_buffer.get_all_text ().chomp ()) {
+        if (item.content != content_textview.buffer.text) {
             item.content = content_textview.buffer.text;
             content_label.label = Util.get_default ().markup_string (item.content);
             content_label.tooltip_text = item.content;
+            item.update_async_timeout (update_id);
+            return;
+        }
 
+        if (item.description != current_buffer.get_all_text ().chomp ()) {
             item.description = current_buffer.get_all_text ().chomp ();
             item.update_async_timeout (update_id);
+            return;
         }
     }
 

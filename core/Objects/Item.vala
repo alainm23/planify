@@ -134,6 +134,14 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    GLib.DateTime _completed_date;
+    public GLib.DateTime completed_date {
+        get {
+            _completed_date = Utils.Datetime.get_date_from_string (completed_at);
+            return _completed_date;
+        }
+    }
+
     public bool has_parent {
         get {
             return Services.Database.get_default ().get_item (parent_id) != null;
@@ -695,7 +703,7 @@ public class Objects.Item : Objects.BaseObject {
         });
     }
 
-    public void update_async_timeout (string update_id = "") {
+    public void update_async_timeout (string update_id = "", string key = "") {
         if (update_timeout_id != 0) {
             Source.remove (update_timeout_id);
         }
@@ -705,12 +713,12 @@ public class Objects.Item : Objects.BaseObject {
             loading = true;
 
             if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (this, update_id);
+                Services.Database.get_default ().update_item (this, update_id, key);
                 loading = false;
             } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_item (this, update_id);
+                    Services.Database.get_default ().update_item (this, update_id, key);
                     loading = false;
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
@@ -718,7 +726,7 @@ public class Objects.Item : Objects.BaseObject {
                     HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
-                        Services.Database.get_default ().update_item (this, update_id);
+                        Services.Database.get_default ().update_item (this, update_id, key);
                     }
                     
                     loading = false;
