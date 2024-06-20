@@ -90,6 +90,7 @@
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -154,6 +155,7 @@
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -218,5 +220,6 @@
     <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
     <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
   </gresource>
 </gresources>

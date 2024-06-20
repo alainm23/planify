@@ -15,6 +15,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
     private Gtk.ToggleButton create_more_button;
+    private Gtk.Revealer info_revealer;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
@@ -65,6 +66,16 @@ public class Layouts.QuickAdd : Adw.Bin {
             css_classes = { "flat", "font-bold" }
         };
 
+        var info_icon = new Gtk.Image.from_icon_name ("info-outline-symbolic") {
+            css_classes = { "error" },
+            tooltip_text = _("This field is required")
+        };
+
+        info_revealer = new Gtk.Revealer () {
+            child = info_icon,
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
@@ -75,6 +86,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
         
         content_box.append (content_entry);
+        content_box.append (info_revealer);
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
@@ -82,7 +94,8 @@ public class Layouts.QuickAdd : Adw.Bin {
             right_margin = 6,
             top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true
+            hexpand = true,
+            event_focus = false
         };
 
         description_textview.remove_css_class ("view");
@@ -271,6 +284,11 @@ public class Layouts.QuickAdd : Adw.Bin {
             add_item ();
         });
 
+        content_entry.changed.connect (() => {
+            info_revealer.reveal_child = false;     
+            content_entry.remove_css_class ("error");
+        });
+
         var content_controller_key = new Gtk.EventControllerKey ();
         content_entry.add_controller (content_controller_key);
         content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
@@ -325,9 +343,22 @@ public class Layouts.QuickAdd : Adw.Bin {
         });
     }
 
-    private void add_item () {        
-        if (content_entry.buffer.text.length <= 0) {
+    private void add_item () {
+        info_revealer.reveal_child = false;     
+        content_entry.remove_css_class ("error");
+
+        if (content_entry.get_text ().length <= 0 && description_textview.get_text ().length <= 0) {
             hide_destroy ();
+            return;
+        }
+
+        if (content_entry.get_text ().length <= 0) {
+            Timeout.add (info_revealer.transition_duration, () => {
+                info_revealer.reveal_child = true;
+                content_entry.add_css_class ("error");
+                return GLib.Source.REMOVE;
+            });
+            
             return;
         }
 
