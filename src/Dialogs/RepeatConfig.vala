@@ -84,7 +84,8 @@ public class Dialogs.RepeatConfig : Adw.Dialog {
 
     public RepeatConfig () {
         Object (
-            title: _("Repeat")
+            title: _("Repeat"),
+            content_width: 320
         );
     }
 

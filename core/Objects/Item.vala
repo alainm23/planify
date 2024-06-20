@@ -1395,22 +1395,28 @@ public class Objects.Item : Objects.BaseObject {
             }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
             if (duedate.has_weeks) {
-                var today = Utils.Datetime.get_today_format_date ();
-                int day_of_week = today.get_day_of_week ();
-                int next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (today, duedate);
+                GLib.DateTime due_selected = Utils.Datetime.get_today_format_date ();
+                if (has_due) {
+                    due_selected = due.datetime;
+                }
+                
+                int day_of_week = due_selected.get_day_of_week ();
+                int next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (due_selected, duedate);
                 GLib.DateTime due_date = null;
 
                 if (day_of_week == next_day) {
-                    due_date = today;
+                    due_date = due_selected;
                 } else {
-                    due_date = Utils.Datetime.next_recurrency_week (today, duedate);
+                    due_date = Utils.Datetime.next_recurrency_week (due_selected, duedate);
                 }
 
                 due.date = Utils.Datetime.get_todoist_datetime_format (due_date);
             } else {
-                due.date = Utils.Datetime.get_todoist_datetime_format (
-                    Utils.Datetime.get_today_format_date ()
-                );
+                if (!has_due) {
+                    due.date = Utils.Datetime.get_todoist_datetime_format (
+                        Utils.Datetime.get_today_format_date ()
+                    );
+                }
             }
         }
 
