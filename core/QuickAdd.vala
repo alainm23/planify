@@ -68,7 +68,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_top = 12,
+            margin_top = 9,
+            margin_bottom = 9,
             margin_start = 12,
             margin_end = 12
         };
@@ -79,7 +80,7 @@ public class Layouts.QuickAdd : Adw.Bin {
             height_request = 64,
             left_margin = 14,
             right_margin = 6,
-            top_margin = 6,
+            top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
             hexpand = true
         };
@@ -127,6 +128,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.add_css_class ("card");
         quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
+        quick_add_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         quick_add_content.append (description_textview);
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
