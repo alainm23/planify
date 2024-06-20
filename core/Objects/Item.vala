@@ -134,6 +134,16 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    public bool has_time {
+        get {
+            if (due.datetime == null) {
+                return false;
+            }
+
+            return Utils.Datetime.has_time (due.datetime);
+        }
+    }
+
     GLib.DateTime _completed_date;
     public GLib.DateTime completed_date {
         get {
@@ -773,7 +783,7 @@ public class Objects.Item : Objects.BaseObject {
                     reminder_added (reminder);
                 }
                 
-                add_reminder (reminder);
+                _add_reminder (reminder);
             }
             return return_value;
         }
@@ -783,7 +793,7 @@ public class Objects.Item : Objects.BaseObject {
         Objects.Reminder? return_value = null;
         lock (_reminders) {
             foreach (var _reminder in _reminders) {
-                if (reminder.due.datetime.compare (_reminder.due.datetime) == 0) {
+                if (reminder.datetime.compare (_reminder.datetime) == 0) {
                     return_value = _reminder;
                     break;
                 }
@@ -792,7 +802,7 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
-    private void add_reminder (Objects.Reminder reminder) {
+    private void _add_reminder (Objects.Reminder reminder) {
         _reminders.add (reminder);
     }
 
@@ -1303,24 +1313,6 @@ public class Objects.Item : Objects.BaseObject {
         return new_item;
     }
 
-    //  public void duplicate () {
-    //      var new_item = generate_copy ();
-    //      new_item.content = "[%s] %s".printf (_("Duplicate"), content);
-
-    //      if (project.backend_type == BackendType.TODOIST) {
-    //          Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-    //              HttpResponse response = Services.Todoist.get_default ().add.end (res);
-    //              if (response.status) {
-    //                  new_item.id = response.data;
-    //                  insert_duplicate (new_item);
-    //              }
-    //          });
-    //      } else {
-    //          new_item.id = Util.get_default ().generate_id (new_item);
-    //          insert_duplicate (new_item);
-    //      }
-    //  }
-
     public Objects.Item duplicate () {
         var new_item = new Objects.Item ();
         new_item.content = content;
@@ -1329,7 +1321,6 @@ public class Objects.Item : Objects.BaseObject {
         new_item.pinned = pinned;
         new_item.priority = priority;
         new_item.labels = labels;
-
         return new_item;
     }
     
@@ -1552,5 +1543,66 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return text;
+    }
+
+    public void update_due (GLib.DateTime? datetime) {
+        due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
+
+        if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
+            remove_all_relative_reminders ();
+            
+            var reminder = new Objects.Reminder ();
+            reminder.mm_offset = Util.get_reminders_mm_offset ();
+            reminder.reminder_type = ReminderType.RELATIVE;
+            add_reminder (reminder);
+        }
+
+        if (due.date == "") {
+            due.reset ();
+            remove_all_relative_reminders ();
+        }
+
+        if (!has_time) {
+            remove_all_relative_reminders ();
+        }
+
+        update_async ("");
+    }
+
+    public void add_reminder (Objects.Reminder reminder) {
+        reminder.item_id = id;
+
+        if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                loading = false;
+
+                if (response.status) {
+                    reminder.id = response.data;
+                } else {
+                    reminder.id = Util.get_default ().generate_id (reminder);
+                }
+
+                add_reminder_if_not_exists (reminder);
+            });
+        } else {
+            reminder.id = Util.get_default ().generate_id (reminder);
+            add_reminder_if_not_exists (reminder);
+        }
+    }
+
+    public void add_reminder_events (Objects.Reminder reminder) {
+        Services.Database.get_default ().reminder_added (reminder);
+        Services.Database.get_default ().reminders.add (reminder);
+        reminder.item.reminder_added (reminder);
+        _add_reminder (reminder);
+    }
+
+    private void remove_all_relative_reminders () {
+        foreach (Objects.Reminder reminder in reminders) {
+            if (reminder.reminder_type == ReminderType.RELATIVE) {
+                reminder.delete ();
+            }
+        }
     }
 }

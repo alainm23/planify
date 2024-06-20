@@ -397,13 +397,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             return;
         }
 
-        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
-
-        if (item.due.date == "") {
-            item.due.reset ();
-        }
-
-        item.update_async ("");
+        item.update_due (datetime);
     }
 
     public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -494,7 +488,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         duplicate_item.clicked.connect (() => {
             popover.popdown ();
-            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
 
         move_item.clicked.connect (() => {            

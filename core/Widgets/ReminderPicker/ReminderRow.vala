@@ -24,12 +24,6 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
     private Gtk.Revealer main_revealer;
 
-    public bool is_creating {
-        get {
-            return reminder.id == "";
-        }
-    }
-
     public signal void activated ();
     public signal void deleted ();
 
@@ -49,8 +43,8 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
     construct {
         add_css_class ("row");
-
-        var reminder_label = new Gtk.Label (is_creating ? _("Add Reminder") : Utils.Datetime.get_relative_date_from_date (reminder.due.datetime));
+        
+        var reminder_label = new Gtk.Label (reminder.relative_text);
 
         var remove_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
             hexpand = true,
@@ -68,7 +62,7 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             margin_end = 3
         };
 
-        reminder_box.append (new Gtk.Image.from_icon_name (is_creating ? "plus-large-symbolic" : "alarm-symbolic"));
+        reminder_box.append (new Gtk.Image.from_icon_name ("alarm-symbolic"));
         reminder_box.append (reminder_label);
         reminder_box.append (remove_button);
 
@@ -88,8 +82,8 @@ public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             deleted ();
         });
 
-        reminder.loading_changed.connect ((value) => {
-            remove_button.is_loading = value;
+        reminder.loading_change.connect (() => {
+            remove_button.is_loading = reminder.loading;
         });
     }
 

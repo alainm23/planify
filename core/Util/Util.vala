@@ -1173,6 +1173,67 @@ We hope you’ll enjoy using Planify!""");
 
         return false;
     }
+
+    public static int get_reminders_mm_offset () {
+        int value = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
+        int return_value = 0;
+
+        switch (value) {
+            case 0:
+                return_value = 0;
+                break;
+            case 1:
+                return_value = 10;
+                break;
+            case 2:
+                return_value = 30;
+                break;
+            case 3:
+                return_value = 45;
+                break;
+            case 4:
+                return_value = 60;
+                break;
+            case 5:
+                return_value = 120;
+                break;
+            case 6:
+                return_value = 180;
+                break;
+        }
+
+        return return_value;
+    }
+
+    public static string get_reminders_mm_offset_text (int value) {
+        string return_value = "";
+
+        switch (value) {
+            case 0:
+                return_value = _("At due time");
+                break;
+            case 10:
+                return_value = _("10 minutes before");
+                break;
+            case 30:
+                return_value = _("30 minutes before");
+                break;
+            case 45:
+                return_value = _("45 minutes before");
+                break;
+            case 60:
+                return_value = _("1 hour before");
+                break;
+            case 120:
+                return_value = _("2 hours before");
+                break;
+            case 180:
+                return_value = _("3 hours before");
+                break;
+        }
+
+        return return_value;
+    }
 }
 
 public class RegexMarkdown {

@@ -762,26 +762,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         });
 
         reminder_button.reminder_added.connect ((reminder) => {
-            reminder.item_id = item.id;
-
-            if (item.project.backend_type == BackendType.TODOIST) {
-                item.loading = true;
-                Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
-                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                    item.loading = false;
-
-                    if (response.status) {
-                        reminder.id = response.data;
-                    } else {
-                        reminder.id = Util.get_default ().generate_id (reminder);
-                    }
-
-                    item.add_reminder_if_not_exists (reminder);
-                });
-            } else {
-                reminder.id = Util.get_default ().generate_id (reminder);
-                item.add_reminder_if_not_exists (reminder);
-            }
+            item.add_reminder (reminder);
         });
 
         item.reminder_added.connect ((reminder) => {
@@ -1193,7 +1174,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         duplicate_item.clicked.connect (() => {
             popover.popdown ();
-            Util.get_default ().duplicate_item.begin (item, item.section_id, item.parent_id);
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
 
         move_item.clicked.connect (() => {            
@@ -1426,13 +1407,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
-
-        if (item.due.date == "") {
-            item.due.reset ();
-        }
-
-        item.update_async ("");
+        item.update_due (datetime);
     }
 
     private void update_next_recurrency () {

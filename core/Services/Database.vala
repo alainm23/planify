@@ -1294,7 +1294,6 @@ public class Services.Database : GLib.Object {
 
         if (stmt.step () == Sqlite.DONE) {
             add_item (item, insert);
-            //  add_item_event (Objects.ObjectEvent.for_add_item (item));
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
@@ -1380,6 +1379,24 @@ public class Services.Database : GLib.Object {
 
         stmt.reset ();
         return returned;
+    }
+
+    public Gee.ArrayList<Objects.Reminder> get_reminders_by_item_id (string id) {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT id, item_id, type, due, mm_offset FROM Reminders WHERE item_id=$item_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$item_id", id);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_reminder (stmt));
+        }
+        stmt.reset ();
+        return return_value;
     }
 
     public Gee.ArrayList<Objects.Item> get_item_by_baseobject (Objects.BaseObject object) {
@@ -1987,14 +2004,16 @@ public class Services.Database : GLib.Object {
         string sql;
 
         sql = """
-            INSERT OR IGNORE INTO Reminders (id, item_id, due)
-            VALUES ($id, $item_id, $due);
+            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset)
+            VALUES ($id, $item_id, $type, $due, $mm_offset);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", reminder.id);
         set_parameter_str (stmt, "$item_id", reminder.item_id);
+        set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
+        set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -2012,7 +2031,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, due FROM Reminders;
+            SELECT id, item_id, type, due, mm_offset FROM Reminders;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -2028,7 +2047,9 @@ public class Services.Database : GLib.Object {
         Objects.Reminder return_value = new Objects.Reminder ();
         return_value.id = stmt.column_text (0);
         return_value.item_id = stmt.column_text (1);
-        return_value.due.update_from_json (get_due_parameter (stmt.column_text (2)));
+        return_value.reminder_type = stmt.column_text (2) == "absolute" ? ReminderType.ABSOLUTE : ReminderType.RELATIVE;
+        return_value.due.update_from_json (get_due_parameter (stmt.column_text (3)));
+        return_value.mm_offset = stmt.column_int (4);
         return return_value;
     }
 

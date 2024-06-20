@@ -138,6 +138,8 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         if (reminders.size > 0) {
             build_value_label (reminders);
         }
+
+        indicator_revealer.reveal_child = reminders.size > 0;
     }
 
     public void add_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -146,6 +148,8 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         if (reminders.size > 0) {
             build_value_label (reminders);
         }
+
+        indicator_revealer.reveal_child = reminders.size > 0;
     }
 
     public void delete_reminder (Objects.Reminder reminder, Gee.ArrayList<Objects.Reminder> reminders) {
@@ -157,12 +161,14 @@ public class Widgets.ReminderPicker.ReminderButton : Adw.Bin {
         if (reminders.size > 0) {
             build_value_label (reminders);
         }
+
+        indicator_revealer.reveal_child = reminders.size > 0;
     }
 
     private void build_value_label (Gee.ArrayList<Objects.Reminder> reminders) {
         value_label.label = "";        
         for (int index = 0; index < reminders.size; index++) {
-            var date = Utils.Datetime.get_relative_date_from_date (reminders[index].due.datetime);
+            string date = reminders[index].relative_text;
 
             if (index < reminders.size - 1) {
                 value_label.label += date + ", ";

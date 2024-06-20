@@ -1035,13 +1035,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
-
-        if (item.due.date == "") {
-            item.due.reset ();
-        }
-
-        item.update_async ("");
+        item.update_due (datetime);
     }
 
     private void selected_toggled (bool active) {

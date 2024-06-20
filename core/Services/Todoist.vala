@@ -28,6 +28,7 @@ public class Services.Todoist : GLib.Object {
 	private const string SECTIONS_COLLECTION = "sections";
 	private const string ITEMS_COLLECTION = "items";
 	private const string LABELS_COLLECTION = "labels";
+	private const string REMINDERS_COLLECTION = "reminders";
 
 	private static Todoist? _instance;
 	public static Todoist get_default () {
@@ -214,6 +215,16 @@ public class Services.Todoist : GLib.Object {
 				add_item_if_not_exists (_node);
 			}
 
+			// Create Reminders
+			unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
+			foreach (unowned Json.Node _node in reminders.get_elements ()) {
+				Objects.Reminder reminder = new Objects.Reminder.from_json (_node);
+				Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+				if (item != null) {
+					item.add_reminder_if_not_exists (reminder);
+				}
+			}
+
 			first_sync_progress (0.85);
 
 			// Download Profile Image
@@ -361,6 +372,25 @@ public class Services.Todoist : GLib.Object {
 						}
 					} else {
 						add_item_if_not_exists (_node);
+					}
+				}
+
+				// Reminders
+				unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
+				foreach (unowned Json.Node _node in reminders.get_elements ()) {
+					Objects.Reminder? reminder = Services.Database.get_default ().get_reminder (_node.get_object ().get_string_member ("id"));
+
+					if (reminder != null) {
+						if (_node.get_object ().get_boolean_member ("is_deleted")) {
+							Services.Database.get_default ().delete_reminder (reminder);
+						}
+					} else {
+						reminder = new Objects.Reminder.from_json (_node);
+
+						Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+						if (item != null) {
+							item.add_reminder_if_not_exists (reminder);
+						}
 					}
 				}
 
@@ -774,7 +804,7 @@ public class Services.Todoist : GLib.Object {
 		string uuid = Util.get_default ().generate_string ();
 		string id;
 		string json = object.get_add_json (temp_id, uuid);
-		
+
 		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",

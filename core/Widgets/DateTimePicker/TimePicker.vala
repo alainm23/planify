@@ -33,7 +33,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             if (_time == null) {
                 time = new GLib.DateTime.now_local ();
             }
-
+            
             return _time;
         }
 

@@ -221,49 +221,49 @@ public enum RecurrencyType {
 
 	public string to_friendly_string (int? interval = null) {
 		switch (this) {
-		case NONE:
-			return _("Don't Repeat");
-		case MINUTELY:
-			if (interval == null || interval == 0) {
-				return _("Every minute");
-			} else {
-				return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
-			}
-		case HOURLY:
-			if (interval == null || interval == 0) {
-				return _("Every hour");
-			} else {
-				return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
-			}
-		case EVERY_DAY:
-			if (interval == null || interval == 0) {
-				return _("Every day");
-			} else {
-				return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
-			}
-		case EVERY_WEEK:
-			if (interval == null || interval == 0) {
-				return _("Every week");
-			} else {
-				return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
-			}
+			case NONE:
+				return _("Don't Repeat");
+			case MINUTELY:
+				if (interval == null || interval == 0) {
+					return _("Every minute");
+				} else {
+					return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
+				}
+			case HOURLY:
+				if (interval == null || interval == 0) {
+					return _("Every hour");
+				} else {
+					return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
+				}
+			case EVERY_DAY:
+				if (interval == null || interval == 0) {
+					return _("Every day");
+				} else {
+					return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
+				}
+			case EVERY_WEEK:
+				if (interval == null || interval == 0) {
+					return _("Every week");
+				} else {
+					return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
+				}
 
-		case EVERY_MONTH:
-			if (interval == null || interval == 0) {
-				return _("Every month");
-			} else {
-				return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
-			}
+			case EVERY_MONTH:
+				if (interval == null || interval == 0) {
+					return _("Every month");
+				} else {
+					return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
+				}
 
-		case EVERY_YEAR:
-			if (interval == null || interval == 0) {
-				return _("Every year");
-			} else {
-				return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
-			}
+			case EVERY_YEAR:
+				if (interval == null || interval == 0) {
+					return _("Every year");
+				} else {
+					return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
+				}
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -361,4 +361,22 @@ public enum FilterItemType {
 				assert_not_reached ();
 		}
 	} 
+}
+
+public enum ReminderType {
+	ABSOLUTE,
+	RELATIVE;
+
+	public string to_string () {
+		switch (this) {
+			case ABSOLUTE:
+				return "absolute";
+
+			case RELATIVE:
+				return "relative";
+		
+			default:
+				assert_not_reached ();
+		}
+	}
 }

@@ -68,6 +68,16 @@
         <value nick="Wait 2500 milliseconds" value="1" />
     </enum>
 
+    <enum id="io.github.alainm23.planify.automatic-reminders">
+        <value nick="At due time" value="0" />
+        <value nick="10 minutes before" value="1" />
+        <value nick="30 minutes before" value="2" />
+        <value nick="45 minutes before" value="3" />
+        <value nick="1 hour before" value="4" />
+        <value nick="2 hour before" value="5" />
+        <value nick="3 hour before" value="6" />
+    </enum>
+
     <schema path="/io/github/alainm23/planify/" id="io.github.alainm23.planify" gettext-domain="io.github.alainm23.planify">        
         <key name="badge-count" enum="io.github.alainm23.planify.badge-count">
             <default>"None"</default>
@@ -421,6 +431,18 @@
             <default>"Nextcloud"</default>
             <summary>CalDAV backend type</summary>
             <description>CalDAV backend type</description>
+        </key>
+
+        <key name="automatic-reminders-enabled" type="b">
+            <default>true</default>
+            <summary>Automatic Reminders Enabled.</summary>
+            <description>Automatic Reminders Enabled.</description>
+        </key>
+
+        <key name="automatic-reminders" enum="io.github.alainm23.planify.automatic-reminders">
+            <default>"At due time"</default>
+            <summary>Automatic Reminders</summary>
+            <description>Automatic Reminders</description>
         </key>
     </schema>
 </schemalist>

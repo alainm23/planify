@@ -52,26 +52,15 @@ public class Dialogs.QuickAdd : Adw.Dialog {
             quick_add_widget.is_loading = true;
 
             foreach (Objects.Reminder reminder in reminders) {
-                reminder.item_id = item.id;
-
-                if (item.project.backend_type == BackendType.TODOIST) {
-                    Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
-                        HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                        item.loading = false;
-    
-                        if (response.status) {
-                            reminder.id = response.data;
-                        } else {
-                            reminder.id = Util.get_default ().generate_id (reminder);
-                        }
-    
-                        item.add_reminder_if_not_exists (reminder);
-                    });
-                } else {
-                    reminder.id = Util.get_default ().generate_id (reminder);
-                    item.add_reminder_if_not_exists (reminder);
-                }
+                item.add_reminder (reminder);
             }
+        }
+
+        if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && item.has_time) {
+            var reminder = new Objects.Reminder ();
+            reminder.mm_offset = Util.get_reminders_mm_offset ();
+            reminder.reminder_type = ReminderType.RELATIVE;
+            item.add_reminder (reminder);
         }
         
         Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);

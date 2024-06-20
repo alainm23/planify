@@ -57,8 +57,13 @@ public class MainWindow : Adw.ApplicationWindow {
 		action_manager = new Services.ActionManager (app, this);
 
 		Services.DBusServer.get_default ().item_added.connect ((id) => {
-			var item = Services.Database.get_default ().get_item_by_id (id);
+			Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
+			Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
+
 			Services.Database.get_default ().add_item (item);
+			foreach (Objects.Reminder reminder in reminders) {
+				item.add_reminder_events (reminder);
+			}
 		});
 
 		var settings_popover = build_menu_app ();

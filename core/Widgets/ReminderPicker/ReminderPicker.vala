@@ -36,7 +36,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         Object (
             is_creating: is_creating,
             position: Gtk.PositionType.BOTTOM,
-            width_request: 250
+            width_request: 275
         );
     }
 
@@ -106,33 +106,25 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         }
 
         var reminder = new Objects.Reminder ();
-        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (get_datetime_picker ());
+        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (
+            Utils.Datetime.get_datetime_no_seconds (calendar.date, time_picker.time)
+        );
 
         reminder_added (reminder);
         main_stack.visible_child_name = "listbox";
         submit_button.is_loading = false;
     }
 
-    private GLib.DateTime get_datetime_picker () {
-        return new DateTime.local (
-            calendar.date.get_year (),
-            calendar.date.get_month (),
-            calendar.date.get_day_of_month (),
-            time_picker.time.get_hour (),
-            time_picker.time.get_minute (),
-            time_picker.time.get_seconds ()
-        );
-    }
-
     private Gtk.Widget get_picker () {
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+
         calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,
             hexpand = true
         };
 
         var calendar_grid = new Adw.Bin () {
-            child = calendar,
-            css_classes = { "card" }
+            child = calendar
         };
 
         var time_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
@@ -150,9 +142,7 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         };
 
         var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin_top = 6,
-            css_classes = { "card" }
+            hexpand = true
         };
 
         time_box.append (time_icon);
@@ -168,11 +158,23 @@ public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
         };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_grid.append (back_item);
+        main_grid.append (new Widgets.ContextMenu.MenuSeparator ());
         main_grid.append (calendar_grid);
+        main_grid.append (new Gtk.Separator (Gtk.Orientation.VERTICAL) {
+            margin_start = 9,
+            margin_end = 6,
+            margin_top = 6,
+            margin_bottom = 6
+        });
         main_grid.append (time_box);
         main_grid.append (submit_button);
 
         submit_button.clicked.connect (insert_reminder);
+
+        back_item.clicked.connect (() => {
+            main_stack.visible_child_name = "listbox";
+        });
 
         return main_grid;
     }

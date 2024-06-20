@@ -601,8 +601,36 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		group.add (attention_at_one);
 
+		var reminders_group = new Adw.PreferencesGroup () {
+			title = _("Reminders")
+		};
+
+		var automatic_reminders = new Adw.SwitchRow ();
+		automatic_reminders.title = _("Enabled");
+		Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", automatic_reminders, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		var reminders_model = new Gtk.StringList (null);
+		reminders_model.append (_("At due time"));
+		reminders_model.append (_("10 minutes before"));
+		reminders_model.append (_("30 minutes before"));
+		reminders_model.append (_("45 minutes before"));
+		reminders_model.append (_("1 hour before"));
+		reminders_model.append (_("2 hours before"));
+		reminders_model.append (_("3 hours before"));
+		
+		var reminders_comborow = new Adw.ComboRow ();
+		reminders_comborow.title = _("Automatic reminders");
+		reminders_comborow.subtitle = _("When enabled, a reminder before the task’s due time will be added by default.");
+		reminders_comborow.model = reminders_model;
+		reminders_comborow.selected = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
+		Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", reminders_comborow, "sensitive", GLib.SettingsBindFlags.DEFAULT);
+
+		reminders_group.add (automatic_reminders);
+		reminders_group.add (reminders_comborow);
+
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (group);
+		content_box.append (reminders_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -641,6 +669,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		underline_completed_switch.notify["active"].connect (() => {
 			Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
+		});
+
+		reminders_comborow.notify["selected"].connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("automatic-reminders", (int) reminders_comborow.selected);
 		});
 
 		settings_header.back_activated.connect (() => {

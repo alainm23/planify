@@ -576,4 +576,15 @@ public class Utils.Datetime {
 
         return " (" + get_relative_date_from_date (item.due.datetime) + ") ";
     }
+
+    public static GLib.DateTime get_datetime_no_seconds (GLib.DateTime date, GLib.DateTime? time = null) {
+        return new DateTime.local (
+            date.get_year (),
+            date.get_month (),
+            date.get_day_of_month (),
+            time == null ? date.get_hour () : time.get_hour (),
+            time == null ? date.get_minute () : time.get_minute (),
+            0
+        );
+    }
 }

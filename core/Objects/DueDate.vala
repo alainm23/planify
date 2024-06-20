@@ -105,17 +105,6 @@ public class Objects.DueDate : GLib.Object {
             is_recurring = object.get_boolean_member ("is_recurring");
             Utils.Datetime.parse_todoist_recurrency (this, object);
         }
-        //  if (object.has_member ("recurrency_type")) {
-        //      recurrency_type = (RecurrencyType) int.parse (object.get_string_member ("recurrency_type"));
-        //  }
-
-        //  if (object.has_member ("recurrency_interval")) {
-        //      recurrency_interval = int.parse (object.get_string_member ("recurrency_interval"));
-        //  }
-
-        //  if (object.has_member ("recurrency_weeks")) {
-        //      recurrency_weeks = object.get_string_member ("recurrency_weeks");
-        //  }
     }
 
     public void update_from_json (Json.Object object) {
@@ -221,7 +210,6 @@ public class Objects.DueDate : GLib.Object {
         new_due.recurrency_count = recurrency_count;
         new_due.recurrency_end = recurrency_end;
         new_due.recurrence_supported = recurrence_supported;
-
         return new_due;
     }
 }
