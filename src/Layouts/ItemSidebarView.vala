@@ -45,7 +45,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     private Gee.HashMap<ulong, GLib.Object> signals_map = new Gee.HashMap<ulong, GLib.Object> ();
     public string update_id { get; set; default = Util.get_default ().generate_id (); }
-    
+    private ulong description_handler_change_id = 0;
+
     public bool show_completed {
         get {
             if (Services.Settings.get_default ().settings.get_boolean ("always-show-completed-subtasks")) {
@@ -343,10 +344,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         signals_map[item.loading_change.connect (() => {
             spinner_revealer.reveal_child = item.loading;
         })] = item;
-
-        signals_map[current_buffer.changed.connect_after (() => {
-            update_content_description ();
-        })] = current_buffer;
     }
 
     public void disconnect_all () {
@@ -354,6 +351,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             entry.value.disconnect (entry.key);
         }
         
+        if (description_handler_change_id != 0) {
+            current_buffer.disconnect (description_handler_change_id);
+            description_handler_change_id = 0;
+        }
+
         signals_map.clear ();
         subitems.disconnect_all ();
         attachments.disconnect_all ();
@@ -361,7 +363,19 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     public void update_request () {
         content_textview.buffer.text = item.content;
+
+        if (description_handler_change_id != 0) {
+            current_buffer.disconnect (description_handler_change_id);
+            description_handler_change_id = 0;
+        }
+        
         current_buffer.text = item.description;
+
+        if (description_handler_change_id == 0) {
+            description_handler_change_id = current_buffer.changed.connect (() => {
+                update_content_description ();
+            });
+        }
 
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);

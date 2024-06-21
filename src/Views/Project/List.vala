@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Views.List : Gtk.Grid {
+public class Views.List : Adw.Bin {
     public Objects.Project project { get; construct; }
 
     private Gtk.Image due_image;
@@ -117,7 +117,7 @@ public class Views.List : Gtk.Grid {
 
         scrolled_window = new Widgets.ScrolledWindow (content_clamp);
 
-        attach (scrolled_window, 0, 0);
+        child = scrolled_window;
         update_request ();
         add_sections ();
 

@@ -1727,7 +1727,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void update_item (Objects.Item item, string update_id = "", string key = "") {
+    public void update_item (Objects.Item item, string update_id = "") {
         item.updated_at = new GLib.DateTime.now_local ().to_string ();
         Sqlite.Statement stmt;
 
@@ -1765,7 +1765,6 @@ public class Services.Database : GLib.Object {
         if (stmt.step () == Sqlite.DONE) {
             item.updated (update_id);
             item_updated (item, update_id);
-            //  add_item_event (Objects.ObjectEvent.for_update_item (item, key));
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }

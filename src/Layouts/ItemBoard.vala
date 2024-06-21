@@ -199,9 +199,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             child = repeat_box
         };
 
-        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            margin_start = 6
-        };
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
         due_box.append (due_label);
         due_box.append (repeat_revealer);
     
