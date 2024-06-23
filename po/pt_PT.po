@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-31 11:01-0500\n"
+"POT-Creation-Date: 2024-06-23 04:28-0500\n"
 "PO-Revision-Date: 2023-12-23 16:50-0300\n"
 "Last-Translator: Ana Godinho <godinhoana54@gmail.com>\n"
 "Language: pt_PT\n"
@@ -20,10 +20,10 @@ msgstr ""
 #: core/Enum.vala:105 core/Util/Util.vala:229 core/Util/Datetime.vala:64
 #: core/Util/Datetime.vala:89
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:81
-#: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:111
-#: src/Layouts/ItemRow.vala:993 src/Layouts/ItemBoard.vala:626
+#: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:113
+#: src/Layouts/ItemRow.vala:982 src/Layouts/ItemBoard.vala:624
 #: src/Views/Project/Project.vala:463 src/Views/Project/Project.vala:630
-#: src/Views/Today.vala:53 src/Views/Today.vala:167
+#: src/Views/Today.vala:53 src/Views/Today.vala:166
 #: src/Dialogs/DatePicker.vala:60
 #: src/Dialogs/Preferences/PreferencesWindow.vala:348
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:37
@@ -33,7 +33,7 @@ msgstr "Hoje"
 #: core/Enum.vala:108 core/Util/Util.vala:226 core/Util/Util.vala:574
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:77
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:100
-#: src/Layouts/FilterPaneRow.vala:115
+#: src/Layouts/FilterPaneRow.vala:117
 #: src/Dialogs/ProjectPicker/ProjectPickerRow.vala:126
 #: src/Dialogs/Preferences/PreferencesWindow.vala:347
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:36
@@ -41,14 +41,14 @@ msgid "Inbox"
 msgstr "Caixa de Entrada"
 
 #: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
-#: src/Layouts/FilterPaneRow.vala:119 src/Views/Scheduled/Scheduled.vala:64
+#: src/Layouts/FilterPaneRow.vala:121 src/Views/Scheduled/Scheduled.vala:64
 #: src/Dialogs/Preferences/PreferencesWindow.vala:349
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:38
 msgid "Scheduled"
 msgstr "Agendado"
 
 #: core/Enum.vala:114 core/Objects/Filters/Pinboard.vala:51
-#: src/Layouts/FilterPaneRow.vala:123 src/Views/Filter.vala:206
+#: src/Layouts/FilterPaneRow.vala:125 src/Views/Filter.vala:206
 #: src/Dialogs/Preferences/PreferencesWindow.vala:351
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:39
 msgid "Pinboard"
@@ -68,7 +68,7 @@ msgid "Tasks"
 msgstr "Tarefas"
 
 #: core/Enum.vala:190 core/Widgets/LabelPicker/LabelButton.vala:69
-#: core/Objects/Filters/Labels.vala:50 src/Layouts/FilterPaneRow.vala:127
+#: core/Objects/Filters/Labels.vala:50 src/Layouts/FilterPaneRow.vala:129
 #: src/Views/Label/Labels.vala:37 src/Dialogs/LabelPicker.vala:35
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
 #: src/Dialogs/Preferences/Pages/Backup.vala:183
@@ -146,7 +146,7 @@ msgstr "A cada %d anos"
 
 #: core/Enum.vala:336 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:499
-#: src/Views/Today.vala:549 src/Views/Today.vala:581
+#: src/Views/Today.vala:554 src/Views/Today.vala:586
 #: src/Views/Scheduled/Scheduled.vala:190
 #: src/Views/Scheduled/Scheduled.vala:222
 msgid "Priority"
@@ -158,7 +158,7 @@ msgid "Label"
 msgstr "Etiquetas"
 
 #: core/Enum.vala:342 src/Views/Project/Project.vala:453
-#: src/Views/Today.vala:546 src/Views/Scheduled/Scheduled.vala:187
+#: src/Views/Today.vala:551 src/Views/Scheduled/Scheduled.vala:187
 #, fuzzy
 msgid "Due Date"
 msgstr "Data limite"
@@ -167,16 +167,25 @@ msgstr "Data limite"
 msgid "To-do name"
 msgstr "Nome da tarefa"
 
-#: core/QuickAdd.vala:135
-msgid "Add"
+#: core/QuickAdd.vala:71
+msgid "This field is required"
 msgstr ""
 
-#: core/QuickAdd.vala:142
+#: core/QuickAdd.vala:91
+#, fuzzy
+msgid "Add a description…"
+msgstr "Adicionar uma descrição"
+
+#: core/QuickAdd.vala:149
+msgid "Add To-Do"
+msgstr "Adicionar tarefa"
+
+#: core/QuickAdd.vala:156
 #, fuzzy
 msgid "Create More"
 msgstr "Criar um projeto"
 
-#: core/QuickAdd.vala:180
+#: core/QuickAdd.vala:194
 msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
@@ -277,8 +286,8 @@ msgstr "Escuro"
 msgid "Dark Blue"
 msgstr "Azul Escuro"
 
-#: core/Util/Util.vala:223 src/Layouts/ItemRow.vala:1234
-#: src/Layouts/ItemSidebarView.vala:550
+#: core/Util/Util.vala:223 src/Layouts/ItemRow.vala:1223
+#: src/Layouts/ItemSidebarView.vala:558
 #: src/Dialogs/Preferences/PreferencesWindow.vala:546
 msgid "None"
 msgstr "Nenhum"
@@ -290,12 +299,12 @@ msgstr "Hoje + Caixa de Entrada"
 #: core/Util/Util.vala:381 core/Objects/Project.vala:795
 #: core/Objects/Project.vala:837 core/Objects/Section.vala:340
 #: core/Objects/Section.vala:366 src/Objects/Backup.vala:130
-#: src/Layouts/LabelRow.vala:177 src/Layouts/ItemSidebarView.vala:672
-#: src/Layouts/SectionBoard.vala:565 src/Widgets/MultiSelectToolbar.vala:257
+#: src/Layouts/LabelRow.vala:177 src/Layouts/ItemSidebarView.vala:680
+#: src/Layouts/SectionBoard.vala:565 src/Widgets/MultiSelectToolbar.vala:259
 #: src/Views/Project/Project.vala:601 src/Views/Filter.vala:539
 #: src/Dialogs/QuickFind/QuickFind.vala:44
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1426
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1830
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1458
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1862
 #: src/Dialogs/Preferences/Pages/Backup.vala:195
 #: src/Dialogs/Preferences/Pages/Backup.vala:254
 msgid "Cancel"
@@ -311,8 +320,8 @@ msgid "Process completed, you need to start Planify again."
 msgstr "Processo completo, é necessário reiniciar o Planify."
 
 #: core/Util/Util.vala:398 src/Services/Backups.vala:509
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1337
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1575
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1369
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1607
 msgid "Ok"
 msgstr "Ok"
 
@@ -452,7 +461,7 @@ msgstr "Mostrar eventos de Calendário"
 #, fuzzy
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
-"'Preferences' 🡒 Calendar Events to turn it on."
+"'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
 "Pode mostrar os eventos do calendário do sistema no Planify, Vá "
 "às'Preferências' 🡒 Eventoos de calendário para ligar."
@@ -524,7 +533,7 @@ msgstr "🏡️Casa"
 msgid "🏃‍♀️️Follow Up"
 msgstr ""
 
-#: core/Util/Util.vala:897 core/Objects/Item.vala:1515
+#: core/Util/Util.vala:897 core/Objects/Item.vala:1520
 #, fuzzy, c-format
 msgid "Task moved to %s"
 msgstr "Tarefa adicionada a <b>%s</b>"
@@ -544,10 +553,38 @@ msgstr "Secções"
 msgid "Project duplicated"
 msgstr "Descrição do Projeto"
 
+#: core/Util/Util.vala:1213 src/Dialogs/Preferences/PreferencesWindow.vala:613
+msgid "At due time"
+msgstr ""
+
+#: core/Util/Util.vala:1216 src/Dialogs/Preferences/PreferencesWindow.vala:614
+msgid "10 minutes before"
+msgstr ""
+
+#: core/Util/Util.vala:1219 src/Dialogs/Preferences/PreferencesWindow.vala:615
+msgid "30 minutes before"
+msgstr ""
+
+#: core/Util/Util.vala:1222 src/Dialogs/Preferences/PreferencesWindow.vala:616
+msgid "45 minutes before"
+msgstr ""
+
+#: core/Util/Util.vala:1225 src/Dialogs/Preferences/PreferencesWindow.vala:617
+msgid "1 hour before"
+msgstr ""
+
+#: core/Util/Util.vala:1228 src/Dialogs/Preferences/PreferencesWindow.vala:618
+msgid "2 hours before"
+msgstr ""
+
+#: core/Util/Util.vala:1231 src/Dialogs/Preferences/PreferencesWindow.vala:619
+msgid "3 hours before"
+msgstr ""
+
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
-#: core/Objects/Filters/Tomorrow.vala:33 src/Layouts/ItemRow.vala:996
-#: src/Layouts/ItemBoard.vala:629 src/Views/Filter.vala:200
+#: core/Objects/Filters/Tomorrow.vala:33 src/Layouts/ItemRow.vala:985
+#: src/Layouts/ItemBoard.vala:627 src/Views/Filter.vala:200
 #: src/Dialogs/DatePicker.vala:64
 msgid "Tomorrow"
 msgstr "Amanhã"
@@ -603,40 +640,40 @@ msgstr "Sáb,"
 msgid "Su,"
 msgstr "Dom,"
 
-#: core/Services/Todoist.vala:1514
+#: core/Services/Todoist.vala:1544
 msgid "The request was incorrect."
 msgstr "O pedido foi incorreto."
 
-#: core/Services/Todoist.vala:1515
+#: core/Services/Todoist.vala:1545
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr "Autenticação é requerida, mas falhou ou ainda não foi fornecida."
 
-#: core/Services/Todoist.vala:1516
+#: core/Services/Todoist.vala:1546
 msgid "The request was valid, but for something that is forbidden."
 msgstr "O pedido foi válido, mas por algum motivo é proibido."
 
-#: core/Services/Todoist.vala:1517
+#: core/Services/Todoist.vala:1547
 msgid "The requested resource could not be found."
 msgstr "O recurso requerido não pôde ser encontrado."
 
-#: core/Services/Todoist.vala:1518
+#: core/Services/Todoist.vala:1548
 msgid "The user has sent too many requests in a given amount of time."
 msgstr "O utilizador mandou muitos pedidos em um dado período de tempo."
 
-#: core/Services/Todoist.vala:1519
+#: core/Services/Todoist.vala:1549
 msgid "The request failed due to a server error."
 msgstr "O pedido falhou devido a um erro de servidor."
 
-#: core/Services/Todoist.vala:1520
+#: core/Services/Todoist.vala:1550
 msgid "The server is currently unable to handle the request."
 msgstr "O servidor não pode processar o pedido no momento."
 
-#: core/Services/Todoist.vala:1522
+#: core/Services/Todoist.vala:1552
 msgid "Unknown error"
 msgstr "Erro desconhecido"
 
-#: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:219
+#: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:217
 msgid "Pinned"
 msgstr "Fixado"
 
@@ -687,7 +724,7 @@ msgid "To Do"
 msgstr ""
 
 #: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
-#: src/Layouts/ItemRow.vala:1007 src/Layouts/ItemBoard.vala:639
+#: src/Layouts/ItemRow.vala:996 src/Layouts/ItemBoard.vala:637
 msgid "Complete"
 msgstr "Completar"
 
@@ -729,42 +766,35 @@ msgstr "Sex"
 msgid "Sa"
 msgstr "Sáb"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:68
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:75
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:93
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:149
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:201
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:204
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:205
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:264
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:265
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:65
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:74
 #: src/Views/Project/List.vala:313 src/Views/Project/Board.vala:241
 msgid "Schedule"
 msgstr "Agendar"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:154
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:200
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:157
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:203
 #, fuzzy
 msgid "Set a Due Date"
 msgstr "Data limite"
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:243
-#: src/Dialogs/RepeatConfig.vala:421
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:246
+#: src/Dialogs/RepeatConfig.vala:422
 msgid "until"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:246
-#: src/Dialogs/RepeatConfig.vala:425
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:249
+#: src/Dialogs/RepeatConfig.vala:426
 msgid "for"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:246
-#: src/Dialogs/RepeatConfig.vala:425
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:249
+#: src/Dialogs/RepeatConfig.vala:426
 msgid "times"
 msgstr ""
 
-#: core/Widgets/DateTimePicker/ScheduleButton.vala:246
-#: src/Dialogs/RepeatConfig.vala:425
+#: core/Widgets/DateTimePicker/ScheduleButton.vala:249
+#: src/Dialogs/RepeatConfig.vala:426
 msgid "time"
 msgstr ""
 
@@ -777,13 +807,13 @@ msgid "Choose a date"
 msgstr "Escolha uma data"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:142
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:134
 msgid "Time"
 msgstr "Hora"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:110
 #: src/Widgets/MultiSelectToolbar.vala:80 src/Dialogs/DatePicker.vala:102
-#: src/Dialogs/RepeatConfig.vala:226
+#: src/Dialogs/RepeatConfig.vala:227
 msgid "Done"
 msgstr "Feito"
 
@@ -792,7 +822,8 @@ msgid "Clear"
 msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
-#: src/Layouts/ItemRow.vala:1135 src/Layouts/ItemSidebarView.vala:444
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:119
+#: src/Layouts/ItemRow.vala:1124 src/Layouts/ItemSidebarView.vala:452
 #: src/Layouts/HeaderBar.vala:68 src/Dialogs/Preferences/SettingsHeader.vala:47
 #, fuzzy
 msgid "Back"
@@ -818,8 +849,8 @@ msgstr "Neste computador"
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:32
 #: src/Layouts/Sidebar.vala:108 src/Dialogs/Project.vala:127
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:172
-#: src/Dialogs/Preferences/PreferencesWindow.vala:817
-#: src/Dialogs/Preferences/PreferencesWindow.vala:951
+#: src/Dialogs/Preferences/PreferencesWindow.vala:849
+#: src/Dialogs/Preferences/PreferencesWindow.vala:983
 #: src/Dialogs/Preferences/Pages/Backup.vala:162
 msgid "Todoist"
 msgstr "Todoist"
@@ -827,8 +858,9 @@ msgstr "Todoist"
 #: core/Widgets/ProjectPicker/ProjectPickerPopover.vala:38
 #: src/Layouts/Sidebar.vala:111
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:176
-#: src/Dialogs/Preferences/PreferencesWindow.vala:845
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1379
+#: src/Dialogs/Preferences/PreferencesWindow.vala:877
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1072
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1411
 msgid "Nextcloud"
 msgstr ""
 
@@ -866,13 +898,14 @@ msgstr "Procurar"
 #: core/Widgets/ReminderPicker/ReminderButton.vala:46
 #: core/Widgets/ReminderPicker/ReminderButton.vala:59
 #: core/Widgets/ReminderPicker/ReminderButton.vala:133
-#: core/Widgets/ReminderPicker/ReminderButton.vala:154
+#: core/Widgets/ReminderPicker/ReminderButton.vala:158
 #, fuzzy
 msgid "Add Reminders"
 msgstr "Adicionar lembrete"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:54
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:46
+#: src/Dialogs/Preferences/PreferencesWindow.vala:605
 msgid "Reminders"
 msgstr "Lembretes"
 
@@ -883,13 +916,12 @@ msgid ""
 msgstr ""
 "A sua lista de filtros irá aparecer aqui. Crie uma clicando no botão '+'"
 
-#: core/Widgets/ReminderPicker/ReminderPicker.vala:162
-#: core/Widgets/ReminderPicker/ReminderRow.vala:53
+#: core/Widgets/ReminderPicker/ReminderPicker.vala:152
 #, fuzzy
 msgid "Add Reminder"
 msgstr "Adicionar lembrete"
 
-#: core/Objects/Item.vala:1282
+#: core/Objects/Item.vala:1300
 msgid "Task copied to clipboard"
 msgstr "Tarefa copiada para a área de transferência"
 
@@ -904,17 +936,17 @@ msgstr "Eliminar Projeto"
 
 #: core/Objects/Project.vala:792 core/Objects/Section.vala:337
 #: src/Objects/Backup.vala:127 src/Layouts/LabelRow.vala:174
-#: src/Layouts/ItemSidebarView.vala:669 src/Layouts/SectionBoard.vala:562
+#: src/Layouts/ItemSidebarView.vala:677 src/Layouts/SectionBoard.vala:562
 msgid "This can not be undone"
 msgstr ""
 
 #: core/Objects/Project.vala:796 core/Objects/Section.vala:341
 #: src/Objects/Backup.vala:131 src/Layouts/LabelRow.vala:178
-#: src/Layouts/ItemSidebarView.vala:673 src/Layouts/SectionBoard.vala:566
-#: src/Widgets/MultiSelectToolbar.vala:218
-#: src/Widgets/MultiSelectToolbar.vala:258 src/Views/Project/Project.vala:602
+#: src/Layouts/ItemSidebarView.vala:681 src/Layouts/SectionBoard.vala:566
+#: src/Widgets/MultiSelectToolbar.vala:220
+#: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:602
 #: src/Views/Filter.vala:540
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1831
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1863
 #: src/Dialogs/Preferences/Pages/Backup.vala:385
 msgid "Delete"
 msgstr "Eliminar"
@@ -929,7 +961,7 @@ msgid "This will archive %s and all its tasks."
 msgstr ""
 
 #: core/Objects/Project.vala:838 core/Objects/Section.vala:367
-#: src/Layouts/ProjectRow.vala:638 src/Layouts/SectionRow.vala:626
+#: src/Layouts/ProjectRow.vala:638 src/Layouts/SectionRow.vala:669
 #: src/Views/Project/Project.vala:281
 msgid "Archive"
 msgstr ""
@@ -961,7 +993,7 @@ msgstr "próximo"
 msgid "today"
 msgstr "hoje"
 
-#: core/Objects/Filters/Completed.vala:50 src/Layouts/FilterPaneRow.vala:131
+#: core/Objects/Filters/Completed.vala:50 src/Layouts/FilterPaneRow.vala:133
 #: src/Views/Filter.vala:194 src/Dialogs/Preferences/Pages/Sidebar.vala:41
 msgid "Completed"
 msgstr "Concluído"
@@ -1048,34 +1080,34 @@ msgstr ""
 "irá correr quando a janela estiver fechada para que possa enviar "
 "notificações das tarefas."
 
-#: src/MainWindow.vala:73
+#: src/MainWindow.vala:78
 msgid "Main Menu"
 msgstr ""
 
-#: src/MainWindow.vala:78
+#: src/MainWindow.vala:83
 #, fuzzy
 msgid "Open Quick Find"
 msgstr "Abrir busca rápida"
 
-#: src/MainWindow.vala:489 src/Dialogs/Preferences/PreferencesWindow.vala:49
+#: src/MainWindow.vala:494 src/Dialogs/Preferences/PreferencesWindow.vala:49
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:492
+#: src/MainWindow.vala:497
 #, fuzzy
 msgid "Keyboard Shortcuts"
 msgstr "Atalhos de teclado"
 
-#: src/MainWindow.vala:495 src/Dialogs/WhatsNew.vala:146
+#: src/MainWindow.vala:500 src/Dialogs/WhatsNew.vala:146
 msgid "What's New"
 msgstr "O que há de novo"
 
-#: src/MainWindow.vala:498
+#: src/MainWindow.vala:503
 #, fuzzy
 msgid "About Planify"
 msgstr "Sobre o Planify"
 
-#: src/MainWindow.vala:500
+#: src/MainWindow.vala:505
 #, fuzzy
 msgid "Archived Projects"
 msgstr "Adicionar projeto"
@@ -1182,9 +1214,9 @@ msgstr "Adicionar aos favoritos"
 msgid "Edit Project"
 msgstr "Editar Projeto"
 
-#: src/Layouts/ProjectRow.vala:635 src/Layouts/SectionRow.vala:624
-#: src/Layouts/ItemRow.vala:1009 src/Layouts/ItemRow.vala:1138
-#: src/Layouts/ItemBoard.vala:641 src/Layouts/ItemSidebarView.vala:447
+#: src/Layouts/ProjectRow.vala:635 src/Layouts/SectionRow.vala:667
+#: src/Layouts/ItemRow.vala:998 src/Layouts/ItemRow.vala:1127
+#: src/Layouts/ItemBoard.vala:639 src/Layouts/ItemSidebarView.vala:455
 #: src/Layouts/SectionBoard.vala:496 src/Views/Project/Project.vala:267
 #, fuzzy
 msgid "Duplicate"
@@ -1213,133 +1245,133 @@ msgstr "Enviar por e-mail"
 msgid "(No Section)"
 msgstr "(Sem secção)"
 
-#: src/Layouts/SectionRow.vala:620 src/Layouts/SectionBoard.vala:492
+#: src/Layouts/SectionRow.vala:663 src/Layouts/SectionBoard.vala:492
 #: src/Widgets/MagicButton.vala:46
 msgid "Add Task"
 msgstr "Adicionar Tarefa"
 
-#: src/Layouts/SectionRow.vala:621 src/Layouts/SectionBoard.vala:493
+#: src/Layouts/SectionRow.vala:664 src/Layouts/SectionBoard.vala:493
 #: src/Dialogs/Section.vala:51
 msgid "Edit Section"
 msgstr "Editar Secção"
 
-#: src/Layouts/SectionRow.vala:622 src/Layouts/SectionBoard.vala:494
+#: src/Layouts/SectionRow.vala:665 src/Layouts/SectionBoard.vala:494
 msgid "Move Section"
 msgstr "Mover Secção"
 
-#: src/Layouts/SectionRow.vala:623 src/Layouts/SectionBoard.vala:495
+#: src/Layouts/SectionRow.vala:666 src/Layouts/SectionBoard.vala:495
 msgid "Manage Section Order"
 msgstr "Gerir Ordem de Secção"
 
-#: src/Layouts/SectionRow.vala:627 src/Layouts/SectionBoard.vala:497
+#: src/Layouts/SectionRow.vala:670 src/Layouts/SectionBoard.vala:497
 #: src/Dialogs/ProjectPicker/SectionPickerRow.vala:181
 msgid "Delete Section"
 msgstr "Eliminar Secção"
 
-#: src/Layouts/ItemRow.vala:428
+#: src/Layouts/ItemRow.vala:432
 #, fuzzy
 msgid "Add Subtasks"
 msgstr "Adicionar subtarefa"
 
-#: src/Layouts/ItemRow.vala:438
+#: src/Layouts/ItemRow.vala:442
 #, fuzzy
 msgid "Add Attachments"
 msgstr "Adicionar Tarefa"
 
-#: src/Layouts/ItemRow.vala:999 src/Layouts/ItemBoard.vala:632
+#: src/Layouts/ItemRow.vala:988 src/Layouts/ItemBoard.vala:630
 #, fuzzy
 msgid "Pin"
 msgstr "Fixado"
 
-#: src/Layouts/ItemRow.vala:1001 src/Layouts/ItemBoard.vala:634
+#: src/Layouts/ItemRow.vala:990 src/Layouts/ItemBoard.vala:632
 #: src/Views/Project/Project.vala:468 src/Views/Project/Project.vala:640
 #: src/Dialogs/DatePicker.vala:72
 msgid "No Date"
 msgstr "Sem Data"
 
-#: src/Layouts/ItemRow.vala:1004 src/Layouts/ItemRow.vala:1139
-#: src/Layouts/ItemBoard.vala:636 src/Layouts/ItemSidebarView.vala:448
+#: src/Layouts/ItemRow.vala:993 src/Layouts/ItemRow.vala:1128
+#: src/Layouts/ItemBoard.vala:634 src/Layouts/ItemSidebarView.vala:456
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:71
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:102
 msgid "Move"
 msgstr "Mover"
 
-#: src/Layouts/ItemRow.vala:1006 src/Layouts/ItemBoard.vala:638
+#: src/Layouts/ItemRow.vala:995 src/Layouts/ItemBoard.vala:636
 #, fuzzy
 msgid "Add Subtask"
 msgstr "Adicionar subtarefa"
 
-#: src/Layouts/ItemRow.vala:1008 src/Layouts/ItemBoard.vala:640
+#: src/Layouts/ItemRow.vala:997 src/Layouts/ItemBoard.vala:638
 msgid "Edit"
 msgstr "Editar"
 
-#: src/Layouts/ItemRow.vala:1011 src/Layouts/ItemRow.vala:1143
-#: src/Layouts/ItemBoard.vala:643 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1000 src/Layouts/ItemRow.vala:1132
+#: src/Layouts/ItemBoard.vala:641 src/Layouts/ItemSidebarView.vala:460
 #, fuzzy
 msgid "Delete Task"
 msgstr "Eliminar tarefa"
 
-#: src/Layouts/ItemRow.vala:1123 src/Layouts/ItemSidebarView.vala:655
+#: src/Layouts/ItemRow.vala:1112 src/Layouts/ItemSidebarView.vala:663
 msgid "Added at"
 msgstr "Adicionado em"
 
-#: src/Layouts/ItemRow.vala:1124 src/Layouts/ItemSidebarView.vala:656
+#: src/Layouts/ItemRow.vala:1113 src/Layouts/ItemSidebarView.vala:664
 msgid "Updated at"
 msgstr "Atualizado às"
 
-#: src/Layouts/ItemRow.vala:1126 src/Layouts/ItemSidebarView.vala:658
+#: src/Layouts/ItemRow.vala:1115 src/Layouts/ItemSidebarView.vala:666
 msgid "Not available"
 msgstr "Não disponível"
 
-#: src/Layouts/ItemRow.vala:1137 src/Layouts/ItemSidebarView.vala:446
+#: src/Layouts/ItemRow.vala:1126 src/Layouts/ItemSidebarView.vala:454
 #, fuzzy
 msgid "Copy to Clipboard"
 msgstr "Copiar para a área de transferência"
 
-#: src/Layouts/ItemRow.vala:1140 src/Layouts/ItemSidebarView.vala:449
+#: src/Layouts/ItemRow.vala:1129 src/Layouts/ItemSidebarView.vala:457
 #: src/Dialogs/RepeatConfig.vala:87
 msgid "Repeat"
 msgstr "Repetir"
 
-#: src/Layouts/ItemRow.vala:1235 src/Layouts/ItemSidebarView.vala:551
+#: src/Layouts/ItemRow.vala:1224 src/Layouts/ItemSidebarView.vala:559
 msgid "Daily"
 msgstr "Diária"
 
-#: src/Layouts/ItemRow.vala:1236 src/Layouts/ItemSidebarView.vala:552
+#: src/Layouts/ItemRow.vala:1225 src/Layouts/ItemSidebarView.vala:560
 #, fuzzy
 msgid "Weekly"
 msgstr "Semanal"
 
-#: src/Layouts/ItemRow.vala:1237 src/Layouts/ItemSidebarView.vala:553
+#: src/Layouts/ItemRow.vala:1226 src/Layouts/ItemSidebarView.vala:561
 #, fuzzy
 msgid "Monthly"
 msgstr "Mensal"
 
-#: src/Layouts/ItemRow.vala:1238 src/Layouts/ItemSidebarView.vala:554
+#: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemSidebarView.vala:562
 #, fuzzy
 msgid "Yearly"
 msgstr "Anual"
 
-#: src/Layouts/ItemRow.vala:1239 src/Layouts/ItemSidebarView.vala:555
+#: src/Layouts/ItemRow.vala:1228 src/Layouts/ItemSidebarView.vala:563
 msgid "Custom"
 msgstr "Personalizado"
 
-#: src/Layouts/ItemRow.vala:1447 src/Layouts/ItemBoard.vala:527
-#: src/Layouts/ItemSidebarView.vala:755
+#: src/Layouts/ItemRow.vala:1430 src/Layouts/ItemBoard.vala:525
+#: src/Layouts/ItemSidebarView.vala:763
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr "Concluído. Próxima ocorrência: %s"
 
-#: src/Layouts/ItemRow.vala:1489 src/Layouts/ItemBoard.vala:1007
+#: src/Layouts/ItemRow.vala:1472 src/Layouts/ItemBoard.vala:1005
 #, fuzzy, c-format
 msgid "%s was deleted"
 msgstr "A tarefa foi eliminada"
 
-#: src/Layouts/ItemRow.vala:1490 src/Layouts/ItemBoard.vala:1008
+#: src/Layouts/ItemRow.vala:1473 src/Layouts/ItemBoard.vala:1006
 msgid "Undo"
 msgstr "Desfazer"
 
-#: src/Layouts/ItemRow.vala:1690 src/Layouts/ItemBoard.vala:908
+#: src/Layouts/ItemRow.vala:1673 src/Layouts/ItemBoard.vala:906
 #, fuzzy
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
@@ -1363,23 +1395,23 @@ msgstr "Eliminar etiqueta"
 msgid "Delete Label %s"
 msgstr "Eliminar etiqueta"
 
-#: src/Layouts/ItemSidebarView.vala:78
+#: src/Layouts/ItemSidebarView.vala:79
 msgid "Close Detail"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:131
+#: src/Layouts/ItemSidebarView.vala:132
 msgid "Title"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:161
+#: src/Layouts/ItemSidebarView.vala:162
 msgid "Properties"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:180 src/Dialogs/Section.vala:85
+#: src/Layouts/ItemSidebarView.vala:181 src/Dialogs/Section.vala:85
 msgid "Description"
 msgstr "Descrição"
 
-#: src/Layouts/ItemSidebarView.vala:668
+#: src/Layouts/ItemSidebarView.vala:676
 #, fuzzy
 msgid "Are you sure you want to delete?"
 msgstr "Tem a certeza que quer eliminar <b>%s</b>?"
@@ -1404,25 +1436,25 @@ msgstr ""
 "As mudanças que fez no modo offline\n"
 "serão sincronizadas quando reconectar"
 
-#: src/Widgets/MultiSelectToolbar.vala:216
+#: src/Widgets/MultiSelectToolbar.vala:218
 #, fuzzy
 msgid "Mark as Completed"
 msgstr "Marcar como Concluída"
 
-#: src/Widgets/MultiSelectToolbar.vala:246
+#: src/Widgets/MultiSelectToolbar.vala:248
 msgid "Delete To-Do"
 msgstr "Eliminar Tarefa"
 
-#: src/Widgets/MultiSelectToolbar.vala:247
+#: src/Widgets/MultiSelectToolbar.vala:249
 msgid "Are you sure you want to delete this to-do?"
 msgstr "Tem a certeza que quer eliminar esta tarefa?"
 
-#: src/Widgets/MultiSelectToolbar.vala:249
+#: src/Widgets/MultiSelectToolbar.vala:251
 #, c-format
 msgid "Delete %d To-Dos"
 msgstr "Eliminar %d Tarefas"
 
-#: src/Widgets/MultiSelectToolbar.vala:250
+#: src/Widgets/MultiSelectToolbar.vala:252
 #, c-format
 msgid "Are you sure you want to delete these %d to-dos?"
 msgstr "Tem a certeza que quer eliminar estas %d tarefas?"
@@ -1491,13 +1523,13 @@ msgstr "Quadro de anúncios"
 msgid "Custom sort order"
 msgstr "Ordem de classificação personalizada"
 
-#: src/Views/Project/Project.vala:452 src/Views/Today.vala:547
+#: src/Views/Project/Project.vala:452 src/Views/Today.vala:552
 #: src/Views/Scheduled/Scheduled.vala:188
 #: src/Dialogs/Preferences/PreferencesWindow.vala:364
 msgid "Alphabetically"
 msgstr "Alfabeticamente"
 
-#: src/Views/Project/Project.vala:454 src/Views/Today.vala:548
+#: src/Views/Project/Project.vala:454 src/Views/Today.vala:553
 #: src/Views/Scheduled/Scheduled.vala:189
 #, fuzzy
 msgid "Date Added"
@@ -1534,27 +1566,27 @@ msgstr ""
 msgid "Duedate"
 msgstr "Atualizar"
 
-#: src/Views/Project/Project.vala:477 src/Views/Today.vala:559
+#: src/Views/Project/Project.vala:477 src/Views/Today.vala:564
 #: src/Views/Scheduled/Scheduled.vala:200
 msgid "P1"
 msgstr ""
 
-#: src/Views/Project/Project.vala:483 src/Views/Today.vala:565
+#: src/Views/Project/Project.vala:483 src/Views/Today.vala:570
 #: src/Views/Scheduled/Scheduled.vala:206
 msgid "P2"
 msgstr ""
 
-#: src/Views/Project/Project.vala:489 src/Views/Today.vala:571
+#: src/Views/Project/Project.vala:489 src/Views/Today.vala:576
 #: src/Views/Scheduled/Scheduled.vala:212
 msgid "P3"
 msgstr ""
 
-#: src/Views/Project/Project.vala:495 src/Views/Today.vala:577
+#: src/Views/Project/Project.vala:495 src/Views/Today.vala:582
 #: src/Views/Scheduled/Scheduled.vala:218
 msgid "P4"
 msgstr ""
 
-#: src/Views/Project/Project.vala:502 src/Views/Today.vala:584
+#: src/Views/Project/Project.vala:502 src/Views/Today.vala:589
 #: src/Views/Scheduled/Scheduled.vala:225
 msgid "Filter by Labels"
 msgstr "Filtrar por etiquetas"
@@ -1578,7 +1610,7 @@ msgstr "Sublinhar tarefas concluídas"
 msgid "Sort By"
 msgstr "Ordenar por"
 
-#: src/Views/Project/Project.vala:533 src/Views/Today.vala:592
+#: src/Views/Project/Project.vala:533 src/Views/Today.vala:597
 #: src/Views/Scheduled/Scheduled.vala:233
 #, fuzzy
 msgid "Filter By"
@@ -1593,13 +1625,13 @@ msgstr ""
 msgid "Note"
 msgstr ""
 
-#: src/Views/Project/List.vala:82 src/Views/Today.vala:222
+#: src/Views/Project/List.vala:82 src/Views/Today.vala:221
 #: src/Views/Label/Label.vala:69 src/Views/Filter.vala:83
 #, fuzzy
 msgid "Add Some Tasks"
 msgstr "Adicionar Tarefa"
 
-#: src/Views/Project/List.vala:83 src/Views/Today.vala:223
+#: src/Views/Project/List.vala:83 src/Views/Today.vala:222
 #: src/Views/Label/Label.vala:70 src/Views/Filter.vala:84
 #, fuzzy
 msgid "Press a to create a new task"
@@ -1613,7 +1645,7 @@ msgstr "Atrasado"
 msgid "Reschedule"
 msgstr "Reagendar"
 
-#: src/Views/Today.vala:551 src/Views/Scheduled/Scheduled.vala:192
+#: src/Views/Today.vala:556 src/Views/Scheduled/Scheduled.vala:192
 msgid "Order by"
 msgstr "Ordenar por"
 
@@ -1717,8 +1749,8 @@ msgid "Please enter your credentials"
 msgstr "Insira os seus dados, por favor"
 
 #: src/Dialogs/GoogleOAuth.vala:157
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1334
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1336
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1366
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1368
 msgid "Network Is Not Available"
 msgstr "A Internet Não Está Disponível"
 
@@ -1796,88 +1828,88 @@ msgstr "Próxima semana"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Minute(s)"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Hour(s)"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Day(s)"
 msgstr "Dia(s)"
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Week(s)"
 msgstr "Semana(s)"
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Month(s)"
 msgstr "Mês(es)"
 
-#: src/Dialogs/RepeatConfig.vala:117
+#: src/Dialogs/RepeatConfig.vala:118
 msgid "Year(s)"
 msgstr "Ano(s)"
 
-#: src/Dialogs/RepeatConfig.vala:136
+#: src/Dialogs/RepeatConfig.vala:137
 #: src/Dialogs/Preferences/PreferencesWindow.vala:443
 msgid "Monday"
 msgstr "Segunda-feira"
 
-#: src/Dialogs/RepeatConfig.vala:137
+#: src/Dialogs/RepeatConfig.vala:138
 #: src/Dialogs/Preferences/PreferencesWindow.vala:444
 msgid "Tuesday"
 msgstr "Terça-feira"
 
-#: src/Dialogs/RepeatConfig.vala:138
+#: src/Dialogs/RepeatConfig.vala:139
 #: src/Dialogs/Preferences/PreferencesWindow.vala:445
 msgid "Wednesday"
 msgstr "Quarta-feira"
 
-#: src/Dialogs/RepeatConfig.vala:139
+#: src/Dialogs/RepeatConfig.vala:140
 #: src/Dialogs/Preferences/PreferencesWindow.vala:446
 msgid "Thursday"
 msgstr "Quinta-feira"
 
-#: src/Dialogs/RepeatConfig.vala:140
+#: src/Dialogs/RepeatConfig.vala:141
 #: src/Dialogs/Preferences/PreferencesWindow.vala:447
 msgid "Friday"
 msgstr "Sexta-feita"
 
-#: src/Dialogs/RepeatConfig.vala:141
+#: src/Dialogs/RepeatConfig.vala:142
 #: src/Dialogs/Preferences/PreferencesWindow.vala:448
 msgid "Saturday"
 msgstr "Sábado"
 
-#: src/Dialogs/RepeatConfig.vala:142
+#: src/Dialogs/RepeatConfig.vala:143
 #: src/Dialogs/Preferences/PreferencesWindow.vala:442
 msgid "Sunday"
 msgstr "Domingo"
 
-#: src/Dialogs/RepeatConfig.vala:168
+#: src/Dialogs/RepeatConfig.vala:169
 msgid "Never"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:172
+#: src/Dialogs/RepeatConfig.vala:173
 #, fuzzy
 msgid "On Date"
 msgstr "Sem Data"
 
-#: src/Dialogs/RepeatConfig.vala:176
+#: src/Dialogs/RepeatConfig.vala:177
 msgid "After"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:241
+#: src/Dialogs/RepeatConfig.vala:242
 msgid "Summary"
 msgstr ""
 
-#: src/Dialogs/RepeatConfig.vala:249
+#: src/Dialogs/RepeatConfig.vala:250
 #, fuzzy
 msgid "Repeat every"
 msgstr "Repetir"
 
-#: src/Dialogs/RepeatConfig.vala:258
+#: src/Dialogs/RepeatConfig.vala:259
 msgid "End"
 msgstr ""
 
@@ -1906,7 +1938,7 @@ msgid ""
 msgstr ""
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:71
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1680
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1712
 #, fuzzy
 msgid "Supporting Us"
 msgstr "Suporte"
@@ -1947,12 +1979,12 @@ msgid "Customize your sidebar"
 msgstr "Ordem de classificação personalizada"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:172
-#: src/Dialogs/Preferences/PreferencesWindow.vala:665
+#: src/Dialogs/Preferences/PreferencesWindow.vala:697
 msgid "Appearance"
 msgstr "Aparência"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:183
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1126
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1158
 #, fuzzy
 msgid "Quick Add"
 msgstr "Busca Rápida"
@@ -1986,7 +2018,7 @@ msgid "Reach Us"
 msgstr "Entre em contacto connosco"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:224
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1630
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1662
 #, fuzzy
 msgid "Contact Us"
 msgstr "Contacte-nos"
@@ -2029,7 +2061,7 @@ msgid "Privacy"
 msgstr "Privacidade"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:307
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1598
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1630
 #, fuzzy
 msgid "Privacy Policy"
 msgstr "Privacidade"
@@ -2216,49 +2248,63 @@ msgstr ""
 msgid "Attention at One"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:668
+#: src/Dialogs/Preferences/PreferencesWindow.vala:609
+msgid "Enabled"
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:622
+#, fuzzy
+msgid "Automatic reminders"
+msgstr "Adicionar lembrete(s)"
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:623
+msgid ""
+"When enabled, a reminder before the task’s due time will be added by default."
+msgstr ""
+
+#: src/Dialogs/Preferences/PreferencesWindow.vala:700
 msgid "App Theme"
 msgstr "Tema da aplicação"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:676
+#: src/Dialogs/Preferences/PreferencesWindow.vala:708
 #, fuzzy
 msgid "Use System Settings"
 msgstr "Usar as configurações do sistema"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:685
+#: src/Dialogs/Preferences/PreferencesWindow.vala:717
 #, fuzzy
 msgid "Light Style"
 msgstr "Estilo azul"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:694
+#: src/Dialogs/Preferences/PreferencesWindow.vala:726
 #, fuzzy
 msgid "Dark Style"
 msgstr "Estilo Escuro"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:703
+#: src/Dialogs/Preferences/PreferencesWindow.vala:735
 #, fuzzy
 msgid "Dark Blue Style"
 msgstr "Estilo Azul Escuro"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:794
-#: src/Dialogs/Preferences/PreferencesWindow.vala:854
+#: src/Dialogs/Preferences/PreferencesWindow.vala:826
+#: src/Dialogs/Preferences/PreferencesWindow.vala:886
 msgid "Accounts"
 msgstr "Contas"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:818
+#: src/Dialogs/Preferences/PreferencesWindow.vala:850
 msgid "Synchronize with your Todoist Account"
 msgstr "Sincronize com sua Conta Todoist"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:846
+#: src/Dialogs/Preferences/PreferencesWindow.vala:878
 msgid "Synchronization based on open Internet standards"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:982
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1068
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1014
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1100
 msgid "Sync Server"
 msgstr "Sincronizar Servidor"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:983
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1015
 #, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
@@ -2267,16 +2313,12 @@ msgstr ""
 "Ative esta configuração para que o Planner sincronize automaticamente com a "
 "sua conta Todoist a cada 15 minutos."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:997
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1083
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1029
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1115
 msgid "Last Sync"
 msgstr "Última Sincronização"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1040
-msgid "CalDAV"
-msgstr ""
-
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1069
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1101
 #, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
@@ -2285,7 +2327,7 @@ msgstr ""
 "Ative esta configuração para que o Planner sincronize automaticamente com a "
 "sua conta Todoist a cada 15 minutos."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1134
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1166
 msgid ""
 "Use Quick Add to create to-dos from anywhere on your desktop with just a few "
 "keystrokes. You don’t even have to leave the app you’re currently in."
@@ -2294,7 +2336,7 @@ msgstr ""
 "com apenasalguns cliques. Nem precisa de sair da aplicação em que se "
 "encontra."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1145
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1177
 msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
@@ -2302,127 +2344,127 @@ msgstr ""
 "Vá às definições do sistema → Teclado → Atalhos → Personalizar, e depois "
 "adicioneum novo atalho com o seguinte:"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1173
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1205
 #, fuzzy
 msgid "Settings"
 msgstr "Definições"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1181
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1213
 #, fuzzy
 msgid "Save Last Selected Project"
 msgstr "Eliminar o Último Projeto Selecionado"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1182
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1214
 #, fuzzy
 msgid "If unchecked, the default project selected is Inbox"
 msgstr ""
 "Se não estiver selecionado, o projeto padrão selecionado é a Caixa de Entrada"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1216
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1248
 #, fuzzy
 msgid "The command was copied to the clipboard"
 msgstr "Este projeto foi copiado para a Área de Transferência."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1231
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1322
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1263
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1354
 #, fuzzy
 msgid "Loading…"
 msgstr "Carregando..."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1258
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1290
 #, fuzzy
 msgid "Planify is is syncing your tasks, this may take a few minutes"
 msgstr ""
 "O Planner está a sincronizar suas tarefas, isto pode levar alguns minutos."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1306
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1338
 msgid "Synchronizing..."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1317
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1349
 #, fuzzy
 msgid "Please Enter Your Credentials"
 msgstr "Insira os seus dados, por favor"
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1367
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1399
 msgid "Nextcloud Setup"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1370
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1402
 msgid "Server URL"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1373
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1405
 msgid "User Name"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1376
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1408
 msgid "Password"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1383
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1415
 msgid "Provider"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1420
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1452
 msgid "Log In"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1523
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1555
 msgid "Failed to login"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1605
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1637
 msgid "Personal Data"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1610
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1642
 msgid ""
 "We collect absolutely nothing and all your data is stored in a database on "
 "your computer."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1615
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1647
 msgid ""
 "If you choose to integrate Todoist, which is optional and not selected by "
 "default, your data will be stored on their private servers, we only display "
 "your configured tasks and manage them for you."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1620
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1652
 msgid "Do you have any questions?"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1625
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1657
 msgid ""
 "If you have any questions about your data or any other issue, please contact "
 "us. We will be happy to answer you."
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1687
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1719
 msgid ""
 "Our mission is to provide the best open source task management application "
 "for users all over the world. Your donations support this work. Want to "
 "donate today?"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1695
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1727
 msgid "Patreon"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1708
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1740
 msgid "PayPal"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1721
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1753
 msgid "Liberapay"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1734
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1766
 msgid "Ko-fi"
 msgstr ""
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1822
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1854
 msgid ""
 "Are you sure you want to remove the Todoist sync? This action will delete "
 "all your tasks and settings."
@@ -2430,7 +2472,7 @@ msgstr ""
 "Tem a certeza que deseja remover a sincronização do Todoist? Esta ação irá "
 "eliminar todas as suas tarefas e definições."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1824
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1856
 #, fuzzy
 msgid ""
 "Are you sure you want to remove the CalDAV sync? This action will delete all "
@@ -2439,7 +2481,7 @@ msgstr ""
 "Tem a certeza que deseja remover a sincronização do Todoist? Esta ação irá "
 "eliminar todas as suas tarefas e definições."
 
-#: src/Dialogs/Preferences/PreferencesWindow.vala:1827
+#: src/Dialogs/Preferences/PreferencesWindow.vala:1859
 #, fuzzy
 msgid "Sign Off"
 msgstr "Sair"
@@ -2661,13 +2703,6 @@ msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "Abrir Quadro de anúncios"
 
-#~ msgid "Add To-Do"
-#~ msgstr "Adicionar tarefa"
-
-#, fuzzy
-#~ msgid "Add a description…"
-#~ msgstr "Adicionar uma descrição"
-
 #, fuzzy
 #~ msgid "Add task"
 #~ msgstr "Adicionar Tarefa"
@@ -2750,9 +2785,6 @@ msgstr "Abrir Quadro de anúncios"
 
 #~ msgid "pinboard"
 #~ msgstr "Quadro de fixados"
-
-#~ msgid "Add reminder(s)"
-#~ msgstr "Adicionar lembrete(s)"
 
 #~ msgid "Reset all"
 #~ msgstr "Repor tudo"

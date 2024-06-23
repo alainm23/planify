@@ -67,6 +67,19 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.8.4" date="2024-06-23">
+      <description translate="no">
+        <ul>
+          <li>Planify now sends reminder notifications when you create a task with a specific time.</li>
+          <li>Fixed bug that removed the description of a task when changing a value in the side view.</li>
+          <li>Fixed bug when selecting weekly repeat changes the selected date and time.</li>
+          <li>Fixed bug when sorting completed tasks.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Dutch translation update thanks to @Gert-dev.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.8.2" date="2024-06-03">
       <description translate="no">
         <ul>
