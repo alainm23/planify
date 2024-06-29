@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-23 04:28-0500\n"
-"PO-Revision-Date: 2024-05-22 16:01-0400\n"
+"PO-Revision-Date: 2024-06-28 20:55-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -165,7 +165,7 @@ msgstr "Nombre de la tarea pendiente"
 
 #: core/QuickAdd.vala:71
 msgid "This field is required"
-msgstr ""
+msgstr "Este campo es obligatorio"
 
 #: core/QuickAdd.vala:91
 msgid "Add a description…"
@@ -450,13 +450,12 @@ msgid "Show your calendar events"
 msgstr "Muestre los eventos de su calendario"
 
 #: core/Util/Util.vala:654
-#, fuzzy
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"Puede mostrar los eventos del calendario de su sistema en Planify. Vaya a "
-"'Preferencias' 🡒 Eventos de calendario para activarlo."
+"Puedes mostrar los eventos del calendario de tu sistema en Planify. Ve a "
+"'Preferencias' 🡒 General 🡒 Eventos de calendario para activarlo."
 
 #: core/Util/Util.vala:660
 msgid "Enable synchronization with third-party service."
@@ -552,31 +551,31 @@ msgstr "Proyecto duplicado"
 
 #: core/Util/Util.vala:1213 src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "At due time"
-msgstr ""
+msgstr "A su debido tiempo"
 
 #: core/Util/Util.vala:1216 src/Dialogs/Preferences/PreferencesWindow.vala:614
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 minutos antes"
 
 #: core/Util/Util.vala:1219 src/Dialogs/Preferences/PreferencesWindow.vala:615
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 minutos antes"
 
 #: core/Util/Util.vala:1222 src/Dialogs/Preferences/PreferencesWindow.vala:616
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 minutos antes"
 
 #: core/Util/Util.vala:1225 src/Dialogs/Preferences/PreferencesWindow.vala:617
 msgid "1 hour before"
-msgstr ""
+msgstr "1 hora antes"
 
 #: core/Util/Util.vala:1228 src/Dialogs/Preferences/PreferencesWindow.vala:618
 msgid "2 hours before"
-msgstr ""
+msgstr "2 horas antes"
 
 #: core/Util/Util.vala:1231 src/Dialogs/Preferences/PreferencesWindow.vala:619
 msgid "3 hours before"
-msgstr ""
+msgstr "3 horas antes"
 
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -1436,11 +1435,11 @@ msgstr "Pegar"
 
 #: src/Views/Project/Project.vala:275
 msgid "Expand All"
-msgstr ""
+msgstr "Expandir todo"
 
 #: src/Views/Project/Project.vala:278
 msgid "Collapse All"
-msgstr ""
+msgstr "Contraer todo"
 
 #: src/Views/Project/Project.vala:412
 msgid "List"
@@ -1585,9 +1584,8 @@ msgid "Labels: Nextcloud"
 msgstr "Etiquetas: Nextcloud"
 
 #: src/Views/Filter.vala:230
-#, fuzzy
 msgid "All Tasks"
-msgstr "Tareas"
+msgstr "Todas las tareas"
 
 #: src/Views/Filter.vala:535
 #, c-format
@@ -2138,17 +2136,18 @@ msgstr "Concentrarse en una"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:609
 msgid "Enabled"
-msgstr ""
+msgstr "Habilitado"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:622
-#, fuzzy
 msgid "Automatic reminders"
-msgstr "¡Establezca recordatorios oportunos!"
+msgstr "Recordatorios automáticos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:623
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
+"Si se activa, se añadirá por defecto un recordatorio antes de la hora de "
+"vencimiento de la tarea."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:700
 msgid "App Theme"
@@ -2262,9 +2261,8 @@ msgid "Please Enter Your Credentials"
 msgstr "Por favor, introduzca sus credenciales"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1399
-#, fuzzy
 msgid "Nextcloud Setup"
-msgstr "Nextcloud"
+msgstr "Configuración de Nextcloud"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1402
 msgid "Server URL"
