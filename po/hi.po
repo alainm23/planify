@@ -1,4 +1,4 @@
-# SOME DESCRIPTIVE TITLE.
+# Planify translation to Hindi.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the io.github.alainm23.planify package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-06-23 04:28-0500\n"
-"PO-Revision-Date: 2024-06-04 11:08+0530\n"
+"PO-Revision-Date: 2024-06-23 20:43+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
@@ -167,17 +167,15 @@ msgstr "करने-हेतु कार्य का नाम"
 
 #: core/QuickAdd.vala:71
 msgid "This field is required"
-msgstr ""
+msgstr "यह क्षेत्र आवश्यक है"
 
 #: core/QuickAdd.vala:91
-#, fuzzy
 msgid "Add a description…"
-msgstr "विवरण"
+msgstr "विवरण जोड़ें…"
 
 #: core/QuickAdd.vala:149
-#, fuzzy
 msgid "Add To-Do"
-msgstr "करने-हेतु कार्य"
+msgstr "करने-हेतु कार्य जोड़ें"
 
 #: core/QuickAdd.vala:156
 msgid "Create More"
@@ -547,31 +545,31 @@ msgstr "परियोजना प्रतिरूपित"
 
 #: core/Util/Util.vala:1213 src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "At due time"
-msgstr ""
+msgstr "नियत समय पर"
 
 #: core/Util/Util.vala:1216 src/Dialogs/Preferences/PreferencesWindow.vala:614
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 मिनट पहले"
 
 #: core/Util/Util.vala:1219 src/Dialogs/Preferences/PreferencesWindow.vala:615
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 मिनट पहले"
 
 #: core/Util/Util.vala:1222 src/Dialogs/Preferences/PreferencesWindow.vala:616
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 मिनट पहले"
 
 #: core/Util/Util.vala:1225 src/Dialogs/Preferences/PreferencesWindow.vala:617
 msgid "1 hour before"
-msgstr ""
+msgstr "1 घंटे पहले"
 
 #: core/Util/Util.vala:1228 src/Dialogs/Preferences/PreferencesWindow.vala:618
 msgid "2 hours before"
-msgstr ""
+msgstr "2 घंटे पहले"
 
 #: core/Util/Util.vala:1231 src/Dialogs/Preferences/PreferencesWindow.vala:619
 msgid "3 hours before"
-msgstr ""
+msgstr "3 घंटे पहले"
 
 #: core/Util/Datetime.vala:66
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -2121,17 +2119,17 @@ msgstr "एक पर ध्यान"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:609
 msgid "Enabled"
-msgstr ""
+msgstr "सक्रिय"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:622
-#, fuzzy
 msgid "Automatic reminders"
-msgstr "समयोचित अनुस्मारक निर्धारित करें!"
+msgstr "स्वचालित अनुस्मारक"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:623
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
 msgstr ""
+"सक्षम होने पर, कार्य के नियत समय से पहले एक अनुस्मारक तयशुदा रूप से जोड़ दिया जाएगा।"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:700
 msgid "App Theme"
@@ -2205,7 +2203,7 @@ msgid ""
 "Head to System Settings → Keyboard → Shortcuts → Custom, then add a new "
 "shortcut with the following:"
 msgstr ""
-"सिस्टम सेटिंग्स → कीबोर्ड → शॉर्टकट → कस्टम पर जाएं, फिर निम्नलिखित के साथ एक नया "
+"सिस्टम सेटिंग्स → कीबोर्ड → शॉर्टकट → तदनुकूल पर जाएं, फिर निम्नलिखित के साथ एक नया "
 "शॉर्टकट जोड़ें:"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1205
@@ -2538,9 +2536,3 @@ msgstr "लेबल खोलें"
 msgctxt "shortcut window"
 msgid "Open Pinboard"
 msgstr "पिनबोर्ड खोलें"
-
-#~ msgid "Add"
-#~ msgstr "जोड़ें"
-
-#~ msgid "CalDAV"
-#~ msgstr "CalDAV"
