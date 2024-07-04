@@ -451,6 +451,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private Gtk.Popover build_context_menu () {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
 
+        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
+        use_note_item.active = item.item_type == ItemType.NOTE;
+
         copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
@@ -473,6 +476,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
         if (!item.completed) {
+            menu_box.append (use_note_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
             menu_box.append (move_item);
@@ -495,6 +500,11 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
         popover.child = menu_stack;
 
+        use_note_item.activate_item.connect (() => {
+            item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
+            item.update_local ();
+        });
+        
         copy_clipboard_item.clicked.connect (() => {
             popover.popdown ();
             item.copy_clipboard ();

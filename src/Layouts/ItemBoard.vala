@@ -24,7 +24,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Revealer checked_button_revealer;
 	private Gtk.Label content_label;
 
     private Widgets.LoadingButton hide_loading_button;
@@ -103,13 +102,6 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             css_classes = { "priority-color" }
 		};
 
-        checked_button_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-            child = checked_button,
-            valign = Gtk.Align.START,
-            reveal_child = true
-        };
-
 		content_label = new Gtk.Label (item.content) {
 			wrap = true,
             hexpand = true,
@@ -152,7 +144,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 			margin_end = 6
 		};
 
-		content_box.append (checked_button_revealer);
+		content_box.append (checked_button);
 		content_box.append (content_label);
         content_box.append (select_revealer);
 
@@ -400,10 +392,10 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
                 select_revealer.reveal_child = true;
-                checked_button_revealer.reveal_child = false;
+                checked_button.sensitive = false;
             } else {
                 select_revealer.reveal_child = false;
-                checked_button_revealer.reveal_child = true;
+                checked_button.sensitive = true;
                 select_checkbutton.active = false;
             }
         });
@@ -536,6 +528,15 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
 		content_label.label = item.content;
 		content_label.tooltip_text = item.content.strip ();
+
+        // ItemType
+        if (item.item_type == ItemType.TASK) {
+            checked_button.sensitive = true;
+            checked_button.opacity = 1;
+        } else {
+            checked_button.sensitive = false;
+            checked_button.opacity = 0;
+        }
 
 		description_label.label = Util.get_default ().line_break_to_space (item.description);
 		description_label.tooltip_text = item.description.strip ();

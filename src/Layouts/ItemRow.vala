@@ -30,7 +30,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
@@ -227,13 +226,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.project.is_deck
         };
 
-        checked_button_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
-            child = checked_button,
-            valign = Gtk.Align.CENTER,
-            reveal_child = true
-        };
-
         content_label = new Gtk.Label (null) {
             hexpand = true,
             xalign = 0,
@@ -388,7 +380,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        content_main_box.append (checked_button_revealer);
+        content_main_box.append (checked_button);
         content_main_box.append (due_box_revealer);
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
@@ -704,12 +696,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
                 select_revealer.reveal_child = true;
-                checked_button_revealer.reveal_child = false;
+                checked_button.sensitive = false;
                 labels_summary.reveal_child = false;
                 disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
-                checked_button_revealer.reveal_child = true;
+                checked_button.sensitive = true;
 
                 if (!edit) {
                     labels_summary.check_revealer ();
@@ -830,6 +822,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.label = Util.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
         content_textview.buffer.text = item.content;
+
+        // ItemType
+        if (item.item_type == ItemType.TASK) {
+            checked_button.sensitive = true;
+            checked_button.opacity = 1;
+        } else {
+            checked_button.sensitive = false;
+            checked_button.opacity = 0;
+        }
 
         // Update Description
         if (description_handler_change_id != 0) {
@@ -1123,6 +1124,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Popover build_button_context_menu () {
         var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
 
+        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
+        use_note_item.active = item.item_type == ItemType.NOTE;
+
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
@@ -1145,6 +1149,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         menu_box.margin_top = menu_box.margin_bottom = 3;
 
         if (!item.completed) {
+            menu_box.append (use_note_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
             menu_box.append (copy_clipboard_item);
             menu_box.append (duplicate_item);
             menu_box.append (move_item);
@@ -1167,6 +1173,11 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         popover.child = menu_stack;
 
+        use_note_item.activate_item.connect (() => {
+            item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
+            item.update_local ();
+        });
+        
         copy_clipboard_item.clicked.connect (() => {
             popover.popdown ();
             item.copy_clipboard ();

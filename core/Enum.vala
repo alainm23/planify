@@ -380,3 +380,34 @@ public enum ReminderType {
 		}
 	}
 }
+
+public enum ItemType {
+	TASK,
+	NOTE;
+
+	public string to_string () {
+		switch (this) {
+			case TASK:
+				return "task";
+
+			case NOTE:
+				return "note";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public static ItemType parse (string value) {
+		switch (value) {
+			case "task":
+				return ItemType.TASK;
+
+			case "note":
+				return ItemType.NOTE;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}

@@ -29,6 +29,7 @@ public class Objects.Item : Objects.BaseObject {
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
     public string extra_data { get; set; default = ""; }
+    public ItemType item_type { get; set; default = ItemType.TASK; }
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
