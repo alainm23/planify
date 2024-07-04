@@ -524,11 +524,11 @@ public class Services.Database : GLib.Object {
         return_value.is_archived = get_parameter_bool (stmt, 8);
         return_value.is_favorite = get_parameter_bool (stmt, 9);
         return_value.shared = get_parameter_bool (stmt, 10);
-        return_value.view_style = get_view_style_by_text (stmt, 11);
+        return_value.view_style = ProjectViewStyle.parse (stmt.column_text (11));
         return_value.sort_order = stmt.column_int (12);
         return_value.parent_id = stmt.column_text (13);
         return_value.collapsed = get_parameter_bool (stmt, 14);
-        return_value.icon_style = get_icon_style_by_text (stmt, 15);
+        return_value.icon_style = ProjectIconStyle.parse (stmt.column_text (15));
         return_value.emoji = stmt.column_text (16);
         return_value.show_completed = get_parameter_bool (stmt, 17);
         return_value.description = stmt.column_text (18);
@@ -536,22 +536,6 @@ public class Services.Database : GLib.Object {
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
         return return_value;
-    }
-
-    private ProjectViewStyle get_view_style_by_text (Sqlite.Statement stmt, int col) {
-        if (stmt.column_text (col) == "board") {
-            return ProjectViewStyle.BOARD;
-        }
-
-        return ProjectViewStyle.LIST;
-    }
-
-    private ProjectIconStyle get_icon_style_by_text (Sqlite.Statement stmt, int col) {
-        if (stmt.column_text (col) == "emoji") {
-            return ProjectIconStyle.EMOJI;
-        }
-
-        return ProjectIconStyle.PROGRESS;
     }
 
     private BackendType get_backend_type_by_text (Sqlite.Statement stmt, int col) {

@@ -94,7 +94,7 @@ public class Objects.Backup : Object {
             items.clear ();
             unowned Json.Array _items = node.get_array_member ("items");
             foreach (unowned Json.Node item in _items.get_elements ()) {
-                items.add (new Objects.Item.from_import_json (item));
+                items.add (new Objects.Item.from_import_json (item, labels));
             }
         } catch (Error e) {
             error = e.message;

@@ -370,7 +370,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Item.from_import_json (Json.Node node) {
+    public Item.from_import_json (Json.Node node, Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ()) {
         id = node.get_object ().get_string_member ("id");
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
@@ -388,7 +388,12 @@ public class Objects.Item : Objects.BaseObject {
         due.update_from_json (Services.Database.get_default ().get_due_parameter (node.get_object ().get_string_member ("due")));
         collapsed = node.get_object ().get_boolean_member ("collapsed");
         pinned = node.get_object ().get_boolean_member ("pinned");
-        labels = get_labels_from_json (node);
+
+        if (_labels.size <= 0) {
+            labels = get_labels_from_json (node);
+        } else {
+            labels = get_labels_from_labels_json (node, _labels);
+        }
     }
 
     public Item.from_caldav_xml (GXml.DomElement element) {
@@ -597,6 +602,25 @@ public class Objects.Item : Objects.BaseObject {
             return_value.add (label);
         }
         return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Label> get_labels_from_labels_json (Json.Node node, Gee.ArrayList<Objects.Label> labels_list) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
+            Objects.Label label = get_label_by_name (element.get_string (), labels_list);
+            return_value.add (label);
+        }
+        return return_value;
+    }
+
+    private Objects.Label? get_label_by_name (string name, Gee.ArrayList<Objects.Label> labels_list) {
+        foreach (var label in labels_list) {
+            if (label.name.down () == name.down ()) {
+                return label;
+            }
+        }
+
+        return null;
     }
 
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {

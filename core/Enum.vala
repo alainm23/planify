@@ -46,6 +46,19 @@ public enum ProjectViewStyle {
 			assert_not_reached ();
 		}
 	}
+
+	public static ProjectViewStyle parse (string value) {
+		switch (value) {
+			case "list":
+				return ProjectViewStyle.LIST;
+
+			case "board":
+				return ProjectViewStyle.BOARD;
+
+			default:
+				assert_not_reached ();
+		}
+	}
 }
 
 public enum ProjectIconStyle {
@@ -62,6 +75,19 @@ public enum ProjectIconStyle {
 
 		default:
 			assert_not_reached ();
+		}
+	}
+
+	public static ProjectIconStyle parse (string value) {
+		switch (value) {
+			case "progress":
+				return ProjectIconStyle.PROGRESS;
+
+			case "emoji":
+				return ProjectIconStyle.EMOJI;
+
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -101,20 +127,20 @@ public enum FilterType {
 
 	public string get_name () {
 		switch (this) {
-		case TODAY:
-			return _("Today");
+			case TODAY:
+				return _("Today");
 
-		case INBOX:
-			return _("Inbox");
+			case INBOX:
+				return _("Inbox");
 
-		case SCHEDULED:
-			return _("Scheduled");
+			case SCHEDULED:
+				return _("Scheduled");
 
-		case PINBOARD:
-			return _("Pinboard");
+			case PINBOARD:
+				return _("Pinboard");
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -129,26 +155,26 @@ public enum BackendType {
 
 	public string to_string () {
 		switch (this) {
-		case ALL:
-			return "all";
+			case ALL:
+				return "all";
 
-		case NONE:
-			return "none";
+			case NONE:
+				return "none";
 
-		case LOCAL:
-			return "local";
+			case LOCAL:
+				return "local";
 
-		case TODOIST:
-			return "todoist";
+			case TODOIST:
+				return "todoist";
 
-		case GOOGLE_TASKS:
-			return "google-tasks";
+			case GOOGLE_TASKS:
+				return "google-tasks";
 
-		case CALDAV:
-			return "caldav";
+			case CALDAV:
+				return "caldav";
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -177,29 +203,29 @@ public enum ObjectType {
 
 	public string get_header () {
 		switch (this) {
-		case PROJECT:
-			return _("Projects");
+			case PROJECT:
+				return _("Projects");
 
-		case SECTION:
-			return _("Sections");
+			case SECTION:
+				return _("Sections");
 
-		case ITEM:
-			return _("Tasks");
+			case ITEM:
+				return _("Tasks");
 
-		case LABEL:
-			return _("Labels");
+			case LABEL:
+				return _("Labels");
 
-		case FILTER:
-			return _("Filters");
+			case FILTER:
+				return _("Filters");
 
-		case TASK:
-			return _("Tasks");
+			case TASK:
+				return _("Tasks");
 
-		case TASK_LIST:
-			return _("Lists");
+			case TASK_LIST:
+				return _("Lists");
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
