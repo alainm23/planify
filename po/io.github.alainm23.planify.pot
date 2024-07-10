@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-23 04:28-0500\n"
+"POT-Creation-Date: 2024-07-10 04:40-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/Enum.vala:105 core/Util/Util.vala:229 core/Util/Datetime.vala:64
-#: core/Util/Datetime.vala:89
+#: core/Enum.vala:131 core/Util/Util.vala:229 core/Util/Datetime.vala:68
+#: core/Util/Datetime.vala:93
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:81
 #: core/Objects/Filters/Today.vala:66 src/Layouts/FilterPaneRow.vala:113
-#: src/Layouts/ItemRow.vala:982 src/Layouts/ItemBoard.vala:624
+#: src/Layouts/ItemRow.vala:983 src/Layouts/ItemBoard.vala:625
 #: src/Views/Project/Project.vala:463 src/Views/Project/Project.vala:630
 #: src/Views/Today.vala:53 src/Views/Today.vala:166
 #: src/Dialogs/DatePicker.vala:60
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Today"
 msgstr ""
 
-#: core/Enum.vala:108 core/Util/Util.vala:226 core/Util/Util.vala:574
+#: core/Enum.vala:134 core/Util/Util.vala:226 core/Util/Util.vala:574
 #: core/Widgets/ProjectPicker/ProjectPickerRow.vala:77
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:100
 #: src/Layouts/FilterPaneRow.vala:117
@@ -40,34 +40,35 @@ msgstr ""
 msgid "Inbox"
 msgstr ""
 
-#: core/Enum.vala:111 core/Objects/Filters/Scheduled.vala:50
+#: core/Enum.vala:137 core/Enum.vala:527 core/Objects/Filters/Scheduled.vala:50
 #: src/Layouts/FilterPaneRow.vala:121 src/Views/Scheduled/Scheduled.vala:64
 #: src/Dialogs/Preferences/PreferencesWindow.vala:349
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:38
 msgid "Scheduled"
 msgstr ""
 
-#: core/Enum.vala:114 core/Objects/Filters/Pinboard.vala:51
+#: core/Enum.vala:140 core/Objects/Filters/Pinboard.vala:51
 #: src/Layouts/FilterPaneRow.vala:125 src/Views/Filter.vala:206
 #: src/Dialogs/Preferences/PreferencesWindow.vala:351
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:39
 msgid "Pinboard"
 msgstr ""
 
-#: core/Enum.vala:181 src/Dialogs/Preferences/PreferencesWindow.vala:382
+#: core/Enum.vala:207 src/Dialogs/Preferences/PreferencesWindow.vala:382
 #: src/Dialogs/Preferences/Pages/Backup.vala:171
 msgid "Projects"
 msgstr ""
 
-#: core/Enum.vala:184 src/Dialogs/Preferences/Pages/Backup.vala:175
+#: core/Enum.vala:210 src/Dialogs/Preferences/Pages/Backup.vala:175
 msgid "Sections"
 msgstr ""
 
-#: core/Enum.vala:187 core/Enum.vala:196
+#: core/Enum.vala:213 core/Enum.vala:222
 msgid "Tasks"
 msgstr ""
 
-#: core/Enum.vala:190 core/Widgets/LabelPicker/LabelButton.vala:69
+#: core/Enum.vala:216 core/Enum.vala:533
+#: core/Widgets/LabelPicker/LabelButton.vala:69
 #: core/Objects/Filters/Labels.vala:50 src/Layouts/FilterPaneRow.vala:129
 #: src/Views/Label/Labels.vala:37 src/Dialogs/LabelPicker.vala:35
 #: src/Dialogs/Preferences/PreferencesWindow.vala:350
@@ -76,73 +77,73 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
-#: core/Enum.vala:193
+#: core/Enum.vala:219
 msgid "Filters"
 msgstr ""
 
-#: core/Enum.vala:199
+#: core/Enum.vala:225
 msgid "Lists"
 msgstr ""
 
-#: core/Enum.vala:225
+#: core/Enum.vala:251
 msgid "Don't Repeat"
 msgstr ""
 
-#: core/Enum.vala:228 core/Enum.vala:230
+#: core/Enum.vala:254 core/Enum.vala:256
 msgid "Every minute"
 msgstr ""
 
-#: core/Enum.vala:230
+#: core/Enum.vala:256
 #, c-format
 msgid "Every %d minutes"
 msgstr ""
 
-#: core/Enum.vala:234 core/Enum.vala:236
-msgid "Every hour"
-msgstr ""
-
-#: core/Enum.vala:236
-#, c-format
-msgid "Every %d hours"
-msgstr ""
-
-#: core/Enum.vala:240 core/Enum.vala:242
-msgid "Every day"
-msgstr ""
-
-#: core/Enum.vala:242
-#, c-format
-msgid "Every %d days"
-msgstr ""
-
-#: core/Enum.vala:246 core/Enum.vala:248
-msgid "Every week"
-msgstr ""
-
-#: core/Enum.vala:248
-#, c-format
-msgid "Every %d weeks"
-msgstr ""
-
-#: core/Enum.vala:253 core/Enum.vala:255
-msgid "Every month"
-msgstr ""
-
-#: core/Enum.vala:255
-#, c-format
-msgid "Every %d months"
-msgstr ""
-
 #: core/Enum.vala:260 core/Enum.vala:262
-msgid "Every year"
+msgid "Every hour"
 msgstr ""
 
 #: core/Enum.vala:262
 #, c-format
+msgid "Every %d hours"
+msgstr ""
+
+#: core/Enum.vala:266 core/Enum.vala:268
+msgid "Every day"
+msgstr ""
+
+#: core/Enum.vala:268
+#, c-format
+msgid "Every %d days"
+msgstr ""
+
+#: core/Enum.vala:272 core/Enum.vala:274
+msgid "Every week"
+msgstr ""
+
+#: core/Enum.vala:274
+#, c-format
+msgid "Every %d weeks"
+msgstr ""
+
+#: core/Enum.vala:279 core/Enum.vala:281
+msgid "Every month"
+msgstr ""
+
+#: core/Enum.vala:281
+#, c-format
+msgid "Every %d months"
+msgstr ""
+
+#: core/Enum.vala:286 core/Enum.vala:288
+msgid "Every year"
+msgstr ""
+
+#: core/Enum.vala:288
+#, c-format
 msgid "Every %d years"
 msgstr ""
 
-#: core/Enum.vala:336 core/Widgets/PriorityButton.vala:73
+#: core/Enum.vala:362 core/Enum.vala:530 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:499
 #: src/Views/Today.vala:554 src/Views/Today.vala:586
 #: src/Views/Scheduled/Scheduled.vala:190
@@ -150,13 +151,35 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: core/Enum.vala:339
+#: core/Enum.vala:365
 msgid "Label"
 msgstr ""
 
-#: core/Enum.vala:342 src/Views/Project/Project.vala:453
+#: core/Enum.vala:368 src/Views/Project/Project.vala:453
 #: src/Views/Today.vala:551 src/Views/Scheduled/Scheduled.vala:187
 msgid "Due Date"
+msgstr ""
+
+#: core/Enum.vala:474
+msgid "Task Created"
+msgstr ""
+
+#: core/Enum.vala:477
+msgid "Task Updated"
+msgstr ""
+
+#: core/Enum.vala:521
+msgid "Content"
+msgstr ""
+
+#: core/Enum.vala:524 src/Layouts/ItemSidebarView.vala:181
+#: src/Dialogs/Section.vala:85
+msgid "Description"
+msgstr ""
+
+#: core/Enum.vala:536 src/Layouts/ItemRow.vala:989
+#: src/Layouts/ItemBoard.vala:631
+msgid "Pin"
 msgstr ""
 
 #: core/QuickAdd.vala:65
@@ -278,7 +301,7 @@ msgid "Dark Blue"
 msgstr ""
 
 #: core/Util/Util.vala:223 src/Layouts/ItemRow.vala:1223
-#: src/Layouts/ItemSidebarView.vala:558
+#: src/Layouts/ItemSidebarView.vala:569
 #: src/Dialogs/Preferences/PreferencesWindow.vala:546
 msgid "None"
 msgstr ""
@@ -290,7 +313,7 @@ msgstr ""
 #: core/Util/Util.vala:381 core/Objects/Project.vala:795
 #: core/Objects/Project.vala:837 core/Objects/Section.vala:340
 #: core/Objects/Section.vala:366 src/Objects/Backup.vala:130
-#: src/Layouts/LabelRow.vala:177 src/Layouts/ItemSidebarView.vala:680
+#: src/Layouts/LabelRow.vala:177 src/Layouts/ItemSidebarView.vala:679
 #: src/Layouts/SectionBoard.vala:565 src/Widgets/MultiSelectToolbar.vala:259
 #: src/Views/Project/Project.vala:601 src/Views/Filter.vala:539
 #: src/Dialogs/QuickFind/QuickFind.vala:44
@@ -315,19 +338,19 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: core/Util/Util.vala:502 core/Objects/Item.vala:89
+#: core/Util/Util.vala:502 core/Objects/Item.vala:90
 msgid "Priority 1: high"
 msgstr ""
 
-#: core/Util/Util.vala:504 core/Objects/Item.vala:91
+#: core/Util/Util.vala:504 core/Objects/Item.vala:92
 msgid "Priority 2: medium"
 msgstr ""
 
-#: core/Util/Util.vala:506 core/Objects/Item.vala:93
+#: core/Util/Util.vala:506 core/Objects/Item.vala:94
 msgid "Priority 3: low"
 msgstr ""
 
-#: core/Util/Util.vala:508 core/Util/Util.vala:510 core/Objects/Item.vala:95
+#: core/Util/Util.vala:508 core/Util/Util.vala:510 core/Objects/Item.vala:96
 msgid "Priority 4: none"
 msgstr ""
 
@@ -497,7 +520,7 @@ msgstr ""
 msgid "🏃‍♀️️Follow Up"
 msgstr ""
 
-#: core/Util/Util.vala:897 core/Objects/Item.vala:1520
+#: core/Util/Util.vala:897 core/Objects/Item.vala:1545
 #, c-format
 msgid "Task moved to %s"
 msgstr ""
@@ -542,61 +565,61 @@ msgstr ""
 msgid "3 hours before"
 msgstr ""
 
-#: core/Util/Datetime.vala:66
+#: core/Util/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
-#: core/Objects/Filters/Tomorrow.vala:33 src/Layouts/ItemRow.vala:985
-#: src/Layouts/ItemBoard.vala:627 src/Views/Filter.vala:200
+#: core/Objects/Filters/Tomorrow.vala:33 src/Layouts/ItemRow.vala:986
+#: src/Layouts/ItemBoard.vala:628 src/Views/Filter.vala:200
 #: src/Dialogs/DatePicker.vala:64
 msgid "Tomorrow"
 msgstr ""
 
-#: core/Util/Datetime.vala:68
+#: core/Util/Datetime.vala:72
 msgid "Yesterday"
 msgstr ""
 
-#: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
+#: core/Util/Datetime.vala:95 core/Util/Datetime.vala:97
 msgid "days"
 msgstr ""
 
-#: core/Util/Datetime.vala:91 core/Util/Datetime.vala:93
+#: core/Util/Datetime.vala:95 core/Util/Datetime.vala:97
 msgid "day"
 msgstr ""
 
-#: core/Util/Datetime.vala:91
+#: core/Util/Datetime.vala:95
 #, c-format
 msgid "%s %s ago"
 msgstr ""
 
-#: core/Util/Datetime.vala:93
+#: core/Util/Datetime.vala:97
 #, c-format
 msgid "%s %s left"
 msgstr ""
 
-#: core/Util/Datetime.vala:391
+#: core/Util/Datetime.vala:395
 msgid "Mo,"
 msgstr ""
 
-#: core/Util/Datetime.vala:395
+#: core/Util/Datetime.vala:399
 msgid "Tu,"
 msgstr ""
 
-#: core/Util/Datetime.vala:399
+#: core/Util/Datetime.vala:403
 msgid "We,"
 msgstr ""
 
-#: core/Util/Datetime.vala:403
+#: core/Util/Datetime.vala:407
 msgid "Th,"
 msgstr ""
 
-#: core/Util/Datetime.vala:407
+#: core/Util/Datetime.vala:411
 msgid "Fr,"
 msgstr ""
 
-#: core/Util/Datetime.vala:411
+#: core/Util/Datetime.vala:415
 msgid "Sa,"
 msgstr ""
 
-#: core/Util/Datetime.vala:415
+#: core/Util/Datetime.vala:419
 msgid "Su,"
 msgstr ""
 
@@ -633,7 +656,7 @@ msgstr ""
 msgid "Unknown error"
 msgstr ""
 
-#: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:217
+#: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:209
 msgid "Pinned"
 msgstr ""
 
@@ -677,8 +700,24 @@ msgid "To Do"
 msgstr ""
 
 #: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
-#: src/Layouts/ItemRow.vala:996 src/Layouts/ItemBoard.vala:637
+#: src/Layouts/ItemRow.vala:997 src/Layouts/ItemBoard.vala:638
 msgid "Complete"
+msgstr ""
+
+#: core/Widgets/LabelsPickerCore.vala:61
+msgid ""
+"Your list of filters will show up here. Create one by entering the name and "
+"pressing the Enter key."
+msgstr ""
+
+#. vala-lint=naming-convention
+#: core/Widgets/LabelsPickerCore.vala:62
+#, c-format
+msgid "Create '%s'"
+msgstr ""
+
+#: core/Widgets/LabelsPickerCore.vala:70
+msgid "Search or Create"
 msgstr ""
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
@@ -775,7 +814,7 @@ msgstr ""
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:145
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:119
-#: src/Layouts/ItemRow.vala:1124 src/Layouts/ItemSidebarView.vala:452
+#: src/Layouts/ItemRow.vala:1113 src/Layouts/ItemSidebarView.vala:452
 #: src/Layouts/HeaderBar.vala:68 src/Dialogs/Preferences/SettingsHeader.vala:47
 msgid "Back"
 msgstr ""
@@ -862,7 +901,13 @@ msgstr ""
 msgid "Add Reminder"
 msgstr ""
 
-#: core/Objects/Item.vala:1300
+#: core/Widgets/Markdown/MarkdownEditView.vala:126
+#: core/Widgets/Markdown/MarkdownEditView.vala:138
+#: core/Widgets/Markdown/MarkdownEditView.vala:141
+msgid "Couldn't find an app to handle file URIs"
+msgstr ""
+
+#: core/Objects/Item.vala:1325
 msgid "Task copied to clipboard"
 msgstr ""
 
@@ -877,13 +922,13 @@ msgstr ""
 
 #: core/Objects/Project.vala:792 core/Objects/Section.vala:337
 #: src/Objects/Backup.vala:127 src/Layouts/LabelRow.vala:174
-#: src/Layouts/ItemSidebarView.vala:677 src/Layouts/SectionBoard.vala:562
+#: src/Layouts/ItemSidebarView.vala:676 src/Layouts/SectionBoard.vala:562
 msgid "This can not be undone"
 msgstr ""
 
 #: core/Objects/Project.vala:796 core/Objects/Section.vala:341
 #: src/Objects/Backup.vala:131 src/Layouts/LabelRow.vala:178
-#: src/Layouts/ItemSidebarView.vala:681 src/Layouts/SectionBoard.vala:566
+#: src/Layouts/ItemSidebarView.vala:680 src/Layouts/SectionBoard.vala:566
 #: src/Widgets/MultiSelectToolbar.vala:220
 #: src/Widgets/MultiSelectToolbar.vala:260 src/Views/Project/Project.vala:602
 #: src/Views/Filter.vala:540
@@ -990,6 +1035,18 @@ msgstr ""
 msgid "unlabeled"
 msgstr ""
 
+#: core/Objects/Filters/AllItems.vala:33 src/Views/Filter.vala:230
+msgid "All Tasks"
+msgstr ""
+
+#: core/Objects/Filters/AllItems.vala:34
+msgid "all tasks"
+msgstr ""
+
+#: core/Objects/Filters/AllItems.vala:34
+msgid "all"
+msgstr ""
+
 #: src/App.vala:81
 msgid "Are you sure you want to reset all? (y/n): "
 msgstr ""
@@ -1032,7 +1089,7 @@ msgstr ""
 msgid "About Planify"
 msgstr ""
 
-#: src/MainWindow.vala:505
+#: src/MainWindow.vala:505 src/Dialogs/ManageProjects.vala:28
 msgid "Archived Projects"
 msgstr ""
 
@@ -1125,8 +1182,8 @@ msgid "Edit Project"
 msgstr ""
 
 #: src/Layouts/ProjectRow.vala:635 src/Layouts/SectionRow.vala:667
-#: src/Layouts/ItemRow.vala:998 src/Layouts/ItemRow.vala:1127
-#: src/Layouts/ItemBoard.vala:639 src/Layouts/ItemSidebarView.vala:455
+#: src/Layouts/ItemRow.vala:999 src/Layouts/ItemRow.vala:1119
+#: src/Layouts/ItemBoard.vala:640 src/Layouts/ItemSidebarView.vala:458
 #: src/Layouts/SectionBoard.vala:496 src/Views/Project/Project.vala:267
 msgid "Duplicate"
 msgstr ""
@@ -1176,105 +1233,98 @@ msgstr ""
 msgid "Delete Section"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:432
+#: src/Layouts/ItemRow.vala:424
 msgid "Add Subtasks"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:442
+#: src/Layouts/ItemRow.vala:434
 msgid "Add Attachments"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:988 src/Layouts/ItemBoard.vala:630
-msgid "Pin"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:990 src/Layouts/ItemBoard.vala:632
+#: src/Layouts/ItemRow.vala:991 src/Layouts/ItemBoard.vala:633
 #: src/Views/Project/Project.vala:468 src/Views/Project/Project.vala:640
 #: src/Dialogs/DatePicker.vala:72
 msgid "No Date"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:993 src/Layouts/ItemRow.vala:1128
-#: src/Layouts/ItemBoard.vala:634 src/Layouts/ItemSidebarView.vala:456
+#: src/Layouts/ItemRow.vala:994 src/Layouts/ItemRow.vala:1120
+#: src/Layouts/ItemBoard.vala:635 src/Layouts/ItemSidebarView.vala:459
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:71
 #: src/Dialogs/ProjectPicker/ProjectPicker.vala:102
 msgid "Move"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:995 src/Layouts/ItemBoard.vala:636
+#: src/Layouts/ItemRow.vala:996 src/Layouts/ItemBoard.vala:637
 msgid "Add Subtask"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:997 src/Layouts/ItemBoard.vala:638
+#: src/Layouts/ItemRow.vala:998 src/Layouts/ItemBoard.vala:639
 msgid "Edit"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1000 src/Layouts/ItemRow.vala:1132
-#: src/Layouts/ItemBoard.vala:641 src/Layouts/ItemSidebarView.vala:460
+#: src/Layouts/ItemRow.vala:1001 src/Layouts/ItemRow.vala:1124
+#: src/Layouts/ItemBoard.vala:642 src/Layouts/ItemSidebarView.vala:463
 msgid "Delete Task"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1112 src/Layouts/ItemSidebarView.vala:663
-msgid "Added at"
+#: src/Layouts/ItemRow.vala:1115 src/Layouts/ItemSidebarView.vala:454
+msgid "Use as a Note"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1113 src/Layouts/ItemSidebarView.vala:664
-msgid "Updated at"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:1115 src/Layouts/ItemSidebarView.vala:666
-msgid "Not available"
-msgstr ""
-
-#: src/Layouts/ItemRow.vala:1126 src/Layouts/ItemSidebarView.vala:454
+#: src/Layouts/ItemRow.vala:1118 src/Layouts/ItemSidebarView.vala:457
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1129 src/Layouts/ItemSidebarView.vala:457
+#: src/Layouts/ItemRow.vala:1121 src/Layouts/ItemSidebarView.vala:460
 #: src/Dialogs/RepeatConfig.vala:87
 msgid "Repeat"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1224 src/Layouts/ItemSidebarView.vala:559
+#: src/Layouts/ItemRow.vala:1127 src/Layouts/ItemSidebarView.vala:466
+#: src/Dialogs/ItemChangeHistory.vala:33
+msgid "Change History"
+msgstr ""
+
+#: src/Layouts/ItemRow.vala:1224 src/Layouts/ItemSidebarView.vala:570
 msgid "Daily"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1225 src/Layouts/ItemSidebarView.vala:560
+#: src/Layouts/ItemRow.vala:1225 src/Layouts/ItemSidebarView.vala:571
 msgid "Weekly"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1226 src/Layouts/ItemSidebarView.vala:561
+#: src/Layouts/ItemRow.vala:1226 src/Layouts/ItemSidebarView.vala:572
 msgid "Monthly"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemSidebarView.vala:562
+#: src/Layouts/ItemRow.vala:1227 src/Layouts/ItemSidebarView.vala:573
 msgid "Yearly"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1228 src/Layouts/ItemSidebarView.vala:563
+#: src/Layouts/ItemRow.vala:1228 src/Layouts/ItemSidebarView.vala:574
 msgid "Custom"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1430 src/Layouts/ItemBoard.vala:525
-#: src/Layouts/ItemSidebarView.vala:763
+#: src/Layouts/ItemRow.vala:1430 src/Layouts/ItemBoard.vala:517
+#: src/Layouts/ItemSidebarView.vala:762
 #, c-format
 msgid "Completed. Next occurrence: %s"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1472 src/Layouts/ItemBoard.vala:1005
+#: src/Layouts/ItemRow.vala:1472 src/Layouts/ItemBoard.vala:1006
 #, c-format
 msgid "%s was deleted"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1473 src/Layouts/ItemBoard.vala:1006
+#: src/Layouts/ItemRow.vala:1473 src/Layouts/ItemBoard.vala:1007
 msgid "Undo"
 msgstr ""
 
-#: src/Layouts/ItemRow.vala:1673 src/Layouts/ItemBoard.vala:906
+#: src/Layouts/ItemRow.vala:1673 src/Layouts/ItemBoard.vala:907
 msgid "Order changed to 'Custom sort order'"
 msgstr ""
 
-#: src/Layouts/ItemBoard.vala:126
+#: src/Layouts/ItemBoard.vala:118
 msgid "View Details"
 msgstr ""
 
@@ -1303,11 +1353,7 @@ msgstr ""
 msgid "Properties"
 msgstr ""
 
-#: src/Layouts/ItemSidebarView.vala:181 src/Dialogs/Section.vala:85
-msgid "Description"
-msgstr ""
-
-#: src/Layouts/ItemSidebarView.vala:676
+#: src/Layouts/ItemSidebarView.vala:675
 msgid "Are you sure you want to delete?"
 msgstr ""
 
@@ -1359,6 +1405,42 @@ msgstr ""
 #: src/Widgets/SectionsOrderPopover.vala:39 src/Views/Project/Project.vala:269
 #: src/Dialogs/Section.vala:96
 msgid "Add Section"
+msgstr ""
+
+#: src/Widgets/Attachments.vala:51
+msgid "Attachments"
+msgstr ""
+
+#. translators: Open file
+#: src/Widgets/Attachments.vala:134
+msgid "Open"
+msgstr ""
+
+#: src/Widgets/Attachments.vala:235
+msgid "Attach File"
+msgstr ""
+
+#: src/Widgets/Attachments.vala:293
+#: src/Dialogs/Preferences/Pages/Backup.vala:384
+msgid "Download"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:60
+msgid "Previous"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:81
+msgid "New"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:165
+#: src/Widgets/ItemChangeHistoryRow.vala:166
+msgid "Pin: Active"
+msgstr ""
+
+#: src/Widgets/ItemChangeHistoryRow.vala:165
+#: src/Widgets/ItemChangeHistoryRow.vala:166
+msgid "Pin: Inactive"
 msgstr ""
 
 #: src/Views/Project/Project.vala:57
@@ -1535,10 +1617,6 @@ msgstr ""
 
 #: src/Views/Label/Labels.vala:49
 msgid "Labels: Nextcloud"
-msgstr ""
-
-#: src/Views/Filter.vala:230
-msgid "All Tasks"
 msgstr ""
 
 #: src/Views/Filter.vala:535
@@ -1772,6 +1850,28 @@ msgstr ""
 
 #: src/Dialogs/RepeatConfig.vala:259
 msgid "End"
+msgstr ""
+
+#: src/Dialogs/ItemChangeHistory.vala:48
+msgid "Added at"
+msgstr ""
+
+#: src/Dialogs/ItemChangeHistory.vala:50
+msgid "Not available"
+msgstr ""
+
+#: src/Dialogs/ItemChangeHistory.vala:54
+msgid "Updated at"
+msgstr ""
+
+#: src/Dialogs/ItemChangeHistory.vala:62
+msgid ""
+"Your change history will be displayed here once you start making changes."
+msgstr ""
+
+#: src/Dialogs/ItemChangeHistory.vala:124
+#, c-format
+msgid "Load more history from %d weeks ago…"
 msgstr ""
 
 #: src/Dialogs/QuickFind/QuickFind.vala:39
@@ -2342,10 +2442,6 @@ msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:332
 msgid "View Backup"
-msgstr ""
-
-#: src/Dialogs/Preferences/Pages/Backup.vala:384
-msgid "Download"
 msgstr ""
 
 #: src/Dialogs/Preferences/Pages/Sidebar.vala:30

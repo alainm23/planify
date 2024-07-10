@@ -33,6 +33,7 @@ core/Widgets/ItemLabels.vala
 core/Widgets/ItemLabelChild.vala
 core/Widgets/CircularProgressBar.vala
 core/Widgets/StatusButton.vala
+core/Widgets/LabelsPickerCore.vala
 
 core/Widgets/Calendar/Calendar.vala
 core/Widgets/Calendar/CalendarDay.vala
@@ -43,6 +44,7 @@ core/Widgets/Calendar/CalendarWeek.vala
 core/Widgets/ContextMenu/MenuItem.vala
 core/Widgets/ContextMenu/MenuSeparator.vala
 core/Widgets/ContextMenu/MenuPicker.vala
+core/Widgets/ContextMenu/MenuCheckPicker.vala
 core/Widgets/ContextMenu/MenuSwitch.vala
 
 core/Widgets/DateTimePicker/ScheduleButton.vala
@@ -65,6 +67,11 @@ core/Widgets/ReminderPicker/ReminderButton.vala
 core/Widgets/ReminderPicker/ReminderPicker.vala
 core/Widgets/ReminderPicker/ReminderRow.vala
 
+core/Widgets/Markdown/MarkdownEditView.vala
+core/Widgets/Markdown/MarkdownView.vala
+core/Widgets/Markdown/Color.vala
+core/Widgets/Markdown/MarkdownBuffer.vala
+
 core/Objects/BaseObject.vala
 core/Objects/Color.vala
 core/Objects/DueDate.vala
@@ -75,6 +82,8 @@ core/Objects/Queue.vala
 core/Objects/Reminder.vala
 core/Objects/Section.vala
 core/Objects/Promise.vala
+core/Objects/Attachment.vala
+core/Objects/ObjectEvent.vala
 
 core/Objects/Filters/Pinboard.vala
 core/Objects/Filters/Scheduled.vala
@@ -86,6 +95,8 @@ core/Objects/Filters/Tomorrow.vala
 core/Objects/Filters/Anytime.vala
 core/Objects/Filters/Repeating.vala
 core/Objects/Filters/Unlabeled.vala
+core/Objects/Filters/FilterItem.vala
+core/Objects/Filters/AllItems.vala
 
 src/App.vala
 src/MainWindow.vala
@@ -120,6 +131,7 @@ src/Layouts/HeaderBar.vala
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
+src/Widgets/EditableTextView.vala
 src/Widgets/SyncButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala
@@ -130,6 +142,9 @@ src/Widgets/LabelsSummary.vala
 src/Widgets/SectionsOrderPopover.vala
 src/Widgets/ScrolledWindow.vala
 src/Widgets/ReorderChild.vala
+src/Widgets/FilterFlowBox.vala
+src/Widgets/Attachments.vala
+src/Widgets/ItemChangeHistoryRow.vala
 
 src/Views/Project/Project.vala
 src/Views/Project/List.vala
@@ -154,10 +169,11 @@ src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
 src/Dialogs/ProjectPicker/SectionPickerRow.vala
-
+src/Dialogs/ManageProjects.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/LabelPicker.vala
 src/Dialogs/RepeatConfig.vala
+src/Dialogs/ItemChangeHistory.vala
 
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala
