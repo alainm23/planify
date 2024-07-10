@@ -76,7 +76,6 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         // Title
         title_label = new Gtk.Label (null) {
-            use_markup = true,
             css_classes = { "font-bold" },
             ellipsize = Pango.EllipsizeMode.END
         };
