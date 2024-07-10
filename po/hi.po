@@ -1,22 +1,21 @@
-# Planify translation to Hindi.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the io.github.alainm23.planify package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Hindi translation for planify.
+# Copyright (C) 2024 planify's COPYRIGHT HOLDER
+# This file is distributed under the same license as the planify package.
 # Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: io.github.alainm23.planify\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: planify\n"
+"Report-Msgid-Bugs-To: https://github.com/alainm23/planify/issues\n"
 "POT-Creation-Date: 2024-07-10 04:40-0500\n"
-"PO-Revision-Date: 2024-06-23 20:43+0530\n"
+"PO-Revision-Date: 2024-07-10 21:47+0530\n"
 "Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
 "Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Gtranslator 46.1\n"
 
 #: core/Enum.vala:131 core/Util/Util.vala:229 core/Util/Datetime.vala:68
@@ -89,7 +88,7 @@ msgstr "सूचियां"
 
 #: core/Enum.vala:251
 msgid "Don't Repeat"
-msgstr "दोबारा ना दोहराएं"
+msgstr "दोहराएं नहीं"
 
 #: core/Enum.vala:254 core/Enum.vala:256
 msgid "Every minute"
@@ -129,7 +128,7 @@ msgstr "हर %d हफ्ते"
 
 #: core/Enum.vala:279 core/Enum.vala:281
 msgid "Every month"
-msgstr "प्रत्येक माह"
+msgstr "हर महीने"
 
 #: core/Enum.vala:281
 #, c-format
@@ -143,7 +142,7 @@ msgstr "हर वर्ष"
 #: core/Enum.vala:288
 #, c-format
 msgid "Every %d years"
-msgstr "प्रत्येक %d वर्ष"
+msgstr "हर %d वर्ष"
 
 #: core/Enum.vala:362 core/Enum.vala:530 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:499
@@ -151,7 +150,7 @@ msgstr "प्रत्येक %d वर्ष"
 #: src/Views/Scheduled/Scheduled.vala:190
 #: src/Views/Scheduled/Scheduled.vala:222
 msgid "Priority"
-msgstr "प्राथमिकता"
+msgstr "वरीयता"
 
 #: core/Enum.vala:365
 msgid "Label"
@@ -160,21 +159,19 @@ msgstr "लेबल"
 #: core/Enum.vala:368 src/Views/Project/Project.vala:453
 #: src/Views/Today.vala:551 src/Views/Scheduled/Scheduled.vala:187
 msgid "Due Date"
-msgstr "देय तिथि"
+msgstr "देय तारीख"
 
 #: core/Enum.vala:474
-#, fuzzy
 msgid "Task Created"
-msgstr "कार्य प्रतिरूपित"
+msgstr "कार्य निर्मित"
 
 #: core/Enum.vala:477
-#, fuzzy
 msgid "Task Updated"
-msgstr "कार्य प्रतिरूपित"
+msgstr "कार्य अद्यतित"
 
 #: core/Enum.vala:521
 msgid "Content"
-msgstr ""
+msgstr "सामग्री"
 
 #: core/Enum.vala:524 src/Layouts/ItemSidebarView.vala:181
 #: src/Dialogs/Section.vala:85
@@ -188,7 +185,7 @@ msgstr "पिन"
 
 #: core/QuickAdd.vala:65
 msgid "To-do name"
-msgstr "करने-हेतु कार्य का नाम"
+msgstr "कार्य नाम"
 
 #: core/QuickAdd.vala:71
 msgid "This field is required"
@@ -211,8 +208,8 @@ msgid ""
 "I'm sorry, Quick Add can't find any project available, try creating a "
 "project from Planify."
 msgstr ""
-"मुझे खेद है, त्वरित जोड़ें को कोई भी परियोजना उपलब्ध नहीं मिल सका, Planify से एक "
-"परियोजना बनाने का प्रयास करें।"
+"मुझे खेद है, शीघ्र जोड़ने हेतु कोई भी परियोजना उपलब्ध नहीं है। प्लॅानिफाई से एक परियोजना "
+"बनाने का प्रयास करें।"
 
 #: core/Util/Util.vala:41
 msgid "Berry Red"
@@ -336,7 +333,7 @@ msgstr "सभी मिटाएं"
 
 #: core/Util/Util.vala:396
 msgid "Process completed, you need to start Planify again."
-msgstr "प्रक्रिया पूर्ण, आपको Planify को फिर से शुरू करना होगा।"
+msgstr "प्रक्रिया पूर्ण, प्लॅानिफाई फिर शुरू करें।"
 
 #: core/Util/Util.vala:398 src/Services/Backups.vala:509
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1369
@@ -346,19 +343,19 @@ msgstr "ठीक है"
 
 #: core/Util/Util.vala:502 core/Objects/Item.vala:90
 msgid "Priority 1: high"
-msgstr "प्राथमिकता 1: उच्च"
+msgstr "वरीयता 1: उच्च"
 
 #: core/Util/Util.vala:504 core/Objects/Item.vala:92
 msgid "Priority 2: medium"
-msgstr "प्राथमिकता 2: मध्यम"
+msgstr "वरीयता 2: मध्यम"
 
 #: core/Util/Util.vala:506 core/Objects/Item.vala:94
 msgid "Priority 3: low"
-msgstr "प्राथमिकता 3: निम्न"
+msgstr "वरीयता 3: निम्न"
 
 #: core/Util/Util.vala:508 core/Util/Util.vala:510 core/Objects/Item.vala:96
 msgid "Priority 4: none"
-msgstr "प्राथमिकता 4: कोई नहीं"
+msgstr "वरीयता 4: कोई नहीं"
 
 #: core/Util/Util.vala:516
 msgid "high"
@@ -378,9 +375,10 @@ msgstr "कोई नहीं"
 
 #: core/Util/Util.vala:591
 msgid "Meet Planify"
-msgstr "Planify से मिलें"
+msgstr "प्लॅानिफाई से मिलें"
 
 #: core/Util/Util.vala:594
+#, fuzzy
 msgid ""
 "This project shows you everything you need to know to hit the ground "
 "running. Don’t hesitate to play around in it – you can always create a new "
@@ -391,19 +389,19 @@ msgstr ""
 
 #: core/Util/Util.vala:600
 msgid "Tap this to-do"
-msgstr "इस करने-हेतु कार्य को टैप करें"
+msgstr "इस कार्य को टैप करें"
 
 #: core/Util/Util.vala:601
 msgid ""
 "You're looking at a to-do! Complete it by tapping the checkbox on the left. "
 "Completed to-dos are collected at the bottom of your project."
 msgstr ""
-"आप एक करने-हेतु कार्य को देख रहे हैं! बाईं ओर चेकबॉक्स पर टैप करके इसे पूरा करें। पूर्ण किए गए "
-"करने-हेतु कार्य आपके परियोजना के निचले भाग में एकत्र किए जाते हैं।"
+"आप एक कार्य को देख रहे हैं! बाईं ओर चेकबॉक्स पर टैप करके इसे पूरा करें। पूर्ण किए गए कार्य "
+"परियोजना के निचले भाग में एकत्र किए जाते हैं।"
 
 #: core/Util/Util.vala:606
 msgid "Create a new to-do"
-msgstr "एक नया करने-हेतु कार्य बनाएं"
+msgstr "नया कार्य बनाएं"
 
 #: core/Util/Util.vala:607
 msgid ""
@@ -415,23 +413,21 @@ msgstr ""
 
 #: core/Util/Util.vala:612
 msgid "Plan this to-do by today or later"
-msgstr "आज या बाद में यह करने-हेतु कार्य करने की योजना बनाएं"
+msgstr "आज या बाद में यह कार्य करने की योजना बनाएं"
 
 #: core/Util/Util.vala:613
 msgid "Tap the calendar button at the bottom to decide when to do this to-do."
-msgstr "यह करने-हेतु कार्य कब करना है यह तय करने के लिए नीचे दिए गए कैलेंडर बटन को दबाएं।"
+msgstr "यह कार्य कब करना है यह तय करने के लिए नीचे दिए गए कैलेंडर बटन को दबाएं।"
 
 #: core/Util/Util.vala:618
 msgid "Reorder yours to-dos"
-msgstr "अपने करने-हेतु कार्य को पुनः व्यवस्थित करें"
+msgstr "अपने कार्यों का क्रम बदलें"
 
 #: core/Util/Util.vala:619
 msgid ""
 "To reorder your list, tap and hold a to-do, then drag it to where it should "
 "go."
-msgstr ""
-"अपनी सूची को पुन: व्यवस्थित करने के लिए, किसी करने-हेतु कार्य को टैप करके रखें, फिर उसे उस "
-"स्थान पर खींचें जहां उसे जाना चाहिए।"
+msgstr "सूची का क्रम बदलने हेतु कार्य पर टैप करके नये स्थान तक खीचें।"
 
 #: core/Util/Util.vala:624
 msgid "Create a project"
@@ -442,12 +438,12 @@ msgid ""
 "Organize your to-dos better! Go to the left panel and click the '+' button "
 "in the 'On This Computer' section and add a project of your own."
 msgstr ""
-"अपने करने-हेतु कार्य को बेहतर ढंग से व्यवस्थित करें! बाएं पैनल पर जाएं और 'इस कंप्यूटर पर' "
-"अनुभाग में '+' बटन पर क्लिक करें और अपना खुद का एक परियोजना जोड़ें।"
+"अपने कार्यों को बेहतर ढंग से व्यवस्थित करें! बाएं पैनल पर जाएं और 'इस कंप्यूटर पर' अनुभाग में "
+"'+' बटन पर क्लिक करें और खुद की एक परियोजना जोड़ें।"
 
 #: core/Util/Util.vala:630
 msgid "You’re done!"
-msgstr "आपका काम हो गया!"
+msgstr "बस, हो गया!"
 
 #: core/Util/Util.vala:631
 msgid ""
@@ -457,25 +453,24 @@ msgid ""
 "below..\n"
 "We hope you’ll enjoy using Planify!"
 msgstr ""
-"वास्तव में आपको बस इतना ही जानने की जरूरत है। बेझिझक अपनी खुद की परियोजनाएं और करने-हेतु "
-"कार्य जोड़ना शुरू करें।\n"
-"नीचे दी गई उन्नत सुविधाओं को जानने के लिए आप बाद में इस परियोजना पर वापस आ सकते हैं..\n"
-"हमें आशा है कि आप Planify का उपयोग करके आनंद लेंगे!"
+"इतना ही जानने की जरूरत है। बेझिझक परियोजनाएं और कार्य जोड़ना शुरू करें।\n"
+"नीचे दी गई उन्नत खासियतों को जानने के लिए आप बाद में इस परियोजना पर वापस आ सकते हैं।\n"
+"हमें आशा है कि आपको प्लॅानिफाई के उपयोग में मज़ा आएगा!"
 
 #: core/Util/Util.vala:645
 msgid "Tune your setup"
-msgstr "अपना सेटअप समायोजित करें"
+msgstr "सेटअप बेहतर बनाएं"
 
 #: core/Util/Util.vala:653
 msgid "Show your calendar events"
-msgstr "अपने कैलेंडर आयोजन दिखाएं"
+msgstr "कैलेंडर आयोजन दिखाएं"
 
 #: core/Util/Util.vala:654
 msgid ""
 "You can display your system's calendar events in Planify. Go to "
 "'Preferences' 🡒 General 🡒 Calendar Events to turn it on."
 msgstr ""
-"आप अपने सिस्टम के कैलेंडर आयोजन को Planify में प्रदर्शित कर सकते हैं। इसे चालू करने के लिए "
+"सिस्टम के कैलेंडर आयोजनों को प्लॅानिफाई में दिखाया जा सकता है। इसे चालू करने के लिए "
 "'प्राथमिकताएं' 🡒 सामान्य 🡒 कैलेंडर आयोजन पर जाएं।"
 
 #: core/Util/Util.vala:660
@@ -487,8 +482,8 @@ msgid ""
 "Planify not only creates tasks locally, it can also synchronize your Todoist "
 "account. Go to 'Preferences' 🡒 'Accounts'."
 msgstr ""
-"Planify न केवल स्थानीय स्तर पर कार्य बनाता है, बल्कि यह आपके Todoist खाते को भी "
-"समन्वयन कर सकता है। 'प्राथमिकताएं' 🡒 'खाते' पर जाएं।"
+"प्लॅानिफाई स्थानीय कार्यों को बनाने के साथ ही Todoist खाते को भी समन्वयन कर सकता है। "
+"'प्राथमिकताएं' 🡒 'खाते' पर जाएं।"
 
 #: core/Util/Util.vala:669
 msgid "Boost your productivity"
@@ -503,27 +498,27 @@ msgid ""
 "That blue button you see at the bottom of each screen is more powerful than "
 "it looks: it's made to move! Drag it up to create a task wherever you want."
 msgstr ""
-"प्रत्येक स्क्रीन के नीचे आप जो नीला बटन देखते हैं, वह जितना दिखता है उससे कहीं अधिक "
-"शक्तिशाली है: यह चलने के लिए बना है! जहाँ भी आप चाहें, कोई कार्य बनाने के लिए इसे ऊपर "
-"खींचें।"
+"स्क्रीन के नीचे की और दिखाई देने वाला नीला बटन शक्तिशाली है: इसे खिंचा जा सकता है! जहां "
+"कार्य बनाना चाहते हैं वहां इसे खींच कर ले जाएं।"
 
 #: core/Util/Util.vala:684
 msgid "Tag your to-dos!"
-msgstr "अपने करने-हेतु कार्य टैग करें!"
+msgstr "कार्यों को टैग करें!"
 
 #: core/Util/Util.vala:685
 msgid ""
 "Tags allow you to improve your workflow in Planify. To add a Tag click on "
 "the tag button at the bottom."
 msgstr ""
-"टैग आपको Planify में अपने कार्यप्रवाह को बेहतर बनाने की अनुमति देते हैं। टैग जोड़ने के लिए "
-"नीचे दिए गए टैग बटन पर क्लिक करें।"
+"टैग प्लॅानिफाई में कार्यप्रवाह को बेहतर बनता है। टैग जोड़ने के लिए नीचे दिए गए टैग बटन पर "
+"क्लिक करें।"
 
 #: core/Util/Util.vala:691
 msgid "Set timely reminders!"
-msgstr "समयोचित अनुस्मारक निर्धारित करें!"
+msgstr "समयानुकूल रिमाइंडर लगाएं!"
 
 #: core/Util/Util.vala:692
+#, fuzzy
 msgid ""
 "You want Planify to send you a notification to remind you of an important "
 "event or something special. Tap the bell button below to add a reminder."
@@ -533,7 +528,7 @@ msgstr ""
 
 #: core/Util/Util.vala:704
 msgid "💼️Work"
-msgstr "💼️कार्य"
+msgstr "💼️दफ्तर"
 
 #: core/Util/Util.vala:710
 msgid "🎒️School"
@@ -549,12 +544,12 @@ msgstr "🏡️घर"
 
 #: core/Util/Util.vala:728
 msgid "🏃‍♀️️Follow Up"
-msgstr "🏃‍♀️️अनुसरण करें"
+msgstr "🏃‍♀️️अनुसरण"
 
 #: core/Util/Util.vala:897 core/Objects/Item.vala:1545
 #, c-format
 msgid "Task moved to %s"
-msgstr "कार्य %s पर ले जाया गया"
+msgstr "कार्य को %s पर भेजा गया"
 
 #: core/Util/Util.vala:975
 msgid "Task duplicated"
@@ -586,7 +581,7 @@ msgstr "45 मिनट पहले"
 
 #: core/Util/Util.vala:1225 src/Dialogs/Preferences/PreferencesWindow.vala:617
 msgid "1 hour before"
-msgstr "1 घंटे पहले"
+msgstr "1 घंटा पहले"
 
 #: core/Util/Util.vala:1228 src/Dialogs/Preferences/PreferencesWindow.vala:618
 msgid "2 hours before"
@@ -632,7 +627,7 @@ msgstr "सोम,"
 
 #: core/Util/Datetime.vala:399
 msgid "Tu,"
-msgstr "मंग,"
+msgstr "मंगल,"
 
 #: core/Util/Datetime.vala:403
 msgid "We,"
@@ -661,27 +656,27 @@ msgstr "अनुरोध गलत था।"
 #: core/Services/Todoist.vala:1545
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
-msgstr "प्रमाणीकरण आवश्यक है, और विफल हो गया है, या अभी तक प्रदान नहीं किया गया है।"
+msgstr "प्रमाणीकरण आवश्यक है, या तो विफल हुआ या प्रदान नहीं किया गया।"
 
 #: core/Services/Todoist.vala:1546
 msgid "The request was valid, but for something that is forbidden."
-msgstr "अनुरोध वैध था, लेकिन किसी ऐसी चीज़ के लिए जो निषिद्ध है।"
+msgstr "अनुरोध मान्य था, लेकिन निषिद्ध चीज़ के लिए।"
 
 #: core/Services/Todoist.vala:1547
 msgid "The requested resource could not be found."
-msgstr "अनुरोधित संसाधन नहीं मिल सका।"
+msgstr "अनुरोधित संसाधन नहीं मिला।"
 
 #: core/Services/Todoist.vala:1548
 msgid "The user has sent too many requests in a given amount of time."
-msgstr "उपयोक्ता ने एक निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
+msgstr "उपयोक्ता ने निश्चित समय में बहुत अधिक अनुरोध भेजे हैं।"
 
 #: core/Services/Todoist.vala:1549
 msgid "The request failed due to a server error."
-msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हो गया।"
+msgstr "सर्वर त्रुटि के कारण अनुरोध विफल हुआ।"
 
 #: core/Services/Todoist.vala:1550
 msgid "The server is currently unable to handle the request."
-msgstr "सर्वर फिलहाल अनुरोध को संभालने में असमर्थ है।"
+msgstr "सर्वर अनुरोध संभालने में फिलहाल असमर्थ है।"
 
 #: core/Services/Todoist.vala:1552
 msgid "Unknown error"
@@ -689,37 +684,37 @@ msgstr "अज्ञात त्रुटि"
 
 #: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:209
 msgid "Pinned"
-msgstr "पिन की गई"
+msgstr "पिन किए गए"
 
 #: core/Widgets/PriorityButton.vala:37 core/Widgets/PriorityButton.vala:44
 #: core/Widgets/StatusButton.vala:33
 msgid "Set The Priority"
-msgstr "प्राथमिकता तय करें"
+msgstr "वरीयता तय करें"
 
 #: core/Widgets/PriorityButton.vala:78 core/Widgets/PriorityButton.vala:125
 #: core/Widgets/PriorityButton.vala:190
 msgid "Priority 4: None"
-msgstr "प्राथमिकता 4: कोई नहीं"
+msgstr "वरीयता 4: कोई नहीं"
 
 #: core/Widgets/PriorityButton.vala:116 core/Widgets/PriorityButton.vala:172
 msgid "Priority 1: High"
-msgstr "प्राथमिकता 1: उच्च"
+msgstr "वरीयता 1: उच्च"
 
 #: core/Widgets/PriorityButton.vala:119
 msgid "Priority 2: Medium"
-msgstr "प्राथमिकता 2: मध्यम"
+msgstr "वरीयता 2: मध्यम"
 
 #: core/Widgets/PriorityButton.vala:122
 msgid "Priority 3: Low"
-msgstr "प्राथमिकता 3: निम्न"
+msgstr "वरीयता 3: निम्न"
 
 #: core/Widgets/PriorityButton.vala:178
 msgid "Priority 1: Medium"
-msgstr "प्राथमिकता 1: मध्यम"
+msgstr "वरीयता 1: मध्यम"
 
 #: core/Widgets/PriorityButton.vala:184
 msgid "Priority 1: Low"
-msgstr "प्राथमिकता 1: निम्न"
+msgstr "वरीयता 1: निम्न"
 
 #: core/Widgets/StatusButton.vala:40
 msgid "Status"
@@ -728,7 +723,7 @@ msgstr "स्थिति"
 #: core/Widgets/StatusButton.vala:45 core/Widgets/StatusButton.vala:84
 #: core/Widgets/StatusButton.vala:122
 msgid "To Do"
-msgstr "करने-हेतु"
+msgstr "लंबित"
 
 #: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
 #: src/Layouts/ItemRow.vala:997 src/Layouts/ItemBoard.vala:638
@@ -736,21 +731,20 @@ msgid "Complete"
 msgstr "पूर्ण"
 
 #: core/Widgets/LabelsPickerCore.vala:61
-#, fuzzy
 msgid ""
 "Your list of filters will show up here. Create one by entering the name and "
 "pressing the Enter key."
-msgstr "आपके अनुस्मारक की सूची यहां दिखाई देगी। '+' बटन पर क्लिक करके एक जोड़ें।"
+msgstr "आपकी फिल्टर सूची यहां दिखाई देगी। नाम दर्ज करके और Enter दबा कर एक बनाएं।"
 
 #. vala-lint=naming-convention
 #: core/Widgets/LabelsPickerCore.vala:62
-#, fuzzy, c-format
+#, c-format
 msgid "Create '%s'"
-msgstr "और बनाएं"
+msgstr "'%s' बनाएं"
 
 #: core/Widgets/LabelsPickerCore.vala:70
 msgid "Search or Create"
-msgstr ""
+msgstr "खोजें या बनाएं"
 
 #: core/Widgets/Calendar/CalendarHeader.vala:35
 #: core/Widgets/Calendar/CalendarHeader.vala:49
@@ -772,7 +766,7 @@ msgstr "सोम"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:37
 msgid "Tu"
-msgstr "मंग"
+msgstr "मंगल"
 
 #: core/Widgets/Calendar/CalendarWeek.vala:38
 msgid "We"
@@ -799,10 +793,11 @@ msgstr "अनुसूची"
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:157
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:203
 msgid "Set a Due Date"
-msgstr "नियत तिथि निर्धारित करें"
+msgstr "नियत तारीख तय करें"
 
 #: core/Widgets/DateTimePicker/ScheduleButton.vala:246
 #: src/Dialogs/RepeatConfig.vala:422
+#, fuzzy
 msgid "until"
 msgstr "जब तक"
 
@@ -827,7 +822,7 @@ msgstr "अगले हफ्ते"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:84
 msgid "Choose a date"
-msgstr "कोई तिथि चुनें"
+msgstr "कोई तारीख चुनें"
 
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:91
 #: core/Widgets/ReminderPicker/ReminderPicker.vala:134
@@ -1033,7 +1028,7 @@ msgstr "कल"
 
 #: core/Objects/Filters/Tomorrow.vala:34
 msgid "date"
-msgstr "तिथि"
+msgstr "तारीख"
 
 #: core/Objects/Filters/Anytime.vala:33 src/Views/Filter.vala:212
 msgid "Anytime"
@@ -1045,7 +1040,7 @@ msgstr "किसी भी समय"
 
 #: core/Objects/Filters/Anytime.vala:34
 msgid "no date"
-msgstr "कोई तिथि नहीं"
+msgstr "कोई तारीख नहीं"
 
 #: core/Objects/Filters/Repeating.vala:33 src/Views/Filter.vala:218
 msgid "Repeating"
@@ -1281,7 +1276,7 @@ msgstr "अनुलग्नक जोड़ें"
 #: src/Views/Project/Project.vala:468 src/Views/Project/Project.vala:640
 #: src/Dialogs/DatePicker.vala:72
 msgid "No Date"
-msgstr "कोई तिथि नहीं"
+msgstr "कोई तारीख नहीं"
 
 #: src/Layouts/ItemRow.vala:994 src/Layouts/ItemRow.vala:1120
 #: src/Layouts/ItemBoard.vala:635 src/Layouts/ItemSidebarView.vala:459
@@ -1306,7 +1301,7 @@ msgstr "कार्य मिटाएं"
 #: src/Layouts/ItemRow.vala:1115 src/Layouts/ItemSidebarView.vala:454
 #, fuzzy
 msgid "Use as a Note"
-msgstr "कोई तिथि चुनें"
+msgstr "कोई तारीख चुनें"
 
 #: src/Layouts/ItemRow.vala:1118 src/Layouts/ItemSidebarView.vala:457
 msgid "Copy to Clipboard"
@@ -1539,7 +1534,7 @@ msgstr "वर्णानुक्रम"
 #: src/Views/Project/Project.vala:454 src/Views/Today.vala:553
 #: src/Views/Scheduled/Scheduled.vala:189
 msgid "Date Added"
-msgstr "तिथि जोड़ा गया"
+msgstr "तारीख जोड़ा गया"
 
 #: src/Views/Project/Project.vala:457
 msgid "Sorting"
@@ -1568,7 +1563,7 @@ msgstr "अगले 30 दिन"
 
 #: src/Views/Project/Project.vala:470
 msgid "Duedate"
-msgstr "देयतिथि"
+msgstr "देयतारीख"
 
 #: src/Views/Project/Project.vala:477 src/Views/Today.vala:564
 #: src/Views/Scheduled/Scheduled.vala:200
@@ -1778,14 +1773,14 @@ msgstr ""
 
 #: src/Dialogs/WhatsNew.vala:113
 msgid "Project Expiry Date"
-msgstr "परियोजना समाप्ति तिथि"
+msgstr "परियोजना समाप्ति तारीख"
 
 #: src/Dialogs/WhatsNew.vala:113
 msgid ""
 "Your project’s expiry date now clearly shows the remaining days, helping you "
 "keep track of your deadlines more effectively."
 msgstr ""
-"अपनी परियोजना की समाप्ति तिथि अब शेष दिनों को स्पष्ट रूप से दिखाती है, जिससे आपको "
+"अपनी परियोजना की समाप्ति तारीख अब शेष दिनों को स्पष्ट रूप से दिखाती है, जिससे आपको "
 "अपनी समय-सीमाओं पर अधिक प्रभावी ढंग से नज़र रखने में मदद मिलती है।"
 
 #: src/Dialogs/WhatsNew.vala:114
@@ -1886,7 +1881,7 @@ msgstr "कभी नहीं"
 
 #: src/Dialogs/RepeatConfig.vala:173
 msgid "On Date"
-msgstr "तिथि पर"
+msgstr "तारीख पर"
 
 #: src/Dialogs/RepeatConfig.vala:177
 msgid "After"
@@ -2133,7 +2128,7 @@ msgstr "कैलेंडर आयोजन"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:428
 msgid "Date and Time"
-msgstr "तिथि और समय"
+msgstr "तारीख और समय"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:431
 msgid "24h"
