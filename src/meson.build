@@ -54,6 +54,7 @@ sources = files(
   'Widgets/ReorderChild.vala',
   'Widgets/FilterFlowBox.vala',
   'Widgets/Attachments.vala',
+  'Widgets/ItemChangeHistoryRow.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -79,10 +80,10 @@ sources = files(
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'Dialogs/ProjectPicker/SectionPickerRow.vala',
   'Dialogs/ManageProjects.vala',
-
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',
   'Dialogs/RepeatConfig.vala',
+  'Dialogs/ItemChangeHistory.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',

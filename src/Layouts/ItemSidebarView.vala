@@ -463,8 +463,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
-        more_information_item.add_css_class ("caption");
+        var more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -552,13 +551,15 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             menu_stack.set_visible_child_name ("menu");
         });
 
-        popover.show.connect (() => {
-            more_information_item.title = get_updated_info ();
-        });
-
         delete_item.activate_item.connect (() => {
             popover.popdown ();
             delete_request ();
+        });
+
+        more_information_item.activate_item.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ItemChangeHistory (item);
+            dialog.present (Planify._instance.main_window);
         });
 
         return popover;
@@ -667,18 +668,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
                 item.move (project, section_id);
             }
         }
-    }
-
-    private string get_updated_info () {
-        string added_at = _("Added at");
-        string updated_at = _("Updated at");
-        string added_date = Utils.Datetime.get_relative_date_from_date (item.added_datetime);
-        string updated_date = "(" + _("Not available") + ")";
-        if (item.updated_at != "") {
-            updated_date = Utils.Datetime.get_relative_date_from_date (item.updated_datetime);
-        }
-
-        return "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
     }
 
     public void delete_request (bool undo = true) {

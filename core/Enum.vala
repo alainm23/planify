@@ -437,3 +437,106 @@ public enum ItemType {
 		}
 	}
 }
+
+public enum ObjectEventType {
+	INSERT,
+	UPDATE;
+
+	public static ObjectEventType parse (string value) {
+		switch (value) {
+			case "insert":
+				return ObjectEventType.INSERT;
+
+			case "update":
+				return ObjectEventType.UPDATE;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string to_string () {
+		switch (this) {
+			case INSERT:
+				return "insert";
+
+			case UPDATE:
+				return "update";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_label () {
+		switch (this) {
+			case INSERT:
+				return _("Task Created");
+
+			case UPDATE:
+				return _("Task Updated");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}
+
+public enum ObjectEventKeyType {
+	CONTENT,
+	DESCRIPTION,
+	DUE,
+	PRIORITY,
+	LABELS,
+	PINNED;
+
+	public static ObjectEventKeyType parse (string value) {
+		switch (value) {
+			case "content":
+				return ObjectEventKeyType.CONTENT;
+
+			case "description":
+				return ObjectEventKeyType.DESCRIPTION;
+			
+			case "due":
+				return ObjectEventKeyType.DUE;
+			
+			case "priority":
+				return ObjectEventKeyType.PRIORITY;
+
+			case "labels":
+				return ObjectEventKeyType.LABELS;
+
+			case "pinned":
+				return ObjectEventKeyType.PINNED;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_label () {
+		switch (this) {
+			case ObjectEventKeyType.CONTENT:
+				return _("Content");
+
+			case ObjectEventKeyType.DESCRIPTION:
+				return _("Description");
+			
+			case ObjectEventKeyType.DUE:
+				return _("Scheduled");
+			
+			case ObjectEventKeyType.PRIORITY:
+				return _("Priority");
+
+			case ObjectEventKeyType.LABELS:
+				return _("Labels");
+
+			case ObjectEventKeyType.PINNED:
+				return _("Pin");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}

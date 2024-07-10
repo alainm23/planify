@@ -168,8 +168,10 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-                
+        Sqlite.Database.open (db_path, out db);
+
         create_tables ();
+        create_triggers ();
         patch_database ();
         opened ();
     }
@@ -233,8 +235,6 @@ public class Services.Database : GLib.Object {
     }
 
     private void create_tables () {
-        Sqlite.Database.open (db_path, out db);
-
         sql = """
             CREATE TABLE IF NOT EXISTS Labels (
                 id              TEXT PRIMARY KEY,
@@ -396,13 +396,15 @@ public class Services.Database : GLib.Object {
         }
 
         sql = """
-            CREATE TABLE IF NOT EXISTS ObjectEvents (
+            CREATE TABLE IF NOT EXISTS OEvents (
                 id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-                event_date          TEXT,
                 event_type          TEXT,
-                extra_data          TEXT,
+                event_date          DATETIME DEFAULT (datetime('now','localtime')),
                 object_id           TEXT,
                 object_type         TEXT,
+                object_key          TEXT,
+                object_old_value    TEXT,
+                object_new_value    TEXT,
                 parent_item_id      TEXT,
                 parent_project_id   TEXT
             );
@@ -414,6 +416,125 @@ public class Services.Database : GLib.Object {
         
         sql = """PRAGMA foreign_keys = ON;""";
         
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+    }
+
+    private void create_triggers () {
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_insert_item
+            AFTER INSERT ON Items
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("insert", NEW.id, "item", "content", NEW.content,
+                    NEW.content, NEW.project_id);
+            END;        
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_content_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.content != OLD.content
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "content", OLD.content,
+                    NEW.content, NEW.project_id);
+            END;              
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_description_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.description != OLD.description
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "description", OLD.description,
+                    NEW.description, NEW.project_id);
+            END;                    
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_due_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.due != OLD.due
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "due", OLD.due,
+                    NEW.due, NEW.project_id);
+            END;                    
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_priority_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.priority != OLD.priority
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "priority", OLD.priority,
+                    NEW.priority, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_labels_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.labels != OLD.labels
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "labels", OLD.labels,
+                    NEW.labels, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_pinned_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.pinned != OLD.pinned
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "pinned", OLD.pinned,
+                    NEW.pinned, NEW.project_id);
+            END;               
+        """;
+
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
@@ -1873,29 +1994,6 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    private void add_item_event (Objects.ObjectEvent object_event) {
-        Sqlite.Statement stmt;
-
-        sql = """
-            INSERT OR IGNORE INTO ObjectEvents (event_date, event_type, extra_data, object_id, object_type, parent_project_id)
-            VALUES ($event_date, $event_type, $extra_data, $object_id, $object_type, $parent_project_id);
-        """;
-
-        db.prepare_v2 (sql, sql.length, out stmt);
-        set_parameter_str (stmt, "$event_date", object_event.event_date);
-        set_parameter_str (stmt, "$event_type", object_event.event_type);
-        set_parameter_str (stmt, "$extra_data", object_event.extra_data);
-        set_parameter_str (stmt, "$object_id", object_event.object_id);
-        set_parameter_str (stmt, "$object_type", object_event.object_type);
-        set_parameter_str (stmt, "$parent_project_id", object_event.parent_project_id);
-
-        if (stmt.step () != Sqlite.DONE) {
-            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
-        }
-
-        stmt.reset ();
-    }
-
     /*
         Quick Find
     */
@@ -2503,6 +2601,48 @@ public class Services.Database : GLib.Object {
         }
 
         stmt.reset ();
+    }
+
+    /* 
+     * ObjectsEvent
+     */
+
+     public Gee.ArrayList<Objects.ObjectEvent> get_events_by_item (string id, int start_week, int end_week) {
+        Gee.ArrayList<Objects.ObjectEvent> return_value = new Gee.ArrayList<Objects.ObjectEvent> ();
+
+        Sqlite.Statement stmt;
+        
+        sql = """
+            SELECT * FROM OEvents
+                WHERE object_id = $object_id
+                AND (event_date >= DATETIME('now', '-%d days')
+                AND event_date <= DATETIME('now', '-%d days'))
+            ORDER BY event_date DESC
+        """.printf (end_week, start_week);
+        
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$object_id", id);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_object_event (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.ObjectEvent _fill_object_event (Sqlite.Statement stmt) {
+        Objects.ObjectEvent return_value = new Objects.ObjectEvent ();
+        return_value.id = stmt.column_int64 (0);
+        return_value.event_type = ObjectEventType.parse (stmt.column_text (1));
+        return_value.event_date = stmt.column_text (2);
+        return_value.object_id = stmt.column_text (3);
+        return_value.object_type = stmt.column_text (4);
+        return_value.object_key = ObjectEventKeyType.parse (stmt.column_text (5));
+        return_value.object_old_value = stmt.column_text (6);
+        return_value.object_new_value = stmt.column_text (7);
+        return_value.parent_item_id = stmt.column_text (8);
+        return_value.parent_project_id = stmt.column_text (9);        
+        return return_value;
     }
 
     // PARAMETER REGION

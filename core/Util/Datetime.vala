@@ -57,7 +57,11 @@ public class Utils.Datetime {
         return datetime;
     }
 
-    public static string get_relative_date_from_date (GLib.DateTime datetime) {
+    public static string get_relative_date_from_date (GLib.DateTime? datetime) {
+        if (datetime == null) {
+            return "";
+        }
+
         string returned = "";
 
         if (is_today (datetime)) {
@@ -437,7 +441,11 @@ public class Utils.Datetime {
         );
     }
 
-    public static string get_default_date_format_from_date (GLib.DateTime date) {
+    public static string get_default_date_format_from_date (GLib.DateTime? date) {
+        if (date == null) {
+            return "";
+        }
+
         var format = date.format (Granite.DateTime.get_default_date_format (
             false,
             true,
