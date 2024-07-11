@@ -22,6 +22,7 @@
 public class Layouts.HeaderBar : Adw.Bin {
     private Adw.HeaderBar headerbar;
     private Gtk.Label title_label;
+    private Gtk.Label title2_label;
     private Gtk.Revealer back_button_revealer;
     private Gtk.Box start_box;
     private Gtk.Button back_button;
@@ -32,6 +33,18 @@ public class Layouts.HeaderBar : Adw.Bin {
         set {
             _title = value;
             title_label.label = _title;
+        }
+
+        get {
+            return _title;
+        }
+    }
+
+    private string _title2;
+    public string title2 {
+        set {
+            _title2 = value;
+            title2_label.label = _title2;
         }
 
         get {
@@ -79,11 +92,19 @@ public class Layouts.HeaderBar : Adw.Bin {
             css_classes = { "font-bold" },
             ellipsize = Pango.EllipsizeMode.END
         };
+
+        title2_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "caption" },
+            ellipsize = Pango.EllipsizeMode.END,
+            margin_start = 6,
+            margin_top = 3
+        };
             
         start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         start_box.append (sidebar_button);
         start_box.append (back_button_revealer);
         start_box.append (title_label);
+        start_box.append (title2_label);
 
         headerbar = new Adw.HeaderBar () {
 			hexpand = true,

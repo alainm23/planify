@@ -60,13 +60,26 @@
   </kudos>
   <developer_name translate="no">Alain</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>
-  <url type="homepage">https://github.com/alainm23/planify</url>
+  <url type="homepage">https://useplanify.com/</url>
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
   <url type="vcs-browser">https://github.com/alainm23/planify</url>
   <url type="translate">https://github.com/alainm23/planify/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.9.0" date="2024-07-11">
+      <description translate="no">
+        <ul>
+          <li>Added feature to switch between task and note..</li>
+          <li>Added a task change history feature.</li>
+          <li>Fixed bug when importing backup and not recovering labels.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Koren translation added thanks to @.myunsyeya.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.8.4" date="2024-06-23">
       <description translate="no">
         <ul>
