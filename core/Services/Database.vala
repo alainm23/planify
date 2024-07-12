@@ -31,6 +31,8 @@ public class Services.Database : GLib.Object {
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
+    public signal void project_archived (Objects.Project project);
+    public signal void project_unarchived (Objects.Project project);
 
     public signal void label_added (Objects.Label label);
     public signal void label_updated (Objects.Label label);
@@ -38,16 +40,22 @@ public class Services.Database : GLib.Object {
 
     public signal void section_deleted (Objects.Section section);
     public signal void section_moved (Objects.Section section, string old_project_id);
+    public signal void section_archived (Objects.Section section);
+    public signal void section_unarchived (Objects.Section section);
     
     public signal void item_deleted (Objects.Item item);
     public signal void item_added (Objects.Item item, bool insert = true);
     public signal void item_updated (Objects.Item item, string update_id);
+    public signal void item_archived (Objects.Item item);
+    public signal void item_unarchived (Objects.Item item);
 
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
 
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
+
+    public signal void attachment_deleted (Objects.Attachment attachment);
 
     private static Database? _instance;
     public static Database get_default () {
@@ -109,6 +117,17 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    Gee.ArrayList<Objects.Attachment> _attachments = null;
+    public Gee.ArrayList<Objects.Attachment> attachments {
+        get {
+            if (_attachments == null) {
+                _attachments = get_attachments_collection ();
+            }
+
+            return _attachments;
+        }
+    }
+
     construct {
         label_deleted.connect ((label) => {
             if (_labels.remove (label)) {
@@ -139,12 +158,20 @@ public class Services.Database : GLib.Object {
                 debug ("Reminder Removed: %s", reminder.id.to_string ());
             }
         });
+
+        attachment_deleted.connect ((attachment) => {
+            if (_attachments.remove (attachment)) {
+                debug ("Attachment Removed: %s", attachment.id.to_string ());
+            }
+        });
     }
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
-                
+        Sqlite.Database.open (db_path, out db);
+
         create_tables ();
+        create_triggers ();
         patch_database ();
         opened ();
     }
@@ -198,11 +225,16 @@ public class Services.Database : GLib.Object {
          */
 
         add_text_column ("Projects", "sync_id", "");
+
+        /*
+         * Planify 4.8
+         * - Add sync_id column to Projects
+         */
+
+        add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
     }
 
     private void create_tables () {
-        Sqlite.Database.open (db_path, out db);
-
         sql = """
             CREATE TABLE IF NOT EXISTS Labels (
                 id              TEXT PRIMARY KEY,
@@ -293,7 +325,8 @@ public class Services.Database : GLib.Object {
                 collapsed           INTEGER,
                 pinned              INTEGER,
                 labels              TEXT,
-                extra_data          TEXT
+                extra_data          TEXT,
+                item_type           TEXT
             );
         """;
 
@@ -345,9 +378,182 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS Attachments (
+                id              TEXT PRIMARY KEY,
+                item_id         TEXT,
+                file_type       TEXT,
+                file_name       TEXT,
+                file_size       TEXT,
+                file_path       TEXT,
+                FOREIGN KEY (item_id) REFERENCES Items (id) ON DELETE CASCADE
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS OEvents (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_type          TEXT,
+                event_date          DATETIME DEFAULT (datetime('now','localtime')),
+                object_id           TEXT,
+                object_type         TEXT,
+                object_key          TEXT,
+                object_old_value    TEXT,
+                object_new_value    TEXT,
+                parent_item_id      TEXT,
+                parent_project_id   TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TABLE IF NOT EXISTS OEvents (
+                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+                event_type          TEXT,
+                event_date          DATETIME DEFAULT (datetime('now','localtime')),
+                object_id           TEXT,
+                object_type         TEXT,
+                object_key          TEXT,
+                object_old_value    TEXT,
+                object_new_value    TEXT,
+                parent_item_id      TEXT,
+                parent_project_id   TEXT
+            );
+        """;
+        
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
         
         sql = """PRAGMA foreign_keys = ON;""";
         
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+    }
+
+    private void create_triggers () {
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_insert_item
+            AFTER INSERT ON Items
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("insert", NEW.id, "item", "content", NEW.content,
+                    NEW.content, NEW.project_id);
+            END;        
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_content_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.content != OLD.content
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "content", OLD.content,
+                    NEW.content, NEW.project_id);
+            END;              
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_description_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.description != OLD.description
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "description", OLD.description,
+                    NEW.description, NEW.project_id);
+            END;                    
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_due_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.due != OLD.due
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "due", OLD.due,
+                    NEW.due, NEW.project_id);
+            END;                    
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_priority_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.priority != OLD.priority
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "priority", OLD.priority,
+                    NEW.priority, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_labels_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.labels != OLD.labels
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "labels", OLD.labels,
+                    NEW.labels, NEW.project_id);
+            END;               
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            CREATE TRIGGER IF NOT EXISTS after_update_pinned_item
+            AFTER UPDATE ON Items
+            FOR EACH ROW
+            WHEN NEW.pinned != OLD.pinned
+            BEGIN
+                INSERT OR IGNORE INTO OEvents (event_type, object_id,
+                    object_type, object_key, object_old_value, object_new_value, parent_project_id)
+                VALUES ("update", NEW.id, "item", "pinned", OLD.pinned,
+                    NEW.pinned, NEW.project_id);
+            END;               
+        """;
+
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
@@ -423,7 +629,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
             foreach (var project in projects) {
-                if (project.backend_type == backend_type) {
+                if (project.backend_type == backend_type && !project.is_inbox_project) {
                     return_value.add (project);
                 }
             }
@@ -458,11 +664,11 @@ public class Services.Database : GLib.Object {
         return_value.is_archived = get_parameter_bool (stmt, 8);
         return_value.is_favorite = get_parameter_bool (stmt, 9);
         return_value.shared = get_parameter_bool (stmt, 10);
-        return_value.view_style = get_view_style_by_text (stmt, 11);
+        return_value.view_style = ProjectViewStyle.parse (stmt.column_text (11));
         return_value.sort_order = stmt.column_int (12);
         return_value.parent_id = stmt.column_text (13);
         return_value.collapsed = get_parameter_bool (stmt, 14);
-        return_value.icon_style = get_icon_style_by_text (stmt, 15);
+        return_value.icon_style = ProjectIconStyle.parse (stmt.column_text (15));
         return_value.emoji = stmt.column_text (16);
         return_value.show_completed = get_parameter_bool (stmt, 17);
         return_value.description = stmt.column_text (18);
@@ -470,22 +676,6 @@ public class Services.Database : GLib.Object {
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
         return return_value;
-    }
-
-    private ProjectViewStyle get_view_style_by_text (Sqlite.Statement stmt, int col) {
-        if (stmt.column_text (col) == "board") {
-            return ProjectViewStyle.BOARD;
-        }
-
-        return ProjectViewStyle.LIST;
-    }
-
-    private ProjectIconStyle get_icon_style_by_text (Sqlite.Statement stmt, int col) {
-        if (stmt.column_text (col) == "emoji") {
-            return ProjectIconStyle.EMOJI;
-        }
-
-        return ProjectIconStyle.PROGRESS;
     }
 
     private BackendType get_backend_type_by_text (Sqlite.Statement stmt, int col) {
@@ -694,6 +884,42 @@ public class Services.Database : GLib.Object {
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
+        
+        stmt.reset ();
+    }
+
+    public void archive_project (Objects.Project project) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Projects SET is_archived=$is_archived WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_bool (stmt, "$is_archived", project.is_archived);
+        set_parameter_str (stmt, "$id", project.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Item item in project.items) {
+                archive_item (item, project.is_archived);
+            }
+
+            foreach (Objects.Section section in project.sections) {
+                section.is_archived = project.is_archived;
+                archive_section (section);
+            }
+
+            if (project.is_archived) {
+                project.archived ();
+                project_archived (project);
+            } else {
+                project.unarchived ();
+                project_unarchived (project);
+            }
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        
         stmt.reset ();
     }
 
@@ -914,6 +1140,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Item> get_items_has_labels () {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.has_labels () && !item.completed && !item.was_archived ()) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     /*
         Sections
     */
@@ -973,6 +1212,19 @@ public class Services.Database : GLib.Object {
         lock (_sections) {
             foreach (var section in sections) {
                 if (section.project_id == project.id) {
+                    return_value.add (section);
+                }
+            }
+        }
+
+        return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Section> get_sections_archived_by_project (Objects.Project project) {
+        Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
+        lock (_sections) {
+            foreach (var section in sections) {
+                if (section.project_id == project.id && section.was_archived ()) {
                     return_value.add (section);
                 }
             }
@@ -1105,6 +1357,36 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public void archive_section (Objects.Section section) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Sections SET is_archived=$is_archived WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_bool (stmt, "$is_archived", section.is_archived);
+        set_parameter_str (stmt, "$id", section.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Item item in section.items) {
+                archive_item (item, section.is_archived);
+            }
+
+            if (section.is_archived) {
+                section.archived ();
+                section_archived (section);
+            } else {
+                section.unarchived ();
+                section_unarchived (section);
+            }
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        
+        stmt.reset ();
+    }
+
     /*
         Items
     */
@@ -1115,10 +1397,10 @@ public class Services.Database : GLib.Object {
         sql = """
             INSERT OR IGNORE INTO Items (id, content, description, due, added_at, completed_at,
                 updated_at, section_id, project_id, parent_id, priority, child_order,
-                checked, is_deleted, day_order, collapsed, pinned, labels, extra_data)
+                checked, is_deleted, day_order, collapsed, pinned, labels, extra_data, item_type)
             VALUES ($id, $content, $description, $due, $added_at, $completed_at,
                 $updated_at, $section_id, $project_id, $parent_id, $priority, $child_order,
-                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data);
+                $checked, $is_deleted, $day_order, $collapsed, $pinned, $labels, $extra_data, $item_type);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1141,6 +1423,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$pinned", item.pinned);
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
+        set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
 
         if (stmt.step () == Sqlite.DONE) {
             add_item (item, insert);
@@ -1231,18 +1514,36 @@ public class Services.Database : GLib.Object {
         return returned;
     }
 
+    public Gee.ArrayList<Objects.Reminder> get_reminders_by_item_id (string id) {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT id, item_id, type, due, mm_offset FROM Reminders WHERE item_id=$item_id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$item_id", id);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_reminder (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
     public Gee.ArrayList<Objects.Item> get_item_by_baseobject (Objects.BaseObject object) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (var item in items) {
                 if (object is Objects.Project) {
-                    if (item.project_id == object.id && item.section_id == "" && item.parent_id == "") {
+                    if (item.project_id == object.id && item.section_id == "" && !item.has_parent) {
                         return_value.add (item);
                     }
                 }
                 
                 if (object is Objects.Section) {
-                    if (item.section_id == object.id && item.parent_id == "") {
+                    if (item.section_id == object.id && !item.has_parent) {
                         return_value.add (item);
                     }
                 }
@@ -1256,7 +1557,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.project_id == project.id) {
+                if (item.exists_project (project)) {
                     return_value.add (item);
                 }
             }
@@ -1270,6 +1571,19 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.project_id == project.id && item.checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_checked () {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.checked) {
                     return_value.add (item);
                 }
             }
@@ -1299,6 +1613,7 @@ public class Services.Database : GLib.Object {
         return_value.pinned = get_parameter_bool (stmt, 16);
         return_value.labels = get_labels_by_item_labels (stmt.column_text (17));
         return_value.extra_data = stmt.column_text (18);
+        return_value.item_type = ItemType.parse (stmt.column_text (19));
 
         return return_value;
     }
@@ -1308,6 +1623,32 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (valid_item_by_date (item, date, checked)) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_no_date (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (!item.has_due && item.checked == checked) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_repeating (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.has_due && item.due.is_recurring && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -1346,7 +1687,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.pinned && item.checked == checked) {
+                if (item.pinned && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -1359,7 +1700,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.priority == priority && item.checked == checked) {
+                if (item.priority == priority && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -1372,16 +1713,10 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.checked) {
+                if (item.checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
-
-            return_value.sort ((a, b) => {
-                var completed_a = Util.get_default ().get_date_from_string (a.completed_at);
-                var completed_b = Util.get_default ().get_date_from_string (b.completed_at);
-                return completed_b.compare (completed_a);
-            });
 
             return return_value;
         }
@@ -1391,7 +1726,20 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (Objects.Item item in items) {
-                if (item.get_label (label.id) != null && item.checked == checked) {
+                if (item.has_label (label.id) && item.checked == checked && !item.was_archived ()) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Item> get_items_unlabeled (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (item.labels.size <= 0 && item.checked == checked && !item.was_archived ()) {
                     return_value.add (item);
                 }
             }
@@ -1405,6 +1753,7 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.has_due &&
+                    !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (new GLib.DateTime.now_local ()) > 0) {
                     return_value.add (item);
@@ -1415,28 +1764,47 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        return (item.has_due &&
-            item.checked == checked &&
-            Granite.DateTime.is_same_day (item.due.datetime, date));
+    public Gee.ArrayList<Objects.Item> get_items_no_parent (bool checked = true) {
+        Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
+        lock (_items) {
+            foreach (Objects.Item item in items) {
+                if (!item.was_archived () &&
+                    item.checked == checked &&
+                    !item.has_parent) {
+                    return_value.add (item);
+                }
+            }
+
+            return return_value;
+        }
     }
 
-    public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
-        if (!item.has_due) {
+    public bool valid_item_by_date (Objects.Item item, GLib.DateTime date, bool checked = true) {
+        if (!item.has_due || item.was_archived ()) {
             return false;
         }
 
-        var date = Util.get_default ().get_format_date (item.due.datetime);
-        var start = Util.get_default ().get_format_date (start_date);
-        var end = Util.get_default ().get_format_date (end_date);
+        return (item.checked == checked && Utils.Datetime.is_same_day (item.due.datetime, date));
+    }
 
-        return (item.checked == checked &&
-            date.compare (start) >= 0 && date.compare (end) <= 0);
+    public bool valid_item_by_date_range (Objects.Item item, GLib.DateTime start_date, GLib.DateTime end_date, bool checked = true) {
+        if (!item.has_due || item.was_archived ()) {
+            return false;
+        }
+
+        var date = Utils.Datetime.get_format_date (item.due.datetime);
+        var start = Utils.Datetime.get_format_date (start_date);
+        var end = Utils.Datetime.get_format_date (end_date);
+
+        return (item.checked == checked && date.compare (start) >= 0 && date.compare (end) <= 0);
     }
 
     public bool valid_item_by_month (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        return (item.has_due &&
-            item.checked == checked && item.due.datetime.get_month () == date.get_month () &&
+        if (!item.has_due || item.was_archived ()) {
+            return false;
+        }
+
+        return (item.checked == checked && item.due.datetime.get_month () == date.get_month () &&
             item.due.datetime.get_year () == date.get_year ());
     }
 
@@ -1446,9 +1814,10 @@ public class Services.Database : GLib.Object {
         lock (_items) {
             foreach (Objects.Item item in items) {
                 if (item.has_due &&
+                    !item.was_archived () &&
                     item.checked == checked &&
                     item.due.datetime.compare (date_now) < 0 &&
-                    !Granite.DateTime.is_same_day (item.due.datetime, date_now)) {
+                    !Utils.Datetime.is_same_day (item.due.datetime, date_now)) {
                     return_value.add (item);
                 }
             }
@@ -1458,10 +1827,13 @@ public class Services.Database : GLib.Object {
     }
 
     public bool valid_item_by_overdue (Objects.Item item, GLib.DateTime date, bool checked = true) {
-        return (item.has_due &&
-            item.checked == checked &&
+        if (!item.has_due || item.was_archived ()) {
+            return false;
+        }
+
+        return (item.checked == checked &&
             item.due.datetime.compare (new GLib.DateTime.now_local ()) < 0 &&
-            !Granite.DateTime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
+            !Utils.Datetime.is_same_day (item.due.datetime, new GLib.DateTime.now_local ()));
     }
 
     public void delete_item (Objects.Item item) {
@@ -1499,7 +1871,7 @@ public class Services.Database : GLib.Object {
                 section_id=$section_id, project_id=$project_id, parent_id=$parent_id,
                 priority=$priority, child_order=$child_order, checked=$checked,
                 is_deleted=$is_deleted, day_order=$day_order, collapsed=$collapsed,
-                pinned=$pinned, labels=$labels, extra_data=$extra_data
+                pinned=$pinned, labels=$labels, extra_data=$extra_data, item_type=$item_type
             WHERE id=$id;
         """;
 
@@ -1522,11 +1894,45 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$pinned", item.pinned);
         set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
+        set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
         set_parameter_str (stmt, "$id", item.id);
 
         if (stmt.step () == Sqlite.DONE) {
-            item.updated ();
+            item.updated (update_id);
             item_updated (item, update_id);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+    }
+
+    public void move_item (Objects.Item item) {
+        item.updated_at = new GLib.DateTime.now_local ().to_string ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            UPDATE Items SET
+                section_id=$section_id,
+                project_id=$project_id,
+                parent_id=$parent_id
+            WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$section_id", item.section_id);
+        set_parameter_str (stmt, "$project_id", item.project_id);
+        set_parameter_str (stmt, "$parent_id", item.parent_id);
+        set_parameter_str (stmt, "$id", item.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Item subitem in item.items) {
+                subitem.project_id = item.project_id;
+                move_item (subitem);
+            }
+            
+            item.updated ();
+            item_updated (item, "");
         } else {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
@@ -1593,6 +1999,20 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
+    public void archive_item (Objects.Item item, bool is_archived) {
+        if (is_archived) {
+            item.archived ();
+            item_archived (item);
+        } else {
+            item.unarchived ();
+            item_unarchived (item);
+        }
+
+        foreach (Objects.Item subitem in item.items) {
+            archive_item (subitem, is_archived);
+        }
+    }
+
     /*
         Quick Find
     */
@@ -1601,8 +2021,21 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
             foreach (var project in projects) {
-                if (search_text.down () in project.name.down ()) {
+                if (search_text.down () in project.name.down () && !project.is_archived) {
                     return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public Gee.ArrayList<Objects.Section> get_all_sections_by_search (string search_text) {
+        Gee.ArrayList<Objects.Section> return_value = new Gee.ArrayList<Objects.Section> ();
+        lock (_projects) {
+            foreach (var section in sections) {
+                if (search_text.down () in section.name.down () && !section.was_archived ()) {
+                    return_value.add (section);
                 }
             }
 
@@ -1636,6 +2069,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Project> get_all_projects_archived () {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.is_archived) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Label> get_all_labels_by_todoist () {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         lock (_labels) {
@@ -1653,7 +2099,7 @@ public class Services.Database : GLib.Object {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
             foreach (var item in items) {
-                if (!item.checked && (search_text.down () in item.content.down () ||
+                if (!item.checked && !item.was_archived () && (search_text.down () in item.content.down () ||
                     search_text.down () in item.description.down ())) {
                     return_value.add (item);
                 }
@@ -1664,20 +2110,21 @@ public class Services.Database : GLib.Object {
     }
 
     // Reminders
-
     public void insert_reminder (Objects.Reminder reminder) {
         Sqlite.Statement stmt;
         string sql;
 
         sql = """
-            INSERT OR IGNORE INTO Reminders (id, item_id, due)
-            VALUES ($id, $item_id, $due);
+            INSERT OR IGNORE INTO Reminders (id, item_id, type, due, mm_offset)
+            VALUES ($id, $item_id, $type, $due, $mm_offset);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", reminder.id);
         set_parameter_str (stmt, "$item_id", reminder.item_id);
+        set_parameter_str (stmt, "$type", reminder.reminder_type.to_string ());
         set_parameter_str (stmt, "$due", reminder.due.to_string ());
+        set_parameter_int (stmt, "$mm_offset", reminder.mm_offset);
 
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
@@ -1695,7 +2142,7 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            SELECT id, item_id, due FROM Reminders;
+            SELECT id, item_id, type, due, mm_offset FROM Reminders;
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1711,7 +2158,9 @@ public class Services.Database : GLib.Object {
         Objects.Reminder return_value = new Objects.Reminder ();
         return_value.id = stmt.column_text (0);
         return_value.item_id = stmt.column_text (1);
-        return_value.due.update_from_json (get_due_parameter (stmt.column_text (2)));
+        return_value.reminder_type = stmt.column_text (2) == "absolute" ? ReminderType.ABSOLUTE : ReminderType.RELATIVE;
+        return_value.due.update_from_json (get_due_parameter (stmt.column_text (3)));
+        return_value.mm_offset = stmt.column_int (4);
         return return_value;
     }
 
@@ -1737,7 +2186,7 @@ public class Services.Database : GLib.Object {
                     break;
                 }
             }
-
+            
             return return_value;
         }
     }
@@ -1762,9 +2211,98 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-     /*
-        Queue
-    */
+    // Atrachments
+    public void insert_attachment (Objects.Attachment attachment) {
+        Sqlite.Statement stmt;
+        string sql;
+
+        sql = """
+            INSERT OR IGNORE INTO Attachments (id, item_id, file_type, file_name, file_size, file_path)
+            VALUES ($id, $item_id, $file_type, $file_name, $file_size, $file_path);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", attachment.id);
+        set_parameter_str (stmt, "$item_id", attachment.item_id);
+        set_parameter_str (stmt, "$file_type", attachment.file_type);
+        set_parameter_str (stmt, "$file_name", attachment.file_name);
+        set_parameter_int64 (stmt, "$file_size", attachment.file_size);
+        set_parameter_str (stmt, "$file_path", attachment.file_path);
+
+        if (stmt.step () != Sqlite.DONE) {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        } else {
+            attachments.add (attachment);
+            attachment.item.attachment_added (attachment);
+        }
+
+        stmt.reset ();
+    }
+
+    public Gee.ArrayList<Objects.Attachment> get_attachments_collection () {
+        Gee.ArrayList<Objects.Attachment> return_value = new Gee.ArrayList<Objects.Attachment> ();
+        Sqlite.Statement stmt;
+
+        sql = """
+            SELECT * FROM Attachments;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_attachment (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.Attachment _fill_attachment (Sqlite.Statement stmt) {
+        Objects.Attachment return_value = new Objects.Attachment ();
+        return_value.id = stmt.column_text (0);
+        return_value.item_id = stmt.column_text (1);
+        return_value.file_type = stmt.column_text (2);
+        return_value.file_name = stmt.column_text (3);
+        return_value.file_size = stmt.column_int64 (4);
+        return_value.file_path = stmt.column_text (5);
+        return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Attachment> get_attachments_by_item (Objects.Item item) {
+        Gee.ArrayList<Objects.Attachment> return_value = new Gee.ArrayList<Objects.Attachment> ();
+        lock (_attachments) {
+            foreach (var attachment in attachments) {
+                if (attachment.item_id == item.id) {
+                    return_value.add (attachment);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public void delete_attachment (Objects.Attachment attachment) {
+        Sqlite.Statement stmt;
+    
+        sql = """
+            DELETE FROM Attachments WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", attachment.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            attachment.deleted ();
+            attachment.item.attachment_deleted (attachment);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+        
+        stmt.reset ();
+    }
+
+    /*
+     * Queue
+     */
 
     public void insert_queue (Objects.Queue queue) {
         Sqlite.Statement stmt;
@@ -2084,16 +2622,58 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
+    /* 
+     * ObjectsEvent
+     */
+
+     public Gee.ArrayList<Objects.ObjectEvent> get_events_by_item (string id, int start_week, int end_week) {
+        Gee.ArrayList<Objects.ObjectEvent> return_value = new Gee.ArrayList<Objects.ObjectEvent> ();
+
+        Sqlite.Statement stmt;
+        
+        sql = """
+            SELECT * FROM OEvents
+                WHERE object_id = $object_id
+                AND (event_date >= DATETIME('now', '-%d days')
+                AND event_date <= DATETIME('now', '-%d days'))
+            ORDER BY event_date DESC
+        """.printf (end_week, start_week);
+        
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$object_id", id);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_object_event (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.ObjectEvent _fill_object_event (Sqlite.Statement stmt) {
+        Objects.ObjectEvent return_value = new Objects.ObjectEvent ();
+        return_value.id = stmt.column_int64 (0);
+        return_value.event_type = ObjectEventType.parse (stmt.column_text (1));
+        return_value.event_date = stmt.column_text (2);
+        return_value.object_id = stmt.column_text (3);
+        return_value.object_type = stmt.column_text (4);
+        return_value.object_key = ObjectEventKeyType.parse (stmt.column_text (5));
+        return_value.object_old_value = stmt.column_text (6);
+        return_value.object_new_value = stmt.column_text (7);
+        return_value.parent_item_id = stmt.column_text (8);
+        return_value.parent_project_id = stmt.column_text (9);        
+        return return_value;
+    }
+
     // PARAMETER REGION
     private void set_parameter_int (Sqlite.Statement? stmt, string par, int val) {
         int par_position = stmt.bind_parameter_index (par);
         stmt.bind_int (par_position, val);
     }
 
-    //  private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
-    //      int par_position = stmt.bind_parameter_index (par);
-    //      stmt.bind_int64 (par_position, val);
-    //  }
+    private void set_parameter_int64 (Sqlite.Statement? stmt, string par, int64 val) {
+        int par_position = stmt.bind_parameter_index (par);
+        stmt.bind_int64 (par_position, val);
+    }
 
     private void set_parameter_str (Sqlite.Statement? stmt, string par, string val) {
         int par_position = stmt.bind_parameter_index (par);

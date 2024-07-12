@@ -29,19 +29,11 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         return _instance;
     }
 
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "labels-view";
-            return _view_id;
-        }
-    }
-
     int? _count = null;
     public int count {
         get {
             if (_count == null) {
-                _count = Services.Database.get_default ().get_labels_collection ().size;
+                _count = Services.Database.get_default ().get_items_has_labels ().size;
             }
 
             return _count;
@@ -56,20 +48,47 @@ public class Objects.Filters.Labels : Objects.BaseObject {
 
     construct {
         name = _("Labels");
-        keywords = "%s".printf (_("labels"));
+        keywords = "%s;%s".printf (_("labels"), _("filters"));
+        icon_name = "tag-outline-symbolic";
+        view_id = FilterType.LABELS.to_string ();
 
         Services.Database.get_default ().label_added.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection ().size;
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
             count_updated ();
         });
 
         Services.Database.get_default ().label_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection ().size;
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
             count_updated ();
         });
 
         Services.Database.get_default ().label_updated.connect (() => {
-            _count = Services.Database.get_default ().get_labels_collection ().size;
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
+            count_updated ();
+        });
+        
+        Services.Database.get_default ().item_added.connect (() => {
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_deleted.connect (() => {
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect ((item) => {
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_updated.connect (() => {
+            _count = Services.Database.get_default ().get_items_has_labels ().size;
             count_updated ();
         });
     }

@@ -52,7 +52,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
 
     public signal void day_selected ();
 
-    public Calendar (bool block_past_days = false) {
+    public Calendar (bool block_past_days = Constants.BLOCK_PAST_DAYS) {
         Object (
             block_past_days: block_past_days,
             orientation: Gtk.Orientation.VERTICAL
@@ -148,7 +148,7 @@ public class Widgets.Calendar.Calendar : Gtk.Box {
         }
         start_day = (start_day + 7) % 7;
 
-        int max_days = Util.get_default ().get_days_of_month (date.get_month (), year_nav);
+        int max_days = Utils.Datetime.get_days_of_month (date.get_month (), year_nav);
         calendar_view.fill_grid_days (start_day, max_days, date, show_day, block_past_days);
         calendar_header.date = date;
     }

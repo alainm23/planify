@@ -5,7 +5,6 @@ namespace Constants {
     public const string BACKUP_VERSION = "1.0";
     public const int UPDATE_TIMEOUT = 1500;
     public const int DESTROY_TIMEOUT = 750;
-    public const int DRAG_TIMEOUT = 225;
     public const int SYNC_TIMEOUT = 2500;
     public const int SHORT_NAME_SIZE = 20;
     public const int PRIORITY_1 = 4;
@@ -20,4 +19,7 @@ namespace Constants {
     public const string PAYPAL_ME_URL = "https://www.paypal.com/paypalme/alainm23";
     public const string LIBERAPAY_URL = "https://liberapay.com/Alain/";
     public const string KOFI_URL = "https://ko-fi.com/alainm23";
+    public const string MATRIX_URL = "https://matrix.to/#/#useplanify:matrix.org";
+    public const bool SHOW_WHATSNEW = false;
+    public const bool BLOCK_PAST_DAYS = false;
 }

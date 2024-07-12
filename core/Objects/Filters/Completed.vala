@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Completed : Objects.BaseObject {
+public class Objects.Filters.Completed : Objects.BaseObject {
     private static Completed? _instance;
     public static Completed get_default () {
         if (_instance == null) {
@@ -27,14 +27,6 @@ public class Objects.Completed : Objects.BaseObject {
         }
 
         return _instance;
-    }
-
-    string _view_id;
-    public string view_id {
-        get {
-            _view_id = "completed-view";
-            return _view_id;
-        }
     }
 
     int? _count = null;
@@ -56,7 +48,9 @@ public class Objects.Completed : Objects.BaseObject {
 
     construct {
         name = _("Completed");
-        keywords = "%s;%s".printf (_("completed"), _("logbook"));
+        keywords = "%s;%s;%s".printf (_("completed"), _("filters"), _("logbook"));
+        icon_name = "check-round-outline-symbolic";
+        view_id = FilterType.COMPLETED.to_string ();
 
         Services.Database.get_default ().item_added.connect (() => {
             _count = Services.Database.get_default ().get_items_completed ().size;
@@ -69,6 +63,16 @@ public class Objects.Completed : Objects.BaseObject {
         });
 
         Services.Database.get_default ().item_updated.connect (() => {
+            _count = Services.Database.get_default ().get_items_completed ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _count = Services.Database.get_default ().get_items_completed ().size;
+            count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
             _count = Services.Database.get_default ().get_items_completed ().size;
             count_updated ();
         });

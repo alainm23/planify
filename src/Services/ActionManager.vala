@@ -26,7 +26,8 @@ public class Services.ActionManager : Object {
     public SimpleActionGroup actions { get; construct; }
 
     public const string ACTION_PREFIX = "win.";
-    public const string ACTION_QUIT = "action_quit";
+    public const string ACTION_QUIT_Q = "action_quit_q";
+    public const string ACTION_QUIT_W = "action_quit_w";
     public const string ACTION_PREFERENCES = "action_preferences";
     public const string ACTION_SHORTCUTS = "action_shortcuts";
     public const string ACTION_ADD_TASK = "action_add_task";
@@ -42,14 +43,14 @@ public class Services.ActionManager : Object {
     public const string ACTION_VIEW_PINBOARD = "action_view_pinboard";
     public const string ACTION_VIEW_LABELS = "action_view_labels";
     public const string ACTION_VIEW_HOME = "action_view_home";
-    public const string ACTION_ESC = "action_esc";
     public const string ACTION_SHOW_HIDE_SIDEBAR = "action_show_hide_sidebar";
     
     public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
     public static Gee.MultiMap<string, string> typing_accelerators = new Gee.HashMultiMap<string, string> ();
 
     private const ActionEntry[] ACTION_ENTRIES = {
-        { ACTION_QUIT, action_quit },
+        { ACTION_QUIT_Q, action_quit },
+        { ACTION_QUIT_W, action_quit },
         { ACTION_PREFERENCES, action_preferences },
         { ACTION_SHORTCUTS, action_shortcuts },
         { ACTION_ADD_TASK, action_add_task },
@@ -65,7 +66,6 @@ public class Services.ActionManager : Object {
         { ACTION_VIEW_PINBOARD, action_view_pinboard },
         { ACTION_VIEW_LABELS, action_view_labels },
         { ACTION_VIEW_HOME, action_view_home },
-        { ACTION_ESC, action_esc },
         { ACTION_SHOW_HIDE_SIDEBAR, action_show_hide_sidebar }
     };
 
@@ -77,7 +77,8 @@ public class Services.ActionManager : Object {
     }
 
     static construct {
-        action_accelerators.set (ACTION_QUIT, "<Control>q");
+        action_accelerators.set (ACTION_QUIT_Q, "<Control>q");
+        action_accelerators.set (ACTION_QUIT_W, "<Control>w");
         action_accelerators.set (ACTION_PREFERENCES, "<Control>comma");
         action_accelerators.set (ACTION_SHORTCUTS, "F1");
         action_accelerators.set (ACTION_OPEN_SEARCH, "<Control>f");
@@ -88,7 +89,6 @@ public class Services.ActionManager : Object {
         action_accelerators.set (ACTION_VIEW_SCHEDULED, "<Control>u");
         action_accelerators.set (ACTION_VIEW_LABELS, "<Control>l");
         action_accelerators.set (ACTION_VIEW_PINBOARD, "<Control>p");
-        action_accelerators.set (ACTION_ESC, "Escape");
 
         typing_accelerators.set (ACTION_ADD_TASK, "a");
         typing_accelerators.set (ACTION_ADD_TASK_PASTE, "<Control>v");
@@ -133,24 +133,28 @@ public class Services.ActionManager : Object {
 
     private void action_preferences () {
         var dialog = new Dialogs.Preferences.PreferencesWindow ();
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_open_search () {
         var dialog = new Dialogs.QuickFind.QuickFind ();
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_sync_manually () {
         if (Services.Todoist.get_default ().is_logged_in ()) {
             Services.Todoist.get_default ().sync_async ();
         }
+
+        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+            Services.CalDAV.Core.get_default ().sync_async ();
+        }
     }
 
     private void action_new_project () {
         // TODO: Update Backend Type instance default by user // vala-lint=note
         var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
     }
 
     private void action_view_homepage () {
@@ -175,10 +179,6 @@ public class Services.ActionManager : Object {
 
     private void action_view_pinboard () {
         Services.EventBus.get_default ().pane_selected (PaneType.FILTER, FilterType.PINBOARD.to_string ());
-    }
-
-    private void action_esc () {
-        Services.EventBus.get_default ().request_escape ();
     }
 
     private void action_show_hide_sidebar () {

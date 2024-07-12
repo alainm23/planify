@@ -19,53 +19,56 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.QuickAdd : Adw.Window {
+public class Dialogs.QuickAdd : Adw.Dialog {
     public Objects.Item item { get; construct; }
     private Layouts.QuickAdd quick_add_widget;
 
-	public QuickAdd () {
-        Object (
-            deletable: true,
-            resizable: false,
-            modal: true,
-            transient_for: (Gtk.Window) Planify.instance.main_window,
-            width_request: 600,
-            halign: Gtk.Align.START
-        );
-    }
-
     construct {
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+
         quick_add_widget = new Layouts.QuickAdd ();
-        set_content (quick_add_widget);
+        child = quick_add_widget;
 
         quick_add_widget.hide_destroy.connect (hide_destroy);
         quick_add_widget.add_item_db.connect ((add_item_db));
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
-    private void add_item_db (Objects.Item item) {
-        if (item.parent_id != "") {
-			Services.Database.get_default ().get_item (item.parent_id).add_item_if_not_exists (item);
-            quick_add_widget.added_successfully ();
-			return;
-		}
-
-        if (item.section_id != "") {
-			Services.Database.get_default ().get_section (item.section_id).add_item_if_not_exists (item);
+    private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
+        if (item.has_parent) {
+			item.parent.add_item_if_not_exists (item);
 		} else {
-			Services.Database.get_default ().get_project (item.project_id).add_item_if_not_exists (item);
-		}
+            if (item.section_id != "") {
+                item.section.add_item_if_not_exists (item);
+            } else {
+                item.project.add_item_if_not_exists (item);
+            }
+        }
 
+        if (reminders.size > 0) {
+            quick_add_widget.is_loading = true;
+
+            foreach (Objects.Reminder reminder in reminders) {
+                item.add_reminder (reminder);
+            }
+        }
+
+        if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && item.has_time) {
+            var reminder = new Objects.Reminder ();
+            reminder.mm_offset = Util.get_reminders_mm_offset ();
+            reminder.reminder_type = ReminderType.RELATIVE;
+            item.add_reminder (reminder);
+        }
+        
         Services.EventBus.get_default ().update_section_sort_func (item.project_id, item.section_id, false);
         quick_add_widget.added_successfully ();
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 
     public void update_content (string content = "") {
@@ -100,5 +103,9 @@ public class Dialogs.QuickAdd : Adw.Window {
 
     public void set_index (int index) {
         quick_add_widget.set_index (index);
+    }
+
+    public void set_labels (Gee.HashMap<string, Objects.Label> new_labels) {
+        quick_add_widget.set_labels (new_labels);
     }
 }

@@ -20,6 +20,8 @@
 */
 
 public class Views.Scheduled.Scheduled : Adw.Bin {
+    private Gtk.Revealer indicator_revealer;
+    Widgets.ContextMenu.MenuCheckPicker priority_filter;
     private Gtk.ListBox listbox;
     private Gtk.ScrolledWindow scrolled_window;
 
@@ -28,8 +30,40 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     construct {
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
+        var indicator_grid = new Gtk.Grid () {
+			width_request = 9,
+			height_request = 9,
+			margin_top = 6,
+			margin_end = 6,
+			css_classes = { "indicator" }
+		};
+
+		indicator_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.CROSSFADE,
+            child = indicator_grid,
+			halign = END,
+			valign = START,
+			sensitive = false,
+        };
+
+		var view_setting_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+            margin_end = 12,
+			popover = build_view_setting_popover (),
+			icon_name = "view-sort-descending-rtl-symbolic",
+			css_classes = { "flat" },
+			tooltip_text = _("View Option Menu")
+		};
+
+		var view_setting_overlay = new Gtk.Overlay ();
+		view_setting_overlay.child = view_setting_button;
+		view_setting_overlay.add_overlay (indicator_revealer);
+
         var headerbar = new Layouts.HeaderBar ();
         headerbar.title = _("Scheduled");
+
+        headerbar.pack_end (view_setting_overlay);
 
         listbox = new Gtk.ListBox () {
             valign = Gtk.Align.START,
@@ -40,23 +74,35 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
         listbox.add_css_class ("listbox-background");
 
-        var listbox_grid = new Gtk.Grid () {
-            margin_top = 12
+        var listbox_content = new Adw.Bin () {
+            margin_top = 12,
+			child = listbox
         };
-        listbox_grid.attach (listbox, 0, 0);
+
+		var filters = new Widgets.FilterFlowBox (Objects.Filters.Scheduled.get_default ()) {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_top = 12;
+        filters.flowbox.margin_end = 12;
+        filters.flowbox.margin_bottom = 3;
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true,
             vexpand = true
         };
 
-        content.append (listbox_grid);
+		content.append (filters);
+        content.append (listbox_content);
 
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
         };
 
@@ -94,7 +140,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     private void add_days () {
         var date = new GLib.DateTime.now_local ();
-        var month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        var month_days = Utils.Datetime.get_days_of_month (date.get_month (), date.get_year ());
         var remaining_days = month_days - date.add_days (7).get_day_of_month ();
         var days_to_iterate = 7;
 
@@ -109,7 +155,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
             listbox.append (row);
         }
 
-        month_days = Util.get_default ().get_days_of_month (date.get_month (), date.get_year ());
+        month_days = Utils.Datetime.get_days_of_month (date.get_month (), date.get_year ());
         remaining_days = month_days - date.get_day_of_month ();
 
         if (remaining_days > 3) {
@@ -126,13 +172,133 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 
     public void prepare_new_item (string content = "") {
         var inbox_project = Services.Database.get_default ().get_project (
-            Services.Settings.get_default ().settings.get_string ("inbox-project-id")
+            Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
         var dialog = new Dialogs.QuickAdd ();
         dialog.update_content (content);
         dialog.set_project (inbox_project);
-        dialog.set_due (Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1)));
-        dialog.show ();
+        dialog.set_due (Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1)));
+        dialog.present (Planify._instance.main_window);
     }
+
+    private Gtk.Popover build_view_setting_popover () {
+		var order_by_model = new Gee.ArrayList<string> ();
+		order_by_model.add (_("Due Date"));
+        order_by_model.add (_("Alphabetically"));
+		order_by_model.add (_("Date Added"));
+		order_by_model.add (_("Priority"));
+
+		var order_by_item = new Widgets.ContextMenu.MenuPicker (_("Order by"), "view-list-ordered-symbolic", order_by_model);
+		order_by_item.selected = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
+
+        // Filters
+        var priority_items = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P1"),
+			value = Constants.PRIORITY_1.to_string ()
+		});
+
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P2"),
+			value = Constants.PRIORITY_2.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P3"),
+			value = Constants.PRIORITY_3.to_string ()
+		});
+		
+		priority_items.add (new Objects.Filters.FilterItem () {
+			filter_type = FilterItemType.PRIORITY,
+			name = _("P4"),
+			value = Constants.PRIORITY_4.to_string ()
+		});
+
+		priority_filter = new Widgets.ContextMenu.MenuCheckPicker (_("Priority"), "flag-outline-thick-symbolic");
+		priority_filter.set_items (priority_items);
+
+        var labels_filter = new Widgets.ContextMenu.MenuItem (_("Filter by Labels"), "tag-outline-symbolic") {
+			arrow = true
+		};
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (order_by_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (new Gtk.Label (_("Filter By")) {
+			css_classes = { "heading", "h4" },
+			margin_start = 6,
+			margin_top = 6,
+			margin_bottom = 6,
+			halign = Gtk.Align.START
+		});
+		menu_box.append (priority_filter);
+		menu_box.append (labels_filter);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = false,
+			position = Gtk.PositionType.BOTTOM,
+			child = menu_box,
+			width_request = 250
+		};
+
+		order_by_item.notify["selected"].connect (() => {
+            Services.Settings.get_default ().settings.set_int ("scheduled-sort-order", order_by_item.selected);
+		});
+
+        priority_filter.filter_change.connect ((filter, active) => {
+			if (active) {
+				Objects.Filters.Scheduled.get_default ().add_filter (filter);
+			} else {
+				Objects.Filters.Scheduled.get_default ().remove_filter (filter);
+			}
+		});
+
+		labels_filter.activate_item.connect (() => {
+			popover.popdown ();
+
+			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.LABEL) {
+					_labels.add (Services.Database.get_default ().get_label (filter.value));
+				}
+			}
+
+			var dialog = new Dialogs.LabelPicker ();
+			dialog.add_labels (BackendType.ALL);
+			dialog.labels = _labels;
+			dialog.present (Planify._instance.main_window);
+
+			dialog.labels_changed.connect ((labels) => {				
+				foreach (Objects.Label label in labels.values) {
+					var filter = new Objects.Filters.FilterItem ();
+					filter.filter_type = FilterItemType.LABEL;
+					filter.name = label.name;
+					filter.value = label.id;
+
+					Objects.Filters.Scheduled.get_default ().add_filter (filter);
+				}
+
+				Gee.ArrayList<Objects.Filters.FilterItem> to_remove = new Gee.ArrayList<Objects.Filters.FilterItem> ();
+				foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
+					if (filter.filter_type == FilterItemType.LABEL) {
+						if (!labels.has_key (filter.value)) {
+							to_remove.add (filter);
+						}
+					}
+				}
+
+				foreach (Objects.Filters.FilterItem filter in to_remove) {
+					Objects.Filters.Scheduled.get_default ().remove_filter (filter);
+				}
+			});
+		});
+
+		return popover;
+	}
 }

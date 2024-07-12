@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.WhatsNew : Adw.Window {
+public class Dialogs.WhatsNew : Adw.Dialog {
 	private Adw.NavigationView navigation_view;
 	private Adw.PreferencesGroup feature_group;
 	private Gtk.TextView textview;
@@ -27,12 +27,8 @@ public class Dialogs.WhatsNew : Adw.Window {
 
 	public WhatsNew () {
 		Object (
-			transient_for: (Gtk.Window) Planify.instance.main_window,
-			deletable: true,
-			destroy_with_parent: true,
-			modal: true,
-			default_width: 475,
-			height_request: 600,
+			content_width: 475,
+			content_height: 600,
 			title: null
 		);
 	}
@@ -47,7 +43,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 		var title_label = new Gtk.Label (_("What’s new in Planify")) {
 			hexpand = true,
 			halign = CENTER,
-			css_classes = { "h1" }
+			css_classes = { "title-1" }
 		};
 
 		var version_label = new Gtk.Label (Build.VERSION) {
@@ -70,7 +66,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 			top_margin = 12,
 			bottom_margin = 12,
 			editable = false,
-			css_classes = { "card", "small-label" }
+			css_classes = { "card", "caption" }
 		};
 		textview.remove_css_class ("view");
 		group.add (textview);
@@ -104,27 +100,27 @@ public class Dialogs.WhatsNew : Adw.Window {
 		navigation_view = new Adw.NavigationView ();
 		navigation_view.add (home_page);
 
-		content = navigation_view;
+		child = navigation_view;
+		Services.EventBus.get_default ().disconnect_typing_accel ();
 
-		var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
-			return false;
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
-
-		add_feature (
-			_("New look"),
-			_("The design has been improved and new icons have been added making the user interface simpler to understand and use..")
-		);
+		
+		add_feature (_("Inbox as Independent Project"), _("The Inbox is the default place to add new tasks, allowing you to quickly get your ideas out of your head and then plan them when you’re ready."));
+		add_feature (_("Enhanced Task Duplication"), _("When you duplicate a task now, all subtasks and labels are automatically duplicated, saving you time and effort in managing your projects."));
+		add_feature (_("Duplication of Sections and Projects"), _("You can now easily duplicate entire sections and projects, making it easier to create new projects based on existing structures."));
+		add_feature (_("Project Expiry Date"), _("Your project’s expiry date now clearly shows the remaining days, helping you keep track of your deadlines more effectively."));
+		add_feature (_("Archiving of Projects and Sections"), _("You can now archive entire projects and sections! This feature helps you keep your workspace organized and clutter-free."));
 	}
 
-	public void add_feature (string title, string description, Adw.NavigationPage? page = null) {
+	public void add_feature (string title, string? description, Adw.NavigationPage? page = null) {
 		var row = new Adw.ActionRow ();
 		row.title = title;
-		row.subtitle = description;
+
+		if (description != null) {
+			row.subtitle = description;
+		}
 
 		if (page != null) {
 			row.add_suffix (generate_icon ("pan-end-symbolic", 16));
@@ -143,12 +139,7 @@ public class Dialogs.WhatsNew : Adw.Window {
 	}
 
 	public void hide_destroy () {
-		hide ();
-
-		Timeout.add (500, () => {
-			destroy ();
-			return GLib.Source.REMOVE;
-		});
+		close ();
 	}
 
 	private Adw.NavigationPage create_video_page (string description, string video_url) {

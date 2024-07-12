@@ -19,20 +19,29 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
+public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	public PreferencesWindow () {
 		Object (
-			transient_for: (Gtk.Window) Planify.instance.main_window,
-			deletable: true,
-			destroy_with_parent: true,
-			modal: true,
-			default_width: 450,
-			height_request: 500
+			content_width: 450,
+			content_height: 600
 		);
 	}
 
 	construct {
 		add (get_preferences_home ());
+		Services.EventBus.get_default ().disconnect_typing_accel ();
+		
+		var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                close ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
 	}
 
 	private Adw.PreferencesPage get_preferences_home () {
@@ -56,7 +65,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			xalign = 0,
 			yalign = 0,
 			wrap = true,
-			css_classes = { "small-label", "banner-text" }
+			css_classes = { "caption", "banner-text" }
 		};
 
 		var banner_button = new Gtk.Button.with_label (_("Supporting Us")) {
@@ -135,6 +144,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			push_subpage (get_general_page ());
 		});
 
+		var task_setting_row = new Adw.ActionRow ();
+		task_setting_row.activatable = true;
+		task_setting_row.add_prefix (generate_icon ("check-round-outline-symbolic"));
+		task_setting_row.add_suffix (generate_icon ("go-next-symbolic"));
+		task_setting_row.title = _("Task Setting");
+
+		task_setting_row.activated.connect (() => {
+			push_subpage (get_task_setting_page ());
+		});
+
 		var sidebar_row = new Adw.ActionRow ();
 		sidebar_row.activatable = true;
 		sidebar_row.add_prefix (generate_icon ("dock-left-symbolic"));
@@ -184,6 +203,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var personalization_group = new Adw.PreferencesGroup ();
 		personalization_group.add (general_row);
+		personalization_group.add (task_setting_row);
 		personalization_group.add (sidebar_row);
 		personalization_group.add (appearance_row);
 		personalization_group.add (quick_add_row);
@@ -244,6 +264,21 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
             }
         });
 
+		var matrix_row = new Adw.ActionRow ();
+		matrix_row.activatable = true;
+		matrix_row.add_prefix (generate_icon ("chat-bubble-text-symbolic"));
+		matrix_row.add_suffix (generate_icon ("go-next-symbolic"));
+		matrix_row.title = _("Matrix Room");
+		matrix_row.subtitle = _("Discuss and share your feedback");
+
+		matrix_row.activated.connect (() => {
+            try {
+                AppInfo.launch_default_for_uri (Constants.MATRIX_URL, null);
+            } catch (Error e) {
+                warning ("%s\n", e.message);
+            }
+        });
+
 		var supporting_us_row = new Adw.ActionRow ();
 		supporting_us_row.activatable = true;
 		supporting_us_row.add_prefix (generate_icon ("heart-outline-thick-symbolic"));
@@ -256,7 +291,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
         });
 
 		reach_us_group.add (contact_us_row);
-		reach_us_group.add (tweet_us_row);
+		reach_us_group.add (matrix_row);
 		reach_us_group.add (telegram_row);
 		reach_us_group.add (supporting_us_row);
 		
@@ -297,9 +332,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		delete_row.activated.connect (() => {
-			destroy ();
-			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it"),
+			Util.get_default ().clear_database (_("Delete All Data?"),
+			                                    _("Deletes all your lists, tasks, and reminders irreversibly"),
 											Planify.instance.main_window);
 		});
 
@@ -314,6 +348,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		home_page_model.append (_("Today"));
 		home_page_model.append (_("Scheduled"));
 		home_page_model.append (_("Labels"));
+		home_page_model.append (_("Pinboard"));
 		
 		var home_page_row = new Adw.ComboRow ();
 		home_page_row.title = _("Home Page");
@@ -419,69 +454,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		datetime_group.add (start_week_row);
 
-		var tasks_group = new Adw.PreferencesGroup ();
-		tasks_group.title = _("Task Settings");
-
-		var complete_tasks_model = new Gtk.StringList (null);
-		complete_tasks_model.append (_("Instantly"));
-		complete_tasks_model.append (_("Wait 2500 Milliseconds"));
-
-		var complete_tasks_row = new Adw.ComboRow ();
-		complete_tasks_row.title = _("Complete Task");
-		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
-		complete_tasks_row.model = complete_tasks_model;
-		complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
-
-		tasks_group.add (complete_tasks_row);
-
-		var default_priority_model = new Gtk.StringList (null);
-		default_priority_model.append (_("Priority 1"));
-		default_priority_model.append (_("Priority 2"));
-		default_priority_model.append (_("Priority 3"));
-		default_priority_model.append (_("None"));
-
-		var default_priority_row = new Adw.ComboRow ();
-		default_priority_row.title = _("Default Priority");
-		default_priority_row.model = default_priority_model;
-		default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
-
-		tasks_group.add (default_priority_row);
-
-		var underline_completed_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
-		};
-
-		var underline_completed_row = new Adw.ActionRow ();
-		underline_completed_row.title = _("Underline Completed Tasks");
-		underline_completed_row.set_activatable_widget (underline_completed_switch);
-		underline_completed_row.add_suffix (underline_completed_switch);
-
-		tasks_group.add (underline_completed_row);
-
-		var tasks_position_model = new Gtk.StringList (null);
-		tasks_position_model.append (_("Top"));
-		tasks_position_model.append (_("Bottom"));
-
-		var tasks_position_row = new Adw.ComboRow ();
-		tasks_position_row.title = _("New Task Position");
-		tasks_position_row.model = tasks_position_model;
-		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
-
-		tasks_group.add (tasks_position_row);
-
-		var show_completed_subtasks = new Adw.SwitchRow ();
-		show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
-		Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks, "active", GLib.SettingsBindFlags.DEFAULT);
-
-		tasks_group.add (show_completed_subtasks);
-
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
 		content_box.append (general_group);
 		content_box.append (sort_setting_group);
 		content_box.append (de_group);
 		content_box.append (datetime_group);
-		content_box.append (tasks_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -538,6 +515,146 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.set_enum ("start-week", (int) start_week_row.selected);
 		});
 
+		settings_header.back_activated.connect (() => {
+			pop_subpage ();
+		});
+
+		return page;
+	}
+
+	private Adw.NavigationPage get_task_setting_page () {
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Task Settings"));
+
+		var group = new Adw.PreferencesGroup ();
+
+		var complete_tasks_model = new Gtk.StringList (null);
+		complete_tasks_model.append (_("Instantly"));
+		complete_tasks_model.append (_("Wait 2500 Milliseconds"));
+
+		var complete_tasks_row = new Adw.ComboRow ();
+		complete_tasks_row.title = _("Complete Task");
+		complete_tasks_row.subtitle = _("Complete your to-do instantly or wait 2500 milliseconds with the undo option");
+		complete_tasks_row.model = complete_tasks_model;
+		complete_tasks_row.selected = Services.Settings.get_default ().settings.get_enum ("complete-task");
+
+		group.add (complete_tasks_row);
+
+		var default_priority_model = new Gtk.StringList (null);
+		default_priority_model.append (_("Priority 1"));
+		default_priority_model.append (_("Priority 2"));
+		default_priority_model.append (_("Priority 3"));
+		default_priority_model.append (_("None"));
+
+		var default_priority_row = new Adw.ComboRow ();
+		default_priority_row.title = _("Default Priority");
+		default_priority_row.model = default_priority_model;
+		default_priority_row.selected = Services.Settings.get_default ().settings.get_enum ("default-priority");
+
+		group.add (default_priority_row);
+
+		var underline_completed_switch = new Gtk.Switch () {
+			valign = Gtk.Align.CENTER,
+			active = Services.Settings.get_default ().settings.get_boolean ("underline-completed-tasks")
+		};
+
+		var underline_completed_row = new Adw.ActionRow ();
+		underline_completed_row.title = _("Cross Out Completed Tasks");
+		underline_completed_row.set_activatable_widget (underline_completed_switch);
+		underline_completed_row.add_suffix (underline_completed_switch);
+
+		group.add (underline_completed_row);
+
+		var tasks_position_model = new Gtk.StringList (null);
+		tasks_position_model.append (_("Top"));
+		tasks_position_model.append (_("Bottom"));
+
+		var tasks_position_row = new Adw.ComboRow ();
+		tasks_position_row.title = _("New Task Position");
+		tasks_position_row.model = tasks_position_model;
+		tasks_position_row.selected = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
+
+		group.add (tasks_position_row);
+
+		var show_completed_subtasks = new Adw.SwitchRow ();
+		show_completed_subtasks.title = _("Always Show Completed Sub-Tasks");
+		Services.Settings.get_default ().settings.bind ("always-show-completed-subtasks", show_completed_subtasks, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (show_completed_subtasks);
+
+		var task_complete_tone = new Adw.SwitchRow ();
+		task_complete_tone.title = _("Task Complete Tone");
+		task_complete_tone.subtitle = _("Play a sound when tasks are completed");
+		Services.Settings.get_default ().settings.bind ("task-complete-tone", task_complete_tone, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (task_complete_tone);
+
+		var open_task_sidebar = new Adw.SwitchRow ();
+		open_task_sidebar.title = _("Open Task In Sidebar View");
+		Services.Settings.get_default ().settings.bind ("open-task-sidebar", open_task_sidebar, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		group.add (open_task_sidebar);
+
+		var attention_at_one = new Adw.SwitchRow ();
+		attention_at_one.title = _("Attention at One");
+		Services.Settings.get_default ().settings.bind ("attention-at-one", attention_at_one, "active", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("open-task-sidebar", attention_at_one, "sensitive", GLib.SettingsBindFlags.INVERT_BOOLEAN);
+
+		group.add (attention_at_one);
+
+		var reminders_group = new Adw.PreferencesGroup () {
+			title = _("Reminders")
+		};
+
+		var automatic_reminders = new Adw.SwitchRow ();
+		automatic_reminders.title = _("Enabled");
+		Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", automatic_reminders, "active", GLib.SettingsBindFlags.DEFAULT);
+
+		var reminders_model = new Gtk.StringList (null);
+		reminders_model.append (_("At due time"));
+		reminders_model.append (_("10 minutes before"));
+		reminders_model.append (_("30 minutes before"));
+		reminders_model.append (_("45 minutes before"));
+		reminders_model.append (_("1 hour before"));
+		reminders_model.append (_("2 hours before"));
+		reminders_model.append (_("3 hours before"));
+		
+		var reminders_comborow = new Adw.ComboRow ();
+		reminders_comborow.title = _("Automatic reminders");
+		reminders_comborow.subtitle = _("When enabled, a reminder before the task’s due time will be added by default.");
+		reminders_comborow.model = reminders_model;
+		reminders_comborow.selected = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
+		Services.Settings.get_default ().settings.bind ("automatic-reminders-enabled", reminders_comborow, "sensitive", GLib.SettingsBindFlags.DEFAULT);
+
+		reminders_group.add (automatic_reminders);
+		reminders_group.add (reminders_comborow);
+
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		content_box.append (group);
+		content_box.append (reminders_group);
+
+		var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 24,
+			margin_end = 24,
+			margin_bottom = 24,
+			margin_top = 24
+		};
+
+		content_clamp.child = content_box;
+
+		var scrolled_window = new Gtk.ScrolledWindow () {
+			hscrollbar_policy = Gtk.PolicyType.NEVER,
+			hexpand = true,
+			vexpand = true
+		};
+		scrolled_window.child = content_clamp;
+
+		var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (settings_header);
+		toolbar_view.content = scrolled_window;
+
+		var page = new Adw.NavigationPage (toolbar_view, "general");
+
 		complete_tasks_row.notify["selected"].connect (() => {
 			Services.Settings.get_default ().settings.set_enum ("complete-task", (int) complete_tasks_row.selected);
 		});
@@ -552,6 +669,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		underline_completed_switch.notify["active"].connect (() => {
 			Services.Settings.get_default ().settings.set_boolean ("underline-completed-tasks", underline_completed_switch.active);
+		});
+
+		reminders_comborow.notify["selected"].connect (() => {
+			Services.Settings.get_default ().settings.set_enum ("automatic-reminders", (int) reminders_comborow.selected);
 		});
 
 		settings_header.back_activated.connect (() => {
@@ -703,22 +824,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-
-		var default_group = new Adw.PreferencesGroup () {
-			visible = Services.Todoist.get_default ().is_logged_in ()
-		};
-
-		var inbox_project_model = new Gtk.StringList (null);
-		inbox_project_model.append (_("On This Computer"));
-		inbox_project_model.append (_("Todoist"));
-
-		var inbox_project_row = new Adw.ComboRow ();
-		inbox_project_row.title = _("Default Inbox Project");
-		inbox_project_row.model = inbox_project_model;
-		inbox_project_row.selected = Services.Settings.get_default ().settings.get_enum ("default-inbox");
-
-		default_group.add (inbox_project_row);
-
+		
 		// Todoist
 		var todoist_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
@@ -729,7 +835,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			margin_end = 6,
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
-			css_classes = { Granite.STYLE_CLASS_FLAT }
+			css_classes = { "flat" }
 		};
 
 		var todoist_setting_revealer = new Gtk.Revealer () {
@@ -751,7 +857,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		// CalDAV
 		var caldav_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
-			active = Services.CalDAV.get_default ().is_logged_in ()
+			active = Services.CalDAV.Core.get_default ().is_logged_in ()
 		};
 
 		var caldav_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
@@ -763,12 +869,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var caldav_setting_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.CalDAV.get_default ().is_logged_in (),
+			reveal_child = Services.CalDAV.Core.get_default ().is_logged_in (),
 			child = caldav_setting_button
 		};
 
 		var caldav_row = new Adw.ActionRow ();
-		caldav_row.title = _("CalDAV");
+		caldav_row.title = _("Nextcloud");
 		caldav_row.subtitle = _("Synchronization based on open Internet standards");
 		caldav_row.add_suffix (caldav_setting_revealer);
 		caldav_row.add_suffix (caldav_switch);
@@ -782,7 +888,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		accounts_group.add (caldav_row);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		content_box.append (default_group);
 		content_box.append (accounts_group);
 
 		var content_clamp = new Adw.Clamp () {
@@ -817,7 +922,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		});
 
 		var caldav_switch_gesture = new Gtk.GestureClick ();
-		caldav_switch_gesture.set_button (1);
 		caldav_switch.add_controller (caldav_switch_gesture);
 		caldav_switch_gesture.pressed.connect (() => {
 			caldav_switch.active = !caldav_switch.active;
@@ -835,17 +939,17 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
 
 			Timeout.add (250, () => {
-				destroy ();
+				close ();
 				return GLib.Source.REMOVE;
 			});
 		});
 
-		Services.CalDAV.get_default ().first_sync_finished.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.get_default ().is_logged_in ();
+		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
+			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
+			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
 
 			Timeout.add (250, () => {
-				destroy ();
+				close ();
 				return GLib.Source.REMOVE;
 			});
 		});
@@ -855,9 +959,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
 		});
 
-		Services.CalDAV.get_default ().log_out.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.get_default ().is_logged_in ();
+		Services.CalDAV.Core.get_default ().log_out.connect (() => {
+			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
+			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
 		});
 
 		todoist_setting_button.clicked.connect (() => {
@@ -866,11 +970,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		caldav_setting_button.clicked.connect (() => {
 			push_subpage (get_caldav_view ());
-		});
-
-		inbox_project_row.notify["selected"].connect (() => {
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", (int) inbox_project_row.selected);
-			Util.get_default ().change_default_inbox ();
 		});
 
 		settings_header.back_activated.connect (() => {
@@ -897,7 +996,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		todoist_user.add_css_class ("title-1");
 
 		var todoist_email = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-		todoist_email.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+		todoist_email.add_css_class ("dim-label");
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
@@ -921,7 +1020,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
 			);
 
-		var last_sync_label = new Gtk.Label (Util.get_default ().get_relative_date_from_date (
+		var last_sync_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (
 												 last_sync_date
 												 ));
 
@@ -970,7 +1069,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_caldav_view () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud"));
 
 		var username_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-displayname")) {
 			margin_top = 12,
@@ -978,11 +1077,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		};
 
 		var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-email")) {
-			css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+			css_classes = { "dim-label" }
 		};
 
 		var server_url_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-server-url")) {
-			css_classes = { Granite.STYLE_CLASS_DIM_LABEL }
+			css_classes = { "dim-label" }
 		};
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -1008,7 +1107,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		);
 
 		var last_sync_label = new Gtk.Label (
-			Util.get_default ().get_relative_date_from_date (last_sync_date)
+			Utils.Datetime.get_relative_date_from_date (last_sync_date)
 		);
 
 		var last_sync_row = new Adw.ActionRow ();
@@ -1094,7 +1193,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var command_entry = new Adw.ActionRow ();
 		command_entry.add_suffix (copy_button);
 		command_entry.title = quick_add_command;
-		command_entry.add_css_class ("small-label");
+		command_entry.add_css_class ("caption");
 		command_entry.add_css_class ("monospace");
 
 		var command_group = new Adw.PreferencesGroup () {
@@ -1168,7 +1267,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		oauth_open_url = oauth_open_url.printf (Constants.TODOIST_CLIENT_ID, Constants.TODOIST_SCOPE, state);
 
 		WebKit.WebView webview = new WebKit.WebView ();
-        webview.zoom_level = 0.75;
+        webview.zoom_level = 0.85;
         webview.vexpand = true;
         webview.hexpand = true;
 
@@ -1297,7 +1396,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 	}
 
 	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("CalDAV Setup"));
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
+		
+		var server_entry = new Adw.EntryRow ();
+        server_entry.title = _("Server URL");
 
 		var username_entry = new Adw.EntryRow ();
         username_entry.title = _("User Name");
@@ -1305,11 +1407,9 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		var password_entry = new Adw.PasswordEntryRow ();
         password_entry.title = _("Password");
 
-		var server_entry = new Adw.EntryRow ();
-        server_entry.title = _("Server URL");
-
 		var providers_model = new Gtk.StringList (null);
 		providers_model.append (_("Nextcloud"));
+		//  providers_model.append (_("Radicale"));
 		
 		var providers_row = new Adw.ComboRow ();
 		providers_row.title = _("Provider");
@@ -1322,8 +1422,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		entries_group.add (password_entry);
 		entries_group.add (providers_row);
 		
-		// Message Response Box
-
 		var message_label = new Gtk.Label ("""Server URL examples:
   - https://evi.nl.tab.digital/
   - https://use01.thegood.cloud/""") {
@@ -1353,8 +1451,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 
 		var login_button = new Widgets.LoadingButton.with_label (_("Log In")) {
 			margin_top = 12,
-			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+			sensitive = false,
+			css_classes = { "suggested-action" }
         };
+
+		var cancel_button = new Gtk.Button.with_label (_("Cancel")) {
+			css_classes = { "flat" },
+			visible = false
+		};
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
 			vexpand = true,
@@ -1364,6 +1468,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 		content_box.append (entries_group);
 		content_box.append (message_revealer);
 		content_box.append (login_button);
+		content_box.append (cancel_button);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 400,
@@ -1384,32 +1489,124 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			pop_subpage ();
 		});
 
+		server_entry.changed.connect (() => {
+			if (server_entry.text != null && server_entry.text != "") {
+                var is_valid_url = is_valid_url (server_entry.text);
+				if (!is_valid_url) {
+					server_entry.add_css_class ("error");
+				} else {
+					server_entry.remove_css_class ("error");
+				}
+            } else {
+                server_entry.remove_css_class ("error");
+            }
+
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
+		username_entry.changed.connect (() => {
+			if (username_entry.text != null && username_entry.text != "") {
+				username_entry.remove_css_class ("error");
+			} else {
+				username_entry.add_css_class ("error");
+			}
+
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
+		password_entry.changed.connect (() => {
+			if (password_entry.text != null && password_entry.text != "") {
+				password_entry.remove_css_class ("error");
+			} else {
+				password_entry.add_css_class ("error");
+			}
+
+			if (server_entry.has_css_class ("error") || username_entry.has_css_class ("error") | password_entry.has_css_class ("error")) {
+				login_button.sensitive = false;
+			} else {
+				login_button.sensitive = true;
+			}
+		});
+
 		login_button.clicked.connect (() => {
+			GLib.Cancellable cancellable = new GLib.Cancellable ();
 			login_button.is_loading = true;
-			message_label.label = null;
-			message_revealer.reveal_child = false;
-			Services.CalDAV.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, (obj, res) => {
-				HttpResponse response = Services.CalDAV.get_default ().login.end (res);
+			cancel_button.visible = true;
+
+			cancel_button.clicked.connect (() => {
+				cancellable.cancel ();
+			});
+
+			Services.CalDAV.Core.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
+				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
-					Services.CalDAV.get_default ().first_sync.begin ();
+					Services.CalDAV.Core.get_default ().first_sync.begin ();
 				} else {
 					login_button.is_loading = false;
-					message_box.css_classes = { "error" };
-					message_label.label = response.error.strip ();
-					message_revealer.reveal_child = true;
+					cancel_button.visible = false;
+					show_message_error (_("Failed to login"), response.error.strip ());
 				}
 			});
 		});
 
-		Services.CalDAV.get_default ().first_sync_started.connect (() => {
+		Services.CalDAV.Core.get_default ().first_sync_started.connect (() => {
 			login_button.is_loading = true;
 		});
 		
-		Services.CalDAV.get_default ().first_sync_finished.connect (() => {
+		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
 			pop_subpage ();
 		});
 
 		return page;
+	}
+
+	private bool is_valid_url (string uri) {
+        var scheme = Uri.parse_scheme (uri);
+        if (scheme == null) {
+            return false;
+        }
+
+        return scheme.has_prefix ("http");
+    }
+
+	private void show_message_error (string title, string error) {
+		var dialog = new Adw.AlertDialog (title, null);
+
+		var textview = new Gtk.TextView () {
+			left_margin = 12,
+			top_margin = 12,
+			bottom_margin = 12,
+			right_margin = 12,
+			wrap_mode = Gtk.WrapMode.WORD
+		};
+		textview.buffer.text = error;
+		textview.add_css_class ("monospace");
+		textview.add_css_class ("error-message");
+
+		var textview_scrolled_window = new Gtk.ScrolledWindow () {
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            hexpand = true,
+            vexpand = true,
+			child = textview,
+			width_request = 500,
+			height_request = 430
+        };
+
+		var textview_frame = new Gtk.Frame (null) {
+			child = textview_scrolled_window
+		};
+
+        dialog.add_response ("ok", _("Ok"));
+		dialog.extra_child = textview_frame;
+        dialog.present (Planify._instance.main_window);
 	}
 
 	private Adw.NavigationPage get_backups_page () {
@@ -1466,7 +1663,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			vexpand = true,
 			margin_bottom = 24,
 			valign = END,
-			css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+			css_classes = { "suggested-action" }
         };
 
 		content_box.append (contact_us_button);
@@ -1659,21 +1856,20 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			message = _("Are you sure you want to remove the CalDAV sync? This action will delete all your tasks and settings.");
 		}
 
-		var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-		                                    _("Sign Off"), message);
+		var dialog = new Adw.AlertDialog (_("Sign Off"), message);
 
 		dialog.body_use_markup = true;
 		dialog.add_response ("cancel", _("Cancel"));
 		dialog.add_response ("delete", _("Delete"));
 		dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-		dialog.show ();
+		dialog.present (Planify._instance.main_window);
 
 		dialog.response.connect ((response) => {
 			if (response == "delete") {
 				if (backend_type == BackendType.TODOIST) {
 					Services.Todoist.get_default ().remove_items ();
 				} else if (backend_type == BackendType.CALDAV) {
-					Services.CalDAV.get_default ().remove_items ();
+					Services.CalDAV.Core.get_default ().remove_items ();
 				}
 			} else {
 				switch_widget.active = true;
@@ -1686,4 +1882,36 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesWindow {
 			pixel_size = size
 		};
 	}
+}
+
+private class ValidationMessage : Gtk.Box {
+    public Gtk.Label label_widget { get; construct; }
+    public string label { get; construct set; }
+    public bool reveal_child { get; set; }
+
+    public ValidationMessage (string label) {
+        Object (label: label);
+    }
+
+    construct {
+        label_widget = new Gtk.Label (label) {
+            halign = Gtk.Align.END,
+            justify = Gtk.Justification.RIGHT,
+            max_width_chars = 55,
+            wrap = true,
+            xalign = 1
+        };
+        label_widget.add_css_class ("caption");
+
+        var revealer = new Gtk.Revealer () {
+            child = label_widget,
+            transition_type = CROSSFADE
+        };
+
+        append (revealer);
+
+        bind_property ("reveal-child", revealer, "reveal-child", BIDIRECTIONAL | SYNC_CREATE);
+
+        bind_property ("label", label_widget, "label");
+    }
 }

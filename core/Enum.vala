@@ -46,6 +46,19 @@ public enum ProjectViewStyle {
 			assert_not_reached ();
 		}
 	}
+
+	public static ProjectViewStyle parse (string value) {
+		switch (value) {
+			case "list":
+				return ProjectViewStyle.LIST;
+
+			case "board":
+				return ProjectViewStyle.BOARD;
+
+			default:
+				assert_not_reached ();
+		}
+	}
 }
 
 public enum ProjectIconStyle {
@@ -64,15 +77,28 @@ public enum ProjectIconStyle {
 			assert_not_reached ();
 		}
 	}
+
+	public static ProjectIconStyle parse (string value) {
+		switch (value) {
+			case "progress":
+				return ProjectIconStyle.PROGRESS;
+
+			case "emoji":
+				return ProjectIconStyle.EMOJI;
+
+			default:
+				assert_not_reached ();
+		}
+	}
 }
 
 public enum FilterType {
-	TODAY = 0,
-	INBOX = 1,
+	INBOX = 0,
+	TODAY = 1,
 	SCHEDULED = 2,
 	PINBOARD = 3,
-	LABEL = 4,
-	LABELS = 5;
+	LABELS = 4,
+	COMPLETED = 5;
 
 	public string to_string () {
 		switch (this) {
@@ -88,11 +114,11 @@ public enum FilterType {
 		case PINBOARD:
 			return "pinboard";
 
-		case LABEL:
-			return "label";
-
 		case LABELS:
 			return "labels";
+
+		case COMPLETED:
+			return "completed";
 
 		default:
 			assert_not_reached ();
@@ -101,20 +127,20 @@ public enum FilterType {
 
 	public string get_name () {
 		switch (this) {
-		case TODAY:
-			return _("Today");
+			case TODAY:
+				return _("Today");
 
-		case INBOX:
-			return _("Inbox");
+			case INBOX:
+				return _("Inbox");
 
-		case SCHEDULED:
-			return _("Scheduled");
+			case SCHEDULED:
+				return _("Scheduled");
 
-		case PINBOARD:
-			return _("Pinboard");
+			case PINBOARD:
+				return _("Pinboard");
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -129,26 +155,26 @@ public enum BackendType {
 
 	public string to_string () {
 		switch (this) {
-		case ALL:
-			return "all";
+			case ALL:
+				return "all";
 
-		case NONE:
-			return "none";
+			case NONE:
+				return "none";
 
-		case LOCAL:
-			return "local";
+			case LOCAL:
+				return "local";
 
-		case TODOIST:
-			return "todoist";
+			case TODOIST:
+				return "todoist";
 
-		case GOOGLE_TASKS:
-			return "google-tasks";
+			case GOOGLE_TASKS:
+				return "google-tasks";
 
-		case CALDAV:
-			return "caldav";
+			case CALDAV:
+				return "caldav";
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -177,29 +203,29 @@ public enum ObjectType {
 
 	public string get_header () {
 		switch (this) {
-		case PROJECT:
-			return _("Projects");
+			case PROJECT:
+				return _("Projects");
 
-		case SECTION:
-			return _("Sections");
+			case SECTION:
+				return _("Sections");
 
-		case ITEM:
-			return _("Tasks");
+			case ITEM:
+				return _("Tasks");
 
-		case LABEL:
-			return _("Labels");
+			case LABEL:
+				return _("Labels");
 
-		case FILTER:
-			return _("Filters");
+			case FILTER:
+				return _("Filters");
 
-		case TASK:
-			return _("Tasks");
+			case TASK:
+				return _("Tasks");
 
-		case TASK_LIST:
-			return _("Lists");
+			case TASK_LIST:
+				return _("Lists");
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -221,56 +247,51 @@ public enum RecurrencyType {
 
 	public string to_friendly_string (int? interval = null) {
 		switch (this) {
-		case NONE:
-			return _("Don't Repeat");
-		case MINUTELY:
-			if (interval == null || interval == 0) {
-				return _("Every minute");
-			} else {
-				return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
-			}
-		case HOURLY:
-			if (interval == null || interval == 0) {
-				return _("Every hour");
-			} else {
-				return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
-			}
-		case EVERY_DAY:
-			if (interval == null || interval == 0) {
-				return _("Every day");
-			} else {
-				return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
-			}
-		case EVERY_WEEK:
-			if (interval == null || interval == 0) {
-				return _("Every week");
-			} else {
-				return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
-			}
+			case NONE:
+				return _("Don't Repeat");
+			case MINUTELY:
+				if (interval == null || interval == 0) {
+					return _("Every minute");
+				} else {
+					return GLib.ngettext (_("Every minute"), _("Every %d minutes"), interval).printf (interval);
+				}
+			case HOURLY:
+				if (interval == null || interval == 0) {
+					return _("Every hour");
+				} else {
+					return GLib.ngettext (_("Every hour"), _("Every %d hours"), interval).printf (interval);
+				}
+			case EVERY_DAY:
+				if (interval == null || interval == 0) {
+					return _("Every day");
+				} else {
+					return GLib.ngettext (_("Every day"), _("Every %d days"), interval).printf (interval);
+				}
+			case EVERY_WEEK:
+				if (interval == null || interval == 0) {
+					return _("Every week");
+				} else {
+					return GLib.ngettext (_("Every week"), _("Every %d weeks"), interval).printf (interval);
+				}
 
-		case EVERY_MONTH:
-			if (interval == null || interval == 0) {
-				return _("Every month");
-			} else {
-				return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
-			}
+			case EVERY_MONTH:
+				if (interval == null || interval == 0) {
+					return _("Every month");
+				} else {
+					return GLib.ngettext (_("Every month"), _("Every %d months"), interval).printf (interval);
+				}
 
-		case EVERY_YEAR:
-			if (interval == null || interval == 0) {
-				return _("Every year");
-			} else {
-				return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
-			}
+			case EVERY_YEAR:
+				if (interval == null || interval == 0) {
+					return _("Every year");
+				} else {
+					return GLib.ngettext (_("Every year"), _("Every %d years"), interval).printf (interval);
+				}
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
-}
-
-public enum DefaultInboxProject {
-	LOCAL = 0,
-	TODOIST = 1
 }
 
 public enum PickerType {
@@ -279,14 +300,14 @@ public enum PickerType {
 
 	public string to_string () {
 		switch (this) {
-		case PROJECTS:
-			return "projects";
+			case PROJECTS:
+				return "projects";
 
-		case SECTIONS:
-			return "sections";
+			case SECTIONS:
+				return "sections";
 
-		default:
-			assert_not_reached ();
+			default:
+				assert_not_reached ();
 		}
 	}
 }
@@ -294,4 +315,228 @@ public enum PickerType {
 public enum NewTaskPosition {
 	TOP = 0,
 	BOTTOM = 1,
+}
+
+public enum CalDAVType {
+	NEXTCLOUD = 0,
+	RADICALE = 1;
+
+	public string to_string () {
+		switch (this) {
+			case NEXTCLOUD:
+				return "nextcloud";
+
+			case RADICALE:
+				return "radicale";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}
+
+public enum FilterItemType {
+	PRIORITY = 0,
+	LABEL = 1,
+	DUE_DATE = 2;
+
+	public string to_string () {
+		switch (this) {
+			case PRIORITY:
+				return "priority";
+
+			case LABEL:
+				return "label";
+			
+			case DUE_DATE:
+				return "due-date";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_title () {
+		switch (this) {
+			case PRIORITY:
+				return _("Priority");
+
+			case LABEL:
+				return _("Label");
+
+			case DUE_DATE:
+				return _("Due Date");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_icon () {
+		switch (this) {
+			case PRIORITY:
+				return "flag-outline-thick-symbolic";
+
+			case LABEL:
+				return "tag-outline-symbolic";
+
+			case DUE_DATE:
+				return "month-symbolic";
+
+			default:
+				assert_not_reached ();
+		}
+	} 
+}
+
+public enum ReminderType {
+	ABSOLUTE,
+	RELATIVE;
+
+	public string to_string () {
+		switch (this) {
+			case ABSOLUTE:
+				return "absolute";
+
+			case RELATIVE:
+				return "relative";
+		
+			default:
+				assert_not_reached ();
+		}
+	}
+}
+
+public enum ItemType {
+	TASK,
+	NOTE;
+
+	public string to_string () {
+		switch (this) {
+			case TASK:
+				return "task";
+
+			case NOTE:
+				return "note";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public static ItemType parse (string value) {
+		switch (value) {
+			case "task":
+				return ItemType.TASK;
+
+			case "note":
+				return ItemType.NOTE;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}
+
+public enum ObjectEventType {
+	INSERT,
+	UPDATE;
+
+	public static ObjectEventType parse (string value) {
+		switch (value) {
+			case "insert":
+				return ObjectEventType.INSERT;
+
+			case "update":
+				return ObjectEventType.UPDATE;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string to_string () {
+		switch (this) {
+			case INSERT:
+				return "insert";
+
+			case UPDATE:
+				return "update";
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_label () {
+		switch (this) {
+			case INSERT:
+				return _("Task Created");
+
+			case UPDATE:
+				return _("Task Updated");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+}
+
+public enum ObjectEventKeyType {
+	CONTENT,
+	DESCRIPTION,
+	DUE,
+	PRIORITY,
+	LABELS,
+	PINNED;
+
+	public static ObjectEventKeyType parse (string value) {
+		switch (value) {
+			case "content":
+				return ObjectEventKeyType.CONTENT;
+
+			case "description":
+				return ObjectEventKeyType.DESCRIPTION;
+			
+			case "due":
+				return ObjectEventKeyType.DUE;
+			
+			case "priority":
+				return ObjectEventKeyType.PRIORITY;
+
+			case "labels":
+				return ObjectEventKeyType.LABELS;
+
+			case "pinned":
+				return ObjectEventKeyType.PINNED;
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public string get_label () {
+		switch (this) {
+			case ObjectEventKeyType.CONTENT:
+				return _("Content");
+
+			case ObjectEventKeyType.DESCRIPTION:
+				return _("Description");
+			
+			case ObjectEventKeyType.DUE:
+				return _("Scheduled");
+			
+			case ObjectEventKeyType.PRIORITY:
+				return _("Priority");
+
+			case ObjectEventKeyType.LABELS:
+				return _("Labels");
+
+			case ObjectEventKeyType.PINNED:
+				return _("Pin");
+
+			default:
+				assert_not_reached ();
+		}
+	}
 }

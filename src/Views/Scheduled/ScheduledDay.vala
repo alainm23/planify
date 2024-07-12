@@ -47,18 +47,18 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
 
         items = new Gee.HashMap <string, Layouts.ItemRow> ();
 
-        var day_label = new Gtk.Label (date.format ("%a").up (1) + date.format ("%a").substring (1)) {
+        var day_label = new Gtk.Label (date.get_day_of_month ().to_string ()) {
             halign = Gtk.Align.START
         };
         day_label.add_css_class ("font-bold");
 
         var date_format_label = new Gtk.Label (
-            Util.get_default ().get_default_date_format_from_date (date)
+            date.format ("%a")
         ) {
             halign = Gtk.Align.START
         };
 
-        date_format_label.add_css_class (Granite.STYLE_CLASS_DIM_LABEL);
+        date_format_label.add_css_class ("dim-label");
 
         var title_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
@@ -89,10 +89,9 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
             valign = Gtk.Align.START,
             activate_on_single_click = true,
             selection_mode = Gtk.SelectionMode.SINGLE,
-            hexpand = true
+            hexpand = true,
+            css_classes = { "listbox-background" }
         };
-
-        listbox.add_css_class ("listbox-background");
 
         var listbox_grid = new Gtk.Grid () {
             margin_top = 6
@@ -134,12 +133,95 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         Services.Database.get_default ().item_added.connect (valid_add_item);
         Services.Database.get_default ().item_deleted.connect (valid_delete_item);
         Services.Database.get_default ().item_updated.connect (valid_update_item);
-
+        Services.Database.get_default ().item_archived.connect (valid_delete_item);
+        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
+        
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
                 items[item.id].update_request ();
             }
+
+            listbox.invalidate_filter ();
         });
+
+        Services.Settings.get_default ().settings.changed["scheduled-sort-order"].connect (() => {
+            listbox.invalidate_sort ();
+        });
+
+        listbox.set_sort_func ((lbrow, lbbefore) => {
+            Objects.Item item1 = ((Layouts.ItemRow) lbrow).item;
+            Objects.Item item2 = ((Layouts.ItemRow) lbbefore).item;
+            int sort_order = Services.Settings.get_default ().settings.get_int ("scheduled-sort-order");
+    
+            if (sort_order == 0) {
+                if (item1.has_due && item2.has_due) {
+                    var date1 = item1.due.datetime;
+                    var date2 = item2.due.datetime;
+    
+                    return date1.compare (date2);
+                }
+    
+                if (!item1.has_due && item2.has_due) {
+                    return 1;
+                }
+    
+                return 0;
+            }
+    
+            if (sort_order == 1) {
+                return item1.content.strip ().collate (item2.content.strip ());
+            }
+    
+            if (sort_order == 2) {
+                return item1.added_datetime.compare (item2.added_datetime);
+            }
+    
+            if (sort_order == 3) {
+                if (item1.priority < item2.priority) {
+                    return 1;
+                }
+    
+                if (item1.priority < item2.priority) {
+                    return -1;
+                }
+    
+                return 0;
+            }
+    
+            return 0;
+        });
+
+        listbox.set_filter_func ((row) => {
+			var item = ((Layouts.ItemRow) row).item;
+			bool return_value = true;
+
+			if (Objects.Filters.Scheduled.get_default ().filters.size <= 0) {
+				return true;
+			}
+
+			return_value = false;
+			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
+				if (filter.filter_type == FilterItemType.PRIORITY) {
+					return_value = return_value || item.priority == int.parse (filter.value);
+				} else if (filter.filter_type == FilterItemType.LABEL) {
+					return_value = return_value || item.has_label (filter.value);
+				}
+			}
+
+			return return_value;
+		});
+
+        Objects.Filters.Scheduled.get_default ().filter_added.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+		Objects.Filters.Scheduled.get_default ().filter_removed.connect (() => {
+			listbox.invalidate_filter ();
+		});
+
+	    Objects.Filters.Scheduled.get_default ().filter_updated.connect (() => {
+			listbox.invalidate_filter ();
+		});
     }
 
     private void add_items () {
@@ -150,9 +232,7 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
 
     private void add_item (Objects.Item item) {
         if (!items.has_key (item.id)) {
-            items [item.id] = new Layouts.ItemRow (item) {
-                show_project_label = true
-            };
+            items [item.id] = new Layouts.ItemRow (item);
             items [item.id].disable_drag_and_drop ();
             listbox.append (items [item.id]);
         }
@@ -161,14 +241,13 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
             Services.Database.get_default ().valid_item_by_date (item, date, false)) {
-            items [item.id] = new Layouts.ItemRow (item) {
-                show_project_label = true
-            };
+            items [item.id] = new Layouts.ItemRow (item);
             items [item.id].disable_drag_and_drop ();
             listbox.append (items [item.id]);
         }
 
         listbox_revealer.reveal_child = has_items;
+        listbox.invalidate_filter ();
     }
 
     private void valid_delete_item (Objects.Item item) {
@@ -203,5 +282,6 @@ public class Views.Scheduled.ScheduledDay : Gtk.ListBoxRow {
         }
 
         listbox_revealer.reveal_child = has_items;
+        listbox.invalidate_filter ();
     }
 }

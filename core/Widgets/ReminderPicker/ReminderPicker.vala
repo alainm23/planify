@@ -19,8 +19,8 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {  
-    public Objects.Item item { get; construct; }
+public class Widgets.ReminderPicker._ReminderPicker : Gtk.Popover {
+    public bool is_creating { get; construct; }
 
     private Layouts.HeaderItem reminders_view;
     private Widgets.Calendar.Calendar calendar;
@@ -28,20 +28,24 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
     private Gtk.Stack main_stack;
     private Widgets.LoadingButton submit_button;
 
-    private Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> reminders_map = new Gee.HashMap<string, Dialogs.ReminderPicker.ReminderRow> ();
+    private Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> reminders_map;
 
-    public ReminderPicker (Objects.Item item) {
+    public signal void reminder_added (Objects.Reminder reminder);
+
+    public _ReminderPicker (bool is_creating = false) {
         Object (
-            item: item,
-            has_arrow: false,
+            is_creating: is_creating,
             position: Gtk.PositionType.BOTTOM,
-            width_request: 250
+            width_request: 275
         );
     }
 
     construct {
+        reminders_map = new Gee.HashMap<string, Widgets.ReminderPicker.ReminderRow> ();
+
         reminders_view = new Layouts.HeaderItem (_("Reminders")) {
-            margin_bottom = 9
+            margin_bottom = 9,
+            margin_top = 12
         };
         reminders_view.reveal_child = true;
         reminders_view.placeholder_message = _("Your list of reminders will show up here. Add one by clicking the '+' button.");
@@ -49,7 +53,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
             can_focus = false,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         reminders_view.add_widget_end (add_button);
@@ -73,23 +77,18 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         main_stack.add_named (get_picker (), "picker");
 
         child = main_stack;
-        add_reminders ();
-
-        item.reminder_added.connect (add_reminder);
-
-        Services.Database.get_default ().reminder_deleted.connect ((reminder) => {
-            if (reminders_map.has_key (reminder.id_string)) {
-                reminders_map[reminder.id_string].hide_destroy ();
-                reminders_map.unset (reminder.id_string);
-            }
-        });
 
         add_button.clicked.connect (() => {
+            calendar.date = new GLib.DateTime.now_local ();
+    
             time_picker.has_time = true;
             time_picker.no_time_visible = false;
             time_picker.time = new GLib.DateTime.now_local ().add_hours (1);
+
             main_stack.visible_child_name = "picker";
         });
+
+        time_picker.activate.connect (insert_reminder);
 
         closed.connect (() => {
             main_stack.visible_child_name = "listbox";
@@ -97,67 +96,35 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         });
     }
 
-    private void add_reminders () {
-        foreach (Objects.Reminder reminder in item.reminders) {
-            add_reminder (reminder);
-        }
-    }
-
-    private void add_reminder (Objects.Reminder reminder) {
-        if (!reminders_map.has_key (reminder.id_string)) {
-            reminders_map [reminder.id_string] = new Dialogs.ReminderPicker.ReminderRow (reminder);
-            reminders_view.add_child (reminders_map[reminder.id_string]);
-        }
-    }
-
     private void insert_reminder () {
-        var reminder = new Objects.Reminder ();
-        reminder.due.date = Util.get_default ().get_todoist_datetime_format (get_datetime_picker ());
-        reminder.item_id = item.id;
-
-        if (item.project.backend_type == BackendType.TODOIST) {
-            submit_button.is_loading = true;
-            Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
-                HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                if (response.status) {
-                    reminder.id = response.data;
-                } else {
-                    reminder.id = Util.get_default ().generate_id ();
-                }
-
-                item.add_reminder_if_not_exists (reminder);
-                main_stack.visible_child_name = "listbox";
-                submit_button.is_loading = false;
-            });
-        } else if (item.project.backend_type == BackendType.LOCAL) {
-            reminder.id = Util.get_default ().generate_id ();
-            item.add_reminder_if_not_exists (reminder);
-
-            main_stack.visible_child_name = "listbox";
-            submit_button.is_loading = false;
+        if (calendar.date == null) {
+            return;
         }
-    }
 
-    private GLib.DateTime get_datetime_picker () {
-        return new DateTime.local (
-            calendar.date.get_year (),
-            calendar.date.get_month (),
-            calendar.date.get_day_of_month (),
-            time_picker.time.get_hour (),
-            time_picker.time.get_minute (),
-            0
+        if (time_picker.time == null) {
+            return;
+        }
+
+        var reminder = new Objects.Reminder ();
+        reminder.due.date = Utils.Datetime.get_todoist_datetime_format (
+            Utils.Datetime.get_datetime_no_seconds (calendar.date, time_picker.time)
         );
+
+        reminder_added (reminder);
+        main_stack.visible_child_name = "listbox";
+        submit_button.is_loading = false;
     }
 
     private Gtk.Widget get_picker () {
-        calendar = new Widgets.Calendar.Calendar (true) {
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+
+        calendar = new Widgets.Calendar.Calendar () {
             vexpand = true,
             hexpand = true
         };
 
         var calendar_grid = new Adw.Bin () {
-            child = calendar,
-            css_classes = { "card" }
+            child = calendar
         };
 
         var time_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
@@ -175,9 +142,7 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
         };
 
         var time_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            margin_top = 6,
-            css_classes = { "card" }
+            hexpand = true
         };
 
         time_box.append (time_icon);
@@ -189,16 +154,74 @@ public class Widgets.ReminderPicker.ReminderPicker : Gtk.Popover {
             margin_start = 3,
             margin_end = 3,
             margin_bottom = 6,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        main_grid.append (back_item);
+        main_grid.append (new Widgets.ContextMenu.MenuSeparator ());
         main_grid.append (calendar_grid);
+        main_grid.append (new Gtk.Separator (Gtk.Orientation.VERTICAL) {
+            margin_start = 9,
+            margin_end = 6,
+            margin_top = 6,
+            margin_bottom = 6
+        });
         main_grid.append (time_box);
         main_grid.append (submit_button);
 
         submit_button.clicked.connect (insert_reminder);
 
+        back_item.clicked.connect (() => {
+            main_stack.visible_child_name = "listbox";
+        });
+
         return main_grid;
+    }
+
+    public void set_reminders (Gee.ArrayList<Objects.Reminder> reminders) {
+        clear ();
+        
+        foreach (Objects.Reminder reminder in reminders) {
+            add_reminder (reminder);
+        }
+    }
+
+    public void clear () {
+        reminders_view.clear ();
+        reminders_map.clear ();
+    }
+
+    public void add_reminder (Objects.Reminder reminder) {
+        if (!reminders_map.has_key (reminder.id)) {
+            reminders_map [reminder.id] = new Widgets.ReminderPicker.ReminderRow (reminder);
+
+            reminders_map [reminder.id].deleted.connect (() => {
+                if (!is_creating) {
+                    reminder.delete ();
+                } else {
+                    delete_reminder (reminder);
+                }
+            });
+
+            reminders_view.add_child (reminders_map[reminder.id]);
+        }
+    }
+
+    public void delete_reminder (Objects.Reminder reminder) {
+        if (reminders_map.has_key (reminder.id)) {
+            reminders_map[reminder.id].hide_destroy ();
+            reminders_map.unset (reminder.id);
+        }
+    }
+
+    public Gee.ArrayList<Objects.Reminder> reminders () {
+        Gee.ArrayList<Objects.Reminder> return_value = new Gee.ArrayList<Objects.Reminder> ();
+
+        foreach (Widgets.ReminderPicker.ReminderRow row in reminders_map.values) {
+            return_value.add (row.reminder);
+        }
+
+        return return_value;
     }
 }

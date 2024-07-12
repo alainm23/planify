@@ -23,10 +23,18 @@ public class Objects.BaseObject : GLib.Object {
     public string id { get; set; default = ""; }
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
+    public string icon_name { get; set; default = ""; }
     public signal void deleted ();
-    public signal void updated ();
+    public signal void updated (string update_id = "");
+    public signal void archived ();
+    public signal void unarchived ();
 
     public uint update_timeout_id { get; set; default = 0; }
+
+    public Gee.HashMap <string, Objects.Filters.FilterItem> filters = new Gee.HashMap <string, Objects.Filters.FilterItem> ();
+    public signal void filter_added (Objects.Filters.FilterItem filters);
+    public signal void filter_removed (Objects.Filters.FilterItem filters);
+    public signal void filter_updated (Objects.Filters.FilterItem filters);
 
     string _id_string;
     public string id_string {
@@ -35,6 +43,35 @@ public class Objects.BaseObject : GLib.Object {
             return _id_string;
         }
     }
+
+    bool _loading = false;
+    public bool loading {
+        set {
+            _loading = value;
+            loading_change ();
+        }
+
+        get {
+            return _loading;
+        }
+    }
+
+    bool _sensitive = true;
+    public bool sensitive {
+        set {
+            _sensitive = value;
+            sensitive_change ();
+        }
+
+        get {
+            return _sensitive;
+        }
+    }
+
+    public signal void loading_change ();
+    public signal void sensitive_change ();
+    
+    public string view_id { get; set; default = ""; }
 
     public string type_delete {
         get {
@@ -117,21 +154,7 @@ public class Objects.BaseObject : GLib.Object {
             }
         }
     }
-
-    public string icon_name {
-        get {
-            if (this is Objects.Today) {
-                return "star-outline-thick-symbolic";
-            } else if (this is Objects.Scheduled) {
-                return "month-symbolic";
-            } else if (this is Objects.Pinboard) {
-                return "pin-symbolic";
-            } else {
-                return "";
-            }
-        }
-    }
-
+    
     public string table_name {
         get {
             if (this is Objects.Item) {
@@ -178,5 +201,34 @@ public class Objects.BaseObject : GLib.Object {
 
     public virtual string to_json () {
         return "";
+    }
+    
+    public void add_filter (Objects.Filters.FilterItem filter) {
+        if (!filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_added (filters[filter.id]);
+        }
+    }
+
+    public void remove_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters.unset (filter.id);
+            filter_removed (filter);
+        }
+    }
+
+    public void update_filter (Objects.Filters.FilterItem filter) {
+        if (filters.has_key (filter.id)) {
+            filters[filter.id] = filter;
+            filter_updated (filter);
+        }
+    }
+
+    public Objects.Filters.FilterItem? get_filter (string id) {
+        if (filters.has_key (id)) {
+            return filters.get (id);
+        }
+
+        return null;
     }
 }

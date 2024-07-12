@@ -321,4 +321,72 @@ public class Objects.Section : Objects.BaseObject {
         }
         return returned;
     }
+
+    public Objects.Section duplicate () {
+        var new_section = new Objects.Section ();
+        new_section.name = name;
+        new_section.color = color;
+        new_section.description = description;
+
+        return new_section;
+    }
+
+    public void delete_section (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Delete Section %s".printf (name)),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                loading = true;
+                if (project.backend_type == BackendType.TODOIST) {
+                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                        Services.Todoist.get_default ().delete.end (res);
+                        Services.Database.get_default ().delete_section (this);
+                    });
+                } else {
+                    Services.Database.get_default ().delete_section (this);
+                }
+            }
+        });
+    }
+
+    public void archive_section (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Archive?"),
+            _("This will archive %s and all its tasks.".printf (name))
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("archive", _("Archive"));
+        dialog.close_response = "cancel";
+        dialog.set_response_appearance ("archive", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "archive") {
+                is_archived = true;
+                Services.Database.get_default ().archive_section (this);
+            }
+        });
+    }
+
+    public void unarchive_section () {
+        is_archived = false;
+        Services.Database.get_default ().archive_section (this);
+    }
+
+    public bool was_archived () {
+        if (project.is_archived) {
+            return true;
+        }
+
+        return is_archived;
+    }
 }

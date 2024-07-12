@@ -14,6 +14,12 @@ public class QuickAdd : Adw.Application {
     construct {
         application_id = "io.github.alainm23.planify.quick-add";
         flags |= ApplicationFlags.FLAGS_NONE;
+
+        Intl.setlocale (LocaleCategory.ALL, "");
+		string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
+		Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);
+		Intl.bind_textdomain_codeset (Build.GETTEXT_PACKAGE, "UTF-8");
+		Intl.textdomain (Build.GETTEXT_PACKAGE);
     }
 
     protected override void activate () {

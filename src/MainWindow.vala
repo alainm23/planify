@@ -26,6 +26,10 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Stack views_stack;
 	private Adw.OverlaySplitView overlay_split_view;
 	private Gtk.MenuButton settings_button;
+	private Layouts.ItemSidebarView item_sidebar_view;
+	private Gtk.Button fake_button;
+	private Widgets.ContextMenu.MenuItem archive_item;
+	private Widgets.ContextMenu.MenuSeparator archive_separator;
 
 	public Services.ActionManager action_manager;
 
@@ -35,7 +39,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			app: application,
 			icon_name: Build.APPLICATION_ID,
 			title: "Planify",
-			width_request: 450,
+			width_request: 400,
 			height_request: 480
 		);
 	}
@@ -53,16 +57,26 @@ public class MainWindow : Adw.ApplicationWindow {
 		action_manager = new Services.ActionManager (app, this);
 
 		Services.DBusServer.get_default ().item_added.connect ((id) => {
-			var item = Services.Database.get_default ().get_item_by_id (id);
+			Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
+			Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
+
 			Services.Database.get_default ().add_item (item);
+			foreach (Objects.Reminder reminder in reminders) {
+				item.add_reminder_events (reminder);
+			}
 		});
 
 		var settings_popover = build_menu_app ();
 
+		fake_button = new Gtk.Button () {
+			visible = false
+		};
+
 		settings_button = new Gtk.MenuButton () {
 			css_classes = { "flat" },
 			popover = settings_popover,
-			child = new Gtk.Image.from_icon_name ("open-menu-symbolic")
+			tooltip_text = _("Main Menu"),
+			icon_name = "open-menu-symbolic"
 		};
 
 		var search_button = new Gtk.Button.from_icon_name ("edit-find-symbolic") {
@@ -78,6 +92,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		sidebar_header.add_css_class ("flat");
 		sidebar_header.pack_end (settings_button);
 		sidebar_header.pack_end (search_button);
+		sidebar_header.pack_end (fake_button);
 
 		sidebar = new Layouts.Sidebar ();
 
@@ -88,15 +103,22 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack = new Gtk.Stack () {
 			hexpand = true,
 			vexpand = true,
-			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT,
-			transition_duration = 125
+			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
 		};
 
-		var views_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		views_content.append (views_stack);
+		item_sidebar_view = new Layouts.ItemSidebarView ();
+		
+		var views_split_view = new Adw.OverlaySplitView () {
+			sidebar_position = Gtk.PackType.END,
+			collapsed = true,
+			max_sidebar_width = 375,
+			content = views_stack,
+			sidebar = item_sidebar_view
+		};
 
-		var toast_overlay = new Adw.ToastOverlay ();
-		toast_overlay.child = views_content;
+		var toast_overlay = new Adw.ToastOverlay () {
+			child = views_split_view
+		};
 
 		overlay_split_view = new Adw.OverlaySplitView ();
 		overlay_split_view.content = toast_overlay;
@@ -107,14 +129,15 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		add_breakpoint (breakpoint);
 		content = overlay_split_view;
-		//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 
 		Services.Settings.get_default ().settings.bind ("pane-position", overlay_split_view, "min_sidebar_width", GLib.SettingsBindFlags.DEFAULT);
 		Services.Settings.get_default ().settings.bind ("slim-mode", overlay_split_view, "show_sidebar", GLib.SettingsBindFlags.DEFAULT);
+		Services.Settings.get_default ().settings.bind ("mobile-mode", overlay_split_view, "collapsed", GLib.SettingsBindFlags.DEFAULT);
 
 		Timeout.add (250, () => {
 			init_backend ();
 			overlay_split_view.show_sidebar = true;
+			fake_button.grab_focus ();
 			return GLib.Source.REMOVE;
 		});
 
@@ -134,7 +157,7 @@ public class MainWindow : Adw.ApplicationWindow {
 				Services.Settings.get_default ().settings.set_boolean (
 					"dark-mode",
 					granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
-					);
+				);
 				Util.get_default ().update_theme ();
 			} else if (key == "appearance" || key == "dark-mode") {
 				Util.get_default ().update_theme ();
@@ -142,6 +165,7 @@ public class MainWindow : Adw.ApplicationWindow {
 				//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
 			} else if (key == "run-on-startup") {
 				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+
 				if (active) {
 					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
 						if (Planify.instance.ask_for_background.end (res)) {
@@ -159,12 +183,12 @@ public class MainWindow : Adw.ApplicationWindow {
 						}
 					});
 				}
+			} else if (key == "mobile-mode") {
+				Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
 			}
 		});
 
 		Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
-			Services.EventBus.get_default ().unselect_all ();
-
 			if (pane_type == PaneType.PROJECT) {
 				add_project_view (Services.Database.get_default ().get_project (id));
 			} else if (pane_type == PaneType.FILTER) {
@@ -175,13 +199,23 @@ public class MainWindow : Adw.ApplicationWindow {
 				} else if (id == FilterType.SCHEDULED.to_string ()) {
 					add_scheduled_view ();
 				} else if (id == FilterType.PINBOARD.to_string ()) {
-					add_pinboard_view ();
+					add_filter_view (Objects.Filters.Pinboard.get_default ());
 				} else if (id == FilterType.LABELS.to_string ()) {
-					add_filters_view ();
+					add_labels_view ();
 				} else if (id.has_prefix ("priority")) {
 					add_priority_view (id);
-				} else if (id == "completed-view") {
-					add_completed_view ();
+				} else if (id == FilterType.COMPLETED.to_string ()) {
+					add_filter_view (Objects.Filters.Completed.get_default ());
+				} else if (id == "tomorrow-view") {
+					add_filter_view (Objects.Filters.Tomorrow.get_default ());
+				} else if (id == "anytime-view") {
+					add_filter_view (Objects.Filters.Anytime.get_default ());
+				} else if (id == "repeating-view") {
+					add_filter_view (Objects.Filters.Repeating.get_default ());
+				} else if (id == "unlabeled-view") {
+					add_filter_view (Objects.Filters.Unlabeled.get_default ());
+				} else if (id == "all-items-view") {
+					add_filter_view (Objects.Filters.AllItems.get_default ());
 				}
 			} else if (pane_type == PaneType.LABEL) {
 				add_label_view (id);
@@ -196,21 +230,12 @@ public class MainWindow : Adw.ApplicationWindow {
 			toast_overlay.add_toast (toast);
 		});
 
-		Services.EventBus.get_default ().inbox_project_changed.connect (() => {
-			add_inbox_view ();
-		});
-
-		settings_popover.show.connect (() => {
-		});
-
 		search_button.clicked.connect (() => {
-			var dialog = new Dialogs.QuickFind.QuickFind ();
-			dialog.show ();
+			(new Dialogs.QuickFind.QuickFind ()).present (Planify._instance.main_window);
 		});
 
 		var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
-
 		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65507) {
 				Services.EventBus.get_default ().ctrl_pressed = true;
@@ -232,6 +257,34 @@ public class MainWindow : Adw.ApplicationWindow {
 				Services.EventBus.get_default ().alt_pressed = false;
             }
         });
+
+		Services.EventBus.get_default ().open_item.connect ((item) => {
+			if (views_split_view.show_sidebar) {
+				views_split_view.show_sidebar = false;
+				Timeout.add (275, () => {
+					views_split_view.show_sidebar = true;
+					item_sidebar_view.present_item (item);
+					return GLib.Source.REMOVE;
+				});
+			} else {
+				views_split_view.show_sidebar = true;
+				item_sidebar_view.present_item (item);
+			}
+		});
+
+		Services.EventBus.get_default ().close_item.connect (() => {
+			views_split_view.show_sidebar = false;
+		});
+
+		views_split_view.notify["show-sidebar"].connect (() => {
+			if (!views_split_view.show_sidebar) {
+				item_sidebar_view.disconnect_all ();
+				fake_button.grab_focus ();
+			}
+		});
+
+		Services.Database.get_default ().project_archived.connect (check_archived);
+		Services.Database.get_default ().project_unarchived.connect (check_archived);
 	}
 
 	public void show_hide_sidebar () {
@@ -255,21 +308,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		go_homepage ();
 
 		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
-
-		Services.Todoist.get_default ().first_sync_finished.connect ((inbox_project_id) => {
-			var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window,
-			                                    _("Tasks Synced Successfully"), _("Do you want to use Todoist as your default Inbox Project?"));
-
-			dialog.body_use_markup = true;
-			dialog.add_response ("cancel", _("Cancel"));
-			dialog.add_response ("ok", _("Ok"));
-			dialog.set_response_appearance ("ok", Adw.ResponseAppearance.SUGGESTED);
-			dialog.show ();
-
-			dialog.response.connect ((response) => {
-				change_todoist_default (response == "ok", inbox_project_id);
-			});
-		});
+		Services.Database.get_default ().project_archived.connect (valid_view_removed);
 
 		if (Services.Todoist.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
@@ -278,12 +317,27 @@ public class MainWindow : Adw.ApplicationWindow {
 			});
 		}
 
-		if (Services.CalDAV.get_default ().is_logged_in ()) {
+		if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
 			Timeout.add (Constants.SYNC_TIMEOUT, () => {
-				Services.CalDAV.get_default ().run_server ();
+				Services.CalDAV.Core.get_default ().run_server ();
 				return GLib.Source.REMOVE;
 			});
 		}
+
+		check_archived ();
+	}
+
+	private void check_archived () {
+		archive_item.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
+		archive_separator.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
+	}
+
+	private void add_inbox_view () {
+		add_project_view (
+			Services.Database.get_default ().get_project (
+				Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
+			)
+		);
 	}
 
 	public Views.Project add_project_view (Objects.Project project) {
@@ -296,13 +350,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		views_stack.set_visible_child_name (project.view_id);
 		return project_view;
-	}
-
-
-	private void add_inbox_view () {
-		add_project_view (
-			Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"))
-		);
 	}
 
 	public void add_today_view () {
@@ -327,18 +374,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack.set_visible_child_name ("scheduled-view");
 	}
 
-	public void add_pinboard_view () {
-		Views.Pinboard? pinboard_view;
-		pinboard_view = (Views.Pinboard) views_stack.get_child_by_name ("pinboard-view");
-		if (pinboard_view == null) {
-			pinboard_view = new Views.Pinboard ();
-			views_stack.add_named (pinboard_view, "pinboard-view");
-		}
-
-		views_stack.set_visible_child_name ("pinboard-view");
-	}
-
-	public void add_filters_view () {
+	public void add_labels_view () {		
 		Views.Labels? labels_view;
 		labels_view = (Views.Labels) views_stack.get_child_by_name ("labels-view");
 		if (labels_view == null) {
@@ -347,30 +383,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 
 		views_stack.set_visible_child_name ("labels-view");
-	}
-
-	public void add_priority_view (string view_id) {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "priority-view");
-		}
-
-		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
-		views_stack.set_visible_child_name ("priority-view");
-	}
-
-	private void add_completed_view () {
-		Views.Filter? filter_view;
-		filter_view = (Views.Filter) views_stack.get_child_by_name ("completed-view");
-		if (filter_view == null) {
-			filter_view = new Views.Filter ();
-			views_stack.add_named (filter_view, "completed-view");
-		}
-
-		filter_view.filter = Objects.Completed.get_default ();
-		views_stack.set_visible_child_name ("completed-view");
 	}
 
 	private void add_label_view (string id) {
@@ -385,11 +397,40 @@ public class MainWindow : Adw.ApplicationWindow {
 		views_stack.set_visible_child_name ("label-view");
 	}
 
+	public void add_priority_view (string view_id) {
+		Views.Filter? filter_view;
+		filter_view = (Views.Filter) views_stack.get_child_by_name (view_id);
+		if (filter_view == null) {
+			filter_view = new Views.Filter ();
+			views_stack.add_named (filter_view, view_id);
+		}
+
+		filter_view.filter = Util.get_default ().get_priority_filter (view_id);
+		views_stack.set_visible_child_name (view_id);
+	}
+
+	private void add_filter_view (Objects.BaseObject base_object) {
+		Views.Filter? filter_view;
+		filter_view = (Views.Filter) views_stack.get_child_by_name (base_object.view_id);
+		if (filter_view == null) {
+			filter_view = new Views.Filter ();
+			filter_view.filter = base_object;
+			views_stack.add_named (filter_view, base_object.view_id);
+		}
+
+		views_stack.set_visible_child_name (base_object.view_id);
+	}
+
 	public void go_homepage () {
 		Services.EventBus.get_default ().pane_selected (
 			PaneType.FILTER,
 			Util.get_default ().get_filter ().to_string ()
 		);
+	}
+
+	public void view_item (string id) {
+		var item = Services.Database.get_default ().get_item_by_id (id);
+		Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, item.project_id);
 	}
 
 	public void valid_view_removed (Objects.Project project) {
@@ -417,15 +458,23 @@ public class MainWindow : Adw.ApplicationWindow {
 			if (scheduled_view != null) {
 			    scheduled_view.prepare_new_item (content);
 			}
-		} else if (views_stack.visible_child_name.has_prefix ("pinboard-view")) {
-			Views.Pinboard? pinboard_view = (Views.Pinboard) views_stack.visible_child;
-			if (pinboard_view != null) {
-			    pinboard_view.prepare_new_item (content);
+		} else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.update_content (content);
+			dialog.present (Planify._instance.main_window);
+		} else if (views_stack.visible_child_name.has_prefix ("label-view")) {
+			Views.Label? label_view = (Views.Label) views_stack.visible_child;
+			if (label_view != null) {
+			    label_view.prepare_new_item (content);
 			}
-		} else if (views_stack.visible_child_name.has_prefix ("priority-view")) {
-			Views.Filter? filter_view = (Views.Filter) views_stack.get_child_by_name ("priority-view");
+		} else {
+			Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
 			if (filter_view != null) {
 				filter_view.prepare_new_item (content);
+			} else {
+				var dialog = new Dialogs.QuickAdd ();
+				dialog.update_content (content);
+				dialog.present (Planify._instance.main_window);
 			}
 		}
 	}
@@ -441,26 +490,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		}
 	}
 
-	private void change_todoist_default (bool use_todoist, string inbox_project_id) {
-		if (use_todoist) {
-			var old_inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
-			old_inbox_project.inbox_project = false;
-			old_inbox_project.update_local ();
-
-			var new_inbox_project = Services.Database.get_default ().get_project (inbox_project_id);
-			new_inbox_project.inbox_project = true;
-			old_inbox_project.update_local ();
-
-			Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project_id);
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", DefaultInboxProject.TODOIST);
-			Services.EventBus.get_default ().inbox_project_changed ();
-
-			if (views_stack.visible_child_name == old_inbox_project.view_id) {
-				add_project_view (new_inbox_project);
-			}
-		}
-	}
-
 	private Gtk.Popover build_menu_app () {
 		var preferences_item = new Widgets.ContextMenu.MenuItem (_("Preferences"));
 		preferences_item.secondary_text = "Ctrl+,";
@@ -468,15 +497,21 @@ public class MainWindow : Adw.ApplicationWindow {
 		var keyboard_shortcuts_item = new Widgets.ContextMenu.MenuItem (_("Keyboard Shortcuts"));
 		keyboard_shortcuts_item.secondary_text = "F1";
 
-		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New"));
-
+		var whatsnew_item = new Widgets.ContextMenu.MenuItem (_("What's New")) {
+			visible = Constants.SHOW_WHATSNEW
+		};
 		var about_item = new Widgets.ContextMenu.MenuItem (_("About Planify"));
+
+		archive_item = new Widgets.ContextMenu.MenuItem (_("Archived Projects"));
+		archive_separator = new Widgets.ContextMenu.MenuSeparator ();
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 		menu_box.append (preferences_item);
 		menu_box.append (whatsnew_item);
 		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+		menu_box.append (archive_item);
+		menu_box.append (archive_separator);
 		menu_box.append (keyboard_shortcuts_item);
 		menu_box.append (about_item);
 
@@ -491,14 +526,14 @@ public class MainWindow : Adw.ApplicationWindow {
 			popover.popdown ();
 
 			var dialog = new Dialogs.Preferences.PreferencesWindow ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		whatsnew_item.clicked.connect (() => {
 			popover.popdown ();
 
 			var dialog = new Dialogs.WhatsNew ();
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		about_item.clicked.connect (() => {
@@ -509,6 +544,12 @@ public class MainWindow : Adw.ApplicationWindow {
 		keyboard_shortcuts_item.clicked.connect (() => {
 			popover.popdown ();
 			open_shortcuts_window ();
+		});
+
+		archive_item.clicked.connect (() => {
+			popover.popdown ();
+			var dialog = new Dialogs.ManageProjects ();
+			dialog.present (Planify._instance.main_window);
 		});
 
 		return popover;
@@ -527,18 +568,16 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void about_dialog () {
-		Adw.AboutWindow dialog;
+		Adw.AboutDialog dialog;
 
 		if (Build.PROFILE == "development") {
-			dialog = new Adw.AboutWindow ();
+			dialog = new Adw.AboutDialog ();
 		} else {
-			dialog = new Adw.AboutWindow.from_appdata (
+			dialog = new Adw.AboutDialog.from_appdata (
 				"/io/github/alainm23/planify/" + Build.APPLICATION_ID + ".appdata.xml.in.in", Build.VERSION
 			);
 		}
 
-		dialog.transient_for = (Gtk.Window) Planify.instance.main_window;
-		dialog.modal = true;
 		dialog.application_icon = Build.APPLICATION_ID;
 		dialog.application_name = "Planify";
 		dialog.developer_name = "Alain";
@@ -547,6 +586,6 @@ public class MainWindow : Adw.ApplicationWindow {
 		dialog.developers = { "Alain" };
 		dialog.issue_url = "https://github.com/alainm23/planify/issues";
 
-		dialog.show ();
+		dialog.present (Planify._instance.main_window);
 	}
 }

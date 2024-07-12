@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Scheduled : Objects.BaseObject {
+public class Objects.Filters.Scheduled : Objects.BaseObject {
     private static Scheduled? _instance;
     public static Scheduled get_default () {
         if (_instance == null) {
@@ -48,7 +48,9 @@ public class Objects.Scheduled : Objects.BaseObject {
 
     construct {
         name = _("Scheduled");
-        keywords = "%s;%s".printf (_("scheduled"), _("upcoming"));
+        keywords = "%s;%s;%s".printf (_("scheduled"), _("upcoming"), _("filters"));
+        icon_name = "month-symbolic";
+        view_id = FilterType.SCHEDULED.to_string ();
 
         Services.Database.get_default ().item_added.connect (() => {
             _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
@@ -61,6 +63,16 @@ public class Objects.Scheduled : Objects.BaseObject {
         });
 
         Services.Database.get_default ().item_updated.connect (() => {
+            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+            scheduled_count_updated ();
+        });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+            scheduled_count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
             _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });

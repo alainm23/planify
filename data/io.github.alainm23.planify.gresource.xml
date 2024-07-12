@@ -20,12 +20,15 @@
     <file alias="subprojects.webm" compressed="true">resources/videos/subprojects.webm</file>
     <file alias="magic-button.webm" compressed="true">resources/videos/magic-button.webm</file>
 
+    <!-- Audios -->
+    <file alias="success.ogg" compressed="true">resources/sounds/success.ogg</file>
+
     <!-- Icons -->
     <file alias="todoist.svg">resources/icons/todoist.svg</file>
     <file alias="cloud.svg">resources/icons/cloud.svg</file>
   </gresource>
 
-   <gresource prefix="/io/github/alainm23/planify/icons/scalable/actions">
+  <gresource prefix="/io/github/alainm23/planify/icons/scalable/actions">
     <file alias="edit-find-symbolic.svg">resources/icons/edit-find-symbolic.svg</file>
     <file alias="menu-large-symbolic.svg">resources/icons/menu-large-symbolic.svg</file>
     <file alias="plus-large-symbolic.svg">resources/icons/plus-large-symbolic.svg</file>
@@ -74,5 +77,152 @@
     <file alias="list-drag-handle-symbolic.svg">resources/icons/list-drag-handle-symbolic.svg</file>
     <file alias="mailbox-symbolic.svg">resources/icons/mailbox-symbolic.svg</file>
     <file alias="checkmark-small-symbolic.svg">resources/icons/checkmark-small-symbolic.svg</file>
+    <file alias="work-week-symbolic.svg">resources/icons/work-week-symbolic.svg</file>
+    <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
+    <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
+    <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
+    <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
+    <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
+    <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
+    <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
+    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
+    <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
+  </gresource>
+
+<gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
+    <file alias="edit-find-symbolic.svg">resources/icons/edit-find-symbolic.svg</file>
+    <file alias="menu-large-symbolic.svg">resources/icons/menu-large-symbolic.svg</file>
+    <file alias="plus-large-symbolic.svg">resources/icons/plus-large-symbolic.svg</file>
+    <file alias="update-symbolic.svg">resources/icons/update-symbolic.svg</file>
+    <file alias="star-outline-thick-symbolic.svg">resources/icons/star-outline-thick-symbolic.svg</file>
+    <file alias="edit-symbolic.svg">resources/icons/edit-symbolic.svg</file>
+    <file alias="user-trash-symbolic.svg">resources/icons/user-trash-symbolic.svg</file>
+    <file alias="share-alt-symbolic.svg">resources/icons/share-alt-symbolic.svg</file>
+    <file alias="mail-symbolic.svg">resources/icons/mail-symbolic.svg</file>
+    <file alias="view-more-symbolic.svg">resources/icons/view-more-symbolic.svg</file>
+    <file alias="dock-left-symbolic.svg">resources/icons/dock-left-symbolic.svg</file>
+    <file alias="dock-right-symbolic.svg">resources/icons/dock-right-symbolic.svg</file>
+    <file alias="view-sort-descending-rtl-symbolic.svg">resources/icons/view-sort-descending-rtl-symbolic.svg</file>
+    <file alias="list-symbolic.svg">resources/icons/list-symbolic.svg</file>
+    <file alias="view-columns-symbolic.svg">resources/icons/view-columns-symbolic.svg</file>
+    <file alias="view-list-ordered-symbolic.svg">resources/icons/view-list-ordered-symbolic.svg</file>
+    <file alias="check-round-outline-whole-symbolic.svg">resources/icons/check-round-outline-whole-symbolic.svg</file>
+    <file alias="check-round-outline-symbolic.svg">resources/icons/check-round-outline-symbolic.svg</file>
+    <file alias="month-symbolic.svg">resources/icons/month-symbolic.svg</file>
+    <file alias="tabs-stack-symbolic.svg">resources/icons/tabs-stack-symbolic.svg</file>
+    <file alias="list-large-symbolic.svg">resources/icons/list-large-symbolic.svg</file>
+    <file alias="cross-large-circle-filled-symbolic.svg">resources/icons/cross-large-circle-filled-symbolic.svg</file>
+    <file alias="arrow3-right-symbolic.svg">resources/icons/arrow3-right-symbolic.svg</file>
+    <file alias="arrow-circular-top-right-symbolic.svg">resources/icons/arrow-circular-top-right-symbolic.svg</file>
+    <file alias="clipboard-symbolic.svg">resources/icons/clipboard-symbolic.svg</file>
+    <file alias="today-calendar-symbolic.svg">resources/icons/today-calendar-symbolic.svg</file>
+    <file alias="tag-outline-symbolic.svg">resources/icons/tag-outline-symbolic.svg</file>
+    <file alias="pin-symbolic.svg">resources/icons/pin-symbolic.svg</file>
+    <file alias="alarm-symbolic.svg">resources/icons/alarm-symbolic.svg</file>
+    <file alias="flag-outline-thick-symbolic.svg">resources/icons/flag-outline-thick-symbolic.svg</file>
+    <file alias="clock-symbolic.svg">resources/icons/clock-symbolic.svg</file>
+    <file alias="cloud-outline-thick-symbolic.svg">resources/icons/cloud-outline-thick-symbolic.svg</file>
+    <file alias="settings-symbolic.svg">resources/icons/settings-symbolic.svg</file>
+    <file alias="color-symbolic.svg">resources/icons/color-symbolic.svg</file>
+    <file alias="arrow3-down-symbolic.svg">resources/icons/arrow3-down-symbolic.svg</file>
+    <file alias="rescue-symbolic.svg">resources/icons/rescue-symbolic.svg</file>
+    <file alias="chat-bubble-text-symbolic.svg">resources/icons/chat-bubble-text-symbolic.svg</file>
+    <file alias="navigate-symbolic.svg">resources/icons/navigate-symbolic.svg</file>
+    <file alias="heart-outline-thick-symbolic.svg">resources/icons/heart-outline-thick-symbolic.svg</file>
+    <file alias="shield-safe-symbolic.svg">resources/icons/shield-safe-symbolic.svg</file>
+    <file alias="text-justify-left-symbolic.svg">resources/icons/text-justify-left-symbolic.svg</file>
+    <file alias="tag-outline-add-symbolic.svg">resources/icons/tag-outline-add-symbolic.svg</file>
+    <file alias="reaction-add2-symbolic.svg">resources/icons/reaction-add2-symbolic.svg</file>
+    <file alias="paper-symbolic.svg">resources/icons/paper-symbolic.svg</file>
+    <file alias="folder-download-symbolic.svg">resources/icons/folder-download-symbolic.svg</file>
+    <file alias="list-drag-handle-symbolic.svg">resources/icons/list-drag-handle-symbolic.svg</file>
+    <file alias="mailbox-symbolic.svg">resources/icons/mailbox-symbolic.svg</file>
+    <file alias="checkmark-small-symbolic.svg">resources/icons/checkmark-small-symbolic.svg</file>
+    <file alias="work-week-symbolic.svg">resources/icons/work-week-symbolic.svg</file>
+    <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
+    <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
+    <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
+    <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
+    <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
+    <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
+    <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
+    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
+    <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
+  </gresource>
+
+  <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
+    <file alias="edit-find-symbolic.svg">resources/icons/edit-find-symbolic.svg</file>
+    <file alias="menu-large-symbolic.svg">resources/icons/menu-large-symbolic.svg</file>
+    <file alias="plus-large-symbolic.svg">resources/icons/plus-large-symbolic.svg</file>
+    <file alias="update-symbolic.svg">resources/icons/update-symbolic.svg</file>
+    <file alias="star-outline-thick-symbolic.svg">resources/icons/star-outline-thick-symbolic.svg</file>
+    <file alias="edit-symbolic.svg">resources/icons/edit-symbolic.svg</file>
+    <file alias="user-trash-symbolic.svg">resources/icons/user-trash-symbolic.svg</file>
+    <file alias="share-alt-symbolic.svg">resources/icons/share-alt-symbolic.svg</file>
+    <file alias="mail-symbolic.svg">resources/icons/mail-symbolic.svg</file>
+    <file alias="view-more-symbolic.svg">resources/icons/view-more-symbolic.svg</file>
+    <file alias="dock-left-symbolic.svg">resources/icons/dock-left-symbolic.svg</file>
+    <file alias="dock-right-symbolic.svg">resources/icons/dock-right-symbolic.svg</file>
+    <file alias="view-sort-descending-rtl-symbolic.svg">resources/icons/view-sort-descending-rtl-symbolic.svg</file>
+    <file alias="list-symbolic.svg">resources/icons/list-symbolic.svg</file>
+    <file alias="view-columns-symbolic.svg">resources/icons/view-columns-symbolic.svg</file>
+    <file alias="view-list-ordered-symbolic.svg">resources/icons/view-list-ordered-symbolic.svg</file>
+    <file alias="check-round-outline-whole-symbolic.svg">resources/icons/check-round-outline-whole-symbolic.svg</file>
+    <file alias="check-round-outline-symbolic.svg">resources/icons/check-round-outline-symbolic.svg</file>
+    <file alias="month-symbolic.svg">resources/icons/month-symbolic.svg</file>
+    <file alias="tabs-stack-symbolic.svg">resources/icons/tabs-stack-symbolic.svg</file>
+    <file alias="list-large-symbolic.svg">resources/icons/list-large-symbolic.svg</file>
+    <file alias="cross-large-circle-filled-symbolic.svg">resources/icons/cross-large-circle-filled-symbolic.svg</file>
+    <file alias="arrow3-right-symbolic.svg">resources/icons/arrow3-right-symbolic.svg</file>
+    <file alias="arrow-circular-top-right-symbolic.svg">resources/icons/arrow-circular-top-right-symbolic.svg</file>
+    <file alias="clipboard-symbolic.svg">resources/icons/clipboard-symbolic.svg</file>
+    <file alias="today-calendar-symbolic.svg">resources/icons/today-calendar-symbolic.svg</file>
+    <file alias="tag-outline-symbolic.svg">resources/icons/tag-outline-symbolic.svg</file>
+    <file alias="pin-symbolic.svg">resources/icons/pin-symbolic.svg</file>
+    <file alias="alarm-symbolic.svg">resources/icons/alarm-symbolic.svg</file>
+    <file alias="flag-outline-thick-symbolic.svg">resources/icons/flag-outline-thick-symbolic.svg</file>
+    <file alias="clock-symbolic.svg">resources/icons/clock-symbolic.svg</file>
+    <file alias="cloud-outline-thick-symbolic.svg">resources/icons/cloud-outline-thick-symbolic.svg</file>
+    <file alias="settings-symbolic.svg">resources/icons/settings-symbolic.svg</file>
+    <file alias="color-symbolic.svg">resources/icons/color-symbolic.svg</file>
+    <file alias="arrow3-down-symbolic.svg">resources/icons/arrow3-down-symbolic.svg</file>
+    <file alias="rescue-symbolic.svg">resources/icons/rescue-symbolic.svg</file>
+    <file alias="chat-bubble-text-symbolic.svg">resources/icons/chat-bubble-text-symbolic.svg</file>
+    <file alias="navigate-symbolic.svg">resources/icons/navigate-symbolic.svg</file>
+    <file alias="heart-outline-thick-symbolic.svg">resources/icons/heart-outline-thick-symbolic.svg</file>
+    <file alias="shield-safe-symbolic.svg">resources/icons/shield-safe-symbolic.svg</file>
+    <file alias="text-justify-left-symbolic.svg">resources/icons/text-justify-left-symbolic.svg</file>
+    <file alias="tag-outline-add-symbolic.svg">resources/icons/tag-outline-add-symbolic.svg</file>
+    <file alias="reaction-add2-symbolic.svg">resources/icons/reaction-add2-symbolic.svg</file>
+    <file alias="paper-symbolic.svg">resources/icons/paper-symbolic.svg</file>
+    <file alias="folder-download-symbolic.svg">resources/icons/folder-download-symbolic.svg</file>
+    <file alias="list-drag-handle-symbolic.svg">resources/icons/list-drag-handle-symbolic.svg</file>
+    <file alias="mailbox-symbolic.svg">resources/icons/mailbox-symbolic.svg</file>
+    <file alias="checkmark-small-symbolic.svg">resources/icons/checkmark-small-symbolic.svg</file>
+    <file alias="work-week-symbolic.svg">resources/icons/work-week-symbolic.svg</file>
+    <file alias="permissions-generic-symbolic.svg">resources/icons/permissions-generic-symbolic.svg</file>
+    <file alias="grid-large-symbolic.svg">resources/icons/grid-large-symbolic.svg</file>
+    <file alias="tag-outline-remove-symbolic.svg">resources/icons/tag-outline-remove-symbolic.svg</file>
+    <file alias="carousel-symbolic.svg">resources/icons/carousel-symbolic.svg</file>
+    <file alias="step-out-symbolic.svg">resources/icons/step-out-symbolic.svg</file>
+    <file alias="playlist-repeat-symbolic.svg">resources/icons/playlist-repeat-symbolic.svg</file>
+    <file alias="vertical-arrows-long-symbolic.svg">resources/icons/vertical-arrows-long-symbolic.svg</file>
+    <file alias="mail-attachment-symbolic.svg">resources/icons/mail-attachment-symbolic.svg</file>
+    <file alias="arrow-turn-down-right-symbolic.svg">resources/icons/arrow-turn-down-right-symbolic.svg</file>
+    <file alias="shoe-box-symbolic.svg">resources/icons/shoe-box-symbolic.svg</file>
+    <file alias="eye-open-negative-filled-symbolic.svg">resources/icons/eye-open-negative-filled-symbolic.svg</file>
+    <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
+    <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
+    <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
   </gresource>
 </gresources>

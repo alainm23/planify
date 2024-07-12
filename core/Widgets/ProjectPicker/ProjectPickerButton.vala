@@ -16,7 +16,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     public Objects.Section section {
         set {
             _section = value;
-            section_label.label = _section.short_name;
+            section_label.label = _section.name;
         }
     }
 
@@ -52,13 +52,14 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         var project_button = new Gtk.MenuButton () {
             popover = project_picker_popover,
             child = project_box,
-            css_classes = { Granite.STYLE_CLASS_FLAT }
+            css_classes = { "flat" }
         };
 
         // Section Button
         section_label = new Gtk.Label (_("No Section")) {
             valign = Gtk.Align.CENTER,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            max_width_chars = 16
         };
 
         sections_popover = build_sections_popover ();
@@ -68,7 +69,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
         var section_button = new Gtk.MenuButton () {
             popover = sections_popover,
             child = section_label,
-            css_classes = { Granite.STYLE_CLASS_FLAT }
+            css_classes = { "flat" }
         };
 
         var section_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -127,7 +128,9 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
     }
 
     private Gtk.ListBoxRow get_section_row (Objects.Section? section) {
-        var button = new Widgets.ContextMenu.MenuItem (section != null ? section.short_name : _("No Section"));
+        var button = new Widgets.ContextMenu.MenuItem (section != null ? section.name : _("No Section")) {
+            max_width_chars = 16
+        };
 
         var row = new Gtk.ListBoxRow () {
             css_classes = { "row" },
@@ -136,7 +139,7 @@ public class Widgets.ProjectPicker.ProjectPickerButton : Adw.Bin {
 
         button.clicked.connect (() => {
             sections_popover.popdown ();
-            section_label.label = section != null ? section.short_name : _("No Section");
+            section_label.label = section != null ? section.name : _("No Section");
             section_change (section);
         });
 

@@ -3,9 +3,7 @@ public class Objects.Backup : Object {
     public string date { get; set; default = new GLib.DateTime.now_local ().to_string (); }
 
     public int default_inbox { get; set; default = 0; }
-    public string inbox_project_id { get; set; default = ""; }
     public string local_inbox_project_id { get; set; default = ""; }
-    public string todoist_inbox_project_id { get; set; default = ""; }
     public string todoist_access_token { get; set; default = ""; }
     public string todoist_sync_token { get; set; default = ""; }
     public string todoist_user_name { get; set; default = ""; }
@@ -45,7 +43,8 @@ public class Objects.Backup : Object {
             return _todoist_backend;
         }
     }
-    public bool google_backend { get; set; default = false; }
+
+    public signal void deleted ();
 
     public Backup.from_file (File file) {
         var parser = new Json.Parser ();
@@ -61,10 +60,7 @@ public class Objects.Backup : Object {
     
             // Set Settings
             var settings = node.get_object_member ("settings");
-            default_inbox = (int32) settings.get_int_member ("default-inbox");
-            inbox_project_id = settings.get_string_member ("inbox-project-id");
             local_inbox_project_id = settings.get_string_member ("local-inbox-project-id");
-            todoist_inbox_project_id = settings.get_string_member ("todoist-inbox-project-id");
             todoist_access_token = settings.get_string_member ("todoist-access-token");
             todoist_sync_token = settings.get_string_member ("todoist-sync-token");
             todoist_user_name = settings.get_string_member ("todoist-user-name");
@@ -98,7 +94,7 @@ public class Objects.Backup : Object {
             items.clear ();
             unowned Json.Array _items = node.get_array_member ("items");
             foreach (unowned Json.Node item in _items.get_elements ()) {
-                items.add (new Objects.Item.from_import_json (item));
+                items.add (new Objects.Item.from_import_json (item, labels));
             }
         } catch (Error e) {
             error = e.message;
@@ -123,5 +119,32 @@ public class Objects.Backup : Object {
         }
 
         return true;
+    }
+
+    public void delete_backup (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Delete Backup"),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                File db_file = File.new_for_path (path);
+                if (db_file.query_exists ()) {
+                    try {
+                        if (db_file.delete ()) {
+                            deleted ();
+                        }
+                    } catch (Error err) {
+                        warning (err.message);
+                    }
+                }
+            }
+        });
     }
 }

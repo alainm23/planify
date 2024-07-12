@@ -94,14 +94,16 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.FILTER && filter_type.to_string () == id) {
                 add_css_class ("selected");
-                add_css_class ("animation");
-                Timeout.add (1000, () => {
-                    remove_css_class ("animation"); 
-                    return GLib.Source.REMOVE;
-                });
+
+                if (!has_css_class ("animation")) {
+                    add_css_class ("animation");
+                    Timeout.add (700, () => {
+                        remove_css_class ("animation");
+                        return GLib.Source.REMOVE;
+                    });
+                }
             } else {
                 remove_css_class ("selected"); 
-                remove_css_class ("animation");
             }
         });
     }
@@ -127,7 +129,11 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
             title_label.label = _("Labels");
             title_image.icon_name = "tag-outline-symbolic";
             Util.get_default ().set_widget_color ("#986a44", this);
-        }
+        } else if (filter_type == FilterType.COMPLETED) {
+            title_label.label = _("Completed");
+            title_image.icon_name = "check-round-outline-symbolic";
+            Util.get_default ().set_widget_color ("#ff7800", this);
+        } 
     }
 
     private void update_count_label (int count) {
@@ -136,39 +142,39 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     
     public void init () {
         if (filter_type == FilterType.TODAY) {
-            update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
-            Objects.Today.get_default ().today_count_updated.connect (() => {
-                update_count_label (Objects.Today.get_default ().today_count + Objects.Today.get_default ().overdeue_count);
+            update_count_label (Objects.Filters.Today.get_default ().today_count + Objects.Filters.Today.get_default ().overdeue_count);
+            Objects.Filters.Today.get_default ().today_count_updated.connect (() => {
+                update_count_label (Objects.Filters.Today.get_default ().today_count + Objects.Filters.Today.get_default ().overdeue_count);
             });
         } else if (filter_type == FilterType.INBOX) {
             init_inbox_count ();            
         } else if (filter_type == FilterType.SCHEDULED) {
-            update_count_label (Objects.Scheduled.get_default ().scheduled_count);
-            Objects.Scheduled.get_default ().scheduled_count_updated.connect (() => {
-                update_count_label (Objects.Scheduled.get_default ().scheduled_count);
+            update_count_label (Objects.Filters.Scheduled.get_default ().scheduled_count);
+            Objects.Filters.Scheduled.get_default ().scheduled_count_updated.connect (() => {
+                update_count_label (Objects.Filters.Scheduled.get_default ().scheduled_count);
             });
         } else if (filter_type == FilterType.PINBOARD) {
-            update_count_label (Objects.Pinboard.get_default ().pinboard_count);
-            Objects.Pinboard.get_default ().pinboard_count_updated.connect (() => {
-                update_count_label (Objects.Pinboard.get_default ().pinboard_count);
+            update_count_label (Objects.Filters.Pinboard.get_default ().pinboard_count);
+            Objects.Filters.Pinboard.get_default ().pinboard_count_updated.connect (() => {
+                update_count_label (Objects.Filters.Pinboard.get_default ().pinboard_count);
             });
         } else if (filter_type == FilterType.LABELS) {
             update_count_label (Objects.Filters.Labels.get_default ().count);
             Objects.Filters.Labels.get_default ().count_updated.connect (() => {
                 update_count_label (Objects.Filters.Labels.get_default ().count);
             });
+        } else if (filter_type == FilterType.COMPLETED) {
+            update_count_label (Objects.Filters.Completed.get_default ().count);
+            Objects.Filters.Completed.get_default ().count_updated.connect (() => {
+                update_count_label (Objects.Filters.Completed.get_default ().count);
+            });
         }
     }
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
+        Objects.Project inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
         update_count_label (inbox_project.project_count);
 
         inbox_project.project_count_updated.connect (() => {
-            update_count_label (inbox_project.project_count);
-        });
-
-        Services.EventBus.get_default ().inbox_project_changed.connect (() => {
-            inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
             update_count_label (inbox_project.project_count);
         });
     }

@@ -49,7 +49,7 @@ public class Widgets.LabelChild : Gtk.FlowBoxChild {
         
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
-        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        name_label.add_css_class ("caption");
 
         var labelrow_grid = new Gtk.Grid () {
             column_spacing = 6

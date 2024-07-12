@@ -113,19 +113,11 @@ public class Services.Backups : Object {
         // Preferences
         builder.set_member_name ("settings");
         builder.begin_object ();
-        
-        builder.set_member_name ("default-inbox");
-        builder.add_int_value (Services.Settings.get_default ().settings.get_enum ("default-inbox"));
-
-        builder.set_member_name ("inbox-project-id");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("inbox-project-id"));
 
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
 
-        builder.set_member_name ("todoist-inbox-project-id");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id"));
-
+        // Todoist
         builder.set_member_name ("todoist-access-token");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-access-token"));
 
@@ -245,6 +237,9 @@ public class Services.Backups : Object {
             builder.set_member_name ("due_date");
             builder.add_string_value (project.due_date);
 
+            builder.set_member_name ("sync_id");
+            builder.add_string_value (project.sync_id);
+
             builder.end_object ();
         }
         builder.end_array ();
@@ -349,6 +344,9 @@ public class Services.Backups : Object {
                 builder.add_string_value (label.name);
             }
             builder.end_array ();
+
+            builder.set_member_name ("extra_data");
+            builder.add_string_value (item.extra_data);
         builder.end_object ();
 
             builder.end_object ();
@@ -428,12 +426,9 @@ public class Services.Backups : Object {
     public void patch_backup (Objects.Backup backup) {
         Services.Settings.get_default ().reset_settings ();
 
-        Services.Settings.get_default ().settings.set_enum ("default-inbox", backup.default_inbox);
-        Services.Settings.get_default ().settings.set_string ("inbox-project-id", backup.inbox_project_id);
         Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", backup.local_inbox_project_id);
         
         if (backup.todoist_backend) {
-            Services.Settings.get_default ().settings.set_string ("todoist-inbox-project-id", backup.todoist_inbox_project_id);
             Services.Settings.get_default ().settings.set_string ("todoist-sync-token", backup.todoist_sync_token);
             Services.Settings.get_default ().settings.set_string ("todoist-access-token", backup.todoist_access_token);
             Services.Settings.get_default ().settings.set_string ("todoist-user-image-id", backup.todoist_user_image_id);
@@ -476,7 +471,7 @@ public class Services.Backups : Object {
 
         // Create Items
         foreach (Objects.Item item in backup.items) {
-            if (item.parent_id != "") {
+            if (item.has_parent) {
                 Objects.Item? _item = Services.Database.get_default ().get_item (item.parent_id);
                 if (_item != null) {
                     _item.add_item_if_not_exists (item);
@@ -506,14 +501,13 @@ public class Services.Backups : Object {
     }
 
     private void show_message () {
-        var dialog = new Adw.MessageDialog (Planify._instance.main_window,
+        var dialog = new Adw.AlertDialog (
             _("Backup Successfully Imported"),
             _("Process completed, you need to start Planify again")
         );
 
-        dialog.modal = true;
         dialog.add_response ("ok", _("Ok"));
-        dialog.show ();
+        dialog.present (Planify._instance.main_window);
 
         dialog.response.connect ((response) => {
             Planify._instance.main_window.destroy ();

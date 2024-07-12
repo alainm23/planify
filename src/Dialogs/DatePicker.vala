@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.DatePicker : Adw.Window {
+public class Dialogs.DatePicker : Adw.Dialog {
     private Gtk.Revealer clear_revealer;
     private Widgets.Calendar.Calendar calendar_view;
     private Widgets.ContextMenu.MenuItem no_date_item;
@@ -47,35 +47,31 @@ public class Dialogs.DatePicker : Adw.Window {
 
     public DatePicker (string title) {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: title,
-            width_request: 320,
-            height_request: 450,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         var today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
         today_item.secondary_text = new GLib.DateTime.now_local ().format ("%a");
         today_item.margin_top = 6;
 
-        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
+        var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "month-symbolic");
-        next_week_item.secondary_text = Util.get_default ().get_relative_date_from_date (
-            Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (7))
+        var next_week_item = new Widgets.ContextMenu.MenuItem (_("Next Week"), "work-week-symbolic");
+        next_week_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
+            Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (7))
         );
-        next_week_item.margin_bottom = 6;
 
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = false;
+        no_date_item.margin_bottom = 6;
 
         var items_card = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             margin_start = 12,
@@ -87,9 +83,9 @@ public class Dialogs.DatePicker : Adw.Window {
         items_card.append (tomorrow_item);
         items_card.append (next_week_item);
         items_card.append (no_date_item);
-        items_card.add_css_class (Granite.STYLE_CLASS_CARD);
+        items_card.add_css_class ("card");
 
-        calendar_view = new Widgets.Calendar.Calendar (true) {
+        calendar_view = new Widgets.Calendar.Calendar () {
             margin_top = 6,
             margin_bottom = 6
         };
@@ -101,7 +97,7 @@ public class Dialogs.DatePicker : Adw.Window {
         };
 
         calendar_card.append (calendar_view);
-        calendar_card.add_css_class (Granite.STYLE_CLASS_CARD);
+        calendar_card.add_css_class ("card");
 
         var done_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Done")) {
             margin_start = 12,
@@ -109,7 +105,7 @@ public class Dialogs.DatePicker : Adw.Window {
             margin_bottom = 12
         };
 
-        done_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        done_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             width_request = 225
@@ -120,7 +116,8 @@ public class Dialogs.DatePicker : Adw.Window {
         content_box.append (calendar_card);
         content_box.append (done_button);
 
-        content = content_box;
+        child = content_box;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         today_item.activate_item.connect (() => {
             set_date (new DateTime.now_local ());
@@ -149,20 +146,19 @@ public class Dialogs.DatePicker : Adw.Window {
             date_changed ();
             hide_destroy ();
         });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     private void set_date (DateTime? date) {
-        _datetime = Util.get_default ().get_format_date (date);
+        _datetime = Utils.Datetime.get_format_date (date);
         date_changed ();
         hide_destroy ();
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

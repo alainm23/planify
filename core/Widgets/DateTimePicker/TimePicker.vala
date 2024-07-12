@@ -33,7 +33,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             if (_time == null) {
                 time = new GLib.DateTime.now_local ();
             }
-
+            
             return _time;
         }
 
@@ -67,6 +67,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
 
     public signal void time_changed ();
     public signal void time_added ();
+    public signal void activate ();
 
     construct {
         if (format_12 == null) {
@@ -136,6 +137,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             time_stack.visible_child_name = "time-box";
             update_text ();
             time_added ();
+            time_entry.grab_focus ();
         });
 
         // Connecting to events allowing manual changes
@@ -164,7 +166,10 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
             return false;
         });
 
-        time_entry.activate.connect (is_unfocused);
+        time_entry.activate.connect (() => {
+            is_unfocused ();
+            activate ();
+        });
 
         no_time_button.clicked.connect (() => {
             reset ();
@@ -264,7 +269,7 @@ public class Widgets.DateTimePicker.TimePicker : Adw.Bin {
     }
 
     private void update_text (bool no_signal = false) {
-        if (Util.get_default ().is_clock_format_12h ()) {
+        if (Utils.Datetime.is_clock_format_12h ()) {
             time_entry.set_text (time.format (format_12));
         } else {
             time_entry.set_text (time.format (format_24));

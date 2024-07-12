@@ -109,7 +109,7 @@ public class Objects.Project : Objects.BaseObject {
 
     public bool is_inbox_project {
         get {
-            return id == Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+            return id == Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
         }
     }
 
@@ -118,6 +118,14 @@ public class Objects.Project : Objects.BaseObject {
         get {
             _sections = Services.Database.get_default ().get_sections_by_project (this);
             return _sections;
+        }
+    }
+
+    Gee.ArrayList<Objects.Section> _sections_archived;
+    public Gee.ArrayList<Objects.Section> sections_archived {
+        get {
+            _sections_archived = Services.Database.get_default ().get_sections_archived_by_project (this);
+            return _sections_archived;
         }
     }
 
@@ -205,18 +213,6 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
     
-    bool _loading = false;
-    public bool loading {
-        set {
-            _loading = value;
-            loading_changed (_loading);
-        }
-
-        get {
-            return _loading;
-        }
-    }
-
     private bool _show_multi_select = false;
     public bool show_multi_select {
         set {
@@ -238,20 +234,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void loading_changed (bool value);
     public signal void project_count_updated ();
     public signal void show_multi_select_change ();
-
-    Gee.HashMap <string, Objects.Label> _label_filter = new Gee.HashMap <string, Objects.Label> ();
-    public Gee.HashMap <string, Objects.Label> label_filter {
-        get {
-            return _label_filter;
-        }
-
-        set {
-            _label_filter = value;
-            label_filter_change ();
-        }
-    }
-
-    public signal void label_filter_change ();
 
     construct {
         deleted.connect (() => {
@@ -300,6 +282,22 @@ public class Objects.Project : Objects.BaseObject {
                 project_count_updated ();
             }
         });
+
+        Services.Database.get_default ().item_archived.connect ((item) => {
+            if (item.project_id == id) {
+                _project_count = update_project_count ();
+                _percentage = update_percentage ();
+                project_count_updated ();
+            }
+        });
+
+        Services.Database.get_default ().item_unarchived.connect ((item) => {
+            if (item.project_id == id) {
+                _project_count = update_project_count ();
+                _percentage = update_percentage ();
+                project_count_updated ();
+            }
+        });
     }
 
     public Project.from_json (Json.Node node) {
@@ -324,7 +322,11 @@ public class Objects.Project : Objects.BaseObject {
         GXml.DomElement propstat = element.get_elements_by_tag_name ("d:propstat").get_element (0);
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         name = get_content (prop.get_elements_by_tag_name ("d:displayname").get_element (0));
-        color = get_content (prop.get_elements_by_tag_name ("x1:calendar-color").get_element (0));
+
+        GXml.DomHTMLCollection colorElements = prop.get_elements_by_tag_name ("x1:calendar-color");
+        if (colorElements.length > 0) {
+            color = get_content (colorElements.get_element (0));
+        }
 
         GXml.DomHTMLCollection sync_token_collection = prop.get_elements_by_tag_name ("d:sync-token");
         if (update_sync_token && sync_token_collection.length > 0) {
@@ -446,8 +448,8 @@ public class Objects.Project : Objects.BaseObject {
                     loading = true;
                 }
 
-                Services.CalDAV.get_default ().update_tasklist.begin (this, (obj, res) => {
-                    Services.CalDAV.get_default ().update_tasklist.end (res);
+                Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
+                    Services.CalDAV.Core.get_default ().update_tasklist.end (res);
                     Services.Database.get_default ().update_project (this);
                     loading = false;
                 });
@@ -493,6 +495,7 @@ public class Objects.Project : Objects.BaseObject {
             return_value = get_section (new_section.id);
             if (return_value == null) {
                 new_section.set_project (this);
+                new_section.section_order = new_section.project.sections.size;
                 add_section (new_section);
                 Services.Database.get_default ().insert_section (new_section);
                 return_value = new_section;
@@ -725,7 +728,7 @@ public class Objects.Project : Objects.BaseObject {
     private int update_project_count () {
         int returned = 0;
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
-            if (!item.checked) {
+            if (!item.checked && !item.was_archived ()) {
                 returned++;
             }
         }
@@ -737,7 +740,7 @@ public class Objects.Project : Objects.BaseObject {
         int items_checked = 0;
         foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
             items_total++;
-            if (item.checked) {
+            if (!item.checked && !item.was_archived ()) {
                 items_checked++;
             }
         }
@@ -765,33 +768,101 @@ public class Objects.Project : Objects.BaseObject {
 
     private string to_markdown () {
         string text = "";
-        text += "# %s\n".printf (name);
-
+        text += "## %s\n".printf (name);
 
         foreach (Objects.Item item in items) {
-            text += "- [%s] %s\n".printf (item.checked ? "x" : " ", item.content);
+            text += item.to_markdown ();
         }
 
         foreach (Objects.Section section in sections) {
             text += "\n";
-            text += "## %s\n".printf (section.name);
+            text += "### %s\n".printf (section.name);
 
             foreach (Objects.Item item in section.items) {
-                text += "- [%s]%s%s\n".printf (item.checked ? "x" : " ", get_format_date (item), item.content);
-                foreach (Objects.Item check in item.items) {
-                    text += "  - [%s]%s%s\n".printf (check.checked ? "x" : " ", get_format_date (check), check.content);
-                }
+                text += item.to_markdown ();
             }
         }
 
         return text;
     }
 
-    private string get_format_date (Objects.Item item) {
-        if (!item.has_due) {
-            return " ";
-        }
+    public void delete_project (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Delete Project %s?".printf (name)),
+            _("This can not be undone")
+        );
 
-        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.close_response = "cancel";
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                loading = true;
+                if (backend_type == BackendType.LOCAL) {
+                    Services.Database.get_default ().delete_project (this);
+                } else if (backend_type == BackendType.TODOIST) {
+                    dialog.set_response_enabled ("cancel", false);
+                    dialog.set_response_enabled ("delete", false);
+
+                    Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
+                        if (Services.Todoist.get_default ().delete.end (res).status) {
+                            Services.Database.get_default ().delete_project (this);
+                            loading = false;
+                        }
+                    });
+                } else if (backend_type == BackendType.CALDAV) {
+                    dialog.set_response_enabled ("cancel", false);
+                    dialog.set_response_enabled ("delete", false);
+
+                    Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
+                        if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
+                            Services.Database.get_default ().delete_project (this);
+                            loading = false;
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    public void archive_project (Gtk.Window window) {
+        var dialog = new Adw.AlertDialog (
+            _("Archive?"),
+            _("This will archive %s and all its tasks.".printf (name))
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("archive", _("Archive"));
+        dialog.close_response = "cancel";
+        dialog.set_response_appearance ("archive", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present (window);
+
+        dialog.response.connect ((response) => {
+            if (response == "archive") {
+                is_archived = true;
+                Services.Database.get_default ().archive_project (this);
+            }
+        });
+    }
+
+    public void unarchive_project () {
+        is_archived = false;
+        Services.Database.get_default ().archive_project (this);
+    }
+
+    public Objects.Project duplicate () {
+        var new_project = new Objects.Project ();
+        new_project.name = name;
+        new_project.due_date = due_date;
+        new_project.color = color;
+        new_project.emoji = emoji;
+        new_project.description = description;
+        new_project.icon_style = icon_style;
+        new_project.backend_type = backend_type;
+
+        return new_project;
     }
 }

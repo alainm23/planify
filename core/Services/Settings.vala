@@ -48,4 +48,8 @@ public class Services.Settings : GLib.Object {
         var value = Services.Settings.get_default ().settings.get_enum ("new-tasks-position");
         return value == 0 ? NewTaskPosition.TOP : NewTaskPosition.BOTTOM;
     }
-}
+
+    public bool get_boolean (string key) {
+        return settings.get_boolean (key);
+    }
+ }

@@ -49,8 +49,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     public Gee.HashMap <string, Layouts.ProjectRow> subprojects_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     
-    public bool on_drag = false;
-
     private bool has_subprojects {
         get {
             return Util.get_default ().get_children (listbox).length () > 0;
@@ -116,11 +114,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             halign = Gtk.Align.START,
         };
 
-        count_label = new Gtk.Label (project.project_count.to_string ()) {
+        count_label = new Gtk.Label (null) {
             hexpand = true,
             margin_end = 6,
             halign = Gtk.Align.CENTER,
-            css_classes = { "small-label", "dim-label" }
+            css_classes = { "caption", "dim-label" }
         };
 
         count_revealer = new Gtk.Revealer () {
@@ -152,7 +150,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             use_markup = true,
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            css_classes = { "pane-due-button", "small-label" }
+            css_classes = { "pane-due-button", "caption" }
         };
 
         menu_stack.add_named (due_label, "due_label");
@@ -168,7 +166,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var loading_spinner = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-            spinning = true
+            spinning = true,
+            margin_end = 6
         };
 
         loading_revealer = new Gtk.Revealer () {
@@ -224,6 +223,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         child = main_revealer;
         update_request ();
+        update_count_label (project.project_count);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
         
         if (drag_n_drop) {
@@ -241,23 +241,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         var select_gesture = new Gtk.GestureClick ();
-        select_gesture.set_button (1);
         handle_grid.add_controller (select_gesture);
-
-        select_gesture.pressed.connect (() => {
-            Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                if (!on_drag) {
-                    Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
-                }
-
-                return GLib.Source.REMOVE;
-            });
+        select_gesture.released.connect (() => {
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id_string);
         });
 
-        var menu_gesture = new Gtk.GestureClick ();
-        menu_gesture.set_button (3);
+        var menu_gesture = new Gtk.GestureClick () {
+            button = 3
+        };
         handle_grid.add_controller (menu_gesture);
-
         menu_gesture.pressed.connect ((n_press, x, y) => {
             build_context_menu (x, y);
         });
@@ -298,6 +290,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         project.updated.connect (update_request);
         project.deleted.connect (hide_destroy);
+        project.archived.connect (hide_destroy);
 
         project.project_count_updated.connect (() => {
             update_count_label (project.project_count);
@@ -308,22 +301,36 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             add_subproject (subproject);
         });
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((subproject, old_parent_id, collapsed) => {
+        Services.EventBus.get_default ().project_parent_changed.connect ((_project, old_parent_id, collapsed) => {
             if (old_parent_id == project.id) {
-                if (subprojects_hashmap.has_key (subproject.id_string)) {
-                    subprojects_hashmap [subproject.id_string].hide_destroy ();
-                    subprojects_hashmap.unset (subproject.id_string);
+                if (subprojects_hashmap.has_key (_project.id)) {
+                    subprojects_hashmap [_project.id].hide_destroy ();
+                    subprojects_hashmap.unset (_project.id);
                 }
             }
 
-            if (subproject.parent_id == project.id) {
-                add_subproject (subproject);
+            if (_project.parent_id == project.id) {
+                add_subproject (_project);
 
                 if (collapsed) {
                     project.collapsed = true;
                     arrow_button.add_css_class ("opened");
                 }
             }
+        });
+
+        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
+            var row = (Layouts.ProjectRow) _row;
+
+            if (old_parent_id == project.id) {
+                if (subprojects_hashmap.has_key (row.project.id)) {
+                    subprojects_hashmap.unset (row.project.id);
+                }
+            }
+        });
+
+        project.loading_change.connect (() => {
+            is_loading = project.loading;
         });
     }
 
@@ -343,7 +350,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         handle_grid.add_controller (drop_magic_button_target);
         drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.Project.new (project.backend_type, false, project.id);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
             return true;
         });
 
@@ -375,6 +382,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     
             var source_list = (Gtk.ListBox) picked_widget.parent;
             var target_list = (Gtk.ListBox) target_widget.parent;
+            
+            string old_parent_id = picked_project.parent_id;
 
             if (picked_project.parent_id != target_project.parent_id) {
                 picked_project.parent_id = target_project.parent_id;
@@ -383,10 +392,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                             Services.Database.get_default ().update_project (picked_project);
+                            Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                         }
                     });
-                } else if (picked_project.backend_type == BackendType.LOCAL) {
+                } else {
                     Services.Database.get_default ().update_project (picked_project);
+                    Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                 }
             }
 
@@ -492,7 +503,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                         Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
                     }
                 });
-            } else if (picked_project.backend_type == BackendType.LOCAL) {
+            } else {
                 Services.Database.get_default ().update_project (picked_project);
                 Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
             }
@@ -516,6 +527,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemRow) {
                 var picked_widget = (Layouts.ItemRow) value;
+
+                if (picked_widget.item.project.is_inbox_project) {
+                    return true;
+                }
+
                 if (picked_widget.item.project.backend_type == project.backend_type) {
                     return true;
                 }
@@ -525,9 +541,15 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         });
 
         drop_row_target.drop.connect ((value, x, y) => {
-            var picked_widget = (Layouts.ItemRow) value;
+            var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            picked_widget.item.move (target_widget.project, "");
+
+            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+                Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
+            } else {
+                picked_widget.item.move (target_widget.project, "");
+            }
+
             return true;
         });
 
@@ -545,6 +567,11 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ItemBoard) {
                 var picked_widget = (Layouts.ItemBoard) value;
+                
+                if (picked_widget.item.project.is_inbox_project) {
+                    return true;
+                }
+                
                 if (picked_widget.item.project.backend_type == project.backend_type) {
                     return true;
                 }
@@ -556,21 +583,25 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         drop_board_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
-            picked_widget.item.move (target_widget.project, "");
+
+            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+                Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
+            } else {
+                picked_widget.item.move (target_widget.project, "");
+            }
+
             return true;
         });
     }
 
     public void drag_begin () {
         handle_grid.add_css_class ("drop-begin");
-        on_drag = true;
         main_revealer.reveal_child = false;
         listbox_revealer.reveal_child = false;
     }
 
     public void drag_end () {
         handle_grid.remove_css_class ("drop-begin");
-        on_drag = false;
         main_revealer.reveal_child = true;
         listbox_revealer.reveal_child = project.collapsed;
     }
@@ -594,15 +625,17 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_context_menu (double x, double y) {
         if (menu_popover != null) {
             favorite_item.title = project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites");
-
-            menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+            menu_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_popover.popup ();
             return;
         }
         
         favorite_item = new Widgets.ContextMenu.MenuItem (project.is_favorite ? _("Remove From Favorites") : _("Add to Favorites"), "star-outline-thick-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Project"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var refresh_item = new Widgets.ContextMenu.MenuItem (_("Refresh"), "update-symbolic");
+
+        var archive_item = new Widgets.ContextMenu.MenuItem (_("Archive"), "shoe-box-symbolic");
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Project"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
@@ -613,34 +646,34 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         menu_box.margin_top = menu_box.margin_bottom = 3;
         menu_box.append (favorite_item);
 
-        if (!project.is_deck) {
+        if (!project.is_deck && !project.inbox_project) {
             menu_box.append (edit_item);
         }
         
         if (project.backend_type == BackendType.CALDAV) {
             menu_box.append (refresh_item);
         }
+
+        menu_box.append (duplicate_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (share_markdown_item);
         menu_box.append (share_email_item);
 
-        if (project.id != Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id") &&
-        project.id != Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")) {
-            if (!project.is_deck) {
-                menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-                menu_box.append (delete_item);
-            }
+        if (!project.is_deck && !project.inbox_project) {
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (archive_item);
+            menu_box.append (delete_item);
         }
 
         menu_popover = new Gtk.Popover () {
             has_arrow = false,
+            halign = Gtk.Align.START,
             child = menu_box,
-            position = Gtk.PositionType.RIGHT,
             width_request = 250
         };
 
         menu_popover.set_parent (this);
-        menu_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+        menu_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
         menu_popover.popup ();
 
         favorite_item.clicked.connect (() => {
@@ -656,49 +689,26 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
 
             var dialog = new Dialogs.Project (project);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         refresh_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            is_loading = true;
-            Services.CalDAV.get_default ().sync_tasklist.begin (project, (obj, res) => {
-                Services.CalDAV.get_default ().sync_tasklist.end (res);
-                is_loading = false;
-            });
+            if (project.sync_id == "") {
+                is_loading = true;
+                Services.CalDAV.Core.get_default ().refresh_tasklist.begin (project, (obj, res) => {
+                    Services.CalDAV.Core.get_default ().refresh_tasklist.end (res);
+                    is_loading = false;
+                });
+            } else {
+                sync_project ();
+            }
         });
 
         delete_item.clicked.connect (() => {
             menu_popover.popdown ();
-            
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete project"), _("Are you sure you want to delete %s?").printf (project.short_name));
-
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    if (project.backend_type == BackendType.LOCAL) {
-                        Services.Database.get_default ().delete_project (project);
-                    } else if (project.backend_type == BackendType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (project, (obj, res) => {
-                            if (Services.Todoist.get_default ().delete.end (res).status) {
-                                Services.Database.get_default ().delete_project (project);
-                            }
-                        });
-                    } else if (project.backend_type == BackendType.CALDAV) {
-                        Services.CalDAV.get_default ().delete_tasklist.begin (project, (obj, res) => {
-                            if (Services.CalDAV.get_default ().delete_tasklist.end (res)) {
-                                Services.Database.get_default ().delete_project (project);
-                            }
-                        });
-                    }
-                }
-            });
+            project.delete_project ((Gtk.Window) Planify.instance.main_window);
         });
 
         share_markdown_item.clicked.connect (() => {
@@ -709,6 +719,24 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         share_email_item.clicked.connect (() => {
             menu_popover.popdown ();
             project.share_mail ();
+        });
+
+        duplicate_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            Util.get_default ().duplicate_project.begin (project, project.parent_id);
+        });
+
+        archive_item.clicked.connect (() => {
+            menu_popover.popdown ();
+            project.archive_project ((Gtk.Window) Planify.instance.main_window);
+        });
+    }
+
+    private void sync_project () {
+        is_loading = true;
+        Services.CalDAV.Core.get_default ().sync_tasklist.begin (project, (obj, res) => {
+            Services.CalDAV.Core.get_default ().sync_tasklist.end (res);
+            is_loading = false;
         });
     }
 
@@ -730,8 +758,8 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
     private void check_due_date () {
         if (project.due_date != "") {
-            var datetime = Util.get_default ().get_date_from_string (project.due_date);
-            due_label.label = Util.get_default ().get_relative_date_from_date (datetime);
+            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+            due_label.label = Utils.Datetime.days_left (datetime, true);
         }
 
         // Workaround to fix small bug when collapsing/expanding project - this causes save and would
@@ -754,9 +782,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     public void add_subproject (Objects.Project project) {
-        if (!subprojects_hashmap.has_key (project.id_string) && show_subprojects) {
-            subprojects_hashmap [project.id_string] = new Layouts.ProjectRow (project);
-            listbox.append (subprojects_hashmap [project.id_string]);
+        if (!subprojects_hashmap.has_key (project.id) && show_subprojects) {
+            subprojects_hashmap [project.id] = new Layouts.ProjectRow (project);
+            listbox.append (subprojects_hashmap [project.id]);
         }
     }
 }

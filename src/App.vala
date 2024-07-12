@@ -32,25 +32,30 @@ public class Planify : Adw.Application {
 		}
 	}
 
-	//  private static bool run_in_background = false;
-	private static bool version = false;
+	private static bool run_in_background = false;
+	private static bool n_version = false;
 	private static bool clear_database = false;
 	private static string lang = "";
 
 	private Xdp.Portal? portal = null;
 
 	private const OptionEntry[] OPTIONS = {
-		{ "version", 'v', 0, OptionArg.NONE, ref version, "Display version number", null },
+		{ "version", 'v', 0, OptionArg.NONE, ref n_version, "Display version number", null },
 		{ "reset", 'r', 0, OptionArg.NONE, ref clear_database, "Reset Planify", null },
-		//  { "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
+		{ "background", 'b', 0, OptionArg.NONE, out run_in_background, "Run the Application in background", null },
 		{ "lang", 'l', 0, OptionArg.STRING, ref lang, "Open Planify in a specific language", "LANG" },
 		{ null }
 	};
 
-	construct {
-		application_id = Build.APPLICATION_ID;
-		flags |= ApplicationFlags.HANDLES_OPEN;
+	public Planify () {
+        Object (
+            application_id: Build.APPLICATION_ID,
+            flags: ApplicationFlags.HANDLES_OPEN
+        );
+    }
 
+
+	construct {
 		Intl.setlocale (LocaleCategory.ALL, "");
 		string langpack_dir = Path.build_filename (Build.INSTALL_PREFIX, "share", "locale");
 		Intl.bindtextdomain (Build.GETTEXT_PACKAGE, langpack_dir);
@@ -67,13 +72,24 @@ public class Planify : Adw.Application {
 			GLib.Environment.set_variable ("LANGUAGE", lang, true);
 		}
 
-		if (version) {
+		if (n_version) {
 			debug ("%s\n".printf (Build.VERSION));
 			return;
 		}
 
+		if (clear_database) {
+			stdout.printf (_("Are you sure you want to reset all? (y/n): "));
+			string? option = stdin.read_line ();
+
+			if (option.down () == _("y") || option.down () == _("yes")) {
+				Services.Database.get_default ().clear_database ();
+                Services.Settings.get_default ().reset_settings ();
+				return;
+			}
+		}
+
 		if (main_window != null) {
-			main_window.show ();
+			main_window.present ();
 			return;
 		}
 
@@ -86,7 +102,9 @@ public class Planify : Adw.Application {
 			main_window.maximize ();
 		}
 
-		main_window.show ();
+		if (!run_in_background) {
+			main_window.show ();
+		}
 
 		Services.Settings.get_default ().settings.bind ("window-maximized", main_window, "maximized", SettingsBindFlags.SET);
 
@@ -99,15 +117,12 @@ public class Planify : Adw.Application {
 
 		Util.get_default ().update_theme ();
 
-		if (clear_database) {
-			Util.get_default ().clear_database (_("Are you sure you want to reset all?"),
-			                                    _("The process removes all stored information without the possibility of undoing it"),
-												main_window);
-		}
-
 		if (Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION) {
 			Services.Settings.get_default ().settings.set_boolean ("show-support-banner", true);
 		}
+
+		// Actions
+        build_shortcuts ();
 	}
 
 	public async bool ask_for_background (Xdp.BackgroundFlags flags = Xdp.BackgroundFlags.AUTOSTART) {
@@ -140,6 +155,16 @@ public class Planify : Adw.Application {
 			GLib.DirUtils.create_with_parents (path, 0775);
 		}
 	}
+
+	private void build_shortcuts () {
+        var show_item = new SimpleAction ("show-item", VariantType.STRING);
+        show_item.activate.connect ((parameter) => {
+            Planify.instance.main_window.view_item (parameter.get_string ());
+            activate ();
+        });
+
+        add_action (show_item);
+    }
 
 	public static int main (string[] args) {
 		// NOTE: Workaround for https://github.com/alainm23/planify/issues/1069

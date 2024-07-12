@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
+public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     public BackendType backend_type { get; construct; }
     public PickerType picker_type { get; construct; }
 
@@ -68,13 +68,9 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         Object (
             picker_type: picker_type,
             backend_type: backend_type,
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Move"),
-            width_request: 375,
-            height_request: 500,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
@@ -82,7 +78,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> ();
 
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Type a search"),
@@ -107,22 +103,19 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
             margin_top = 12,
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 12,
+            css_classes = { "suggested-action" }
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
-
+        
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
         content_box.append (search_entry);
         content_box.append (main_stack);
         content_box.append (submit_button);
 
-        content = content_box;
+        child = content_box;
         add_projects ();
-
-        Timeout.add (Constants.DRAG_TIMEOUT, () => {
-            return GLib.Source.REMOVE;
-        });
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         search_entry.search_changed.connect (() => {
             local_group.invalidate_filter ();
@@ -152,31 +145,53 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
 
             hide_destroy ();
         });
+
+        var destroy_controller = new Gtk.EventControllerKey ();
+        add_controller (destroy_controller);
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
+            if (keyval == 65307) {
+                hide_destroy ();
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        });
     }
 
     private Gtk.Widget build_projects_view () {
         inbox_group = new Layouts.HeaderItem (null) {
-            margin_top = 12
+            margin_top = 12,
+            card = true
         };
-        local_group = new Layouts.HeaderItem (_("On this Computer"));
-        todoist_group = new Layouts.HeaderItem (_("Todoist"));
-        caldav_group = new Layouts.HeaderItem (_("Nextcloud"));
+        
+        local_group = new Layouts.HeaderItem (_("On this Computer")) {
+            card = true
+        };
+        
+        todoist_group = new Layouts.HeaderItem (_("Todoist")) {
+            card = true
+        };
+
+        caldav_group = new Layouts.HeaderItem (_("Nextcloud")) {
+            card = true
+        };
+
+        inbox_group.reveal = true;
 
         if (backend_type == BackendType.ALL) {
-            inbox_group.reveal = true;
             local_group.reveal = true;
             todoist_group.reveal = true;
             caldav_group.reveal = true;
         } else if (backend_type == BackendType.LOCAL) {
-            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 0;
             local_group.reveal = true;
             todoist_group.reveal = false;
+            caldav_group.reveal = false;
         } else if (backend_type == BackendType.TODOIST) {
-            inbox_group.reveal = Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1;
             local_group.reveal = false;
             todoist_group.reveal = true;
+            caldav_group.reveal = false;
         } else if (backend_type == BackendType.CALDAV) {
-            inbox_group.reveal = false;
             local_group.reveal = false;
             todoist_group.reveal = false;
             caldav_group.reveal = true;
@@ -186,7 +201,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         todoist_group.set_filter_func (filter_func);
         caldav_group.set_filter_func (filter_func);
         
-        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_start = 12,
             margin_end = 12
         };
@@ -225,7 +240,7 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
         };
         
         sections_listbox_grid.attach (sections_listbox, 0, 0);
-        sections_listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
+        sections_listbox_grid.add_css_class ("card");
 
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -274,11 +289,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

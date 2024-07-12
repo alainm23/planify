@@ -19,71 +19,109 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ManageSectionOrder : Adw.Window {
+public class Dialogs.ManageSectionOrder : Adw.Dialog {
     public Objects.Project project { get; construct; }
+
     private Gtk.ListBox listbox;
+    private Gtk.ListBox archived_listbox;
     private Widgets.ScrolledWindow scrolled_window;
 
     public ManageSectionOrder (Objects.Project project) {
         Object (
             project: project,
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Manage Sections"),
-            width_request: 320,
-            height_request: 450,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320,
+            content_height: 450
         );
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         listbox = new Gtk.ListBox () {
-            hexpand = true
+            hexpand = true,
+            valign = START,
+            css_classes = { "listbox-background" }
         };
 
-        listbox.add_css_class ("listbox-background");
-
-        var listbox_grid = new Gtk.Grid () {
+        var listbox_card = new Adw.Bin () {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 6,
-            margin_top = 3
+            margin_top = 3,
+            css_classes = { "card" },
+            child = listbox,
+            valign = START
         };
-        
-        listbox_grid.attach (listbox, 0, 0);
-        listbox_grid.add_css_class (Granite.STYLE_CLASS_CARD);
 
-        scrolled_window = new Widgets.ScrolledWindow (listbox_grid);
+        var archived_title = new Gtk.Label (_("Archived")) {
+            halign = START,
+            css_classes = { "heading", "h4" },
+            margin_start = 16
+        };
 
-        var submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Update")) {
-            margin_top = 12,
+        archived_listbox = new Gtk.ListBox () {
+            hexpand = true,
+            valign = START,
+            css_classes = { "listbox-background" }
+        };
+
+        var archived_listbox_card = new Adw.Bin () {
             margin_start = 12,
             margin_end = 12,
-            margin_bottom = 12
+            margin_bottom = 6,
+            margin_top = 3,
+            css_classes = { "card" },
+            child = archived_listbox,
+            valign = START
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+
+        var archived_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12
+        };
+        archived_box.append (archived_title);
+        archived_box.append (archived_listbox_card);
+
+        var archived_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = archived_box,
+            reveal_child = project.sections_archived.size > 0
+        };
+
+        var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        content_box.append (listbox_card);
+        content_box.append (archived_revealer);
+
+        scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);
-        toolbar_view.add_bottom_bar (submit_button);
 		toolbar_view.content = scrolled_window;
 
-        content = toolbar_view;
+        child = toolbar_view;
         add_sections ();
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         Timeout.add (225, () => {
             set_sort_func ();
             return GLib.Source.REMOVE;
         });
 
-        submit_button.clicked.connect (() => {
-            update_section_section_order ();
-            project.section_sort_order_changed ();
-            hide_destroy ();
+        Services.Database.get_default ().section_deleted.connect ((section) => {
+            if (section.project_id == project.id) {
+                archived_revealer.reveal_child = project.sections_archived.size > 0;
+            }
+        });
+
+        Services.Database.get_default ().section_unarchived.connect ((section) => {
+            if (section.project_id == project.id) {
+                archived_revealer.reveal_child = project.sections_archived.size > 0;
+            }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
     
@@ -124,18 +162,26 @@ public class Dialogs.ManageSectionOrder : Adw.Window {
         inbox_section.project_id = project.id;
         inbox_section.name = _("(No Section)");
 
-        listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
+        add_section (new Dialogs.ProjectPicker.SectionPickerRow (inbox_section, "order"));
         foreach (Objects.Section section in project.sections) {
-            listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+            if (!section.was_archived ()) {
+                add_section (new Dialogs.ProjectPicker.SectionPickerRow (section, "order"));
+            } else {
+                archived_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section, "menu"));
+            }
         }
     }
 
-    public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
+    public void add_section (Dialogs.ProjectPicker.SectionPickerRow row) {
+        row.update_section.connect (() => {
+            update_section_section_order ();
+            project.section_sort_order_changed ();
         });
+
+        listbox.append (row);
+    }
+
+    public void hide_destroy () {
+        close ();
     }
 }

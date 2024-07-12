@@ -20,15 +20,12 @@
 */
 
 public class Widgets.PinButton : Gtk.Button {
-    public Objects.Item item { get; construct; }
     private Gtk.Image pinned_image;
 
     public signal void changed ();
 
-    public PinButton (Objects.Item item) {
+    public PinButton () {
         Object (
-            item: item,
-            can_focus: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
             tooltip_text: _("Pinned")
@@ -39,10 +36,7 @@ public class Widgets.PinButton : Gtk.Button {
         add_css_class ("flat");
         
         pinned_image = new Gtk.Image.from_icon_name ("pin-symbolic");
-
         child = pinned_image;
-
-        update_request ();
 
         var gesture = new Gtk.GestureClick ();
         add_controller (gesture);
@@ -53,8 +47,12 @@ public class Widgets.PinButton : Gtk.Button {
         });
     }
 
-    public void update_request () {
-        if (item.pinned) {
+    public void update_from_item (Objects.Item item) {
+        update_request (item.pinned);
+    }
+
+    public void update_request (bool pinned) {
+        if (pinned) {
             pinned_image.add_css_class ("pinboard-color");
         } else {
             pinned_image.remove_css_class ("pinboard-color");
@@ -62,6 +60,6 @@ public class Widgets.PinButton : Gtk.Button {
     }
 
     public void reset () {
-        pinned_image.css_classes = {  };
+        pinned_image.css_classes = { };
     }
 }

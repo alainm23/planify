@@ -88,7 +88,6 @@ public class Util : GLib.Object {
     }
 
     // Providers
-    
     private Gee.HashMap<string, Gtk.CssProvider>? providers;
     public void set_widget_color (string color, Gtk.Widget widget) {
         if (providers == null) {
@@ -343,384 +342,19 @@ public class Util : GLib.Object {
         return str;
     }
 
-    public string get_dialog_text (string text) {
-        return Uri.escape_string (text, null, false);
+
+    public string escape_text (string text) {
+        return GLib.Markup.escape_text (text, text.length);
     }
 
-    /*
-        DateTime
-    */
-
-    public GLib.DateTime? get_todoist_datetime (string date) {
-        if (date == "") {
-            return null;
-        }
-
-        GLib.DateTime datetime = null;
-        
-        // YYYY-MM-DD 
-        if (date.length == 10) {
-            var _date = date.split ("-");
-
-            datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
-                0,
-                0,
-                0
-            );
-        // YYYY-MM-DDTHH:MM:SS
-        } else {
-            var _date = date.split ("T") [0].split ("-");
-            var _time = date.split ("T") [1].split (":");
-
-            datetime = new GLib.DateTime.local (
-                int.parse (_date [0]),
-                int.parse (_date [1]),
-                int.parse (_date [2]),
-                int.parse (_time [0]),
-                int.parse (_time [1]),
-                int.parse (_time [2])
-            );
-        }
-
-        return datetime;
-    }
-
-    public string get_relative_date_from_date (GLib.DateTime datetime) {
-        string returned = "";
-
-        if (is_today (datetime)) {
-            returned = _("Today");
-        } else if (is_tomorrow (datetime)) {
-            returned = _("Tomorrow");
-        } else if (is_yesterday (datetime)) {
-            returned = _("Yesterday");
-        } else {
-            returned = get_default_date_format_from_date (datetime);
-        }
-
-        if (has_time (datetime)) {
-            returned = "%s %s".printf (returned, datetime.format (get_default_time_format ()));
-        }
-
-        return returned;
-    }
-
-    public string get_default_time_format () {
-        return Granite.DateTime.get_default_time_format (
-            is_clock_format_12h (), false
-        );
-    }
-
-    public string get_calendar_icon (GLib.DateTime date) {
-        if (is_today (date)) {
-            return "planner-today";
-        } else {
-            return "planner-scheduled";
-        }
-    }
-
-    public bool is_today (GLib.DateTime date) {
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ());
-    }
-
-    public bool is_tomorrow (GLib.DateTime date) {
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (1));
-    }
-
-    public bool is_yesterday (GLib.DateTime date) {
-        return Granite.DateTime.is_same_day (date, new GLib.DateTime.now_local ().add_days (-1));
-    }
-
-    public bool is_same_day (GLib.DateTime day1, GLib.DateTime day2) {
-        return Granite.DateTime.is_same_day (day1, day2);
-    }
-
-    public bool is_overdue (GLib.DateTime date) {
-        if (get_format_date (date).compare (get_format_date (new DateTime.now_local ())) == -1) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public GLib.DateTime next_recurrency (GLib.DateTime datetime, Objects.DueDate duedate) {
-        GLib.DateTime returned = datetime;
-
-        if (duedate.recurrency_type == RecurrencyType.MINUTELY) {
-            returned = returned.add_minutes (duedate.recurrency_interval);
-        } else if (duedate.recurrency_type == RecurrencyType.HOURLY) {
-            returned = returned.add_hours (duedate.recurrency_interval);
-        } else if (duedate.recurrency_type == RecurrencyType.EVERY_DAY) {
-            returned = returned.add_days (duedate.recurrency_interval);
-        } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
-            if (duedate.recurrency_weeks == "") {
-                returned = returned.add_days (duedate.recurrency_interval * 7);
-            } else {
-                returned = next_recurrency_week (datetime, duedate, true);
-            }
-        } else if (duedate.recurrency_type == RecurrencyType.EVERY_MONTH) {
-            returned = returned.add_months (duedate.recurrency_interval);
-        } else if (duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
-            returned = returned.add_years (duedate.recurrency_interval);
-        }
-
-        return returned;
-    }
-
-    public int get_next_day_of_week_from_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate) {
-        string[] weeks = duedate.recurrency_weeks.split (",");
-        int day_of_week = datetime.get_day_of_week ();
-        int index = 0;
-
-        for (int i = 0; i < weeks.length ; i++) {
-            if (day_of_week <= int.parse (weeks[i])) {
-                index = i;
-                break;
-            }
+    private Gtk.MediaFile soud_medida = null;
+    public void play_audio () {
+        if (soud_medida == null) {
+            soud_medida = Gtk.MediaFile.for_resource ("/io/github/alainm23/planify/success.ogg");
         }
         
-        if (index > weeks.length - 1) {
-            index = 0;
-        }
-
-        return int.parse (weeks[index]);
-    }
-
-    public GLib.DateTime next_recurrency_week (GLib.DateTime datetime, Objects.DueDate duedate, bool user = false) {
-        string[] weeks = duedate.recurrency_weeks.split (","); // [1, 2, 3]
-        int day_of_week = datetime.get_day_of_week (); // 2
-        int days = 0;
-        int next_day = 0;
-        int index = 0;
-        int recurrency_interval = 0;
-
-        for (int i = 0; i < weeks.length ; i++) {
-            if (day_of_week < int.parse (weeks[i])) {
-                index = i;
-                break;
-            }
-        }
-
-        next_day = int.parse (weeks[index]);
-
-        if (day_of_week < next_day) {
-            days = next_day - day_of_week;
-        } else {
-            days = 7 - (day_of_week - next_day);
-        }
-
-        if (user && index == 0) {
-            recurrency_interval = (duedate.recurrency_interval - 1) * 7;
-        }
-
-        return datetime.add_days (days).add_days (recurrency_interval);
-    }
-
-    public string get_recurrency_weeks (RecurrencyType recurrency_type, int recurrency_interval,
-        string recurrency_weeks, string end = "") {
-        string returned = recurrency_type.to_friendly_string (recurrency_interval);
-
-        if (recurrency_type == RecurrencyType.EVERY_WEEK &&
-            recurrency_weeks.split (",").length > 0) {
-            string weeks = "";
-            if (recurrency_weeks.contains ("1")) {
-                weeks += _("Mo,");
-            }
-    
-            if (recurrency_weeks.contains ("2")) {
-                weeks += _("Tu,");
-            }
-    
-            if (recurrency_weeks.contains ("3")) {
-                weeks += _("We,");
-            }
-    
-            if (recurrency_weeks.contains ("4")) {
-                weeks += _("Th,");
-            }
-    
-            if (recurrency_weeks.contains ("5")) {
-                weeks += _("Fr,");
-            }
-    
-            if (recurrency_weeks.contains ("6")) {
-                weeks += _("Sa,");
-            }
-    
-            if (recurrency_weeks.contains ("7")) {
-                weeks += _("Su,");
-            }
-    
-            weeks = weeks.slice (0, -1);
-            returned = "%s (%s)".printf (returned, weeks);
-        }
-
-        return returned + " " + end;
-    }
-
-    public GLib.DateTime get_today_format_date () {
-        return get_format_date (new DateTime.now_local ());
-    }
-
-    public GLib.DateTime get_format_date (GLib.DateTime date) {
-        return new DateTime.local (
-            date.get_year (),
-            date.get_month (),
-            date.get_day_of_month (),
-            0,
-            0,
-            0
-        );
-    }
-
-    public string get_default_date_format_from_date (GLib.DateTime date) {
-        var format = date.format (Granite.DateTime.get_default_date_format (
-            false,
-            true,
-            date.get_year () != new GLib.DateTime.now_local ().get_year ()
-        ));
-        return format;
-    }
-
-    public string get_todoist_datetime_format (GLib.DateTime date) {
-        string returned = "";
-
-        if (has_time (date)) {
-            returned = date.format ("%F") + "T" + date.format ("%T");
-        } else {
-            returned = date.format ("%F");
-        }
-
-        return returned;
-    }
-
-    public bool has_time (GLib.DateTime datetime) {
-        if (datetime == null) {
-            return false;
-        }
-
-        bool returned = true;
-        
-        if (datetime.get_hour () == 0 && datetime.get_minute () == 0 && datetime.get_second () == 0) {
-            returned = false;
-        }
-
-        return returned;
-    }
-
-    public bool has_time_from_string (string date) {
-        return has_time (new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ()));
-    }
-
-    public GLib.DateTime get_date_from_string (string date) {
-        return new GLib.DateTime.from_iso8601 (date, new GLib.TimeZone.local ());
-    }
-
-    /*
-        Calendar Utils
-    */
-
-    public int get_days_of_month (int index, int year_nav) {
-        if ((index == 1) || (index == 3) || (index == 5) || (index == 7) || (index == 8) || (index == 10) || (index == 12)) { // vala-lint=line-length
-            return 31;
-        } else {
-            if (index == 2) {
-                if (year_nav % 4 == 0) {
-                    return 29;
-                } else {
-                    return 28;
-                }
-            } else {
-                return 30;
-            }
-        }
-    }
-
-    public GLib.DateTime get_start_of_month (owned GLib.DateTime? date = null) {
-        if (date == null) {
-            date = new GLib.DateTime.now_local ();
-        }
-
-        return new GLib.DateTime.local (date.get_year (), date.get_month (), 1, 0, 0, 0);
-    }
-
-    public bool is_current_month (GLib.DateTime date) {
-        var now = new GLib.DateTime.now_local ();
-
-        if (date.get_year () == now.get_year ()) {
-            if (date.get_month () == now.get_month ()) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    /*
-        Icons
-    */
-
-    private Gee.HashMap<string, bool>? _dynamic_icons;
-    public Gee.HashMap<string, bool> dynamic_icons {
-        get {
-            if (_dynamic_icons == null) {
-                _dynamic_icons = new Gee.HashMap<string, bool> ();
-                _dynamic_icons.set ("planner-calendar", true);
-                _dynamic_icons.set ("planner-search", true);
-                _dynamic_icons.set ("chevron-right", true);
-                _dynamic_icons.set ("chevron-down", true);
-                _dynamic_icons.set ("planner-refresh", true);
-                _dynamic_icons.set ("planner-edit", true);
-                _dynamic_icons.set ("planner-trash", true);
-                _dynamic_icons.set ("planner-star", true);
-                _dynamic_icons.set ("planner-note", true);
-                _dynamic_icons.set ("planner-close-circle", true);
-                _dynamic_icons.set ("planner-check-circle", true);
-                _dynamic_icons.set ("planner-flag", true);
-                _dynamic_icons.set ("planner-tag", true);
-                _dynamic_icons.set ("planner-pinned", true);
-                _dynamic_icons.set ("planner-settings", true);
-                _dynamic_icons.set ("planner-bell", true);
-                _dynamic_icons.set ("sidebar-left", true);
-                _dynamic_icons.set ("sidebar-right", true);
-                _dynamic_icons.set ("mail", true);
-                _dynamic_icons.set ("planner-note", true);
-                _dynamic_icons.set ("planner-settings-sliders", true);
-                _dynamic_icons.set ("planner-list", true);
-                _dynamic_icons.set ("planner-board", true);
-                _dynamic_icons.set ("color-swatch", true);
-                _dynamic_icons.set ("emoji-happy", true);
-                _dynamic_icons.set ("planner-clipboard", true);
-                _dynamic_icons.set ("planner-copy", true);
-                _dynamic_icons.set ("planner-rotate", true);
-                _dynamic_icons.set ("planner-section", true);
-                _dynamic_icons.set ("unordered-list", true);
-                _dynamic_icons.set ("ordered-list", true);
-                _dynamic_icons.set ("menu", true);
-                _dynamic_icons.set ("share", true);
-                _dynamic_icons.set ("dropdown", true);
-                _dynamic_icons.set ("information", true);
-                _dynamic_icons.set ("dots-vertical", true);
-                _dynamic_icons.set ("plus", true);
-                _dynamic_icons.set ("file-download", true);
-                _dynamic_icons.set ("download", true);
-                _dynamic_icons.set ("file", true);
-                _dynamic_icons.set ("gift", true);
-                _dynamic_icons.set ("tag-add", true);
-            }
-
-            return _dynamic_icons;
-        }
-    }
-
-    public bool is_dynamic_icon (string icon_name) {
-        return dynamic_icons.has_key (icon_name);
-    }
+        soud_medida.play ();
+    }    
 
     public bool is_input_valid (Gtk.Entry entry) {
         return entry.get_text_length () > 0;
@@ -740,18 +374,14 @@ public class Util : GLib.Object {
         return returned;
     }
 
-    public bool is_clock_format_12h () {
-        return Services.Settings.get_default ().settings.get_string ("clock-format").contains ("12h");
-    }
-
     public void clear_database (string title, string message, Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (window, title, message);
+        var dialog = new Adw.AlertDialog (title, message);
 
         dialog.body_use_markup = true;
         dialog.add_response ("cancel", _("Cancel"));
-        dialog.add_response ("delete", _("Reset all"));
+        dialog.add_response ("delete", _("Delete All"));
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             if (response == "delete") {
@@ -763,11 +393,10 @@ public class Util : GLib.Object {
     }
 
     public void show_alert_destroy (Gtk.Window window) {
-        var dialog = new Adw.MessageDialog (window, null, _("Process completed, you need to start Planify again."));
+        var dialog = new Adw.AlertDialog (null, _("Process completed, you need to start Planify again."));
 
-        dialog.modal = true;
         dialog.add_response ("ok", _("Ok"));
-        dialog.show ();
+        dialog.present (window);
 
         dialog.response.connect ((response) => {
             window.destroy ();
@@ -784,6 +413,8 @@ public class Util : GLib.Object {
                 return FilterType.SCHEDULED;
             case 3:
                 return FilterType.LABELS;
+            case 4:
+                return FilterType.PINBOARD;
             default:
                 assert_not_reached ();
         }
@@ -897,65 +528,43 @@ public class Util : GLib.Object {
     public Gtk.Image get_priority_icon (int priority) {
         if (priority == Constants.PRIORITY_1) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
-                pixel_size = 19
+                css_classes = { "priority-1-icon" },
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_2) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
-                pixel_size = 19
+                css_classes = { "priority-2-icon" },
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_3) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                css_classes = { "priority-1-icon"  },
-                pixel_size = 19
+                css_classes = { "priority-3-icon" },
+                pixel_size = 16
             };
         } else if (priority == Constants.PRIORITY_4) {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 19
+                pixel_size = 16
             };
         } else {
             return new Gtk.Image.from_icon_name ("flag-outline-thick-symbolic") {
-                pixel_size = 19
+                pixel_size = 16
             };
         }
     }
 
-    private Gee.HashMap<string, Objects.Priority> priority_views;
-    public Objects.Priority get_priority_filter (string view_id) {
+    private Gee.HashMap<string, Objects.Filters.Priority> priority_views;
+    public Objects.Filters.Priority get_priority_filter (string view_id) {
         if (priority_views == null) {
-            priority_views = new Gee.HashMap<string, Objects.Priority> ();
+            priority_views = new Gee.HashMap<string, Objects.Filters.Priority> ();
         }
 
         if (priority_views.has_key (view_id)) {
             return priority_views[view_id];
         } else {
             int priority = int.parse (view_id.split ("-")[1]);
-            priority_views[view_id] = new Objects.Priority (priority);
+            priority_views[view_id] = new Objects.Filters.Priority (priority);
             return priority_views[view_id];
         }
-    }
-
-    public void change_default_inbox () {
-        var default_inbox = (DefaultInboxProject) Services.Settings.get_default ().settings.get_enum ("default-inbox");
-        Objects.Project inbox_project = null;
-
-        if (default_inbox == DefaultInboxProject.LOCAL) {
-            inbox_project = Services.Database.get_default ().get_project (
-                Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
-            );
-
-            if (inbox_project == null) {
-                inbox_project = create_inbox_project ();
-            }
-        } else if (default_inbox == DefaultInboxProject.TODOIST) {
-            inbox_project = Services.Database.get_default ().get_project (
-                Services.Settings.get_default ().settings.get_string ("todoist-inbox-project-id")
-            );
-        }
-
-        Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project.id);
-        Services.EventBus.get_default ().inbox_project_changed ();
     }
 
     public Objects.Project create_inbox_project () {
@@ -967,7 +576,6 @@ public class Util : GLib.Object {
         inbox_project.color = "blue";
         
         if (Services.Database.get_default ().insert_project (inbox_project)) {
-            Services.Settings.get_default ().settings.set_string ("inbox-project-id", inbox_project.id);
             Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
         }
 
@@ -990,7 +598,7 @@ public class Util : GLib.Object {
             item_01.id = Util.get_default ().generate_id (item_01);
             item_01.project_id = project.id;
             item_01.content = _("Tap this to-do");
-            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected al the bottom of your project.");
+            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
 
             var item_02 = new Objects.Item ();
             item_02.id = Util.get_default ().generate_id (item_02);
@@ -1021,9 +629,7 @@ public class Util : GLib.Object {
             item_06.project_id = project.id;
             item_06.content = _("You’re done!");
             item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
-
 You can come back to this project later to learn the advanced features below..
-
 We hope you’ll enjoy using Planify!""");
 
             project.add_item_if_not_exists (item_01);
@@ -1045,7 +651,7 @@ We hope you’ll enjoy using Planify!""");
             item_02_01.project_id = project.id;
             item_02_01.section_id = section_01.id;
             item_02_01.content = _("Show your calendar events");
-            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 Calendar Events to turn it on.");
+            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
 
             var item_02_02 = new Objects.Item ();
             item_02_02.id = Util.get_default ().generate_id (item_02_02);
@@ -1236,72 +842,407 @@ We hope you’ll enjoy using Planify!""");
         return generator.to_data (null);
     }
 
-    /**
-     * Converts the given ICal.Time to a GLib.DateTime, represented in the
-     * system timezone.
-     *
-     * All timezone information in the original @date is lost. However, the
-     * {@link GLib.TimeZone} contained in the resulting DateTime is correct,
-     * since there is a well-defined local timezone between both libical and
-     * GLib.
-     */
+    public async void move_backend_type_item (Objects.Item item, Objects.Project target_project, string parent_id = "") {
+        var new_item = item.duplicate ();
+        new_item.project_id = target_project.id;
+        new_item.parent_id = parent_id;
 
-    public static DateTime ical_to_date_time_local (ICal.Time date) {
-        assert (!date.is_null_time ());
-        var converted = ical_convert_to_local (date);
-        int year, month, day, hour, minute, second;
-        converted.get_date (out year, out month, out day);
-        converted.get_time (out hour, out minute, out second);
-        return new DateTime.local (year, month,
-            day, hour, minute, second);
+        item.loading = true;
+        item.sensitive = false;
+
+        if (target_project.backend_type == BackendType.LOCAL) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+            yield add_final_duplicate_item (new_item, item);
+        } else if (target_project.backend_type == BackendType.TODOIST) {
+            HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
+            item.loading = false;
+
+            if (response.status) {
+                new_item.id = response.data;
+                yield add_final_duplicate_item (new_item, item);
+            }
+        } else if (target_project.backend_type == BackendType.CALDAV) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+            item.loading = false;
+
+            if (response.status) {
+                yield add_final_duplicate_item (new_item, item);
+            }
+        }
     }
 
-    /** Converts the given ICal.Time to the local (or system) timezone */
-    public static ICal.Time ical_convert_to_local (ICal.Time time) {
-        var system_tz = ECal.util_get_system_timezone ();
-        return time.convert_to_zone (system_tz);
-    }
+    public async void add_final_duplicate_item (Objects.Item new_item, Objects.Item item) {
+        new_item.project.add_item_if_not_exists (new_item);
 
-    /**
-     * Converts two DateTimes representing a date and a time to one TimeType.
-     *
-     * The first contains the date; its time settings are ignored. The second
-     * one contains the time itself; its date settings are ignored. If the time
-     * is `null`, the resulting TimeType is of `DATE` type; if it is given, the
-     * TimeType is of `DATE-TIME` type.
-     *
-     * This also accepts an optional `timezone` argument. If it is given a
-     * timezone, the resulting TimeType will be relative to the given timezone.
-     * If it is `null`, the resulting TimeType will be "floating" with no
-     * timezone. If the argument is not given, it will default to the system
-     * timezone.
-     */
-     
-     public static ICal.Time datetimes_to_icaltime (GLib.DateTime date, GLib.DateTime? time_local,
-        ICal.Timezone? timezone = ECal.util_get_system_timezone ().copy ()) {
-        var result = new ICal.Time.from_day_of_year (date.get_day_of_year (), date.get_year ());
-
-        // Check if it's a date. If so, set is_date to true and fix the time to be sure.
-        // If it's not a date, first thing set is_date to false.
-        // Then, set the timezone.
-        // Then, set the time.
-        if (time_local == null) {
-            // Date type: ensure that everything corresponds to a date
-            result.set_is_date (true);
-            // result.set_time (0, 0, 0);
-        } else {
-            // Includes time
-            // Set is_date first (otherwise timezone won't change)
-            result.set_is_date (false);
-
-            // Set timezone for the time to be relative to
-            // (doesn't affect DATE-type times)
-            result.set_timezone (timezone);
-
-            // Set the time with the updated time zone
-            result.set_time (time_local.get_hour (), time_local.get_minute (), time_local.get_second ());
+        foreach (Objects.Reminder reminder in item.reminders) {
+            var _reminder = reminder.duplicate ();
+            _reminder.id = Util.get_default ().generate_id (_reminder);
+            _reminder.item_id = new_item.id;
+            new_item.add_reminder_if_not_exists (_reminder);
         }
 
-        return result;
+        foreach (Objects.Attachment attachment in item.attachments) {
+            var _attachment = attachment.duplicate ();
+            _attachment.id = Util.get_default ().generate_id ();
+            _attachment.item_id = new_item.id;
+            new_item.add_attachment_if_not_exists (_attachment);
+        }
+
+        foreach (Objects.Item subitem in item.items) {
+            yield move_backend_type_item (subitem, new_item.project, new_item.id);
+        }
+
+        Services.EventBus.get_default ().send_notification (
+            create_toast (_("Task moved to %s".printf (new_item.project.name)))
+        );
+
+        item.delete_item ();
+    }
+
+    public async void duplicate_item (Objects.Item item, string project_id, string section_id = "", string parent_id = "", bool notify = true) {
+        var new_item = item.duplicate ();
+        new_item.project_id = project_id;
+        new_item.section_id = section_id;
+        new_item.parent_id = parent_id;
+
+        item.loading = true;
+        item.sensitive = false;
+
+        if (item.project.backend_type == BackendType.LOCAL) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+
+            item.loading = false;
+            item.sensitive = true;
+
+            yield insert_duplicate_item (new_item, item, notify);
+        } else if (item.project.backend_type == BackendType.TODOIST) {
+            HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
+            
+            item.loading = false;
+            item.sensitive = true;
+
+            if (response.status) {
+                new_item.id = response.data;
+                yield insert_duplicate_item (new_item, item, notify);
+            }
+        } else if (item.project.backend_type == BackendType.CALDAV) {
+            new_item.id = Util.get_default ().generate_id (new_item);
+            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
+            
+            item.loading = false;
+            item.sensitive = true;
+
+            if (response.status) {
+                yield insert_duplicate_item (new_item, item, notify);
+            }
+        }
+    }
+
+    private async void insert_duplicate_item (Objects.Item new_item, Objects.Item item, bool notify = true) {
+        if (new_item.has_parent) {
+			new_item.parent.add_item_if_not_exists (new_item);
+		} else {
+            if (new_item.section_id != "") {
+                new_item.section.add_item_if_not_exists (new_item);
+            } else {
+                new_item.project.add_item_if_not_exists (new_item);
+            }
+        }
+
+        Services.EventBus.get_default ().update_section_sort_func (new_item.project_id, new_item.section_id, false);
+
+        foreach (Objects.Reminder reminder in item.reminders) {
+            var _reminder = reminder.duplicate ();
+            _reminder.id = Util.get_default ().generate_id (_reminder);
+            _reminder.item_id = new_item.id;
+            new_item.add_reminder_if_not_exists (_reminder);
+        }
+
+        foreach (Objects.Attachment attachment in item.attachments) {
+            var _attachment = attachment.duplicate ();
+            _attachment.id = Util.get_default ().generate_id ();
+            _attachment.item_id = new_item.id;
+            new_item.add_attachment_if_not_exists (_attachment);
+        }
+
+        foreach (Objects.Item subitem in item.items) {
+            yield duplicate_item (subitem, new_item.project_id, new_item.section_id, new_item.id, notify);
+        }
+
+        if (notify) {
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Task duplicated"))
+            );
+        }
+    }
+
+    public async void duplicate_section (Objects.Section section, string project_id, bool notify = true) {
+        var new_section = section.duplicate ();
+        new_section.project_id = project_id;
+
+        section.loading = true;
+        section.sensitive = false;
+
+        if (new_section.project.backend_type == BackendType.LOCAL) {
+            new_section.id = Util.get_default ().generate_id (new_section);
+            yield insert_duplicate_section (new_section, section, notify);
+        } else if (new_section.project.backend_type == BackendType.TODOIST) {
+            HttpResponse response = yield Services.Todoist.get_default ().add (new_section);
+            if (response.status) {
+                new_section.id = response.data;
+                yield insert_duplicate_section (new_section, section, notify);
+            }
+        }
+    }
+
+    private async void insert_duplicate_section (Objects.Section new_section, Objects.Section section, bool notify = true) {
+        new_section.project.add_section_if_not_exists (new_section);
+
+        foreach (Objects.Item item in section.items) {
+            yield duplicate_item (item, new_section.project_id, new_section.id, item.parent_id, false);
+        }
+
+        section.loading = false;
+        section.sensitive = true;
+
+        if (notify) {
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Section duplicated"))
+            );
+        }
+    }
+
+    public async void duplicate_project (Objects.Project project, string parent_id = "") {
+        var new_project = project.duplicate ();
+        new_project.parent_id = parent_id;
+
+        project.loading = true;
+
+        if (project.backend_type == BackendType.LOCAL) {
+            new_project.id = Util.get_default ().generate_id (new_project);
+            new_project.backend_type = BackendType.LOCAL;
+            Services.Database.get_default ().insert_project (new_project);
+
+            foreach (Objects.Item item in project.items) {
+                yield duplicate_item (item, new_project.id, item.section_id, item.parent_id, false);
+            }
+
+            foreach (Objects.Section section in project.sections) {
+                yield duplicate_section (section, new_project.id, false);
+            }
+
+            project.loading = false;
+
+            Services.EventBus.get_default ().send_notification (
+                Util.get_default ().create_toast (_("Project duplicated"))
+            );
+        } else if (project.backend_type == BackendType.TODOIST) {            
+            Services.Todoist.get_default ().duplicate_project.begin (project, (obj, res) => {
+                project.loading = false;
+                
+                if (Services.Todoist.get_default ().duplicate_project.end (res).status) {
+                    Services.Todoist.get_default ().sync_async ();
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            new_project.id = Util.get_default ().generate_id (new_project);
+            new_project.backend_type = BackendType.CALDAV;
+
+            bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
+
+            if (status) {
+                Services.Database.get_default ().insert_project (new_project);
+            
+                foreach (Objects.Item item in project.items) {
+                    yield duplicate_item (item, new_project.id, "", item.parent_id, false);
+                }
+    
+                project.loading = false;
+    
+                Services.EventBus.get_default ().send_notification (
+                    Util.get_default ().create_toast (_("Project duplicated"))
+                );
+            }
+        }
+    }
+
+    public string markup_string (string _text) {
+        var text = escape_text (_text);
+
+        try {
+            Regex mailto_regex = /(?P<mailto>[a-zA-Z0-9\._\%\+\-]+@[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\S*))/; // vala-lint=space-before-paren
+            Regex url_regex = /(?P<url>(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]+(\/\S*))/; // vala-lint=space-before-paren
+            Regex url_markdown = new Regex ("\\[([^\\]]+)\\]\\(([^\\)]+)\\)");
+                    
+            Regex italic_bold_regex = /\*\*\*(.*?)\*\*\*/; // vala-lint=space-before-paren
+            Regex bold_regex = /\*\*(.*?)\*\*/; // vala-lint=space-before-paren
+            Regex italic_regex = /\*(.*?)\*/; // vala-lint=space-before-paren
+
+            MatchInfo info;
+
+            List<string> emails = new List<string> ();
+            if (mailto_regex.match (text, 0, out info)) {
+                do {
+                    var email = info.fetch_named ("mailto");
+                    emails.append (email);
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> markdown_urls = new Gee.ArrayList<RegexMarkdown> ();
+            if (url_markdown.match (text, 0, out info)) {
+                do {
+                    markdown_urls.add (new RegexMarkdown (info.fetch (0), info.fetch (1), info.fetch (2)));
+                } while (info.next ());
+            }
+
+            List<string> urls = new List<string> ();
+            if (url_regex.match (text, 0, out info)) {
+                do {
+                    var url = info.fetch_named ("url");
+
+                    if (!url_exists (url, markdown_urls)) {
+                        urls.append (url);
+                    }
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> bolds_01 = new Gee.ArrayList<RegexMarkdown> ();
+            if (bold_regex.match (text, 0, out info)) {
+                do {
+                    bolds_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> italics_01 = new Gee.ArrayList<RegexMarkdown> ();
+            if (italic_regex.match (text, 0, out info)) {
+                do {
+                    italics_01.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            Gee.ArrayList<RegexMarkdown> italic_bold = new Gee.ArrayList<RegexMarkdown> ();
+            if (italic_bold_regex.match (text, 0, out info)) {
+                do {
+                    italic_bold.add (new RegexMarkdown (info.fetch (0), info.fetch (1)));
+                } while (info.next ());
+            }
+
+            string converted = text;
+
+            foreach (RegexMarkdown m in markdown_urls) {
+                string markdown_text = m.text;
+                string markdown_link = m.extra;
+
+                string urlAsLink = @"<a href=\"$markdown_link\">$markdown_text</a>";
+                converted = converted.replace (m.match, urlAsLink);
+            }
+
+            urls.foreach ((url) => {
+                converted = converted.replace (url, @"<a href=\"$url\">$url</a>");
+            });
+
+            emails.foreach ((email) => {
+                converted = converted.replace (email, @"<a href=\"mailto:$email\">$email</a>");
+            });
+
+            foreach (RegexMarkdown m in italic_bold) {
+                converted = converted.replace (m.match, "<i><b>" + m.text + "</b></i>");
+            }
+
+            foreach (RegexMarkdown m in bolds_01) {
+                converted = converted.replace (m.match, "<b>" + m.text + "</b>");
+            }
+
+            foreach (RegexMarkdown m in italics_01) {
+                converted = converted.replace (m.match, "<i>" + m.text + "</i>");
+            }
+
+            return converted;
+        } catch (GLib.RegexError ex) {
+            return text;
+        }
+    }
+
+    private bool url_exists (string url, Gee.ArrayList<RegexMarkdown> urls) {
+        foreach (RegexMarkdown m in urls) {
+            if (url == m.extra) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static int get_reminders_mm_offset () {
+        int value = Services.Settings.get_default ().settings.get_enum ("automatic-reminders");
+        int return_value = 0;
+
+        switch (value) {
+            case 0:
+                return_value = 0;
+                break;
+            case 1:
+                return_value = 10;
+                break;
+            case 2:
+                return_value = 30;
+                break;
+            case 3:
+                return_value = 45;
+                break;
+            case 4:
+                return_value = 60;
+                break;
+            case 5:
+                return_value = 120;
+                break;
+            case 6:
+                return_value = 180;
+                break;
+        }
+
+        return return_value;
+    }
+
+    public static string get_reminders_mm_offset_text (int value) {
+        string return_value = "";
+
+        switch (value) {
+            case 0:
+                return_value = _("At due time");
+                break;
+            case 10:
+                return_value = _("10 minutes before");
+                break;
+            case 30:
+                return_value = _("30 minutes before");
+                break;
+            case 45:
+                return_value = _("45 minutes before");
+                break;
+            case 60:
+                return_value = _("1 hour before");
+                break;
+            case 120:
+                return_value = _("2 hours before");
+                break;
+            case 180:
+                return_value = _("3 hours before");
+                break;
+        }
+
+        return return_value;
+    }
+}
+
+public class RegexMarkdown {
+    public string match { get; set; }
+    public string text { get; set; }
+    public string extra { get; set; }
+    public RegexMarkdown (string match, string text, string extra = "") {
+        this.match = match;
+        this.text = text;
+        this.extra = extra;
     }
 }

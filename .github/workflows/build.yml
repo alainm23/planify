@@ -11,7 +11,7 @@ jobs:
     name: "Vala Lint"
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: elementary/actions/vala-lint@main
       with:
         dir: .
@@ -20,7 +20,7 @@ jobs:
     name: "Flatpak"
     runs-on: ubuntu-latest
     container:
-      image: bilelmoussaoui/flatpak-github-actions:gnome-45
+      image: bilelmoussaoui/flatpak-github-actions:gnome-46
       options: --privileged
     steps:
     - uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
         manifest-path: build-aux/io.github.alainm23.planify.Devel.json
         cache-key: flatpak-builder-${{ github.sha }}
         repository-name: flathub-beta
-        repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo # until GNOME 45
+        repository-url: https://flathub.org/beta-repo/flathub-beta.flatpakrepo
   snap:
     name: "Snap"
     runs-on: ubuntu-latest

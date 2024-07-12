@@ -3,8 +3,12 @@
   <id>@appid@</id>
   <metadata_license>CC0</metadata_license>
   <project_license>GPL-3.0+</project_license>
-  <name translatable="no">Planify</name>
+  <name translate="no">Planify</name>
   <summary>Forget about forgetting things</summary>
+  <branding>
+    <color type="primary" scheme_preference="light">#f9f06b</color>
+    <color type="primary" scheme_preference="dark">#9141ac</color>
+  </branding>
   <description>
     <p>🚀️ Planify is here...</p>
     <ul>
@@ -54,17 +58,188 @@
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
   </kudos>
-  <developer_name translatable="no">Alain</developer_name>
+  <developer_name translate="no">Alain</developer_name>
   <update_contact>alainmh23@gmail.com</update_contact>
-  <url type="homepage">https://github.com/alainm23/planify</url>
+  <url type="homepage">https://useplanify.com/</url>
   <url type="bugtracker">https://github.com/alainm23/planify/issues</url>
   <url type="vcs-browser">https://github.com/alainm23/planify</url>
   <url type="translate">https://github.com/alainm23/planify/tree/master/po#readme</url>
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.9.0" date="2024-07-11">
+      <description translate="no">
+        <ul>
+          <li>Added feature to switch between task and note..</li>
+          <li>Added a task change history feature.</li>
+          <li>Fixed bug when importing backup and not recovering labels.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Koren translation added thanks to @myunsyeya.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.8.4" date="2024-06-23">
+      <description translate="no">
+        <ul>
+          <li>Planify now sends reminder notifications when you create a task with a specific time.</li>
+          <li>Fixed bug that removed the description of a task when changing a value in the side view.</li>
+          <li>Fixed bug when selecting weekly repeat changes the selected date and time.</li>
+          <li>Fixed bug when sorting completed tasks.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Dutch translation update thanks to @Gert-dev.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.8.2" date="2024-06-03">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug not showing overdue tasks.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.8" date="2024-05-31">
+      <description translate="no">
+        <ul>
+          <li>Markdown Support in Task Descriptions.</li>
+          <li>Markdown Support in Task Titles.</li>
+          <li>New All Tasks View.</li>
+          <li>Expand or Collapse Tasks Functionality.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+          <li>Chinese translations update thanks to @FlysoftBeta.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.7.6" date="2024-05-20">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug when editing a label</li>
+          <li>Fixed bug when downloading a backup</li>
+          <li>Updated Translations for Hindi</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.7.4" date="2024-05-18">
+      <description translate="no">
+        <ul>
+          <li>Support for Libadwaita 1.5 and Adaptive Dialogs</li>
+          <li>Design, Usability, and Performance Improvements</li>
+          <li>Updated Translations for Hindi and Chinese</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.7.2" date="2024-05-11">
+      <description translate="no">
+        <ul>
+          <li>Inbox as Independent Project: We've completely rebuilt the functionality of Inbox. Now, it's an independent project with the ability to move your tasks between different synchronized services. The Inbox is the default place to add new tasks, allowing you to quickly get your ideas out of your head and then plan them when you're ready.</li>
+          <li>Enhanced Task Duplication: When you duplicate a task now, all subtasks and labels are automatically duplicated, saving you time and effort in managing your projects.</li>
+          <li>Duplication of Sections and Projects: You can now easily duplicate entire sections and projects, making it easier to create new projects based on existing structures.</li>
+          <li>Improvements in Quick Add: We've improved the usability of Quick Add. Now, the "Create More" option is directly displayed in the user interface, making it easier to visualize and configure your new tasks.</li>
+          <li>Improvements on Small Screens: For those working on devices with small screens, we've enhanced the user experience to ensure smooth and efficient navigation.</li>
+          <li>Project Expiry Date: Your project's expiry date now clearly shows the remaining days, helping you keep track of your deadlines more effectively.</li>
+          <li>Archiving of Projects and Sections: You can now archive entire projects and sections! This feature helps you keep your workspace organized and clutter-free.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.7" date="2024-05-01">
+      <description translate="no">
+        <ul>
+          <li>Added feat to filter to-dos within a project.</li>
+          <li>Added feat to attach attachments to a task.</li>
+          <li>Added feat to play a sound when completing a task  (if you want to).</li>
+          <li>Fixed bug that duplicated projects when dragging into a sub-project (#1252).</li>
+          <li>Fixed a bug when dragging a subtask out of a section and dragging it back in, the subtask would disappear (#1253).</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Bulgarian translation added thanks to @twlvnn.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.6" date="2024-04-15">
+      <description translate="no">
+        <ul>
+          <li>Now you can sort tasks in the Today view.</li>
+          <li>We've added a new detailed task view on the sidebar when opening a task in Board view.</li>
+          <li>We've introduced the ability to delete completed tasks.</li>
+          <li>You can now use the Ctrl key when creating a task to continue adding.</li>
+          <li>We've fixed a bug when moving tasks between projects and sections.</li>
+          <li>We've addressed an animation bug when adding subtasks.</li>
+          <li>Brazilian Portuguese translation has been updated, thanks to @Penfore.</li>
+          <li>Spanish translation has been updated, thanks to @d0vi.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.12" date="2024-03-29">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug when syncing on Nextcloud.</li>
+          <li>Dutch translation update thanks to @Gert-dev.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
+          <li>German translation update thanks to @bestlinuxgamers.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.11" date="2024-03-28">
+      <description translate="no">
+        <ul>
+          <li>Improved performance when using the Completed view.</li>
+          <li>Added the option to close an open task with the ESC key.</li>
+          <li>Added the option to delete a completed task from the context menu.</li>
+          <li>The sync keyboard shortcut also syncs your Nextcloud account.</li>
+          <li>Fixed error when viewing calendar event as a task in Nextcloud.</li>
+          <li>Hindu translations added thanks to Nitin.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.10" date="2024-03-26">
+      <description translate="no">
+        <ul>
+          <li>Tomorrow, Untagged, Repeat and Anytime filter added from Quick Search.</li>
+          <li>Completed view added to the sidebar.</li>
+          <li>Dutch translations added thanks to @Gert-dev.</li>
+          <li>French translation update thanks to @rene-coty.</li>
+          <li>Fixed bug with translations not being displayed in Quick Add.</li>
+          <li>Fixed bug when syncing uncolored task list in Nextcloud.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.8" date="2024-03-21">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug that icons are not displayed in Quick Add.</li>
+        </ul>
+      </description>
+    </release>
+
+    <release version="4.5.6" date="2024-03-20">
+      <description translate="no">
+        <ul>
+          <li>A URL validation was added when syncing with Nextcloud</li>
+          <li>The Pinboard view can now be selected as the homepage</li>
+          <li>Fixed bug that broke the application when adding a task (#1196 #1148 #1129)</li>
+          <li>Fixed bug where the completion icon was not displayed</li>
+          <li>Fixed bug that did not update tasks in the Pinboard view</li>
+          <li>Fixed bug that displayed the incorrect date format in the Scheduled view</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.5.4" date="2024-03-18">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Improved design and new UI icons.</li>
           <li>It is now possible to mark a task as Pinned from the context menu.</li>
@@ -76,7 +251,7 @@
     </release>
 
     <release version="4.5.2" date="2024-03-04">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed bug that improves CalDAV sync.</li>
           <li>Fixed bug when moving tasks.</li>
@@ -86,7 +261,7 @@
     </release>
 
     <release version="4.5.1" date="2024-03-01">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed adding description from Quick Add.</li>
         </ul>
@@ -94,7 +269,7 @@
     </release>
 
     <release version="4.5" date="2024-02-20">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.5 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -117,7 +292,7 @@
     </release>
 
     <release version="4.4" date="2024-01-10">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.4 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -145,7 +320,7 @@
     </release>
 
     <release version="4.3.2" date="2023-12-20">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Fixed the functionality of adding tags.</li>
         </ul>
@@ -153,7 +328,7 @@
     </release>
 
     <release version="4.3.1" date="2023-12-19">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Russian translations thanks to @hachikoharuno.</li>
           <li>French translation update thanks to @rene-coty.</li>
@@ -162,7 +337,7 @@
     </release>
 
     <release version="4.3" date="2023-12-18">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.3 is here, design improvements and new features available.</p>
         <p>What’s New</p>
         <ul>
@@ -182,7 +357,7 @@
     </release>
 
     <release version="4.2.1" date="2023-12-11">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>French translation update thanks to @rene-coty.</li>
           <li>Bugs fixed #1071.</li>
@@ -191,7 +366,7 @@
     </release>
 
     <release version="4.2" date="2023-12-10">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Icon size update.</li>
           <li>Custom decoration layout support.</li>
@@ -206,7 +381,7 @@
     </release>
 
     <release version="4.1.4" date="2023-12-05">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Dark mode bug fix.</li>
           <li>Design and UX changes.</li>
@@ -217,7 +392,7 @@
     </release>
 
     <release version="4.1.1" date="2023-06-27">
-      <description translatable="no">
+      <description translate="no">
         <ul>
           <li>Bug #1019 fixed.</li>
           <li>Chinese translations thanks to @Fr4nk1in-USTC.</li>
@@ -228,7 +403,7 @@
     </release>
 
     <release version="4.1" date="2023-06-23">
-      <description translatable="no">
+      <description translate="no">
         <p>Planify 4.1 here it is!</p>
         <ul>
           <li>Planify has a new icon thanks to Tobias Bernard.</li>
@@ -243,7 +418,7 @@
     </release>
 
     <release version="4.0" date="2023-05-26">
-      <description translatable="no">
+      <description translate="no">
         <p>Initial release</p>
       </description>
     </release>

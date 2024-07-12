@@ -36,12 +36,12 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "no-selectable", "transition" };
+        css_classes = { "selectable-item", "transition" };
 
         widget_color = new Gtk.Grid () {
             valign = Gtk.Align.CENTER,
-            height_request = 16,
-            width_request = 16,
+            height_request = 19,
+            width_request = 19,
             css_classes = { "circle-color" }
         };
 
@@ -52,8 +52,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         count_label = new Gtk.Label (label.label_count.to_string ()) {
             hexpand = true,
-            halign = Gtk.Align.END,
-            css_classes = { "dim-label", "small-label" }
+            halign = Gtk.Align.END
         };
 
         count_revealer = new Gtk.Revealer () {
@@ -63,27 +62,30 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
         };
 
-        var edit_button = new Gtk.Button.from_icon_name ("edit-symbolic") {
-            css_classes = { "flat", "padding-3" }
-        };
-
-        var trash_button = new Gtk.Button.from_icon_name ("user-trash-symbolic") {
-            css_classes = { "flat", "padding-3" }
-        };
+        var menu_button = new Gtk.MenuButton () {
+			valign = Gtk.Align.CENTER,
+			halign = Gtk.Align.CENTER,
+			popover = build_context_menu (),
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat", "header-item-button", "dim-label" }
+		};
 
         var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-        buttons_box.append (edit_button);
-        buttons_box.append (trash_button);
-
-        var buttons_box_revealer = new Gtk.Revealer ();
-        buttons_box_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-        buttons_box_revealer.child = buttons_box;
+        buttons_box.append (menu_button);
+        buttons_box.append (new Gtk.Image.from_icon_name ("go-next-symbolic") {
+            css_classes = { "dim-label" }
+        });
         
-        handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        handle_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6,
+            margin_end = 6,
+            margin_top = 3,
+            margin_bottom = 3
+        };
         handle_grid.append (widget_color);
         handle_grid.append (name_label);
         handle_grid.append (count_revealer);
-        handle_grid.append (buttons_box_revealer);
+        handle_grid.append (buttons_box);
 
         var reorder_child = new Widgets.ReorderChild (handle_grid, this);
 
@@ -108,49 +110,6 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
         label.label_count_updated.connect (() => {
             count_label.label = label.label_count.to_string ();
             count_revealer.reveal_child = int.parse (count_label.label) > 0;
-        });
-
-        var motion_gesture = new Gtk.EventControllerMotion ();
-        add_controller (motion_gesture);
-        motion_gesture.enter.connect (() => {
-            buttons_box_revealer.reveal_child = true;
-            count_revealer.reveal_child = false;
-        });
-
-        motion_gesture.leave.connect (() => {
-            buttons_box_revealer.reveal_child = false;
-            count_revealer.reveal_child = int.parse (count_label.label) > 0;
-        });
-
-        trash_button.clicked.connect (() => {
-            Services.EventBus.get_default ().close_labels ();
-            
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            _("Delete label"), _("Are you sure you want to delete %s?".printf (label.short_name)));
-
-            dialog.add_response ("cancel", _("Cancel"));
-            dialog.add_response ("delete", _("Delete"));
-            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
-
-            dialog.response.connect ((response) => {
-                if (response == "delete") {
-                    if (label.backend_type == BackendType.TODOIST) {
-                        Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
-                            Services.Todoist.get_default ().delete.end (res);
-                            Services.Database.get_default ().delete_label (label);
-                        });
-                    } else if (label.backend_type == BackendType.LOCAL) {
-                        Services.Database.get_default ().delete_label (label);
-                    }
-                }
-            });
-        });
-
-        edit_button.clicked.connect (() => {
-            Services.EventBus.get_default ().close_labels ();
-            var dialog = new Dialogs.Label (label);
-            dialog.show ();
         });
 
         reorder_child.on_drop_end.connect ((listbox) => {
@@ -178,6 +137,64 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
             row_index++;
         } while (label_row != null);
     }
+
+    private Gtk.Popover build_context_menu () {
+		var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit Label"), "edit-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Label"), "user-trash-symbolic");
+		delete_item.add_css_class ("menu-item-danger");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (edit_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (delete_item);
+
+		var menu_popover = new Gtk.Popover () {
+			has_arrow = false,
+			child = menu_box,
+			position = Gtk.PositionType.BOTTOM,
+			width_request = 250
+		};
+
+		edit_item.clicked.connect (() => {
+			menu_popover.popdown ();
+
+            Services.EventBus.get_default ().close_labels ();
+            var dialog = new Dialogs.Label (label);
+            dialog.present (Planify._instance.main_window);
+		});
+
+		delete_item.clicked.connect (() => {
+			menu_popover.popdown ();
+
+            Services.EventBus.get_default ().close_labels ();
+            
+            var dialog = new Adw.AlertDialog (
+                _("Delete Label %s".printf (label.name)),
+                _("This can not be undone")
+            );
+
+            dialog.add_response ("cancel", _("Cancel"));
+            dialog.add_response ("delete", _("Delete"));
+            dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+            dialog.present (Planify._instance.main_window);
+
+            dialog.response.connect ((response) => {
+                if (response == "delete") {
+                    if (label.backend_type == BackendType.TODOIST) {
+                        Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
+                            Services.Todoist.get_default ().delete.end (res);
+                            Services.Database.get_default ().delete_label (label);
+                        });
+                    } else if (label.backend_type == BackendType.LOCAL) {
+                        Services.Database.get_default ().delete_label (label);
+                    }
+                }
+            });
+		});
+
+		return menu_popover;
+	}
 
     public void hide_destroy () {
         main_revealer.reveal_child = false;

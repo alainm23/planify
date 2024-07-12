@@ -122,12 +122,12 @@ public class Layouts.HeaderItem : Adw.Bin {
         set {
             if (value) {
                 listbox.css_classes = { "boxed-list" };
-                listbox.margin_top = 3;
+                listbox.margin_top = 12;
                 listbox.margin_bottom = 3;
                 listbox.margin_start = 3;
                 listbox.margin_end = 3;
             } else {
-                listbox.css_classes = {  };
+                listbox.css_classes = { };
                 listbox.margin_top = 0;
                 listbox.margin_bottom = 0;
                 listbox.margin_start = 0;
@@ -147,11 +147,12 @@ public class Layouts.HeaderItem : Adw.Bin {
             halign = Gtk.Align.START
         };
 
-        name_label.add_css_class (Granite.STYLE_CLASS_H4_LABEL);
-        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        name_label.add_css_class ("h4");
+        name_label.add_css_class ("heading");
 
         listbox = new Gtk.ListBox () {
-            hexpand = true
+            hexpand = true,
+            margin_top = 6
         };
         
         listbox.set_placeholder (get_placeholder ());
@@ -214,7 +215,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         };
         
         placeholder_label.add_css_class ("dim-label");
-        placeholder_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        placeholder_label.add_css_class ("caption");
 
         var content_box = new Adw.Bin () {
             margin_top = 12,

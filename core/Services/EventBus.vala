@@ -45,6 +45,7 @@ public class Services.EventBus : Object {
     public signal void project_picker_changed (string id);
     public signal void section_picker_changed (string id);
     public signal void project_parent_changed (Objects.Project project, string old_parent_id, bool collapsed = false);
+    public signal void update_inserted_project_map (Gtk.Widget row, string old_parent_id);
     public signal void checked_toggled (Objects.Item item, bool old_checked);
     public signal void favorite_toggled (Objects.Project project);
     public signal void item_moved (Objects.Item item, string old_project_id, string old_section_id, string old_parent_id = "");
@@ -54,12 +55,27 @@ public class Services.EventBus : Object {
     public signal void day_changed ();
     public signal void open_labels ();
     public signal void close_labels ();
-    public signal void inbox_project_changed ();
     public signal void paste_action (string project_id, string content);
     public signal void new_item_deleted (string project_id);
     public signal void update_labels_position ();
     public signal void section_sort_order_changed (string project_id);
     public signal void request_escape ();
+    public signal void drag_n_drop_active (string project_id, bool active);
+    public signal void expand_all (string project_id, bool active);
+
+    public bool _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
+    public bool mobile_mode {
+        set {
+            _mobile_mode = value;
+            mobile_mode_change ();
+        }
+
+        get {
+            return _mobile_mode;
+        }
+    }
+
+    public signal void mobile_mode_change ();
 
     // Notifications
     public signal void send_notification (Adw.Toast toast);
@@ -75,9 +91,6 @@ public class Services.EventBus : Object {
 
     // Magic Button
     public signal void magic_button_visible (bool active);
-
-    // Quick Add
-    public signal void item_added_successfully ();
 
     // Navigate
     public signal void open_item (Objects.Item item);

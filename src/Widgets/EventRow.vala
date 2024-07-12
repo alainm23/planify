@@ -76,7 +76,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 			xalign = 0,
 			valign = Gtk.Align.CENTER,
 			width_chars = 7,
-			css_classes = { Granite.STYLE_CLASS_DIM_LABEL, Granite.STYLE_CLASS_SMALL_LABEL }
+			css_classes = { "dim-label", "caption" }
 		};
 
 		var name_label = new Gtk.Label (component.get_summary ()) {
@@ -86,7 +86,7 @@ public class Widgets.EventRow : Gtk.ListBoxRow {
 			use_markup = true,
 			wrap_mode = Pango.WrapMode.WORD_CHAR,
 			margin_start = 3,
-			css_classes = { Granite.STYLE_CLASS_SMALL_LABEL }
+			css_classes = { "caption" }
 		};
 
 		var grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

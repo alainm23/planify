@@ -1,19 +1,29 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-core/Util/Util.vala
-core/Util/Datetime.vala
 core/Enum.vala
 core/Constants.vala
 core/QuickAdd.vala
+
+core/Util/Util.vala
+core/Util/Datetime.vala
 
 core/Services/Settings.vala
 core/Services/EventBus.vala
 core/Services/Database.vala
 core/Services/Todoist.vala
+core/Services/CalDAV/Core.vala
+core/Services/CalDAV/Constants.vala
+core/Services/CalDAV/Backend.vala
+
+core/Services/Chrono/Chrono.vala
+core/Services/Chrono/Enum.vala
+core/Services/Chrono/Types.vala
+core/Services/Chrono/Locales/En/En.vala
+core/Services/Chrono/Locales/En/Constants.vala
+core/Services/Chrono/Locales/En/Parsers/ENCasualDateParser.vala
 
 core/Layouts/HeaderItem.vala
 
-core/Widgets/DynamicIcon.vala
 core/Widgets/LoadingButton.vala
 core/Widgets/Entries.vala
 core/Widgets/IconColorProject.vala
@@ -22,6 +32,8 @@ core/Widgets/PriorityButton.vala
 core/Widgets/ItemLabels.vala
 core/Widgets/ItemLabelChild.vala
 core/Widgets/CircularProgressBar.vala
+core/Widgets/StatusButton.vala
+core/Widgets/LabelsPickerCore.vala
 
 core/Widgets/Calendar/Calendar.vala
 core/Widgets/Calendar/CalendarDay.vala
@@ -32,6 +44,8 @@ core/Widgets/Calendar/CalendarWeek.vala
 core/Widgets/ContextMenu/MenuItem.vala
 core/Widgets/ContextMenu/MenuSeparator.vala
 core/Widgets/ContextMenu/MenuPicker.vala
+core/Widgets/ContextMenu/MenuCheckPicker.vala
+core/Widgets/ContextMenu/MenuSwitch.vala
 
 core/Widgets/DateTimePicker/ScheduleButton.vala
 core/Widgets/DateTimePicker/DateTimePicker.vala
@@ -45,6 +59,19 @@ core/Widgets/ProjectPicker/ProjectPickerPopover.vala
 core/Widgets/ProjectPicker/ProjectPickerRow.vala
 core/Widgets/ProjectPicker/ProjectPickerButton.vala
 
+core/Widgets/SectionPicker/SectionButton.vala
+core/Widgets/SectionPicker/SectionPicker.vala
+core/Widgets/SectionPicker/SectionPickerRow.vala
+
+core/Widgets/ReminderPicker/ReminderButton.vala
+core/Widgets/ReminderPicker/ReminderPicker.vala
+core/Widgets/ReminderPicker/ReminderRow.vala
+
+core/Widgets/Markdown/MarkdownEditView.vala
+core/Widgets/Markdown/MarkdownView.vala
+core/Widgets/Markdown/Color.vala
+core/Widgets/Markdown/MarkdownBuffer.vala
+
 core/Objects/BaseObject.vala
 core/Objects/Color.vala
 core/Objects/DueDate.vala
@@ -54,6 +81,9 @@ core/Objects/Project.vala
 core/Objects/Queue.vala
 core/Objects/Reminder.vala
 core/Objects/Section.vala
+core/Objects/Promise.vala
+core/Objects/Attachment.vala
+core/Objects/ObjectEvent.vala
 
 core/Objects/Filters/Pinboard.vala
 core/Objects/Filters/Scheduled.vala
@@ -61,6 +91,12 @@ core/Objects/Filters/Today.vala
 core/Objects/Filters/Priority.vala
 core/Objects/Filters/Completed.vala
 core/Objects/Filters/Labels.vala
+core/Objects/Filters/Tomorrow.vala
+core/Objects/Filters/Anytime.vala
+core/Objects/Filters/Repeating.vala
+core/Objects/Filters/Unlabeled.vala
+core/Objects/Filters/FilterItem.vala
+core/Objects/Filters/AllItems.vala
 
 src/App.vala
 src/MainWindow.vala
@@ -73,6 +109,7 @@ src/Services/Notification.vala
 src/Services/TimeMonitor.vala
 src/Services/DBusServer.vala
 src/Services/Backups.vala
+src/Services/Migrate.vala
 
 src/Services/CalendarEvents/CalendarEvents.vala
 src/Services/CalendarEvents/DateIterator.vala
@@ -83,16 +120,18 @@ src/Layouts/Sidebar.vala
 src/Layouts/FilterPaneRow.vala
 src/Layouts/ProjectRow.vala
 src/Layouts/SectionRow.vala
+src/Layouts/ItemBase.vala
 src/Layouts/ItemRow.vala
-src/Layouts/LabelRow.vala
-src/Layouts/SectionBoard.vala
 src/Layouts/ItemBoard.vala
+src/Layouts/LabelRow.vala
+src/Layouts/ItemSidebarView.vala
+src/Layouts/SectionBoard.vala
 src/Layouts/HeaderBar.vala
-src/Layouts/ItemView.vala
 
 src/Widgets/ColorPickerRow.vala
 src/Widgets/MagicButton.vala
 src/Widgets/EditableLabel.vala
+src/Widgets/EditableTextView.vala
 src/Widgets/SyncButton.vala
 src/Widgets/MultiSelectToolbar.vala
 src/Widgets/EventsList.vala
@@ -101,16 +140,16 @@ src/Widgets/SubItems.vala
 src/Widgets/LabelChild.vala
 src/Widgets/LabelsSummary.vala
 src/Widgets/SectionsOrderPopover.vala
-
-src/Widgets/ReminderPicker/ReminderPicker.vala
-src/Widgets/ReminderPicker/ReminderRow.vala
-src/Widgets/ReminderPicker/ReminderButton.vala
+src/Widgets/ScrolledWindow.vala
+src/Widgets/ReorderChild.vala
+src/Widgets/FilterFlowBox.vala
+src/Widgets/Attachments.vala
+src/Widgets/ItemChangeHistoryRow.vala
 
 src/Views/Project/Project.vala
 src/Views/Project/List.vala
 src/Views/Project/Board.vala
 src/Views/Today.vala
-src/Views/Pinboard.vala
 src/Views/Label/Label.vala
 src/Views/Label/Labels.vala
 src/Views/Filter.vala
@@ -121,19 +160,20 @@ src/Views/Scheduled/ScheduledRange.vala
 src/Views/Scheduled/ScheduledMonth.vala
 
 src/Dialogs/Project.vala
+src/Dialogs/Section.vala
 src/Dialogs/Label.vala
 src/Dialogs/GoogleOAuth.vala
 src/Dialogs/WhatsNew.vala
 src/Dialogs/QuickAdd.vala
-src/Dialogs/ItemView.vala
 src/Dialogs/ManageSectionOrder.vala
 src/Dialogs/ProjectPicker/ProjectPicker.vala
 src/Dialogs/ProjectPicker/ProjectPickerRow.vala
 src/Dialogs/ProjectPicker/SectionPickerRow.vala
+src/Dialogs/ManageProjects.vala
 src/Dialogs/DatePicker.vala
 src/Dialogs/LabelPicker.vala
 src/Dialogs/RepeatConfig.vala
-src/Dialogs/Section.vala
+src/Dialogs/ItemChangeHistory.vala
 
 src/Dialogs/QuickFind/QuickFind.vala
 src/Dialogs/QuickFind/QuickFindItem.vala

@@ -28,7 +28,6 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         var settings_header = new Dialogs.Preferences.SettingsHeader (_("Sidebar"));
 
         var views_group = new Layouts.HeaderItem (_("Show in Sidebar")) {
-            listbox_no_margin = true,
             card = true,
 			reveal = true,
             margin_top = 12
@@ -39,12 +38,14 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
 		var scheduled_row = new Widgets.SidebarRow (FilterType.SCHEDULED, _("Scheduled"), "month-symbolic");
 		var pinboard_row = new Widgets.SidebarRow (FilterType.PINBOARD, _("Pinboard"), "pin-symbolic");
 		var labels_row = new Widgets.SidebarRow (FilterType.LABELS, _("Labels"), "tag-outline-symbolic");
+        var completed_row = new Widgets.SidebarRow (FilterType.COMPLETED, _("Completed"), "check-round-outline-symbolic");
 
 		views_group.add_child (inbox_row);
 		views_group.add_child (today_row);
 		views_group.add_child (scheduled_row);
 		views_group.add_child (pinboard_row);
 		views_group.add_child (labels_row);
+        views_group.add_child (completed_row);
 
         var show_count_row = new Adw.SwitchRow ();
         show_count_row.title = _("Show Task Count");
@@ -68,7 +69,7 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         content_box.append (count_group);
         content_box.append (views_group);
         content_box.append (new Gtk.Label (_("You can sort your views by dragging and dropping")) {
-            css_classes = { "small-label", "dim-label" },
+            css_classes = { "caption", "dim-label" },
             halign = START,
             margin_start = 12,
             margin_top = 3
@@ -98,9 +99,14 @@ public class Dialogs.Preferences.Pages.Sidebar : Adw.Bin {
         Services.Settings.get_default ().settings.bind ("show-tasks-count", show_count_row, "active", GLib.SettingsBindFlags.DEFAULT);
         
         views_group.set_sort_func ((child1, child2) => {
-            int item1 = ((Widgets.SidebarRow) child1).item_order ();
-            int item2 = ((Widgets.SidebarRow) child2).item_order ();
-            return item1 - item2;
+            Widgets.SidebarRow item1 = ((Widgets.SidebarRow) child1);
+            Widgets.SidebarRow item2 = ((Widgets.SidebarRow) child2);
+
+            if (item1.visible) {
+                return -1;
+            }
+
+            return item1.item_order () - item2.item_order ();
         });
         views_group.set_sort_func (null);
 

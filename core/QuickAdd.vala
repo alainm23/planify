@@ -10,23 +10,27 @@ public class Layouts.QuickAdd : Adw.Bin {
     private Widgets.ScheduleButton schedule_button;
     private Widgets.PinButton pin_button;
     private Widgets.PriorityButton priority_button;
+    private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Gtk.Image added_image;
     private Gtk.Stack main_stack;
+    private Gtk.ToggleButton create_more_button;
+    private Gtk.Revealer info_revealer;
 
     public signal void hide_destroy ();
     public signal void send_interface_id (string id);
-    public signal void add_item_db (Objects.Item item);
+    public signal void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders);
 
     public bool ctrl_pressed { get; set; default = false; }
     public bool shift_pressed { get; set; default = false; }
 
-    public QuickAdd (bool is_window_quick_add = false) {        
-        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
-            item.child_order = 0;
-            item.custom_order = true;
+    public bool is_loading {
+        set {
+            submit_button.is_loading = value;
         }
+    }
 
+    public QuickAdd (bool is_window_quick_add = false) {
         Object (
             is_window_quick_add: is_window_quick_add
         );
@@ -34,8 +38,13 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     construct {
         item = new Objects.Item ();
-        item.project_id = Services.Settings.get_default ().settings.get_string ("inbox-project-id");
+        item.project_id = Services.Settings.get_default ().settings.get_string ("local-inbox-project-id");
 
+        if (Services.Settings.get_default ().get_new_task_position () == NewTaskPosition.TOP) {
+            item.child_order = 0;
+            item.custom_order = true;
+        }
+        
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
             var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
@@ -57,23 +66,36 @@ public class Layouts.QuickAdd : Adw.Bin {
             css_classes = { "flat", "font-bold" }
         };
 
+        var info_icon = new Gtk.Image.from_icon_name ("info-outline-symbolic") {
+            css_classes = { "error" },
+            tooltip_text = _("This field is required")
+        };
+
+        info_revealer = new Gtk.Revealer () {
+            child = info_icon,
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT
+        };
+
         var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             hexpand = true,
-            margin_top = 12,
+            margin_top = 9,
+            margin_bottom = 9,
             margin_start = 12,
             margin_end = 12
         };
         
         content_box.append (content_entry);
+        content_box.append (info_revealer);
 
         description_textview = new Widgets.HyperTextView (_("Add a description…")) {
             height_request = 64,
             left_margin = 14,
             right_margin = 6,
-            top_margin = 6,
+            top_margin = 12,
             wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true
+            hexpand = true,
+            event_focus = false
         };
 
         description_textview.remove_css_class ("view");
@@ -84,23 +106,26 @@ public class Layouts.QuickAdd : Adw.Bin {
         };
 
         schedule_button = new Widgets.ScheduleButton ();
-        pin_button = new Widgets.PinButton (item);
+        pin_button = new Widgets.PinButton ();
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton ();
+        reminder_button = new Widgets.ReminderPicker.ReminderButton (true);
         label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
-            margin_top = 6
+            margin_start = 3,
+            margin_end = 3,
+            margin_bottom = 3
         };
 
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             hexpand = true,
-            halign = Gtk.Align.END,
-            margin_end = 3
+            halign = Gtk.Align.END
         };
 
         action_box_right.append (label_button);
+        action_box_right.append (reminder_button);
         action_box_right.append (priority_button);
         action_box_right.append (pin_button);
 
@@ -116,40 +141,29 @@ public class Layouts.QuickAdd : Adw.Bin {
         quick_add_content.add_css_class ("card");
         quick_add_content.add_css_class ("sidebar-card");
         quick_add_content.append (content_box);
+        quick_add_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
         quick_add_content.append (description_textview);
         quick_add_content.append (item_labels);
         quick_add_content.append (action_box);
-        
-        // Alert Box
-        var error_icon = new Gtk.Image.from_icon_name ("dialog-warning-symbolic");
-        var error_label = new Gtk.Label ("Error de casa");
-
-        var error_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            vexpand = true
-        };
-
-        error_box.append (error_icon);
-        error_box.append (error_label);
 
         submit_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Add To-Do")) {
             valign = CENTER,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
+            css_classes = { "suggested-action", "border-radius-6" }
         };
 
-        var menu_button = new Gtk.MenuButton () {
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			popover = build_context_menu_popover (),
-			icon_name = "view-more-symbolic",
-			css_classes = { "flat" }
-		};
+        create_more_button = new Gtk.ToggleButton () {
+            css_classes = { "flat" },
+            tooltip_text = _("Create More"),
+            icon_name = "arrow-turn-down-right-symbolic",
+            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
+        };
 
         var submit_cancel_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true,
             halign = END
         };
 
-        submit_cancel_grid.append (menu_button);
+        submit_cancel_grid.append (create_more_button);
         submit_cancel_grid.append (submit_button);
         
         project_picker_button = new Widgets.ProjectPicker.ProjectPickerButton ();
@@ -225,7 +239,6 @@ public class Layouts.QuickAdd : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        content_entry.activate.connect (add_item);
         submit_button.clicked.connect (add_item);
 
         project_picker_button.project_change.connect ((project) => {
@@ -261,9 +274,27 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         var destroy_controller = new Gtk.EventControllerKey ();
         add_controller (destroy_controller);
-        destroy_controller.key_pressed.connect ((keyval, keycode, state) => {
+        destroy_controller.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65307) {
                 hide_destroy ();
+            }
+        });
+
+        content_entry.activate.connect (() => {
+            add_item ();
+        });
+
+        content_entry.changed.connect (() => {
+            info_revealer.reveal_child = false;     
+            content_entry.remove_css_class ("error");
+        });
+
+        var content_controller_key = new Gtk.EventControllerKey ();
+        content_entry.add_controller (content_controller_key);
+        content_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+            if (keyval == 65293 && (ctrl_pressed || shift_pressed)) {
+                add_item ();
+                return false;
             }
 
             return false;
@@ -284,10 +315,12 @@ public class Layouts.QuickAdd : Adw.Bin {
 		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65507) {
 				ctrl_pressed = true;
+                create_more_button.active = ctrl_pressed || shift_pressed;
 			}
 
             if (keyval == 65505) {
                 shift_pressed = true;
+                create_more_button.active = ctrl_pressed || shift_pressed;
             }
 
 			return false;
@@ -296,17 +329,36 @@ public class Layouts.QuickAdd : Adw.Bin {
         event_controller_key.key_released.connect ((keyval, keycode, state) => {
             if (keyval == 65507) {
 				ctrl_pressed = false;
+                create_more_button.active = ctrl_pressed || shift_pressed;
 			}
 
             if (keyval == 65505) {
                 shift_pressed = false;
+                create_more_button.active = ctrl_pressed || shift_pressed;
             }
+        });
+
+        create_more_button.activate.connect (() => {
+            Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", create_more_button.active);
         });
     }
 
-    private void add_item () {        
-        if (content_entry.buffer.text.length <= 0) {
+    private void add_item () {
+        info_revealer.reveal_child = false;     
+        content_entry.remove_css_class ("error");
+
+        if (content_entry.get_text ().length <= 0 && description_textview.get_text ().length <= 0) {
             hide_destroy ();
+            return;
+        }
+
+        if (content_entry.get_text ().length <= 0) {
+            Timeout.add (info_revealer.transition_duration, () => {
+                info_revealer.reveal_child = true;
+                content_entry.add_css_class ("error");
+                return GLib.Source.REMOVE;
+            });
+            
             return;
         }
 
@@ -315,29 +367,37 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         if (item.project.backend_type == BackendType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
-            add_item_db (item);
+            _add_item (item);
         } else if (item.project.backend_type == BackendType.TODOIST) {
-            submit_button.is_loading = true;
+            is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                submit_button.is_loading = false;
+                is_loading = false;
 
                 if (response.status) {
                     item.id = response.data;
-                    add_item_db (item);
+                    _add_item (item);
                 }
             });
         } else if (item.project.backend_type == BackendType.CALDAV) {
-            submit_button.is_loading = true;
+            is_loading = true;
             item.id = Util.get_default ().generate_id ();
-            Services.CalDAV.get_default ().add_task.begin (item, false, (obj, res) => {
-                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
-                submit_button.is_loading = false;
+            Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
+                is_loading = false;
 
                 if (response.status) {
-                    add_item_db (item);
+                    _add_item (item);
                 }
             });
+        }
+    }
+
+    private void _add_item (Objects.Item item) {
+        add_item_db (item, reminder_button.reminders ());
+                    
+        if (item.has_parent) {
+            item.parent.collapsed = true;
         }
     }
 
@@ -346,7 +406,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         added_image.add_css_class ("fancy-turn-animation");
 
         Timeout.add (750, () => {
-            if (Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")) {
+            if (create_more_button.active) {
                 main_stack.visible_child_name = "main";
                 added_image.remove_css_class ("fancy-turn-animation");
 
@@ -387,7 +447,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     }
 
     public void set_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+        item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
         if (item.due.date == "") {
             item.due.reset ();
@@ -398,7 +458,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
     public void set_pinned (bool pinned) {
         item.pinned = pinned;
-        pin_button.update_request ();
+        pin_button.update_request (pinned);
     }
 
     public void set_priority (int priority) {
@@ -453,27 +513,4 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.child_order = index;
         item.custom_order = true;
     }
-
-    private Gtk.Popover build_context_menu_popover () {
-        var item_switch = new Widgets.ContextMenu.MenuSwitch (_("Create more"), null) {
-            active = Services.Settings.get_default ().settings.get_boolean ("quick-add-create-more")
-        };
-
-		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-		menu_box.margin_top = menu_box.margin_bottom = 3;
-		menu_box.append (item_switch);
-
-		var popover = new Gtk.Popover () {
-			has_arrow = false,
-			position = Gtk.PositionType.BOTTOM,
-			child = menu_box,
-			width_request = 250
-		};
-
-        item_switch.activate_item.connect (() => {
-            Services.Settings.get_default ().settings.set_boolean ("quick-add-create-more", item_switch.active);
-        });
-
-		return popover;
-	}
 }

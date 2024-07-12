@@ -73,13 +73,14 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
         menu_title.use_markup = true;
 
         var arrow_icon = new Gtk.Image () {
-            gicon = new ThemedIcon ("pan-end-symbolic"),
+            gicon = new ThemedIcon ("go-next-symbolic"),
             pixel_size = 16,
             hexpand = true,
             halign = END
         };
         arrow_icon.add_css_class ("transition");
         arrow_icon.add_css_class ("hidden-button");
+        arrow_icon.add_css_class ("dim-label");
 
         var itemselector_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             hexpand = true
@@ -91,7 +92,7 @@ public class Widgets.ContextMenu.MenuPicker : Adw.Bin {
 
         var button = new Gtk.Button ();
         button.child = itemselector_grid;
-        button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        button.add_css_class ("flat");
         button.add_css_class ("transition");
         button.add_css_class ("no-font-bold");
 

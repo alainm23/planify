@@ -115,7 +115,7 @@ public class Dialogs.GoogleOAuth : Adw.Window {
         scrolled.child = stack;
 
         var header = new Adw.HeaderBar ();
-        header.add_css_class (Granite.STYLE_CLASS_FLAT);
+        header.add_css_class ("flat");
         header.title_widget = container_grid;
 
         var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);

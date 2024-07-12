@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.RepeatConfig : Adw.Window {
+public class Dialogs.RepeatConfig : Adw.Dialog {
     private Gtk.SpinButton recurrency_interval;
     private Gtk.DropDown recurrency_combobox;
     private Gtk.Label repeat_label;
@@ -84,19 +84,14 @@ public class Dialogs.RepeatConfig : Adw.Window {
 
     public RepeatConfig () {
         Object (
-            deletable: true,
-            resizable: true,
-            modal: true,
             title: _("Repeat"),
-            width_request: 320,
-            height_request: 375,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            content_width: 320
         );
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         repeat_label = new Gtk.Label (null) {
             margin_top = 9,
@@ -204,8 +199,8 @@ public class Dialogs.RepeatConfig : Adw.Window {
         };
 
         datepicker_button = new Gtk.MenuButton () {
-            label = Util.get_default ().get_default_date_format_from_date (
-                Util.get_default ().get_format_date (new GLib.DateTime.now_local ().add_days (1))
+            label = Utils.Datetime.get_default_date_format_from_date (
+                Utils.Datetime.get_format_date (new GLib.DateTime.now_local ().add_days (1))
             ),
             popover = calendar_popover
         };
@@ -237,35 +232,45 @@ public class Dialogs.RepeatConfig : Adw.Window {
             vexpand = true,
             valign = Gtk.Align.END
         };
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             width_request = 225
         };
         
         content_box.append (headerbar);
-        content_box.append (new Granite.HeaderLabel (_("Summary")) {
+        content_box.append (new Gtk.Label (_("Summary")) {
+            css_classes = { "heading", "h4" },
             margin_top = 6,
-            margin_start = 12
+            margin_start = 12,
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (repeat_preview_box);
-        content_box.append (new Granite.HeaderLabel (_("Repeat every")) {
-            margin_top = 6,
-            margin_start = 12
+        content_box.append (new Gtk.Label (_("Repeat every")) {
+            css_classes = { "heading", "h4" },
+            margin_top = 12,
+            margin_start = 12,
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (repeat_box);
         content_box.append (weeks_revealer);
-        content_box.append (new Granite.HeaderLabel (_("End")) {
-            margin_top = 6,
-            margin_start = 12
+        content_box.append (new Gtk.Label (_("End")) {
+            css_classes = { "heading", "h4" },
+            margin_top = 12,
+            margin_start = 12,
+            margin_bottom = 6,
+            halign = Gtk.Align.START
         });
         content_box.append (ends_grid);
         content_box.append (ends_stack);
         content_box.append (submit_button);
 
-        content = content_box;
+        child = content_box;
         update_repeat_label ();
-        
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+
         recurrency_interval.value_changed.connect (() => {
             update_repeat_label ();
         });
@@ -334,6 +339,10 @@ public class Dialogs.RepeatConfig : Adw.Window {
 
         count_interval.value_changed.connect (() => {
             update_repeat_label ();
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -407,8 +416,8 @@ public class Dialogs.RepeatConfig : Adw.Window {
     private void update_repeat_label () {
         var end_label = "";
         if (on_button.active) {
-            var date_label = Util.get_default ().get_default_date_format_from_date (
-                Util.get_default ().get_format_date (calendar.get_date ())
+            var date_label = Utils.Datetime.get_default_date_format_from_date (
+                Utils.Datetime.get_format_date (calendar.get_date ())
             );
             end_label = _("until") + " " + date_label;
             datepicker_button.label = date_label;
@@ -418,7 +427,7 @@ public class Dialogs.RepeatConfig : Adw.Window {
         }
 
         RecurrencyType selected_option = (RecurrencyType) this.recurrency_combobox.selected;
-        string label = Util.get_default ().get_recurrency_weeks (
+        string label = Utils.Datetime.get_recurrency_weeks (
             selected_option,
             (int) recurrency_interval.value,
             get_recurrency_weeks (),
@@ -428,11 +437,6 @@ public class Dialogs.RepeatConfig : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

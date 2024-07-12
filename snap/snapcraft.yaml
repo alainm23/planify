@@ -1,5 +1,5 @@
 name: planify 
-base: core22
+base: core24
 adopt-info: planify
 grade: stable
 confinement: strict

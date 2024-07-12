@@ -42,7 +42,11 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		child = toolbar_view;
 
 		settings_header.back_activated.connect (() => {
-			pop_subpage ();
+			if (stack.visible_child_name == "import-page") {
+				stack.set_visible_child_name ("backup-page");
+			} else {
+				pop_subpage ();
+			}
 		});
     }
 
@@ -113,23 +117,8 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		import_button.clicked.connect (() => {
 			Services.Backups.get_default ().import_backup.begin ((obj, res) => {
 				GLib.File file = Services.Backups.get_default ().import_backup.end (res);
-
-				var backup = new Objects.Backup.from_file (file);
-
-				if (backup.valid ()) {
-					Gtk.Widget? import_page;
-					import_page = (Gtk.Widget) stack.get_child_by_name ("import-page");
-
-					if (import_page != null) {
-						stack.remove (import_page);
-					}
-
-					stack.add_named (get_import_page (backup), "import-page");
-					stack.set_visible_child_name ("import-page");
-				} else {
-					debug ("%s", backup.error);
-					popup_toast (_("Selected file is invalid"));
-				}
+				Objects.Backup backup = new Objects.Backup.from_file (file);
+				view_backup (backup);
 			});
 		});
 
@@ -171,7 +160,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 		var todoist_row = new Adw.ActionRow ();
 		todoist_row.title = _("Todoist");
-		todoist_row.add_suffix (generate_icon (backup.todoist_backend ? "object-select-symbolic" : "window-close-symbolic", 16));
+		todoist_row.add_suffix (generate_icon (backup.todoist_backend ? "check-round-outline-symbolic" : "window-close-symbolic", 16));
 
 		var general_group = new Adw.PreferencesGroup () {
 			margin_top = 24
@@ -187,7 +176,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		sections_row.add_suffix (new Gtk.Label (backup.sections.size.to_string ()));
 
 		var items_row = new Adw.ActionRow ();
-		items_row.title = _("Items");
+		items_row.title = _("To-Dos");
 		items_row.add_suffix (new Gtk.Label (backup.items.size.to_string ()));
 
 		var labels_row = new Adw.ActionRow ();
@@ -210,7 +199,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 		var confirm_button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Confirm")) {
             valign = CENTER,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION, "border-radius-6" }
+            css_classes = { "suggested-action", "border-radius-6" }
         };
 
 		var buttons_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -256,14 +245,16 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		});
 
 		confirm_button.clicked.connect (() => {
-			var dialog = new Adw.MessageDialog (Planify._instance.main_window,
-				_("Restore backup"), _("Are you sure you want to continue? This operation will delete your current data and replace it with the backup data."));
+			var dialog = new Adw.AlertDialog (
+				_("Restore backup"),
+				_("Are you sure you want to continue? This operation will delete your current data and replace it with the backup data.")
+			);
 
 			dialog.body_use_markup = true;
 			dialog.add_response ("cancel", _("Cancel"));
 			dialog.add_response ("restore", _("Restore Backup"));
 			dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-			dialog.show ();
+			dialog.present (Planify._instance.main_window);
 	
 			dialog.response.connect ((response) => {
 				if (response == "restore") {
@@ -283,6 +274,11 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 	private void add_backup_row (Objects.Backup backup, Layouts.HeaderItem group) {
 		var row = new Widgets.BackupRow (backup);
+
+		row.view.connect (() => {
+			view_backup (backup);
+		});
+
 		group.insert_child (row, 0);
 	}
 
@@ -291,11 +287,31 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			pixel_size = size
 		};
 	}
+
+	private void view_backup (Objects.Backup backup) {
+		if (backup.valid ()) {
+			Gtk.Widget? import_page;
+			import_page = (Gtk.Widget) stack.get_child_by_name ("import-page");
+
+			if (import_page != null) {
+				stack.remove (import_page);
+			}
+
+			stack.add_named (get_import_page (backup), "import-page");
+			stack.set_visible_child_name ("import-page");
+		} else {
+			debug ("%s", backup.error);
+			popup_toast (_("Selected file is invalid"));
+		}
+	}
 }
 
 public class Widgets.BackupRow : Gtk.ListBoxRow {
 	public Objects.Backup backup { get; construct; }
 	
+	private Gtk.Revealer main_revealer;
+	public signal void view ();
+
 	public BackupRow (Objects.Backup backup) {
 		Object (
 			backup: backup
@@ -310,13 +326,27 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
         name_label.valign = Gtk.Align.CENTER;
         name_label.ellipsize = Pango.EllipsizeMode.END;
 
-		var download_button = new Gtk.Button.from_icon_name ("folder-download-symbolic") {
+		var view_button = new Gtk.Button.from_icon_name ("eye-open-negative-filled-symbolic") {
 			valign = CENTER,
+			css_classes = { "flat" },
+			tooltip_text = _("View Backup")
+		};
+
+		var menu_button = new Gtk.MenuButton () {
+            hexpand = true,
+            halign = END,
+			popover = build_context_menu (),
+			icon_name = "view-more-symbolic",
+			css_classes = { "flat" }
+		};
+
+		var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
 			halign = END,
 			hexpand = true,
-			css_classes = { "flat" },
-			tooltip_text = _("Download")
 		};
+
+		end_box.append (view_button);
+		end_box.append (menu_button);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             margin_top = 6,
@@ -327,9 +357,9 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
 
 		content_box.append (new Gtk.Image.from_icon_name ("paper-symbolic"));
         content_box.append (name_label);
-		content_box.append (download_button);
+		content_box.append (end_box);
 
-		var main_revealer = new Gtk.Revealer () {
+		main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
 			child = content_box
         };
@@ -341,8 +371,52 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-		download_button.clicked.connect (() => {
-			Services.Backups.get_default ().save_file_as (backup);
+		view_button.clicked.connect (() => {
+			view ();
+		});
+
+		backup.deleted.connect (() => {
+			hide_destroy ();
 		});
 	}
+
+	private Gtk.Popover build_context_menu () {
+		var download_item = new Widgets.ContextMenu.MenuItem (_("Download"), "folder-download-symbolic");
+		var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete"), "user-trash-symbolic");
+		delete_item.add_css_class ("menu-item-danger");
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+
+		menu_box.append (download_item);
+		menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        menu_box.append (delete_item);
+
+		var menu_popover = new Gtk.Popover () {
+			has_arrow = false,
+			child = menu_box,
+			position = Gtk.PositionType.BOTTOM,
+			width_request = 250
+		};
+
+		download_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			Services.Backups.get_default ().save_file_as (backup);
+		});
+
+		delete_item.clicked.connect (() => {
+			menu_popover.popdown ();
+			backup.delete_backup ((Gtk.Window) Planify.instance.main_window);
+		});
+
+		return menu_popover;
+	}
+
+	public void hide_destroy () {
+        main_revealer.reveal_child = false;
+        Timeout.add (main_revealer.transition_duration, () => {
+            ((Gtk.ListBox) parent).remove (this);
+            return GLib.Source.REMOVE;
+        });
+    }
 }

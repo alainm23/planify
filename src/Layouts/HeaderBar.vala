@@ -22,6 +22,7 @@
 public class Layouts.HeaderBar : Adw.Bin {
     private Adw.HeaderBar headerbar;
     private Gtk.Label title_label;
+    private Gtk.Label title2_label;
     private Gtk.Revealer back_button_revealer;
     private Gtk.Box start_box;
     private Gtk.Button back_button;
@@ -32,6 +33,18 @@ public class Layouts.HeaderBar : Adw.Bin {
         set {
             _title = value;
             title_label.label = _title;
+        }
+
+        get {
+            return _title;
+        }
+    }
+
+    private string _title2;
+    public string title2 {
+        set {
+            _title2 = value;
+            title2_label.label = _title2;
         }
 
         get {
@@ -54,7 +67,8 @@ public class Layouts.HeaderBar : Adw.Bin {
     construct {
 		sidebar_button = new Gtk.Button () {
 			valign = Gtk.Align.CENTER,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Open/Close Sidebar"), "M"),
 		};
 
         update_sidebar_icon ();
@@ -63,7 +77,8 @@ public class Layouts.HeaderBar : Adw.Bin {
         back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
             margin_end = 6,
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            tooltip_text = _("Back")
         };
 
         back_button_revealer = new Gtk.Revealer () {
@@ -74,14 +89,22 @@ public class Layouts.HeaderBar : Adw.Bin {
 
         // Title
         title_label = new Gtk.Label (null) {
-            use_markup = true,
-            css_classes = { "font-bold" }
+            css_classes = { "font-bold" },
+            ellipsize = Pango.EllipsizeMode.END
         };
-    
-        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 4);
+
+        title2_label = new Gtk.Label (null) {
+            css_classes = { "font-bold", "caption" },
+            ellipsize = Pango.EllipsizeMode.END,
+            margin_start = 6,
+            margin_top = 3
+        };
+            
+        start_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
         start_box.append (sidebar_button);
         start_box.append (back_button_revealer);
         start_box.append (title_label);
+        start_box.append (title2_label);
 
         headerbar = new Adw.HeaderBar () {
 			hexpand = true,

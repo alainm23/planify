@@ -28,6 +28,7 @@ public class Services.Todoist : GLib.Object {
 	private const string SECTIONS_COLLECTION = "sections";
 	private const string ITEMS_COLLECTION = "items";
 	private const string LABELS_COLLECTION = "labels";
+	private const string REMINDERS_COLLECTION = "reminders";
 
 	private static Todoist? _instance;
 	public static Todoist get_default () {
@@ -56,8 +57,7 @@ public class Services.Todoist : GLib.Object {
 
 		var network_monitor = GLib.NetworkMonitor.get_default ();
 		network_monitor.network_changed.connect (() => {
-			if (GLib.NetworkMonitor.get_default ().network_available &&
-				is_logged_in () &&
+			if (GLib.NetworkMonitor.get_default ().network_available && is_logged_in () &&
 			    Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")) {
 				sync_async ();
 			}
@@ -102,12 +102,6 @@ public class Services.Todoist : GLib.Object {
 
 		// Clear CurTempIds
 		Services.Database.get_default ().clear_cur_temp_ids ();
-
-		// Check Inbox Project
-		if (Services.Settings.get_default ().settings.get_enum ("default-inbox") == 1) {
-			Services.Settings.get_default ().settings.set_enum ("default-inbox", 0);
-			Util.get_default ().change_default_inbox ();
-		}
 
 		// Remove server_timeout
 		Source.remove (server_timeout);
@@ -180,7 +174,6 @@ public class Services.Todoist : GLib.Object {
 
 			// Set Inbox
 			string inbox_project_id = user_object.get_string_member ("inbox_project_id");
-			Services.Settings.get_default ().settings.set_string ("todoist-inbox-project-id", inbox_project_id);
 			Services.Settings.get_default ().settings.set_string ("todoist-user-name", user_object.get_string_member ("full_name"));
 			Services.Settings.get_default ().settings.set_string ("todoist-user-email", user_object.get_string_member ("email"));
 			Services.Settings.get_default ().settings.set_boolean ("todoist-user-is-premium", user_object.get_boolean_member ("is_premium"));
@@ -220,6 +213,16 @@ public class Services.Todoist : GLib.Object {
 			unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
 			foreach (unowned Json.Node _node in items.get_elements ()) {
 				add_item_if_not_exists (_node);
+			}
+
+			// Create Reminders
+			unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
+			foreach (unowned Json.Node _node in reminders.get_elements ()) {
+				Objects.Reminder reminder = new Objects.Reminder.from_json (_node);
+				Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+				if (item != null) {
+					item.add_reminder_if_not_exists (reminder);
+				}
 			}
 
 			first_sync_progress (0.85);
@@ -369,6 +372,25 @@ public class Services.Todoist : GLib.Object {
 						}
 					} else {
 						add_item_if_not_exists (_node);
+					}
+				}
+
+				// Reminders
+				unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
+				foreach (unowned Json.Node _node in reminders.get_elements ()) {
+					Objects.Reminder? reminder = Services.Database.get_default ().get_reminder (_node.get_object ().get_string_member ("id"));
+
+					if (reminder != null) {
+						if (_node.get_object ().get_boolean_member ("is_deleted")) {
+							Services.Database.get_default ().delete_reminder (reminder);
+						}
+					} else {
+						reminder = new Objects.Reminder.from_json (_node);
+
+						Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+						if (item != null) {
+							item.add_reminder_if_not_exists (reminder);
+						}
 					}
 				}
 
@@ -782,7 +804,7 @@ public class Services.Todoist : GLib.Object {
 		string uuid = Util.get_default ().generate_string ();
 		string id;
 		string json = object.get_add_json (temp_id, uuid);
-		
+
 		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
@@ -1173,7 +1195,7 @@ public class Services.Todoist : GLib.Object {
 	private void print_root (Json.Node root) {
 		Json.Generator generator = new Json.Generator ();
 		generator.set_root (root);
-		debug (generator.to_data (null) + "\n");
+		print (generator.to_data (null) + "\n");
 	}
 
 	public string get_delete_json (string id, string type, string uuid) {
@@ -1279,17 +1301,14 @@ public class Services.Todoist : GLib.Object {
 
 	public async HttpResponse move_project_section (Objects.BaseObject base_object, string project_id) {
 		string uuid = Util.get_default ().generate_string ();
+		string json = base_object.get_move_json (uuid, project_id);
 
-		string url = "%s?commands=%s".printf (
-			TODOIST_SYNC_URL,
-			base_object.get_move_json (uuid, project_id)
-		);
-
-		var message = new Soup.Message ("POST", url);
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
 		message.request_headers.append (
 			"Authorization",
 			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
 		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
 
 		HttpResponse response = new HttpResponse ();
 
@@ -1351,6 +1370,165 @@ public class Services.Todoist : GLib.Object {
 		}
 
 		return response;
+	}
+
+	public async HttpResponse duplicate_project (Objects.Project project) {
+		string json = get_duplicate_project_json (project);
+
+		var message = new Soup.Message ("POST", TODOIST_SYNC_URL);
+		message.request_headers.append (
+			"Authorization",
+			"Bearer %s".printf (Services.Settings.get_default ().settings.get_string ("todoist-access-token"))
+		);
+		message.set_request_body_from_bytes ("application/json", new Bytes (json.data));
+
+		HttpResponse response = new HttpResponse ();
+		
+		try {
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			parser.load_from_data ((string) stream.get_data ());
+
+			print_root (parser.get_root ());
+
+			if (is_todoist_error (message.status_code)) {
+				response.from_error_json (parser.get_root ());
+
+				debug_error (
+					message.status_code,
+					get_todoist_error (message.status_code)
+				);
+			} else {
+				response.status = true;
+			}
+		} catch (Error e) {
+
+		}
+
+		return response;
+	}
+
+	private string get_duplicate_project_json (Objects.Project project) {
+		var builder = new Json.Builder ();
+
+		builder.begin_object ();
+		builder.set_member_name ("commands");
+		builder.begin_array ();
+			// New Project
+			builder.begin_object ();
+
+			builder.set_member_name ("type");
+			builder.add_string_value ("project_add");
+
+			builder.set_member_name ("temp_id");
+			builder.add_string_value ("_" + project.id);
+
+			builder.set_member_name ("uuid");
+			builder.add_string_value (Util.get_default ().generate_string ());
+
+			builder.set_member_name ("args");
+				builder.begin_object ();
+
+				builder.set_member_name ("name");
+				builder.add_string_value (project.name);
+
+				builder.set_member_name ("color");
+				builder.add_string_value (project.color);
+
+				builder.end_object ();
+			builder.end_object ();
+
+			// Sections
+			foreach (Objects.Section section in project.sections) {
+				builder.begin_object ();
+
+				builder.set_member_name ("type");
+				builder.add_string_value ("section_add");
+
+				builder.set_member_name ("temp_id");
+				builder.add_string_value ("_" + section.id);
+
+				builder.set_member_name ("uuid");
+				builder.add_string_value (Util.get_default ().generate_string ());
+
+				builder.set_member_name ("args");
+				builder.begin_object ();
+					builder.set_member_name ("name");
+					builder.add_string_value (section.name);
+
+					builder.set_member_name ("project_id");
+					builder.add_string_value ("_" + section.project_id);
+				builder.end_object ();
+				builder.end_object ();
+			}
+
+			// Items
+			foreach (Objects.Item item in project.all_items) {
+				builder.begin_object ();
+
+				builder.set_member_name ("type");
+				builder.add_string_value ("item_add");
+
+				builder.set_member_name ("temp_id");
+				builder.add_string_value ("_" + item.id);
+				
+				builder.set_member_name ("uuid");
+				builder.add_string_value (Util.get_default ().generate_string ());
+
+				builder.set_member_name ("args");
+				builder.begin_object ();
+					builder.set_member_name ("content");
+					builder.add_string_value (item.content);
+
+					builder.set_member_name ("description");
+					builder.add_string_value (item.description);
+
+					builder.set_member_name ("project_id");
+					builder.add_string_value ("_" + item.project_id);
+					
+					if (item.parent_id != "") {
+						builder.set_member_name ("parent_id");
+						builder.add_string_value ("_" + item.parent_id);
+					}
+
+					if (item.section_id != "") {
+						builder.set_member_name ("section_id");
+						builder.add_string_value ("_" + item.section_id);
+					}
+
+					builder.set_member_name ("priority");
+                    if (item.priority == 0) {
+                        builder.add_int_value (Constants.PRIORITY_4);
+                    } else {
+                        builder.add_int_value (item.priority);
+                    }
+
+					if (item.has_due) {
+                        builder.set_member_name ("due");
+                        builder.begin_object ();
+
+                        builder.set_member_name ("date");
+                        builder.add_string_value (item.due.date);
+
+                        builder.end_object ();
+                    }
+
+					builder.set_member_name ("labels");
+                        builder.begin_array ();
+                        foreach (Objects.Label label in item.labels) {
+                            builder.add_string_value (label.name);
+                        }
+                        builder.end_array ();
+                    builder.end_object ();
+				builder.end_object ();
+				builder.end_object ();
+			}
+		builder.end_array ();
+		builder.end_object ();
+		Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+        
+        return generator.to_data (null); 
 	}
 
 	public bool is_todoist_error (uint status_code) {

@@ -75,6 +75,8 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
         }
     }
 
+    public bool event_focus { get; set; default = true; }
+
     public HyperTextView (string placeholder_text) {
         Object (
             placeholder_text: placeholder_text
@@ -97,7 +99,10 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     }
 
     private void handle_focus_in () {
-        Services.EventBus.get_default ().disconnect_typing_accel ();
+        if (event_focus) {
+            Services.EventBus.get_default ().disconnect_typing_accel ();
+        }
+        
         enter ();
 
         if (buffer_get_text () == placeholder_text) {
@@ -107,7 +112,10 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
     }
 
     public void update_on_leave () {
-        Services.EventBus.get_default ().connect_typing_accel ();
+        if (event_focus) {
+            Services.EventBus.get_default ().connect_typing_accel ();
+        }
+        
         leave ();
 
         if (buffer_get_text () == "") {

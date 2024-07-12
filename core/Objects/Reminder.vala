@@ -26,6 +26,7 @@ public class Objects.Reminder : Objects.BaseObject {
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public int mm_offset { get; set; default = 0; }
     public int is_deleted { get; set; default = 0; }
+    public ReminderType reminder_type { get; set; default = ReminderType.ABSOLUTE; }
 
     Objects.Item? _item;
     public Objects.Item item {
@@ -39,19 +40,45 @@ public class Objects.Reminder : Objects.BaseObject {
         }
     }
 
-    bool _loading = false;
-    public bool loading {
-        set {
-            _loading = value;
-            loading_changed (_loading);
-        }
-
+    GLib.DateTime _datetime;
+    public GLib.DateTime datetime {
         get {
-            return _loading;
+            if (reminder_type == ReminderType.ABSOLUTE) {
+                _datetime = due.datetime;
+            } else {
+                _datetime = item.due.datetime.add_minutes (mm_offset * -1);
+            }
+
+            return _datetime; 
         }
     }
 
-    public signal void loading_changed (bool value);
+
+    string _relative_text;
+    public string relative_text {
+        get {
+            _relative_text = "";
+
+            if (reminder_type == ReminderType.ABSOLUTE) {
+                _relative_text = Utils.Datetime.get_relative_date_from_date (due.datetime);
+            } else {
+                _relative_text = Util.get_reminders_mm_offset_text (mm_offset);
+            }
+
+            return _relative_text;
+        }
+    }
+
+    public Reminder.from_json (Json.Node node) {
+        id = node.get_object ().get_string_member ("id");
+        item_id = node.get_object ().get_string_member ("item_id");
+        reminder_type = node.get_object ().get_string_member ("type") == "absolute" ? ReminderType.ABSOLUTE : ReminderType.RELATIVE;
+        mm_offset = (int32) node.get_object ().get_int_member ("item_id");
+
+        if (reminder_type == ReminderType.ABSOLUTE) {
+            due.update_from_todoist_json (node.get_object ().get_object_member ("due"));
+        }
+    }
 
     construct {
         deleted.connect (() => {
@@ -94,13 +121,19 @@ public class Objects.Reminder : Objects.BaseObject {
                     builder.set_member_name ("item_id");
                     builder.add_string_value (item_id);
 
-                    builder.set_member_name ("due");
-                    builder.begin_object ();
+                    builder.set_member_name ("type");
+                    builder.add_string_value (reminder_type.to_string ());
 
-                    builder.set_member_name ("date");
-                    builder.add_string_value (due.date);
-
-                    builder.end_object ();
+                    builder.set_member_name ("minute_offset");
+                    builder.add_int_value (mm_offset);
+                    
+                    if (reminder_type == ReminderType.ABSOLUTE) {
+                        builder.set_member_name ("due");
+                        builder.begin_object ();
+                        builder.set_member_name ("date");
+                        builder.add_string_value (due.date);
+                        builder.end_object ();
+                    }
 
                     builder.end_object ();
                 builder.end_object ();
@@ -115,9 +148,8 @@ public class Objects.Reminder : Objects.BaseObject {
     }
 
     public void delete () {
-        loading = true;
-
         if (item.project.backend_type == BackendType.TODOIST) {
+            loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_reminder (this);
@@ -128,5 +160,16 @@ public class Objects.Reminder : Objects.BaseObject {
             Services.Database.get_default ().delete_reminder (this);
             loading = false;
         }
+    }
+
+    public Objects.Reminder duplicate () {
+        var new_reminder = new Objects.Reminder ();
+        new_reminder.notify_uid = notify_uid;
+        new_reminder.service = service;
+        new_reminder.due = due;
+        new_reminder.mm_offset = mm_offset;
+        new_reminder.mm_offset = mm_offset;
+
+        return new_reminder;
     }
 }

@@ -47,11 +47,11 @@ public class Views.Labels : Adw.Bin {
         labels_todoist_header.set_sort_func (sort_func);
 
         labels_caldav_header = new Layouts.HeaderItem (_("Labels: Nextcloud"));
-        labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         labels_caldav_header.show_separator = true;
         labels_caldav_header.set_sort_func (sort_func);
 
-        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+        var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             hexpand = true,
             vexpand = true
         };
@@ -63,8 +63,8 @@ public class Views.Labels : Adw.Bin {
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
-            margin_start = 24,
-            margin_end = 48,
+            margin_start = 12,
+            margin_end = 12,
             margin_bottom = 64,
         };
 
@@ -94,35 +94,35 @@ public class Views.Labels : Adw.Bin {
 
         var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_local_header.add_widget_end (add_local_button);
         add_local_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.LOCAL);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_todoist_header.add_widget_end (add_todoist_button);
         add_todoist_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.TODOIST);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { Granite.STYLE_CLASS_FLAT, "header-item-button" }
+            css_classes = { "flat", "header-item-button" }
         };
 
         labels_caldav_header.add_widget_end (add_caldav_button);
         add_caldav_button.clicked.connect (() => {
             var dialog = new Dialogs.Label.new (BackendType.CALDAV);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
         });
 
         labels_local_header.row_activated.connect ((row) => {
@@ -166,12 +166,12 @@ public class Views.Labels : Adw.Bin {
             labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
         });
 
-        Services.CalDAV.get_default ().log_in.connect (() => {
-            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        Services.CalDAV.Core.get_default ().log_in.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         });
 
-        Services.CalDAV.get_default ().log_out.connect (() => {
-            labels_caldav_header.reveal = Services.CalDAV.get_default ().is_logged_in ();
+        Services.CalDAV.Core.get_default ().log_out.connect (() => {
+            labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();
         });
     }
 

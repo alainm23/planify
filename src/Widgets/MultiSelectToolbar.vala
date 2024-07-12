@@ -45,13 +45,18 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         css_classes = { "sidebar" };
 
         size_label = new Gtk.Label (null) {
-            css_classes = { "font-bold" }
+            css_classes = { "font-bold", "card" },
+            width_request = 32,
+            height_request = 24,
+            valign = Gtk.Align.CENTER,
+            margin_end = 6
         };
 
         schedule_button = new Widgets.ScheduleButton () {
-            sensitive = false
+            sensitive = false,
+            visible_clear_button = false,
+            visible_no_date = true
         };
-        schedule_button.visible_no_date = true;
 
         label_button = new Widgets.LabelPicker.LabelButton () {
             sensitive = false
@@ -64,7 +69,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         priority_button.set_priority (Constants.PRIORITY_4);
         
         menu_button = new Gtk.MenuButton () {
-            css_classes = { Granite.STYLE_CLASS_FLAT },
+            css_classes = { "flat" },
             valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
             icon_name = "view-more-symbolic",
@@ -77,10 +82,10 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             halign = Gtk.Align.CENTER,
             margin_start = 12,
             width_request = 100,
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
-        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        var content_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             margin_top = 9,
@@ -127,20 +132,14 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             unselect_all ();
         });
 
-        Services.EventBus.get_default ().request_escape.connect (() => {
-            unselect_all ();
-		});
-
-        Services.EventBus.get_default ().unselect_all.connect (() => {
-            unselect_all ();
-        });
-
         schedule_button.date_changed.connect ((datetime) => {
             set_datetime (datetime);
         });
 
         label_button.labels_changed.connect ((labels) => {
-            set_labels (labels);
+            if (labels.size > 0) {
+                set_labels (labels);
+            }
         });
 
         priority_button.changed.connect ((priority) => {
@@ -175,7 +174,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         foreach (string key in items_selected.keys) {
             var item = items_selected[key].item;
 
-            item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
+            item.due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
 
             if (item.due.date == "") {
                 item.due.reset ();
@@ -254,14 +253,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
             }
 
 
-            var dialog = new Adw.MessageDialog ((Gtk.Window) Planify.instance.main_window, 
-            title, message);
+            var dialog = new Adw.AlertDialog (title, message);
 
             dialog.body_use_markup = true;
             dialog.add_response ("cancel", _("Cancel"));
             dialog.add_response ("delete", _("Delete"));
             dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
@@ -291,7 +289,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     private void check_select_bar () {
         bool active = items_selected.size > 0;
 
-        size_label.label = active ? "(%d)".printf (items_selected.size) : "";
+        size_label.label = active ? items_selected.size.to_string () : "";
         schedule_button.sensitive = active;
         priority_button.sensitive = active;
         label_button.sensitive = active;

@@ -20,11 +20,15 @@
 */
 
 public class Widgets.ScheduleButton : Gtk.Grid {
+    public bool is_board { get; construct; }
+    public string label { get; construct; }
+
     private Gtk.Label due_label;
     
     private Gtk.Box schedule_box;
     private Gtk.Image due_image;
     private Widgets.DateTimePicker.DateTimePicker datetime_picker;
+    private Gtk.Revealer clear_revealer;
 
     private GLib.DateTime _datetime;
     public GLib.DateTime datetime {
@@ -50,25 +54,49 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         }
     }
 
+    public bool visible_clear_button {
+        set {
+            clear_revealer.visible = value;
+        }
+    }
+
     public signal void date_changed (GLib.DateTime? date);
 
-    public ScheduleButton () {
+    public ScheduleButton (string label = _("Schedule")) {
         Object (
+            is_board: false,
             valign: Gtk.Align.CENTER,
-            halign: Gtk.Align.CENTER,
-            tooltip_text: _("Schedule")
+            tooltip_text: label,
+            label: label
+        );
+    }
+
+    public ScheduleButton.for_board (string label = _("Schedule")) {
+        Object (
+            is_board: true,
+            tooltip_text: label,
+            label: label
         );
     }
 
     construct {
+        if (is_board) {
+            build_card_ui ();
+        } else {
+            build_ui ();
+        }
+    }
+
+    private void build_ui () {
         datetime_picker = new Widgets.DateTimePicker.DateTimePicker ();
 
         due_image = new Gtk.Image ();
         due_image.icon_name = "month-symbolic";
 
-        due_label = new Gtk.Label (_("Schedule")) {
+        due_label = new Gtk.Label (label) {
             xalign = 0,
-            use_markup = true
+            use_markup = true,
+            ellipsize = Pango.EllipsizeMode.END
         };
 
         schedule_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
@@ -85,13 +113,13 @@ public class Widgets.ScheduleButton : Gtk.Grid {
             css_classes = { "flat" }
         };
 
-        var clear_revealer = new Gtk.Revealer () {
+        clear_revealer = new Gtk.Revealer () {
 			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
 			child = clear_button
 		};
 
         attach (button, 0, 0);
-        attach (clear_revealer, 1, 0);
+        attach (clear_revealer, 1, 0);   
 
         datetime_picker.date_changed.connect (() => {
             datetime = datetime_picker.datetime;
@@ -118,61 +146,126 @@ public class Widgets.ScheduleButton : Gtk.Grid {
         });
     }
 
+    private void build_card_ui () {
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");
+
+        var title_label = new Gtk.Label (label) {
+            halign = START,
+            css_classes = { "title-4", "caption" }
+        };
+
+        due_label = new Gtk.Label (_("Set a Due Date")) {
+            xalign = 0,
+            use_markup = true,
+            halign = START,
+            ellipsize = Pango.EllipsizeMode.END,
+            css_classes = { "caption" }
+        };
+
+        var card_grid = new Gtk.Grid () {
+            column_spacing = 12,
+            margin_start = 12,
+            margin_end = 6,
+            margin_top = 6,
+            margin_bottom = 6,
+            vexpand = true,
+            hexpand = true
+        };
+        card_grid.attach (due_image, 0, 0, 1, 2);
+        card_grid.attach (title_label, 1, 0, 1, 1);
+        card_grid.attach (due_label, 1, 1, 1, 1);
+
+        datetime_picker = new Widgets.DateTimePicker.DateTimePicker () {
+            position = Gtk.PositionType.BOTTOM,
+            has_arrow = true
+        };
+        datetime_picker.set_parent (card_grid);
+
+        css_classes = { "card" };
+        attach (card_grid, 0, 0);
+        hexpand = true;
+        vexpand = true;
+
+        var click_gesture = new Gtk.GestureClick ();
+        card_grid.add_controller (click_gesture);
+        click_gesture.pressed.connect ((n_press, x, y) => {
+            datetime_picker.show ();
+        });
+
+        datetime_picker.date_changed.connect (() => {
+            datetime = datetime_picker.datetime;
+            date_changed (datetime);
+        });
+    }
+
     public void update_from_item (Objects.Item item) {
-        due_label.label = _("Schedule");
-        tooltip_text = _("Schedule");
-        due_image.icon_name = "month-symbolic";
+        if (is_board) {
+            due_label.label = _("Set a Due Date");
+            tooltip_text = label;
+            due_image.icon_name = "month-symbolic";
+        } else {
+            due_label.label = label;
+            tooltip_text = label;
+            due_image.icon_name = "month-symbolic";
+        }
+
+        if (!item.has_due) {
+            return;
+        }
+
+        due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
+        due_label.tooltip_text = due_label.label;
+    
+        datetime = new GLib.DateTime.local (
+            item.due.datetime.get_year (),
+            item.due.datetime.get_month (),
+            item.due.datetime.get_day_of_month (),
+            item.due.datetime.get_hour (),
+            item.due.datetime.get_minute (),
+            item.due.datetime.get_second ()
+        );
         
-        if (item.has_due) {
-            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+        if (Utils.Datetime.is_today (item.due.datetime)) {
+            due_image.icon_name = "star-outline-thick-symbolic";
+        } else if (Utils.Datetime.is_tomorrow (item.due.datetime)) {
+            due_image.icon_name = "today-calendar-symbolic";
+        } else if (Utils.Datetime.is_overdue (item.due.datetime)) {
+            due_image.icon_name = "month-symbolic";
+        } else {
+            due_image.icon_name = "month-symbolic";
+        }
 
-            datetime = new GLib.DateTime.local (
-                item.due.datetime.get_year (),
-                item.due.datetime.get_month (),
-                item.due.datetime.get_day_of_month (),
-                item.due.datetime.get_hour (),
-                item.due.datetime.get_minute (),
-                item.due.datetime.get_second ()
-            );
-            
-            if (Util.get_default ().is_today (item.due.datetime)) {
-                due_image.icon_name = "star-outline-thick-symbolic";
-            } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-
-            } else {
-                due_image.icon_name = "month-symbolic";
-            }
-
-            if (item.due.is_recurring) {
-                var end_label = "";
-                if (item.due.end_type == RecurrencyEndType.ON_DATE) {
-                    var date_label = Util.get_default ().get_default_date_format_from_date (
-                        Util.get_default ().get_format_date (
-                            Utils.Datetime.get_date_from_string (item.due.recurrency_end)
-                        )
-                    );
-                    end_label = _("until") + " " + date_label;
-                } else if (item.due.end_type == RecurrencyEndType.AFTER) {
-                    int count = item.due.recurrency_count;
-                    end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
-                }
-
-                due_image.icon_name = "arrow-circular-top-right-symbolic";
-                due_label.label += " <small>%s</small>".printf (
-                    Util.get_default ().get_recurrency_weeks (
-                        item.due.recurrency_type,
-                        item.due.recurrency_interval,
-                        item.due.recurrency_weeks,
-                        end_label
+        if (item.due.is_recurring) {
+            var end_label = "";
+            if (item.due.end_type == RecurrencyEndType.ON_DATE) {
+                var date_label = Utils.Datetime.get_default_date_format_from_date (
+                    Utils.Datetime.get_format_date (
+                        Utils.Datetime.get_date_from_string (item.due.recurrency_end)
                     )
-                ); 
+                );
+                end_label = _("until") + " " + date_label;
+            } else if (item.due.end_type == RecurrencyEndType.AFTER) {
+                int count = item.due.recurrency_count;
+                end_label = _("for") + " " + "%d %s".printf (count, count > 1 ? _("times") : _("time"));
             }
+
+            due_image.icon_name = "playlist-repeat-symbolic";
+            
+            string repeat_text = Utils.Datetime.get_recurrency_weeks (
+                item.due.recurrency_type,
+                item.due.recurrency_interval,
+                item.due.recurrency_weeks,
+                end_label
+            ).down ();
+
+            due_label.label += ", <small>%s</small>".printf (repeat_text);
+            due_label.tooltip_text = repeat_text;
         }
     }
 
     public void reset () {
-        due_label.label = _("Schedule");
-        tooltip_text = _("Schedule");
+        due_label.label = label;
+        tooltip_text = label;
         due_image.icon_name = "month-symbolic";
         datetime = null;
         datetime_picker.reset ();

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Label : Adw.Window {
+public class Dialogs.Label : Adw.Dialog {
     public Objects.Label label { get; construct; }
 
     private Adw.EntryRow name_entry;
@@ -40,32 +40,20 @@ public class Dialogs.Label : Adw.Window {
 
         Object (
             label: label,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("New Label"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("New Label")
         );
     }
 
     public Label (Objects.Label label) {
         Object (
             label: label,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("Edit Label"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("Edit Label")
         );
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         name_entry = new Adw.EntryRow ();
         name_entry.title = _("Give your label a name");
@@ -89,7 +77,7 @@ public class Dialogs.Label : Adw.Window {
             valign = Gtk.Align.START
         };
 
-        color_group.add_css_class (Granite.STYLE_CLASS_CARD);
+        color_group.add_css_class ("card");
         color_group.attach (color_picker_row, 0, 0);
         
         submit_button = new Widgets.LoadingButton.with_label (is_creating ? _("Add Label") : _("Update Label")) {
@@ -103,7 +91,7 @@ public class Dialogs.Label : Adw.Window {
         };
 
         submit_button.sensitive = !is_creating;
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         
@@ -124,7 +112,8 @@ public class Dialogs.Label : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = content_clamp;
 
-        content = toolbar_view;
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         Timeout.add (225, () => {
             name_entry.grab_focus ();
@@ -135,21 +124,14 @@ public class Dialogs.Label : Adw.Window {
         name_entry.entry_activated.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
 
-        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
-        name_entry.add_controller (name_entry_ctrl_key);
-
-        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-
-            return false;
-        });
-
         name_entry.changed.connect (() => {
             if (is_creating) {
                 submit_button.sensitive = !is_duplicate (name_entry.text);
             }
+        });
+
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -211,11 +193,6 @@ public class Dialogs.Label : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

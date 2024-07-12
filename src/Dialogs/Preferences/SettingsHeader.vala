@@ -42,21 +42,14 @@ public class Dialogs.Preferences.SettingsHeader : Adw.Bin {
     }
 
     construct {
-        var back_image = new Gtk.Image.from_icon_name ("go-previous-symbolic");
-
-        var back_grid = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3);
-        back_grid.append (back_image);
-
-        var back_button = new Gtk.Button () {
-            can_focus = false,
+        var back_button = new Gtk.Button.from_icon_name ("go-previous-symbolic") {
             valign = Gtk.Align.CENTER,
-            child = back_grid
+            tooltip_text = _("Back"),
+            css_classes = { "flat" }
         };
-
-        back_button.add_css_class (Granite.STYLE_CLASS_FLAT);
         
         title_label = new Gtk.Label (null);
-        title_label.add_css_class (Granite.STYLE_CLASS_TITLE_LABEL);
+        title_label.add_css_class ("title");
 
         var headerbar = new Gtk.HeaderBar () {
 			title_widget = title_label,

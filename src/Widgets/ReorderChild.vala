@@ -149,17 +149,6 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         var source_list = (Gtk.ListBox) picked_widget.row.parent;
         var target_list = (Gtk.ListBox) target_widget.row.parent;
-        //  var position = 0;
-
-        //  if (picked_widget.row.get_index () > target_widget.row.get_index ()) {
-        //      position = target_widget.row.get_index () + 1;
-        //  } else {
-        //      position = target_widget.row.get_index ();
-        //  }
-
-        //  if (first) {
-        //      position = 0;
-        //  }
         
         source_list.remove (picked_widget.row);
         target_list.insert (picked_widget.row, target_widget.row.get_index ());

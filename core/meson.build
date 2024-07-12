@@ -10,7 +10,9 @@ core_files = files(
     'Services/EventBus.vala',
     'Services/Database.vala',
     'Services/Todoist.vala',
-    'Services/CalDAV.vala',
+    'Services/CalDAV/Core.vala',
+    'Services/CalDAV/Constants.vala',
+    'Services/CalDAV/Backend.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',
@@ -29,6 +31,8 @@ core_files = files(
     'Widgets/ItemLabels.vala',
     'Widgets/ItemLabelChild.vala',
     'Widgets/CircularProgressBar.vala',
+    'Widgets/StatusButton.vala',
+    'Widgets/LabelsPickerCore.vala',
 
     'Widgets/Calendar/Calendar.vala',
     'Widgets/Calendar/CalendarDay.vala',
@@ -39,6 +43,7 @@ core_files = files(
     'Widgets/ContextMenu/MenuItem.vala',
     'Widgets/ContextMenu/MenuSeparator.vala',
     'Widgets/ContextMenu/MenuPicker.vala',
+    'Widgets/ContextMenu/MenuCheckPicker.vala',
     'Widgets/ContextMenu/MenuSwitch.vala',
     
     'Widgets/DateTimePicker/ScheduleButton.vala',
@@ -53,6 +58,19 @@ core_files = files(
     'Widgets/ProjectPicker/ProjectPickerRow.vala',
     'Widgets/ProjectPicker/ProjectPickerButton.vala',
 
+    'Widgets/SectionPicker/SectionButton.vala',
+    'Widgets/SectionPicker/SectionPicker.vala',
+    'Widgets/SectionPicker/SectionPickerRow.vala',
+
+    'Widgets/ReminderPicker/ReminderButton.vala',
+    'Widgets/ReminderPicker/ReminderPicker.vala',
+    'Widgets/ReminderPicker/ReminderRow.vala',
+
+    'Widgets/Markdown/MarkdownEditView.vala',
+    'Widgets/Markdown/MarkdownView.vala',
+    'Widgets/Markdown/Color.vala',
+    'Widgets/Markdown/MarkdownBuffer.vala',
+
     'Objects/BaseObject.vala',
     'Objects/Color.vala',
     'Objects/DueDate.vala',
@@ -64,13 +82,19 @@ core_files = files(
     'Objects/Section.vala',
     'Objects/Promise.vala',
     'Objects/Source.vala',
-    
+    'Objects/Attachment.vala',    
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',
     'Objects/Filters/Today.vala',
     'Objects/Filters/Priority.vala',
     'Objects/Filters/Completed.vala',
     'Objects/Filters/Labels.vala',
+    'Objects/Filters/Tomorrow.vala',
+    'Objects/Filters/Anytime.vala',
+    'Objects/Filters/Repeating.vala',
+    'Objects/Filters/Unlabeled.vala',
+    'Objects/Filters/FilterItem.vala',
+    'Objects/Filters/AllItems.vala'
 )
 
 core_deps = [

@@ -20,6 +20,8 @@
 */
 
 public class Layouts.ItemRow : Layouts.ItemBase {
+    public bool is_project_view { get; construct; }
+
     public string project_id { get; set; default = ""; }
     public string section_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
@@ -28,12 +30,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer motion_top_revealer;
 
     private Gtk.CheckButton checked_button;
-    private Gtk.Button checked_repeat_button;
-    private Gtk.Stack checked_stack;
-    private Gtk.Revealer checked_button_revealer;
     private Widgets.TextView content_textview;
     private Gtk.Revealer hide_loading_revealer;
     private Gtk.Revealer project_label_revealer;
+    private Gtk.Label project_label;
 
     private Gtk.CheckButton select_checkbutton;
     private Gtk.Revealer select_revealer;
@@ -43,11 +43,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Revealer content_entry_revealer;
 
     private Gtk.Label due_label;
-    private Gtk.Revealer due_label_revealer;
+    private Gtk.Box due_box;
+    private Gtk.Label repeat_label;
+    private Gtk.Revealer repeat_revealer;
+    private Gtk.Revealer due_box_revealer;
     private Gtk.Revealer description_image_revealer;
     private Gtk.Revealer pin_image_revealer;
-    private Gtk.Image repeat_image;
-    private Gtk.Revealer repeat_image_revealer;
+    private Gtk.Revealer reminder_revelaer;
+    private Gtk.Label reminder_count;
     
     private Gtk.Revealer detail_revealer;
     private Gtk.Revealer main_revealer;
@@ -55,15 +58,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.Popover menu_handle_popover = null;
     
     private Widgets.LoadingButton hide_loading_button;
-    private Widgets.HyperTextView description_textview;
+    private Widgets.Markdown.Buffer current_buffer;
+    private Widgets.Markdown.EditView markdown_edit_view = null;
+    private Gtk.Revealer markdown_revealer;
     private Widgets.ItemLabels item_labels;
     private Widgets.ScheduleButton schedule_button;
     private Widgets.LabelsSummary labels_summary;
     private Widgets.PriorityButton priority_button;
     private Widgets.LabelPicker.LabelButton label_button;
     private Widgets.PinButton pin_button;
-    private Widgets.ReminderButton reminder_button;
+    private Widgets.ReminderPicker.ReminderButton reminder_button;
     private Gtk.Button add_button;
+    private Gtk.MenuButton attachments_button;
     private Gtk.Box action_box;
 
     private Widgets.SubItems subitems;
@@ -79,6 +85,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private Gtk.DropTarget drop_magic_button_target;
     private Gtk.DropTarget drop_order_magic_button_target;
     private Gee.HashMap<ulong, GLib.Object> dnd_handlerses = new Gee.HashMap<ulong, GLib.Object> ();
+    private ulong description_handler_change_id = 0;
 
     bool _edit = false;
     public bool edit {
@@ -86,9 +93,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             _edit = value;
             
             if (value) {
+                add_css_class ("row");
                 itemrow_box.add_css_class ("card");
                 itemrow_box.add_css_class ("card-selected");
-                itemrow_box.add_css_class ("card-border");
+
+                if (markdown_edit_view == null) {
+                    build_markdown_edit_view ();
+                }
 
                 detail_revealer.reveal_child = true;
                 content_label_revealer.reveal_child = false;
@@ -100,10 +111,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 hide_loading_revealer.reveal_child = true;
 
                 // Due labels
-                due_label_revealer.reveal_child = false;
-                repeat_image_revealer.reveal_child = false;
+                due_box_revealer.reveal_child = false;
                 description_image_revealer.reveal_child = false;
                 pin_image_revealer.reveal_child = false;
+                reminder_revelaer.reveal_child = false;
 
                 if (complete_timeout != 0) {
                     itemrow_box.remove_css_class ("complete-animation");
@@ -111,21 +122,29 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 _disable_drag_and_drop ();
+
+                Timeout.add (250, () => {
+                    content_textview.grab_focus ();
+                    return GLib.Source.REMOVE;
+                });        
             } else {
+                remove_css_class ("row");
                 itemrow_box.remove_css_class ("card-selected");
                 itemrow_box.remove_css_class ("card");
-                itemrow_box.remove_css_class ("card-border");
 
                 detail_revealer.reveal_child = false;
                 content_label_revealer.reveal_child = true;
                 content_entry_revealer.reveal_child = false;
-                project_label_revealer.reveal_child = show_project_label;
+                project_label_revealer.reveal_child = !is_project_view;
                 hide_subtask_revealer.reveal_child = subitems.has_children;
                 hide_loading_button.add_css_class ("no-padding");
                 hide_loading_revealer.reveal_child = false;
+                
+                check_due ();
+                check_description ();
+                check_pinboard ();
+                check_reminders ();
                 labels_summary.check_revealer ();
-
-                update_request ();
 
                 if (drag_enabled) {
                     build_drag_and_drop ();   
@@ -166,36 +185,24 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
     }
 
-    private bool _show_project_label = false;
-    public bool show_project_label {
-        set {
-            _show_project_label = value;
-            project_label_revealer.reveal_child = _show_project_label;
-        }
-
-        get {
-            return _show_project_label;
-        }
-    }
-
     public uint destroy_timeout { get; set; default = 0; }
     public uint complete_timeout { get; set; default = 0; }
-    public bool on_drag = false;
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
     public signal void widget_destroyed ();
 
-    public ItemRow (Objects.Item item) {
+    public ItemRow (Objects.Item item, bool is_project_view = false) {
         Object (
             item: item,
+            is_project_view: is_project_view,
             focusable: false,
             can_focus: true
         );
     }
 
     construct {
-        css_classes = { "row", "no-padding" };
+        css_classes = { "no-selectable", "no-padding" };
 
         project_id = item.project_id;
         section_id = item.section_id;
@@ -215,33 +222,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         checked_button = new Gtk.CheckButton () {
             valign = Gtk.Align.CENTER,
-            css_classes = { "priority-color" }
+            css_classes = { "priority-color" },
+            sensitive = !item.project.is_deck
         };
 
-        checked_repeat_button = new Gtk.Button.from_icon_name ("view-refresh-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "no-padding" }
-        };
-        
-        checked_stack = new Gtk.Stack () {
-			transition_type = Gtk.StackTransitionType.CROSSFADE
-		};
-
-        //  checked_stack.add_named (checked_button, "check-button");
-        //  checked_stack.add_named (checked_repeat_button, "repeat-button");
-
-        checked_button_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SWING_RIGHT,
-            child = checked_button,
-            valign = Gtk.Align.CENTER,
-            reveal_child = true
-        };
-
-        content_label = new Gtk.Label (item.content) {
+        content_label = new Gtk.Label (null) {
             hexpand = true,
             xalign = 0,
             wrap = false,
-            ellipsize = Pango.EllipsizeMode.END
+            ellipsize = Pango.EllipsizeMode.END,
+            use_markup = true
         };
 
         content_label_revealer = new Gtk.Revealer () {
@@ -253,8 +243,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         content_textview = new Widgets.TextView ();
         content_textview.wrap_mode = Gtk.WrapMode.WORD;
-        content_textview.buffer.text = item.content;
-        content_textview.editable = !item.completed && !item.project.is_deck;
         content_textview.remove_css_class ("view");
         content_textview.add_css_class ("font-bold");
 
@@ -266,7 +254,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = content_textview
         };
 
-        hide_loading_button = new Widgets.LoadingButton.with_icon ("pan-down-symbolic", 16) {
+        hide_loading_button = new Widgets.LoadingButton.with_icon ("go-up-symbolic", 16) {
             valign = Gtk.Align.START,
             css_classes = { "flat", "dim-label", "no-padding" }
         };
@@ -288,14 +276,17 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = select_checkbutton
         };
 
-        var project_label = new Gtk.Label (item.project.short_name) {
-            css_classes = { "small-label", "dim-label" },
-            margin_start = 6
+        project_label = new Gtk.Label (null) {
+            css_classes = { "caption", "dim-label" },
+            margin_start = 6,
+            ellipsize = Pango.EllipsizeMode.END,
+            max_width_chars = 16
         };
 
         project_label_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = project_label
+            child = project_label,
+            reveal_child = !is_project_view
         };
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -308,26 +299,42 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         // Due Label
         due_label = new Gtk.Label (null) {
-            margin_start = 6,
             valign = Gtk.Align.CENTER,
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
+
+        var repeat_image = new Gtk.Image.from_icon_name ("playlist-repeat-symbolic") {
+            pixel_size = 12,
+            margin_top = 3
+        };
+
+        repeat_label = new Gtk.Label (null) {
+            valign = Gtk.Align.CENTER,
+            css_classes = { "caption" },
+            ellipsize = Pango.EllipsizeMode.END
+        };
+
+        var repeat_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 6
+        };
+
+        repeat_box.append (repeat_image);
+        repeat_box.append (repeat_label);
+
+        repeat_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = repeat_box
+        };
+
+        due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
+            margin_start = 6
+        };
+        due_box.append (due_label);
+        due_box.append (repeat_revealer);
     
-        due_label_revealer = new Gtk.Revealer () {
+        due_box_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = due_label
-        };
-
-        // Repeat Icon
-        repeat_image = new Gtk.Image.from_icon_name ("arrow-circular-top-right-symbolic") {
-            valign = Gtk.Align.CENTER,
-            margin_start = 6,
-            css_classes = { "dim-label" }
-        };
-
-        repeat_image_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
-            child = repeat_image
+            child = due_box
         };
 
         // Description Icon
@@ -351,9 +358,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         };
 
+        // Reminder Icon
+        var reminder_icon = new Gtk.Image.from_icon_name ("alarm-symbolic") {
+            pixel_size = 13
+        };
+
+        reminder_count = new Gtk.Label (item.reminders.size.to_string ());
+        
+        var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 3) {
+            valign = Gtk.Align.CENTER,
+            margin_start = 6,
+            css_classes = { "dim-label" },
+        };
+        
+        reminder_box.append (reminder_icon);
+        reminder_box.append (reminder_count);
+
+        reminder_revelaer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT,
+            child = reminder_box
+        };
+
         var content_main_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-        content_main_box.append (checked_button_revealer);
-        content_main_box.append (due_label_revealer);
+        content_main_box.append (checked_button);
+        content_main_box.append (due_box_revealer);
         content_main_box.append (content_box);
         content_main_box.append (hide_loading_revealer);
 
@@ -361,70 +389,83 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             margin_start = 24
         };
 
-        description_textview = new Widgets.HyperTextView (_("Add a description…")) {
-            height_request = 64,
-            left_margin = 24,
-            right_margin = 6,
-            top_margin = 3,
-            bottom_margin = 12,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
-            editable = !item.completed && !item.project.is_deck
-        };
-
-        description_textview.remove_css_class ("view");
-
-        var description_scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            vscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-            child = description_textview
-        };
+        current_buffer = new Widgets.Markdown.Buffer ();
+        markdown_revealer = new Gtk.Revealer ();
 
         item_labels = new Widgets.ItemLabels (item) {
             margin_start = 24,
-            sensitive = !item.completed && !item.project.is_deck
+            sensitive = !item.completed
         };
 
-        schedule_button = new Widgets.ScheduleButton ();
-        priority_button = new Widgets.PriorityButton ();
+        schedule_button = new Widgets.ScheduleButton () {
+            sensitive = !item.completed
+        };
+
+        priority_button = new Widgets.PriorityButton () {
+            sensitive = !item.completed
+        };
         
-        label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button = new Widgets.LabelPicker.LabelButton () {
+            sensitive = !item.completed
+        };
+        
         label_button.backend_type = item.project.backend_type;
 
-        pin_button = new Widgets.PinButton (item);
+        pin_button = new Widgets.PinButton () {
+            sensitive = !item.completed
+        };
 
-        reminder_button = new Widgets.ReminderButton (item);
+        reminder_button = new Widgets.ReminderPicker.ReminderButton () {
+            sensitive = !item.completed
+        };
 
         add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            tooltip_text = _("Add subtask"),
-            margin_top = 1,
-            can_focus = false,
-            focusable = false,
-            css_classes = { "flat" }
+            tooltip_text = _("Add Subtasks"),
+            css_classes = { "flat" },
+            sensitive = !item.completed
+        };
+
+        var attachments = new Widgets.Attachments ();
+        attachments.present_item (item);
+        
+        attachments_button = new Gtk.MenuButton () {
+            icon_name = "mail-attachment-symbolic",
+            tooltip_text = _("Add Attachments"),
+            popover = new Gtk.Popover () {
+                child = attachments,
+                width_request = 350
+            },
+            css_classes = { "flat" },
+            sensitive = !item.completed
         };
         
         menu_button = new Gtk.MenuButton () {
             icon_name = "view-more-symbolic",
             popover = build_button_context_menu (),
-            css_classes = { "flat" }
+            css_classes = { "flat" },
+            hexpand = Services.EventBus.get_default ().mobile_mode ? true : false,
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.END : Gtk.Align.FILL
         };
     
-        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
+        action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
             margin_start = 16,
             margin_top = 6,
             hexpand = true,
-            sensitive = !item.completed && !item.project.is_deck
+            sensitive = !item.project.is_deck
         };
 
+        if (Services.EventBus.get_default ().mobile_mode) {
+            action_box.orientation = Gtk.Orientation.VERTICAL;
+        }
+
         var action_box_right = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0) {
-            hexpand = true,
-            halign = Gtk.Align.END
+            hexpand = Services.EventBus.get_default ().mobile_mode ? false : true,
+            halign = Services.EventBus.get_default ().mobile_mode ? Gtk.Align.FILL : Gtk.Align.END
         };
 
         action_box_right.append (add_button);
+        action_box_right.append (attachments_button);
         action_box_right.append (label_button);
         action_box_right.append (priority_button);
         action_box_right.append (reminder_button);
@@ -434,9 +475,28 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         action_box.append (schedule_button);
         action_box.append (action_box_right);
 
-        var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        Services.EventBus.get_default ().mobile_mode_change.connect (() => {
+            if (Services.EventBus.get_default ().mobile_mode) {
+                action_box_right.hexpand = false;
+                action_box_right.halign = Gtk.Align.FILL;
 
-        details_grid.append (description_scrolled_window);
+                menu_button.hexpand = true;
+                menu_button.halign = Gtk.Align.END;
+
+                action_box.orientation = Gtk.Orientation.VERTICAL;
+            } else {
+                action_box_right.hexpand = true;
+                action_box_right.halign = Gtk.Align.END;
+
+                menu_button.hexpand = false;
+                menu_button.halign = Gtk.Align.FILL;
+
+                action_box.orientation = Gtk.Orientation.HORIZONTAL;
+            }
+        });
+
+        var details_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        details_grid.append (markdown_revealer);
         details_grid.append (item_labels);
         details_grid.append (action_box);
 
@@ -461,8 +521,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
         _itemrow_box.append (handle_grid);
         _itemrow_box.append (pin_image_revealer);
+        _itemrow_box.append (reminder_revelaer);
         _itemrow_box.append (description_image_revealer);
-        _itemrow_box.append (repeat_image_revealer);
         _itemrow_box.append (select_revealer);
         _itemrow_box.append (project_label_revealer);
 
@@ -471,7 +531,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             child = _itemrow_box
         };
 
-        subitems = new Widgets.SubItems (item);
+        subitems = new Widgets.SubItems (is_project_view);
+        subitems.present_item (item);
         subitems.reveal_child = item.collapsed;
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -525,19 +586,29 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     private void connect_signals () {
         var handle_gesture_click = new Gtk.GestureClick ();
         itemrow_box.add_controller (handle_gesture_click);
-        handle_gesture_click.pressed.connect ((n_press, x, y) => {
+        handle_gesture_click.released.connect ((n_press, x, y) => {
             if (Services.EventBus.get_default ().multi_select_enabled) {
                 select_checkbutton.active = !select_checkbutton.active;
                 selected_toggled (select_checkbutton.active);             
             } else {
-                Timeout.add (Constants.DRAG_TIMEOUT, () => {
-                    if (!on_drag) {
-                        edit = true;
+                Timeout.add (100, () => {
+                    if (Services.Settings.get_default ().settings.get_boolean ("open-task-sidebar")) {
+                        Services.EventBus.get_default ().open_item (item);
+                    } else {
+                        if (Services.Settings.get_default ().settings.get_boolean ("attention-at-one")) {
+                            Services.EventBus.get_default ().item_selected (item.id);
+                        } else {
+                            edit = true;
+                        }
                     }
 
                     return GLib.Source.REMOVE;
                 });
             }
+        });
+
+        Services.EventBus.get_default ().item_selected.connect ((item_id) => {
+            edit = item.id == item_id;
         });
 
         var content_controller_key = new Gtk.EventControllerKey ();
@@ -547,7 +618,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 edit = false;    
                 return Gdk.EVENT_STOP;
             } else if (keyval == 65289) {
-                description_textview.grab_focus ();
+                markdown_edit_view.view_focus ();
                 return Gdk.EVENT_STOP;
             }
 
@@ -558,17 +629,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (keyval == 65307) {
                 edit = false;
             } else { 
-                update ();
-            }
-        });
-
-        var description_controller_key = new Gtk.EventControllerKey ();
-        description_textview.add_controller (description_controller_key);
-        description_controller_key.key_released.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                edit = false;
-            } else {
-                update ();
+                update_content_description ();
             }
         });
 
@@ -580,17 +641,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_toggled (checked_button.active);
         });
 
-        var repeat_button_gesture = new Gtk.GestureClick ();
-        checked_repeat_button.add_controller (repeat_button_gesture);
-        repeat_button_gesture.pressed.connect (() => {
-            repeat_button_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
-            update_next_recurrency ();
-        });
-
-        var hide_loading_gesture = new Gtk.GestureClick ();
-        hide_loading_button.add_controller (hide_loading_gesture);
-        hide_loading_gesture.pressed.connect (() => {
-            hide_loading_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
+        hide_loading_button.clicked.connect (() => {
             edit = false;
         });
 
@@ -628,15 +679,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);
         itemrow_box.add_controller (menu_handle_gesture);
-        menu_handle_gesture.pressed.connect ((n_press, x, y) => {
-            if (!item.completed && !item.project.is_deck) {
+        menu_handle_gesture.released.connect ((n_press, x, y) => {
+            if (!item.project.is_deck) {
                 build_handle_context_menu (x, y);
             }
         });
 
         var multiselect_gesture = new Gtk.GestureClick ();
         select_checkbutton.add_controller (multiselect_gesture);
-
         multiselect_gesture.pressed.connect (() => {
             multiselect_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             select_checkbutton.active = !select_checkbutton.active;
@@ -646,29 +696,38 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         Services.EventBus.get_default ().show_multi_select.connect ((active) => {            
             if (active) {
                 select_revealer.reveal_child = true;
-                checked_button_revealer.reveal_child = false;
+                checked_button.sensitive = false;
                 labels_summary.reveal_child = false;
                 disable_drag_and_drop ();
             } else {
                 select_revealer.reveal_child = false;
-                checked_button_revealer.reveal_child = true;
-                labels_summary.check_revealer ();
-                build_drag_and_drop ();
+                checked_button.sensitive = true;
 
+                if (!edit) {
+                    labels_summary.check_revealer ();
+                }
+                
+                if (drag_enabled) {
+                    build_drag_and_drop ();   
+                }
+                
                 select_checkbutton.active = false;
             }
         });
 
         var add_subitem_gesture = new Gtk.GestureClick ();
-        add_subitem_gesture.set_button (1);
         add_button.add_controller (add_subitem_gesture);
         add_subitem_gesture.pressed.connect ((n_press, x, y) => {
             add_subitem_gesture.set_state (Gtk.EventSequenceState.CLAIMED);
             subitems.prepare_new_item ();
         });
 
-        item.loading_changed.connect ((value) => {
-            is_loading = value;
+        item.loading_change.connect (() => {
+            is_loading = item.loading;
+        });
+
+        item.sensitive_change.connect (() => {
+            sensitive = item.sensitive;
         });
 
         hide_subtask_button.clicked.connect (() => {
@@ -693,10 +752,26 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.show_item_changed.connect (() => {
             main_revealer.reveal_child = item.show_item;
         });
+
+        reminder_button.reminder_added.connect ((reminder) => {
+            item.add_reminder (reminder);
+        });
+
+        item.reminder_added.connect ((reminder) => {
+            reminder_button.add_reminder (reminder, item.reminders);
+            check_reminders ();
+        });
+
+        item.reminder_deleted.connect ((reminder) => {
+            reminder_button.delete_reminder (reminder, item.reminders);
+            check_reminders ();
+        });
     }
 
     public void check_hide_subtask_button () {
-        hide_subtask_revealer.reveal_child = subitems.has_children;
+        if (!edit) {
+            hide_subtask_revealer.reveal_child = subitems.has_children;
+        }
     }
 
     private void selected_toggled (bool active) {
@@ -707,20 +782,28 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         }
     }
 
-    private void update () {
-        if (item.content != content_textview.buffer.text ||
-            item.description != description_textview.get_text ()) {
-            item.content = content_textview.buffer.text;
-            item.description = description_textview.get_text ();
-            item.update_async_timeout (update_id);
-        }
-    }
-
     public override void select_row (bool active) {
         if (active) {
             itemrow_box.add_css_class ("complete-animation");
         } else {
             itemrow_box.remove_css_class ("complete-animation");
+        }
+    }
+
+
+    private void update_content_description () {
+        if (item.content != content_textview.buffer.text) {
+            item.content = content_textview.buffer.text;
+            content_label.label = Util.get_default ().markup_string (item.content);
+            content_label.tooltip_text = item.content;
+            item.update_async_timeout (update_id);
+            return;
+        }
+
+        if (item.description != current_buffer.get_all_text ().chomp ()) {
+            item.description = current_buffer.get_all_text ().chomp ();
+            item.update_async_timeout (update_id);
+            return;
         }
     }
 
@@ -736,20 +819,54 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             }
         }
 
-        content_label.label = item.content;
+        content_label.label = Util.get_default ().markup_string (item.content);
         content_label.tooltip_text = item.content;
         content_textview.buffer.text = item.content;
-        description_textview.set_text (item.description);
-                
+
+        // ItemType
+        if (item.item_type == ItemType.TASK) {
+            checked_button.sensitive = true;
+            checked_button.opacity = 1;
+        } else {
+            checked_button.sensitive = false;
+            checked_button.opacity = 0;
+        }
+
+        // Update Description
+        if (description_handler_change_id != 0) {
+            current_buffer.disconnect (description_handler_change_id);
+            description_handler_change_id = 0;
+        }
+        
+        current_buffer.text = item.description;
+
+        if (description_handler_change_id == 0) {
+            description_handler_change_id = current_buffer.changed.connect (() => {
+                update_content_description ();
+            });
+        }
+        
+        project_label.label = item.project.name;
+        if (item.has_parent) {
+            if (item.parent.has_parent) {
+                project_label.label += " /…/ " + item.parent.content;
+            } else {
+                project_label.label += " / " + item.parent.content;
+            }
+        }
+        project_label.tooltip_text = project_label.label;
+        
         labels_summary.update_request ();
         label_button.labels = item._get_labels ();
         schedule_button.update_from_item (item);
         priority_button.update_from_item (item);
-        pin_button.update_request ();
+        pin_button.update_from_item (item);
+        reminder_button.set_reminders (item.reminders);
         
         check_due ();
         check_description ();
         check_pinboard ();
+        check_reminders ();
 
         if (!edit) {
             labels_summary.check_revealer ();
@@ -757,9 +874,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         if (edit) {
             content_textview.editable = !item.completed && !item.project.is_deck;
-            description_textview.editable = !item.completed && !item.project.is_deck;
+            markdown_edit_view.is_editable = !item.completed && !item.project.is_deck;
             item_labels.sensitive = !item.completed && !item.project.is_deck;
-            action_box.sensitive = !item.completed && !item.project.is_deck;
+            
+            schedule_button.sensitive = !item.completed;
+            priority_button.sensitive = !item.completed;
+            label_button.sensitive = !item.completed;
+            pin_button.sensitive = !item.completed;
+            reminder_button.sensitive = !item.completed;
+            add_button.sensitive = !item.completed;
+            attachments_button.sensitive = !item.completed;
         }
     }
 
@@ -768,49 +892,59 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void check_pinboard () {
-        pin_image_revealer.reveal_child = item.pinned;
+        pin_image_revealer.reveal_child = !edit && item.pinned;
+    }
+
+    private void check_reminders () {
+        reminder_count.label = item.reminders.size.to_string ();
+        reminder_revelaer.reveal_child = !edit && item.reminders.size > 0;
     }
 
     private void check_due () {
-        due_label.remove_css_class ("overdue-grid");
-        due_label.remove_css_class ("today-grid");
-        due_label.remove_css_class ("upcoming-grid");
+        due_box.remove_css_class ("overdue-grid");
+        due_box.remove_css_class ("today-grid");
+        due_box.remove_css_class ("upcoming-grid");
 
         if (item.completed) {
-            due_label.label = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_date_from_string (item.completed_at)
+            due_label.label = Utils.Datetime.get_relative_date_from_date (
+                Utils.Datetime.get_format_date (
+                    Utils.Datetime.get_date_from_string (item.completed_at)
+                )
             );
-            due_label.add_css_class ("completed-grid");
-            due_label_revealer.reveal_child = true;
+            due_box.add_css_class ("completed-grid");
+            due_box_revealer.reveal_child = true;
             return;
         }
 
         if (item.has_due) {
-            due_label.label = Util.get_default ().get_relative_date_from_date (item.due.datetime);
+            due_label.label = Utils.Datetime.get_relative_date_from_date (item.due.datetime);
 
             if (!edit) {
-                due_label_revealer.reveal_child = true;
-                //  checked_stack.visible_child_name = item.due.is_recurring ? "repeat-button" : "check-button";
+                due_box_revealer.reveal_child = true;
             }
 
+            repeat_revealer.reveal_child = item.due.is_recurring;
             if (item.due.is_recurring) {
-                repeat_image.tooltip_text = Util.get_default ().get_recurrency_weeks (
+                due_label.label += ", ";
+                repeat_label.label = Utils.Datetime.get_recurrency_weeks (
                     item.due.recurrency_type, item.due.recurrency_interval,
                     item.due.recurrency_weeks
-                );
+                ).down ();
             }
 
-            if (Util.get_default ().is_today (item.due.datetime)) {
-                due_label.add_css_class ("today-grid");
-            } else if (Util.get_default ().is_overdue (item.due.datetime)) {
-                due_label.add_css_class ("overdue-grid");
+            if (Utils.Datetime.is_today (item.due.datetime)) {
+                due_box.add_css_class ("today-grid");
+            } else if (Utils.Datetime.is_overdue (item.due.datetime)) {
+                due_box.add_css_class ("overdue-grid");
             } else {
-                due_label.add_css_class ("upcoming-grid");
+                due_box.add_css_class ("upcoming-grid");
             }
         } else {
             due_label.label = "";
-            due_label_revealer.reveal_child = false;
-            //  checked_stack.visible_child_name = "check-button";
+            repeat_label.label = "";
+
+            due_box_revealer.reveal_child = false;
+            repeat_revealer.reveal_child = false;
         }
     }
 
@@ -841,7 +975,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 no_date_item.visible = false;
             }
 
-            menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
+            menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
             menu_handle_popover.popup ();
             return;
         }
@@ -852,7 +986,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
         tomorrow_item.secondary_text = new GLib.DateTime.now_local ().add_days (1).format ("%a");
 
-        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pinned"), "pin-symbolic");
+        var pinboard_item = new Widgets.ContextMenu.MenuItem (_("Pin"), "pin-symbolic");
         
         no_date_item = new Widgets.ContextMenu.MenuItem (_("No Date"), "cross-large-circle-filled-symbolic");
         no_date_item.visible = item.has_due;
@@ -862,45 +996,59 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         var add_item = new Widgets.ContextMenu.MenuItem (_("Add Subtask"), "plus-large-symbolic");
         var complete_item = new Widgets.ContextMenu.MenuItem (_("Complete"), "check-round-outline-symbolic");
         var edit_item = new Widgets.ContextMenu.MenuItem (_("Edit"), "edit-symbolic");
+        var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (today_item);
-        menu_box.append (tomorrow_item);
-        menu_box.append (pinboard_item);
-        menu_box.append (no_date_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (move_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (complete_item);
-        menu_box.append (edit_item);
-        menu_box.append (add_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
-        menu_box.append (delete_item);
+
+        if (!item.completed && !item.project.is_deck) {
+            menu_box.append (today_item);
+            menu_box.append (tomorrow_item);
+            menu_box.append (pinboard_item);
+            menu_box.append (no_date_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (move_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (complete_item);
+            menu_box.append (edit_item);
+            menu_box.append (add_item);
+            menu_box.append (duplicate_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
+        if (!item.project.is_deck) {
+            menu_box.append (delete_item);
+        }
 
         menu_handle_popover = new Gtk.Popover () {
             has_arrow = false,
             child = menu_box,
-            position = Gtk.PositionType.RIGHT,
+            halign = Gtk.Align.START,
             width_request = 250
         };
 
         menu_handle_popover.set_parent (this);
-        menu_handle_popover.pointing_to = { (int) x, (int) y, 1, 1 };
-
+        menu_handle_popover.pointing_to = { ((int) x), (int) y, 1, 1 };
         menu_handle_popover.popup ();
 
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
+
+            BackendType backend_type;
+            if (item.project.is_inbox_project) {
+                backend_type = BackendType.ALL;
+            } else {
+                backend_type = item.project.backend_type;
+            }
+
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -913,12 +1061,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         today_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Util.get_default ().get_format_date (new DateTime.now_local ()));
+            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ()));
         });
 
         tomorrow_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-            update_due (Util.get_default ().get_format_date (new DateTime.now_local ().add_days (1)));
+            update_due (Utils.Datetime.get_format_date (new DateTime.now_local ().add_days (1)));
         });
 
         pinboard_item.activate_item.connect (() => {
@@ -939,9 +1087,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         edit_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
-
-            var dialog = new Dialogs.ItemView (item);
-            dialog.show ();
+            Services.EventBus.get_default ().open_item (item);
         });
 
         delete_item.activate_item.connect (() => {
@@ -954,34 +1100,31 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
+        });
+
+        duplicate_item.clicked.connect (() => {
+            menu_handle_popover.popdown ();
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
     }
 
-    private string get_updated_info () {
-        string added_at = _("Added at");
-        string updated_at = _("Updated at");
-        string added_date = Util.get_default ().get_relative_date_from_date (item.added_datetime);
-        string updated_date = "(" + _("Not available") + ")";
-        if (item.updated_at != "") {
-            updated_date = Util.get_default ().get_relative_date_from_date (item.updated_datetime);
-        }
-
-        return "<b>%s:</b> %s\n<b>%s:</b> %s".printf (added_at, added_date, updated_at, updated_date);
-    }
-
     private Gtk.Popover build_button_context_menu () {
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+
+        var use_note_item = new Widgets.ContextMenu.MenuSwitch (_("Use as a Note"), "paper-symbolic");
+        use_note_item.active = item.item_type == ItemType.NOTE;
+
         var copy_clipboard_item = new Widgets.ContextMenu.MenuItem (_("Copy to Clipboard"), "clipboard-symbolic");
         var duplicate_item = new Widgets.ContextMenu.MenuItem (_("Duplicate"), "tabs-stack-symbolic");
         var move_item = new Widgets.ContextMenu.MenuItem (_("Move"), "arrow3-right-symbolic");
-        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "arrow-circular-top-right-symbolic");
+        var repeat_item = new Widgets.ContextMenu.MenuItem (_("Repeat"), "playlist-repeat-symbolic");
         repeat_item.arrow = true;
 
         var delete_item = new Widgets.ContextMenu.MenuItem (_("Delete Task"), "user-trash-symbolic");
         delete_item.add_css_class ("menu-item-danger");
 
-        var more_information_item = new Widgets.ContextMenu.MenuItem ("", null);
-        more_information_item.add_css_class ("small-label");
+        var more_information_item = new Widgets.ContextMenu.MenuItem (_("Change History"), "rotation-edit-symbolic");
 
         var popover = new Gtk.Popover () {
             has_arrow = false,
@@ -991,11 +1134,18 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
-        menu_box.append (copy_clipboard_item);
-        menu_box.append (duplicate_item);
-        menu_box.append (move_item);
-        menu_box.append (repeat_item);
-        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+
+        if (!item.completed) {
+            menu_box.append (use_note_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+            menu_box.append (copy_clipboard_item);
+            menu_box.append (duplicate_item);
+            menu_box.append (move_item);
+            menu_box.append (repeat_item);
+            menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
+        }
+
+        
         menu_box.append (delete_item);
         menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (more_information_item);
@@ -1006,10 +1156,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         };
 
         menu_stack.add_named (menu_box, "menu");
-        menu_stack.add_named (get_repeat_widget (popover), "repeat");
+        menu_stack.add_named (get_repeat_widget (popover, back_item), "repeat");
 
         popover.child = menu_stack;
 
+        use_note_item.activate_item.connect (() => {
+            item.item_type = use_note_item.active ? ItemType.NOTE : ItemType.TASK;
+            item.update_local ();
+        });
+        
         copy_clipboard_item.clicked.connect (() => {
             popover.popdown ();
             item.copy_clipboard ();
@@ -1017,7 +1172,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
         duplicate_item.clicked.connect (() => {
             popover.popdown ();
-            item.duplicate ();
+            Util.get_default ().duplicate_item.begin (item, item.project_id, item.section_id, item.parent_id);
         });
 
         move_item.clicked.connect (() => {            
@@ -1027,7 +1182,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
@@ -1046,8 +1201,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             menu_stack.set_visible_child_name ("menu");
         });
 
-        popover.show.connect (() => {
-            more_information_item.title = get_updated_info ();
+        back_item.clicked.connect (() => {
+            menu_stack.set_visible_child_name ("menu");
         });
 
         delete_item.activate_item.connect (() => {
@@ -1055,10 +1210,16 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             delete_request ();
         });
 
+        more_information_item.activate_item.connect (() => {
+            popover.popdown ();
+            var dialog = new Dialogs.ItemChangeHistory (item);
+            dialog.present (Planify._instance.main_window);
+        });
+
         return popover;
     }
 
-    private Gtk.Widget get_repeat_widget (Gtk.Popover popover) {
+    private Gtk.Widget get_repeat_widget (Gtk.Popover popover, Widgets.ContextMenu.MenuItem back_item) {
         var none_item = new Widgets.ContextMenu.MenuItem (_("None"));
         var daily_item = new Widgets.ContextMenu.MenuItem (_("Daily"));
         var weekly_item = new Widgets.ContextMenu.MenuItem (_("Weekly"));
@@ -1068,6 +1229,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         
         var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         menu_box.margin_top = menu_box.margin_bottom = 3;
+        menu_box.append (back_item);
+        menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
         menu_box.append (daily_item);
         menu_box.append (weekly_item);
         menu_box.append (monthly_item);
@@ -1135,7 +1298,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             popover.popdown ();
 
             var dialog = new Dialogs.RepeatConfig ();
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             if (item.has_due) {
                 dialog.duedate = item.due;
@@ -1170,6 +1333,10 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void complete_item (bool old_checked, uint? time = null) {
+        if (Services.Settings.get_default ().settings.get_boolean ("task-complete-tone")) {
+            Util.get_default ().play_audio ();
+        }
+
         uint timeout = 2500;
         if (Services.Settings.get_default ().settings.get_enum ("complete-task") == 0) {
             timeout = 0;
@@ -1194,7 +1361,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 update_next_recurrency ();
             } else {
                 item.checked = true;
-                item.completed_at = Util.get_default ().get_format_date (
+                item.completed_at = Utils.Datetime.get_format_date (
                     new GLib.DateTime.now_local ()
                 ).to_string ();    
                 _complete_item (old_checked);   
@@ -1220,8 +1387,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         } else if (item.project.backend_type == BackendType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
-            Services.CalDAV.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.get_default ().complete_item.end (res).status) {
+            Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
                     Services.Database.get_default ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
@@ -1240,13 +1407,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public void update_due (GLib.DateTime? datetime) {
-        item.due.date = datetime == null ? "" : Util.get_default ().get_todoist_datetime_format (datetime);
-
-        if (item.due.date == "") {
-            item.due.reset ();
-        }
-
-        item.update_async ("");
+        item.update_due (datetime);
     }
 
     private void update_next_recurrency () {
@@ -1267,7 +1428,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         content_label.remove_css_class ("line-through");
 
         var title = _("Completed. Next occurrence: %s".printf (
-            Util.get_default ().get_default_date_format_from_date (next_recurrency)
+            Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
         Services.EventBus.get_default ().send_notification (toast);
@@ -1329,10 +1490,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
 
-        if (item.project_id != project_id || item.section_id != section_id) {
-            item.move (project, section_id);
+        if (item.project.backend_type != project.backend_type) {
+            Util.get_default ().move_backend_type_item.begin (item, project);
+        } else {
+            if (item.project_id != project_id || item.section_id != section_id) {
+                item.move (project, section_id);
+            }
         }
     }
+    
     public void build_drag_and_drop () {
         // Drop Motion
         build_drop_motion ();
@@ -1439,8 +1605,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     }
                 });
             } else if (picked_item.project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (picked_item, true, (obj, res) => {
-                    if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
+                    if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                         target_item.collapsed = true;
                         Services.Database.get_default ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
@@ -1459,7 +1625,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         dnd_handlerses[drop_magic_button_target.drop.connect ((value, x, y) => {
             var dialog = new Dialogs.QuickAdd ();
             dialog.for_base_object (item);
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
 
             return true;
         })] = drop_magic_button_target;
@@ -1470,7 +1636,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var dialog = new Dialogs.QuickAdd ();
             dialog.set_index (get_index ());
             
-            if (item.parent_id != "") {
+            if (item.has_parent) {
                 dialog.for_base_object (item.parent);
             } else {
                 if (item.section_id != "") {
@@ -1480,7 +1646,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
             }
 
-            dialog.show ();
+            dialog.present (Planify._instance.main_window);
             return true;
         })] = drop_order_magic_button_target;
     }
@@ -1539,7 +1705,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         move_type = "section_id";
                     }
 
-                    if (picked_widget.item.parent_id != "") {
+                    if (picked_widget.item.has_parent) {
                         move_id = picked_widget.item.parent_id;
                         move_type = "parent_id";
                     }
@@ -1550,8 +1716,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                         }
                     });
                 } else if (picked_widget.item.project.backend_type == BackendType.CALDAV) {
-                    Services.CalDAV.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
-                        if (Services.CalDAV.get_default ().add_task.end (res).status) {
+                    Services.CalDAV.Core.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
+                        if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                             Services.Database.get_default ().update_item (picked_widget.item);
                         }
                     });
@@ -1573,6 +1739,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void disable_drag_and_drop () {
         drag_enabled = false;
         _disable_drag_and_drop ();
+
+        subitems.disable_drag_and_drop ();
     }
 
     private void _disable_drag_and_drop () {
@@ -1590,14 +1758,14 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     public void drag_begin () {
         itemrow_box.add_css_class ("drop-begin");
-        on_drag = true;
         main_revealer.reveal_child = false;
+        Services.EventBus.get_default ().drag_n_drop_active (item.project_id, true);
     }
 
     public void drag_end () {
         itemrow_box.remove_css_class ("drop-begin");
-        on_drag = false;
         main_revealer.reveal_child = item.show_item;
+        Services.EventBus.get_default ().drag_n_drop_active (item.project_id, false);
     }
     
     private void update_items_item_order (Gtk.ListBox listbox) {
@@ -1614,5 +1782,30 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             row_index++;
         } while (item_row != null);
+    }
+
+    private void build_markdown_edit_view () {
+        markdown_edit_view = new Widgets.Markdown.EditView () {
+            left_margin = 24,
+            right_margin = 6,
+            top_margin = 3,
+            bottom_margin = 12
+        };
+        
+        markdown_edit_view.buffer = current_buffer;
+
+        markdown_revealer.child = markdown_edit_view;
+        markdown_revealer.reveal_child = true;
+
+        var description_gesture_click = new Gtk.GestureClick ();
+        markdown_edit_view.add_controller (description_gesture_click);
+        description_gesture_click.released.connect ((n_press, x, y) => {
+            description_gesture_click.set_state (Gtk.EventSequenceState.CLAIMED);
+            markdown_edit_view.view_focus ();
+        });
+
+        markdown_edit_view.escape.connect (() => {
+            edit = false;
+        });
     }
 }

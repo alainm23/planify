@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Objects.Today : Objects.BaseObject {
+public class Objects.Filters.Today : Objects.BaseObject {
     private static Today? _instance;
     public static Today get_default () {
         if (_instance == null) {
@@ -64,7 +64,9 @@ public class Objects.Today : Objects.BaseObject {
 
     construct {
         name = _("Today");
-        keywords = _("today");
+        keywords = _("today") + ";" + _("filters");
+        icon_name = "star-outline-thick-symbolic";
+        view_id = FilterType.TODAY.to_string ();
 
         Services.Database.get_default ().item_added.connect (() => {
             _today_count = Services.Database.get_default ().get_items_by_date (
@@ -74,6 +76,20 @@ public class Objects.Today : Objects.BaseObject {
         });
 
         Services.Database.get_default ().item_deleted.connect (() => {
+            _today_count = Services.Database.get_default ().get_items_by_date (
+                new GLib.DateTime.now_local (), false).size;
+            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            today_count_updated ();
+        });
+
+        Services.Database.get_default ().item_archived.connect (() => {
+            _today_count = Services.Database.get_default ().get_items_by_date (
+                new GLib.DateTime.now_local (), false).size;
+            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            today_count_updated ();
+        });
+
+        Services.Database.get_default ().item_unarchived.connect (() => {
             _today_count = Services.Database.get_default ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
             _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;

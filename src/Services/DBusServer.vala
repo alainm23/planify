@@ -18,6 +18,7 @@
 *
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
+
 [DBus (name = "io.github.alainm23.planify")]
 public class Services.DBusServer : Object {
     private const string DBUS_NAME = "io.github.alainm23.planify";

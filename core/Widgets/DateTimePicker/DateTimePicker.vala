@@ -38,7 +38,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
             check_items (_datetime);
 
-            if (Util.get_default ().has_time (_datetime)) {
+            if (Utils.Datetime.has_time (_datetime)) {
                 time_picker.time = _datetime;
                 time_picker.has_time = true;
             }
@@ -53,7 +53,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
                 }
             } else {
                 if (_datetime != null) {
-                    _datetime = Util.get_default ().get_format_date (_datetime);
+                    _datetime = Utils.Datetime.get_format_date (_datetime);
                 }
             }
 
@@ -79,8 +79,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
 
     construct {
         today_item = new Widgets.ContextMenu.MenuItem (_("Today"), "star-outline-thick-symbolic");
-        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "month-symbolic");
-        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "month-symbolic");
+        tomorrow_item = new Widgets.ContextMenu.MenuItem (_("Tomorrow"), "today-calendar-symbolic");
+        next_week_item = new Widgets.ContextMenu.MenuItem (_("Next week"), "work-week-symbolic");
         date_item = new Widgets.ContextMenu.MenuItem (_("Choose a date"), "month-symbolic");
         date_item.arrow = true;
 
@@ -108,11 +108,11 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         time_box.append (time_picker);
 
         var submit_button = new Widgets.LoadingButton.with_label (_("Done")) {
-            css_classes = { Granite.STYLE_CLASS_SUGGESTED_ACTION }
+            css_classes = { "suggested-action" }
         };
 
         var clear_button = new Widgets.LoadingButton.with_label (_("Clear")) {
-            css_classes = { Granite.STYLE_CLASS_DESTRUCTIVE_ACTION }
+            css_classes = { "destructive-action" }
         };
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -142,12 +142,15 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         content_box.append (time_box);
         content_box.append (action_revealer);
 
-        calendar_view = new Widgets.Calendar.Calendar (true);
+        var back_item = new Widgets.ContextMenu.MenuItem (_("Back"), "go-previous-symbolic");
+        calendar_view = new Widgets.Calendar.Calendar ();
 
         var calendar_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             hexpand = true
         };
 
+        calendar_box.append (back_item);
+        calendar_box.append (new Widgets.ContextMenu.MenuSeparator ());
         calendar_box.append (calendar_view);
 
         var content_stack = new Gtk.Stack () {
@@ -176,13 +179,17 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         });
 
         calendar_view.day_selected.connect (() => {
-            datetime = Util.get_default ().get_format_date (calendar_view.date);
+            datetime = Utils.Datetime.get_format_date (calendar_view.date);
             visible_no_date = true;
             content_stack.visible_child_name = "items";
         });
 
+        back_item.clicked.connect (() => {
+            content_stack.visible_child_name = "items";
+        });
+
         time_picker.time_changed.connect (() => {
-            datetime = Util.get_default ().get_format_date (datetime);
+            datetime = Utils.Datetime.get_format_date (datetime);
         });
 
         time_picker.time_added.connect (() => {
@@ -216,7 +223,7 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
     }
 
     private void set_date (DateTime date) {
-        datetime = Util.get_default ().get_format_date (date);
+        datetime = Utils.Datetime.get_format_date (date);
         popdown ();
         date_changed ();
     }
@@ -257,8 +264,8 @@ public class Widgets.DateTimePicker.DateTimePicker : Gtk.Popover {
         } else if (Utils.Datetime.is_next_week (datetime)) {
             next_week_item.selected = true;
         } else {
-            date_item.secondary_text = Util.get_default ().get_relative_date_from_date (
-                Util.get_default ().get_format_date (datetime)
+            date_item.secondary_text = Utils.Datetime.get_relative_date_from_date (
+                Utils.Datetime.get_format_date (datetime)
             );
         }
     }

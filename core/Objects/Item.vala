@@ -29,6 +29,7 @@ public class Objects.Item : Objects.BaseObject {
     public string project_id { get; set; default = ""; }
     public string parent_id { get; set; default = ""; }
     public string extra_data { get; set; default = ""; }
+    public ItemType item_type { get; set; default = ItemType.TASK; }
 
     public Objects.DueDate due { get; set; default = new Objects.DueDate (); }
     public Gee.ArrayList<Objects.Label> labels { get; set; default = new Gee.ArrayList<Objects.Label> (); }
@@ -46,6 +47,14 @@ public class Objects.Item : Objects.BaseObject {
     public int priority { get; set; default = Constants.PRIORITY_4; }
 
     public bool activate_name_editable { get; set; default = false; }
+
+    string _short_content;
+    public string short_content {
+        get {
+            _short_content = Util.get_default ().get_short_name (content);
+            return _short_content;
+        }
+    }
 
     public string priority_icon {
         get {
@@ -126,21 +135,33 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public bool has_section {
+    public bool has_time {
         get {
-            return section_id != "";
+            if (due.datetime == null) {
+                return false;
+            }
+
+            return Utils.Datetime.has_time (due.datetime);
         }
     }
 
-    bool _loading = false;
-    public bool loading {
-        set {
-            _loading = value;
-            loading_changed (_loading);
-        }
-
+    GLib.DateTime _completed_date;
+    public GLib.DateTime completed_date {
         get {
-            return _loading;
+            _completed_date = Utils.Datetime.get_date_from_string (completed_at);
+            return _completed_date;
+        }
+    }
+
+    public bool has_parent {
+        get {
+            return Services.Database.get_default ().get_item (parent_id) != null;
+        }
+    }
+
+    public bool has_section {
+        get {
+            return Services.Database.get_default ().get_section (section_id) != null;
         }
     }
 
@@ -248,14 +269,26 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
+    Gee.ArrayList<Objects.Attachment> _attachments;
+    public Gee.ArrayList<Objects.Attachment> attachments {
+        get {
+            if (_attachments == null) {
+                _attachments = Services.Database.get_default ().get_attachments_by_item (this);
+            }
+            
+            return _attachments;
+        }
+    }
+
     public signal void item_label_added (Objects.Label label);
     public signal void item_label_deleted (Objects.Label label);
     public signal void item_added (Objects.Item item);
     public signal void reminder_added (Objects.Reminder reminder);
     public signal void reminder_deleted (Objects.Reminder reminder);
-    public signal void loading_changed (bool value);
     public signal void show_item_changed ();
     public signal void collapsed_change ();
+    public signal void attachment_added (Objects.Attachment attachment);
+    public signal void attachment_deleted (Objects.Attachment attachment);
     
     construct {
         deleted.connect (() => {
@@ -337,7 +370,7 @@ public class Objects.Item : Objects.BaseObject {
         }
     }
 
-    public Item.from_import_json (Json.Node node) {
+    public Item.from_import_json (Json.Node node, Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ()) {
         id = node.get_object ().get_string_member ("id");
         content = node.get_object ().get_string_member ("content");
         description = node.get_object ().get_string_member ("description");
@@ -355,7 +388,12 @@ public class Objects.Item : Objects.BaseObject {
         due.update_from_json (Services.Database.get_default ().get_due_parameter (node.get_object ().get_string_member ("due")));
         collapsed = node.get_object ().get_boolean_member ("collapsed");
         pinned = node.get_object ().get_boolean_member ("pinned");
-        labels = get_labels_from_json (node);
+
+        if (_labels.size <= 0) {
+            labels = get_labels_from_json (node);
+        } else {
+            labels = get_labels_from_labels_json (node, _labels);
+        }
     }
 
     public Item.from_caldav_xml (GXml.DomElement element) {
@@ -384,12 +422,10 @@ public class Objects.Item : Objects.BaseObject {
         patch_from_vtodo (data, _ics);
 
         var categories = Util.find_string_value ("CATEGORIES", data);
-        print ("categories: %s\n".printf (categories));
         check_labels (get_labels_maps_from_caldav (categories));
     }
 
     public void patch_from_vtodo (string data, string _ics) {
-        ECal.Component ecal = new ECal.Component.from_string (data);
         ICal.Component ical = new ICal.Component.from_string (data);
 
         id = ical.get_uid ();
@@ -415,7 +451,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
         
         var rrules = Util.find_string_value ("RRULE", data);
@@ -432,17 +468,22 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Util.get_default ().get_format_date (
-                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                completed_at = Utils.Datetime.get_format_date (
+                    Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
             completed_at = "";
         }
 
+        var sort_order = Util.find_string_value ("X-APPLE-SORT-ORDER", data);
+        if (sort_order != "") {
+            child_order = int.parse (sort_order);
+        }
+        
         pinned = Util.find_boolean_value ("X-PINNED", data);
         extra_data = Util.generate_extra_data (_ics, "", ical.as_ical_string ());
     }
@@ -489,7 +530,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (!ical.get_due ().is_null_time ()) {
-            due.date = Util.ical_to_date_time_local (ical.get_due ()).to_string ();
+            due.date = Utils.Datetime.ical_to_date_time_local (ical.get_due ()).to_string ();
         }
         
         var rrules = Util.find_string_value ("RRULE", data);
@@ -506,15 +547,20 @@ public class Objects.Item : Objects.BaseObject {
             checked = true;
             string completed = Util.find_string_value ("COMPLETED", data);
             if (completed != "") {
-                completed_at = Util.get_default ().get_format_date (
-                    Util.ical_to_date_time_local (new ICal.Time.from_string (completed))
+                completed_at = Utils.Datetime.get_format_date (
+                    Utils.Datetime.ical_to_date_time_local (new ICal.Time.from_string (completed))
                 ).to_string ();
             } else {
-                completed_at = Util.get_default ().get_format_date (new GLib.DateTime.now_local ()).to_string ();
+                completed_at = Utils.Datetime.get_format_date (new GLib.DateTime.now_local ()).to_string ();
             }
         } else {
             checked = false;
             completed_at = "";
+        }
+
+        var sort_order = Util.find_string_value ("X-APPLE-SORT-ORDER", data);
+        if (sort_order != "") {
+            child_order = int.parse (sort_order);
         }
 
         pinned = Util.find_boolean_value ("X-PINNED", data);
@@ -556,6 +602,25 @@ public class Objects.Item : Objects.BaseObject {
             return_value.add (label);
         }
         return return_value;
+    }
+
+    public Gee.ArrayList<Objects.Label> get_labels_from_labels_json (Json.Node node, Gee.ArrayList<Objects.Label> labels_list) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
+            Objects.Label label = get_label_by_name (element.get_string (), labels_list);
+            return_value.add (label);
+        }
+        return return_value;
+    }
+
+    private Objects.Label? get_label_by_name (string name, Gee.ArrayList<Objects.Label> labels_list) {
+        foreach (var label in labels_list) {
+            if (label.name.down () == name.down ()) {
+                return label;
+            }
+        }
+
+        return null;
     }
 
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {
@@ -660,8 +725,8 @@ public class Objects.Item : Objects.BaseObject {
                     Services.Database.get_default ().update_item (this, update_id);
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
                         Services.Database.get_default ().update_item (this, update_id);
@@ -692,8 +757,8 @@ public class Objects.Item : Objects.BaseObject {
                     loading = false;
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                    HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+                Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                    HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
                         Services.Database.get_default ().update_item (this, update_id);
@@ -720,8 +785,8 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
             });
         } else if (project.backend_type == BackendType.CALDAV) {
-            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                HttpResponse response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                 if (response.status) {
                     Services.Database.get_default ().update_item (this, update_id);
@@ -732,13 +797,18 @@ public class Objects.Item : Objects.BaseObject {
         } 
     }
 
-    public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder) {
+    public Objects.Reminder? add_reminder_if_not_exists (Objects.Reminder reminder, bool insert_db = true) {
         Objects.Reminder? return_value = null;
         lock (_reminders) {
             return_value = get_reminder (reminder);
             if (return_value == null) {
-                Services.Database.get_default ().insert_reminder (reminder);
-                add_reminder (return_value);
+                if (insert_db) {
+                    Services.Database.get_default ().insert_reminder (reminder);
+                } else {
+                    reminder_added (reminder);
+                }
+                
+                _add_reminder (reminder);
             }
             return return_value;
         }
@@ -748,7 +818,7 @@ public class Objects.Item : Objects.BaseObject {
         Objects.Reminder? return_value = null;
         lock (_reminders) {
             foreach (var _reminder in _reminders) {
-                if (reminder.due.datetime.compare (_reminder.due.datetime) == 0) {
+                if (reminder.datetime.compare (_reminder.datetime) == 0) {
                     return_value = _reminder;
                     break;
                 }
@@ -757,13 +827,39 @@ public class Objects.Item : Objects.BaseObject {
         return return_value;
     }
 
-    private void add_reminder (Objects.Reminder reminder) {
+    private void _add_reminder (Objects.Reminder reminder) {
         _reminders.add (reminder);
-        reminder_added (reminder);
     }
 
-    public void delete_reminder (Objects.Reminder reminder) {
-        Services.Database.get_default ().delete_reminder (reminder);
+    public Objects.Attachment? add_attachment_if_not_exists (Objects.Attachment attachment) {
+        Objects.Attachment? return_value = null;
+        lock (_attachments) {
+            return_value = get_attachment (attachment);
+            if (return_value == null) {
+                Services.Database.get_default ().insert_attachment (attachment);
+                add_attachment (attachment);
+            }
+
+            return return_value;
+        }
+    }
+
+    private Objects.Attachment? get_attachment (Objects.Attachment attachment) {
+        Objects.Attachment? return_value = null;
+        lock (_attachments) {
+            foreach (var _attachment in _attachments) {
+                if (_attachment.file_path == attachment.file_path) {
+                    return_value = _attachment;
+                    break;
+                }
+            }
+        }
+
+        return return_value;
+    }
+
+    private void add_attachment (Objects.Attachment attachment) {
+        _attachments.add (attachment);
     }
 
     // Labels
@@ -790,6 +886,18 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         return return_value;
+    }
+
+    public bool has_label (string id) {
+        if (get_label (id) == null) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public bool has_labels () {
+        return labels.size > 0;
     }
 
     public void add_item_label (Objects.Label label) {
@@ -1053,7 +1161,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (has_due) {
-            ICal.Time new_icaltime = Util.datetimes_to_icaltime (
+            ICal.Time new_icaltime = Utils.Datetime.datetimes_to_icaltime (
                 due.datetime,
                 Utils.Datetime.has_time (due.datetime) ? due.datetime : null,
                 null
@@ -1127,7 +1235,7 @@ public class Objects.Item : Objects.BaseObject {
                 }
                 
                 if (due.recurrency_end != "") {
-                    ICal.Time until_icaltime = Util.datetimes_to_icaltime (
+                    ICal.Time until_icaltime = Utils.Datetime.datetimes_to_icaltime (
                         due.end_datetime,
                         null,
                         null
@@ -1230,58 +1338,47 @@ public class Objects.Item : Objects.BaseObject {
         return new_item;
     }
 
-    public void duplicate () {
-        var new_item = generate_copy ();
-        new_item.content = "[%s] %s".printf (_("Duplicate"), content);
-
-        if (project.backend_type == BackendType.TODOIST) {
-            Services.Todoist.get_default ().add.begin (new_item, (obj, res) => {
-                HttpResponse response = Services.Todoist.get_default ().add.end (res);
-                if (response.status) {
-                    new_item.id = response.data;
-                    insert_duplicate (new_item);
-                }
-            });
-        } else {
-            new_item.id = Util.get_default ().generate_id (new_item);
-            insert_duplicate (new_item);
-        }
+    public Objects.Item duplicate () {
+        var new_item = new Objects.Item ();
+        new_item.content = content;
+        new_item.description = description;
+        new_item.due = due.duplicate ();
+        new_item.pinned = pinned;
+        new_item.priority = priority;
+        new_item.labels = labels;
+        return new_item;
     }
-
-    public void insert_duplicate (Objects.Item new_item) {
-        if (new_item.section_id != "") {
-            Services.Database.get_default ().get_section (new_item.section_id)
-                .add_item_if_not_exists (new_item);
-        } else {
-            Services.Database.get_default ().get_project (new_item.project_id)
-                .add_item_if_not_exists (new_item);
-        }
-    }
-
+    
     private string get_format_date (Objects.Item item) {
         if (!item.has_due) {
             return " ";
         }
 
-        return " (" + Util.get_default ().get_relative_date_from_date (item.due.datetime) + ") ";
+        return " (" + Utils.Datetime.get_relative_date_from_date (item.due.datetime) + ") ";
     }
 
     public void delete_item () {
         if (project.backend_type == BackendType.LOCAL) {
             Services.Database.get_default ().delete_item (this);
         } else if (project.backend_type == BackendType.TODOIST) {
+            loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                 }
+
+                loading = false;
             });
         } else if (project.backend_type == BackendType.CALDAV) {
-            Services.CalDAV.get_default ().delete_task.begin (this, (obj, res) => {
-                if (Services.CalDAV.get_default ().delete_task.end (res).status) {
+            loading = true;
+            Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
                     Services.Database.get_default ().delete_item (this);
                     foreach (Objects.Item subitem in this.items) {
                         subitem.delete_item ();
                     }
+
+                    loading = false;
                 }
             });
         }
@@ -1309,7 +1406,7 @@ public class Objects.Item : Objects.BaseObject {
         if (duedate.recurrency_type == RecurrencyType.MINUTELY ||
             duedate.recurrency_type == RecurrencyType.HOURLY) {
             if (!has_due) {
-                due.date = Util.get_default ().get_todoist_datetime_format (
+                due.date = Utils.Datetime.get_todoist_datetime_format (
                     new DateTime.now_local ()
                 );
             }
@@ -1317,28 +1414,34 @@ public class Objects.Item : Objects.BaseObject {
             duedate.recurrency_type == RecurrencyType.EVERY_MONTH || 
             duedate.recurrency_type == RecurrencyType.EVERY_YEAR) {
             if (!has_due) {
-                due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
+                due.date = Utils.Datetime.get_todoist_datetime_format (
+                    Utils.Datetime.get_today_format_date ()
                 );
             }
         } else if (duedate.recurrency_type == RecurrencyType.EVERY_WEEK) {
             if (duedate.has_weeks) {
-                var today = Util.get_default ().get_today_format_date ();
-                int day_of_week = today.get_day_of_week ();
-                int next_day = Util.get_default ().get_next_day_of_week_from_recurrency_week (today, duedate);
+                GLib.DateTime due_selected = Utils.Datetime.get_today_format_date ();
+                if (has_due) {
+                    due_selected = due.datetime;
+                }
+                
+                int day_of_week = due_selected.get_day_of_week ();
+                int next_day = Utils.Datetime.get_next_day_of_week_from_recurrency_week (due_selected, duedate);
                 GLib.DateTime due_date = null;
 
                 if (day_of_week == next_day) {
-                    due_date = today;
+                    due_date = due_selected;
                 } else {
-                    due_date = Util.get_default ().next_recurrency_week (today, duedate);
+                    due_date = Utils.Datetime.next_recurrency_week (due_selected, duedate);
                 }
 
-                due.date = Util.get_default ().get_todoist_datetime_format (due_date);
+                due.date = Utils.Datetime.get_todoist_datetime_format (due_date);
             } else {
-                due.date = Util.get_default ().get_todoist_datetime_format (
-                    Util.get_default ().get_today_format_date ()
-                );
+                if (!has_due) {
+                    due.date = Utils.Datetime.get_todoist_datetime_format (
+                        Utils.Datetime.get_today_format_date ()
+                    );
+                }
             }
         }
 
@@ -1353,8 +1456,8 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_next_recurrency (Services.Promise<GLib.DateTime>? promise) {
-        var next_recurrency = Util.get_default ().next_recurrency (due.datetime, due);
-        due.date = Util.get_default ().get_todoist_datetime_format (
+        var next_recurrency = Utils.Datetime.next_recurrency (due.datetime, due);
+        due.date = Utils.Datetime.get_todoist_datetime_format (
             next_recurrency
         );
 
@@ -1378,8 +1481,8 @@ public class Objects.Item : Objects.BaseObject {
             });
         } else if (project.backend_type == BackendType.CALDAV) {
             loading = true;
-            Services.CalDAV.get_default ().add_task.begin (this, true, (obj, res) => {
-                var response = Services.CalDAV.get_default ().add_task.end (res);
+            Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
+                var response = Services.CalDAV.Core.get_default ().add_task.end (res);
                 loading = false;
 
                 if (response.status) {
@@ -1391,13 +1494,12 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void move (Objects.Project project, string _section_id) {
+        loading = true;
         show_item = false;
 
         if (project.backend_type == BackendType.LOCAL) {
-            _move (project.id, section_id);
+            _move (project.id, _section_id);
         } else if (project.backend_type == BackendType.TODOIST) {
-            loading = true;
-
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1408,24 +1510,20 @@ public class Objects.Item : Objects.BaseObject {
             Services.Todoist.get_default ().move_item.begin (this, move_type, move_id, (obj, res) => {
                 var response = Services.Todoist.get_default ().move_item.end (res);
                 loading = false;
+                show_item = true;
 
                 if (response.status) {
-                    _move (project.id, section_id);
-                } else {
-                    show_item = true;
+                    _move (project.id, _section_id);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
-            loading = true;
-
-            Services.CalDAV.get_default ().move_task.begin (this, project.id, (obj, res) => {
-                var response = Services.CalDAV.get_default ().move_task.end (res);
+        } else if (project.backend_type == BackendType.CALDAV) {            
+            Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
+                var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
+                show_item = true;
 
                 if (response.status) {
-                    _move (project.id, section_id);
-                } else {
-                    show_item = true;
+                    _move (project.id, _section_id);
                 }
             });
         }
@@ -1440,7 +1538,102 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Database.get_default ().update_item (this);
+        Services.Database.get_default ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
+        Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
+        Services.EventBus.get_default ().send_notification (
+            Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
+        );
+    }
+
+    public bool was_archived () {
+        if (has_parent) {
+            return parent.was_archived ();
+        }
+
+        if (has_section) {
+            return section.was_archived ();
+        }
+
+        return project.is_archived;
+    }
+
+    public bool exists_project (Objects.Project project) {
+        if (has_parent) {
+            return parent.exists_project (project);
+        }
+
+        return project_id == project.id;
+    }
+
+    public string to_markdown (int level = 0) {
+        string text = "%*s- %s%s%s\n".printf (level * 2, "", checked ? "[x]" : "[ ]", Utils.Datetime.get_markdown_format_date (this), content);
+
+        foreach (Objects.Item item in items) {
+            text += item.to_markdown (level + 1);
+        }
+
+        return text;
+    }
+
+    public void update_due (GLib.DateTime? datetime) {
+        due.date = datetime == null ? "" : Utils.Datetime.get_todoist_datetime_format (datetime);
+
+        if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && has_time) {
+            remove_all_relative_reminders ();
+            
+            var reminder = new Objects.Reminder ();
+            reminder.mm_offset = Util.get_reminders_mm_offset ();
+            reminder.reminder_type = ReminderType.RELATIVE;
+            add_reminder (reminder);
+        }
+
+        if (due.date == "") {
+            due.reset ();
+            remove_all_relative_reminders ();
+        }
+
+        if (!has_time) {
+            remove_all_relative_reminders ();
+        }
+
+        update_async ("");
+    }
+
+    public void add_reminder (Objects.Reminder reminder) {
+        reminder.item_id = id;
+
+        if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                loading = false;
+
+                if (response.status) {
+                    reminder.id = response.data;
+                } else {
+                    reminder.id = Util.get_default ().generate_id (reminder);
+                }
+
+                add_reminder_if_not_exists (reminder);
+            });
+        } else {
+            reminder.id = Util.get_default ().generate_id (reminder);
+            add_reminder_if_not_exists (reminder);
+        }
+    }
+
+    public void add_reminder_events (Objects.Reminder reminder) {
+        Services.Database.get_default ().reminder_added (reminder);
+        Services.Database.get_default ().reminders.add (reminder);
+        reminder.item.reminder_added (reminder);
+        _add_reminder (reminder);
+    }
+
+    private void remove_all_relative_reminders () {
+        foreach (Objects.Reminder reminder in reminders) {
+            if (reminder.reminder_type == ReminderType.RELATIVE) {
+                reminder.delete ();
+            }
+        }
     }
 }

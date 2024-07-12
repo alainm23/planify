@@ -64,7 +64,7 @@ public class Widgets.LabelsSummary : Adw.Bin {
         };
 
         more_label = new Gtk.Label (null) {
-            css_classes = { "small-label" }
+            css_classes = { "caption" }
         };
         
         more_label_grid = new Adw.Bin () {

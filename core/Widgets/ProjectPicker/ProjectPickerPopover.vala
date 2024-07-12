@@ -14,27 +14,34 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var search_entry = new Gtk.SearchEntry () {
             margin_top = 9,
             margin_start = 9,
-            margin_end = 9,
-            margin_bottom = 9
+            margin_end = 9
         };
             
         var inbox_group = new Layouts.HeaderItem (null) {
-            reveal_child = true
+            reveal_child = true,
+            card = true,
+            show_separator = false
         };
 
         var local_group = new Layouts.HeaderItem (_("On this Computer")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.LOCAL).size > 0
+            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.LOCAL).size > 0,
+            card = true,
+            show_separator = false
         };
         
         var todoist_group = new Layouts.HeaderItem (_("Todoist")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.TODOIST).size > 0
+            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.TODOIST).size > 0,
+            card = true,
+            show_separator = false
         };
 
         var nextcloud_group = new Layouts.HeaderItem (_("Nextcloud")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.CALDAV).size > 0
+            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.CALDAV).size > 0,
+            card = true,
+            show_separator = false
         };
 
-        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         scrolled_box.append (inbox_group);
         scrolled_box.append (local_group);
         scrolled_box.append (todoist_group);

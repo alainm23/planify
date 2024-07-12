@@ -19,18 +19,13 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
+public class Widgets.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
     public Objects.Reminder reminder { get; construct; }
 
     private Gtk.Revealer main_revealer;
 
-    public bool is_creating {
-        get {
-            return reminder.id == "";
-        }
-    }
-
     public signal void activated ();
+    public signal void deleted ();
 
     public ReminderRow (Objects.Reminder reminder) {
         Object (
@@ -48,10 +43,8 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
 
     construct {
         add_css_class ("row");
-
-        var reminder_image = new Gtk.Image.from_icon_name (is_creating ? "plus-large-symbolic" : "alarm-symbolic");
-
-        var reminder_label = new Gtk.Label (is_creating ? _("Add Reminder") : Util.get_default ().get_relative_date_from_date (reminder.due.datetime));
+        
+        var reminder_label = new Gtk.Label (reminder.relative_text);
 
         var remove_button = new Widgets.LoadingButton.with_icon ("cross-large-circle-filled-symbolic") {
             hexpand = true,
@@ -59,7 +52,7 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             halign = Gtk.Align.END
         };
         
-        remove_button.add_css_class (Granite.STYLE_CLASS_FLAT);
+        remove_button.add_css_class ("flat");
         remove_button.add_css_class ("no-padding");
         
         var reminder_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
@@ -69,14 +62,14 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
             margin_end = 3
         };
 
-        reminder_box.append (reminder_image);
+        reminder_box.append (new Gtk.Image.from_icon_name ("alarm-symbolic"));
         reminder_box.append (reminder_label);
         reminder_box.append (remove_button);
 
         main_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = reminder_box
         };
-        main_revealer.child = reminder_box;
 
         child = main_revealer;
 
@@ -86,11 +79,11 @@ public class Dialogs.ReminderPicker.ReminderRow : Gtk.ListBoxRow {
         });
 
         remove_button.clicked.connect (() => {
-            reminder.delete ();
+            deleted ();
         });
 
-        reminder.loading_changed.connect ((value) => {
-            remove_button.is_loading = value;
+        reminder.loading_change.connect (() => {
+            remove_button.is_loading = reminder.loading;
         });
     }
 

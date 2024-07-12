@@ -22,9 +22,10 @@
 public class Views.Board : Adw.Bin {
     public Objects.Project project { get; construct; }
 
-    private Gtk.Label description_label;
-    private Widgets.HyperTextView description_textview;
-    private Gtk.Popover description_popover = null;
+    private Gtk.Image due_image;
+    private Gtk.Label due_label;
+    private Gtk.Label days_left_label;
+    private Gtk.Revealer due_revealer;
 
     private Layouts.SectionBoard inbox_board;
     private Gtk.FlowBox flowbox;
@@ -38,20 +39,25 @@ public class Views.Board : Adw.Bin {
     }
 
     construct {
-        description_label = new Gtk.Label (null) {
-            wrap = true,
-            xalign = 0,
-            yalign = 0,
-            margin_start = 26,
+        var description_widget = new Widgets.EditableTextView (_("Note")) {
+            text = project.description,
             margin_top = 6,
+            margin_start = 27,
             margin_end = 12
         };
-        
-        var description_gesture_click = new Gtk.GestureClick ();
-        description_label.add_controller (description_gesture_click);
-        description_gesture_click.pressed.connect ((n_press, x, y) => {
-            build_description_popover ();
-        });
+
+        due_revealer = build_due_date_widget ();
+
+        var filters = new Widgets.FilterFlowBox (project) {
+            valign = Gtk.Align.START,
+            vexpand = false,
+            vexpand_set = true
+        };
+
+        filters.flowbox.margin_start = 24;
+        filters.flowbox.margin_top = 12;
+        filters.flowbox.margin_end = 12;
+        filters.flowbox.margin_bottom = 3;
 
         sections_map = new Gee.HashMap <string, Layouts.SectionBoard> ();
 
@@ -100,7 +106,12 @@ public class Views.Board : Adw.Bin {
 			vexpand = true
 		};
 
-        content_box.append (description_label);
+        if (!project.is_inbox_project) {
+            content_box.append (description_widget);
+            content_box.append (due_revealer);
+        }
+
+        content_box.append (filters);
 		content_box.append (flowbox_scrolled);
 
         child = content_box;
@@ -126,35 +137,49 @@ public class Views.Board : Adw.Bin {
         });
 
         Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
-            if (project.id == old_project_id && sections_map.has_key (section.id_string)) {
-                    sections_map [section.id_string].hide_destroy ();
-                    sections_map.unset (section.id_string);
+            if (project.id == old_project_id && sections_map.has_key (section.id)) {
+                    sections_map [section.id].hide_destroy ();
+                    sections_map.unset (section.id);
             }
 
             if (project.id == section.project_id &&
-                !sections_map.has_key (section.id_string)) {
+                !sections_map.has_key (section.id)) {
                     add_section (section);
             }
         });
 
         Services.Database.get_default ().section_deleted.connect ((section) => {
-            if (sections_map.has_key (section.id_string)) {
-                sections_map [section.id_string].hide_destroy ();
-                sections_map.unset (section.id_string);
+            if (sections_map.has_key (section.id)) {
+                sections_map [section.id].hide_destroy ();
+                sections_map.unset (section.id);
             }
         });
 
         project.updated.connect (() => {
             update_request ();
         });
+
+        description_widget.changed.connect (() => {
+            project.description = description_widget.text;
+            project.update_local ();
+        });
+
+        Services.Database.get_default ().section_archived.connect ((section) => {
+            if (sections_map.has_key (section.id)) {
+                sections_map [section.id].hide_destroy ();
+                sections_map.unset (section.id);
+            }
+        });
+
+        Services.Database.get_default ().section_unarchived.connect ((section) => {
+            if (project.id == section.project_id) {
+                add_section (section);
+            }
+        });
     }
     
     public void update_request () {
-        description_label.label = project.description;
-        if (description_label.label.length <= 0) {
-            description_label.label = _("Note");
-            description_label.add_css_class ("dim-label");
-        }
+        update_duedate ();
     }
 
     public void add_sections () {
@@ -170,7 +195,7 @@ public class Views.Board : Adw.Bin {
     }
 
     private void add_section (Objects.Section section) {
-        if (!sections_map.has_key (section.id)) {
+        if (!sections_map.has_key (section.id) && !section.was_archived ()) {
             sections_map[section.id] = new Layouts.SectionBoard (section);
             flowbox.append (sections_map[section.id]);
         }
@@ -180,44 +205,96 @@ public class Views.Board : Adw.Bin {
         inbox_board.prepare_new_item (content);
     }
 
-    private void build_description_popover () {
-        if (description_popover != null) {
-            description_popover.width_request = description_label.get_width ();
-            description_popover.popup ();
-            return;
+    private void update_duedate () {
+        due_image.icon_name = "month-symbolic";
+        due_image.css_classes = { };
+        due_label.css_classes = { };
+        due_revealer.reveal_child = false;
+
+        if (project.due_date != "") {
+            var datetime = Utils.Datetime.get_date_from_string (project.due_date);
+            
+            due_label.label = Utils.Datetime.get_relative_date_from_date (datetime);
+            days_left_label.label = Utils.Datetime.days_left (datetime);
+
+            if (Utils.Datetime.is_today (datetime)) {
+                due_image.icon_name = "star-outline-thick-symbolic";
+                due_image.add_css_class ("today-color");
+                due_label.add_css_class ("today-color");
+            } else if (Utils.Datetime.is_overdue (datetime)) {
+                due_image.icon_name = "month-symbolic";
+                due_image.add_css_class ("overdue-color");
+                due_label.add_css_class ("overdue-color");
+            } else {
+                due_image.icon_name = "month-symbolic";
+                due_image.css_classes = { };
+                due_label.css_classes = { };
+            }
+
+            due_revealer.reveal_child = true;
         }
+    }
 
-        description_textview = new Widgets.HyperTextView (_("Note")) {
-            left_margin = 6,
-            right_margin = 6,
-            top_margin = 6,
-            bottom_margin = 6,
-            wrap_mode = Gtk.WrapMode.WORD_CHAR,
-            hexpand = true,
-            vexpand = true
-        };
-        description_textview.set_text (project.description);
-        description_textview.remove_css_class ("view");
+    private Gtk.Revealer build_due_date_widget () {
+        due_image = new Gtk.Image.from_icon_name ("month-symbolic");   
 
-        var description_card = new Adw.Bin () {
-            child = description_textview,
-            css_classes = { "card" }
+        due_label = new Gtk.Label (_("Schedule")) {
+            xalign = 0,
+            use_markup = true
         };
 
-        description_popover = new Gtk.Popover () {
-            has_arrow = false,
-            child = description_card,
-            position = Gtk.PositionType.BOTTOM,
-            width_request = description_label.get_width (),
-            height_request = 96
+        days_left_label = new Gtk.Label (null) {
+            xalign = 0,
+            //  yalign = 0.7,
+            css_classes = { "dim-label", "caption" }
+        };
+        days_left_label.yalign = float.parse ("0.7");
+
+        var due_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {
+            margin_start = 3
         };
 
-        description_popover.set_parent (description_label);
-        description_popover.popup ();
+        due_box.append (due_image);
+        due_box.append (due_label);
+        due_box.append (days_left_label);
 
-        description_textview.changed.connect (() => {
-            project.description = description_textview.get_text ();
-            project.update_local ();
+        var due_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
+            margin_top = 12,
+            margin_start = 24,
+            margin_end = 24
+        };
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+        due_content.append (due_box);
+        due_content.append (new Gtk.Separator (Gtk.Orientation.HORIZONTAL));
+
+        var due_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = due_content
+        };
+
+        var gesture = new Gtk.GestureClick ();
+        due_box.add_controller (gesture);
+        gesture.pressed.connect ((n_press, x, y) => {
+            var dialog = new Dialogs.DatePicker (_("When?"));
+
+            if (project.due_date != "") {
+                dialog.datetime = Utils.Datetime.get_date_from_string (project.due_date);
+                dialog.clear = true;
+            }
+
+            dialog.present (Planify._instance.main_window);
+
+            dialog.date_changed.connect (() => {
+                if (dialog.datetime == null) {
+                    project.due_date = "";
+                } else {
+                    project.due_date = dialog.datetime.to_string ();
+                }
+                
+                project.update_local ();
+            });
         });
+
+        return due_revealer;
     }
 }

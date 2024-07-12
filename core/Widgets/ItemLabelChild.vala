@@ -37,7 +37,7 @@ public class Widgets.ItemLabelChild : Gtk.FlowBoxChild {
         
         name_label = new Gtk.Label (null);
         name_label.valign = Gtk.Align.CENTER;
-        name_label.add_css_class (Granite.STYLE_CLASS_SMALL_LABEL);
+        name_label.add_css_class ("caption");
 
         var labelrow_grid = new Adw.Bin () {
             child = name_label

@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Section : Adw.Window {
+public class Dialogs.Section : Adw.Dialog {
     public Objects.Section section { get; construct; }
 
     private Adw.EntryRow name_entry;
@@ -41,26 +41,14 @@ public class Dialogs.Section : Adw.Window {
 
         Object (
             section: section,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("New Section"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("New Section")
         );
     }
 
     public Section (Objects.Section section) {
         Object (
             section: section,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("Edit Section"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("Edit Section")
         );
     }
 
@@ -115,7 +103,7 @@ public class Dialogs.Section : Adw.Window {
             valign = Gtk.Align.END
         };
 
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (name_group);
@@ -136,7 +124,8 @@ public class Dialogs.Section : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = content_clamp;
 
-        content = toolbar_view;
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
 
         Timeout.add (225, () => {
             color_picker_row.color = section.color;
@@ -151,23 +140,8 @@ public class Dialogs.Section : Adw.Window {
         name_entry.entry_activated.connect (add_update_section);
         submit_button.clicked.connect (add_update_section);
 
-        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
-        name_entry.add_controller (name_entry_ctrl_key);
-        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-
-            return false;
-        });
-
-        var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
-			return false;
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -180,7 +154,6 @@ public class Dialogs.Section : Adw.Window {
         section.name = name_entry.text;
         section.description = description_entry.text;
         section.color = color_picker_row.color;
-        section.section_order = section.project.sections.size;
 
         if (!is_creating) {
             submit_button.is_loading = true;
@@ -216,11 +189,6 @@ public class Dialogs.Section : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }

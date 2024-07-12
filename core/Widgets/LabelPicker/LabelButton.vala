@@ -20,8 +20,11 @@
 */
 
 public class Widgets.LabelPicker.LabelButton : Adw.Bin {
+    public bool is_board { get; construct; }
+
     private Gtk.MenuButton button; 
     private Widgets.LabelPicker.LabelPicker labels_picker;
+    private Gtk.Label labels_label;
 
     public Gee.ArrayList<Objects.Label> labels {
         set {
@@ -45,22 +48,73 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
 
     public LabelButton () {
         Object (
+            is_board: false,
             valign: Gtk.Align.CENTER,
             halign: Gtk.Align.CENTER,
-            tooltip_text: _("Add label(s)")
+            tooltip_text: _("Add Labels")
+        );
+    }
+
+    public LabelButton.for_board () {
+        Object (
+            is_board: true,
+            tooltip_text: _("Add Labels")
         );
     }
 
     construct {
         labels_picker = new Widgets.LabelPicker.LabelPicker ();
 
-        button = new Gtk.MenuButton () {
-            icon_name = "tag-outline-symbolic",
-            popover = labels_picker,
-            css_classes = { Granite.STYLE_CLASS_FLAT }
-        };
-        
-        child = button;
+        if (is_board) {
+            var title_label = new Gtk.Label (_("Labels")) {
+                halign = START,
+                css_classes = { "title-4", "caption" }
+            };
+
+            labels_label = new Gtk.Label (_("Select Labels")) {
+                xalign = 0,
+                use_markup = true,
+                halign = START,
+                ellipsize = Pango.EllipsizeMode.END,
+                css_classes = { "caption" }
+            };
+
+            var card_grid = new Gtk.Grid () {
+                column_spacing = 12,
+                margin_start = 12,
+                margin_end = 6,
+                margin_top = 6,
+                margin_bottom = 6,
+                vexpand = true,
+                hexpand = true
+            };
+            card_grid.attach (new Gtk.Image.from_icon_name ("tag-outline-symbolic"), 0, 0, 1, 2);
+            card_grid.attach (title_label, 1, 0, 1, 1);
+            card_grid.attach (labels_label, 1, 1, 1, 1);
+
+            labels_picker.set_parent (card_grid);
+            labels_picker.position = Gtk.PositionType.BOTTOM;
+            labels_picker.has_arrow = true;
+
+            css_classes = { "card" };
+            child = card_grid;
+            hexpand = true;
+            vexpand = true;
+    
+            var click_gesture = new Gtk.GestureClick ();
+            card_grid.add_controller (click_gesture);
+            click_gesture.pressed.connect ((n_press, x, y) => {
+                labels_picker.show ();
+            });
+        } else {
+            button = new Gtk.MenuButton () {
+                icon_name = "tag-outline-symbolic",
+                popover = labels_picker,
+                css_classes = { "flat" }
+            };
+            
+            child = button;
+        }
 
         labels_picker.closed.connect (() => {
             labels_changed (labels_picker.picked);
@@ -69,5 +123,23 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
 
     public void reset () {
         labels_picker.reset ();
+    }
+
+    public void update_from_item (Objects.Item item) {
+        labels_label.label = _("Select Labels");
+        labels_label.tooltip_text = null;
+
+        if (item.labels.size > 0) {
+            labels_label.label = "";        
+            for (int index = 0; index < item.labels.size; index++) {
+                if (index < item.labels.size - 1) {
+                    labels_label.label += item.labels[index].name + ", ";
+                } else {
+                    labels_label.label += item.labels[index].name;
+                }
+            }
+
+            labels_label.tooltip_text = labels_label.label;
+        }
     }
 }

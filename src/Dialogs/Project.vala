@@ -19,7 +19,7 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.Project : Adw.Window {
+public class Dialogs.Project : Adw.Dialog {
     public Objects.Project project { get; construct; }
     public bool backend_picker { get; construct; }
 
@@ -46,13 +46,7 @@ public class Dialogs.Project : Adw.Window {
         Object (
             project: project,
             backend_picker: backend_picker,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: project.parent_id == "" ? _("New Project") : project.parent.short_name + " → " + _("New Project"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: project.parent_id == "" ? _("New Project") : project.parent.name + " → " + _("New Project")
         );
     }
 
@@ -60,19 +54,13 @@ public class Dialogs.Project : Adw.Window {
         Object (
             project: project,
             backend_picker: false,
-            deletable: true,
-            resizable: true,
-            modal: true,
-            title: _("Edit Project"),
-            width_request: 320,
-            height_request: 400,
-            transient_for: (Gtk.Window) Planify.instance.main_window
+            title: _("Edit Project")
         );
     }
 
     construct {
         var headerbar = new Adw.HeaderBar ();
-        headerbar.add_css_class (Granite.STYLE_CLASS_FLAT);
+        headerbar.add_css_class ("flat");
 
         emoji_label = new Gtk.Label (project.emoji);
 
@@ -85,9 +73,9 @@ public class Dialogs.Project : Adw.Window {
             transition_type = Gtk.StackTransitionType.CROSSFADE
         };
 
-        emoji_color_stack.add_named (emoji_label, "emoji");
         emoji_color_stack.add_named (progress_bar, "color");
-
+        emoji_color_stack.add_named (emoji_label, "emoji");
+        
         var emoji_picker_button = new Gtk.Button () {
             hexpand = true,
             halign = Gtk.Align.CENTER,
@@ -105,7 +93,7 @@ public class Dialogs.Project : Adw.Window {
 
         emoji_picker_button.child = emoji_color_stack;
         
-        emoji_picker_button.add_css_class (Granite.STYLE_CLASS_H2_LABEL);
+        emoji_picker_button.add_css_class ("title-2");
         emoji_picker_button.add_css_class ("button-emoji-picker");
 
         name_entry = new Adw.EntryRow ();
@@ -187,7 +175,7 @@ public class Dialogs.Project : Adw.Window {
             valign = Gtk.Align.END
         };
 
-        submit_button.add_css_class (Granite.STYLE_CLASS_SUGGESTED_ACTION);
+        submit_button.add_css_class ("suggested-action");
 
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (emoji_picker_button);
@@ -210,8 +198,9 @@ public class Dialogs.Project : Adw.Window {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = content_clamp;
 
-        content = toolbar_view;
-
+        child = toolbar_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+        
         Timeout.add (emoji_color_stack.transition_duration, () => {
             if (project.icon_style == ProjectIconStyle.PROGRESS) {
                 emoji_color_stack.visible_child_name = "color";
@@ -268,16 +257,6 @@ public class Dialogs.Project : Adw.Window {
             }
         });
 
-        var name_entry_ctrl_key = new Gtk.EventControllerKey ();
-        name_entry.add_controller (name_entry_ctrl_key);
-        name_entry_ctrl_key.key_pressed.connect ((keyval, keycode, state) => {
-            if (keyval == 65307) {
-                hide_destroy ();
-            }
-
-            return false;
-        });
-
         backend_row.notify["selected"].connect (() => {
             if (backend_row.selected == 0) {
                 project.backend_type = BackendType.LOCAL;
@@ -286,13 +265,8 @@ public class Dialogs.Project : Adw.Window {
             }
         });
 
-        var event_controller_key = new Gtk.EventControllerKey ();
-		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
-			if (keyval == 65307) {
-				hide_destroy ();
-			}
-			return false;
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -310,50 +284,70 @@ public class Dialogs.Project : Adw.Window {
         submit_button.is_loading = true;
 
         if (!is_creating) {
-            if (project.backend_type == BackendType.LOCAL) {
+            update_project ();
+        } else {
+            add_project ();
+        }
+    }
+
+
+    private void update_project () {
+        if (project.backend_type == BackendType.LOCAL) {
+            Services.Database.get_default ().update_project (project);
+            hide_destroy ();
+        } else if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().update.begin (project, (obj, res) => {
+                Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_project (project);
                 hide_destroy ();
-            } else if (project.backend_type == BackendType.TODOIST) {
-                Services.Todoist.get_default ().update.begin (project, (obj, res) => {
-                    Services.Todoist.get_default ().update.end (res);
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
                     Services.Database.get_default ().update_project (project);
                     hide_destroy ();
-                });
-            } else if (project.backend_type == BackendType.CALDAV) {
-                Services.CalDAV.get_default ().update_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.get_default ().update_tasklist.end (res)) {
-                        Services.Database.get_default ().update_project (project);
-                        hide_destroy ();
-                    }
-                });
-            }
-        } else {
-            project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
-            if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
-                project.id = Util.get_default ().generate_id (project);
-                project.backend_type = BackendType.LOCAL;
-                Services.Database.get_default ().insert_project (project);
-                go_project (project.id_string);
-            } else if (project.backend_type == BackendType.TODOIST) {
-                Services.Todoist.get_default ().add.begin (project, (obj, res) => {
-                    HttpResponse response = Services.Todoist.get_default ().add.end (res);
+                }
+            });
+        }
+    }
 
-                    if (response.status) {
-                        project.id = response.data;
+    private void add_project () {
+        project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
+
+        if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+            project.id = Util.get_default ().generate_id (project);
+            project.backend_type = BackendType.LOCAL;
+
+            Services.Database.get_default ().insert_project (project);
+            go_project (project.id_string);
+        } else if (project.backend_type == BackendType.TODOIST) {
+            Services.Todoist.get_default ().add.begin (project, (obj, res) => {
+                HttpResponse response = Services.Todoist.get_default ().add.end (res);
+
+                if (response.status) {
+                    project.id = response.data;
+                    Services.Database.get_default ().insert_project (project);
+                    go_project (project.id_string);
+                }
+            });
+        } else if (project.backend_type == BackendType.CALDAV) {
+            project.id = Util.get_default ().generate_id (project);
+            project.backend_type = BackendType.CALDAV;
+
+            Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
+                if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
+                    Services.CalDAV.Core.get_default ().get_sync_token.begin (project, (obj, res) => {
+                        HttpResponse response = Services.CalDAV.Core.get_default ().get_sync_token.end (res);
+
+                        if (response.status) {
+                            project.sync_id = response.data;
+                        }
+
                         Services.Database.get_default ().insert_project (project);
                         go_project (project.id_string);
-                    }
-                });
-            } else if (project.backend_type == BackendType.CALDAV) {
-                project.id = Util.get_default ().generate_id (project);
-                project.backend_type = BackendType.CALDAV;
-                Services.CalDAV.get_default ().add_tasklist.begin (project, (obj, res) => {
-                    if (Services.CalDAV.get_default ().add_tasklist.end (res)) {
-                        Services.Database.get_default ().insert_project (project);
-                        go_project (project.id_string);
-                    }
-                });
-            }
+                    });
+                }
+            });
         }
     }
 
@@ -369,11 +363,6 @@ public class Dialogs.Project : Adw.Window {
     }
 
     public void hide_destroy () {
-        hide ();
-
-        Timeout.add (500, () => {
-            destroy ();
-            return GLib.Source.REMOVE;
-        });
+        close ();
     }
 }
