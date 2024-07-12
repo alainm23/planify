@@ -63,6 +63,7 @@ core_files = files(
     'Objects/Reminder.vala',
     'Objects/Section.vala',
     'Objects/Promise.vala',
+    'Objects/Source.vala',
     
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',
