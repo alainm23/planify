@@ -538,12 +538,13 @@ public class Views.Today : Adw.Bin {
     }
 
     public void update_today_label () {
-        var date = new GLib.DateTime.now_local ();
-        var date_format = "%s %s".printf (date.format ("%a"),
+        var date_format = "%s %s".printf (
+            new GLib.DateTime.now_local ().format ("%a"),
             date.format (
             Granite.DateTime.get_default_date_format (false, true, false)
         ));
-        headerbar.title = "%s   <small>%s</small>".printf (today_label, date_format);
+        headerbar.title = today_label;
+        headerbar.title2 = date_format;
     }
 
     private Gtk.Popover build_view_setting_popover () {
