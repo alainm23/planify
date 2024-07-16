@@ -49,18 +49,6 @@ public class Layouts.Sidebar : Adw.Bin {
             min_children_per_line = 2
         };
 
-        filters_flow.set_sort_func ((child1, child2) => {
-            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
-            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
-
-            return item1 - item2;
-        });
-
-        filters_flow.set_filter_func ((child) => {
-            var row = ((Layouts.FilterPaneRow) child);
-            return row.active ();
-        });
-
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
         };
@@ -161,6 +149,19 @@ public class Layouts.Sidebar : Adw.Bin {
                 filters_flow.invalidate_sort ();
                 filters_flow.invalidate_filter ();
             }
+        });
+
+
+        filters_flow.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
+            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
+
+            return item1 - item2;
+        });
+
+        filters_flow.set_filter_func ((child) => {
+            var row = ((Layouts.FilterPaneRow) child);
+            return row.active ();
         });
 
         var whats_new_gesture = new Gtk.GestureClick ();

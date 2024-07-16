@@ -196,71 +196,6 @@ public class Services.Database : GLib.Object {
         opened ();
     }
 
-    public void patch_database () {
-        /*
-         * Planner 3 - Beta 1
-         * - Add pinned (0|1) to Items
-         */
-
-        add_int_column ("Items", "pinned", 0);
-
-        /*
-         * Planner 3 - Beta 2
-         * - Add show_completed (0|1) to Projects
-         */
-
-        add_int_column ("Projects", "show_completed", 0);
-
-        /*
-         *  Planner 3.10
-         * - Add description to Projects
-         * - Add due date to Projects
-         */
-
-        add_text_column ("Projects", "description", "");
-
-        /*
-         * Planify 4.4
-         * - Add labels column to Items
-         * - Add color column to Section
-         * - Add description column to Section
-         */
-
-        add_item_label_column ();
-        add_text_column ("Sections", "color", "blue");
-        add_text_column ("Sections", "description", "");
-
-        /*
-         * Planify 4.5
-         * - Add extra data column to Items
-         */
-
-        add_text_column ("Items", "extra_data", "");
-        add_int_column ("Sections", "hidded", 0);
-        add_int_column ("Projects", "inbox_section_hidded", 0);
-
-        /*
-         * Planify 4.5.2
-         * - Add sync_id column to Projects
-         */
-
-        add_text_column ("Projects", "sync_id", "");
-
-        /*
-         * Planify 4.8
-         * - Add sync_id column to Projects
-         */
-
-        add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
-
-        /*
-         * Planify 4.10
-         * - Add source_id column to Projects
-         */
-
-         add_project_source_id ();
-    }
-
     private void create_tables () {
         sql = """
             CREATE TABLE IF NOT EXISTS Labels (
@@ -584,6 +519,71 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+    }
+
+    public void patch_database () {
+        /*
+         * Planner 3 - Beta 1
+         * - Add pinned (0|1) to Items
+         */
+
+        add_int_column ("Items", "pinned", 0);
+
+        /*
+         * Planner 3 - Beta 2
+         * - Add show_completed (0|1) to Projects
+         */
+
+        add_int_column ("Projects", "show_completed", 0);
+
+        /*
+         *  Planner 3.10
+         * - Add description to Projects
+         * - Add due date to Projects
+         */
+
+        add_text_column ("Projects", "description", "");
+
+        /*
+         * Planify 4.4
+         * - Add labels column to Items
+         * - Add color column to Section
+         * - Add description column to Section
+         */
+
+        add_item_label_column ();
+        add_text_column ("Sections", "color", "blue");
+        add_text_column ("Sections", "description", "");
+
+        /*
+         * Planify 4.5
+         * - Add extra data column to Items
+         */
+
+        add_text_column ("Items", "extra_data", "");
+        add_int_column ("Sections", "hidded", 0);
+        add_int_column ("Projects", "inbox_section_hidded", 0);
+
+        /*
+         * Planify 4.5.2
+         * - Add sync_id column to Projects
+         */
+
+        add_text_column ("Projects", "sync_id", "");
+
+        /*
+         * Planify 4.8
+         * - Add sync_id column to Projects
+         */
+
+        add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
+
+        /*
+         * Planify 4.10
+         * - Add source_id column to Projects
+         */
+
+         add_project_source_id ();
     }
 
     public void clear_database () {
@@ -2963,6 +2963,8 @@ public class Services.Database : GLib.Object {
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
             warning (errormsg);
         }
+
+        Util.get_default ().create_local_source ();
 
         if (Services.Todoist.get_default ().is_logged_in ()) {
             var todoist_source = new Objects.Source ();
