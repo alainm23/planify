@@ -1065,7 +1065,7 @@ public class Services.CalDAV.Core : GLib.Object {
 		}
 
 		// Remove server_timeout
-		Source.remove (server_timeout);
+		GLib.Source.remove (server_timeout);
 		server_timeout = 0;
 
 		log_out ();

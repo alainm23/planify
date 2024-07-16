@@ -35,13 +35,13 @@ public class Dialogs.Project : Adw.Dialog {
         }
     }
 
-    public Project.new (BackendType backend_type, bool backend_picker = false, string parent_id = "") {
+    public Project.new (string source_id, bool backend_picker = false, string parent_id = "") {
         var project = new Objects.Project ();
         project.color = "blue";
         project.emoji = "🚀️";
         project.id = "";
         project.parent_id = parent_id;
-        project.backend_type = backend_type;
+        project.source_id = source_id;
 
         Object (
             project: project,
@@ -123,8 +123,9 @@ public class Dialogs.Project : Adw.Dialog {
         name_group.add (emoji_switch_row);
 
         var backend_model = new Gtk.StringList (null);
-        backend_model.append (_("On This Computer"));
-        backend_model.append (_("Todoist"));
+        foreach (Objects.Source source in Services.Database.get_default ().sources) {
+            backend_model.append (source.header_text);
+        }
 
         var backend_row = new Adw.ComboRow ();
         backend_row.title = _("Source");
@@ -141,7 +142,7 @@ public class Dialogs.Project : Adw.Dialog {
 
         var backend_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = backend_picker && Services.Todoist.get_default ().is_logged_in ()
+            reveal_child = backend_picker
         };
 
         backend_revealer.child = backend_group;
@@ -292,16 +293,16 @@ public class Dialogs.Project : Adw.Dialog {
 
 
     private void update_project () {
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == BackendType.LOCAL) {
             Services.Database.get_default ().update_project (project);
             hide_destroy ();
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Database.get_default ().update_project (project);
                 hide_destroy ();
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == BackendType.CALDAV) {
             Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
                     Services.Database.get_default ().update_project (project);
@@ -313,14 +314,12 @@ public class Dialogs.Project : Adw.Dialog {
 
     private void add_project () {
         project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
-
-        if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+        
+        if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.NONE) {
             project.id = Util.get_default ().generate_id (project);
-            project.backend_type = BackendType.LOCAL;
-
             Services.Database.get_default ().insert_project (project);
             go_project (project.id_string);
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (project, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
@@ -330,10 +329,8 @@ public class Dialogs.Project : Adw.Dialog {
                     go_project (project.id_string);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == BackendType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
-            project.backend_type = BackendType.CALDAV;
-
             Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
                     Services.CalDAV.Core.get_default ().get_sync_token.begin (project, (obj, res) => {

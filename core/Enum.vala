@@ -177,6 +177,25 @@ public enum BackendType {
 				assert_not_reached ();
 		}
 	}
+
+	public static BackendType parse (string value) {
+		switch (value) {
+			case "local":
+				return BackendType.LOCAL;
+
+			case "todoist":
+				return BackendType.TODOIST;
+
+			case "google-tasks":
+				return BackendType.GOOGLE_TASKS;
+			
+			case "caldav":
+				return BackendType.CALDAV;
+
+			default:
+				return BackendType.NONE;
+		}
+	}
 }
 
 public enum PaneType {

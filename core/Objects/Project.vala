@@ -36,6 +36,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool collapsed { get; set; default = false; }
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
+    public string source_id { get; set; default = BackendType.LOCAL.to_string (); }
     
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -46,6 +47,20 @@ public class Objects.Project : Objects.BaseObject {
         set {
             _view_style = value;
             view_style_changed ();
+        }
+    }
+
+    public BackendType source_type {
+        get {
+            return source.source_type;
+        }
+    }
+
+    Objects.Source? _source;
+    public Objects.Source source {
+        get {
+            _source = Services.Database.get_default ().get_source (source_id);
+            return _source;
         }
     }
 
@@ -420,7 +435,7 @@ public class Objects.Project : Objects.BaseObject {
 
     public void update (bool use_timeout = true, bool show_loading = true) {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
 
         uint timeout = Constants.UPDATE_TIMEOUT;
@@ -801,27 +816,29 @@ public class Objects.Project : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "delete") {
                 loading = true;
-                if (backend_type == BackendType.LOCAL) {
+                if (source_type == BackendType.LOCAL) {
                     Services.Database.get_default ().delete_project (this);
-                } else if (backend_type == BackendType.TODOIST) {
+                } else if (source_type == BackendType.TODOIST) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                         if (Services.Todoist.get_default ().delete.end (res).status) {
                             Services.Database.get_default ().delete_project (this);
-                            loading = false;
                         }
+
+                        loading = false;
                     });
-                } else if (backend_type == BackendType.CALDAV) {
+                } else if (source_type == BackendType.CALDAV) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
                         if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
                             Services.Database.get_default ().delete_project (this);
-                            loading = false;
                         }
+
+                        loading = false;
                     });
                 }
             }

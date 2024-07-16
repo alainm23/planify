@@ -567,8 +567,17 @@ public class Util : GLib.Object {
         }
     }
 
+    public Objects.Source create_local_source () {
+        Objects.Source local_source = new Objects.Source ();
+        local_source.id = BackendType.LOCAL.to_string ();
+        local_source.source_type = BackendType.LOCAL;
+        Services.Database.get_default ().insert_source (local_source);
+        return local_source;
+    }
+
     public Objects.Project create_inbox_project () {
         Objects.Project inbox_project = new Objects.Project ();
+        inbox_project.source_id = BackendType.LOCAL.to_string ();
         inbox_project.id = Util.get_default ().generate_id (inbox_project);
         inbox_project.backend_type = BackendType.LOCAL;
         inbox_project.name = _("Inbox");
@@ -585,6 +594,7 @@ public class Util : GLib.Object {
     public void create_tutorial_project () {
         Objects.Project project = new Objects.Project ();
         project.id = Util.get_default ().generate_id (project);
+        project.source_id = BackendType.LOCAL.to_string ();
         project.backend_type = BackendType.LOCAL;
         project.icon_style = ProjectIconStyle.EMOJI;
         project.emoji = "🚀️";
@@ -1042,7 +1052,7 @@ We hope you’ll enjoy using Planify!""");
                 project.loading = false;
                 
                 if (Services.Todoist.get_default ().duplicate_project.end (res).status) {
-                    Services.Todoist.get_default ().sync_async ();
+                    Services.Todoist.get_default ().sync.begin (project.source);
                 }
             });
         } else if (project.backend_type == BackendType.CALDAV) {

@@ -349,7 +349,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         var drop_magic_button_target = new Gtk.DropTarget (typeof (Widgets.MagicButton), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_magic_button_target);
         drop_magic_button_target.drop.connect ((value, x, y) => {
-            var dialog = new Dialogs.Project.new (project.backend_type, false, project.id);
+            var dialog = new Dialogs.Project.new (project.source_id, false, project.id);
             dialog.present (Planify._instance.main_window);
             return true;
         });

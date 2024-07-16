@@ -824,71 +824,42 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-		
-		// Todoist
-		var todoist_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Todoist.get_default ().is_logged_in ()
+
+		//  var local_item = new Widgets.ContextMenu.MenuItem (_("On This Computer"));
+		var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
+		var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		//  menu_box.append (local_item);
+		menu_box.append (todoist_item);
+		menu_box.append (caldav_item);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = true,
+			child = menu_box,
+			width_request = 250,
+			position = Gtk.PositionType.BOTTOM
 		};
 
-		var todoist_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
-			margin_end = 6,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			css_classes = { "flat" }
+		var add_source_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+			icon_name = "plus-large-symbolic",
+            css_classes = { "flat", "dim-label" },
+            tooltip_markup = _("Add Source"),
+			popover = popover
+        };
+
+		var sources_group = new Layouts.HeaderItem (_("Sources")) {
+            card = true,
+			reveal = true,
+            margin_top = 12
 		};
 
-		var todoist_setting_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.Todoist.get_default ().is_logged_in ()
-		};
-
-		todoist_setting_revealer.child = todoist_setting_button;
-
-		var todoist_row = new Adw.ActionRow ();
-		todoist_row.title = _("Todoist");
-		todoist_row.subtitle = _("Synchronize with your Todoist Account");
-		todoist_row.add_suffix (todoist_setting_revealer);
-		todoist_row.add_suffix (todoist_switch);
-        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("todoist") {
-			pixel_size = 32
-		});
-
-		// CalDAV
-		var caldav_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.CalDAV.Core.get_default ().is_logged_in ()
-		};
-
-		var caldav_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
-			margin_end = 6,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			css_classes = { "flat" }
-		};
-
-		var caldav_setting_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.CalDAV.Core.get_default ().is_logged_in (),
-			child = caldav_setting_button
-		};
-
-		var caldav_row = new Adw.ActionRow ();
-		caldav_row.title = _("Nextcloud");
-		caldav_row.subtitle = _("Synchronization based on open Internet standards");
-		caldav_row.add_suffix (caldav_setting_revealer);
-		caldav_row.add_suffix (caldav_switch);
-        caldav_row.add_prefix (new Gtk.Image.from_icon_name ("cloud") {
-			pixel_size = 32
-		});
-
-		var accounts_group = new Adw.PreferencesGroup ();
-		accounts_group.title = _("Accounts");
-		accounts_group.add (todoist_row);
-		accounts_group.add (caldav_row);
+		sources_group.add_widget_end (add_source_button);
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		content_box.append (accounts_group);
+		content_box.append (sources_group);
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -903,111 +874,75 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		toolbar_view.add_top_bar (settings_header);
 		toolbar_view.content = content_clamp;
 
-		var page = new Adw.NavigationPage (toolbar_view, "account");
-
-		var todoist_switch_gesture = new Gtk.GestureClick ();
-		todoist_switch_gesture.set_button (1);
-		todoist_switch.add_controller (todoist_switch_gesture);
-		todoist_switch_gesture.pressed.connect (() => {
-			todoist_switch.active = !todoist_switch.active;
-
-			if (todoist_switch.active) {
-				todoist_switch.active = false;
-				if (!Services.Todoist.get_default ().is_logged_in ()) {
-					push_subpage (get_oauth_todoist_page (todoist_switch));
-				}
-			} else {
-				confirm_log_out (todoist_switch, BackendType.TODOIST);
-			}
-		});
-
-		var caldav_switch_gesture = new Gtk.GestureClick ();
-		caldav_switch.add_controller (caldav_switch_gesture);
-		caldav_switch_gesture.pressed.connect (() => {
-			caldav_switch.active = !caldav_switch.active;
+		Gee.HashMap <string, Widgets.SourceRow> sources_hashmap = new Gee.HashMap <string, Widgets.SourceRow> ();
+		foreach (Objects.Source source in Services.Database.get_default ().sources) {
+			sources_hashmap[source.id] = new Widgets.SourceRow (source);
 			
-			if (caldav_switch.active) {
-				caldav_switch.active = false;
-				push_subpage (get_caldav_setup_page (caldav_switch));
-			} else {
-				confirm_log_out (caldav_switch, BackendType.CALDAV);
+			sources_hashmap[source.id].view_detail.connect (() => {
+				push_subpage (get_todoist_view (source));
+			});
+
+			sources_group.add_child (sources_hashmap[source.id]);
+		}
+
+		Services.Database.get_default ().source_added.connect ((source) => {
+			sources_hashmap[source.id] = new Widgets.SourceRow (source);
+
+			sources_hashmap[source.id].view_detail.connect (() => {
+				push_subpage (get_todoist_view (source));
+			});
+
+			sources_group.add_child (sources_hashmap[source.id]);
+		});
+
+		Services.Database.get_default ().source_deleted.connect ((source) => {
+			if (sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id].hide_destroy ();
+				sources_hashmap.unset (source.id);
 			}
-		});
-
-		Services.Todoist.get_default ().first_sync_finished.connect (() => {
-			todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
-			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
-
-			Timeout.add (250, () => {
-				close ();
-				return GLib.Source.REMOVE;
-			});
-		});
-
-		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
-
-			Timeout.add (250, () => {
-				close ();
-				return GLib.Source.REMOVE;
-			});
-		});
-
-		Services.Todoist.get_default ().log_out.connect (() => {
-			todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
-			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
-		});
-
-		Services.CalDAV.Core.get_default ().log_out.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
-		});
-
-		todoist_setting_button.clicked.connect (() => {
-			push_subpage (get_todoist_view ());
-		});
-
-		caldav_setting_button.clicked.connect (() => {
-			push_subpage (get_caldav_view ());
 		});
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
 		});
 
-		return page;
-	}
+		todoist_item.clicked.connect (() => {
+			popover.popdown ();
+			push_subpage (get_oauth_todoist_page ());
+		});
 
-	private Adw.NavigationPage get_todoist_view () {
+		return new Adw.NavigationPage (toolbar_view, "account");
+	}
+	
+	private Adw.NavigationPage get_todoist_view (Objects.Source source) {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
 
-		var todoist_avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("todoist-user-name"), true);
+		var avatar = new Adw.Avatar (84, source.todoist_data.user_name, true);
 
-		var file = File.new_for_path (Util.get_default ().get_avatar_path ("todoist-user"));
+		var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
 		if (file.query_exists ()) {
 			var image = new Gtk.Image.from_file (file.get_path ());
-			todoist_avatar.custom_image = image.get_paintable ();
+			avatar.custom_image = image.get_paintable ();
 		}
 
-		var todoist_user = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-name")) {
+		var user_label = new Gtk.Label (source.todoist_data.user_name) {
 			margin_top = 12
 		};
-		todoist_user.add_css_class ("title-1");
+		user_label.add_css_class ("title-1");
 
-		var todoist_email = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-		todoist_email.add_css_class ("dim-label");
+		var email_label = new Gtk.Label (source.todoist_data.user_email);
+		email_label.add_css_class ("dim-label");
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
 		};
-		user_box.append (todoist_avatar);
-		user_box.append (todoist_user);
-		user_box.append (todoist_email);
+		user_box.append (avatar);
+		user_box.append (user_label);
+		user_box.append (email_label);
 
 		var sync_server_switch = new Gtk.Switch () {
 			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
+			active = source.sync_server
 		};
 
 		var sync_server_row = new Adw.ActionRow ();
@@ -1017,12 +952,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		sync_server_row.add_suffix (sync_server_switch);
 
 		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
-			);
+			source.last_sync, new GLib.TimeZone.local ()
+		);
 
-		var last_sync_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (
-												 last_sync_date
-												 ));
+		var last_sync_label = new Gtk.Label (
+			Utils.Datetime.get_relative_date_from_date (last_sync_date)
+		);
 
 		var last_sync_row = new Adw.ActionRow ();
 		last_sync_row.activatable = false;
@@ -1062,7 +997,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		});
 
 		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+			source.sync_server = sync_server_switch.active;
+			source.save ();
 		});
 
 		return page;
@@ -1259,7 +1195,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return page;
 	}
 
-	private Adw.NavigationPage get_oauth_todoist_page (Gtk.Switch switch_widget) {
+	private Adw.NavigationPage get_oauth_todoist_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Loading…"));
 
 		string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
@@ -1276,18 +1212,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         webview.load_uri (oauth_open_url);
 
-        var sync_image = new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic") {
+        var sync_image = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-			pixel_size = 128
+			height_request = 64,
+			width_request = 64,
+            spinning = true
         };
 
         // Loading
-        var progress_bar = new Gtk.ProgressBar () {
-            margin_top = 6
-        };
 
-        var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes"));
+        var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
+			css_classes = { "dim-label" }
+		};
         sync_label.wrap = true;
         sync_label.justify = Gtk.Justification.CENTER;
         sync_label.margin_top = 12;
@@ -1295,12 +1232,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         sync_label.margin_end = 12;
 
         var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 24,
+            margin_top = 128,
             margin_start = 64,
             margin_end = 64
         };
         sync_box.append (sync_image);
-        sync_box.append (progress_bar);
         sync_box.append (sync_label);
 
         var stack = new Gtk.Stack ();
@@ -1309,7 +1245,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         stack.add_named (webview, "web_view");
-        stack.add_named (sync_box, "spinner-view");
+        stack.add_named (sync_box, "loading");
 
 		var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -1326,7 +1262,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
 
 		settings_header.back_activated.connect (() => {
-			switch_widget.active = false;
 			pop_subpage ();
 		});
 
@@ -1341,7 +1276,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
                 debug ("access_denied");
-				switch_widget.active = false;
+				webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
 				pop_subpage ();
             }
 
@@ -1370,7 +1305,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				toast.timeout = 0;
 
 				toast.button_clicked.connect (() => {
-					switch_widget.active = false;
 					pop_subpage ();
 				});
 
@@ -1381,15 +1315,12 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
         Services.Todoist.get_default ().first_sync_started.connect (() => {
-            stack.visible_child_name = "spinner-view";
+            stack.visible_child_name = "loading";
         });
 
         Services.Todoist.get_default ().first_sync_finished.connect (() => {
+			webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
 			pop_subpage ();
-        });
-
-        Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
-            progress_bar.fraction = progress;
         });
 
 		return page;
@@ -1845,36 +1776,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		}
 
 		return true;
-	}
-
-	private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
-		string message = "";
-
-		if (backend_type == BackendType.TODOIST) {
-			message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");
-		} else if (backend_type == BackendType.CALDAV) {
-			message = _("Are you sure you want to remove the CalDAV sync? This action will delete all your tasks and settings.");
-		}
-
-		var dialog = new Adw.AlertDialog (_("Sign Off"), message);
-
-		dialog.body_use_markup = true;
-		dialog.add_response ("cancel", _("Cancel"));
-		dialog.add_response ("delete", _("Delete"));
-		dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-		dialog.present (Planify._instance.main_window);
-
-		dialog.response.connect ((response) => {
-			if (response == "delete") {
-				if (backend_type == BackendType.TODOIST) {
-					Services.Todoist.get_default ().remove_items ();
-				} else if (backend_type == BackendType.CALDAV) {
-					Services.CalDAV.Core.get_default ().remove_items ();
-				}
-			} else {
-				switch_widget.active = true;
-			}
-		});
 	}
 
 	private Gtk.Widget generate_icon (string icon_name, int size = 16) {

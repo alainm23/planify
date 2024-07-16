@@ -294,6 +294,10 @@ public class MainWindow : Adw.ApplicationWindow {
 	private void init_backend () {
 		Services.Database.get_default ().init_database ();
 
+		if (Services.Database.get_default ().is_sources_empty ()) {
+			Util.get_default ().create_local_source ();
+		}
+
 		if (Services.Database.get_default ().is_database_empty ()) {
 			Util.get_default ().create_inbox_project ();
 			Util.get_default ().create_tutorial_project ();
@@ -310,21 +314,15 @@ public class MainWindow : Adw.ApplicationWindow {
 		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
 		Services.Database.get_default ().project_archived.connect (valid_view_removed);
 
-		if (Services.Todoist.get_default ().is_logged_in ()) {
-			Timeout.add (Constants.SYNC_TIMEOUT, () => {
-				Services.Todoist.get_default ().run_server ();
-				return GLib.Source.REMOVE;
-			});
-		}
-
-		if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
-			Timeout.add (Constants.SYNC_TIMEOUT, () => {
-				Services.CalDAV.Core.get_default ().run_server ();
-				return GLib.Source.REMOVE;
-			});
-		}
-
 		check_archived ();
+		
+		Timeout.add (Constants.SYNC_TIMEOUT, () => {
+			foreach (Objects.Source source in Services.Database.get_default ().sources) {
+				source.run_server ();
+			}
+			
+			return GLib.Source.REMOVE;
+		});
 	}
 
 	private void check_archived () {

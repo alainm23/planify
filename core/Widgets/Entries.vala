@@ -150,7 +150,7 @@ public class Widgets.HyperTextView : Granite.HyperTextView {
 
     private void changed_timeout () {
         if (changed_timeout_id != 0) {
-            Source.remove (changed_timeout_id);
+            GLib.Source.remove (changed_timeout_id);
         }
 
         changed_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {

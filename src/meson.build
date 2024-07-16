@@ -37,6 +37,7 @@ sources = files(
   'Layouts/ItemSidebarView.vala',
   'Layouts/SectionBoard.vala',
   'Layouts/HeaderBar.vala',
+  'Layouts/SidebarSourceRow.vala',
   
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
@@ -55,6 +56,7 @@ sources = files(
   'Widgets/FilterFlowBox.vala',
   'Widgets/Attachments.vala',
   'Widgets/ItemChangeHistoryRow.vala',
+  'Widgets/SourceRow.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',

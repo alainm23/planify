@@ -711,7 +711,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update (string update_id = "") {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
@@ -740,7 +740,7 @@ public class Objects.Item : Objects.BaseObject {
 
     public void update_async_timeout (string update_id = "") {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
         
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {

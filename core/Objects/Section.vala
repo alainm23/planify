@@ -185,7 +185,7 @@ public class Objects.Section : Objects.BaseObject {
 
     public void update (bool cloud=true) {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {

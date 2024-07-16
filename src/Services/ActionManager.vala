@@ -142,18 +142,17 @@ public class Services.ActionManager : Object {
     }
 
     private void action_sync_manually () {
-        if (Services.Todoist.get_default ().is_logged_in ()) {
-            Services.Todoist.get_default ().sync_async ();
-        }
+        //  if (Services.Todoist.get_default ().is_logged_in ()) {
+        //      Services.Todoist.get_default ().sync_async ();
+        //  }
 
-        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
-            Services.CalDAV.Core.get_default ().sync_async ();
-        }
+        //  if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+        //      Services.CalDAV.Core.get_default ().sync_async ();
+        //  }
     }
 
     private void action_new_project () {
-        // TODO: Update Backend Type instance default by user // vala-lint=note
-        var dialog = new Dialogs.Project.new (BackendType.LOCAL, true);
+        var dialog = new Dialogs.Project.new (BackendType.LOCAL.to_string (), true);
         dialog.present (Planify._instance.main_window);
     }
 

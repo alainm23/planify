@@ -28,6 +28,9 @@ public class Services.Database : GLib.Object {
     public signal void opened ();
     public signal void reset ();
 
+    public signal void source_added (Objects.Source source);
+    public signal void source_deleted (Objects.Source source);
+
     public signal void project_added (Objects.Project project);
     public signal void project_updated (Objects.Project project);
     public signal void project_deleted (Objects.Project project);
@@ -64,6 +67,17 @@ public class Services.Database : GLib.Object {
         }
 
         return _instance;
+    }
+
+    Gee.ArrayList<Objects.Source> _sources = null;
+    public Gee.ArrayList<Objects.Source> sources {
+        get {
+            if (_sources == null) {
+                _sources = get_sources_collection ();
+            }
+
+            return _sources;
+        }
     }
 
     Gee.ArrayList<Objects.Project> _projects = null;
@@ -135,9 +149,15 @@ public class Services.Database : GLib.Object {
             }
         });
 
+        source_deleted.connect ((source) => {
+            if (_sources.remove (source)) {
+                debug ("Source Removed: %s", source.header_text);
+            }
+        });
+
         project_deleted.connect ((project) => {
             if (_projects.remove (project)) {
-                debug ("Project Removed: %s", project.name);
+                debug ("Prodeleteject Removed: %s", project.name);
             }
         });
 
@@ -232,6 +252,13 @@ public class Services.Database : GLib.Object {
          */
 
         add_text_column ("Items", "item_type", ItemType.TASK.to_string ());
+
+        /*
+         * Planify 4.10
+         * - Add source_id column to Projects
+         */
+
+         add_project_source_id ();
     }
 
     private void create_tables () {
@@ -275,7 +302,8 @@ public class Services.Database : GLib.Object {
                 description             TEXT,
                 due_date                TEXT,
                 inbox_section_hidded    INTEGER,
-                sync_id                 TEXT
+                sync_id                 TEXT,
+                source_id               TEXT
             );
         """;
 
@@ -415,17 +443,16 @@ public class Services.Database : GLib.Object {
         }
 
         sql = """
-            CREATE TABLE IF NOT EXISTS OEvents (
-                id                  INTEGER PRIMARY KEY AUTOINCREMENT,
-                event_type          TEXT,
-                event_date          DATETIME DEFAULT (datetime('now','localtime')),
-                object_id           TEXT,
-                object_type         TEXT,
-                object_key          TEXT,
-                object_old_value    TEXT,
-                object_new_value    TEXT,
-                parent_item_id      TEXT,
-                parent_project_id   TEXT
+            CREATE TABLE IF NOT EXISTS Sources (
+                id                  TEXT PRIMARY KEY,
+                source_type         TEXT NOT NULL,
+                added_at            TEXT,
+                updated_at          TEXT,
+                is_visible          INTEGER,
+                child_order         INTEGER,
+                sync_server         INTEGER,
+                last_sync           TEXT,
+                data                TEXT
             );
         """;
         
@@ -576,6 +603,10 @@ public class Services.Database : GLib.Object {
         return projects.size <= 0;
     }
 
+    public bool is_sources_empty () {
+        return get_sources_collection ().size <= 0;
+    }
+
     public Gee.ArrayList<Objects.BaseObject> get_collection_by_type (Objects.BaseObject base_object) {
         if (base_object is Objects.Project) {
             return projects;
@@ -588,6 +619,115 @@ public class Services.Database : GLib.Object {
         }
 
         return new Gee.ArrayList<Objects.BaseObject> ();
+    }
+
+    /*
+        Sources
+    */
+
+    public Gee.ArrayList<Objects.Source> get_sources_collection () {
+        Gee.ArrayList<Objects.Source> return_value = new Gee.ArrayList<Objects.Source> ();
+
+        Sqlite.Statement stmt;
+        
+        sql = """
+            SELECT * FROM Sources ORDER BY child_order;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+
+        while (stmt.step () == Sqlite.ROW) {
+            return_value.add (_fill_source (stmt));
+        }
+        stmt.reset ();
+        return return_value;
+    }
+
+    public Objects.Source _fill_source (Sqlite.Statement stmt) {
+        Objects.Source return_value = new Objects.Source ();
+        return_value.id = stmt.column_text (0);
+        return_value.source_type = BackendType.parse (stmt.column_text (1));
+        return_value.added_at = stmt.column_text (2);
+        return_value.updated_at = stmt.column_text (3);
+        return_value.is_visible = get_parameter_bool (stmt, 4);
+        return_value.child_order = stmt.column_int (5);
+        return_value.sync_server = get_parameter_bool (stmt, 6);
+        return_value.last_sync = stmt.column_text (7);
+
+        if (return_value.source_type == BackendType.TODOIST) {
+            return_value.data = new Objects.SourceTodoistData.from_json (stmt.column_text (8));
+        }
+        
+        return return_value;
+    }
+
+    public bool insert_source (Objects.Source source) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            INSERT OR IGNORE INTO Sources (id, source_type, added_at,
+                updated_at, is_visible, child_order, sync_server, last_sync, data)
+            VALUES ($id, $source_type, $added_at,
+                $updated_at, $is_visible, $child_order, $sync_server, $last_sync, $data);
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", source.id);
+        set_parameter_str (stmt, "$source_type", source.source_type.to_string ());
+        set_parameter_str (stmt, "$added_at", source.added_at);
+        set_parameter_str (stmt, "$updated_at", source.updated_at);
+        set_parameter_bool (stmt, "$is_visible", source.is_visible);
+        set_parameter_int (stmt, "$child_order", source.child_order);
+        set_parameter_bool (stmt, "$sync_server", source.sync_server);
+        set_parameter_str (stmt, "$last_sync", source.last_sync);
+        set_parameter_str (stmt, "$data", source.data.to_json ());
+
+        if (stmt.step () == Sqlite.DONE) {
+            sources.add (source);
+            source_added (source);
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
+        return stmt.step () == Sqlite.DONE;
+    }
+
+    public Objects.Source get_source (string id) {
+        Objects.Source? return_value = null;
+        lock (_sources) {
+            foreach (var source in sources) {
+                if (source.id == id) {
+                    return_value = source;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public void delete_source (Objects.Source source) {
+        Sqlite.Statement stmt;
+
+        sql = """
+            DELETE FROM Sources WHERE id=$id;
+        """;
+
+        db.prepare_v2 (sql, sql.length, out stmt);
+        set_parameter_str (stmt, "$id", source.id);
+
+        if (stmt.step () == Sqlite.DONE) {
+            foreach (Objects.Project project in get_projects_by_source (source.id)) {
+                delete_project (project);
+            }
+
+            source.deleted ();
+        } else {
+            warning ("Error: %d: %s", db.errcode (), db.errmsg ());
+        }
+
+        stmt.reset ();
     }
 
     /*
@@ -638,6 +778,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Project> get_projects_by_source (string source_id) {
+        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
+        lock (_projects) {
+            foreach (var project in projects) {
+                if (project.source_id == source_id) {
+                    return_value.add (project);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Item> get_subitems (Objects.Item i) {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -675,6 +828,7 @@ public class Services.Database : GLib.Object {
         return_value.due_date = stmt.column_text (19);
         return_value.inbox_section_hidded = get_parameter_bool (stmt, 20);
         return_value.sync_id = stmt.column_text (21);
+        return_value.source_id = stmt.column_text (22);
         return return_value;
     }
 
@@ -713,11 +867,11 @@ public class Services.Database : GLib.Object {
             INSERT OR IGNORE INTO Projects (id, name, color, backend_type, inbox_project,
                 team_inbox, child_order, is_deleted, is_archived, is_favorite, shared, view_style,
                 sort_order, parent_id, collapsed, icon_style, emoji, show_completed, description, due_date,
-                inbox_section_hidded, sync_id)
+                inbox_section_hidded, sync_id, source_id)
             VALUES ($id, $name, $color, $backend_type, $inbox_project, $team_inbox,
                 $child_order, $is_deleted, $is_archived, $is_favorite, $shared, $view_style,
                 $sort_order, $parent_id, $collapsed, $icon_style, $emoji, $show_completed, $description, $due_date,
-                $inbox_section_hidded, $sync_id);
+                $inbox_section_hidded, $sync_id, $source_id);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -743,6 +897,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
+        set_parameter_str (stmt, "$source_id", project.source_id);
 
         if (stmt.step () == Sqlite.DONE) {
             projects.add (project);
@@ -850,7 +1005,8 @@ public class Services.Database : GLib.Object {
                 description=$description,
                 due_date=$due_date,
                 inbox_section_hidded=$inbox_section_hidded,
-                sync_id=$sync_id
+                sync_id=$sync_id,
+                source_id=$source_id
             WHERE id=$id;
         """;
 
@@ -876,6 +1032,7 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$due_date", project.due_date);
         set_parameter_bool (stmt, "$inbox_section_hidded", project.inbox_section_hidded);
         set_parameter_str (stmt, "$sync_id", project.sync_id);
+        set_parameter_str (stmt, "$source_id", project.source_id);
         set_parameter_str (stmt, "$id", project.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -2709,7 +2866,7 @@ public class Services.Database : GLib.Object {
         bool returned = false;
 
         sql = """
-            SELECT * FROM %s LIMIT 1;
+            PRAGMA table_info(%s);
         """.printf (table);
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -2717,11 +2874,12 @@ public class Services.Database : GLib.Object {
         stmt.step ();
 
         for (int i = 0; i < stmt.column_count (); i++) {
-            if (stmt.column_name (i) == column) {
+            if (stmt.column_text (1) == column) {
                 returned = true;
             }
         }
 
+        stmt.reset ();
         return returned;
     }
 
@@ -2790,5 +2948,41 @@ public class Services.Database : GLib.Object {
         }
 
         stmt.reset ();
+    }
+
+    public void add_project_source_id () {
+        if (column_exists ("Projects", "source_id")) {
+            return;
+        }
+
+        sql = """
+            ALTER TABLE Projects ADD COLUMN source_id TEXT;
+            UPDATE Projects SET source_id = backend_type;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        if (Services.Todoist.get_default ().is_logged_in ()) {
+            var todoist_source = new Objects.Source ();
+            todoist_source.id = BackendType.TODOIST.to_string ();
+            todoist_source.source_type = BackendType.TODOIST;
+            todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
+            todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
+            todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");            
+
+            insert_source (todoist_source);
+        }
+
+        if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
+            var caldav_source = new Objects.Source ();
+            caldav_source.id = BackendType.CALDAV.to_string ();
+            caldav_source.source_type = BackendType.CALDAV;
+            caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
+            caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server"); 
+
+            insert_source (caldav_source);
+        }
     }
 }

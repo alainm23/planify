@@ -30,8 +30,21 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         set {
             _header_title = value;
-            name_label.label = _header_title;
-            name_label.visible = value != null;
+            header_label.label = _header_title;
+            header_label.visible = value != null;
+        }
+    }
+
+    public string _subheader_title;
+    public string subheader_title {
+        get {
+            return _subheader_title;
+        }
+
+        set {
+            _subheader_title = value;
+            subheader_label.label = _subheader_title;
+            subheader_revealer.reveal_child = value != null;
         }
     }
     
@@ -63,7 +76,9 @@ public class Layouts.HeaderItem : Adw.Bin {
         }
     }
 
-    private Gtk.Label name_label;
+    private Gtk.Label header_label;
+    private Gtk.Label subheader_label;
+    private Gtk.Revealer subheader_revealer;
     private Gtk.Label placeholder_label;
     private Gtk.ListBox listbox;
     private Adw.Bin content_grid;
@@ -143,12 +158,26 @@ public class Layouts.HeaderItem : Adw.Bin {
     }
 
     construct {
-        name_label = new Gtk.Label (null) {
+        header_label = new Gtk.Label (null) {
             halign = Gtk.Align.START
         };
 
-        name_label.add_css_class ("h4");
-        name_label.add_css_class ("heading");
+        header_label.add_css_class ("h4");
+        header_label.add_css_class ("heading");
+
+        subheader_label = new Gtk.Label (null) {
+            halign = Gtk.Align.START,
+            css_classes = { "caption" }
+        };
+
+        subheader_revealer = new Gtk.Revealer () {
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = subheader_label
+        };
+
+        var header_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        header_label_box.append (header_label);
+        header_label_box.append (subheader_revealer);
 
         listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -173,11 +202,11 @@ public class Layouts.HeaderItem : Adw.Bin {
             margin_end = 6
         };
 
-        header_box.append (name_label);
+        header_box.append (header_label_box);
         header_box.append (action_box);
 
         var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL) {
-            margin_top = 3,
+            margin_top = 6,
             margin_start = 3,
             margin_bottom = 3
         };

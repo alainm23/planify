@@ -158,13 +158,13 @@ public class Views.Labels : Adw.Bin {
             }
         });
 
-        Services.Todoist.get_default ().log_in.connect (() => {
-            labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
-        });
+        //  Services.Todoist.get_default ().log_in.connect (() => {
+        //      labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
+        //  });
 
-        Services.Todoist.get_default ().log_out.connect (() => {
-            labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
-        });
+        //  Services.Todoist.get_default ().log_out.connect (() => {
+        //      labels_todoist_header.reveal = Services.Todoist.get_default ().is_logged_in ();
+        //  });
 
         Services.CalDAV.Core.get_default ().log_in.connect (() => {
             labels_caldav_header.reveal = Services.CalDAV.Core.get_default ().is_logged_in ();

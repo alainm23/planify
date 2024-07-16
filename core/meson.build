@@ -5,6 +5,7 @@ core_files = files(
 
     'Util/Util.vala',
     'Util/Datetime.vala',
+    'Util/Migrate.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
@@ -81,8 +82,10 @@ core_files = files(
     'Objects/Reminder.vala',
     'Objects/Section.vala',
     'Objects/Promise.vala',
+    'Objects/Attachment.vala',
+    'Objects/ObjectEvent.vala',
     'Objects/Source.vala',
-    'Objects/Attachment.vala',    
+    
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',
     'Objects/Filters/Today.vala',
