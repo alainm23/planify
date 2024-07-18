@@ -711,7 +711,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		move_item.clicked.connect (() => {
 			menu_popover.popdown ();
 
-			var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.backend_type);
+			var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.source_type);
 			dialog.project = section.project;
 			dialog.present (Planify._instance.main_window);
 
@@ -762,7 +762,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			picked_widget.item.section_id = section.id;
 			picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -776,7 +776,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 						Services.Database.get_default ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
 				Services.Database.get_default ().update_item (picked_widget.item);
 			}
 
@@ -804,7 +804,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			picked_widget.item.section_id = section.id;
 			picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -818,7 +818,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 						Services.Database.get_default ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
 				Services.Database.get_default ().update_item (picked_widget.item);
 			}
 
@@ -876,7 +876,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		is_loading = true;
 
-		if (section.project.backend_type == BackendType.TODOIST) {
+		if (section.project.source_type == BackendType.TODOIST) {
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
 				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
 					Services.Database.get_default ().move_section (section, old_section_id);
@@ -884,7 +884,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				is_loading = false;
 			});
-		} else if (section.project.backend_type == BackendType.LOCAL) {
+		} else if (section.project.source_type == BackendType.LOCAL) {
 			Services.Database.get_default ().move_section (section, project_id);
 			is_loading = false;
 		}

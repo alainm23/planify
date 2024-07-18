@@ -37,15 +37,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
-    BackendType _backend_type;
-    public BackendType backend_type {
+    Objects.Source _source;
+    public Objects.Source source {
         set {
-            _backend_type = value;
-            add_labels (_backend_type);
+            _source = value;
+            add_labels (_source);
         }
 
         get {
-            return _backend_type;
+            return _source;
         }
     }
     
@@ -152,7 +152,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         search_entry.activate.connect (() => {
             if (search_entry.text.length > 0) {
-                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true, backend_type);
+                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
                     if (labels_widgets_map.has_key (label.id_string)) {
                         labels_widgets_map [label.id_string].update_checked_toggled ();
@@ -172,18 +172,17 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var label = new Objects.Label ();
         label.color = Util.get_default ().get_random_color ();
         label.name = search_entry.text;
+        label.source_id = source.id;
 
-        if (backend_type == BackendType.LOCAL || backend_type == BackendType.CALDAV) {
+        if (source.source_type == BackendType.LOCAL || source.source_type == BackendType.CALDAV) {
             label.id = Util.get_default ().generate_id (label);
-            label.backend_type = BackendType.LOCAL;
             Services.Database.get_default ().insert_label (label);
             checked_toggled (label, true);
 
             search_entry.text = "";
             close ();
-        } else if (backend_type == BackendType.TODOIST) {
+        } else if (source.source_type == BackendType.TODOIST) {
             is_loading = true;
-            label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
@@ -200,14 +199,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
-    private void add_labels (BackendType backend_type) {
+    private void add_labels (Objects.Source source) {
         labels_widgets_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);
         }
 
-        foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_backend_type (backend_type)) {
+        foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_source (source.id)) {
             add_label (label);
         }
     }

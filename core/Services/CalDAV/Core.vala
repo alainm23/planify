@@ -499,7 +499,8 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             foreach (string category in labels_map.values) {
-                var label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+                // TODO: VERIFICAR CALDAV
+                var label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
                 if (label == null) {
                     label = new Objects.Label ();
                     label.id = Util.get_default ().generate_id (label);

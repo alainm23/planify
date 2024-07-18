@@ -28,9 +28,9 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-    public BackendType backend_type {
+    public Objects.Source source {
         set {
-            picker.backend_type = value;
+            picker.source = value;
         }
     }
 

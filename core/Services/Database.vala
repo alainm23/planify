@@ -206,6 +206,7 @@ public class Services.Database : GLib.Object {
                 is_deleted      INTEGER,
                 is_favorite     INTEGER,
                 backend_type    TEXT,
+                source_id       TEXT,
                 CONSTRAINT unique_label UNIQUE (name)
             );
         """;
@@ -583,7 +584,7 @@ public class Services.Database : GLib.Object {
          * - Add source_id column to Projects
          */
 
-         add_project_source_id ();
+         add_project_labels_source_id ();
     }
 
     public void clear_database () {
@@ -1114,6 +1115,19 @@ public class Services.Database : GLib.Object {
         }
     }
 
+    public Gee.ArrayList<Objects.Label> get_labels_by_source (string source_id) {
+        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
+        lock (_labels) {
+            foreach (var label in labels) {
+                if (label.source_id == source_id) {
+                    return_value.add (label);
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     public Gee.ArrayList<Objects.Label> get_all_labels_by_search (string search_text) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         lock (_labels) {
@@ -1136,6 +1150,7 @@ public class Services.Database : GLib.Object {
         return_value.is_deleted = get_parameter_bool (stmt, 4);
         return_value.is_favorite = get_parameter_bool (stmt, 5);
         return_value.backend_type = get_backend_type_by_text (stmt, 6);
+        return_value.source_id = stmt.column_text (7);
         return return_value;
     }
 
@@ -1143,8 +1158,10 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Labels (id, name, color, item_order, is_deleted, is_favorite, backend_type)
-            VALUES ($id, $name, $color, $item_order, $is_deleted, $is_favorite, $backend_type);
+            INSERT OR IGNORE INTO Labels (id, name, color, item_order,
+                is_deleted, is_favorite, backend_type, source_id)
+            VALUES ($id, $name, $color, $item_order,
+                $is_deleted, $is_favorite, $backend_type, $source_id);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
@@ -1155,6 +1172,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
         set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
+        set_parameter_str (stmt, "$source_id", label.source_id);
 
         if (stmt.step () == Sqlite.DONE) {
             labels.add (label);
@@ -1195,13 +1213,13 @@ public class Services.Database : GLib.Object {
         }
     }
 
-    public Objects.Label? get_label_by_name (string name, bool lowercase = false, BackendType backend_type) {
+    public Objects.Label? get_label_by_name (string name, bool lowercase = false, string source_id) {
         lock (_labels) {
             string compare_name = lowercase ? name.down () : name;
 
             foreach (var label in labels) {
                 string label_name = lowercase ? label.name.down () : label.name;
-                if (label.backend_type == backend_type && label_name == compare_name) {
+                if (label.source_id == source_id && label_name == compare_name) {
                     return label;
                 }
             }
@@ -1234,7 +1252,8 @@ public class Services.Database : GLib.Object {
 
         sql = """
             UPDATE Labels SET name=$name, color=$color, item_order=$item_order,
-                is_deleted=$is_deleted, is_favorite=$is_favorite, backend_type=$backend_type
+                is_deleted=$is_deleted, is_favorite=$is_favorite, backend_type=$backend_type,
+                source_id=$source_id
             WHERE id=$id;
         """;
 
@@ -1245,6 +1264,7 @@ public class Services.Database : GLib.Object {
         set_parameter_bool (stmt, "$is_deleted", label.is_deleted);
         set_parameter_bool (stmt, "$is_favorite", label.is_favorite);
         set_parameter_str (stmt, "$backend_type", label.backend_type.to_string ());
+        set_parameter_str (stmt, "$source_id", label.source_id);
         set_parameter_str (stmt, "$id", label.id);
 
         if (stmt.step () == Sqlite.DONE) {
@@ -2950,7 +2970,7 @@ public class Services.Database : GLib.Object {
         stmt.reset ();
     }
 
-    public void add_project_source_id () {
+    public void add_project_labels_source_id () {
         if (column_exists ("Projects", "source_id")) {
             return;
         }
@@ -2958,6 +2978,15 @@ public class Services.Database : GLib.Object {
         sql = """
             ALTER TABLE Projects ADD COLUMN source_id TEXT;
             UPDATE Projects SET source_id = backend_type;
+        """;
+
+        if (db.exec (sql, null, out errormsg) != Sqlite.OK) {
+            warning (errormsg);
+        }
+
+        sql = """
+            ALTER TABLE Labels ADD COLUMN source_id TEXT;
+            UPDATE Labels SET source_id = backend_type;
         """;
 
         if (db.exec (sql, null, out errormsg) != Sqlite.OK) {

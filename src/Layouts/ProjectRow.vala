@@ -388,7 +388,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (picked_project.parent_id != target_project.parent_id) {
                 picked_project.parent_id = target_project.parent_id;
 
-                if (picked_project.backend_type == BackendType.TODOIST) {
+                if (picked_project.source_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                             Services.Database.get_default ().update_project (picked_project);
@@ -421,7 +421,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
                 if (value.dup_object () is Layouts.ProjectRow) {
                     var picked_widget = (Layouts.ProjectRow) value;
-                    if (picked_widget.project.backend_type == project.backend_type) {
+                    if (picked_widget.project.source_id == project.source_id) {
                         motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
                     }
                 }
@@ -474,7 +474,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (value.dup_object () is Layouts.ProjectRow) {
                 var picked_widget = (Layouts.ProjectRow) value;
-                if (picked_widget.project.backend_type == project.backend_type) {
+                if (picked_widget.project.source_id == project.source_id) {
                     return true;
                 }
             }
@@ -496,7 +496,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             string old_parent_id = picked_project.parent_id;
             picked_project.parent_id = target_project.id;
             
-            if (picked_project.backend_type == BackendType.TODOIST) {
+            if (picked_project.source_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                         Services.Database.get_default ().update_project (picked_project);
@@ -532,7 +532,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     return true;
                 }
 
-                if (picked_widget.item.project.backend_type == project.backend_type) {
+                if (picked_widget.item.project.source_id == project.source_id) {
                     return true;
                 }
             }
@@ -544,7 +544,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
-            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+            if (picked_widget.item.project.source_id != target_widget.project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
             } else {
                 picked_widget.item.move (target_widget.project, "");
@@ -572,7 +572,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                     return true;
                 }
                 
-                if (picked_widget.item.project.backend_type == project.backend_type) {
+                if (picked_widget.item.project.source_id == project.source_id) {
                     return true;
                 }
             }
@@ -584,7 +584,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ItemBoard) value;
             var target_widget = this;
 
-            if (picked_widget.item.project.backend_type != target_widget.project.backend_type) {
+            if (picked_widget.item.project.source_id != target_widget.project.source_id) {
                 Util.get_default ().move_backend_type_item.begin (picked_widget.item, target_widget.project);
             } else {
                 picked_widget.item.move (target_widget.project, "");
@@ -650,7 +650,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_box.append (edit_item);
         }
         
-        if (project.backend_type == BackendType.CALDAV) {
+        if (project.source_type == BackendType.CALDAV) {
             menu_box.append (refresh_item);
         }
 

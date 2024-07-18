@@ -212,9 +212,9 @@ public class Dialogs.Project : Adw.Dialog {
             progress_bar.color = project.color;
             color_picker_row.color = project.color;
 
-            if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.NONE) {
+            if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.NONE) {
                 backend_row.selected = 0;
-            } else if (project.backend_type == BackendType.TODOIST) {
+            } else if (project.source_type == BackendType.TODOIST) {
                 backend_row.selected = 1;
             }
 

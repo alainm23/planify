@@ -635,7 +635,7 @@ public class Views.Today : Adw.Bin {
 			}
 
 			var dialog = new Dialogs.LabelPicker ();
-			dialog.add_labels (BackendType.ALL);
+			// TODO: dialog.add_labels (BackendType.ALL);
 			dialog.labels = _labels;
 			dialog.present (Planify._instance.main_window);
 

@@ -260,11 +260,11 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
             if (project.is_inbox_project) {
                 inbox_group.add_child (projects_hashmap [project.id]);
             } else {
-                if (project.backend_type == BackendType.LOCAL) {
+                if (project.source_type == BackendType.LOCAL) {
                     local_group.add_child (projects_hashmap [project.id]);
-                } else if (project.backend_type == BackendType.TODOIST) {
+                } else if (project.source_type == BackendType.TODOIST) {
                     todoist_group.add_child (projects_hashmap [project.id]);
-                } else if (project.backend_type == BackendType.CALDAV) {
+                } else if (project.source_type == BackendType.CALDAV) {
                     caldav_group.add_child (projects_hashmap [project.id]);
                 }
             }

@@ -32,15 +32,15 @@ public class Widgets.LabelPicker.LabelButton : Adw.Bin {
         }
     }
 
-    BackendType _backend_type;
-    public BackendType backend_type {
+    Objects.Source _source;
+    public Objects.Source source {
         set {
-            _backend_type = value;
-            labels_picker.backend_type = _backend_type;
+            _source = value;
+            labels_picker.source = _source;
         }
 
         get {
-            return _backend_type;
+            return _source;
         }
     }
 

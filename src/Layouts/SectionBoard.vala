@@ -536,7 +536,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         move_item.clicked.connect (() => {
             menu_popover.popdown ();
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.backend_type);
+            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.source_type);
             dialog.project = section.project;
             dialog.present (Planify._instance.main_window);
 
@@ -571,7 +571,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 if (response == "delete") {
                     is_loading = true;
 
-                    if (section.project.backend_type == BackendType.TODOIST) {
+                    if (section.project.source_type == BackendType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
                             Services.Database.get_default ().delete_section (section);
@@ -602,7 +602,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         string old_section_id = section.project_id;
         section.project_id = project_id;
 
-        if (section.project.backend_type == BackendType.TODOIST) {
+        if (section.project.source_type == BackendType.TODOIST) {
             is_loading = true;
 
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
@@ -611,7 +611,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                     is_loading = false;
                 }
             });
-        } else if (section.project.backend_type == BackendType.LOCAL) {
+        } else if (section.project.source_type == BackendType.LOCAL) {
             Services.Database.get_default ().move_section (section, project_id);
             is_loading = false;
         }
@@ -637,7 +637,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 			picked_widget.item.section_id = section.id;
             picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -651,7 +651,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 						Services.Database.get_default ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
 				Services.Database.get_default ().update_item (picked_widget.item);
 			}
 

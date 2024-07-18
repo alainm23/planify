@@ -25,6 +25,7 @@ public class Objects.Label : Objects.BaseObject {
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
     public BackendType backend_type { get; set; default = BackendType.NONE; }
+    public string source_id { get; set; default = BackendType.LOCAL.to_string (); }
 
     int? _label_count = null;
     public int label_count {

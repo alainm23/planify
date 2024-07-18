@@ -83,8 +83,8 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         });
     }
 
-    public void add_labels (BackendType backend_type) {
-        picker.backend_type = backend_type;
+    public void add_labels (Objects.Source source) {
+        picker.source = source;
     }
 
     public void hide_destroy () {

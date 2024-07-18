@@ -1,6 +1,9 @@
 public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
     public signal void selected (Objects.Project project);
 
+    public Gee.HashMap <string, Layouts.HeaderItem> sources_hashmap = new Gee.HashMap <string, Layouts.HeaderItem> ();
+
+    
     public ProjectPickerPopover () {
         Object (
             height_request: 300,
@@ -23,29 +26,20 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
             show_separator = false
         };
 
-        var local_group = new Layouts.HeaderItem (_("On this Computer")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.LOCAL).size > 0,
-            card = true,
-            show_separator = false
-        };
-        
-        var todoist_group = new Layouts.HeaderItem (_("Todoist")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.TODOIST).size > 0,
-            card = true,
-            show_separator = false
-        };
-
-        var nextcloud_group = new Layouts.HeaderItem (_("Nextcloud")) {
-            reveal_child = Services.Database.get_default ().get_projects_by_backend_type (BackendType.CALDAV).size > 0,
-            card = true,
-            show_separator = false
-        };
-
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         scrolled_box.append (inbox_group);
-        scrolled_box.append (local_group);
-        scrolled_box.append (todoist_group);
-        scrolled_box.append (nextcloud_group);
+
+        foreach (Objects.Source source in Services.Database.get_default ().sources) {
+            if (!sources_hashmap.has_key (source.id)) {
+                sources_hashmap[source.id] = new Layouts.HeaderItem (source.header_text) {
+                    reveal_child = Services.Database.get_default ().get_projects_by_source (source.id).size > 0,
+                    card = true,
+                    show_separator = false
+                };
+
+                scrolled_box.append (sources_hashmap[source.id]);
+            }
+		}
 
         var listbox = new Gtk.ListBox () {
             hexpand = true,
@@ -80,31 +74,29 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         search_entry.grab_focus ();
         
         foreach (Objects.Project project in Services.Database.get_default ().projects) {
+            var row_listbox = new Widgets.ProjectPicker.ProjectPickerRow (project);
+
+            row_listbox.selected.connect (() => {
+                selected (row_listbox.project);
+                popdown ();
+            });
+
+            listbox.append (row_listbox);
+
             var row = new Widgets.ProjectPicker.ProjectPickerRow (project);
-            var row_2 = new Widgets.ProjectPicker.ProjectPickerRow (project);
 
             row.selected.connect (() => {
                 selected (row.project);
                 popdown ();
             });
 
-            row_2.selected.connect (() => {
-                selected (row.project);
-                popdown ();
-            });
-
-            listbox.append (row_2);
-
             if (project.is_inbox_project) {
                 inbox_group.add_child (row);
             } else {
-                if (project.backend_type == BackendType.LOCAL) {
-                    local_group.add_child (row);
-                } else if (project.backend_type == BackendType.TODOIST) {
-                    todoist_group.add_child (row);
-                } else if (project.backend_type == BackendType.CALDAV) {
-                    nextcloud_group.add_child (row);
+                if (sources_hashmap.has_key (project.source_id)) {
+                    sources_hashmap.get (project.source_id).add_child (row);
                 }
+
             }
         }
 

@@ -61,7 +61,7 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
         label_button = new Widgets.LabelPicker.LabelButton () {
             sensitive = false
         };
-        label_button.backend_type = project.backend_type;
+        label_button.source = project.source;
 
         priority_button = new Widgets.PriorityButton () {
             sensitive = false
@@ -148,13 +148,13 @@ public class Widgets.MultiSelectToolbar : Adw.Bin {
     }
 
     private void update_items (Gee.ArrayList<Objects.Item> objects) {
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == BackendType.LOCAL) {
             foreach (Objects.Item item in objects) {
                 item.update_async ("");
             }
 
             unselect_all ();
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == BackendType.TODOIST) {
             done_button.is_loading = true;
             Services.Todoist.get_default ().update_items.begin (objects, (obj, res) => {
                 Services.Todoist.get_default ().update_items.end (res);

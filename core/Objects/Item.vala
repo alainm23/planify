@@ -572,7 +572,8 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+            // TODO: VERIFICAR CALDAV
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
             if (label != null) {
                 return_value.add (label);
             }
@@ -598,7 +599,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.ArrayList<Objects.Label> get_labels_from_json (Json.Node node) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.backend_type);
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.source_id);
             return_value.add (label);
         }
         return return_value;
@@ -626,7 +627,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {
         Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.backend_type);
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.source_id);
             return_value [label.id] = label;
         }
         return return_value;
@@ -637,7 +638,7 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV);
+            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
             if (label != null) {
                 return_value [label.id] = label;
             } else {

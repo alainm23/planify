@@ -876,23 +876,27 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		Gee.HashMap <string, Widgets.SourceRow> sources_hashmap = new Gee.HashMap <string, Widgets.SourceRow> ();
 		foreach (Objects.Source source in Services.Database.get_default ().sources) {
-			sources_hashmap[source.id] = new Widgets.SourceRow (source);
+			if (!sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 			
-			sources_hashmap[source.id].view_detail.connect (() => {
-				push_subpage (get_todoist_view (source));
-			});
-
-			sources_group.add_child (sources_hashmap[source.id]);
+				sources_hashmap[source.id].view_detail.connect (() => {
+					push_subpage (get_todoist_view (source));
+				});
+	
+				sources_group.add_child (sources_hashmap[source.id]);
+			}
 		}
 
 		Services.Database.get_default ().source_added.connect ((source) => {
-			sources_hashmap[source.id] = new Widgets.SourceRow (source);
+			if (!sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 
-			sources_hashmap[source.id].view_detail.connect (() => {
-				push_subpage (get_todoist_view (source));
-			});
-
-			sources_group.add_child (sources_hashmap[source.id]);
+				sources_hashmap[source.id].view_detail.connect (() => {
+					push_subpage (get_todoist_view (source));
+				});
+	
+				sources_group.add_child (sources_hashmap[source.id]);
+			}
 		});
 
 		Services.Database.get_default ().source_deleted.connect ((source) => {
@@ -913,7 +917,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		return new Adw.NavigationPage (toolbar_view, "account");
 	}
-	
+
 	private Adw.NavigationPage get_todoist_view (Objects.Source source) {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
 

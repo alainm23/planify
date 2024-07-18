@@ -78,7 +78,7 @@ public class Services.Migrate : GLib.Object {
             project.id = stmt.column_text (0);
             project.name = "(Planner) %s".printf (stmt.column_text (1));
             project.color = stmt.column_text (2);
-            project.backend_type = BackendType.LOCAL;
+            project.source_id = BackendType.LOCAL.to_string ();
 
             Services.Database.get_default ().insert_project (project);
         }
