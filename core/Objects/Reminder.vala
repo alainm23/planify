@@ -31,7 +31,7 @@ public class Objects.Reminder : Objects.BaseObject {
     Objects.Item? _item;
     public Objects.Item item {
         get {
-            _item = Services.Database.get_default ().get_item (item_id);
+            _item = Services.Store.instance ().get_item (item_id);
             return _item;
         }
 
@@ -82,7 +82,7 @@ public class Objects.Reminder : Objects.BaseObject {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().reminder_deleted (this);
+            Services.Store.instance ().reminder_deleted (this);
         });
     }
 
@@ -152,12 +152,12 @@ public class Objects.Reminder : Objects.BaseObject {
             loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
-                    Services.Database.get_default ().delete_reminder (this);
+                    Services.Store.instance ().delete_reminder (this);
                     loading = false;
                 }
             });
         } else {
-            Services.Database.get_default ().delete_reminder (this);
+            Services.Store.instance ().delete_reminder (this);
             loading = false;
         }
     }

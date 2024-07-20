@@ -875,7 +875,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		toolbar_view.content = content_clamp;
 
 		Gee.HashMap <string, Widgets.SourceRow> sources_hashmap = new Gee.HashMap <string, Widgets.SourceRow> ();
-		foreach (Objects.Source source in Services.Database.get_default ().sources) {
+		foreach (Objects.Source source in Services.Store.instance ().sources) {
 			if (!sources_hashmap.has_key (source.id)) {
 				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 			
@@ -887,7 +887,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			}
 		}
 
-		Services.Database.get_default ().source_added.connect ((source) => {
+		Services.Store.instance ().source_added.connect ((source) => {
 			if (!sources_hashmap.has_key (source.id)) {
 				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 
@@ -899,7 +899,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			}
 		});
 
-		Services.Database.get_default ().source_deleted.connect ((source) => {
+		Services.Store.instance ().source_deleted.connect ((source) => {
 			if (sources_hashmap.has_key (source.id)) {
 				sources_hashmap[source.id].hide_destroy ();
 				sources_hashmap.unset (source.id);
@@ -913,6 +913,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		todoist_item.clicked.connect (() => {
 			popover.popdown ();
 			push_subpage (get_oauth_todoist_page ());
+		});
+
+		caldav_item.clicked.connect (() => {
+			popover.popdown ();
+			push_subpage (get_caldav_setup_page ());
 		});
 
 		return new Adw.NavigationPage (toolbar_view, "account");
@@ -1330,7 +1335,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return page;
 	}
 
-	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
+	private Adw.NavigationPage get_caldav_setup_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
 		
 		var server_entry = new Adw.EntryRow ();
@@ -1420,7 +1425,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
 
 		settings_header.back_activated.connect (() => {
-			switch_widget.active = false;
 			pop_subpage ();
 		});
 
@@ -1480,10 +1484,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				cancellable.cancel ();
 			});
 
-			Services.CalDAV.Core.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
+			Services.CalDAV.Core.get_default ().login.begin (CalDAVType.parse_index (providers_row.selected), server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
 				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
-					Services.CalDAV.Core.get_default ().first_sync.begin ();
+					Objects.Source source = (Objects.Source) response.data_object.get_object ();
+					Services.CalDAV.Core.get_default ().add_caldav_account.begin (source);
 				} else {
 					login_button.is_loading = false;
 					cancel_button.visible = false;

@@ -160,12 +160,12 @@ public class Dialogs.Section : Adw.Dialog {
             if (section.project.source_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (section, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_section (section);
+                    Services.Store.instance ().update_section (section);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
             } else if (section.project.source_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_section (section);
+                Services.Store.instance ().update_section (section);
                 hide_destroy ();
             }
         } else {

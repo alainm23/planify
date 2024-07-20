@@ -391,12 +391,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
                 if (picked_project.source_type == BackendType.TODOIST) {
                     Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-                            Services.Database.get_default ().update_project (picked_project);
+                            Services.Store.instance ().update_project (picked_project);
                             Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                         }
                     });
                 } else {
-                    Services.Database.get_default ().update_project (picked_project);
+                    Services.Store.instance ().update_project (picked_project);
                     Services.EventBus.get_default ().update_inserted_project_map (picked_widget, old_parent_id);
                 }
             }
@@ -499,12 +499,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (picked_project.source_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-                        Services.Database.get_default ().update_project (picked_project);
+                        Services.Store.instance ().update_project (picked_project);
                         Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
                     }
                 });
             } else {
-                Services.Database.get_default ().update_project (picked_project);
+                Services.Store.instance ().update_project (picked_project);
                 Services.EventBus.get_default ().project_parent_changed (picked_project, old_parent_id, true);
             }
 
@@ -615,7 +615,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (project_row != null) {
                 project_row.project.child_order = row_index;
-                Services.Database.get_default ().update_project (project_row.project);
+                Services.Store.instance ().update_project (project_row.project);
             }
 
             row_index++;
@@ -680,7 +680,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_popover.popdown ();
 
             project.is_favorite = !project.is_favorite;
-            Services.Database.get_default ().update_project (project);
+            Services.Store.instance ().update_project (project);
             Services.EventBus.get_default ().favorite_toggled (project);
             project.update ();
         });

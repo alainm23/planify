@@ -361,13 +361,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             update_request ();
         });
         
-        Services.Database.get_default ().item_updated.connect ((_item, _update_id) => {
+        Services.Store.instance ().item_updated.connect ((_item, _update_id) => {
             if (item.id == _item.id && update_id != _update_id) {
                 update_request ();
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((_item) => {
+        Services.Store.instance ().item_deleted.connect ((_item) => {
             if (item.id == _item.parent_id) {
                 update_request ();
             }
@@ -486,13 +486,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
     private void _complete_item (bool old_checked) {
         if (item.project.source_type == BackendType.LOCAL) {
-            Services.Database.get_default ().checked_toggled (item, old_checked);
+            Services.Store.instance ().checked_toggled (item, old_checked);
         } else if (item.project.source_type == BackendType.TODOIST) {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
                 }
@@ -502,7 +502,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             is_loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
                 }
@@ -672,14 +672,13 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
             
-            BackendType backend_type;
+            Dialogs.ProjectPicker.ProjectPicker dialog;
             if (item.project.is_inbox_project) {
-                backend_type = BackendType.ALL;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                backend_type = item.project.source_type;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -687,7 +686,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -833,19 +832,19 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             picked_item.parent_id = target_item.id;
 
             if (picked_item.project.source_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (picked_item);
+                Services.Store.instance ().update_item (picked_item);
                 Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
             } else if (picked_item.project.source_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
             } else if (picked_item.project.source_type == BackendType.CALDAV) {
                 Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
                     if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
@@ -944,11 +943,11 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
                     
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_item.end (res).status) {
-                            Services.Database.get_default ().update_item (picked_widget.item);
+                            Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
                 } else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().update_item (picked_widget.item);
+                    Services.Store.instance ().update_item (picked_widget.item);
                 }
             }
 
@@ -985,7 +984,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             if (item_row != null) {
                 item_row.item.child_order = row_index;
-                Services.Database.get_default ().update_item (item_row.item);
+                Services.Store.instance ().update_item (item_row.item);
             }
 
             row_index++;

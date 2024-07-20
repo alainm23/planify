@@ -47,7 +47,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
-            var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
+            var project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
             
             if (project != null) {
                 item.project_id = project.id;
@@ -229,7 +229,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         child = window;
         
         Timeout.add (225, () => {
-            if (Services.Database.get_default ().is_database_empty ()) {
+            if (Services.Store.instance ().is_database_empty ()) {
                 main_stack.visible_child_name = "warning";
             } else {
                 main_stack.visible_child_name = "main";

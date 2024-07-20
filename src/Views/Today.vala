@@ -286,11 +286,11 @@ public class Views.Today : Adw.Bin {
             add_today_items ();
         });
 
-        Services.Database.get_default ().item_added.connect (valid_add_item);
-        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
-        Services.Database.get_default ().item_updated.connect (valid_update_item);
-        Services.Database.get_default ().item_archived.connect (valid_delete_item);
-        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
+        Services.Store.instance ().item_added.connect (valid_add_item);
+        Services.Store.instance ().item_deleted.connect (valid_delete_item);
+        Services.Store.instance ().item_updated.connect (valid_update_item);
+        Services.Store.instance ().item_archived.connect (valid_delete_item);
+        Services.Store.instance ().item_unarchived.connect (valid_add_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
@@ -399,7 +399,7 @@ public class Views.Today : Adw.Bin {
             overdue_listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_overdeue_view (false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdeue_view (false)) {
             add_overdue_item (item);
         }
 
@@ -409,7 +409,7 @@ public class Views.Today : Adw.Bin {
             listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (date, false)) {
             add_item (item);
         }
 
@@ -438,12 +438,12 @@ public class Views.Today : Adw.Bin {
 
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
-            Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            Services.Store.instance ().valid_item_by_date (item, date, false)) {
             add_item (item);   
         }
 
         if (!overdue_items.has_key (item.id) &&
-            Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+            Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
             add_overdue_item (item);
         }
 
@@ -490,14 +490,14 @@ public class Views.Today : Adw.Bin {
         }
 
         if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
         }
 
         if (overdue_items.has_key (item.id) && item.has_due) {
-            if (!Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+            if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                 overdue_items[item.id].hide_destroy ();
                 overdue_items.unset (item.id);
             }
@@ -514,7 +514,7 @@ public class Views.Today : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        var inbox_project = Services.Database.get_default ().get_project (
+        var inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
@@ -630,7 +630,7 @@ public class Views.Today : Adw.Bin {
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {
-					_labels.add (Services.Database.get_default ().get_label (filter.value));
+					_labels.add (Services.Store.instance ().get_label (filter.value));
 				}
 			}
 

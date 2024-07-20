@@ -32,7 +32,7 @@ public class Objects.Attachment : GLib.Object {
     Objects.Item? _item;
     public Objects.Item item {
         get {
-            _item = Services.Database.get_default ().get_item (item_id);
+            _item = Services.Store.instance ().get_item (item_id);
             return _item;
         }
 
@@ -43,7 +43,7 @@ public class Objects.Attachment : GLib.Object {
 
     construct {
         deleted.connect (() => {
-            Services.Database.get_default ().attachment_deleted (this);
+            Services.Store.instance ().attachment_deleted (this);
         });
     }
     
@@ -68,7 +68,7 @@ public class Objects.Attachment : GLib.Object {
     }
 
     public void delete () {
-        Services.Database.get_default ().delete_attachment (this);
+        Services.Store.instance ().delete_attachment (this);
     }
 
     public Objects.Attachment duplicate () {

@@ -145,7 +145,7 @@ public class Services.Backups : Object {
         builder.set_member_name ("labels");
         builder.begin_array ();
 
-        foreach (Objects.Label label in Services.Database.get_default ().labels) {
+        foreach (Objects.Label label in Services.Store.instance ().labels) {
             builder.begin_object ();
             
             builder.set_member_name ("id");
@@ -174,7 +174,7 @@ public class Services.Backups : Object {
         // Projects
         builder.set_member_name ("projects");
         builder.begin_array ();
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -247,7 +247,7 @@ public class Services.Backups : Object {
         // Sections
         builder.set_member_name ("sections");
         builder.begin_array ();
-        foreach (Objects.Section section in Services.Database.get_default ().sections) {
+        foreach (Objects.Section section in Services.Store.instance ().sections) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -284,7 +284,7 @@ public class Services.Backups : Object {
         // Items
         builder.set_member_name ("items");
         builder.begin_array ();
-        foreach (Objects.Item item in Services.Database.get_default ().items) {
+        foreach (Objects.Item item in Services.Store.instance ().items) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -446,24 +446,24 @@ public class Services.Backups : Object {
 
         // Create Labels
         foreach (Objects.Label item in backup.labels) {
-            Services.Database.get_default ().insert_label (item);
+            Services.Store.instance ().insert_label (item);
         }
 
         // Create Projects
         foreach (Objects.Project item in backup.projects) {
             if (item.parent_id != "") {
-                Objects.Project? project = Services.Database.get_default ().get_project (item.parent_id);
+                Objects.Project? project = Services.Store.instance ().get_project (item.parent_id);
                 if (project != null) {
                     project.add_subproject_if_not_exists (item);
                 }
             } else {
-                Services.Database.get_default ().insert_project (item);
+                Services.Store.instance ().insert_project (item);
             }
         }
 
         // Create Sections
         foreach (Objects.Section item in backup.sections) {
-            Objects.Project? project = Services.Database.get_default ().get_project (item.project_id);
+            Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
             if (project != null) {
                 project.add_section_if_not_exists (item);
             }
@@ -472,18 +472,18 @@ public class Services.Backups : Object {
         // Create Items
         foreach (Objects.Item item in backup.items) {
             if (item.has_parent) {
-                Objects.Item? _item = Services.Database.get_default ().get_item (item.parent_id);
+                Objects.Item? _item = Services.Store.instance ().get_item (item.parent_id);
                 if (_item != null) {
                     _item.add_item_if_not_exists (item);
                 }
             } else {
                 if (item.section_id != "") {
-                    Objects.Section? section = Services.Database.get_default ().get_section (item.section_id);
+                    Objects.Section? section = Services.Store.instance ().get_section (item.section_id);
                     if (section != null) {
                         section.add_item_if_not_exists (item);
                     }
                 } else {
-                    Objects.Project? project = Services.Database.get_default ().get_project (item.project_id);
+                    Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
                     if (project != null) {
                         project.add_item_if_not_exists (item);
                     }

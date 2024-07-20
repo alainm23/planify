@@ -180,19 +180,19 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             }
         }
 
-        foreach (Objects.Project project in Services.Database.get_default ().get_all_projects_by_search (search_entry.text)) {
+        foreach (Objects.Project project in Services.Store.instance ().get_all_projects_by_search (search_entry.text)) {
             var row = new Dialogs.QuickFind.QuickFindItem (project, search_entry.text);
             listbox.append (row);
             items.add (row);
         }
 
-        foreach (Objects.Section section in Services.Database.get_default ().get_all_sections_by_search (search_entry.text)) {
+        foreach (Objects.Section section in Services.Store.instance ().get_all_sections_by_search (search_entry.text)) {
             var row = new Dialogs.QuickFind.QuickFindItem (section, search_entry.text);
             listbox.append (row);
             items.add (row);
         }
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_all_items_by_search (search_entry.text)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_all_items_by_search (search_entry.text)) {
             if (item.project != null) {
                 var row = new Dialogs.QuickFind.QuickFindItem (item, search_entry.text);
                 listbox.append (row);
@@ -200,7 +200,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
             }
         }
 
-        foreach (Objects.Label label in Services.Database.get_default ().get_all_labels_by_search (search_entry.text)) {
+        foreach (Objects.Label label in Services.Store.instance ().get_all_labels_by_search (search_entry.text)) {
             var row = new Dialogs.QuickFind.QuickFindItem (label, search_entry.text);
             listbox.append (row);
             items.add (row);

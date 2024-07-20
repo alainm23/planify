@@ -136,7 +136,7 @@ public class Views.Board : Adw.Bin {
             flowbox.invalidate_filter ();
         });
 
-        Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
+        Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (project.id == old_project_id && sections_map.has_key (section.id)) {
                     sections_map [section.id].hide_destroy ();
                     sections_map.unset (section.id);
@@ -148,7 +148,7 @@ public class Views.Board : Adw.Bin {
             }
         });
 
-        Services.Database.get_default ().section_deleted.connect ((section) => {
+        Services.Store.instance ().section_deleted.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
@@ -164,14 +164,14 @@ public class Views.Board : Adw.Bin {
             project.update_local ();
         });
 
-        Services.Database.get_default ().section_archived.connect ((section) => {
+        Services.Store.instance ().section_archived.connect ((section) => {
             if (sections_map.has_key (section.id)) {
                 sections_map [section.id].hide_destroy ();
                 sections_map.unset (section.id);
             }
         });
 
-        Services.Database.get_default ().section_unarchived.connect ((section) => {
+        Services.Store.instance ().section_unarchived.connect ((section) => {
             if (project.id == section.project_id) {
                 add_section (section);
             }

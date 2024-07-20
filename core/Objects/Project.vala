@@ -59,7 +59,7 @@ public class Objects.Project : Objects.BaseObject {
     Objects.Source? _source;
     public Objects.Source source {
         get {
-            _source = Services.Database.get_default ().get_source (source_id);
+            _source = Services.Store.instance ().get_source (source_id);
             return _source;
         }
     }
@@ -131,7 +131,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Section> _sections;
     public Gee.ArrayList<Objects.Section> sections {
         get {
-            _sections = Services.Database.get_default ().get_sections_by_project (this);
+            _sections = Services.Store.instance ().get_sections_by_project (this);
             return _sections;
         }
     }
@@ -139,7 +139,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Section> _sections_archived;
     public Gee.ArrayList<Objects.Section> sections_archived {
         get {
-            _sections_archived = Services.Database.get_default ().get_sections_archived_by_project (this);
+            _sections_archived = Services.Store.instance ().get_sections_archived_by_project (this);
             return _sections_archived;
         }
     }
@@ -147,7 +147,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Database.get_default ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_item_by_baseobject (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -165,7 +165,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _all_items;
     public Gee.ArrayList<Objects.Item> all_items {
         get {
-            _all_items = Services.Database.get_default ().get_items_by_project (this);
+            _all_items = Services.Store.instance ().get_items_by_project (this);
             return _all_items;
         }
     }
@@ -173,7 +173,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items_checked;
     public Gee.ArrayList<Objects.Item> items_checked {
         get {
-            _items_checked = Services.Database.get_default ().get_items_checked_by_project (this);
+            _items_checked = Services.Store.instance ().get_items_checked_by_project (this);
             return _items_checked;
         }
     }
@@ -181,7 +181,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Project> _subprojects;
     public Gee.ArrayList<Objects.Project> subprojects {
         get {
-            _subprojects = Services.Database.get_default ().get_subprojects (this);
+            _subprojects = Services.Store.instance ().get_subprojects (this);
             return _subprojects;
         }
     }
@@ -189,7 +189,7 @@ public class Objects.Project : Objects.BaseObject {
     Objects.Project? _parent;
     public Objects.Project parent {
         get {
-            _parent = Services.Database.get_default ().get_project (parent_id);
+            _parent = Services.Store.instance ().get_project (parent_id);
             return _parent;
         }
     }
@@ -253,7 +253,7 @@ public class Objects.Project : Objects.BaseObject {
     construct {
         deleted.connect (() => {
             Idle.add (() => {
-                Services.Database.get_default ().project_deleted (this);
+                Services.Store.instance ().project_deleted (this);
                 return false;
             });
         });
@@ -266,7 +266,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
+        Services.Store.instance ().item_deleted.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -274,7 +274,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_added.connect ((item) => {
+        Services.Store.instance ().item_added.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -290,7 +290,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
+        Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -298,7 +298,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_archived.connect ((item) => {
+        Services.Store.instance ().item_archived.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -306,7 +306,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_unarchived.connect ((item) => {
+        Services.Store.instance ().item_unarchived.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -430,7 +430,7 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void update_local () {
-        Services.Database.get_default ().update_project (this);
+        Services.Store.instance ().update_project (this);
     }
 
     public void update (bool use_timeout = true, bool show_loading = true) {
@@ -447,7 +447,7 @@ public class Objects.Project : Objects.BaseObject {
             update_timeout_id = 0;
 
             if (backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_project (this);
+                Services.Store.instance ().update_project (this);
             } else if (backend_type == BackendType.TODOIST) {
                 if (show_loading) {
                     loading = true;
@@ -455,7 +455,7 @@ public class Objects.Project : Objects.BaseObject {
 
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_project (this);
+                    Services.Store.instance ().update_project (this);
                     loading = false;
                 });
             } else if (backend_type == BackendType.CALDAV) {
@@ -465,7 +465,7 @@ public class Objects.Project : Objects.BaseObject {
 
                 Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
                     Services.CalDAV.Core.get_default ().update_tasklist.end (res);
-                    Services.Database.get_default ().update_project (this);
+                    Services.Store.instance ().update_project (this);
                     loading = false;
                 });
             }
@@ -480,7 +480,7 @@ public class Objects.Project : Objects.BaseObject {
             return_value = get_subproject (new_project.id);
             if (return_value == null) {
                 new_project.set_parent (this);
-                Services.Database.get_default ().insert_project (new_project);
+                Services.Store.instance ().insert_project (new_project);
                 return_value = new_project;
             }
             return return_value;
@@ -512,7 +512,7 @@ public class Objects.Project : Objects.BaseObject {
                 new_section.set_project (this);
                 new_section.section_order = new_section.project.sections.size;
                 add_section (new_section);
-                Services.Database.get_default ().insert_section (new_section);
+                Services.Store.instance ().insert_section (new_section);
                 return_value = new_section;
             }
             return return_value;
@@ -546,7 +546,7 @@ public class Objects.Project : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_project (this);
                 add_item (new_item);
-                Services.Database.get_default ().insert_item (new_item, insert);
+                Services.Store.instance ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
@@ -718,9 +718,10 @@ public class Objects.Project : Objects.BaseObject {
             SORT ORDER: %i
             COLLAPSED: %s
             PARENT ID: %s
+            SOURCE ID: %s
         ---------------------------------
         """.printf (
-            id.to_string (),
+            id,
             name,
             description,
             color,
@@ -736,13 +737,14 @@ public class Objects.Project : Objects.BaseObject {
             show_completed.to_string (),
             sort_order,
             collapsed.to_string (),
-            parent_id.to_string ()
+            parent_id.to_string (),
+            source_id
         );
     }
 
     private int update_project_count () {
         int returned = 0;
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
             if (!item.checked && !item.was_archived ()) {
                 returned++;
             }
@@ -753,7 +755,7 @@ public class Objects.Project : Objects.BaseObject {
     public double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
             items_total++;
             if (!item.checked && !item.was_archived ()) {
                 items_checked++;
@@ -817,14 +819,14 @@ public class Objects.Project : Objects.BaseObject {
             if (response == "delete") {
                 loading = true;
                 if (source_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_project (this);
+                    Services.Store.instance ().delete_project (this);
                 } else if (source_type == BackendType.TODOIST) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                         if (Services.Todoist.get_default ().delete.end (res).status) {
-                            Services.Database.get_default ().delete_project (this);
+                            Services.Store.instance ().delete_project (this);
                         }
 
                         loading = false;
@@ -835,7 +837,7 @@ public class Objects.Project : Objects.BaseObject {
 
                     Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
                         if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
-                            Services.Database.get_default ().delete_project (this);
+                            Services.Store.instance ().delete_project (this);
                         }
 
                         loading = false;
@@ -860,14 +862,14 @@ public class Objects.Project : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "archive") {
                 is_archived = true;
-                Services.Database.get_default ().archive_project (this);
+                Services.Store.instance ().archive_project (this);
             }
         });
     }
 
     public void unarchive_project () {
         is_archived = false;
-        Services.Database.get_default ().archive_project (this);
+        Services.Store.instance ().archive_project (this);
     }
 
     public Objects.Project duplicate () {

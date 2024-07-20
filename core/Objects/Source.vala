@@ -28,7 +28,6 @@ public class Objects.Source : Objects.BaseObject {
     public bool sync_server { get; set; default = false; }
     public string last_sync { get; set; default = ""; }
     public Objects.SourceData data { get; set; }
-    public bool legacy { get; set; default = false; }
 
     Objects.SourceTodoistData _todoist_data;
     public Objects.SourceTodoistData todoist_data {
@@ -38,36 +37,50 @@ public class Objects.Source : Objects.BaseObject {
         }
     }
 
+    Objects.SourceCalDAVData _caldav_data;
+    public Objects.SourceCalDAVData caldav_data {
+        get {
+            _caldav_data = data as Objects.SourceCalDAVData ;
+            return _caldav_data;
+        }
+    }
+
     public string header_text {
         get {
+            if (source_type == BackendType.LOCAL) {
+                return _("On This Computer");
+            }
+
             if (source_type == BackendType.TODOIST) {
                 return todoist_data.user_email;
             }
 
-            if (source_type == BackendType.LOCAL) {
-                return _("On This Computer");
+            if (source_type == BackendType.CALDAV) {
+                return caldav_data.user_email;
             }
 
             return "";
         }
     }
 
-    public string? subheader_text {
+    string _subheader_text;
+    public string subheader_text {
         get {
             if (source_type == BackendType.TODOIST) {
                 return _("Todoist");
             }
 
-            return null;
+            if (source_type == BackendType.CALDAV) {
+                _subheader_text = _("CalDAV - ") + caldav_data.caldav_type.title ();
+                return _subheader_text;
+            }
+
+            return "";
         }
     }
 
     public string avatar_path {
         get {
-            if (legacy) {
-                return "todoist-user";
-            }
-
             return todoist_data.user_image_id;
         }
     }
@@ -80,7 +93,7 @@ public class Objects.Source : Objects.BaseObject {
     construct {
         deleted.connect (() => {
             Idle.add (() => {
-                Services.Database.get_default ().source_deleted (this);
+                Services.Store.instance ().source_deleted (this);
                 return false;
             });
         });
@@ -99,21 +112,8 @@ public class Objects.Source : Objects.BaseObject {
 	}
 
     public void save () {
-        if (source_type == BackendType.TODOIST && legacy) {
-            Services.Settings.get_default ().settings.set_string ("todoist-sync-token", todoist_data.sync_token);
-            Services.Settings.get_default ().settings.set_string ("todoist-last-sync", last_sync);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-email", todoist_data.user_email);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-name", todoist_data.user_name);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-avatar", todoist_data.user_avatar);
-            Services.Settings.get_default ().settings.set_string ("todoist-user-image-id", todoist_data.user_image_id);
-            Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server);
-            Services.Settings.get_default ().settings.set_boolean ("todoist-user-is-premium", todoist_data.user_is_premium);
-            return;
-        }
-
-        if (source_type == BackendType.TODOIST && !legacy) {
-
-        }
+        updated_at = new GLib.DateTime.now_local ().to_string ();
+        Services.Store.instance ().update_source (this);
     }
 
     public void delete_source (Gtk.Window window) {
@@ -129,45 +129,24 @@ public class Objects.Source : Objects.BaseObject {
         dialog.present (window);
 
         dialog.response.connect ((response) => {
-            if (response == "delete") {
-                if (legacy) {
-                    _delete_source ();
-                    return;
-                }
-                
-                Services.Database.get_default ().delete_source (this);
+            if (response == "delete") {                
+                Services.Store.instance ().delete_source (this);
             }
         });
     }
 
-    private void _delete_source () {
-        Services.Settings.get_default ().settings.set_string ("todoist-sync-token", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-access-token", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-last-sync", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-user-email", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-user-name", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-user-avatar", "");
-		Services.Settings.get_default ().settings.set_string ("todoist-user-image-id", "");
-		Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", false);
-		Services.Settings.get_default ().settings.set_boolean ("todoist-user-is-premium", false);
-
-		// Delete all projects, sections and items
-		foreach (var project in Services.Database.get_default ().get_projects_by_source (id)) {
-			Services.Database.get_default ().delete_project (project);
-		}
-
-		// Delete all labels;
-		//  foreach (var label in Services.Database.get_default ().get_all_labels_by_todoist ()) {
-		//  	Services.Database.get_default ().delete_label (label);
-		//  }
-
-		// Clear Queue
-		Services.Database.get_default ().clear_queue ();
-
-		// Clear CurTempIds
-		Services.Database.get_default ().clear_cur_temp_ids ();
-
-        deleted ();
+    public string to_string () {
+        return """
+        _________________________________
+            ID: %s
+            DATA: %s
+            TYPE: %s
+        ---------------------------------
+        """.printf (
+            id,
+            data.to_json (),
+            source_type.to_string ()
+        );
     }
 }
 
@@ -261,6 +240,82 @@ public class Objects.SourceTodoistData : Objects.SourceData {
 
         builder.set_member_name ("user_is_premium");
         builder.add_boolean_value (user_is_premium);
+
+        builder.end_object ();
+
+        Json.Generator generator = new Json.Generator ();
+        Json.Node root = builder.get_root ();
+        generator.set_root (root);
+
+        return generator.to_data (null);
+    }
+}
+
+public class Objects.SourceCalDAVData : Objects.SourceData {
+    public string server_url { get; set; default = ""; }
+    public string username { get; set; default = ""; }
+    public string credentials { get; set; default = ""; }
+    public string user_displayname { get; set; default = ""; }
+    public string user_email { get; set; default = ""; }
+    public CalDAVType caldav_type { get; set; default = CalDAVType.NEXTCLOUD; }
+
+    public SourceCalDAVData.from_json (string json) {
+        Json.Parser parser = new Json.Parser ();
+                
+        try {
+            parser.load_from_data (json, -1);
+            var object = parser.get_root ().get_object ();
+
+            if (object.has_member ("server_url")) {
+                server_url = object.get_string_member ("server_url");
+            }
+
+            if (object.has_member ("username")) {
+                username = object.get_string_member ("username");
+            }
+
+            if (object.has_member ("credentials")) {
+                credentials = object.get_string_member ("credentials");
+            }
+
+            if (object.has_member ("user_displayname")) {
+                user_displayname = object.get_string_member ("user_displayname");
+            }
+
+            if (object.has_member ("user_email")) {
+                user_email = object.get_string_member ("user_email");
+            }
+
+            if (object.has_member ("caldav_type")) {
+                caldav_type = CalDAVType.parse (object.get_string_member ("caldav_type"));
+            }
+        } catch (Error e) {
+            debug (e.message);
+        }
+    }
+
+    public override string to_json () {
+        builder.reset ();
+        
+        builder.begin_object ();
+        
+        builder.set_member_name ("server_url");
+        builder.add_string_value (server_url);
+
+        builder.set_member_name ("username");
+        builder.add_string_value (username);
+
+        builder.set_member_name ("credentials");
+        builder.add_string_value (credentials);
+
+        builder.set_member_name ("caldav_type");
+        builder.add_string_value (caldav_type.to_string ());
+
+        builder.set_member_name ("user_displayname");
+        builder.add_string_value (user_displayname);
+
+        builder.set_member_name ("user_email");
+        builder.add_string_value (user_email);
 
         builder.end_object ();
 

@@ -44,7 +44,7 @@ public class Layouts.HeaderItem : Adw.Bin {
         set {
             _subheader_title = value;
             subheader_label.label = _subheader_title;
-            subheader_revealer.reveal_child = value != null;
+            subheader_revealer.reveal_child = value != "";
         }
     }
     

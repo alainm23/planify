@@ -152,7 +152,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         search_entry.activate.connect (() => {
             if (search_entry.text.length > 0) {
-                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true, source.id);
+                Objects.Label label = Services.Store.instance ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
                     if (labels_widgets_map.has_key (label.id_string)) {
                         labels_widgets_map [label.id_string].update_checked_toggled ();
@@ -163,7 +163,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             }
         });
 
-        Services.Database.get_default ().label_added.connect ((label) => {
+        Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
         });
     }
@@ -176,7 +176,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         if (source.source_type == BackendType.LOCAL || source.source_type == BackendType.CALDAV) {
             label.id = Util.get_default ().generate_id (label);
-            Services.Database.get_default ().insert_label (label);
+            Services.Store.instance ().insert_label (label);
             checked_toggled (label, true);
 
             search_entry.text = "";
@@ -188,7 +188,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
                 if (response.status) {
                     label.id = response.data;
-                    Services.Database.get_default ().insert_label (label);
+                    Services.Store.instance ().insert_label (label);
                     checked_toggled (label, true);
                 }
 
@@ -206,7 +206,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             listbox.remove (child);
         }
 
-        foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_source (source.id)) {
+        foreach (Objects.Label label in Services.Store.instance ().get_labels_by_source (source.id)) {
             add_label (label);
         }
     }

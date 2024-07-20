@@ -55,40 +55,40 @@ public class Objects.Label : Objects.BaseObject {
     construct {
         deleted.connect (() => {
             Idle.add (() => {
-                Services.Database.get_default ().label_deleted (this);
+                Services.Store.instance ().label_deleted (this);
                 return false;
             });
         });
 
-        Services.Database.get_default ().item_added.connect ((item) => {
+        Services.Store.instance ().item_added.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
+        Services.Store.instance ().item_deleted.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_updated.connect ((item) => {
+        Services.Store.instance ().item_updated.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_label_added.connect ((label) => {
+        Services.Store.instance ().item_label_added.connect ((label) => {
             if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
             }
         });
 
-        Services.Database.get_default ().item_label_deleted.connect ((label) => {
+        Services.Store.instance ().item_label_deleted.connect ((label) => {
             if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
@@ -97,7 +97,7 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     private int update_label_count () {
-        return Services.Database.get_default ().get_items_by_label (this, false).size;
+        return Services.Store.instance ().get_items_by_label (this, false).size;
     }
 
     public Label.from_json (Json.Node node) {

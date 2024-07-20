@@ -33,7 +33,7 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
     public int scheduled_count {
         get {
             if (_scheduled_count == null) {
-                _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+                _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             }
 
             return _scheduled_count;
@@ -52,28 +52,28 @@ public class Objects.Filters.Scheduled : Objects.BaseObject {
         icon_name = "month-symbolic";
         view_id = FilterType.SCHEDULED.to_string ();
 
-        Services.Database.get_default ().item_added.connect (() => {
-            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+        Services.Store.instance ().item_added.connect (() => {
+            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+        Services.Store.instance ().item_deleted.connect (() => {
+            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+        Services.Store.instance ().item_updated.connect (() => {
+            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
 
-        Services.Database.get_default ().item_archived.connect (() => {
-            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+        Services.Store.instance ().item_archived.connect (() => {
+            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect (() => {
-            _scheduled_count = Services.Database.get_default ().get_items_by_scheduled (false).size;
+        Services.Store.instance ().item_unarchived.connect (() => {
+            _scheduled_count = Services.Store.instance ().get_items_by_scheduled (false).size;
             scheduled_count_updated ();
         });
     }

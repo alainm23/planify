@@ -165,7 +165,7 @@ public class Util : GLib.Object {
             return Uuid.string_random ();
         }
 
-        var collection = Services.Database.get_default ().get_collection_by_type (base_object);
+        var collection = Services.Store.instance ().get_collection_by_type (base_object);
         var id = Uuid.string_random ();
 
         if (check_id_exists (collection, id)) {
@@ -571,7 +571,7 @@ public class Util : GLib.Object {
         Objects.Source local_source = new Objects.Source ();
         local_source.id = BackendType.LOCAL.to_string ();
         local_source.source_type = BackendType.LOCAL;
-        Services.Database.get_default ().insert_source (local_source);
+        Services.Store.instance ().insert_source (local_source);
         return local_source;
     }
 
@@ -583,10 +583,9 @@ public class Util : GLib.Object {
         inbox_project.name = _("Inbox");
         inbox_project.inbox_project = true;
         inbox_project.color = "blue";
-        
-        if (Services.Database.get_default ().insert_project (inbox_project)) {
-            Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
-        }
+
+        Services.Store.instance ().insert_project (inbox_project);
+        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
 
         return inbox_project;
     }
@@ -603,108 +602,108 @@ public class Util : GLib.Object {
         project.show_completed = true;
         project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.");
 
-        if (Services.Database.get_default ().insert_project (project)) {
-            var item_01 = new Objects.Item ();
-            item_01.id = Util.get_default ().generate_id (item_01);
-            item_01.project_id = project.id;
-            item_01.content = _("Tap this to-do");
-            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
+        Services.Store.instance ().insert_project (project);
 
-            var item_02 = new Objects.Item ();
-            item_02.id = Util.get_default ().generate_id (item_02);
-            item_02.project_id = project.id;
-            item_02.content = _("Create a new to-do");
-            item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
+        var item_01 = new Objects.Item ();
+        item_01.id = Util.get_default ().generate_id (item_01);
+        item_01.project_id = project.id;
+        item_01.content = _("Tap this to-do");
+        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
 
-            var item_03 = new Objects.Item ();
-            item_03.id = Util.get_default ().generate_id (item_03);
-            item_03.project_id = project.id;
-            item_03.content = _("Plan this to-do by today or later");
-            item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
+        var item_02 = new Objects.Item ();
+        item_02.id = Util.get_default ().generate_id (item_02);
+        item_02.project_id = project.id;
+        item_02.content = _("Create a new to-do");
+        item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
 
-            var item_04 = new Objects.Item ();
-            item_04.id = Util.get_default ().generate_id (item_04);
-            item_04.project_id = project.id;
-            item_04.content = _("Reorder yours to-dos");
-            item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
+        var item_03 = new Objects.Item ();
+        item_03.id = Util.get_default ().generate_id (item_03);
+        item_03.project_id = project.id;
+        item_03.content = _("Plan this to-do by today or later");
+        item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
 
-            var item_05 = new Objects.Item ();
-            item_05.id = Util.get_default ().generate_id (item_05);
-            item_05.project_id = project.id;
-            item_05.content = _("Create a project");
-            item_05.description = _("Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own.");
+        var item_04 = new Objects.Item ();
+        item_04.id = Util.get_default ().generate_id (item_04);
+        item_04.project_id = project.id;
+        item_04.content = _("Reorder yours to-dos");
+        item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
 
-            var item_06 = new Objects.Item ();
-            item_06.id = Util.get_default ().generate_id (item_06);
-            item_06.project_id = project.id;
-            item_06.content = _("You’re done!");
-            item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
+        var item_05 = new Objects.Item ();
+        item_05.id = Util.get_default ().generate_id (item_05);
+        item_05.project_id = project.id;
+        item_05.content = _("Create a project");
+        item_05.description = _("Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own.");
+
+        var item_06 = new Objects.Item ();
+        item_06.id = Util.get_default ().generate_id (item_06);
+        item_06.project_id = project.id;
+        item_06.content = _("You’re done!");
+        item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
 You can come back to this project later to learn the advanced features below..
 We hope you’ll enjoy using Planify!""");
 
-            project.add_item_if_not_exists (item_01);
-            project.add_item_if_not_exists (item_02);
-            project.add_item_if_not_exists (item_03);
-            project.add_item_if_not_exists (item_04);
-            project.add_item_if_not_exists (item_05);
-            project.add_item_if_not_exists (item_06);
+        project.add_item_if_not_exists (item_01);
+        project.add_item_if_not_exists (item_02);
+        project.add_item_if_not_exists (item_03);
+        project.add_item_if_not_exists (item_04);
+        project.add_item_if_not_exists (item_05);
+        project.add_item_if_not_exists (item_06);
 
-            var section_01 = new Objects.Section ();
-            section_01.id = Util.get_default ().generate_id (section_01);
-            section_01.project_id = project.id;
-            section_01.name = _("Tune your setup");
+        var section_01 = new Objects.Section ();
+        section_01.id = Util.get_default ().generate_id (section_01);
+        section_01.project_id = project.id;
+        section_01.name = _("Tune your setup");
 
-            project.add_section_if_not_exists (section_01);
+        project.add_section_if_not_exists (section_01);
 
-            var item_02_01 = new Objects.Item ();
-            item_02_01.id = Util.get_default ().generate_id (item_02_01);
-            item_02_01.project_id = project.id;
-            item_02_01.section_id = section_01.id;
-            item_02_01.content = _("Show your calendar events");
-            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
+        var item_02_01 = new Objects.Item ();
+        item_02_01.id = Util.get_default ().generate_id (item_02_01);
+        item_02_01.project_id = project.id;
+        item_02_01.section_id = section_01.id;
+        item_02_01.content = _("Show your calendar events");
+        item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
 
-            var item_02_02 = new Objects.Item ();
-            item_02_02.id = Util.get_default ().generate_id (item_02_02);
-            item_02_02.project_id = project.id;
-            item_02_02.section_id = section_01.id;
-            item_02_02.content = _("Enable synchronization with third-party service.");
-            item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
+        var item_02_02 = new Objects.Item ();
+        item_02_02.id = Util.get_default ().generate_id (item_02_02);
+        item_02_02.project_id = project.id;
+        item_02_02.section_id = section_01.id;
+        item_02_02.content = _("Enable synchronization with third-party service.");
+        item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
 
-            section_01.add_item_if_not_exists (item_02_01);
-            section_01.add_item_if_not_exists (item_02_02);
+        section_01.add_item_if_not_exists (item_02_01);
+        section_01.add_item_if_not_exists (item_02_02);
 
-            var section_02 = new Objects.Section ();
-            section_02.id = Util.get_default ().generate_id (section_01);
-            section_02.project_id = project.id;
-            section_02.name = _("Boost your productivity");
+        var section_02 = new Objects.Section ();
+        section_02.id = Util.get_default ().generate_id (section_01);
+        section_02.project_id = project.id;
+        section_02.name = _("Boost your productivity");
 
-            project.add_section_if_not_exists (section_02);
+        project.add_section_if_not_exists (section_02);
 
-            var item_03_01 = new Objects.Item ();
-            item_03_01.id = Util.get_default ().generate_id (item_03_01);
-            item_03_01.project_id = project.id;
-            item_03_01.section_id = section_02.id;
-            item_03_01.content = _("Drag the plus button!");
-            item_03_01.description = _("That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want.");
+        var item_03_01 = new Objects.Item ();
+        item_03_01.id = Util.get_default ().generate_id (item_03_01);
+        item_03_01.project_id = project.id;
+        item_03_01.section_id = section_02.id;
+        item_03_01.content = _("Drag the plus button!");
+        item_03_01.description = _("That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want.");
 
-            var item_03_02 = new Objects.Item ();
-            item_03_02.id = Util.get_default ().generate_id (item_03_02);
-            item_03_02.project_id = project.id;
-            item_03_02.section_id = section_02.id;
-            item_03_02.content = _("Tag your to-dos!");
-            item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
+        var item_03_02 = new Objects.Item ();
+        item_03_02.id = Util.get_default ().generate_id (item_03_02);
+        item_03_02.project_id = project.id;
+        item_03_02.section_id = section_02.id;
+        item_03_02.content = _("Tag your to-dos!");
+        item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
 
-            var item_03_03 = new Objects.Item ();
-            item_03_03.id = Util.get_default ().generate_id (item_03_03);
-            item_03_03.project_id = project.id;
-            item_03_03.section_id = section_02.id;
-            item_03_03.content = _("Set timely reminders!");
-            item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
-            
-            section_02.add_item_if_not_exists (item_03_01);
-            section_02.add_item_if_not_exists (item_03_02);
-            section_02.add_item_if_not_exists (item_03_03);
-        }
+        var item_03_03 = new Objects.Item ();
+        item_03_03.id = Util.get_default ().generate_id (item_03_03);
+        item_03_03.project_id = project.id;
+        item_03_03.section_id = section_02.id;
+        item_03_03.content = _("Set timely reminders!");
+        item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
+        
+        section_02.add_item_if_not_exists (item_03_01);
+        section_02.add_item_if_not_exists (item_03_02);
+        section_02.add_item_if_not_exists (item_03_03);
     }
 
     public void create_default_labels () {
@@ -738,11 +737,11 @@ We hope you’ll enjoy using Planify!""");
         label_05.name = _("🏃‍♀️️Follow Up");
         label_05.color = "grey";
 
-        Services.Database.get_default ().insert_label (label_01);
-        Services.Database.get_default ().insert_label (label_02);
-        Services.Database.get_default ().insert_label (label_03);
-        Services.Database.get_default ().insert_label (label_04);
-        Services.Database.get_default ().insert_label (label_05);
+        Services.Store.instance ().insert_label (label_01);
+        Services.Store.instance ().insert_label (label_02);
+        Services.Store.instance ().insert_label (label_03);
+        Services.Store.instance ().insert_label (label_04);
+        Services.Store.instance ().insert_label (label_05);
     }
 
     public BackendType get_backend_type_by_text (string backend_type) {
@@ -1032,7 +1031,7 @@ We hope you’ll enjoy using Planify!""");
         if (project.backend_type == BackendType.LOCAL) {
             new_project.id = Util.get_default ().generate_id (new_project);
             new_project.backend_type = BackendType.LOCAL;
-            Services.Database.get_default ().insert_project (new_project);
+            Services.Store.instance ().insert_project (new_project);
 
             foreach (Objects.Item item in project.items) {
                 yield duplicate_item (item, new_project.id, item.section_id, item.parent_id, false);
@@ -1062,7 +1061,7 @@ We hope you’ll enjoy using Planify!""");
             bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
 
             if (status) {
-                Services.Database.get_default ().insert_project (new_project);
+                Services.Store.instance ().insert_project (new_project);
             
                 foreach (Objects.Item item in project.items) {
                     yield duplicate_item (item, new_project.id, "", item.parent_id, false);

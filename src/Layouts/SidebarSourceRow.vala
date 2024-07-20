@@ -64,8 +64,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 
         var add_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
             valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" },
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
+            css_classes = { "flat", "header-item-button", "dim-label" }
         };
 
         group.add_widget_end (add_button);
@@ -78,28 +77,32 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
 		child = main_revealer;
 
         Timeout.add (main_revealer.transition_duration, () => {
-            main_revealer.reveal_child = true;
+            main_revealer.reveal_child = source.is_visible;
             return GLib.Source.REMOVE;
         });
 
         add_all_projects ();
         update_projects_sort ();
 
+        source.updated.connect (() => {
+            main_revealer.reveal_child = source.is_visible;
+        });
+
         add_button.clicked.connect (() => {
             prepare_new_project (source.id);
         });
 
-        Services.Database.get_default ().project_added.connect (add_row_project);
-        Services.Database.get_default ().project_updated.connect (update_projects_sort);
-        Services.Database.get_default ().project_unarchived.connect (add_row_project);
+        Services.Store.instance ().project_added.connect (add_row_project);
+        Services.Store.instance ().project_updated.connect (update_projects_sort);
+        Services.Store.instance ().project_unarchived.connect (add_row_project);
 
-        Services.Database.get_default ().project_deleted.connect ((project) => {
+        Services.Store.instance ().project_deleted.connect ((project) => {
             if (projects_hashmap.has_key (project.id)) {
                 projects_hashmap.unset (project.id);
             }
         });
 
-        Services.Database.get_default ().project_archived.connect ((project) => {
+        Services.Store.instance ().project_archived.connect ((project) => {
             if (projects_hashmap.has_key (project.id)) {
                 projects_hashmap.unset (project.id);
             }
@@ -158,7 +161,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
     }
 
     private void add_all_projects () {
-        foreach (Objects.Project project in Services.Database.get_default ().get_projects_by_source (source.id)) {
+        foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
             add_row_project (project);
         }
     }

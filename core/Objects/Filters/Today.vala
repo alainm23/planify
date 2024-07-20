@@ -33,7 +33,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
     public int today_count {
         get {
             if (_today_count == null) {
-                _today_count = Services.Database.get_default ().get_items_by_date (
+                _today_count = Services.Store.instance ().get_items_by_date (
                     new GLib.DateTime.now_local (), false).size;
             }
 
@@ -49,7 +49,7 @@ public class Objects.Filters.Today : Objects.BaseObject {
     public int overdeue_count {
         get {
             if (_overdeue_count == null) {
-                _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+                _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             }
 
             return _overdeue_count;
@@ -68,38 +68,38 @@ public class Objects.Filters.Today : Objects.BaseObject {
         icon_name = "star-outline-thick-symbolic";
         view_id = FilterType.TODAY.to_string ();
 
-        Services.Database.get_default ().item_added.connect (() => {
-            _today_count = Services.Database.get_default ().get_items_by_date (
+        Services.Store.instance ().item_added.connect (() => {
+            _today_count = Services.Store.instance ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             today_count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _today_count = Services.Database.get_default ().get_items_by_date (
+        Services.Store.instance ().item_deleted.connect (() => {
+            _today_count = Services.Store.instance ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             today_count_updated ();
         });
 
-        Services.Database.get_default ().item_archived.connect (() => {
-            _today_count = Services.Database.get_default ().get_items_by_date (
+        Services.Store.instance ().item_archived.connect (() => {
+            _today_count = Services.Store.instance ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             today_count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect (() => {
-            _today_count = Services.Database.get_default ().get_items_by_date (
+        Services.Store.instance ().item_unarchived.connect (() => {
+            _today_count = Services.Store.instance ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             today_count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _today_count = Services.Database.get_default ().get_items_by_date (
+        Services.Store.instance ().item_updated.connect (() => {
+            _today_count = Services.Store.instance ().get_items_by_date (
                 new GLib.DateTime.now_local (), false).size;
-            _overdeue_count = Services.Database.get_default ().get_items_by_overdeue_view (false).size;
+            _overdeue_count = Services.Store.instance ().get_items_by_overdeue_view (false).size;
             today_count_updated ();
         });
     }

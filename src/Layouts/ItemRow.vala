@@ -1037,14 +1037,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
 
-            BackendType backend_type;
+            Dialogs.ProjectPicker.ProjectPicker dialog;
             if (item.project.is_inbox_project) {
-                backend_type = BackendType.ALL;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                backend_type = item.project.source_type;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -1052,7 +1051,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -1178,15 +1177,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.clicked.connect (() => {            
             popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
-            dialog.add_sections (item.project.sections);
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (item.project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+            }
+            
             dialog.project = item.project;
             dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -1373,13 +1377,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
     private void _complete_item (bool old_checked) {
         if (item.project.source_type == BackendType.LOCAL) {
-            Services.Database.get_default ().checked_toggled (item, old_checked);
+            Services.Store.instance ().checked_toggled (item, old_checked);
         } else if (item.project.source_type == BackendType.TODOIST) {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
                 }
@@ -1389,7 +1393,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             is_loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
                 }
@@ -1594,13 +1598,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (picked_item.project.source_type == BackendType.LOCAL) {
                 target_item.collapsed = true;
-                Services.Database.get_default ().update_item (picked_item);
+                Services.Store.instance ().update_item (picked_item);
                 Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
             } else if (picked_item.project.source_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
                         target_item.collapsed = true;
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
@@ -1608,7 +1612,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
                     if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                         target_item.collapsed = true;
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
@@ -1695,7 +1699,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                 }
 
                 if (picked_widget.item.project.source_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().update_item (picked_widget.item);
+                    Services.Store.instance ().update_item (picked_widget.item);
                 } else if (picked_widget.item.project.source_type == BackendType.TODOIST) {
                     string move_id = picked_widget.item.project_id;
                     string move_type = "project_id";
@@ -1712,13 +1716,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_item.end (res).status) {
-                            Services.Database.get_default ().update_item (picked_widget.item);
+                            Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
                 } else if (picked_widget.item.project.source_type == BackendType.CALDAV) {
                     Services.CalDAV.Core.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
                         if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
-                            Services.Database.get_default ().update_item (picked_widget.item);
+                            Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
                 }
@@ -1777,7 +1781,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (item_row != null) {
                 item_row.item.child_order = row_index;
-                Services.Database.get_default ().update_item (item_row.item);
+                Services.Store.instance ().update_item (item_row.item);
             }
 
             row_index++;

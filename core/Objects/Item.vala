@@ -155,13 +155,13 @@ public class Objects.Item : Objects.BaseObject {
 
     public bool has_parent {
         get {
-            return Services.Database.get_default ().get_item (parent_id) != null;
+            return Services.Store.instance ().get_item (parent_id) != null;
         }
     }
 
     public bool has_section {
         get {
-            return Services.Database.get_default ().get_section (section_id) != null;
+            return Services.Store.instance ().get_section (section_id) != null;
         }
     }
 
@@ -223,7 +223,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Item? _parent;
     public Objects.Item parent {
         get {
-            _parent = Services.Database.get_default ().get_item (parent_id);
+            _parent = Services.Store.instance ().get_item (parent_id);
             return _parent;
         }
     }
@@ -231,7 +231,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Project? _project;
     public Objects.Project project {
         get {
-            _project = Services.Database.get_default ().get_project (project_id);
+            _project = Services.Store.instance ().get_project (project_id);
             return _project;
         }
     }
@@ -239,7 +239,7 @@ public class Objects.Item : Objects.BaseObject {
     Objects.Section? _section;
     public Objects.Section section {
         get {
-            _section = Services.Database.get_default ().get_section (section_id);
+            _section = Services.Store.instance ().get_section (section_id);
             return _section;
         }
     }
@@ -247,7 +247,7 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Database.get_default ().get_subitems (this);
+            _items = Services.Store.instance ().get_subitems (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -264,7 +264,7 @@ public class Objects.Item : Objects.BaseObject {
     Gee.ArrayList<Objects.Reminder> _reminders;
     public Gee.ArrayList<Objects.Reminder> reminders {
         get {
-            _reminders = Services.Database.get_default ().get_reminders_by_item (this);
+            _reminders = Services.Store.instance ().get_reminders_by_item (this);
             return _reminders;
         }
     }
@@ -273,7 +273,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.ArrayList<Objects.Attachment> attachments {
         get {
             if (_attachments == null) {
-                _attachments = Services.Database.get_default ().get_attachments_by_item (this);
+                _attachments = Services.Store.instance ().get_attachments_by_item (this);
             }
             
             return _attachments;
@@ -293,7 +293,7 @@ public class Objects.Item : Objects.BaseObject {
     construct {
         deleted.connect (() => {
             Idle.add (() => {
-                Services.Database.get_default ().item_deleted (this);
+                Services.Store.instance ().item_deleted (this);
                 return false;
             });
         });
@@ -573,7 +573,7 @@ public class Objects.Item : Objects.BaseObject {
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
             // TODO: VERIFICAR CALDAV
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
             if (label != null) {
                 return_value.add (label);
             }
@@ -599,7 +599,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.ArrayList<Objects.Label> get_labels_from_json (Json.Node node) {
         Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.source_id);
+            Objects.Label label = Services.Store.instance ().get_label_by_name (element.get_string (), true, project.source_id);
             return_value.add (label);
         }
         return return_value;
@@ -627,7 +627,7 @@ public class Objects.Item : Objects.BaseObject {
     public Gee.HashMap<string, Objects.Label> get_labels_maps_from_json (Json.Node node) {
         Gee.HashMap<string, Objects.Label> return_value = new Gee.HashMap<string, Objects.Label> ();
         foreach (unowned Json.Node element in node.get_object ().get_array_member ("labels").get_elements ()) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (element.get_string (), true, project.source_id);
+            Objects.Label label = Services.Store.instance ().get_label_by_name (element.get_string (), true, project.source_id);
             return_value [label.id] = label;
         }
         return return_value;
@@ -638,7 +638,7 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            Objects.Label label = Services.Database.get_default ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
             if (label != null) {
                 return_value [label.id] = label;
             } else {
@@ -647,9 +647,9 @@ public class Objects.Item : Objects.BaseObject {
                 label.color = Util.get_default ().get_random_color ();
                 label.name = category;
                 label.backend_type = BackendType.CALDAV;
-                if (Services.Database.get_default ().insert_label (label)) {
-                    return_value [label.id] = label;
-                }
+
+                Services.Store.instance ().insert_label (label);
+                return_value [label.id] = label;
             }
         }
 
@@ -707,7 +707,7 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void update_local () {
-        Services.Database.get_default ().update_item (this, "");
+        Services.Store.instance ().update_item (this, "");
     }
 
     public void update (string update_id = "") {
@@ -719,18 +719,18 @@ public class Objects.Item : Objects.BaseObject {
             update_timeout_id = 0;
 
             if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (this, update_id);
+                Services.Store.instance ().update_item (this, update_id);
             } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_item (this, update_id);
+                    Services.Store.instance ().update_item (this, update_id);
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
                 Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
                     HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
-                        Services.Database.get_default ().update_item (this, update_id);
+                        Services.Store.instance ().update_item (this, update_id);
                     }
                 });
             } 
@@ -749,12 +749,12 @@ public class Objects.Item : Objects.BaseObject {
             loading = true;
 
             if (project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_item (this, update_id);
+                Services.Store.instance ().update_item (this, update_id);
                 loading = false;
             } else if (project.backend_type == BackendType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_item (this, update_id);
+                    Services.Store.instance ().update_item (this, update_id);
                     loading = false;
                 });
             } else if (project.backend_type == BackendType.CALDAV) {
@@ -762,7 +762,7 @@ public class Objects.Item : Objects.BaseObject {
                     HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                     if (response.status) {
-                        Services.Database.get_default ().update_item (this, update_id);
+                        Services.Store.instance ().update_item (this, update_id);
                     }
                     
                     loading = false;
@@ -777,12 +777,12 @@ public class Objects.Item : Objects.BaseObject {
         loading = true;
 
         if (project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_item (this, update_id);
+            Services.Store.instance ().update_item (this, update_id);
             loading = false;
         } else if (project.backend_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
-                Services.Database.get_default ().update_item (this, update_id);
+                Services.Store.instance ().update_item (this, update_id);
                 loading = false;
             });
         } else if (project.backend_type == BackendType.CALDAV) {
@@ -790,7 +790,7 @@ public class Objects.Item : Objects.BaseObject {
                 HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
                 if (response.status) {
-                    Services.Database.get_default ().update_item (this, update_id);
+                    Services.Store.instance ().update_item (this, update_id);
                 }
                 
                 loading = false;
@@ -804,7 +804,7 @@ public class Objects.Item : Objects.BaseObject {
             return_value = get_reminder (reminder);
             if (return_value == null) {
                 if (insert_db) {
-                    Services.Database.get_default ().insert_reminder (reminder);
+                    Services.Store.instance ().insert_reminder (reminder);
                 } else {
                     reminder_added (reminder);
                 }
@@ -837,7 +837,7 @@ public class Objects.Item : Objects.BaseObject {
         lock (_attachments) {
             return_value = get_attachment (attachment);
             if (return_value == null) {
-                Services.Database.get_default ().insert_attachment (attachment);
+                Services.Store.instance ().insert_attachment (attachment);
                 add_attachment (attachment);
             }
 
@@ -869,7 +869,7 @@ public class Objects.Item : Objects.BaseObject {
         return_value = get_label (label.id);
         if (return_value == null) {
             return_value = label;
-            Services.Database.get_default ().item_label_added (return_value);
+            Services.Store.instance ().item_label_added (return_value);
             add_item_label (return_value);
         }
         
@@ -915,7 +915,7 @@ public class Objects.Item : Objects.BaseObject {
         return_value = get_label (id);
 
         if (return_value != null) {
-            Services.Database.get_default ().item_label_deleted (return_value);
+            Services.Store.instance ().item_label_deleted (return_value);
             item_label_deleted (return_value);
             
             labels.remove (return_value);
@@ -1295,7 +1295,7 @@ public class Objects.Item : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_parent (this);
                 add_item (new_item);
-                Services.Database.get_default ().insert_item (new_item, insert);
+                Services.Store.instance ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
@@ -1360,12 +1360,12 @@ public class Objects.Item : Objects.BaseObject {
 
     public void delete_item () {
         if (project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().delete_item (this);
+            Services.Store.instance ().delete_item (this);
         } else if (project.backend_type == BackendType.TODOIST) {
             loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
-                    Services.Database.get_default ().delete_item (this);
+                    Services.Store.instance ().delete_item (this);
                 }
 
                 loading = false;
@@ -1374,7 +1374,7 @@ public class Objects.Item : Objects.BaseObject {
             loading = true;
             Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
-                    Services.Database.get_default ().delete_item (this);
+                    Services.Store.instance ().delete_item (this);
                     foreach (Objects.Item subitem in this.items) {
                         subitem.delete_item ();
                     }
@@ -1467,7 +1467,7 @@ public class Objects.Item : Objects.BaseObject {
         }
 
         if (project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_item (this);
+            Services.Store.instance ().update_item (this);
             promise.resolve (next_recurrency);
         } else if (project.backend_type == BackendType.TODOIST) {
             loading = true;
@@ -1476,7 +1476,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
 
                 if (response.status) {
-                    Services.Database.get_default ().update_item (this);
+                    Services.Store.instance ().update_item (this);
                     promise.resolve (next_recurrency);
                 }
             });
@@ -1487,7 +1487,7 @@ public class Objects.Item : Objects.BaseObject {
                 loading = false;
 
                 if (response.status) {
-                    Services.Database.get_default ().update_item (this);
+                    Services.Store.instance ().update_item (this);
                     promise.resolve (next_recurrency);
                 }
             });
@@ -1539,7 +1539,7 @@ public class Objects.Item : Objects.BaseObject {
         this.section_id = _section_id;
         this.parent_id = "";
 
-        Services.Database.get_default ().move_item (this);
+        Services.Store.instance ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
         Services.EventBus.get_default ().send_notification (
@@ -1624,8 +1624,8 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void add_reminder_events (Objects.Reminder reminder) {
-        Services.Database.get_default ().reminder_added (reminder);
-        Services.Database.get_default ().reminders.add (reminder);
+        Services.Store.instance ().reminder_added (reminder);
+        Services.Store.instance ().reminders.add (reminder);
         reminder.item.reminder_added (reminder);
         _add_reminder (reminder);
     }

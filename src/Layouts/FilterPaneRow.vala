@@ -171,7 +171,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         }
     }
     private void init_inbox_count () {
-        Objects.Project inbox_project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
+        Objects.Project inbox_project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
         update_count_label (inbox_project.project_count);
 
         inbox_project.project_count_updated.connect (() => {

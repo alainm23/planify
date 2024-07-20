@@ -136,7 +136,7 @@ public class Dialogs.Label : Adw.Dialog {
     }
 
     private bool is_duplicate (string text) {
-        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true, label.source_id);
+        Objects.Label label = Services.Store.instance ().get_label_by_name (text, true, label.source_id);
         return label != null;
     }
 
@@ -157,22 +157,22 @@ public class Dialogs.Label : Adw.Dialog {
         if (!is_creating) {
             submit_button.is_loading = true;
             if (label.backend_type == BackendType.LOCAL || label.backend_type == BackendType.CALDAV) {
-                Services.Database.get_default ().update_label (label);
+                Services.Store.instance ().update_label (label);
                 hide_destroy ();
             } else if (label.backend_type == BackendType.TODOIST) { 
                 Services.Todoist.get_default ().update.begin (label, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_label (label);
+                    Services.Store.instance ().update_label (label);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
             }
         } else {
-            label.item_order = Services.Database.get_default ().get_labels_by_backend_type (label.backend_type).size;
+            label.item_order = Services.Store.instance ().get_labels_by_backend_type (label.backend_type).size;
 
             if (label.backend_type == BackendType.LOCAL || label.backend_type == BackendType.CALDAV) {
                 label.id = Util.get_default ().generate_id (label);
-                Services.Database.get_default ().insert_label (label);
+                Services.Store.instance ().insert_label (label);
                 hide_destroy ();
             } else if (label.backend_type == BackendType.TODOIST) {
                 submit_button.is_loading = true;
@@ -181,7 +181,7 @@ public class Dialogs.Label : Adw.Dialog {
 
                     if (response.status) {
                         label.id = response.data;
-                        Services.Database.get_default ().insert_label (label);
+                        Services.Store.instance ().insert_label (label);
                         hide_destroy ();
                     } else {
 

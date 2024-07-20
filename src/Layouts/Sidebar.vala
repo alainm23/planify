@@ -202,9 +202,9 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     public void init () {
-        Services.Database.get_default ().source_added.connect (add_source_row);
+        Services.Store.instance ().source_added.connect (add_source_row);
 
-        Services.Database.get_default ().source_deleted.connect ((source) => {
+        Services.Store.instance ().source_deleted.connect ((source) => {
             if (sources_hashmap.has_key (source.id)) {
                 sources_hashmap.get (source.id).hide_destroy ();
             }
@@ -230,7 +230,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         add_all_favorites ();
 
-        foreach (Objects.Source source in Services.Database.get_default ().sources) {
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
 			add_source_row (source);
 		}
     }
@@ -243,7 +243,7 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     private void add_all_favorites () {
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
             add_row_favorite (project);
         }
 

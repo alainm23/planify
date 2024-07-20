@@ -29,10 +29,10 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
         scrolled_box.append (inbox_group);
 
-        foreach (Objects.Source source in Services.Database.get_default ().sources) {
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
             if (!sources_hashmap.has_key (source.id)) {
                 sources_hashmap[source.id] = new Layouts.HeaderItem (source.header_text) {
-                    reveal_child = Services.Database.get_default ().get_projects_by_source (source.id).size > 0,
+                    reveal_child = Services.Store.instance ().get_projects_by_source (source.id).size > 0,
                     card = true,
                     show_separator = false
                 };
@@ -73,7 +73,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
         add_css_class ("popover-no-content");
         search_entry.grab_focus ();
         
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
             var row_listbox = new Widgets.ProjectPicker.ProjectPickerRow (project);
 
             row_listbox.selected.connect (() => {

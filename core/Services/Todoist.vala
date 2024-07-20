@@ -58,18 +58,6 @@ public class Services.Todoist : GLib.Object {
 		//  });
 	}
 
-	public void run_server () {
-		//  sync_async ();
-
-		//  server_timeout = Timeout.add_seconds (15 * 60, () => {
-		//  	if (Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")) {
-		//  		sync_async ();
-		//  	}
-
-		//  	return true;
-		//  });
-	}
-
 	public bool invalid_token () {
 		return Services.Settings.get_default ().settings.get_string ("todoist-access-token").strip () == "";
 	}
@@ -143,12 +131,12 @@ public class Services.Todoist : GLib.Object {
 
 			source.data = todoist_data;
 
-			Services.Database.get_default ().insert_source (source);
+			Services.Store.instance ().insert_source (source);
 
 			// Create Labels
 			unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
 			foreach (unowned Json.Node _node in labels.get_elements ()) {
-				Services.Database.get_default ().insert_label (new Objects.Label.from_json (_node));
+				Services.Store.instance ().insert_label (new Objects.Label.from_json (_node));
 			}
 
 			// Create Projects
@@ -158,12 +146,12 @@ public class Services.Todoist : GLib.Object {
 				_project.source_id = source.id;
 
 				if (!_node.get_object ().get_null_member ("parent_id")) {
-					Objects.Project? project = Services.Database.get_default ().get_project (_node.get_object ().get_string_member ("parent_id"));
+					Objects.Project? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("parent_id"));
 					if (project != null) {
 						project.add_subproject_if_not_exists (_project);
 					}
 				} else {
-					Services.Database.get_default ().insert_project (_project);
+					Services.Store.instance ().insert_project (_project);
 				}
 			}
 
@@ -183,7 +171,7 @@ public class Services.Todoist : GLib.Object {
 			unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
 			foreach (unowned Json.Node _node in reminders.get_elements ()) {
 				Objects.Reminder reminder = new Objects.Reminder.from_json (_node);
-				Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+				Objects.Item? item = Services.Store.instance ().get_item (reminder.item_id);
 				if (item != null) {
 					item.add_reminder_if_not_exists (reminder);
 				}
@@ -250,32 +238,32 @@ public class Services.Todoist : GLib.Object {
 				unowned Json.Array _labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
 				foreach (unowned Json.Node _node in _labels.get_elements ()) {
 					string _id = _node.get_object ().get_string_member ("id");
-					Objects.Label? label = Services.Database.get_default ().get_label (_id);
+					Objects.Label? label = Services.Store.instance ().get_label (_id);
 					if (label != null) {
 						if (_node.get_object ().get_boolean_member ("is_deleted")) {
-							Services.Database.get_default ().delete_label (label);
+							Services.Store.instance ().delete_label (label);
 						} else {
 							label.update_from_json (_node);
-							Services.Database.get_default ().update_label (label);
+							Services.Store.instance ().update_label (label);
 						}
 					} else {
-						Services.Database.get_default ().insert_label (new Objects.Label.from_json (_node));
+						Services.Store.instance ().insert_label (new Objects.Label.from_json (_node));
 					}
 				}
 
 				// Projects
 				unowned Json.Array projects = parser.get_root ().get_object ().get_array_member (PROJECTS_COLLECTION);
 				foreach (unowned Json.Node _node in projects.get_elements ()) {
-					Objects.Project? project = Services.Database.get_default ().get_project (_node.get_object ().get_string_member ("id"));
+					Objects.Project? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
 					if (project != null) {
 						if (_node.get_object ().get_boolean_member ("is_deleted")) {
-							Services.Database.get_default ().delete_project (project);
+							Services.Store.instance ().delete_project (project);
 						} else {
 							string old_parent_id = project.parent_id;
 							bool old_is_favorite = project.is_favorite;
 
 							project.update_from_json (_node);
-							Services.Database.get_default ().update_project (project);
+							Services.Store.instance ().update_project (project);
 
 							if (project.parent_id != old_parent_id) {
 								Services.EventBus.get_default ().project_parent_changed (project, old_parent_id);
@@ -286,20 +274,23 @@ public class Services.Todoist : GLib.Object {
 							}
 						}
 					} else {
-						Services.Database.get_default ().insert_project (new Objects.Project.from_json (_node));
+						var _project = new Objects.Project.from_json (_node);
+						_project.source_id = source.id;
+
+						Services.Store.instance ().insert_project (_project);
 					}
 				}
 
 				// Sections
 				unowned Json.Array sections = parser.get_root ().get_object ().get_array_member (SECTIONS_COLLECTION);
 				foreach (unowned Json.Node _node in sections.get_elements ()) {
-					Objects.Section? section = Services.Database.get_default ().get_section (_node.get_object ().get_string_member ("id"));
+					Objects.Section? section = Services.Store.instance ().get_section (_node.get_object ().get_string_member ("id"));
 					if (section != null) {
 						if (_node.get_object ().get_boolean_member ("is_deleted")) {
-							Services.Database.get_default ().delete_section (section);
+							Services.Store.instance ().delete_section (section);
 						} else {
 							section.update_from_json (_node);
-							Services.Database.get_default ().update_section (section);
+							Services.Store.instance ().update_section (section);
 						}
 					} else {
 						add_section_if_not_exists (_node);
@@ -309,17 +300,17 @@ public class Services.Todoist : GLib.Object {
 				// Items
 				unowned Json.Array items = parser.get_root ().get_object ().get_array_member (ITEMS_COLLECTION);
 				foreach (unowned Json.Node _node in items.get_elements ()) {
-					Objects.Item? item = Services.Database.get_default ().get_item (_node.get_object ().get_string_member ("id"));
+					Objects.Item? item = Services.Store.instance ().get_item (_node.get_object ().get_string_member ("id"));
 					if (item != null) {
 						if (_node.get_object ().get_boolean_member ("is_deleted")) {
-							Services.Database.get_default ().delete_item (item);
+							Services.Store.instance ().delete_item (item);
 						} else {
 							string old_project_id = item.project_id;
 							string old_section_id = item.section_id;
 							string old_parent_id = item.parent_id;
 
 							item.update_from_json (_node);
-							Services.Database.get_default ().update_item (item);
+							Services.Store.instance ().update_item (item);
 
 							if (old_project_id != item.project_id || old_section_id != item.section_id ||
 							    old_parent_id != item.parent_id) {
@@ -328,7 +319,7 @@ public class Services.Todoist : GLib.Object {
 
 							bool old_checked = item.checked;
 							if (old_checked != item.checked) {
-								Services.Database.get_default ().checked_toggled (item, old_checked);
+								Services.Store.instance ().checked_toggled (item, old_checked);
 							}
 						}
 					} else {
@@ -339,16 +330,16 @@ public class Services.Todoist : GLib.Object {
 				// Reminders
 				unowned Json.Array reminders = parser.get_root ().get_object ().get_array_member (REMINDERS_COLLECTION);
 				foreach (unowned Json.Node _node in reminders.get_elements ()) {
-					Objects.Reminder? reminder = Services.Database.get_default ().get_reminder (_node.get_object ().get_string_member ("id"));
+					Objects.Reminder? reminder = Services.Store.instance ().get_reminder (_node.get_object ().get_string_member ("id"));
 
 					if (reminder != null) {
 						if (_node.get_object ().get_boolean_member ("is_deleted")) {
-							Services.Database.get_default ().delete_reminder (reminder);
+							Services.Store.instance ().delete_reminder (reminder);
 						}
 					} else {
 						reminder = new Objects.Reminder.from_json (_node);
 
-						Objects.Item? item = Services.Database.get_default ().get_item (reminder.item_id);
+						Objects.Item? item = Services.Store.instance ().get_item (reminder.item_id);
 						if (item != null) {
 							item.add_reminder_if_not_exists (reminder);
 						}
@@ -397,19 +388,19 @@ public class Services.Todoist : GLib.Object {
 		        if (uuid_member.get_node_type () == Json.NodeType.VALUE) {
 		            if (q.query == "project_add") {
 		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-		                Services.Database.get_default ().update_project_id (q.object_id, id);
+		                Services.Store.instance ().update_project_id (q.object_id, id);
 		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
 		            }
 
 		            if (q.query == "section_add") {
 		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-		                Services.Database.get_default ().update_section_id (q.object_id, id);
+		                Services.Store.instance ().update_section_id (q.object_id, id);
 		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
 		            }
 
 		            if (q.query == "item_add") {
 		                var id = node.get_object_member ("temp_id_mapping").get_string_member (q.temp_id);
-		                Services.Database.get_default ().update_item_id (q.object_id, id);
+		                Services.Store.instance ().update_item_id (q.object_id, id);
 		                Services.Database.get_default ().remove_CurTempIds (q.object_id);
 		            }
 
@@ -737,7 +728,7 @@ public class Services.Todoist : GLib.Object {
 
 	private void add_item_if_not_exists (Json.Node node) {
 		if (!node.get_object ().get_null_member ("parent_id")) {
-			Objects.Item? item = Services.Database.get_default ().get_item (node.get_object ().get_string_member ("parent_id"));
+			Objects.Item? item = Services.Store.instance ().get_item (node.get_object ().get_string_member ("parent_id"));
 			if (item != null) {
 				item.add_item_if_not_exists (new Objects.Item.from_json (node));
 			}
@@ -746,12 +737,12 @@ public class Services.Todoist : GLib.Object {
 		}
 
 		if (!node.get_object ().get_null_member ("section_id")) {
-			Objects.Section? section = Services.Database.get_default ().get_section (node.get_object ().get_string_member ("section_id"));
+			Objects.Section? section = Services.Store.instance ().get_section (node.get_object ().get_string_member ("section_id"));
 			if (section != null) {
 				section.add_item_if_not_exists (new Objects.Item.from_json (node));
 			}
 		} else {
-			Objects.Project? project = Services.Database.get_default ().get_project (node.get_object ().get_string_member ("project_id"));
+			Objects.Project? project = Services.Store.instance ().get_project (node.get_object ().get_string_member ("project_id"));
 			if (project != null) {
 				project.add_item_if_not_exists (new Objects.Item.from_json (node));
 			}
@@ -1086,7 +1077,7 @@ public class Services.Todoist : GLib.Object {
 
 	private void add_section_if_not_exists (Json.Node node) {
 		string _id = node.get_object ().get_string_member ("project_id");
-		Objects.Project? project = Services.Database.get_default ().get_project (_id);
+		Objects.Project? project = Services.Store.instance ().get_project (_id);
 		if (project != null) {
 			project.add_section_if_not_exists (new Objects.Section.from_json (node));
 		}
@@ -1535,6 +1526,7 @@ public class HttpResponse {
 	public int http_code { get; set; default = 0; }
 
 	public string data { get; set; }
+	public GLib.Value data_object { get; set; }
 
 	public void from_error_json (Json.Node node) {
 		status = false;

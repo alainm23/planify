@@ -20,18 +20,14 @@
 */
 
 public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
-    public BackendType backend_type { get; construct; }
     public PickerType picker_type { get; construct; }
+    public Objects.Source? source { get; construct; }
+    public bool all_sources { get; construct; }
 
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox sections_listbox;
 
     private Layouts.HeaderItem inbox_group;
-    private Layouts.HeaderItem local_group;
-    private Layouts.HeaderItem todoist_group;
-    private Layouts.HeaderItem caldav_group;
-
-    public Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> projects_hashmap;
 
     Objects.Project _project;
     public Objects.Project project {
@@ -64,19 +60,40 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
 
     public signal void changed (string type, string id);
 
-    public ProjectPicker (PickerType picker_type = PickerType.PROJECTS, BackendType backend_type = BackendType.ALL) {
+    public ProjectPicker.for_project (Objects.Source source) {
         Object (
-            picker_type: picker_type,
-            backend_type: backend_type,
+            picker_type: PickerType.PROJECTS,
+            source: source,
+            all_sources: false,
             title: _("Move"),
-            content_width: 320,
-            content_height: 450
+            content_width: 400,
+            content_height: 550
+        );
+    }
+
+    public ProjectPicker.for_projects () {
+        Object (
+            picker_type: PickerType.PROJECTS,
+            source: null,
+            all_sources: true,
+            title: _("Move"),
+            content_width: 400,
+            content_height: 550
+        );
+    }
+
+    public ProjectPicker.for_sections (Objects.Source source) {
+        Object (
+            picker_type: PickerType.SECTIONS,
+            source: source,
+            all_sources: false,
+            title: _("Move"),
+            content_width: 400,
+            content_height: 550
         );
     }
 
     construct {
-        projects_hashmap = new Gee.HashMap <string, Dialogs.ProjectPicker.ProjectPickerRow> ();
-
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
@@ -109,26 +126,25 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (headerbar);
-        content_box.append (search_entry);
+        //  content_box.append (search_entry);
         content_box.append (main_stack);
         content_box.append (submit_button);
 
         child = content_box;
-        add_projects ();
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        search_entry.search_changed.connect (() => {
-            local_group.invalidate_filter ();
-            todoist_group.invalidate_filter ();
-            caldav_group.invalidate_filter ();
-        });
+        //  search_entry.search_changed.connect (() => {
+        //      local_group.invalidate_filter ();
+        //      todoist_group.invalidate_filter ();
+        //      caldav_group.invalidate_filter ();
+        //  });
 
         Services.EventBus.get_default ().project_picker_changed.connect ((id) => {
-            _project = Services.Database.get_default ().get_project (id);
+            _project = Services.Store.instance ().get_project (id);
         });
 
         Services.EventBus.get_default ().section_picker_changed.connect ((id) => {
-            _section = Services.Database.get_default ().get_section (id);
+            _section = Services.Store.instance ().get_section (id);
         });
 
         submit_button.clicked.connect (() => {
@@ -162,61 +178,34 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
     private Gtk.Widget build_projects_view () {
         inbox_group = new Layouts.HeaderItem (null) {
             margin_top = 12,
-            card = true
-        };
-        
-        local_group = new Layouts.HeaderItem (_("On this Computer")) {
-            card = true
-        };
-        
-        todoist_group = new Layouts.HeaderItem (_("Todoist")) {
-            card = true
+            card = true,
+            reveal = true
         };
 
-        caldav_group = new Layouts.HeaderItem (_("Nextcloud")) {
-            card = true
-        };
+        inbox_group.add_child (
+            new Dialogs.ProjectPicker.ProjectPickerRow (Services.Store.instance ().get_inbox_project ())
+        );
 
-        inbox_group.reveal = true;
-
-        if (backend_type == BackendType.ALL) {
-            local_group.reveal = true;
-            todoist_group.reveal = true;
-            caldav_group.reveal = true;
-        } else if (backend_type == BackendType.LOCAL) {
-            local_group.reveal = true;
-            todoist_group.reveal = false;
-            caldav_group.reveal = false;
-        } else if (backend_type == BackendType.TODOIST) {
-            local_group.reveal = false;
-            todoist_group.reveal = true;
-            caldav_group.reveal = false;
-        } else if (backend_type == BackendType.CALDAV) {
-            local_group.reveal = false;
-            todoist_group.reveal = false;
-            caldav_group.reveal = true;
-        }
-
-        local_group.set_filter_func (filter_func);
-        todoist_group.set_filter_func (filter_func);
-        caldav_group.set_filter_func (filter_func);
-        
         var scrolled_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6) {
             margin_start = 12,
             margin_end = 12
         };
         scrolled_box.append (inbox_group);
-        scrolled_box.append (local_group);
-        scrolled_box.append (todoist_group);
-        scrolled_box.append (caldav_group);
 
+        if (all_sources) {
+            foreach (Objects.Source source in Services.Store.instance ().sources) {
+                scrolled_box.append (new Dialogs.ProjectPicker.ProjectPickerSourceRow (source));
+            }
+        } else {
+            scrolled_box.append (new Dialogs.ProjectPicker.ProjectPickerSourceRow (source));
+        }
+        
         var scrolled = new Gtk.ScrolledWindow () {
             hexpand = true,
             vexpand = true,
-            hscrollbar_policy = Gtk.PolicyType.NEVER
+            hscrollbar_policy = Gtk.PolicyType.NEVER,
+            child = scrolled_box
         };
-
-        scrolled.child = scrolled_box;
 
         return scrolled;
     }
@@ -253,24 +242,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         return scrolled;
     }
 
-    private void add_projects () {
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
-            projects_hashmap [project.id] = new Dialogs.ProjectPicker.ProjectPickerRow (project);
-            
-            if (project.is_inbox_project) {
-                inbox_group.add_child (projects_hashmap [project.id]);
-            } else {
-                if (project.source_type == BackendType.LOCAL) {
-                    local_group.add_child (projects_hashmap [project.id]);
-                } else if (project.source_type == BackendType.TODOIST) {
-                    todoist_group.add_child (projects_hashmap [project.id]);
-                } else if (project.source_type == BackendType.CALDAV) {
-                    caldav_group.add_child (projects_hashmap [project.id]);
-                }
-            }
-        }
-    }
-
     public void add_sections (Gee.ArrayList<Objects.Section> sections) {
         var no_section = new Objects.Section ();
         no_section.name = _("No Section");
@@ -281,11 +252,6 @@ public class Dialogs.ProjectPicker.ProjectPicker : Adw.Dialog {
         foreach (Objects.Section section in sections) {
             sections_listbox.append (new Dialogs.ProjectPicker.SectionPickerRow (section));
         }
-    }
-
-    private bool filter_func (Gtk.ListBoxRow row) {
-        var project = ((Dialogs.ProjectPicker.ProjectPickerRow) row).project;
-        return search_entry.text.down () in project.name.down ();
     }
 
     public void hide_destroy () {

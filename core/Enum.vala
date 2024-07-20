@@ -352,6 +352,45 @@ public enum CalDAVType {
 				assert_not_reached ();
 		}
 	}
+
+	public string title () {
+		switch (this) {
+			case NEXTCLOUD:
+				return _("Nextcloud");
+
+			case RADICALE:
+				return _("Radicale");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public static CalDAVType parse_index (uint value) {
+		switch (value) {
+			case 0:
+				return CalDAVType.NEXTCLOUD;
+
+			case 1:
+				return CalDAVType.RADICALE;
+
+			default:
+				return CalDAVType.NEXTCLOUD;
+		}
+	}
+
+	public static CalDAVType parse (string value) {
+		switch (value) {
+			case "nextcloud":
+				return CalDAVType.NEXTCLOUD;
+
+			case "radicale":
+				return CalDAVType.RADICALE;
+
+			default:
+				return CalDAVType.NEXTCLOUD;
+		}
+	}
 }
 
 public enum FilterItemType {

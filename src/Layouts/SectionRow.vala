@@ -306,7 +306,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			}
 		});
 
-		Services.Database.get_default ().item_updated.connect ((item, update_id) => {
+		Services.Store.instance ().item_updated.connect ((item, update_id) => {
 			if (items.has_key (item.id)) {
 				if (items [item.id].update_id != update_id) {
 					items [item.id].update_request ();
@@ -321,7 +321,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			listbox.invalidate_filter ();
 		});
 
-		Services.Database.get_default ().item_deleted.connect ((item) => {
+		Services.Store.instance ().item_deleted.connect ((item) => {
 			if (items.has_key (item.id)) {
 				items [item.id].hide_destroy ();
 				items.unset (item.id);
@@ -711,7 +711,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		move_item.clicked.connect (() => {
 			menu_popover.popdown ();
 
-			var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, section.project.source_type);
+			var dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (section.source);
 			dialog.project = section.project;
 			dialog.present (Planify._instance.main_window);
 
@@ -773,11 +773,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
 					if (Services.Todoist.get_default ().move_item.end (res).status) {
-						Services.Database.get_default ().update_item (picked_widget.item);
+						Services.Store.instance ().update_item (picked_widget.item);
 					}
 				});
 			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
-				Services.Database.get_default ().update_item (picked_widget.item);
+				Services.Store.instance ().update_item (picked_widget.item);
 			}
 
 			var source_list = (Gtk.ListBox) picked_widget.parent;
@@ -815,11 +815,11 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				Services.Todoist.get_default ().move_item.begin (picked_widget.item, type, id, (obj, res) => {
 					if (Services.Todoist.get_default ().move_item.end (res).status) {
-						Services.Database.get_default ().update_item (picked_widget.item);
+						Services.Store.instance ().update_item (picked_widget.item);
 					}
 				});
 			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
-				Services.Database.get_default ().update_item (picked_widget.item);
+				Services.Store.instance ().update_item (picked_widget.item);
 			}
 
 			var source_list = (Gtk.ListBox) picked_widget.parent;
@@ -852,7 +852,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 			if (item_row != null) {
 				item_row.item.child_order = row_index;
-				Services.Database.get_default ().update_item (item_row.item);
+				Services.Store.instance ().update_item (item_row.item);
 			}
 
 			row_index++;
@@ -879,13 +879,13 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		if (section.project.source_type == BackendType.TODOIST) {
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
 				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
-					Services.Database.get_default ().move_section (section, old_section_id);
+					Services.Store.instance ().move_section (section, old_section_id);
 				}
 
 				is_loading = false;
 			});
 		} else if (section.project.source_type == BackendType.LOCAL) {
-			Services.Database.get_default ().move_section (section, project_id);
+			Services.Store.instance ().move_section (section, project_id);
 			is_loading = false;
 		}
 	}

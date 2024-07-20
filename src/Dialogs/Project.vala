@@ -123,7 +123,7 @@ public class Dialogs.Project : Adw.Dialog {
         name_group.add (emoji_switch_row);
 
         var backend_model = new Gtk.StringList (null);
-        foreach (Objects.Source source in Services.Database.get_default ().sources) {
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
             backend_model.append (source.header_text);
         }
 
@@ -294,18 +294,18 @@ public class Dialogs.Project : Adw.Dialog {
 
     private void update_project () {
         if (project.source_type == BackendType.LOCAL) {
-            Services.Database.get_default ().update_project (project);
+            Services.Store.instance ().update_project (project);
             hide_destroy ();
         } else if (project.source_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
-                Services.Database.get_default ().update_project (project);
+                Services.Store.instance ().update_project (project);
                 hide_destroy ();
             });
         } else if (project.source_type == BackendType.CALDAV) {
             Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
-                    Services.Database.get_default ().update_project (project);
+                    Services.Store.instance ().update_project (project);
                     hide_destroy ();
                 }
             });
@@ -313,11 +313,11 @@ public class Dialogs.Project : Adw.Dialog {
     }
 
     private void add_project () {
-        project.child_order = Services.Database.get_default ().get_projects_by_backend_type (project.backend_type).size;
+        project.child_order = Services.Store.instance ().get_projects_by_backend_type (project.backend_type).size;
         
         if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.NONE) {
             project.id = Util.get_default ().generate_id (project);
-            Services.Database.get_default ().insert_project (project);
+            Services.Store.instance ().insert_project (project);
             go_project (project.id_string);
         } else if (project.source_type == BackendType.TODOIST) {
             Services.Todoist.get_default ().add.begin (project, (obj, res) => {
@@ -325,7 +325,7 @@ public class Dialogs.Project : Adw.Dialog {
 
                 if (response.status) {
                     project.id = response.data;
-                    Services.Database.get_default ().insert_project (project);
+                    Services.Store.instance ().insert_project (project);
                     go_project (project.id_string);
                 }
             });
@@ -340,7 +340,7 @@ public class Dialogs.Project : Adw.Dialog {
                             project.sync_id = response.data;
                         }
 
-                        Services.Database.get_default ().insert_project (project);
+                        Services.Store.instance ().insert_project (project);
                         go_project (project.id_string);
                     });
                 }

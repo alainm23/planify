@@ -517,14 +517,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         move_item.clicked.connect (() => {            
             popover.popdown ();
 
-            BackendType backend_type;
+            Dialogs.ProjectPicker.ProjectPicker dialog;
             if (item.project.is_inbox_project) {
-                backend_type = BackendType.ALL;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                backend_type = item.project.source_type;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -532,7 +531,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -726,12 +725,12 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
     private void _complete_item (bool old_checked) {
         if (item.project.source_type == BackendType.LOCAL) {
-            Services.Database.get_default ().checked_toggled (item, old_checked);
+            Services.Store.instance ().checked_toggled (item, old_checked);
         } else if (item.project.source_type == BackendType.TODOIST) {
             item.loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                 }
 
                 item.loading = false;
@@ -740,7 +739,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             item.loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                 }
 
                 item.loading = false;

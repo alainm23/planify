@@ -509,7 +509,7 @@ public class Views.Project : Adw.Bin {
 		);
 
 		delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic") {
-			visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0
+			visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0
 		};
 		delete_all_completed.add_css_class ("menu-item-danger");
 
@@ -564,7 +564,7 @@ public class Views.Project : Adw.Bin {
 			project.update_local ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
-			delete_all_completed.visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0;
+			delete_all_completed.visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0;
 			check_default_filters ();
 		});
 
@@ -590,7 +590,7 @@ public class Views.Project : Adw.Bin {
 		delete_all_completed.activate_item.connect (() => {
 			popover.popdown ();
 
-			var items = Services.Database.get_default ().get_items_checked_by_project (project);
+			var items = Services.Store.instance ().get_items_checked_by_project (project);
 
 			var dialog = new Adw.AlertDialog (
 			    _("Delete All Completed Tasks"),
@@ -664,7 +664,7 @@ public class Views.Project : Adw.Bin {
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in project.filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {
-					_labels.add (Services.Database.get_default ().get_label (filter.value));
+					_labels.add (Services.Store.instance ().get_label (filter.value));
 				}
 			}
 

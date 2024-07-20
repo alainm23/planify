@@ -64,6 +64,7 @@ sources = files(
   'Views/Today.vala',
   'Views/Label/Label.vala',
   'Views/Label/Labels.vala',
+  'Views/Label/LabelSourceRow.vala',
   'Views/Filter.vala',
   
   'Views/Scheduled/Scheduled.vala',
@@ -81,6 +82,7 @@ sources = files(
   'Dialogs/ProjectPicker/ProjectPicker.vala',
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'Dialogs/ProjectPicker/SectionPickerRow.vala',
+  'Dialogs/ProjectPicker/ProjectPickerSourceRow.vala',
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',

@@ -23,7 +23,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	public weak Planify app { get; construct; }
 
 	private Layouts.Sidebar sidebar;
-	private Gtk.Stack views_stack;
+	private Adw.ViewStack views_stack;
 	private Adw.OverlaySplitView overlay_split_view;
 	private Gtk.MenuButton settings_button;
 	private Layouts.ItemSidebarView item_sidebar_view;
@@ -60,7 +60,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			Objects.Item item = Services.Database.get_default ().get_item_by_id (id);
 			Gee.ArrayList<Objects.Reminder> reminders = Services.Database.get_default ().get_reminders_by_item_id (id);
 
-			Services.Database.get_default ().add_item (item);
+			Services.Store.instance ().add_item (item);
 			foreach (Objects.Reminder reminder in reminders) {
 				item.add_reminder_events (reminder);
 			}
@@ -100,10 +100,11 @@ public class MainWindow : Adw.ApplicationWindow {
 		sidebar_view.add_top_bar (sidebar_header);
 		sidebar_view.content = sidebar;
 
-		views_stack = new Gtk.Stack () {
+		views_stack = new Adw.ViewStack () {
 			hexpand = true,
 			vexpand = true,
-			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+			vhomogeneous = false,
+			hhomogeneous = false
 		};
 
 		item_sidebar_view = new Layouts.ItemSidebarView ();
@@ -190,7 +191,7 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
 			if (pane_type == PaneType.PROJECT) {
-				add_project_view (Services.Database.get_default ().get_project (id));
+				add_project_view (Services.Store.instance ().get_project (id));
 			} else if (pane_type == PaneType.FILTER) {
 				if (id == FilterType.INBOX.to_string ()) {
 					add_inbox_view ();
@@ -283,8 +284,8 @@ public class MainWindow : Adw.ApplicationWindow {
 			}
 		});
 
-		Services.Database.get_default ().project_archived.connect (check_archived);
-		Services.Database.get_default ().project_unarchived.connect (check_archived);
+		Services.Store.instance ().project_archived.connect (check_archived);
+		Services.Store.instance ().project_unarchived.connect (check_archived);
 	}
 
 	public void show_hide_sidebar () {
@@ -294,11 +295,11 @@ public class MainWindow : Adw.ApplicationWindow {
 	private void init_backend () {
 		Services.Database.get_default ().init_database ();
 
-		if (Services.Database.get_default ().is_sources_empty ()) {
+		if (Services.Store.instance ().is_sources_empty ()) {
 			Util.get_default ().create_local_source ();
 		}
 
-		if (Services.Database.get_default ().is_database_empty ()) {
+		if (Services.Store.instance ().is_database_empty ()) {
 			Util.get_default ().create_inbox_project ();
 			Util.get_default ().create_tutorial_project ();
 			Util.get_default ().create_default_labels ();
@@ -311,14 +312,14 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		go_homepage ();
 
-		Services.Database.get_default ().project_deleted.connect (valid_view_removed);
-		Services.Database.get_default ().project_archived.connect (valid_view_removed);
+		Services.Store.instance ().project_deleted.connect (valid_view_removed);
+		Services.Store.instance ().project_archived.connect (valid_view_removed);
 
 		check_archived ();
 		
 		Timeout.add (Constants.SYNC_TIMEOUT, () => {
-			foreach (Objects.Source source in Services.Database.get_default ().sources) {
-				source.run_server ();
+			foreach (Objects.Source source in Services.Store.instance ().sources) {
+				//  source.run_server ();
 			}
 			
 			return GLib.Source.REMOVE;
@@ -326,13 +327,13 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	private void check_archived () {
-		archive_item.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
-		archive_separator.visible = Services.Database.get_default ().get_all_projects_archived ().size > 0;
+		archive_item.visible = Services.Store.instance ().get_all_projects_archived ().size > 0;
+		archive_separator.visible = Services.Store.instance ().get_all_projects_archived ().size > 0;
 	}
 
 	private void add_inbox_view () {
 		add_project_view (
-			Services.Database.get_default ().get_project (
+			Services.Store.instance ().get_project (
 				Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
 			)
 		);
@@ -391,7 +392,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			views_stack.add_named (label_view, "label-view");
 		}
 
-		label_view.label = Services.Database.get_default ().get_label (id);
+		label_view.label = Services.Store.instance ().get_label (id);
 		views_stack.set_visible_child_name ("label-view");
 	}
 

@@ -139,7 +139,7 @@ public class Services.GoogleTasks : GLib.Object {
 
             unowned Json.Array _taskslist = parser.get_root ().get_object ().get_array_member ("items");
             foreach (unowned Json.Node _node in _taskslist.get_elements ()) {
-                Objects.Project? project = Services.Database.get_default ().get_project (_node.get_object ().get_string_member ("id"));
+                Objects.Project? project = Services.Store.instance ().get_project (_node.get_object ().get_string_member ("id"));
                 if (project != null) {
                     //  if (_node.get_object ().get_boolean_member ("is_deleted")) {
                     //      Services.Database.get_default ().delete_project (project);
@@ -159,7 +159,7 @@ public class Services.GoogleTasks : GLib.Object {
                     //      }
                     //  }
                 } else {
-                    Services.Database.get_default ().insert_project (new Objects.Project.from_google_tasklist_json (_node));
+                    Services.Store.instance ().insert_project (new Objects.Project.from_google_tasklist_json (_node));
                 }
             }
         } catch (Error e) {
