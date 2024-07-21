@@ -22,7 +22,6 @@
 public class Services.CalDAV.Core : GLib.Object {
 	private Soup.Session session;
 	private Json.Parser parser;
-    private Secret.Schema schema;
 
 	private static Core? _instance;
 	public static Core get_default () {
@@ -36,13 +35,6 @@ public class Services.CalDAV.Core : GLib.Object {
     public signal void first_sync_started ();
 	public signal void first_sync_finished ();
 
-    public signal void sync_started ();
-	public signal void sync_finished ();
-
-    public signal void log_out ();
-	public signal void log_in ();
-
-    private uint server_timeout = 0;
     private Gee.HashMap<string, string> request_map;
 
     // vala-lint=naming-convention
@@ -291,35 +283,18 @@ public class Services.CalDAV.Core : GLib.Object {
 		session = new Soup.Session ();
 		parser = new Json.Parser ();
 
-        schema = new Secret.Schema ("io.github.alainm23.planify", Secret.SchemaFlags.NONE,
-            "username", Secret.SchemaAttributeType.STRING,
-            "server_url", Secret.SchemaAttributeType.STRING
-        );
-
-        var network_monitor = GLib.NetworkMonitor.get_default ();
-		network_monitor.network_changed.connect (() => {
-			if (GLib.NetworkMonitor.get_default ().network_available &&
-                is_logged_in () &&
-			    Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")) {
-				sync_async ();
-			}
-		});
+        //  var network_monitor = GLib.NetworkMonitor.get_default ();
+		//  network_monitor.network_changed.connect (() => {
+		//  	if (GLib.NetworkMonitor.get_default ().network_available &&
+        //          is_logged_in () &&
+		//  	    Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")) {
+		//  		sync_async ();
+		//  	}
+		//  });
 
         request_map = new Gee.HashMap<string, string> ();
         request_map.set (CalDAVType.NEXTCLOUD.to_string () + "login", Services.CalDAV.Constants.LOGIN_REQUEST);
         request_map.set (CalDAVType.RADICALE.to_string () + "login", Services.CalDAV.Constants.LOGIN_REQUEST);
-	}
-
-    public void run_server () {
-		sync_async ();
-
-		server_timeout = Timeout.add_seconds (15 * 60, () => {
-			if (Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")) {
-				sync_async ();
-			}
-
-			return true;
-		});
 	}
 
     public string get_request_data (CalDAVType caldav_type, string method) {
@@ -347,7 +322,7 @@ public class Services.CalDAV.Core : GLib.Object {
             response.error = e.message;
             return response;
         }
-        
+
         string url = Services.CalDAV.Backend.generate_server_url (caldav_type, _server_url, username, GLib.Uri.escape_string (password));
         print ("Server URL: %s\n".printf (url));
 
@@ -367,7 +342,8 @@ public class Services.CalDAV.Core : GLib.Object {
             if (message.status_code == 207) {
                 var source = new Objects.Source ();
                 source.id = Util.get_default ().generate_id ();
-                source.source_type = BackendType.CALDAV;
+                source.source_type = SourceType.CALDAV;
+                source.last_sync = new GLib.DateTime.now_local ().to_string ();
                 Objects.SourceCalDAVData caldav_data = new Objects.SourceCalDAVData ();
 
                 caldav_data.server_url = url;
@@ -446,9 +422,8 @@ public class Services.CalDAV.Core : GLib.Object {
                     yield get_all_tasks_by_tasklist (project);
                 }
             }
-
+            
             first_sync_finished ();
-            log_in ();
         } catch (Error e) {
 			debug (e.message);
 		}
@@ -485,7 +460,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 label.id = Util.get_default ().generate_id (label);
                 label.name = category;
                 label.color = Util.get_default ().get_random_color ();
-                label.backend_type = BackendType.CALDAV;
+                label.backend_type = SourceType.CALDAV;
                 Services.Store.instance ().insert_label (label);
             }
 
@@ -517,17 +492,13 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async void update_all_tasks_by_tasklist (Objects.Project project, Gee.HashMap<string, string> labels_map) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("REPORT", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.request_headers.append ("Depth", "1");
+        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKS_REQUEST.data));
 
         try {
-            yield set_credential (message);
-            message.request_headers.append ("Depth", "1");
-            message.set_request_body_from_bytes ("application/xml", new Bytes (TASKS_REQUEST.data));
-
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             
             print_root ("update_all_tasks_by_tasklist", (string) stream.get_data ());
@@ -541,13 +512,13 @@ public class Services.CalDAV.Core : GLib.Object {
 
             foreach (string category in labels_map.values) {
                 // TODO: VERIFICAR CALDAV
-                var label = Services.Store.instance ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
+                var label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
                 if (label == null) {
                     label = new Objects.Label ();
                     label.id = Util.get_default ().generate_id (label);
                     label.name = category;
                     label.color = Util.get_default ().get_random_color ();
-                    label.backend_type = BackendType.CALDAV;
+                    label.backend_type = SourceType.CALDAV;
                     Services.Store.instance ().insert_label (label);
                 }
             }
@@ -616,25 +587,16 @@ public class Services.CalDAV.Core : GLib.Object {
         return return_value;
 	}
 
-    public void sync_async () {
-        sync.begin ((obj, res) => {
-			sync.end (res);
-		});
-	}
-
-    private async void sync () {
-        sync_started ();
-
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-        var url = "%s/remote.php/dav/calendars/%s/".printf (server_url, username);
+    public async void sync (Objects.Source source) {
+        var url = "%s/calendars/%s/".printf (source.caldav_data.server_url, source.caldav_data.username);
         var message = new Soup.Message ("PROPFIND", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
+        message.request_headers.append ("Depth", "1");
+        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKLIST_REQUEST.data));
 
+        source.sync_started ();
+        
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes (TASKLIST_REQUEST.data));
-            
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             print_root ("sync", (string) stream.get_data ());
@@ -660,29 +622,25 @@ public class Services.CalDAV.Core : GLib.Object {
                     }
                 }
             }
+
+            foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
+                yield sync_tasklist (project);
+            }
+    
+            source.sync_finished ();
+            source.last_sync = new GLib.DateTime.now_local ().to_string ();
         } catch (Error e) {
 			debug (e.message);
 		}
-
-        foreach (Objects.Project project in Services.Store.instance ().get_all_projects_by_backend_type (BackendType.CALDAV)) {
-			yield sync_tasklist (project);
-		}
-
-        Services.Settings.get_default ().settings.set_string ("caldav-last-sync", new GLib.DateTime.now_local ().to_string ());
-        sync_finished ();
     }
 
     public async void sync_tasklist (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-        var url = "%s/remote.php/dav/calendars/%s/%s".printf (server_url, username, project.id);
+        var url = "%s/calendars/%s/%s".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("REPORT", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes ((SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
-    
             if (project.sync_id == "") {
                 return;
             }
@@ -708,7 +666,7 @@ public class Services.CalDAV.Core : GLib.Object {
                         continue;
                     }
                     
-                    string vtodo = yield get_vtodo_by_url (project.id, ics);
+                    string vtodo = yield get_vtodo_by_url (project, ics);
 
                     ICal.Component ical = new ICal.Component.from_string (vtodo);
                     Objects.Item? item = Services.Store.instance ().get_item (ical.get_uid ());
@@ -761,17 +719,14 @@ public class Services.CalDAV.Core : GLib.Object {
         }
     }
 
-    private async string? get_vtodo_by_url (string tasklist_id, string task_ics) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, tasklist_id, task_ics);
+    private async string? get_vtodo_by_url (Objects.Project project, string task_ics) {
+        var url = "%s/calendars/%s/%s/%s".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id, task_ics);
+        
         var message = new Soup.Message ("GET", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         string return_value = null;
 
         try {
-            yield set_credential (message);
-
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             print_root ("get_vtodo_by_url", (string) stream.get_data ());
             return_value = (string) stream.get_data ();
@@ -845,18 +800,14 @@ public class Services.CalDAV.Core : GLib.Object {
      */
 
     public async bool add_tasklist (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("MKCOL", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
+
         bool status = false;
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes ((CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
-    
-
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             status = true;
         } catch (Error e) {
@@ -866,18 +817,16 @@ public class Services.CalDAV.Core : GLib.Object {
         return status;
     }
 
-    public async bool update_tasklist (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+    public async bool update_tasklist (Objects.Project project) {        
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
+
         var message = new Soup.Message ("PROPPATCH", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
+
         bool status = false;
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes ((UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
-    
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             status = true;
         } catch (Error e) {
@@ -887,17 +836,14 @@ public class Services.CalDAV.Core : GLib.Object {
         return status;
     }
 
-    public async bool delete_tasklist (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+    public async bool delete_tasklist (Objects.Project project) {        
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
         var message = new Soup.Message ("DELETE", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         bool status = false;
 
         try {
-            yield set_credential (message);
-
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             status = true;
         } catch (Error e) {
@@ -908,18 +854,15 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse refresh_tasklist (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
+        
         var message = new Soup.Message ("PROPFIND", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((TASKLIST_REQUEST).data));
 
         HttpResponse return_value = new HttpResponse ();
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes ((TASKLIST_REQUEST).data));
-
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             print_root ("refresh_tasklist", (string) stream.get_data ());
@@ -943,18 +886,15 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async HttpResponse get_sync_token (Objects.Project project) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
 
-        var url = "%s/remote.php/dav/calendars/%s/%s/".printf (server_url, username, project.id);
         var message = new Soup.Message ("PROPFIND", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((GET_SYNC_TOKEN_REQUEST).data));
 
         HttpResponse return_value = new HttpResponse ();
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes ((GET_SYNC_TOKEN_REQUEST).data));
-
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             print_root ("get_tasklist", (string) stream.get_data ());
@@ -978,20 +918,17 @@ public class Services.CalDAV.Core : GLib.Object {
      */
     
      public async HttpResponse add_task (Objects.Item item, bool update = false) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-
         var ics = update ? item.ics : "%s.ics".printf (item.id);
 
-        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, ics);
+        var url = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, item.project.source.caldav_data.username, item.project.id, ics);
+        
         var message = new Soup.Message ("PUT", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (item.to_vtodo ().data));
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes (item.to_vtodo ().data));
-
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             if (update ? message.status_code == 204 : message.status_code == 201) {
@@ -1006,16 +943,14 @@ public class Services.CalDAV.Core : GLib.Object {
      }
 
      public async HttpResponse delete_task (Objects.Item item) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        var url = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, item.project.source.caldav_data.username, item.project.id, item.ics);
 
-        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, item.ics);
         var message = new Soup.Message ("DELETE", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield set_credential (message);
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             print_root ("delete_task", (string) stream.get_data ());
@@ -1035,22 +970,19 @@ public class Services.CalDAV.Core : GLib.Object {
      }
 
      public async HttpResponse complete_item (Objects.Item item) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        
-
         var ics = item.ics;
         var body = item.to_vtodo ();
 
-        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, ics);
+        var url = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, item.project.source.caldav_data.username, item.project.id, ics);
+        
         var message = new Soup.Message ("PUT", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (body.data));
+
 
         HttpResponse response = new HttpResponse ();
 
-        try {
-            yield set_credential (message);
-            message.set_request_body_from_bytes ("application/xml", new Bytes (body.data));
-            
+        try {            
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             if (message.status_code == 204) {
@@ -1065,19 +997,18 @@ public class Services.CalDAV.Core : GLib.Object {
      }
 
      public async HttpResponse move_task (Objects.Item item, string project_id) {
-        var server_url = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        var username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        string username = item.project.source.caldav_data.username;
 
-        var url = "%s/remote.php/dav/calendars/%s/%s/%s".printf (server_url, username, item.project.id, item.ics);
+        var url = "%s/calendars/%s/%s/%s".printf (item.project.source.caldav_data.server_url, username, item.project.id, item.ics);
         var destination = "/remote.php/dav/calendars/%s/%s/%s".printf (username, project_id, item.ics);
+
         var message = new Soup.Message ("MOVE", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (item.project.source.caldav_data.credentials));
+        message.request_headers.append ("Destination", destination);
 
         HttpResponse response = new HttpResponse ();
 
         try {
-            yield set_credential (message);
-            message.request_headers.append ("Destination", destination);
-
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             if (message.status_code == 201 || message.status_code == 204) {
@@ -1089,29 +1020,6 @@ public class Services.CalDAV.Core : GLib.Object {
 
         return response;
      }
-
-     public void remove_items () {
-		Services.Settings.get_default ().settings.set_string ("caldav-server-url", "");
-		Services.Settings.get_default ().settings.set_string ("caldav-username", "");
-		Services.Settings.get_default ().settings.set_string ("caldav-user-email", "");
-		Services.Settings.get_default ().settings.set_string ("caldav-user-displayname", "");
-
-		// Delete all projects, sections and items
-		foreach (var project in Services.Store.instance ().get_all_projects_by_backend_type (BackendType.CALDAV)) {
-			Services.Store.instance ().delete_project (project);
-		}
-
-		// Delete all labels;
-		foreach (var label in Services.Store.instance ().get_labels_by_backend_type (BackendType.CALDAV)) {
-			Services.Store.instance ().delete_label (label);
-		}
-
-		// Remove server_timeout
-		GLib.Source.remove (server_timeout);
-		server_timeout = 0;
-
-		log_out ();
-	}
 
     /*
      *  Utils
@@ -1149,21 +1057,6 @@ public class Services.CalDAV.Core : GLib.Object {
         GXml.DomElement prop = propstat.get_elements_by_tag_name ("d:prop").get_element (0);
         GXml.DomElement resourcetype = prop.get_elements_by_tag_name ("d:resourcetype").get_element (0);
         return resourcetype.get_elements_by_tag_name ("x2:deleted-calendar").length > 0;
-    }
-
-    private GLib.HashTable <string, string> get_attributes () {
-        var attributes = new GLib.HashTable <string, string> (str_hash, str_equal);
-        attributes["username"] = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        attributes["server_url"] = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
-        return attributes;
-    }
-
-    private async void set_credential (Soup.Message message) throws Error {
-        string username = Services.Settings.get_default ().settings.get_string ("caldav-username");
-        string password = yield Secret.password_lookupv (schema, get_attributes (), null);
-        string credentials = "%s:%s".printf (username, password);
-        string base64_credentials = Base64.encode (credentials.data);
-        message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
     }
 
     private void print_root (string fuction, string data) {

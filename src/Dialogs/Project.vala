@@ -212,9 +212,9 @@ public class Dialogs.Project : Adw.Dialog {
             progress_bar.color = project.color;
             color_picker_row.color = project.color;
 
-            if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.NONE) {
+            if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.NONE) {
                 backend_row.selected = 0;
-            } else if (project.source_type == BackendType.TODOIST) {
+            } else if (project.source_type == SourceType.TODOIST) {
                 backend_row.selected = 1;
             }
 
@@ -260,9 +260,9 @@ public class Dialogs.Project : Adw.Dialog {
 
         backend_row.notify["selected"].connect (() => {
             if (backend_row.selected == 0) {
-                project.backend_type = BackendType.LOCAL;
+                project.backend_type = SourceType.LOCAL;
             } else if (backend_row.selected == 1) {
-                project.backend_type = BackendType.TODOIST;
+                project.backend_type = SourceType.TODOIST;
             }
         });
 
@@ -293,16 +293,16 @@ public class Dialogs.Project : Adw.Dialog {
 
 
     private void update_project () {
-        if (project.source_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_project (project);
             hide_destroy ();
-        } else if (project.source_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().update.begin (project, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Store.instance ().update_project (project);
                 hide_destroy ();
             });
-        } else if (project.source_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
                     Services.Store.instance ().update_project (project);
@@ -313,13 +313,13 @@ public class Dialogs.Project : Adw.Dialog {
     }
 
     private void add_project () {
-        project.child_order = Services.Store.instance ().get_projects_by_backend_type (project.backend_type).size;
+        project.child_order = Services.Store.instance ().get_projects_by_source (project.source_id).size;
         
-        if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.NONE) {
+        if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.NONE) {
             project.id = Util.get_default ().generate_id (project);
             Services.Store.instance ().insert_project (project);
             go_project (project.id_string);
-        } else if (project.source_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().add.begin (project, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
@@ -329,7 +329,7 @@ public class Dialogs.Project : Adw.Dialog {
                     go_project (project.id_string);
                 }
             });
-        } else if (project.source_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
             Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {

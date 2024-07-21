@@ -152,7 +152,7 @@ public class Services.ActionManager : Object {
     }
 
     private void action_new_project () {
-        var dialog = new Dialogs.Project.new (BackendType.LOCAL.to_string (), true);
+        var dialog = new Dialogs.Project.new (SourceType.LOCAL.to_string (), true);
         dialog.present (Planify._instance.main_window);
     }
 

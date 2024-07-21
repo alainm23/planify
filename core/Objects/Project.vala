@@ -26,7 +26,7 @@ public class Objects.Project : Objects.BaseObject {
     public string emoji { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
-    public BackendType backend_type { get; set; default = BackendType.NONE; }
+    public SourceType backend_type { get; set; default = SourceType.NONE; }
     public bool inbox_project { get; set; default = false; }
     public bool team_inbox { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -36,7 +36,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool collapsed { get; set; default = false; }
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
-    public string source_id { get; set; default = BackendType.LOCAL.to_string (); }
+    public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -50,7 +50,7 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
-    public BackendType source_type {
+    public SourceType source_type {
         get {
             return source.source_type;
         }
@@ -318,19 +318,19 @@ public class Objects.Project : Objects.BaseObject {
     public Project.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_json (node);
-        backend_type = BackendType.TODOIST;
+        backend_type = SourceType.TODOIST;
     }
 
     public Project.from_google_tasklist_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_google_tasklist_json (node);
-        backend_type = BackendType.GOOGLE_TASKS;
+        backend_type = SourceType.GOOGLE_TASKS;
     }
 
     public Project.from_caldav_xml (GXml.DomElement element) {
         id = get_id_from_url (element);
         update_from_xml (element);
-        backend_type = BackendType.CALDAV;
+        backend_type = SourceType.CALDAV;
     }
 
     public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
@@ -446,9 +446,9 @@ public class Objects.Project : Objects.BaseObject {
         update_timeout_id = Timeout.add (timeout, () => {
             update_timeout_id = 0;
 
-            if (backend_type == BackendType.LOCAL) {
+            if (backend_type == SourceType.LOCAL) {
                 Services.Store.instance ().update_project (this);
-            } else if (backend_type == BackendType.TODOIST) {
+            } else if (backend_type == SourceType.TODOIST) {
                 if (show_loading) {
                     loading = true;
                 }
@@ -458,7 +458,7 @@ public class Objects.Project : Objects.BaseObject {
                     Services.Store.instance ().update_project (this);
                     loading = false;
                 });
-            } else if (backend_type == BackendType.CALDAV) {
+            } else if (backend_type == SourceType.CALDAV) {
                 if (show_loading) {
                     loading = true;
                 }
@@ -818,9 +818,9 @@ public class Objects.Project : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "delete") {
                 loading = true;
-                if (source_type == BackendType.LOCAL) {
+                if (source_type == SourceType.LOCAL) {
                     Services.Store.instance ().delete_project (this);
-                } else if (source_type == BackendType.TODOIST) {
+                } else if (source_type == SourceType.TODOIST) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
@@ -831,7 +831,7 @@ public class Objects.Project : Objects.BaseObject {
 
                         loading = false;
                     });
-                } else if (source_type == BackendType.CALDAV) {
+                } else if (source_type == SourceType.CALDAV) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
@@ -881,6 +881,7 @@ public class Objects.Project : Objects.BaseObject {
         new_project.description = description;
         new_project.icon_style = icon_style;
         new_project.backend_type = backend_type;
+        new_project.source_id = source_id;
 
         return new_project;
     }

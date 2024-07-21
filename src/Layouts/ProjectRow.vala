@@ -85,7 +85,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     }
 
     construct {
-        css_classes = { "selectable-item", "transition" };
+        css_classes = { "no-selectable", "transition", "no-padding" };
 
         motion_top_grid = new Gtk.Grid () {
             height_request = 27,
@@ -188,7 +188,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         projectrow_box.append (loading_revealer);
 
         handle_grid = new Adw.Bin () {
-            css_classes = { "transition", "drop-target" },
+            css_classes = { "transition", "selectable-item", "drop-target" },
             child = projectrow_box
         };
 
@@ -282,9 +282,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
         Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
             if (pane_type == PaneType.PROJECT && project.id_string == id) {
-                add_css_class ("selected");
+                handle_grid.add_css_class ("selected");
             } else {
-                remove_css_class ("selected");
+                handle_grid.remove_css_class ("selected");
             }
         });
 
@@ -332,6 +332,12 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         project.loading_change.connect (() => {
             is_loading = project.loading;
         });
+
+        Services.EventBus.get_default ().drag_end.connect ((source_id) => {
+            if (project.source_id == source_id) {
+                motion_top_revealer.reveal_child = false;
+            }
+        });
     }
 
     private void update_count_label (int count) {
@@ -363,7 +369,10 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         motion_top_grid.add_controller (drop_order_target);
         drop_order_target.drop.connect ((value, x, y) => {
             var picked_widget = (Layouts.ProjectRow) value;
-            var target_widget = this;
+            var target_widget = this;            
+
+            // fix #1131
+            Services.EventBus.get_default ().drag_end (target_widget.project.source_id);
 
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;
@@ -388,7 +397,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             if (picked_project.parent_id != target_project.parent_id) {
                 picked_project.parent_id = target_project.parent_id;
 
-                if (picked_project.source_type == BackendType.TODOIST) {
+                if (picked_project.source_type == SourceType.TODOIST) {
                     Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.parent_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                             Services.Store.instance ().update_project (picked_project);
@@ -412,7 +421,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_drop_motion () {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
-        drop_motion_ctrl.motion.connect ((x, y) => {
+        drop_motion_ctrl.enter.connect ((x, y) => {
             var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
 
@@ -486,6 +495,9 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var picked_widget = (Layouts.ProjectRow) value;
             var target_widget = this;
 
+            // fix #1131
+            Services.EventBus.get_default ().drag_end (target_widget.project.source_id);
+
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;
 
@@ -496,7 +508,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             string old_parent_id = picked_project.parent_id;
             picked_project.parent_id = target_project.id;
             
-            if (picked_project.source_type == BackendType.TODOIST) {
+            if (picked_project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().move_project_section.begin (picked_project, target_project.id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_project_section.end (res).status) {
                         Services.Store.instance ().update_project (picked_project);
@@ -650,7 +662,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             menu_box.append (edit_item);
         }
         
-        if (project.source_type == BackendType.CALDAV) {
+        if (project.source_type == SourceType.CALDAV) {
             menu_box.append (refresh_item);
         }
 

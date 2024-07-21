@@ -232,8 +232,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (item.priority != priority) {
                 item.priority = priority;
 
-                if (item.project.source_type == BackendType.TODOIST ||
-                    item.project.source_type == BackendType.CALDAV) {
+                if (item.project.source_type == SourceType.TODOIST ||
+                    item.project.source_type == SourceType.CALDAV) {
                     item.update_async ("");
                 } else {
                     item.update_local ();
@@ -256,7 +256,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         reminder_button.reminder_added.connect ((reminder) => {
             reminder.item_id = item.id;
 
-            if (item.project.source_type == BackendType.TODOIST) {
+            if (item.project.source_type == SourceType.TODOIST) {
                 item.loading = true;
                 Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
                     HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -441,7 +441,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void update_pinned (bool pinned) {
         item.pinned = pinned;
         
-        if (item.project.source_type == BackendType.CALDAV) {
+        if (item.project.source_type == SourceType.CALDAV) {
             item.update_async ("");
         } else {
             item.update_local ();
@@ -724,9 +724,9 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 	}
 
     private void _complete_item (bool old_checked) {
-        if (item.project.source_type == BackendType.LOCAL) {
+        if (item.project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().checked_toggled (item, old_checked);
-        } else if (item.project.source_type == BackendType.TODOIST) {
+        } else if (item.project.source_type == SourceType.TODOIST) {
             item.loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.Todoist.get_default ().complete_item.end (res).status) {
@@ -735,7 +735,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
                 item.loading = false;
             });
-        } else if (item.project.source_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             item.loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {

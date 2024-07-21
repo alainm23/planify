@@ -24,8 +24,22 @@ public class Objects.Label : Objects.BaseObject {
     public int item_order { get; set; default = 0; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
-    public BackendType backend_type { get; set; default = BackendType.NONE; }
-    public string source_id { get; set; default = BackendType.LOCAL.to_string (); }
+    public SourceType backend_type { get; set; default = SourceType.NONE; }
+    public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
+
+    Objects.Source? _source;
+    public Objects.Source source {
+        get {
+            _source = Services.Store.instance ().get_source (source_id);
+            return _source;
+        }
+    }
+    
+    public SourceType source_type {
+        get {
+            return source.source_type;
+        }
+    }
 
     int? _label_count = null;
     public int label_count {
@@ -103,7 +117,7 @@ public class Objects.Label : Objects.BaseObject {
     public Label.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_json (node);
-        backend_type = BackendType.TODOIST;
+        backend_type = SourceType.TODOIST;
     }
 
     public Label.from_import_json (Json.Node node) {

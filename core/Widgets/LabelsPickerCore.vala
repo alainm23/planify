@@ -174,14 +174,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         label.name = search_entry.text;
         label.source_id = source.id;
 
-        if (source.source_type == BackendType.LOCAL || source.source_type == BackendType.CALDAV) {
+        if (source.source_type == SourceType.LOCAL || source.source_type == SourceType.CALDAV) {
             label.id = Util.get_default ().generate_id (label);
             Services.Store.instance ().insert_label (label);
             checked_toggled (label, true);
 
             search_entry.text = "";
             close ();
-        } else if (source.source_type == BackendType.TODOIST) {
+        } else if (source.source_type == SourceType.TODOIST) {
             is_loading = true;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);

@@ -384,19 +384,6 @@ public class Services.Store : GLib.Object {
         return return_value;
     }
 
-    public Gee.ArrayList<Objects.Project> get_projects_by_backend_type (BackendType backend_type) {
-        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
-        lock (_projects) {
-            foreach (var project in projects) {
-                if (project.backend_type == backend_type && !project.is_inbox_project) {
-                    return_value.add (project);
-                }
-            }
-
-            return return_value;
-        }
-    }
-
     public int next_project_child_order (Objects.Source source) {
         int child_order = 0;
 
@@ -999,20 +986,6 @@ public class Services.Store : GLib.Object {
         return return_value;
     }
 
-    public string get_labels_ids (Gee.ArrayList<Objects.Label> labels) {
-        string return_value = "";
-            
-        foreach (Objects.Label label in labels) {
-            return_value += label.id + ";";
-        }
-
-        if (return_value.length > 0) {
-            return_value = return_value.substring (0, return_value.length - 1);
-        }
-
-        return return_value;
-    }
-
     public Gee.ArrayList<Objects.Item> get_items_has_labels () {
         Gee.ArrayList<Objects.Item> return_value = new Gee.ArrayList<Objects.Item> ();
         lock (_items) {
@@ -1066,19 +1039,6 @@ public class Services.Store : GLib.Object {
             }
 
             return null;
-        }
-    }
-
-    public Gee.ArrayList<Objects.Label> get_labels_by_backend_type (BackendType backend_type) {
-        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
-        lock (_labels) {
-            foreach (var label in labels) {
-                if (backend_type == BackendType.ALL ? true : label.backend_type == backend_type) {
-                    return_value.add (label);
-                }
-            }
-
-            return return_value;
         }
     }
 
@@ -1138,51 +1098,12 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    public Gee.ArrayList<Objects.Project> get_all_projects_by_todoist () {
-        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
-        lock (_projects) {
-            foreach (var project in projects) {
-                if (project.backend_type == BackendType.TODOIST) {
-                    return_value.add (project);
-                }
-            }
-
-            return return_value;
-        }
-    }
-
-    public Gee.ArrayList<Objects.Project> get_all_projects_by_backend_type (BackendType backend_type) {
-        Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
-        lock (_projects) {
-            foreach (var project in projects) {
-                if (project.backend_type == backend_type) {
-                    return_value.add (project);
-                }
-            }
-
-            return return_value;
-        }
-    }
-
     public Gee.ArrayList<Objects.Project> get_all_projects_archived () {
         Gee.ArrayList<Objects.Project> return_value = new Gee.ArrayList<Objects.Project> ();
         lock (_projects) {
             foreach (var project in projects) {
                 if (project.is_archived) {
                     return_value.add (project);
-                }
-            }
-
-            return return_value;
-        }
-    }
-
-    public Gee.ArrayList<Objects.Label> get_all_labels_by_todoist () {
-        Gee.ArrayList<Objects.Label> return_value = new Gee.ArrayList<Objects.Label> ();
-        lock (_labels) {
-            foreach (var label in labels) {
-                if (label.backend_type == BackendType.TODOIST) {
-                    return_value.add (label);
                 }
             }
 

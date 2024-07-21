@@ -41,16 +41,20 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
             subheader_title = source.subheader_text
         };
         group.placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        group.margin_top = 6;
+        group.margin_top = 12;
 
-        if (source.source_type == BackendType.TODOIST || source.source_type == BackendType.CALDAV) {
+        if (source.source_type == SourceType.TODOIST || source.source_type == SourceType.CALDAV) {
             var sync_button = new Widgets.SyncButton () {
                 reveal_child = true
             };
             group.add_widget_end (sync_button);
 
             sync_button.clicked.connect (() => {
-                Services.Todoist.get_default ().sync.begin (source);
+                if (source.source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().sync.begin (source);
+                } else if (source.source_type == SourceType.CALDAV) {
+                    Services.CalDAV.Core.get_default ().sync.begin (source);
+                }
             });
 
             source.sync_started.connect (() => {

@@ -33,4 +33,40 @@ public class Utils.AccountMigrate {
 
         return return_value;   
     }
+
+    public static Objects.SourceCalDAVData get_data_from_caldav () {
+        Objects.SourceCalDAVData return_value = new Objects.SourceCalDAVData ();
+
+        string _server_url = "";
+        var uri = GLib.Uri.parse (Services.Settings.get_default ().settings.get_string ("caldav-server-url"), GLib.UriFlags.NONE);
+        _server_url = "%s://%s".printf (uri.get_scheme (), uri.get_host ());
+
+        return_value.server_url = "%s/remote.php/dav".printf (_server_url);
+        return_value.username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+        return_value.credentials = get_credential ();
+        return_value.user_displayname = Services.Settings.get_default ().settings.get_string ("caldav-user-displayname");
+        return_value.user_email = Services.Settings.get_default ().settings.get_string ("caldav-user-email");
+        return_value.caldav_type = CalDAVType.NEXTCLOUD;
+
+        return return_value;
+    }
+
+    private static string get_credential () throws Error {
+        Secret.Schema schema = new Secret.Schema ("io.github.alainm23.planify", Secret.SchemaFlags.NONE,
+            "username", Secret.SchemaAttributeType.STRING,
+            "server_url", Secret.SchemaAttributeType.STRING
+        );
+
+        string username = Services.Settings.get_default ().settings.get_string ("caldav-username");
+
+        GLib.HashTable <string, string> attributes = new GLib.HashTable <string, string> (str_hash, str_equal);
+        attributes["username"] = username;
+        attributes["server_url"] = Services.Settings.get_default ().settings.get_string ("caldav-server-url");
+
+        string password = Secret.password_lookupv_sync (schema, attributes, null);
+        string credentials = "%s:%s".printf (username, password);
+        string base64_credentials = Base64.encode (credentials.data);
+        
+        return base64_credentials;
+    }
 }

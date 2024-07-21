@@ -148,7 +148,7 @@ public class Objects.Reminder : Objects.BaseObject {
     }
 
     public void delete () {
-        if (item.project.backend_type == BackendType.TODOIST) {
+        if (item.project.source_type == SourceType.TODOIST) {
             loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {

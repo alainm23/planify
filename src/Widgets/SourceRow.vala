@@ -46,7 +46,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
         var subheader_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
             css_classes = { "caption" },
-            visible = source.source_type != BackendType.LOCAL
+            visible = source.source_type != SourceType.LOCAL
         };
 
         var header_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
@@ -59,7 +59,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 			valign = Gtk.Align.CENTER,
 			halign = Gtk.Align.CENTER,
 			css_classes = { "flat" },
-            visible = source.source_type != BackendType.LOCAL
+            visible = source.source_type != SourceType.LOCAL
 		};
 
         var renove_item = new Widgets.ContextMenu.MenuItem (_("Remove"), "user-trash-symbolic");
@@ -81,7 +81,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             css_classes = { "flat", "dim-label" },
             tooltip_markup = _("Add Source"),
 			popover = popover,
-            visible = source.source_type != BackendType.LOCAL
+            visible = source.source_type != SourceType.LOCAL
         };
 
         var end_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6) {

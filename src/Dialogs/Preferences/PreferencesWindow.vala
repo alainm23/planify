@@ -880,7 +880,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 			
 				sources_hashmap[source.id].view_detail.connect (() => {
-					push_subpage (get_todoist_view (source));
+					push_subpage (get_source_view (source));
 				});
 	
 				sources_group.add_child (sources_hashmap[source.id]);
@@ -892,7 +892,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 
 				sources_hashmap[source.id].view_detail.connect (() => {
-					push_subpage (get_todoist_view (source));
+					push_subpage (get_source_view (source));
 				});
 	
 				sources_group.add_child (sources_hashmap[source.id]);
@@ -923,24 +923,27 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return new Adw.NavigationPage (toolbar_view, "account");
 	}
 
-	private Adw.NavigationPage get_todoist_view (Objects.Source source) {
+	private Adw.NavigationPage get_source_view (Objects.Source source) {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
 
-		var avatar = new Adw.Avatar (84, source.todoist_data.user_name, true);
+		var avatar = new Adw.Avatar (84, source.user_displayname, true);
 
-		var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
-		if (file.query_exists ()) {
-			var image = new Gtk.Image.from_file (file.get_path ());
-			avatar.custom_image = image.get_paintable ();
+		if (source.source_type == SourceType.TODOIST) {
+			var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
+			if (file.query_exists ()) {
+				var image = new Gtk.Image.from_file (file.get_path ());
+				avatar.custom_image = image.get_paintable ();
+			}
 		}
 
-		var user_label = new Gtk.Label (source.todoist_data.user_name) {
-			margin_top = 12
+		var user_label = new Gtk.Label (source.user_displayname) {
+			margin_top = 12,
+			css_classes = { "title-1" }
 		};
-		user_label.add_css_class ("title-1");
 
-		var email_label = new Gtk.Label (source.todoist_data.user_email);
-		email_label.add_css_class ("dim-label");
+		var email_label = new Gtk.Label (source.user_email) {
+			css_classes = { "dim-label" }
+		};
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
@@ -956,7 +959,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		var sync_server_row = new Adw.ActionRow ();
 		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your Todoist account every 15 minutes");
+		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
 		sync_server_row.set_activatable_widget (sync_server_switch);
 		sync_server_row.add_suffix (sync_server_switch);
 
@@ -999,7 +1002,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		toolbar_view.add_top_bar (settings_header);
 		toolbar_view.content = main_content;
 
-		var page = new Adw.NavigationPage (toolbar_view, "todoist");
+		var page = new Adw.NavigationPage (toolbar_view, "source_view");
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
@@ -1008,92 +1011,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		sync_server_row.notify["active"].connect (() => {
 			source.sync_server = sync_server_switch.active;
 			source.save ();
-		});
-
-		return page;
-	}
-
-	private Adw.NavigationPage get_caldav_view () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud"));
-
-		var username_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-displayname")) {
-			margin_top = 12,
-			css_classes = { "title-1" }
-		};
-
-		var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-email")) {
-			css_classes = { "dim-label" }
-		};
-
-		var server_url_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-server-url")) {
-			css_classes = { "dim-label" }
-		};
-
-		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			margin_top = 24
-		};
-		user_box.append (username_label);
-		user_box.append (email_label);
-		user_box.append (server_url_label);
-
-		var sync_server_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")
-		};
-
-		var sync_server_row = new Adw.ActionRow ();
-		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your CalDAV account every 15 minutes");
-		sync_server_row.set_activatable_widget (sync_server_switch);
-		sync_server_row.add_suffix (sync_server_switch);
-
-		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("caldav-last-sync"), new GLib.TimeZone.local ()
-		);
-
-		var last_sync_label = new Gtk.Label (
-			Utils.Datetime.get_relative_date_from_date (last_sync_date)
-		);
-
-		var last_sync_row = new Adw.ActionRow ();
-		last_sync_row.activatable = false;
-		last_sync_row.title = _("Last Sync");
-		last_sync_row.add_suffix (last_sync_label);
-
-		var default_group = new Adw.PreferencesGroup () {
-			margin_top = 24
-		};
-
-		default_group.add (sync_server_row);
-		default_group.add (last_sync_row);
-
-		var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 24,
-			margin_end = 24,
-			child = default_group
-		};
-
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
-
-		main_content.append (user_box);
-		main_content.append (content_clamp);
-
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (settings_header);
-		toolbar_view.content = main_content;
-
-		var page = new Adw.NavigationPage (toolbar_view, "caldav");
-
-		settings_header.back_activated.connect (() => {
-			pop_subpage ();
-		});
-
-		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("caldav-sync-server", sync_server_switch.active);
 		});
 
 		return page;

@@ -476,7 +476,7 @@ public class Services.Database : GLib.Object {
     private Objects.Source _fill_source (Sqlite.Statement stmt) {
         Objects.Source return_value = new Objects.Source ();
         return_value.id = stmt.column_text (0);
-        return_value.source_type = BackendType.parse (stmt.column_text (1));
+        return_value.source_type = SourceType.parse (stmt.column_text (1));
         return_value.added_at = stmt.column_text (2);
         return_value.updated_at = stmt.column_text (3);
         return_value.is_visible = get_parameter_bool (stmt, 4);
@@ -484,9 +484,9 @@ public class Services.Database : GLib.Object {
         return_value.sync_server = get_parameter_bool (stmt, 6);
         return_value.last_sync = stmt.column_text (7);
 
-        if (return_value.source_type == BackendType.TODOIST) {
+        if (return_value.source_type == SourceType.TODOIST) {
             return_value.data = new Objects.SourceTodoistData.from_json (stmt.column_text (8));
-        } else if (return_value.source_type == BackendType.CALDAV) {
+        } else if (return_value.source_type == SourceType.CALDAV) {
             return_value.data = new Objects.SourceCalDAVData.from_json (stmt.column_text (8));
         }
         
@@ -600,7 +600,7 @@ public class Services.Database : GLib.Object {
         return_value.id = stmt.column_text (0);
         return_value.name = stmt.column_text (1);
         return_value.color = stmt.column_text (2);
-        return_value.backend_type = get_backend_type_by_text (stmt, 3);
+        return_value.backend_type = SourceType.parse (stmt.column_text (3));
         return_value.inbox_project = get_parameter_bool (stmt, 4);
         return_value.team_inbox = get_parameter_bool (stmt, 5);
         return_value.child_order = stmt.column_int (6);
@@ -621,20 +621,6 @@ public class Services.Database : GLib.Object {
         return_value.sync_id = stmt.column_text (21);
         return_value.source_id = stmt.column_text (22);
         return return_value;
-    }
-
-    private BackendType get_backend_type_by_text (Sqlite.Statement stmt, int col) {
-        if (stmt.column_text (col) == "local") {
-            return BackendType.LOCAL;
-        } else if (stmt.column_text (col) == "todoist") {
-            return BackendType.TODOIST;
-        } else if (stmt.column_text (col) == "google-tasks") {
-            return BackendType.GOOGLE_TASKS;
-        } else if (stmt.column_text (col) == "caldav") {
-            return BackendType.CALDAV;
-        } else {
-            return BackendType.NONE;
-        }
     }
 
     public bool insert_project (Objects.Project project) {
@@ -833,7 +819,7 @@ public class Services.Database : GLib.Object {
         return_value.item_order = stmt.column_int (3);
         return_value.is_deleted = get_parameter_bool (stmt, 4);
         return_value.is_favorite = get_parameter_bool (stmt, 5);
-        return_value.backend_type = get_backend_type_by_text (stmt, 6);
+        return_value.backend_type = SourceType.parse (stmt.column_text (6));
         return_value.source_id = stmt.column_text (7);
         return return_value;
     }
@@ -1122,7 +1108,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$day_order", item.day_order);
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
-        //  TODO: set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
+        set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
 
@@ -1132,6 +1118,20 @@ public class Services.Database : GLib.Object {
 
         stmt.reset ();
         return stmt.step () == Sqlite.DONE;
+    }
+
+    public string get_labels_ids (Gee.ArrayList<Objects.Label> labels) {
+        string return_value = "";
+            
+        foreach (Objects.Label label in labels) {
+            return_value += label.id + ";";
+        }
+
+        if (return_value.length > 0) {
+            return_value = return_value.substring (0, return_value.length - 1);
+        }
+
+        return return_value;
     }
 
     public Gee.ArrayList<Objects.Item> get_items_collection () {
@@ -1185,7 +1185,7 @@ public class Services.Database : GLib.Object {
         return_value.day_order = stmt.column_int (14);
         return_value.collapsed = get_parameter_bool (stmt, 15);
         return_value.pinned = get_parameter_bool (stmt, 16);
-        //  TODO: return_value.labels = get_labels_by_item_labels (stmt.column_text (17));
+        return_value.labels = Services.Store.instance ().get_labels_by_item_labels (stmt.column_text (17));
         return_value.extra_data = stmt.column_text (18);
         return_value.item_type = ItemType.parse (stmt.column_text (19));
 
@@ -2005,23 +2005,24 @@ public class Services.Database : GLib.Object {
 
         if (Services.Todoist.get_default ().is_logged_in ()) {
             var todoist_source = new Objects.Source ();
-            todoist_source.id = BackendType.TODOIST.to_string ();
-            todoist_source.source_type = BackendType.TODOIST;
+            todoist_source.id = SourceType.TODOIST.to_string ();
+            todoist_source.source_type = SourceType.TODOIST;
             todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
             todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
             todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");            
 
-            insert_source (todoist_source);
+            Services.Store.instance ().insert_source (todoist_source);
         }
 
         if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
             var caldav_source = new Objects.Source ();
-            caldav_source.id = BackendType.CALDAV.to_string ();
-            caldav_source.source_type = BackendType.CALDAV;
+            caldav_source.id = SourceType.CALDAV.to_string ();
+            caldav_source.source_type = SourceType.CALDAV;
+            caldav_source.data = Utils.AccountMigrate.get_data_from_caldav ();
             caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
             caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server"); 
 
-            insert_source (caldav_source);
+            Services.Store.instance ().insert_source (caldav_source);
         }
     }
 }

@@ -629,8 +629,14 @@ checkbutton.theme-selector radio:checked {
 }
 
 .no-selectable:hover,
+.no-selectable:focus,
 .no-selectable:selected,
+.no-selectable.activatable:hover,
+.no-selectable.activatable:active,
+.no-selectable.activatable:selected,
 .no-selectable {
+    box-shadow: none;
+    outline: none;
     background: transparent;
 }
 

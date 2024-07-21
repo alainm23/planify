@@ -762,7 +762,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			picked_widget.item.section_id = section.id;
 			picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == SourceType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -776,7 +776,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 						Services.Store.instance ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
 				Services.Store.instance ().update_item (picked_widget.item);
 			}
 
@@ -804,7 +804,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 			picked_widget.item.section_id = section.id;
 			picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == SourceType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -818,7 +818,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 						Services.Store.instance ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
 				Services.Store.instance ().update_item (picked_widget.item);
 			}
 
@@ -876,7 +876,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 		is_loading = true;
 
-		if (section.project.source_type == BackendType.TODOIST) {
+		if (section.project.source_type == SourceType.TODOIST) {
 			Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
 				if (Services.Todoist.get_default ().move_project_section.end (res).status) {
 					Services.Store.instance ().move_section (section, old_section_id);
@@ -884,7 +884,7 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 
 				is_loading = false;
 			});
-		} else if (section.project.source_type == BackendType.LOCAL) {
+		} else if (section.project.source_type == SourceType.LOCAL) {
 			Services.Store.instance ().move_section (section, project_id);
 			is_loading = false;
 		}

@@ -56,7 +56,7 @@ public class Services.Migrate : GLib.Object {
             label.id = stmt.column_text (0);
             label.name = "(Planner) %s".printf (stmt.column_text (1));
             label.color = stmt.column_text (2);
-            label.backend_type = BackendType.LOCAL;
+            label.source_id = SourceType.LOCAL.to_string ();
 
             Services.Store.instance ().insert_label (label);
         }
@@ -78,7 +78,7 @@ public class Services.Migrate : GLib.Object {
             project.id = stmt.column_text (0);
             project.name = "(Planner) %s".printf (stmt.column_text (1));
             project.color = stmt.column_text (2);
-            project.source_id = BackendType.LOCAL.to_string ();
+            project.source_id = SourceType.LOCAL.to_string ();
 
             Services.Store.instance ().insert_project (project);
         }

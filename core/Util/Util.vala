@@ -569,17 +569,16 @@ public class Util : GLib.Object {
 
     public Objects.Source create_local_source () {
         Objects.Source local_source = new Objects.Source ();
-        local_source.id = BackendType.LOCAL.to_string ();
-        local_source.source_type = BackendType.LOCAL;
+        local_source.id = SourceType.LOCAL.to_string ();
+        local_source.source_type = SourceType.LOCAL;
         Services.Store.instance ().insert_source (local_source);
         return local_source;
     }
 
     public Objects.Project create_inbox_project () {
         Objects.Project inbox_project = new Objects.Project ();
-        inbox_project.source_id = BackendType.LOCAL.to_string ();
+        inbox_project.source_id = SourceType.LOCAL.to_string ();
         inbox_project.id = Util.get_default ().generate_id (inbox_project);
-        inbox_project.backend_type = BackendType.LOCAL;
         inbox_project.name = _("Inbox");
         inbox_project.inbox_project = true;
         inbox_project.color = "blue";
@@ -593,8 +592,7 @@ public class Util : GLib.Object {
     public void create_tutorial_project () {
         Objects.Project project = new Objects.Project ();
         project.id = Util.get_default ().generate_id (project);
-        project.source_id = BackendType.LOCAL.to_string ();
-        project.backend_type = BackendType.LOCAL;
+        project.source_id = SourceType.LOCAL.to_string ();
         project.icon_style = ProjectIconStyle.EMOJI;
         project.emoji = "🚀️";
         project.name = _("Meet Planify");
@@ -709,31 +707,31 @@ We hope you’ll enjoy using Planify!""");
     public void create_default_labels () {
         var label_01 = new Objects.Label ();
         label_01.id = Util.get_default ().generate_id (label_01);
-        label_01.backend_type = BackendType.LOCAL;
+        label_01.source_id = SourceType.LOCAL.to_string ();
         label_01.name = _("💼️Work");
         label_01.color = "taupe";
 
         var label_02 = new Objects.Label ();
         label_02.id = Util.get_default ().generate_id (label_02);
-        label_02.backend_type = BackendType.LOCAL;
+        label_02.source_id = SourceType.LOCAL.to_string ();
         label_02.name = _("🎒️School");
         label_02.color = "berry_red";
 
         var label_03 = new Objects.Label ();
         label_03.id = Util.get_default ().generate_id (label_03);
-        label_03.backend_type = BackendType.LOCAL;
+        label_03.source_id = SourceType.LOCAL.to_string ();
         label_03.name = _("👉️Delegated");
         label_03.color = "yellow";
 
         var label_04 = new Objects.Label ();
         label_04.id = Util.get_default ().generate_id (label_04);
-        label_04.backend_type = BackendType.LOCAL;
+        label_04.source_id = SourceType.LOCAL.to_string ();
         label_04.name = _("🏡️Home");
         label_04.color = "lime_green";
 
         var label_05 = new Objects.Label ();
         label_05.id = Util.get_default ().generate_id (label_05);
-        label_05.backend_type = BackendType.LOCAL;
+        label_05.source_id = SourceType.LOCAL.to_string ();
         label_05.name = _("🏃‍♀️️Follow Up");
         label_05.color = "grey";
 
@@ -744,17 +742,17 @@ We hope you’ll enjoy using Planify!""");
         Services.Store.instance ().insert_label (label_05);
     }
 
-    public BackendType get_backend_type_by_text (string backend_type) {
+    public SourceType get_backend_type_by_text (string backend_type) {
         if (backend_type == "local") {
-            return BackendType.LOCAL;
+            return SourceType.LOCAL;
         } else if (backend_type == "todoist") {
-            return BackendType.TODOIST;
+            return SourceType.TODOIST;
         } else if (backend_type == "google-tasks") {
-            return BackendType.GOOGLE_TASKS;
+            return SourceType.GOOGLE_TASKS;
         } else if (backend_type == "caldav") {
-            return BackendType.CALDAV;
+            return SourceType.CALDAV;
         } else {
-            return BackendType.NONE;
+            return SourceType.NONE;
         }
     }
 
@@ -859,10 +857,10 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (target_project.backend_type == BackendType.LOCAL) {
+        if (target_project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
             yield add_final_duplicate_item (new_item, item);
-        } else if (target_project.backend_type == BackendType.TODOIST) {
+        } else if (target_project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             item.loading = false;
 
@@ -870,7 +868,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield add_final_duplicate_item (new_item, item);
             }
-        } else if (target_project.backend_type == BackendType.CALDAV) {
+        } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
             item.loading = false;
@@ -918,14 +916,14 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (item.project.backend_type == BackendType.LOCAL) {
+        if (item.project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
 
             item.loading = false;
             item.sensitive = true;
 
             yield insert_duplicate_item (new_item, item, notify);
-        } else if (item.project.backend_type == BackendType.TODOIST) {
+        } else if (item.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             
             item.loading = false;
@@ -935,7 +933,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield insert_duplicate_item (new_item, item, notify);
             }
-        } else if (item.project.backend_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
             
@@ -993,10 +991,10 @@ We hope you’ll enjoy using Planify!""");
         section.loading = true;
         section.sensitive = false;
 
-        if (new_section.project.backend_type == BackendType.LOCAL) {
+        if (new_section.project.source_type == SourceType.LOCAL) {
             new_section.id = Util.get_default ().generate_id (new_section);
             yield insert_duplicate_section (new_section, section, notify);
-        } else if (new_section.project.backend_type == BackendType.TODOIST) {
+        } else if (new_section.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_section);
             if (response.status) {
                 new_section.id = response.data;
@@ -1028,9 +1026,8 @@ We hope you’ll enjoy using Planify!""");
 
         project.loading = true;
 
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             new_project.id = Util.get_default ().generate_id (new_project);
-            new_project.backend_type = BackendType.LOCAL;
             Services.Store.instance ().insert_project (new_project);
 
             foreach (Objects.Item item in project.items) {
@@ -1046,7 +1043,7 @@ We hope you’ll enjoy using Planify!""");
             Services.EventBus.get_default ().send_notification (
                 Util.get_default ().create_toast (_("Project duplicated"))
             );
-        } else if (project.backend_type == BackendType.TODOIST) {            
+        } else if (project.source_type == SourceType.TODOIST) {            
             Services.Todoist.get_default ().duplicate_project.begin (project, (obj, res) => {
                 project.loading = false;
                 
@@ -1054,10 +1051,9 @@ We hope you’ll enjoy using Planify!""");
                     Services.Todoist.get_default ().sync.begin (project.source);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             new_project.id = Util.get_default ().generate_id (new_project);
-            new_project.backend_type = BackendType.CALDAV;
-
+            
             bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
 
             if (status) {

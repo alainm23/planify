@@ -41,7 +41,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
             subheader_title = source.subheader_text
         };
         group.placeholder_message = _("No labels available. Create one by clicking on the '+' button");
-        group.margin_top = 6;
+        group.margin_top = 12;
         group.show_separator = true;
         group.set_sort_func (sort_func);
 
@@ -68,7 +68,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
         });
 
         add_button.clicked.connect (() => {
-            var dialog = new Dialogs.Label.new (BackendType.LOCAL);
+            var dialog = new Dialogs.Label.new (source);
             dialog.present (Planify._instance.main_window);
         });
 

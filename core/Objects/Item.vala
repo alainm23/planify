@@ -573,7 +573,7 @@ public class Objects.Item : Objects.BaseObject {
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
             // TODO: VERIFICAR CALDAV
-            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
             if (label != null) {
                 return_value.add (label);
             }
@@ -638,7 +638,7 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, BackendType.CALDAV.to_string ());
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
             if (label != null) {
                 return_value [label.id] = label;
             } else {
@@ -646,7 +646,7 @@ public class Objects.Item : Objects.BaseObject {
                 label.id = Util.get_default ().generate_id (label);
                 label.color = Util.get_default ().get_random_color ();
                 label.name = category;
-                label.backend_type = BackendType.CALDAV;
+                label.backend_type = SourceType.CALDAV;
 
                 Services.Store.instance ().insert_label (label);
                 return_value [label.id] = label;
@@ -718,14 +718,14 @@ public class Objects.Item : Objects.BaseObject {
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            if (project.backend_type == BackendType.LOCAL) {
+            if (project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().update_item (this, update_id);
-            } else if (project.backend_type == BackendType.TODOIST) {
+            } else if (project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Store.instance ().update_item (this, update_id);
                 });
-            } else if (project.backend_type == BackendType.CALDAV) {
+            } else if (project.source_type == SourceType.CALDAV) {
                 Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
                     HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
@@ -748,16 +748,16 @@ public class Objects.Item : Objects.BaseObject {
             update_timeout_id = 0;
             loading = true;
 
-            if (project.backend_type == BackendType.LOCAL) {
+            if (project.source_type == SourceType.LOCAL) {
                 Services.Store.instance ().update_item (this, update_id);
                 loading = false;
-            } else if (project.backend_type == BackendType.TODOIST) {
+            } else if (project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                     Services.Store.instance ().update_item (this, update_id);
                     loading = false;
                 });
-            } else if (project.backend_type == BackendType.CALDAV) {
+            } else if (project.source_type == SourceType.CALDAV) {
                 Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
                     HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
@@ -776,16 +776,16 @@ public class Objects.Item : Objects.BaseObject {
     public void update_async (string update_id = "") {
         loading = true;
 
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this, update_id);
             loading = false;
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 Services.Todoist.get_default ().update.end (res);
                 Services.Store.instance ().update_item (this, update_id);
                 loading = false;
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
                 HttpResponse response = Services.CalDAV.Core.get_default ().add_task.end (res);
 
@@ -1359,9 +1359,9 @@ public class Objects.Item : Objects.BaseObject {
     }
 
     public void delete_item () {
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().delete_item (this);
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                 if (Services.Todoist.get_default ().delete.end (res).status) {
@@ -1370,7 +1370,7 @@ public class Objects.Item : Objects.BaseObject {
 
                 loading = false;
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
@@ -1466,10 +1466,10 @@ public class Objects.Item : Objects.BaseObject {
             due.recurrency_count = due.recurrency_count - 1;
         }
 
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().update_item (this);
             promise.resolve (next_recurrency);
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                 var response = Services.Todoist.get_default ().update.end (res);
@@ -1480,7 +1480,7 @@ public class Objects.Item : Objects.BaseObject {
                     promise.resolve (next_recurrency);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             Services.CalDAV.Core.get_default ().add_task.begin (this, true, (obj, res) => {
                 var response = Services.CalDAV.Core.get_default ().add_task.end (res);
@@ -1498,9 +1498,9 @@ public class Objects.Item : Objects.BaseObject {
         loading = true;
         show_item = false;
 
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             _move (project.id, _section_id);
-        } else if (project.backend_type == BackendType.TODOIST) {
+        } else if (project.source_type == SourceType.TODOIST) {
             string move_id = project.id;
             string move_type = "project_id";
             if (_section_id != "") {
@@ -1517,7 +1517,7 @@ public class Objects.Item : Objects.BaseObject {
                     _move (project.id, _section_id);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {            
+        } else if (project.source_type == SourceType.CALDAV) {            
             Services.CalDAV.Core.get_default ().move_task.begin (this, project.id, (obj, res) => {
                 var response = Services.CalDAV.Core.get_default ().move_task.end (res);
                 loading = false;
@@ -1604,7 +1604,7 @@ public class Objects.Item : Objects.BaseObject {
     public void add_reminder (Objects.Reminder reminder) {
         reminder.item_id = id;
 
-        if (project.backend_type == BackendType.TODOIST) {
+        if (project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
                 loading = false;

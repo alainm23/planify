@@ -145,8 +145,7 @@ public enum FilterType {
 	}
 }
 
-public enum BackendType {
-	ALL,
+public enum SourceType {
 	NONE,
 	LOCAL,
 	TODOIST,
@@ -155,9 +154,6 @@ public enum BackendType {
 
 	public string to_string () {
 		switch (this) {
-			case ALL:
-				return "all";
-
 			case NONE:
 				return "none";
 
@@ -178,22 +174,22 @@ public enum BackendType {
 		}
 	}
 
-	public static BackendType parse (string value) {
+	public static SourceType parse (string value) {
 		switch (value) {
 			case "local":
-				return BackendType.LOCAL;
+				return SourceType.LOCAL;
 
 			case "todoist":
-				return BackendType.TODOIST;
+				return SourceType.TODOIST;
 
 			case "google-tasks":
-				return BackendType.GOOGLE_TASKS;
+				return SourceType.GOOGLE_TASKS;
 			
 			case "caldav":
-				return BackendType.CALDAV;
+				return SourceType.CALDAV;
 
 			default:
-				return BackendType.NONE;
+				return SourceType.NONE;
 		}
 	}
 }

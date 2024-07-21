@@ -20,7 +20,7 @@
 */
 
 public class Objects.Source : Objects.BaseObject {
-    public BackendType source_type { get; set; default = BackendType.NONE; }
+    public SourceType source_type { get; set; default = SourceType.NONE; }
     public string added_at { get; set; default = new GLib.DateTime.now_local ().to_string (); }
     public string updated_at { get; set; default = ""; }
     public bool is_visible { get; set; default = true; }
@@ -47,15 +47,15 @@ public class Objects.Source : Objects.BaseObject {
 
     public string header_text {
         get {
-            if (source_type == BackendType.LOCAL) {
+            if (source_type == SourceType.LOCAL) {
                 return _("On This Computer");
             }
 
-            if (source_type == BackendType.TODOIST) {
+            if (source_type == SourceType.TODOIST) {
                 return todoist_data.user_email;
             }
 
-            if (source_type == BackendType.CALDAV) {
+            if (source_type == SourceType.CALDAV) {
                 return caldav_data.user_email;
             }
 
@@ -66,11 +66,11 @@ public class Objects.Source : Objects.BaseObject {
     string _subheader_text;
     public string subheader_text {
         get {
-            if (source_type == BackendType.TODOIST) {
+            if (source_type == SourceType.TODOIST) {
                 return _("Todoist");
             }
 
-            if (source_type == BackendType.CALDAV) {
+            if (source_type == SourceType.CALDAV) {
                 _subheader_text = _("CalDAV - ") + caldav_data.caldav_type.title ();
                 return _subheader_text;
             }
@@ -82,6 +82,34 @@ public class Objects.Source : Objects.BaseObject {
     public string avatar_path {
         get {
             return todoist_data.user_image_id;
+        }
+    }
+
+    public string user_displayname {
+        get {
+            if (source_type == SourceType.TODOIST) {
+                return todoist_data.user_name;
+            }
+
+            if (source_type == SourceType.CALDAV) {
+                return caldav_data.user_displayname;
+            }
+
+            return "";
+        }
+    }
+
+    public string user_email {
+        get {
+            if (source_type == SourceType.TODOIST) {
+                return todoist_data.user_email;
+            }
+
+            if (source_type == SourceType.CALDAV) {
+                return caldav_data.user_email;
+            }
+
+            return "";
         }
     }
 
@@ -104,7 +132,11 @@ public class Objects.Source : Objects.BaseObject {
 
 		server_timeout = Timeout.add_seconds (15 * 60, () => {
 			if (sync_server) {
-				Services.Todoist.get_default ().sync.begin (this);
+                if (source_type == SourceType.TODOIST) {
+                    Services.Todoist.get_default ().sync.begin (this);
+                } else if (source_type == SourceType.CALDAV) {
+                    Services.CalDAV.Core.get_default ().sync.begin (this);
+                }
 			}
 
 			return true;

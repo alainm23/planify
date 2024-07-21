@@ -110,7 +110,7 @@ public class Services.Todoist : GLib.Object {
 
 			var source = new Objects.Source ();
 			source.id = Util.get_default ().generate_id ();
-			source.source_type = BackendType.TODOIST;
+			source.source_type = SourceType.TODOIST;
 			Objects.SourceTodoistData todoist_data = new Objects.SourceTodoistData ();
 
 			todoist_data.sync_token = parser.get_root ().get_object ().get_string_member ("sync_token");
@@ -136,7 +136,10 @@ public class Services.Todoist : GLib.Object {
 			// Create Labels
 			unowned Json.Array labels = parser.get_root ().get_object ().get_array_member (LABELS_COLLECTION);
 			foreach (unowned Json.Node _node in labels.get_elements ()) {
-				Services.Store.instance ().insert_label (new Objects.Label.from_json (_node));
+				Objects.Label _label = new Objects.Label.from_json (_node);
+				_label.source_id = source.id;
+
+				Services.Store.instance ().insert_label (_label);
 			}
 
 			// Create Projects
@@ -247,7 +250,10 @@ public class Services.Todoist : GLib.Object {
 							Services.Store.instance ().update_label (label);
 						}
 					} else {
-						Services.Store.instance ().insert_label (new Objects.Label.from_json (_node));
+						Objects.Label _label = new Objects.Label.from_json (_node);
+						_label.source_id = source.id;
+
+						Services.Store.instance ().insert_label (_label);
 					}
 				}
 

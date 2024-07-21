@@ -571,7 +571,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                 if (response == "delete") {
                     is_loading = true;
 
-                    if (section.project.source_type == BackendType.TODOIST) {
+                    if (section.project.source_type == SourceType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (section, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
                             Services.Store.instance ().delete_section (section);
@@ -602,7 +602,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
         string old_section_id = section.project_id;
         section.project_id = project_id;
 
-        if (section.project.source_type == BackendType.TODOIST) {
+        if (section.project.source_type == SourceType.TODOIST) {
             is_loading = true;
 
             Services.Todoist.get_default ().move_project_section.begin (section, project_id, (obj, res) => {
@@ -611,7 +611,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
                     is_loading = false;
                 }
             });
-        } else if (section.project.source_type == BackendType.LOCAL) {
+        } else if (section.project.source_type == SourceType.LOCAL) {
             Services.Store.instance ().move_section (section, project_id);
             is_loading = false;
         }
@@ -637,7 +637,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 			picked_widget.item.section_id = section.id;
             picked_widget.item.parent_id = "";
 
-			if (picked_widget.item.project.source_type == BackendType.TODOIST) {
+			if (picked_widget.item.project.source_type == SourceType.TODOIST) {
 				string type = "section_id";
 				string id = section.id;
 
@@ -651,7 +651,7 @@ public class Layouts.SectionBoard : Gtk.FlowBoxChild {
 						Services.Store.instance ().update_item (picked_widget.item);
 					}
 				});
-			} else if (picked_widget.item.project.source_type == BackendType.LOCAL) {
+			} else if (picked_widget.item.project.source_type == SourceType.LOCAL) {
 				Services.Store.instance ().update_item (picked_widget.item);
 			}
 

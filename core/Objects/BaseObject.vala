@@ -208,6 +208,10 @@ public class Objects.BaseObject : GLib.Object {
                 return ((Objects.Item) this).project.source;
             }
 
+            if (this is Objects.Label) {
+                return ((Objects.Label) this).source;
+            }
+
             return _source;
         }
     }

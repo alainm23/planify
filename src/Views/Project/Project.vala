@@ -36,7 +36,7 @@ public class Views.Project : Adw.Bin {
 
 	public ProjectViewStyle view_style {
         get {
-            return project.source_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
+            return project.source_type == SourceType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
         }
     }
 
@@ -295,7 +295,7 @@ public class Views.Project : Adw.Bin {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
 
-		if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.TODOIST) {
+		if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
 			menu_box.append (add_section_item);
 			menu_box.append (manage_sections);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -516,7 +516,7 @@ public class Views.Project : Adw.Bin {
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 
-		if (project.source_type == BackendType.LOCAL || project.source_type == BackendType.TODOIST) {
+		if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
 			menu_box.append (view_box);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
@@ -702,7 +702,7 @@ public class Views.Project : Adw.Bin {
 	}
 
 	public void prepare_new_section () {
-		if (project.source_type == BackendType.CALDAV) {
+		if (project.source_type == SourceType.CALDAV) {
 			return;
 		}
 

@@ -181,12 +181,12 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (label.backend_type == BackendType.TODOIST) {
+                    if (label.source_type == SourceType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
                             Services.Store.instance ().delete_label (label);
                         });
-                    } else if (label.backend_type == BackendType.LOCAL) {
+                    } else if (label.source_type == SourceType.LOCAL) {
                         Services.Store.instance ().delete_label (label);
                     }
                 }

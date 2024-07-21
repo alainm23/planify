@@ -192,7 +192,7 @@ public class Objects.Section : Objects.BaseObject {
             update_timeout_id = 0;
 
             Services.Store.instance ().update_section (this);
-            if (project.backend_type == BackendType.TODOIST && cloud) {
+            if (project.source_type == SourceType.TODOIST && cloud) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                 });
@@ -345,7 +345,7 @@ public class Objects.Section : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "delete") {
                 loading = true;
-                if (project.backend_type == BackendType.TODOIST) {
+                if (project.source_type == SourceType.TODOIST) {
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                         Services.Todoist.get_default ().delete.end (res);
                         Services.Store.instance ().delete_section (this);
