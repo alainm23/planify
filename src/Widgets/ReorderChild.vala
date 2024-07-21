@@ -25,6 +25,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
     private Gtk.DropControllerMotion drop_motion_ctrl;
     private Gtk.Grid motion_top_grid;
+    private Gtk.Revealer motion_top_revealer;
     private Gtk.Grid motion_bottom_grid;
     private Gtk.Revealer main_revealer;
 
@@ -59,7 +60,7 @@ public class Widgets.ReorderChild : Adw.Bin {
             css_classes = { "drop-area", "drop-target" }
         };
 
-        var motion_top_revealer = new Gtk.Revealer () {
+        motion_top_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
             child = motion_top_grid
         };
@@ -94,7 +95,7 @@ public class Widgets.ReorderChild : Adw.Bin {
         drop_motion_ctrl = new Gtk.DropControllerMotion ();
         row.add_controller (drop_motion_ctrl);
 
-        drop_motion_ctrl.motion .connect ((x, y) => {
+        drop_motion_ctrl.enter .connect ((x, y) => {
             motion_top_revealer.reveal_child = true;
         });
 
@@ -142,6 +143,7 @@ public class Widgets.ReorderChild : Adw.Bin {
 
         picked_widget.drag_end ();
         target_widget.drag_end ();
+        target_widget.motion_top_revealer.reveal_child = false;
 
         if (picked_widget == target_widget || target_widget == null) {
             return false;

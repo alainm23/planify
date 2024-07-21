@@ -547,7 +547,7 @@ checkbutton.theme-selector radio:checked {
 }
 
 .header-item-button,
-.header-item-button button {
+.header-item-button .image-button {
     padding: 3px;
     min-height: 16px;
     min-width: 16px;

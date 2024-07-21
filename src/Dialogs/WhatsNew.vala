@@ -123,7 +123,7 @@ public class Dialogs.WhatsNew : Adw.Dialog {
 		}
 
 		if (page != null) {
-			row.add_suffix (generate_icon ("pan-end-symbolic", 16));
+			row.add_suffix (generate_icon ("go-next-symbolic", 16));
 			row.activatable = true;
 			row.activated.connect (() => {
 				navigation_view.push (page);

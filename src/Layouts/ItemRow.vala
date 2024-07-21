@@ -539,7 +539,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         box.append (itemrow_box);
         box.append (subitems);
 
-        hide_subtask_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
+        hide_subtask_button = new Gtk.Button.from_icon_name ("go-next-symbolic") {
             valign = Gtk.Align.START,
             margin_top = 3,
             css_classes = { "flat", "dim-label", "no-padding", "hidden-button" }
@@ -765,6 +765,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.reminder_deleted.connect ((reminder) => {
             reminder_button.delete_reminder (reminder, item.reminders);
             check_reminders ();
+        });
+
+        Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
+            if (item.project_id == project_id) {
+                motion_top_revealer.reveal_child = false;
+            }
         });
     }
 
@@ -1585,6 +1591,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var picked_item = picked_widget.item;
             var target_item = target_widget.item;
 
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
+
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
@@ -1666,6 +1674,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             picked_widget.drag_end ();
             target_widget.drag_end ();
+
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
 
             if (picked_widget == target_widget || target_widget == null) {
                 return false;

@@ -126,7 +126,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             child = count_label
         };
 
-        arrow_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
+        arrow_button = new Gtk.Button.from_icon_name ("go-next-symbolic") {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
             css_classes = { "flat", "transparent", "hidden-button", "no-padding" },
@@ -333,7 +333,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             is_loading = project.loading;
         });
 
-        Services.EventBus.get_default ().drag_end.connect ((source_id) => {
+        Services.EventBus.get_default ().drag_projects_end.connect ((source_id) => {
             if (project.source_id == source_id) {
                 motion_top_revealer.reveal_child = false;
             }
@@ -372,7 +372,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var target_widget = this;            
 
             // fix #1131
-            Services.EventBus.get_default ().drag_end (target_widget.project.source_id);
+            Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
 
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;
@@ -496,7 +496,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var target_widget = this;
 
             // fix #1131
-            Services.EventBus.get_default ().drag_end (target_widget.project.source_id);
+            Services.EventBus.get_default ().drag_projects_end (target_widget.project.source_id);
 
             var picked_project = picked_widget.project;
             var target_project = target_widget.project;

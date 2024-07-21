@@ -411,6 +411,12 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         item.sensitive_change.connect (() => {
             sensitive = item.sensitive;
         });
+
+        Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
+            if (item.project_id == project_id) {
+                motion_top_revealer.reveal_child = false;
+            }
+        });
 	}
 
     private void update_next_recurrency () {
@@ -764,19 +770,24 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         var drop_motion_ctrl = new Gtk.DropControllerMotion ();
         add_controller (drop_motion_ctrl);
 
-        drop_motion_ctrl.motion.connect ((x, y) => {
+        drop_motion_ctrl.enter.connect ((x, y) => {
 			var drop = drop_motion_ctrl.get_drop ();
             GLib.Value value = Value (typeof (Gtk.Widget));
-            drop.drag.content.get_value (ref value);
 
-            if (value.dup_object () is Layouts.ItemBoard) {
-                var picked_widget = (Layouts.ItemBoard) value;
-                motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
-            } else {
-                motion_top_grid.height_request = 32;
+            try {
+                drop.drag.content.get_value (ref value);
+
+                if (value.dup_object () is Layouts.ItemBoard) {
+                    var picked_widget = (Layouts.ItemBoard) value;
+                    motion_top_grid.height_request = picked_widget.handle_grid.get_height ();
+                } else {
+                    motion_top_grid.height_request = 32;
+                }
+                
+                motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
+            }  catch (Error e) {
+                debug (e.message);
             }
-            
-            motion_top_revealer.reveal_child = drop_motion_ctrl.contains_pointer;
         });
 
         drop_motion_ctrl.leave.connect (() => {
@@ -819,6 +830,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             var picked_item = picked_widget.item;
             var target_item = target_widget.item;
+
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
 
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
@@ -896,6 +909,8 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
+            
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }

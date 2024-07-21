@@ -22,13 +22,20 @@
 public class Dialogs.Project : Adw.Dialog {
     public Objects.Project project { get; construct; }
     public bool backend_picker { get; construct; }
-
+    public string header_title { get; construct; }
+    
+    private Gtk.Stack emoji_color_stack;
+    private Widgets.CircularProgressBar progress_bar;
     private Adw.EntryRow name_entry;
     private Widgets.ColorPickerRow color_picker_row;
     private Widgets.LoadingButton submit_button;
     private Gtk.Switch emoji_switch;
     private Gtk.Label emoji_label;
+    private Gtk.Label source_selected_label;
 
+    private Adw.NavigationView navigation_view;
+    private Adw.NavigationPage sources_page;
+    
     public bool is_creating {
         get {
             return project.id == "";
@@ -46,7 +53,7 @@ public class Dialogs.Project : Adw.Dialog {
         Object (
             project: project,
             backend_picker: backend_picker,
-            title: project.parent_id == "" ? _("New Project") : project.parent.name + " → " + _("New Project")
+            header_title: project.parent_id == "" ? _("New Project") : project.parent.name + " → " + _("New Project")
         );
     }
 
@@ -54,20 +61,48 @@ public class Dialogs.Project : Adw.Dialog {
         Object (
             project: project,
             backend_picker: false,
-            title: _("Edit Project")
+            header_title: _("Edit Project")
         );
     }
 
     construct {
+        Adw.NavigationPage main_page = get_main_page ();
+        sources_page = get_sources_page ();
+
+        navigation_view = new Adw.NavigationView ();
+        navigation_view.add (main_page);
+
+        child = navigation_view;
+        Services.EventBus.get_default ().disconnect_typing_accel ();
+        
+        Timeout.add (emoji_color_stack.transition_duration, () => {
+            if (project.icon_style == ProjectIconStyle.PROGRESS) {
+                emoji_color_stack.visible_child_name = "color";
+            } else {
+                emoji_color_stack.visible_child_name = "emoji";
+            }
+
+            progress_bar.color = project.color;
+            color_picker_row.color = project.color;
+
+            if (is_creating) {
+                name_entry.grab_focus ();
+            }
+            
+            return GLib.Source.REMOVE;
+        });
+    }
+
+    private Adw.NavigationPage get_main_page () {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
         emoji_label = new Gtk.Label (project.emoji);
 
-        var progress_bar = new Widgets.CircularProgressBar (32);
+        progress_bar = new Widgets.CircularProgressBar (32);
         progress_bar.percentage = 0.64;
 
-        var emoji_color_stack = new Gtk.Stack () {
+        emoji_color_stack = new Gtk.Stack () {
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER,
             transition_type = Gtk.StackTransitionType.CROSSFADE
@@ -122,30 +157,39 @@ public class Dialogs.Project : Adw.Dialog {
         name_group.add (name_entry);
         name_group.add (emoji_switch_row);
 
-        var backend_model = new Gtk.StringList (null);
-        foreach (Objects.Source source in Services.Store.instance ().sources) {
-            backend_model.append (source.header_text);
-        }
+        source_selected_label = new Gtk.Label (project.source.header_text) {
+            css_classes = { "dim-label" },
+            tooltip_text = project.source.subheader_text
+        };
+        var pan_icon = new Gtk.Image.from_icon_name ("go-next-symbolic") {
+			pixel_size = 16
+		};
 
-        var backend_row = new Adw.ComboRow ();
-        backend_row.title = _("Source");
-        backend_row.model = backend_model;
+        var source_selected_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+        source_selected_box.append (source_selected_label);
+        source_selected_box.append (pan_icon);
 
-        var backend_group = new Adw.PreferencesGroup () {
+        var source_row = new Adw.ActionRow () {
+            activatable = true,
+            title = _("Source")
+        };
+
+        source_row.add_suffix (source_selected_box);
+
+        var source_group = new Adw.PreferencesGroup () {
             margin_end = 12,
             margin_start = 12,
             margin_top = 24,
             margin_bottom = 1
         };
 
-        backend_group.add (backend_row);
+        source_group.add (source_row);
 
-        var backend_revealer = new Gtk.Revealer () {
+        var source_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-            reveal_child = backend_picker
+            reveal_child = backend_picker,
+            child = source_group
         };
-
-        backend_revealer.child = backend_group;
 
         color_picker_row = new Widgets.ColorPickerRow ();
 
@@ -181,7 +225,7 @@ public class Dialogs.Project : Adw.Dialog {
         var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
         content_box.append (emoji_picker_button);
         content_box.append (name_group);
-        content_box.append (backend_revealer);
+        content_box.append (source_revealer);
         content_box.append (color_box_revealer);
         content_box.append (submit_button);
 
@@ -199,31 +243,7 @@ public class Dialogs.Project : Adw.Dialog {
 		toolbar_view.add_top_bar (headerbar);
 		toolbar_view.content = content_clamp;
 
-        child = toolbar_view;
-        Services.EventBus.get_default ().disconnect_typing_accel ();
-        
-        Timeout.add (emoji_color_stack.transition_duration, () => {
-            if (project.icon_style == ProjectIconStyle.PROGRESS) {
-                emoji_color_stack.visible_child_name = "color";
-            } else {
-                emoji_color_stack.visible_child_name = "emoji";
-            }
-
-            progress_bar.color = project.color;
-            color_picker_row.color = project.color;
-
-            if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.NONE) {
-                backend_row.selected = 0;
-            } else if (project.source_type == SourceType.TODOIST) {
-                backend_row.selected = 1;
-            }
-
-            if (is_creating) {
-                name_entry.grab_focus ();
-            }
-            
-            return GLib.Source.REMOVE;
-        });
+        var navigation_page = new Adw.NavigationPage (toolbar_view, header_title);
 
         name_entry.entry_activated.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
@@ -258,17 +278,81 @@ public class Dialogs.Project : Adw.Dialog {
             }
         });
 
-        backend_row.notify["selected"].connect (() => {
-            if (backend_row.selected == 0) {
-                project.backend_type = SourceType.LOCAL;
-            } else if (backend_row.selected == 1) {
-                project.backend_type = SourceType.TODOIST;
-            }
+        source_row.activated.connect (() => {
+            navigation_view.push (sources_page);
         });
 
         closed.connect (() => {
             Services.EventBus.get_default ().connect_typing_accel ();
         });
+
+        return navigation_page;
+    }
+
+    private Adw.NavigationPage get_sources_page () {
+        var headerbar = new Adw.HeaderBar ();
+        headerbar.add_css_class ("flat");
+
+        var sources_group = new Adw.PreferencesGroup () {
+            margin_end = 12,
+            margin_start = 12,
+            margin_top = 6,
+        };
+
+        var none_radio = new Gtk.CheckButton ();
+
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
+            var radio_button = new Gtk.CheckButton () {
+                group = none_radio,
+                active = project.source_id == source.id
+            };
+
+            var source_row = new Adw.ActionRow () {
+                activatable = true,
+                title = source.header_text,
+                subtitle = source.subheader_text
+            };
+
+            source_row.add_suffix (radio_button);
+            source_row.set_activatable_widget (radio_button);
+
+            source_row.activated.connect (() => {
+                project.source_id = source.id;
+
+                source_selected_label.label = source.header_text;
+                source_selected_label.tooltip_text = source.subheader_text;
+
+                navigation_view.pop ();
+            });
+
+            radio_button.toggled.connect (() => {
+                project.source_id = source.id;
+
+                source_selected_label.label = source.header_text;
+                source_selected_label.tooltip_text = source.subheader_text;
+
+                navigation_view.pop ();
+            });
+
+            sources_group.add (source_row);
+        }
+
+        var content_clamp = new Adw.Clamp () {
+			maximum_size = 600,
+			margin_start = 12,
+			margin_end = 12,
+			margin_bottom = 12,
+            margin_top = 6,
+            child = sources_group
+		};
+
+        var toolbar_view = new Adw.ToolbarView ();
+		toolbar_view.add_top_bar (headerbar);
+		toolbar_view.content = content_clamp;
+
+        var navigation_page = new Adw.NavigationPage (toolbar_view, _("Sources"));
+
+        return navigation_page;
     }
 
     private void add_update_project () {

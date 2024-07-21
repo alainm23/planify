@@ -37,7 +37,9 @@ public class Views.Labels : Adw.Bin {
 
         var content = new Gtk.Box (Gtk.Orientation.VERTICAL, 12) {
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            margin_start = 12,
+            margin_end = 12
         };
 
         content.append (sources_listbox);
@@ -48,17 +50,15 @@ public class Views.Labels : Adw.Bin {
             margin_start = 12,
             margin_end = 12,
             margin_bottom = 64,
+            child = content
         };
-
-        content_clamp.child = content;
 
         var scrolled_window = new Gtk.ScrolledWindow () {
             hscrollbar_policy = Gtk.PolicyType.NEVER,
             hexpand = true,
-            vexpand = true
+            vexpand = true,
+            child = content_clamp
         };
-
-        scrolled_window.child = content_clamp;
 
         var toolbar_view = new Adw.ToolbarView ();
 		toolbar_view.add_top_bar (headerbar);

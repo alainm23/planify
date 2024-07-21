@@ -167,7 +167,7 @@ public class Layouts.HeaderItem : Adw.Bin {
 
         subheader_label = new Gtk.Label (null) {
             halign = Gtk.Align.START,
-            css_classes = { "caption" }
+            css_classes = { "caption", "dim-label" }
         };
 
         subheader_revealer = new Gtk.Revealer () {

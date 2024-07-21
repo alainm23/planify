@@ -35,8 +35,6 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
     construct {
         add_css_class ("no-selectable");
         
-        print ("%s\n".printf (source.to_string ()));
-
         var visible_checkbutton = new Gtk.CheckButton () {
             active = source.is_visible
         };
@@ -45,7 +43,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 
         var subheader_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
-            css_classes = { "caption" },
+            css_classes = { "caption", "dim-label" },
             visible = source.source_type != SourceType.LOCAL
         };
 
