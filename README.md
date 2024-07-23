@@ -49,6 +49,8 @@
 
 You'll need the following dependencies:
 
+* vala
+* meson
 * gtk4
 * libadwaita
 
