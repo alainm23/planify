@@ -42,7 +42,7 @@ public class Dialogs.LabelPicker : Adw.Dialog {
         var headerbar = new Adw.HeaderBar ();
         headerbar.add_css_class ("flat");
 
-        picker = new Widgets.LabelsPickerCore ();
+        picker = new Widgets.LabelsPickerCore (LabelPickerType.FILTER);
 
         var button = new Widgets.LoadingButton (LoadingButtonType.LABEL, _("Filter")) {
             margin_top = 12,
@@ -85,6 +85,10 @@ public class Dialogs.LabelPicker : Adw.Dialog {
 
     public void add_labels (Objects.Source source) {
         picker.source = source;
+    }
+
+    public void add_labels_list (Gee.ArrayList<Objects.Label> labels_list) {
+        picker.add_labels_list (labels_list);
     }
 
     public void hide_destroy () {

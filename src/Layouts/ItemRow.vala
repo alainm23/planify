@@ -190,7 +190,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
-    public signal void widget_destroyed ();
 
     public ItemRow (Objects.Item item, bool is_project_view = false) {
         Object (
@@ -955,7 +954,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void hide_destroy () {
-        widget_destroyed ();
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);

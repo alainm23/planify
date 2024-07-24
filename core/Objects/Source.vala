@@ -118,30 +118,29 @@ public class Objects.Source : Objects.BaseObject {
     public signal void sync_started ();
 	public signal void sync_finished ();
 
-    construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Store.instance ().source_deleted (this);
-                return false;
-            });
-        });
-    }
-
     public void run_server () {
-		Services.Todoist.get_default ().sync.begin (this);
+        _run_server ();
 
 		server_timeout = Timeout.add_seconds (15 * 60, () => {
-			if (sync_server) {
-                if (source_type == SourceType.TODOIST) {
-                    Services.Todoist.get_default ().sync.begin (this);
-                } else if (source_type == SourceType.CALDAV) {
-                    Services.CalDAV.Core.get_default ().sync.begin (this);
-                }
-			}
+            _run_server ();
 
 			return true;
 		});
 	}
+
+    private void _run_server () {
+        if (sync_server && source_type == SourceType.TODOIST) {
+            Services.Todoist.get_default ().sync.begin (this);
+        } else if (sync_server && source_type == SourceType.CALDAV) {
+            Services.CalDAV.Core.get_default ().sync.begin (this);
+        }
+    }
+
+    public void remove_sync_server () {
+        // Remove server_timeout
+		GLib.Source.remove (server_timeout);
+		server_timeout = 0;
+    }
 
     public void save () {
         updated_at = new GLib.DateTime.now_local ().to_string ();
@@ -161,10 +160,18 @@ public class Objects.Source : Objects.BaseObject {
         dialog.present (window);
 
         dialog.response.connect ((response) => {
-            if (response == "delete") {                
-                Services.Store.instance ().delete_source (this);
+            if (response == "delete") {
+                _delete_source ();
             }
         });
+    }
+
+    private void _delete_source () {
+        // Remove server_timeout
+        remove_sync_server ();
+
+        // Remove DB
+        Services.Store.instance ().delete_source (this);
     }
 
     public string to_string () {
@@ -173,11 +180,13 @@ public class Objects.Source : Objects.BaseObject {
             ID: %s
             DATA: %s
             TYPE: %s
+            SYNC_SERVER: %s
         ---------------------------------
         """.printf (
             id,
             data.to_json (),
-            source_type.to_string ()
+            source_type.to_string (),
+            sync_server.to_string ()
         );
     }
 }

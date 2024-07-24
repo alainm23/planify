@@ -26,8 +26,8 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
     public QuickFind () {
         Object (
-            content_width: 350,
-            content_height: 325,
+            content_width: 425,
+            content_height: 350,
             presentation_mode: Adw.DialogPresentationMode.FLOATING
         );
     }

@@ -157,16 +157,8 @@ public class Objects.Project : Objects.BaseObject {
                 
                 return -1;
             });
-            
-            return _items;
-        }
-    }
 
-    Gee.ArrayList<Objects.Item> _all_items;
-    public Gee.ArrayList<Objects.Item> all_items {
-        get {
-            _all_items = Services.Store.instance ().get_items_by_project (this);
-            return _all_items;
+            return _items;
         }
     }
 
@@ -175,6 +167,14 @@ public class Objects.Project : Objects.BaseObject {
         get {
             _items_checked = Services.Store.instance ().get_items_checked_by_project (this);
             return _items_checked;
+        }
+    }
+
+    Gee.ArrayList<Objects.Item> _all_items;
+    public Gee.ArrayList<Objects.Item> all_items {
+        get {
+            _all_items = Services.Store.instance ().get_items_by_project (this);
+            return _all_items;
         }
     }
 
@@ -197,6 +197,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void section_added (Objects.Section section);
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
+    public signal void item_deleted (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
     public signal void section_sort_order_changed ();
@@ -251,13 +252,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void show_multi_select_change ();
 
     construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Store.instance ().project_deleted (this);
-                return false;
-            });
-        });
-
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
@@ -266,20 +260,18 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Store.instance ().item_deleted.connect ((item) => {
-            if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
-            }
+        item_deleted.connect ((item) => {
+            _project_count = update_project_count ();
+            print ("Count: %d\n".printf (_project_count));
+
+            _percentage = update_percentage ();
+            project_count_updated ();
         });
 
-        Services.Store.instance ().item_added.connect ((item) => {
-            if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
-            }
+        item_added.connect ((item) => {
+            _project_count = update_project_count ();
+            _percentage = update_percentage ();
+            project_count_updated ();
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id) => {
@@ -553,6 +545,11 @@ public class Objects.Project : Objects.BaseObject {
         }
     }
 
+    public void add_item (Objects.Item item) {
+        _items.add (item);
+        item_added (item);
+    }
+
     public Objects.Item? get_item (string id) {
         Objects.Item? return_value = null;
         lock (_items) {
@@ -564,10 +561,6 @@ public class Objects.Project : Objects.BaseObject {
             }
         }
         return return_value;
-    }
-
-    public void add_item (Objects.Item item) {
-        this._items.add (item);
     }
 
     public override string get_add_json (string temp_id, string uuid) {

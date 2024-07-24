@@ -594,3 +594,8 @@ public enum ObjectEventKeyType {
 		}
 	}
 }
+
+public enum LabelPickerType {
+	SELECT,
+	FILTER
+}

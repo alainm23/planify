@@ -402,7 +402,7 @@ public class Dialogs.Project : Adw.Dialog {
         if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.NONE) {
             project.id = Util.get_default ().generate_id (project);
             Services.Store.instance ().insert_project (project);
-            go_project (project.id_string);
+            go_project (project.id);
         } else if (project.source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().add.begin (project, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -410,34 +410,27 @@ public class Dialogs.Project : Adw.Dialog {
                 if (response.status) {
                     project.id = response.data;
                     Services.Store.instance ().insert_project (project);
-                    go_project (project.id_string);
+                    go_project (project.id);
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
             Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
-                    Services.CalDAV.Core.get_default ().get_sync_token.begin (project, (obj, res) => {
-                        HttpResponse response = Services.CalDAV.Core.get_default ().get_sync_token.end (res);
-
-                        if (response.status) {
-                            project.sync_id = response.data;
-                        }
-
-                        Services.Store.instance ().insert_project (project);
-                        go_project (project.id_string);
-                    });
+                    Services.Store.instance ().insert_project (project);
+                    Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
+                    go_project (project.id);
                 }
             });
         }
     }
 
-    public void go_project (string id_string) {
+    public void go_project (string id) {
         Timeout.add (250, () => {
             Services.EventBus.get_default ().send_notification (
                 Util.get_default ().create_toast (_("Project added successfully!"))
             );    
-            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id_string);
+            Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id);
             hide_destroy ();   
             return GLib.Source.REMOVE;
         });

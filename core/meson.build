@@ -12,9 +12,11 @@ core_files = files(
     'Services/Database.vala',
     'Services/Store.vala',
     'Services/Todoist.vala',
+
     'Services/CalDAV/Core.vala',
-    'Services/CalDAV/Constants.vala',
-    'Services/CalDAV/Backend.vala',
+    'Services/CalDAV/Providers/ProviderBase.vala',
+    'Services/CalDAV/Providers/Nextcloud.vala',
+    'Services/CalDAV/Providers/Radicale.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',

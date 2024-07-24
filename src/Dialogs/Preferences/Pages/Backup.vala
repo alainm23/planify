@@ -127,7 +127,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			GLib.File file = GLib.File.new_for_path (path);
 
 			if (file.query_exists ()) {
-				if (Services.Migrate.get_default ().migrate_from_file (file)) {
+				if (Services.MigrateFromPlanner.get_default ().migrate_from_file (file)) {
 					popup_toast (_("Tasks Migrate Successfully"));
 					pop_subpage ();
 				}

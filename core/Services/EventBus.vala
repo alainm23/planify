@@ -64,6 +64,7 @@ public class Services.EventBus : Object {
     public signal void expand_all (string project_id, bool active);
     public signal void drag_projects_end (string source_id);
     public signal void drag_items_end (string project_id);
+    public signal void update_sources_position ();
 
     public bool _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
     public bool mobile_mode {

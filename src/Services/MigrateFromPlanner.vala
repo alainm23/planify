@@ -19,12 +19,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Services.Migrate : GLib.Object {
-    static GLib.Once<Migrate> _instance;
+public class Services.MigrateFromPlanner : GLib.Object {
+    static GLib.Once<MigrateFromPlanner> _instance;
 
-    public static unowned Migrate get_default () {
+    public static unowned MigrateFromPlanner get_default () {
         return _instance.once (() => {
-            return new Migrate ();
+            return new MigrateFromPlanner ();
         });
     }
 

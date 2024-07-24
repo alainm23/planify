@@ -278,8 +278,9 @@ public class Layouts.SectionRow : Gtk.ListBoxRow {
 		});
 
 		Services.EventBus.get_default ().checked_toggled.connect ((item, old_checked) => {
-			if (item.project_id == section.project_id && item.section_id == section.id &&
-			    !item.has_parent) {
+			if (item.project_id == section.project_id && item.section_id == section.id && !item.has_parent) {
+				print ("Content: %s - %s\n".printf (item.content, old_checked.to_string ()));
+				
 				if (!old_checked) {
 					if (items.has_key (item.id)) {
 						items [item.id].hide_destroy ();

@@ -40,12 +40,6 @@ public class Objects.Attachment : GLib.Object {
             _item = value;
         }
     }
-
-    construct {
-        deleted.connect (() => {
-            Services.Store.instance ().attachment_deleted (this);
-        });
-    }
     
     public string to_string () {       
         return """

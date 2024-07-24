@@ -142,13 +142,9 @@ public class Services.ActionManager : Object {
     }
 
     private void action_sync_manually () {
-        //  if (Services.Todoist.get_default ().is_logged_in ()) {
-        //      Services.Todoist.get_default ().sync_async ();
-        //  }
-
-        //  if (Services.CalDAV.Core.get_default ().is_logged_in ()) {
-        //      Services.CalDAV.Core.get_default ().sync_async ();
-        //  }
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
+            source.run_server ();
+        }
     }
 
     private void action_new_project () {

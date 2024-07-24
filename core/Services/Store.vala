@@ -134,45 +134,33 @@ public class Services.Store : GLib.Object {
     }
 
     construct {
-        label_deleted.connect ((label) => {
-            if (_labels.remove (label)) {
-                debug ("Label Removed: %s", label.name);
-            }
-        });
-
         source_deleted.connect ((source) => {
             if (_sources.remove (source)) {
                 debug ("Source Removed: %s", source.header_text);
             }
         });
 
+        label_deleted.connect ((label) => {
+            if (_labels.remove (label)) {
+                debug ("Label Removed: %s", label.name);
+            }
+        });
+
         project_deleted.connect ((project) => {
             if (_projects.remove (project)) {
-                debug ("Prodeleteject Removed: %s", project.name);
+                debug ("Project Removed: %s", project.name);
             }
         });
 
-        section_deleted.connect ((section) => {
-            if (_sections.remove (section)) {
-                debug ("Section Removed: %s", section.name);
-            }
-        });
-
-        item_deleted.connect ((item) => {
-            if (_items.remove (item)) {
-                debug ("item Removed: %s", item.content);
-            }
-        });
+        //  item_deleted.connect ((item) => {
+        //      if (_items.remove (item)) {
+        //          debug ("item Removed: %s", item.content);
+        //      }
+        //  });
 
         reminder_deleted.connect ((reminder) => {
             if (_reminders.remove (reminder)) {
                 debug ("Reminder Removed: %s", reminder.id.to_string ());
-            }
-        });
-
-        attachment_deleted.connect ((attachment) => {
-            if (_attachments.remove (attachment)) {
-                debug ("Attachment Removed: %s", attachment.id.to_string ());
             }
         });
     }
@@ -218,6 +206,8 @@ public class Services.Store : GLib.Object {
             }
 
             source.deleted ();
+            source_deleted (source);
+            _sources.remove (source);
         }
     }
 
@@ -286,6 +276,8 @@ public class Services.Store : GLib.Object {
             }
         
             project.deleted ();
+            project_deleted (project);
+            _projects.remove (project);
         }
     }
 
@@ -420,8 +412,10 @@ public class Services.Store : GLib.Object {
             foreach (Objects.Item item in section.items) {
                 delete_item (item);
             }
-    
+            
             section.deleted ();
+            section_deleted (section);
+            _sections.remove (section);
         }
     }
 
@@ -554,6 +548,13 @@ public class Services.Store : GLib.Object {
             }
 
             item.deleted ();
+            item_deleted (item);
+            _items.remove (item);
+
+            item.project.item_deleted (item);
+            if (item.has_section) {
+                item.section.item_deleted (item);
+            }
         }
     }
 
@@ -1179,6 +1180,9 @@ public class Services.Store : GLib.Object {
     public void delete_attachment (Objects.Attachment attachment) {
         if (Services.Database.get_default ().delete_attachment (attachment)) {
             attachment.deleted ();
+            attachment_deleted (attachment);
+            _attachments.remove (attachment);
+
             attachment.item.attachment_deleted (attachment);
         }
     }

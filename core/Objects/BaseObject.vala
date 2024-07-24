@@ -24,6 +24,7 @@ public class Objects.BaseObject : GLib.Object {
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
     public string icon_name { get; set; default = ""; }
+    
     public signal void deleted ();
     public signal void updated (string update_id = "");
     public signal void archived ();
@@ -210,6 +211,10 @@ public class Objects.BaseObject : GLib.Object {
 
             if (this is Objects.Label) {
                 return ((Objects.Label) this).source;
+            }
+
+            if (this is Objects.Reminder) {
+                return ((Objects.Reminder) this).item.project.source;
             }
 
             return _source;

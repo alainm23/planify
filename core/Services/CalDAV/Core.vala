@@ -34,296 +34,28 @@ public class Services.CalDAV.Core : GLib.Object {
 
     public signal void first_sync_started ();
 	public signal void first_sync_finished ();
-
-    private Gee.HashMap<string, string> request_map;
-
-    // vala-lint=naming-convention
-    public static string USER_PRINCIPAL_REQUEST = """
-        <d:propfind xmlns:d="DAV:">
-            <d:prop>
-                <d:current-user-principal />
-            </d:prop>
-        </d:propfind>
-    """;
-
-    // vala-lint=naming-convention
-    public static string USER_DATA_REQUEST = """
-        <x0:propfind xmlns:x0="DAV:">
-            <x0:prop>
-                <x0:displayname/>
-                <x2:email-address xmlns:x2="http://sabredav.org/ns"/>
-            </x0:prop>
-        </x0:propfind>
-    """;
-
-    // vala-lint=naming-convention
-    public static string TASKLIST_REQUEST = """
-        <x0:propfind xmlns:x0="DAV:">
-        <x0:prop>
-            <x0:getcontenttype/>
-            <x0:getetag/>
-            <x0:resourcetype/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-            <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-            <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-            <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-            <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-            <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-            <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-            <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-            <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-            <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-            <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-            <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-            <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-            <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-            <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-            <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-            <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-            <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-            <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-            <x5:source xmlns:x5="http://calendarserver.org/ns/"/>
-            <x6:refreshrate xmlns:x6="http://apple.com/ns/ical/"/>
-            <x5:subscribed-strip-todos xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:subscribed-strip-alarms xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:subscribed-strip-attachments xmlns:x5="http://calendarserver.org/ns/"/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x4:invite xmlns:x4="http://owncloud.org/ns"/>
-            <x5:allowed-sharing-modes xmlns:x5="http://calendarserver.org/ns/"/>
-            <x5:publish-url xmlns:x5="http://calendarserver.org/ns/"/>
-            <x6:calendar-order xmlns:x6="http://apple.com/ns/ical/"/>
-            <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/"/>
-            <x5:getctag xmlns:x5="http://calendarserver.org/ns/"/>
-            <x1:calendar-description xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-timezone xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-calendar-data xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-resource-size xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:min-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-date-time xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-instances xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:max-attendees-per-instance xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:supported-collation-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:calendar-free-busy-set xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-calendar-transp xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x1:schedule-default-calendar-URL xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns"/>
-            <x3:owner-displayname xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:trash-bin-retention-duration xmlns:x3="http://nextcloud.com/ns"/>
-            <x3:deleted-at xmlns:x3="http://nextcloud.com/ns"/>
-            <x1:calendar-availability xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-            <x0:displayname/>
-            <x0:owner/>
-            <x0:resourcetype/>
-            <x0:sync-token/>
-            <x0:current-user-privilege-set/>
-        </x0:prop>
-    </x0:propfind>
-    """; 
     
-    // vala-lint=naming-convention
-    public static string GET_SYNC_TOKEN_REQUEST = """
-    <x0:propfind xmlns:x0="DAV:">
-        <x0:prop>
-            <x0:sync-token/>
-        </x0:prop>
-    </x0:propfind>
-    """;
-
-    // vala-lint=naming-convention
-    public static string CREATE_TASKLIST_REQUEST = """
-        <x0:mkcol xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:resourcetype>
-                        <x0:collection/>
-                        <x1:calendar xmlns:x1="urn:ietf:params:xml:ns:caldav"/>
-                    </x0:resourcetype>0
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                    <x4:calendar-enabled xmlns:x4="http://owncloud.org/ns">1</x4:calendar-enabled>
-                    <x1:supported-calendar-component-set xmlns:x1="urn:ietf:params:xml:ns:caldav">
-                        <x1:comp name="VTODO"/>
-                    </x1:supported-calendar-component-set>
-                </x0:prop>
-            </x0:set>
-        </x0:mkcol>
-    """; 
-    
-    // vala-lint=naming-convention
-    public static string UPDATE_TASKLIST_REQUEST = """
-        <x0:propertyupdate xmlns:x0="DAV:">
-            <x0:set>
-                <x0:prop>
-                    <x0:displayname>%s</x0:displayname>
-                    <x6:calendar-color xmlns:x6="http://apple.com/ns/ical/">%s</x6:calendar-color>
-                </x0:prop>
-            </x0:set>
-        </x0:propertyupdate>
-    """; 
-
-    // vala-lint=naming-convention
-    public static string SYNC_TOKEN_REQUEST = """
-        <d:sync-collection xmlns:d="DAV:">
-            <d:sync-token>%s</d:sync-token>
-            <d:sync-level>1</d:sync-level>
-            <d:prop>
-                <d:getetag/>
-                <d:getcontenttype/>
-            </d:prop>
-        </d:sync-collection>
-    """; 
-    
-    // vala-lint=naming-convention
-    public static string TASKS_REQUEST = """
-        <x1:calendar-query xmlns:x1="urn:ietf:params:xml:ns:caldav">
-            <x0:prop xmlns:x0="DAV:">
-                <x0:getcontenttype/>
-                <x0:getetag/>
-                <x0:resourcetype/>
-                <x0:displayname/>
-                <x0:owner/>
-                <x0:resourcetype/>
-                <x0:sync-token/>
-                <x0:current-user-privilege-set/>
-                <x0:getcontenttype/>
-                <x0:getetag/>
-                <x0:resourcetype/>
-                <x1:calendar-data/>
-            </x0:prop>
-            <x1:filter>
-                <x1:comp-filter name="VCALENDAR">
-                    <x1:comp-filter name="VTODO">
-                    </x1:comp-filter>
-                </x1:comp-filter>
-            </x1:filter>
-        </x1:calendar-query>
-    """;
+    public Gee.HashMap<string, Services.CalDAV.Providers.Base> providers_map = new Gee.HashMap<string, Services.CalDAV.Providers.Base> ();
 
 	public Core () {
 		session = new Soup.Session ();
 		parser = new Json.Parser ();
 
-        //  var network_monitor = GLib.NetworkMonitor.get_default ();
-		//  network_monitor.network_changed.connect (() => {
-		//  	if (GLib.NetworkMonitor.get_default ().network_available &&
-        //          is_logged_in () &&
-		//  	    Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")) {
-		//  		sync_async ();
-		//  	}
-		//  });
-
-        request_map = new Gee.HashMap<string, string> ();
-        request_map.set (CalDAVType.NEXTCLOUD.to_string () + "login", Services.CalDAV.Constants.LOGIN_REQUEST);
-        request_map.set (CalDAVType.RADICALE.to_string () + "login", Services.CalDAV.Constants.LOGIN_REQUEST);
+        providers_map.set (CalDAVType.NEXTCLOUD.to_string (), new Services.CalDAV.Providers.Nextcloud ());
+        providers_map.set (CalDAVType.RADICALE.to_string (), new Services.CalDAV.Providers.Radicale ());
 	}
-
-    public string get_request_data (CalDAVType caldav_type, string method) {
-        if (request_map.has_key (caldav_type.to_string () + method)) {
-            return request_map[caldav_type.to_string () + method];
-        }
-
-        return "";
-    }
 
     public async HttpResponse login (CalDAVType caldav_type, string server_url, string username, string password, GLib.Cancellable cancellable) {
         HttpResponse response = new HttpResponse ();
-        string _server_url = "";
 
-        try {
-            var uri = GLib.Uri.parse (server_url, GLib.UriFlags.NONE);
-
-            if (caldav_type == CalDAVType.NEXTCLOUD) {
-                _server_url = "%s://%s".printf (uri.get_scheme (), uri.get_host ());
-            } else if (caldav_type == CalDAVType.RADICALE) {
-                _server_url = uri.get_host ();
-            }
-        } catch (Error e) {
-            response.error_code = e.code;
-            response.error = e.message;
+        if (!providers_map.has_key (caldav_type.to_string ())) {
+            response.error = _("No Provider Available");
             return response;
         }
 
-        string url = Services.CalDAV.Backend.generate_server_url (caldav_type, _server_url, username, GLib.Uri.escape_string (password));
+        Services.CalDAV.Providers.Base provider = providers_map.get (caldav_type.to_string ());
+
+        string url = provider.get_server_url (server_url, username, password);
         print ("Server URL: %s\n".printf (url));
 
         string credentials = "%s:%s".printf (username, password);
@@ -331,13 +63,13 @@ public class Services.CalDAV.Core : GLib.Object {
 
         var message = new Soup.Message ("PROPFIND", url);
 		message.request_headers.append ("Authorization", "Basic %s".printf (base64_credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (get_request_data (caldav_type, "login").data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.LOGIN_REQUEST.data));
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
             
-            //  print_root ("login", (string) stream.get_data ());
-            //  print ("login status_code: %s\n".printf (message.status_code.to_string ()));
+            print_root ("login", (string) stream.get_data ());
+            print ("login status_code: %s\n".printf (message.status_code.to_string ()));
 
             if (message.status_code == 207) {
                 var source = new Objects.Source ();
@@ -372,28 +104,28 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async void add_caldav_account (Objects.Source source) {
-        var url = "%s/principals/users/%s/".printf (source.caldav_data.server_url, source.caldav_data.username);
+        if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
+            return;
+        }
+
+        Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
+
+        var url = provider.get_account_url (source.caldav_data.server_url, source.caldav_data.username);
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (USER_DATA_REQUEST.data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.USER_DATA_REQUEST.data));
 
         first_sync_started ();
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-            //  print_root ("first_sync", (string) stream.get_data ());
+            print_root ("first_sync", (string) stream.get_data ());
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            GXml.DomElement d_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0);
-            GXml.DomElement d_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0);
+            provider.set_user_data (doc, source);
 
-            source.caldav_data.user_displayname = d_displayname.text_content;
-            source.caldav_data.user_email = d_email.text_content;
-
-            print ("Source: %s\n".printf (source.to_string ()));
             Services.Store.instance ().insert_source (source);
-
+            
             yield get_all_tasklist (source);
         } catch (Error e) {
 			debug (e.message);
@@ -401,26 +133,36 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async void get_all_tasklist (Objects.Source source) {
-        var url = "%s/calendars/%s/".printf (source.caldav_data.server_url, source.caldav_data.username);
+        if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
+            return;
+        }
+
+        Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
+
+        var url = provider.get_all_taskslist_url (source.caldav_data.server_url, source.caldav_data.username);
+        print ("Server URL: %s\n".printf (url));
+
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKLIST_REQUEST.data));
+        message.request_headers.append ("depth", "1");
+        message.request_headers.append ("Host", "radicale.xlumurb.eu");
+        message.request_headers.append ("User-Agent", "Planify");
+        message.request_headers.append ("Content-Length", "629");
+        message.request_headers.append ("Content-Type", "application/xml; charset=utf-8");
+        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-            //  print_root ("get_all_tasklist", (string) stream.get_data ());
+            print_root ("get_all_tasklist", (string) stream.get_data ());
+            print ("login status_code: %s\n".printf (message.status_code.to_string ()));
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-            foreach (GXml.DomElement element in response) {
-                if (is_vtodo_calendar (element)) {
-                    var project = new Objects.Project.from_caldav_xml (element);
-                    project.source_id = source.id;
-                    
-                    Services.Store.instance ().insert_project (project);
-                    yield get_all_tasks_by_tasklist (project);
-                }
+            Gee.ArrayList<Objects.Project> projects = provider.get_projects_by_doc (doc, source);
+
+            foreach (Objects.Project project in projects) {
+                Services.Store.instance ().insert_project (project);
+                //  yield get_all_tasks_by_tasklist (project);
             }
             
             first_sync_finished ();
@@ -439,12 +181,12 @@ public class Services.CalDAV.Core : GLib.Object {
         var message = new Soup.Message ("REPORT", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.request_headers.append ("Depth", "1");
-        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKS_REQUEST.data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST.data));
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
             
-            //  print_root ("get_all_tasks_by_tasklist", (string) stream.get_data ());
+            print_root ("get_all_tasks_by_tasklist", (string) stream.get_data ());
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
@@ -460,7 +202,7 @@ public class Services.CalDAV.Core : GLib.Object {
                 label.id = Util.get_default ().generate_id (label);
                 label.name = category;
                 label.color = Util.get_default ().get_random_color ();
-                label.backend_type = SourceType.CALDAV;
+                label.source_id = project.source_id;
                 Services.Store.instance ().insert_label (label);
             }
 
@@ -496,7 +238,7 @@ public class Services.CalDAV.Core : GLib.Object {
         var message = new Soup.Message ("REPORT", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.request_headers.append ("Depth", "1");
-        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKS_REQUEST.data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST.data));
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -511,14 +253,13 @@ public class Services.CalDAV.Core : GLib.Object {
             }
 
             foreach (string category in labels_map.values) {
-                // TODO: VERIFICAR CALDAV
-                var label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
+                var label = Services.Store.instance ().get_label_by_name (category, true, project.source_id);
                 if (label == null) {
                     label = new Objects.Label ();
                     label.id = Util.get_default ().generate_id (label);
                     label.name = category;
                     label.color = Util.get_default ().get_random_color ();
-                    label.backend_type = SourceType.CALDAV;
+                    label.source_id = project.source_id;
                     Services.Store.instance ().insert_label (label);
                 }
             }
@@ -534,6 +275,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
                     string old_project_id = item.project_id;
                     string old_parent_id = item.parent_id;
+                    bool old_checked = item.checked;
 
                     item.update_from_caldav_xml (element);
                     item.project_id = project.id;
@@ -543,7 +285,6 @@ public class Services.CalDAV.Core : GLib.Object {
                         Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
                     }
 
-                    bool old_checked = item.checked;
                     if (old_checked != item.checked) {
                         Services.Store.instance ().checked_toggled (item, old_checked);
                     }
@@ -564,23 +305,18 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     private Objects.Item add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
-        Objects.Item return_value;
+        Objects.Item return_value = new Objects.Item.from_caldav_xml (element);
+        return_value.project_id = project.id;;
 
         string parent_id = Util.get_related_to_uid (element);
         if (parent_id != "") {
             Objects.Item? parent_item = Services.Store.instance ().get_item (parent_id);
             if (parent_item != null) {
-                return_value = new Objects.Item.from_caldav_xml (element);
-                return_value.project_id = project.id;
                 parent_item.add_item_if_not_exists (return_value);
             } else {
-                return_value = new Objects.Item.from_caldav_xml (element);
-                return_value.project_id = project.id;
                 project.add_item_if_not_exists (return_value);
             }
         } else {
-            return_value = new Objects.Item.from_caldav_xml (element);
-            return_value.project_id = project.id;
             project.add_item_if_not_exists (return_value);
         }
 
@@ -592,7 +328,7 @@ public class Services.CalDAV.Core : GLib.Object {
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
         message.request_headers.append ("Depth", "1");
-        message.set_request_body_from_bytes ("application/xml", new Bytes (TASKLIST_REQUEST.data));
+        //  message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKLIST_REQUEST.data));
 
         source.sync_started ();
         
@@ -609,6 +345,8 @@ public class Services.CalDAV.Core : GLib.Object {
                     Objects.Project? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
                     if (project == null) {
                         project = new Objects.Project.from_caldav_xml (element);
+                        project.source_id = source.id;
+
                         Services.Store.instance ().insert_project (project);
                         yield get_all_tasks_by_tasklist (project);
                     } else {
@@ -635,10 +373,12 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     public async void sync_tasklist (Objects.Project project) {
+        yield update_tasklist_detail (project);
+
         var url = "%s/calendars/%s/%s".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("REPORT", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.SYNC_TOKEN_REQUEST.printf (project.sync_id)).data));
 
         try {
             if (project.sync_id == "") {
@@ -674,7 +414,8 @@ public class Services.CalDAV.Core : GLib.Object {
                     if (item != null) {
                         string old_project_id = item.project_id;
                         string old_parent_id = item.parent_id;
-                        
+                        bool old_checked = item.checked;
+
                         item.update_from_vtodo (vtodo, ics);
                         item.project_id = project.id;
                         Services.Store.instance ().update_item (item);
@@ -682,8 +423,7 @@ public class Services.CalDAV.Core : GLib.Object {
                         if (old_project_id != item.project_id || old_parent_id != item.parent_id) {
                             Services.EventBus.get_default ().item_moved (item, old_project_id, "", old_parent_id);
                         }
-    
-                        bool old_checked = item.checked;
+                        
                         if (old_checked != item.checked) {
                             Services.Store.instance ().checked_toggled (item, old_checked);
                         }
@@ -737,11 +477,13 @@ public class Services.CalDAV.Core : GLib.Object {
         return return_value;
     }
 
+    // TODO
     private async void add_project_if_not_exists (GXml.DomElement element, Gee.HashMap<string, string> labels_map) {
         if (is_vtodo_calendar (element)) {
             Objects.Project? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
             if (project == null) {
                 project = new Objects.Project.from_caldav_xml (element);
+
                 Services.Store.instance ().insert_project (project);
                 yield get_all_tasks_by_tasklist (project);
             } else {
@@ -803,7 +545,7 @@ public class Services.CalDAV.Core : GLib.Object {
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("MKCOL", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
 
         bool status = false;
 
@@ -822,7 +564,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
         var message = new Soup.Message ("PROPPATCH", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
 
         bool status = false;
 
@@ -853,64 +595,90 @@ public class Services.CalDAV.Core : GLib.Object {
         return status;
     }
 
-    public async HttpResponse refresh_tasklist (Objects.Project project) {
+    public async void refresh_tasklist (Objects.Project project) {
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((TASKLIST_REQUEST).data));
-
-        HttpResponse return_value = new HttpResponse ();
+        //  message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.TASKLIST_REQUEST).data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
             print_root ("refresh_tasklist", (string) stream.get_data ());
 
-            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
+            //  GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
+            //  GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
             
-            // Categories
-            Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
+            //  // Categories
+            //  Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
 
-            foreach (GXml.DomElement element in response) {
-                yield add_project_if_not_exists (element, labels_map);
-            }
-
-            return_value.status = true;
+            //  foreach (GXml.DomElement element in response) {
+            //      yield add_project_if_not_exists (element, labels_map);
+            //  }
         } catch (Error e) {
 			debug (e.message);
 		}
-
-        return return_value;
     }
 
-    public async HttpResponse get_sync_token (Objects.Project project) {
+    private async void update_tasklist_detail (Objects.Project project) {
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
 
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        message.set_request_body_from_bytes ("application/xml", new Bytes ((GET_SYNC_TOKEN_REQUEST).data));
-
-        HttpResponse return_value = new HttpResponse ();
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.TASKS_REQUEST_DETAIL).data));
 
         try {
             GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-            print_root ("get_tasklist", (string) stream.get_data ());
+            print_root ("get_tasklist_detail", (string) stream.get_data ());
+
+            GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
+            GXml.DomHTMLCollection response_collection = doc.get_elements_by_tag_name ("d:response");
+            
+            if (response_collection.length > 0) {
+                GXml.DomElement d_response = response_collection.get_element (0);
+                GXml.DomElement d_prop = d_response.get_elements_by_tag_name ("d:prop").get_element (0);
+
+                GXml.DomHTMLCollection displayname_elements = d_prop.get_elements_by_tag_name ("d:displayname");
+                if (displayname_elements.length > 0) {
+                    project.name = displayname_elements.get_element (0).text_content;
+                }
+
+                GXml.DomHTMLCollection color_elements = d_prop.get_elements_by_tag_name ("x1:calendar-color");
+                if (color_elements.length > 0) {
+                    project.color = color_elements.get_element (0).text_content;
+                }
+
+                Services.Store.instance ().update_project (project);
+            }
+        } catch (Error e) {
+			debug (e.message);
+		}
+    }
+
+    public async void update_sync_token (Objects.Project project) {
+        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
+
+        var message = new Soup.Message ("PROPFIND", url);
+        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
+        message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.GET_SYNC_TOKEN_REQUEST).data));
+
+        try {
+            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            print_root ("update_sync_token", (string) stream.get_data ());
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
             GXml.DomHTMLCollection sync_token_collection = doc.get_elements_by_tag_name ("d:sync-token"); 
             
             if (sync_token_collection.length > 0) {
-                return_value.status = true;
-                return_value.data = sync_token_collection.get_element (0).text_content;
+                project.sync_id = sync_token_collection.get_element (0).text_content;
+                project.update_local ();
             }
         } catch (Error e) {
 			debug (e.message);
 		}
-
-        return return_value;
     }
 
     /*

@@ -108,12 +108,15 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             margin_end = 3
         };
 
+        var reorder = new Widgets.ReorderChild (card, this);
+
 		main_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
-			child = card
+			child = reorder
         };
-
+        
 		child = main_revealer;
+        reorder.build_drag_and_drop ();
 
 		Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
@@ -133,6 +136,28 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             popover.popdown ();
             source.delete_source (Planify._instance.main_window);
         });
+
+        reorder.on_drop_end.connect ((listbox) => {
+            update_views_order (listbox);
+        });
+    }
+
+    private void update_views_order (Gtk.ListBox listbox) {
+        unowned Widgets.SourceRow? row = null;
+        var row_index = 0;
+
+        do {
+            row = (Widgets.SourceRow) listbox.get_row_at_index (row_index);
+
+            if (row != null) {
+                row.source.child_order = row_index;
+                row.source.save ();
+            }
+
+            row_index++;
+        } while (row != null);
+
+        Services.EventBus.get_default ().update_sources_position ();
     }
 
     public void hide_destroy () {

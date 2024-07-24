@@ -289,15 +289,6 @@ public class Objects.Item : Objects.BaseObject {
     public signal void collapsed_change ();
     public signal void attachment_added (Objects.Attachment attachment);
     public signal void attachment_deleted (Objects.Attachment attachment);
-    
-    construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Store.instance ().item_deleted (this);
-                return false;
-            });
-        });
-    }
 
     public Item.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
@@ -505,6 +496,10 @@ public class Objects.Item : Objects.BaseObject {
         string data = prop.get_elements_by_tag_name ("cal:calendar-data").get_element (0).text_content;
         string etag = prop.get_elements_by_tag_name ("d:getetag").get_element (0).text_content;
 
+        print ("---------------------\n");
+        print ("%s\n".printf (data));
+        print ("---------------------\n");
+
         ICal.Component ical = new ICal.Component.from_string (data);
 
         id = ical.get_uid ();
@@ -572,8 +567,7 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            // TODO: VERIFICAR CALDAV
-            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, source.id);
             if (label != null) {
                 return_value.add (label);
             }
@@ -638,7 +632,8 @@ public class Objects.Item : Objects.BaseObject {
 
         string[] categories_list = categories.split (",");
         foreach (unowned string category in categories_list) {
-            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, SourceType.CALDAV.to_string ());
+            // TODO
+            Objects.Label label = Services.Store.instance ().get_label_by_name (category, true, source.id);
             if (label != null) {
                 return_value [label.id] = label;
             } else {

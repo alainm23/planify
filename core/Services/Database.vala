@@ -469,7 +469,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_source (stmt));
         }
-        stmt.reset ();
+
         return return_value;
     }
 
@@ -518,7 +518,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -536,7 +535,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -569,7 +567,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -591,7 +588,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_project (stmt));
         }
-        stmt.reset ();
+
         return return_value;
     }
 
@@ -662,11 +659,10 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$sync_id", project.sync_id);
         set_parameter_str (stmt, "$source_id", project.source_id);
 
-        if (stmt.step () == Sqlite.DONE) {
+        if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
     
@@ -684,7 +680,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -704,8 +699,6 @@ public class Services.Database : GLib.Object {
         if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
-
-        stmt.reset ();
     }
 
     public bool update_project (Objects.Project project) {
@@ -767,7 +760,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -786,7 +778,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -807,7 +798,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_label (stmt));
         }
-        stmt.reset ();
+
         return return_value;
     }
     
@@ -848,7 +839,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -866,7 +856,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -894,7 +883,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -930,7 +918,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
     
@@ -945,7 +932,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_section (stmt));
         }
-        stmt.reset ();
+
         return return_value;
     }
 
@@ -980,7 +967,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1013,7 +999,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1032,7 +1017,6 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1051,7 +1035,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1070,7 +1054,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1112,26 +1096,11 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
 
-        if (stmt.step () == Sqlite.DONE) {
+        if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
-
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
-    }
-
-    public string get_labels_ids (Gee.ArrayList<Objects.Label> labels) {
-        string return_value = "";
-            
-        foreach (Objects.Label label in labels) {
-            return_value += label.id + ";";
-        }
-
-        if (return_value.length > 0) {
-            return_value = return_value.substring (0, return_value.length - 1);
-        }
-
-        return return_value;
     }
 
     public Gee.ArrayList<Objects.Item> get_items_collection () {
@@ -1145,7 +1114,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_item (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
 
@@ -1162,7 +1131,7 @@ public class Services.Database : GLib.Object {
             returned = _fill_item (stmt);
         }
 
-        stmt.reset ();
+        
         return returned;
     }
 
@@ -1206,7 +1175,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1241,7 +1210,7 @@ public class Services.Database : GLib.Object {
         set_parameter_int (stmt, "$day_order", item.day_order);
         set_parameter_bool (stmt, "$collapsed", item.collapsed);
         set_parameter_bool (stmt, "$pinned", item.pinned);
-        //  set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
+        set_parameter_str (stmt, "$labels", get_labels_ids (item.labels));
         set_parameter_str (stmt, "$extra_data", item.extra_data);
         set_parameter_str (stmt, "$item_type", item.item_type.to_string ());
         set_parameter_str (stmt, "$id", item.id);
@@ -1250,7 +1219,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1272,11 +1241,11 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$parent_id", item.parent_id);
         set_parameter_str (stmt, "$id", item.id);
 
-        if (stmt.step () == Sqlite.DONE) {
+        if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1297,7 +1266,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1326,7 +1295,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     // Reminders
@@ -1350,7 +1319,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1367,7 +1336,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_reminder (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
     
@@ -1395,7 +1364,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_reminder (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
 
@@ -1413,7 +1382,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1439,7 +1408,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1456,7 +1425,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_attachment (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
 
@@ -1485,7 +1454,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
         
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1513,7 +1482,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public Gee.ArrayList<Objects.Queue> get_all_queue () {
@@ -1529,7 +1498,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_queue (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
 
@@ -1561,7 +1530,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public bool curTempIds_exists (string id) { // vala-lint=naming-convention
@@ -1579,7 +1548,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_int (0) > 0;
         }
 
-        stmt.reset ();
+        
         return returned;
     }
 
@@ -1598,7 +1567,7 @@ public class Services.Database : GLib.Object {
             returned = stmt.column_text (0);
         }
 
-        stmt.reset ();
+        
         return returned;
     }
 
@@ -1617,7 +1586,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1636,7 +1605,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1655,7 +1624,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1674,7 +1643,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1693,7 +1662,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1708,11 +1677,11 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () == Sqlite.DONE) {
+        if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1727,11 +1696,11 @@ public class Services.Database : GLib.Object {
         set_parameter_str (stmt, "$new_id", new_id);
         set_parameter_str (stmt, "$current_id", current_id);
 
-        if (stmt.step () == Sqlite.DONE) {
+        if (stmt.step () != Sqlite.DONE) {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
         return stmt.step () == Sqlite.DONE;
     }
 
@@ -1749,7 +1718,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public void remove_queue (string uuid) {
@@ -1766,7 +1735,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public void clear_queue () {
@@ -1785,7 +1754,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public void clear_cur_temp_ids () {
@@ -1804,7 +1773,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     /* 
@@ -1830,7 +1799,7 @@ public class Services.Database : GLib.Object {
         while (stmt.step () == Sqlite.ROW) {
             return_value.add (_fill_object_event (stmt));
         }
-        stmt.reset ();
+        
         return return_value;
     }
 
@@ -1889,6 +1858,20 @@ public class Services.Database : GLib.Object {
         return parser.get_root ().get_object ();
     }
 
+    public string get_labels_ids (Gee.ArrayList<Objects.Label> labels) {
+        string return_value = "";
+            
+        foreach (Objects.Label label in labels) {
+            return_value += label.id + ";";
+        }
+
+        if (return_value.length > 0) {
+            return_value = return_value.substring (0, return_value.length - 1);
+        }
+
+        return return_value;
+    }
+
     public bool column_exists (string table, string column) {
         Sqlite.Statement stmt;
         bool returned = false;
@@ -1907,7 +1890,7 @@ public class Services.Database : GLib.Object {
             }
         }
 
-        stmt.reset ();
+        
         return returned;
     }
 
@@ -1928,7 +1911,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public void add_int_column (string table, string column, int default_value) {
@@ -1948,7 +1931,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+        
     }
 
     public void add_item_label_column () {
@@ -1975,7 +1958,7 @@ public class Services.Database : GLib.Object {
             warning ("Error: %d: %s", db.errcode (), db.errmsg ());
         }
 
-        stmt.reset ();
+
     }
 
     public void add_project_labels_source_id () {

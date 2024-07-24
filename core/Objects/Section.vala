@@ -67,8 +67,6 @@ public class Objects.Section : Objects.BaseObject {
         }
     }
 
-    public signal void item_added (Objects.Item item);
-
     int? _section_count = null;
     public int section_count {
         get {
@@ -86,15 +84,10 @@ public class Objects.Section : Objects.BaseObject {
 
     public signal void section_count_updated ();
 
-    construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Store.instance ().section_deleted (this);
-                return false;
-            });
-        });
-        
+    public signal void item_added (Objects.Item item);
+    public signal void item_deleted (Objects.Item item);
 
+    construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.section_id == id) {
                 _section_count = update_section_count ();
@@ -102,18 +95,14 @@ public class Objects.Section : Objects.BaseObject {
             }
         });
 
-        Services.Store.instance ().item_deleted.connect ((item) => {
-            if (item.section_id == id) {
-                _section_count = update_section_count ();
-                section_count_updated ();
-            }
+        item_deleted.connect ((item) => {
+            _section_count = update_section_count ();
+            section_count_updated ();
         });
 
-        Services.Store.instance ().item_added.connect ((item) => {
-            if (item.section_id == id) {
-                _section_count = update_section_count ();
-                section_count_updated ();
-            }
+        item_added.connect ((item) => {
+            _section_count = update_section_count ();
+            section_count_updated ();
         });
     }
 

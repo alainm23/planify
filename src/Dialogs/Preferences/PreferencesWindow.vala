@@ -825,13 +825,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
 
-		//  var local_item = new Widgets.ContextMenu.MenuItem (_("On This Computer"));
 		var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
-		var caldav_item = new Widgets.ContextMenu.MenuItem (_("CalDAV"));
+		var caldav_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
-		//  menu_box.append (local_item);
 		menu_box.append (todoist_item);
 		menu_box.append (caldav_item);
 
@@ -858,8 +856,13 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		sources_group.add_widget_end (add_source_button);
 
-		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
 		content_box.append (sources_group);
+		content_box.append (new Gtk.Label (_("You can sort your accounts by dragging and dropping")) {
+            css_classes = { "caption", "dim-label" },
+            halign = START,
+            margin_start = 12
+        });
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -952,16 +955,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		user_box.append (user_label);
 		user_box.append (email_label);
 
-		var sync_server_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = source.sync_server
-		};
-
-		var sync_server_row = new Adw.ActionRow ();
+		var sync_server_row = new Adw.SwitchRow ();
 		sync_server_row.title = _("Sync Server");
 		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
-		sync_server_row.set_activatable_widget (sync_server_switch);
-		sync_server_row.add_suffix (sync_server_switch);
+		sync_server_row.active = source.sync_server;
 
 		var last_sync_date = new GLib.DateTime.from_iso8601 (
 			source.last_sync, new GLib.TimeZone.local ()
@@ -1008,9 +1005,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			pop_subpage ();
 		});
 
-		sync_server_row.notify["active"].connect (() => {
-			source.sync_server = sync_server_switch.active;
+		sync_server_row.activated.connect (() => {
+			source.sync_server = !source.sync_server;
 			source.save ();
+
+			if (source.sync_server) {
+				source.run_server ();
+			} else {
+				source.remove_sync_server ();
+			}
 		});
 
 		return page;

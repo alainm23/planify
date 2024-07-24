@@ -48,14 +48,6 @@ public class Services.Todoist : GLib.Object {
 	public Todoist () {
 		session = new Soup.Session ();
 		parser = new Json.Parser ();
-
-		//  var network_monitor = GLib.NetworkMonitor.get_default ();
-		//  network_monitor.network_changed.connect (() => {
-		//  	if (GLib.NetworkMonitor.get_default ().network_available && is_logged_in () &&
-		//  	    Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")) {
-		//  		sync_async ();
-		//  	}
-		//  });
 	}
 
 	public bool invalid_token () {
@@ -314,6 +306,7 @@ public class Services.Todoist : GLib.Object {
 							string old_project_id = item.project_id;
 							string old_section_id = item.section_id;
 							string old_parent_id = item.parent_id;
+							bool old_checked = item.checked;
 
 							item.update_from_json (_node);
 							Services.Store.instance ().update_item (item);
@@ -323,7 +316,6 @@ public class Services.Todoist : GLib.Object {
 								Services.EventBus.get_default ().item_moved (item, old_project_id, old_section_id, old_parent_id);
 							}
 
-							bool old_checked = item.checked;
 							if (old_checked != item.checked) {
 								Services.Store.instance ().checked_toggled (item, old_checked);
 							}

@@ -80,15 +80,22 @@ public class Layouts.Sidebar : Adw.Bin {
         filters_flow.append (pinboard_filter);
         filters_flow.append (completed_filter);
 
-        favorites_header = new Layouts.HeaderItem (_("Favorites"));
+        favorites_header = new Layouts.HeaderItem (_("Favorites")) {
+            margin_top = 12
+        };
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
-        favorites_header.margin_top = 6;
 
         sources_listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = Gtk.Align.START,
             css_classes = { "listbox-background" }
         };
+
+        sources_listbox.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
+            int item2 = ((Layouts.SidebarSourceRow) child2).source.child_order;
+            return item1 - item2;
+        });
 
         var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
             css_classes = { "gift-animation" }
@@ -182,6 +189,10 @@ public class Layouts.Sidebar : Adw.Bin {
 
             update_version ();
             whats_new_revealer.reveal_child = verify_new_version ();
+        });
+
+        Services.EventBus.get_default ().update_sources_position.connect (() => {
+            sources_listbox.invalidate_sort ();
         });
     }
 

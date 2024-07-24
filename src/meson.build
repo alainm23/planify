@@ -19,7 +19,8 @@ sources = files(
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
   'Services/Backups.vala',
-  'Services/Migrate.vala',
+  'Services/MigrateFromPlanner.vala',
+  'Services/NetworkMonitor.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',

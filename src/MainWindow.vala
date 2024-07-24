@@ -286,6 +286,14 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Store.instance ().project_archived.connect (check_archived);
 		Services.Store.instance ().project_unarchived.connect (check_archived);
+
+		Services.NetworkMonitor.instance ().network_changed.connect (() => {
+			if (Services.NetworkMonitor.instance ().network_available) {
+				foreach (Objects.Source source in Services.Store.instance ().sources) {
+					source.run_server ();
+				}
+			}
+        });
 	}
 
 	public void show_hide_sidebar () {
@@ -319,7 +327,7 @@ public class MainWindow : Adw.ApplicationWindow {
 		
 		Timeout.add (Constants.SYNC_TIMEOUT, () => {
 			foreach (Objects.Source source in Services.Store.instance ().sources) {
-				//  source.run_server ();
+				source.run_server ();
 			}
 			
 			return GLib.Source.REMOVE;
