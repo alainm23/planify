@@ -92,6 +92,7 @@
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
+    <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
   </gresource>
 
 <gresource prefix="/io/github/alainm23/planify/Devel/icons/scalable/actions">
@@ -158,6 +159,7 @@
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
+    <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
   </gresource>
 
   <gresource prefix="/io/github/alainm23/planify/quick-add/icons/scalable/actions">
@@ -224,5 +226,6 @@
     <file alias="size-vertically-symbolic.svg">resources/icons/size-vertically-symbolic.svg</file>
     <file alias="info-outline-symbolic.svg">resources/icons/info-outline-symbolic.svg</file>
     <file alias="rotation-edit-symbolic.svg">resources/icons/rotation-edit-symbolic.svg</file>
+    <file alias="cross-large-circle-outline-symbolic.svg">resources/icons/cross-large-circle-outline-symbolic.svg</file>
   </gresource>
 </gresources>

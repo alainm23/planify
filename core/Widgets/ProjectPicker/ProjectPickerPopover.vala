@@ -31,7 +31,7 @@ public class Widgets.ProjectPicker.ProjectPickerPopover : Gtk.Popover {
 
         foreach (Objects.Source source in Services.Store.instance ().sources) {
             if (!sources_hashmap.has_key (source.id)) {
-                sources_hashmap[source.id] = new Layouts.HeaderItem (source.header_text) {
+                sources_hashmap[source.id] = new Layouts.HeaderItem (source.display_name) {
                     reveal_child = Services.Store.instance ().get_projects_by_source (source.id).size > 0,
                     card = true,
                     show_separator = false

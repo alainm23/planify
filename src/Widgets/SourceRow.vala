@@ -39,7 +39,7 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
             active = source.is_visible
         };
 
-        var header_label = new Gtk.Label (source.header_text);
+        var header_label = new Gtk.Label (source.display_name);
 
         var subheader_label = new Gtk.Label (source.subheader_text) {
             halign = Gtk.Align.START,
@@ -121,6 +121,10 @@ public class Widgets.SourceRow : Gtk.ListBoxRow {
 		Timeout.add (main_revealer.transition_duration, () => {
             main_revealer.reveal_child = true;
             return GLib.Source.REMOVE;
+        });
+
+        source.updated.connect (() => {
+            header_label.label = source.display_name;
         });
 
         visible_checkbutton.toggled.connect (() => {

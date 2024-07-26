@@ -71,7 +71,7 @@ public class Services.CalDAV.Core : GLib.Object {
             print_root ("login", (string) stream.get_data ());
             print ("login status_code: %s\n".printf (message.status_code.to_string ()));
 
-            if (message.status_code == 207) {
+            if (message.get_status () == Soup.Status.MULTI_STATUS) {
                 var source = new Objects.Source ();
                 source.id = Util.get_default ().generate_id ();
                 source.source_type = SourceType.CALDAV;
@@ -103,9 +103,12 @@ public class Services.CalDAV.Core : GLib.Object {
         return response;
     }
 
-    public async void add_caldav_account (Objects.Source source) {
+    public async HttpResponse add_caldav_account (Objects.Source source, GLib.Cancellable cancellable) {
+        HttpResponse response = new HttpResponse ();
+
         if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
-            return;
+            response.error = _("No Provider Available");
+            return response;
         }
 
         Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
@@ -118,7 +121,7 @@ public class Services.CalDAV.Core : GLib.Object {
         first_sync_started ();
 
         try {
-			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
             print_root ("first_sync", (string) stream.get_data ());
 
             GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
@@ -126,13 +129,15 @@ public class Services.CalDAV.Core : GLib.Object {
 
             Services.Store.instance ().insert_source (source);
             
-            yield get_all_tasklist (source);
+            yield get_all_tasklist (source, cancellable);
         } catch (Error e) {
 			debug (e.message);
 		}
+
+        return response;
     }
 
-    public async void get_all_tasklist (Objects.Source source) {
+    public async void get_all_tasklist (Objects.Source source, GLib.Cancellable cancellable) {
         if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
             return;
         }
@@ -144,15 +149,10 @@ public class Services.CalDAV.Core : GLib.Object {
 
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
-        message.request_headers.append ("depth", "1");
-        message.request_headers.append ("Host", "radicale.xlumurb.eu");
-        message.request_headers.append ("User-Agent", "Planify");
-        message.request_headers.append ("Content-Length", "629");
-        message.request_headers.append ("Content-Type", "application/xml; charset=utf-8");
         message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
 
         try {
-			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, cancellable);
 
             print_root ("get_all_tasklist", (string) stream.get_data ());
             print ("login status_code: %s\n".printf (message.status_code.to_string ()));
@@ -162,7 +162,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
             foreach (Objects.Project project in projects) {
                 Services.Store.instance ().insert_project (project);
-                //  yield get_all_tasks_by_tasklist (project);
+                yield get_all_tasks_by_tasklist (project);
             }
             
             first_sync_finished ();
@@ -324,11 +324,17 @@ public class Services.CalDAV.Core : GLib.Object {
 	}
 
     public async void sync (Objects.Source source) {
+        if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
+            return;
+        }
+
+        Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
+        
         var url = "%s/calendars/%s/".printf (source.caldav_data.server_url, source.caldav_data.username);
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
         message.request_headers.append ("Depth", "1");
-        //  message.set_request_body_from_bytes ("application/xml", new Bytes (Services.CalDAV.Providers.Nextcloud.TASKLIST_REQUEST.data));
+        message.set_request_body_from_bytes ("application/xml", new Bytes (provider.TASKLIST_REQUEST.data));
 
         source.sync_started ();
         
@@ -428,21 +434,19 @@ public class Services.CalDAV.Core : GLib.Object {
                             Services.Store.instance ().checked_toggled (item, old_checked);
                         }
                     } else {
+                        var new_item = new Objects.Item.from_vtodo (vtodo, ics);
+                        new_item.project_id = project.id;
+
                         string parent_id = Util.find_string_value ("RELATED-TO", vtodo);
                         if (parent_id != "") {
                             Objects.Item? parent_item = Services.Store.instance ().get_item (parent_id);
+
                             if (parent_item != null) {
-                                var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                                new_item.project_id = project.id;
                                 parent_item.add_item_if_not_exists (new_item);
                             } else {
-                                var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                                new_item.project_id = project.id;
                                 project.add_item_if_not_exists (new_item);
                             }
                         } else {
-                            var new_item = new Objects.Item.from_vtodo (vtodo, ics);
-                            new_item.project_id = project.id;
                             project.add_item_if_not_exists (new_item);
                         }
                     }  
@@ -475,28 +479,6 @@ public class Services.CalDAV.Core : GLib.Object {
         }
 
         return return_value;
-    }
-
-    // TODO
-    private async void add_project_if_not_exists (GXml.DomElement element, Gee.HashMap<string, string> labels_map) {
-        if (is_vtodo_calendar (element)) {
-            Objects.Project? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
-            if (project == null) {
-                project = new Objects.Project.from_caldav_xml (element);
-
-                Services.Store.instance ().insert_project (project);
-                yield get_all_tasks_by_tasklist (project);
-            } else {
-                project.update_from_xml (element);
-                Services.Store.instance ().update_project (project);
-                yield update_all_tasks_by_tasklist (project, labels_map);
-            }
-        } else if (is_deleted_calendar (element)) {
-            Objects.Project? project = Services.Store.instance ().get_project (get_tasklist_id_from_url (element));
-            if (project != null) {
-                Services.Store.instance ().delete_project (project);
-            }
-        }
     }
 
     public string get_tasklist_id_from_url (GXml.DomElement element) {
@@ -541,84 +523,83 @@ public class Services.CalDAV.Core : GLib.Object {
      * Tasklist
      */
 
-    public async bool add_tasklist (Objects.Project project) {
+    public async HttpResponse add_tasklist (Objects.Project project) {
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         var message = new Soup.Message ("MKCOL", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.CREATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
 
-        bool status = false;
+        HttpResponse response = new HttpResponse ();
 
         try {
-			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-            status = true;
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            if (message.get_status () == Soup.Status.CREATED) {
+                response.status = true;
+            } else {
+                response.error_code = (int) message.status_code;
+                response.error = (string) stream.get_data ();
+            }
         } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
 
-        return status;
+        return response;
     }
 
-    public async bool update_tasklist (Objects.Project project) {        
+    public async HttpResponse update_tasklist (Objects.Project project) {        
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
 
         var message = new Soup.Message ("PROPPATCH", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
         message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.UPDATE_TASKLIST_REQUEST.printf (project.name, project.color_hex)).data));
 
-        bool status = false;
+        HttpResponse response = new HttpResponse ();
 
         try {
-			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-            status = true;
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            
+            if (message.get_status () == Soup.Status.MULTI_STATUS) {
+                response.status = true;
+            } else {
+                response.error_code = (int) message.status_code;
+                response.error = (string) stream.get_data ();
+            }
         } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
 
-        return status;
+        return response;
     }
 
-    public async bool delete_tasklist (Objects.Project project) {        
+    public async HttpResponse delete_tasklist (Objects.Project project) {        
         var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
         
         var message = new Soup.Message ("DELETE", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        bool status = false;
+
+        HttpResponse response = new HttpResponse ();
 
         try {
-			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-            status = true;
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+
+            if (message.get_status () == Soup.Status.NO_CONTENT) {
+                response.status = true;
+            } else {
+                response.error_code = (int) message.status_code;
+                response.error = (string) stream.get_data ();
+            }
         } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
 
-        return status;
-    }
-
-    public async void refresh_tasklist (Objects.Project project) {
-        var url = "%s/calendars/%s/%s/".printf (project.source.caldav_data.server_url, project.source.caldav_data.username, project.id);
-        
-        var message = new Soup.Message ("PROPFIND", url);
-        message.request_headers.append ("Authorization", "Basic %s".printf (project.source.caldav_data.credentials));
-        //  message.set_request_body_from_bytes ("application/xml", new Bytes ((Services.CalDAV.Providers.Nextcloud.TASKLIST_REQUEST).data));
-
-        try {
-            GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
-            print_root ("refresh_tasklist", (string) stream.get_data ());
-
-            //  GXml.DomDocument doc = new GXml.Document.from_string ((string) stream.get_data ());
-            //  GXml.DomHTMLCollection response = doc.get_elements_by_tag_name ("d:response");
-            
-            //  // Categories
-            //  Gee.HashMap<string, string> labels_map = new Gee.HashMap<string, string> ();
-
-            //  foreach (GXml.DomElement element in response) {
-            //      yield add_project_if_not_exists (element, labels_map);
-            //  }
-        } catch (Error e) {
-			debug (e.message);
-		}
+        return response;
     }
 
     private async void update_tasklist_detail (Objects.Project project) {
@@ -699,7 +680,7 @@ public class Services.CalDAV.Core : GLib.Object {
         try {
 			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
 
-            if (update ? message.status_code == 204 : message.status_code == 201) {
+            if (update ? message.get_status () == Soup.Status.NO_CONTENT : message.get_status () == Soup.Status.CREATED) {
                 response.status = true;
                 item.extra_data = Util.generate_extra_data (ics, "", item.to_vtodo ());
             }
@@ -720,18 +701,17 @@ public class Services.CalDAV.Core : GLib.Object {
 
         try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
-
             print_root ("delete_task", (string) stream.get_data ());
 
-            if (message.status_code == 204) {
+            if (message.get_status () == Soup.Status.NO_CONTENT) {
                 response.status = true;
             } else {
                 response.error_code = (int) message.status_code;
                 response.error = (string) stream.get_data ();
-                print ("Code: %d, Error: %s\n".printf (response.error_code, response.error));
             }
         } catch (Error e) {
-			debug (e.message);
+            response.error_code = e.code;
+            response.error = e.message;
 		}
 
         return response;
@@ -751,11 +731,15 @@ public class Services.CalDAV.Core : GLib.Object {
         HttpResponse response = new HttpResponse ();
 
         try {            
-			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            print_root ("complete_item", (string) stream.get_data ());
 
-            if (message.status_code == 204) {
+            if (message.get_status () == Soup.Status.NO_CONTENT) {
                 response.status = true;
                 item.extra_data = Util.generate_extra_data (ics, "", body);
+            } else {
+                response.error_code = (int) message.status_code;
+                response.error = (string) stream.get_data ();
             }
         } catch (Error e) {
 			debug (e.message);
@@ -777,13 +761,18 @@ public class Services.CalDAV.Core : GLib.Object {
         HttpResponse response = new HttpResponse ();
 
         try {
-			yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
+            print_root ("move_task", (string) stream.get_data ());
 
-            if (message.status_code == 201 || message.status_code == 204) {
+            if (message.get_status () == Soup.Status.CREATED || message.get_status () == Soup.Status.NO_CONTENT) {
                 response.status = true;
+            } else {
+                response.error_code = (int) message.status_code;
+                response.error = (string) stream.get_data ();
             }
         } catch (Error e) {
 			debug (e.message);
+            response.error = e.message;
 		}
 
         return response;
@@ -828,7 +817,7 @@ public class Services.CalDAV.Core : GLib.Object {
     }
 
     private void print_root (string fuction, string data) {
-        print (fuction + "\n");
-        print (data + "\n");
+        debug (fuction + "\n");
+        debug (data + "\n");
 	}
 }

@@ -157,7 +157,7 @@ public class Dialogs.Project : Adw.Dialog {
         name_group.add (name_entry);
         name_group.add (emoji_switch_row);
 
-        source_selected_label = new Gtk.Label (project.source.header_text) {
+        source_selected_label = new Gtk.Label (project.source.display_name) {
             css_classes = { "dim-label" },
             tooltip_text = project.source.subheader_text
         };
@@ -309,7 +309,7 @@ public class Dialogs.Project : Adw.Dialog {
 
             var source_row = new Adw.ActionRow () {
                 activatable = true,
-                title = source.header_text,
+                title = source.display_name,
                 subtitle = source.subheader_text
             };
 
@@ -319,7 +319,7 @@ public class Dialogs.Project : Adw.Dialog {
             source_row.activated.connect (() => {
                 project.source_id = source.id;
 
-                source_selected_label.label = source.header_text;
+                source_selected_label.label = source.display_name;
                 source_selected_label.tooltip_text = source.subheader_text;
 
                 navigation_view.pop ();
@@ -328,7 +328,7 @@ public class Dialogs.Project : Adw.Dialog {
             radio_button.toggled.connect (() => {
                 project.source_id = source.id;
 
-                source_selected_label.label = source.header_text;
+                source_selected_label.label = source.display_name;
                 source_selected_label.tooltip_text = source.subheader_text;
 
                 navigation_view.pop ();
@@ -388,9 +388,13 @@ public class Dialogs.Project : Adw.Dialog {
             });
         } else if (project.source_type == SourceType.CALDAV) {
             Services.CalDAV.Core.get_default ().update_tasklist.begin (project, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().update_tasklist.end (res)) {
+                HttpResponse response = Services.CalDAV.Core.get_default ().update_tasklist.end (res);
+
+                if (response.status) {
                     Services.Store.instance ().update_project (project);
                     hide_destroy ();
+                } else {
+                    //  Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         }
@@ -411,15 +415,21 @@ public class Dialogs.Project : Adw.Dialog {
                     project.id = response.data;
                     Services.Store.instance ().insert_project (project);
                     go_project (project.id);
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {
             project.id = Util.get_default ().generate_id (project);
             Services.CalDAV.Core.get_default ().add_tasklist.begin (project, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().add_tasklist.end (res)) {
+                HttpResponse response = Services.CalDAV.Core.get_default ().add_tasklist.end (res);
+                
+                if (response.status) {
                     Services.Store.instance ().insert_project (project);
                     Services.CalDAV.Core.get_default ().update_sync_token.begin (project);
                     go_project (project.id);
+                } else {
+                    //  Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         }
@@ -427,7 +437,7 @@ public class Dialogs.Project : Adw.Dialog {
 
     public void go_project (string id) {
         Timeout.add (250, () => {
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Project added successfully!"))
             );    
             Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, id);

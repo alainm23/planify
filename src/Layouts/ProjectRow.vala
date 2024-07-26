@@ -227,7 +227,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
         
         if (drag_n_drop) {
-            build_drag_and_drop.begin ();
+            build_drag_and_drop ();
         }
 
         if (show_subprojects) {
@@ -344,7 +344,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
         count_label.label = count <= 0 ? "" : count.to_string ();
     }
 
-    private async void build_drag_and_drop () {
+    private void build_drag_and_drop () {
         // Motion Drop
         build_drop_motion ();
 
@@ -384,7 +384,7 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
             var projects_sort = Services.Settings.get_default ().settings.get_enum ("projects-sort-by");
             if (projects_sort != 0) {
                 Services.Settings.get_default ().settings.set_enum ("projects-sort-by", 0);
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Projects sort changed to 'Custom sort order'"))
                 );
             }
@@ -527,8 +527,13 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
     private void build_drop_item_target () {
         var drop_row_target = new Gtk.DropTarget (typeof (Layouts.ItemRow), Gdk.DragAction.MOVE);
         handle_grid.add_controller (drop_row_target);
-
         drop_row_target.accept.connect ((drop) => {
+            var target_widget = this;
+
+            if (target_widget.project.is_deck) {
+                return false;
+            }
+
             GLib.Value value = Value (typeof (Gtk.Widget));
 
             try {
@@ -709,10 +714,6 @@ public class Layouts.ProjectRow : Gtk.ListBoxRow {
 
             if (project.sync_id == "") {
                 is_loading = true;
-                Services.CalDAV.Core.get_default ().refresh_tasklist.begin (project, (obj, res) => {
-                    Services.CalDAV.Core.get_default ().refresh_tasklist.end (res);
-                    is_loading = false;
-                });
             } else {
                 sync_project ();
             }

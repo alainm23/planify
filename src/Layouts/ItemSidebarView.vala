@@ -760,6 +760,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
 		var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
-		Services.EventBus.get_default ().send_notification (toast);
+		Services.EventBus.get_default ().send_toast (toast);
 	}
 }

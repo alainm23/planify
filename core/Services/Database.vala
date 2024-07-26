@@ -233,6 +233,7 @@ public class Services.Database : GLib.Object {
             CREATE TABLE IF NOT EXISTS Sources (
                 id                  TEXT PRIMARY KEY,
                 source_type         TEXT NOT NULL,
+                display_name        TEXT,
                 added_at            TEXT,
                 updated_at          TEXT,
                 is_visible          INTEGER,
@@ -477,17 +478,18 @@ public class Services.Database : GLib.Object {
         Objects.Source return_value = new Objects.Source ();
         return_value.id = stmt.column_text (0);
         return_value.source_type = SourceType.parse (stmt.column_text (1));
-        return_value.added_at = stmt.column_text (2);
-        return_value.updated_at = stmt.column_text (3);
-        return_value.is_visible = get_parameter_bool (stmt, 4);
-        return_value.child_order = stmt.column_int (5);
-        return_value.sync_server = get_parameter_bool (stmt, 6);
-        return_value.last_sync = stmt.column_text (7);
+        return_value.display_name = stmt.column_text (2);
+        return_value.added_at = stmt.column_text (3);
+        return_value.updated_at = stmt.column_text (4);
+        return_value.is_visible = get_parameter_bool (stmt, 5);
+        return_value.child_order = stmt.column_int (6);
+        return_value.sync_server = get_parameter_bool (stmt, 7);
+        return_value.last_sync = stmt.column_text (8);
 
         if (return_value.source_type == SourceType.TODOIST) {
-            return_value.data = new Objects.SourceTodoistData.from_json (stmt.column_text (8));
+            return_value.data = new Objects.SourceTodoistData.from_json (stmt.column_text (9));
         } else if (return_value.source_type == SourceType.CALDAV) {
-            return_value.data = new Objects.SourceCalDAVData.from_json (stmt.column_text (8));
+            return_value.data = new Objects.SourceCalDAVData.from_json (stmt.column_text (9));
         }
         
         return return_value;
@@ -497,15 +499,16 @@ public class Services.Database : GLib.Object {
         Sqlite.Statement stmt;
 
         sql = """
-            INSERT OR IGNORE INTO Sources (id, source_type, added_at,
+            INSERT OR IGNORE INTO Sources (id, source_type, display_name, added_at,
                 updated_at, is_visible, child_order, sync_server, last_sync, data)
-            VALUES ($id, $source_type, $added_at,
+            VALUES ($id, $source_type, $display_name, $added_at,
                 $updated_at, $is_visible, $child_order, $sync_server, $last_sync, $data);
         """;
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$id", source.id);
         set_parameter_str (stmt, "$source_type", source.source_type.to_string ());
+        set_parameter_str (stmt, "$display_name", source.display_name);
         set_parameter_str (stmt, "$added_at", source.added_at);
         set_parameter_str (stmt, "$updated_at", source.updated_at);
         set_parameter_bool (stmt, "$is_visible", source.is_visible);
@@ -544,6 +547,7 @@ public class Services.Database : GLib.Object {
         sql = """
             UPDATE Sources SET
                 source_type=$source_type,
+                display_name=$display_name,
                 updated_at=$updated_at,
                 is_visible=$is_visible,
                 child_order=$child_order,
@@ -555,6 +559,7 @@ public class Services.Database : GLib.Object {
 
         db.prepare_v2 (sql, sql.length, out stmt);
         set_parameter_str (stmt, "$source_type", source.source_type.to_string ());
+        set_parameter_str (stmt, "$display_name", source.display_name);
         set_parameter_str (stmt, "$updated_at", source.updated_at);
         set_parameter_bool (stmt, "$is_visible", source.is_visible);
         set_parameter_int (stmt, "$child_order", source.child_order);
@@ -1990,6 +1995,7 @@ public class Services.Database : GLib.Object {
             var todoist_source = new Objects.Source ();
             todoist_source.id = SourceType.TODOIST.to_string ();
             todoist_source.source_type = SourceType.TODOIST;
+            todoist_source.display_name = Services.Settings.get_default ().settings.get_string ("todoist-user-email");;
             todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
             todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
             todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");            
@@ -2005,6 +2011,14 @@ public class Services.Database : GLib.Object {
             caldav_source.last_sync = Services.Settings.get_default ().settings.get_string ("caldav-last-sync");
             caldav_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server"); 
 
+            if (caldav_source.caldav_data.user_email != "") {
+                caldav_source.display_name = caldav_source.caldav_data.user_email;
+            } else if (caldav_source.caldav_data.user_displayname != "") {
+                caldav_source.display_name = caldav_source.caldav_data.user_displayname;
+            } else {
+                caldav_source.display_name = _("Nextcloud");
+            }
+    
             Services.Store.instance ().insert_source (caldav_source);
         }
     }

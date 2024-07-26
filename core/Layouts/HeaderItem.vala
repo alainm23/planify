@@ -150,6 +150,12 @@ public class Layouts.HeaderItem : Adw.Bin {
             }
         }
     }
+
+    public int listbox_margin_top {
+        set {
+            listbox.margin_top = value;
+        }
+    }
     
     public HeaderItem (string? header_title = null) {
         Object (
@@ -159,9 +165,10 @@ public class Layouts.HeaderItem : Adw.Bin {
 
     construct {
         header_label = new Gtk.Label (null) {
-            halign = Gtk.Align.START
+            halign = Gtk.Align.START,
+            ellipsize = Pango.EllipsizeMode.END
         };
-
+        
         header_label.add_css_class ("h4");
         header_label.add_css_class ("heading");
 
@@ -175,7 +182,9 @@ public class Layouts.HeaderItem : Adw.Bin {
             child = subheader_label
         };
 
-        var header_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+        var header_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
+            valign = Gtk.Align.CENTER
+        };
         header_label_box.append (header_label);
         header_label_box.append (subheader_revealer);
 

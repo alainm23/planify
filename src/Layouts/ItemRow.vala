@@ -1386,23 +1386,41 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
+                HttpResponse response = Services.Todoist.get_default ().complete_item.end (res);
+                if (response.status) {
                     Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
+                } else {
+                    _complete_item_error (response);
                 }
             });
         } else if (item.project.source_type == SourceType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
+                HttpResponse response = Services.CalDAV.Core.get_default ().complete_item.end (res);
+                if (response.status) {
                     Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
+                } else {
+                    _complete_item_error (response);
                 }
             });
         }
+    }
+
+    private void _complete_item_error (HttpResponse response) {
+        is_loading = false;
+        checked_button.sensitive = true;
+        checked_button.active = false;
+
+        itemrow_box.remove_css_class ("complete-animation");
+        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("line-through");
+        
+        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
     }
 
     public void update_content (string content = "") {
@@ -1439,7 +1457,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
-        Services.EventBus.get_default ().send_notification (toast);
+        Services.EventBus.get_default ().send_toast (toast);
     }
 
     public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -1482,7 +1500,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
-        Services.EventBus.get_default ().send_notification (toast);
+        Services.EventBus.get_default ().send_toast (toast);
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
@@ -1681,7 +1699,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update_local ();

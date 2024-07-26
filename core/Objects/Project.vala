@@ -761,8 +761,8 @@ public class Objects.Project : Objects.BaseObject {
     public void share_markdown () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text (to_markdown ());
-        Services.EventBus.get_default ().send_notification (
-            Util.get_default ().create_toast (_("The project was copied to the Clipboard."))
+        Services.EventBus.get_default ().send_toast (
+            Util.get_default ().create_toast (_("The project was copied to the Clipboard."), 0)
         );
     }
 
@@ -808,8 +808,8 @@ public class Objects.Project : Objects.BaseObject {
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);
 
-        dialog.response.connect ((response) => {
-            if (response == "delete") {
+        dialog.response.connect ((_response) => {
+            if (_response == "delete") {
                 loading = true;
                 if (source_type == SourceType.LOCAL) {
                     Services.Store.instance ().delete_project (this);
@@ -818,22 +818,28 @@ public class Objects.Project : Objects.BaseObject {
                     dialog.set_response_enabled ("delete", false);
 
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        if (Services.Todoist.get_default ().delete.end (res).status) {
-                            Services.Store.instance ().delete_project (this);
-                        }
-
+                        HttpResponse response = Services.Todoist.get_default ().delete.end (res);
                         loading = false;
+
+                        if (response.status) {
+                            Services.Store.instance ().delete_project (this);
+                        } else {
+                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                        }
                     });
                 } else if (source_type == SourceType.CALDAV) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
-                        if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
-                            Services.Store.instance ().delete_project (this);
-                        }
-
+                        HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
                         loading = false;
+                        
+                        if (response.status) {
+                            Services.Store.instance ().delete_project (this);
+                        } else {
+                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                        }
                     });
                 }
             }

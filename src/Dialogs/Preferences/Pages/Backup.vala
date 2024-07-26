@@ -150,7 +150,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 	private Gtk.Widget get_import_page (Objects.Backup backup) {
 		var title = new Gtk.Label (_("Import Overview")) {
 			halign = CENTER,
-			css_classes = { "h1" }
+			css_classes = { "title-1" }
 		};
 		var subtitle = new Gtk.Label (backup.title) {
 			halign = CENTER,

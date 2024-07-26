@@ -121,6 +121,7 @@ public class Services.Todoist : GLib.Object {
 			todoist_data.user_email = user_object.get_string_member ("email");
 			todoist_data.user_is_premium = user_object.get_boolean_member ("is_premium");
 
+			source.display_name = user_object.get_string_member ("email");
 			source.data = todoist_data;
 
 			Services.Store.instance ().insert_source (source);

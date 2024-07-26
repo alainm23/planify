@@ -851,7 +851,8 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var sources_group = new Layouts.HeaderItem (_("Sources")) {
             card = true,
 			reveal = true,
-            margin_top = 12
+            margin_top = 12,
+			listbox_margin_top = 6
 		};
 
 		sources_group.add_widget_end (add_source_button);
@@ -945,8 +946,10 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		};
 
 		var email_label = new Gtk.Label (source.user_email) {
-			css_classes = { "dim-label" }
+			css_classes = { "dim-label" },
+			margin_top = 6
 		};
+
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
@@ -955,17 +958,30 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		user_box.append (user_label);
 		user_box.append (email_label);
 
+		if (source.source_type == SourceType.CALDAV) {
+			var url_label = new Gtk.Label (source.caldav_data.server_url) {
+				css_classes = { "dim-label" }
+			};
+			user_box.append (url_label);
+		}
+
+		var display_entry = new Adw.EntryRow () {
+			title = _("Display Name"),
+			text = source.display_name,
+			show_apply_button = true
+		};
+
 		var sync_server_row = new Adw.SwitchRow ();
 		sync_server_row.title = _("Sync Server");
 		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
 		sync_server_row.active = source.sync_server;
 
-		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			source.last_sync, new GLib.TimeZone.local ()
-		);
-
 		var last_sync_label = new Gtk.Label (
-			Utils.Datetime.get_relative_date_from_date (last_sync_date)
+			Utils.Datetime.get_relative_date_from_date (
+				new GLib.DateTime.from_iso8601 (
+					source.last_sync, new GLib.TimeZone.local ()
+				)
+			)
 		);
 
 		var last_sync_row = new Adw.ActionRow ();
@@ -977,6 +993,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			margin_top = 24
 		};
 
+		default_group.add (display_entry);
 		default_group.add (sync_server_row);
 		default_group.add (last_sync_row);
 
@@ -1014,6 +1031,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			} else {
 				source.remove_sync_server ();
 			}
+		});
+
+		display_entry.apply.connect (() => {
+			source.display_name = display_entry.text;
+			source.save ();
 		});
 
 		return page;
@@ -1408,11 +1430,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
 					Objects.Source source = (Objects.Source) response.data_object.get_object ();
-					Services.CalDAV.Core.get_default ().add_caldav_account.begin (source);
+					Services.CalDAV.Core.get_default ().add_caldav_account.begin (source, cancellable, (obj, res) => {
+						response = Services.CalDAV.Core.get_default ().add_caldav_account.end (res);
+
+						if (!response.status) {
+							login_button.is_loading = false;
+							cancel_button.visible = false;
+							show_message_error (response.error_code, response.error.strip ());
+						}
+					});
 				} else {
 					login_button.is_loading = false;
 					cancel_button.visible = false;
-					show_message_error (_("Failed to login"), response.error.strip ());
+					show_message_error (response.error_code, response.error.strip ());
 				}
 			});
 		});
@@ -1437,36 +1467,15 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         return scheme.has_prefix ("http");
     }
 
-	private void show_message_error (string title, string error) {
-		var dialog = new Adw.AlertDialog (title, null);
-
-		var textview = new Gtk.TextView () {
-			left_margin = 12,
-			top_margin = 12,
-			bottom_margin = 12,
-			right_margin = 12,
-			wrap_mode = Gtk.WrapMode.WORD
-		};
-		textview.buffer.text = error;
-		textview.add_css_class ("monospace");
-		textview.add_css_class ("error-message");
-
-		var textview_scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-			child = textview,
-			width_request = 500,
-			height_request = 430
+	private void show_message_error (int error_code, string error_message) {
+		var error_view = new Widgets.ErrorView () {
+            error_code = error_code,
+            error_message = error_message,
         };
 
-		var textview_frame = new Gtk.Frame (null) {
-			child = textview_scrolled_window
-		};
+		var page = new Adw.NavigationPage (error_view, "");
 
-        dialog.add_response ("ok", _("Ok"));
-		dialog.extra_child = textview_frame;
-        dialog.present (Planify._instance.main_window);
+		push_subpage (page);
 	}
 
 	private Adw.NavigationPage get_backups_page () {

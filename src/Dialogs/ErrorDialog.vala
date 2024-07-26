@@ -19,37 +19,25 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Dialogs.ProjectPicker.ProjectPickerSourceRow : Gtk.ListBoxRow {
-    public Objects.Source source { get; construct; }
+public class Dialogs.ErrorDialog : Adw.Dialog {
+    public int error_code { get; construct; }
+    public string error_message { get; construct; }
 
-    private Layouts.HeaderItem group;
-
-    public ProjectPickerSourceRow (Objects.Source source) {
+    public ErrorDialog (int error_code, string error_message) {
         Object (
-            source: source
+            error_code: error_code,
+            error_message: error_message,
+            content_width: 375,
+            content_height: 450
         );
     }
 
     construct {
-        css_classes = { "no-selectable", "no-padding" };
-        
-        group = new Layouts.HeaderItem (source.display_name) {
-            card = true,
-            reveal = true
+        var error_view = new Widgets.ErrorView () {
+            error_code = error_code,
+            error_message = error_message,
         };
 
-        child = group;
-
-        add_projects ();
-    }
-
-    private void add_projects () {
-        foreach (Objects.Project project in Services.Store.instance ().get_projects_by_source (source.id)) {
-            if (project.is_inbox_project || project.is_deck) {
-                continue ;  
-            }
-
-            group.add_child (new Dialogs.ProjectPicker.ProjectPickerRow (project));
-        }
+        child = error_view;
     }
 }

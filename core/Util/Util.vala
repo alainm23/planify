@@ -571,6 +571,7 @@ public class Util : GLib.Object {
         Objects.Source local_source = new Objects.Source ();
         local_source.id = SourceType.LOCAL.to_string ();
         local_source.source_type = SourceType.LOCAL;
+        local_source.display_name = _("On This Computer");
         Services.Store.instance ().insert_source (local_source);
         return local_source;
     }
@@ -900,7 +901,7 @@ We hope you’ll enjoy using Planify!""");
             yield move_backend_type_item (subitem, new_item.project, new_item.id);
         }
 
-        Services.EventBus.get_default ().send_notification (
+        Services.EventBus.get_default ().send_toast (
             create_toast (_("Task moved to %s".printf (new_item.project.name)))
         );
 
@@ -978,7 +979,7 @@ We hope you’ll enjoy using Planify!""");
         }
 
         if (notify) {
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Task duplicated"))
             );
         }
@@ -1014,7 +1015,7 @@ We hope you’ll enjoy using Planify!""");
         section.sensitive = true;
 
         if (notify) {
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Section duplicated"))
             );
         }
@@ -1040,7 +1041,7 @@ We hope you’ll enjoy using Planify!""");
 
             project.loading = false;
 
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Project duplicated"))
             );
         } else if (project.source_type == SourceType.TODOIST) {            
@@ -1054,9 +1055,9 @@ We hope you’ll enjoy using Planify!""");
         } else if (project.source_type == SourceType.CALDAV) {
             new_project.id = Util.get_default ().generate_id (new_project);
             
-            bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
+            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
 
-            if (status) {
+            if (response.status) {
                 Services.Store.instance ().insert_project (new_project);
             
                 foreach (Objects.Item item in project.items) {
@@ -1065,7 +1066,7 @@ We hope you’ll enjoy using Planify!""");
     
                 project.loading = false;
     
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Project duplicated"))
                 );
             }

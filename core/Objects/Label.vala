@@ -67,13 +67,6 @@ public class Objects.Label : Objects.BaseObject {
     public signal void label_count_updated ();
 
     construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Store.instance ().label_deleted (this);
-                return false;
-            });
-        });
-
         Services.Store.instance ().item_added.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();

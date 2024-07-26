@@ -35,7 +35,7 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
     construct {
         css_classes = { "no-selectable", "no-padding" };
 
-        group = new Layouts.HeaderItem (source.header_text) {
+        group = new Layouts.HeaderItem (source.display_name) {
             reveal = true,
             show_separator = true,
             subheader_title = source.subheader_text
@@ -65,6 +65,10 @@ public class Views.LabelSourceRow : Gtk.ListBoxRow {
             main_revealer.reveal_child = true;
             group.set_sort_func (null);
             return GLib.Source.REMOVE;
+        });
+
+        source.updated.connect (() => {
+            group.header_title = source.display_name;
         });
 
         add_button.clicked.connect (() => {

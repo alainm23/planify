@@ -133,38 +133,6 @@ public class Services.Store : GLib.Object {
         }
     }
 
-    construct {
-        source_deleted.connect ((source) => {
-            if (_sources.remove (source)) {
-                debug ("Source Removed: %s", source.header_text);
-            }
-        });
-
-        label_deleted.connect ((label) => {
-            if (_labels.remove (label)) {
-                debug ("Label Removed: %s", label.name);
-            }
-        });
-
-        project_deleted.connect ((project) => {
-            if (_projects.remove (project)) {
-                debug ("Project Removed: %s", project.name);
-            }
-        });
-
-        //  item_deleted.connect ((item) => {
-        //      if (_items.remove (item)) {
-        //          debug ("item Removed: %s", item.content);
-        //      }
-        //  });
-
-        reminder_deleted.connect ((reminder) => {
-            if (_reminders.remove (reminder)) {
-                debug ("Reminder Removed: %s", reminder.id.to_string ());
-            }
-        });
-    }
-
     public bool is_database_empty () {
         return projects.size <= 0;
     }
@@ -543,7 +511,7 @@ public class Services.Store : GLib.Object {
     
     public void delete_item (Objects.Item item) {
         if (Services.Database.get_default ().delete_item (item)) {
-            foreach (Objects.Item subitem in item.items) {
+            foreach (Objects.Item subitem in get_subitems (item)) {
                 delete_item (subitem);
             }
 
@@ -964,6 +932,8 @@ public class Services.Store : GLib.Object {
     public void delete_label (Objects.Label label) {
         if (Services.Database.get_default ().delete_label (label)) {
             label.deleted ();
+            label_deleted (label);
+            _labels.remove (label);
         }
     }
 
@@ -1129,8 +1099,8 @@ public class Services.Store : GLib.Object {
     // Reminders
     public void insert_reminder (Objects.Reminder reminder) {
         if (Services.Database.get_default ().insert_reminder (reminder)) {
-            reminder_added (reminder);
             reminders.add (reminder);
+            reminder_added (reminder);
             reminder.item.reminder_added (reminder);
         }
     }
@@ -1138,7 +1108,11 @@ public class Services.Store : GLib.Object {
     public void delete_reminder (Objects.Reminder reminder) {
         if (Services.Database.get_default ().delete_reminder (reminder)) {
             reminder.deleted ();
+            reminder_deleted (reminder);
+            _reminders.remove (reminder);
+
             reminder.item.reminder_deleted (reminder);
+
         }
     }
 

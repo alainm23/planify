@@ -28,6 +28,7 @@ public class Objects.Source : Objects.BaseObject {
     public bool sync_server { get; set; default = false; }
     public string last_sync { get; set; default = ""; }
     public Objects.SourceData data { get; set; }
+    public string display_name { get; set; default = ""; }
 
     Objects.SourceTodoistData _todoist_data;
     public Objects.SourceTodoistData todoist_data {
@@ -47,19 +48,7 @@ public class Objects.Source : Objects.BaseObject {
 
     public string header_text {
         get {
-            if (source_type == SourceType.LOCAL) {
-                return _("On This Computer");
-            }
-
-            if (source_type == SourceType.TODOIST) {
-                return todoist_data.user_email;
-            }
-
-            if (source_type == SourceType.CALDAV) {
-                return caldav_data.user_email;
-            }
-
-            return "";
+            return display_name;
         }
     }
 
@@ -122,16 +111,18 @@ public class Objects.Source : Objects.BaseObject {
         _run_server ();
 
 		server_timeout = Timeout.add_seconds (15 * 60, () => {
-            _run_server ();
-
+            if (sync_server) {
+                _run_server ();
+            }
+            
 			return true;
 		});
 	}
 
     private void _run_server () {
-        if (sync_server && source_type == SourceType.TODOIST) {
+        if (source_type == SourceType.TODOIST) {
             Services.Todoist.get_default ().sync.begin (this);
-        } else if (sync_server && source_type == SourceType.CALDAV) {
+        } else if (source_type == SourceType.CALDAV) {
             Services.CalDAV.Core.get_default ().sync.begin (this);
         }
     }

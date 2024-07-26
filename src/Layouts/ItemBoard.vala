@@ -523,7 +523,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 		var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
 
-		Services.EventBus.get_default ().send_notification (toast);
+		Services.EventBus.get_default ().send_toast (toast);
 	}
 
 	public override void update_request () {
@@ -917,7 +917,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
 
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update_local ();
@@ -1022,7 +1022,7 @@ public class Layouts.ItemBoard : Layouts.ItemBase {
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
-        Services.EventBus.get_default ().send_notification (toast);
+        Services.EventBus.get_default ().send_toast (toast);
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {

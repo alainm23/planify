@@ -58,6 +58,7 @@ sources = files(
   'Widgets/Attachments.vala',
   'Widgets/ItemChangeHistoryRow.vala',
   'Widgets/SourceRow.vala',
+  'Widgets/ErrorView.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -89,6 +90,7 @@ sources = files(
   'Dialogs/LabelPicker.vala',
   'Dialogs/RepeatConfig.vala',
   'Dialogs/ItemChangeHistory.vala',
+  'Dialogs/ErrorDialog.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',

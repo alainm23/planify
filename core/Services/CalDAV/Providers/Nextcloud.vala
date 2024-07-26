@@ -290,11 +290,25 @@ public class Services.CalDAV.Providers.Nextcloud : Services.CalDAV.Providers.Bas
     }
 
     public override void set_user_data (GXml.DomDocument doc, Objects.Source source) {
-        GXml.DomElement d_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0);
-        GXml.DomElement d_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0);
+        if (doc.get_elements_by_tag_name ("d:displayname").length > 0) {
+            source.caldav_data.user_displayname = doc.get_elements_by_tag_name ("d:displayname").get_element (0).text_content;
+        }
 
-        source.caldav_data.user_displayname = d_displayname.text_content;
-        source.caldav_data.user_email = d_email.text_content;
+        if (doc.get_elements_by_tag_name ("s:email-address").length > 0) {
+            source.caldav_data.user_email = doc.get_elements_by_tag_name ("s:email-address").get_element (0).text_content;
+        }
+
+        if (source.caldav_data.user_email != "") {
+            source.display_name = source.caldav_data.user_email;
+            return;
+        }
+
+        if (source.caldav_data.user_displayname != "") {
+            source.display_name = source.caldav_data.user_displayname;
+            return;
+        }
+
+        source.display_name = _("Nextcloud");
     }
 
     public override string get_all_taskslist_url (string server_url, string username) {

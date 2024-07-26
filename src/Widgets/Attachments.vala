@@ -325,7 +325,7 @@ public class Widgets.AttachmentRow : Gtk.ListBoxRow {
                 close_button.is_loading = false;
             } catch (Error e) {
                 close_button.is_loading = false;
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (e.message)
                 );
             }

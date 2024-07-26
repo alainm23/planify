@@ -30,6 +30,7 @@ public class MainWindow : Adw.ApplicationWindow {
 	private Gtk.Button fake_button;
 	private Widgets.ContextMenu.MenuItem archive_item;
 	private Widgets.ContextMenu.MenuSeparator archive_separator;
+	private Adw.ToastOverlay toast_overlay;
 
 	public Services.ActionManager action_manager;
 
@@ -117,7 +118,7 @@ public class MainWindow : Adw.ApplicationWindow {
 			sidebar = item_sidebar_view
 		};
 
-		var toast_overlay = new Adw.ToastOverlay () {
+		toast_overlay = new Adw.ToastOverlay () {
 			child = views_split_view
 		};
 
@@ -227,9 +228,11 @@ public class MainWindow : Adw.ApplicationWindow {
 			}
 		});
 
-		Services.EventBus.get_default ().send_notification.connect ((toast) => {
+		Services.EventBus.get_default ().send_toast.connect ((toast) => {
 			toast_overlay.add_toast (toast);
 		});
+
+		Services.EventBus.get_default ().send_error_toast.connect (send_toast_error);
 
 		search_button.clicked.connect (() => {
 			(new Dialogs.QuickFind.QuickFind ()).present (Planify._instance.main_window);
@@ -572,6 +575,19 @@ public class MainWindow : Adw.ApplicationWindow {
 		} catch (Error e) {
 			warning ("Failed to open shortcuts window: %s\n", e.message);
 		}
+	}
+
+	public void send_toast_error (int error_code, string error_message) {
+		var toast = new Adw.Toast (_("Oops! Something happened"));
+        toast.timeout = 3;
+        toast.priority = Adw.ToastPriority.HIGH;
+        toast.button_label = _("See More");
+
+        toast.button_clicked.connect (() => {
+            (new Dialogs.ErrorDialog (error_code, error_message)).present (this);
+        });
+
+		toast_overlay.add_toast (toast);
 	}
 
 	private void about_dialog () {

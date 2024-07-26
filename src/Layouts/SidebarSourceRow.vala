@@ -35,7 +35,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
     construct {
         css_classes = { "no-selectable", "no-padding" };
 
-        group = new Layouts.HeaderItem (source.header_text) {
+        group = new Layouts.HeaderItem (source.display_name) {
             reveal = true,
             show_separator = true,
             subheader_title = source.subheader_text
@@ -89,6 +89,7 @@ public class Layouts.SidebarSourceRow : Gtk.ListBoxRow {
         update_projects_sort ();
 
         source.updated.connect (() => {
+            group.header_title = source.display_name;
             main_revealer.reveal_child = source.is_visible;
         });
 

@@ -1317,7 +1317,7 @@ public class Objects.Item : Objects.BaseObject {
     public void copy_clipboard () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text ("[%s]%s%s\n------------------------------------------\n%s".printf (checked ? "x" : " ", get_format_date (this), content, description));
-        Services.EventBus.get_default ().send_notification (
+        Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task copied to clipboard"))
         );
     }
@@ -1359,22 +1359,25 @@ public class Objects.Item : Objects.BaseObject {
         } else if (project.source_type == SourceType.TODOIST) {
             loading = true;
             Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                if (Services.Todoist.get_default ().delete.end (res).status) {
-                    Services.Store.instance ().delete_item (this);
-                }
-
+                HttpResponse response = Services.Todoist.get_default ().delete.end (res);
                 loading = false;
+
+                if (response.status) {
+                    Services.Store.instance ().delete_item (this);
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
+                }
             });
         } else if (project.source_type == SourceType.CALDAV) {
             loading = true;
             Services.CalDAV.Core.get_default ().delete_task.begin (this, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().delete_task.end (res).status) {
-                    Services.Store.instance ().delete_item (this);
-                    foreach (Objects.Item subitem in this.items) {
-                        subitem.delete_item ();
-                    }
+                HttpResponse response = Services.CalDAV.Core.get_default ().delete_task.end (res);
+                loading = false;
 
-                    loading = false;
+                if (response.status) {
+                    Services.Store.instance ().delete_item (this);
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         }
@@ -1510,6 +1513,8 @@ public class Objects.Item : Objects.BaseObject {
 
                 if (response.status) {
                     _move (project.id, _section_id);
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         } else if (project.source_type == SourceType.CALDAV) {            
@@ -1520,6 +1525,8 @@ public class Objects.Item : Objects.BaseObject {
 
                 if (response.status) {
                     _move (project.id, _section_id);
+                } else {
+                    Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                 }
             });
         }
@@ -1537,7 +1544,7 @@ public class Objects.Item : Objects.BaseObject {
         Services.Store.instance ().move_item (this);
         Services.EventBus.get_default ().item_moved (this, old_project_id, old_section_id, old_parent_id);
         Services.EventBus.get_default ().drag_n_drop_active (old_project_id, false);
-        Services.EventBus.get_default ().send_notification (
+        Services.EventBus.get_default ().send_toast (
             Util.get_default ().create_toast (_("Task moved to %s".printf (project.name)))
         );
     }

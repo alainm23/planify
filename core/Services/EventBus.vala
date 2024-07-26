@@ -81,7 +81,8 @@ public class Services.EventBus : Object {
     public signal void mobile_mode_change ();
 
     // Notifications
-    public signal void send_notification (Adw.Toast toast);
+    public signal void send_toast (Adw.Toast toast);
+    public signal void send_error_toast (int error_code, string error_message);
 
     // Multi Select
     public bool multi_select_enabled = false;
