@@ -71,7 +71,8 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		var backups_group = new Layouts.HeaderItem (_("Backup Files")) {
 			card = true,
 			margin_top = 12,
-			reveal = true
+			reveal = true,
+			placeholder_message = _("No backups found, create one clicking the button above.")
 		};
 		
 		backups_group.set_sort_func (set_sort_func);
@@ -112,6 +113,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 		add_button.clicked.connect (() => {
 			Services.Backups.get_default ().create_backup ();
+			popup_toast (_("The Backup was created successfully."));
 		});
 
 		import_button.clicked.connect (() => {
