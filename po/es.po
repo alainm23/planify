@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-29 08:47-0500\n"
-"PO-Revision-Date: 2024-07-12 13:54-0400\n"
+"PO-Revision-Date: 2024-07-29 11:41-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -152,7 +152,7 @@ msgstr "Nextcloud"
 
 #: core/Enum.vala:358
 msgid "Radicale"
-msgstr ""
+msgstr "Radicale"
 
 #: core/Enum.vala:416 core/Enum.vala:584 core/Widgets/PriorityButton.vala:73
 #: src/Views/Project/Project.vala:455 src/Views/Project/Project.vala:499
@@ -705,9 +705,8 @@ msgid "Unknown error"
 msgstr "Error desconocido"
 
 #: core/Services/CalDAV/Core.vala:53 core/Services/CalDAV/Core.vala:117
-#, fuzzy
 msgid "No Provider Available"
-msgstr "No disponible"
+msgstr "No hay proveedor disponible"
 
 #: core/Widgets/PinButton.vala:31 src/Layouts/ItemBoard.vala:209
 msgid "Pinned"
@@ -772,11 +771,8 @@ msgid "Create '%s'"
 msgstr "Crear '%s"
 
 #: core/Widgets/LabelsPickerCore.vala:78
-#, fuzzy
 msgid "Your list of filters will show up here."
-msgstr ""
-"Aquí aparecerá su lista de recordatorios. Añada uno haciendo clic en el "
-"botón \"+\"."
+msgstr "Su lista de filtros aparecerá aquí."
 
 #: core/Widgets/LabelsPickerCore.vala:82
 msgid "Search or Create"
@@ -1006,14 +1002,12 @@ msgid "Todoist"
 msgstr "Todoist"
 
 #: core/Objects/Source.vala:63
-#, fuzzy
 msgid "CalDAV - "
-msgstr "CalDAV"
+msgstr "CalDAV - "
 
 #: core/Objects/Source.vala:161
-#, fuzzy
 msgid "Delete Source?"
-msgstr "Eliminar sección"
+msgstr "¿Eliminar fuente?"
 
 #: core/Objects/Filters/Pinboard.vala:51 core/Objects/Filters/Scheduled.vala:51
 #: core/Objects/Filters/Today.vala:67 core/Objects/Filters/Priority.vala:59
@@ -1156,12 +1150,11 @@ msgstr "Proyectos archivados"
 
 #: src/MainWindow.vala:581
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "¡Ups! Ha pasado algo"
 
 #: src/MainWindow.vala:584
-#, fuzzy
 msgid "See More"
-msgstr "Crear más"
+msgstr "Ver más"
 
 #: src/Services/Backups.vala:411
 msgid "Delete Backup"
@@ -1506,17 +1499,16 @@ msgstr "Pin: Inactivo"
 
 #: src/Widgets/SourceRow.vala:63
 msgid "Remove"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/Widgets/SourceRow.vala:80
 #: src/Dialogs/Preferences/PreferencesWindow.vala:847
-#, fuzzy
 msgid "Add Source"
-msgstr "Fuerte"
+msgstr "Añadir fuente"
 
 #: src/Widgets/ErrorView.vala:103
 msgid "Report Issue"
-msgstr ""
+msgstr "Informar problema"
 
 #: src/Views/Project/Project.vala:57
 msgid "Project Actions"
@@ -1683,9 +1675,8 @@ msgid "Order by"
 msgstr "Ordenar por"
 
 #: src/Views/Label/LabelSourceRow.vala:43
-#, fuzzy
 msgid "No labels available. Create one by clicking on the '+' button"
-msgstr "No hay favoritos disponibles. Cree uno haciendo clic en el botón \"+\""
+msgstr "No hay etiquetas disponibles. Cree una haciendo clic en el botón '+'"
 
 #: src/Views/Label/LabelSourceRow.vala:51 src/Dialogs/Project.vala:213
 msgid "Add Project"
@@ -1719,9 +1710,8 @@ msgstr "Actualizar proyecto"
 #: src/Dialogs/Project.vala:353
 #: src/Dialogs/Preferences/PreferencesWindow.vala:851
 #: src/Dialogs/Preferences/Pages/Backup.vala:164
-#, fuzzy
 msgid "Sources"
-msgstr "Fuerte"
+msgstr "Fuentes"
 
 #: src/Dialogs/Project.vala:441
 msgid "Project added successfully!"
@@ -2308,25 +2298,23 @@ msgid "Accounts"
 msgstr "Cuentas"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:862
-#, fuzzy
 msgid "You can sort your accounts by dragging and dropping"
-msgstr "Puede ordenar las vistas arrastrando y soltando"
+msgstr "Puedes ordenar tus cuentas arrastrando y soltando"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:969
 msgid "Display Name"
-msgstr ""
+msgstr "Mostrar nombre"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:975
 msgid "Sync Server"
 msgstr "Sincronizar servidor"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:976
-#, fuzzy
 msgid ""
 "Activate this setting so that Planify automatically synchronizes with your "
 "account account every 15 minutes"
 msgstr ""
-"Active esta opción para que Planify se sincronice automáticamente con su "
+"Activa esta opción para que Planify se sincronice automáticamente con tu "
 "cuenta cada 15 minutos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:989
@@ -2379,9 +2367,8 @@ msgid "Planify is is syncing your tasks, this may take a few minutes"
 msgstr "Planify está sincronizando sus tareas, esto puede tardar unos minutos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1224
-#, fuzzy
 msgid "Synchronizing…"
-msgstr "Sincronizando..."
+msgstr "Sincronizando…"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:1251
 msgid "Please Enter Your Credentials"
@@ -2492,11 +2479,10 @@ msgid "Backup Files"
 msgstr "Archivos de copia de seguridad"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:75
-#, fuzzy
 msgid "No backups found, create one clicking the button above."
 msgstr ""
-"No hay ninguna cuenta disponible. Sincronice una haciendo clic en el botón "
-"\"+\""
+"No se han encontrado copias de seguridad, cree una haciendo clic en el botón "
+"de arriba."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:80
 msgid "Migrate"
@@ -2507,9 +2493,8 @@ msgid "Migrate From Planner"
 msgstr "Migrar desde Planner"
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:116
-#, fuzzy
 msgid "The Backup was created successfully."
-msgstr "Tareas migradas con éxito"
+msgstr "La copia de seguridad se ha creado correctamente."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:133
 msgid "Tasks Migrate Successfully"
