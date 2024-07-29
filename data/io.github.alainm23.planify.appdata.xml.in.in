@@ -70,7 +70,11 @@
     <release version="4.10.0" date="2024-07-29">
       <description translate="no">
         <ul>
-          <li>Support for multiple sync sources: Integrate more than two Todoist or Nextcloud accounts</li>
+          <li>Support for multiple sync sources: Integrate more than two Todoist or Nextcloud accounts.</li>
+          <li>Fixed visual bug where dragging an element leaves an empty line.</li>
+          <li>Portuguese translation update thanks to @godinhoana54.</li>
+          <li>Hindi translation update thanks to @Scrambled777.</li>
+          <li>Spanish translation update thanks to @haggen88.</li>
         </ul>
       </description>
     </release>

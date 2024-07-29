@@ -2327,7 +2327,7 @@ msgid ""
 "account account every 15 minutes"
 msgstr ""
 "Active esta opción para que Planify se sincronice automáticamente con su "
-"cuenta Todoist cada 15 minutos"
+"cuenta cada 15 minutos"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:989
 msgid "Last Sync"
