@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: io.github.alainm23.planify\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-07-10 04:40-0500\n"
-"PO-Revision-Date: 2024-06-28 20:55-0400\n"
+"PO-Revision-Date: 2024-07-12 13:54-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -161,18 +161,16 @@ msgid "Due Date"
 msgstr "Fecha de vencimiento"
 
 #: core/Enum.vala:474
-#, fuzzy
 msgid "Task Created"
-msgstr "Tarea duplicada"
+msgstr "Tarea creada"
 
 #: core/Enum.vala:477
-#, fuzzy
 msgid "Task Updated"
-msgstr "Tarea duplicada"
+msgstr "Tarea actualizada"
 
 #: core/Enum.vala:521
 msgid "Content"
-msgstr ""
+msgstr "Contenido"
 
 #: core/Enum.vala:524 src/Layouts/ItemSidebarView.vala:181
 #: src/Dialogs/Section.vala:85
@@ -947,6 +945,7 @@ msgstr "Añadir recordatorio"
 #: core/Widgets/Markdown/MarkdownEditView.vala:141
 msgid "Couldn't find an app to handle file URIs"
 msgstr ""
+"No se ha podido encontrar una aplicación que gestione los URI de los archivos"
 
 #: core/Objects/Item.vala:1325
 msgid "Task copied to clipboard"
@@ -1081,14 +1080,12 @@ msgid "All Tasks"
 msgstr "Todas las tareas"
 
 #: core/Objects/Filters/AllItems.vala:34
-#, fuzzy
 msgid "all tasks"
-msgstr "Todas las tareas"
+msgstr "todas las tareas"
 
 #: core/Objects/Filters/AllItems.vala:34
-#, fuzzy
 msgid "all"
-msgstr "Todas"
+msgstr "todas"
 
 #: src/App.vala:81
 msgid "Are you sure you want to reset all? (y/n): "
@@ -1317,9 +1314,8 @@ msgid "Delete Task"
 msgstr "Eliminar tarea"
 
 #: src/Layouts/ItemRow.vala:1115 src/Layouts/ItemSidebarView.vala:454
-#, fuzzy
 msgid "Use as a Note"
-msgstr "Elija una fecha"
+msgstr "Utilizar como nota"
 
 #: src/Layouts/ItemRow.vala:1118 src/Layouts/ItemSidebarView.vala:457
 msgid "Copy to Clipboard"
@@ -1333,7 +1329,7 @@ msgstr "Repetir"
 #: src/Layouts/ItemRow.vala:1127 src/Layouts/ItemSidebarView.vala:466
 #: src/Dialogs/ItemChangeHistory.vala:33
 msgid "Change History"
-msgstr ""
+msgstr "Historial de cambios"
 
 #: src/Layouts/ItemRow.vala:1224 src/Layouts/ItemSidebarView.vala:570
 msgid "Daily"
@@ -1461,19 +1457,17 @@ msgid "Add Section"
 msgstr "Agregar sección"
 
 #: src/Widgets/Attachments.vala:51
-#, fuzzy
 msgid "Attachments"
 msgstr "Archivos adjuntos"
 
 #. translators: Open file
 #: src/Widgets/Attachments.vala:134
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/Widgets/Attachments.vala:235
-#, fuzzy
 msgid "Attach File"
-msgstr "Adjuntar archivo adjunto"
+msgstr "Adjuntar archivo"
 
 #: src/Widgets/Attachments.vala:293
 #: src/Dialogs/Preferences/Pages/Backup.vala:384
@@ -1482,21 +1476,21 @@ msgstr "Descargar"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:60
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:81
 msgid "New"
-msgstr ""
+msgstr "Nuevo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:165
 #: src/Widgets/ItemChangeHistoryRow.vala:166
 msgid "Pin: Active"
-msgstr ""
+msgstr "Pin: Activo"
 
 #: src/Widgets/ItemChangeHistoryRow.vala:165
 #: src/Widgets/ItemChangeHistoryRow.vala:166
 msgid "Pin: Inactive"
-msgstr ""
+msgstr "Pin: Inactivo"
 
 #: src/Views/Project/Project.vala:57
 msgid "Project Actions"
@@ -1935,11 +1929,12 @@ msgstr "Actualizada"
 msgid ""
 "Your change history will be displayed here once you start making changes."
 msgstr ""
+"Su historial de cambios se mostrará aquí una vez que empiece a hacer cambios."
 
 #: src/Dialogs/ItemChangeHistory.vala:124
 #, c-format
 msgid "Load more history from %d weeks ago…"
-msgstr ""
+msgstr "Cargar más historial de %d semanas atrás…"
 
 #: src/Dialogs/QuickFind/QuickFind.vala:39
 msgid "Quick Find"
