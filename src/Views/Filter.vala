@@ -137,12 +137,12 @@ public class Views.Filter : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.Database.get_default ().item_added.connect (valid_add_item);
-        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
-        Services.Database.get_default ().item_updated.connect (valid_update_item);
+        Services.Store.instance ().item_added.connect (valid_add_item);
+        Services.Store.instance ().item_deleted.connect (valid_delete_item);
+        Services.Store.instance ().item_updated.connect (valid_update_item);
         Services.EventBus.get_default ().checked_toggled.connect (valid_checked_item);
-        Services.Database.get_default ().item_archived.connect (valid_delete_item);
-        Services.Database.get_default ().item_unarchived.connect ((item) => {
+        Services.Store.instance ().item_archived.connect (valid_delete_item);
+        Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
         });
 
@@ -160,7 +160,7 @@ public class Views.Filter : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        var inbox_project = Services.Database.get_default ().get_project (
+        var inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
@@ -246,35 +246,35 @@ public class Views.Filter : Adw.Bin {
 
         if (filter is Objects.Filters.Priority) {
             Objects.Filters.Priority priority = ((Objects.Filters.Priority) filter);
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_priority (priority.priority, false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_by_priority (priority.priority, false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Completed) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_completed ()) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_completed ()) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Tomorrow) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (new GLib.DateTime.now_local ().add_days (1), false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Pinboard) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_pinned (false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_pinned (false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Anytime) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_date (false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_no_date (false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Repeating) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_repeating (false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_repeating (false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.Unlabeled) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_unlabeled (false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_unlabeled (false)) {
                 add_item (item);
             }
         } else if (filter is Objects.Filters.AllItems) {
-            foreach (Objects.Item item in Services.Database.get_default ().get_items_no_parent (false)) {
+            foreach (Objects.Item item in Services.Store.instance ().get_items_no_parent (false)) {
                 add_item (item);
             }
         }
@@ -528,7 +528,7 @@ public class Views.Filter : Adw.Bin {
         delete_all_completed.activate_item.connect (() => {
 			popover.popdown ();
 
-			var items = Services.Database.get_default ().get_items_checked ();
+			var items = Services.Store.instance ().get_items_checked ();
 
 			var dialog = new Adw.AlertDialog (
 			    _("Delete All Completed Tasks"),

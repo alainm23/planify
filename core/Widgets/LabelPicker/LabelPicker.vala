@@ -28,9 +28,9 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
         }
     }
 
-    public BackendType backend_type {
+    public Objects.Source source {
         set {
-            picker.backend_type = value;
+            picker.source = value;
         }
     }
 
@@ -53,7 +53,7 @@ public class Widgets.LabelPicker.LabelPicker : Gtk.Popover {
     construct {
         css_classes = { "popover-contents" };
 
-        picker = new Widgets.LabelsPickerCore () {
+        picker = new Widgets.LabelsPickerCore (LabelPickerType.SELECT) {
             margin_top = 12
         };
         

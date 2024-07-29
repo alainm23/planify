@@ -28,17 +28,12 @@ public class Layouts.Sidebar : Adw.Bin {
     private Layouts.FilterPaneRow labels_filter;
     private Layouts.FilterPaneRow pinboard_filter;
     private Layouts.FilterPaneRow completed_filter;
+
+    private Gtk.ListBox sources_listbox;
     
     private Layouts.HeaderItem favorites_header;
-    private Layouts.HeaderItem local_projects_header;
-    private Layouts.HeaderItem todoist_projects_header;
-    private Layouts.HeaderItem caldav_projects_header;
-    private Layouts.HeaderItem google_projects_header;
-
-    public Gee.HashMap <string, Layouts.ProjectRow> local_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-    public Gee.HashMap <string, Layouts.ProjectRow> todoist_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
-    public Gee.HashMap <string, Layouts.ProjectRow> caldav_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
+    public Gee.HashMap <string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap <string, Layouts.SidebarSourceRow> ();
 
     public Sidebar () {
         Object ();
@@ -53,18 +48,6 @@ public class Layouts.Sidebar : Adw.Bin {
             margin_end = 3,
             min_children_per_line = 2
         };
-
-        filters_flow.set_sort_func ((child1, child2) => {
-            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
-            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
-
-            return item1 - item2;
-        });
-
-        filters_flow.set_filter_func ((child) => {
-            var row = ((Layouts.FilterPaneRow) child);
-            return row.active ();
-        });
 
         inbox_filter = new Layouts.FilterPaneRow (FilterType.INBOX) {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Inbox"), "Ctrl+I")
@@ -97,22 +80,22 @@ public class Layouts.Sidebar : Adw.Bin {
         filters_flow.append (pinboard_filter);
         filters_flow.append (completed_filter);
 
-        favorites_header = new Layouts.HeaderItem (_("Favorites"));
+        favorites_header = new Layouts.HeaderItem (_("Favorites")) {
+            margin_top = 12
+        };
         favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
-        favorites_header.margin_top = 6;
 
-        local_projects_header = new Layouts.HeaderItem (_("On This Computer"));
-        local_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        local_projects_header.margin_top = 6;
+        sources_listbox = new Gtk.ListBox () {
+            hexpand = true,
+            valign = Gtk.Align.START,
+            css_classes = { "listbox-background" }
+        };
 
-        todoist_projects_header = new Layouts.HeaderItem (_("Todoist"));
-        todoist_projects_header.margin_top = 6;
-
-        caldav_projects_header = new Layouts.HeaderItem (_("Nextcloud"));
-        caldav_projects_header.margin_top = 6;
-
-        google_projects_header = new Layouts.HeaderItem ();
-        google_projects_header.margin_top = 6;
+        sources_listbox.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
+            int item2 = ((Layouts.SidebarSourceRow) child2).source.child_order;
+            return item1 - item2;
+        });
 
         var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
             css_classes = { "gift-animation" }
@@ -158,9 +141,7 @@ public class Layouts.Sidebar : Adw.Bin {
 
         content_box.append (filters_flow);
         content_box.append (favorites_header);
-        content_box.append (local_projects_header);
-        content_box.append (todoist_projects_header);
-        content_box.append (caldav_projects_header);
+        content_box.append (sources_listbox);
 
         if (Constants.SHOW_WHATSNEW) {
             content_box.append (whats_new_revealer);
@@ -169,122 +150,25 @@ public class Layouts.Sidebar : Adw.Bin {
         var scrolled_window = new Widgets.ScrolledWindow (content_box);
 
         child = scrolled_window;
-        update_projects_sort ();
-
-        var add_local_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" },
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
-        };
-
-        local_projects_header.add_widget_end (add_local_button);
-        add_local_button.clicked.connect (() => {
-            prepare_new_project (BackendType.LOCAL);
-        });
-
-        var todoist_sync_button = new Widgets.SyncButton () {
-            reveal_child = Services.Todoist.get_default ().is_logged_in ()
-        };
-        todoist_projects_header.add_widget_end (todoist_sync_button);
-        
-        var add_todoist_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" },
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
-        };
-
-        todoist_projects_header.add_widget_end (add_todoist_button);
-        add_todoist_button.clicked.connect (() => {
-            bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
-            
-            if (is_logged_in) {
-                prepare_new_project (BackendType.TODOIST);
-            }
-        });
-
-        var caldav_sync_button = new Widgets.SyncButton () {
-            reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ()
-        };
-        caldav_projects_header.add_widget_end (caldav_sync_button);
-
-        var add_caldav_button = new Gtk.Button.from_icon_name ("plus-large-symbolic") {
-            valign = Gtk.Align.CENTER,
-            css_classes = { "flat", "header-item-button", "dim-label" },
-            tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Add Project"), "P")
-        };
-
-        caldav_projects_header.add_widget_end (add_caldav_button);
-        add_caldav_button.clicked.connect (() => {
-            bool is_logged_in = Services.CalDAV.Core.get_default ().is_logged_in ();
-            
-            if (is_logged_in) {
-                prepare_new_project (BackendType.CALDAV);
-            }
-        });
 
         Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "projects-sort-by" || key == "projects-ordered") {
-                update_projects_sort ();
-            } else if (key == "views-order-visible") {
+            if (key == "views-order-visible") {
                 filters_flow.invalidate_sort ();
                 filters_flow.invalidate_filter ();
             }
         });
 
-        Services.Todoist.get_default ().log_in.connect (() => {
-            todoist_projects_header.reveal = true;
-            todoist_sync_button.reveal_child = true;
+
+        filters_flow.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.FilterPaneRow) child1).item_order ();
+            int item2 = ((Layouts.FilterPaneRow) child2).item_order ();
+
+            return item1 - item2;
         });
 
-        Services.Todoist.get_default ().log_out.connect (() => {
-            todoist_projects_header.reveal = false;
-            todoist_sync_button.reveal_child = false;
-        });
-
-        Services.CalDAV.Core.get_default ().log_in.connect (() => {
-            caldav_projects_header.reveal = true;
-            caldav_sync_button.reveal_child = true;
-        });
-
-        Services.CalDAV.Core.get_default ().log_out.connect (() => {
-            caldav_projects_header.reveal = false;
-            caldav_sync_button.reveal_child = false;
-        });
-
-        Services.Database.get_default ().project_deleted.connect ((project) => {
-            if (favorites_hashmap.has_key (project.id)) {
-                favorites_hashmap.unset (project.id);
-            }
-
-            if (local_hashmap.has_key (project.id)) {
-                local_hashmap.unset (project.id);
-            }
-
-            if (todoist_hashmap.has_key (project.id)) {
-                todoist_hashmap.unset (project.id);
-            }
-
-            if (caldav_hashmap.has_key (project.id)) {
-                caldav_hashmap.unset (project.id);
-            }
-        });
-
-        Services.Database.get_default ().project_archived.connect ((project) => {
-            if (favorites_hashmap.has_key (project.id)) {
-                favorites_hashmap.unset (project.id);
-            }
-
-            if (local_hashmap.has_key (project.id)) {
-                local_hashmap.unset (project.id);
-            }
-
-            if (todoist_hashmap.has_key (project.id)) {
-                todoist_hashmap.unset (project.id);
-            }
-
-            if (caldav_hashmap.has_key (project.id)) {
-                caldav_hashmap.unset (project.id);
-            }
+        filters_flow.set_filter_func ((child) => {
+            var row = ((Layouts.FilterPaneRow) child);
+            return row.active ();
         });
 
         var whats_new_gesture = new Gtk.GestureClick ();
@@ -307,28 +191,8 @@ public class Layouts.Sidebar : Adw.Bin {
             whats_new_revealer.reveal_child = verify_new_version ();
         });
 
-        todoist_sync_button.clicked.connect (() => {
-            Services.Todoist.get_default ().sync_async ();
-        });
-
-        Services.Todoist.get_default ().sync_started.connect (() => {
-            todoist_sync_button.sync_started ();
-        });
-        
-        Services.Todoist.get_default ().sync_finished.connect (() => {
-            todoist_sync_button.sync_finished ();
-        });
-
-        caldav_sync_button.clicked.connect (() => {
-            Services.CalDAV.Core.get_default ().sync_async ();
-        });
-
-        Services.CalDAV.Core.get_default ().sync_started.connect (() => {
-            caldav_sync_button.sync_started ();
-        });
-        
-        Services.CalDAV.Core.get_default ().sync_finished.connect (() => {
-            caldav_sync_button.sync_finished ();
+        Services.EventBus.get_default ().update_sources_position.connect (() => {
+            sources_listbox.invalidate_sort ();
         });
     }
 
@@ -340,39 +204,6 @@ public class Layouts.Sidebar : Adw.Bin {
         return Services.Settings.get_default ().settings.get_string ("version") != Build.VERSION;
     }
 
-    public void verify_todoist_account () {
-        bool is_logged_in = Services.Todoist.get_default ().is_logged_in ();
-        
-        if (is_logged_in) {
-            todoist_projects_header.reveal = true;
-            todoist_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        } else {
-            todoist_projects_header.placeholder_message = _("No account available, Sync one by clicking the '+' button");
-        }
-    }
-
-    public void verify_google_account () {
-        bool is_logged_in = Services.GoogleTasks.get_default ().is_logged_in ();
-        
-        if (is_logged_in) {
-            google_projects_header.reveal = true;
-            google_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        } else {
-            google_projects_header.placeholder_message = _("No account available, Sync one by clicking the '+' button");
-        }
-    }
-
-    public void verify_caldav_account () {
-        bool is_logged_in = Services.CalDAV.Core.get_default ().is_logged_in ();
-        
-        if (is_logged_in) {
-            caldav_projects_header.reveal = true;
-            caldav_projects_header.placeholder_message = _("No project available. Create one by clicking on the '+' button");
-        } else {
-            caldav_projects_header.placeholder_message = _("No account available, Sync one by clicking the '+' button");
-        }
-    }
-
     public void select_project (Objects.Project project) {
         Services.EventBus.get_default ().pane_selected (PaneType.PROJECT, project.id);
     }
@@ -382,64 +213,11 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     public void init () {
-        Services.Database.get_default ().project_added.connect (add_row_project);
-        Services.Database.get_default ().project_updated.connect (update_projects_sort);
-        Services.Database.get_default ().project_unarchived.connect (add_row_project);
+        Services.Store.instance ().source_added.connect (add_source_row);
 
-        Services.EventBus.get_default ().project_parent_changed.connect ((project, old_parent_id) => {
-            if (old_parent_id == "") {
-                if (local_hashmap.has_key (project.id)) {
-                    local_hashmap [project.id].hide_destroy ();
-                    local_hashmap.unset (project.id);
-                }
-
-                if (todoist_hashmap.has_key (project.id)) {
-                    todoist_hashmap [project.id].hide_destroy ();
-                    todoist_hashmap.unset (project.id);
-                }
-
-                if (caldav_hashmap.has_key (project.id)) {
-                    caldav_hashmap [project.id].hide_destroy ();
-                    caldav_hashmap.unset (project.id);
-                }
-            }
-
-            if (project.parent_id == "") {
-                add_row_project (project);
-            }
-        });
-
-        Services.EventBus.get_default ().update_inserted_project_map.connect ((_row, old_parent_id) => {
-            var row = (Layouts.ProjectRow) _row;
-
-            if (old_parent_id == "") {
-                if (local_hashmap.has_key (row.project.id)) {
-                    local_hashmap.unset (row.project.id);
-                }
-
-                if (todoist_hashmap.has_key (row.project.id)) {
-                    todoist_hashmap.unset (row.project.id);
-                }
-
-                if (caldav_hashmap.has_key (row.project.id)) {
-                    caldav_hashmap.unset (row.project.id);
-                }
-            }
-
-            if (!row.project.is_inbox_project && row.project.parent_id == "") {
-                if (row.project.backend_type == BackendType.TODOIST) {
-                    if (!todoist_hashmap.has_key (row.project.id)) {
-                        todoist_hashmap[row.project.id] = row;
-                    }
-                } else if (row.project.backend_type == BackendType.LOCAL) {
-                    if (!local_hashmap.has_key (row.project.id)) {
-                        local_hashmap[row.project.id] = row;
-                    }
-                } else if (row.project.backend_type == BackendType.CALDAV) {
-                    if (!caldav_hashmap.has_key (row.project.id)) {
-                        caldav_hashmap[row.project.id] = row;
-                    }
-                }
+        Services.Store.instance ().source_deleted.connect ((source) => {
+            if (sources_hashmap.has_key (source.id)) {
+                sources_hashmap.get (source.id).hide_destroy ();
             }
         });
 
@@ -453,32 +231,30 @@ public class Layouts.Sidebar : Adw.Bin {
 
             favorites_header.reveal = favorites_hashmap.size > 0;
         });
-
+        
         inbox_filter.init ();
         today_filter.init ();
         scheduled_filter.init ();
         labels_filter.init ();
         pinboard_filter.init ();
         completed_filter.init ();
-        
-        local_projects_header.reveal = true;
 
-        add_all_projects ();
         add_all_favorites ();
 
-        verify_todoist_account ();
-        verify_google_account ();
-        verify_caldav_account ();
+        foreach (Objects.Source source in Services.Store.instance ().sources) {
+			add_source_row (source);
+		}
     }
 
-    private void add_all_projects () {
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
-            add_row_project (project);
+    private void add_source_row (Objects.Source source) {
+        if (!sources_hashmap.has_key (source.id)) {
+            sources_hashmap[source.id] = new Layouts.SidebarSourceRow (source);
+            sources_listbox.append (sources_hashmap[source.id]);
         }
     }
 
     private void add_all_favorites () {
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Store.instance ().projects) {
             add_row_favorite (project);
         }
 
@@ -486,54 +262,15 @@ public class Layouts.Sidebar : Adw.Bin {
     }
 
     private void add_row_favorite (Objects.Project project) {
-        if (project.is_favorite) {
-            if (!favorites_hashmap.has_key (project.id)) {
-                favorites_hashmap [project.id] = new Layouts.ProjectRow (project, false, false);
-                favorites_header.add_child (favorites_hashmap [project.id]);
-            }
+        if (!project.is_favorite) {
+            return;
         }
-    }
 
-    private void add_row_project (Objects.Project project) {
-        if (!project.is_inbox_project && project.parent_id == "" && !project.is_archived) {
-            if (project.backend_type == BackendType.TODOIST) {
-                if (!todoist_hashmap.has_key (project.id)) {
-                    todoist_hashmap [project.id] = new Layouts.ProjectRow (project);
-                    todoist_projects_header.add_child (todoist_hashmap [project.id]);
-                }
-            } else if (project.backend_type == BackendType.LOCAL) {
-                if (!local_hashmap.has_key (project.id)) {
-                    local_hashmap [project.id] = new Layouts.ProjectRow (project);
-                    local_projects_header.add_child (local_hashmap [project.id]);
-                }
-            } else if (project.backend_type == BackendType.CALDAV) {
-                if (!caldav_hashmap.has_key (project.id)) {
-                    caldav_hashmap [project.id] = new Layouts.ProjectRow (project);
-                    caldav_projects_header.add_child (caldav_hashmap [project.id]);
-                }
-            }
+        if (favorites_hashmap.has_key (project.id)) {
+            return;
         }
-    }
 
-    private void prepare_new_project (BackendType backend_type) {
-        var dialog = new Dialogs.Project.new (backend_type);
-        dialog.present (Planify._instance.main_window);
-    }
-
-    private void update_projects_sort () {
-        if (Services.Settings.get_default ().settings.get_enum ("projects-sort-by") == 1) {
-            local_projects_header.set_sort_func (projects_sort_func);
-            todoist_projects_header.set_sort_func (projects_sort_func);
-        } else {
-            local_projects_header.set_sort_func (null);
-            todoist_projects_header.set_sort_func (null);
-        }
-    }
-
-    private int projects_sort_func (Gtk.ListBoxRow lbrow, Gtk.ListBoxRow lbbefore) {
-        Objects.Project project1 = ((Layouts.ProjectRow) lbrow).project;
-        Objects.Project project2 = ((Layouts.ProjectRow) lbbefore).project;
-        int ordered = Services.Settings.get_default ().settings.get_enum ("projects-ordered");
-        return ordered == 0 ? project2.name.collate (project1.name) : project1.name.collate (project2.name);
+        favorites_hashmap [project.id] = new Layouts.ProjectRow (project, false, false);
+        favorites_header.add_child (favorites_hashmap [project.id]);
     }
 }

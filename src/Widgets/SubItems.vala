@@ -151,7 +151,7 @@ public class Widgets.SubItems : Adw.Bin {
 
         signals_map[item_parent.item_added.connect (add_item)] = item_parent;
 
-        signals_map[Services.Database.get_default ().item_updated.connect ((item, update_id) => {
+        signals_map[Services.Store.instance ().item_updated.connect ((item, update_id) => {
             if (items.has_key (item.id_string)) {
                 if (items [item.id_string].update_id != update_id) {
                     items [item.id_string].update_request ();
@@ -161,9 +161,9 @@ public class Widgets.SubItems : Adw.Bin {
             if (items_checked.has_key (item.id_string)) {
                 items_checked [item.id_string].update_request ();
             }
-        })] = Services.Database.get_default ();
+        })] = Services.Store.instance ();
 
-        signals_map[Services.Database.get_default ().item_deleted.connect ((item) => {
+        signals_map[Services.Store.instance ().item_deleted.connect ((item) => {
             if (items.has_key (item.id_string)) {
                 items [item.id_string].hide_destroy ();
                 items.unset (item.id_string);
@@ -175,7 +175,7 @@ public class Widgets.SubItems : Adw.Bin {
             }
 
             children_changes ();
-        })] = Services.Database.get_default ();
+        })] = Services.Store.instance ();
 
         signals_map[Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, old_section_id, old_parent_id) => {
             if (old_parent_id == item_parent.id) {

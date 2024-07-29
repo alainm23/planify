@@ -145,8 +145,7 @@ public enum FilterType {
 	}
 }
 
-public enum BackendType {
-	ALL,
+public enum SourceType {
 	NONE,
 	LOCAL,
 	TODOIST,
@@ -155,9 +154,6 @@ public enum BackendType {
 
 	public string to_string () {
 		switch (this) {
-			case ALL:
-				return "all";
-
 			case NONE:
 				return "none";
 
@@ -175,6 +171,25 @@ public enum BackendType {
 
 			default:
 				assert_not_reached ();
+		}
+	}
+
+	public static SourceType parse (string value) {
+		switch (value) {
+			case "local":
+				return SourceType.LOCAL;
+
+			case "todoist":
+				return SourceType.TODOIST;
+
+			case "google-tasks":
+				return SourceType.GOOGLE_TASKS;
+			
+			case "caldav":
+				return SourceType.CALDAV;
+
+			default:
+				return SourceType.NONE;
 		}
 	}
 }
@@ -331,6 +346,45 @@ public enum CalDAVType {
 
 			default:
 				assert_not_reached ();
+		}
+	}
+
+	public string title () {
+		switch (this) {
+			case NEXTCLOUD:
+				return _("Nextcloud");
+
+			case RADICALE:
+				return _("Radicale");
+
+			default:
+				assert_not_reached ();
+		}
+	}
+
+	public static CalDAVType parse_index (uint value) {
+		switch (value) {
+			case 0:
+				return CalDAVType.NEXTCLOUD;
+
+			case 1:
+				return CalDAVType.RADICALE;
+
+			default:
+				return CalDAVType.NEXTCLOUD;
+		}
+	}
+
+	public static CalDAVType parse (string value) {
+		switch (value) {
+			case "nextcloud":
+				return CalDAVType.NEXTCLOUD;
+
+			case "radicale":
+				return CalDAVType.RADICALE;
+
+			default:
+				return CalDAVType.NEXTCLOUD;
 		}
 	}
 }
@@ -539,4 +593,9 @@ public enum ObjectEventKeyType {
 				assert_not_reached ();
 		}
 	}
+}
+
+public enum LabelPickerType {
+	SELECT,
+	FILTER
 }

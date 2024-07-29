@@ -190,7 +190,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public bool drag_enabled { get; set; default = true; }
 
     public signal void item_added ();
-    public signal void widget_destroyed ();
 
     public ItemRow (Objects.Item item, bool is_project_view = false) {
         Object (
@@ -409,7 +408,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             sensitive = !item.completed
         };
         
-        label_button.backend_type = item.project.backend_type;
+        label_button.source = item.project.source;
 
         pin_button = new Widgets.PinButton () {
             sensitive = !item.completed
@@ -539,7 +538,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         box.append (itemrow_box);
         box.append (subitems);
 
-        hide_subtask_button = new Gtk.Button.from_icon_name ("pan-end-symbolic") {
+        hide_subtask_button = new Gtk.Button.from_icon_name ("go-next-symbolic") {
             valign = Gtk.Align.START,
             margin_top = 3,
             css_classes = { "flat", "dim-label", "no-padding", "hidden-button" }
@@ -653,8 +652,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             if (item.priority != priority) {
                 item.priority = priority;
 
-                if (item.project.backend_type == BackendType.TODOIST ||
-                    item.project.backend_type == BackendType.CALDAV) {
+                if (item.project.source_type == SourceType.TODOIST ||
+                    item.project.source_type == SourceType.CALDAV) {
                     item.update_async ("");
                 } else {
                     item.update_local ();
@@ -765,6 +764,12 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         item.reminder_deleted.connect ((reminder) => {
             reminder_button.delete_reminder (reminder, item.reminders);
             check_reminders ();
+        });
+
+        Services.EventBus.get_default ().drag_items_end.connect ((project_id) => {
+            if (item.project_id == project_id) {
+                motion_top_revealer.reveal_child = false;
+            }
         });
     }
 
@@ -949,7 +954,6 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     public override void hide_destroy () {
-        widget_destroyed ();
         main_revealer.reveal_child = false;
         Timeout.add (main_revealer.transition_duration, () => {
             ((Gtk.ListBox) parent).remove (this);
@@ -960,7 +964,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void update_pinned (bool pinned) {
         item.pinned = pinned;
         
-        if (item.project.backend_type == BackendType.CALDAV) {
+        if (item.project.source_type == SourceType.CALDAV) {
             item.update_async ("");
         } else {
             item.update_local ();
@@ -1037,14 +1041,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.activate_item.connect (() => {
             menu_handle_popover.popdown ();
 
-            BackendType backend_type;
+            Dialogs.ProjectPicker.ProjectPicker dialog;
             if (item.project.is_inbox_project) {
-                backend_type = BackendType.ALL;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                backend_type = item.project.backend_type;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -1052,7 +1055,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -1178,15 +1181,20 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         move_item.clicked.connect (() => {            
             popover.popdown ();
             
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, item.project.backend_type);
-            dialog.add_sections (item.project.sections);
+            Dialogs.ProjectPicker.ProjectPicker dialog;
+            if (item.project.is_inbox_project) {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
+            } else {
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
+            }
+            
             dialog.project = item.project;
             dialog.section = item.section;
             dialog.present (Planify._instance.main_window);
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -1372,29 +1380,47 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     }
 
     private void _complete_item (bool old_checked) {
-        if (item.project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().checked_toggled (item, old_checked);
-        } else if (item.project.backend_type == BackendType.TODOIST) {
+        if (item.project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().checked_toggled (item, old_checked);
+        } else if (item.project.source_type == SourceType.TODOIST) {
             checked_button.sensitive = false;
             is_loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                HttpResponse response = Services.Todoist.get_default ().complete_item.end (res);
+                if (response.status) {
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
+                } else {
+                    _complete_item_error (response);
                 }
             });
-        } else if (item.project.backend_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             checked_button.sensitive = false;
             is_loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
-                if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                HttpResponse response = Services.CalDAV.Core.get_default ().complete_item.end (res);
+                if (response.status) {
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                     is_loading = false;
                     checked_button.sensitive = true;
+                } else {
+                    _complete_item_error (response);
                 }
             });
         }
+    }
+
+    private void _complete_item_error (HttpResponse response) {
+        is_loading = false;
+        checked_button.sensitive = true;
+        checked_button.active = false;
+
+        itemrow_box.remove_css_class ("complete-animation");
+        content_label.remove_css_class ("dim-label");
+        content_label.remove_css_class ("line-through");
+        
+        Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
     }
 
     public void update_content (string content = "") {
@@ -1431,7 +1457,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             Utils.Datetime.get_default_date_format_from_date (next_recurrency)
         ));
         var toast = Util.get_default ().create_toast (title, 3);
-        Services.EventBus.get_default ().send_notification (toast);
+        Services.EventBus.get_default ().send_toast (toast);
     }
 
     public void update_labels (Gee.HashMap<string, Objects.Label> new_labels) {
@@ -1474,7 +1500,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
         toast.priority = Adw.ToastPriority.HIGH;
         toast.timeout = 3;
 
-        Services.EventBus.get_default ().send_notification (toast);
+        Services.EventBus.get_default ().send_toast (toast);
 
         toast.dismissed.connect (() => {
             if (!main_revealer.reveal_child) {
@@ -1490,7 +1516,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
     public void move (Objects.Project project, string section_id) {
         string project_id = project.id;
 
-        if (item.project.backend_type != project.backend_type) {
+        if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);
         } else {
             if (item.project_id != project_id || item.section_id != section_id) {
@@ -1581,6 +1607,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             var picked_item = picked_widget.item;
             var target_item = target_widget.item;
 
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
+
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
@@ -1592,23 +1620,23 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             picked_item.section_id = "";
             picked_item.parent_id = target_item.id;
 
-            if (picked_item.project.backend_type == BackendType.LOCAL) {
+            if (picked_item.project.source_type == SourceType.LOCAL) {
                 target_item.collapsed = true;
-                Services.Database.get_default ().update_item (picked_item);
+                Services.Store.instance ().update_item (picked_item);
                 Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
-            } else if (picked_item.project.backend_type == BackendType.TODOIST) {
+            } else if (picked_item.project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().move_item.begin (picked_item, "parent_id", picked_item.parent_id, (obj, res) => {
                     if (Services.Todoist.get_default ().move_item.end (res).status) {
                         target_item.collapsed = true;
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
-            } else if (picked_item.project.backend_type == BackendType.CALDAV) {
+            } else if (picked_item.project.source_type == SourceType.CALDAV) {
                 Services.CalDAV.Core.get_default ().add_task.begin (picked_item, true, (obj, res) => {
                     if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
                         target_item.collapsed = true;
-                        Services.Database.get_default ().update_item (picked_widget.item);
+                        Services.Store.instance ().update_item (picked_widget.item);
                         Services.EventBus.get_default ().item_moved (picked_item, old_project_id, old_section_id, old_parent_id);
                     }
                 });
@@ -1663,13 +1691,15 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             picked_widget.drag_end ();
             target_widget.drag_end ();
 
+            Services.EventBus.get_default ().drag_items_end (item.project_id);
+
             if (picked_widget == target_widget || target_widget == null) {
                 return false;
             }
 
             if (item.project.sort_order != 0) {
                 item.project.sort_order = 0;
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Order changed to 'Custom sort order'"))
                 );
 			    item.project.update_local ();
@@ -1694,9 +1724,9 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     picked_widget.item.parent_id = target_widget.item.parent_id;
                 }
 
-                if (picked_widget.item.project.backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().update_item (picked_widget.item);
-                } else if (picked_widget.item.project.backend_type == BackendType.TODOIST) {
+                if (picked_widget.item.project.source_type == SourceType.LOCAL) {
+                    Services.Store.instance ().update_item (picked_widget.item);
+                } else if (picked_widget.item.project.source_type == SourceType.TODOIST) {
                     string move_id = picked_widget.item.project_id;
                     string move_type = "project_id";
 
@@ -1712,13 +1742,13 @@ public class Layouts.ItemRow : Layouts.ItemBase {
                     
                     Services.Todoist.get_default ().move_item.begin (picked_widget.item, move_type, move_id, (obj, res) => {
                         if (Services.Todoist.get_default ().move_item.end (res).status) {
-                            Services.Database.get_default ().update_item (picked_widget.item);
+                            Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
-                } else if (picked_widget.item.project.backend_type == BackendType.CALDAV) {
+                } else if (picked_widget.item.project.source_type == SourceType.CALDAV) {
                     Services.CalDAV.Core.get_default ().add_task.begin (picked_widget.item, true, (obj, res) => {
                         if (Services.CalDAV.Core.get_default ().add_task.end (res).status) {
-                            Services.Database.get_default ().update_item (picked_widget.item);
+                            Services.Store.instance ().update_item (picked_widget.item);
                         }
                     });
                 }
@@ -1777,7 +1807,7 @@ public class Layouts.ItemRow : Layouts.ItemBase {
 
             if (item_row != null) {
                 item_row.item.child_order = row_index;
-                Services.Database.get_default ().update_item (item_row.item);
+                Services.Store.instance ().update_item (item_row.item);
             }
 
             row_index++;

@@ -62,6 +62,9 @@ public class Services.EventBus : Object {
     public signal void request_escape ();
     public signal void drag_n_drop_active (string project_id, bool active);
     public signal void expand_all (string project_id, bool active);
+    public signal void drag_projects_end (string source_id);
+    public signal void drag_items_end (string project_id);
+    public signal void update_sources_position ();
 
     public bool _mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
     public bool mobile_mode {
@@ -78,7 +81,8 @@ public class Services.EventBus : Object {
     public signal void mobile_mode_change ();
 
     // Notifications
-    public signal void send_notification (Adw.Toast toast);
+    public signal void send_toast (Adw.Toast toast);
+    public signal void send_error_toast (int error_code, string error_message);
 
     // Multi Select
     public bool multi_select_enabled = false;

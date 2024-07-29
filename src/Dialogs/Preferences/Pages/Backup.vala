@@ -117,8 +117,8 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		});
 
 		import_button.clicked.connect (() => {
-			Services.Backups.get_default ().import_backup.begin ((obj, res) => {
-				GLib.File file = Services.Backups.get_default ().import_backup.end (res);
+			Services.Backups.get_default ().choose_backup_file.begin ((obj, res) => {
+				GLib.File file = Services.Backups.get_default ().choose_backup_file.end (res);
 				Objects.Backup backup = new Objects.Backup.from_file (file);
 				view_backup (backup);
 			});
@@ -129,7 +129,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			GLib.File file = GLib.File.new_for_path (path);
 
 			if (file.query_exists ()) {
-				if (Services.Migrate.get_default ().migrate_from_file (file)) {
+				if (Services.MigrateFromPlanner.get_default ().migrate_from_file (file)) {
 					popup_toast (_("Tasks Migrate Successfully"));
 					pop_subpage ();
 				}
@@ -152,7 +152,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 	private Gtk.Widget get_import_page (Objects.Backup backup) {
 		var title = new Gtk.Label (_("Import Overview")) {
 			halign = CENTER,
-			css_classes = { "h1" }
+			css_classes = { "title-1" }
 		};
 		var subtitle = new Gtk.Label (backup.title) {
 			halign = CENTER,
@@ -160,14 +160,9 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			margin_top = 3
 		};
 
-		var todoist_row = new Adw.ActionRow ();
-		todoist_row.title = _("Todoist");
-		todoist_row.add_suffix (generate_icon (backup.todoist_backend ? "check-round-outline-symbolic" : "window-close-symbolic", 16));
-
-		var general_group = new Adw.PreferencesGroup () {
-			margin_top = 24
-		};
-		general_group.add (todoist_row);
+		var sources_row = new Adw.ActionRow ();
+		sources_row.title = _("Sources");
+		sources_row.add_suffix (new Gtk.Label (backup.sources.size.to_string ()));
 
 		var projects_row = new Adw.ActionRow ();
 		projects_row.title = _("Projects");
@@ -189,6 +184,7 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 			margin_top = 24
 		};
 
+		collection_group.add (sources_row);
 		collection_group.add (projects_row);
 		collection_group.add (sections_row);
 		collection_group.add (items_row);
@@ -221,7 +217,6 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 
 		content_box.append (title);
 		content_box.append (subtitle);
-		content_box.append (general_group);
 		content_box.append (collection_group);
 		content_box.append (buttons_box);
 
@@ -282,12 +277,6 @@ public class Dialogs.Preferences.Pages.Backup : Adw.Bin {
 		});
 
 		group.insert_child (row, 0);
-	}
-
-	private Gtk.Widget generate_icon (string icon_name, int size = 32) {
-		return new Gtk.Image.from_icon_name (icon_name) {
-			pixel_size = size
-		};
 	}
 
 	private void view_backup (Objects.Backup backup) {
@@ -408,7 +397,7 @@ public class Widgets.BackupRow : Gtk.ListBoxRow {
 
 		delete_item.clicked.connect (() => {
 			menu_popover.popdown ();
-			backup.delete_backup ((Gtk.Window) Planify.instance.main_window);
+			Services.Backups.get_default ().delete_backup (backup);
 		});
 
 		return menu_popover;

@@ -24,6 +24,7 @@ public class Objects.BaseObject : GLib.Object {
     public string name { get; set; default = ""; }
     public string keywords { get; set; default = ""; }
     public string icon_name { get; set; default = ""; }
+    
     public signal void deleted ();
     public signal void updated (string update_id = "");
     public signal void archived ();
@@ -175,15 +176,48 @@ public class Objects.BaseObject : GLib.Object {
         get {
             if (this is Objects.Item) {
                 return "child_order";
-            } else if (this is Objects.Section) {
-                return "section_order";
-            } else if (this is Objects.Project) {
-                return "child_order";
-            } else if (this is Objects.Label) {
-                return "item_order";
-            } else {
-                return "";
             }
+            
+            if (this is Objects.Section) {
+                return "section_order";
+            }
+            
+            if (this is Objects.Project) {
+                return "child_order";
+            }
+            
+            if (this is Objects.Label) {
+                return "item_order";
+            }  
+            
+            return "";
+        }
+    }
+
+    Objects.Source? _source;
+    public Objects.Source source {
+        get {
+            if (this is Objects.Project) {
+                return ((Objects.Project) this).source;
+            }
+
+            if (this is Objects.Section) {
+                return ((Objects.Section) this).project.source;
+            }
+
+            if (this is Objects.Item) {
+                return ((Objects.Item) this).project.source;
+            }
+
+            if (this is Objects.Label) {
+                return ((Objects.Label) this).source;
+            }
+
+            if (this is Objects.Reminder) {
+                return ((Objects.Reminder) this).item.project.source;
+            }
+
+            return _source;
         }
     }
 

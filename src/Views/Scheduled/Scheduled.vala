@@ -171,7 +171,7 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        var inbox_project = Services.Database.get_default ().get_project (
+        var inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
@@ -265,12 +265,12 @@ public class Views.Scheduled.Scheduled : Adw.Bin {
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Scheduled.get_default ().filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {
-					_labels.add (Services.Database.get_default ().get_label (filter.value));
+					_labels.add (Services.Store.instance ().get_label (filter.value));
 				}
 			}
 
 			var dialog = new Dialogs.LabelPicker ();
-			dialog.add_labels (BackendType.ALL);
+			// TODO: dialog.add_labels (SourceType.ALL);
 			dialog.labels = _labels;
 			dialog.present (Planify._instance.main_window);
 

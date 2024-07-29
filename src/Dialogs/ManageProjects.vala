@@ -63,14 +63,14 @@ public class Dialogs.ManageProjects : Adw.Dialog {
         child = toolbar_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
 
-        foreach (Objects.Project project in Services.Database.get_default ().get_all_projects_archived ()) {
+        foreach (Objects.Project project in Services.Store.instance ().get_all_projects_archived ()) {
             if (project.is_archived) {
                 listbox.append (new Dialogs.ProjectPicker.ProjectPickerRow (project, "menu"));
             }
         }
 
-        Services.Database.get_default ().project_unarchived.connect (() => {
-            if (Services.Database.get_default ().get_all_projects_archived ().size <= 0) {
+        Services.Store.instance ().project_unarchived.connect (() => {
+            if (Services.Store.instance ().get_all_projects_archived ().size <= 0) {
                 hide_destroy ();
             }
         });

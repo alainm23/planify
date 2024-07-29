@@ -45,7 +45,7 @@ public class Objects.Section : Objects.BaseObject {
     Objects.Project? _project;
     public Objects.Project project {
         get {
-            _project = Services.Database.get_default ().get_project (project_id);
+            _project = Services.Store.instance ().get_project (project_id);
             return _project;
         }
     }
@@ -53,7 +53,7 @@ public class Objects.Section : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Database.get_default ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_item_by_baseobject (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -66,8 +66,6 @@ public class Objects.Section : Objects.BaseObject {
             return _items;
         }
     }
-
-    public signal void item_added (Objects.Item item);
 
     int? _section_count = null;
     public int section_count {
@@ -86,15 +84,10 @@ public class Objects.Section : Objects.BaseObject {
 
     public signal void section_count_updated ();
 
-    construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Database.get_default ().section_deleted (this);
-                return false;
-            });
-        });
-        
+    public signal void item_added (Objects.Item item);
+    public signal void item_deleted (Objects.Item item);
 
+    construct {
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.section_id == id) {
                 _section_count = update_section_count ();
@@ -102,18 +95,14 @@ public class Objects.Section : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
-            if (item.section_id == id) {
-                _section_count = update_section_count ();
-                section_count_updated ();
-            }
+        item_deleted.connect ((item) => {
+            _section_count = update_section_count ();
+            section_count_updated ();
         });
 
-        Services.Database.get_default ().item_added.connect ((item) => {
-            if (item.section_id == id) {
-                _section_count = update_section_count ();
-                section_count_updated ();
-            }
+        item_added.connect ((item) => {
+            _section_count = update_section_count ();
+            section_count_updated ();
         });
     }
 
@@ -159,7 +148,7 @@ public class Objects.Section : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_section (this);
                 add_item (new_item);
-                Services.Database.get_default ().insert_item (new_item, insert);
+                Services.Store.instance ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
@@ -185,14 +174,14 @@ public class Objects.Section : Objects.BaseObject {
 
     public void update (bool cloud=true) {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
 
         update_timeout_id = Timeout.add (Constants.UPDATE_TIMEOUT, () => {
             update_timeout_id = 0;
 
-            Services.Database.get_default ().update_section (this);
-            if (project.backend_type == BackendType.TODOIST && cloud) {
+            Services.Store.instance ().update_section (this);
+            if (project.source_type == SourceType.TODOIST && cloud) {
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
                 });
@@ -314,7 +303,7 @@ public class Objects.Section : Objects.BaseObject {
 
     private int update_section_count () {
         int returned = 0;
-        foreach (Objects.Item item in Services.Database.get_default ().get_item_by_baseobject (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_item_by_baseobject (this)) {
             if (!item.checked) {
                 returned++;
             }
@@ -345,13 +334,13 @@ public class Objects.Section : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "delete") {
                 loading = true;
-                if (project.backend_type == BackendType.TODOIST) {
+                if (project.source_type == SourceType.TODOIST) {
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
                         Services.Todoist.get_default ().delete.end (res);
-                        Services.Database.get_default ().delete_section (this);
+                        Services.Store.instance ().delete_section (this);
                     });
                 } else {
-                    Services.Database.get_default ().delete_section (this);
+                    Services.Store.instance ().delete_section (this);
                 }
             }
         });
@@ -372,14 +361,14 @@ public class Objects.Section : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "archive") {
                 is_archived = true;
-                Services.Database.get_default ().archive_section (this);
+                Services.Store.instance ().archive_section (this);
             }
         });
     }
 
     public void unarchive_section () {
         is_archived = false;
-        Services.Database.get_default ().archive_section (this);
+        Services.Store.instance ().archive_section (this);
     }
 
     public bool was_archived () {

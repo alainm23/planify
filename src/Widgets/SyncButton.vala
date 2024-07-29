@@ -66,14 +66,13 @@ public class Widgets.SyncButton : Adw.Bin {
             clicked ();
         });
 
-        var network_monitor = GLib.NetworkMonitor.get_default ();
-        network_monitor.network_changed.connect (() => {
+        Services.NetworkMonitor.instance ().network_changed.connect (() => {
             network_available ();
         });
     }
 
     private void network_available () {
-        if (GLib.NetworkMonitor.get_default ().network_available) {
+        if (Services.NetworkMonitor.instance ().network_available) {
             stack.visible_child_name = "sync";
         } else {
             stack.visible_child_name = "error";

@@ -33,7 +33,7 @@ public class Objects.Filters.Labels : Objects.BaseObject {
     public int count {
         get {
             if (_count == null) {
-                _count = Services.Database.get_default ().get_items_has_labels ().size;
+                _count = Services.Store.instance ().get_items_has_labels ().size;
             }
 
             return _count;
@@ -52,43 +52,43 @@ public class Objects.Filters.Labels : Objects.BaseObject {
         icon_name = "tag-outline-symbolic";
         view_id = FilterType.LABELS.to_string ();
 
-        Services.Database.get_default ().label_added.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().label_added.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().label_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().label_deleted.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().label_updated.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().label_updated.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
         
-        Services.Database.get_default ().item_added.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().item_added.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().item_deleted.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_archived.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().item_archived.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect ((item) => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().item_unarchived.connect ((item) => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _count = Services.Database.get_default ().get_items_has_labels ().size;
+        Services.Store.instance ().item_updated.connect (() => {
+            _count = Services.Store.instance ().get_items_has_labels ().size;
             count_updated ();
         });
     }

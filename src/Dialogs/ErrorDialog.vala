@@ -1,5 +1,5 @@
 /*
-* Copyright © 2024 Alain M. (https://github.com/alainm23/planify)
+* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,14 +19,25 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Services.CalDAV.Backend {
-    public static string generate_server_url (CalDAVType caldav_type, string server_url, string username, string password) {
-        if (caldav_type == CalDAVType.NEXTCLOUD) {
-            return "%s/remote.php/dav".printf (server_url);
-        } else if (caldav_type == CalDAVType.RADICALE) {
-            return "https://%s:%s@%s".printf (username, password, server_url);
-        }
+public class Dialogs.ErrorDialog : Adw.Dialog {
+    public int error_code { get; construct; }
+    public string error_message { get; construct; }
 
-        return "";
+    public ErrorDialog (int error_code, string error_message) {
+        Object (
+            error_code: error_code,
+            error_message: error_message,
+            content_width: 375,
+            content_height: 450
+        );
+    }
+
+    construct {
+        var error_view = new Widgets.ErrorView () {
+            error_code = error_code,
+            error_message = error_message,
+        };
+
+        child = error_view;
     }
 }

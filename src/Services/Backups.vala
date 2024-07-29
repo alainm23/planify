@@ -117,35 +117,50 @@ public class Services.Backups : Object {
         builder.set_member_name ("local-inbox-project-id");
         builder.add_string_value (Services.Settings.get_default ().settings.get_string ("local-inbox-project-id"));
 
-        // Todoist
-        builder.set_member_name ("todoist-access-token");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-access-token"));
-
-        builder.set_member_name ("todoist-sync-token");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-sync-token"));
-
-        builder.set_member_name ("todoist-user-name");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-user-name"));
-
-        builder.set_member_name ("todoist-user-email");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-
-        builder.set_member_name ("todoist-user-image-id");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-user-image-id"));
-
-        builder.set_member_name ("todoist-user-avatar");
-        builder.add_string_value (Services.Settings.get_default ().settings.get_string ("todoist-user-avatar"));
-
-        builder.set_member_name ("todoist-user-is-premium");
-        builder.add_boolean_value (Services.Settings.get_default ().settings.get_boolean ("todoist-user-is-premium"));
-
         builder.end_object ();
+
+        // Sources
+
+        builder.set_member_name ("sources");
+        builder.begin_array ();
+
+        foreach (Objects.Source source in Services.Database.get_default ().get_sources_collection ()) {
+            builder.begin_object ();
+
+            builder.set_member_name ("id");
+            builder.add_string_value (source.id);
+
+            builder.set_member_name ("display_name");
+            builder.add_string_value (source.display_name);
+
+            builder.set_member_name ("source_type");
+            builder.add_string_value (source.source_type.to_string ());
+
+            builder.set_member_name ("added_at");
+            builder.add_string_value (source.added_at);
+
+            builder.set_member_name ("updated_at");
+            builder.add_string_value (source.updated_at);
+
+            builder.set_member_name ("is_visible");
+            builder.add_boolean_value (source.is_visible);
+
+            builder.set_member_name ("child_order");
+            builder.add_int_value (source.child_order);
+
+            builder.set_member_name ("data");
+            builder.add_string_value (source.data.to_json ());
+
+            builder.end_object ();
+        }
+
+        builder.end_array ();
 
         // Labels
         builder.set_member_name ("labels");
         builder.begin_array ();
 
-        foreach (Objects.Label label in Services.Database.get_default ().labels) {
+        foreach (Objects.Label label in Services.Database.get_default ().get_labels_collection ()) {
             builder.begin_object ();
             
             builder.set_member_name ("id");
@@ -166,6 +181,9 @@ public class Services.Backups : Object {
             builder.set_member_name ("is_favorite");
             builder.add_boolean_value (label.is_favorite);
 
+            builder.set_member_name ("source_id");
+            builder.add_string_value (label.source_id);
+
             builder.end_object ();
         }
 
@@ -174,7 +192,7 @@ public class Services.Backups : Object {
         // Projects
         builder.set_member_name ("projects");
         builder.begin_array ();
-        foreach (Objects.Project project in Services.Database.get_default ().projects) {
+        foreach (Objects.Project project in Services.Database.get_default ().get_projects_collection ()) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -240,6 +258,9 @@ public class Services.Backups : Object {
             builder.set_member_name ("sync_id");
             builder.add_string_value (project.sync_id);
 
+            builder.set_member_name ("source_id");
+            builder.add_string_value (project.source_id);
+
             builder.end_object ();
         }
         builder.end_array ();
@@ -247,7 +268,7 @@ public class Services.Backups : Object {
         // Sections
         builder.set_member_name ("sections");
         builder.begin_array ();
-        foreach (Objects.Section section in Services.Database.get_default ().sections) {
+        foreach (Objects.Section section in Services.Database.get_default ().get_sections_collection ()) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -284,7 +305,7 @@ public class Services.Backups : Object {
         // Items
         builder.set_member_name ("items");
         builder.begin_array ();
-        foreach (Objects.Item item in Services.Database.get_default ().items) {
+        foreach (Objects.Item item in Services.Database.get_default ().get_items_collection ()) {
             builder.begin_object ();
 
             builder.set_member_name ("id");
@@ -378,10 +399,39 @@ public class Services.Backups : Object {
             if (file_path.query_exists ()) {
                 var backup = new Objects.Backup.from_file (file_path);
                 backup_added (backup);
+                _backups.add (backup);
             }
         } catch (Error e) {
             debug ("Error: %s\n", e.message);
         }
+    }
+
+    public void delete_backup (Objects.Backup backup) {
+        var dialog = new Adw.AlertDialog (
+            _("Delete Backup"),
+            _("This can not be undone")
+        );
+
+        dialog.add_response ("cancel", _("Cancel"));
+        dialog.add_response ("delete", _("Delete"));
+        dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
+        dialog.present ((Gtk.Window) Planify.instance.main_window);
+
+        dialog.response.connect ((response) => {
+            if (response == "delete") {
+                File db_file = File.new_for_path (backup.path);
+                if (db_file.query_exists ()) {
+                    try {
+                        if (db_file.delete ()) {
+                            backup.deleted ();
+                            _backups.remove (backup);
+                        }
+                    } catch (Error err) {
+                        warning (err.message);
+                    }
+                }
+            }
+        });
     }
 
     public void save_file_as (Objects.Backup backup) {
@@ -409,7 +459,7 @@ public class Services.Backups : Object {
         });
     }
 
-    public async GLib.File? import_backup () {
+    public async GLib.File? choose_backup_file () {
         var dialog = new Gtk.FileDialog ();
         add_filters (dialog);
 
@@ -443,27 +493,33 @@ public class Services.Backups : Object {
         // Clear Database
         Services.Database.get_default ().clear_database ();
         Services.Database.get_default ().init_database ();
+        Util.get_default ().create_local_source ();
+    
+        // Create Sources
+        foreach (Objects.Source source in backup.sources) {
+            Services.Store.instance ().insert_source (source);
+        }
 
         // Create Labels
         foreach (Objects.Label item in backup.labels) {
-            Services.Database.get_default ().insert_label (item);
+            Services.Store.instance ().insert_label (item);
         }
 
         // Create Projects
         foreach (Objects.Project item in backup.projects) {
             if (item.parent_id != "") {
-                Objects.Project? project = Services.Database.get_default ().get_project (item.parent_id);
+                Objects.Project? project = Services.Store.instance ().get_project (item.parent_id);
                 if (project != null) {
                     project.add_subproject_if_not_exists (item);
                 }
             } else {
-                Services.Database.get_default ().insert_project (item);
+                Services.Store.instance ().insert_project (item);
             }
         }
 
         // Create Sections
         foreach (Objects.Section item in backup.sections) {
-            Objects.Project? project = Services.Database.get_default ().get_project (item.project_id);
+            Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
             if (project != null) {
                 project.add_section_if_not_exists (item);
             }
@@ -472,18 +528,18 @@ public class Services.Backups : Object {
         // Create Items
         foreach (Objects.Item item in backup.items) {
             if (item.has_parent) {
-                Objects.Item? _item = Services.Database.get_default ().get_item (item.parent_id);
+                Objects.Item? _item = Services.Store.instance ().get_item (item.parent_id);
                 if (_item != null) {
                     _item.add_item_if_not_exists (item);
                 }
             } else {
                 if (item.section_id != "") {
-                    Objects.Section? section = Services.Database.get_default ().get_section (item.section_id);
+                    Objects.Section? section = Services.Store.instance ().get_section (item.section_id);
                     if (section != null) {
                         section.add_item_if_not_exists (item);
                     }
                 } else {
-                    Objects.Project? project = Services.Database.get_default ().get_project (item.project_id);
+                    Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
                     if (project != null) {
                         project.add_item_if_not_exists (item);
                     }

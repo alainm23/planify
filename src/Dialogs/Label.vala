@@ -32,11 +32,11 @@ public class Dialogs.Label : Adw.Dialog {
         }
     }
 
-    public Label.new (BackendType backend_type = BackendType.LOCAL) {
+    public Label.new (Objects.Source source) {
         var label = new Objects.Label ();
         label.color = "blue";
         label.id = "";
-        label.backend_type = backend_type;
+        label.source_id = source.id;
 
         Object (
             label: label,
@@ -121,8 +121,8 @@ public class Dialogs.Label : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
 
-        name_entry.entry_activated.connect (add_update_project);
-        submit_button.clicked.connect (add_update_project);
+        name_entry.entry_activated.connect (add_update_label);
+        submit_button.clicked.connect (add_update_label);
 
         name_entry.changed.connect (() => {
             if (is_creating) {
@@ -136,11 +136,11 @@ public class Dialogs.Label : Adw.Dialog {
     }
 
     private bool is_duplicate (string text) {
-        Objects.Label label = Services.Database.get_default ().get_label_by_name (text, true, label.backend_type);
+        Objects.Label label = Services.Store.instance ().get_label_by_name (text, true, label.source_id);
         return label != null;
     }
 
-    private void add_update_project () {
+    private void add_update_label () {
         if (name_entry.text.length <= 0) {
             hide_destroy ();
             return;
@@ -156,32 +156,32 @@ public class Dialogs.Label : Adw.Dialog {
 
         if (!is_creating) {
             submit_button.is_loading = true;
-            if (label.backend_type == BackendType.LOCAL || label.backend_type == BackendType.CALDAV) {
-                Services.Database.get_default ().update_label (label);
+            if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
+                Services.Store.instance ().update_label (label);
                 hide_destroy ();
-            } else if (label.backend_type == BackendType.TODOIST) { 
+            } else if (label.source_type == SourceType.TODOIST) { 
                 Services.Todoist.get_default ().update.begin (label, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_label (label);
+                    Services.Store.instance ().update_label (label);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
             }
         } else {
-            label.item_order = Services.Database.get_default ().get_labels_by_backend_type (label.backend_type).size;
+            label.item_order = Services.Store.instance ().get_labels_by_source (label.source_id).size;
 
-            if (label.backend_type == BackendType.LOCAL || label.backend_type == BackendType.CALDAV) {
+            if (label.source_type == SourceType.LOCAL || label.source_type == SourceType.CALDAV) {
                 label.id = Util.get_default ().generate_id (label);
-                Services.Database.get_default ().insert_label (label);
+                Services.Store.instance ().insert_label (label);
                 hide_destroy ();
-            } else if (label.backend_type == BackendType.TODOIST) {
+            } else if (label.source_type == SourceType.TODOIST) {
                 submit_button.is_loading = true;
                 Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                     HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
                     if (response.status) {
                         label.id = response.data;
-                        Services.Database.get_default ().insert_label (label);
+                        Services.Store.instance ().insert_label (label);
                         hide_destroy ();
                     } else {
 

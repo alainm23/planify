@@ -41,7 +41,7 @@ public class Objects.Filters.Priority : Objects.BaseObject {
     public int count {
         get {
             if (_count == null) {
-                _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+                _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             }
 
             return _count;
@@ -59,28 +59,28 @@ public class Objects.Filters.Priority : Objects.BaseObject {
         keywords = Util.get_default ().get_priority_keywords (priority) + ";" + _("filters");
         view_id = "priority-%d".printf (priority);
 
-        Services.Database.get_default ().item_added.connect (() => {
-            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+        Services.Store.instance ().item_added.connect (() => {
+            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+        Services.Store.instance ().item_deleted.connect (() => {
+            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+        Services.Store.instance ().item_updated.connect (() => {
+            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_archived.connect (() => {
-            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+        Services.Store.instance ().item_archived.connect (() => {
+            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect (() => {
-            _count = Services.Database.get_default ().get_items_by_priority (priority, false).size;
+        Services.Store.instance ().item_unarchived.connect (() => {
+            _count = Services.Store.instance ().get_items_by_priority (priority, false).size;
             count_updated ();
         });
     }

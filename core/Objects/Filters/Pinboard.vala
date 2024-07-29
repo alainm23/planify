@@ -33,7 +33,7 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
     public int pinboard_count {
         get {
             if (_pinboard_count == null) {
-                _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+                _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             }
 
             return _pinboard_count;
@@ -52,28 +52,28 @@ public class Objects.Filters.Pinboard : Objects.BaseObject {
         icon_name = "pin-symbolic";
         view_id = FilterType.PINBOARD.to_string ();
 
-        Services.Database.get_default ().item_added.connect (() => {
-            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+        Services.Store.instance ().item_added.connect (() => {
+            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+        Services.Store.instance ().item_deleted.connect (() => {
+            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+        Services.Store.instance ().item_updated.connect (() => {
+            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
         
-        Services.Database.get_default ().item_archived.connect (() => {
-            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+        Services.Store.instance ().item_archived.connect (() => {
+            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect (() => {
-            _pinboard_count = Services.Database.get_default ().get_items_pinned (false).size;
+        Services.Store.instance ().item_unarchived.connect (() => {
+            _pinboard_count = Services.Store.instance ().get_items_pinned (false).size;
             pinboard_count_updated ();
         });
     }

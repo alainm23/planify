@@ -232,8 +232,8 @@ public class Layouts.ItemSidebarView : Adw.Bin {
             if (item.priority != priority) {
                 item.priority = priority;
 
-                if (item.project.backend_type == BackendType.TODOIST ||
-                    item.project.backend_type == BackendType.CALDAV) {
+                if (item.project.source_type == SourceType.TODOIST ||
+                    item.project.source_type == SourceType.CALDAV) {
                     item.update_async ("");
                 } else {
                     item.update_local ();
@@ -256,7 +256,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         reminder_button.reminder_added.connect ((reminder) => {
             reminder.item_id = item.id;
 
-            if (item.project.backend_type == BackendType.TODOIST) {
+            if (item.project.source_type == SourceType.TODOIST) {
                 item.loading = true;
                 Services.Todoist.get_default ().add.begin (reminder, (obj, res) => {
                     HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -302,7 +302,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         item = _item;
         update_id = Util.get_default ().generate_id ();
 
-        label_button.backend_type = item.project.backend_type;
+        label_button.source = item.project.source;
         update_request ();
         subitems.present_item (item);
         attachments.present_item (item);
@@ -441,7 +441,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void update_pinned (bool pinned) {
         item.pinned = pinned;
         
-        if (item.project.backend_type == BackendType.CALDAV) {
+        if (item.project.source_type == SourceType.CALDAV) {
             item.update_async ("");
         } else {
             item.update_local ();
@@ -517,14 +517,13 @@ public class Layouts.ItemSidebarView : Adw.Bin {
         move_item.clicked.connect (() => {            
             popover.popdown ();
 
-            BackendType backend_type;
+            Dialogs.ProjectPicker.ProjectPicker dialog;
             if (item.project.is_inbox_project) {
-                backend_type = BackendType.ALL;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_projects ();
             } else {
-                backend_type = item.project.backend_type;
+                dialog = new Dialogs.ProjectPicker.ProjectPicker.for_project (item.source);
             }
 
-            var dialog = new Dialogs.ProjectPicker.ProjectPicker (PickerType.PROJECTS, backend_type);
             dialog.add_sections (item.project.sections);
             dialog.project = item.project;
             dialog.section = item.section;
@@ -532,7 +531,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 
             dialog.changed.connect ((type, id) => {
                 if (type == "project") {
-                    move (Services.Database.get_default ().get_project (id), "");
+                    move (Services.Store.instance ().get_project (id), "");
                 } else {
                     move (item.project, id);
                 }
@@ -661,7 +660,7 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     public void move (Objects.Project project, string section_id, string parent_id = "") {
         string project_id = project.id;
 
-        if (item.project.backend_type != project.backend_type) {
+        if (item.project.source_id != project.source_id) {
             Util.get_default ().move_backend_type_item.begin (item, project);
         } else {
             if (item.project_id != project_id || item.section_id != section_id || item.parent_id != parent_id) {
@@ -725,22 +724,22 @@ public class Layouts.ItemSidebarView : Adw.Bin {
 	}
 
     private void _complete_item (bool old_checked) {
-        if (item.project.backend_type == BackendType.LOCAL) {
-            Services.Database.get_default ().checked_toggled (item, old_checked);
-        } else if (item.project.backend_type == BackendType.TODOIST) {
+        if (item.project.source_type == SourceType.LOCAL) {
+            Services.Store.instance ().checked_toggled (item, old_checked);
+        } else if (item.project.source_type == SourceType.TODOIST) {
             item.loading = true;
             Services.Todoist.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.Todoist.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                 }
 
                 item.loading = false;
             });
-        } else if (item.project.backend_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             item.loading = true;
             Services.CalDAV.Core.get_default ().complete_item.begin (item, (obj, res) => {
                 if (Services.CalDAV.Core.get_default ().complete_item.end (res).status) {
-                    Services.Database.get_default ().checked_toggled (item, old_checked);
+                    Services.Store.instance ().checked_toggled (item, old_checked);
                 }
 
                 item.loading = false;
@@ -761,6 +760,6 @@ public class Layouts.ItemSidebarView : Adw.Bin {
     private void recurrency_update_complete (GLib.DateTime next_recurrency) {
 		var title = _("Completed. Next occurrence: %s".printf (Utils.Datetime.get_default_date_format_from_date (next_recurrency)));
 		var toast = Util.get_default ().create_toast (title, 3);
-		Services.EventBus.get_default ().send_notification (toast);
+		Services.EventBus.get_default ().send_toast (toast);
 	}
 }

@@ -47,7 +47,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         
         if (is_window_quick_add &&
             Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
-            var project = Services.Database.get_default ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
+            var project = Services.Store.instance ().get_project (Services.Settings.get_default ().settings.get_string ("quick-add-project-selected"));
             
             if (project != null) {
                 item.project_id = project.id;
@@ -110,8 +110,8 @@ public class Layouts.QuickAdd : Adw.Bin {
         priority_button = new Widgets.PriorityButton ();
         priority_button.update_from_item (item);
         label_button = new Widgets.LabelPicker.LabelButton ();
+        label_button.source = item.project.source;
         reminder_button = new Widgets.ReminderPicker.ReminderButton (true);
-        label_button.backend_type = item.project.backend_type;
 
         var action_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 12) {
             margin_start = 3,
@@ -229,7 +229,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         child = window;
         
         Timeout.add (225, () => {
-            if (Services.Database.get_default ().is_database_empty ()) {
+            if (Services.Store.instance ().is_database_empty ()) {
                 main_stack.visible_child_name = "warning";
             } else {
                 main_stack.visible_child_name = "main";
@@ -243,7 +243,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         project_picker_button.project_change.connect ((project) => {
             item.project_id = project.id;
-            label_button.backend_type = project.backend_type;
+            label_button.source = project.source;
 
             if (Services.Settings.get_default ().settings.get_boolean ("quick-add-save-last-project")) {
                 Services.Settings.get_default ().settings.set_string ("quick-add-project-selected", project.id);
@@ -365,10 +365,10 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.content = content_entry.get_text ();
         item.description = description_textview.get_text ();
         
-        if (item.project.backend_type == BackendType.LOCAL) {
+        if (item.project.source_type == SourceType.LOCAL) {
             item.id = Util.get_default ().generate_id ();
             _add_item (item);
-        } else if (item.project.backend_type == BackendType.TODOIST) {
+        } else if (item.project.source_type == SourceType.TODOIST) {
             is_loading = true;
             Services.Todoist.get_default ().add.begin (item, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -379,7 +379,7 @@ public class Layouts.QuickAdd : Adw.Bin {
                     _add_item (item);
                 }
             });
-        } else if (item.project.backend_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             is_loading = true;
             item.id = Util.get_default ().generate_id ();
             Services.CalDAV.Core.get_default ().add_task.begin (item, false, (obj, res) => {
@@ -439,7 +439,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.section_id = old_section_id;
         item.parent_id = old_parent_id;
 
-        label_button.backend_type = item.project.backend_type;
+        label_button.source = item.project.source;
     }
 
     public void update_content (string content = "") {
@@ -487,7 +487,7 @@ public class Layouts.QuickAdd : Adw.Bin {
     public void for_project (Objects.Project project) {
         item.project_id = project.id;
         project_picker_button.project = project;
-        label_button.backend_type = project.backend_type;
+        label_button.source = project.source;
     }
 
     public void for_section (Objects.Section section) {
@@ -496,7 +496,7 @@ public class Layouts.QuickAdd : Adw.Bin {
 
         project_picker_button.project = section.project;
         project_picker_button.section = section;
-        label_button.backend_type = section.project.backend_type;
+        label_button.source = section.project.source;
     }
 
     public void for_parent (Objects.Item _item) {
@@ -505,7 +505,7 @@ public class Layouts.QuickAdd : Adw.Bin {
         item.parent_id = _item.id;
 
         project_picker_button.project = _item.project;
-        label_button.backend_type = _item.project.backend_type;
+        label_button.source = _item.project.source;
         project_picker_button.sensitive = false;
     }
 

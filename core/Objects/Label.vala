@@ -24,7 +24,22 @@ public class Objects.Label : Objects.BaseObject {
     public int item_order { get; set; default = 0; }
     public bool is_deleted { get; set; default = false; }
     public bool is_favorite { get; set; default = false; }
-    public BackendType backend_type { get; set; default = BackendType.NONE; }
+    public SourceType backend_type { get; set; default = SourceType.NONE; }
+    public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
+
+    Objects.Source? _source;
+    public Objects.Source source {
+        get {
+            _source = Services.Store.instance ().get_source (source_id);
+            return _source;
+        }
+    }
+    
+    public SourceType source_type {
+        get {
+            return source.source_type;
+        }
+    }
 
     int? _label_count = null;
     public int label_count {
@@ -52,42 +67,35 @@ public class Objects.Label : Objects.BaseObject {
     public signal void label_count_updated ();
 
     construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Database.get_default ().label_deleted (this);
-                return false;
-            });
-        });
-
-        Services.Database.get_default ().item_added.connect ((item) => {
+        Services.Store.instance ().item_added.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
+        Services.Store.instance ().item_deleted.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_updated.connect ((item) => {
+        Services.Store.instance ().item_updated.connect ((item) => {
             if (item.get_label (id) != null) {
                 _label_count = update_label_count ();
                 label_count_updated ();
             }
         });
 
-        Services.Database.get_default ().item_label_added.connect ((label) => {
+        Services.Store.instance ().item_label_added.connect ((label) => {
             if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
             }
         });
 
-        Services.Database.get_default ().item_label_deleted.connect ((label) => {
+        Services.Store.instance ().item_label_deleted.connect ((label) => {
             if (label.id == id) {
                 _label_count = update_label_count ();
                 label_count_updated ();   
@@ -96,22 +104,27 @@ public class Objects.Label : Objects.BaseObject {
     }
 
     private int update_label_count () {
-        return Services.Database.get_default ().get_items_by_label (this, false).size;
+        return Services.Store.instance ().get_items_by_label (this, false).size;
     }
 
     public Label.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_json (node);
-        backend_type = BackendType.TODOIST;
+        backend_type = SourceType.TODOIST;
     }
 
     public Label.from_import_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         name = node.get_object ().get_string_member ("name");
         color = node.get_object ().get_string_member ("color");
-        backend_type = Util.get_default ().get_backend_type_by_text (node.get_object ().get_string_member ("backend_type"));
+        backend_type = SourceType.parse (node.get_object ().get_string_member ("backend_type"));
         is_deleted = node.get_object ().get_boolean_member ("is_deleted");
         is_favorite = node.get_object ().get_boolean_member ("is_favorite");
+        source_id = backend_type.to_string ();
+
+        if (node.get_object ().has_member ("source_id")) {
+            source_id = node.get_object ().get_string_member ("source_id");
+        }
     }
 
     public void update_from_json (Json.Node node) {

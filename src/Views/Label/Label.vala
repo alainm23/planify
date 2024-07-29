@@ -111,11 +111,11 @@ public class Views.Label : Adw.Bin {
             return GLib.Source.REMOVE;
         });
 
-        Services.Database.get_default ().item_added.connect (valid_add_item);
-        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
-        Services.Database.get_default ().item_updated.connect (valid_update_item);
-        Services.Database.get_default ().item_archived.connect (valid_delete_item);
-        Services.Database.get_default ().item_unarchived.connect ((item) => {
+        Services.Store.instance ().item_added.connect (valid_add_item);
+        Services.Store.instance ().item_deleted.connect (valid_delete_item);
+        Services.Store.instance ().item_updated.connect (valid_update_item);
+        Services.Store.instance ().item_archived.connect (valid_delete_item);
+        Services.Store.instance ().item_unarchived.connect ((item) => {
             valid_add_item (item);
         });
 
@@ -170,7 +170,7 @@ public class Views.Label : Adw.Bin {
 
         items.clear ();
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_label (label, false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_label (label, false)) {
             add_item (item);
         }
 

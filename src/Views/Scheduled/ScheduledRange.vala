@@ -132,11 +132,11 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
             return GLib.Source.REMOVE;
         });
 
-        Services.Database.get_default ().item_added.connect (valid_add_item);
-        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
-        Services.Database.get_default ().item_updated.connect (valid_update_item);
-        Services.Database.get_default ().item_archived.connect (valid_delete_item);
-        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
+        Services.Store.instance ().item_added.connect (valid_add_item);
+        Services.Store.instance ().item_deleted.connect (valid_delete_item);
+        Services.Store.instance ().item_updated.connect (valid_update_item);
+        Services.Store.instance ().item_archived.connect (valid_delete_item);
+        Services.Store.instance ().item_unarchived.connect (valid_add_item);
         
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
@@ -225,7 +225,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
     }
 
     private void add_items () {
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date_range (start_date, end_date, false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_date_range (start_date, end_date, false)) {
             add_item (item);
         }
     }
@@ -238,7 +238,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
 
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
-            Services.Database.get_default ().valid_item_by_date_range (item, start_date, end_date, false)) {
+            Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false)) {
             items [item.id] = new Layouts.ItemRow (item);
             items [item.id].disable_drag_and_drop ();
             listbox.append (items [item.id]);
@@ -268,7 +268,7 @@ public class Views.Scheduled.ScheduledRange : Gtk.ListBoxRow {
 
 
         if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Database.get_default ().valid_item_by_date_range (item, start_date, end_date, false)) {
+            if (!Services.Store.instance ().valid_item_by_date_range (item, start_date, end_date, false)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }

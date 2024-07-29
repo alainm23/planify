@@ -102,7 +102,7 @@ public class Objects.ObjectEvent : GLib.Object {
 
     public string get_labels_value (string value) {
         string return_value = "";
-        Gee.ArrayList<Objects.Label> labels = Services.Database.get_default ().get_labels_by_item_labels (value);
+        Gee.ArrayList<Objects.Label> labels = Services.Store.instance ().get_labels_by_item_labels (value);
 
         if (labels.size > 0) {
             for (int index = 0; index < labels.size; index++) {

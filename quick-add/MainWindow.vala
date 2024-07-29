@@ -29,25 +29,25 @@ public class MainWindow : Adw.ApplicationWindow {
     }
 
     private void add_item_db (Objects.Item item, Gee.ArrayList<Objects.Reminder> reminders) {
-        if (Services.Database.get_default ().insert_item (item)) {
-            if (reminders.size > 0) {
-                quick_add_widget.is_loading = true;
-    
-                foreach (Objects.Reminder reminder in reminders) {
-                    item.add_reminder (reminder);
-                }
-            }
+        Services.Store.instance ().insert_item (item);
 
-            if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && item.has_time) {
-                var reminder = new Objects.Reminder ();
-                reminder.mm_offset = Util.get_reminders_mm_offset ();
-                reminder.reminder_type = ReminderType.RELATIVE;
+        if (reminders.size > 0) {
+            quick_add_widget.is_loading = true;
+
+            foreach (Objects.Reminder reminder in reminders) {
                 item.add_reminder (reminder);
             }
-
-            send_interface_id (item.id);
-            quick_add_widget.added_successfully ();
         }
+
+        if (Services.Settings.get_default ().get_boolean ("automatic-reminders-enabled") && item.has_time) {
+            var reminder = new Objects.Reminder ();
+            reminder.mm_offset = Util.get_reminders_mm_offset ();
+            reminder.reminder_type = ReminderType.RELATIVE;
+            item.add_reminder (reminder);
+        }
+
+        send_interface_id (item.id);
+        quick_add_widget.added_successfully ();
     }
 
     private void send_interface_id (string id) {

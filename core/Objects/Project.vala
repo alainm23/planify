@@ -26,7 +26,7 @@ public class Objects.Project : Objects.BaseObject {
     public string emoji { get; set; default = ""; }
     public string description { get; set; default = ""; }
     public ProjectIconStyle icon_style { get; set; default = ProjectIconStyle.PROGRESS; }
-    public BackendType backend_type { get; set; default = BackendType.NONE; }
+    public SourceType backend_type { get; set; default = SourceType.NONE; }
     public bool inbox_project { get; set; default = false; }
     public bool team_inbox { get; set; default = false; }
     public bool is_deleted { get; set; default = false; }
@@ -36,6 +36,7 @@ public class Objects.Project : Objects.BaseObject {
     public bool collapsed { get; set; default = false; }
     public bool inbox_section_hidded { get; set; default = false; }
     public string sync_id { get; set; default = ""; }
+    public string source_id { get; set; default = SourceType.LOCAL.to_string (); }
     
     ProjectViewStyle _view_style = ProjectViewStyle.LIST;
     public ProjectViewStyle view_style {
@@ -46,6 +47,20 @@ public class Objects.Project : Objects.BaseObject {
         set {
             _view_style = value;
             view_style_changed ();
+        }
+    }
+
+    public SourceType source_type {
+        get {
+            return source.source_type;
+        }
+    }
+
+    Objects.Source? _source;
+    public Objects.Source source {
+        get {
+            _source = Services.Store.instance ().get_source (source_id);
+            return _source;
         }
     }
 
@@ -116,7 +131,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Section> _sections;
     public Gee.ArrayList<Objects.Section> sections {
         get {
-            _sections = Services.Database.get_default ().get_sections_by_project (this);
+            _sections = Services.Store.instance ().get_sections_by_project (this);
             return _sections;
         }
     }
@@ -124,7 +139,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Section> _sections_archived;
     public Gee.ArrayList<Objects.Section> sections_archived {
         get {
-            _sections_archived = Services.Database.get_default ().get_sections_archived_by_project (this);
+            _sections_archived = Services.Store.instance ().get_sections_archived_by_project (this);
             return _sections_archived;
         }
     }
@@ -132,7 +147,7 @@ public class Objects.Project : Objects.BaseObject {
     Gee.ArrayList<Objects.Item> _items;
     public Gee.ArrayList<Objects.Item> items {
         get {
-            _items = Services.Database.get_default ().get_item_by_baseobject (this);
+            _items = Services.Store.instance ().get_item_by_baseobject (this);
             _items.sort ((a, b) => {
                 if (a.child_order > b.child_order) {
                     return 1;
@@ -142,31 +157,31 @@ public class Objects.Project : Objects.BaseObject {
                 
                 return -1;
             });
-            
-            return _items;
-        }
-    }
 
-    Gee.ArrayList<Objects.Item> _all_items;
-    public Gee.ArrayList<Objects.Item> all_items {
-        get {
-            _all_items = Services.Database.get_default ().get_items_by_project (this);
-            return _all_items;
+            return _items;
         }
     }
 
     Gee.ArrayList<Objects.Item> _items_checked;
     public Gee.ArrayList<Objects.Item> items_checked {
         get {
-            _items_checked = Services.Database.get_default ().get_items_checked_by_project (this);
+            _items_checked = Services.Store.instance ().get_items_checked_by_project (this);
             return _items_checked;
+        }
+    }
+
+    Gee.ArrayList<Objects.Item> _all_items;
+    public Gee.ArrayList<Objects.Item> all_items {
+        get {
+            _all_items = Services.Store.instance ().get_items_by_project (this);
+            return _all_items;
         }
     }
 
     Gee.ArrayList<Objects.Project> _subprojects;
     public Gee.ArrayList<Objects.Project> subprojects {
         get {
-            _subprojects = Services.Database.get_default ().get_subprojects (this);
+            _subprojects = Services.Store.instance ().get_subprojects (this);
             return _subprojects;
         }
     }
@@ -174,7 +189,7 @@ public class Objects.Project : Objects.BaseObject {
     Objects.Project? _parent;
     public Objects.Project parent {
         get {
-            _parent = Services.Database.get_default ().get_project (parent_id);
+            _parent = Services.Store.instance ().get_project (parent_id);
             return _parent;
         }
     }
@@ -182,6 +197,7 @@ public class Objects.Project : Objects.BaseObject {
     public signal void section_added (Objects.Section section);
     public signal void subproject_added (Objects.Project project);
     public signal void item_added (Objects.Item item);
+    public signal void item_deleted (Objects.Item item);
     public signal void show_completed_changed ();
     public signal void sort_order_changed ();
     public signal void section_sort_order_changed ();
@@ -236,13 +252,6 @@ public class Objects.Project : Objects.BaseObject {
     public signal void show_multi_select_change ();
 
     construct {
-        deleted.connect (() => {
-            Idle.add (() => {
-                Services.Database.get_default ().project_deleted (this);
-                return false;
-            });
-        });
-
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
@@ -251,20 +260,18 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_deleted.connect ((item) => {
-            if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
-            }
+        item_deleted.connect ((item) => {
+            _project_count = update_project_count ();
+            print ("Count: %d\n".printf (_project_count));
+
+            _percentage = update_percentage ();
+            project_count_updated ();
         });
 
-        Services.Database.get_default ().item_added.connect ((item) => {
-            if (item.project_id == id) {
-                _project_count = update_project_count ();
-                _percentage = update_percentage ();
-                project_count_updated ();
-            }
+        item_added.connect ((item) => {
+            _project_count = update_project_count ();
+            _percentage = update_percentage ();
+            project_count_updated ();
         });
 
         Services.EventBus.get_default ().item_moved.connect ((item, old_project_id, section_id) => {
@@ -275,7 +282,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().section_moved.connect ((section, old_project_id) => {
+        Services.Store.instance ().section_moved.connect ((section, old_project_id) => {
             if (section.project_id == id || old_project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -283,7 +290,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_archived.connect ((item) => {
+        Services.Store.instance ().item_archived.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -291,7 +298,7 @@ public class Objects.Project : Objects.BaseObject {
             }
         });
 
-        Services.Database.get_default ().item_unarchived.connect ((item) => {
+        Services.Store.instance ().item_unarchived.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
                 _percentage = update_percentage ();
@@ -303,19 +310,19 @@ public class Objects.Project : Objects.BaseObject {
     public Project.from_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_json (node);
-        backend_type = BackendType.TODOIST;
+        backend_type = SourceType.TODOIST;
     }
 
     public Project.from_google_tasklist_json (Json.Node node) {
         id = node.get_object ().get_string_member ("id");
         update_from_google_tasklist_json (node);
-        backend_type = BackendType.GOOGLE_TASKS;
+        backend_type = SourceType.GOOGLE_TASKS;
     }
 
     public Project.from_caldav_xml (GXml.DomElement element) {
         id = get_id_from_url (element);
         update_from_xml (element);
-        backend_type = BackendType.CALDAV;
+        backend_type = SourceType.CALDAV;
     }
 
     public void update_from_xml (GXml.DomElement element, bool update_sync_token = true) {
@@ -348,7 +355,7 @@ public class Objects.Project : Objects.BaseObject {
         id = node.get_object ().get_string_member ("id");
         name = node.get_object ().get_string_member ("name");
         color = node.get_object ().get_string_member ("color");
-        backend_type = Util.get_default ().get_backend_type_by_text (node.get_object ().get_string_member ("backend_type"));
+        backend_type = SourceType.parse (node.get_object ().get_string_member ("backend_type"));
         inbox_project = node.get_object ().get_boolean_member ("inbox_project");
         team_inbox = node.get_object ().get_boolean_member ("team_inbox");
         child_order = (int32) node.get_object ().get_int_member ("child_order");
@@ -365,6 +372,13 @@ public class Objects.Project : Objects.BaseObject {
         show_completed = node.get_object ().get_boolean_member ("show_completed");
         description = node.get_object ().get_string_member ("description");
         due_date = node.get_object ().get_string_member ("due_date");
+        source_id = node.get_object ().get_string_member ("backend_type");
+
+        if (node.get_object ().has_member ("source_id")) {
+            source_id = node.get_object ().get_string_member ("source_id");
+        }
+
+        print ("%s\n".printf (to_string ()));
     }
 
     public void update_from_json (Json.Node node) {
@@ -415,12 +429,12 @@ public class Objects.Project : Objects.BaseObject {
     }
 
     public void update_local () {
-        Services.Database.get_default ().update_project (this);
+        Services.Store.instance ().update_project (this);
     }
 
     public void update (bool use_timeout = true, bool show_loading = true) {
         if (update_timeout_id != 0) {
-            Source.remove (update_timeout_id);
+            GLib.Source.remove (update_timeout_id);
         }
 
         uint timeout = Constants.UPDATE_TIMEOUT;
@@ -431,26 +445,26 @@ public class Objects.Project : Objects.BaseObject {
         update_timeout_id = Timeout.add (timeout, () => {
             update_timeout_id = 0;
 
-            if (backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_project (this);
-            } else if (backend_type == BackendType.TODOIST) {
+            if (backend_type == SourceType.LOCAL) {
+                Services.Store.instance ().update_project (this);
+            } else if (backend_type == SourceType.TODOIST) {
                 if (show_loading) {
                     loading = true;
                 }
 
                 Services.Todoist.get_default ().update.begin (this, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_project (this);
+                    Services.Store.instance ().update_project (this);
                     loading = false;
                 });
-            } else if (backend_type == BackendType.CALDAV) {
+            } else if (backend_type == SourceType.CALDAV) {
                 if (show_loading) {
                     loading = true;
                 }
 
                 Services.CalDAV.Core.get_default ().update_tasklist.begin (this, (obj, res) => {
                     Services.CalDAV.Core.get_default ().update_tasklist.end (res);
-                    Services.Database.get_default ().update_project (this);
+                    Services.Store.instance ().update_project (this);
                     loading = false;
                 });
             }
@@ -465,7 +479,7 @@ public class Objects.Project : Objects.BaseObject {
             return_value = get_subproject (new_project.id);
             if (return_value == null) {
                 new_project.set_parent (this);
-                Services.Database.get_default ().insert_project (new_project);
+                Services.Store.instance ().insert_project (new_project);
                 return_value = new_project;
             }
             return return_value;
@@ -497,7 +511,7 @@ public class Objects.Project : Objects.BaseObject {
                 new_section.set_project (this);
                 new_section.section_order = new_section.project.sections.size;
                 add_section (new_section);
-                Services.Database.get_default ().insert_section (new_section);
+                Services.Store.instance ().insert_section (new_section);
                 return_value = new_section;
             }
             return return_value;
@@ -531,11 +545,16 @@ public class Objects.Project : Objects.BaseObject {
             if (return_value == null) {
                 new_item.set_project (this);
                 add_item (new_item);
-                Services.Database.get_default ().insert_item (new_item, insert);
+                Services.Store.instance ().insert_item (new_item, insert);
                 return_value = new_item;
             }
             return return_value;
         }
+    }
+
+    public void add_item (Objects.Item item) {
+        _items.add (item);
+        item_added (item);
     }
 
     public Objects.Item? get_item (string id) {
@@ -549,10 +568,6 @@ public class Objects.Project : Objects.BaseObject {
             }
         }
         return return_value;
-    }
-
-    public void add_item (Objects.Item item) {
-        this._items.add (item);
     }
 
     public override string get_add_json (string temp_id, string uuid) {
@@ -703,9 +718,10 @@ public class Objects.Project : Objects.BaseObject {
             SORT ORDER: %i
             COLLAPSED: %s
             PARENT ID: %s
+            SOURCE ID: %s
         ---------------------------------
         """.printf (
-            id.to_string (),
+            id,
             name,
             description,
             color,
@@ -721,13 +737,14 @@ public class Objects.Project : Objects.BaseObject {
             show_completed.to_string (),
             sort_order,
             collapsed.to_string (),
-            parent_id.to_string ()
+            parent_id.to_string (),
+            source_id
         );
     }
 
     private int update_project_count () {
         int returned = 0;
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
             if (!item.checked && !item.was_archived ()) {
                 returned++;
             }
@@ -738,7 +755,7 @@ public class Objects.Project : Objects.BaseObject {
     public double update_percentage () {
         int items_total = 0;
         int items_checked = 0;
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_project (this)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_project (this)) {
             items_total++;
             if (!item.checked && !item.was_archived ()) {
                 items_checked++;
@@ -751,8 +768,8 @@ public class Objects.Project : Objects.BaseObject {
     public void share_markdown () {
         Gdk.Clipboard clipboard = Gdk.Display.get_default ().get_clipboard ();
         clipboard.set_text (to_markdown ());
-        Services.EventBus.get_default ().send_notification (
-            Util.get_default ().create_toast (_("The project was copied to the Clipboard."))
+        Services.EventBus.get_default ().send_toast (
+            Util.get_default ().create_toast (_("The project was copied to the Clipboard."), 0)
         );
     }
 
@@ -798,29 +815,37 @@ public class Objects.Project : Objects.BaseObject {
         dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
         dialog.present (window);
 
-        dialog.response.connect ((response) => {
-            if (response == "delete") {
+        dialog.response.connect ((_response) => {
+            if (_response == "delete") {
                 loading = true;
-                if (backend_type == BackendType.LOCAL) {
-                    Services.Database.get_default ().delete_project (this);
-                } else if (backend_type == BackendType.TODOIST) {
+                if (source_type == SourceType.LOCAL) {
+                    Services.Store.instance ().delete_project (this);
+                } else if (source_type == SourceType.TODOIST) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.Todoist.get_default ().delete.begin (this, (obj, res) => {
-                        if (Services.Todoist.get_default ().delete.end (res).status) {
-                            Services.Database.get_default ().delete_project (this);
-                            loading = false;
+                        HttpResponse response = Services.Todoist.get_default ().delete.end (res);
+                        loading = false;
+
+                        if (response.status) {
+                            Services.Store.instance ().delete_project (this);
+                        } else {
+                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                         }
                     });
-                } else if (backend_type == BackendType.CALDAV) {
+                } else if (source_type == SourceType.CALDAV) {
                     dialog.set_response_enabled ("cancel", false);
                     dialog.set_response_enabled ("delete", false);
 
                     Services.CalDAV.Core.get_default ().delete_tasklist.begin (this, (obj, res) => {
-                        if (Services.CalDAV.Core.get_default ().delete_tasklist.end (res)) {
-                            Services.Database.get_default ().delete_project (this);
-                            loading = false;
+                        HttpResponse response = Services.CalDAV.Core.get_default ().delete_tasklist.end (res);
+                        loading = false;
+                        
+                        if (response.status) {
+                            Services.Store.instance ().delete_project (this);
+                        } else {
+                            Services.EventBus.get_default ().send_error_toast (response.error_code, response.error);
                         }
                     });
                 }
@@ -843,14 +868,14 @@ public class Objects.Project : Objects.BaseObject {
         dialog.response.connect ((response) => {
             if (response == "archive") {
                 is_archived = true;
-                Services.Database.get_default ().archive_project (this);
+                Services.Store.instance ().archive_project (this);
             }
         });
     }
 
     public void unarchive_project () {
         is_archived = false;
-        Services.Database.get_default ().archive_project (this);
+        Services.Store.instance ().archive_project (this);
     }
 
     public Objects.Project duplicate () {
@@ -862,6 +887,7 @@ public class Objects.Project : Objects.BaseObject {
         new_project.description = description;
         new_project.icon_style = icon_style;
         new_project.backend_type = backend_type;
+        new_project.source_id = source_id;
 
         return new_project;
     }

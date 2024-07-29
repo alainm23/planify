@@ -165,7 +165,7 @@ public class Util : GLib.Object {
             return Uuid.string_random ();
         }
 
-        var collection = Services.Database.get_default ().get_collection_by_type (base_object);
+        var collection = Services.Store.instance ().get_collection_by_type (base_object);
         var id = Uuid.string_random ();
 
         if (check_id_exists (collection, id)) {
@@ -567,17 +567,25 @@ public class Util : GLib.Object {
         }
     }
 
+    public Objects.Source create_local_source () {
+        Objects.Source local_source = new Objects.Source ();
+        local_source.id = SourceType.LOCAL.to_string ();
+        local_source.source_type = SourceType.LOCAL;
+        local_source.display_name = _("On This Computer");
+        Services.Store.instance ().insert_source (local_source);
+        return local_source;
+    }
+
     public Objects.Project create_inbox_project () {
         Objects.Project inbox_project = new Objects.Project ();
+        inbox_project.source_id = SourceType.LOCAL.to_string ();
         inbox_project.id = Util.get_default ().generate_id (inbox_project);
-        inbox_project.backend_type = BackendType.LOCAL;
         inbox_project.name = _("Inbox");
         inbox_project.inbox_project = true;
         inbox_project.color = "blue";
-        
-        if (Services.Database.get_default ().insert_project (inbox_project)) {
-            Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
-        }
+
+        Services.Store.instance ().insert_project (inbox_project);
+        Services.Settings.get_default ().settings.set_string ("local-inbox-project-id", inbox_project.id);
 
         return inbox_project;
     }
@@ -585,7 +593,7 @@ public class Util : GLib.Object {
     public void create_tutorial_project () {
         Objects.Project project = new Objects.Project ();
         project.id = Util.get_default ().generate_id (project);
-        project.backend_type = BackendType.LOCAL;
+        project.source_id = SourceType.LOCAL.to_string ();
         project.icon_style = ProjectIconStyle.EMOJI;
         project.emoji = "🚀️";
         project.name = _("Meet Planify");
@@ -593,160 +601,146 @@ public class Util : GLib.Object {
         project.show_completed = true;
         project.description = _("This project shows you everything you need to know to hit the ground running. Don’t hesitate to play around in it – you can always create a new one from settings.");
 
-        if (Services.Database.get_default ().insert_project (project)) {
-            var item_01 = new Objects.Item ();
-            item_01.id = Util.get_default ().generate_id (item_01);
-            item_01.project_id = project.id;
-            item_01.content = _("Tap this to-do");
-            item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
+        Services.Store.instance ().insert_project (project);
 
-            var item_02 = new Objects.Item ();
-            item_02.id = Util.get_default ().generate_id (item_02);
-            item_02.project_id = project.id;
-            item_02.content = _("Create a new to-do");
-            item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
+        var item_01 = new Objects.Item ();
+        item_01.id = Util.get_default ().generate_id (item_01);
+        item_01.project_id = project.id;
+        item_01.content = _("Tap this to-do");
+        item_01.description = _("You're looking at a to-do! Complete it by tapping the checkbox on the left. Completed to-dos are collected at the bottom of your project.");
 
-            var item_03 = new Objects.Item ();
-            item_03.id = Util.get_default ().generate_id (item_03);
-            item_03.project_id = project.id;
-            item_03.content = _("Plan this to-do by today or later");
-            item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
+        var item_02 = new Objects.Item ();
+        item_02.id = Util.get_default ().generate_id (item_02);
+        item_02.project_id = project.id;
+        item_02.content = _("Create a new to-do");
+        item_02.description = _("Now it's your turn, tap the '+' button at the bottom of your project, enter any pending and tap the blue 'Save' button.");
 
-            var item_04 = new Objects.Item ();
-            item_04.id = Util.get_default ().generate_id (item_04);
-            item_04.project_id = project.id;
-            item_04.content = _("Reorder yours to-dos");
-            item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
+        var item_03 = new Objects.Item ();
+        item_03.id = Util.get_default ().generate_id (item_03);
+        item_03.project_id = project.id;
+        item_03.content = _("Plan this to-do by today or later");
+        item_03.description = _("Tap the calendar button at the bottom to decide when to do this to-do.");
 
-            var item_05 = new Objects.Item ();
-            item_05.id = Util.get_default ().generate_id (item_05);
-            item_05.project_id = project.id;
-            item_05.content = _("Create a project");
-            item_05.description = _("Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own.");
+        var item_04 = new Objects.Item ();
+        item_04.id = Util.get_default ().generate_id (item_04);
+        item_04.project_id = project.id;
+        item_04.content = _("Reorder yours to-dos");
+        item_04.description = _("To reorder your list, tap and hold a to-do, then drag it to where it should go.");
 
-            var item_06 = new Objects.Item ();
-            item_06.id = Util.get_default ().generate_id (item_06);
-            item_06.project_id = project.id;
-            item_06.content = _("You’re done!");
-            item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
+        var item_05 = new Objects.Item ();
+        item_05.id = Util.get_default ().generate_id (item_05);
+        item_05.project_id = project.id;
+        item_05.content = _("Create a project");
+        item_05.description = _("Organize your to-dos better! Go to the left panel and click the '+' button in the 'On This Computer' section and add a project of your own.");
+
+        var item_06 = new Objects.Item ();
+        item_06.id = Util.get_default ().generate_id (item_06);
+        item_06.project_id = project.id;
+        item_06.content = _("You’re done!");
+        item_06.description = _("""That’s all you really need to know. Feel free to start adding your own projects and to-dos.
 You can come back to this project later to learn the advanced features below..
 We hope you’ll enjoy using Planify!""");
 
-            project.add_item_if_not_exists (item_01);
-            project.add_item_if_not_exists (item_02);
-            project.add_item_if_not_exists (item_03);
-            project.add_item_if_not_exists (item_04);
-            project.add_item_if_not_exists (item_05);
-            project.add_item_if_not_exists (item_06);
+        project.add_item_if_not_exists (item_01);
+        project.add_item_if_not_exists (item_02);
+        project.add_item_if_not_exists (item_03);
+        project.add_item_if_not_exists (item_04);
+        project.add_item_if_not_exists (item_05);
+        project.add_item_if_not_exists (item_06);
 
-            var section_01 = new Objects.Section ();
-            section_01.id = Util.get_default ().generate_id (section_01);
-            section_01.project_id = project.id;
-            section_01.name = _("Tune your setup");
+        var section_01 = new Objects.Section ();
+        section_01.id = Util.get_default ().generate_id (section_01);
+        section_01.project_id = project.id;
+        section_01.name = _("Tune your setup");
 
-            project.add_section_if_not_exists (section_01);
+        project.add_section_if_not_exists (section_01);
 
-            var item_02_01 = new Objects.Item ();
-            item_02_01.id = Util.get_default ().generate_id (item_02_01);
-            item_02_01.project_id = project.id;
-            item_02_01.section_id = section_01.id;
-            item_02_01.content = _("Show your calendar events");
-            item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
+        var item_02_01 = new Objects.Item ();
+        item_02_01.id = Util.get_default ().generate_id (item_02_01);
+        item_02_01.project_id = project.id;
+        item_02_01.section_id = section_01.id;
+        item_02_01.content = _("Show your calendar events");
+        item_02_01.description = _("You can display your system's calendar events in Planify. Go to 'Preferences' 🡒 General 🡒 Calendar Events to turn it on.");
 
-            var item_02_02 = new Objects.Item ();
-            item_02_02.id = Util.get_default ().generate_id (item_02_02);
-            item_02_02.project_id = project.id;
-            item_02_02.section_id = section_01.id;
-            item_02_02.content = _("Enable synchronization with third-party service.");
-            item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
+        var item_02_02 = new Objects.Item ();
+        item_02_02.id = Util.get_default ().generate_id (item_02_02);
+        item_02_02.project_id = project.id;
+        item_02_02.section_id = section_01.id;
+        item_02_02.content = _("Enable synchronization with third-party service.");
+        item_02_02.description = _("Planify not only creates tasks locally, it can also synchronize your Todoist account. Go to 'Preferences' 🡒 'Accounts'.");
 
-            section_01.add_item_if_not_exists (item_02_01);
-            section_01.add_item_if_not_exists (item_02_02);
+        section_01.add_item_if_not_exists (item_02_01);
+        section_01.add_item_if_not_exists (item_02_02);
 
-            var section_02 = new Objects.Section ();
-            section_02.id = Util.get_default ().generate_id (section_01);
-            section_02.project_id = project.id;
-            section_02.name = _("Boost your productivity");
+        var section_02 = new Objects.Section ();
+        section_02.id = Util.get_default ().generate_id (section_01);
+        section_02.project_id = project.id;
+        section_02.name = _("Boost your productivity");
 
-            project.add_section_if_not_exists (section_02);
+        project.add_section_if_not_exists (section_02);
 
-            var item_03_01 = new Objects.Item ();
-            item_03_01.id = Util.get_default ().generate_id (item_03_01);
-            item_03_01.project_id = project.id;
-            item_03_01.section_id = section_02.id;
-            item_03_01.content = _("Drag the plus button!");
-            item_03_01.description = _("That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want.");
+        var item_03_01 = new Objects.Item ();
+        item_03_01.id = Util.get_default ().generate_id (item_03_01);
+        item_03_01.project_id = project.id;
+        item_03_01.section_id = section_02.id;
+        item_03_01.content = _("Drag the plus button!");
+        item_03_01.description = _("That blue button you see at the bottom of each screen is more powerful than it looks: it's made to move! Drag it up to create a task wherever you want.");
 
-            var item_03_02 = new Objects.Item ();
-            item_03_02.id = Util.get_default ().generate_id (item_03_02);
-            item_03_02.project_id = project.id;
-            item_03_02.section_id = section_02.id;
-            item_03_02.content = _("Tag your to-dos!");
-            item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
+        var item_03_02 = new Objects.Item ();
+        item_03_02.id = Util.get_default ().generate_id (item_03_02);
+        item_03_02.project_id = project.id;
+        item_03_02.section_id = section_02.id;
+        item_03_02.content = _("Tag your to-dos!");
+        item_03_02.description = _("Tags allow you to improve your workflow in Planify. To add a Tag click on the tag button at the bottom.");
 
-            var item_03_03 = new Objects.Item ();
-            item_03_03.id = Util.get_default ().generate_id (item_03_03);
-            item_03_03.project_id = project.id;
-            item_03_03.section_id = section_02.id;
-            item_03_03.content = _("Set timely reminders!");
-            item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
-            
-            section_02.add_item_if_not_exists (item_03_01);
-            section_02.add_item_if_not_exists (item_03_02);
-            section_02.add_item_if_not_exists (item_03_03);
-        }
+        var item_03_03 = new Objects.Item ();
+        item_03_03.id = Util.get_default ().generate_id (item_03_03);
+        item_03_03.project_id = project.id;
+        item_03_03.section_id = section_02.id;
+        item_03_03.content = _("Set timely reminders!");
+        item_03_03.description = _("You want Planify to send you a notification to remind you of an important event or something special. Tap the bell button below to add a reminder.");
+        
+        section_02.add_item_if_not_exists (item_03_01);
+        section_02.add_item_if_not_exists (item_03_02);
+        section_02.add_item_if_not_exists (item_03_03);
     }
 
     public void create_default_labels () {
         var label_01 = new Objects.Label ();
         label_01.id = Util.get_default ().generate_id (label_01);
-        label_01.backend_type = BackendType.LOCAL;
+        label_01.source_id = SourceType.LOCAL.to_string ();
         label_01.name = _("💼️Work");
         label_01.color = "taupe";
 
         var label_02 = new Objects.Label ();
         label_02.id = Util.get_default ().generate_id (label_02);
-        label_02.backend_type = BackendType.LOCAL;
+        label_02.source_id = SourceType.LOCAL.to_string ();
         label_02.name = _("🎒️School");
         label_02.color = "berry_red";
 
         var label_03 = new Objects.Label ();
         label_03.id = Util.get_default ().generate_id (label_03);
-        label_03.backend_type = BackendType.LOCAL;
+        label_03.source_id = SourceType.LOCAL.to_string ();
         label_03.name = _("👉️Delegated");
         label_03.color = "yellow";
 
         var label_04 = new Objects.Label ();
         label_04.id = Util.get_default ().generate_id (label_04);
-        label_04.backend_type = BackendType.LOCAL;
+        label_04.source_id = SourceType.LOCAL.to_string ();
         label_04.name = _("🏡️Home");
         label_04.color = "lime_green";
 
         var label_05 = new Objects.Label ();
         label_05.id = Util.get_default ().generate_id (label_05);
-        label_05.backend_type = BackendType.LOCAL;
+        label_05.source_id = SourceType.LOCAL.to_string ();
         label_05.name = _("🏃‍♀️️Follow Up");
         label_05.color = "grey";
 
-        Services.Database.get_default ().insert_label (label_01);
-        Services.Database.get_default ().insert_label (label_02);
-        Services.Database.get_default ().insert_label (label_03);
-        Services.Database.get_default ().insert_label (label_04);
-        Services.Database.get_default ().insert_label (label_05);
-    }
-
-    public BackendType get_backend_type_by_text (string backend_type) {
-        if (backend_type == "local") {
-            return BackendType.LOCAL;
-        } else if (backend_type == "todoist") {
-            return BackendType.TODOIST;
-        } else if (backend_type == "google-tasks") {
-            return BackendType.GOOGLE_TASKS;
-        } else if (backend_type == "caldav") {
-            return BackendType.CALDAV;
-        } else {
-            return BackendType.NONE;
-        }
+        Services.Store.instance ().insert_label (label_01);
+        Services.Store.instance ().insert_label (label_02);
+        Services.Store.instance ().insert_label (label_03);
+        Services.Store.instance ().insert_label (label_04);
+        Services.Store.instance ().insert_label (label_05);
     }
 
     public string markup_accel_tooltip (string description, string accels) {
@@ -850,10 +844,10 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (target_project.backend_type == BackendType.LOCAL) {
+        if (target_project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
             yield add_final_duplicate_item (new_item, item);
-        } else if (target_project.backend_type == BackendType.TODOIST) {
+        } else if (target_project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             item.loading = false;
 
@@ -861,7 +855,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield add_final_duplicate_item (new_item, item);
             }
-        } else if (target_project.backend_type == BackendType.CALDAV) {
+        } else if (target_project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
             item.loading = false;
@@ -893,7 +887,7 @@ We hope you’ll enjoy using Planify!""");
             yield move_backend_type_item (subitem, new_item.project, new_item.id);
         }
 
-        Services.EventBus.get_default ().send_notification (
+        Services.EventBus.get_default ().send_toast (
             create_toast (_("Task moved to %s".printf (new_item.project.name)))
         );
 
@@ -909,14 +903,14 @@ We hope you’ll enjoy using Planify!""");
         item.loading = true;
         item.sensitive = false;
 
-        if (item.project.backend_type == BackendType.LOCAL) {
+        if (item.project.source_type == SourceType.LOCAL) {
             new_item.id = Util.get_default ().generate_id (new_item);
 
             item.loading = false;
             item.sensitive = true;
 
             yield insert_duplicate_item (new_item, item, notify);
-        } else if (item.project.backend_type == BackendType.TODOIST) {
+        } else if (item.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_item);
             
             item.loading = false;
@@ -926,7 +920,7 @@ We hope you’ll enjoy using Planify!""");
                 new_item.id = response.data;
                 yield insert_duplicate_item (new_item, item, notify);
             }
-        } else if (item.project.backend_type == BackendType.CALDAV) {
+        } else if (item.project.source_type == SourceType.CALDAV) {
             new_item.id = Util.get_default ().generate_id (new_item);
             HttpResponse response = yield Services.CalDAV.Core.get_default ().add_task (new_item);
             
@@ -971,7 +965,7 @@ We hope you’ll enjoy using Planify!""");
         }
 
         if (notify) {
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Task duplicated"))
             );
         }
@@ -984,10 +978,10 @@ We hope you’ll enjoy using Planify!""");
         section.loading = true;
         section.sensitive = false;
 
-        if (new_section.project.backend_type == BackendType.LOCAL) {
+        if (new_section.project.source_type == SourceType.LOCAL) {
             new_section.id = Util.get_default ().generate_id (new_section);
             yield insert_duplicate_section (new_section, section, notify);
-        } else if (new_section.project.backend_type == BackendType.TODOIST) {
+        } else if (new_section.project.source_type == SourceType.TODOIST) {
             HttpResponse response = yield Services.Todoist.get_default ().add (new_section);
             if (response.status) {
                 new_section.id = response.data;
@@ -1007,7 +1001,7 @@ We hope you’ll enjoy using Planify!""");
         section.sensitive = true;
 
         if (notify) {
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Section duplicated"))
             );
         }
@@ -1019,10 +1013,9 @@ We hope you’ll enjoy using Planify!""");
 
         project.loading = true;
 
-        if (project.backend_type == BackendType.LOCAL) {
+        if (project.source_type == SourceType.LOCAL) {
             new_project.id = Util.get_default ().generate_id (new_project);
-            new_project.backend_type = BackendType.LOCAL;
-            Services.Database.get_default ().insert_project (new_project);
+            Services.Store.instance ().insert_project (new_project);
 
             foreach (Objects.Item item in project.items) {
                 yield duplicate_item (item, new_project.id, item.section_id, item.parent_id, false);
@@ -1034,25 +1027,24 @@ We hope you’ll enjoy using Planify!""");
 
             project.loading = false;
 
-            Services.EventBus.get_default ().send_notification (
+            Services.EventBus.get_default ().send_toast (
                 Util.get_default ().create_toast (_("Project duplicated"))
             );
-        } else if (project.backend_type == BackendType.TODOIST) {            
+        } else if (project.source_type == SourceType.TODOIST) {            
             Services.Todoist.get_default ().duplicate_project.begin (project, (obj, res) => {
                 project.loading = false;
                 
                 if (Services.Todoist.get_default ().duplicate_project.end (res).status) {
-                    Services.Todoist.get_default ().sync_async ();
+                    Services.Todoist.get_default ().sync.begin (project.source);
                 }
             });
-        } else if (project.backend_type == BackendType.CALDAV) {
+        } else if (project.source_type == SourceType.CALDAV) {
             new_project.id = Util.get_default ().generate_id (new_project);
-            new_project.backend_type = BackendType.CALDAV;
+            
+            HttpResponse response = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
 
-            bool status = yield Services.CalDAV.Core.get_default ().add_tasklist (new_project);
-
-            if (status) {
-                Services.Database.get_default ().insert_project (new_project);
+            if (response.status) {
+                Services.Store.instance ().insert_project (new_project);
             
                 foreach (Objects.Item item in project.items) {
                     yield duplicate_item (item, new_project.id, "", item.parent_id, false);
@@ -1060,7 +1052,7 @@ We hope you’ll enjoy using Planify!""");
     
                 project.loading = false;
     
-                Services.EventBus.get_default ().send_notification (
+                Services.EventBus.get_default ().send_toast (
                     Util.get_default ().create_toast (_("Project duplicated"))
                 );
             }

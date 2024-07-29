@@ -547,7 +547,7 @@ checkbutton.theme-selector radio:checked {
 }
 
 .header-item-button,
-.header-item-button button {
+.header-item-button .image-button {
     padding: 3px;
     min-height: 16px;
     min-width: 16px;
@@ -616,7 +616,11 @@ checkbutton.theme-selector radio:checked {
 .banner {
     border-radius: 9px;
     background-color: #8bc6ec;
-    background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
+    background: linear-gradient(
+        90deg,
+        hsla(242, 58%, 73%, 1) 0%,
+        hsla(157, 72%, 82%, 1) 100%
+    );
 }
 
 .banner-text {
@@ -629,8 +633,14 @@ checkbutton.theme-selector radio:checked {
 }
 
 .no-selectable:hover,
+.no-selectable:focus,
 .no-selectable:selected,
+.no-selectable.activatable:hover,
+.no-selectable.activatable:active,
+.no-selectable.activatable:selected,
 .no-selectable {
+    box-shadow: none;
+    outline: none;
     background: transparent;
 }
 

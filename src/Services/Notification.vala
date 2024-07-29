@@ -42,15 +42,15 @@ public class Services.Notification : GLib.Object {
             reminders.clear ();
         }
 
-        foreach (var reminder in Services.Database.get_default ().reminders) {
+        foreach (var reminder in Services.Store.instance ().reminders) {
             reminder_added (reminder);
         }
 
-        Services.Database.get_default ().reminder_added.connect ((reminder) => {
+        Services.Store.instance ().reminder_added.connect ((reminder) => {
             reminder_added (reminder);
         });
 
-        Services.Database.get_default ().reminder_deleted.connect ((reminder) => {
+        Services.Store.instance ().reminder_deleted.connect ((reminder) => {
             if (reminders.has_key (reminder.id)) {
                 reminders.unset (reminder.id);
             }
@@ -61,7 +61,7 @@ public class Services.Notification : GLib.Object {
         if (reminder.datetime.compare (new GLib.DateTime.now_local ()) <= 0) {
             GLib.Notification notification = build_notification (reminder);
             Planify.instance.send_notification (reminder.id, notification);
-            Services.Database.get_default ().delete_reminder (reminder);
+            Services.Store.instance ().delete_reminder (reminder);
         } else if (Utils.Datetime.is_same_day (reminder.datetime, new GLib.DateTime.now_local ())) {
             uint interval = (uint) time_until_now (reminder.datetime);
             string uid = "%u-%u".printf (interval, GLib.Random.next_int ());
@@ -86,7 +86,7 @@ public class Services.Notification : GLib.Object {
 
         GLib.Notification notification = build_notification (reminder);
         Planify.instance.send_notification (uid, notification);
-        Services.Database.get_default ().delete_reminder (reminder);
+        Services.Store.instance ().delete_reminder (reminder);
     }
 
     private GLib.Notification build_notification (Objects.Reminder reminder) {
@@ -95,6 +95,10 @@ public class Services.Notification : GLib.Object {
         notification.set_icon (new ThemedIcon ("io.github.alainm23.planify"));
         notification.set_priority (GLib.NotificationPriority.URGENT);
         notification.set_default_action_and_target_value ("show-item", new Variant.string (reminder.item_id));
+        //  notification.add_button (_("Complete"), "complete");
+        //  notification.add_button (_("Snooze for 10 minutes"), "complete");
+        //  notification.add_button (_("Snooze for 30 minutes"), "complete");
+        //  notification.add_button (_("Snooze for 1 hour"), "complete");
         
         return notification;
     }

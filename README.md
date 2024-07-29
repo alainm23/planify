@@ -22,9 +22,9 @@
 
 ### ☁️ Support for Todoist:
 
-- Synchronize your Projects, Task and Sections thanks to Todoist.
-- Support for Todoist offline: Work without an internet connection and when everything is reconnected it will be synchronized.
-- Planify not created by, affiliated with, or supported by Doist
+- Synchronize your Projects, Tasks, and Sections thanks to Todoist.
+- Support for Todoist offline: Work without an internet connection; when everything is reconnected, it will be synchronized.
+- Planify is not created by, affiliated with, or supported by Doist
 
 ### 💎️ Other features:
 
@@ -49,6 +49,8 @@
 
 You'll need the following dependencies:
 
+* vala
+* meson
 * gtk4
 * libadwaita
 
@@ -69,17 +71,15 @@ Planify follows the [GNOME Code of Conduct](https://conduct.gnome.org/).
 
 - **Be friendly.** Use welcoming and inclusive language.
 - **Be empathetic.** Be respectful of differing viewpoints and experiences.
-- **Be respectful.** When we disagree, we do so in a polite and constructive
-  manner.
-- **Be considerate.** Remember that decisions are often a difficult choice
-  between competing priorities.
+- **Be respectful.** When we disagree, we do so politely and constructively.
+- **Be considerate.** Remember that decisions are often difficult when competing priorities are involved.
 - **Be patient and generous.** If someone asks for help it is because they need
   it.
 - **Try to be concise.** Read the discussion before commenting.
 
 
 ## Support
-If you like Planify and you want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
+If you like Planify and want to support its development, consider supporting via [Patreon](https://www.patreon.com/alainm23), [PayPal](https://www.paypal.me/alainm23) or [Liberapay](https://liberapay.com/Alain)
 
 ### Bitcoin
 `

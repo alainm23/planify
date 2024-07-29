@@ -19,12 +19,12 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
-public class Services.Migrate : GLib.Object {
-    static GLib.Once<Migrate> _instance;
+public class Services.MigrateFromPlanner : GLib.Object {
+    static GLib.Once<MigrateFromPlanner> _instance;
 
-    public static unowned Migrate get_default () {
+    public static unowned MigrateFromPlanner get_default () {
         return _instance.once (() => {
-            return new Migrate ();
+            return new MigrateFromPlanner ();
         });
     }
 
@@ -56,9 +56,9 @@ public class Services.Migrate : GLib.Object {
             label.id = stmt.column_text (0);
             label.name = "(Planner) %s".printf (stmt.column_text (1));
             label.color = stmt.column_text (2);
-            label.backend_type = BackendType.LOCAL;
+            label.source_id = SourceType.LOCAL.to_string ();
 
-            Services.Database.get_default ().insert_label (label);
+            Services.Store.instance ().insert_label (label);
         }
 
         stmt.reset ();
@@ -78,9 +78,9 @@ public class Services.Migrate : GLib.Object {
             project.id = stmt.column_text (0);
             project.name = "(Planner) %s".printf (stmt.column_text (1));
             project.color = stmt.column_text (2);
-            project.backend_type = BackendType.LOCAL;
+            project.source_id = SourceType.LOCAL.to_string ();
 
-            Services.Database.get_default ().insert_project (project);
+            Services.Store.instance ().insert_project (project);
         }
 
         stmt.reset ();
@@ -101,7 +101,7 @@ public class Services.Migrate : GLib.Object {
             section.name = stmt.column_text (1);
             section.project_id = stmt.column_text (4);
 
-            Objects.Project? project = Services.Database.get_default ().get_project (section.project_id);
+            Objects.Project? project = Services.Store.instance ().get_project (section.project_id);
             if (project != null) {
                 project.add_section_if_not_exists (section);
             }
@@ -134,18 +134,18 @@ public class Services.Migrate : GLib.Object {
             item.labels = get_labels_by_item (db, item.id);
 
             if (item.parent_id != "") {
-                Objects.Item? parent_item = Services.Database.get_default ().get_item (item.parent_id);
+                Objects.Item? parent_item = Services.Store.instance ().get_item (item.parent_id);
                 if (parent_item != null) {
                     parent_item.add_item_if_not_exists (item);
                 }
             } else {
                 if (item.section_id != "") {
-                    Objects.Section? section = Services.Database.get_default ().get_section (item.section_id);
+                    Objects.Section? section = Services.Store.instance ().get_section (item.section_id);
                     if (section != null) {
                         section.add_item_if_not_exists (item);
                     }
                 } else {
-                    Objects.Project? project = Services.Database.get_default ().get_project (item.project_id);
+                    Objects.Project? project = Services.Store.instance ().get_project (item.project_id);
                     if (project != null) {
                         project.add_item_if_not_exists (item);
                     }
@@ -168,7 +168,7 @@ public class Services.Migrate : GLib.Object {
         set_parameter_str (stmt, "$item_id", id);
 
         while (stmt.step () == Sqlite.ROW) {
-            Objects.Label? label = Services.Database.get_default ().get_label (stmt.column_text (2));
+            Objects.Label? label = Services.Store.instance ().get_label (stmt.column_text (2));
             if (label != null) {
                 return_value.add (label);
             }

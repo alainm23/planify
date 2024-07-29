@@ -19,7 +19,8 @@ sources = files(
   'Services/TimeMonitor.vala',
   'Services/DBusServer.vala',
   'Services/Backups.vala',
-  'Services/Migrate.vala',
+  'Services/MigrateFromPlanner.vala',
+  'Services/NetworkMonitor.vala',
 
   'Services/CalendarEvents/CalendarEvents.vala',
   'Services/CalendarEvents/DateIterator.vala',
@@ -37,6 +38,7 @@ sources = files(
   'Layouts/ItemSidebarView.vala',
   'Layouts/SectionBoard.vala',
   'Layouts/HeaderBar.vala',
+  'Layouts/SidebarSourceRow.vala',
   
   'Widgets/ColorPickerRow.vala',
   'Widgets/MagicButton.vala',
@@ -55,6 +57,8 @@ sources = files(
   'Widgets/FilterFlowBox.vala',
   'Widgets/Attachments.vala',
   'Widgets/ItemChangeHistoryRow.vala',
+  'Widgets/SourceRow.vala',
+  'Widgets/ErrorView.vala',
 
   'Views/Project/Project.vala',
   'Views/Project/List.vala',
@@ -62,6 +66,7 @@ sources = files(
   'Views/Today.vala',
   'Views/Label/Label.vala',
   'Views/Label/Labels.vala',
+  'Views/Label/LabelSourceRow.vala',
   'Views/Filter.vala',
   
   'Views/Scheduled/Scheduled.vala',
@@ -79,11 +84,13 @@ sources = files(
   'Dialogs/ProjectPicker/ProjectPicker.vala',
   'Dialogs/ProjectPicker/ProjectPickerRow.vala',
   'Dialogs/ProjectPicker/SectionPickerRow.vala',
+  'Dialogs/ProjectPicker/ProjectPickerSourceRow.vala',
   'Dialogs/ManageProjects.vala',
   'Dialogs/DatePicker.vala',
   'Dialogs/LabelPicker.vala',
   'Dialogs/RepeatConfig.vala',
   'Dialogs/ItemChangeHistory.vala',
+  'Dialogs/ErrorDialog.vala',
   
   'Dialogs/QuickFind/QuickFind.vala',
   'Dialogs/QuickFind/QuickFindItem.vala',

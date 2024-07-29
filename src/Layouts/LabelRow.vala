@@ -131,7 +131,7 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             if (label_row != null) {
                 label_row.label.item_order = row_index;
-                Services.Database.get_default ().update_label (label_row.label);
+                Services.Store.instance ().update_label (label_row.label);
             }
 
             row_index++;
@@ -181,13 +181,13 @@ public class Layouts.LabelRow : Gtk.ListBoxRow {
 
             dialog.response.connect ((response) => {
                 if (response == "delete") {
-                    if (label.backend_type == BackendType.TODOIST) {
+                    if (label.source_type == SourceType.TODOIST) {
                         Services.Todoist.get_default ().delete.begin (label, (obj, res) => {
                             Services.Todoist.get_default ().delete.end (res);
-                            Services.Database.get_default ().delete_label (label);
+                            Services.Store.instance ().delete_label (label);
                         });
-                    } else if (label.backend_type == BackendType.LOCAL) {
-                        Services.Database.get_default ().delete_label (label);
+                    } else if (label.source_type == SourceType.LOCAL) {
+                        Services.Store.instance ().delete_label (label);
                     }
                 }
             });

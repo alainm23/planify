@@ -159,9 +159,9 @@ public class Views.Today : Adw.Bin {
         overdue_box.append (overdue_listbox_grid);
 
         overdue_revealer = new Gtk.Revealer () {
-            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
+            transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN,
+            child = overdue_box
         };
-        overdue_revealer.child = overdue_box;
 
         var today_label = new Gtk.Label (_("Today")) {
             halign = Gtk.Align.START,
@@ -239,6 +239,50 @@ public class Views.Today : Adw.Bin {
         content_box.append (filters);
         content_box.append (listbox_placeholder_stack);
 
+        //  var factory = new Gtk.SignalListItemFactory ();
+        //  factory.setup.connect ((object) => {
+        //      var list_item = object as Gtk.ListItem;
+        //      if (list_item == null) {
+        //          return;
+        //      }
+    
+        //      var label = new Layouts.ItemRow (Services.Store.instance ().get_item ("f5668249-cd01-41f2-803b-d0fe5fbe6120"));
+        //      list_item.set_child (label);
+        //  });
+
+        //  factory.bind.connect ((object) => {
+        //      var list_item = object as Gtk.ListItem;
+        //      if (list_item == null) {
+        //          return;
+        //      }
+
+        //      var label = list_item.child as Layouts.ItemRow;
+        //      if (label == null) {
+        //          return;
+        //      }
+
+        //      string label_value = (string) list_item.item;
+        //      label.set_label (label_value);
+        //  });
+
+        //  int index = 1;
+        //  var string_model = new Gtk.StringList ({ "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3", "Default Item 1", "Default Item 2", "Default Item 3" });
+        //  var model = new Gtk.NoSelection (string_model);
+
+        //  var list_view = new Gtk.ListView (model, factory);
+
+        //  var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+
+        //  var add_button = new Gtk.Button.with_label (_("Add"));
+
+        //  box.append (add_button);
+        //  box.append (list_view);
+
+        //  add_button.clicked.connect (() => {
+        //      string_model.append (@"New Item $index");
+        //      index++;
+        //  });
+
         var content_clamp = new Adw.Clamp () {
             maximum_size = 1024,
             tightening_threshold = 800,
@@ -286,11 +330,11 @@ public class Views.Today : Adw.Bin {
             add_today_items ();
         });
 
-        Services.Database.get_default ().item_added.connect (valid_add_item);
-        Services.Database.get_default ().item_deleted.connect (valid_delete_item);
-        Services.Database.get_default ().item_updated.connect (valid_update_item);
-        Services.Database.get_default ().item_archived.connect (valid_delete_item);
-        Services.Database.get_default ().item_unarchived.connect (valid_add_item);
+        Services.Store.instance ().item_added.connect (valid_add_item);
+        Services.Store.instance ().item_deleted.connect (valid_delete_item);
+        Services.Store.instance ().item_updated.connect (valid_update_item);
+        Services.Store.instance ().item_archived.connect (valid_delete_item);
+        Services.Store.instance ().item_unarchived.connect (valid_add_item);
 
         Services.EventBus.get_default ().item_moved.connect ((item) => {
             if (items.has_key (item.id)) {
@@ -399,7 +443,7 @@ public class Views.Today : Adw.Bin {
             overdue_listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_overdeue_view (false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_overdeue_view (false)) {
             add_overdue_item (item);
         }
 
@@ -409,7 +453,7 @@ public class Views.Today : Adw.Bin {
             listbox.remove (child);
         }
 
-        foreach (Objects.Item item in Services.Database.get_default ().get_items_by_date (date, false)) {
+        foreach (Objects.Item item in Services.Store.instance ().get_items_by_date (date, false)) {
             add_item (item);
         }
 
@@ -438,12 +482,12 @@ public class Views.Today : Adw.Bin {
 
     private void valid_add_item (Objects.Item item) {
         if (!items.has_key (item.id) &&
-            Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            Services.Store.instance ().valid_item_by_date (item, date, false)) {
             add_item (item);   
         }
 
         if (!overdue_items.has_key (item.id) &&
-            Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+            Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
             add_overdue_item (item);
         }
 
@@ -490,14 +534,14 @@ public class Views.Today : Adw.Bin {
         }
 
         if (items.has_key (item.id) && item.has_due) {
-            if (!Services.Database.get_default ().valid_item_by_date (item, date, false)) {
+            if (!Services.Store.instance ().valid_item_by_date (item, date, false)) {
                 items[item.id].hide_destroy ();
                 items.unset (item.id);
             }
         }
 
         if (overdue_items.has_key (item.id) && item.has_due) {
-            if (!Services.Database.get_default ().valid_item_by_overdue (item, date, false)) {
+            if (!Services.Store.instance ().valid_item_by_overdue (item, date, false)) {
                 overdue_items[item.id].hide_destroy ();
                 overdue_items.unset (item.id);
             }
@@ -514,7 +558,7 @@ public class Views.Today : Adw.Bin {
     }
 
     public void prepare_new_item (string content = "") {
-        var inbox_project = Services.Database.get_default ().get_project (
+        var inbox_project = Services.Store.instance ().get_project (
             Services.Settings.get_default ().settings.get_string ("local-inbox-project-id")
         );
 
@@ -630,12 +674,23 @@ public class Views.Today : Adw.Bin {
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in Objects.Filters.Today.get_default ().filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {
-					_labels.add (Services.Database.get_default ().get_label (filter.value));
+					_labels.add (Services.Store.instance ().get_label (filter.value));
 				}
 			}
 
+            Gee.HashMap<string, Objects.Label> labels_map = new Gee.HashMap<string, Objects.Label> ();
+            Gee.ArrayList<Objects.Label> labels_list = new Gee.ArrayList<Objects.Label> ();
+            foreach (Layouts.ItemRow item_row in items.values) {
+                foreach (Objects.Label label in item_row.item.labels) {
+                    if (!labels_map.has_key (label.id)) {
+                        labels_map[label.id] = label;
+                        labels_list.add (labels_map[label.id]);
+                    }
+                }
+            }
+
 			var dialog = new Dialogs.LabelPicker ();
-			dialog.add_labels (BackendType.ALL);
+			dialog.add_labels_list (labels_list);
 			dialog.labels = _labels;
 			dialog.present (Planify._instance.main_window);
 

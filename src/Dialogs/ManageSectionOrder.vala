@@ -108,13 +108,13 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
             return GLib.Source.REMOVE;
         });
 
-        Services.Database.get_default ().section_deleted.connect ((section) => {
+        Services.Store.instance ().section_deleted.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
             }
         });
 
-        Services.Database.get_default ().section_unarchived.connect ((section) => {
+        Services.Store.instance ().section_unarchived.connect ((section) => {
             if (section.project_id == project.id) {
                 archived_revealer.reveal_child = project.sections_archived.size > 0;
             }
@@ -149,7 +149,7 @@ public class Dialogs.ManageSectionOrder : Adw.Dialog {
 
             if (section_row != null) {
                 section_row.section.section_order = row_index;
-                Services.Database.get_default ().update_section (section_row.section);
+                Services.Store.instance ().update_section (section_row.section);
             }
 
             row_index++;

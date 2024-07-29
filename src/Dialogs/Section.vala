@@ -157,19 +157,19 @@ public class Dialogs.Section : Adw.Dialog {
 
         if (!is_creating) {
             submit_button.is_loading = true;
-            if (section.project.backend_type == BackendType.TODOIST) {
+            if (section.project.source_type == SourceType.TODOIST) {
                 Services.Todoist.get_default ().update.begin (section, (obj, res) => {
                     Services.Todoist.get_default ().update.end (res);
-                    Services.Database.get_default ().update_section (section);
+                    Services.Store.instance ().update_section (section);
                     submit_button.is_loading = false;
                     hide_destroy ();
                 });
-            } else if (section.project.backend_type == BackendType.LOCAL) {
-                Services.Database.get_default ().update_section (section);
+            } else if (section.project.source_type == SourceType.LOCAL) {
+                Services.Store.instance ().update_section (section);
                 hide_destroy ();
             }
         } else {
-            if (section.project.backend_type == BackendType.TODOIST) {
+            if (section.project.source_type == SourceType.TODOIST) {
                 submit_button.is_loading = true;
 				Services.Todoist.get_default ().add.begin (section, (obj, res) => {
 					HttpResponse response = Services.Todoist.get_default ().add.end (res);
@@ -180,7 +180,7 @@ public class Dialogs.Section : Adw.Dialog {
                         hide_destroy ();
 					}
 				});
-			} else if (section.project.backend_type == BackendType.LOCAL) {
+			} else if (section.project.source_type == SourceType.LOCAL) {
 				section.id = Util.get_default ().generate_id (section);
 				section.project.add_section_if_not_exists (section);
                 hide_destroy ();

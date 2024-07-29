@@ -33,7 +33,7 @@ public class Objects.Filters.Completed : Objects.BaseObject {
     public int count {
         get {
             if (_count == null) {
-                _count = Services.Database.get_default ().get_items_completed ().size;
+                _count = Services.Store.instance ().get_items_completed ().size;
             }
 
             return _count;
@@ -52,28 +52,28 @@ public class Objects.Filters.Completed : Objects.BaseObject {
         icon_name = "check-round-outline-symbolic";
         view_id = FilterType.COMPLETED.to_string ();
 
-        Services.Database.get_default ().item_added.connect (() => {
-            _count = Services.Database.get_default ().get_items_completed ().size;
+        Services.Store.instance ().item_added.connect (() => {
+            _count = Services.Store.instance ().get_items_completed ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_deleted.connect (() => {
-            _count = Services.Database.get_default ().get_items_completed ().size;
+        Services.Store.instance ().item_deleted.connect (() => {
+            _count = Services.Store.instance ().get_items_completed ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_updated.connect (() => {
-            _count = Services.Database.get_default ().get_items_completed ().size;
+        Services.Store.instance ().item_updated.connect (() => {
+            _count = Services.Store.instance ().get_items_completed ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_archived.connect (() => {
-            _count = Services.Database.get_default ().get_items_completed ().size;
+        Services.Store.instance ().item_archived.connect (() => {
+            _count = Services.Store.instance ().get_items_completed ().size;
             count_updated ();
         });
 
-        Services.Database.get_default ().item_unarchived.connect (() => {
-            _count = Services.Database.get_default ().get_items_completed ().size;
+        Services.Store.instance ().item_unarchived.connect (() => {
+            _count = Services.Store.instance ().get_items_completed ().size;
             count_updated ();
         });
     }

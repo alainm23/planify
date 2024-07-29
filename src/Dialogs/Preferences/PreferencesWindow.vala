@@ -824,71 +824,46 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 	private Adw.NavigationPage get_accounts_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Accounts"));
-		
-		// Todoist
-		var todoist_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Todoist.get_default ().is_logged_in ()
+
+		var todoist_item = new Widgets.ContextMenu.MenuItem (_("Todoist"));
+		var caldav_item = new Widgets.ContextMenu.MenuItem (_("Nextcloud"));
+
+		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+		menu_box.margin_top = menu_box.margin_bottom = 3;
+		menu_box.append (todoist_item);
+		menu_box.append (caldav_item);
+
+		var popover = new Gtk.Popover () {
+			has_arrow = true,
+			child = menu_box,
+			width_request = 250,
+			position = Gtk.PositionType.BOTTOM
 		};
 
-		var todoist_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
-			margin_end = 6,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			css_classes = { "flat" }
+		var add_source_button = new Gtk.MenuButton () {
+            valign = Gtk.Align.CENTER,
+			icon_name = "plus-large-symbolic",
+            css_classes = { "flat", "dim-label" },
+            tooltip_markup = _("Add Source"),
+			popover = popover
+        };
+
+		var sources_group = new Layouts.HeaderItem (_("Sources")) {
+            card = true,
+			reveal = true,
+            margin_top = 12,
+			listbox_margin_top = 6
 		};
 
-		var todoist_setting_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.Todoist.get_default ().is_logged_in ()
-		};
+		sources_group.add_widget_end (add_source_button);
 
-		todoist_setting_revealer.child = todoist_setting_button;
-
-		var todoist_row = new Adw.ActionRow ();
-		todoist_row.title = _("Todoist");
-		todoist_row.subtitle = _("Synchronize with your Todoist Account");
-		todoist_row.add_suffix (todoist_setting_revealer);
-		todoist_row.add_suffix (todoist_switch);
-        todoist_row.add_prefix (new Gtk.Image.from_icon_name ("todoist") {
-			pixel_size = 32
-		});
-
-		// CalDAV
-		var caldav_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.CalDAV.Core.get_default ().is_logged_in ()
-		};
-
-		var caldav_setting_button = new Gtk.Button.from_icon_name ("settings-symbolic") {
-			margin_end = 6,
-			valign = Gtk.Align.CENTER,
-			halign = Gtk.Align.CENTER,
-			css_classes = { "flat" }
-		};
-
-		var caldav_setting_revealer = new Gtk.Revealer () {
-			transition_type = Gtk.RevealerTransitionType.CROSSFADE,
-			reveal_child = Services.CalDAV.Core.get_default ().is_logged_in (),
-			child = caldav_setting_button
-		};
-
-		var caldav_row = new Adw.ActionRow ();
-		caldav_row.title = _("Nextcloud");
-		caldav_row.subtitle = _("Synchronization based on open Internet standards");
-		caldav_row.add_suffix (caldav_setting_revealer);
-		caldav_row.add_suffix (caldav_switch);
-        caldav_row.add_prefix (new Gtk.Image.from_icon_name ("cloud") {
-			pixel_size = 32
-		});
-
-		var accounts_group = new Adw.PreferencesGroup ();
-		accounts_group.title = _("Accounts");
-		accounts_group.add (todoist_row);
-		accounts_group.add (caldav_row);
-
-		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-		content_box.append (accounts_group);
+		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+		content_box.append (sources_group);
+		content_box.append (new Gtk.Label (_("You can sort your accounts by dragging and dropping")) {
+            css_classes = { "caption", "dim-label" },
+            halign = START,
+            margin_start = 12
+        });
 
 		var content_clamp = new Adw.Clamp () {
 			maximum_size = 600,
@@ -903,211 +878,110 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		toolbar_view.add_top_bar (settings_header);
 		toolbar_view.content = content_clamp;
 
-		var page = new Adw.NavigationPage (toolbar_view, "account");
-
-		var todoist_switch_gesture = new Gtk.GestureClick ();
-		todoist_switch_gesture.set_button (1);
-		todoist_switch.add_controller (todoist_switch_gesture);
-		todoist_switch_gesture.pressed.connect (() => {
-			todoist_switch.active = !todoist_switch.active;
-
-			if (todoist_switch.active) {
-				todoist_switch.active = false;
-				if (!Services.Todoist.get_default ().is_logged_in ()) {
-					push_subpage (get_oauth_todoist_page (todoist_switch));
-				}
-			} else {
-				confirm_log_out (todoist_switch, BackendType.TODOIST);
-			}
-		});
-
-		var caldav_switch_gesture = new Gtk.GestureClick ();
-		caldav_switch.add_controller (caldav_switch_gesture);
-		caldav_switch_gesture.pressed.connect (() => {
-			caldav_switch.active = !caldav_switch.active;
+		Gee.HashMap <string, Widgets.SourceRow> sources_hashmap = new Gee.HashMap <string, Widgets.SourceRow> ();
+		foreach (Objects.Source source in Services.Store.instance ().sources) {
+			if (!sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 			
-			if (caldav_switch.active) {
-				caldav_switch.active = false;
-				push_subpage (get_caldav_setup_page (caldav_switch));
-			} else {
-				confirm_log_out (caldav_switch, BackendType.CALDAV);
+				sources_hashmap[source.id].view_detail.connect (() => {
+					push_subpage (get_source_view (source));
+				});
+	
+				sources_group.add_child (sources_hashmap[source.id]);
 			}
-		});
-
-		Services.Todoist.get_default ().first_sync_finished.connect (() => {
-			todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
-			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
-
-			Timeout.add (250, () => {
-				close ();
-				return GLib.Source.REMOVE;
-			});
-		});
-
-		Services.CalDAV.Core.get_default ().first_sync_finished.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
-
-			Timeout.add (250, () => {
-				close ();
-				return GLib.Source.REMOVE;
-			});
-		});
-
-		Services.Todoist.get_default ().log_out.connect (() => {
-			todoist_setting_revealer.reveal_child = Services.Todoist.get_default ().is_logged_in ();
-			todoist_switch.active = Services.Todoist.get_default ().is_logged_in ();
-		});
-
-		Services.CalDAV.Core.get_default ().log_out.connect (() => {
-			caldav_setting_revealer.reveal_child = Services.CalDAV.Core.get_default ().is_logged_in ();
-			caldav_switch.active = Services.CalDAV.Core.get_default ().is_logged_in ();
-		});
-
-		todoist_setting_button.clicked.connect (() => {
-			push_subpage (get_todoist_view ());
-		});
-
-		caldav_setting_button.clicked.connect (() => {
-			push_subpage (get_caldav_view ());
-		});
-
-		settings_header.back_activated.connect (() => {
-			pop_subpage ();
-		});
-
-		return page;
-	}
-
-	private Adw.NavigationPage get_todoist_view () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
-
-		var todoist_avatar = new Adw.Avatar (84, Services.Settings.get_default ().settings.get_string ("todoist-user-name"), true);
-
-		var file = File.new_for_path (Util.get_default ().get_avatar_path ("todoist-user"));
-		if (file.query_exists ()) {
-			var image = new Gtk.Image.from_file (file.get_path ());
-			todoist_avatar.custom_image = image.get_paintable ();
 		}
 
-		var todoist_user = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-name")) {
-			margin_top = 12
-		};
-		todoist_user.add_css_class ("title-1");
+		Services.Store.instance ().source_added.connect ((source) => {
+			if (!sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id] = new Widgets.SourceRow (source);
 
-		var todoist_email = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("todoist-user-email"));
-		todoist_email.add_css_class ("dim-label");
+				sources_hashmap[source.id].view_detail.connect (() => {
+					push_subpage (get_source_view (source));
+				});
+	
+				sources_group.add_child (sources_hashmap[source.id]);
+			}
+		});
 
-		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			margin_top = 24
-		};
-		user_box.append (todoist_avatar);
-		user_box.append (todoist_user);
-		user_box.append (todoist_email);
-
-		var sync_server_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server")
-		};
-
-		var sync_server_row = new Adw.ActionRow ();
-		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your Todoist account every 15 minutes");
-		sync_server_row.set_activatable_widget (sync_server_switch);
-		sync_server_row.add_suffix (sync_server_switch);
-
-		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("todoist-last-sync"), new GLib.TimeZone.local ()
-			);
-
-		var last_sync_label = new Gtk.Label (Utils.Datetime.get_relative_date_from_date (
-												 last_sync_date
-												 ));
-
-		var last_sync_row = new Adw.ActionRow ();
-		last_sync_row.activatable = false;
-		last_sync_row.title = _("Last Sync");
-		last_sync_row.add_suffix (last_sync_label);
-
-		var default_group = new Adw.PreferencesGroup () {
-			margin_top = 24
-		};
-
-		default_group.add (sync_server_row);
-		default_group.add (last_sync_row);
-
-		var content_clamp = new Adw.Clamp () {
-			maximum_size = 600,
-			margin_start = 24,
-			margin_end = 24,
-			child = default_group
-		};
-
-		var main_content = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-			vexpand = true,
-			hexpand = true
-		};
-
-		main_content.append (user_box);
-		main_content.append (content_clamp);
-
-		var toolbar_view = new Adw.ToolbarView ();
-		toolbar_view.add_top_bar (settings_header);
-		toolbar_view.content = main_content;
-
-		var page = new Adw.NavigationPage (toolbar_view, "todoist");
+		Services.Store.instance ().source_deleted.connect ((source) => {
+			if (sources_hashmap.has_key (source.id)) {
+				sources_hashmap[source.id].hide_destroy ();
+				sources_hashmap.unset (source.id);
+			}
+		});
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
 		});
 
-		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("todoist-sync-server", sync_server_switch.active);
+		todoist_item.clicked.connect (() => {
+			popover.popdown ();
+			push_subpage (get_oauth_todoist_page ());
 		});
 
-		return page;
+		caldav_item.clicked.connect (() => {
+			popover.popdown ();
+			push_subpage (get_caldav_setup_page ());
+		});
+
+		return new Adw.NavigationPage (toolbar_view, "account");
 	}
 
-	private Adw.NavigationPage get_caldav_view () {
-		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud"));
+	private Adw.NavigationPage get_source_view (Objects.Source source) {
+		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Todoist"));
 
-		var username_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-displayname")) {
+		var avatar = new Adw.Avatar (84, source.user_displayname, true);
+
+		if (source.source_type == SourceType.TODOIST) {
+			var file = File.new_for_path (Util.get_default ().get_avatar_path (source.avatar_path));
+			if (file.query_exists ()) {
+				var image = new Gtk.Image.from_file (file.get_path ());
+				avatar.custom_image = image.get_paintable ();
+			}
+		}
+
+		var user_label = new Gtk.Label (source.user_displayname) {
 			margin_top = 12,
 			css_classes = { "title-1" }
 		};
 
-		var email_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-user-email")) {
-			css_classes = { "dim-label" }
+		var email_label = new Gtk.Label (source.user_email) {
+			css_classes = { "dim-label" },
+			margin_top = 6
 		};
 
-		var server_url_label = new Gtk.Label (Services.Settings.get_default ().settings.get_string ("caldav-server-url")) {
-			css_classes = { "dim-label" }
-		};
 
 		var user_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			margin_top = 24
 		};
-		user_box.append (username_label);
+		user_box.append (avatar);
+		user_box.append (user_label);
 		user_box.append (email_label);
-		user_box.append (server_url_label);
 
-		var sync_server_switch = new Gtk.Switch () {
-			valign = Gtk.Align.CENTER,
-			active = Services.Settings.get_default ().settings.get_boolean ("caldav-sync-server")
+		if (source.source_type == SourceType.CALDAV) {
+			var url_label = new Gtk.Label (source.caldav_data.server_url) {
+				css_classes = { "dim-label" }
+			};
+			user_box.append (url_label);
+		}
+
+		var display_entry = new Adw.EntryRow () {
+			title = _("Display Name"),
+			text = source.display_name,
+			show_apply_button = true
 		};
 
-		var sync_server_row = new Adw.ActionRow ();
+		var sync_server_row = new Adw.SwitchRow ();
 		sync_server_row.title = _("Sync Server");
-		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your CalDAV account every 15 minutes");
-		sync_server_row.set_activatable_widget (sync_server_switch);
-		sync_server_row.add_suffix (sync_server_switch);
-
-		var last_sync_date = new GLib.DateTime.from_iso8601 (
-			Services.Settings.get_default ().settings.get_string ("caldav-last-sync"), new GLib.TimeZone.local ()
-		);
+		sync_server_row.subtitle = _("Activate this setting so that Planify automatically synchronizes with your account account every 15 minutes");
+		sync_server_row.active = source.sync_server;
 
 		var last_sync_label = new Gtk.Label (
-			Utils.Datetime.get_relative_date_from_date (last_sync_date)
+			Utils.Datetime.get_relative_date_from_date (
+				new GLib.DateTime.from_iso8601 (
+					source.last_sync, new GLib.TimeZone.local ()
+				)
+			)
 		);
 
 		var last_sync_row = new Adw.ActionRow ();
@@ -1119,6 +993,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 			margin_top = 24
 		};
 
+		default_group.add (display_entry);
 		default_group.add (sync_server_row);
 		default_group.add (last_sync_row);
 
@@ -1141,14 +1016,26 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		toolbar_view.add_top_bar (settings_header);
 		toolbar_view.content = main_content;
 
-		var page = new Adw.NavigationPage (toolbar_view, "caldav");
+		var page = new Adw.NavigationPage (toolbar_view, "source_view");
 
 		settings_header.back_activated.connect (() => {
 			pop_subpage ();
 		});
 
-		sync_server_row.notify["active"].connect (() => {
-			Services.Settings.get_default ().settings.set_boolean ("caldav-sync-server", sync_server_switch.active);
+		sync_server_row.activated.connect (() => {
+			source.sync_server = !source.sync_server;
+			source.save ();
+
+			if (source.sync_server) {
+				source.run_server ();
+			} else {
+				source.remove_sync_server ();
+			}
+		});
+
+		display_entry.apply.connect (() => {
+			source.display_name = display_entry.text;
+			source.save ();
 		});
 
 		return page;
@@ -1259,7 +1146,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return page;
 	}
 
-	private Adw.NavigationPage get_oauth_todoist_page (Gtk.Switch switch_widget) {
+	private Adw.NavigationPage get_oauth_todoist_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Loading…"));
 
 		string oauth_open_url = "https://todoist.com/oauth/authorize?client_id=%s&scope=%s&state=%s";
@@ -1276,18 +1163,19 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
         webview.load_uri (oauth_open_url);
 
-        var sync_image = new Gtk.Image.from_icon_name ("cloud-outline-thick-symbolic") {
+        var sync_image = new Gtk.Spinner () {
             valign = Gtk.Align.CENTER,
             halign = Gtk.Align.CENTER,
-			pixel_size = 128
+			height_request = 64,
+			width_request = 64,
+            spinning = true
         };
 
         // Loading
-        var progress_bar = new Gtk.ProgressBar () {
-            margin_top = 6
-        };
 
-        var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes"));
+        var sync_label = new Gtk.Label (_("Planify is is syncing your tasks, this may take a few minutes")) {
+			css_classes = { "dim-label" }
+		};
         sync_label.wrap = true;
         sync_label.justify = Gtk.Justification.CENTER;
         sync_label.margin_top = 12;
@@ -1295,12 +1183,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         sync_label.margin_end = 12;
 
         var sync_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
-            margin_top = 24,
+            margin_top = 128,
             margin_start = 64,
             margin_end = 64
         };
         sync_box.append (sync_image);
-        sync_box.append (progress_bar);
         sync_box.append (sync_label);
 
         var stack = new Gtk.Stack ();
@@ -1309,7 +1196,7 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
         stack.add_named (webview, "web_view");
-        stack.add_named (sync_box, "spinner-view");
+        stack.add_named (sync_box, "loading");
 
 		var scrolled_window = new Gtk.ScrolledWindow () {
             hexpand = true,
@@ -1326,7 +1213,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
 
 		settings_header.back_activated.connect (() => {
-			switch_widget.active = false;
 			pop_subpage ();
 		});
 
@@ -1335,13 +1221,29 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (state) in redirect_uri)) {
-				settings_header.title = _("Synchronizing..."); // vala-lint=ellipsis
-                get_todoist_token.begin (redirect_uri);
+				settings_header.title = _("Synchronizing…"); // vala-lint=ellipsis
+
+				stack.visible_child_name = "loading";
+				Services.Todoist.get_default ().login.begin (redirect_uri, (obj, res) => {
+					HttpResponse response = Services.Todoist.get_default ().login.end (res);
+					pop_subpage ();
+					webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
+
+					if (!response.status) {
+						if (response.error_code != 409) {
+							show_message_error (response.error_code, response.error.strip ());
+						} else {
+							var toast = new Adw.Toast (response.error.strip ());
+							toast.timeout = 3;
+							add_toast (toast);
+						}
+					}
+				});
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
                 debug ("access_denied");
-				switch_widget.active = false;
+				webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
 				pop_subpage ();
             }
 
@@ -1370,7 +1272,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				toast.timeout = 0;
 
 				toast.button_clicked.connect (() => {
-					switch_widget.active = false;
 					pop_subpage ();
 				});
 
@@ -1381,21 +1282,18 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         });
 
         Services.Todoist.get_default ().first_sync_started.connect (() => {
-            stack.visible_child_name = "spinner-view";
+            stack.visible_child_name = "loading";
         });
 
         Services.Todoist.get_default ().first_sync_finished.connect (() => {
+			webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
 			pop_subpage ();
-        });
-
-        Services.Todoist.get_default ().first_sync_progress.connect ((progress) => {
-            progress_bar.fraction = progress;
         });
 
 		return page;
 	}
 
-	private Adw.NavigationPage get_caldav_setup_page (Gtk.Switch switch_widget) {
+	private Adw.NavigationPage get_caldav_setup_page () {
 		var settings_header = new Dialogs.Preferences.SettingsHeader (_("Nextcloud Setup"));
 		
 		var server_entry = new Adw.EntryRow ();
@@ -1485,7 +1383,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		var page = new Adw.NavigationPage (toolbar_view, "oauth-todoist");
 
 		settings_header.back_activated.connect (() => {
-			switch_widget.active = false;
 			pop_subpage ();
 		});
 
@@ -1545,14 +1442,30 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				cancellable.cancel ();
 			});
 
-			Services.CalDAV.Core.get_default ().login.begin (server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
+			Services.CalDAV.Core.get_default ().login.begin (CalDAVType.parse_index (providers_row.selected), server_entry.text, username_entry.text, password_entry.text, cancellable, (obj, res) => {
 				HttpResponse response = Services.CalDAV.Core.get_default ().login.end (res);
 				if (response.status) {
-					Services.CalDAV.Core.get_default ().first_sync.begin ();
+					Objects.Source source = (Objects.Source) response.data_object.get_object ();
+					Services.CalDAV.Core.get_default ().add_caldav_account.begin (source, cancellable, (obj, res) => {
+						response = Services.CalDAV.Core.get_default ().add_caldav_account.end (res);
+
+						if (!response.status) {
+							login_button.is_loading = false;
+							cancel_button.visible = false;
+							show_message_error (response.error_code, response.error.strip ());
+						}
+					});
 				} else {
 					login_button.is_loading = false;
 					cancel_button.visible = false;
-					show_message_error (_("Failed to login"), response.error.strip ());
+
+					if (response.error_code == 409) {
+						var toast = new Adw.Toast (response.error.strip ());
+						toast.timeout = 3;
+						add_toast (toast);
+					} else {
+						show_message_error (response.error_code, response.error.strip ());
+					}
 				}
 			});
 		});
@@ -1577,36 +1490,16 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         return scheme.has_prefix ("http");
     }
 
-	private void show_message_error (string title, string error) {
-		var dialog = new Adw.AlertDialog (title, null);
-
-		var textview = new Gtk.TextView () {
-			left_margin = 12,
-			top_margin = 12,
-			bottom_margin = 12,
-			right_margin = 12,
-			wrap_mode = Gtk.WrapMode.WORD
-		};
-		textview.buffer.text = error;
-		textview.add_css_class ("monospace");
-		textview.add_css_class ("error-message");
-
-		var textview_scrolled_window = new Gtk.ScrolledWindow () {
-            hscrollbar_policy = Gtk.PolicyType.NEVER,
-            hexpand = true,
-            vexpand = true,
-			child = textview,
-			width_request = 500,
-			height_request = 430
+	private void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
+		var error_view = new Widgets.ErrorView () {
+            error_code = error_code,
+            error_message = error_message,
+			visible_issue_button = visible_issue_button
         };
 
-		var textview_frame = new Gtk.Frame (null) {
-			child = textview_scrolled_window
-		};
+		var page = new Adw.NavigationPage (error_view, "");
 
-        dialog.add_response ("ok", _("Ok"));
-		dialog.extra_child = textview_frame;
-        dialog.present (Planify._instance.main_window);
+		push_subpage (page);
 	}
 
 	private Adw.NavigationPage get_backups_page () {
@@ -1813,10 +1706,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		return page;
 	}
 
-	private async void get_todoist_token (string redirect_uri) {
-        yield Services.Todoist.get_default ().get_todoist_token (redirect_uri);
-    }
-
 	public bool is_dark_theme () {
         var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");
 
@@ -1845,36 +1734,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 		}
 
 		return true;
-	}
-
-	private void confirm_log_out (Gtk.Switch switch_widget, BackendType backend_type) {
-		string message = "";
-
-		if (backend_type == BackendType.TODOIST) {
-			message = _("Are you sure you want to remove the Todoist sync? This action will delete all your tasks and settings.");
-		} else if (backend_type == BackendType.CALDAV) {
-			message = _("Are you sure you want to remove the CalDAV sync? This action will delete all your tasks and settings.");
-		}
-
-		var dialog = new Adw.AlertDialog (_("Sign Off"), message);
-
-		dialog.body_use_markup = true;
-		dialog.add_response ("cancel", _("Cancel"));
-		dialog.add_response ("delete", _("Delete"));
-		dialog.set_response_appearance ("delete", Adw.ResponseAppearance.DESTRUCTIVE);
-		dialog.present (Planify._instance.main_window);
-
-		dialog.response.connect ((response) => {
-			if (response == "delete") {
-				if (backend_type == BackendType.TODOIST) {
-					Services.Todoist.get_default ().remove_items ();
-				} else if (backend_type == BackendType.CALDAV) {
-					Services.CalDAV.Core.get_default ().remove_items ();
-				}
-			} else {
-				switch_widget.active = true;
-			}
-		});
 	}
 
 	private Gtk.Widget generate_icon (string icon_name, int size = 16) {

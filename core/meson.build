@@ -5,14 +5,18 @@ core_files = files(
 
     'Util/Util.vala',
     'Util/Datetime.vala',
+    'Util/Migrate.vala',
 
     'Services/Settings.vala',
     'Services/EventBus.vala',
     'Services/Database.vala',
+    'Services/Store.vala',
     'Services/Todoist.vala',
+
     'Services/CalDAV/Core.vala',
-    'Services/CalDAV/Constants.vala',
-    'Services/CalDAV/Backend.vala',
+    'Services/CalDAV/Providers/ProviderBase.vala',
+    'Services/CalDAV/Providers/Nextcloud.vala',
+    'Services/CalDAV/Providers/Radicale.vala',
 
     'Services/Chrono/Chrono.vala',
     'Services/Chrono/Enum.vala',
@@ -83,6 +87,7 @@ core_files = files(
     'Objects/Promise.vala',
     'Objects/Attachment.vala',
     'Objects/ObjectEvent.vala',
+    'Objects/Source.vala',
     
     'Objects/Filters/Pinboard.vala',
     'Objects/Filters/Scheduled.vala',

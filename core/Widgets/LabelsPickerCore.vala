@@ -20,6 +20,8 @@
 */
 
 public class Widgets.LabelsPickerCore : Adw.Bin {
+    public LabelPickerType picker_type { get; construct; }
+
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
     private Gtk.Label placeholder_message_label;
@@ -37,15 +39,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
-    BackendType _backend_type;
-    public BackendType backend_type {
+    Objects.Source _source;
+    public Objects.Source source {
         set {
-            _backend_type = value;
-            add_labels (_backend_type);
+            _source = value;
+            add_labels (_source);
         }
 
         get {
-            return _backend_type;
+            return _source;
         }
     }
     
@@ -63,11 +65,21 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
     public signal void close ();
 
+    public LabelsPickerCore (LabelPickerType picker_type) {
+        Object (
+            picker_type: picker_type
+        );
+    }
+
     construct {
         css_classes = { "popover-contents" };
         
+        if (picker_type == LabelPickerType.FILTER) {
+            PLACEHOLDER_MESSAGE = _("Your list of filters will show up here.");
+        }
+
         search_entry = new Gtk.SearchEntry () {
-            placeholder_text = _("Search or Create"),
+            placeholder_text = picker_type == LabelPickerType.SELECT ? _("Search or Create") : _("Search"),
             valign = Gtk.Align.CENTER,
             hexpand = true,
             margin_start = 12,
@@ -91,6 +103,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             margin_start = 9,
             margin_end = 9,
             margin_top = 12,
+            margin_bottom = 6,
             child = listbox,
             valign = Gtk.Align.START
         };
@@ -109,16 +122,13 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         child = toolbar_view;
 
-        var controller_key = new Gtk.EventControllerKey ();
-        toolbar_view.add_controller (controller_key);
-
-        controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        var listbox_controller_key = new Gtk.EventControllerKey ();
+        listbox.add_controller (listbox_controller_key);
+        listbox_controller_key.key_pressed.connect ((keyval, keycode, state) => {
             var key = Gdk.keyval_name (keyval).replace ("KP_", "");
                         
             if (key == "Up" || key == "Down") {
-                return false;
             } else if (key == "Enter" || key == "Return" || key == "KP_Enter") {
-                return false;
             } else {
                 if (!search_entry.has_focus) {
                     search_entry.grab_focus ();
@@ -126,11 +136,9 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                         search_entry.set_position (search_entry.text.length);
                     }
                 }
-
-                return false;
             }
 
-            return true;
+            return false;
         });
 
         search_entry.search_changed.connect (() => {
@@ -146,13 +154,15 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
                 return return_value;
             });
 
-            add_tag_revealer.reveal_child = size <= 0;
-            placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
+            if (picker_type == LabelPickerType.SELECT) {
+                add_tag_revealer.reveal_child = size <= 0;
+                placeholder_message_label.label = size <= 0 ? PLACEHOLDER_CREATE_MESSAGE.printf (search_entry.text) : PLACEHOLDER_MESSAGE;
+            }
         });
 
         search_entry.activate.connect (() => {
-            if (search_entry.text.length > 0) {
-                Objects.Label label = Services.Database.get_default ().get_label_by_name (search_entry.text, true, backend_type);
+            if (source != null && search_entry.text.length > 0) {
+                Objects.Label label = Services.Store.instance ().get_label_by_name (search_entry.text, true, source.id);
                 if (label != null) {
                     if (labels_widgets_map.has_key (label.id_string)) {
                         labels_widgets_map [label.id_string].update_checked_toggled ();
@@ -163,7 +173,7 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
             }
         });
 
-        Services.Database.get_default ().label_added.connect ((label) => {
+        Services.Store.instance ().label_added.connect ((label) => {
             add_label (label);
         });
     }
@@ -172,24 +182,23 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         var label = new Objects.Label ();
         label.color = Util.get_default ().get_random_color ();
         label.name = search_entry.text;
+        label.source_id = source.id;
 
-        if (backend_type == BackendType.LOCAL || backend_type == BackendType.CALDAV) {
+        if (source.source_type == SourceType.LOCAL || source.source_type == SourceType.CALDAV) {
             label.id = Util.get_default ().generate_id (label);
-            label.backend_type = BackendType.LOCAL;
-            Services.Database.get_default ().insert_label (label);
+            Services.Store.instance ().insert_label (label);
             checked_toggled (label, true);
 
             search_entry.text = "";
             close ();
-        } else if (backend_type == BackendType.TODOIST) {
+        } else if (source.source_type == SourceType.TODOIST) {
             is_loading = true;
-            label.backend_type = BackendType.TODOIST;
             Services.Todoist.get_default ().add.begin (label, (obj, res) => {
                 HttpResponse response = Services.Todoist.get_default ().add.end (res);
 
                 if (response.status) {
                     label.id = response.data;
-                    Services.Database.get_default ().insert_label (label);
+                    Services.Store.instance ().insert_label (label);
                     checked_toggled (label, true);
                 }
 
@@ -200,14 +209,14 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
     }
 
-    private void add_labels (BackendType backend_type) {
+    private void add_labels (Objects.Source source) {
         labels_widgets_map.clear ();
 
         foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
             listbox.remove (child);
         }
 
-        foreach (Objects.Label label in Services.Database.get_default ().get_labels_by_backend_type (backend_type)) {
+        foreach (Objects.Label label in Services.Store.instance ().get_labels_by_source (source.id)) {
             add_label (label);
         }
     }
@@ -252,8 +261,9 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
 
         var box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
             valign = CENTER,
-            margin_start = 12,
-            margin_end = 12
+            margin_start = 24,
+            margin_end = 24,
+            margin_top = 24
         };
         box.append (add_tag_revealer);
         box.append (placeholder_message_label);
@@ -280,5 +290,17 @@ public class Widgets.LabelsPickerCore : Adw.Bin {
         }
 
         labels_widgets_map.clear ();
+    }
+
+    public void add_labels_list (Gee.ArrayList<Objects.Label> labels_list) {
+        labels_widgets_map.clear ();
+
+        foreach (unowned Gtk.Widget child in Util.get_default ().get_children (listbox) ) {
+            listbox.remove (child);
+        }
+
+        foreach (Objects.Label label in labels_list) {
+            add_label (label);
+        }
     }
 }

@@ -36,7 +36,7 @@ public class Views.Project : Adw.Bin {
 
 	public ProjectViewStyle view_style {
         get {
-            return project.backend_type == BackendType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
+            return project.source_type == SourceType.CALDAV ? ProjectViewStyle.LIST : project.view_style;
         }
     }
 
@@ -295,7 +295,7 @@ public class Views.Project : Adw.Bin {
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
 
-		if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.TODOIST) {
+		if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
 			menu_box.append (add_section_item);
 			menu_box.append (manage_sections);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
@@ -509,14 +509,14 @@ public class Views.Project : Adw.Bin {
 		);
 
 		delete_all_completed = new Widgets.ContextMenu.MenuItem (_("Delete All Completed Tasks") ,"user-trash-symbolic") {
-			visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0
+			visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0
 		};
 		delete_all_completed.add_css_class ("menu-item-danger");
 
 		var menu_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
 		menu_box.margin_top = menu_box.margin_bottom = 3;
 
-		if (project.backend_type == BackendType.LOCAL || project.backend_type == BackendType.TODOIST) {
+		if (project.source_type == SourceType.LOCAL || project.source_type == SourceType.TODOIST) {
 			menu_box.append (view_box);
 			menu_box.append (new Widgets.ContextMenu.MenuSeparator ());
 		}
@@ -564,7 +564,7 @@ public class Views.Project : Adw.Bin {
 			project.update_local ();
 
 			show_completed_item.title = project.show_completed ? _("Hide Completed Tasks") : _("Show Completed Tasks");
-			delete_all_completed.visible = project.show_completed && Services.Database.get_default ().get_items_checked_by_project (project).size > 0;
+			delete_all_completed.visible = project.show_completed && Services.Store.instance ().get_items_checked_by_project (project).size > 0;
 			check_default_filters ();
 		});
 
@@ -590,7 +590,7 @@ public class Views.Project : Adw.Bin {
 		delete_all_completed.activate_item.connect (() => {
 			popover.popdown ();
 
-			var items = Services.Database.get_default ().get_items_checked_by_project (project);
+			var items = Services.Store.instance ().get_items_checked_by_project (project);
 
 			var dialog = new Adw.AlertDialog (
 			    _("Delete All Completed Tasks"),
@@ -664,12 +664,12 @@ public class Views.Project : Adw.Bin {
 			Gee.ArrayList<Objects.Label> _labels = new Gee.ArrayList<Objects.Label> ();
 			foreach (Objects.Filters.FilterItem filter in project.filters.values) {
 				if (filter.filter_type == FilterItemType.LABEL) {
-					_labels.add (Services.Database.get_default ().get_label (filter.value));
+					_labels.add (Services.Store.instance ().get_label (filter.value));
 				}
 			}
 
 			var dialog = new Dialogs.LabelPicker ();
-			dialog.add_labels (project.backend_type);
+			dialog.add_labels (project.source);
 			dialog.labels = _labels;
 			dialog.present (Planify._instance.main_window);
 
@@ -702,7 +702,7 @@ public class Views.Project : Adw.Bin {
 	}
 
 	public void prepare_new_section () {
-		if (project.backend_type == BackendType.CALDAV) {
+		if (project.source_type == SourceType.CALDAV) {
 			return;
 		}
 
