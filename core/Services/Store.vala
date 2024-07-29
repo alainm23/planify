@@ -200,6 +200,38 @@ public class Services.Store : GLib.Object {
         }
     }
 
+    public bool source_todoist_exists (string email) {
+        bool return_value = false;
+
+        lock (_sources) {
+            foreach (Objects.Source source in sources) {
+                if (source.source_type == SourceType.TODOIST && source.todoist_data.user_email == email) {
+                    return_value = true;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
+    public bool source_caldav_exists (string server_url, string username) {
+        bool return_value = false;
+
+        lock (_sources) {
+            foreach (Objects.Source source in sources) {
+                if (source.source_type == SourceType.CALDAV &&
+                    source.caldav_data.server_url == server_url &&
+                    source.caldav_data.username == username) {
+                    return_value = true;
+                    break;
+                }
+            }
+
+            return return_value;
+        }
+    }
+
     /*
      *  Projects
      */

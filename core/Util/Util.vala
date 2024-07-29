@@ -743,20 +743,6 @@ We hope you’ll enjoy using Planify!""");
         Services.Store.instance ().insert_label (label_05);
     }
 
-    public SourceType get_backend_type_by_text (string backend_type) {
-        if (backend_type == "local") {
-            return SourceType.LOCAL;
-        } else if (backend_type == "todoist") {
-            return SourceType.TODOIST;
-        } else if (backend_type == "google-tasks") {
-            return SourceType.GOOGLE_TASKS;
-        } else if (backend_type == "caldav") {
-            return SourceType.CALDAV;
-        } else {
-            return SourceType.NONE;
-        }
-    }
-
     public string markup_accel_tooltip (string description, string accels) {
         return "%s\n%s".printf (description, """<span weight="600" size="smaller" alpha="75%">%s</span>""".printf (accels));
     }

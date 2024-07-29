@@ -58,7 +58,7 @@ public class Services.Todoist : GLib.Object {
 		return !invalid_token ();
 	}
 
-	public async void get_todoist_token (string _url) {
+	public async HttpResponse login (string _url) {
 		string code = _url.split ("=") [1];
 		code = code.split ("&") [0];
 
@@ -66,6 +66,8 @@ public class Services.Todoist : GLib.Object {
 			Constants.TODOIST_CLIENT_ID, Constants.TODOIST_CLIENT_SECRET, code);
 
 		var message = new Soup.Message ("POST", url);
+
+		HttpResponse response = new HttpResponse ();
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.HIGH, null);
@@ -77,15 +79,17 @@ public class Services.Todoist : GLib.Object {
 			var root = parser.get_root ().get_object ();
 			var token = root.get_string_member ("access_token");
 
-			yield add_todoist_account (token);
+			yield add_todoist_account (token, response);
 		} catch (Error e) {
+			response.error_code = e.code;
+            response.error = e.message;
 			error (e.message);
 		}
+
+		return response;
 	}
 
-	public async void add_todoist_account (string token) {
-		first_sync_started ();
-
+	public async void add_todoist_account (string token, HttpResponse response) {
 		string url = TODOIST_SYNC_URL;
 		url = url + "?sync_token=" + "*";
 		url = url + "&resource_types=" + "[\"all\"]";
@@ -123,6 +127,13 @@ public class Services.Todoist : GLib.Object {
 
 			source.display_name = user_object.get_string_member ("email");
 			source.data = todoist_data;
+
+			if (Services.Store.instance ().source_todoist_exists (todoist_data.user_email)) {
+				response.error_code = 409;
+				response.error = "Source already exists";
+				response.status = false;
+				return;
+			}
 
 			Services.Store.instance ().insert_source (source);
 
@@ -183,8 +194,10 @@ public class Services.Todoist : GLib.Object {
 			source.last_sync = new GLib.DateTime.now_local ().to_string ();
 			source.save ();
 
-			first_sync_finished ();
+			response.status = true;
 		} catch (Error e) {
+			response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
 	}
@@ -204,12 +217,8 @@ public class Services.Todoist : GLib.Object {
 		url = url + "?sync_token=" + source.todoist_data.sync_token;
 		url = url + "&resource_types=" + "[\"all\"]";
 
-		print ("URL: %s\n".printf (url));
-
 		var message = new Soup.Message ("POST", url);
 		message.request_headers.append ("Authorization", "Bearer %s".printf (source.todoist_data.access_token));
-
-		print ("TOKEN: %s\n".printf (source.todoist_data.access_token));
 
 		try {
 			GLib.Bytes stream = yield session.send_and_read_async (message, GLib.Priority.LOW, null);

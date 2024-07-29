@@ -1221,8 +1221,24 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
             if (("https://github.com/alainm23/planner?code=" in redirect_uri) &&
                 ("&state=%s".printf (state) in redirect_uri)) {
-				settings_header.title = _("Synchronizing..."); // vala-lint=ellipsis
-                get_todoist_token.begin (redirect_uri);
+				settings_header.title = _("Synchronizing…"); // vala-lint=ellipsis
+
+				stack.visible_child_name = "loading";
+				Services.Todoist.get_default ().login.begin (redirect_uri, (obj, res) => {
+					HttpResponse response = Services.Todoist.get_default ().login.end (res);
+					pop_subpage ();
+					webview.get_network_session ().get_website_data_manager ().clear.begin (WebKit.WebsiteDataTypes.ALL, 0, null);
+
+					if (!response.status) {
+						if (response.error_code != 409) {
+							show_message_error (response.error_code, response.error.strip ());
+						} else {
+							var toast = new Adw.Toast (response.error.strip ());
+							toast.timeout = 3;
+							add_toast (toast);
+						}
+					}
+				});
             }
 
             if ("https://github.com/alainm23/planner?error=access_denied" in redirect_uri) {
@@ -1442,7 +1458,14 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 				} else {
 					login_button.is_loading = false;
 					cancel_button.visible = false;
-					show_message_error (response.error_code, response.error.strip ());
+
+					if (response.error_code == 409) {
+						var toast = new Adw.Toast (response.error.strip ());
+						toast.timeout = 3;
+						add_toast (toast);
+					} else {
+						show_message_error (response.error_code, response.error.strip ());
+					}
 				}
 			});
 		});
@@ -1467,10 +1490,11 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
         return scheme.has_prefix ("http");
     }
 
-	private void show_message_error (int error_code, string error_message) {
+	private void show_message_error (int error_code, string error_message, bool visible_issue_button = true) {
 		var error_view = new Widgets.ErrorView () {
             error_code = error_code,
             error_message = error_message,
+			visible_issue_button = visible_issue_button
         };
 
 		var page = new Adw.NavigationPage (error_view, "");
@@ -1681,10 +1705,6 @@ public class Dialogs.Preferences.PreferencesWindow : Adw.PreferencesDialog {
 
 		return page;
 	}
-
-	private async void get_todoist_token (string redirect_uri) {
-        yield Services.Todoist.get_default ().get_todoist_token (redirect_uri);
-    }
 
 	public bool is_dark_theme () {
         var dark_mode = Services.Settings.get_default ().settings.get_boolean ("dark-mode");

@@ -355,7 +355,7 @@ public class Objects.Project : Objects.BaseObject {
         id = node.get_object ().get_string_member ("id");
         name = node.get_object ().get_string_member ("name");
         color = node.get_object ().get_string_member ("color");
-        backend_type = Util.get_default ().get_backend_type_by_text (node.get_object ().get_string_member ("backend_type"));
+        backend_type = SourceType.parse (node.get_object ().get_string_member ("backend_type"));
         inbox_project = node.get_object ().get_boolean_member ("inbox_project");
         team_inbox = node.get_object ().get_boolean_member ("team_inbox");
         child_order = (int32) node.get_object ().get_int_member ("child_order");
@@ -372,6 +372,13 @@ public class Objects.Project : Objects.BaseObject {
         show_completed = node.get_object ().get_boolean_member ("show_completed");
         description = node.get_object ().get_string_member ("description");
         due_date = node.get_object ().get_string_member ("due_date");
+        source_id = node.get_object ().get_string_member ("backend_type");
+
+        if (node.get_object ().has_member ("source_id")) {
+            source_id = node.get_object ().get_string_member ("source_id");
+        }
+
+        print ("%s\n".printf (to_string ()));
     }
 
     public void update_from_json (Json.Node node) {

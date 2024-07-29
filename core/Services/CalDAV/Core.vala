@@ -49,6 +49,7 @@ public class Services.CalDAV.Core : GLib.Object {
         HttpResponse response = new HttpResponse ();
 
         if (!providers_map.has_key (caldav_type.to_string ())) {
+            response.error_code = 409;
             response.error = _("No Provider Available");
             return response;
         }
@@ -57,6 +58,12 @@ public class Services.CalDAV.Core : GLib.Object {
 
         string url = provider.get_server_url (server_url, username, password);
         print ("Server URL: %s\n".printf (url));
+
+        if (Services.Store.instance ().source_caldav_exists (url, username)) {
+            response.error_code = 409;
+            response.error = "Source already exists";
+            return response;
+        }
 
         string credentials = "%s:%s".printf (username, password);
         string base64_credentials = Base64.encode (credentials.data);
@@ -129,15 +136,19 @@ public class Services.CalDAV.Core : GLib.Object {
 
             Services.Store.instance ().insert_source (source);
             
-            yield get_all_tasklist (source, cancellable);
+            yield get_all_tasklist (source, response, cancellable);
+
+            response.status = true;
         } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
 
         return response;
     }
 
-    public async void get_all_tasklist (Objects.Source source, GLib.Cancellable cancellable) {
+    public async void get_all_tasklist (Objects.Source source, HttpResponse response, GLib.Cancellable cancellable) {
         if (!providers_map.has_key (source.caldav_data.caldav_type.to_string ())) {
             return;
         }
@@ -167,6 +178,8 @@ public class Services.CalDAV.Core : GLib.Object {
             
             first_sync_finished ();
         } catch (Error e) {
+            response.error_code = e.code;
+            response.error = e.message;
 			debug (e.message);
 		}
     }
@@ -306,7 +319,7 @@ public class Services.CalDAV.Core : GLib.Object {
 
     private Objects.Item add_item_if_not_exists (GXml.DomElement element, Objects.Project project) {
         Objects.Item return_value = new Objects.Item.from_caldav_xml (element);
-        return_value.project_id = project.id;;
+        return_value.project_id = project.id;
 
         string parent_id = Util.get_related_to_uid (element);
         if (parent_id != "") {

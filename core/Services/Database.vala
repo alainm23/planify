@@ -1995,7 +1995,7 @@ public class Services.Database : GLib.Object {
             var todoist_source = new Objects.Source ();
             todoist_source.id = SourceType.TODOIST.to_string ();
             todoist_source.source_type = SourceType.TODOIST;
-            todoist_source.display_name = Services.Settings.get_default ().settings.get_string ("todoist-user-email");;
+            todoist_source.display_name = Services.Settings.get_default ().settings.get_string ("todoist-user-email");
             todoist_source.data = Utils.AccountMigrate.get_data_from_todoist ();
             todoist_source.last_sync = Services.Settings.get_default ().settings.get_string ("todoist-last-sync");
             todoist_source.sync_server = Services.Settings.get_default ().settings.get_boolean ("todoist-sync-server");            

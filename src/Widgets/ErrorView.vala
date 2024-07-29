@@ -23,6 +23,7 @@ public class Widgets.ErrorView : Adw.Bin {
     private Gtk.Label error_label;
     private Gtk.Label error_code_label;
     private Gtk.TextView error_textview; 
+    private Gtk.Button issue_button;
 
     public int error_code {
         set {
@@ -34,6 +35,12 @@ public class Widgets.ErrorView : Adw.Bin {
     public string error_message {
         set {
             error_textview.buffer.text = value;
+        }
+    }
+
+    public bool visible_issue_button {
+        set {
+            issue_button.visible = value;
         }
     }
 
@@ -93,7 +100,7 @@ public class Widgets.ErrorView : Adw.Bin {
             margin_end = 12
 		};
 
-        var issue_button = new Gtk.Button.with_label (_("Report Issue")) {
+        issue_button = new Gtk.Button.with_label (_("Report Issue")) {
             hexpand = true,
             margin_top = 12,
             margin_bottom = 12,
