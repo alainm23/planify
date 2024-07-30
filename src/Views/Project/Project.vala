@@ -23,7 +23,7 @@
 public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
-	private Gtk.Stack view_stack;
+	private Adw.NavigationView view_stack;
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.ContextMenu.MenuItem delete_all_completed;
@@ -95,19 +95,19 @@ public class Views.Project : Adw.Bin {
 
 		headerbar.pack_end (view_setting_overlay);
 
-		view_stack = new Gtk.Stack () {
+		view_stack = new Adw.NavigationView () {
 			hexpand = true,
 			vexpand = true,
-			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+			animate_transitions = false
 		};
 
-		view_stack.add_named (new Gtk.Spinner () {
-			hexpand = true,
-			vexpand = true,
-			halign = CENTER,
-			valign = CENTER,
-			spinning = true
-		}, "loading");
+		//  view_stack.add_named (new Gtk.Spinner () {
+		//  	hexpand = true,
+		//  	vexpand = true,
+		//  	halign = CENTER,
+		//  	valign = CENTER,
+		//  	spinning = true
+		//  }, "loading");
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true,
@@ -192,7 +192,6 @@ public class Views.Project : Adw.Bin {
 
 		project.view_style_changed.connect (() => {
 			update_project_view ();
-
 			expand_all_item.visible = view_style == ProjectViewStyle.LIST;
 			collapse_all_item.visible = view_style == ProjectViewStyle.LIST;
 		});
@@ -217,49 +216,34 @@ public class Views.Project : Adw.Bin {
 	}
 
 	private void update_project_view () {
-		view_stack.visible_child_name = "loading";
-
-		Timeout.add (275, () => {
-			if (view_style == ProjectViewStyle.LIST) {
-				Views.List? list_view;
-				list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
-				if (list_view == null) {
-					list_view = new Views.List (project);
-					view_stack.add_named (list_view, view_style.to_string ());
-				}
-			} else if (view_style == ProjectViewStyle.BOARD) {
-				Views.Board? board_view;
-				board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
-				if (board_view == null) {
-					board_view = new Views.Board (project);
-					view_stack.add_named (board_view, view_style.to_string ());
-				}
-			}
-	
-			view_stack.set_visible_child_name (view_style.to_string ());
-			
-			return GLib.Source.REMOVE;
-		});
+		//  view_stack.visible_child_name = "loading";
+		if (view_style == ProjectViewStyle.LIST) {
+			var list_page = new Adw.NavigationPage (new Views.List (project), project.name);
+			view_stack.replace ({ list_page });
+		} else if (view_style == ProjectViewStyle.BOARD) {
+			var board_page = new Adw.NavigationPage (new Views.Board (project), project.name);
+			view_stack.replace ({ board_page });
+		}
 	}
 
 	public void prepare_new_item (string content = "") {
-		if (project.is_deck) {
-			return;
-		}
+		//  if (project.is_deck) {
+		//  	return;
+		//  }
 
-		if (view_style == ProjectViewStyle.LIST) {
-			Views.List? list_view;
-			list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
-			if (list_view != null) {
-				list_view.prepare_new_item (content);
-			}
-		} else {
-			Views.Board? board_view;
-			board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
-			if (board_view != null) {
-                board_view.prepare_new_item (content);
-			}
-		}
+		//  if (view_style == ProjectViewStyle.LIST) {
+		//  	Views.List? list_view;
+		//  	list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
+		//  	if (list_view != null) {
+		//  		list_view.prepare_new_item (content);
+		//  	}
+		//  } else {
+		//  	Views.Board? board_view;
+		//  	board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
+		//  	if (board_view != null) {
+        //          board_view.prepare_new_item (content);
+		//  	}
+		//  }
 	}
 
 	private Gtk.Popover build_context_menu_popover () {

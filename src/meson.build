@@ -26,7 +26,7 @@ sources = files(
   'Services/CalendarEvents/DateIterator.vala',
   'Services/CalendarEvents/DateRange.vala',
   'Services/CalendarEvents/Util.vala',
-
+  
   'Layouts/Sidebar.vala',
   'Layouts/FilterPaneRow.vala',
   'Layouts/ProjectRow.vala',
@@ -100,13 +100,4 @@ sources = files(
   'Dialogs/Preferences/SettingsHeader.vala',
   'Dialogs/Preferences/Pages/Backup.vala',
   'Dialogs/Preferences/Pages/Sidebar.vala'
-)
-
-executable(
-  application_id,
-  sources,
-  asresources,
-  config_file,
-  dependencies: deps,
-  install: true
 )

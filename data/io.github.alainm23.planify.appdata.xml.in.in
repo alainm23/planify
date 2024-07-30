@@ -82,7 +82,7 @@
     <release version="4.9.0" date="2024-07-11">
       <description translate="no">
         <ul>
-          <li>Added feature to switch between task and note..</li>
+          <li>Added feature to switch between task and note.</li>
           <li>Added a task change history feature.</li>
           <li>Fixed bug when importing backup and not recovering labels.</li>
           <li>Hindi translation update thanks to @Scrambled777.</li>
