@@ -41,25 +41,24 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         add_css_class ("card");
         add_css_class ("filter-pane-row");
 
-        title_image = new Gtk.Image () {
+        title_image = new Gtk.Image.from_icon_name (filter_type.get_icon ()) {
             margin_start = 3
         };        
 
-        title_label = new Gtk.Label (null) {
+        title_label = new Gtk.Label (filter_type.get_name ()) {
             hexpand = true,
             halign = Gtk.Align.START,
-            margin_start = 3
+            margin_start = 3,
+            css_classes = { "font-bold" },
+            ellipsize = Pango.EllipsizeMode.END
         };
-        title_label.ellipsize = Pango.EllipsizeMode.END;
-        title_label.add_css_class ("font-bold");
         
         count_label = new Gtk.Label (null) {
             hexpand = true,
             halign = Gtk.Align.END,
-            margin_end = 3
+            margin_end = 3,
+            css_classes = { "font-bold" }
         };
-
-        count_label.add_css_class ("font-bold");
 
         var count_revealer = new Gtk.Revealer () {
             transition_type = Gtk.RevealerTransitionType.CROSSFADE,
@@ -80,13 +79,11 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
         main_grid.attach (title_label, 0, 1, 2, 2);
 
         child = main_grid;
-        build_filter_data ();
+        Util.get_default ().set_widget_color (filter_type.get_color (), this);
         Services.Settings.get_default ().settings.bind ("show-tasks-count", count_revealer, "reveal_child", GLib.SettingsBindFlags.DEFAULT);
 
         var select_gesture = new Gtk.GestureClick ();
-        select_gesture.set_button (1);
         add_controller (select_gesture);
-
         select_gesture.pressed.connect (() => {
             Services.EventBus.get_default ().pane_selected (PaneType.FILTER, filter_type.to_string ());
         });
@@ -106,34 +103,6 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
                 remove_css_class ("selected"); 
             }
         });
-    }
-
-    private void build_filter_data () {
-        if (filter_type == FilterType.TODAY) {
-            title_label.label = _("Today");
-            title_image.icon_name = "star-outline-thick-symbolic";
-            Util.get_default ().set_widget_color ("#33d17a", this);
-        } else if (filter_type == FilterType.INBOX) {
-            title_label.label = _("Inbox");
-            title_image.icon_name = "mailbox-symbolic";
-            Util.get_default ().set_widget_color ("#3584e4", this);
-        } else if (filter_type == FilterType.SCHEDULED) {
-            title_label.label = _("Scheduled");
-            title_image.icon_name = "month-symbolic";
-            Util.get_default ().set_widget_color ("#9141ac", this);
-        } else if (filter_type == FilterType.PINBOARD) {
-            title_label.label = _("Pinboard");
-            title_image.icon_name = "pin-symbolic";
-            Util.get_default ().set_widget_color ("#ed333b", this);
-        } else if (filter_type == FilterType.LABELS) {
-            title_label.label = _("Labels");
-            title_image.icon_name = "tag-outline-symbolic";
-            Util.get_default ().set_widget_color ("#986a44", this);
-        } else if (filter_type == FilterType.COMPLETED) {
-            title_label.label = _("Completed");
-            title_image.icon_name = "check-round-outline-symbolic";
-            Util.get_default ().set_widget_color ("#ff7800", this);
-        } 
     }
 
     private void update_count_label (int count) {
@@ -182,8 +151,7 @@ public class Layouts.FilterPaneRow : Gtk.FlowBoxChild {
     }
 
     public int item_order () {
-        var views_order = Services.Settings.get_default ().settings.get_strv ("views-order-visible");
-        return find_index (views_order, filter_type.to_string ());
+        return find_index (Services.Settings.get_default ().settings.get_strv ("views-order-visible"), filter_type.to_string ());
     }
 
     public bool active () {

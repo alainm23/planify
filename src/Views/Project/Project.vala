@@ -227,23 +227,21 @@ public class Views.Project : Adw.Bin {
 	}
 
 	public void prepare_new_item (string content = "") {
-		//  if (project.is_deck) {
-		//  	return;
-		//  }
+		if (project.is_deck) {
+			return;
+		}
 
-		//  if (view_style == ProjectViewStyle.LIST) {
-		//  	Views.List? list_view;
-		//  	list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
-		//  	if (list_view != null) {
-		//  		list_view.prepare_new_item (content);
-		//  	}
-		//  } else {
-		//  	Views.Board? board_view;
-		//  	board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
-		//  	if (board_view != null) {
-        //          board_view.prepare_new_item (content);
-		//  	}
-		//  }
+		if (view_style == ProjectViewStyle.LIST) {
+			Views.List? list_view = (Views.List) view_stack.visible_page.child;
+			if (list_view != null) {
+				list_view.prepare_new_item (content);
+			}
+		} else {
+			Views.Board? board_view = (Views.Board) view_stack.visible_page.child;
+			if (board_view != null) {
+                board_view.prepare_new_item (content);
+			}
+		}
 	}
 
 	private Gtk.Popover build_context_menu_popover () {

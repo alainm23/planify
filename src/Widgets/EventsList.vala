@@ -105,10 +105,8 @@ public class Widgets.EventsList : Adw.Bin {
         child = main_revealer;
         add_events ();
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "calendar-enabled") {
-                main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
-            }
+        Services.Settings.get_default ().settings.changed["calendar-enabled"].connect (() => {
+            main_revealer.reveal_child = Services.Settings.get_default ().settings.get_boolean ("calendar-enabled");
         });
     }
 

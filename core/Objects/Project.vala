@@ -262,8 +262,6 @@ public class Objects.Project : Objects.BaseObject {
 
         item_deleted.connect ((item) => {
             _project_count = update_project_count ();
-            print ("Count: %d\n".printf (_project_count));
-
             _percentage = update_percentage ();
             project_count_updated ();
         });

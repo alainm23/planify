@@ -124,10 +124,8 @@ public class Layouts.HeaderBar : Adw.Bin {
             back_activated ();
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-			if (key == "slim-mode") {
-                update_sidebar_icon ();
-            }
+        Services.Settings.get_default ().settings.changed["slim-mode"].connect (() => {
+            update_sidebar_icon ();
         });
     }
 

@@ -35,10 +35,6 @@ public class Layouts.Sidebar : Adw.Bin {
     public Gee.HashMap <string, Layouts.ProjectRow> favorites_hashmap = new Gee.HashMap <string, Layouts.ProjectRow> ();
     public Gee.HashMap <string, Layouts.SidebarSourceRow> sources_hashmap = new Gee.HashMap <string, Layouts.SidebarSourceRow> ();
 
-    public Sidebar () {
-        Object ();
-    }
-
     construct { 
         filters_flow = new Gtk.FlowBox () {
             homogeneous = true,
@@ -69,9 +65,7 @@ public class Layouts.Sidebar : Adw.Bin {
             tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Pinboard"), "Ctrl+P")
         };
 
-        completed_filter = new Layouts.FilterPaneRow (FilterType.COMPLETED) {
-            //  tooltip_markup = Util.get_default ().markup_accel_tooltip (_("Go to Completed"), "Ctrl+P")
-        };
+        completed_filter = new Layouts.FilterPaneRow (FilterType.COMPLETED);
 
         filters_flow.append (inbox_filter);
         filters_flow.append (today_filter);
@@ -81,21 +75,15 @@ public class Layouts.Sidebar : Adw.Bin {
         filters_flow.append (completed_filter);
 
         favorites_header = new Layouts.HeaderItem (_("Favorites")) {
-            margin_top = 12
+            margin_top = 12,
+            placeholder_message = _("No favorites available. Create one by clicking on the '+' button")
         };
-        favorites_header.placeholder_message = _("No favorites available. Create one by clicking on the '+' button");
 
         sources_listbox = new Gtk.ListBox () {
             hexpand = true,
             valign = Gtk.Align.START,
             css_classes = { "listbox-background" }
         };
-
-        sources_listbox.set_sort_func ((child1, child2) => {
-            int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
-            int item2 = ((Layouts.SidebarSourceRow) child2).source.child_order;
-            return item1 - item2;
-        });
 
         var whats_new_icon = new Gtk.Image.from_icon_name ("star-outline-thick-symbolic") {
             css_classes = { "gift-animation" }
@@ -151,13 +139,16 @@ public class Layouts.Sidebar : Adw.Bin {
 
         child = scrolled_window;
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "views-order-visible") {
-                filters_flow.invalidate_sort ();
-                filters_flow.invalidate_filter ();
-            }
+        sources_listbox.set_sort_func ((child1, child2) => {
+            int item1 = ((Layouts.SidebarSourceRow) child1).source.child_order;
+            int item2 = ((Layouts.SidebarSourceRow) child2).source.child_order;
+            return item1 - item2;
         });
-
+        
+        Services.Settings.get_default ().settings.changed["views-order-visible"].connect (() => {
+            filters_flow.invalidate_sort ();
+            filters_flow.invalidate_filter ();
+        });
 
         filters_flow.set_sort_func ((child1, child2) => {
             int item1 = ((Layouts.FilterPaneRow) child1).item_order ();

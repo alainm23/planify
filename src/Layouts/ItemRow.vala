@@ -669,11 +669,8 @@ public class Layouts.ItemRow : Layouts.ItemBase {
             update_labels (labels);
         });
 
-        Services.Settings.get_default ().settings.changed.connect ((key) => {
-            if (key == "underline-completed-tasks" || key == "clock-format") {
-                update_request ();
-            }
-        });
+        Services.Settings.get_default ().settings.changed["underline-completed-tasks"].connect (update_request);
+        Services.Settings.get_default ().settings.changed["clock-format"].connect (update_request);
 
         var menu_handle_gesture = new Gtk.GestureClick ();
         menu_handle_gesture.set_button (3);

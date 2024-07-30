@@ -153,40 +153,33 @@ public class MainWindow : Adw.ApplicationWindow {
 			}
 		});
 
-		Services.Settings.get_default ().settings.changed.connect ((key) => {
-			if (key == "system-appearance") {
-				Services.Settings.get_default ().settings.set_boolean (
-					"dark-mode",
-					granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
-				);
-				Util.get_default ().update_theme ();
-			} else if (key == "appearance" || key == "dark-mode") {
-				Util.get_default ().update_theme ();
-			} else if (key == "run-in-background") {
-				//  set_hide_on_close (Services.Settings.get_default ().settings.get_boolean ("run-in-background"));
-			} else if (key == "run-on-startup") {
-				bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+		Services.Settings.get_default ().settings.changed["system-appearance"].connect (() => {
+			Services.Settings.get_default ().settings.set_boolean (
+				"dark-mode",
+				granite_settings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK
+			);
+			Util.get_default ().update_theme ();
+		});
 
-				if (active) {
-					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
-						if (Planify.instance.ask_for_background.end (res)) {
-							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", true);
-						} else {
-							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-						}
-					});
-				} else {
-					Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
-						if (Planify.instance.ask_for_background.end (res)) {
-							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-						} else {
-							Services.Settings.get_default ().settings.set_boolean ("run-on-startup", false);
-						}
-					});
-				}
-			} else if (key == "mobile-mode") {
-				Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
+		Services.Settings.get_default ().settings.changed["appearance"].connect (Util.get_default ().update_theme);
+		Services.Settings.get_default ().settings.changed["dark-mode"].connect (Util.get_default ().update_theme);
+
+		Services.Settings.get_default ().settings.changed["run-on-startup"].connect (() => {
+			bool active = Services.Settings.get_default ().settings.get_boolean ("run-on-startup");
+			
+			if (active) {
+				Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.AUTOSTART, (obj, res) => {
+					Planify.instance.ask_for_background.end (res);
+				});
+			} else {
+				Planify.instance.ask_for_background.begin (Xdp.BackgroundFlags.NONE, (obj, res) => {
+					Planify.instance.ask_for_background.end (res);
+				});
 			}
+		});
+
+		Services.Settings.get_default ().settings.changed["mobile-mode"].connect (() => {
+			Services.EventBus.get_default ().mobile_mode = Services.Settings.get_default ().settings.get_boolean ("mobile-mode");
 		});
 
 		Services.EventBus.get_default ().pane_selected.connect ((pane_type, id) => {
@@ -406,60 +399,51 @@ public class MainWindow : Adw.ApplicationWindow {
 	}
 
 	public void valid_view_removed (Objects.Project project) {
-		//  Views.Project? project_view;
-		//  project_view = (Views.Project) views_stack.get_child_by_name (project.view_id);
-		//  if (project_view != null) {
-		//  	views_stack.remove (project_view);
-		//  	go_homepage ();
-		//  }
+		if (views_stack.visible_page == null) {
+			return;
+		}
+
+		if (views_stack.visible_page.child is Views.Project) {
+			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
+			if (project_view != null && project_view.project.id == project.id) {
+				go_homepage ();
+			}
+		}
 	}
 
 	public void add_task_action (string content = "") {
-		//  if (views_stack.visible_child_name.has_prefix ("project")) {
-		//  	Views.Project? project_view = (Views.Project) views_stack.visible_child;
-		//  	if (project_view != null) {
-		//  		project_view.prepare_new_item (content);
-		//  	}
-		//  } else if (views_stack.visible_child_name.has_prefix ("today-view")) {
-		//  	Views.Today? today_view = (Views.Today) views_stack.visible_child;
-		//  	if (today_view != null) {
-		//  		today_view.prepare_new_item (content);
-		//  	}
-		//  } else if (views_stack.visible_child_name.has_prefix ("scheduled-view")) {
-		//  	Views.Scheduled.Scheduled? scheduled_view = (Views.Scheduled.Scheduled) views_stack.visible_child;
-		//  	if (scheduled_view != null) {
-		//  	    scheduled_view.prepare_new_item (content);
-		//  	}
-		//  } else if (views_stack.visible_child_name.has_prefix ("labels-view")) {
-		//  	var dialog = new Dialogs.QuickAdd ();
-		//  	dialog.update_content (content);
-		//  	dialog.present (Planify._instance.main_window);
-		//  } else if (views_stack.visible_child_name.has_prefix ("label-view")) {
-		//  	Views.Label? label_view = (Views.Label) views_stack.visible_child;
-		//  	if (label_view != null) {
-		//  	    label_view.prepare_new_item (content);
-		//  	}
-		//  } else {
-		//  	Views.Filter? filter_view = (Views.Filter) views_stack.visible_child;
-		//  	if (filter_view != null) {
-		//  		filter_view.prepare_new_item (content);
-		//  	} else {
-		//  		var dialog = new Dialogs.QuickAdd ();
-		//  		dialog.update_content (content);
-		//  		dialog.present (Planify._instance.main_window);
-		//  	}
-		//  }
+		if (views_stack.visible_page == null) {
+			return;
+		}
+
+		if (views_stack.visible_page.child is Views.Project) {
+			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
+			if (project_view != null) {
+				project_view.prepare_new_item (content);
+			}
+		} else if (views_stack.visible_page.child is Views.Today) {
+			Views.Today? today_view = (Views.Today) views_stack.visible_page.child;
+			if (today_view != null) {
+				today_view.prepare_new_item (content);
+			}
+		} else {
+			var dialog = new Dialogs.QuickAdd ();
+			dialog.update_content (content);
+			dialog.present (Planify._instance.main_window);
+		}
 	}
 
 	public void new_section_action () {
-		//  if (!views_stack.visible_child_name.has_prefix ("project")) {
-		//  	return;
-		//  }
+		if (views_stack.visible_page == null) {
+			return;
+		}
 
-		//  Views.Project? project_view = (Views.Project) views_stack.visible_child;
-		//  if (project_view != null) {
-		//  	project_view.prepare_new_section ();
-		//  }
+		if (views_stack.visible_page.child is Views.Project) {
+			Views.Project? project_view = (Views.Project) views_stack.visible_page.child;
+			if (project_view != null) {
+				project_view.prepare_new_section ();
+			}
+		}
 	}
 
 	private Gtk.Popover build_menu_app () {

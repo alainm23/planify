@@ -57,7 +57,6 @@ public class Services.CalDAV.Core : GLib.Object {
         Services.CalDAV.Providers.Base provider = providers_map.get (caldav_type.to_string ());
 
         string url = provider.get_server_url (server_url, username, password);
-        print ("Server URL: %s\n".printf (url));
 
         if (Services.Store.instance ().source_caldav_exists (url, username)) {
             response.error_code = 409;
@@ -156,7 +155,6 @@ public class Services.CalDAV.Core : GLib.Object {
         Services.CalDAV.Providers.Base provider = providers_map.get (source.caldav_data.caldav_type.to_string ());
 
         var url = provider.get_all_taskslist_url (source.caldav_data.server_url, source.caldav_data.username);
-        print ("Server URL: %s\n".printf (url));
 
         var message = new Soup.Message ("PROPFIND", url);
         message.request_headers.append ("Authorization", "Basic %s".printf (source.caldav_data.credentials));
