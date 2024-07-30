@@ -101,14 +101,6 @@ public class Views.Project : Adw.Bin {
 			animate_transitions = false
 		};
 
-		//  view_stack.add_named (new Gtk.Spinner () {
-		//  	hexpand = true,
-		//  	vexpand = true,
-		//  	halign = CENTER,
-		//  	valign = CENTER,
-		//  	spinning = true
-		//  }, "loading");
-
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true,
 			vexpand = true
@@ -216,13 +208,10 @@ public class Views.Project : Adw.Bin {
 	}
 
 	private void update_project_view () {
-		//  view_stack.visible_child_name = "loading";
 		if (view_style == ProjectViewStyle.LIST) {
-			var list_page = new Adw.NavigationPage (new Views.List (project), project.name);
-			view_stack.replace ({ list_page });
+			view_stack.replace ({ new Adw.NavigationPage (new Views.List (project), project.name) });
 		} else if (view_style == ProjectViewStyle.BOARD) {
-			var board_page = new Adw.NavigationPage (new Views.Board (project), project.name);
-			view_stack.replace ({ board_page });
+			view_stack.replace ({ new Adw.NavigationPage (new Views.Board (project), project.name) });
 		}
 	}
 

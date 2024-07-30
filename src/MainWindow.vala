@@ -281,14 +281,6 @@ public class MainWindow : Adw.ApplicationWindow {
 
 		Services.Store.instance ().project_archived.connect (check_archived);
 		Services.Store.instance ().project_unarchived.connect (check_archived);
-
-		Services.NetworkMonitor.instance ().network_changed.connect (() => {
-			if (Services.NetworkMonitor.instance ().network_available) {
-				foreach (Objects.Source source in Services.Store.instance ().sources) {
-					source.run_server ();
-				}
-			}
-        });
 	}
 
 	public void show_hide_sidebar () {
@@ -327,6 +319,14 @@ public class MainWindow : Adw.ApplicationWindow {
 			
 			return GLib.Source.REMOVE;
 		});
+
+		Services.NetworkMonitor.instance ().network_changed.connect (() => {
+			if (Services.NetworkMonitor.instance ().network_available) {
+				foreach (Objects.Source source in Services.Store.instance ().sources) {
+					source.run_server ();
+				}
+			}
+        });
 	}
 
 	private void check_archived () {

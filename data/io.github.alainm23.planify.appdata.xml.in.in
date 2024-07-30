@@ -67,6 +67,14 @@
   <url type="donation">https://www.patreon.com/alainm23</url>
   <launchable type="desktop-id">@appid@.desktop</launchable>
   <releases>
+    <release version="4.10.2" date="2024-07-30">
+      <description translate="no">
+        <ul>
+          <li>Fixed bug that does not show synchronised accounts correctly #1380.</li>
+        </ul>
+      </description>
+    </release>
+
     <release version="4.10.0" date="2024-07-29">
       <description translate="no">
         <ul>
