@@ -3,6 +3,7 @@
 ###########
 
 desktop_conf = configuration_data()
+desktop_conf.set('exec', application_id)
 desktop_conf.set('icon', application_id)
 desktop_file = i18n.merge_file(
   input: configure_file(
