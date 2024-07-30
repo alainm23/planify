@@ -52,6 +52,10 @@ public class Dialogs.Section : Adw.Dialog {
         );
     }
 
+    ~Section() {
+        print ("Destroying Dialogs.Section\n");
+    }
+
     construct {
         var headerbar = new Adw.HeaderBar () {
             css_classes = { "flat" }

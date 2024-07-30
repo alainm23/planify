@@ -90,8 +90,6 @@ public class Services.EventBus : Object {
     public signal void select_item (Gtk.Widget itemrow);
     public signal void unselect_item (Gtk.Widget itemrow);
     public signal void unselect_all ();
-    public bool ctrl_pressed { get; set; default = false; }
-    public bool alt_pressed { get; set; default = false; }
 
     // Magic Button
     public signal void magic_button_visible (bool active);

@@ -12,6 +12,7 @@ core_files = files(
     'Services/Database.vala',
     'Services/Store.vala',
     'Services/Todoist.vala',
+    'Services/SignalManager.vala',
 
     'Services/CalDAV/Core.vala',
     'Services/CalDAV/Providers/ProviderBase.vala',

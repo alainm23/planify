@@ -19,10 +19,31 @@
 * Authored by: Alain M. <alainmh23@gmail.com>
 */
 
+/*
+* Copyright © 2023 Alain M. (https://github.com/alainm23/planify)
+*
+* This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License as published by the Free Software Foundation; either
+* version 3 of the License, or (at your option) any later version.
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+* General Public License for more details.
+*
+* You should have received a copy of the GNU General Public
+* License along with this program; if not, write to the
+* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+* Boston, MA 02110-1301 USA
+*
+* Authored by: Alain M. <alainmh23@gmail.com>
+*/
+
 public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     private Gtk.SearchEntry search_entry;
     private Gtk.ListBox listbox;
-    private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items;
+    private Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
 
     public QuickFind () {
         Object (
@@ -32,9 +53,11 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
         );
     }
 
-    construct {
-        items = new Gee.ArrayList<Dialogs.QuickFind.QuickFindItem> ();
+    ~QuickFind() {
+        print ("Destroying Dialogs.QuickFind.QuickFind\n");
+    }
 
+    construct {
         search_entry = new Gtk.SearchEntry () {
             placeholder_text = _("Quick Find"),
             hexpand = true,
@@ -110,7 +133,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
 
         var event_controller_key = new Gtk.EventControllerKey ();
 		((Gtk.Widget) this).add_controller (event_controller_key);
-		event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
+        event_controller_key.key_pressed.connect ((keyval, keycode, state) => {
 			if (keyval == 65307) {
 				hide_destroy ();
 			}
@@ -258,6 +281,7 @@ public class Dialogs.QuickFind.QuickFind : Adw.Dialog {
     }
 
     private void hide_destroy () {
+        listbox.set_header_func (null);
         close ();
     }
 

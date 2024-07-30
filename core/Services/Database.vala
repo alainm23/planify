@@ -39,6 +39,7 @@ public class Services.Database : GLib.Object {
 
     public void init_database () {
         db_path = Environment.get_user_data_dir () + "/io.github.alainm23.planify/database.db";
+        print ("DB: %s\n".printf (db_path));
         Sqlite.Database.open (db_path, out db);
 
         create_tables ();

@@ -23,7 +23,7 @@
 public class Views.Project : Adw.Bin {
 	public Objects.Project project { get; construct; }
 
-	private Gtk.Stack view_stack;
+	private Adw.NavigationView view_stack;
 	private Adw.ToolbarView toolbar_view;
 	private Widgets.ContextMenu.MenuItem show_completed_item;
 	private Widgets.ContextMenu.MenuItem delete_all_completed;
@@ -45,6 +45,10 @@ public class Views.Project : Adw.Bin {
 			project: project
 		);
 	}
+
+	~Project() {
+        print ("Destroying Views.Project\n");
+    }
 
 	construct {
 		var menu_button = new Gtk.MenuButton () {
@@ -98,16 +102,8 @@ public class Views.Project : Adw.Bin {
 		view_stack = new Gtk.Stack () {
 			hexpand = true,
 			vexpand = true,
-			transition_type = Gtk.StackTransitionType.SLIDE_RIGHT
+			animate_transitions = false
 		};
-
-		view_stack.add_named (new Gtk.Spinner () {
-			hexpand = true,
-			vexpand = true,
-			halign = CENTER,
-			valign = CENTER,
-			spinning = true
-		}, "loading");
 
 		var content_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0) {
 			hexpand = true,
@@ -145,6 +141,7 @@ public class Views.Project : Adw.Bin {
 		show ();
 
 		magic_button.clicked.connect (() => {
+			print ("magic_button.clicked\n");
 			prepare_new_item ();
 		});
 
@@ -153,10 +150,13 @@ public class Views.Project : Adw.Bin {
 		});
 
 		multiselect_toolbar.closed.connect (() => {
+			print ("multiselect_toolbar.closed\n");
 			project.show_multi_select = false;
 		});
 
 		project.show_multi_select_change.connect (() => {
+			print ("project.show_multi_select_change: \n");
+
 			toolbar_view.reveal_bottom_bars = project.show_multi_select;
 			
 			if (project.show_multi_select) {
@@ -173,14 +173,18 @@ public class Views.Project : Adw.Bin {
 		});
 
 		project.filter_added.connect (() => {
+			print ("project.filter_added: \n");
 			check_default_filters ();
 		});
 
 		project.filter_updated.connect (() => {
+			print ("project.filter_updated: \n");
 			check_default_filters ();
 		});
 
 		project.filter_removed.connect ((filter) => {
+			print ("project.filter_removed: \n");
+
 			priority_filter.unchecked (filter);
 			
 			if (filter.filter_type == FilterItemType.DUE_DATE) {
@@ -191,6 +195,7 @@ public class Views.Project : Adw.Bin {
 		});
 
 		project.view_style_changed.connect (() => {
+			print ("project.view_style_changed: \n");
 			update_project_view ();
 
 			expand_all_item.visible = view_style == ProjectViewStyle.LIST;
@@ -217,29 +222,11 @@ public class Views.Project : Adw.Bin {
 	}
 
 	private void update_project_view () {
-		view_stack.visible_child_name = "loading";
-
-		Timeout.add (275, () => {
-			if (view_style == ProjectViewStyle.LIST) {
-				Views.List? list_view;
-				list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
-				if (list_view == null) {
-					list_view = new Views.List (project);
-					view_stack.add_named (list_view, view_style.to_string ());
-				}
-			} else if (view_style == ProjectViewStyle.BOARD) {
-				Views.Board? board_view;
-				board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
-				if (board_view == null) {
-					board_view = new Views.Board (project);
-					view_stack.add_named (board_view, view_style.to_string ());
-				}
-			}
-	
-			view_stack.set_visible_child_name (view_style.to_string ());
-			
-			return GLib.Source.REMOVE;
-		});
+		if (view_style == ProjectViewStyle.LIST) {
+			view_stack.replace ({ new Adw.NavigationPage (new Views.List (project), project.name) });
+		} else if (view_style == ProjectViewStyle.BOARD) {
+			view_stack.replace ({ new Adw.NavigationPage (new Views.Board (project), project.name) });
+		}
 	}
 
 	public void prepare_new_item (string content = "") {
@@ -248,14 +235,12 @@ public class Views.Project : Adw.Bin {
 		}
 
 		if (view_style == ProjectViewStyle.LIST) {
-			Views.List? list_view;
-			list_view = (Views.List) view_stack.get_child_by_name (view_style.to_string ());
+			Views.List? list_view = list_view = (Views.List) view_stack.visible_page.child;
 			if (list_view != null) {
 				list_view.prepare_new_item (content);
 			}
 		} else {
-			Views.Board? board_view;
-			board_view = (Views.Board) view_stack.get_child_by_name (view_style.to_string ());
+			Views.Board? board_view = (Views.Board) view_stack.visible_page.child;
 			if (board_view != null) {
                 board_view.prepare_new_item (content);
 			}
@@ -552,6 +537,7 @@ public class Views.Project : Adw.Bin {
 		};
 
 		order_by_item.notify["selected"].connect (() => {
+			print ("order_by_item.selected: \n");
 			project.sort_order = order_by_item.selected;
 			project.update_local ();
 			check_default_filters ();
@@ -583,6 +569,7 @@ public class Views.Project : Adw.Bin {
 		});
 
 		project.sort_order_changed.connect (() => {
+			print ("project.sort_order_changed: \n");
 			order_by_item.update_selected (project.sort_order);
 			check_default_filters ();
 		});
@@ -611,6 +598,8 @@ public class Views.Project : Adw.Bin {
 		});
 
 		due_date_item.notify["selected"].connect (() => {
+			print ("due_date_item.selected: \n");
+
 			if (due_date_item.selected <= 0) {
 				Objects.Filters.FilterItem filter = project.get_filter (FilterItemType.DUE_DATE.to_string ());
 				if (filter != null) {
@@ -651,6 +640,8 @@ public class Views.Project : Adw.Bin {
 		});
 
 		priority_filter.filter_change.connect ((filter, active) => {
+			print ("priority_filter.filter_change: \n");
+
 			if (active) {
 				project.add_filter (filter);
 			} else {

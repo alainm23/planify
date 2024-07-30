@@ -65,31 +65,22 @@ public class Dialogs.Project : Adw.Dialog {
         );
     }
 
+    ~Project() {
+        print ("Destroying Dialogs.Project\n");
+    }
+
     construct {
         Adw.NavigationPage main_page = get_main_page ();
-        sources_page = get_sources_page ();
+        //  sources_page = get_sources_page ();
 
         navigation_view = new Adw.NavigationView ();
         navigation_view.add (main_page);
 
         child = navigation_view;
         Services.EventBus.get_default ().disconnect_typing_accel ();
-        
-        Timeout.add (emoji_color_stack.transition_duration, () => {
-            if (project.icon_style == ProjectIconStyle.PROGRESS) {
-                emoji_color_stack.visible_child_name = "color";
-            } else {
-                emoji_color_stack.visible_child_name = "emoji";
-            }
 
-            progress_bar.color = project.color;
-            color_picker_row.color = project.color;
-
-            if (is_creating) {
-                name_entry.grab_focus ();
-            }
-            
-            return GLib.Source.REMOVE;
+        closed.connect (() => {
+            Services.EventBus.get_default ().connect_typing_accel ();
         });
     }
 
@@ -110,14 +101,17 @@ public class Dialogs.Project : Adw.Dialog {
 
         emoji_color_stack.add_named (progress_bar, "color");
         emoji_color_stack.add_named (emoji_label, "emoji");
-        
+        emoji_color_stack.visible_child_name = project.icon_style == ProjectIconStyle.PROGRESS ? "color" : "emoji";
+
         var emoji_picker_button = new Gtk.Button () {
             hexpand = true,
             halign = Gtk.Align.CENTER,
             valign = Gtk.Align.CENTER,
             height_request = 64,
             width_request = 64,
-            margin_top = 6
+            margin_top = 6,
+            child = emoji_color_stack,
+            css_classes = { "title-2", "button-emoji-picker" }
         };
 
         var emoji_chooser = new Gtk.EmojiChooser () {
@@ -126,11 +120,6 @@ public class Dialogs.Project : Adw.Dialog {
 
         emoji_chooser.set_parent (emoji_picker_button);
 
-        emoji_picker_button.child = emoji_color_stack;
-        
-        emoji_picker_button.add_css_class ("title-2");
-        emoji_picker_button.add_css_class ("button-emoji-picker");
-
         name_entry = new Adw.EntryRow ();
         name_entry.title = _("Give your project a name");
         name_entry.text = project.name;
@@ -138,9 +127,9 @@ public class Dialogs.Project : Adw.Dialog {
         var emoji_icon = new Gtk.Image.from_icon_name ("reaction-add2-symbolic");
 
         emoji_switch = new Gtk.Switch () {
-            valign = Gtk.Align.CENTER
+            valign = Gtk.Align.CENTER,
+            active = project.icon_style == ProjectIconStyle.EMOJI
         };
-        emoji_switch.active = project.icon_style == ProjectIconStyle.EMOJI;
 
         var emoji_switch_row = new Adw.ActionRow ();
         emoji_switch_row.title = _("Use Emoji");
@@ -245,6 +234,17 @@ public class Dialogs.Project : Adw.Dialog {
 
         var navigation_page = new Adw.NavigationPage (toolbar_view, header_title);
 
+        Timeout.add (emoji_color_stack.transition_duration, () => {
+            progress_bar.color = project.color;
+            color_picker_row.color = project.color;
+
+            if (is_creating) {
+                name_entry.grab_focus ();
+            }
+            
+            return GLib.Source.REMOVE;
+        });
+        
         name_entry.entry_activated.connect (add_update_project);
         submit_button.clicked.connect (add_update_project);
 
@@ -252,21 +252,21 @@ public class Dialogs.Project : Adw.Dialog {
             emoji_label.label = emoji;
         });
 
-        emoji_switch.notify["active"].connect (() => {
-            if (emoji_switch.active) {
-                color_box_revealer.reveal_child = false;
-                emoji_color_stack.visible_child_name = "emoji";
+        //  emoji_switch.notify["active"].connect (() => {
+        //      if (emoji_switch.active) {
+        //          color_box_revealer.reveal_child = false;
+        //          emoji_color_stack.visible_child_name = "emoji";
 
-                if (emoji_label.label.strip () == "") {
-                    emoji_label.label = "🚀️";
-                }
+        //          if (emoji_label.label.strip () == "") {
+        //              emoji_label.label = "🚀️";
+        //          }
 
-                emoji_chooser.popup ();
-            } else {
-                color_box_revealer.reveal_child = true;
-                emoji_color_stack.visible_child_name = "color";
-            }
-        });
+        //          //  emoji_chooser.popup ();
+        //      } else {
+        //          color_box_revealer.reveal_child = true;
+        //          emoji_color_stack.visible_child_name = "color";
+        //      }
+        //  });
 
         color_picker_row.color_changed.connect (() => {
             progress_bar.color = color_picker_row.color;
@@ -280,10 +280,6 @@ public class Dialogs.Project : Adw.Dialog {
 
         source_row.activated.connect (() => {
             navigation_view.push (sources_page);
-        });
-
-        closed.connect (() => {
-            Services.EventBus.get_default ().connect_typing_accel ();
         });
 
         return navigation_page;

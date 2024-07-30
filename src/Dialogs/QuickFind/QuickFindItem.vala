@@ -32,6 +32,10 @@ public class Dialogs.QuickFind.QuickFindItem : Gtk.ListBoxRow {
         );
     }
 
+    ~QuickFindItem() {
+        print ("Destroying Dialogs.QuickFind.QuickFindItem\n");
+    }
+
     construct {
         add_css_class ("quickfind-item");
 

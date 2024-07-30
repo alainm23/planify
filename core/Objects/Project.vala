@@ -252,6 +252,10 @@ public class Objects.Project : Objects.BaseObject {
     public signal void show_multi_select_change ();
 
     construct {
+        updated.connect (() => {
+            print ("updated: %s\n".printf (name));
+        });
+
         Services.EventBus.get_default ().checked_toggled.connect ((item) => {
             if (item.project_id == id) {
                 _project_count = update_project_count ();
