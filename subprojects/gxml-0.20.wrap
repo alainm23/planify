@@ -1,0 +1,7 @@
+[wrap-git]
+directory=gxml-0.20
+url=https://gitlab.gnome.org/GNOME/gxml.git
+revision=gxml-0.20
+
+[provide]
+gxml-0.20 = libgxml_dep
