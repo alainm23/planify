@@ -179,16 +179,16 @@ msgstr "Fälligkeitsdatum"
 #: core/Enum.vala:528
 #, fuzzy
 msgid "Task Created"
-msgstr "Duplizieren"
+msgstr "Aufgabe erstellt"
 
 #: core/Enum.vala:531
 #, fuzzy
 msgid "Task Updated"
-msgstr "Duplizieren"
+msgstr "Aufgabe aktualisiert"
 
 #: core/Enum.vala:575
 msgid "Content"
-msgstr ""
+msgstr "Inhalt"
 
 #: core/Enum.vala:578 src/Layouts/ItemSidebarView.vala:181
 #: src/Dialogs/Section.vala:85
@@ -207,7 +207,7 @@ msgstr "Aufgabenname"
 
 #: core/QuickAdd.vala:71
 msgid "This field is required"
-msgstr ""
+msgstr "Dieses Feld ist notwendig"
 
 #: core/QuickAdd.vala:91
 msgid "Add a description…"
@@ -584,50 +584,50 @@ msgstr "🏃‍♀️️Nochmal aufgreifen"
 #: core/Util/Util.vala:891 core/Objects/Item.vala:1548
 #, fuzzy, c-format
 msgid "Task moved to %s"
-msgstr "Aufgabe in die Zwischenablage kopiert"
+msgstr "Aufgabe verschoben zu %s"
 
 #: core/Util/Util.vala:969
 #, fuzzy
 msgid "Task duplicated"
-msgstr "Duplizieren"
+msgstr "Dupliziert"
 
 #: core/Util/Util.vala:1005
 #, fuzzy
 msgid "Section duplicated"
-msgstr "Abschnittsname"
+msgstr "Abschnitt dupliziert"
 
 #: core/Util/Util.vala:1031 core/Util/Util.vala:1056
 #, fuzzy
 msgid "Project duplicated"
-msgstr "Projekte"
+msgstr "Projekt dupliziert"
 
 #: core/Util/Util.vala:1205 src/Dialogs/Preferences/PreferencesWindow.vala:613
 msgid "At due time"
-msgstr ""
+msgstr "Wenn fällig"
 
 #: core/Util/Util.vala:1208 src/Dialogs/Preferences/PreferencesWindow.vala:614
 msgid "10 minutes before"
-msgstr ""
+msgstr "10 Minuten davor"
 
 #: core/Util/Util.vala:1211 src/Dialogs/Preferences/PreferencesWindow.vala:615
 msgid "30 minutes before"
-msgstr ""
+msgstr "30 Minuten davor"
 
 #: core/Util/Util.vala:1214 src/Dialogs/Preferences/PreferencesWindow.vala:616
 msgid "45 minutes before"
-msgstr ""
+msgstr "45 Minuten davor"
 
 #: core/Util/Util.vala:1217 src/Dialogs/Preferences/PreferencesWindow.vala:617
 msgid "1 hour before"
-msgstr ""
+msgstr "1 Stunde davor"
 
 #: core/Util/Util.vala:1220 src/Dialogs/Preferences/PreferencesWindow.vala:618
 msgid "2 hours before"
-msgstr ""
+msgstr "2 Stunden davor"
 
 #: core/Util/Util.vala:1223 src/Dialogs/Preferences/PreferencesWindow.vala:619
 msgid "3 hours before"
-msgstr ""
+msgstr "3 Stunden davor"
 
 #: core/Util/Datetime.vala:70
 #: core/Widgets/DateTimePicker/DateTimePicker.vala:82
@@ -689,13 +689,13 @@ msgstr "So,"
 
 #: core/Services/Todoist.vala:1518 src/Widgets/ErrorView.vala:134
 msgid "The request was incorrect."
-msgstr "Die Anfrage war falsch."
+msgstr "Die Anfrage war fehlerhaft."
 
 #: core/Services/Todoist.vala:1519 src/Widgets/ErrorView.vala:135
 msgid ""
 "Authentication is required, and has failed, or has not yet been provided."
 msgstr ""
-"Authentifizierung ist erforderlich und ist fehlgeschlagen oder wurde noch "
+"Authentifizierung ist erforderlich und fehlgeschlagen oder wurde noch "
 "nicht übermittelt."
 
 #: core/Services/Todoist.vala:1520 src/Widgets/ErrorView.vala:136
@@ -776,7 +776,7 @@ msgstr "Zu tun"
 #: core/Widgets/StatusButton.vala:85 core/Widgets/StatusButton.vala:119
 #: src/Layouts/ItemRow.vala:1001 src/Layouts/ItemBoard.vala:644
 msgid "Complete"
-msgstr "Erledigen"
+msgstr "Erledigt"
 
 #: core/Widgets/LabelsPickerCore.vala:63
 msgid ""
@@ -796,8 +796,7 @@ msgstr "'%s' erstellen"
 #, fuzzy
 msgid "Your list of filters will show up here."
 msgstr ""
-"Die Liste deiner Erinnerungen wird hier angezeigt. Füge eine hinzu, indem du "
-"auf den '+'-Knopf klickst."
+"Die Liste an Filtern wird hier angezeigt."
 
 #: core/Widgets/LabelsPickerCore.vala:82
 msgid "Search or Create"
@@ -918,7 +917,7 @@ msgstr "Kennzeichnungen hinzufügen"
 #: core/Widgets/LabelPicker/LabelButton.vala:129
 #, fuzzy
 msgid "Select Labels"
-msgstr "Kennzeichnung löschen"
+msgstr "Labels auswählen"
 
 #. Section Button
 #: core/Widgets/ProjectPicker/ProjectPickerButton.vala:59
@@ -943,7 +942,7 @@ msgstr "Abschnitte"
 #: core/Widgets/SectionPicker/SectionButton.vala:40
 #, fuzzy
 msgid "Select Section"
-msgstr "Abschnitt löschen"
+msgstr "Abschnitt auswählen"
 
 #: core/Widgets/ReminderPicker/ReminderButton.vala:38
 #: core/Widgets/ReminderPicker/ReminderButton.vala:46
@@ -974,7 +973,7 @@ msgstr "Erinnerung hinzufügen"
 #: core/Widgets/Markdown/MarkdownEditView.vala:138
 #: core/Widgets/Markdown/MarkdownEditView.vala:141
 msgid "Couldn't find an app to handle file URIs"
-msgstr ""
+msgstr "Konnte keine Anwendung finden um Datei-URIs verarbeitet"
 
 #: core/Objects/Item.vala:1321
 msgid "Task copied to clipboard"
@@ -1119,7 +1118,7 @@ msgstr "Nicht gekennzeichnet"
 #: core/Objects/Filters/Unlabeled.vala:34
 #, fuzzy
 msgid "no label"
-msgstr "Kennzeichnungen"
+msgstr "keine Kennzeichnung"
 
 #: core/Objects/Filters/Unlabeled.vala:34
 #, fuzzy
@@ -1194,7 +1193,7 @@ msgstr "Projekt hinzufügen"
 
 #: src/MainWindow.vala:581
 msgid "Oops! Something happened"
-msgstr ""
+msgstr "Hoppla! Etwas ist passiert"
 
 #: src/MainWindow.vala:584
 #, fuzzy
@@ -1366,7 +1365,7 @@ msgstr "Aufgabe löschen"
 #: src/Layouts/ItemRow.vala:1118 src/Layouts/ItemSidebarView.vala:454
 #, fuzzy
 msgid "Use as a Note"
-msgstr "Datum auswählen"
+msgstr "Als Notiz verwenden"
 
 #: src/Layouts/ItemRow.vala:1121 src/Layouts/ItemSidebarView.vala:457
 msgid "Copy to Clipboard"
@@ -1380,7 +1379,7 @@ msgstr "Wiederholen"
 #: src/Layouts/ItemRow.vala:1130 src/Layouts/ItemSidebarView.vala:466
 #: src/Dialogs/ItemChangeHistory.vala:33
 msgid "Change History"
-msgstr ""
+msgstr "Änderungsverlauf"
 
 #: src/Layouts/ItemRow.vala:1232 src/Layouts/ItemSidebarView.vala:569
 msgid "Daily"
@@ -1436,7 +1435,7 @@ msgstr "Kennzeichnung löschen"
 #: src/Layouts/LabelRow.vala:173
 #, fuzzy, c-format
 msgid "Delete Label %s"
-msgstr "Kennzeichnung löschen"
+msgstr "Kennzeichnung %s löschen"
 
 #: src/Layouts/ItemSidebarView.vala:79
 #, fuzzy
@@ -2347,12 +2346,12 @@ msgstr ""
 #: src/Dialogs/Preferences/PreferencesWindow.vala:622
 #, fuzzy
 msgid "Automatic reminders"
-msgstr "Lege zeitliche Erinnerungen fest!"
+msgstr "Automatische Erinnnerungen"
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:623
 msgid ""
 "When enabled, a reminder before the task’s due time will be added by default."
-msgstr ""
+msgstr "Wenn aktiv wird eine Erinnerung zur Fälligkeit hinzugefügt."
 
 #: src/Dialogs/Preferences/PreferencesWindow.vala:700
 msgid "App Theme"
@@ -2572,8 +2571,7 @@ msgstr "Sicherungsdateien"
 #, fuzzy
 msgid "No backups found, create one clicking the button above."
 msgstr ""
-"Es ist kein Account vorhanden, synchronisiere einen Account, indem du auf "
-"den '+'-Knopf klickst"
+"Kein Backup gefunden, erstelle eins mit den Optionen oben."
 
 #: src/Dialogs/Preferences/Pages/Backup.vala:80
 msgid "Migrate"
