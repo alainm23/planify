@@ -1,7 +1,7 @@
 project(
   'io.github.alainm23.planify',
   'vala', 'c',
-  version: '4.10.2'
+  version: '4.10.3'
 )
 
 gnome = import('gnome')
@@ -29,7 +29,6 @@ libportal_dep = [ dependency('libportal'), dependency('libportal-gtk4') ]
 libgxml_dep = dependency('gxml-0.20')
 libsecret_dep = dependency('libsecret-1')
 m_dep = meson.get_compiler('c').find_library('m', required : false)
-
 
 ############
 # Resources #
