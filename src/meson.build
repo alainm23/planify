@@ -101,12 +101,3 @@ sources = files(
   'Dialogs/Preferences/Pages/Backup.vala',
   'Dialogs/Preferences/Pages/Sidebar.vala'
 )
-
-executable(
-  application_id,
-  sources,
-  asresources,
-  config_file,
-  dependencies: deps,
-  install: true
-)
